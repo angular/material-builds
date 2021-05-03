@@ -68,6 +68,8 @@ export declare class RippleRenderer implements EventListenerObject {
     fadeOutRipple(rippleRef: RippleRef): void;
     /** Fades out all currently active ripples. */
     fadeOutAll(): void;
+    /** Fades out all currently active non-persistent ripples. */
+    fadeOutAllNonPersistent(): void;
     /** Sets up the trigger event listeners */
     setupTriggerEvents(elementOrElementRef: HTMLElement | ElementRef<HTMLElement>): void;
     /**

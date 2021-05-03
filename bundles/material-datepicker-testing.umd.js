@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/testing'), require('@angular/cdk/coercion')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/datepicker/testing', ['exports', '@angular/cdk/testing', '@angular/cdk/coercion'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}, global.ng.material.datepicker.testing = {}), global.ng.cdk.testing, global.ng.cdk.coercion));
-}(this, (function (exports, testing, coercion) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/testing'), require('@angular/material/form-field/testing/control'), require('@angular/cdk/coercion')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/datepicker/testing', ['exports', '@angular/cdk/testing', '@angular/material/form-field/testing/control', '@angular/cdk/coercion'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}, global.ng.material.datepicker.testing = {}), global.ng.cdk.testing, global.ng.material.formField.testing.control, global.ng.cdk.coercion));
+}(this, (function (exports, testing, control, coercion) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -467,7 +467,7 @@
             });
         };
         return MatDatepickerInputHarnessBase;
-    }(testing.ComponentHarness));
+    }(control.MatFormFieldControlHarness));
 
     /** Harness for interacting with a standard Material calendar cell in tests. */
     var MatCalendarCellHarness = /** @class */ (function (_super) {

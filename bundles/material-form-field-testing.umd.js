@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/material/form-field/testing/control'), require('@angular/cdk/testing'), require('@angular/material/input/testing'), require('@angular/material/select/testing')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/form-field/testing', ['exports', '@angular/material/form-field/testing/control', '@angular/cdk/testing', '@angular/material/input/testing', '@angular/material/select/testing'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = global.ng.material.formField || {}, global.ng.material.formField.testing = {}), global.ng.material.formField.testing.control, global.ng.cdk.testing, global.ng.material.input.testing, global.ng.material.select.testing));
-}(this, (function (exports, control, testing, testing$1, testing$2) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/material/form-field/testing/control'), require('@angular/cdk/testing'), require('@angular/material/datepicker/testing'), require('@angular/material/input/testing'), require('@angular/material/select/testing')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/form-field/testing', ['exports', '@angular/material/form-field/testing/control', '@angular/cdk/testing', '@angular/material/datepicker/testing', '@angular/material/input/testing', '@angular/material/select/testing'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = global.ng.material.formField || {}, global.ng.material.formField.testing = {}), global.ng.material.formField.testing.control, global.ng.cdk.testing, global.ng.material.datepicker.testing, global.ng.material.input.testing, global.ng.material.select.testing));
+}(this, (function (exports, control, testing, testing$3, testing$1, testing$2) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -368,7 +368,7 @@
         // Implementation of the "getControl" method overload signatures.
         _MatFormFieldHarnessBase.prototype.getControl = function (type) {
             return __awaiter(this, void 0, void 0, function () {
-                var _a, select, input;
+                var _a, select, input, datepickerInput, dateRangeInput;
                 var _this = this;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
@@ -376,10 +376,16 @@
                             if (type) {
                                 return [2 /*return*/, this.locatorForOptional(type)()];
                             }
-                            return [4 /*yield*/, testing.parallel(function () { return [_this._selectControl(), _this._inputControl()]; })];
+                            return [4 /*yield*/, testing.parallel(function () { return [
+                                    _this._selectControl(),
+                                    _this._inputControl(),
+                                    _this._datepickerInputControl(),
+                                    _this._dateRangeInputControl()
+                                ]; })];
                         case 1:
-                            _a = __read.apply(void 0, [_b.sent(), 2]), select = _a[0], input = _a[1];
-                            return [2 /*return*/, select || input];
+                            _a = __read.apply(void 0, [_b.sent(), 4]), select = _a[0], input = _a[1], datepickerInput = _a[2], dateRangeInput = _a[3];
+                            // Match the datepicker inputs first since they can also have a `MatInput`.
+                            return [2 /*return*/, datepickerInput || dateRangeInput || select || input];
                     }
                 });
             });
@@ -598,6 +604,8 @@
             _this._hints = _this.locatorForAll('mat-hint, .mat-hint');
             _this._inputControl = _this.locatorForOptional(testing$1.MatInputHarness);
             _this._selectControl = _this.locatorForOptional(testing$2.MatSelectHarness);
+            _this._datepickerInputControl = _this.locatorForOptional(testing$3.MatDatepickerInputHarness);
+            _this._dateRangeInputControl = _this.locatorForOptional(testing$3.MatDateRangeInputHarness);
             return _this;
         }
         /**

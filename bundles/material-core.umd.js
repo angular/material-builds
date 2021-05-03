@@ -34,7 +34,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION$1 = new i0.Version('12.0.0-rc.1-sha-08257b1fd');
+    var VERSION$1 = new i0.Version('12.0.0-rc.1-sha-7a52bdf8f');
 
     /**
      * @license
@@ -74,7 +74,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION = new i0.Version('12.0.0-rc.1-sha-08257b1fd');
+    var VERSION = new i0.Version('12.0.0-rc.1-sha-7a52bdf8f');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -489,7 +489,6 @@
         return value;
     }
 
-    /** Mixin to augment a directive with a `disabled` property. */
     function mixinDisabled(base) {
         return /** @class */ (function (_super) {
             __extends(class_1, _super);
@@ -519,7 +518,6 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
-    /** Mixin to augment a directive with a `color` property. */
     function mixinColor(base, defaultColor) {
         return /** @class */ (function (_super) {
             __extends(class_1, _super);
@@ -555,11 +553,10 @@
         }(base));
     }
 
-    /** Mixin to augment a directive with a `disableRipple` property. */
     function mixinDisableRipple(base) {
-        var Mixin = /** @class */ (function (_super) {
-            __extends(Mixin, _super);
-            function Mixin() {
+        return /** @class */ (function (_super) {
+            __extends(class_1, _super);
+            function class_1() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
@@ -568,29 +565,22 @@
                 _this._disableRipple = false;
                 return _this;
             }
-            Object.defineProperty(Mixin.prototype, "disableRipple", {
+            Object.defineProperty(class_1.prototype, "disableRipple", {
                 /** Whether the ripple effect is disabled or not. */
                 get: function () { return this._disableRipple; },
                 set: function (value) { this._disableRipple = coercion.coerceBooleanProperty(value); },
                 enumerable: false,
                 configurable: true
             });
-            return Mixin;
+            return class_1;
         }(base));
-        // Since we don't directly extend from `base` with it's original types, and we instruct
-        // TypeScript that `T` actually is instantiatable through `new`, the types don't overlap.
-        // This is a limitation in TS as abstract classes cannot be typed properly dynamically.
-        return Mixin;
     }
 
-    /** Mixin to augment a directive with a `tabIndex` property. */
     function mixinTabIndex(base, defaultTabIndex) {
         if (defaultTabIndex === void 0) { defaultTabIndex = 0; }
-        // Note: We cast `base` to `unknown` and then `Constructor`. It could be an abstract class,
-        // but given we `extend` it from another class, we can assume a constructor being accessible.
-        var Mixin = /** @class */ (function (_super) {
-            __extends(Mixin, _super);
-            function Mixin() {
+        return /** @class */ (function (_super) {
+            __extends(class_1, _super);
+            function class_1() {
                 var args = [];
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
@@ -600,7 +590,7 @@
                 _this.defaultTabIndex = defaultTabIndex;
                 return _this;
             }
-            Object.defineProperty(Mixin.prototype, "tabIndex", {
+            Object.defineProperty(class_1.prototype, "tabIndex", {
                 get: function () { return this.disabled ? -1 : this._tabIndex; },
                 set: function (value) {
                     // If the specified tabIndex value is null or undefined, fall back to the default value.
@@ -609,18 +599,10 @@
                 enumerable: false,
                 configurable: true
             });
-            return Mixin;
+            return class_1;
         }(base));
-        // Since we don't directly extend from `base` with it's original types, and we instruct
-        // TypeScript that `T` actually is instantiatable through `new`, the types don't overlap.
-        // This is a limitation in TS as abstract classes cannot be typed properly dynamically.
-        return Mixin;
     }
 
-    /**
-     * Mixin to augment a directive with updateErrorState method.
-     * For component with `errorState` and need to update `errorState`.
-     */
     function mixinErrorState(base) {
         return /** @class */ (function (_super) {
             __extends(class_1, _super);
@@ -1420,6 +1402,14 @@
         RippleRenderer.prototype.fadeOutAll = function () {
             this._activeRipples.forEach(function (ripple) { return ripple.fadeOut(); });
         };
+        /** Fades out all currently active non-persistent ripples. */
+        RippleRenderer.prototype.fadeOutAllNonPersistent = function () {
+            this._activeRipples.forEach(function (ripple) {
+                if (!ripple.config.persistent) {
+                    ripple.fadeOut();
+                }
+            });
+        };
         /** Sets up the trigger event listeners */
         RippleRenderer.prototype.setupTriggerEvents = function (elementOrElementRef) {
             var element = coercion.coerceElement(elementOrElementRef);
@@ -1576,6 +1566,9 @@
              */
             get: function () { return this._disabled; },
             set: function (value) {
+                if (value) {
+                    this.fadeOutAllNonPersistent();
+                }
                 this._disabled = value;
                 this._setupTriggerEventsIfEnabled();
             },
@@ -1605,6 +1598,10 @@
         /** Fades out all currently showing ripple elements. */
         MatRipple.prototype.fadeOutAll = function () {
             this._rippleRenderer.fadeOutAll();
+        };
+        /** Fades out all currently showing non-persistent ripple elements. */
+        MatRipple.prototype.fadeOutAllNonPersistent = function () {
+            this._rippleRenderer.fadeOutAllNonPersistent();
         };
         Object.defineProperty(MatRipple.prototype, "rippleConfig", {
             /**

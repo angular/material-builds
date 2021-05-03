@@ -39,6 +39,8 @@ export interface DateSelectionModelChange<S> {
     selection: S;
     /** Object that triggered the change. */
     source: unknown;
+    /** Previous value */
+    oldValue?: S;
 }
 /**
  * A selection model containing a date selection.

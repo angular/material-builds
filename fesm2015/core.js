@@ -19,7 +19,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION$1 = new Version('12.0.0-rc.1-sha-08257b1fd');
+const VERSION$1 = new Version('12.0.0-rc.1-sha-7a52bdf8f');
 
 /**
  * @license
@@ -53,7 +53,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new Version('12.0.0-rc.1-sha-08257b1fd');
+const VERSION = new Version('12.0.0-rc.1-sha-7a52bdf8f');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -165,7 +165,6 @@ MatCommonModule.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Mixin to augment a directive with a `disabled` property. */
 function mixinDisabled(base) {
     return class extends base {
         constructor(...args) {
@@ -184,7 +183,6 @@ function mixinDisabled(base) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Mixin to augment a directive with a `color` property. */
 function mixinColor(base, defaultColor) {
     return class extends base {
         constructor(...args) {
@@ -216,9 +214,8 @@ function mixinColor(base, defaultColor) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Mixin to augment a directive with a `disableRipple` property. */
 function mixinDisableRipple(base) {
-    class Mixin extends base {
+    return class extends base {
         constructor(...args) {
             super(...args);
             this._disableRipple = false;
@@ -226,11 +223,7 @@ function mixinDisableRipple(base) {
         /** Whether the ripple effect is disabled or not. */
         get disableRipple() { return this._disableRipple; }
         set disableRipple(value) { this._disableRipple = coerceBooleanProperty(value); }
-    }
-    // Since we don't directly extend from `base` with it's original types, and we instruct
-    // TypeScript that `T` actually is instantiatable through `new`, the types don't overlap.
-    // This is a limitation in TS as abstract classes cannot be typed properly dynamically.
-    return Mixin;
+    };
 }
 
 /**
@@ -240,11 +233,8 @@ function mixinDisableRipple(base) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Mixin to augment a directive with a `tabIndex` property. */
 function mixinTabIndex(base, defaultTabIndex = 0) {
-    // Note: We cast `base` to `unknown` and then `Constructor`. It could be an abstract class,
-    // but given we `extend` it from another class, we can assume a constructor being accessible.
-    class Mixin extends base {
+    return class extends base {
         constructor(...args) {
             super(...args);
             this._tabIndex = defaultTabIndex;
@@ -255,11 +245,7 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
             // If the specified tabIndex value is null or undefined, fall back to the default value.
             this._tabIndex = value != null ? coerceNumberProperty(value) : this.defaultTabIndex;
         }
-    }
-    // Since we don't directly extend from `base` with it's original types, and we instruct
-    // TypeScript that `T` actually is instantiatable through `new`, the types don't overlap.
-    // This is a limitation in TS as abstract classes cannot be typed properly dynamically.
-    return Mixin;
+    };
 }
 
 /**
@@ -268,10 +254,6 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Mixin to augment a directive with updateErrorState method.
- * For component with `errorState` and need to update `errorState`.
  */
 function mixinErrorState(base) {
     return class extends base {
@@ -1042,6 +1024,14 @@ class RippleRenderer {
     fadeOutAll() {
         this._activeRipples.forEach(ripple => ripple.fadeOut());
     }
+    /** Fades out all currently active non-persistent ripples. */
+    fadeOutAllNonPersistent() {
+        this._activeRipples.forEach(ripple => {
+            if (!ripple.config.persistent) {
+                ripple.fadeOut();
+            }
+        });
+    }
     /** Sets up the trigger event listeners */
     setupTriggerEvents(elementOrElementRef) {
         const element = coerceElement(elementOrElementRef);
@@ -1193,6 +1183,9 @@ class MatRipple {
      */
     get disabled() { return this._disabled; }
     set disabled(value) {
+        if (value) {
+            this.fadeOutAllNonPersistent();
+        }
         this._disabled = value;
         this._setupTriggerEventsIfEnabled();
     }
@@ -1215,6 +1208,10 @@ class MatRipple {
     /** Fades out all currently showing ripple elements. */
     fadeOutAll() {
         this._rippleRenderer.fadeOutAll();
+    }
+    /** Fades out all currently showing non-persistent ripple elements. */
+    fadeOutAllNonPersistent() {
+        this._rippleRenderer.fadeOutAllNonPersistent();
     }
     /**
      * Ripple configuration from the directive's input values.

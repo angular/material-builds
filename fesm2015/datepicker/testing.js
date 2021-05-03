@@ -1,5 +1,6 @@
 import { __awaiter } from 'tslib';
 import { HarnessPredicate, ComponentHarness, parallel, TestKey } from '@angular/cdk/testing';
+import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
@@ -28,7 +29,7 @@ function getInputPredicate(type, options) {
     });
 }
 /** Base class for datepicker input harnesses. */
-class MatDatepickerInputHarnessBase extends ComponentHarness {
+class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
     /** Whether the input is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
