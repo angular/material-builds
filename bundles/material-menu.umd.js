@@ -673,11 +673,6 @@
             backdropClass: 'cdk-overlay-transparent-backdrop',
         };
     }
-    /**
-     * Start elevation for the menu panel.
-     * @docs-private
-     */
-    var MAT_MENU_BASE_ELEVATION = 4;
     var menuPanelUid = 0;
     /** Base class with all of the `MatMenu` functionality. */
     var _MatMenuBase = /** @class */ (function () {
@@ -922,11 +917,14 @@
          * @param depth Number of parent menus that come before the menu.
          */
         _MatMenuBase.prototype.setElevation = function (depth) {
+            var _this = this;
             // The elevation starts at the base and increases by one for each level.
             // Capped at 24 because that's the maximum elevation defined in the Material design spec.
-            var elevation = Math.min(MAT_MENU_BASE_ELEVATION + depth, 24);
-            var newElevation = "mat-elevation-z" + elevation;
-            var customElevation = Object.keys(this._classList).find(function (c) { return c.startsWith('mat-elevation-z'); });
+            var elevation = Math.min(this._baseElevation + depth, 24);
+            var newElevation = "" + this._elevationPrefix + elevation;
+            var customElevation = Object.keys(this._classList).find(function (className) {
+                return className.startsWith(_this._elevationPrefix);
+            });
             if (!customElevation || customElevation === this._previousElevation) {
                 if (this._previousElevation) {
                     this._classList[this._previousElevation] = false;
@@ -1025,7 +1023,10 @@
     var MatMenu = /** @class */ (function (_super) {
         __extends(MatMenu, _super);
         function MatMenu(elementRef, ngZone, defaultOptions) {
-            return _super.call(this, elementRef, ngZone, defaultOptions) || this;
+            var _this = _super.call(this, elementRef, ngZone, defaultOptions) || this;
+            _this._elevationPrefix = 'mat-elevation-z';
+            _this._baseElevation = 4;
+            return _this;
         }
         return MatMenu;
     }(_MatMenuBase));

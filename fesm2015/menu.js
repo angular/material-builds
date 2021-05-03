@@ -384,11 +384,6 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
         backdropClass: 'cdk-overlay-transparent-backdrop',
     };
 }
-/**
- * Start elevation for the menu panel.
- * @docs-private
- */
-const MAT_MENU_BASE_ELEVATION = 4;
 let menuPanelUid = 0;
 /** Base class with all of the `MatMenu` functionality. */
 class _MatMenuBase {
@@ -607,9 +602,11 @@ class _MatMenuBase {
     setElevation(depth) {
         // The elevation starts at the base and increases by one for each level.
         // Capped at 24 because that's the maximum elevation defined in the Material design spec.
-        const elevation = Math.min(MAT_MENU_BASE_ELEVATION + depth, 24);
-        const newElevation = `mat-elevation-z${elevation}`;
-        const customElevation = Object.keys(this._classList).find(c => c.startsWith('mat-elevation-z'));
+        const elevation = Math.min(this._baseElevation + depth, 24);
+        const newElevation = `${this._elevationPrefix}${elevation}`;
+        const customElevation = Object.keys(this._classList).find(className => {
+            return className.startsWith(this._elevationPrefix);
+        });
         if (!customElevation || customElevation === this._previousElevation) {
             if (this._previousElevation) {
                 this._classList[this._previousElevation] = false;
@@ -704,6 +701,8 @@ _MatMenuBase.propDecorators = {
 class MatMenu extends _MatMenuBase {
     constructor(elementRef, ngZone, defaultOptions) {
         super(elementRef, ngZone, defaultOptions);
+        this._elevationPrefix = 'mat-elevation-z';
+        this._baseElevation = 4;
     }
 }
 MatMenu.decorators = [

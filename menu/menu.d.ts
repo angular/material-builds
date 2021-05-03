@@ -45,6 +45,8 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     private _xPosition;
     private _yPosition;
     private _previousElevation;
+    protected _elevationPrefix: string;
+    protected _baseElevation: number;
     /** All items inside the menu. Includes items nested inside another menu. */
     _allItems: QueryList<MatMenuItem>;
     /** Only the direct descendant menu items. */
@@ -191,5 +193,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
 }
 /** @docs-public MatMenu */
 export declare class MatMenu extends _MatMenuBase {
+    protected _elevationPrefix: string;
+    protected _baseElevation: number;
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
 }
