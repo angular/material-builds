@@ -19,7 +19,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION$1 = new Version('12.1.0-next.0-sha-d92f8f25b');
+const VERSION$1 = new Version('12.1.0-next.0-sha-491d2ec57');
 
 /**
  * @license
@@ -53,7 +53,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new Version('12.1.0-next.0-sha-d92f8f25b');
+const VERSION = new Version('12.1.0-next.0-sha-491d2ec57');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -1024,6 +1024,14 @@ class RippleRenderer {
     fadeOutAll() {
         this._activeRipples.forEach(ripple => ripple.fadeOut());
     }
+    /** Fades out all currently active non-persistent ripples. */
+    fadeOutAllNonPersistent() {
+        this._activeRipples.forEach(ripple => {
+            if (!ripple.config.persistent) {
+                ripple.fadeOut();
+            }
+        });
+    }
     /** Sets up the trigger event listeners */
     setupTriggerEvents(elementOrElementRef) {
         const element = coerceElement(elementOrElementRef);
@@ -1175,6 +1183,9 @@ class MatRipple {
      */
     get disabled() { return this._disabled; }
     set disabled(value) {
+        if (value) {
+            this.fadeOutAllNonPersistent();
+        }
         this._disabled = value;
         this._setupTriggerEventsIfEnabled();
     }
@@ -1197,6 +1208,10 @@ class MatRipple {
     /** Fades out all currently showing ripple elements. */
     fadeOutAll() {
         this._rippleRenderer.fadeOutAll();
+    }
+    /** Fades out all currently showing non-persistent ripple elements. */
+    fadeOutAllNonPersistent() {
+        this._rippleRenderer.fadeOutAllNonPersistent();
     }
     /**
      * Ripple configuration from the directive's input values.

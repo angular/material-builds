@@ -34,7 +34,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION$1 = new i0.Version('12.1.0-next.0-sha-d92f8f25b');
+    var VERSION$1 = new i0.Version('12.1.0-next.0-sha-491d2ec57');
 
     /**
      * @license
@@ -74,7 +74,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION = new i0.Version('12.1.0-next.0-sha-d92f8f25b');
+    var VERSION = new i0.Version('12.1.0-next.0-sha-491d2ec57');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1402,6 +1402,14 @@
         RippleRenderer.prototype.fadeOutAll = function () {
             this._activeRipples.forEach(function (ripple) { return ripple.fadeOut(); });
         };
+        /** Fades out all currently active non-persistent ripples. */
+        RippleRenderer.prototype.fadeOutAllNonPersistent = function () {
+            this._activeRipples.forEach(function (ripple) {
+                if (!ripple.config.persistent) {
+                    ripple.fadeOut();
+                }
+            });
+        };
         /** Sets up the trigger event listeners */
         RippleRenderer.prototype.setupTriggerEvents = function (elementOrElementRef) {
             var element = coercion.coerceElement(elementOrElementRef);
@@ -1558,6 +1566,9 @@
              */
             get: function () { return this._disabled; },
             set: function (value) {
+                if (value) {
+                    this.fadeOutAllNonPersistent();
+                }
                 this._disabled = value;
                 this._setupTriggerEventsIfEnabled();
             },
@@ -1587,6 +1598,10 @@
         /** Fades out all currently showing ripple elements. */
         MatRipple.prototype.fadeOutAll = function () {
             this._rippleRenderer.fadeOutAll();
+        };
+        /** Fades out all currently showing non-persistent ripple elements. */
+        MatRipple.prototype.fadeOutAllNonPersistent = function () {
+            this._rippleRenderer.fadeOutAllNonPersistent();
         };
         Object.defineProperty(MatRipple.prototype, "rippleConfig", {
             /**
