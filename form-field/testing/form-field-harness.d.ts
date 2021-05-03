@@ -6,12 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AsyncFactoryFn, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate, TestElement } from '@angular/cdk/testing';
+import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { FormFieldHarnessFilters } from './form-field-harness-filters';
 /** Possible harnesses of controls which can be bound to a form-field. */
-export declare type FormFieldControlHarness = MatInputHarness | MatSelectHarness;
+export declare type FormFieldControlHarness = MatInputHarness | MatSelectHarness | MatDatepickerInputHarness | MatDateRangeInputHarness;
 export declare abstract class _MatFormFieldHarnessBase<ControlHarness extends MatFormFieldControlHarness> extends ComponentHarness {
     protected abstract _prefixContainer: AsyncFactoryFn<TestElement | null>;
     protected abstract _suffixContainer: AsyncFactoryFn<TestElement | null>;
@@ -20,6 +21,8 @@ export declare abstract class _MatFormFieldHarnessBase<ControlHarness extends Ma
     protected abstract _hints: AsyncFactoryFn<TestElement[]>;
     protected abstract _inputControl: AsyncFactoryFn<ControlHarness | null>;
     protected abstract _selectControl: AsyncFactoryFn<ControlHarness | null>;
+    protected abstract _datepickerInputControl: AsyncFactoryFn<ControlHarness | null>;
+    protected abstract _dateRangeInputControl: AsyncFactoryFn<ControlHarness | null>;
     /** Gets the appearance of the form-field. */
     abstract getAppearance(): Promise<string>;
     /** Whether the label is currently floating. */
@@ -114,6 +117,8 @@ export declare class MatFormFieldHarness extends _MatFormFieldHarnessBase<FormFi
     protected _hints: AsyncFactoryFn<TestElement[]>;
     protected _inputControl: AsyncFactoryFn<MatInputHarness | null>;
     protected _selectControl: AsyncFactoryFn<MatSelectHarness | null>;
+    protected _datepickerInputControl: AsyncFactoryFn<MatDatepickerInputHarness | null>;
+    protected _dateRangeInputControl: AsyncFactoryFn<MatDateRangeInputHarness | null>;
     /** Gets the appearance of the form-field. */
     getAppearance(): Promise<'legacy' | 'standard' | 'fill' | 'outline'>;
     /** Whether the form-field has a label. */

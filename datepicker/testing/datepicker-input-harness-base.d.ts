@@ -5,12 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarnessConstructor, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
+import { ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
+import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { DatepickerInputHarnessFilters } from './datepicker-harness-filters';
 /** Sets up the filter predicates for a datepicker input harness. */
 export declare function getInputPredicate<T extends MatDatepickerInputHarnessBase>(type: ComponentHarnessConstructor<T>, options: DatepickerInputHarnessFilters): HarnessPredicate<T>;
 /** Base class for datepicker input harnesses. */
-export declare abstract class MatDatepickerInputHarnessBase extends ComponentHarness {
+export declare abstract class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
     /** Whether the input is disabled. */
     isDisabled(): Promise<boolean>;
     /** Whether the input is required. */
