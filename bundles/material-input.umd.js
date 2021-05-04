@@ -500,6 +500,7 @@
             _this._isServer = !_this._platform.isBrowser;
             _this._isNativeSelect = nodeName === 'select';
             _this._isTextarea = nodeName === 'textarea';
+            _this._isInFormField = !!_formField;
             if (_this._isNativeSelect) {
                 _this.controlType = element.multiple ? 'mat-native-select-multiple' :
                     'mat-native-select';

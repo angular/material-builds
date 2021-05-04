@@ -185,6 +185,7 @@ class MatInput extends _MatInputMixinBase {
         this._isServer = !this._platform.isBrowser;
         this._isNativeSelect = nodeName === 'select';
         this._isTextarea = nodeName === 'textarea';
+        this._isInFormField = !!_formField;
         if (this._isNativeSelect) {
             this.controlType = element.multiple ? 'mat-native-select-multiple' :
                 'mat-native-select';

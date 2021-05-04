@@ -43,6 +43,8 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     readonly _isNativeSelect: boolean;
     /** Whether the component is a textarea. */
     readonly _isTextarea: boolean;
+    /** Whether the input is inside of a form field. */
+    readonly _isInFormField: boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
