@@ -313,6 +313,7 @@ MatPaginator.decorators = [
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-paginator',
+                    'role': 'group',
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,

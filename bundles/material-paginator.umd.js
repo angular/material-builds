@@ -649,6 +649,7 @@
                     inputs: ['disabled'],
                     host: {
                         'class': 'mat-paginator',
+                        'role': 'group',
                     },
                     changeDetection: i0.ChangeDetectionStrategy.OnPush,
                     encapsulation: i0.ViewEncapsulation.None,
