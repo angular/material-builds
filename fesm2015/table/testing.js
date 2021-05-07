@@ -16,7 +16,7 @@ class MatCellHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getCellPredicate(MatCellHarness, options);
+        return MatCellHarness._getCellPredicate(MatCellHarness, options);
     }
     /** Gets the cell's text. */
     getText() {
@@ -39,6 +39,11 @@ class MatCellHarness extends ContentContainerComponentHarness {
             throw Error('Could not determine column name of cell.');
         });
     }
+    static _getCellPredicate(type, options) {
+        return new HarnessPredicate(type, options)
+            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
+            .addOption('columnName', options.columnName, (harness, name) => HarnessPredicate.stringMatches(harness.getColumnName(), name));
+    }
 }
 /** The selector for the host element of a `MatCellHarness` instance. */
 MatCellHarness.hostSelector = '.mat-cell';
@@ -51,7 +56,7 @@ class MatHeaderCellHarness extends MatCellHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getCellPredicate(MatHeaderCellHarness, options);
+        return MatHeaderCellHarness._getCellPredicate(MatHeaderCellHarness, options);
     }
 }
 /** The selector for the host element of a `MatHeaderCellHarness` instance. */
@@ -65,16 +70,11 @@ class MatFooterCellHarness extends MatCellHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getCellPredicate(MatFooterCellHarness, options);
+        return MatFooterCellHarness._getCellPredicate(MatFooterCellHarness, options);
     }
 }
 /** The selector for the host element of a `MatFooterCellHarness` instance. */
 MatFooterCellHarness.hostSelector = '.mat-footer-cell';
-function getCellPredicate(type, options) {
-    return new HarnessPredicate(type, options)
-        .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
-        .addOption('columnName', options.columnName, (harness, name) => HarnessPredicate.stringMatches(harness.getColumnName(), name));
-}
 
 /**
  * @license
@@ -83,8 +83,39 @@ function getCellPredicate(type, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+class _MatRowHarnessBase extends ComponentHarness {
+    /** Gets a list of `MatCellHarness` for all cells in the row. */
+    getCells(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.locatorForAll(this._cellHarness.with(filter))();
+        });
+    }
+    /** Gets the text of the cells in the row. */
+    getCellTextByIndex(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cells = yield this.getCells(filter);
+            return parallel(() => cells.map(cell => cell.getText()));
+        });
+    }
+    /** Gets the text inside the row organized by columns. */
+    getCellTextByColumnName() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const output = {};
+            const cells = yield this.getCells();
+            const cellsData = yield parallel(() => cells.map(cell => {
+                return parallel(() => [cell.getColumnName(), cell.getText()]);
+            }));
+            cellsData.forEach(([columnName, text]) => output[columnName] = text);
+            return output;
+        });
+    }
+}
 /** Harness for interacting with a standard Angular Material table row. */
-class MatRowHarness extends ComponentHarness {
+class MatRowHarness extends _MatRowHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._cellHarness = MatCellHarness;
+    }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table row with specific attributes.
      * @param options Options for narrowing the search
@@ -93,29 +124,15 @@ class MatRowHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatRowHarness, options);
     }
-    /** Gets a list of `MatCellHarness` for all cells in the row. */
-    getCells(filter = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.locatorForAll(MatCellHarness.with(filter))();
-        });
-    }
-    /** Gets the text of the cells in the row. */
-    getCellTextByIndex(filter = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return getCellTextByIndex(this, filter);
-        });
-    }
-    /** Gets the text inside the row organized by columns. */
-    getCellTextByColumnName() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return getCellTextByColumnName(this);
-        });
-    }
 }
 /** The selector for the host element of a `MatRowHarness` instance. */
 MatRowHarness.hostSelector = '.mat-row';
 /** Harness for interacting with a standard Angular Material table header row. */
-class MatHeaderRowHarness extends ComponentHarness {
+class MatHeaderRowHarness extends _MatRowHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._cellHarness = MatHeaderCellHarness;
+    }
     /**
      * Gets a `HarnessPredicate` that can be used to search for
      * a table header row with specific attributes.
@@ -125,29 +142,15 @@ class MatHeaderRowHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatHeaderRowHarness, options);
     }
-    /** Gets a list of `MatHeaderCellHarness` for all cells in the row. */
-    getCells(filter = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.locatorForAll(MatHeaderCellHarness.with(filter))();
-        });
-    }
-    /** Gets the text of the cells in the header row. */
-    getCellTextByIndex(filter = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return getCellTextByIndex(this, filter);
-        });
-    }
-    /** Gets the text inside the header row organized by columns. */
-    getCellTextByColumnName() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return getCellTextByColumnName(this);
-        });
-    }
 }
 /** The selector for the host element of a `MatHeaderRowHarness` instance. */
 MatHeaderRowHarness.hostSelector = '.mat-header-row';
 /** Harness for interacting with a standard Angular Material table footer row. */
-class MatFooterRowHarness extends ComponentHarness {
+class MatFooterRowHarness extends _MatRowHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._cellHarness = MatFooterCellHarness;
+    }
     /**
      * Gets a `HarnessPredicate` that can be used to search for
      * a table footer row cell with specific attributes.
@@ -157,44 +160,9 @@ class MatFooterRowHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatFooterRowHarness, options);
     }
-    /** Gets a list of `MatFooterCellHarness` for all cells in the row. */
-    getCells(filter = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.locatorForAll(MatFooterCellHarness.with(filter))();
-        });
-    }
-    /** Gets the text of the cells in the footer row. */
-    getCellTextByIndex(filter = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return getCellTextByIndex(this, filter);
-        });
-    }
-    /** Gets the text inside the footer row organized by columns. */
-    getCellTextByColumnName() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return getCellTextByColumnName(this);
-        });
-    }
 }
 /** The selector for the host element of a `MatFooterRowHarness` instance. */
 MatFooterRowHarness.hostSelector = '.mat-footer-row';
-function getCellTextByIndex(harness, filter) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const cells = yield harness.getCells(filter);
-        return parallel(() => cells.map(cell => cell.getText()));
-    });
-}
-function getCellTextByColumnName(harness) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const output = {};
-        const cells = yield harness.getCells();
-        const cellsData = yield parallel(() => cells.map(cell => {
-            return parallel(() => [cell.getColumnName(), cell.getText()]);
-        }));
-        cellsData.forEach(([columnName, text]) => output[columnName] = text);
-        return output;
-    });
-}
 
 /**
  * @license
@@ -203,32 +171,23 @@ function getCellTextByColumnName(harness) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-table in tests. */
-class MatTableHarness extends ContentContainerComponentHarness {
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a table with specific attributes.
-     * @param options Options for narrowing the search
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatTableHarness, options);
-    }
+class _MatTableHarnessBase extends ContentContainerComponentHarness {
     /** Gets all of the header rows in a table. */
     getHeaderRows(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.locatorForAll(MatHeaderRowHarness.with(filter))();
+            return this.locatorForAll(this._headerRowHarness.with(filter))();
         });
     }
     /** Gets all of the regular data rows in a table. */
     getRows(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.locatorForAll(MatRowHarness.with(filter))();
+            return this.locatorForAll(this._rowHarness.with(filter))();
         });
     }
     /** Gets all of the footer rows in a table. */
     getFooterRows(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.locatorForAll(MatFooterRowHarness.with(filter))();
+            return this.locatorForAll(this._footerRowHarness.with(filter))();
         });
     }
     /** Gets the text inside the entire table organized by rows. */
@@ -269,6 +228,23 @@ class MatTableHarness extends ContentContainerComponentHarness {
         });
     }
 }
+/** Harness for interacting with a standard mat-table in tests. */
+class MatTableHarness extends _MatTableHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._headerRowHarness = MatHeaderRowHarness;
+        this._rowHarness = MatRowHarness;
+        this._footerRowHarness = MatFooterRowHarness;
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table with specific attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatTableHarness, options);
+    }
+}
 /** The selector for the host element of a `MatTableHarness` instance. */
 MatTableHarness.hostSelector = '.mat-table';
 /** Extracts the text of cells only under a particular column. */
@@ -300,5 +276,5 @@ function getCellTextsByColumn(rowsData, column) {
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, MatTableHarness };
+export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, MatTableHarness, _MatRowHarnessBase, _MatTableHarnessBase };
 //# sourceMappingURL=testing.js.map

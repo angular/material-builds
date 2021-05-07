@@ -2647,6 +2647,7 @@
             var _this = this;
             this._destroyOverlay();
             var isDialog = this.touchUi;
+            var labelId = this.datepickerInput.getOverlayLabelId();
             var portal$1 = new portal.ComponentPortal(MatDatepickerContent, this._viewContainerRef);
             var overlayRef = this._overlayRef = this._overlay.create(new overlay.OverlayConfig({
                 positionStrategy: isDialog ? this._getDialogStrategy() : this._getDropdownStrategy(),
@@ -2659,9 +2660,13 @@
                 scrollStrategy: isDialog ? this._overlay.scrollStrategies.block() : this._scrollStrategy(),
                 panelClass: "mat-datepicker-" + (isDialog ? 'dialog' : 'popup'),
             }));
-            overlayRef.overlayElement.setAttribute('role', 'dialog');
+            var overlayElement = overlayRef.overlayElement;
+            overlayElement.setAttribute('role', 'dialog');
+            if (labelId) {
+                overlayElement.setAttribute('aria-labelledby', labelId);
+            }
             if (isDialog) {
-                overlayRef.overlayElement.setAttribute('aria-modal', 'true');
+                overlayElement.setAttribute('aria-modal', 'true');
             }
             this._getCloseStream(overlayRef).subscribe(function (event) {
                 if (event) {
@@ -3180,6 +3185,13 @@
          */
         MatDatepickerInput.prototype.getConnectedOverlayOrigin = function () {
             return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
+        };
+        /** Gets the ID of an element that should be used a description for the calendar overlay. */
+        MatDatepickerInput.prototype.getOverlayLabelId = function () {
+            if (this._formField) {
+                return this._formField.getLabelId();
+            }
+            return this._elementRef.nativeElement.getAttribute('aria-labelledby');
         };
         /** Returns the palette used by the input's form field, if any. */
         MatDatepickerInput.prototype.getThemePalette = function () {
@@ -3932,6 +3944,10 @@
         /** Gets the element to which the calendar overlay should be attached. */
         MatDateRangeInput.prototype.getConnectedOverlayOrigin = function () {
             return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
+        };
+        /** Gets the ID of an element that should be used a description for the calendar overlay. */
+        MatDateRangeInput.prototype.getOverlayLabelId = function () {
+            return this._formField ? this._formField.getLabelId() : null;
         };
         /** Gets the value that is used to mirror the state input. */
         MatDateRangeInput.prototype._getInputMirrorValue = function () {
