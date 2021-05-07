@@ -107,6 +107,8 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     getThemePalette(): ThemePalette;
     /** Gets the element to which the calendar overlay should be attached. */
     getConnectedOverlayOrigin(): ElementRef;
+    /** Gets the ID of an element that should be used a description for the calendar overlay. */
+    getOverlayLabelId(): string | null;
     /** Gets the value that is used to mirror the state input. */
     _getInputMirrorValue(): string;
     /** Whether the input placeholders should be hidden. */

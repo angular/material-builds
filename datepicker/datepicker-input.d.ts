@@ -18,7 +18,7 @@ export declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
 export declare const MAT_DATEPICKER_VALIDATORS: any;
 /** Directive used to connect an input to a MatDatepicker. */
 export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> implements MatDatepickerControl<D | null>, OnDestroy {
-    private _formField;
+    private _formField?;
     private _closedSubscription;
     /** The datepicker that this input is associated with. */
     set matDatepicker(datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>);
@@ -37,12 +37,14 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     private _dateFilter;
     /** The combined form control validator for this input. */
     protected _validator: ValidatorFn | null;
-    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField: MatFormField);
+    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField?: MatFormField | undefined);
     /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
      */
     getConnectedOverlayOrigin(): ElementRef;
+    /** Gets the ID of an element that should be used a description for the calendar overlay. */
+    getOverlayLabelId(): string | null;
     /** Returns the palette used by the input's form field, if any. */
     getThemePalette(): ThemePalette;
     /** Gets the value at which the calendar should start. */

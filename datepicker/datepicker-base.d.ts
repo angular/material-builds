@@ -91,6 +91,7 @@ export interface MatDatepickerControl<D> {
     disabled: boolean;
     dateFilter: DateFilterFn<D>;
     getConnectedOverlayOrigin(): ElementRef;
+    getOverlayLabelId(): string | null;
     stateChanges: Observable<void>;
 }
 /** A datepicker that can be attached to a {@link MatDatepickerControl}. */
