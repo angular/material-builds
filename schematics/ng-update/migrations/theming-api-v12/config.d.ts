@@ -20,3 +20,9 @@ export declare const cdkMixins: Record<string, string>;
  * and which should be replaced with their values.
  */
 export declare const removedMaterialVariables: Record<string, string>;
+/**
+ * Material variables **without a `mat-` prefix** that have been removed from the public API
+ * and which should be replaced with their values. These should be migrated only when there's a
+ * Material import, because their names could conflict with other variables in the user's app.
+ */
+export declare const unprefixedRemovedVariables: Record<string, string>;
