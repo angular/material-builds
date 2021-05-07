@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
+import { HarnessPredicate, ComponentHarnessConstructor, ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { CellHarnessFilters } from './table-harness-filters';
 /** Harness for interacting with a standard Angular Material table cell. */
 export declare class MatCellHarness extends ContentContainerComponentHarness {
@@ -21,6 +21,7 @@ export declare class MatCellHarness extends ContentContainerComponentHarness {
     getText(): Promise<string>;
     /** Gets the name of the column that the cell belongs to. */
     getColumnName(): Promise<string>;
+    protected static _getCellPredicate<T extends MatCellHarness>(type: ComponentHarnessConstructor<T>, options: CellHarnessFilters): HarnessPredicate<T>;
 }
 /** Harness for interacting with a standard Angular Material table header cell. */
 export declare class MatHeaderCellHarness extends MatCellHarness {
