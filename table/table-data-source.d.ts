@@ -6,18 +6,31 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { DataSource } from '@angular/cdk/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-interface Paginator {
-    page: Subject<PageEvent>;
+/**
+ * Interface that matches the required API parts for the MatPaginator's PageEvent.
+ * Decoupled so that users can depend on either the legacy or MDC-based paginator.
+ */
+export interface MatTableDataSourcePageEvent {
+    pageIndex: number;
+    pageSize: number;
+    length: number;
+}
+/**
+ * Interface that matches the required API parts of the MatPaginator.
+ * Decoupled so that users can depend on either the legacy or MDC-based paginator.
+ */
+export interface MatTableDataSourcePaginator {
+    page: Subject<MatTableDataSourcePageEvent>;
     pageIndex: number;
     initialized: Observable<void>;
     pageSize: number;
     length: number;
 }
 /** Shared base class with MDC-based implementation. */
-export declare class _MatTableDataSource<T, P extends Paginator> extends DataSource<T> {
+export declare class _MatTableDataSource<T, P extends MatTableDataSourcePaginator = MatTableDataSourcePaginator> extends DataSource<T> {
     /** Stream that emits when a new data array is set on the data source. */
     private readonly _data;
     /** Stream emitting render data to the table (depends on ordered data changes). */
@@ -154,4 +167,3 @@ export declare class _MatTableDataSource<T, P extends Paginator> extends DataSou
  */
 export declare class MatTableDataSource<T> extends _MatTableDataSource<T, MatPaginator> {
 }
-export {};
