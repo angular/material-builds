@@ -150,6 +150,11 @@ class _MatTooltipBase {
                 this.touchGestures = _defaultOptions.touchGestures;
             }
         }
+        _dir.change.pipe(takeUntil(this._destroyed)).subscribe(() => {
+            if (this._overlayRef) {
+                this._updatePosition(this._overlayRef);
+            }
+        });
         _ngZone.runOutsideAngular(() => {
             _elementRef.nativeElement.addEventListener('keydown', this._handleKeydown);
         });
@@ -157,13 +162,12 @@ class _MatTooltipBase {
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position() { return this._position; }
     set position(value) {
+        var _a;
         if (value !== this._position) {
             this._position = value;
             if (this._overlayRef) {
-                this._updatePosition();
-                if (this._tooltipInstance) {
-                    this._tooltipInstance.show(0);
-                }
+                this._updatePosition(this._overlayRef);
+                (_a = this._tooltipInstance) === null || _a === void 0 ? void 0 : _a.show(0);
                 this._overlayRef.updatePosition();
             }
         }
@@ -311,7 +315,7 @@ class _MatTooltipBase {
             panelClass: `${this._cssClassPrefix}-${PANEL_CLASS}`,
             scrollStrategy: this._scrollStrategy()
         });
-        this._updatePosition();
+        this._updatePosition(this._overlayRef);
         this._overlayRef.detachments()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => this._detach());
@@ -325,8 +329,8 @@ class _MatTooltipBase {
         this._tooltipInstance = null;
     }
     /** Updates the position of the current tooltip. */
-    _updatePosition() {
-        const position = this._overlayRef.getConfig().positionStrategy;
+    _updatePosition(overlayRef) {
+        const position = overlayRef.getConfig().positionStrategy;
         const origin = this._getOrigin();
         const overlay = this._getOverlayPosition();
         position.withPositions([

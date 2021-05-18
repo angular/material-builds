@@ -450,6 +450,11 @@
                     this.touchGestures = _defaultOptions.touchGestures;
                 }
             }
+            _dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
+                if (_this._overlayRef) {
+                    _this._updatePosition(_this._overlayRef);
+                }
+            });
             _ngZone.runOutsideAngular(function () {
                 _elementRef.nativeElement.addEventListener('keydown', _this._handleKeydown);
             });
@@ -458,13 +463,12 @@
             /** Allows the user to define the position of the tooltip relative to the parent element */
             get: function () { return this._position; },
             set: function (value) {
+                var _a;
                 if (value !== this._position) {
                     this._position = value;
                     if (this._overlayRef) {
-                        this._updatePosition();
-                        if (this._tooltipInstance) {
-                            this._tooltipInstance.show(0);
-                        }
+                        this._updatePosition(this._overlayRef);
+                        (_a = this._tooltipInstance) === null || _a === void 0 ? void 0 : _a.show(0);
                         this._overlayRef.updatePosition();
                     }
                 }
@@ -559,8 +563,8 @@
             }
             // Clean up the event listeners set in the constructor
             nativeElement.removeEventListener('keydown', this._handleKeydown);
-            this._passiveListeners.forEach(function (_a) {
-                var _b = __read(_a, 2), event = _b[0], listener = _b[1];
+            this._passiveListeners.forEach(function (_b) {
+                var _c = __read(_b, 2), event = _c[0], listener = _c[1];
                 nativeElement.removeEventListener(event, listener, passiveListenerOptions);
             });
             this._passiveListeners.length = 0;
@@ -634,7 +638,7 @@
                 panelClass: this._cssClassPrefix + "-" + PANEL_CLASS,
                 scrollStrategy: this._scrollStrategy()
             });
-            this._updatePosition();
+            this._updatePosition(this._overlayRef);
             this._overlayRef.detachments()
                 .pipe(operators.takeUntil(this._destroyed))
                 .subscribe(function () { return _this._detach(); });
@@ -648,8 +652,8 @@
             this._tooltipInstance = null;
         };
         /** Updates the position of the current tooltip. */
-        _MatTooltipBase.prototype._updatePosition = function () {
-            var position = this._overlayRef.getConfig().positionStrategy;
+        _MatTooltipBase.prototype._updatePosition = function (overlayRef) {
+            var position = overlayRef.getConfig().positionStrategy;
             var origin = this._getOrigin();
             var overlay = this._getOverlayPosition();
             position.withPositions([
@@ -685,7 +689,7 @@
             else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw getMatTooltipInvalidPositionError(position);
             }
-            var _a = this._invertPosition(originPosition.originX, originPosition.originY), x = _a.x, y = _a.y;
+            var _b = this._invertPosition(originPosition.originX, originPosition.originY), x = _b.x, y = _b.y;
             return {
                 main: originPosition,
                 fallback: { originX: x, originY: y }
@@ -715,7 +719,7 @@
             else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw getMatTooltipInvalidPositionError(position);
             }
-            var _a = this._invertPosition(overlayPosition.overlayX, overlayPosition.overlayY), x = _a.x, y = _a.y;
+            var _b = this._invertPosition(overlayPosition.overlayX, overlayPosition.overlayY), x = _b.x, y = _b.y;
             return {
                 main: overlayPosition,
                 fallback: { overlayX: x, overlayY: y }
@@ -824,7 +828,7 @@
             this._addListeners(this._passiveListeners);
         };
         _MatTooltipBase.prototype._setupPointerExitEventsIfNeeded = function () {
-            var _a;
+            var _b;
             var _this = this;
             if (this._pointerExitEventsInitialized) {
                 return;
@@ -843,12 +847,12 @@
                 exitListeners.push(['touchend', touchendListener], ['touchcancel', touchendListener]);
             }
             this._addListeners(exitListeners);
-            (_a = this._passiveListeners).push.apply(_a, __spreadArray([], __read(exitListeners)));
+            (_b = this._passiveListeners).push.apply(_b, __spreadArray([], __read(exitListeners)));
         };
         _MatTooltipBase.prototype._addListeners = function (listeners) {
             var _this = this;
-            listeners.forEach(function (_a) {
-                var _b = __read(_a, 2), event = _b[0], listener = _b[1];
+            listeners.forEach(function (_b) {
+                var _c = __read(_b, 2), event = _c[0], listener = _c[1];
                 _this._elementRef.nativeElement.addEventListener(event, listener, passiveListenerOptions);
             });
         };
