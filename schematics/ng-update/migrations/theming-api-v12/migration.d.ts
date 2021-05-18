@@ -23,6 +23,7 @@ interface ExtraSymbols {
  *   matched, the prefix would be `~@angular/cdk/`.
  * @param newMaterialImportPath New import to the Material theming API (e.g. `~@angular/material`).
  * @param newCdkImportPath New import to the CDK Sass APIs (e.g. `~@angular/cdk`).
+ * @param excludedImports Pattern that can be used to exclude imports from being processed.
  */
-export declare function migrateFileContent(content: string, oldMaterialPrefix: string, oldCdkPrefix: string, newMaterialImportPath: string, newCdkImportPath: string, extraMaterialSymbols?: ExtraSymbols): string;
+export declare function migrateFileContent(content: string, oldMaterialPrefix: string, oldCdkPrefix: string, newMaterialImportPath: string, newCdkImportPath: string, extraMaterialSymbols?: ExtraSymbols, excludedImports?: RegExp): string;
 export {};
