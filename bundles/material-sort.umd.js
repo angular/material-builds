@@ -647,6 +647,12 @@
              * provide an affordance that the header is sortable by showing on focus and hover.
              */
             _this._showIndicatorHint = false;
+            /**
+             * The view transition state of the arrow (translation/ opacity) - indicates its `from` and `to`
+             * position through the animation. If animations are currently disabled, the fromState is removed
+             * so that there is no animation displayed.
+             */
+            _this._viewState = {};
             /** The direction the arrow should be facing according to the current state. */
             _this._arrowDirection = '';
             /**
@@ -720,7 +726,7 @@
          * no animation appears.
          */
         MatSortHeader.prototype._setAnimationTransitionState = function (viewState) {
-            this._viewState = viewState;
+            this._viewState = viewState || {};
             // If the animation for arrow position state (opacity/translation) should be disabled,
             // remove the fromState so that it jumps right to the toState.
             if (this._disableViewStateAnimation) {
