@@ -9,6 +9,7 @@
 interface ExtraSymbols {
     mixins?: Record<string, string>;
     functions?: Record<string, string>;
+    variables?: Record<string, string>;
 }
 /**
  * Migrates the content of a file to the new theming API. Note that this migration is using plain
