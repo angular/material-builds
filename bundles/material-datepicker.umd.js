@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/cdk/scrolling'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/button', '@angular/cdk/scrolling', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/animations', '@angular/forms', '@angular/material/form-field', '@angular/material/input'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}), global.ng.cdk.a11y, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.button, global.ng.cdk.scrolling, global.ng.material.core, global.rxjs, global.ng.cdk.keycodes, global.ng.cdk.bidi, global.rxjs.operators, global.ng.cdk.coercion, global.ng.animations, global.ng.forms, global.ng.material.formField, global.ng.material.input));
-}(this, (function (exports, a11y, overlay, portal, common, i0, button, scrolling, core, rxjs, keycodes, bidi, operators, coercion, animations, forms, formField, input) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/cdk/scrolling'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/core', '@angular/material/button', '@angular/cdk/scrolling', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/animations', '@angular/forms', '@angular/material/form-field', '@angular/material/input'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}), global.ng.cdk.a11y, global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.common, global.ng.core, global.ng.material.button, global.ng.cdk.scrolling, global.ng.material.core, global.rxjs, global.ng.cdk.keycodes, global.ng.cdk.bidi, global.rxjs.operators, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.animations, global.ng.forms, global.ng.material.formField, global.ng.material.input));
+}(this, (function (exports, a11y, overlay, portal, common, i0, button, scrolling, core, rxjs, keycodes, bidi, operators, coercion, platform, animations, forms, formField, input) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -2362,13 +2362,17 @@
          * @deprecated `_dialog` parameter is no longer being used and it will be removed.
          * @breaking-change 13.0.0
          */
-        _dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _document, _model) {
+        _dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, 
+        /**
+         * @deprecated No longer being used. To be removed.
+         * @breaking-change 13.0.0
+         */
+        _document, _model) {
             this._overlay = _overlay;
             this._ngZone = _ngZone;
             this._viewContainerRef = _viewContainerRef;
             this._dateAdapter = _dateAdapter;
             this._dir = _dir;
-            this._document = _document;
             this._model = _model;
             this._inputStateChanges = rxjs.Subscription.EMPTY;
             /** The view that the calendar should start in. */
@@ -2581,18 +2585,13 @@
         };
         /** Open the calendar. */
         MatDatepickerBase.prototype.open = function () {
-            var _a, _b;
             if (this._opened || this.disabled) {
                 return;
             }
             if (!this.datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error('Attempted to open an MatDatepicker with no associated input.');
             }
-            // If the `activeElement` is inside a shadow root, `document.activeElement` will
-            // point to the shadow root so we have to descend into it ourselves.
-            var activeElement = (_a = this._document) === null || _a === void 0 ? void 0 : _a.activeElement;
-            this._focusedElementBeforeOpen =
-                ((_b = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _b === void 0 ? void 0 : _b.activeElement) || activeElement;
+            this._focusedElementBeforeOpen = platform._getFocusedElementPierceShadowDom();
             this._openOverlay();
             this._opened = true;
             this.openedStream.emit();
