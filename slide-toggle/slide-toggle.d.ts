@@ -36,12 +36,13 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     private _focusMonitor;
     private _changeDetectorRef;
     defaults: MatSlideToggleDefaultOptions;
-    _animationMode?: string | undefined;
     private _onChange;
     private _onTouched;
     private _uniqueId;
     private _required;
     private _checked;
+    /** Whether noop animations are enabled. */
+    _noopAnimations: boolean;
     /** Reference to the thumb HTMLElement. */
     _thumbEl: ElementRef;
     /** Reference to the thumb bar HTMLElement. */
@@ -74,7 +75,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     get inputId(): string;
     /** Reference to the underlying input element. */
     _inputElement: ElementRef<HTMLInputElement>;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */

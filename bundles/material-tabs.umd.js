@@ -549,7 +549,7 @@
     ];
     MatTab.ctorParameters = function () { return [
         { type: core.ViewContainerRef },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TAB_GROUP,] }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TAB_GROUP,] }, { type: core.Optional }] }
     ]; };
     MatTab.propDecorators = {
         templateLabel: [{ type: core.ContentChild, args: [MAT_TAB_LABEL,] }],
@@ -993,7 +993,9 @@
             this._allTabs.changes
                 .pipe(operators.startWith(this._allTabs))
                 .subscribe(function (tabs) {
-                _this._tabs.reset(tabs.filter(function (tab) { return tab._closestTabGroup === _this; }));
+                _this._tabs.reset(tabs.filter(function (tab) {
+                    return tab._closestTabGroup === _this || !tab._closestTabGroup;
+                }));
                 _this._tabs.notifyOnChanges();
             });
         };

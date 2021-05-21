@@ -242,7 +242,7 @@ MatTab.decorators = [
 ];
 MatTab.ctorParameters = () => [
     { type: ViewContainerRef },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_TAB_GROUP,] }] }
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_TAB_GROUP,] }, { type: Optional }] }
 ];
 MatTab.propDecorators = {
     templateLabel: [{ type: ContentChild, args: [MAT_TAB_LABEL,] }],
@@ -662,7 +662,9 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         this._allTabs.changes
             .pipe(startWith(this._allTabs))
             .subscribe((tabs) => {
-            this._tabs.reset(tabs.filter(tab => tab._closestTabGroup === this));
+            this._tabs.reset(tabs.filter(tab => {
+                return tab._closestTabGroup === this || !tab._closestTabGroup;
+            }));
             this._tabs.notifyOnChanges();
         });
     }
