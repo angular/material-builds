@@ -7,6 +7,7 @@ import { DOCUMENT, Location } from '@angular/common';
 import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { FocusTrapFactory, FocusMonitor } from '@angular/cdk/a11y';
+import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 
@@ -203,7 +204,7 @@ class _MatDialogContainerBase extends BasePortalOutlet {
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (this._config.restoreFocus && previousElement &&
             typeof previousElement.focus === 'function') {
-            const activeElement = this._getActiveElement();
+            const activeElement = _getFocusedElementPierceShadowDom();
             const element = this._elementRef.nativeElement;
             // Make sure that focus is still inside the dialog or is on the body (usually because a
             // non-focusable element like the backdrop was clicked) before moving it. It's possible that
@@ -231,7 +232,7 @@ class _MatDialogContainerBase extends BasePortalOutlet {
     /** Captures the element that was focused before the dialog was opened. */
     _capturePreviouslyFocusedElement() {
         if (this._document) {
-            this._elementFocusedBeforeDialogWasOpened = this._getActiveElement();
+            this._elementFocusedBeforeDialogWasOpened = _getFocusedElementPierceShadowDom();
         }
     }
     /** Focuses the dialog container. */
@@ -244,16 +245,8 @@ class _MatDialogContainerBase extends BasePortalOutlet {
     /** Returns whether focus is inside the dialog. */
     _containsFocus() {
         const element = this._elementRef.nativeElement;
-        const activeElement = this._getActiveElement();
+        const activeElement = _getFocusedElementPierceShadowDom();
         return element === activeElement || element.contains(activeElement);
-    }
-    /** Gets the currently-focused element on the page. */
-    _getActiveElement() {
-        var _a;
-        // If the `activeElement` is inside a shadow root, `document.activeElement` will
-        // point to the shadow root so we have to descend into it ourselves.
-        const activeElement = this._document.activeElement;
-        return ((_a = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _a === void 0 ? void 0 : _a.activeElement) || activeElement;
     }
 }
 _MatDialogContainerBase.decorators = [

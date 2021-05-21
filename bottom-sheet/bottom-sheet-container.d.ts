@@ -65,6 +65,4 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _restoreFocus;
     /** Saves a reference to the element that was focused before the bottom sheet was opened. */
     private _savePreviouslyFocusedElement;
-    /** Gets the currently-focused element on the page. */
-    private _getActiveElement;
 }

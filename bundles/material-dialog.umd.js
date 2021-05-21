@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/animations', '@angular/cdk/keycodes'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.bidi, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.animations, global.ng.cdk.keycodes));
-}(this, (function (exports, overlay, portal, core, core$1, bidi, common, rxjs, operators, a11y, animations, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/cdk/keycodes')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/animations', '@angular/cdk/keycodes'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.bidi, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.cdk.platform, global.ng.animations, global.ng.cdk.keycodes));
+}(this, (function (exports, overlay, portal, core, core$1, bidi, common, rxjs, operators, a11y, platform, animations, keycodes) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -502,7 +502,7 @@
             // We need the extra check, because IE can set the `activeElement` to null in some cases.
             if (this._config.restoreFocus && previousElement &&
                 typeof previousElement.focus === 'function') {
-                var activeElement = this._getActiveElement();
+                var activeElement = platform._getFocusedElementPierceShadowDom();
                 var element = this._elementRef.nativeElement;
                 // Make sure that focus is still inside the dialog or is on the body (usually because a
                 // non-focusable element like the backdrop was clicked) before moving it. It's possible that
@@ -530,7 +530,7 @@
         /** Captures the element that was focused before the dialog was opened. */
         _MatDialogContainerBase.prototype._capturePreviouslyFocusedElement = function () {
             if (this._document) {
-                this._elementFocusedBeforeDialogWasOpened = this._getActiveElement();
+                this._elementFocusedBeforeDialogWasOpened = platform._getFocusedElementPierceShadowDom();
             }
         };
         /** Focuses the dialog container. */
@@ -543,16 +543,8 @@
         /** Returns whether focus is inside the dialog. */
         _MatDialogContainerBase.prototype._containsFocus = function () {
             var element = this._elementRef.nativeElement;
-            var activeElement = this._getActiveElement();
+            var activeElement = platform._getFocusedElementPierceShadowDom();
             return element === activeElement || element.contains(activeElement);
-        };
-        /** Gets the currently-focused element on the page. */
-        _MatDialogContainerBase.prototype._getActiveElement = function () {
-            var _a;
-            // If the `activeElement` is inside a shadow root, `document.activeElement` will
-            // point to the shadow root so we have to descend into it ourselves.
-            var activeElement = this._document.activeElement;
-            return ((_a = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _a === void 0 ? void 0 : _a.activeElement) || activeElement;
         };
         return _MatDialogContainerBase;
     }(portal.BasePortalOutlet));
@@ -584,8 +576,8 @@
             return _this;
         }
         /** Callback, invoked whenever an animation on the host completes. */
-        MatDialogContainer.prototype._onAnimationDone = function (_b) {
-            var toState = _b.toState, totalTime = _b.totalTime;
+        MatDialogContainer.prototype._onAnimationDone = function (_a) {
+            var toState = _a.toState, totalTime = _a.totalTime;
             if (toState === 'enter') {
                 this._trapFocus();
                 this._animationStateChanged.next({ state: 'opened', totalTime: totalTime });
@@ -596,8 +588,8 @@
             }
         };
         /** Callback, invoked when an animation on the host starts. */
-        MatDialogContainer.prototype._onAnimationStart = function (_b) {
-            var toState = _b.toState, totalTime = _b.totalTime;
+        MatDialogContainer.prototype._onAnimationStart = function (_a) {
+            var toState = _a.toState, totalTime = _a.totalTime;
             if (toState === 'enter') {
                 this._animationStateChanged.next({ state: 'opening', totalTime: totalTime });
             }

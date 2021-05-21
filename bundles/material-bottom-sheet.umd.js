@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/bottom-sheet', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/layout', '@angular/animations', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.layout, global.ng.animations, global.ng.common, global.ng.cdk.a11y, global.ng.cdk.bidi, global.rxjs, global.ng.cdk.keycodes, global.rxjs.operators));
-}(this, (function (exports, i1, portal, i0, core, layout, animations, common, a11y, bidi, rxjs, keycodes, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/cdk/bidi'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/bottom-sheet', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/layout', '@angular/animations', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/cdk/bidi', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.layout, global.ng.animations, global.ng.common, global.ng.cdk.a11y, global.ng.cdk.platform, global.ng.cdk.bidi, global.rxjs, global.ng.cdk.keycodes, global.rxjs.operators));
+}(this, (function (exports, i1, portal, i0, core, layout, animations, common, a11y, platform, bidi, rxjs, keycodes, operators) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -512,7 +512,7 @@
                 this._focusTrap.focusInitialElementWhenReady();
             }
             else {
-                var activeElement = this._getActiveElement();
+                var activeElement = platform._getFocusedElementPierceShadowDom();
                 // Otherwise ensure that focus is on the container. It's possible that a different
                 // component tried to move focus while the open animation was running. See:
                 // https://github.com/angular/components/issues/16215. Note that we only want to do this
@@ -528,7 +528,7 @@
             var toFocus = this._elementFocusedBeforeOpened;
             // We need the extra check, because IE can set the `activeElement` to null in some cases.
             if (this.bottomSheetConfig.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
-                var activeElement = this._getActiveElement();
+                var activeElement = platform._getFocusedElementPierceShadowDom();
                 var element = this._elementRef.nativeElement;
                 // Make sure that focus is still inside the bottom sheet or is on the body (usually because a
                 // non-focusable element like the backdrop was clicked) before moving it. It's possible that
@@ -546,19 +546,11 @@
         /** Saves a reference to the element that was focused before the bottom sheet was opened. */
         MatBottomSheetContainer.prototype._savePreviouslyFocusedElement = function () {
             var _this = this;
-            this._elementFocusedBeforeOpened = this._getActiveElement();
+            this._elementFocusedBeforeOpened = platform._getFocusedElementPierceShadowDom();
             // The `focus` method isn't available during server-side rendering.
             if (this._elementRef.nativeElement.focus) {
                 Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
             }
-        };
-        /** Gets the currently-focused element on the page. */
-        MatBottomSheetContainer.prototype._getActiveElement = function () {
-            var _a;
-            // If the `activeElement` is inside a shadow root, `document.activeElement` will
-            // point to the shadow root so we have to descend into it ourselves.
-            var activeElement = this._document.activeElement;
-            return ((_a = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _a === void 0 ? void 0 : _a.activeElement) || activeElement;
         };
         return MatBottomSheetContainer;
     }(portal.BasePortalOutlet));

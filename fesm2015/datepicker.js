@@ -12,6 +12,7 @@ import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DO
 import { Directionality } from '@angular/cdk/bidi';
 import { take, startWith, filter } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
+import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, NgControl, NgForm, FormGroupDirective, ControlContainer } from '@angular/forms';
 import { MatFormField, MAT_FORM_FIELD, MatFormFieldControl } from '@angular/material/form-field';
@@ -1938,13 +1939,17 @@ class MatDatepickerBase {
      * @deprecated `_dialog` parameter is no longer being used and it will be removed.
      * @breaking-change 13.0.0
      */
-    _dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _document, _model) {
+    _dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, 
+    /**
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 13.0.0
+     */
+    _document, _model) {
         this._overlay = _overlay;
         this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
-        this._document = _document;
         this._model = _model;
         this._inputStateChanges = Subscription.EMPTY;
         /** The view that the calendar should start in. */
@@ -2128,18 +2133,13 @@ class MatDatepickerBase {
     }
     /** Open the calendar. */
     open() {
-        var _a, _b;
         if (this._opened || this.disabled) {
             return;
         }
         if (!this.datepickerInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error('Attempted to open an MatDatepicker with no associated input.');
         }
-        // If the `activeElement` is inside a shadow root, `document.activeElement` will
-        // point to the shadow root so we have to descend into it ourselves.
-        const activeElement = (_a = this._document) === null || _a === void 0 ? void 0 : _a.activeElement;
-        this._focusedElementBeforeOpen =
-            ((_b = activeElement === null || activeElement === void 0 ? void 0 : activeElement.shadowRoot) === null || _b === void 0 ? void 0 : _b.activeElement) || activeElement;
+        this._focusedElementBeforeOpen = _getFocusedElementPierceShadowDom();
         this._openOverlay();
         this._opened = true;
         this.openedStream.emit();
