@@ -409,20 +409,24 @@
                     return;
                 }
                 _this._ngZone.run(function () {
-                    var oldValue = _this.value;
-                    var pointerPosition = getPointerPositionOnPage(event);
-                    _this._isSliding = true;
-                    _this._lastPointerEvent = event;
-                    event.preventDefault();
-                    _this._focusHostElement();
-                    _this._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
-                    _this._bindGlobalEvents(event);
-                    _this._focusHostElement();
-                    _this._updateValueFromPosition(pointerPosition);
-                    _this._valueOnSlideStart = oldValue;
-                    // Emit a change and input event if the value changed.
-                    if (oldValue != _this.value) {
-                        _this._emitInputEvent();
+                    _this._touchId = isTouchEvent(event) ?
+                        getTouchIdForSlider(event, _this._elementRef.nativeElement) : undefined;
+                    var pointerPosition = getPointerPositionOnPage(event, _this._touchId);
+                    if (pointerPosition) {
+                        var oldValue = _this.value;
+                        _this._isSliding = true;
+                        _this._lastPointerEvent = event;
+                        event.preventDefault();
+                        _this._focusHostElement();
+                        _this._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
+                        _this._bindGlobalEvents(event);
+                        _this._focusHostElement();
+                        _this._updateValueFromPosition(pointerPosition);
+                        _this._valueOnSlideStart = oldValue;
+                        // Emit a change and input event if the value changed.
+                        if (oldValue != _this.value) {
+                            _this._emitInputEvent();
+                        }
                     }
                 });
             };
@@ -432,27 +436,36 @@
              */
             _this._pointerMove = function (event) {
                 if (_this._isSliding) {
-                    // Prevent the slide from selecting anything else.
-                    event.preventDefault();
-                    var oldValue = _this.value;
-                    _this._lastPointerEvent = event;
-                    _this._updateValueFromPosition(getPointerPositionOnPage(event));
-                    // Native range elements always emit `input` events when the value changed while sliding.
-                    if (oldValue != _this.value) {
-                        _this._emitInputEvent();
+                    var pointerPosition = getPointerPositionOnPage(event, _this._touchId);
+                    if (pointerPosition) {
+                        // Prevent the slide from selecting anything else.
+                        event.preventDefault();
+                        var oldValue = _this.value;
+                        _this._lastPointerEvent = event;
+                        _this._updateValueFromPosition(pointerPosition);
+                        // Native range elements always emit `input` events when the value changed while sliding.
+                        if (oldValue != _this.value) {
+                            _this._emitInputEvent();
+                        }
                     }
                 }
             };
             /** Called when the user has lifted their pointer. Bound on the document level. */
             _this._pointerUp = function (event) {
                 if (_this._isSliding) {
-                    event.preventDefault();
-                    _this._removeGlobalEvents();
-                    _this._isSliding = false;
-                    if (_this._valueOnSlideStart != _this.value && !_this.disabled) {
-                        _this._emitChangeEvent();
+                    if (!isTouchEvent(event) || typeof _this._touchId !== 'number' ||
+                        // Note that we use `changedTouches`, rather than `touches` because it
+                        // seems like in most cases `touches` is empty for `touchend` events.
+                        findMatchingTouch(event.changedTouches, _this._touchId)) {
+                        event.preventDefault();
+                        _this._removeGlobalEvents();
+                        _this._isSliding = false;
+                        _this._touchId = undefined;
+                        if (_this._valueOnSlideStart != _this.value && !_this.disabled) {
+                            _this._emitChangeEvent();
+                        }
+                        _this._valueOnSlideStart = _this._lastPointerEvent = null;
                     }
-                    _this._valueOnSlideStart = _this._lastPointerEvent = null;
                 }
             };
             /** Called when the window has lost focus. */
@@ -1084,10 +1097,43 @@
         return event.type[0] === 't';
     }
     /** Gets the coordinates of a touch or mouse event relative to the viewport. */
-    function getPointerPositionOnPage(event) {
-        // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
-        var point = isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
-        return { x: point.clientX, y: point.clientY };
+    function getPointerPositionOnPage(event, id) {
+        var point;
+        if (isTouchEvent(event)) {
+            // The `identifier` could be undefined if the browser doesn't support `TouchEvent.identifier`.
+            // If that's the case, attribute the first touch to all active sliders. This should still cover
+            // the most common case while only breaking multi-touch.
+            if (typeof id === 'number') {
+                point = findMatchingTouch(event.touches, id) || findMatchingTouch(event.changedTouches, id);
+            }
+            else {
+                // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
+                point = event.touches[0] || event.changedTouches[0];
+            }
+        }
+        else {
+            point = event;
+        }
+        return point ? { x: point.clientX, y: point.clientY } : undefined;
+    }
+    /** Finds a `Touch` with a specific ID in a `TouchList`. */
+    function findMatchingTouch(touches, id) {
+        for (var i = 0; i < touches.length; i++) {
+            if (touches[i].identifier === id) {
+                return touches[i];
+            }
+        }
+        return undefined;
+    }
+    /** Gets the unique ID of a touch that matches a specific slider. */
+    function getTouchIdForSlider(event, sliderHost) {
+        for (var i = 0; i < event.touches.length; i++) {
+            var target = event.touches[i].target;
+            if (sliderHost === target || sliderHost.contains(target)) {
+                return event.touches[i].identifier;
+            }
+        }
+        return undefined;
     }
 
     /**
