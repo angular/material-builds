@@ -358,12 +358,11 @@
     /** Represents a slidable "switch" toggle that can be moved between on and off. */
     var MatSlideToggle = /** @class */ (function (_super) {
         __extends(MatSlideToggle, _super);
-        function MatSlideToggle(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, defaults, _animationMode) {
+        function MatSlideToggle(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, defaults, animationMode) {
             var _this = _super.call(this, elementRef) || this;
             _this._focusMonitor = _focusMonitor;
             _this._changeDetectorRef = _changeDetectorRef;
             _this.defaults = defaults;
-            _this._animationMode = _animationMode;
             _this._onChange = function (_) { };
             _this._onTouched = function () { };
             _this._uniqueId = "mat-slide-toggle-" + ++nextUniqueId;
@@ -389,6 +388,7 @@
             _this.toggleChange = new core.EventEmitter();
             _this.tabIndex = parseInt(tabIndex) || 0;
             _this.color = _this.defaultColor = defaults.color || 'accent';
+            _this._noopAnimations = animationMode === 'NoopAnimations';
             return _this;
         }
         Object.defineProperty(MatSlideToggle.prototype, "required", {
@@ -533,9 +533,9 @@
                         '[class.mat-checked]': 'checked',
                         '[class.mat-disabled]': 'disabled',
                         '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
-                        '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+                        '[class._mat-animation-noopable]': '_noopAnimations',
                     },
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-slide-toggle-label\" #label>\n  <div #toggleBar class=\"mat-slide-toggle-bar\"\n       [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\">\n\n    <input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"inputId\"\n           [required]=\"required\"\n           [tabIndex]=\"tabIndex\"\n           [checked]=\"checked\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [attr.aria-checked]=\"checked.toString()\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           (change)=\"_onChangeEvent($event)\"\n           (click)=\"_onInputClick($event)\">\n\n    <div class=\"mat-slide-toggle-thumb-container\" #thumbContainer>\n      <div class=\"mat-slide-toggle-thumb\"></div>\n      <div class=\"mat-slide-toggle-ripple mat-focus-indicator\" mat-ripple\n           [matRippleTrigger]=\"label\"\n           [matRippleDisabled]=\"disableRipple || disabled\"\n           [matRippleCentered]=\"true\"\n           [matRippleRadius]=\"20\"\n           [matRippleAnimation]=\"{enterDuration: 150}\">\n\n        <div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div>\n      </div>\n    </div>\n\n  </div>\n\n  <span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\">\n    <!-- Add an invisible span so JAWS can read the label -->\n    <span style=\"display:none\">&nbsp;</span>\n    <ng-content></ng-content>\n  </span>\n</label>\n",
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-slide-toggle-label\" #label>\n  <div #toggleBar class=\"mat-slide-toggle-bar\"\n       [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\">\n\n    <input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\"\n           role=\"switch\"\n           [id]=\"inputId\"\n           [required]=\"required\"\n           [tabIndex]=\"tabIndex\"\n           [checked]=\"checked\"\n           [disabled]=\"disabled\"\n           [attr.name]=\"name\"\n           [attr.aria-checked]=\"checked.toString()\"\n           [attr.aria-label]=\"ariaLabel\"\n           [attr.aria-labelledby]=\"ariaLabelledby\"\n           (change)=\"_onChangeEvent($event)\"\n           (click)=\"_onInputClick($event)\">\n\n    <div class=\"mat-slide-toggle-thumb-container\" #thumbContainer>\n      <div class=\"mat-slide-toggle-thumb\"></div>\n      <div class=\"mat-slide-toggle-ripple mat-focus-indicator\" mat-ripple\n           [matRippleTrigger]=\"label\"\n           [matRippleDisabled]=\"disableRipple || disabled\"\n           [matRippleCentered]=\"true\"\n           [matRippleRadius]=\"20\"\n           [matRippleAnimation]=\"{enterDuration: _noopAnimations ? 0 : 150}\">\n\n        <div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div>\n      </div>\n    </div>\n\n  </div>\n\n  <span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\">\n    <!-- Add an invisible span so JAWS can read the label -->\n    <span style=\"display:none\">&nbsp;</span>\n    <ng-content></ng-content>\n  </span>\n</label>\n",
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
