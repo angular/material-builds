@@ -329,14 +329,12 @@
         'mat-fab',
     ];
     // Boilerplate for applying mixins to MatButton.
-    /** @docs-private */
-    var MatButtonBase = /** @class */ (function () {
-        function MatButtonBase(_elementRef) {
+    var _MatButtonBase = core.mixinColor(core.mixinDisabled(core.mixinDisableRipple(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatButtonBase;
-    }());
-    var _MatButtonMixinBase = core.mixinColor(core.mixinDisabled(core.mixinDisableRipple(MatButtonBase)));
+        return class_1;
+    }()))));
     /**
      * Material design button.
      */
@@ -408,7 +406,7 @@
             return attributes.some(function (attribute) { return _this._getHostElement().hasAttribute(attribute); });
         };
         return MatButton;
-    }(_MatButtonMixinBase));
+    }(_MatButtonBase));
     MatButton.decorators = [
         { type: core$1.Component, args: [{
                     selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],\n             button[mat-flat-button]",

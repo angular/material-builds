@@ -8,7 +8,7 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, InjectionToken } from '@angular/core';
 import { MatPaginatorIntl } from './paginator-intl';
-import { HasInitialized, HasInitializedCtor, ThemePalette, CanDisableCtor, CanDisable } from '@angular/material/core';
+import { HasInitialized, ThemePalette, CanDisable } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 /**
  * Change event object that is emitted when the user selects a
@@ -43,9 +43,9 @@ export interface MatPaginatorDefaultOptions {
 /** Injection token that can be used to provide the default options for the paginator module. */
 export declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorDefaultOptions>;
 /** @docs-private */
-declare class MatPaginatorMixinBase {
-}
-declare const _MatPaginatorMixinBase: CanDisableCtor & HasInitializedCtor & typeof MatPaginatorMixinBase;
+declare const _MatPaginatorMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & import("@angular/material/core").HasInitializedCtor & {
+    new (): {};
+};
 /**
  * Base class with all of the `MatPaginator` functionality.
  * @docs-private

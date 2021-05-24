@@ -313,7 +313,7 @@
         return value;
     }
 
-    var _MatTreeNodeMixinBase = core.mixinTabIndex(core.mixinDisabled(tree.CdkTreeNode));
+    var _MatTreeNodeBase = core.mixinTabIndex(core.mixinDisabled(tree.CdkTreeNode));
     /**
      * Wrapper for the CdkTree node with Material design styles.
      */
@@ -343,7 +343,7 @@
             _super.prototype.ngOnDestroy.call(this);
         };
         return MatTreeNode;
-    }(_MatTreeNodeMixinBase));
+    }(_MatTreeNodeBase));
     MatTreeNode.decorators = [
         { type: core$1.Directive, args: [{
                     selector: 'mat-tree-node',

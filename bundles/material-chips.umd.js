@@ -939,8 +939,8 @@
 
     // Boilerplate for applying mixins to MatChipList.
     /** @docs-private */
-    var MatChipListBase = /** @class */ (function () {
-        function MatChipListBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
+    var _MatChipListBase = core$1.mixinErrorState(/** @class */ (function () {
+        function class_1(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
         /** @docs-private */
         ngControl) {
             this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
@@ -948,9 +948,8 @@
             this._parentFormGroup = _parentFormGroup;
             this.ngControl = ngControl;
         }
-        return MatChipListBase;
-    }());
-    var _MatChipListMixinBase = core$1.mixinErrorState(MatChipListBase);
+        return class_1;
+    }()));
     // Increasing integer for generating unique ids for chip-list components.
     var nextUniqueId = 0;
     /** Change event object that is emitted when the chip list value has changed. */
@@ -1614,7 +1613,7 @@
             }
         };
         return MatChipList;
-    }(_MatChipListMixinBase));
+    }(_MatChipListBase));
     MatChipList.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-chip-list',

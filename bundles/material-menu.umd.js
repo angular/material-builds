@@ -518,12 +518,11 @@
 
     // Boilerplate for applying mixins to MatMenuItem.
     /** @docs-private */
-    var MatMenuItemBase = /** @class */ (function () {
-        function MatMenuItemBase() {
+    var _MatMenuItemBase = core$1.mixinDisableRipple(core$1.mixinDisabled(/** @class */ (function () {
+        function class_1() {
         }
-        return MatMenuItemBase;
-    }());
-    var _MatMenuItemMixinBase = core$1.mixinDisableRipple(core$1.mixinDisabled(MatMenuItemBase));
+        return class_1;
+    }())));
     /**
      * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
      */
@@ -626,7 +625,7 @@
             return ((_b = clone.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || '';
         };
         return MatMenuItem;
-    }(_MatMenuItemMixinBase));
+    }(_MatMenuItemBase));
     MatMenuItem.decorators = [
         { type: core.Component, args: [{
                     selector: '[mat-menu-item]',

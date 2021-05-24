@@ -385,14 +385,13 @@
 
     // Boilerplate for applying mixins to MatStepHeader.
     /** @docs-private */
-    var MatStepHeaderBase = /** @class */ (function (_super) {
+    var _MatStepHeaderBase = core.mixinColor(/** @class */ (function (_super) {
         __extends(MatStepHeaderBase, _super);
         function MatStepHeaderBase(elementRef) {
             return _super.call(this, elementRef) || this;
         }
         return MatStepHeaderBase;
-    }(stepper.CdkStepHeader));
-    var _MatStepHeaderMixinBase = core.mixinColor(MatStepHeaderBase, 'primary');
+    }(stepper.CdkStepHeader)), 'primary');
     var MatStepHeader = /** @class */ (function (_super) {
         __extends(MatStepHeader, _super);
         function MatStepHeader(_intl, _focusMonitor, _elementRef, changeDetectorRef) {
@@ -451,7 +450,7 @@
             return state;
         };
         return MatStepHeader;
-    }(_MatStepHeaderMixinBase));
+    }(_MatStepHeaderBase));
     MatStepHeader.decorators = [
         { type: i0.Component, args: [{
                     selector: 'mat-step-header',

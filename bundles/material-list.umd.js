@@ -315,20 +315,18 @@
 
     // Boilerplate for applying mixins to MatList.
     /** @docs-private */
-    var MatListBase = /** @class */ (function () {
-        function MatListBase() {
+    var _MatListBase = core.mixinDisabled(core.mixinDisableRipple(/** @class */ (function () {
+        function class_1() {
         }
-        return MatListBase;
-    }());
-    var _MatListMixinBase = core.mixinDisabled(core.mixinDisableRipple(MatListBase));
+        return class_1;
+    }())));
     // Boilerplate for applying mixins to MatListItem.
     /** @docs-private */
-    var MatListItemBase = /** @class */ (function () {
-        function MatListItemBase() {
+    var _MatListItemMixinBase = core.mixinDisableRipple(/** @class */ (function () {
+        function class_2() {
         }
-        return MatListItemBase;
-    }());
-    var _MatListItemMixinBase = core.mixinDisableRipple(MatListItemBase);
+        return class_2;
+    }()));
     /**
      * Injection token that can be used to inject instances of `MatList`. It serves as
      * alternative token to the actual `MatList` class which could cause unnecessary
@@ -356,7 +354,7 @@
             this._stateChanges.complete();
         };
         return MatNavList;
-    }(_MatListMixinBase));
+    }(_MatListBase));
     MatNavList.decorators = [
         { type: core$1.Component, args: [{
                     selector: 'mat-nav-list',
@@ -402,7 +400,7 @@
             this._stateChanges.complete();
         };
         return MatList;
-    }(_MatListMixinBase));
+    }(_MatListBase));
     MatList.decorators = [
         { type: core$1.Component, args: [{
                     selector: 'mat-list, mat-action-list',
@@ -549,18 +547,16 @@
         disabled: [{ type: core$1.Input }]
     };
 
-    var MatSelectionListBase = /** @class */ (function () {
-        function MatSelectionListBase() {
+    var _MatSelectionListBase = core.mixinDisableRipple(/** @class */ (function () {
+        function class_1() {
         }
-        return MatSelectionListBase;
-    }());
-    var _MatSelectionListMixinBase = core.mixinDisableRipple(MatSelectionListBase);
-    var MatListOptionBase = /** @class */ (function () {
-        function MatListOptionBase() {
+        return class_1;
+    }()));
+    var _MatListOptionBase = core.mixinDisableRipple(/** @class */ (function () {
+        function class_2() {
         }
-        return MatListOptionBase;
-    }());
-    var _MatListOptionMixinBase = core.mixinDisableRipple(MatListOptionBase);
+        return class_2;
+    }()));
     /** @docs-private */
     var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
         provide: forms.NG_VALUE_ACCESSOR,
@@ -762,7 +758,7 @@
             this._changeDetector.markForCheck();
         };
         return MatListOption;
-    }(_MatListOptionMixinBase));
+    }(_MatListOptionBase));
     MatListOption.decorators = [
         { type: core$1.Component, args: [{
                     selector: 'mat-list-option',
@@ -1160,7 +1156,7 @@
             this._tabIndex = (this.options.length === 0) ? -1 : 0;
         };
         return MatSelectionList;
-    }(_MatSelectionListMixinBase));
+    }(_MatSelectionListBase));
     MatSelectionList.decorators = [
         { type: core$1.Component, args: [{
                     selector: 'mat-selection-list',

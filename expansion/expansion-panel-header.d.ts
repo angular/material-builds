@@ -7,7 +7,7 @@
  */
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
-import { HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
+import { HasTabIndex } from '@angular/material/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { MatAccordionTogglePosition } from './accordion-base';
 import { MatExpansionPanel, MatExpansionPanelDefaultOptions } from './expansion-panel';
@@ -15,7 +15,7 @@ import { MatExpansionPanel, MatExpansionPanelDefaultOptions } from './expansion-
 declare abstract class MatExpansionPanelHeaderBase {
     abstract readonly disabled: boolean;
 }
-declare const _MatExpansionPanelHeaderMixinBase: HasTabIndexCtor & typeof MatExpansionPanelHeaderBase;
+declare const _MatExpansionPanelHeaderMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & typeof MatExpansionPanelHeaderBase;
 /**
  * Header element of a `<mat-expansion-panel>`.
  */

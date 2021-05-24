@@ -355,13 +355,12 @@
     }());
     // Boilerplate for applying mixins to MatCheckbox.
     /** @docs-private */
-    var MatCheckboxBase = /** @class */ (function () {
-        function MatCheckboxBase(_elementRef) {
+    var _MatCheckboxBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatCheckboxBase;
-    }());
-    var _MatCheckboxMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatCheckboxBase))));
+        return class_1;
+    }())))));
     /**
      * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
      * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -684,7 +683,7 @@
             }
         };
         return MatCheckbox;
-    }(_MatCheckboxMixinBase));
+    }(_MatCheckboxBase));
     MatCheckbox.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-checkbox',

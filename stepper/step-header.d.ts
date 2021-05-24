@@ -10,14 +10,16 @@ import { ChangeDetectorRef, ElementRef, OnDestroy, TemplateRef, AfterViewInit } 
 import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
 import { MatStepperIconContext } from './stepper-icon';
-import { CdkStepHeader, StepState } from '@angular/cdk/stepper';
-import { CanColorCtor, CanColor } from '@angular/material/core';
+import { StepState } from '@angular/cdk/stepper';
+import { CanColor } from '@angular/material/core';
 /** @docs-private */
-declare class MatStepHeaderBase extends CdkStepHeader {
-    constructor(elementRef: ElementRef);
-}
-declare const _MatStepHeaderMixinBase: CanColorCtor & typeof MatStepHeaderBase;
-export declare class MatStepHeader extends _MatStepHeaderMixinBase implements AfterViewInit, OnDestroy, CanColor {
+declare const _MatStepHeaderBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+    new (elementRef: ElementRef): {
+        _elementRef: ElementRef<HTMLElement>;
+        focus(): void;
+    };
+};
+export declare class MatStepHeader extends _MatStepHeaderBase implements AfterViewInit, OnDestroy, CanColor {
     _intl: MatStepperIntl;
     private _focusMonitor;
     private _intlSubscription;

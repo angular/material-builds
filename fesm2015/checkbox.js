@@ -52,12 +52,11 @@ class MatCheckboxChange {
 }
 // Boilerplate for applying mixins to MatCheckbox.
 /** @docs-private */
-class MatCheckboxBase {
+const _MatCheckboxBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase))));
+}))));
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -66,7 +65,7 @@ const _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinD
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://material.io/design/components/selection-controls.html
  */
-class MatCheckbox extends _MatCheckboxMixinBase {
+class MatCheckbox extends _MatCheckboxBase {
     constructor(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _animationMode, _options) {
         super(elementRef);
         this._changeDetectorRef = _changeDetectorRef;

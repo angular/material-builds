@@ -229,13 +229,12 @@ const MAT_MENU_PANEL = new InjectionToken('MAT_MENU_PANEL');
  */
 // Boilerplate for applying mixins to MatMenuItem.
 /** @docs-private */
-class MatMenuItemBase {
-}
-const _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
+const _MatMenuItemBase = mixinDisableRipple(mixinDisabled(class {
+}));
 /**
  * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
-class MatMenuItem extends _MatMenuItemMixinBase {
+class MatMenuItem extends _MatMenuItemBase {
     constructor(_elementRef, 
     /**
      * @deprecated `_document` parameter is no longer being used and will be removed.

@@ -98,7 +98,7 @@ const MAT_INPUT_INVALID_TYPES = [
 let nextUniqueId = 0;
 // Boilerplate for applying mixins to MatInput.
 /** @docs-private */
-class MatInputBase {
+const _MatInputBase = mixinErrorState(class {
     constructor(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
     /** @docs-private */
     ngControl) {
@@ -107,10 +107,9 @@ class MatInputBase {
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
     }
-}
-const _MatInputMixinBase = mixinErrorState(MatInputBase);
+});
 /** Directive that allows a native input to work inside a `MatFormField`. */
-class MatInput extends _MatInputMixinBase {
+class MatInput extends _MatInputBase {
     constructor(_elementRef, _platform, 
     /** @docs-private */
     ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 

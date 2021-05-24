@@ -282,11 +282,10 @@ MatButtonToggleGroup.propDecorators = {
 };
 // Boilerplate for applying mixins to the MatButtonToggle class.
 /** @docs-private */
-class MatButtonToggleBase {
-}
-const _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
+const _MatButtonToggleBase = mixinDisableRipple(class {
+});
 /** Single button inside of a toggle group. */
-class MatButtonToggle extends _MatButtonToggleMixinBase {
+class MatButtonToggle extends _MatButtonToggleBase {
     constructor(toggleGroup, _changeDetectorRef, _elementRef, _focusMonitor, defaultTabIndex, defaultOptions) {
         super();
         this._changeDetectorRef = _changeDetectorRef;

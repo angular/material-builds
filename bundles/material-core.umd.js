@@ -34,7 +34,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION$1 = new i0.Version('12.1.0-next.0-sha-940b164f3');
+    var VERSION$1 = new i0.Version('12.1.0-next.0-sha-0a4dbe170');
 
     /**
      * @license
@@ -74,7 +74,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION = new i0.Version('12.1.0-next.0-sha-940b164f3');
+    var VERSION = new i0.Version('12.1.0-next.0-sha-0a4dbe170');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1803,12 +1803,11 @@
     //     doesn't read out the text at all. Furthermore, on
     // Boilerplate for applying mixins to MatOptgroup.
     /** @docs-private */
-    var MatOptgroupBase = /** @class */ (function () {
-        function MatOptgroupBase() {
+    var _MatOptgroupMixinBase = mixinDisabled(/** @class */ (function () {
+        function class_1() {
         }
-        return MatOptgroupBase;
-    }());
-    var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+        return class_1;
+    }()));
     // Counter for unique group ids.
     var _uniqueOptgroupIdCounter = 0;
     var _MatOptgroupBase = /** @class */ (function (_super) {

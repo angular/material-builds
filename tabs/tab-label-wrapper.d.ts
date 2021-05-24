@@ -7,16 +7,16 @@
  */
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef } from '@angular/core';
-import { CanDisable, CanDisableCtor } from '@angular/material/core';
+import { CanDisable } from '@angular/material/core';
 /** @docs-private */
-declare class MatTabLabelWrapperBase {
-}
-declare const _MatTabLabelWrapperMixinBase: CanDisableCtor & typeof MatTabLabelWrapperBase;
+declare const _MatTabLabelWrapperBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+    new (): {};
+};
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private
  */
-export declare class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase implements CanDisable {
+export declare class MatTabLabelWrapper extends _MatTabLabelWrapperBase implements CanDisable {
     elementRef: ElementRef;
     constructor(elementRef: ElementRef);
     /** Sets focus on the wrapper element */

@@ -8,7 +8,7 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, ThemePalette } from '@angular/material/core';
+import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
 import { MatTabsConfig } from './tab-config';
 /** A simple change event emitted on focus or selection changes. */
@@ -21,11 +21,11 @@ export declare class MatTabChangeEvent {
 /** Possible positions for the tab header. */
 export declare type MatTabHeaderPosition = 'above' | 'below';
 /** @docs-private */
-declare class MatTabGroupMixinBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
-declare const _MatTabGroupMixinBase: CanColorCtor & CanDisableRippleCtor & typeof MatTabGroupMixinBase;
+declare const _MatTabGroupMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 interface MatTabGroupBaseHeader {
     _alignInkBarToSelectedTab: () => void;
     focusIndex: number;

@@ -10,7 +10,7 @@ import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, ThemePalette } from '@angular/material/core';
+import { CanDisableRipple, HasTabIndex, ThemePalette } from '@angular/material/core';
 export interface MatRadioDefaultOptions {
     color: ThemePalette;
 }
@@ -158,7 +158,7 @@ declare abstract class MatRadioButtonBase {
     abstract disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-declare const _MatRadioButtonMixinBase: CanDisableRippleCtor & HasTabIndexCtor & typeof MatRadioButtonBase;
+declare const _MatRadioButtonMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & typeof MatRadioButtonBase;
 /**
  * Base class with all of the `MatRadioButton` functionality.
  * @docs-private

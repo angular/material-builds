@@ -43,11 +43,10 @@ function getSortInvalidDirectionError(direction) {
 const MAT_SORT_DEFAULT_OPTIONS = new InjectionToken('MAT_SORT_DEFAULT_OPTIONS');
 // Boilerplate for applying mixins to MatSort.
 /** @docs-private */
-class MatSortBase {
-}
-const _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
+const _MatSortBase = mixinInitialized(mixinDisabled(class {
+}));
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
-class MatSort extends _MatSortMixinBase {
+class MatSort extends _MatSortBase {
     constructor(_defaultOptions) {
         super();
         this._defaultOptions = _defaultOptions;
@@ -297,9 +296,8 @@ const MAT_SORT_HEADER_INTL_PROVIDER = {
  */
 // Boilerplate for applying mixins to the sort header.
 /** @docs-private */
-class MatSortHeaderBase {
-}
-const _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
+const _MatSortHeaderBase = mixinDisabled(class {
+});
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -309,7 +307,7 @@ const _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-class MatSortHeader extends _MatSortHeaderMixinBase {
+class MatSortHeader extends _MatSortHeaderBase {
     constructor(
     /**
      * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.

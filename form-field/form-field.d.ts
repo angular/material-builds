@@ -8,7 +8,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList, OnDestroy } from '@angular/core';
-import { CanColor, CanColorCtor } from '@angular/material/core';
+import { CanColor } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
 import { MatHint } from './hint';
@@ -22,15 +22,11 @@ import { NgControl } from '@angular/forms';
  * Boilerplate for applying mixins to MatFormField.
  * @docs-private
  */
-declare class MatFormFieldBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
-/**
- * Base class to which we're applying the form field mixins.
- * @docs-private
- */
-declare const _MatFormFieldMixinBase: CanColorCtor & typeof MatFormFieldBase;
+declare const _MatFormFieldnBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 /** Possible appearance styles for the form field. */
 export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
 /** Possible values for the "floatLabel" form-field input. */
@@ -60,7 +56,7 @@ export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatFormField
  */
 export declare const MAT_FORM_FIELD: InjectionToken<MatFormField>;
 /** Container for form controls that applies Material Design styling and behavior. */
-export declare class MatFormField extends _MatFormFieldMixinBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
+export declare class MatFormField extends _MatFormFieldnBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;

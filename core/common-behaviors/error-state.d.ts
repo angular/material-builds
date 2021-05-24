@@ -16,7 +16,11 @@ export interface CanUpdateErrorState {
     errorState: boolean;
     errorStateMatcher: ErrorStateMatcher;
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer necessary to apply to mixin classes. To be made private.
+ * @breaking-change 13.0.0
+ */
 export declare type CanUpdateErrorStateCtor = Constructor<CanUpdateErrorState> & AbstractConstructor<CanUpdateErrorState>;
 /** @docs-private */
 export interface HasErrorState {

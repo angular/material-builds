@@ -7,12 +7,12 @@
  */
 import { BooleanInput } from '@angular/cdk/coercion';
 import { InjectionToken } from '@angular/core';
-import { CanDisable, CanDisableCtor } from '../common-behaviors/disabled';
+import { CanDisable } from '../common-behaviors/disabled';
 import { MatOptionParentComponent } from './option-parent';
 /** @docs-private */
-declare class MatOptgroupBase {
-}
-declare const _MatOptgroupMixinBase: CanDisableCtor & typeof MatOptgroupBase;
+declare const _MatOptgroupMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+    new (): {};
+};
 export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements CanDisable {
     /** Label for the option group. */
     label: string;

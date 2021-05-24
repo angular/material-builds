@@ -47,14 +47,13 @@ class MatSlideToggleChange {
 }
 // Boilerplate for applying mixins to MatSlideToggle.
 /** @docs-private */
-class MatSlideToggleBase {
+const _MatSlideToggleBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase))));
+}))));
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
-class MatSlideToggle extends _MatSlideToggleMixinBase {
+class MatSlideToggle extends _MatSlideToggleBase {
     constructor(elementRef, _focusMonitor, _changeDetectorRef, tabIndex, defaults, animationMode) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;

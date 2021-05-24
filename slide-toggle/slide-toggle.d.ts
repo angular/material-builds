@@ -9,7 +9,7 @@ import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HasTabIndex } from '@angular/material/core';
 import { MatSlideToggleDefaultOptions } from './slide-toggle-config';
 /** @docs-private */
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
@@ -26,13 +26,13 @@ export declare class MatSlideToggleChange {
     checked: boolean);
 }
 /** @docs-private */
-declare class MatSlideToggleBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
-declare const _MatSlideToggleMixinBase: HasTabIndexCtor & CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatSlideToggleBase;
+declare const _MatSlideToggleBase: import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
-export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
+export declare class MatSlideToggle extends _MatSlideToggleBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
     private _focusMonitor;
     private _changeDetectorRef;
     defaults: MatSlideToggleDefaultOptions;

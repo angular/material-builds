@@ -7,14 +7,14 @@
  */
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterViewChecked, ElementRef, ErrorHandler, InjectionToken, OnDestroy, OnInit } from '@angular/core';
-import { CanColor, CanColorCtor } from '@angular/material/core';
+import { CanColor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 /** @docs-private */
-declare class MatIconBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
-declare const _MatIconMixinBase: CanColorCtor & typeof MatIconBase;
+declare const _MatIconBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -57,7 +57,7 @@ export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
  *   Example:
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
-export declare class MatIcon extends _MatIconMixinBase implements OnInit, AfterViewChecked, CanColor, OnDestroy {
+export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewChecked, CanColor, OnDestroy {
     private _iconRegistry;
     private _location;
     private readonly _errorHandler;

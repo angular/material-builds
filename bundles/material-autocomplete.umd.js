@@ -332,12 +332,11 @@
     }());
     // Boilerplate for applying mixins to MatAutocomplete.
     /** @docs-private */
-    var MatAutocompleteBase = /** @class */ (function () {
-        function MatAutocompleteBase() {
+    var _MatAutocompleteMixinBase = core.mixinDisableRipple(/** @class */ (function () {
+        function class_1() {
         }
-        return MatAutocompleteBase;
-    }());
-    var _MatAutocompleteMixinBase = core.mixinDisableRipple(MatAutocompleteBase);
+        return class_1;
+    }()));
     /** Injection token to be used to override the default options for `mat-autocomplete`. */
     var MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core$1.InjectionToken('mat-autocomplete-default-options', {
         providedIn: 'root',

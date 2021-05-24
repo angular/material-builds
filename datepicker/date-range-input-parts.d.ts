@@ -7,7 +7,7 @@
  */
 import { ElementRef, InjectionToken, OnInit, Injector, DoCheck } from '@angular/core';
 import { NgForm, FormGroupDirective, NgControl, ValidatorFn } from '@angular/forms';
-import { CanUpdateErrorState, CanUpdateErrorStateCtor, DateAdapter, MatDateFormats, ErrorStateMatcher } from '@angular/material/core';
+import { CanUpdateErrorState, DateAdapter, MatDateFormats, ErrorStateMatcher } from '@angular/material/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { MatDatepickerInputBase, DateFilterFn } from './datepicker-input-base';
 import { DateRange, DateSelectionModelChange } from './date-selection-model';
@@ -71,7 +71,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueProgrammatically(value: D | null): void;
 }
-declare const _MatDateRangeInputBase: CanUpdateErrorStateCtor & typeof MatDateRangeInputPartBase;
+declare const _MatDateRangeInputBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanUpdateErrorState> & typeof MatDateRangeInputPartBase;
 /** Input for entering the start date in a `mat-date-range-input`. */
 export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState, DoCheck, OnInit {
     /** Validator that checks that the start date isn't after the end date. */

@@ -615,12 +615,11 @@
     };
     // Boilerplate for applying mixins to the MatButtonToggle class.
     /** @docs-private */
-    var MatButtonToggleBase = /** @class */ (function () {
-        function MatButtonToggleBase() {
+    var _MatButtonToggleBase = core$1.mixinDisableRipple(/** @class */ (function () {
+        function class_1() {
         }
-        return MatButtonToggleBase;
-    }());
-    var _MatButtonToggleMixinBase = core$1.mixinDisableRipple(MatButtonToggleBase);
+        return class_1;
+    }()));
     /** Single button inside of a toggle group. */
     var MatButtonToggle = /** @class */ (function (_super) {
         __extends(MatButtonToggle, _super);
@@ -749,7 +748,7 @@
             this._changeDetectorRef.markForCheck();
         };
         return MatButtonToggle;
-    }(_MatButtonToggleMixinBase));
+    }(_MatButtonToggleBase));
     MatButtonToggle.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-button-toggle',

@@ -24,12 +24,11 @@ const BASE_SIZE = 100;
 const BASE_STROKE_WIDTH = 10;
 // Boilerplate for applying mixins to MatProgressSpinner.
 /** @docs-private */
-class MatProgressSpinnerBase {
+const _MatProgressSpinnerBase = mixinColor(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
+}, 'primary');
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
 const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {
     providedIn: 'root',
@@ -69,7 +68,7 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
 /**
  * `<mat-progress-spinner>` component.
  */
-class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
+class MatProgressSpinner extends _MatProgressSpinnerBase {
     constructor(_elementRef, platform, _document, animationMode, defaults) {
         super(_elementRef);
         this._elementRef = _elementRef;

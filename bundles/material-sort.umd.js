@@ -363,12 +363,11 @@
     var MAT_SORT_DEFAULT_OPTIONS = new i0.InjectionToken('MAT_SORT_DEFAULT_OPTIONS');
     // Boilerplate for applying mixins to MatSort.
     /** @docs-private */
-    var MatSortBase = /** @class */ (function () {
-        function MatSortBase() {
+    var _MatSortBase = core.mixinInitialized(core.mixinDisabled(/** @class */ (function () {
+        function class_1() {
         }
-        return MatSortBase;
-    }());
-    var _MatSortMixinBase = core.mixinInitialized(core.mixinDisabled(MatSortBase));
+        return class_1;
+    }())));
     /** Container for MatSortables to manage the sort state and provide default sort parameters. */
     var MatSort = /** @class */ (function (_super) {
         __extends(MatSort, _super);
@@ -471,7 +470,7 @@
             this._stateChanges.complete();
         };
         return MatSort;
-    }(_MatSortMixinBase));
+    }(_MatSortBase));
     MatSort.decorators = [
         { type: i0.Directive, args: [{
                     selector: '[matSort]',
@@ -625,12 +624,11 @@
 
     // Boilerplate for applying mixins to the sort header.
     /** @docs-private */
-    var MatSortHeaderBase = /** @class */ (function () {
-        function MatSortHeaderBase() {
+    var _MatSortHeaderBase = core.mixinDisabled(/** @class */ (function () {
+        function class_1() {
         }
-        return MatSortHeaderBase;
-    }());
-    var _MatSortHeaderMixinBase = core.mixinDisabled(MatSortHeaderBase);
+        return class_1;
+    }()));
     /**
      * Applies sorting behavior (click to change sort) and styles to an element, including an
      * arrow to display the current sort direction.
@@ -844,7 +842,7 @@
                 });
         };
         return MatSortHeader;
-    }(_MatSortHeaderMixinBase));
+    }(_MatSortHeaderBase));
     MatSortHeader.decorators = [
         { type: i0.Component, args: [{
                     selector: '[mat-sort-header]',

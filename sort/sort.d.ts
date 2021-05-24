@@ -7,7 +7,7 @@
  */
 import { BooleanInput } from '@angular/cdk/coercion';
 import { EventEmitter, InjectionToken, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { CanDisable, CanDisableCtor, HasInitialized, HasInitializedCtor } from '@angular/material/core';
+import { CanDisable, HasInitialized } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { SortDirection } from './sort-direction';
 /** Interface for a directive that holds sorting state consumed by `MatSortHeader`. */
@@ -34,11 +34,11 @@ export interface MatSortDefaultOptions {
 /** Injection token to be used to override the default options for `mat-sort`. */
 export declare const MAT_SORT_DEFAULT_OPTIONS: InjectionToken<MatSortDefaultOptions>;
 /** @docs-private */
-declare class MatSortBase {
-}
-declare const _MatSortMixinBase: HasInitializedCtor & CanDisableCtor & typeof MatSortBase;
+declare const _MatSortBase: import("@angular/material/core").HasInitializedCtor & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+    new (): {};
+};
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
-export declare class MatSort extends _MatSortMixinBase implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
+export declare class MatSort extends _MatSortBase implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
     private _defaultOptions?;
     /** Collection of all registered sortables that this directive manages. */
     sortables: Map<string, MatSortable>;

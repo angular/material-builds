@@ -26,17 +26,15 @@ const BUTTON_HOST_ATTRIBUTES = [
     'mat-fab',
 ];
 // Boilerplate for applying mixins to MatButton.
-/** @docs-private */
-class MatButtonBase {
+const _MatButtonBase = mixinColor(mixinDisabled(mixinDisableRipple(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
+})));
 /**
  * Material design button.
  */
-class MatButton extends _MatButtonMixinBase {
+class MatButton extends _MatButtonBase {
     constructor(elementRef, _focusMonitor, _animationMode) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;

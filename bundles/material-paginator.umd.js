@@ -410,12 +410,11 @@
     var MAT_PAGINATOR_DEFAULT_OPTIONS = new i0.InjectionToken('MAT_PAGINATOR_DEFAULT_OPTIONS');
     // Boilerplate for applying mixins to _MatPaginatorBase.
     /** @docs-private */
-    var MatPaginatorMixinBase = /** @class */ (function () {
-        function MatPaginatorMixinBase() {
+    var _MatPaginatorMixinBase = core.mixinDisabled(core.mixinInitialized(/** @class */ (function () {
+        function class_1() {
         }
-        return MatPaginatorMixinBase;
-    }());
-    var _MatPaginatorMixinBase = core.mixinDisabled(core.mixinInitialized(MatPaginatorMixinBase));
+        return class_1;
+    }())));
     /**
      * Base class with all of the `MatPaginator` functionality.
      * @docs-private

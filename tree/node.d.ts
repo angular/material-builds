@@ -7,13 +7,13 @@
  */
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angular/cdk/tree';
 import { AfterContentInit, DoCheck, ElementRef, IterableDiffers, OnDestroy, OnInit } from '@angular/core';
-import { CanDisable, CanDisableCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
+import { CanDisable, HasTabIndex } from '@angular/material/core';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
-declare const _MatTreeNodeMixinBase: HasTabIndexCtor & CanDisableCtor & typeof CdkTreeNode;
+declare const _MatTreeNodeBase: import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & typeof CdkTreeNode;
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
-export declare class MatTreeNode<T, K = T> extends _MatTreeNodeMixinBase<T, K> implements CanDisable, DoCheck, HasTabIndex, OnInit, OnDestroy {
+export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implements CanDisable, DoCheck, HasTabIndex, OnInit, OnDestroy {
     protected _elementRef: ElementRef<HTMLElement>;
     protected _tree: CdkTree<T, K>;
     constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T, K>, tabIndex: string);

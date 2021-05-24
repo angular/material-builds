@@ -606,8 +606,6 @@
         }
         return MatRadioButtonBase;
     }());
-    // As per Material design specifications the selection control radio should use the accent color
-    // palette by default. https://material.io/guidelines/components/selection-controls.html
     var _MatRadioButtonMixinBase = core$1.mixinDisableRipple(core$1.mixinTabIndex(MatRadioButtonBase));
     /**
      * Base class with all of the `MatRadioButton` functionality.
@@ -732,6 +730,8 @@
         Object.defineProperty(_MatRadioButtonBase.prototype, "color", {
             /** Theme color of the radio button. */
             get: function () {
+                // As per Material design specifications the selection control radio should use the accent color
+                // palette by default. https://material.io/guidelines/components/selection-controls.html
                 return this._color ||
                     (this.radioGroup && this.radioGroup.color) ||
                     this._providerOverride && this._providerOverride.color || 'accent';

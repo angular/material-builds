@@ -315,13 +315,12 @@
 
     // Boilerplate for applying mixins to MatToolbar.
     /** @docs-private */
-    var MatToolbarBase = /** @class */ (function () {
-        function MatToolbarBase(_elementRef) {
+    var _MatToolbarBase = core.mixinColor(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatToolbarBase;
-    }());
-    var _MatToolbarMixinBase = core.mixinColor(MatToolbarBase);
+        return class_1;
+    }()));
     var MatToolbarRow = /** @class */ (function () {
         function MatToolbarRow() {
         }
@@ -368,7 +367,7 @@
             }
         };
         return MatToolbar;
-    }(_MatToolbarMixinBase));
+    }(_MatToolbarBase));
     MatToolbar.decorators = [
         { type: core$1.Component, args: [{
                     selector: 'mat-toolbar',

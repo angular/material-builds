@@ -348,13 +348,12 @@
     }());
     // Boilerplate for applying mixins to MatSlideToggle.
     /** @docs-private */
-    var MatSlideToggleBase = /** @class */ (function () {
-        function MatSlideToggleBase(_elementRef) {
+    var _MatSlideToggleBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatSlideToggleBase;
-    }());
-    var _MatSlideToggleMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatSlideToggleBase))));
+        return class_1;
+    }())))));
     /** Represents a slidable "switch" toggle that can be moved between on and off. */
     var MatSlideToggle = /** @class */ (function (_super) {
         __extends(MatSlideToggle, _super);
@@ -518,7 +517,7 @@
             this._changeDetectorRef.detectChanges();
         };
         return MatSlideToggle;
-    }(_MatSlideToggleMixinBase));
+    }(_MatSlideToggleBase));
     MatSlideToggle.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-slide-toggle',

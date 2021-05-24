@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, InjectionToken, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
+import { CanDisableRipple } from '@angular/material/core';
 /**
  * @deprecated No longer used.
  * @breaking-change 11.0.0
@@ -142,11 +142,11 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     static ngAcceptInputType_vertical: BooleanInput;
 }
 /** @docs-private */
-declare class MatButtonToggleBase {
-}
-declare const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase;
+declare const _MatButtonToggleBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+    new (): {};
+};
 /** Single button inside of a toggle group. */
-export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, AfterViewInit, CanDisableRipple, OnDestroy {
+export declare class MatButtonToggle extends _MatButtonToggleBase implements OnInit, AfterViewInit, CanDisableRipple, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _focusMonitor;

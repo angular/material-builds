@@ -315,13 +315,12 @@
 
     // Boilerplate for applying mixins to MatProgressBar.
     /** @docs-private */
-    var MatProgressBarBase = /** @class */ (function () {
-        function MatProgressBarBase(_elementRef) {
+    var _MatProgressBarBase = core.mixinColor(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatProgressBarBase;
-    }());
-    var _MatProgressBarMixinBase = core.mixinColor(MatProgressBarBase, 'primary');
+        return class_1;
+    }()), 'primary');
     /**
      * Injection token used to provide the current location to `MatProgressBar`.
      * Used to handle server-side rendering and to stub out during unit tests.
@@ -442,7 +441,7 @@
             this._animationEndSubscription.unsubscribe();
         };
         return MatProgressBar;
-    }(_MatProgressBarMixinBase));
+    }(_MatProgressBarBase));
     MatProgressBar.decorators = [
         { type: core$1.Component, args: [{
                     selector: 'mat-progress-bar',

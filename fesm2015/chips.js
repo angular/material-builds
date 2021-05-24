@@ -418,7 +418,7 @@ const MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options'
  */
 // Boilerplate for applying mixins to MatChipList.
 /** @docs-private */
-class MatChipListBase {
+const _MatChipListBase = mixinErrorState(class {
     constructor(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
     /** @docs-private */
     ngControl) {
@@ -427,8 +427,7 @@ class MatChipListBase {
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
     }
-}
-const _MatChipListMixinBase = mixinErrorState(MatChipListBase);
+});
 // Increasing integer for generating unique ids for chip-list components.
 let nextUniqueId$1 = 0;
 /** Change event object that is emitted when the chip list value has changed. */
@@ -445,7 +444,7 @@ class MatChipListChange {
 /**
  * A material design chips component (named ChipList for its similarity to the List component).
  */
-class MatChipList extends _MatChipListMixinBase {
+class MatChipList extends _MatChipListBase {
     constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, 
     /** @docs-private */
     ngControl) {

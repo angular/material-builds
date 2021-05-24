@@ -10,23 +10,21 @@ import { Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { AfterViewInit, DoCheck, ElementRef, NgZone, OnChanges, OnDestroy } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from '@angular/material/core';
+import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 /** @docs-private */
-declare class MatInputBase {
-    _defaultErrorStateMatcher: ErrorStateMatcher;
-    _parentForm: NgForm;
-    _parentFormGroup: FormGroupDirective;
-    /** @docs-private */
-    ngControl: NgControl;
-    constructor(_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, 
-    /** @docs-private */
-    ngControl: NgControl);
-}
-declare const _MatInputMixinBase: CanUpdateErrorStateCtor & typeof MatInputBase;
+declare const _MatInputBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanUpdateErrorState> & {
+    new (_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
+        _defaultErrorStateMatcher: ErrorStateMatcher;
+        _parentForm: NgForm;
+        _parentFormGroup: FormGroupDirective;
+        /** @docs-private */
+        ngControl: NgControl;
+    };
+};
 /** Directive that allows a native input to work inside a `MatFormField`. */
-export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, AfterViewInit, DoCheck, CanUpdateErrorState {
+export declare class MatInput extends _MatInputBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, AfterViewInit, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
     protected _platform: Platform;
     /** @docs-private */

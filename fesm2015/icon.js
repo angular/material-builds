@@ -582,12 +582,11 @@ function isSafeUrlWithOptions(value) {
  */
 // Boilerplate for applying mixins to MatIcon.
 /** @docs-private */
-class MatIconBase {
+const _MatIconBase = mixinColor(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatIconMixinBase = mixinColor(MatIconBase);
+});
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -654,7 +653,7 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  *   Example:
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
-class MatIcon extends _MatIconMixinBase {
+class MatIcon extends _MatIconBase {
     constructor(elementRef, _iconRegistry, ariaHidden, _location, _errorHandler) {
         super(elementRef);
         this._iconRegistry = _iconRegistry;

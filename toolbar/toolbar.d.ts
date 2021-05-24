@@ -7,16 +7,16 @@
  */
 import { Platform } from '@angular/cdk/platform';
 import { AfterViewInit, ElementRef, QueryList } from '@angular/core';
-import { CanColor, CanColorCtor } from '@angular/material/core';
+import { CanColor } from '@angular/material/core';
 /** @docs-private */
-declare class MatToolbarBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
-declare const _MatToolbarMixinBase: CanColorCtor & typeof MatToolbarBase;
+declare const _MatToolbarBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 export declare class MatToolbarRow {
 }
-export declare class MatToolbar extends _MatToolbarMixinBase implements CanColor, AfterViewInit {
+export declare class MatToolbar extends _MatToolbarBase implements CanColor, AfterViewInit {
     private _platform;
     private _document;
     /** Reference to all toolbar row elements that have been projected. */

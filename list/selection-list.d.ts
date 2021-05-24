@@ -10,14 +10,14 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanDisableRipple, CanDisableRippleCtor, MatLine, ThemePalette } from '@angular/material/core';
+import { CanDisableRipple, MatLine, ThemePalette } from '@angular/material/core';
 import { MatListAvatarCssMatStyler, MatListIconCssMatStyler } from './list';
-declare class MatSelectionListBase {
-}
-declare const _MatSelectionListMixinBase: CanDisableRippleCtor & typeof MatSelectionListBase;
-declare class MatListOptionBase {
-}
-declare const _MatListOptionMixinBase: CanDisableRippleCtor & typeof MatListOptionBase;
+declare const _MatSelectionListBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+    new (): {};
+};
+declare const _MatListOptionBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+    new (): {};
+};
 /** @docs-private */
 export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 /** Change event that is being fired whenever the selected state of an option changes. */
@@ -54,7 +54,7 @@ export declare type MatListOptionCheckboxPosition = 'before' | 'after';
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is selected.
  */
-export declare class MatListOption extends _MatListOptionMixinBase implements AfterContentInit, OnDestroy, OnInit, FocusableOption, CanDisableRipple {
+export declare class MatListOption extends _MatListOptionBase implements AfterContentInit, OnDestroy, OnInit, FocusableOption, CanDisableRipple {
     private _element;
     private _changeDetector;
     /** @docs-private */
@@ -125,7 +125,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-export declare class MatSelectionList extends _MatSelectionListMixinBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
+export declare class MatSelectionList extends _MatSelectionListBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
     private _element;
     private _changeDetector;
     private _focusMonitor?;

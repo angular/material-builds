@@ -12,12 +12,11 @@ import { DOCUMENT } from '@angular/common';
  */
 // Boilerplate for applying mixins to MatToolbar.
 /** @docs-private */
-class MatToolbarBase {
+const _MatToolbarBase = mixinColor(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatToolbarMixinBase = mixinColor(MatToolbarBase);
+});
 class MatToolbarRow {
 }
 MatToolbarRow.decorators = [
@@ -27,7 +26,7 @@ MatToolbarRow.decorators = [
                 host: { 'class': 'mat-toolbar-row' },
             },] }
 ];
-class MatToolbar extends _MatToolbarMixinBase {
+class MatToolbar extends _MatToolbarBase {
     constructor(elementRef, _platform, document) {
         super(elementRef);
         this._platform = _platform;

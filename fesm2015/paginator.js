@@ -86,9 +86,8 @@ class PageEvent {
 const MAT_PAGINATOR_DEFAULT_OPTIONS = new InjectionToken('MAT_PAGINATOR_DEFAULT_OPTIONS');
 // Boilerplate for applying mixins to _MatPaginatorBase.
 /** @docs-private */
-class MatPaginatorMixinBase {
-}
-const _MatPaginatorMixinBase = mixinDisabled(mixinInitialized(MatPaginatorMixinBase));
+const _MatPaginatorMixinBase = mixinDisabled(mixinInitialized(class {
+}));
 /**
  * Base class with all of the `MatPaginator` functionality.
  * @docs-private

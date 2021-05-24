@@ -7,15 +7,15 @@
  */
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef, OnDestroy, OnInit, ElementRef, AfterViewInit } from '@angular/core';
-import { CanDisable, CanDisableCtor } from '@angular/material/core';
+import { CanDisable } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatSort, MatSortable } from './sort';
 import { SortDirection } from './sort-direction';
 import { MatSortHeaderIntl } from './sort-header-intl';
 /** @docs-private */
-declare class MatSortHeaderBase {
-}
-declare const _MatSortHeaderMixinBase: CanDisableCtor & typeof MatSortHeaderBase;
+declare const _MatSortHeaderBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+    new (): {};
+};
 /**
  * Valid positions for the arrow to be in for its opacity and translation. If the state is a
  * sort direction, the position of the arrow will be above/below and opacity 0. If the state is
@@ -47,7 +47,7 @@ interface MatSortHeaderColumnDef {
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-export declare class MatSortHeader extends _MatSortHeaderMixinBase implements CanDisable, MatSortable, OnDestroy, OnInit, AfterViewInit {
+export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisable, MatSortable, OnDestroy, OnInit, AfterViewInit {
     /**
      * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.
      * @breaking-change 13.0.0

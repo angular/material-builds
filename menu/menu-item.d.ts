@@ -8,17 +8,17 @@
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
-import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
+import { CanDisable, CanDisableRipple } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatMenuPanel } from './menu-panel';
 /** @docs-private */
-declare class MatMenuItemBase {
-}
-declare const _MatMenuItemMixinBase: CanDisableRippleCtor & CanDisableCtor & typeof MatMenuItemBase;
+declare const _MatMenuItemBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+    new (): {};
+};
 /**
  * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
-export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterViewInit, OnDestroy {
+export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOption, CanDisable, CanDisableRipple, AfterViewInit, OnDestroy {
     private _elementRef;
     private _focusMonitor?;
     _parentMenu?: MatMenuPanel<MatMenuItem> | undefined;

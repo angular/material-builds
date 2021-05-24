@@ -325,13 +325,12 @@
     var BASE_STROKE_WIDTH = 10;
     // Boilerplate for applying mixins to MatProgressSpinner.
     /** @docs-private */
-    var MatProgressSpinnerBase = /** @class */ (function () {
-        function MatProgressSpinnerBase(_elementRef) {
+    var _MatProgressSpinnerBase = core.mixinColor(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatProgressSpinnerBase;
-    }());
-    var _MatProgressSpinnerMixinBase = core.mixinColor(MatProgressSpinnerBase, 'primary');
+        return class_1;
+    }()), 'primary');
     /** Injection token to be used to override the default options for `mat-progress-spinner`. */
     var MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core$1.InjectionToken('mat-progress-spinner-default-options', {
         providedIn: 'root',
@@ -490,7 +489,7 @@
             return this.diameter.toString().replace('.', '_');
         };
         return MatProgressSpinner;
-    }(_MatProgressSpinnerMixinBase));
+    }(_MatProgressSpinnerBase));
     /**
      * Tracks diameters of existing instances to de-dupe generated styles (default d = 100).
      * We need to keep track of which elements the diameters were attached to, because for

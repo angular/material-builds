@@ -44,17 +44,16 @@ class MatSliderChange {
 }
 // Boilerplate for applying mixins to MatSlider.
 /** @docs-private */
-class MatSliderBase {
+const _MatSliderBase = mixinTabIndex(mixinColor(mixinDisabled(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase), 'accent'));
+}), 'accent'));
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-class MatSlider extends _MatSliderMixinBase {
+class MatSlider extends _MatSliderBase {
     constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _ngZone, _document, _animationMode) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;

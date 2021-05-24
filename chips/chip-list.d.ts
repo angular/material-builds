@@ -11,23 +11,21 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from '@angular/material/core';
+import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
 import { MatChipTextControl } from './chip-text-control';
 /** @docs-private */
-declare class MatChipListBase {
-    _defaultErrorStateMatcher: ErrorStateMatcher;
-    _parentForm: NgForm;
-    _parentFormGroup: FormGroupDirective;
-    /** @docs-private */
-    ngControl: NgControl;
-    constructor(_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, 
-    /** @docs-private */
-    ngControl: NgControl);
-}
-declare const _MatChipListMixinBase: CanUpdateErrorStateCtor & typeof MatChipListBase;
+declare const _MatChipListBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanUpdateErrorState> & {
+    new (_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
+        _defaultErrorStateMatcher: ErrorStateMatcher;
+        _parentForm: NgForm;
+        _parentFormGroup: FormGroupDirective;
+        /** @docs-private */
+        ngControl: NgControl;
+    };
+};
 /** Change event object that is emitted when the chip list value has changed. */
 export declare class MatChipListChange {
     /** Chip list that emitted the event. */
@@ -43,7 +41,7 @@ export declare class MatChipListChange {
 /**
  * A material design chips component (named ChipList for its similarity to the List component).
  */
-export declare class MatChipList extends _MatChipListMixinBase implements MatFormFieldControl<any>, ControlValueAccessor, AfterContentInit, DoCheck, OnInit, OnDestroy, CanUpdateErrorState {
+export declare class MatChipList extends _MatChipListBase implements MatFormFieldControl<any>, ControlValueAccessor, AfterContentInit, DoCheck, OnInit, OnDestroy, CanUpdateErrorState {
     protected _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _dir;

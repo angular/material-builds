@@ -164,7 +164,7 @@ class MatSelectChange {
 }
 // Boilerplate for applying mixins to MatSelect.
 /** @docs-private */
-class MatSelectBase {
+const _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(class {
     constructor(_elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._elementRef = _elementRef;
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
@@ -172,8 +172,7 @@ class MatSelectBase {
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
     }
-}
-const _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase))));
+}))));
 /**
  * Injection token that can be used to reference instances of `MatSelectTrigger`. It serves as
  * alternative token to the actual `MatSelectTrigger` class which could cause unnecessary

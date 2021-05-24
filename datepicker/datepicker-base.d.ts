@@ -10,7 +10,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType, TemplatePortal } from '@angular/cdk/portal';
 import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, OnChanges, SimpleChanges, OnInit } from '@angular/core';
-import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/material/core';
+import { CanColor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { Subject, Observable } from 'rxjs';
 import { MatCalendar, MatCalendarView } from './calendar';
 import { MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
@@ -33,11 +33,11 @@ export declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 };
 /** @docs-private */
-declare class MatDatepickerContentBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
-declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepickerContentBase;
+declare const _MatDatepickerContentBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 /**
  * Component used as the content for the datepicker overlay. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -45,7 +45,7 @@ declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepicke
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> extends _MatDatepickerContentMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor {
+export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> extends _MatDatepickerContentBase implements OnInit, AfterViewInit, OnDestroy, CanColor {
     private _changeDetectorRef;
     private _globalModel;
     private _dateAdapter;

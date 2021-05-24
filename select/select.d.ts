@@ -13,7 +13,7 @@ import { CdkConnectedOverlay, ConnectedPosition, Overlay, ScrollStrategy } from 
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher, HasTabIndex, HasTabIndexCtor, MatOptgroup, MatOption, MatOptionSelectionChange, _MatOptionBase } from '@angular/material/core';
+import { CanDisable, CanDisableRipple, CanUpdateErrorState, ErrorStateMatcher, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange, _MatOptionBase } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
 /**
@@ -78,15 +78,15 @@ export declare class MatSelectChange {
     value: any);
 }
 /** @docs-private */
-declare class MatSelectBase {
-    _elementRef: ElementRef;
-    _defaultErrorStateMatcher: ErrorStateMatcher;
-    _parentForm: NgForm;
-    _parentFormGroup: FormGroupDirective;
-    ngControl: NgControl;
-    constructor(_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
-}
-declare const _MatSelectMixinBase: CanDisableCtor & HasTabIndexCtor & CanDisableRippleCtor & CanUpdateErrorStateCtor & typeof MatSelectBase;
+declare const _MatSelectMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanUpdateErrorState> & {
+    new (_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
+        _elementRef: ElementRef;
+        _defaultErrorStateMatcher: ErrorStateMatcher;
+        _parentForm: NgForm;
+        _parentFormGroup: FormGroupDirective;
+        ngControl: NgControl;
+    };
+};
 /**
  * Injection token that can be used to reference instances of `MatSelectTrigger`. It serves as
  * alternative token to the actual `MatSelectTrigger` class which could cause unnecessary

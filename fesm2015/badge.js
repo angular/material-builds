@@ -14,11 +14,10 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 let nextId = 0;
 // Boilerplate for applying mixins to MatBadge.
 /** @docs-private */
-class MatBadgeBase {
-}
-const _MatBadgeMixinBase = mixinDisabled(MatBadgeBase);
+const _MatBadgeBase = mixinDisabled(class {
+});
 /** Directive to display a text badge. */
-class MatBadge extends _MatBadgeMixinBase {
+class MatBadge extends _MatBadgeBase {
     constructor(_ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
         super();
         this._ngZone = _ngZone;

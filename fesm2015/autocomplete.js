@@ -39,9 +39,8 @@ class MatAutocompleteSelectedEvent {
 }
 // Boilerplate for applying mixins to MatAutocomplete.
 /** @docs-private */
-class MatAutocompleteBase {
-}
-const _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
+const _MatAutocompleteMixinBase = mixinDisableRipple(class {
+});
 /** Injection token to be used to override the default options for `mat-autocomplete`. */
 const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options', {
     providedIn: 'root',

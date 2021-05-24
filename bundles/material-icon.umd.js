@@ -910,13 +910,12 @@
 
     // Boilerplate for applying mixins to MatIcon.
     /** @docs-private */
-    var MatIconBase = /** @class */ (function () {
-        function MatIconBase(_elementRef) {
+    var _MatIconBase = core.mixinColor(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatIconBase;
-    }());
-    var _MatIconMixinBase = core.mixinColor(MatIconBase);
+        return class_1;
+    }()));
     /**
      * Injection token used to provide the current location to `MatIcon`.
      * Used to handle server-side rendering and to stub out during unit tests.
@@ -1245,7 +1244,7 @@
             }
         };
         return MatIcon;
-    }(_MatIconMixinBase));
+    }(_MatIconBase));
     MatIcon.decorators = [
         { type: i0.Component, args: [{
                     template: '<ng-content></ng-content>',

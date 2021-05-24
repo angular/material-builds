@@ -8,19 +8,19 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef, InjectionToken } from '@angular/core';
-import { CanDisable, CanDisableCtor } from '@angular/material/core';
+import { CanDisable } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatTabLabel } from './tab-label';
 /** @docs-private */
-declare class MatTabBase {
-}
-declare const _MatTabMixinBase: CanDisableCtor & typeof MatTabBase;
+declare const _MatTabBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+    new (): {};
+};
 /**
  * Used to provide a tab group to a tab without causing a circular dependency.
  * @docs-private
  */
 export declare const MAT_TAB_GROUP: InjectionToken<any>;
-export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
+export declare class MatTab extends _MatTabBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     private _viewContainerRef;
     _closestTabGroup: any;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */

@@ -9,7 +9,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef, OnDestroy } from '@angular/core';
-import { CanDisableRipple, CanDisableRippleCtor, _MatOptgroupBase, _MatOptionBase, MatOption, MatOptgroup } from '@angular/material/core';
+import { CanDisableRipple, _MatOptgroupBase, _MatOptionBase, MatOption, MatOptgroup } from '@angular/material/core';
 /** Event object that is emitted when an autocomplete option is selected. */
 export declare class MatAutocompleteSelectedEvent {
     /** Reference to the autocomplete panel that emitted the event. */
@@ -30,9 +30,9 @@ export interface MatAutocompleteActivatedEvent {
     option: _MatOptionBase | null;
 }
 /** @docs-private */
-declare class MatAutocompleteBase {
-}
-declare const _MatAutocompleteMixinBase: CanDisableRippleCtor & typeof MatAutocompleteBase;
+declare const _MatAutocompleteMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+    new (): {};
+};
 /** Default `mat-autocomplete` options that can be overridden. */
 export interface MatAutocompleteDefaultOptions {
     /** Whether the first option should be highlighted when an autocomplete panel is opened. */

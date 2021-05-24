@@ -316,12 +316,11 @@
     var nextId = 0;
     // Boilerplate for applying mixins to MatBadge.
     /** @docs-private */
-    var MatBadgeBase = /** @class */ (function () {
-        function MatBadgeBase() {
+    var _MatBadgeBase = core.mixinDisabled(/** @class */ (function () {
+        function class_1() {
         }
-        return MatBadgeBase;
-    }());
-    var _MatBadgeMixinBase = core.mixinDisabled(MatBadgeBase);
+        return class_1;
+    }()));
     /** Directive to display a text badge. */
     var MatBadge = /** @class */ (function (_super) {
         __extends(MatBadge, _super);
@@ -517,7 +516,7 @@
             return content == null ? '' : "" + content;
         };
         return MatBadge;
-    }(_MatBadgeMixinBase));
+    }(_MatBadgeBase));
     MatBadge.decorators = [
         { type: core$1.Directive, args: [{
                     selector: '[matBadge]',

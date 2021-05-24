@@ -8,15 +8,15 @@
 import { NumberInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, InjectionToken, OnInit } from '@angular/core';
-import { CanColor, CanColorCtor } from '@angular/material/core';
+import { CanColor } from '@angular/material/core';
 /** Possible mode for a progress spinner. */
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /** @docs-private */
-declare class MatProgressSpinnerBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
-declare const _MatProgressSpinnerMixinBase: CanColorCtor & typeof MatProgressSpinnerBase;
+declare const _MatProgressSpinnerBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 /** Default `mat-progress-spinner` options that can be overridden. */
 export interface MatProgressSpinnerDefaultOptions {
     /** Diameter of the spinner. */
@@ -36,7 +36,7 @@ export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgr
 /**
  * `<mat-progress-spinner>` component.
  */
-export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements OnInit, CanColor {
+export declare class MatProgressSpinner extends _MatProgressSpinnerBase implements OnInit, CanColor {
     _elementRef: ElementRef<HTMLElement>;
     private _document;
     private _diameter;

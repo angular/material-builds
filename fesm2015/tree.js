@@ -13,11 +13,11 @@ import { take, map } from 'rxjs/operators';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
+const _MatTreeNodeBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
-class MatTreeNode extends _MatTreeNodeMixinBase {
+class MatTreeNode extends _MatTreeNodeBase {
     constructor(_elementRef, _tree, tabIndex) {
         super(_elementRef, _tree);
         this._elementRef = _elementRef;

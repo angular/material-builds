@@ -1820,12 +1820,11 @@ const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 };
 // Boilerplate for applying mixins to MatDatepickerContent.
 /** @docs-private */
-class MatDatepickerContentBase {
+const _MatDatepickerContentBase = mixinColor(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
+});
 /**
  * Component used as the content for the datepicker overlay. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -1833,7 +1832,7 @@ const _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-class MatDatepickerContent extends _MatDatepickerContentMixinBase {
+class MatDatepickerContent extends _MatDatepickerContentBase {
     constructor(elementRef, _changeDetectorRef, _globalModel, _dateAdapter, _rangeSelectionStrategy, intl) {
         super(elementRef);
         this._changeDetectorRef = _changeDetectorRef;
@@ -2994,9 +2993,7 @@ MatDateRangeInputPartBase.ctorParameters = () => [
     { type: DateAdapter, decorators: [{ type: Optional }] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] }
 ];
-const _MatDateRangeInputBase = 
-// Needs to be `as any`, because the base class is abstract.
-mixinErrorState(MatDateRangeInputPartBase);
+const _MatDateRangeInputBase = mixinErrorState(MatDateRangeInputPartBase);
 /** Input for entering the start date in a `mat-date-range-input`. */
 class MatStartDate extends _MatDateRangeInputBase {
     constructor(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats) {

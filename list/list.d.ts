@@ -7,16 +7,16 @@
  */
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ElementRef, QueryList, OnChanges, OnDestroy, ChangeDetectorRef, InjectionToken } from '@angular/core';
-import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
+import { CanDisable, CanDisableRipple, MatLine } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** @docs-private */
-declare class MatListBase {
-}
-declare const _MatListMixinBase: CanDisableRippleCtor & CanDisableCtor & typeof MatListBase;
+declare const _MatListBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+    new (): {};
+};
 /** @docs-private */
-declare class MatListItemBase {
-}
-declare const _MatListItemMixinBase: CanDisableRippleCtor & typeof MatListItemBase;
+declare const _MatListItemMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+    new (): {};
+};
 /**
  * Injection token that can be used to inject instances of `MatList`. It serves as
  * alternative token to the actual `MatList` class which could cause unnecessary
@@ -29,7 +29,7 @@ export declare const MAT_LIST: InjectionToken<MatList>;
  * retention of the class and its component metadata.
  */
 export declare const MAT_NAV_LIST: InjectionToken<MatNavList>;
-export declare class MatNavList extends _MatListMixinBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
+export declare class MatNavList extends _MatListBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     /** Emits when the state of the list changes. */
     readonly _stateChanges: Subject<void>;
     ngOnChanges(): void;
@@ -37,7 +37,7 @@ export declare class MatNavList extends _MatListMixinBase implements CanDisable,
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
 }
-export declare class MatList extends _MatListMixinBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
+export declare class MatList extends _MatListBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     private _elementRef;
     /** Emits when the state of the list changes. */
     readonly _stateChanges: Subject<void>;

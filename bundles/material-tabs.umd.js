@@ -454,12 +454,11 @@
 
     // Boilerplate for applying mixins to MatTab.
     /** @docs-private */
-    var MatTabBase = /** @class */ (function () {
-        function MatTabBase() {
+    var _MatTabBase = core$1.mixinDisabled(/** @class */ (function () {
+        function class_1() {
         }
-        return MatTabBase;
-    }());
-    var _MatTabMixinBase = core$1.mixinDisabled(MatTabBase);
+        return class_1;
+    }()));
     /**
      * Used to provide a tab group to a tab without causing a circular dependency.
      * @docs-private
@@ -535,7 +534,7 @@
             }
         };
         return MatTab;
-    }(_MatTabMixinBase));
+    }(_MatTabBase));
     MatTab.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-tab',
@@ -825,13 +824,12 @@
     }());
     // Boilerplate for applying mixins to MatTabGroup.
     /** @docs-private */
-    var MatTabGroupMixinBase = /** @class */ (function () {
-        function MatTabGroupMixinBase(_elementRef) {
+    var _MatTabGroupMixinBase = core$1.mixinColor(core$1.mixinDisableRipple(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatTabGroupMixinBase;
-    }());
-    var _MatTabGroupMixinBase = core$1.mixinColor(core$1.mixinDisableRipple(MatTabGroupMixinBase), 'primary');
+        return class_1;
+    }())), 'primary');
     /**
      * Base class with all of the `MatTabGroupBase` functionality.
      * @docs-private
@@ -1189,12 +1187,11 @@
 
     // Boilerplate for applying mixins to MatTabLabelWrapper.
     /** @docs-private */
-    var MatTabLabelWrapperBase = /** @class */ (function () {
-        function MatTabLabelWrapperBase() {
+    var _MatTabLabelWrapperBase = core$1.mixinDisabled(/** @class */ (function () {
+        function class_1() {
         }
-        return MatTabLabelWrapperBase;
-    }());
-    var _MatTabLabelWrapperMixinBase = core$1.mixinDisabled(MatTabLabelWrapperBase);
+        return class_1;
+    }()));
     /**
      * Used in the `mat-tab-group` view to display tab labels.
      * @docs-private
@@ -1217,7 +1214,7 @@
             return this.elementRef.nativeElement.offsetWidth;
         };
         return MatTabLabelWrapper;
-    }(_MatTabLabelWrapperMixinBase));
+    }(_MatTabLabelWrapperBase));
     MatTabLabelWrapper.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matTabLabelWrapper]',
@@ -1935,12 +1932,11 @@
         _previousPaginator: [{ type: core.ViewChild, args: ['previousPaginator',] }]
     };
     // Boilerplate for applying mixins to MatTabLink.
-    var MatTabLinkMixinBase = /** @class */ (function () {
-        function MatTabLinkMixinBase() {
+    var _MatTabLinkMixinBase = core$1.mixinTabIndex(core$1.mixinDisableRipple(core$1.mixinDisabled(/** @class */ (function () {
+        function class_1() {
         }
-        return MatTabLinkMixinBase;
-    }());
-    var _MatTabLinkMixinBase = core$1.mixinTabIndex(core$1.mixinDisableRipple(core$1.mixinDisabled(MatTabLinkMixinBase)));
+        return class_1;
+    }()))));
     /** Base class with all of the `MatTabLink` functionality. */
     var _MatTabLinkBase = /** @class */ (function (_super) {
         __extends(_MatTabLinkBase, _super);

@@ -8,17 +8,17 @@
 import { AriaDescriber } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, NgZone, OnChanges, OnDestroy, Renderer2, SimpleChanges } from '@angular/core';
-import { CanDisable, CanDisableCtor, ThemePalette } from '@angular/material/core';
+import { CanDisable, ThemePalette } from '@angular/material/core';
 /** @docs-private */
-declare class MatBadgeBase {
-}
-declare const _MatBadgeMixinBase: CanDisableCtor & typeof MatBadgeBase;
+declare const _MatBadgeBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+    new (): {};
+};
 /** Allowed position options for matBadgePosition */
 export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after' | 'before' | 'after' | 'above' | 'below';
 /** Allowed size options for matBadgeSize */
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
 /** Directive to display a text badge. */
-export declare class MatBadge extends _MatBadgeMixinBase implements OnDestroy, OnChanges, CanDisable {
+export declare class MatBadge extends _MatBadgeBase implements OnDestroy, OnChanges, CanDisable {
     private _ngZone;
     private _elementRef;
     private _ariaDescriber;

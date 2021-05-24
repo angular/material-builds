@@ -161,15 +161,14 @@ MatTabLabel.decorators = [
  */
 // Boilerplate for applying mixins to MatTab.
 /** @docs-private */
-class MatTabBase {
-}
-const _MatTabMixinBase = mixinDisabled(MatTabBase);
+const _MatTabBase = mixinDisabled(class {
+});
 /**
  * Used to provide a tab group to a tab without causing a circular dependency.
  * @docs-private
  */
 const MAT_TAB_GROUP = new InjectionToken('MAT_TAB_GROUP');
-class MatTab extends _MatTabMixinBase {
+class MatTab extends _MatTabBase {
     constructor(_viewContainerRef, _closestTabGroup) {
         super();
         this._viewContainerRef = _viewContainerRef;
@@ -516,12 +515,11 @@ class MatTabChangeEvent {
 }
 // Boilerplate for applying mixins to MatTabGroup.
 /** @docs-private */
-class MatTabGroupMixinBase {
+const _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupMixinBase), 'primary');
+}), 'primary');
 /**
  * Base class with all of the `MatTabGroupBase` functionality.
  * @docs-private
@@ -857,14 +855,13 @@ MatTabGroup.propDecorators = {
  */
 // Boilerplate for applying mixins to MatTabLabelWrapper.
 /** @docs-private */
-class MatTabLabelWrapperBase {
-}
-const _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
+const _MatTabLabelWrapperBase = mixinDisabled(class {
+});
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private
  */
-class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase {
+class MatTabLabelWrapper extends _MatTabLabelWrapperBase {
     constructor(elementRef) {
         super();
         this.elementRef = elementRef;
@@ -1570,9 +1567,8 @@ MatTabNav.propDecorators = {
     _previousPaginator: [{ type: ViewChild, args: ['previousPaginator',] }]
 };
 // Boilerplate for applying mixins to MatTabLink.
-class MatTabLinkMixinBase {
-}
-const _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkMixinBase)));
+const _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(class {
+})));
 /** Base class with all of the `MatTabLink` functionality. */
 class _MatTabLinkBase extends _MatTabLinkMixinBase {
     constructor(_tabNavBar, 

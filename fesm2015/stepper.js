@@ -70,13 +70,12 @@ const MAT_STEPPER_INTL_PROVIDER = {
  */
 // Boilerplate for applying mixins to MatStepHeader.
 /** @docs-private */
-class MatStepHeaderBase extends CdkStepHeader {
+const _MatStepHeaderBase = mixinColor(class MatStepHeaderBase extends CdkStepHeader {
     constructor(elementRef) {
         super(elementRef);
     }
-}
-const _MatStepHeaderMixinBase = mixinColor(MatStepHeaderBase, 'primary');
-class MatStepHeader extends _MatStepHeaderMixinBase {
+}, 'primary');
+class MatStepHeader extends _MatStepHeaderBase {
     constructor(_intl, _focusMonitor, _elementRef, changeDetectorRef) {
         super(_elementRef);
         this._intl = _intl;

@@ -15,12 +15,11 @@ import { filter } from 'rxjs/operators';
  */
 // Boilerplate for applying mixins to MatProgressBar.
 /** @docs-private */
-class MatProgressBarBase {
+const _MatProgressBarBase = mixinColor(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
-}
-const _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
+}, 'primary');
 /**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -42,7 +41,7 @@ let progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
  */
-class MatProgressBar extends _MatProgressBarMixinBase {
+class MatProgressBar extends _MatProgressBarBase {
     constructor(_elementRef, _ngZone, _animationMode, 
     /**
      * @deprecated `location` parameter to be made required.

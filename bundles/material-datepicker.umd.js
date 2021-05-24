@@ -2238,13 +2238,12 @@
     };
     // Boilerplate for applying mixins to MatDatepickerContent.
     /** @docs-private */
-    var MatDatepickerContentBase = /** @class */ (function () {
-        function MatDatepickerContentBase(_elementRef) {
+    var _MatDatepickerContentBase = core.mixinColor(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatDatepickerContentBase;
-    }());
-    var _MatDatepickerContentMixinBase = core.mixinColor(MatDatepickerContentBase);
+        return class_1;
+    }()));
     /**
      * Component used as the content for the datepicker overlay. We use this instead of using
      * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -2322,7 +2321,7 @@
             }
         };
         return MatDatepickerContent;
-    }(_MatDatepickerContentMixinBase));
+    }(_MatDatepickerContentBase));
     MatDatepickerContent.decorators = [
         { type: i0.Component, args: [{
                     selector: 'mat-datepicker-content',
@@ -3483,9 +3482,7 @@
         { type: core.DateAdapter, decorators: [{ type: i0.Optional }] },
         { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [core.MAT_DATE_FORMATS,] }] }
     ]; };
-    var _MatDateRangeInputBase = 
-    // Needs to be `as any`, because the base class is abstract.
-    core.mixinErrorState(MatDateRangeInputPartBase);
+    var _MatDateRangeInputBase = core.mixinErrorState(MatDateRangeInputPartBase);
     /** Input for entering the start date in a `mat-date-range-input`. */
     var MatStartDate = /** @class */ (function (_super) {
         __extends(MatStartDate, _super);

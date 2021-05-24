@@ -411,8 +411,8 @@
     var nextUniqueId = 0;
     // Boilerplate for applying mixins to MatInput.
     /** @docs-private */
-    var MatInputBase = /** @class */ (function () {
-        function MatInputBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
+    var _MatInputBase = core$1.mixinErrorState(/** @class */ (function () {
+        function class_1(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
         /** @docs-private */
         ngControl) {
             this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
@@ -420,9 +420,8 @@
             this._parentFormGroup = _parentFormGroup;
             this.ngControl = ngControl;
         }
-        return MatInputBase;
-    }());
-    var _MatInputMixinBase = core$1.mixinErrorState(MatInputBase);
+        return class_1;
+    }()));
     /** Directive that allows a native input to work inside a `MatFormField`. */
     var MatInput = /** @class */ (function (_super) {
         __extends(MatInput, _super);
@@ -753,7 +752,7 @@
             }
         };
         return MatInput;
-    }(_MatInputMixinBase));
+    }(_MatInputBase));
     MatInput.decorators = [
         { type: core.Directive, args: [{
                     selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]",

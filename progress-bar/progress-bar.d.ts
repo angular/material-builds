@@ -7,17 +7,17 @@
  */
 import { NumberInput } from '@angular/cdk/coercion';
 import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy } from '@angular/core';
-import { CanColor, CanColorCtor } from '@angular/material/core';
+import { CanColor } from '@angular/material/core';
 /** Last animation end data. */
 export interface ProgressAnimationEnd {
     value: number;
 }
 /** @docs-private */
-declare class MatProgressBarBase {
-    _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
-}
-declare const _MatProgressBarMixinBase: CanColorCtor & typeof MatProgressBarBase;
+declare const _MatProgressBarBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 /**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -37,7 +37,7 @@ export declare type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer'
 /**
  * `<mat-progress-bar>` component.
  */
-export declare class MatProgressBar extends _MatProgressBarMixinBase implements CanColor, AfterViewInit, OnDestroy {
+export declare class MatProgressBar extends _MatProgressBarBase implements CanColor, AfterViewInit, OnDestroy {
     _elementRef: ElementRef;
     private _ngZone;
     _animationMode?: string | undefined;

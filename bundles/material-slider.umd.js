@@ -343,13 +343,12 @@
     }());
     // Boilerplate for applying mixins to MatSlider.
     /** @docs-private */
-    var MatSliderBase = /** @class */ (function () {
-        function MatSliderBase(_elementRef) {
+    var _MatSliderBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisabled(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatSliderBase;
-    }());
-    var _MatSliderMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisabled(MatSliderBase), 'accent'));
+        return class_1;
+    }())), 'accent'));
     /**
      * Allows users to select from a range of values by moving the slider thumb. It is similar in
      * behavior to the native `<input type="range">` element.
@@ -1013,7 +1012,7 @@
             this.disabled = isDisabled;
         };
         return MatSlider;
-    }(_MatSliderMixinBase));
+    }(_MatSliderBase));
     MatSlider.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-slider',

@@ -565,17 +565,12 @@
      * Boilerplate for applying mixins to MatFormField.
      * @docs-private
      */
-    var MatFormFieldBase = /** @class */ (function () {
-        function MatFormFieldBase(_elementRef) {
+    var _MatFormFieldnBase = core$1.mixinColor(/** @class */ (function () {
+        function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
-        return MatFormFieldBase;
-    }());
-    /**
-     * Base class to which we're applying the form field mixins.
-     * @docs-private
-     */
-    var _MatFormFieldMixinBase = core$1.mixinColor(MatFormFieldBase, 'primary');
+        return class_1;
+    }()), 'primary');
     /**
      * Injection token that can be used to configure the
      * default options for all form field within an app.
@@ -988,7 +983,7 @@
             return document.documentElement.contains(element);
         };
         return MatFormField;
-    }(_MatFormFieldMixinBase));
+    }(_MatFormFieldnBase));
     MatFormField.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-form-field',
