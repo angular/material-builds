@@ -62,9 +62,9 @@ class MatDatepickerIntl {
         /** A label for the next year button (used by screen readers). */
         this.nextYearLabel = 'Next year';
         /** A label for the previous multi-year button (used by screen readers). */
-        this.prevMultiYearLabel = 'Previous 20 years';
+        this.prevMultiYearLabel = 'Previous 24 years';
         /** A label for the next multi-year button (used by screen readers). */
-        this.nextMultiYearLabel = 'Next 20 years';
+        this.nextMultiYearLabel = 'Next 24 years';
         /** A label for the 'switch to month view' button (used by screen readers). */
         this.switchToMonthViewLabel = 'Choose date';
         /** A label for the 'switch to year view' button (used by screen readers). */
