@@ -486,7 +486,13 @@
                 ngZone.runOutsideAngular(function () {
                     _elementRef.nativeElement.addEventListener('keyup', function (event) {
                         var el = event.target;
-                        if (!el.value && !el.selectionStart && !el.selectionEnd) {
+                        // Note: We specifically check for 0, rather than `!el.selectionStart`, because the two
+                        // indicate different things. If the value is 0, it means that the caret is at the start
+                        // of the input, whereas a value of `null` means that the input doesn't support
+                        // manipulating the selection range. Inputs that don't support setting the selection range
+                        // will throw an error so we want to avoid calling `setSelectionRange` on them. See:
+                        // https://html.spec.whatwg.org/multipage/input.html#do-not-apply
+                        if (!el.value && el.selectionStart === 0 && el.selectionEnd === 0) {
                             // Note: Just setting `0, 0` doesn't fix the issue. Setting
                             // `1, 1` fixes it for the first time that you type text and
                             // then hold delete. Toggling to `1, 1` and then back to
