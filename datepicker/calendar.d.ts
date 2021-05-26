@@ -48,10 +48,7 @@ export declare class MatCalendarHeader<D> {
     /** Whether the two dates represent the same view in the current view mode (month or year). */
     private _isSameView;
 }
-/**
- * A calendar that is used as part of the datepicker.
- * @docs-private
- */
+/** A calendar that is used as part of the datepicker. */
 export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
     private _dateAdapter;
     private _dateFormats;
@@ -137,6 +134,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
     ngOnChanges(changes: SimpleChanges): void;
+    /** Focuses the active date. */
     focusActiveCell(): void;
     /** Updates today's date after an update of the active date */
     updateTodaysDate(): void;

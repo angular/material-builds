@@ -1550,10 +1550,7 @@ MatCalendarHeader.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] },
     { type: ChangeDetectorRef }
 ];
-/**
- * A calendar that is used as part of the datepicker.
- * @docs-private
- */
+/** A calendar that is used as part of the datepicker. */
 class MatCalendar {
     constructor(_intl, _dateAdapter, _dateFormats, _changeDetectorRef) {
         this._dateAdapter = _dateAdapter;
@@ -1677,6 +1674,7 @@ class MatCalendar {
         }
         this.stateChanges.next();
     }
+    /** Focuses the active date. */
     focusActiveCell() {
         this._getCurrentViewComponent()._focusActiveCell(false);
     }
