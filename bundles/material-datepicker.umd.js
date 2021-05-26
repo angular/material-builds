@@ -1949,10 +1949,7 @@
         { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [core.MAT_DATE_FORMATS,] }] },
         { type: i0.ChangeDetectorRef }
     ]; };
-    /**
-     * A calendar that is used as part of the datepicker.
-     * @docs-private
-     */
+    /** A calendar that is used as part of the datepicker. */
     var MatCalendar = /** @class */ (function () {
         function MatCalendar(_intl, _dateAdapter, _dateFormats, _changeDetectorRef) {
             var _this = this;
@@ -2101,6 +2098,7 @@
             }
             this.stateChanges.next();
         };
+        /** Focuses the active date. */
         MatCalendar.prototype.focusActiveCell = function () {
             this._getCurrentViewComponent()._focusActiveCell(false);
         };
