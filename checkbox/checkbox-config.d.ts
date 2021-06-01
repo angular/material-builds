@@ -9,7 +9,9 @@ import { InjectionToken } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 /** Default `mat-checkbox` options that can be overridden. */
 export interface MatCheckboxDefaultOptions {
+    /** Default theme color palette to be used for checkboxes. */
     color?: ThemePalette;
+    /** Default checkbox click action for checkboxes. */
     clickAction?: MatCheckboxClickAction;
 }
 /** Injection token to be used to override the default options for `mat-checkbox`. */
