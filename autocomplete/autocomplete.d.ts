@@ -64,9 +64,9 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     template: TemplateRef<any>;
     /** Element for the panel containing the autocomplete options. */
     panel: ElementRef;
-    /** @docs-private */
+    /** Reference to all options within the autocomplete. */
     abstract options: QueryList<_MatOptionBase>;
-    /** @docs-private */
+    /** Reference to all option groups within the autocomplete. */
     abstract optionGroups: QueryList<_MatOptgroupBase>;
     /** Aria label of the autocomplete. */
     ariaLabel: string;
@@ -131,7 +131,9 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     static ngAcceptInputType_disableRipple: BooleanInput;
 }
 export declare class MatAutocomplete extends _MatAutocompleteBase {
+    /** Reference to all option groups within the autocomplete. */
     optionGroups: QueryList<MatOptgroup>;
+    /** Reference to all options within the autocomplete. */
     options: QueryList<MatOption>;
     protected _visibleClass: string;
     protected _hiddenClass: string;
