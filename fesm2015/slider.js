@@ -83,10 +83,10 @@ class MatSlider extends _MatSliderBase {
         this.onTouched = () => { };
         this._percent = 0;
         /**
-         * Whether or not the thumb is sliding.
+         * Whether or not the thumb is sliding and what the user is using to slide it with.
          * Used to determine if there should be a transition for the thumb and fill track.
          */
-        this._isSliding = false;
+        this._isSliding = null;
         /**
          * Whether or not the slider is active (clicked or sliding).
          * Used to shrink and grow the thumb as according to the Material Design spec.
@@ -112,7 +112,7 @@ class MatSlider extends _MatSliderBase {
                 const pointerPosition = getPointerPositionOnPage(event, this._touchId);
                 if (pointerPosition) {
                     const oldValue = this.value;
-                    this._isSliding = true;
+                    this._isSliding = 'pointer';
                     this._lastPointerEvent = event;
                     event.preventDefault();
                     this._focusHostElement();
@@ -133,7 +133,7 @@ class MatSlider extends _MatSliderBase {
          * starting to drag. Bound on the document level.
          */
         this._pointerMove = (event) => {
-            if (this._isSliding) {
+            if (this._isSliding === 'pointer') {
                 const pointerPosition = getPointerPositionOnPage(event, this._touchId);
                 if (pointerPosition) {
                     // Prevent the slide from selecting anything else.
@@ -150,14 +150,14 @@ class MatSlider extends _MatSliderBase {
         };
         /** Called when the user has lifted their pointer. Bound on the document level. */
         this._pointerUp = (event) => {
-            if (this._isSliding) {
+            if (this._isSliding === 'pointer') {
                 if (!isTouchEvent(event) || typeof this._touchId !== 'number' ||
                     // Note that we use `changedTouches`, rather than `touches` because it
                     // seems like in most cases `touches` is empty for `touchend` events.
                     findMatchingTouch(event.changedTouches, this._touchId)) {
                     event.preventDefault();
                     this._removeGlobalEvents();
-                    this._isSliding = false;
+                    this._isSliding = null;
                     this._touchId = undefined;
                     if (this._valueOnSlideStart != this.value && !this.disabled) {
                         this._emitChangeEvent();
@@ -443,7 +443,8 @@ class MatSlider extends _MatSliderBase {
         this.onTouched();
     }
     _onKeydown(event) {
-        if (this.disabled || hasModifierKey(event)) {
+        if (this.disabled || hasModifierKey(event) ||
+            (this._isSliding && this._isSliding !== 'keyboard')) {
             return;
         }
         const oldValue = this.value;
@@ -489,11 +490,13 @@ class MatSlider extends _MatSliderBase {
             this._emitInputEvent();
             this._emitChangeEvent();
         }
-        this._isSliding = true;
+        this._isSliding = 'keyboard';
         event.preventDefault();
     }
     _onKeyup() {
-        this._isSliding = false;
+        if (this._isSliding === 'keyboard') {
+            this._isSliding = null;
+        }
     }
     /** Use defaultView of injected document if available or fallback to global window reference */
     _getWindow() {

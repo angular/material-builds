@@ -105,10 +105,10 @@ export declare class MatSlider extends _MatSliderBase implements ControlValueAcc
     get percent(): number;
     private _percent;
     /**
-     * Whether or not the thumb is sliding.
+     * Whether or not the thumb is sliding and what the user is using to slide it with.
      * Used to determine if there should be a transition for the thumb and fill track.
      */
-    _isSliding: boolean;
+    _isSliding: 'keyboard' | 'pointer' | null;
     /**
      * Whether or not the slider is active (clicked or sliding).
      * Used to shrink and grow the thumb as according to the Material Design spec.
