@@ -565,7 +565,7 @@
      * Boilerplate for applying mixins to MatFormField.
      * @docs-private
      */
-    var _MatFormFieldnBase = core$1.mixinColor(/** @class */ (function () {
+    var _MatFormFieldBase = core$1.mixinColor(/** @class */ (function () {
         function class_1(_elementRef) {
             this._elementRef = _elementRef;
         }
@@ -983,7 +983,7 @@
             return document.documentElement.contains(element);
         };
         return MatFormField;
-    }(_MatFormFieldnBase));
+    }(_MatFormFieldBase));
     MatFormField.decorators = [
         { type: core.Component, args: [{
                     selector: 'mat-form-field',

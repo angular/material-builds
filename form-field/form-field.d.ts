@@ -22,7 +22,7 @@ import { NgControl } from '@angular/forms';
  * Boilerplate for applying mixins to MatFormField.
  * @docs-private
  */
-declare const _MatFormFieldnBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+declare const _MatFormFieldBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
@@ -56,7 +56,7 @@ export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatFormField
  */
 export declare const MAT_FORM_FIELD: InjectionToken<MatFormField>;
 /** Container for form controls that applies Material Design styling and behavior. */
-export declare class MatFormField extends _MatFormFieldnBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
+export declare class MatFormField extends _MatFormFieldBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;

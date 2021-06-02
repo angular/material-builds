@@ -252,7 +252,7 @@ const outlineGapPadding = 5;
  * Boilerplate for applying mixins to MatFormField.
  * @docs-private
  */
-const _MatFormFieldnBase = mixinColor(class {
+const _MatFormFieldBase = mixinColor(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -269,7 +269,7 @@ const MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAUL
  */
 const MAT_FORM_FIELD = new InjectionToken('MatFormField');
 /** Container for form controls that applies Material Design styling and behavior. */
-class MatFormField extends _MatFormFieldnBase {
+class MatFormField extends _MatFormFieldBase {
     constructor(_elementRef, _changeDetectorRef, 
     /**
      * @deprecated `_labelOptions` parameter no longer being used. To be removed.
