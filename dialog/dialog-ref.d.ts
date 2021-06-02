@@ -22,6 +22,7 @@ export declare const enum MatDialogState {
 export declare class MatDialogRef<T, R = any> {
     private _overlayRef;
     _containerInstance: _MatDialogContainerBase;
+    /** Id of the dialog. */
     readonly id: string;
     /** The instance of component opened into the dialog. */
     componentInstance: T;
@@ -39,7 +40,9 @@ export declare class MatDialogRef<T, R = any> {
     private _closeFallbackTimeout;
     /** Current state of the dialog. */
     private _state;
-    constructor(_overlayRef: OverlayRef, _containerInstance: _MatDialogContainerBase, id?: string);
+    constructor(_overlayRef: OverlayRef, _containerInstance: _MatDialogContainerBase, 
+    /** Id of the dialog. */
+    id?: string);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.

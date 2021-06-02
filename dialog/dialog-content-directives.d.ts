@@ -12,6 +12,11 @@ import { MatDialogRef } from './dialog-ref';
  * Button that will close the current dialog.
  */
 export declare class MatDialogClose implements OnInit, OnChanges {
+    /**
+     * Reference to the containing dialog.
+     * @deprecated `dialogRef` property to become private.
+     * @breaking-change 13.0.0
+     */
     dialogRef: MatDialogRef<any>;
     private _elementRef;
     private _dialog;
@@ -22,7 +27,13 @@ export declare class MatDialogClose implements OnInit, OnChanges {
     /** Dialog close input. */
     dialogResult: any;
     _matDialogClose: any;
-    constructor(dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
+    constructor(
+    /**
+     * Reference to the containing dialog.
+     * @deprecated `dialogRef` property to become private.
+     * @breaking-change 13.0.0
+     */
+    dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     _onButtonClick(event: MouseEvent): void;
@@ -34,6 +45,7 @@ export declare class MatDialogTitle implements OnInit {
     private _dialogRef;
     private _elementRef;
     private _dialog;
+    /** Unique id for the dialog title. If none is supplied, it will be auto-generated. */
     id: string;
     constructor(_dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;

@@ -342,7 +342,9 @@ let uniqueId = 0;
  * Reference to a dialog opened via the MatDialog service.
  */
 class MatDialogRef {
-    constructor(_overlayRef, _containerInstance, id = `mat-dialog-${uniqueId++}`) {
+    constructor(_overlayRef, _containerInstance, 
+    /** Id of the dialog. */
+    id = `mat-dialog-${uniqueId++}`) {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
         this.id = id;
@@ -847,6 +849,11 @@ let dialogElementUid = 0;
  */
 class MatDialogClose {
     constructor(
+    /**
+     * Reference to the containing dialog.
+     * @deprecated `dialogRef` property to become private.
+     * @breaking-change 13.0.0
+     */
     // The dialog title directive is always used in combination with a `MatDialogRef`.
     // tslint:disable-next-line: lightweight-tokens
     dialogRef, _elementRef, _dialog) {
@@ -913,6 +920,7 @@ class MatDialogTitle {
         this._dialogRef = _dialogRef;
         this._elementRef = _elementRef;
         this._dialog = _dialog;
+        /** Unique id for the dialog title. If none is supplied, it will be auto-generated. */
         this.id = `mat-dialog-title-${dialogElementUid++}`;
     }
     ngOnInit() {
