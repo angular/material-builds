@@ -167,7 +167,6 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     protected _changeDetector: ChangeDetectorRef;
     private _focusMonitor;
     private _radioDispatcher;
-    _animationMode?: string | undefined;
     private _providerOverride?;
     private _uniqueId;
     /** The unique ID for the radio button. */
@@ -222,7 +221,9 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     private _removeUniqueSelectionListener;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef<HTMLInputElement>;
-    constructor(radioGroup: _MatRadioGroupBase<_MatRadioButtonBase>, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, _animationMode?: string | undefined, _providerOverride?: MatRadioDefaultOptions | undefined, tabIndex?: string);
+    /** Whether animations are disabled. */
+    _noopAnimations: boolean;
+    constructor(radioGroup: _MatRadioGroupBase<_MatRadioButtonBase>, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, _providerOverride?: MatRadioDefaultOptions | undefined, tabIndex?: string);
     /** Focuses the radio button. */
     focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /**
