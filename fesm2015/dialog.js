@@ -1,6 +1,6 @@
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { EventEmitter, Directive, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, InjectionToken, Injector, TemplateRef, Type, Injectable, SkipSelf, Input, NgModule } from '@angular/core';
+import { EventEmitter, Directive, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, InjectionToken, Injector, TemplateRef, InjectFlags, Type, Injectable, SkipSelf, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT, Location } from '@angular/common';
@@ -721,8 +721,8 @@ class _MatDialogBase {
             { provide: this._dialogDataToken, useValue: config.data },
             { provide: this._dialogRefConstructor, useValue: dialogRef }
         ];
-        if (config.direction &&
-            (!userInjector || !userInjector.get(Directionality, null))) {
+        if (config.direction && (!userInjector ||
+            !userInjector.get(Directionality, null, InjectFlags.Optional))) {
             providers.push({
                 provide: Directionality,
                 useValue: { value: config.direction, change: of() }
