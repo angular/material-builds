@@ -513,10 +513,6 @@
             get: function () { return this._min; },
             set: function (v) {
                 this._min = coercion.coerceNumberProperty(v, this._min);
-                // If the value wasn't explicitly set by the user, set it to the min.
-                if (this._value === null) {
-                    this.value = this._min;
-                }
                 this._percent = this._calculatePercentage(this._value);
                 // Since this also modifies the percentage, we need to let the change detection know.
                 this._changeDetectorRef.markForCheck();
@@ -576,7 +572,7 @@
             },
             set: function (v) {
                 if (v !== this._value) {
-                    var value = coercion.coerceNumberProperty(v);
+                    var value = coercion.coerceNumberProperty(v, 0);
                     // While incrementing by a decimal we can end up with values like 33.300000000000004.
                     // Truncate it to ensure that it matches the label and to make it easier to work with.
                     if (this._roundToDecimal && value !== this.min && value !== this.max) {

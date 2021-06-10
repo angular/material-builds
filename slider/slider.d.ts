@@ -68,8 +68,8 @@ export declare class MatSlider extends _MatSliderBase implements ControlValueAcc
     set tickInterval(value: 'auto' | number);
     private _tickInterval;
     /** Value of the slider. */
-    get value(): number | null;
-    set value(v: number | null);
+    get value(): number;
+    set value(v: number);
     private _value;
     /**
      * Function that will be used to format the value before it is displayed
