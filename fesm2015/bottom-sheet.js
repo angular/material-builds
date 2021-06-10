@@ -2,7 +2,7 @@ import * as i1 from '@angular/cdk/overlay';
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injector, Injectable, SkipSelf } from '@angular/core';
+import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injector, InjectFlags, Injectable, SkipSelf } from '@angular/core';
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -505,8 +505,8 @@ class MatBottomSheet {
             { provide: MatBottomSheetRef, useValue: bottomSheetRef },
             { provide: MAT_BOTTOM_SHEET_DATA, useValue: config.data }
         ];
-        if (config.direction &&
-            (!userInjector || !userInjector.get(Directionality, null))) {
+        if (config.direction && (!userInjector ||
+            !userInjector.get(Directionality, null, InjectFlags.Optional))) {
             providers.push({
                 provide: Directionality,
                 useValue: { value: config.direction, change: of() }

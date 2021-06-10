@@ -836,8 +836,8 @@
                 { provide: MatBottomSheetRef, useValue: bottomSheetRef },
                 { provide: MAT_BOTTOM_SHEET_DATA, useValue: config.data }
             ];
-            if (config.direction &&
-                (!userInjector || !userInjector.get(bidi.Directionality, null))) {
+            if (config.direction && (!userInjector ||
+                !userInjector.get(bidi.Directionality, null, i0.InjectFlags.Optional))) {
                 providers.push({
                     provide: bidi.Directionality,
                     useValue: { value: config.direction, change: rxjs.of() }

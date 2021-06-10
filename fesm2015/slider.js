@@ -187,10 +187,6 @@ class MatSlider extends _MatSliderMixinBase {
     get min() { return this._min; }
     set min(v) {
         this._min = coerceNumberProperty(v, this._min);
-        // If the value wasn't explicitly set by the user, set it to the min.
-        if (this._value === null) {
-            this.value = this._min;
-        }
         this._percent = this._calculatePercentage(this._value);
         // Since this also modifies the percentage, we need to let the change detection know.
         this._changeDetectorRef.markForCheck();
@@ -234,7 +230,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     set value(v) {
         if (v !== this._value) {
-            let value = coerceNumberProperty(v);
+            let value = coerceNumberProperty(v, 0);
             // While incrementing by a decimal we can end up with values like 33.300000000000004.
             // Truncate it to ensure that it matches the label and to make it easier to work with.
             if (this._roundToDecimal && value !== this.min && value !== this.max) {
