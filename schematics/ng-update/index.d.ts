@@ -20,3 +20,5 @@ export declare function updateToV10(): Rule;
 export declare function updateToV11(): Rule;
 /** Entry point for the migration schematics with target of Angular Material v12 */
 export declare function updateToV12(): Rule;
+/** Entry point for the migration schematics with target of Angular Material v13 */
+export declare function updateToV13(): Rule;
