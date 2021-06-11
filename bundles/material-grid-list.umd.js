@@ -759,8 +759,7 @@
         };
         FixedTileStyler.prototype.getComputedHeight = function () {
             return [
-                'height',
-                calc(this.getTileSpan(this.fixedRowHeight) + " + " + this.getGutterSpan())
+                'height', calc(this.getTileSpan(this.fixedRowHeight) + " + " + this.getGutterSpan())
             ];
         };
         FixedTileStyler.prototype.reset = function (list) {
@@ -797,8 +796,7 @@
         };
         RatioTileStyler.prototype.getComputedHeight = function () {
             return [
-                'paddingBottom',
-                calc(this.getTileSpan(this.baseTileHeight) + " + " + this.getGutterSpan())
+                'paddingBottom', calc(this.getTileSpan(this.baseTileHeight) + " + " + this.getGutterSpan())
             ];
         };
         RatioTileStyler.prototype.reset = function (list) {
