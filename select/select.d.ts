@@ -105,7 +105,6 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     protected _ngZone: NgZone;
     private _dir;
     protected _parentFormField: MatFormField;
-    ngControl: NgControl;
     private _liveAnnouncer;
     private _defaultOptions?;
     /** All of the defined select options. */

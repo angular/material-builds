@@ -5,21 +5,18 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkNoDataRow } from '@angular/cdk/table';
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
 export declare class MatHeaderRowDef extends CdkHeaderRowDef {
-    static ngAcceptInputType_sticky: BooleanInput;
 }
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
  */
 export declare class MatFooterRowDef extends CdkFooterRowDef {
-    static ngAcceptInputType_sticky: BooleanInput;
 }
 /**
  * Data row definition for the mat-table.

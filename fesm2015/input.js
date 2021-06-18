@@ -110,16 +110,13 @@ const _MatInputBase = mixinErrorState(class {
 });
 /** Directive that allows a native input to work inside a `MatFormField`. */
 class MatInput extends _MatInputBase {
-    constructor(_elementRef, _platform, 
-    /** @docs-private */
-    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
+    constructor(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
     // TODO: Remove this once the legacy appearance has been removed. We only need
     // to inject the form-field for determining whether the placeholder has been promoted.
     _formField) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._platform = _platform;
-        this.ngControl = ngControl;
         this._autofillMonitor = _autofillMonitor;
         this._formField = _formField;
         this._uid = `mat-input-${nextUniqueId++}`;

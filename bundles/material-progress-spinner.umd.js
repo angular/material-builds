@@ -353,9 +353,8 @@
      */
     var MatProgressSpinner = /** @class */ (function (_super) {
         __extends(MatProgressSpinner, _super);
-        function MatProgressSpinner(_elementRef, platform, _document, animationMode, defaults) {
-            var _this = _super.call(this, _elementRef) || this;
-            _this._elementRef = _elementRef;
+        function MatProgressSpinner(elementRef, platform, _document, animationMode, defaults) {
+            var _this = _super.call(this, elementRef) || this;
             _this._document = _document;
             _this._diameter = BASE_SIZE;
             _this._value = 0;

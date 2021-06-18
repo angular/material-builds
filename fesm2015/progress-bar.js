@@ -42,14 +42,13 @@ let progressbarId = 0;
  * `<mat-progress-bar>` component.
  */
 class MatProgressBar extends _MatProgressBarBase {
-    constructor(_elementRef, _ngZone, _animationMode, 
+    constructor(elementRef, _ngZone, _animationMode, 
     /**
      * @deprecated `location` parameter to be made required.
      * @breaking-change 8.0.0
      */
     location) {
-        super(_elementRef);
-        this._elementRef = _elementRef;
+        super(elementRef);
         this._ngZone = _ngZone;
         this._animationMode = _animationMode;
         /** Flag that indicates whether NoopAnimations mode is set to true. */

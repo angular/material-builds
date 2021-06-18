@@ -61,5 +61,4 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     /** Gets the input's date filtering function. */
     protected _getDateFilter(): DateFilterFn<D | null>;
     protected _shouldHandleChangeEvent(event: DateSelectionModelChange<D>): boolean;
-    static ngAcceptInputType_value: any;
 }

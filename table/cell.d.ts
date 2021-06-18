@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef } from '@angular/cdk/table';
 /**
  * Cell definition for the mat-table.
@@ -40,7 +39,6 @@ export declare class MatColumnDef extends CdkColumnDef {
      * @docs-private
      */
     protected _updateColumnCssClassName(): void;
-    static ngAcceptInputType_sticky: BooleanInput;
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends CdkHeaderCell {

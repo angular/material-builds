@@ -38,5 +38,4 @@ export declare class MatSidenav extends MatDrawer {
 export declare class MatSidenavContainer extends MatDrawerContainer {
     _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
-    static ngAcceptInputType_hasBackdrop: BooleanInput;
 }

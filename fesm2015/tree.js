@@ -18,16 +18,14 @@ const _MatTreeNodeBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
  * Wrapper for the CdkTree node with Material design styles.
  */
 class MatTreeNode extends _MatTreeNodeBase {
-    constructor(_elementRef, _tree, tabIndex) {
-        super(_elementRef, _tree);
-        this._elementRef = _elementRef;
-        this._tree = _tree;
+    constructor(elementRef, tree, tabIndex) {
+        super(elementRef, tree);
         this.tabIndex = Number(tabIndex) || 0;
         // The classes are directly added here instead of in the host property because classes on
         // the host property are not inherited with View Engine. It is not set as a @HostBinding because
         // it is not set by the time it's children nodes try to read the class from it.
         // TODO: move to host after View Engine deprecation
-        this._elementRef.nativeElement.classList.add('mat-tree-node');
+        elementRef.nativeElement.classList.add('mat-tree-node');
     }
     // This is a workaround for https://github.com/angular/angular/issues/23091
     // In aot mode, the lifecycle hooks from parent class are not called.
@@ -76,18 +74,15 @@ MatTreeNodeDef.propDecorators = {
  * Wrapper for the CdkTree nested node with Material design styles.
  */
 class MatNestedTreeNode extends CdkNestedTreeNode {
-    constructor(_elementRef, _tree, _differs, tabIndex) {
-        super(_elementRef, _tree, _differs);
-        this._elementRef = _elementRef;
-        this._tree = _tree;
-        this._differs = _differs;
+    constructor(elementRef, tree, differs, tabIndex) {
+        super(elementRef, tree, differs);
         this._disabled = false;
         this.tabIndex = Number(tabIndex) || 0;
         // The classes are directly added here instead of in the host property because classes on
         // the host property are not inherited with View Engine. It is not set as a @HostBinding because
         // it is not set by the time it's children nodes try to read the class from it.
         // TODO: move to host after View Engine deprecation
-        this._elementRef.nativeElement.classList.add('mat-nested-tree-node');
+        elementRef.nativeElement.classList.add('mat-nested-tree-node');
     }
     /** Whether the node is disabled. */
     get disabled() { return this._disabled; }

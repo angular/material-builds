@@ -27,8 +27,6 @@ declare const _MatInputBase: import("@angular/material/core/common-behaviors/con
 export declare class MatInput extends _MatInputBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, AfterViewInit, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
     protected _platform: Platform;
-    /** @docs-private */
-    ngControl: NgControl;
     private _autofillMonitor;
     private _formField?;
     protected _uid: string;
@@ -111,9 +109,7 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
     set readonly(value: boolean);
     private _readonly;
     protected _neverEmptyInputTypes: string[];
-    constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, 
-    /** @docs-private */
-    ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone, _formField?: MatFormField | undefined);
+    constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone, _formField?: MatFormField | undefined);
     ngAfterViewInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;

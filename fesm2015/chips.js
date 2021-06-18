@@ -90,9 +90,8 @@ MatChipTrailingIcon.decorators = [
  * Material design styled Chip component. Used inside the MatChipList component.
  */
 class MatChip extends _MatChipMixinBase {
-    constructor(_elementRef, _ngZone, platform, globalRippleOptions, _changeDetectorRef, _document, animationMode, tabIndex) {
-        super(_elementRef);
-        this._elementRef = _elementRef;
+    constructor(elementRef, _ngZone, platform, globalRippleOptions, _changeDetectorRef, _document, animationMode, tabIndex) {
+        super(elementRef);
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
         /** Whether the chip has focus. */
@@ -125,7 +124,7 @@ class MatChip extends _MatChipMixinBase {
         this._chipRippleTarget.classList.add('mat-chip-ripple');
         this._elementRef.nativeElement.appendChild(this._chipRippleTarget);
         this._chipRipple = new RippleRenderer(this, _ngZone, this._chipRippleTarget, platform);
-        this._chipRipple.setupTriggerEvents(_elementRef);
+        this._chipRipple.setupTriggerEvents(elementRef);
         this.rippleConfig = globalRippleOptions || {};
         this._animationsDisabled = animationMode === 'NoopAnimations';
         this.tabIndex = tabIndex != null ? (parseInt(tabIndex) || -1) : -1;
@@ -445,14 +444,11 @@ class MatChipListChange {
  * A material design chips component (named ChipList for its similarity to the List component).
  */
 class MatChipList extends _MatChipListBase {
-    constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, 
-    /** @docs-private */
-    ngControl) {
+    constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
-        this.ngControl = ngControl;
         /**
          * Implemented as part of MatFormFieldControl.
          * @docs-private

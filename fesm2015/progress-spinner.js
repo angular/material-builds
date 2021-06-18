@@ -69,9 +69,8 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
  * `<mat-progress-spinner>` component.
  */
 class MatProgressSpinner extends _MatProgressSpinnerBase {
-    constructor(_elementRef, platform, _document, animationMode, defaults) {
-        super(_elementRef);
-        this._elementRef = _elementRef;
+    constructor(elementRef, platform, _document, animationMode, defaults) {
+        super(elementRef);
         this._document = _document;
         this._diameter = BASE_SIZE;
         this._value = 0;

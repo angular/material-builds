@@ -322,16 +322,14 @@
      */
     var MatTreeNode = /** @class */ (function (_super) {
         __extends(MatTreeNode, _super);
-        function MatTreeNode(_elementRef, _tree, tabIndex) {
-            var _this = _super.call(this, _elementRef, _tree) || this;
-            _this._elementRef = _elementRef;
-            _this._tree = _tree;
+        function MatTreeNode(elementRef, tree, tabIndex) {
+            var _this = _super.call(this, elementRef, tree) || this;
             _this.tabIndex = Number(tabIndex) || 0;
             // The classes are directly added here instead of in the host property because classes on
             // the host property are not inherited with View Engine. It is not set as a @HostBinding because
             // it is not set by the time it's children nodes try to read the class from it.
             // TODO: move to host after View Engine deprecation
-            _this._elementRef.nativeElement.classList.add('mat-tree-node');
+            elementRef.nativeElement.classList.add('mat-tree-node');
             return _this;
         }
         // This is a workaround for https://github.com/angular/angular/issues/23091
@@ -388,18 +386,15 @@
      */
     var MatNestedTreeNode = /** @class */ (function (_super) {
         __extends(MatNestedTreeNode, _super);
-        function MatNestedTreeNode(_elementRef, _tree, _differs, tabIndex) {
-            var _this = _super.call(this, _elementRef, _tree, _differs) || this;
-            _this._elementRef = _elementRef;
-            _this._tree = _tree;
-            _this._differs = _differs;
+        function MatNestedTreeNode(elementRef, tree, differs, tabIndex) {
+            var _this = _super.call(this, elementRef, tree, differs) || this;
             _this._disabled = false;
             _this.tabIndex = Number(tabIndex) || 0;
             // The classes are directly added here instead of in the host property because classes on
             // the host property are not inherited with View Engine. It is not set as a @HostBinding because
             // it is not set by the time it's children nodes try to read the class from it.
             // TODO: move to host after View Engine deprecation
-            _this._elementRef.nativeElement.classList.add('mat-nested-tree-node');
+            elementRef.nativeElement.classList.add('mat-nested-tree-node');
             return _this;
         }
         Object.defineProperty(MatNestedTreeNode.prototype, "disabled", {

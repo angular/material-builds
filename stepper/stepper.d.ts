@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkStep, CdkStepper, StepperOptions } from '@angular/cdk/stepper';
 import { AnimationEvent } from '@angular/animations';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, TemplateRef, ViewContainerRef } from '@angular/core';
@@ -88,9 +87,5 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     readonly _animationDone: Subject<AnimationEvent>;
     constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _document: any);
     ngAfterContentInit(): void;
-    static ngAcceptInputType_editable: BooleanInput;
-    static ngAcceptInputType_optional: BooleanInput;
-    static ngAcceptInputType_completed: BooleanInput;
-    static ngAcceptInputType_hasError: BooleanInput;
 }
 export {};
