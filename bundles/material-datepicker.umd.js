@@ -2107,18 +2107,7 @@
         };
         /** Updates today's date after an update of the active date */
         MatCalendar.prototype.updateTodaysDate = function () {
-            var currentView = this.currentView;
-            var view;
-            if (currentView === 'month') {
-                view = this.monthView;
-            }
-            else if (currentView === 'year') {
-                view = this.yearView;
-            }
-            else {
-                view = this.multiYearView;
-            }
-            view._init();
+            this._getCurrentViewComponent()._init();
         };
         /** Handles date selection in the month view. */
         MatCalendar.prototype._dateSelected = function (event) {
@@ -2144,6 +2133,9 @@
         };
         /** Returns the component instance that corresponds to the current calendar view. */
         MatCalendar.prototype._getCurrentViewComponent = function () {
+            // The return type is explicitly written as a union to ensure that the Closure compiler does
+            // not optimize calls to _init(). Without the explict return type, TypeScript narrows it to
+            // only the first component type. See https://github.com/angular/components/issues/22996.
             return this.monthView || this.yearView || this.multiYearView;
         };
         return MatCalendar;
