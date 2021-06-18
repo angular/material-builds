@@ -983,6 +983,7 @@
             this._showTimeoutId = setTimeout(function () {
                 _this._visibility = 'visible';
                 _this._showTimeoutId = undefined;
+                _this._onShow();
                 // Mark for check so if any parent component has set the
                 // ChangeDetectionStrategy to OnPush it will be checked anyways
                 _this._markForCheck();
@@ -1047,6 +1048,12 @@
         _TooltipComponentBase.prototype._markForCheck = function () {
             this._changeDetectorRef.markForCheck();
         };
+        /**
+         * Callback for when the timeout in this.show() gets completed.
+         * This method is only needed by the mdc-tooltip, and so it is only implemented
+         * in the mdc-tooltip, not here.
+         */
+        _TooltipComponentBase.prototype._onShow = function () { };
         return _TooltipComponentBase;
     }());
     _TooltipComponentBase.decorators = [
