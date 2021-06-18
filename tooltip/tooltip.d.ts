@@ -247,6 +247,12 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
      * can be problematic in components with OnPush change detection.
      */
     _markForCheck(): void;
+    /**
+     * Callback for when the timeout in this.show() gets completed.
+     * This method is only needed by the mdc-tooltip, and so it is only implemented
+     * in the mdc-tooltip, not here.
+     */
+    protected _onShow(): void;
 }
 /**
  * Internal component that wraps the tooltip's content.
