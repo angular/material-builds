@@ -15,7 +15,7 @@ interface ExtraSymbols {
  * Migrates the content of a file to the new theming API. Note that this migration is using plain
  * string manipulation, rather than the AST from PostCSS and the schematics string manipulation
  * APIs, because it allows us to run it inside g3 and to avoid introducing new dependencies.
- * @param content Content of the file.
+ * @param fileContent Content of the file.
  * @param oldMaterialPrefix Prefix with which the old Material imports should start.
  *   Has to end with a slash. E.g. if `@import '~@angular/material/theming'` should be
  *   matched, the prefix would be `~@angular/material/`.
@@ -26,5 +26,5 @@ interface ExtraSymbols {
  * @param newCdkImportPath New import to the CDK Sass APIs (e.g. `~@angular/cdk`).
  * @param excludedImports Pattern that can be used to exclude imports from being processed.
  */
-export declare function migrateFileContent(content: string, oldMaterialPrefix: string, oldCdkPrefix: string, newMaterialImportPath: string, newCdkImportPath: string, extraMaterialSymbols?: ExtraSymbols, excludedImports?: RegExp): string;
+export declare function migrateFileContent(fileContent: string, oldMaterialPrefix: string, oldCdkPrefix: string, newMaterialImportPath: string, newCdkImportPath: string, extraMaterialSymbols?: ExtraSymbols, excludedImports?: RegExp): string;
 export {};
