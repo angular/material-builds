@@ -34,7 +34,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION$1 = new i0.Version('12.2.0-next.0-sha-224de73bb');
+    var VERSION$1 = new i0.Version('12.2.0-next.0-sha-136fb5a4a');
 
     /**
      * @license
@@ -74,7 +74,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION = new i0.Version('12.2.0-next.0-sha-224de73bb');
+    var VERSION = new i0.Version('12.2.0-next.0-sha-136fb5a4a');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -615,15 +615,17 @@
                     args[_i] = arguments[_i];
                 }
                 var _this = _super.apply(this, __spreadArray([], __read(args))) || this;
+                // This class member exists as an interop with `MatFormFieldControl` which expects
+                // a public `stateChanges` observable to emit whenever the form field should be updated.
+                // The description is not specifically mentioning the error state, as classes using this
+                // mixin can/should emit an event in other cases too.
+                /** Emits whenever the component state changes. */
+                _this.stateChanges = new rxjs.Subject();
                 /** Whether the component is in an error state. */
                 _this.errorState = false;
-                /**
-                 * Stream that emits whenever the state of the input changes such that the wrapping
-                 * `MatFormField` needs to run change detection.
-                 */
-                _this.stateChanges = new rxjs.Subject();
                 return _this;
             }
+            /** Updates the error state based on the provided error state matcher. */
             class_1.prototype.updateErrorState = function () {
                 var oldState = this.errorState;
                 var parent = this._parentFormGroup || this._parentForm;

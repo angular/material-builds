@@ -19,7 +19,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION$1 = new Version('12.2.0-next.0-sha-224de73bb');
+const VERSION$1 = new Version('12.2.0-next.0-sha-136fb5a4a');
 
 /**
  * @license
@@ -53,7 +53,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new Version('12.2.0-next.0-sha-224de73bb');
+const VERSION = new Version('12.2.0-next.0-sha-136fb5a4a');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -259,14 +259,16 @@ function mixinErrorState(base) {
     return class extends base {
         constructor(...args) {
             super(...args);
+            // This class member exists as an interop with `MatFormFieldControl` which expects
+            // a public `stateChanges` observable to emit whenever the form field should be updated.
+            // The description is not specifically mentioning the error state, as classes using this
+            // mixin can/should emit an event in other cases too.
+            /** Emits whenever the component state changes. */
+            this.stateChanges = new Subject();
             /** Whether the component is in an error state. */
             this.errorState = false;
-            /**
-             * Stream that emits whenever the state of the input changes such that the wrapping
-             * `MatFormField` needs to run change detection.
-             */
-            this.stateChanges = new Subject();
         }
+        /** Updates the error state based on the provided error state matcher. */
         updateErrorState() {
             const oldState = this.errorState;
             const parent = this._parentFormGroup || this._parentForm;
