@@ -84,6 +84,7 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     focus(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
+    _handleFocus(): void;
     static ngAcceptInputType_active: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
