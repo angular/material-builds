@@ -1993,6 +1993,11 @@
         _MatTabLinkBase.prototype.ngOnDestroy = function () {
             this._focusMonitor.stopMonitoring(this.elementRef);
         };
+        _MatTabLinkBase.prototype._handleFocus = function () {
+            // Since we allow navigation through tabbing in the nav bar, we
+            // have to update the focused index whenever the link receives focus.
+            this._tabNavBar.focusIndex = this._tabNavBar._items.toArray().indexOf(this);
+        };
         return _MatTabLinkBase;
     }(_MatTabLinkMixinBase));
     _MatTabLinkBase.decorators = [
@@ -2038,6 +2043,7 @@
                         '[attr.tabIndex]': 'tabIndex',
                         '[class.mat-tab-disabled]': 'disabled',
                         '[class.mat-tab-label-active]': 'active',
+                        '(focus)': '_handleFocus()'
                     }
                 },] }
     ];
