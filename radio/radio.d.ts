@@ -239,11 +239,8 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     private _emitChangeEvent;
     _isRippleDisabled(): boolean;
     _onInputClick(event: Event): void;
-    /**
-     * Triggered when the radio button received a click or the input recognized any change.
-     * Clicking on a label element, will trigger a change event on the associated input.
-     */
-    _onInputChange(event: Event): void;
+    /** Triggered when the radio button receives an interaction from the user. */
+    _onInputInteraction(event: Event): void;
     /** Sets the disabled state and marks for check if a change occurred. */
     protected _setDisabled(value: boolean): void;
     static ngAcceptInputType_checked: BooleanInput;

@@ -11,9 +11,13 @@ import { ErrorStateMatcher } from '../error/error-options';
 import { AbstractConstructor, Constructor } from './constructor';
 /** @docs-private */
 export interface CanUpdateErrorState {
-    updateErrorState(): void;
+    /** Emits whenever the component state changes. */
     readonly stateChanges: Subject<void>;
+    /** Updates the error state based on the provided error state matcher. */
+    updateErrorState(): void;
+    /** Whether the component is in an error state. */
     errorState: boolean;
+    /** An object used to control the error state of the component. */
     errorStateMatcher: ErrorStateMatcher;
 }
 /** @docs-private */

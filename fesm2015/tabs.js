@@ -1603,6 +1603,11 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
     ngOnDestroy() {
         this._focusMonitor.stopMonitoring(this.elementRef);
     }
+    _handleFocus() {
+        // Since we allow navigation through tabbing in the nav bar, we
+        // have to update the focused index whenever the link receives focus.
+        this._tabNavBar.focusIndex = this._tabNavBar._items.toArray().indexOf(this);
+    }
 }
 _MatTabLinkBase.decorators = [
     { type: Directive }
@@ -1644,6 +1649,7 @@ MatTabLink.decorators = [
                     '[attr.tabIndex]': 'tabIndex',
                     '[class.mat-tab-disabled]': 'disabled',
                     '[class.mat-tab-label-active]': 'active',
+                    '(focus)': '_handleFocus()'
                 }
             },] }
 ];
