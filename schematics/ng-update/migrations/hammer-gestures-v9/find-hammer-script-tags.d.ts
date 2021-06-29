@@ -10,4 +10,4 @@ import { parse5 } from '@angular/cdk/schematics';
  * Parses the specified HTML content and looks for "script" elements which
  * potentially import HammerJS. These elements will be returned.
  */
-export declare function findHammerScriptImportElements(htmlContent: string): parse5.DefaultTreeElement[];
+export declare function findHammerScriptImportElements(htmlContent: string): parse5.Element[];
