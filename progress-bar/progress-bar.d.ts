@@ -38,10 +38,9 @@ export declare type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer'
  * `<mat-progress-bar>` component.
  */
 export declare class MatProgressBar extends _MatProgressBarBase implements CanColor, AfterViewInit, OnDestroy {
-    _elementRef: ElementRef;
     private _ngZone;
     _animationMode?: string | undefined;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _animationMode?: string | undefined, 
+    constructor(elementRef: ElementRef, _ngZone: NgZone, _animationMode?: string | undefined, 
     /**
      * @deprecated `location` parameter to be made required.
      * @breaking-change 8.0.0

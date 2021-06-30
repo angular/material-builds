@@ -270,15 +270,14 @@ const MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAUL
 const MAT_FORM_FIELD = new InjectionToken('MatFormField');
 /** Container for form controls that applies Material Design styling and behavior. */
 class MatFormField extends _MatFormFieldBase {
-    constructor(_elementRef, _changeDetectorRef, 
+    constructor(elementRef, _changeDetectorRef, 
     /**
      * @deprecated `_labelOptions` parameter no longer being used. To be removed.
      * @breaking-change 12.0.0
      */
     // Use `ElementRef` here so Angular has something to inject.
     _labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
-        super(_elementRef);
-        this._elementRef = _elementRef;
+        super(elementRef);
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         this._defaults = _defaults;

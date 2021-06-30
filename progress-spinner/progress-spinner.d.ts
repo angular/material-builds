@@ -37,7 +37,6 @@ export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgr
  * `<mat-progress-spinner>` component.
  */
 export declare class MatProgressSpinner extends _MatProgressSpinnerBase implements OnInit, CanColor {
-    _elementRef: ElementRef<HTMLElement>;
     private _document;
     private _diameter;
     private _value;
@@ -71,7 +70,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     /** Value of the progress circle. */
     get value(): number;
     set value(newValue: number);
-    constructor(_elementRef: ElementRef<HTMLElement>, platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
+    constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
     ngOnInit(): void;
     /** The radius of the spinner, adjusted for stroke width. */
     _getCircleRadius(): number;

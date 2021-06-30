@@ -200,7 +200,6 @@ class _MatSelectBase extends _MatSelectMixinBase {
         this._ngZone = _ngZone;
         this._dir = _dir;
         this._parentFormField = _parentFormField;
-        this.ngControl = ngControl;
         this._liveAnnouncer = _liveAnnouncer;
         this._defaultOptions = _defaultOptions;
         /** Whether or not the overlay panel is open. */

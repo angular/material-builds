@@ -57,7 +57,6 @@ export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatFormField
 export declare const MAT_FORM_FIELD: InjectionToken<MatFormField>;
 /** Container for form controls that applies Material Design styling and behavior. */
 export declare class MatFormField extends _MatFormFieldBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
-    _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;
     private _defaults;
@@ -126,7 +125,7 @@ export declare class MatFormField extends _MatFormFieldBase implements AfterCont
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
     /**
      * @deprecated `_labelOptions` parameter no longer being used. To be removed.
      * @breaking-change 12.0.0

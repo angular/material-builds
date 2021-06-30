@@ -396,9 +396,8 @@
      */
     var MatChip = /** @class */ (function (_super) {
         __extends(MatChip, _super);
-        function MatChip(_elementRef, _ngZone, platform, globalRippleOptions, _changeDetectorRef, _document, animationMode, tabIndex) {
-            var _this = _super.call(this, _elementRef) || this;
-            _this._elementRef = _elementRef;
+        function MatChip(elementRef, _ngZone, platform, globalRippleOptions, _changeDetectorRef, _document, animationMode, tabIndex) {
+            var _this = _super.call(this, elementRef) || this;
             _this._ngZone = _ngZone;
             _this._changeDetectorRef = _changeDetectorRef;
             /** Whether the chip has focus. */
@@ -431,7 +430,7 @@
             _this._chipRippleTarget.classList.add('mat-chip-ripple');
             _this._elementRef.nativeElement.appendChild(_this._chipRippleTarget);
             _this._chipRipple = new core$1.RippleRenderer(_this, _ngZone, _this._chipRippleTarget, platform);
-            _this._chipRipple.setupTriggerEvents(_elementRef);
+            _this._chipRipple.setupTriggerEvents(elementRef);
             _this.rippleConfig = globalRippleOptions || {};
             _this._animationsDisabled = animationMode === 'NoopAnimations';
             _this.tabIndex = tabIndex != null ? (parseInt(tabIndex) || -1) : -1;
@@ -972,14 +971,11 @@
      */
     var MatChipList = /** @class */ (function (_super) {
         __extends(MatChipList, _super);
-        function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, 
-        /** @docs-private */
-        ngControl) {
+        function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
             var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
             _this._elementRef = _elementRef;
             _this._changeDetectorRef = _changeDetectorRef;
             _this._dir = _dir;
-            _this.ngControl = ngControl;
             /**
              * Implemented as part of MatFormFieldControl.
              * @docs-private

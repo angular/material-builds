@@ -502,7 +502,6 @@
             _this._ngZone = _ngZone;
             _this._dir = _dir;
             _this._parentFormField = _parentFormField;
-            _this.ngControl = ngControl;
             _this._liveAnnouncer = _liveAnnouncer;
             _this._defaultOptions = _defaultOptions;
             /** Whether or not the overlay panel is open. */

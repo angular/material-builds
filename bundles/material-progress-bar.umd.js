@@ -347,14 +347,13 @@
      */
     var MatProgressBar = /** @class */ (function (_super) {
         __extends(MatProgressBar, _super);
-        function MatProgressBar(_elementRef, _ngZone, _animationMode, 
+        function MatProgressBar(elementRef, _ngZone, _animationMode, 
         /**
          * @deprecated `location` parameter to be made required.
          * @breaking-change 8.0.0
          */
         location) {
-            var _this = _super.call(this, _elementRef) || this;
-            _this._elementRef = _elementRef;
+            var _this = _super.call(this, elementRef) || this;
             _this._ngZone = _ngZone;
             _this._animationMode = _animationMode;
             /** Flag that indicates whether NoopAnimations mode is set to true. */

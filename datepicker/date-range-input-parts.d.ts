@@ -8,7 +8,6 @@
 import { ElementRef, InjectionToken, OnInit, Injector, DoCheck } from '@angular/core';
 import { NgForm, FormGroupDirective, NgControl, ValidatorFn } from '@angular/forms';
 import { CanUpdateErrorState, DateAdapter, MatDateFormats, ErrorStateMatcher } from '@angular/material/core';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { MatDatepickerInputBase, DateFilterFn } from './datepicker-input-base';
 import { DateRange, DateSelectionModelChange } from './date-selection-model';
 /** Parent component that should be wrapped around `MatStartDate` and `MatEndDate`. */
@@ -86,7 +85,6 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     protected _formatValue(value: D | null): void;
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue(): string;
-    static ngAcceptInputType_disabled: BooleanInput;
 }
 /** Input for entering the end date in a `mat-date-range-input`. */
 export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState, DoCheck, OnInit {
@@ -100,6 +98,5 @@ export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements 
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
-    static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};

@@ -45,8 +45,6 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
     protected _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _dir;
-    /** @docs-private */
-    ngControl: NgControl;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -179,9 +177,7 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
     readonly valueChange: EventEmitter<any>;
     /** The chip components contained within this chip list. */
     chips: QueryList<MatChip>;
-    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, 
-    /** @docs-private */
-    ngControl: NgControl);
+    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, ngControl: NgControl);
     ngAfterContentInit(): void;
     ngOnInit(): void;
     ngDoCheck(): void;

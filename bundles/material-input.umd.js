@@ -428,16 +428,13 @@
     /** Directive that allows a native input to work inside a `MatFormField`. */
     var MatInput = /** @class */ (function (_super) {
         __extends(MatInput, _super);
-        function MatInput(_elementRef, _platform, 
-        /** @docs-private */
-        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
+        function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
         // TODO: Remove this once the legacy appearance has been removed. We only need
         // to inject the form-field for determining whether the placeholder has been promoted.
         _formField) {
             var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
             _this._elementRef = _elementRef;
             _this._platform = _platform;
-            _this.ngControl = ngControl;
             _this._autofillMonitor = _autofillMonitor;
             _this._formField = _formField;
             _this._uid = "mat-input-" + nextUniqueId++;
