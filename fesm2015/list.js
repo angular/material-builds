@@ -562,16 +562,16 @@ class MatSelectionList extends _MatSelectionListBase {
         });
         // @breaking-change 11.0.0 Remove null assertion once _focusMonitor is required.
         (_a = this._focusMonitor) === null || _a === void 0 ? void 0 : _a.monitor(this._element).pipe(takeUntil(this._destroyed)).subscribe(origin => {
+            var _a;
             if (origin === 'keyboard' || origin === 'program') {
-                const activeIndex = this._keyManager.activeItemIndex;
-                if (!activeIndex || activeIndex === -1) {
-                    // If there is no active index, set focus to the first option.
-                    this._keyManager.setFirstItemActive();
+                let toFocus = 0;
+                for (let i = 0; i < this.options.length; i++) {
+                    if ((_a = this.options.get(i)) === null || _a === void 0 ? void 0 : _a.selected) {
+                        toFocus = i;
+                        break;
+                    }
                 }
-                else {
-                    // Otherwise, set focus to the active option.
-                    this._keyManager.setActiveItem(activeIndex);
-                }
+                this._keyManager.setActiveItem(toFocus);
             }
         });
     }
