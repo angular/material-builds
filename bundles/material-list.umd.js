@@ -942,16 +942,16 @@
             });
             // @breaking-change 11.0.0 Remove null assertion once _focusMonitor is required.
             (_a = this._focusMonitor) === null || _a === void 0 ? void 0 : _a.monitor(this._element).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
+                var _a;
                 if (origin === 'keyboard' || origin === 'program') {
-                    var activeIndex = _this._keyManager.activeItemIndex;
-                    if (!activeIndex || activeIndex === -1) {
-                        // If there is no active index, set focus to the first option.
-                        _this._keyManager.setFirstItemActive();
+                    var toFocus = 0;
+                    for (var i = 0; i < _this.options.length; i++) {
+                        if ((_a = _this.options.get(i)) === null || _a === void 0 ? void 0 : _a.selected) {
+                            toFocus = i;
+                            break;
+                        }
                     }
-                    else {
-                        // Otherwise, set focus to the active option.
-                        _this._keyManager.setActiveItem(activeIndex);
-                    }
+                    _this._keyManager.setActiveItem(toFocus);
                 }
             });
         };

@@ -87,5 +87,6 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     readonly _animationDone: Subject<AnimationEvent>;
     constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _document: any);
     ngAfterContentInit(): void;
+    _stepIsNavigable(index: number, step: MatStep): boolean;
 }
 export {};
