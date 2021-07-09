@@ -19,7 +19,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION$1 = new Version('12.2.0-next.0-sha-32e4bb4e8');
+const VERSION$1 = new Version('12.2.0-next.0-sha-0816f08fe');
 
 /**
  * @license
@@ -53,7 +53,7 @@ AnimationDurations.EXITING = '195ms';
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new Version('12.2.0-next.0-sha-32e4bb4e8');
+const VERSION = new Version('12.2.0-next.0-sha-0816f08fe');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -898,13 +898,14 @@ class RippleRef {
     }
 }
 
+// TODO: import these values from `@material/ripple` eventually.
 /**
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
  */
 const defaultRippleAnimationConfig = {
-    enterDuration: 450,
-    exitDuration: 400
+    enterDuration: 225,
+    exitDuration: 150
 };
 /**
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
