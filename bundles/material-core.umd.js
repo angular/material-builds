@@ -34,7 +34,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION$1 = new i0.Version('12.1.1-sha-140849089');
+    var VERSION$1 = new i0.Version('12.1.1-sha-279461c90');
 
     /**
      * @license
@@ -74,7 +74,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION = new i0.Version('12.1.1-sha-140849089');
+    var VERSION = new i0.Version('12.1.1-sha-279461c90');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -1277,13 +1277,14 @@
         return RippleRef;
     }());
 
+    // TODO: import these values from `@material/ripple` eventually.
     /**
      * Default ripple animation configuration for ripples without an explicit
      * animation config specified.
      */
     var defaultRippleAnimationConfig = {
-        enterDuration: 450,
-        exitDuration: 400
+        enterDuration: 225,
+        exitDuration: 150
     };
     /**
      * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
