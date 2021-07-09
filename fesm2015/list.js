@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Directive, ChangeDetectorRef, Optional, Inject, ContentChildren, ContentChild, Input, forwardRef, ViewChild, EventEmitter, Attribute, Output, NgModule } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Directive, ChangeDetectorRef, Optional, Inject, ContentChildren, ContentChild, Input, forwardRef, EventEmitter, Output, ViewChild, Attribute, NgModule } from '@angular/core';
 import { mixinDisabled, mixinDisableRipple, setLines, MatLine, MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
@@ -274,6 +274,12 @@ class MatListOption extends _MatListOptionBase {
         this._selected = false;
         this._disabled = false;
         this._hasFocus = false;
+        /**
+         * Emits when the selected state of the option has changed.
+         * Use to facilitate two-data binding to the `selected` property.
+         * @docs-private
+         */
+        this.selectedChange = new EventEmitter();
         /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
         this.checkboxPosition = 'after';
         /**
@@ -402,6 +408,7 @@ class MatListOption extends _MatListOptionBase {
         else {
             this.selectionList.selectedOptions.deselect(this);
         }
+        this.selectedChange.emit(selected);
         this._changeDetector.markForCheck();
         return true;
     }
@@ -454,6 +461,7 @@ MatListOption.propDecorators = {
     _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
     _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler,] }],
     _lines: [{ type: ContentChildren, args: [MatLine, { descendants: true },] }],
+    selectedChange: [{ type: Output }],
     _text: [{ type: ViewChild, args: ['text',] }],
     checkboxPosition: [{ type: Input }],
     color: [{ type: Input }],

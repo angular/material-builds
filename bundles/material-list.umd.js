@@ -602,6 +602,12 @@
             _this._selected = false;
             _this._disabled = false;
             _this._hasFocus = false;
+            /**
+             * Emits when the selected state of the option has changed.
+             * Use to facilitate two-data binding to the `selected` property.
+             * @docs-private
+             */
+            _this.selectedChange = new core$1.EventEmitter();
             /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
             _this.checkboxPosition = 'after';
             /**
@@ -749,6 +755,7 @@
             else {
                 this.selectionList.selectedOptions.deselect(this);
             }
+            this.selectedChange.emit(selected);
             this._changeDetector.markForCheck();
             return true;
         };
@@ -802,6 +809,7 @@
         _avatar: [{ type: core$1.ContentChild, args: [MatListAvatarCssMatStyler,] }],
         _icon: [{ type: core$1.ContentChild, args: [MatListIconCssMatStyler,] }],
         _lines: [{ type: core$1.ContentChildren, args: [core.MatLine, { descendants: true },] }],
+        selectedChange: [{ type: core$1.Output }],
         _text: [{ type: core$1.ViewChild, args: ['text',] }],
         checkboxPosition: [{ type: core$1.Input }],
         color: [{ type: core$1.Input }],

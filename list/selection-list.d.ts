@@ -65,6 +65,12 @@ export declare class MatListOption extends _MatListOptionBase implements AfterCo
     _avatar: MatListAvatarCssMatStyler;
     _icon: MatListIconCssMatStyler;
     _lines: QueryList<MatLine>;
+    /**
+     * Emits when the selected state of the option has changed.
+     * Use to facilitate two-data binding to the `selected` property.
+     * @docs-private
+     */
+    readonly selectedChange: EventEmitter<boolean>;
     /** DOM element containing the item's text. */
     _text: ElementRef;
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
