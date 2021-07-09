@@ -743,8 +743,7 @@
                 .pipe(operators.filter(function (event) {
                 // If we're in the Shadow DOM, the event target will be the shadow root, so we have to
                 // fall back to check the first element in the path of the click event.
-                var clickTarget = (_this._isInsideShadowRoot && event.composedPath ? event.composedPath()[0] :
-                    event.target);
+                var clickTarget = platform._getEventTarget(event);
                 var formField = _this._formField ? _this._formField._elementRef.nativeElement : null;
                 var customOrigin = _this.connectedTo ? _this.connectedTo.elementRef.nativeElement : null;
                 return _this._overlayAttached && clickTarget !== _this._element.nativeElement &&
@@ -945,11 +944,6 @@
             var _a;
             if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getMatAutocompleteMissingPanelError();
-            }
-            // We want to resolve this once, as late as possible so that we can be
-            // sure that the element has been moved into its final place in the DOM.
-            if (this._isInsideShadowRoot == null) {
-                this._isInsideShadowRoot = !!platform._getShadowRoot(this._element.nativeElement);
             }
             var overlayRef = this._overlayRef;
             if (!overlayRef) {

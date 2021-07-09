@@ -69,8 +69,6 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      * comes back.
      */
     private _canOpenOnNextFocus;
-    /** Whether the element is inside of a ShadowRoot component. */
-    private _isInsideShadowRoot;
     /** Stream of keyboard events that can close the panel. */
     private readonly _closeKeyEventStream;
     /**
