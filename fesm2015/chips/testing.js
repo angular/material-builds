@@ -1,5 +1,26 @@
 import { __awaiter } from 'tslib';
-import { ComponentHarness, HarnessPredicate, TestKey, parallel } from '@angular/cdk/testing';
+import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness, TestKey, parallel } from '@angular/cdk/testing';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Harness for interacting with a standard Material chip avatar in tests. */
+class MatChipAvatarHarness extends ComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatChipAvatarHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatChipAvatarHarness, options);
+    }
+}
+MatChipAvatarHarness.hostSelector = '.mat-chip-avatar';
 
 /**
  * @license
@@ -36,7 +57,7 @@ MatChipRemoveHarness.hostSelector = '.mat-chip-remove';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Harness for interacting with a standard selectable Angular Material chip in tests. */
-class MatChipHarness extends ComponentHarness {
+class MatChipHarness extends ContentContainerComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipHarness` that meets
      * certain criteria.
@@ -114,11 +135,20 @@ class MatChipHarness extends ComponentHarness {
     }
     /**
      * Gets the remove button inside of a chip.
-     * @param filter Optionally filters which chips are included.
+     * @param filter Optionally filters which remove buttons are included.
      */
     getRemoveButton(filter = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             return this.locatorFor(MatChipRemoveHarness.with(filter))();
+        });
+    }
+    /**
+     * Gets the avatar inside a chip.
+     * @param filter Optionally filters which avatars are included.
+     */
+    getAvatar(filter = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.locatorForOptional(MatChipAvatarHarness.with(filter))();
         });
     }
 }

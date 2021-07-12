@@ -316,6 +316,26 @@
         return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
     }
 
+    /** Harness for interacting with a standard Material chip avatar in tests. */
+    var MatChipAvatarHarness = /** @class */ (function (_super) {
+        __extends(MatChipAvatarHarness, _super);
+        function MatChipAvatarHarness() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Gets a `HarnessPredicate` that can be used to search for a `MatChipAvatarHarness` that meets
+         * certain criteria.
+         * @param options Options for filtering which input instances are considered a match.
+         * @return a `HarnessPredicate` configured with the given options.
+         */
+        MatChipAvatarHarness.with = function (options) {
+            if (options === void 0) { options = {}; }
+            return new testing.HarnessPredicate(MatChipAvatarHarness, options);
+        };
+        return MatChipAvatarHarness;
+    }(testing.ComponentHarness));
+    MatChipAvatarHarness.hostSelector = '.mat-chip-avatar';
+
     /** Harness for interacting with a standard Material chip remove button in tests. */
     var MatChipRemoveHarness = /** @class */ (function (_super) {
         __extends(MatChipRemoveHarness, _super);
@@ -483,7 +503,7 @@
         };
         /**
          * Gets the remove button inside of a chip.
-         * @param filter Optionally filters which chips are included.
+         * @param filter Optionally filters which remove buttons are included.
          */
         MatChipHarness.prototype.getRemoveButton = function (filter) {
             if (filter === void 0) { filter = {}; }
@@ -493,8 +513,20 @@
                 });
             });
         };
+        /**
+         * Gets the avatar inside a chip.
+         * @param filter Optionally filters which avatars are included.
+         */
+        MatChipHarness.prototype.getAvatar = function (filter) {
+            if (filter === void 0) { filter = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.locatorForOptional(MatChipAvatarHarness.with(filter))()];
+                });
+            });
+        };
         return MatChipHarness;
-    }(testing.ComponentHarness));
+    }(testing.ContentContainerComponentHarness));
     /** The selector for the host element of a `MatChip` instance. */
     MatChipHarness.hostSelector = '.mat-chip';
 
