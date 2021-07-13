@@ -871,6 +871,7 @@
         };
         MatChipInput.prototype._focus = function () {
             this.focused = true;
+            this._focusLastChipOnBackspace = this.empty;
             this._chipList.stateChanges.next();
         };
         /** Checks to see if the (chipEnd) event needs to be emitted. */
