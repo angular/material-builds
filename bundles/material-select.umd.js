@@ -1328,7 +1328,15 @@
         MatSelect.prototype._scrollOptionIntoView = function (index) {
             var labelCount = core$1._countGroupLabelsBeforeOption(index, this.options, this.optionGroups);
             var itemHeight = this._getItemHeight();
-            this.panel.nativeElement.scrollTop = core$1._getOptionScrollPosition((index + labelCount) * itemHeight, itemHeight, this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
+            if (index === 0 && labelCount === 1) {
+                // If we've got one group label before the option and we're at the top option,
+                // scroll the list to the top. This is better UX than scrolling the list to the
+                // top of the option, because it allows the user to read the top group's label.
+                this.panel.nativeElement.scrollTop = 0;
+            }
+            else {
+                this.panel.nativeElement.scrollTop = core$1._getOptionScrollPosition((index + labelCount) * itemHeight, itemHeight, this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
+            }
         };
         MatSelect.prototype._positioningSettled = function () {
             this._calculateOverlayOffsetX();
