@@ -294,7 +294,7 @@ class MatInput extends _MatInputBase {
     // tslint:disable:no-host-decorator-in-concrete
     // tslint:enable:no-host-decorator-in-concrete
     _focusChanged(isFocused) {
-        if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
+        if (isFocused !== this.focused) {
             this.focused = isFocused;
             this.stateChanges.next();
         }

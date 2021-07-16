@@ -638,7 +638,7 @@
         // tslint:disable:no-host-decorator-in-concrete
         // tslint:enable:no-host-decorator-in-concrete
         MatInput.prototype._focusChanged = function (isFocused) {
-            if (isFocused !== this.focused && (!this.readonly || !isFocused)) {
+            if (isFocused !== this.focused) {
                 this.focused = isFocused;
                 this.stateChanges.next();
             }
