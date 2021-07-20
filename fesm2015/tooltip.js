@@ -319,6 +319,9 @@ class _MatTooltipBase {
         this._overlayRef.detachments()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => this._detach());
+        this._overlayRef.outsidePointerEvents()
+            .pipe(takeUntil(this._destroyed))
+            .subscribe(() => { var _a; return (_a = this._tooltipInstance) === null || _a === void 0 ? void 0 : _a._handleBodyInteraction(); });
         return this._overlayRef;
     }
     /** Detaches the currently-attached tooltip. */
@@ -749,8 +752,6 @@ TooltipComponent.decorators = [
                     // Forces the element to have a layout in IE and Edge. This fixes issues where the element
                     // won't be rendered if the animations are disabled or there is no web animations polyfill.
                     '[style.zoom]': '_visibility === "visible" ? 1 : null',
-                    '(body:click)': 'this._handleBodyInteraction()',
-                    '(body:auxclick)': 'this._handleBodyInteraction()',
                     'aria-hidden': 'true',
                 },
                 styles: [".mat-tooltip-panel{pointer-events:none !important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}\n"]
