@@ -776,7 +776,11 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
     }
     /** Callback for when the focused state of a tab has changed. */
     _tabFocusChanged(focusOrigin, index) {
-        if (focusOrigin) {
+        // Mouse/touch focus happens during the `mousedown`/`touchstart` phase which
+        // can cause the tab to be moved out from under the pointer, interrupting the
+        // click sequence (see #21898). We don't need to scroll the tab into view for
+        // such cases anyway, because it will be done when the tab becomes selected.
+        if (focusOrigin && focusOrigin !== 'mouse' && focusOrigin !== 'touch') {
             this._tabHeader.focusIndex = index;
         }
     }
