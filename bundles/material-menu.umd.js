@@ -536,13 +536,19 @@
          * @deprecated `_document` parameter is no longer being used and will be removed.
          * @breaking-change 12.0.0
          */
-        _document, _focusMonitor, _parentMenu) {
+        _document, _focusMonitor, _parentMenu, 
+        /**
+         * @deprecated `_changeDetectorRef` to become a required parameter.
+         * @breaking-change 14.0.0
+         */
+        _changeDetectorRef) {
             var _this = 
             // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
             _super.call(this) || this;
             _this._elementRef = _elementRef;
             _this._focusMonitor = _focusMonitor;
             _this._parentMenu = _parentMenu;
+            _this._changeDetectorRef = _changeDetectorRef;
             /** ARIA role for the menu item. */
             _this.role = 'menuitem';
             /** Stream that emits when the menu item is hovered. */
@@ -627,6 +633,15 @@
             }
             return ((_b = clone.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || '';
         };
+        MatMenuItem.prototype._setHighlighted = function (isHighlighted) {
+            var _a;
+            // We need to mark this for check for the case where the content is coming from a
+            // `matMenuContent` whose change detection tree is at the declaration position,
+            // not the insertion position. See #23175.
+            // @breaking-change 14.0.0 Remove null check for `_changeDetectorRef`.
+            this._highlighted = isHighlighted;
+            (_a = this._changeDetectorRef) === null || _a === void 0 ? void 0 : _a.markForCheck();
+        };
         return MatMenuItem;
     }(_MatMenuItemBase));
     MatMenuItem.decorators = [
@@ -653,7 +668,8 @@
         { type: core.ElementRef },
         { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: a11y.FocusMonitor },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional }] }
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional }] },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatMenuItem.propDecorators = {
         role: [{ type: core.Input }],
@@ -1332,7 +1348,7 @@
             this._menuOpen = isOpen;
             this._menuOpen ? this.menuOpened.emit() : this.menuClosed.emit();
             if (this.triggersSubmenu()) {
-                this._menuItemInstance._highlighted = isOpen;
+                this._menuItemInstance._setHighlighted(isOpen);
             }
         };
         /**

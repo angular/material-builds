@@ -7,7 +7,7 @@
  */
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { ElementRef, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { CanDisable, CanDisableRipple } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatMenuPanel } from './menu-panel';
@@ -22,6 +22,11 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     private _elementRef;
     private _focusMonitor?;
     _parentMenu?: MatMenuPanel<MatMenuItem> | undefined;
+    /**
+     * @deprecated `_changeDetectorRef` to become a required parameter.
+     * @breaking-change 14.0.0
+     */
+    private _changeDetectorRef?;
     /** ARIA role for the menu item. */
     role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
     /** Stream that emits when the menu item is hovered. */
@@ -37,7 +42,12 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
      * @deprecated `_document` parameter is no longer being used and will be removed.
      * @breaking-change 12.0.0
      */
-    _document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined);
+    _document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined, 
+    /**
+     * @deprecated `_changeDetectorRef` to become a required parameter.
+     * @breaking-change 14.0.0
+     */
+    _changeDetectorRef?: ChangeDetectorRef | undefined);
     /** Focuses the menu item. */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngAfterViewInit(): void;
@@ -52,6 +62,7 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     _handleMouseEnter(): void;
     /** Gets the label to be used when determining whether the option should be focused. */
     getLabel(): string;
+    _setHighlighted(isHighlighted: boolean): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
 }
