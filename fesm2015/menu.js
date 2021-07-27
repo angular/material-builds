@@ -240,12 +240,18 @@ class MatMenuItem extends _MatMenuItemBase {
      * @deprecated `_document` parameter is no longer being used and will be removed.
      * @breaking-change 12.0.0
      */
-    _document, _focusMonitor, _parentMenu) {
+    _document, _focusMonitor, _parentMenu, 
+    /**
+     * @deprecated `_changeDetectorRef` to become a required parameter.
+     * @breaking-change 14.0.0
+     */
+    _changeDetectorRef) {
         // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
         super();
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
         this._parentMenu = _parentMenu;
+        this._changeDetectorRef = _changeDetectorRef;
         /** ARIA role for the menu item. */
         this.role = 'menuitem';
         /** Stream that emits when the menu item is hovered. */
@@ -329,6 +335,15 @@ class MatMenuItem extends _MatMenuItemBase {
         }
         return ((_b = clone.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || '';
     }
+    _setHighlighted(isHighlighted) {
+        var _a;
+        // We need to mark this for check for the case where the content is coming from a
+        // `matMenuContent` whose change detection tree is at the declaration position,
+        // not the insertion position. See #23175.
+        // @breaking-change 14.0.0 Remove null check for `_changeDetectorRef`.
+        this._highlighted = isHighlighted;
+        (_a = this._changeDetectorRef) === null || _a === void 0 ? void 0 : _a.markForCheck();
+    }
 }
 MatMenuItem.decorators = [
     { type: Component, args: [{
@@ -354,7 +369,8 @@ MatMenuItem.ctorParameters = () => [
     { type: ElementRef },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: FocusMonitor },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_PANEL,] }, { type: Optional }] }
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_PANEL,] }, { type: Optional }] },
+    { type: ChangeDetectorRef }
 ];
 MatMenuItem.propDecorators = {
     role: [{ type: Input }],
@@ -991,7 +1007,7 @@ class MatMenuTrigger {
         this._menuOpen = isOpen;
         this._menuOpen ? this.menuOpened.emit() : this.menuClosed.emit();
         if (this.triggersSubmenu()) {
-            this._menuItemInstance._highlighted = isOpen;
+            this._menuItemInstance._setHighlighted(isOpen);
         }
     }
     /**
