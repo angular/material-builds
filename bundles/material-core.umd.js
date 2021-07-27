@@ -34,7 +34,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION$1 = new i0.Version('12.2.0-next.0-sha-2a2cd9c3e');
+    var VERSION$1 = new i0.Version('12.2.0-next.0-sha-278e67b76');
 
     /**
      * @license
@@ -74,7 +74,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION = new i0.Version('12.2.0-next.0-sha-2a2cd9c3e');
+    var VERSION = new i0.Version('12.2.0-next.0-sha-278e67b76');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
