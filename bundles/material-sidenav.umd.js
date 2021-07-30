@@ -415,13 +415,14 @@
      * This component corresponds to a drawer that can be opened on the drawer container.
      */
     var MatDrawer = /** @class */ (function () {
-        function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc, _container) {
+        function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _interactivityChecker, _doc, _container) {
             var _this = this;
             this._elementRef = _elementRef;
             this._focusTrapFactory = _focusTrapFactory;
             this._focusMonitor = _focusMonitor;
             this._platform = _platform;
             this._ngZone = _ngZone;
+            this._interactivityChecker = _interactivityChecker;
             this._doc = _doc;
             this._container = _container;
             this._elementFocusedBeforeDrawerWasOpened = null;
@@ -537,15 +538,30 @@
              * Whether the drawer should focus the first focusable element automatically when opened.
              * Defaults to false in when `mode` is set to `side`, otherwise defaults to `true`. If explicitly
              * enabled, focus will be moved into the sidenav in `side` mode as well.
+             * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or AutoFocusTarget
+             * instead.
              */
             get: function () {
                 var value = this._autoFocus;
-                // Note that usually we disable auto focusing in `side` mode, because we don't know how the
-                // sidenav is being used, but in some cases it still makes sense to do it. If the consumer
-                // explicitly enabled `autoFocus`, we take it as them always wanting to enable it.
-                return value == null ? this.mode !== 'side' : value;
+                // Note that usually we don't allow autoFocus to be set to `first-tabbable` in `side` mode,
+                // because we don't know how the sidenav is being used, but in some cases it still makes
+                // sense to do it. The consumer can explicitly set `autoFocus`.
+                if (value == null) {
+                    if (this.mode === 'side') {
+                        return 'dialog';
+                    }
+                    else {
+                        return 'first-tabbable';
+                    }
+                }
+                return value;
             },
-            set: function (value) { this._autoFocus = coercion.coerceBooleanProperty(value); },
+            set: function (value) {
+                if (value === 'true' || value === 'false') {
+                    value = coercion.coerceBooleanProperty(value);
+                }
+                this._autoFocus = value;
+            },
             enumerable: false,
             configurable: true
         });
@@ -560,28 +576,70 @@
             configurable: true
         });
         /**
+         * Focuses the provided element. If the element is not focusable, it will add a tabIndex
+         * attribute to forcefully focus it. The attribute is removed after focus is moved.
+         * @param element The element to focus.
+         */
+        MatDrawer.prototype._forceFocus = function (element, options) {
+            if (!this._interactivityChecker.isFocusable(element)) {
+                element.tabIndex = -1;
+                // The tabindex attribute should be removed to avoid navigating to that element again
+                this._ngZone.runOutsideAngular(function () {
+                    element.addEventListener('blur', function () { return element.removeAttribute('tabindex'); });
+                    element.addEventListener('mousedown', function () { return element.removeAttribute('tabindex'); });
+                });
+            }
+            element.focus(options);
+        };
+        /**
+         * Focuses the first element that matches the given selector within the focus trap.
+         * @param selector The CSS selector for the element to set focus to.
+         */
+        MatDrawer.prototype._focusByCssSelector = function (selector, options) {
+            var elementToFocus = this._elementRef.nativeElement.querySelector(selector);
+            if (elementToFocus) {
+                this._forceFocus(elementToFocus, options);
+            }
+        };
+        /**
          * Moves focus into the drawer. Note that this works even if
          * the focus trap is disabled in `side` mode.
          */
         MatDrawer.prototype._takeFocus = function () {
             var _this = this;
-            if (!this.autoFocus || !this._focusTrap) {
+            if (!this._focusTrap) {
                 return;
             }
-            this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
-                // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
-                // still works. We need to check that `focus` is a function due to Universal.
-                if (!hasMovedFocus && typeof _this._elementRef.nativeElement.focus === 'function') {
-                    _this._elementRef.nativeElement.focus();
-                }
-            });
+            var element = this._elementRef.nativeElement;
+            // When autoFocus is not on the sidenav, if the element cannot be focused or does
+            // not exist, focus the sidenav itself so the keyboard navigation still works.
+            // We need to check that `focus` is a function due to Universal.
+            switch (this.autoFocus) {
+                case false:
+                case 'dialog':
+                    return;
+                case true:
+                case 'first-tabbable':
+                    this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
+                        if (!hasMovedFocus && typeof _this._elementRef.nativeElement.focus === 'function') {
+                            element.focus();
+                        }
+                    });
+                    break;
+                case 'first-heading':
+                    this._focusByCssSelector('h1, h2, h3, h4, h5, h6, [role="heading"]');
+                    break;
+                default:
+                    this._focusByCssSelector(this.autoFocus);
+                    break;
+            }
         };
         /**
          * Restores focus to the element that was originally focused when the drawer opened.
          * If no element was focused at that time, the focus will be restored to the drawer.
          */
         MatDrawer.prototype._restoreFocus = function () {
-            if (!this.autoFocus) {
+            if (this.autoFocus === 'dialog') {
                 return;
             }
             // Note that we don't check via `instanceof HTMLElement` so that we can cover SVGs as well.
@@ -735,6 +793,7 @@
         { type: a11y.FocusMonitor },
         { type: platform.Platform },
         { type: core.NgZone },
+        { type: a11y.InteractivityChecker },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: MatDrawerContainer, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DRAWER_CONTAINER,] }] }
     ]; };

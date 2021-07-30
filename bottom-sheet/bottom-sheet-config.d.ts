@@ -8,6 +8,8 @@
 import { Direction } from '@angular/cdk/bidi';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { InjectionToken, ViewContainerRef } from '@angular/core';
+/** Options for where to set focus to automatically on dialog open */
+export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
 /** Injection token that can be used to access the data that was passed in to a bottom sheet. */
 export declare const MAT_BOTTOM_SHEET_DATA: InjectionToken<any>;
 /**
@@ -36,8 +38,12 @@ export declare class MatBottomSheetConfig<D = any> {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation?: boolean;
-    /** Whether the bottom sheet should focus the first focusable element on open. */
-    autoFocus?: boolean;
+    /**
+     * Where the bottom sheet should focus on open.
+     * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
+     * AutoFocusTarget instead.
+     */
+    autoFocus?: AutoFocusTarget | string | boolean;
     /**
      * Whether the bottom sheet should restore focus to the
      * previously-focused element, after it's closed.

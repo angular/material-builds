@@ -8,6 +8,8 @@
 import { ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { ScrollStrategy } from '@angular/cdk/overlay';
+/** Options for where to set focus to automatically on dialog open */
+export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
 /** Valid ARIA roles for a dialog element. */
 export declare type DialogRole = 'dialog' | 'alertdialog';
 /** Possible overrides for a dialog's position. */
@@ -68,8 +70,12 @@ export declare class MatDialogConfig<D = any> {
     ariaLabelledBy?: string | null;
     /** Aria label to assign to the dialog element. */
     ariaLabel?: string | null;
-    /** Whether the dialog should focus the first focusable element on open. */
-    autoFocus?: boolean;
+    /**
+     * Where the dialog should focus on open.
+     * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
+     * AutoFocusTarget instead.
+     */
+    autoFocus?: AutoFocusTarget | string | boolean;
     /**
      * Whether the dialog should restore focus to the
      * previously-focused element, after it's closed.

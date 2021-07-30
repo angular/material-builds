@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationEvent } from '@angular/animations';
-import { FocusMonitor, FocusOrigin, FocusTrapFactory } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusOrigin, FocusTrapFactory, InteractivityChecker } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
@@ -18,6 +18,8 @@ import { Observable, Subject } from 'rxjs';
  * @docs-private
  */
 export declare function throwMatDuplicatedDrawerError(position: string): void;
+/** Options for where to set focus to automatically on dialog open */
+export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
 /** Result of the toggle promise that indicates the state of the drawer. */
 export declare type MatDrawerToggleResult = 'open' | 'close';
 /** Drawer and SideNav display modes. */
@@ -46,6 +48,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _focusMonitor;
     private _platform;
     private _ngZone;
+    private readonly _interactivityChecker;
     private _doc;
     _container?: MatDrawerContainer | undefined;
     private _focusTrap;
@@ -68,9 +71,11 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * Whether the drawer should focus the first focusable element automatically when opened.
      * Defaults to false in when `mode` is set to `side`, otherwise defaults to `true`. If explicitly
      * enabled, focus will be moved into the sidenav in `side` mode as well.
+     * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or AutoFocusTarget
+     * instead.
      */
-    get autoFocus(): boolean;
-    set autoFocus(value: boolean);
+    get autoFocus(): AutoFocusTarget | string | boolean;
+    set autoFocus(value: AutoFocusTarget | string | boolean);
     private _autoFocus;
     /**
      * Whether the drawer is opened. We overload this because we trigger an event when it
@@ -106,7 +111,18 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * to know when to when the mode changes so it can adapt the margins on the content.
      */
     readonly _modeChanged: Subject<void>;
-    constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any, _container?: MatDrawerContainer | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _interactivityChecker: InteractivityChecker, _doc: any, _container?: MatDrawerContainer | undefined);
+    /**
+     * Focuses the provided element. If the element is not focusable, it will add a tabIndex
+     * attribute to forcefully focus it. The attribute is removed after focus is moved.
+     * @param element The element to focus.
+     */
+    private _forceFocus;
+    /**
+     * Focuses the first element that matches the given selector within the focus trap.
+     * @param selector The CSS selector for the element to set focus to.
+     */
+    private _focusByCssSelector;
     /**
      * Moves focus into the drawer. Note that this works even if
      * the focus trap is disabled in `side` mode.
@@ -153,7 +169,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     _animationStartListener(event: AnimationEvent): void;
     _animationDoneListener(event: AnimationEvent): void;
     static ngAcceptInputType_disableClose: BooleanInput;
-    static ngAcceptInputType_autoFocus: BooleanInput;
+    static ngAcceptInputType_autoFocus: AutoFocusTarget | string | BooleanInput;
     static ngAcceptInputType_opened: BooleanInput;
 }
 /**

@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRef, EmbeddedViewRef, OnDestroy, ElementRef, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { ComponentRef, EmbeddedViewRef, OnDestroy, ElementRef, ChangeDetectorRef, EventEmitter, NgZone } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalOutlet, ComponentPortal, TemplatePortal, CdkPortalOutlet, DomPortal } from '@angular/cdk/portal';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatBottomSheetConfig } from './bottom-sheet-config';
-import { FocusTrapFactory } from '@angular/cdk/a11y';
+import { FocusTrapFactory, InteractivityChecker } from '@angular/cdk/a11y';
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * @docs-private
@@ -19,6 +19,8 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _elementRef;
     private _changeDetectorRef;
     private _focusTrapFactory;
+    private readonly _interactivityChecker;
+    private readonly _ngZone;
     /** The bottom sheet configuration. */
     bottomSheetConfig: MatBottomSheetConfig;
     private _breakpointSubscription;
@@ -36,7 +38,7 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _document;
     /** Whether the component has been destroyed. */
     private _destroyed;
-    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusTrapFactory: FocusTrapFactory, breakpointObserver: BreakpointObserver, document: any, 
+    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusTrapFactory: FocusTrapFactory, _interactivityChecker: InteractivityChecker, _ngZone: NgZone, breakpointObserver: BreakpointObserver, document: any, 
     /** The bottom sheet configuration. */
     bottomSheetConfig: MatBottomSheetConfig);
     /** Attach a component portal as content to this bottom sheet container. */
@@ -59,7 +61,21 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _toggleClass;
     private _validatePortalAttached;
     private _setPanelClass;
-    /** Moves the focus inside the focus trap. */
+    /**
+     * Focuses the provided element. If the element is not focusable, it will add a tabIndex
+     * attribute to forcefully focus it. The attribute is removed after focus is moved.
+     * @param element The element to focus.
+     */
+    private _forceFocus;
+    /**
+     * Focuses the first element that matches the given selector within the focus trap.
+     * @param selector The CSS selector for the element to set focus to.
+     */
+    private _focusByCssSelector;
+    /**
+     * Moves the focus inside the focus trap. When autoFocus is not set to 'bottom-sheet',
+     * if focus cannot be moved then focus will go to the bottom sheet container.
+     */
     private _trapFocus;
     /** Restores focus to the element that was focused before the bottom sheet was opened. */
     private _restoreFocus;

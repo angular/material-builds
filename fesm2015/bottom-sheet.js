@@ -2,12 +2,12 @@ import * as i1 from '@angular/cdk/overlay';
 import { OverlayModule, OverlayConfig, Overlay } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, Optional, Inject, ViewChild, NgModule, TemplateRef, Injector, InjectFlags, Injectable, SkipSelf } from '@angular/core';
+import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, NgZone, Optional, Inject, ViewChild, NgModule, TemplateRef, Injector, InjectFlags, Injectable, SkipSelf } from '@angular/core';
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
-import { FocusTrapFactory } from '@angular/cdk/a11y';
+import { FocusTrapFactory, InteractivityChecker } from '@angular/cdk/a11y';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subject, merge, of } from 'rxjs';
@@ -42,11 +42,15 @@ class MatBottomSheetConfig {
          * the `HashLocationStrategy`).
          */
         this.closeOnNavigation = true;
-        // Note that this is disabled by default, because while the a11y recommendations are to focus
-        // the first focusable element, doing so prevents screen readers from reading out the
+        // Note that this is set to 'dialog' by default, because while the a11y recommendations
+        // are to focus the first focusable element, doing so prevents screen readers from reading out the
         // rest of the bottom sheet content.
-        /** Whether the bottom sheet should focus the first focusable element on open. */
-        this.autoFocus = false;
+        /**
+         * Where the bottom sheet should focus on open.
+         * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
+         * AutoFocusTarget instead.
+         */
+        this.autoFocus = 'dialog';
         /**
          * Whether the bottom sheet should restore focus to the
          * previously-focused element, after it's closed.
@@ -86,13 +90,15 @@ const matBottomSheetAnimations = {
  * @docs-private
  */
 class MatBottomSheetContainer extends BasePortalOutlet {
-    constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document, 
+    constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, _interactivityChecker, _ngZone, breakpointObserver, document, 
     /** The bottom sheet configuration. */
     bottomSheetConfig) {
         super();
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._focusTrapFactory = _focusTrapFactory;
+        this._interactivityChecker = _interactivityChecker;
+        this._ngZone = _ngZone;
         this.bottomSheetConfig = bottomSheetConfig;
         /** The state of the bottom sheet animations. */
         this._animationState = 'void';
@@ -184,25 +190,69 @@ class MatBottomSheetContainer extends BasePortalOutlet {
             element.classList.add(panelClass);
         }
     }
-    /** Moves the focus inside the focus trap. */
+    /**
+     * Focuses the provided element. If the element is not focusable, it will add a tabIndex
+     * attribute to forcefully focus it. The attribute is removed after focus is moved.
+     * @param element The element to focus.
+     */
+    _forceFocus(element, options) {
+        if (!this._interactivityChecker.isFocusable(element)) {
+            element.tabIndex = -1;
+            // The tabindex attribute should be removed to avoid navigating to that element again
+            this._ngZone.runOutsideAngular(() => {
+                element.addEventListener('blur', () => element.removeAttribute('tabindex'));
+                element.addEventListener('mousedown', () => element.removeAttribute('tabindex'));
+            });
+        }
+        element.focus(options);
+    }
+    /**
+     * Focuses the first element that matches the given selector within the focus trap.
+     * @param selector The CSS selector for the element to set focus to.
+     */
+    _focusByCssSelector(selector, options) {
+        let elementToFocus = this._elementRef.nativeElement.querySelector(selector);
+        if (elementToFocus) {
+            this._forceFocus(elementToFocus, options);
+        }
+    }
+    /**
+     * Moves the focus inside the focus trap. When autoFocus is not set to 'bottom-sheet',
+     * if focus cannot be moved then focus will go to the bottom sheet container.
+     */
     _trapFocus() {
         const element = this._elementRef.nativeElement;
         if (!this._focusTrap) {
             this._focusTrap = this._focusTrapFactory.create(element);
         }
-        if (this.bottomSheetConfig.autoFocus) {
-            this._focusTrap.focusInitialElementWhenReady();
-        }
-        else {
-            const activeElement = _getFocusedElementPierceShadowDom();
-            // Otherwise ensure that focus is on the container. It's possible that a different
-            // component tried to move focus while the open animation was running. See:
-            // https://github.com/angular/components/issues/16215. Note that we only want to do this
-            // if the focus isn't inside the bottom sheet already, because it's possible that the
-            // consumer turned off `autoFocus` in order to move focus themselves.
-            if (activeElement !== element && !element.contains(activeElement)) {
-                element.focus();
-            }
+        // If were to attempt to focus immediately, then the content of the bottom sheet would not
+        // yet be ready in instances where change detection has to run first. To deal with this,
+        // we simply wait for the microtask queue to be empty when setting focus when autoFocus
+        // isn't set to bottom sheet. If the element inside the bottom sheet can't be focused,
+        // then the container is focused so the user can't tab into other elements behind it.
+        switch (this.bottomSheetConfig.autoFocus) {
+            case false:
+            case 'dialog':
+                const activeElement = _getFocusedElementPierceShadowDom();
+                // Ensure that focus is on the bottom sheet container. It's possible that a different
+                // component tried to move focus while the open animation was running. See:
+                // https://github.com/angular/components/issues/16215. Note that we only want to do this
+                // if the focus isn't inside the bottom sheet already, because it's possible that the
+                // consumer specified `autoFocus` in order to move focus themselves.
+                if (activeElement !== element && !element.contains(activeElement)) {
+                    element.focus();
+                }
+                break;
+            case true:
+            case 'first-tabbable':
+                this._focusTrap.focusInitialElementWhenReady();
+                break;
+            case 'first-heading':
+                this._focusByCssSelector('h1, h2, h3, h4, h5, h6, [role="heading"]');
+                break;
+            default:
+                this._focusByCssSelector(this.bottomSheetConfig.autoFocus);
+                break;
         }
     }
     /** Restores focus to the element that was focused before the bottom sheet was opened. */
@@ -262,6 +312,8 @@ MatBottomSheetContainer.ctorParameters = () => [
     { type: ElementRef },
     { type: ChangeDetectorRef },
     { type: FocusTrapFactory },
+    { type: InteractivityChecker },
+    { type: NgZone },
     { type: BreakpointObserver },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
     { type: MatBottomSheetConfig }

@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationEvent } from '@angular/animations';
-import { FocusMonitor, FocusOrigin, FocusTrapFactory } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusOrigin, FocusTrapFactory, InteractivityChecker } from '@angular/cdk/a11y';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, DomPortal, TemplatePortal } from '@angular/cdk/portal';
-import { ChangeDetectorRef, ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter } from '@angular/core';
+import { ChangeDetectorRef, ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, NgZone } from '@angular/core';
 import { MatDialogConfig } from './dialog-config';
 /** Event that captures the state of dialog container animations. */
 interface DialogAnimationEvent {
@@ -31,6 +31,8 @@ export declare abstract class _MatDialogContainerBase extends BasePortalOutlet {
     protected _changeDetectorRef: ChangeDetectorRef;
     /** The dialog configuration. */
     _config: MatDialogConfig;
+    private readonly _interactivityChecker;
+    private readonly _ngZone;
     private _focusMonitor?;
     protected _document: Document;
     /** The portal outlet inside of this container into which the dialog content will be loaded. */
@@ -53,7 +55,7 @@ export declare abstract class _MatDialogContainerBase extends BasePortalOutlet {
     _id: string;
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any, 
     /** The dialog configuration. */
-    _config: MatDialogConfig, _focusMonitor?: FocusMonitor | undefined);
+    _config: MatDialogConfig, _interactivityChecker: InteractivityChecker, _ngZone: NgZone, _focusMonitor?: FocusMonitor | undefined);
     /** Starts the dialog exit animation. */
     abstract _startExitAnimation(): void;
     /** Initializes the dialog container with the attached content. */
@@ -77,7 +79,21 @@ export declare abstract class _MatDialogContainerBase extends BasePortalOutlet {
     attachDomPortal: (portal: DomPortal) => void;
     /** Moves focus back into the dialog if it was moved out. */
     _recaptureFocus(): void;
-    /** Moves the focus inside the focus trap. */
+    /**
+     * Focuses the provided element. If the element is not focusable, it will add a tabIndex
+     * attribute to forcefully focus it. The attribute is removed after focus is moved.
+     * @param element The element to focus.
+     */
+    private _forceFocus;
+    /**
+     * Focuses the first element that matches the given selector within the focus trap.
+     * @param selector The CSS selector for the element to set focus to.
+     */
+    private _focusByCssSelector;
+    /**
+     * Moves the focus inside the focus trap. When autoFocus is not set to 'dialog', if focus
+     * cannot be moved then focus will go to the dialog container.
+     */
     protected _trapFocus(): void;
     /** Restores focus to the element that was focused before the dialog opened. */
     protected _restoreFocus(): void;
