@@ -8,13 +8,13 @@
 import { InjectionToken } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 /** InjectionToken for datepicker that can be used to override default locale code. */
-export declare const MAT_DATE_LOCALE: InjectionToken<string>;
+export declare const MAT_DATE_LOCALE: InjectionToken<{}>;
 /** @docs-private */
-export declare function MAT_DATE_LOCALE_FACTORY(): string;
+export declare function MAT_DATE_LOCALE_FACTORY(): {};
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
-export declare abstract class DateAdapter<D> {
+export declare abstract class DateAdapter<D, L = any> {
     /** The locale to use for all dates. */
-    protected locale: any;
+    protected locale: L;
     protected readonly _localeChanges: Subject<void>;
     /** A stream that emits when the locale changes. */
     readonly localeChanges: Observable<void>;
@@ -186,7 +186,7 @@ export declare abstract class DateAdapter<D> {
      * Sets the locale used for all dates.
      * @param locale The new locale.
      */
-    setLocale(locale: any): void;
+    setLocale(locale: L): void;
     /**
      * Compares two dates.
      * @param first The first date to compare.
