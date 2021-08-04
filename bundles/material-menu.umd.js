@@ -883,11 +883,7 @@
                         manager.setFocusOrigin('keyboard');
                     }
                     manager.onKeydown(event);
-                    return;
             }
-            // Don't allow the event to propagate if we've already handled it, or it may
-            // end up reaching other overlays that were opened earlier (see #22694).
-            event.stopPropagation();
         };
         /**
          * Focus the first item in the menu.
