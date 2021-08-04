@@ -41,7 +41,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     private _diameter;
     private _value;
     private _strokeWidth;
-    private _fallbackAnimation;
     /**
      * Element to which we should add the generated style tags for the indeterminate animation.
      * For most elements this is the document, but for the ones in the Shadow DOM we need to
@@ -70,7 +69,12 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     /** Value of the progress circle. */
     get value(): number;
     set value(newValue: number);
-    constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
+    constructor(elementRef: ElementRef<HTMLElement>, 
+    /**
+     * @deprecated `_platform` parameter no longer being used.
+     * @breaking-change 14.0.0
+     */
+    _platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
     ngOnInit(): void;
     /** The radius of the spinner, adjusted for stroke width. */
     _getCircleRadius(): number;
