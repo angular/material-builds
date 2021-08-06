@@ -38,8 +38,8 @@ export declare class MatCommonModule {
     constructor(highContrastModeDetector: HighContrastModeDetector, sanityChecks: any, document: any);
     /** Use defaultView of injected document if available or fallback to global window reference */
     private _getWindow;
-    /** Whether any sanity checks are enabled. */
-    private _checksAreEnabled;
+    /** Gets whether a specific sanity check is enabled. */
+    private _checkIsEnabled;
     /** Whether the code is running in tests. */
     private _isTestEnv;
     private _checkDoctypeIsDefined;
