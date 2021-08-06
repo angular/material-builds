@@ -34,7 +34,7 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /** Current version of Angular Material. */
-    var VERSION$1 = new i0.Version('12.2.0-sha-1ea4aa6fb');
+    var VERSION$1 = new i0.Version('12.2.0-sha-29466d9e3');
 
     /**
      * @license
@@ -74,7 +74,7 @@
     // i.e. avoid core to depend on the @angular/material primary entry-point
     // Can be removed once the Material primary entry-point no longer
     // re-exports all secondary entry-points
-    var VERSION = new i0.Version('12.2.0-sha-1ea4aa6fb');
+    var VERSION = new i0.Version('12.2.0-sha-29466d9e3');
     /** @docs-private */
     function MATERIAL_SANITY_CHECKS_FACTORY() {
         return true;
@@ -113,13 +113,19 @@
             var win = this._document.defaultView || window;
             return typeof win === 'object' && win ? win : null;
         };
-        /** Whether any sanity checks are enabled. */
-        MatCommonModule.prototype._checksAreEnabled = function () {
+        /** Gets whether a specific sanity check is enabled. */
+        MatCommonModule.prototype._checkIsEnabled = function (name) {
             // TODO(crisbeto): we can't use `ngDevMode` here yet, because ViewEngine apps might not support
             // it. Since these checks can have performance implications and they aren't tree shakeable
             // in their current form, we can leave the `isDevMode` check in for now.
             // tslint:disable-next-line:ban
-            return i0.isDevMode() && !this._isTestEnv();
+            if (!i0.isDevMode() || this._isTestEnv()) {
+                return false;
+            }
+            if (typeof this._sanityChecks === 'boolean') {
+                return this._sanityChecks;
+            }
+            return !!this._sanityChecks[name];
         };
         /** Whether the code is running in tests. */
         MatCommonModule.prototype._isTestEnv = function () {
@@ -127,9 +133,7 @@
             return window && (window.__karma__ || window.jasmine);
         };
         MatCommonModule.prototype._checkDoctypeIsDefined = function () {
-            var isEnabled = this._checksAreEnabled() &&
-                (this._sanityChecks === true || this._sanityChecks.doctype);
-            if (isEnabled && !this._document.doctype) {
+            if (this._checkIsEnabled('doctype') && !this._document.doctype) {
                 console.warn('Current document does not have a doctype. This may cause ' +
                     'some Angular Material components not to behave as expected.');
             }
@@ -137,9 +141,8 @@
         MatCommonModule.prototype._checkThemeIsPresent = function () {
             // We need to assert that the `body` is defined, because these checks run very early
             // and the `body` won't be defined if the consumer put their scripts in the `head`.
-            var isDisabled = !this._checksAreEnabled() ||
-                (this._sanityChecks === false || !this._sanityChecks.theme);
-            if (isDisabled || !this._document.body || typeof getComputedStyle !== 'function') {
+            if (!this._checkIsEnabled('theme') || !this._document.body ||
+                typeof getComputedStyle !== 'function') {
                 return;
             }
             var testElement = this._document.createElement('div');
@@ -158,9 +161,7 @@
         };
         /** Checks whether the material version matches the cdk version */
         MatCommonModule.prototype._checkCdkVersionMatch = function () {
-            var isEnabled = this._checksAreEnabled() &&
-                (this._sanityChecks === true || this._sanityChecks.version);
-            if (isEnabled && VERSION.full !== cdk.VERSION.full) {
+            if (this._checkIsEnabled('version') && VERSION.full !== cdk.VERSION.full) {
                 console.warn('The Angular Material version (' + VERSION.full + ') does not match ' +
                     'the Angular CDK version (' + cdk.VERSION.full + ').\n' +
                     'Please ensure the versions of these two packages exactly match.');
