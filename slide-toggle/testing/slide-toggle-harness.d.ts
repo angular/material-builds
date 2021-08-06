@@ -5,15 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { AsyncFactoryFn, ComponentHarness, HarnessPredicate, TestElement } from '@angular/cdk/testing';
 import { SlideToggleHarnessFilters } from './slide-toggle-harness-filters';
 export declare abstract class _MatSlideToggleHarnessBase extends ComponentHarness {
     private _label;
-    protected _input: import("@angular/cdk/testing").AsyncFactoryFn<import("@angular/cdk/testing").TestElement>;
+    protected abstract _nativeElement: AsyncFactoryFn<TestElement>;
     /** Toggle the checked state of the slide-toggle. */
     abstract toggle(): Promise<void>;
     /** Whether the slide-toggle is checked. */
-    isChecked(): Promise<boolean>;
+    abstract isChecked(): Promise<boolean>;
     /** Whether the slide-toggle is disabled. */
     isDisabled(): Promise<boolean>;
     /** Whether the slide-toggle is required. */
@@ -47,6 +47,8 @@ export declare abstract class _MatSlideToggleHarnessBase extends ComponentHarnes
 }
 /** Harness for interacting with a standard mat-slide-toggle in tests. */
 export declare class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
+    private _inputContainer;
+    protected _nativeElement: AsyncFactoryFn<TestElement>;
     /** The selector for the host element of a `MatSlideToggle` instance. */
     static hostSelector: string;
     /**
@@ -56,7 +58,8 @@ export declare class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: SlideToggleHarnessFilters): HarnessPredicate<MatSlideToggleHarness>;
-    private _inputContainer;
     /** Toggle the checked state of the slide-toggle. */
     toggle(): Promise<void>;
+    /** Whether the slide-toggle is checked. */
+    isChecked(): Promise<boolean>;
 }

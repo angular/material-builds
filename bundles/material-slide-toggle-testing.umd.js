@@ -327,32 +327,15 @@
         function _MatSlideToggleHarnessBase() {
             var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._label = _this.locatorFor('label');
-            _this._input = _this.locatorFor('input');
             return _this;
         }
-        /** Whether the slide-toggle is checked. */
-        _MatSlideToggleHarnessBase.prototype.isChecked = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var checked, _a;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, this._input()];
-                        case 1:
-                            checked = (_b.sent()).getProperty('checked');
-                            _a = coercion.coerceBooleanProperty;
-                            return [4 /*yield*/, checked];
-                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
-                    }
-                });
-            });
-        };
         /** Whether the slide-toggle is disabled. */
         _MatSlideToggleHarnessBase.prototype.isDisabled = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var disabled, _a;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
-                        case 0: return [4 /*yield*/, this._input()];
+                        case 0: return [4 /*yield*/, this._nativeElement()];
                         case 1:
                             disabled = (_b.sent()).getAttribute('disabled');
                             _a = coercion.coerceBooleanProperty;
@@ -368,7 +351,7 @@
                 var required, _a;
                 return __generator(this, function (_b) {
                     switch (_b.label) {
-                        case 0: return [4 /*yield*/, this._input()];
+                        case 0: return [4 /*yield*/, this._nativeElement()];
                         case 1:
                             required = (_b.sent()).getAttribute('required');
                             _a = coercion.coerceBooleanProperty;
@@ -398,7 +381,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
+                        case 0: return [4 /*yield*/, this._nativeElement()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('name')];
                     }
                 });
@@ -409,7 +392,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
+                        case 0: return [4 /*yield*/, this._nativeElement()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-label')];
                     }
                 });
@@ -420,7 +403,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
+                        case 0: return [4 /*yield*/, this._nativeElement()];
                         case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-labelledby')];
                     }
                 });
@@ -442,7 +425,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
+                        case 0: return [4 /*yield*/, this._nativeElement()];
                         case 1: return [2 /*return*/, (_a.sent()).focus()];
                     }
                 });
@@ -453,7 +436,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
+                        case 0: return [4 /*yield*/, this._nativeElement()];
                         case 1: return [2 /*return*/, (_a.sent()).blur()];
                     }
                 });
@@ -464,7 +447,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._input()];
+                        case 0: return [4 /*yield*/, this._nativeElement()];
                         case 1: return [2 /*return*/, (_a.sent()).isFocused()];
                     }
                 });
@@ -518,6 +501,7 @@
         function MatSlideToggleHarness() {
             var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._inputContainer = _this.locatorFor('.mat-slide-toggle-bar');
+            _this._nativeElement = _this.locatorFor('input');
             return _this;
         }
         /**
@@ -548,6 +532,22 @@
                     switch (_a.label) {
                         case 0: return [4 /*yield*/, this._inputContainer()];
                         case 1: return [2 /*return*/, (_a.sent()).click()];
+                    }
+                });
+            });
+        };
+        /** Whether the slide-toggle is checked. */
+        MatSlideToggleHarness.prototype.isChecked = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var checked, _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0: return [4 /*yield*/, this._nativeElement()];
+                        case 1:
+                            checked = (_b.sent()).getProperty('checked');
+                            _a = coercion.coerceBooleanProperty;
+                            return [4 /*yield*/, checked];
+                        case 2: return [2 /*return*/, _a.apply(void 0, [_b.sent()])];
                     }
                 });
             });

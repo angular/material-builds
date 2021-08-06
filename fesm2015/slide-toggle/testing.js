@@ -13,26 +13,18 @@ class _MatSlideToggleHarnessBase extends ComponentHarness {
     constructor() {
         super(...arguments);
         this._label = this.locatorFor('label');
-        this._input = this.locatorFor('input');
-    }
-    /** Whether the slide-toggle is checked. */
-    isChecked() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const checked = (yield this._input()).getProperty('checked');
-            return coerceBooleanProperty(yield checked);
-        });
     }
     /** Whether the slide-toggle is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
-            const disabled = (yield this._input()).getAttribute('disabled');
+            const disabled = (yield this._nativeElement()).getAttribute('disabled');
             return coerceBooleanProperty(yield disabled);
         });
     }
     /** Whether the slide-toggle is required. */
     isRequired() {
         return __awaiter(this, void 0, void 0, function* () {
-            const required = (yield this._input()).getAttribute('required');
+            const required = (yield this._nativeElement()).getAttribute('required');
             return coerceBooleanProperty(yield required);
         });
     }
@@ -46,19 +38,19 @@ class _MatSlideToggleHarnessBase extends ComponentHarness {
     /** Gets the slide-toggle's name. */
     getName() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._input()).getAttribute('name');
+            return (yield this._nativeElement()).getAttribute('name');
         });
     }
     /** Gets the slide-toggle's aria-label. */
     getAriaLabel() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._input()).getAttribute('aria-label');
+            return (yield this._nativeElement()).getAttribute('aria-label');
         });
     }
     /** Gets the slide-toggle's aria-labelledby. */
     getAriaLabelledby() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._input()).getAttribute('aria-labelledby');
+            return (yield this._nativeElement()).getAttribute('aria-labelledby');
         });
     }
     /** Gets the slide-toggle's label text. */
@@ -70,19 +62,19 @@ class _MatSlideToggleHarnessBase extends ComponentHarness {
     /** Focuses the slide-toggle. */
     focus() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._input()).focus();
+            return (yield this._nativeElement()).focus();
         });
     }
     /** Blurs the slide-toggle. */
     blur() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._input()).blur();
+            return (yield this._nativeElement()).blur();
         });
     }
     /** Whether the slide-toggle is focused. */
     isFocused() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._input()).isFocused();
+            return (yield this._nativeElement()).isFocused();
         });
     }
     /**
@@ -113,6 +105,7 @@ class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
     constructor() {
         super(...arguments);
         this._inputContainer = this.locatorFor('.mat-slide-toggle-bar');
+        this._nativeElement = this.locatorFor('input');
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSlideToggleHarness` that meets
@@ -132,6 +125,13 @@ class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
     toggle() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._inputContainer()).click();
+        });
+    }
+    /** Whether the slide-toggle is checked. */
+    isChecked() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const checked = (yield this._nativeElement()).getProperty('checked');
+            return coerceBooleanProperty(yield checked);
         });
     }
 }
