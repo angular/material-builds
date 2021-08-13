@@ -4,12 +4,13 @@ import { EventEmitter, Directive, ElementRef, ChangeDetectorRef, Optional, Injec
 import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT, Location } from '@angular/common';
-import { Subject, defer, of } from 'rxjs';
+import { Subject, defer, Subscription, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { FocusTrapFactory, InteractivityChecker, FocusMonitor } from '@angular/cdk/a11y';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * @license
@@ -154,9 +155,6 @@ class _MatDialogContainerBase extends BasePortalOutlet {
         // Save the previously focused element. This element will be re-focused
         // when the dialog closes.
         this._capturePreviouslyFocusedElement();
-        // Move focus onto the dialog immediately in order to prevent the user
-        // from accidentally opening multiple dialogs at the same time.
-        this._focusDialogContainer();
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -235,7 +233,13 @@ class _MatDialogContainerBase extends BasePortalOutlet {
                 break;
             case true:
             case 'first-tabbable':
-                this._focusTrap.focusInitialElementWhenReady();
+                this._focusTrap.focusInitialElementWhenReady().then(focusedSuccessfully => {
+                    // If we weren't able to find a focusable element in the dialog, then focus the dialog
+                    // container instead.
+                    if (!focusedSuccessfully) {
+                        this._focusDialogContainer();
+                    }
+                });
                 break;
             case 'first-heading':
                 this._focusByCssSelector('h1, h2, h3, h4, h5, h6, [role="heading"]');
@@ -602,7 +606,7 @@ const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * for arbitrary dialog refs and dialog container components.
  */
 class _MatDialogBase {
-    constructor(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken) {
+    constructor(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken, _animationMode) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._defaultOptions = _defaultOptions;
@@ -611,10 +615,12 @@ class _MatDialogBase {
         this._dialogRefConstructor = _dialogRefConstructor;
         this._dialogContainerType = _dialogContainerType;
         this._dialogDataToken = _dialogDataToken;
+        this._animationMode = _animationMode;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
         this._afterOpenedAtThisLevel = new Subject();
         this._ariaHiddenElements = new Map();
+        this._dialogAnimatingOpen = false;
         // TODO (jelbourn): tighten the typing right-hand side of this expression.
         /**
          * Stream that emits when all open dialog have finished closing.
@@ -643,9 +649,29 @@ class _MatDialogBase {
             (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
         }
+        // If there is a dialog that is currently animating open, return the MatDialogRef of that dialog
+        if (this._dialogAnimatingOpen) {
+            return this._lastDialogRef;
+        }
         const overlayRef = this._createOverlay(config);
         const dialogContainer = this._attachDialogContainer(overlayRef, config);
+        if (this._animationMode !== 'NoopAnimations') {
+            const animationStateSubscription = dialogContainer._animationStateChanged.subscribe((dialogAnimationEvent) => {
+                if (dialogAnimationEvent.state === 'opening') {
+                    this._dialogAnimatingOpen = true;
+                }
+                if (dialogAnimationEvent.state === 'opened') {
+                    this._dialogAnimatingOpen = false;
+                    animationStateSubscription.unsubscribe();
+                }
+            });
+            if (!this._animationStateSubscriptions) {
+                this._animationStateSubscriptions = new Subscription();
+            }
+            this._animationStateSubscriptions.add(animationStateSubscription);
+        }
         const dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+        this._lastDialogRef = dialogRef;
         // If this is the first dialog that we're opening, hide all the non-overlay content.
         if (!this.openDialogs.length) {
             this._hideNonDialogContentFromAssistiveTechnology();
@@ -676,6 +702,10 @@ class _MatDialogBase {
         this._closeDialogs(this._openDialogsAtThisLevel);
         this._afterAllClosedAtThisLevel.complete();
         this._afterOpenedAtThisLevel.complete();
+        // Clean up any subscriptions to dialogs that never finished opening.
+        if (this._animationStateSubscriptions) {
+            this._animationStateSubscriptions.unsubscribe();
+        }
     }
     /**
      * Creates the overlay into which the dialog will be loaded.
@@ -847,7 +877,8 @@ _MatDialogBase.ctorParameters = () => [
     { type: undefined },
     { type: Type },
     { type: Type },
-    { type: InjectionToken }
+    { type: InjectionToken },
+    { type: undefined }
 ];
 /**
  * Service to open Material Design modal dialogs.
@@ -858,8 +889,8 @@ class MatDialog extends _MatDialogBase {
      * @deprecated `_location` parameter to be removed.
      * @breaking-change 10.0.0
      */
-    location, defaultOptions, scrollStrategy, parentDialog, overlayContainer) {
-        super(overlay, injector, defaultOptions, parentDialog, overlayContainer, scrollStrategy, MatDialogRef, MatDialogContainer, MAT_DIALOG_DATA);
+    location, defaultOptions, scrollStrategy, parentDialog, overlayContainer, animationMode) {
+        super(overlay, injector, defaultOptions, parentDialog, overlayContainer, scrollStrategy, MatDialogRef, MatDialogContainer, MAT_DIALOG_DATA, animationMode);
     }
 }
 MatDialog.decorators = [
@@ -872,7 +903,8 @@ MatDialog.ctorParameters = () => [
     { type: MatDialogConfig, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
     { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf }] },
-    { type: OverlayContainer }
+    { type: OverlayContainer },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 /**
  * Applies default options to the dialog config.

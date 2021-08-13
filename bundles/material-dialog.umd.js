@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/animations', '@angular/cdk/keycodes'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.bidi, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.cdk.platform, global.ng.animations, global.ng.cdk.keycodes));
-}(this, (function (exports, overlay, portal, core, core$1, bidi, common, rxjs, operators, a11y, platform, animations, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/common'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/cdk/keycodes'), require('@angular/platform-browser/animations')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/common', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/animations', '@angular/cdk/keycodes', '@angular/platform-browser/animations'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.bidi, global.ng.common, global.rxjs, global.rxjs.operators, global.ng.cdk.a11y, global.ng.cdk.platform, global.ng.animations, global.ng.cdk.keycodes, global.ng.platformBrowser.animations));
+}(this, (function (exports, overlay, portal, core, core$1, bidi, common, rxjs, operators, a11y, platform, animations, keycodes, animations$1) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -461,9 +461,6 @@
             // Save the previously focused element. This element will be re-focused
             // when the dialog closes.
             this._capturePreviouslyFocusedElement();
-            // Move focus onto the dialog immediately in order to prevent the user
-            // from accidentally opening multiple dialogs at the same time.
-            this._focusDialogContainer();
         };
         /**
          * Attach a ComponentPortal as content to this dialog container.
@@ -522,6 +519,7 @@
          * cannot be moved then focus will go to the dialog container.
          */
         _MatDialogContainerBase.prototype._trapFocus = function () {
+            var _this = this;
             var element = this._elementRef.nativeElement;
             // If were to attempt to focus immediately, then the content of the dialog would not yet be
             // ready in instances where change detection has to run first. To deal with this, we simply
@@ -542,7 +540,13 @@
                     break;
                 case true:
                 case 'first-tabbable':
-                    this._focusTrap.focusInitialElementWhenReady();
+                    this._focusTrap.focusInitialElementWhenReady().then(function (focusedSuccessfully) {
+                        // If we weren't able to find a focusable element in the dialog, then focus the dialog
+                        // container instead.
+                        if (!focusedSuccessfully) {
+                            _this._focusDialogContainer();
+                        }
+                    });
                     break;
                 case 'first-heading':
                     this._focusByCssSelector('h1, h2, h3, h4, h5, h6, [role="heading"]');
@@ -914,7 +918,7 @@
      * for arbitrary dialog refs and dialog container components.
      */
     var _MatDialogBase = /** @class */ (function () {
-        function _MatDialogBase(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken) {
+        function _MatDialogBase(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken, _animationMode) {
             var _this = this;
             this._overlay = _overlay;
             this._injector = _injector;
@@ -924,10 +928,12 @@
             this._dialogRefConstructor = _dialogRefConstructor;
             this._dialogContainerType = _dialogContainerType;
             this._dialogDataToken = _dialogDataToken;
+            this._animationMode = _animationMode;
             this._openDialogsAtThisLevel = [];
             this._afterAllClosedAtThisLevel = new rxjs.Subject();
             this._afterOpenedAtThisLevel = new rxjs.Subject();
             this._ariaHiddenElements = new Map();
+            this._dialogAnimatingOpen = false;
             // TODO (jelbourn): tighten the typing right-hand side of this expression.
             /**
              * Stream that emits when all open dialog have finished closing.
@@ -965,9 +971,29 @@
                 (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
             }
+            // If there is a dialog that is currently animating open, return the MatDialogRef of that dialog
+            if (this._dialogAnimatingOpen) {
+                return this._lastDialogRef;
+            }
             var overlayRef = this._createOverlay(config);
             var dialogContainer = this._attachDialogContainer(overlayRef, config);
+            if (this._animationMode !== 'NoopAnimations') {
+                var animationStateSubscription_1 = dialogContainer._animationStateChanged.subscribe(function (dialogAnimationEvent) {
+                    if (dialogAnimationEvent.state === 'opening') {
+                        _this._dialogAnimatingOpen = true;
+                    }
+                    if (dialogAnimationEvent.state === 'opened') {
+                        _this._dialogAnimatingOpen = false;
+                        animationStateSubscription_1.unsubscribe();
+                    }
+                });
+                if (!this._animationStateSubscriptions) {
+                    this._animationStateSubscriptions = new rxjs.Subscription();
+                }
+                this._animationStateSubscriptions.add(animationStateSubscription_1);
+            }
             var dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+            this._lastDialogRef = dialogRef;
             // If this is the first dialog that we're opening, hide all the non-overlay content.
             if (!this.openDialogs.length) {
                 this._hideNonDialogContentFromAssistiveTechnology();
@@ -998,6 +1024,10 @@
             this._closeDialogs(this._openDialogsAtThisLevel);
             this._afterAllClosedAtThisLevel.complete();
             this._afterOpenedAtThisLevel.complete();
+            // Clean up any subscriptions to dialogs that never finished opening.
+            if (this._animationStateSubscriptions) {
+                this._animationStateSubscriptions.unsubscribe();
+            }
         };
         /**
          * Creates the overlay into which the dialog will be loaded.
@@ -1170,7 +1200,8 @@
         { type: undefined },
         { type: core.Type },
         { type: core.Type },
-        { type: core.InjectionToken }
+        { type: core.InjectionToken },
+        { type: undefined }
     ]; };
     /**
      * Service to open Material Design modal dialogs.
@@ -1182,8 +1213,8 @@
          * @deprecated `_location` parameter to be removed.
          * @breaking-change 10.0.0
          */
-        location, defaultOptions, scrollStrategy, parentDialog, overlayContainer) {
-            return _super.call(this, overlay, injector, defaultOptions, parentDialog, overlayContainer, scrollStrategy, MatDialogRef, MatDialogContainer, MAT_DIALOG_DATA) || this;
+        location, defaultOptions, scrollStrategy, parentDialog, overlayContainer, animationMode) {
+            return _super.call(this, overlay, injector, defaultOptions, parentDialog, overlayContainer, scrollStrategy, MatDialogRef, MatDialogContainer, MAT_DIALOG_DATA, animationMode) || this;
         }
         return MatDialog;
     }(_MatDialogBase));
@@ -1197,7 +1228,8 @@
         { type: MatDialogConfig, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
         { type: MatDialog, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
-        { type: overlay.OverlayContainer }
+        { type: overlay.OverlayContainer },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     /**
      * Applies default options to the dialog config.
