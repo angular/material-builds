@@ -411,7 +411,7 @@
     /** Counter for generating unique element ids. */
     var uniqueId = 0;
     /**
-     * Injection token that can be used to configure the defalt
+     * Injection token that can be used to configure the default
      * options for the expansion panel component.
      */
     var MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new core.InjectionToken('MAT_EXPANSION_PANEL_DEFAULT_OPTIONS');

@@ -107,7 +107,7 @@ MatExpansionPanelContent.ctorParameters = () => [
 /** Counter for generating unique element ids. */
 let uniqueId = 0;
 /**
- * Injection token that can be used to configure the defalt
+ * Injection token that can be used to configure the default
  * options for the expansion panel component.
  */
 const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new InjectionToken('MAT_EXPANSION_PANEL_DEFAULT_OPTIONS');

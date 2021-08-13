@@ -29,7 +29,7 @@ export interface MatExpansionPanelDefaultOptions {
     hideToggle: boolean;
 }
 /**
- * Injection token that can be used to configure the defalt
+ * Injection token that can be used to configure the default
  * options for the expansion panel component.
  */
 export declare const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS: InjectionToken<MatExpansionPanelDefaultOptions>;
