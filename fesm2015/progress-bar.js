@@ -36,6 +36,8 @@ function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
         getPathname: () => _location ? (_location.pathname + _location.search) : ''
     };
 }
+/** Injection token to be used to override the default options for `mat-progress-bar`. */
+const MAT_PROGRESS_BAR_DEFAULT_OPTIONS = new InjectionToken('MAT_PROGRESS_BAR_DEFAULT_OPTIONS');
 /** Counter used to generate unique IDs for progress bars. */
 let progressbarId = 0;
 /**
@@ -47,7 +49,7 @@ class MatProgressBar extends _MatProgressBarBase {
      * @deprecated `location` parameter to be made required.
      * @breaking-change 8.0.0
      */
-    location) {
+    location, defaults) {
         super(elementRef);
         this._ngZone = _ngZone;
         this._animationMode = _animationMode;
@@ -82,6 +84,12 @@ class MatProgressBar extends _MatProgressBarBase {
         const path = location ? location.getPathname().split('#')[0] : '';
         this._rectangleFillValue = `url('${path}#${this.progressbarId}')`;
         this._isNoopAnimation = _animationMode === 'NoopAnimations';
+        if (defaults) {
+            if (defaults.color) {
+                this.color = this.defaultColor = defaults.color;
+            }
+            this.mode = defaults.mode || this.mode;
+        }
     }
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
     get value() { return this._value; }
@@ -155,7 +163,8 @@ MatProgressBar.ctorParameters = () => [
     { type: ElementRef },
     { type: NgZone },
     { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] }
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PROGRESS_BAR_DEFAULT_OPTIONS,] }] }
 ];
 MatProgressBar.propDecorators = {
     value: [{ type: Input }],
@@ -198,5 +207,5 @@ MatProgressBarModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
+export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
 //# sourceMappingURL=progress-bar.js.map

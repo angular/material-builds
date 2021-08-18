@@ -346,6 +346,8 @@
             getPathname: function () { return _location ? (_location.pathname + _location.search) : ''; }
         };
     }
+    /** Injection token to be used to override the default options for `mat-progress-bar`. */
+    var MAT_PROGRESS_BAR_DEFAULT_OPTIONS = new core$1.InjectionToken('MAT_PROGRESS_BAR_DEFAULT_OPTIONS');
     /** Counter used to generate unique IDs for progress bars. */
     var progressbarId = 0;
     /**
@@ -358,7 +360,7 @@
          * @deprecated `location` parameter to be made required.
          * @breaking-change 8.0.0
          */
-        location) {
+        location, defaults) {
             var _this = _super.call(this, elementRef) || this;
             _this._ngZone = _ngZone;
             _this._animationMode = _animationMode;
@@ -393,6 +395,12 @@
             var path = location ? location.getPathname().split('#')[0] : '';
             _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
             _this._isNoopAnimation = _animationMode === 'NoopAnimations';
+            if (defaults) {
+                if (defaults.color) {
+                    _this.color = _this.defaultColor = defaults.color;
+                }
+                _this.mode = defaults.mode || _this.mode;
+            }
             return _this;
         }
         Object.defineProperty(MatProgressBar.prototype, "value", {
@@ -477,7 +485,8 @@
         { type: core$1.ElementRef },
         { type: core$1.NgZone },
         { type: String, decorators: [{ type: core$1.Optional }, { type: core$1.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
-        { type: undefined, decorators: [{ type: core$1.Optional }, { type: core$1.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] }
+        { type: undefined, decorators: [{ type: core$1.Optional }, { type: core$1.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] },
+        { type: undefined, decorators: [{ type: core$1.Optional }, { type: core$1.Inject, args: [MAT_PROGRESS_BAR_DEFAULT_OPTIONS,] }] }
     ]; };
     MatProgressBar.propDecorators = {
         value: [{ type: core$1.Input }],
@@ -525,6 +534,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_PROGRESS_BAR_DEFAULT_OPTIONS = MAT_PROGRESS_BAR_DEFAULT_OPTIONS;
     exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
     exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
     exports.MatProgressBar = MatProgressBar;

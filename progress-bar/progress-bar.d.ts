@@ -7,7 +7,7 @@
  */
 import { NumberInput } from '@angular/cdk/coercion';
 import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy } from '@angular/core';
-import { CanColor } from '@angular/material/core';
+import { CanColor, ThemePalette } from '@angular/material/core';
 /** Last animation end data. */
 export interface ProgressAnimationEnd {
     value: number;
@@ -34,6 +34,15 @@ export interface MatProgressBarLocation {
 /** @docs-private */
 export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
 export declare type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
+/** Default `mat-progress-bar` options that can be overridden. */
+export interface MatProgressBarDefaultOptions {
+    /** Default color of the progress bar. */
+    color?: ThemePalette;
+    /** Default mode of the progress bar. */
+    mode?: ProgressBarMode;
+}
+/** Injection token to be used to override the default options for `mat-progress-bar`. */
+export declare const MAT_PROGRESS_BAR_DEFAULT_OPTIONS: InjectionToken<MatProgressBarDefaultOptions>;
 /**
  * `<mat-progress-bar>` component.
  */
@@ -45,7 +54,7 @@ export declare class MatProgressBar extends _MatProgressBarBase implements CanCo
      * @deprecated `location` parameter to be made required.
      * @breaking-change 8.0.0
      */
-    location?: MatProgressBarLocation);
+    location?: MatProgressBarLocation, defaults?: MatProgressBarDefaultOptions);
     /** Flag that indicates whether NoopAnimations mode is set to true. */
     _isNoopAnimation: boolean;
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
