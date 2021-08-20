@@ -322,11 +322,16 @@
         return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
     }
 
+    // @breaking-change 14.0.0 change generic type to MatDialogSection.
     /** Harness for interacting with a standard `MatDialog` in tests. */
     var MatDialogHarness = /** @class */ (function (_super) {
         __extends(MatDialogHarness, _super);
         function MatDialogHarness() {
-            return _super !== null && _super.apply(this, arguments) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            _this._title = _this.locatorForOptional(".mat-dialog-title" /* TITLE */);
+            _this._content = _this.locatorForOptional(".mat-dialog-content" /* CONTENT */);
+            _this._actions = _this.locatorForOptional(".mat-dialog-actions" /* ACTIONS */);
+            return _this;
         }
         /**
          * Gets a `HarnessPredicate` that can be used to search for a `MatDialogHarness` that meets
@@ -342,12 +347,12 @@
         MatDialogHarness.prototype.getId = function () {
             return __awaiter(this, void 0, void 0, function () {
                 var id;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [4 /*yield*/, (_a.sent()).getAttribute('id')];
+                        case 1: return [4 /*yield*/, (_c.sent()).getAttribute('id')];
                         case 2:
-                            id = _a.sent();
+                            id = _c.sent();
                             // In case no id has been specified, the "id" property always returns
                             // an empty string. To make this method more explicit, we return null.
                             return [2 /*return*/, id !== '' ? id : null];
@@ -358,10 +363,10 @@
         /** Gets the role of the dialog. */
         MatDialogHarness.prototype.getRole = function () {
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAttribute('role')];
+                        case 1: return [2 /*return*/, (_c.sent()).getAttribute('role')];
                     }
                 });
             });
@@ -369,10 +374,10 @@
         /** Gets the value of the dialog's "aria-label" attribute. */
         MatDialogHarness.prototype.getAriaLabel = function () {
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-label')];
+                        case 1: return [2 /*return*/, (_c.sent()).getAttribute('aria-label')];
                     }
                 });
             });
@@ -380,10 +385,10 @@
         /** Gets the value of the dialog's "aria-labelledby" attribute. */
         MatDialogHarness.prototype.getAriaLabelledby = function () {
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-labelledby')];
+                        case 1: return [2 /*return*/, (_c.sent()).getAttribute('aria-labelledby')];
                     }
                 });
             });
@@ -391,10 +396,10 @@
         /** Gets the value of the dialog's "aria-describedby" attribute. */
         MatDialogHarness.prototype.getAriaDescribedby = function () {
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a.sent()).getAttribute('aria-describedby')];
+                        case 1: return [2 /*return*/, (_c.sent()).getAttribute('aria-describedby')];
                     }
                 });
             });
@@ -406,13 +411,60 @@
          */
         MatDialogHarness.prototype.close = function () {
             return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [4 /*yield*/, (_a.sent()).sendKeys(testing.TestKey.ESCAPE)];
+                        case 1: return [4 /*yield*/, (_c.sent()).sendKeys(testing.TestKey.ESCAPE)];
                         case 2:
-                            _a.sent();
+                            _c.sent();
                             return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        /** Gets te dialog's text. */
+        MatDialogHarness.prototype.getText = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, this.host()];
+                        case 1: return [2 /*return*/, (_c.sent()).text()];
+                    }
+                });
+            });
+        };
+        /** Gets the dialog's title text. This only works if the dialog is using mat-dialog-title. */
+        MatDialogHarness.prototype.getTitleText = function () {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, this._title()];
+                        case 1: return [2 /*return*/, (_b = (_a = (_c.sent())) === null || _a === void 0 ? void 0 : _a.text()) !== null && _b !== void 0 ? _b : ''];
+                    }
+                });
+            });
+        };
+        /** Gets the dialog's content text. This only works if the dialog is using mat-dialog-content. */
+        MatDialogHarness.prototype.getContentText = function () {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, this._content()];
+                        case 1: return [2 /*return*/, (_b = (_a = (_c.sent())) === null || _a === void 0 ? void 0 : _a.text()) !== null && _b !== void 0 ? _b : ''];
+                    }
+                });
+            });
+        };
+        /** Gets the dialog's actions text. This only works if the dialog is using mat-dialog-actions. */
+        MatDialogHarness.prototype.getActionsText = function () {
+            var _a, _b;
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0: return [4 /*yield*/, this._actions()];
+                        case 1: return [2 /*return*/, (_b = (_a = (_c.sent())) === null || _a === void 0 ? void 0 : _a.text()) !== null && _b !== void 0 ? _b : ''];
                     }
                 });
             });

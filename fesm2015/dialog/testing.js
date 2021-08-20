@@ -8,8 +8,15 @@ import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@an
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+// @breaking-change 14.0.0 change generic type to MatDialogSection.
 /** Harness for interacting with a standard `MatDialog` in tests. */
 class MatDialogHarness extends ContentContainerComponentHarness {
+    constructor() {
+        super(...arguments);
+        this._title = this.locatorForOptional(".mat-dialog-title" /* TITLE */);
+        this._content = this.locatorForOptional(".mat-dialog-content" /* CONTENT */);
+        this._actions = this.locatorForOptional(".mat-dialog-actions" /* ACTIONS */);
+    }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDialogHarness` that meets
      * certain criteria.
@@ -60,6 +67,33 @@ class MatDialogHarness extends ContentContainerComponentHarness {
     close() {
         return __awaiter(this, void 0, void 0, function* () {
             yield (yield this.host()).sendKeys(TestKey.ESCAPE);
+        });
+    }
+    /** Gets te dialog's text. */
+    getText() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).text();
+        });
+    }
+    /** Gets the dialog's title text. This only works if the dialog is using mat-dialog-title. */
+    getTitleText() {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            return (_b = (_a = (yield this._title())) === null || _a === void 0 ? void 0 : _a.text()) !== null && _b !== void 0 ? _b : '';
+        });
+    }
+    /** Gets the dialog's content text. This only works if the dialog is using mat-dialog-content. */
+    getContentText() {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            return (_b = (_a = (yield this._content())) === null || _a === void 0 ? void 0 : _a.text()) !== null && _b !== void 0 ? _b : '';
+        });
+    }
+    /** Gets the dialog's actions text. This only works if the dialog is using mat-dialog-actions. */
+    getActionsText() {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            return (_b = (_a = (yield this._actions())) === null || _a === void 0 ? void 0 : _a.text()) !== null && _b !== void 0 ? _b : '';
         });
     }
 }

@@ -8,10 +8,19 @@
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { DialogRole } from '@angular/material/dialog';
 import { DialogHarnessFilters } from './dialog-harness-filters';
+/** Selectors for different sections of the mat-dialog that can contain user content. */
+export declare const enum MatDialogSection {
+    TITLE = ".mat-dialog-title",
+    CONTENT = ".mat-dialog-content",
+    ACTIONS = ".mat-dialog-actions"
+}
 /** Harness for interacting with a standard `MatDialog` in tests. */
-export declare class MatDialogHarness extends ContentContainerComponentHarness<string> {
+export declare class MatDialogHarness extends ContentContainerComponentHarness<MatDialogSection | string> {
     /** The selector for the host element of a `MatDialog` instance. */
     static hostSelector: string;
+    protected _title: import("@angular/cdk/testing").AsyncFactoryFn<import("@angular/cdk/testing").TestElement | null>;
+    protected _content: import("@angular/cdk/testing").AsyncFactoryFn<import("@angular/cdk/testing").TestElement | null>;
+    protected _actions: import("@angular/cdk/testing").AsyncFactoryFn<import("@angular/cdk/testing").TestElement | null>;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDialogHarness` that meets
      * certain criteria.
@@ -35,4 +44,12 @@ export declare class MatDialogHarness extends ContentContainerComponentHarness<s
      * Note: this method does nothing if `disableClose` has been set to `true` for the dialog.
      */
     close(): Promise<void>;
+    /** Gets te dialog's text. */
+    getText(): Promise<string>;
+    /** Gets the dialog's title text. This only works if the dialog is using mat-dialog-title. */
+    getTitleText(): Promise<string>;
+    /** Gets the dialog's content text. This only works if the dialog is using mat-dialog-content. */
+    getContentText(): Promise<string>;
+    /** Gets the dialog's actions text. This only works if the dialog is using mat-dialog-actions. */
+    getActionsText(): Promise<string>;
 }
