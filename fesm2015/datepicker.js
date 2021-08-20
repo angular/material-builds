@@ -754,9 +754,13 @@ class MatMonthView {
                 break;
             case ENTER:
             case SPACE:
-                if (!this.dateFilter || this.dateFilter(this._activeDate)) {
-                    this._dateSelected({ value: this._dateAdapter.getDate(this._activeDate), event });
+                this._selectionKeyPressed = true;
+                if (this._canSelect(this._activeDate)) {
                     // Prevent unexpected default actions such as form submission.
+                    // Note that we only prevent the default action here while the selection happens in
+                    // `keyup` below. We can't do the selection here, because it can cause the calendar to
+                    // reopen if focus is restored immediately. We also can't call `preventDefault` on `keyup`
+                    // because it's too late (see #23305).
                     event.preventDefault();
                 }
                 return;
@@ -780,6 +784,15 @@ class MatMonthView {
         this._focusActiveCell();
         // Prevent unexpected default actions such as form submission.
         event.preventDefault();
+    }
+    /** Handles keyup events on the calendar body when calendar is in month view. */
+    _handleCalendarBodyKeyup(event) {
+        if (event.keyCode === SPACE || event.keyCode === ENTER) {
+            if (this._selectionKeyPressed && this._canSelect(this._activeDate)) {
+                this._dateSelected({ value: this._dateAdapter.getDate(this._activeDate), event });
+            }
+            this._selectionKeyPressed = false;
+        }
     }
     /** Initializes this month view. */
     _init() {
@@ -895,11 +908,15 @@ class MatMonthView {
         this._comparisonRangeStart = this._getCellCompareValue(this.comparisonStart);
         this._comparisonRangeEnd = this._getCellCompareValue(this.comparisonEnd);
     }
+    /** Gets whether a date can be selected in the month view. */
+    _canSelect(date) {
+        return !this.dateFilter || this.dateFilter(date);
+    }
 }
 MatMonthView.decorators = [
     { type: Component, args: [{
                 selector: 'mat-month-view',
-                template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead class=\"mat-calendar-table-header\">\n    <tr>\n      <!-- For the day-of-the-week column header, we use an `<abbr>` element because VoiceOver\n           ignores the `aria-label`. ChromeVox, however, does not read the full name\n           for the `<abbr>`, so we still set `aria-label` on the header element. -->\n      <th scope=\"col\" *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">\n        <abbr class=\"mat-calendar-abbr\" [attr.title]=\"day.long\">{{day.narrow}}</abbr>\n      </th>\n    </tr>\n    <tr><th aria-hidden=\"true\" class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_monthLabel\"\n         [rows]=\"_weeks\"\n         [todayValue]=\"_todayDate!\"\n         [startValue]=\"_rangeStart!\"\n         [endValue]=\"_rangeEnd!\"\n         [comparisonStart]=\"_comparisonRangeStart\"\n         [comparisonEnd]=\"_comparisonRangeEnd\"\n         [previewStart]=\"_previewStart\"\n         [previewEnd]=\"_previewEnd\"\n         [isRange]=\"_isRange\"\n         [labelMinRequiredCells]=\"3\"\n         [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\"\n         (selectedValueChange)=\"_dateSelected($event)\"\n         (previewChange)=\"_previewChanged($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n",
+                template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead class=\"mat-calendar-table-header\">\n    <tr>\n      <!-- For the day-of-the-week column header, we use an `<abbr>` element because VoiceOver\n           ignores the `aria-label`. ChromeVox, however, does not read the full name\n           for the `<abbr>`, so we still set `aria-label` on the header element. -->\n      <th scope=\"col\" *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">\n        <abbr class=\"mat-calendar-abbr\" [attr.title]=\"day.long\">{{day.narrow}}</abbr>\n      </th>\n    </tr>\n    <tr><th aria-hidden=\"true\" class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_monthLabel\"\n         [rows]=\"_weeks\"\n         [todayValue]=\"_todayDate!\"\n         [startValue]=\"_rangeStart!\"\n         [endValue]=\"_rangeEnd!\"\n         [comparisonStart]=\"_comparisonRangeStart\"\n         [comparisonEnd]=\"_comparisonRangeEnd\"\n         [previewStart]=\"_previewStart\"\n         [previewEnd]=\"_previewEnd\"\n         [isRange]=\"_isRange\"\n         [labelMinRequiredCells]=\"3\"\n         [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\"\n         (selectedValueChange)=\"_dateSelected($event)\"\n         (previewChange)=\"_previewChanged($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n",
                 exportAs: 'matMonthView',
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
@@ -1057,7 +1074,11 @@ class MatMultiYearView {
                 break;
             case ENTER:
             case SPACE:
-                this._yearSelected({ value: this._dateAdapter.getYear(this._activeDate), event });
+                // Note that we only prevent the default action here while the selection happens in
+                // `keyup` below. We can't do the selection here, because it can cause the calendar to
+                // reopen if focus is restored immediately. We also can't call `preventDefault` on `keyup`
+                // because it's too late (see #23305).
+                this._selectionKeyPressed = true;
                 break;
             default:
                 // Don't prevent default or focus active cell on keys that we don't explicitly handle.
@@ -1069,6 +1090,15 @@ class MatMultiYearView {
         this._focusActiveCell();
         // Prevent unexpected default actions such as form submission.
         event.preventDefault();
+    }
+    /** Handles keyup events on the calendar body when calendar is in multi-year view. */
+    _handleCalendarBodyKeyup(event) {
+        if (event.keyCode === SPACE || event.keyCode === ENTER) {
+            if (this._selectionKeyPressed) {
+                this._yearSelected({ value: this._dateAdapter.getYear(this._activeDate), event });
+            }
+            this._selectionKeyPressed = false;
+        }
     }
     _getActiveCell() {
         return getActiveOffset(this._dateAdapter, this.activeDate, this.minDate, this.maxDate);
@@ -1126,7 +1156,7 @@ class MatMultiYearView {
 MatMultiYearView.decorators = [
     { type: Component, args: [{
                 selector: 'mat-multi-year-view',
-                template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [rows]=\"_years\"\n         [todayValue]=\"_todayYear\"\n         [startValue]=\"_selectedYear!\"\n         [endValue]=\"_selectedYear!\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_getActiveCell()\"\n         (selectedValueChange)=\"_yearSelected($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n",
+                template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [rows]=\"_years\"\n         [todayValue]=\"_todayYear\"\n         [startValue]=\"_selectedYear!\"\n         [endValue]=\"_selectedYear!\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_getActiveCell()\"\n         (selectedValueChange)=\"_yearSelected($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n",
                 exportAs: 'matMultiYearView',
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
@@ -1302,7 +1332,11 @@ class MatYearView {
                 break;
             case ENTER:
             case SPACE:
-                this._monthSelected({ value: this._dateAdapter.getMonth(this._activeDate), event });
+                // Note that we only prevent the default action here while the selection happens in
+                // `keyup` below. We can't do the selection here, because it can cause the calendar to
+                // reopen if focus is restored immediately. We also can't call `preventDefault` on `keyup`
+                // because it's too late (see #23305).
+                this._selectionKeyPressed = true;
                 break;
             default:
                 // Don't prevent default or focus active cell on keys that we don't explicitly handle.
@@ -1314,6 +1348,15 @@ class MatYearView {
         this._focusActiveCell();
         // Prevent unexpected default actions such as form submission.
         event.preventDefault();
+    }
+    /** Handles keyup events on the calendar body when calendar is in year view. */
+    _handleCalendarBodyKeyup(event) {
+        if (event.keyCode === SPACE || event.keyCode === ENTER) {
+            if (this._selectionKeyPressed) {
+                this._monthSelected({ value: this._dateAdapter.getMonth(this._activeDate), event });
+            }
+            this._selectionKeyPressed = false;
+        }
     }
     /** Initializes this year view. */
     _init() {
@@ -1406,7 +1449,7 @@ class MatYearView {
 MatYearView.decorators = [
     { type: Component, args: [{
                 selector: 'mat-year-view',
-                template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_yearLabel\"\n         [rows]=\"_months\"\n         [todayValue]=\"_todayMonth!\"\n         [startValue]=\"_selectedMonth!\"\n         [endValue]=\"_selectedMonth!\"\n         [labelMinRequiredCells]=\"2\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_dateAdapter.getMonth(activeDate)\"\n         (selectedValueChange)=\"_monthSelected($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n",
+                template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_yearLabel\"\n         [rows]=\"_months\"\n         [todayValue]=\"_todayMonth!\"\n         [startValue]=\"_selectedMonth!\"\n         [endValue]=\"_selectedMonth!\"\n         [labelMinRequiredCells]=\"2\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_dateAdapter.getMonth(activeDate)\"\n         (selectedValueChange)=\"_monthSelected($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n",
                 exportAs: 'matYearView',
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
