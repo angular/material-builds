@@ -9,21 +9,17 @@ import { Platform } from '@angular/cdk/platform';
 import { DateAdapter } from './date-adapter';
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 export declare class NativeDateAdapter extends DateAdapter<Date> {
-    /** Whether to clamp the date between 1 and 9999 to avoid IE and Edge errors. */
-    private readonly _clampDate;
     /**
-     * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
-     * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
-     * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
-     * will produce `'8/13/1800'`.
-     *
-     * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
-     * getting the string representation of a Date object from its utc representation. We're keeping
-     * it here for sometime, just for precaution, in case we decide to revert some of these changes
-     * though.
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 14.0.0
      */
     useUtcForDisplay: boolean;
-    constructor(matDateLocale: string, platform: Platform);
+    constructor(matDateLocale: string, 
+    /**
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 14.0.0
+     */
+    _platform?: Platform);
     getYear(date: Date): number;
     getMonth(date: Date): number;
     getDate(date: Date): number;
@@ -60,14 +56,6 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @returns The padded number.
      */
     private _2digit;
-    /**
-     * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
-     * other browsers do not. We remove them to make output consistent and because they interfere with
-     * date parsing.
-     * @param str The string to strip direction characters from.
-     * @returns The stripped string.
-     */
-    private _stripDirectionalityCharacters;
     /**
      * When converting Date object to string, javascript built-in functions may return wrong
      * results because it applies its internal DST rules. The DST rules around the world change

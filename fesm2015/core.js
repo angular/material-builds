@@ -472,38 +472,6 @@ const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// TODO(mmalerba): Remove when we no longer support safari 9.
-/** Whether the browser supports the Intl API. */
-let SUPPORTS_INTL_API;
-// We need a try/catch around the reference to `Intl`, because accessing it in some cases can
-// cause IE to throw. These cases are tied to particular versions of Windows and can happen if
-// the consumer is providing a polyfilled `Map`. See:
-// https://github.com/Microsoft/ChakraCore/issues/3189
-// https://github.com/angular/components/issues/15687
-try {
-    SUPPORTS_INTL_API = typeof Intl != 'undefined';
-}
-catch (_a) {
-    SUPPORTS_INTL_API = false;
-}
-/** The default month names to use if Intl API is not available. */
-const DEFAULT_MONTH_NAMES = {
-    'long': [
-        'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-        'October', 'November', 'December'
-    ],
-    'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
-};
-const ɵ0$1 = i => String(i + 1);
-/** The default date names to use if Intl API is not available. */
-const DEFAULT_DATE_NAMES = range(31, ɵ0$1);
-/** The default day of the week names to use if Intl API is not available. */
-const DEFAULT_DAY_OF_WEEK_NAMES = {
-    'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-    'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-};
 /**
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
@@ -520,24 +488,19 @@ function range(length, valueFunction) {
 }
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 class NativeDateAdapter extends DateAdapter {
-    constructor(matDateLocale, platform) {
+    constructor(matDateLocale, 
+    /**
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 14.0.0
+     */
+    _platform) {
         super();
         /**
-         * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
-         * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
-         * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
-         * will produce `'8/13/1800'`.
-         *
-         * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
-         * getting the string representation of a Date object from its utc representation. We're keeping
-         * it here for sometime, just for precaution, in case we decide to revert some of these changes
-         * though.
+         * @deprecated No longer being used. To be removed.
+         * @breaking-change 14.0.0
          */
-        this.useUtcForDisplay = true;
+        this.useUtcForDisplay = false;
         super.setLocale(matDateLocale);
-        // IE does its own time zone correction, so we disable this on IE.
-        this.useUtcForDisplay = !platform.TRIDENT;
-        this._clampDate = platform.TRIDENT || platform.EDGE;
     }
     getYear(date) {
         return date.getFullYear();
@@ -552,32 +515,20 @@ class NativeDateAdapter extends DateAdapter {
         return date.getDay();
     }
     getMonthNames(style) {
-        if (SUPPORTS_INTL_API) {
-            const dtf = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
-            return range(12, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, i, 1))));
-        }
-        return DEFAULT_MONTH_NAMES[style];
+        const dtf = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
+        return range(12, i => this._format(dtf, new Date(2017, i, 1)));
     }
     getDateNames() {
-        if (SUPPORTS_INTL_API) {
-            const dtf = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
-            return range(31, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1))));
-        }
-        return DEFAULT_DATE_NAMES;
+        const dtf = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
+        return range(31, i => this._format(dtf, new Date(2017, 0, i + 1)));
     }
     getDayOfWeekNames(style) {
-        if (SUPPORTS_INTL_API) {
-            const dtf = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
-            return range(7, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1))));
-        }
-        return DEFAULT_DAY_OF_WEEK_NAMES[style];
+        const dtf = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
+        return range(7, i => this._format(dtf, new Date(2017, 0, i + 1)));
     }
     getYearName(date) {
-        if (SUPPORTS_INTL_API) {
-            const dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
-            return this._stripDirectionalityCharacters(this._format(dtf, date));
-        }
-        return String(this.getYear(date));
+        const dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
+        return this._format(dtf, date);
     }
     getFirstDayOfWeek() {
         // We can't tell using native JS Date what the first day of the week is, we default to Sunday.
@@ -622,18 +573,8 @@ class NativeDateAdapter extends DateAdapter {
         if (!this.isValid(date)) {
             throw Error('NativeDateAdapter: Cannot format invalid date.');
         }
-        if (SUPPORTS_INTL_API) {
-            // On IE and Edge the i18n API will throw a hard error that can crash the entire app
-            // if we attempt to format a date whose year is less than 1 or greater than 9999.
-            if (this._clampDate && (date.getFullYear() < 1 || date.getFullYear() > 9999)) {
-                date = this.clone(date);
-                date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
-            }
-            displayFormat = Object.assign(Object.assign({}, displayFormat), { timeZone: 'utc' });
-            const dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
-            return this._stripDirectionalityCharacters(this._format(dtf, date));
-        }
-        return this._stripDirectionalityCharacters(date.toDateString());
+        const dtf = new Intl.DateTimeFormat(this.locale, Object.assign(Object.assign({}, displayFormat), { timeZone: 'utc' }));
+        return this._format(dtf, date);
     }
     addCalendarYears(date, years) {
         return this.addCalendarMonths(date, years * 12);
@@ -705,16 +646,6 @@ class NativeDateAdapter extends DateAdapter {
      */
     _2digit(n) {
         return ('00' + n).slice(-2);
-    }
-    /**
-     * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
-     * other browsers do not. We remove them to make output consistent and because they interfere with
-     * date parsing.
-     * @param str The string to strip direction characters from.
-     * @returns The stripped string.
-     */
-    _stripDirectionalityCharacters(str) {
-        return str.replace(/[\u200e\u200f]/g, '');
     }
     /**
      * When converting Date object to string, javascript built-in functions may return wrong
