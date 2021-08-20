@@ -21,6 +21,8 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     _dateAdapter: DateAdapter<D>;
     private _dir?;
     private _rerenderSubscription;
+    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
+    private _selectionKeyPressed;
     /** The date to display in this multi-year view (everything other than the year is ignored). */
     get activeDate(): D;
     set activeDate(value: D);
@@ -64,6 +66,8 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     _yearSelected(event: MatCalendarUserEvent<number>): void;
     /** Handles keydown events on the calendar body when calendar is in multi-year view. */
     _handleCalendarBodyKeydown(event: KeyboardEvent): void;
+    /** Handles keyup events on the calendar body when calendar is in multi-year view. */
+    _handleCalendarBodyKeyup(event: KeyboardEvent): void;
     _getActiveCell(): number;
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(): void;

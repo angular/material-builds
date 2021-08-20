@@ -22,6 +22,8 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     private _dir?;
     private _rangeStrategy?;
     private _rerenderSubscription;
+    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
+    private _selectionKeyPressed;
     /**
      * The date to display in this month view (everything other than the month and year is ignored).
      */
@@ -91,6 +93,8 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     _dateSelected(event: MatCalendarUserEvent<number>): void;
     /** Handles keydown events on the calendar body when calendar is in month view. */
     _handleCalendarBodyKeydown(event: KeyboardEvent): void;
+    /** Handles keyup events on the calendar body when calendar is in month view. */
+    _handleCalendarBodyKeyup(event: KeyboardEvent): void;
     /** Initializes this month view. */
     _init(): void;
     /** Focuses the active cell after the microtask queue is empty. */
@@ -116,4 +120,6 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     private _isRtl;
     /** Sets the current range based on a model value. */
     private _setRanges;
+    /** Gets whether a date can be selected in the month view. */
+    private _canSelect;
 }
