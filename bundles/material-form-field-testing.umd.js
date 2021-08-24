@@ -452,19 +452,6 @@
                 });
             });
         };
-        /**
-         * Gets a reference to the container element which contains all projected
-         * prefixes of the form-field.
-         * @deprecated Use `getPrefixText` instead.
-         * @breaking-change 11.0.0
-         */
-        _MatFormFieldHarnessBase.prototype.getHarnessLoaderForPrefix = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    return [2 /*return*/, this._prefixContainer()];
-                });
-            });
-        };
         /** Gets the text inside the prefix element. */
         _MatFormFieldHarnessBase.prototype.getPrefixText = function () {
             return __awaiter(this, void 0, void 0, function () {
@@ -476,19 +463,6 @@
                             prefix = _a.sent();
                             return [2 /*return*/, prefix ? prefix.text() : ''];
                     }
-                });
-            });
-        };
-        /**
-         * Gets a reference to the container element which contains all projected
-         * suffixes of the form-field.
-         * @deprecated Use `getSuffixText` instead.
-         * @breaking-change 11.0.0
-         */
-        _MatFormFieldHarnessBase.prototype.getHarnessLoaderForSuffix = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                return __generator(this, function (_a) {
-                    return [2 /*return*/, this._suffixContainer()];
                 });
             });
         };

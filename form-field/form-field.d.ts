@@ -105,11 +105,6 @@ export declare class MatFormField extends _MatFormFieldBase implements AfterCont
     private _floatLabel;
     /** Whether the Angular animations are enabled. */
     _animationsEnabled: boolean;
-    /**
-     * @deprecated
-     * @breaking-change 8.0.0
-     */
-    underlineRef: ElementRef;
     _connectionContainerRef: ElementRef;
     _inputContainerRef: ElementRef;
     private _label;
@@ -125,12 +120,7 @@ export declare class MatFormField extends _MatFormFieldBase implements AfterCont
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
-    /**
-     * @deprecated `_labelOptions` parameter no longer being used. To be removed.
-     * @breaking-change 12.0.0
-     */
-    _labelOptions: any, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform: Platform, _ngZone: NgZone, _animationMode: string);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform: Platform, _ngZone: NgZone, _animationMode: string);
     /**
      * Gets the id of the label element. If no label is present, returns `null`.
      */

@@ -59,22 +59,8 @@ export declare abstract class _MatFormFieldHarnessBase<ControlHarness extends Ma
     getTextErrors(): Promise<string[]>;
     /** Gets hint messages which are currently displayed in the form-field. */
     getTextHints(): Promise<string[]>;
-    /**
-     * Gets a reference to the container element which contains all projected
-     * prefixes of the form-field.
-     * @deprecated Use `getPrefixText` instead.
-     * @breaking-change 11.0.0
-     */
-    getHarnessLoaderForPrefix(): Promise<TestElement | null>;
     /** Gets the text inside the prefix element. */
     getPrefixText(): Promise<string>;
-    /**
-     * Gets a reference to the container element which contains all projected
-     * suffixes of the form-field.
-     * @deprecated Use `getSuffixText` instead.
-     * @breaking-change 11.0.0
-     */
-    getHarnessLoaderForSuffix(): Promise<TestElement | null>;
     /** Gets the text inside the suffix element. */
     getSuffixText(): Promise<string>;
     /**
