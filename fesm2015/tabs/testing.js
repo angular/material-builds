@@ -66,17 +66,6 @@ class MatTabHarness extends ContentContainerComponentHarness {
             return contentEl.text();
         });
     }
-    /**
-     * Gets a `HarnessLoader` that can be used to load harnesses for components within the tab's
-     * content area.
-     * @deprecated Use `getHarness` or `getChildLoader` instead.
-     * @breaking-change 12.0.0
-     */
-    getHarnessLoaderForContent() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.getRootHarnessLoader();
-        });
-    }
     getRootHarnessLoader() {
         return __awaiter(this, void 0, void 0, function* () {
             const contentId = yield this._getContentId();

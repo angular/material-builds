@@ -32,13 +32,6 @@ export declare class MatTabHarness extends ContentContainerComponentHarness<stri
     select(): Promise<void>;
     /** Gets the text content of the tab. */
     getTextContent(): Promise<string>;
-    /**
-     * Gets a `HarnessLoader` that can be used to load harnesses for components within the tab's
-     * content area.
-     * @deprecated Use `getHarness` or `getChildLoader` instead.
-     * @breaking-change 12.0.0
-     */
-    getHarnessLoaderForContent(): Promise<HarnessLoader>;
     protected getRootHarnessLoader(): Promise<HarnessLoader>;
     /** Gets the element id for the content of the current tab. */
     private _getContentId;
