@@ -355,6 +355,50 @@
      * found in the LICENSE file at https://angular.io/license
      */
     /**
+     * The Trusted Types policy, or null if Trusted Types are not
+     * enabled/supported, or undefined if the policy has not been created yet.
+     */
+    var policy;
+    /**
+     * Returns the Trusted Types policy, or null if Trusted Types are not
+     * enabled/supported. The first call to this function will create the policy.
+     */
+    function getPolicy() {
+        if (policy === undefined) {
+            policy = null;
+            if (typeof window !== 'undefined') {
+                var ttWindow = window;
+                if (ttWindow.trustedTypes !== undefined) {
+                    policy = ttWindow.trustedTypes.createPolicy('angular#components', {
+                        createHTML: function (s) { return s; },
+                    });
+                }
+            }
+        }
+        return policy;
+    }
+    /**
+     * Unsafely promote a string to a TrustedHTML, falling back to strings when
+     * Trusted Types are not available.
+     * @security This is a security-sensitive function; any use of this function
+     * must go through security review. In particular, it must be assured that the
+     * provided string will never cause an XSS vulnerability if used in a context
+     * that will be interpreted as HTML by a browser, e.g. when assigning to
+     * element.innerHTML.
+     */
+    function trustedHTMLFromString(html) {
+        var _a;
+        return ((_a = getPolicy()) === null || _a === void 0 ? void 0 : _a.createHTML(html)) || html;
+    }
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
+    /**
      * Returns an exception to be thrown in the case when attempting to
      * load an icon with a name that cannot be found.
      * @docs-private
@@ -488,7 +532,9 @@
             if (!cleanLiteral) {
                 throw getMatIconFailedToSanitizeLiteralError(literal);
             }
-            return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig('', cleanLiteral, options));
+            // Security: The literal is passed in as SafeHtml, and is thus trusted.
+            var trustedLiteral = trustedHTMLFromString(cleanLiteral);
+            return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig('', trustedLiteral, options));
         };
         /**
          * Registers an icon set by URL in the default namespace.
@@ -522,7 +568,9 @@
             if (!cleanLiteral) {
                 throw getMatIconFailedToSanitizeLiteralError(literal);
             }
-            return this._addSvgIconSetConfig(namespace, new SvgIconConfig('', cleanLiteral, options));
+            // Security: The literal is passed in as SafeHtml, and is thus trusted.
+            var trustedLiteral = trustedHTMLFromString(cleanLiteral);
+            return this._addSvgIconSetConfig(namespace, new SvgIconConfig('', trustedLiteral, options));
         };
         /**
          * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
@@ -686,7 +734,7 @@
                 // the parsing by doing a quick check using `indexOf` to see if there's any chance for the
                 // icon to be in the set. This won't be 100% accurate, but it should help us avoid at least
                 // some of the parsing.
-                if (config.svgText && config.svgText.indexOf(iconName) > -1) {
+                if (config.svgText && config.svgText.toString().indexOf(iconName) > -1) {
                     var svg = this._svgElementFromConfig(config);
                     var foundIcon = this._extractSvgIconFromSet(svg, iconName, config.options);
                     if (foundIcon) {
@@ -746,7 +794,7 @@
             // have to create an empty SVG node using innerHTML and append its content.
             // Elements created using DOMParser.parseFromString have the same problem.
             // http://stackoverflow.com/questions/23003278/svg-innerhtml-in-firefox-can-not-display
-            var svg = this._svgElementFromString('<svg></svg>');
+            var svg = this._svgElementFromString(trustedHTMLFromString('<svg></svg>'));
             // Clone the node so we don't remove it from the parent icon set element.
             svg.appendChild(iconElement);
             return this._setSvgAttributes(svg, options);
@@ -768,7 +816,7 @@
          * Converts an element into an SVG node by cloning all of its children.
          */
         MatIconRegistry.prototype._toSvgElement = function (element) {
-            var svg = this._svgElementFromString('<svg></svg>');
+            var svg = this._svgElementFromString(trustedHTMLFromString('<svg></svg>'));
             var attributes = element.attributes;
             // Copy over all the attributes from the `symbol` to the new SVG, except the id.
             for (var i = 0; i < attributes.length; i++) {
@@ -826,7 +874,11 @@
             if (inProgressFetch) {
                 return inProgressFetch;
             }
-            var req = this._httpClient.get(url, { responseType: 'text', withCredentials: withCredentials }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
+            var req = this._httpClient.get(url, { responseType: 'text', withCredentials: withCredentials }).pipe(operators.map(function (svg) {
+                // Security: This SVG is fetched from a SafeResourceUrl, and is thus
+                // trusted HTML.
+                return trustedHTMLFromString(svg);
+            }), operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
             this._inProgressUrlFetches.set(url, req);
             return req;
         };
