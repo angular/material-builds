@@ -430,7 +430,9 @@
             var _this = this;
             this._keyManager = new a11y.ActiveDescendantKeyManager(this.options).withWrap();
             this._activeOptionChanges = this._keyManager.change.subscribe(function (index) {
-                _this.optionActivated.emit({ source: _this, option: _this.options.toArray()[index] || null });
+                if (_this.isOpen) {
+                    _this.optionActivated.emit({ source: _this, option: _this.options.toArray()[index] || null });
+                }
             });
             // Set the initial visibility state.
             this._setVisibility();
@@ -963,8 +965,8 @@
                     // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
                     if ((event.keyCode === keycodes.ESCAPE && !keycodes.hasModifierKey(event)) ||
                         (event.keyCode === keycodes.UP_ARROW && keycodes.hasModifierKey(event, 'altKey'))) {
-                        _this._resetActiveItem();
                         _this._closeKeyEventStream.next();
+                        _this._resetActiveItem();
                         // We need to stop propagation, otherwise the event will eventually
                         // reach the input itself and cause the overlay to be reopened.
                         event.stopPropagation();

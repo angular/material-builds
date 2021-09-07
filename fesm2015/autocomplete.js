@@ -110,7 +110,9 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
     ngAfterContentInit() {
         this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
         this._activeOptionChanges = this._keyManager.change.subscribe(index => {
-            this.optionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
+            if (this.isOpen) {
+                this.optionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
+            }
         });
         // Set the initial visibility state.
         this._setVisibility();
@@ -656,8 +658,8 @@ class _MatAutocompleteTriggerBase {
                 // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
                 if ((event.keyCode === ESCAPE && !hasModifierKey(event)) ||
                     (event.keyCode === UP_ARROW && hasModifierKey(event, 'altKey'))) {
-                    this._resetActiveItem();
                     this._closeKeyEventStream.next();
+                    this._resetActiveItem();
                     // We need to stop propagation, otherwise the event will eventually
                     // reach the input itself and cause the overlay to be reopened.
                     event.stopPropagation();
