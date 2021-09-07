@@ -146,7 +146,7 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     static ngAcceptInputType_animationDuration: NumberInput;
     static ngAcceptInputType_selectedIndex: NumberInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_contentTabIndex: BooleanInput;
+    static ngAcceptInputType_contentTabIndex: NumberInput;
 }
 /**
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
