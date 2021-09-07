@@ -10,7 +10,7 @@ import { take, takeUntil, startWith } from 'rxjs/operators';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { NgForm, FormGroupDirective, NgControl } from '@angular/forms';
+import { Validators, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 
 /**
@@ -477,7 +477,6 @@ class MatChipList extends _MatChipListBase {
         this._onChange = () => { };
         this._multiple = false;
         this._compareWith = (o1, o2) => o1 === o2;
-        this._required = false;
         this._disabled = false;
         /** Orientation of the chip list. */
         this.ariaOrientation = 'horizontal';
@@ -539,7 +538,10 @@ class MatChipList extends _MatChipListBase {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    get required() { return this._required; }
+    get required() {
+        var _a, _b, _c, _d;
+        return (_d = (_a = this._required) !== null && _a !== void 0 ? _a : (_c = (_b = this.ngControl) === null || _b === void 0 ? void 0 : _b.control) === null || _c === void 0 ? void 0 : _c.hasValidator(Validators.required)) !== null && _d !== void 0 ? _d : false;
+    }
     set required(value) {
         this._required = coerceBooleanProperty(value);
         this.stateChanges.next();

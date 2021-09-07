@@ -1011,7 +1011,6 @@
             _this._onChange = function () { };
             _this._multiple = false;
             _this._compareWith = function (o1, o2) { return o1 === o2; };
-            _this._required = false;
             _this._disabled = false;
             /** Orientation of the chip list. */
             _this.ariaOrientation = 'horizontal';
@@ -1099,7 +1098,10 @@
              * Implemented as part of MatFormFieldControl.
              * @docs-private
              */
-            get: function () { return this._required; },
+            get: function () {
+                var _a, _b, _c, _d;
+                return (_d = (_a = this._required) !== null && _a !== void 0 ? _a : (_c = (_b = this.ngControl) === null || _b === void 0 ? void 0 : _b.control) === null || _c === void 0 ? void 0 : _c.hasValidator(forms.Validators.required)) !== null && _d !== void 0 ? _d : false;
+            },
             set: function (value) {
                 this._required = coercion.coerceBooleanProperty(value);
                 this.stateChanges.next();
