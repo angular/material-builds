@@ -60,15 +60,8 @@ class MatButtonHarness extends ContentContainerComponentHarness {
 }
 // TODO(jelbourn) use a single class, like `.mat-button-base`
 /** The selector for the host element of a `MatButton` instance. */
-MatButtonHarness.hostSelector = [
-    '[mat-button]',
-    '[mat-raised-button]',
-    '[mat-flat-button]',
-    '[mat-icon-button]',
-    '[mat-stroked-button]',
-    '[mat-fab]',
-    '[mat-mini-fab]',
-].join(',');
+MatButtonHarness.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button], [mat-icon-button],
+                         [mat-stroked-button], [mat-fab], [mat-mini-fab]`;
 
 /**
  * @license
