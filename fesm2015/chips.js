@@ -496,7 +496,9 @@ class MatChipList extends _MatChipListBase {
     }
     /** The array of selected chips inside chip list. */
     get selected() {
-        return this.multiple ? this._selectionModel.selected : this._selectionModel.selected[0];
+        var _a, _b;
+        return this.multiple ? (((_a = this._selectionModel) === null || _a === void 0 ? void 0 : _a.selected) || []) :
+            (_b = this._selectionModel) === null || _b === void 0 ? void 0 : _b.selected[0];
     }
     /** The ARIA role applied to the chip list. */
     get role() { return this.empty ? null : 'listbox'; }
