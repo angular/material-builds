@@ -159,8 +159,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * Toggles the opened state of the drawer.
      * @param isOpen Whether the drawer should open or close.
      * @param restoreFocus Whether focus should be restored on close.
-     * @param openedVia Focus origin that can be optionally set when opening a drawer. The
-     *   origin will be used later when focus is restored on drawer close.
+     * @param focusOrigin Origin to use when restoring focus.
      */
     private _setOpen;
     _getWidth(): number;

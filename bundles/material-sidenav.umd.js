@@ -472,7 +472,7 @@
                     _this._takeFocus();
                 }
                 else if (_this._isFocusWithinDrawer()) {
-                    _this._restoreFocus();
+                    _this._restoreFocus(_this._openedVia || 'program');
                 }
             });
             /**
@@ -638,19 +638,17 @@
          * Restores focus to the element that was originally focused when the drawer opened.
          * If no element was focused at that time, the focus will be restored to the drawer.
          */
-        MatDrawer.prototype._restoreFocus = function () {
+        MatDrawer.prototype._restoreFocus = function (focusOrigin) {
             if (this.autoFocus === 'dialog') {
                 return;
             }
-            // Note that we don't check via `instanceof HTMLElement` so that we can cover SVGs as well.
             if (this._elementFocusedBeforeDrawerWasOpened) {
-                this._focusMonitor.focusVia(this._elementFocusedBeforeDrawerWasOpened, this._openedVia);
+                this._focusMonitor.focusVia(this._elementFocusedBeforeDrawerWasOpened, focusOrigin);
             }
             else {
                 this._elementRef.nativeElement.blur();
             }
             this._elementFocusedBeforeDrawerWasOpened = null;
-            this._openedVia = null;
         };
         /** Whether focus is currently within the drawer. */
         MatDrawer.prototype._isFocusWithinDrawer = function () {
@@ -697,8 +695,8 @@
         MatDrawer.prototype._closeViaBackdropClick = function () {
             // If the drawer is closed upon a backdrop click, we always want to restore focus. We
             // don't need to check whether focus is currently in the drawer, as clicking on the
-            // backdrop causes blurring of the active element.
-            return this._setOpen(/* isOpen */ false, /* restoreFocus */ true);
+            // backdrop causes blurs the active element.
+            return this._setOpen(/* isOpen */ false, /* restoreFocus */ true, 'mouse');
         };
         /**
          * Toggle this drawer.
@@ -710,27 +708,31 @@
             if (isOpen === void 0) { isOpen = !this.opened; }
             // If the focus is currently inside the drawer content and we are closing the drawer,
             // restore the focus to the initially focused element (when the drawer opened).
-            return this._setOpen(isOpen, /* restoreFocus */ !isOpen && this._isFocusWithinDrawer(), openedVia);
+            if (isOpen && openedVia) {
+                this._openedVia = openedVia;
+            }
+            var result = this._setOpen(isOpen, /* restoreFocus */ !isOpen && this._isFocusWithinDrawer(), this._openedVia || 'program');
+            if (!isOpen) {
+                this._openedVia = null;
+            }
+            return result;
         };
         /**
          * Toggles the opened state of the drawer.
          * @param isOpen Whether the drawer should open or close.
          * @param restoreFocus Whether focus should be restored on close.
-         * @param openedVia Focus origin that can be optionally set when opening a drawer. The
-         *   origin will be used later when focus is restored on drawer close.
+         * @param focusOrigin Origin to use when restoring focus.
          */
-        MatDrawer.prototype._setOpen = function (isOpen, restoreFocus, openedVia) {
+        MatDrawer.prototype._setOpen = function (isOpen, restoreFocus, focusOrigin) {
             var _this = this;
-            if (openedVia === void 0) { openedVia = 'program'; }
             this._opened = isOpen;
             if (isOpen) {
                 this._animationState = this._enableAnimations ? 'open' : 'open-instant';
-                this._openedVia = openedVia;
             }
             else {
                 this._animationState = 'void';
                 if (restoreFocus) {
-                    this._restoreFocus();
+                    this._restoreFocus(focusOrigin);
                 }
             }
             this._updateFocusTrapState();
