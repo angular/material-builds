@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/text-field'), require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/input', ['exports', '@angular/cdk/text-field', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = {}), global.ng.cdk.textField, global.ng.core, global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.forms, global.ng.material.core, global.ng.material.formField, global.rxjs));
-}(this, (function (exports, textField, core, coercion, platform, forms, core$1, formField, rxjs) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/cdk/text-field'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/input', ['exports', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/cdk/text-field', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = {}), global.ng.cdk.coercion, global.ng.cdk.platform, global.ng.cdk.textField, global.ng.core, global.ng.forms, global.ng.material.core, global.ng.material.formField, global.rxjs));
+}(this, (function (exports, coercion, platform, textField, core, forms, core$1, formField, rxjs) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -321,62 +321,6 @@
             throw new TypeError("Cannot write private member to an object whose class did not declare it");
         return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
     }
-
-    /**
-     * Directive to automatically resize a textarea to fit its content.
-     * @deprecated Use `cdkTextareaAutosize` from `@angular/cdk/text-field` instead.
-     * @breaking-change 8.0.0
-     */
-    var MatTextareaAutosize = /** @class */ (function (_super) {
-        __extends(MatTextareaAutosize, _super);
-        function MatTextareaAutosize() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        Object.defineProperty(MatTextareaAutosize.prototype, "matAutosizeMinRows", {
-            get: function () { return this.minRows; },
-            set: function (value) { this.minRows = value; },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatTextareaAutosize.prototype, "matAutosizeMaxRows", {
-            get: function () { return this.maxRows; },
-            set: function (value) { this.maxRows = value; },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatTextareaAutosize.prototype, "matAutosize", {
-            get: function () { return this.enabled; },
-            set: function (value) { this.enabled = value; },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(MatTextareaAutosize.prototype, "matTextareaAutosize", {
-            get: function () { return this.enabled; },
-            set: function (value) { this.enabled = value; },
-            enumerable: false,
-            configurable: true
-        });
-        return MatTextareaAutosize;
-    }(textField.CdkTextareaAutosize));
-    MatTextareaAutosize.decorators = [
-        { type: core.Directive, args: [{
-                    selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
-                    exportAs: 'matTextareaAutosize',
-                    inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
-                    host: {
-                        'class': 'cdk-textarea-autosize mat-autosize',
-                        // Textarea elements that have the directive applied should have a single row by default.
-                        // Browsers normally show two rows by default and therefore this limits the minRows binding.
-                        'rows': '1',
-                    },
-                },] }
-    ];
-    MatTextareaAutosize.propDecorators = {
-        matAutosizeMinRows: [{ type: core.Input }],
-        matAutosizeMaxRows: [{ type: core.Input }],
-        matAutosize: [{ type: core.Input, args: ['mat-autosize',] }],
-        matTextareaAutosize: [{ type: core.Input }]
-    };
 
     /**
      * @license
@@ -833,7 +777,7 @@
     }());
     MatInputModule.decorators = [
         { type: core.NgModule, args: [{
-                    declarations: [MatInput, MatTextareaAutosize],
+                    declarations: [MatInput],
                     imports: [
                         textField.TextFieldModule,
                         formField.MatFormFieldModule,
@@ -845,7 +789,6 @@
                         // be used together with `MatFormField`.
                         formField.MatFormFieldModule,
                         MatInput,
-                        MatTextareaAutosize,
                     ],
                     providers: [core$1.ErrorStateMatcher],
                 },] }
@@ -866,7 +809,6 @@
     exports.MAT_INPUT_VALUE_ACCESSOR = MAT_INPUT_VALUE_ACCESSOR;
     exports.MatInput = MatInput;
     exports.MatInputModule = MatInputModule;
-    exports.MatTextareaAutosize = MatTextareaAutosize;
     exports.getMatInputUnsupportedTypeError = getMatInputUnsupportedTypeError;
 
     Object.defineProperty(exports, '__esModule', { value: true });

@@ -1,53 +1,11 @@
-import { CdkTextareaAutosize, AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
-import { Directive, Input, InjectionToken, ElementRef, Optional, Self, Inject, NgZone, HostListener, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
+import { AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
+import { InjectionToken, Directive, ElementRef, Optional, Self, Inject, NgZone, Input, HostListener, NgModule } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { mixinErrorState, ErrorStateMatcher, MatCommonModule } from '@angular/material/core';
 import { MatFormFieldControl, MatFormField, MAT_FORM_FIELD, MatFormFieldModule } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Directive to automatically resize a textarea to fit its content.
- * @deprecated Use `cdkTextareaAutosize` from `@angular/cdk/text-field` instead.
- * @breaking-change 8.0.0
- */
-class MatTextareaAutosize extends CdkTextareaAutosize {
-    get matAutosizeMinRows() { return this.minRows; }
-    set matAutosizeMinRows(value) { this.minRows = value; }
-    get matAutosizeMaxRows() { return this.maxRows; }
-    set matAutosizeMaxRows(value) { this.maxRows = value; }
-    get matAutosize() { return this.enabled; }
-    set matAutosize(value) { this.enabled = value; }
-    get matTextareaAutosize() { return this.enabled; }
-    set matTextareaAutosize(value) { this.enabled = value; }
-}
-MatTextareaAutosize.decorators = [
-    { type: Directive, args: [{
-                selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
-                exportAs: 'matTextareaAutosize',
-                inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
-                host: {
-                    'class': 'cdk-textarea-autosize mat-autosize',
-                    // Textarea elements that have the directive applied should have a single row by default.
-                    // Browsers normally show two rows by default and therefore this limits the minRows binding.
-                    'rows': '1',
-                },
-            },] }
-];
-MatTextareaAutosize.propDecorators = {
-    matAutosizeMinRows: [{ type: Input }],
-    matAutosizeMaxRows: [{ type: Input }],
-    matAutosize: [{ type: Input, args: ['mat-autosize',] }],
-    matTextareaAutosize: [{ type: Input }]
-};
 
 /**
  * @license
@@ -472,7 +430,7 @@ class MatInputModule {
 }
 MatInputModule.decorators = [
     { type: NgModule, args: [{
-                declarations: [MatInput, MatTextareaAutosize],
+                declarations: [MatInput],
                 imports: [
                     TextFieldModule,
                     MatFormFieldModule,
@@ -484,7 +442,6 @@ MatInputModule.decorators = [
                     // be used together with `MatFormField`.
                     MatFormFieldModule,
                     MatInput,
-                    MatTextareaAutosize,
                 ],
                 providers: [ErrorStateMatcher],
             },] }
@@ -502,5 +459,5 @@ MatInputModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, MatTextareaAutosize, getMatInputUnsupportedTypeError };
+export { MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, getMatInputUnsupportedTypeError };
 //# sourceMappingURL=input.js.map
