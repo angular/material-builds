@@ -43,7 +43,7 @@ export interface MatPaginatorDefaultOptions {
 /** Injection token that can be used to provide the default options for the paginator module. */
 export declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorDefaultOptions>;
 /** @docs-private */
-declare const _MatPaginatorMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & import("@angular/material/core").HasInitializedCtor & {
+declare const _MatPaginatorMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & (new (...args: any[]) => HasInitialized) & {
     new (): {};
 };
 /**

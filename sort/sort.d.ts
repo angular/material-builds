@@ -34,7 +34,7 @@ export interface MatSortDefaultOptions {
 /** Injection token to be used to override the default options for `mat-sort`. */
 export declare const MAT_SORT_DEFAULT_OPTIONS: InjectionToken<MatSortDefaultOptions>;
 /** @docs-private */
-declare const _MatSortBase: import("@angular/material/core").HasInitializedCtor & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+declare const _MatSortBase: (new (...args: any[]) => HasInitialized) & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
     new (): {};
 };
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */

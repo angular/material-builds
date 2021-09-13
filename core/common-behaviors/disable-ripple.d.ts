@@ -11,11 +11,7 @@ export interface CanDisableRipple {
     /** Whether ripples are disabled. */
     disableRipple: boolean;
 }
-/**
- * @docs-private
- * @deprecated No longer necessary to apply to mixin classes. To be made private.
- * @breaking-change 13.0.0
- */
-export declare type CanDisableRippleCtor = Constructor<CanDisableRipple> & AbstractConstructor<CanDisableRipple>;
+declare type CanDisableRippleCtor = Constructor<CanDisableRipple> & AbstractConstructor<CanDisableRipple>;
 /** Mixin to augment a directive with a `disableRipple` property. */
 export declare function mixinDisableRipple<T extends AbstractConstructor<{}>>(base: T): CanDisableRippleCtor & T;
+export {};

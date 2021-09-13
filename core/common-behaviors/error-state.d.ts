@@ -20,12 +20,7 @@ export interface CanUpdateErrorState {
     /** An object used to control the error state of the component. */
     errorStateMatcher: ErrorStateMatcher;
 }
-/**
- * @docs-private
- * @deprecated No longer necessary to apply to mixin classes. To be made private.
- * @breaking-change 13.0.0
- */
-export declare type CanUpdateErrorStateCtor = Constructor<CanUpdateErrorState> & AbstractConstructor<CanUpdateErrorState>;
+declare type CanUpdateErrorStateCtor = Constructor<CanUpdateErrorState> & AbstractConstructor<CanUpdateErrorState>;
 /** @docs-private */
 export interface HasErrorState {
     _parentFormGroup: FormGroupDirective;
@@ -38,3 +33,4 @@ export interface HasErrorState {
  * For component with `errorState` and need to update `errorState`.
  */
 export declare function mixinErrorState<T extends AbstractConstructor<HasErrorState>>(base: T): CanUpdateErrorStateCtor & T;
+export {};

@@ -14,12 +14,7 @@ export interface CanColor {
     /** Default color to fall back to if no value is set. */
     defaultColor: ThemePalette | undefined;
 }
-/**
- * @docs-private
- * @deprecated No longer necessary to apply to mixin classes. To be made private.
- * @breaking-change 13.0.0
- */
-export declare type CanColorCtor = Constructor<CanColor> & AbstractConstructor<CanColor>;
+declare type CanColorCtor = Constructor<CanColor> & AbstractConstructor<CanColor>;
 /** @docs-private */
 export interface HasElementRef {
     _elementRef: ElementRef;
@@ -28,3 +23,4 @@ export interface HasElementRef {
 export declare type ThemePalette = 'primary' | 'accent' | 'warn' | undefined;
 /** Mixin to augment a directive with a `color` property. */
 export declare function mixinColor<T extends AbstractConstructor<HasElementRef>>(base: T, defaultColor?: ThemePalette): CanColorCtor & T;
+export {};
