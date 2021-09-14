@@ -23,8 +23,7 @@ export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
 };
 /** Default top padding of the menu panel. */
 export declare const MENU_PANEL_TOP_PADDING = 8;
-/** Directive applied to an element that should trigger a `mat-menu`. */
-export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
+export declare abstract class _MatMenuTriggerBase implements AfterContentInit, OnDestroy {
     private _overlay;
     private _element;
     private _viewContainerRef;
@@ -49,6 +48,9 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      */
     private _handleTouchStart;
     _openedBy: Exclude<FocusOrigin, 'program' | null> | undefined;
+    get _ariaExpanded(): true | null;
+    get _ariaControl(): string | null | undefined;
+    _ariaHaspopup: boolean;
     /**
      * @deprecated
      * @breaking-change 8.0.0
@@ -156,4 +158,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _handleHover;
     /** Gets the portal that should be attached to the overlay. */
     private _getPortal;
+}
+/** Directive applied to an element that should trigger a `mat-menu`. */
+export declare class MatMenuTrigger extends _MatMenuTriggerBase {
 }

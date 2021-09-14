@@ -1,7 +1,7 @@
 import { FocusMonitor, FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
-import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
+import { InjectionToken, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectorRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, Optional, Input, HostListener, QueryList, EventEmitter, NgZone, ContentChildren, ViewChild, ContentChild, Output, Self, HostBinding, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -86,10 +86,7 @@ const transformMenu = matMenuAnimations.transformMenu;
  * retention of the class and its directive metadata.
  */
 const MAT_MENU_CONTENT = new InjectionToken('MatMenuContent');
-/**
- * Menu content that will be rendered lazily once the menu is opened.
- */
-class MatMenuContent {
+class _MatMenuContentBase {
     constructor(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document, _changeDetectorRef) {
         this._template = _template;
         this._componentFactoryResolver = _componentFactoryResolver;
@@ -145,13 +142,10 @@ class MatMenuContent {
         }
     }
 }
-MatMenuContent.decorators = [
-    { type: Directive, args: [{
-                selector: 'ng-template[matMenuContent]',
-                providers: [{ provide: MAT_MENU_CONTENT, useExisting: MatMenuContent }],
-            },] }
+_MatMenuContentBase.decorators = [
+    { type: Directive }
 ];
-MatMenuContent.ctorParameters = () => [
+_MatMenuContentBase.ctorParameters = () => [
     { type: TemplateRef },
     { type: ComponentFactoryResolver },
     { type: ApplicationRef },
@@ -159,6 +153,17 @@ MatMenuContent.ctorParameters = () => [
     { type: ViewContainerRef },
     { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
     { type: ChangeDetectorRef }
+];
+/**
+ * Menu content that will be rendered lazily once the menu is opened.
+ */
+class MatMenuContent extends _MatMenuContentBase {
+}
+MatMenuContent.decorators = [
+    { type: Directive, args: [{
+                selector: 'ng-template[matMenuContent]',
+                providers: [{ provide: MAT_MENU_CONTENT, useExisting: MatMenuContent }],
+            },] }
 ];
 
 /**
@@ -772,8 +777,7 @@ const MENU_PANEL_TOP_PADDING = 8;
 /** Options for binding a passive event listener. */
 const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
-/** Directive applied to an element that should trigger a `mat-menu`. */
-class MatMenuTrigger {
+class _MatMenuTriggerBase {
     constructor(_overlay, _element, _viewContainerRef, scrollStrategy, parentMenu, 
     // `MatMenuTrigger` is commonly used in combination with a `MatMenuItem`.
     // tslint:disable-next-line: lightweight-tokens
@@ -804,6 +808,7 @@ class MatMenuTrigger {
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = undefined;
+        this._ariaHaspopup = true;
         /**
          * Whether focus should be restored when the menu is closed.
          * Note that disabling this option can have accessibility implications
@@ -834,6 +839,12 @@ class MatMenuTrigger {
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
+    }
+    get _ariaExpanded() {
+        return this.menuOpen || null;
+    }
+    get _ariaControl() {
+        return this.menuOpen ? this.menu.panelId : null;
     }
     /**
      * @deprecated
@@ -1192,22 +1203,10 @@ class MatMenuTrigger {
         return this._portal;
     }
 }
-MatMenuTrigger.decorators = [
-    { type: Directive, args: [{
-                selector: `[mat-menu-trigger-for], [matMenuTriggerFor]`,
-                host: {
-                    'class': 'mat-menu-trigger',
-                    'aria-haspopup': 'true',
-                    '[attr.aria-expanded]': 'menuOpen || null',
-                    '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
-                    '(mousedown)': '_handleMousedown($event)',
-                    '(keydown)': '_handleKeydown($event)',
-                    '(click)': '_handleClick($event)',
-                },
-                exportAs: 'matMenuTrigger'
-            },] }
+_MatMenuTriggerBase.decorators = [
+    { type: Directive }
 ];
-MatMenuTrigger.ctorParameters = () => [
+_MatMenuTriggerBase.ctorParameters = () => [
     { type: Overlay },
     { type: ElementRef },
     { type: ViewContainerRef },
@@ -1217,7 +1216,10 @@ MatMenuTrigger.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional }] },
     { type: FocusMonitor }
 ];
-MatMenuTrigger.propDecorators = {
+_MatMenuTriggerBase.propDecorators = {
+    _ariaExpanded: [{ type: HostBinding, args: ['attr.aria-expanded',] }],
+    _ariaControl: [{ type: HostBinding, args: ['attr.aria-controls',] }],
+    _ariaHaspopup: [{ type: HostBinding, args: ['attr.aria-haspopup',] }],
     _deprecatedMatMenuTriggerFor: [{ type: Input, args: ['mat-menu-trigger-for',] }],
     menu: [{ type: Input, args: ['matMenuTriggerFor',] }],
     menuData: [{ type: Input, args: ['matMenuTriggerData',] }],
@@ -1225,8 +1227,23 @@ MatMenuTrigger.propDecorators = {
     menuOpened: [{ type: Output }],
     onMenuOpen: [{ type: Output }],
     menuClosed: [{ type: Output }],
-    onMenuClose: [{ type: Output }]
+    onMenuClose: [{ type: Output }],
+    _handleMousedown: [{ type: HostListener, args: ['mousedown', ['$event'],] }],
+    _handleKeydown: [{ type: HostListener, args: ['keydown', ['$event'],] }],
+    _handleClick: [{ type: HostListener, args: ['click', ['$event'],] }]
 };
+/** Directive applied to an element that should trigger a `mat-menu`. */
+class MatMenuTrigger extends _MatMenuTriggerBase {
+}
+MatMenuTrigger.decorators = [
+    { type: Directive, args: [{
+                selector: `[mat-menu-trigger-for], [matMenuTriggerFor]`,
+                host: {
+                    'class': 'mat-menu-trigger',
+                },
+                exportAs: 'matMenuTrigger'
+            },] }
+];
 
 /**
  * @license
@@ -1235,22 +1252,6 @@ MatMenuTrigger.propDecorators = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Used by both the current `MatMenuModule` and the MDC `MatMenuModule`
- * to declare the menu-related directives.
- */
-class _MatMenuDirectivesModule {
-}
-_MatMenuDirectivesModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [MatMenuTrigger, MatMenuContent, MatCommonModule],
-                declarations: [
-                    MatMenuTrigger,
-                    MatMenuContent,
-                ],
-                providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
-            },] }
-];
 class MatMenuModule {
 }
 MatMenuModule.decorators = [
@@ -1260,10 +1261,16 @@ MatMenuModule.decorators = [
                     MatCommonModule,
                     MatRippleModule,
                     OverlayModule,
-                    _MatMenuDirectivesModule,
                 ],
-                exports: [CdkScrollableModule, MatCommonModule, MatMenu, MatMenuItem, _MatMenuDirectivesModule],
-                declarations: [MatMenu, MatMenuItem],
+                exports: [
+                    CdkScrollableModule,
+                    MatCommonModule,
+                    MatMenu,
+                    MatMenuItem,
+                    MatMenuTrigger,
+                    MatMenuContent
+                ],
+                declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
                 providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
             },] }
 ];
@@ -1288,5 +1295,5 @@ MatMenuModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, _MatMenuBase, _MatMenuDirectivesModule, fadeInItems, matMenuAnimations, transformMenu, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵangular_material_src_material_menu_menu_a, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵangular_material_src_material_menu_menu_b, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵangular_material_src_material_menu_menu_c };
+export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, _MatMenuBase, _MatMenuContentBase, _MatMenuTriggerBase, fadeInItems, matMenuAnimations, transformMenu, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵangular_material_src_material_menu_menu_a, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵangular_material_src_material_menu_menu_b, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵangular_material_src_material_menu_menu_c };
 //# sourceMappingURL=menu.js.map

@@ -13,10 +13,7 @@ import { Subject } from 'rxjs';
  * retention of the class and its directive metadata.
  */
 export declare const MAT_MENU_CONTENT: InjectionToken<MatMenuContent>;
-/**
- * Menu content that will be rendered lazily once the menu is opened.
- */
-export declare class MatMenuContent implements OnDestroy {
+export declare abstract class _MatMenuContentBase implements OnDestroy {
     private _template;
     private _componentFactoryResolver;
     private _appRef;
@@ -40,4 +37,9 @@ export declare class MatMenuContent implements OnDestroy {
      */
     detach(): void;
     ngOnDestroy(): void;
+}
+/**
+ * Menu content that will be rendered lazily once the menu is opened.
+ */
+export declare class MatMenuContent extends _MatMenuContentBase {
 }
