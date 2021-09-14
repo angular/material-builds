@@ -3269,7 +3269,7 @@ class MatDateRangeInput {
         if (_formField === null || _formField === void 0 ? void 0 : _formField._elementRef.nativeElement.classList.contains('mat-mdc-form-field')) {
             const classList = _elementRef.nativeElement.classList;
             classList.add('mat-mdc-input-element');
-            classList.add('mat-mdc-form-field-control');
+            classList.add('mat-mdc-form-field-input-control');
         }
         // TODO(crisbeto): remove `as any` after #18206 lands.
         this.ngControl = control;
