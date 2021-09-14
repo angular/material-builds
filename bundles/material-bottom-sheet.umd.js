@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/cdk/bidi'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/bottom-sheet', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/layout', '@angular/animations', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/cdk/bidi', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.layout, global.ng.animations, global.ng.common, global.ng.cdk.a11y, global.ng.cdk.platform, global.ng.cdk.bidi, global.rxjs, global.ng.cdk.keycodes, global.rxjs.operators));
-}(this, (function (exports, i1, portal, i0, core, layout, animations, common, a11y, platform, bidi, rxjs, keycodes, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/layout'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/bottom-sheet', ['exports', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/layout', '@angular/cdk/platform', '@angular/common', '@angular/animations', '@angular/cdk/bidi', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}), global.ng.cdk.overlay, global.ng.cdk.portal, global.ng.core, global.ng.material.core, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.layout, global.ng.cdk.platform, global.ng.common, global.ng.animations, global.ng.cdk.bidi, global.rxjs, global.ng.cdk.keycodes, global.rxjs.operators));
+}(this, (function (exports, i1, portal, i0, core, a11y, coercion, layout, platform, common, animations, bidi, rxjs, keycodes, operators) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -352,6 +352,24 @@
      * Use of this source code is governed by an MIT-style license that can be
      * found in the LICENSE file at https://angular.io/license
      */
+    /** Animations used by the Material bottom sheet. */
+    var matBottomSheetAnimations = {
+        /** Animation that shows and hides a bottom sheet. */
+        bottomSheetState: animations.trigger('state', [
+            animations.state('void, hidden', animations.style({ transform: 'translateY(100%)' })),
+            animations.state('visible', animations.style({ transform: 'translateY(0%)' })),
+            animations.transition('visible => void, visible => hidden', animations.animate(core.AnimationDurations.COMPLEX + " " + core.AnimationCurves.ACCELERATION_CURVE)),
+            animations.transition('void => visible', animations.animate(core.AnimationDurations.EXITING + " " + core.AnimationCurves.DECELERATION_CURVE)),
+        ])
+    };
+
+    /**
+     * @license
+     * Copyright Google LLC All Rights Reserved.
+     *
+     * Use of this source code is governed by an MIT-style license that can be
+     * found in the LICENSE file at https://angular.io/license
+     */
     /** Injection token that can be used to access the data that was passed in to a bottom sheet. */
     var MAT_BOTTOM_SHEET_DATA = new i0.InjectionToken('MatBottomSheetData');
     /**
@@ -390,24 +408,6 @@
         }
         return MatBottomSheetConfig;
     }());
-
-    /**
-     * @license
-     * Copyright Google LLC All Rights Reserved.
-     *
-     * Use of this source code is governed by an MIT-style license that can be
-     * found in the LICENSE file at https://angular.io/license
-     */
-    /** Animations used by the Material bottom sheet. */
-    var matBottomSheetAnimations = {
-        /** Animation that shows and hides a bottom sheet. */
-        bottomSheetState: animations.trigger('state', [
-            animations.state('void, hidden', animations.style({ transform: 'translateY(100%)' })),
-            animations.state('visible', animations.style({ transform: 'translateY(0%)' })),
-            animations.transition('visible => void, visible => hidden', animations.animate(core.AnimationDurations.COMPLEX + " " + core.AnimationCurves.ACCELERATION_CURVE)),
-            animations.transition('void => visible', animations.animate(core.AnimationDurations.EXITING + " " + core.AnimationCurves.DECELERATION_CURVE)),
-        ])
-    };
 
     // TODO(crisbeto): consolidate some logic between this, MatDialog and MatSnackBar
     /**
@@ -498,8 +498,7 @@
             this._animationStateChanged.emit(event);
         };
         MatBottomSheetContainer.prototype._toggleClass = function (cssClass, add) {
-            var classList = this._elementRef.nativeElement.classList;
-            add ? classList.add(cssClass) : classList.remove(cssClass);
+            this._elementRef.nativeElement.classList.toggle(cssClass, add);
         };
         MatBottomSheetContainer.prototype._validatePortalAttached = function () {
             if (this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
@@ -507,15 +506,9 @@
             }
         };
         MatBottomSheetContainer.prototype._setPanelClass = function () {
+            var _a;
             var element = this._elementRef.nativeElement;
-            var panelClass = this.bottomSheetConfig.panelClass;
-            if (Array.isArray(panelClass)) {
-                // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-                panelClass.forEach(function (cssClass) { return element.classList.add(cssClass); });
-            }
-            else if (panelClass) {
-                element.classList.add(panelClass);
-            }
+            (_a = element.classList).add.apply(_a, __spreadArray([], __read(coercion.coerceArray(this.bottomSheetConfig.panelClass || []))));
         };
         /**
          * Focuses the provided element. If the element is not focusable, it will add a tabIndex

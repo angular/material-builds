@@ -789,8 +789,7 @@ function setLines(lines, element, prefix = 'mat') {
 }
 /** Adds or removes a class from an element. */
 function setClass(element, className, isAdd) {
-    const classList = element.nativeElement.classList;
-    isAdd ? classList.add(className) : classList.remove(className);
+    element.nativeElement.classList.toggle(className, isAdd);
 }
 class MatLineModule {
 }

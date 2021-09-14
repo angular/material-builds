@@ -941,8 +941,7 @@
             // appropriate. This class is applied to the overlay element because the overlay must expand to
             // fill the width of the screen for full width snackbars.
             this._breakpointObserver.observe(i3.Breakpoints.HandsetPortrait).pipe(operators.takeUntil(overlayRef.detachments())).subscribe(function (state) {
-                var classList = overlayRef.overlayElement.classList;
-                state.matches ? classList.add(_this.handsetCssClass) : classList.remove(_this.handsetCssClass);
+                overlayRef.overlayElement.classList.toggle(_this.handsetCssClass, state.matches);
             });
             if (config.announcementMessage) {
                 // Wait until the snack bar contents have been announced then deliver this message.

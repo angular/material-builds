@@ -4,15 +4,34 @@ import { BasePortalOutlet, CdkPortalOutlet, PortalModule, TemplatePortal, Compon
 import * as i0 from '@angular/core';
 import { InjectionToken, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ChangeDetectorRef, NgZone, Optional, Inject, ViewChild, NgModule, TemplateRef, Injector, InjectFlags, Injectable, SkipSelf } from '@angular/core';
 import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { DOCUMENT } from '@angular/common';
 import { FocusTrapFactory, InteractivityChecker } from '@angular/cdk/a11y';
+import { coerceArray } from '@angular/cdk/coercion';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
+import { DOCUMENT } from '@angular/common';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subject, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { filter, take } from 'rxjs/operators';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Animations used by the Material bottom sheet. */
+const matBottomSheetAnimations = {
+    /** Animation that shows and hides a bottom sheet. */
+    bottomSheetState: trigger('state', [
+        state('void, hidden', style({ transform: 'translateY(100%)' })),
+        state('visible', style({ transform: 'translateY(0%)' })),
+        transition('visible => void, visible => hidden', animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.ACCELERATION_CURVE}`)),
+        transition('void => visible', animate(`${AnimationDurations.EXITING} ${AnimationCurves.DECELERATION_CURVE}`)),
+    ])
+};
 
 /**
  * @license
@@ -58,24 +77,6 @@ class MatBottomSheetConfig {
         this.restoreFocus = true;
     }
 }
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/** Animations used by the Material bottom sheet. */
-const matBottomSheetAnimations = {
-    /** Animation that shows and hides a bottom sheet. */
-    bottomSheetState: trigger('state', [
-        state('void, hidden', style({ transform: 'translateY(100%)' })),
-        state('visible', style({ transform: 'translateY(0%)' })),
-        transition('visible => void, visible => hidden', animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.ACCELERATION_CURVE}`)),
-        transition('void => visible', animate(`${AnimationDurations.EXITING} ${AnimationCurves.DECELERATION_CURVE}`)),
-    ])
-};
 
 /**
  * @license
@@ -171,8 +172,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
         this._animationStateChanged.emit(event);
     }
     _toggleClass(cssClass, add) {
-        const classList = this._elementRef.nativeElement.classList;
-        add ? classList.add(cssClass) : classList.remove(cssClass);
+        this._elementRef.nativeElement.classList.toggle(cssClass, add);
     }
     _validatePortalAttached() {
         if (this._portalOutlet.hasAttached() && (typeof ngDevMode === 'undefined' || ngDevMode)) {
@@ -181,14 +181,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
     }
     _setPanelClass() {
         const element = this._elementRef.nativeElement;
-        const panelClass = this.bottomSheetConfig.panelClass;
-        if (Array.isArray(panelClass)) {
-            // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-            panelClass.forEach(cssClass => element.classList.add(cssClass));
-        }
-        else if (panelClass) {
-            element.classList.add(panelClass);
-        }
+        element.classList.add(...coerceArray(this.bottomSheetConfig.panelClass || []));
     }
     /**
      * Focuses the provided element. If the element is not focusable, it will add a tabIndex

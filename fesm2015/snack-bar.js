@@ -593,8 +593,7 @@ class MatSnackBar {
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
         this._breakpointObserver.observe(Breakpoints.HandsetPortrait).pipe(takeUntil(overlayRef.detachments())).subscribe(state => {
-            const classList = overlayRef.overlayElement.classList;
-            state.matches ? classList.add(this.handsetCssClass) : classList.remove(this.handsetCssClass);
+            overlayRef.overlayElement.classList.toggle(this.handsetCssClass, state.matches);
         });
         if (config.announcementMessage) {
             // Wait until the snack bar contents have been announced then deliver this message.

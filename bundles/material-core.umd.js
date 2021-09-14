@@ -1170,8 +1170,7 @@
     }
     /** Adds or removes a class from an element. */
     function setClass(element, className, isAdd) {
-        var classList = element.nativeElement.classList;
-        isAdd ? classList.add(className) : classList.remove(className);
+        element.nativeElement.classList.toggle(className, isAdd);
     }
     var MatLineModule = /** @class */ (function () {
         function MatLineModule() {

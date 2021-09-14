@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRef, EmbeddedViewRef, OnDestroy, ElementRef, ChangeDetectorRef, EventEmitter, NgZone } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalOutlet, ComponentPortal, TemplatePortal, CdkPortalOutlet, DomPortal } from '@angular/cdk/portal';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatBottomSheetConfig } from './bottom-sheet-config';
 import { FocusTrapFactory, InteractivityChecker } from '@angular/cdk/a11y';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, DomPortal, TemplatePortal } from '@angular/cdk/portal';
+import { ChangeDetectorRef, ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
+import { MatBottomSheetConfig } from './bottom-sheet-config';
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * @docs-private
