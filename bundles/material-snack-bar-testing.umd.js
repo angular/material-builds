@@ -328,9 +328,8 @@
         function MatSnackBarHarness() {
             var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
             _this._messageSelector = '.mat-simple-snackbar > span';
-            _this._simpleSnackBarSelector = '.mat-simple-snackbar';
             _this._actionButtonSelector = '.mat-simple-snackbar-action > button';
-            _this._simpleSnackBarLiveRegion = _this.locatorFor('[aria-live]');
+            _this._snackBarLiveRegion = _this.locatorFor('[aria-live]');
             return _this;
         }
         /**
@@ -367,7 +366,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._simpleSnackBarLiveRegion()];
+                        case 0: return [4 /*yield*/, this._snackBarLiveRegion()];
                         case 1: return [2 /*return*/, (_a.sent())
                                 .getAttribute('aria-live')];
                     }
@@ -381,10 +380,10 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._assertSimpleSnackBar()];
+                        case 0: return [4 /*yield*/, this._assertContentAnnotated()];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, this._getSimpleSnackBarActionButton()];
+                            return [4 /*yield*/, this._getActionButton()];
                         case 2: return [2 /*return*/, (_a.sent()) !== null];
                     }
                 });
@@ -398,10 +397,10 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._assertSimpleSnackBarWithAction()];
+                        case 0: return [4 /*yield*/, this._assertHasAction()];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, this._getSimpleSnackBarActionButton()];
+                            return [4 /*yield*/, this._getActionButton()];
                         case 2: return [2 /*return*/, (_a.sent()).text()];
                     }
                 });
@@ -415,10 +414,10 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._assertSimpleSnackBarWithAction()];
+                        case 0: return [4 /*yield*/, this._assertHasAction()];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, this._getSimpleSnackBarActionButton()];
+                            return [4 /*yield*/, this._getActionButton()];
                         case 2: return [4 /*yield*/, (_a.sent()).click()];
                         case 3:
                             _a.sent();
@@ -434,7 +433,7 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._assertSimpleSnackBar()];
+                        case 0: return [4 /*yield*/, this._assertContentAnnotated()];
                         case 1:
                             _a.sent();
                             return [4 /*yield*/, this.locatorFor(this._messageSelector)()];
@@ -466,10 +465,10 @@
             });
         };
         /**
-         * Asserts that the current snack-bar does not use custom content. Promise rejects if
-         * custom content is used.
+         * Asserts that the current snack-bar has annotated content. Promise reject
+         * if content is not annotated.
          */
-        MatSnackBarHarness.prototype._assertSimpleSnackBar = function () {
+        MatSnackBarHarness.prototype._assertContentAnnotated = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
@@ -484,20 +483,20 @@
             });
         };
         /**
-         * Asserts that the current snack-bar does not use custom content and has
-         * an action defined. Otherwise the promise will reject.
+         * Asserts that the current snack-bar has an action defined. Otherwise the
+         * promise will reject.
          */
-        MatSnackBarHarness.prototype._assertSimpleSnackBarWithAction = function () {
+        MatSnackBarHarness.prototype._assertHasAction = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this._assertSimpleSnackBar()];
+                        case 0: return [4 /*yield*/, this._assertContentAnnotated()];
                         case 1:
                             _a.sent();
                             return [4 /*yield*/, this.hasAction()];
                         case 2:
                             if (!(_a.sent())) {
-                                throw Error('Method cannot be used for standard snack-bar without action.');
+                                throw Error('Method cannot be used for a snack-bar without an action.');
                             }
                             return [2 /*return*/];
                     }
@@ -509,14 +508,14 @@
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, this.locatorForOptional(this._simpleSnackBarSelector)()];
+                        case 0: return [4 /*yield*/, this.locatorForOptional('.mat-simple-snackbar')()];
                         case 1: return [2 /*return*/, (_a.sent()) !== null];
                     }
                 });
             });
         };
         /** Gets the simple snack bar action button. */
-        MatSnackBarHarness.prototype._getSimpleSnackBarActionButton = function () {
+        MatSnackBarHarness.prototype._getActionButton = function () {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     return [2 /*return*/, this.locatorForOptional(this._actionButtonSelector)()];
