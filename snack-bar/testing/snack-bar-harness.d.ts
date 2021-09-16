@@ -13,9 +13,8 @@ export declare class MatSnackBarHarness extends ContentContainerComponentHarness
     /** The selector for the host element of a `MatSnackBar` instance. */
     static hostSelector: string;
     protected _messageSelector: string;
-    protected _simpleSnackBarSelector: string;
     protected _actionButtonSelector: string;
-    private _simpleSnackBarLiveRegion;
+    private _snackBarLiveRegion;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
      * certain criteria.
@@ -56,17 +55,17 @@ export declare class MatSnackBarHarness extends ContentContainerComponentHarness
     /** Gets whether the snack-bar has been dismissed. */
     isDismissed(): Promise<boolean>;
     /**
-     * Asserts that the current snack-bar does not use custom content. Promise rejects if
-     * custom content is used.
+     * Asserts that the current snack-bar has annotated content. Promise reject
+     * if content is not annotated.
      */
-    private _assertSimpleSnackBar;
+    protected _assertContentAnnotated(): Promise<void>;
     /**
-     * Asserts that the current snack-bar does not use custom content and has
-     * an action defined. Otherwise the promise will reject.
+     * Asserts that the current snack-bar has an action defined. Otherwise the
+     * promise will reject.
      */
-    private _assertSimpleSnackBarWithAction;
+    protected _assertHasAction(): Promise<void>;
     /** Whether the snack-bar is using the default content template. */
     private _isSimpleSnackBar;
     /** Gets the simple snack bar action button. */
-    private _getSimpleSnackBarActionButton;
+    private _getActionButton;
 }
