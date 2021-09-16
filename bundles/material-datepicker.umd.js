@@ -2396,17 +2396,7 @@
     };
     /** Base class for a datepicker. */
     var MatDatepickerBase = /** @class */ (function () {
-        function MatDatepickerBase(
-        /**
-         * @deprecated `_dialog` parameter is no longer being used and it will be removed.
-         * @breaking-change 13.0.0
-         */
-        _dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, 
-        /**
-         * @deprecated No longer being used. To be removed.
-         * @breaking-change 13.0.0
-         */
-        _document, _model) {
+        function MatDatepickerBase(_overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _model) {
             this._overlay = _overlay;
             this._ngZone = _ngZone;
             this._viewContainerRef = _viewContainerRef;
@@ -2788,14 +2778,12 @@
         { type: i0.Directive }
     ];
     MatDatepickerBase.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: i0.Inject, args: [i0.ElementRef,] }] },
         { type: overlay.Overlay },
         { type: i0.NgZone },
         { type: i0.ViewContainerRef },
         { type: undefined, decorators: [{ type: i0.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] }] },
         { type: core.DateAdapter, decorators: [{ type: i0.Optional }] },
         { type: bidi.Directionality, decorators: [{ type: i0.Optional }] },
-        { type: undefined, decorators: [{ type: i0.Optional }, { type: i0.Inject, args: [common.DOCUMENT,] }] },
         { type: MatDateSelectionModel }
     ]; };
     MatDatepickerBase.propDecorators = {

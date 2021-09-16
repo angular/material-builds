@@ -214,17 +214,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     datepickerInput: C;
     /** Emits when the datepicker's state changes. */
     readonly stateChanges: Subject<void>;
-    constructor(
-    /**
-     * @deprecated `_dialog` parameter is no longer being used and it will be removed.
-     * @breaking-change 13.0.0
-     */
-    _dialog: any, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, 
-    /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 13.0.0
-     */
-    _document: any, _model: MatDateSelectionModel<S, D>);
+    constructor(_overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _model: MatDateSelectionModel<S, D>);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Selects the given date */

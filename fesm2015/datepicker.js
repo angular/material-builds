@@ -1,7 +1,7 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { DOCUMENT, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
 import { Injectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, NgZone, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, Inject, ViewChild, forwardRef, Directive, ViewContainerRef, Attribute, ContentChild, InjectFlags, Injector, Self, TemplateRef, NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -1964,17 +1964,7 @@ MatDatepickerContent.propDecorators = {
 };
 /** Base class for a datepicker. */
 class MatDatepickerBase {
-    constructor(
-    /**
-     * @deprecated `_dialog` parameter is no longer being used and it will be removed.
-     * @breaking-change 13.0.0
-     */
-    _dialog, _overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, 
-    /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 13.0.0
-     */
-    _document, _model) {
+    constructor(_overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _model) {
         this._overlay = _overlay;
         this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
@@ -2323,14 +2313,12 @@ MatDatepickerBase.decorators = [
     { type: Directive }
 ];
 MatDatepickerBase.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Inject, args: [ElementRef,] }] },
     { type: Overlay },
     { type: NgZone },
     { type: ViewContainerRef },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] }] },
     { type: DateAdapter, decorators: [{ type: Optional }] },
     { type: Directionality, decorators: [{ type: Optional }] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
     { type: MatDateSelectionModel }
 ];
 MatDatepickerBase.propDecorators = {
