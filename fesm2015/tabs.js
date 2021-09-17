@@ -2,7 +2,7 @@ import { FocusKeyManager, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewContainerRef, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, QueryList, ContentChildren, Attribute, NgModule } from '@angular/core';
+import { InjectionToken, Directive, ElementRef, NgZone, Inject, Optional, TemplateRef, ViewContainerRef, Component, ChangeDetectionStrategy, ViewEncapsulation, ContentChild, ViewChild, Input, ComponentFactoryResolver, forwardRef, EventEmitter, ChangeDetectorRef, Output, QueryList, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, Subscription, merge, fromEvent, of, timer } from 'rxjs';
@@ -142,14 +142,28 @@ MatTabContent.ctorParameters = () => [
  * retention of the class and its directive metadata.
  */
 const MAT_TAB_LABEL = new InjectionToken('MatTabLabel');
+/**
+ * Used to provide a tab label to a tab without causing a circular dependency.
+ * @docs-private
+ */
+const MAT_TAB = new InjectionToken('MAT_TAB');
 /** Used to flag tab labels for use with the portal directive */
 class MatTabLabel extends CdkPortal {
+    constructor(templateRef, viewContainerRef, _closestTab) {
+        super(templateRef, viewContainerRef);
+        this._closestTab = _closestTab;
+    }
 }
 MatTabLabel.decorators = [
     { type: Directive, args: [{
                 selector: '[mat-tab-label], [matTabLabel]',
                 providers: [{ provide: MAT_TAB_LABEL, useExisting: MatTabLabel }],
             },] }
+];
+MatTabLabel.ctorParameters = () => [
+    { type: TemplateRef },
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_TAB,] }, { type: Optional }] }
 ];
 
 /**
@@ -219,11 +233,11 @@ class MatTab extends _MatTabBase {
      * @docs-private
      */
     _setTemplateLabelInput(value) {
-        // Only update the templateLabel via query if there is actually
-        // a MatTabLabel found. This works around an issue where a user may have
-        // manually set `templateLabel` during creation mode, which would then get clobbered
-        // by `undefined` when this query resolves.
-        if (value) {
+        // Only update the label if the query managed to find one. This works around an issue where a
+        // user may have manually set `templateLabel` during creation mode, which would then get
+        // clobbered by `undefined` when the query resolves. Also note that we check that the closest
+        // tab matches the current one so that we don't pick up labels from nested tabs.
+        if (value && value._closestTab === this) {
             this._templateLabel = value;
         }
     }
@@ -236,7 +250,8 @@ MatTab.decorators = [
                 // tslint:disable-next-line:validate-decorators
                 changeDetection: ChangeDetectionStrategy.Default,
                 encapsulation: ViewEncapsulation.None,
-                exportAs: 'matTab'
+                exportAs: 'matTab',
+                providers: [{ provide: MAT_TAB, useExisting: MatTab }]
             },] }
 ];
 MatTab.ctorParameters = () => [
@@ -1742,5 +1757,5 @@ MatTabsModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_TABS_CONFIG, MAT_TAB_GROUP, MatInkBar, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MatTabBodyBase, _MatTabGroupBase, _MatTabHeaderBase, _MatTabLinkBase, _MatTabNavBase, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MAT_TAB_LABEL as ɵangular_material_src_material_tabs_tabs_b, MAT_TAB_CONTENT as ɵangular_material_src_material_tabs_tabs_c, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_d };
+export { MAT_TAB, MAT_TABS_CONFIG, MAT_TAB_GROUP, MatInkBar, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MatTabBodyBase, _MatTabGroupBase, _MatTabHeaderBase, _MatTabLinkBase, _MatTabNavBase, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵangular_material_src_material_tabs_tabs_a, MAT_TAB_LABEL as ɵangular_material_src_material_tabs_tabs_b, MAT_TAB_CONTENT as ɵangular_material_src_material_tabs_tabs_c, MatPaginatedTabHeader as ɵangular_material_src_material_tabs_tabs_d };
 //# sourceMappingURL=tabs.js.map

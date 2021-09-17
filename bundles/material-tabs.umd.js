@@ -446,11 +446,18 @@
      * retention of the class and its directive metadata.
      */
     var MAT_TAB_LABEL = new core.InjectionToken('MatTabLabel');
+    /**
+     * Used to provide a tab label to a tab without causing a circular dependency.
+     * @docs-private
+     */
+    var MAT_TAB = new core.InjectionToken('MAT_TAB');
     /** Used to flag tab labels for use with the portal directive */
     var MatTabLabel = /** @class */ (function (_super) {
         __extends(MatTabLabel, _super);
-        function MatTabLabel() {
-            return _super !== null && _super.apply(this, arguments) || this;
+        function MatTabLabel(templateRef, viewContainerRef, _closestTab) {
+            var _this = _super.call(this, templateRef, viewContainerRef) || this;
+            _this._closestTab = _closestTab;
+            return _this;
         }
         return MatTabLabel;
     }(portal.CdkPortal));
@@ -460,6 +467,11 @@
                     providers: [{ provide: MAT_TAB_LABEL, useExisting: MatTabLabel }],
                 },] }
     ];
+    MatTabLabel.ctorParameters = function () { return [
+        { type: core.TemplateRef },
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TAB,] }, { type: core.Optional }] }
+    ]; };
 
     // Boilerplate for applying mixins to MatTab.
     /** @docs-private */
@@ -534,11 +546,11 @@
          * @docs-private
          */
         MatTab.prototype._setTemplateLabelInput = function (value) {
-            // Only update the templateLabel via query if there is actually
-            // a MatTabLabel found. This works around an issue where a user may have
-            // manually set `templateLabel` during creation mode, which would then get clobbered
-            // by `undefined` when this query resolves.
-            if (value) {
+            // Only update the label if the query managed to find one. This works around an issue where a
+            // user may have manually set `templateLabel` during creation mode, which would then get
+            // clobbered by `undefined` when the query resolves. Also note that we check that the closest
+            // tab matches the current one so that we don't pick up labels from nested tabs.
+            if (value && value._closestTab === this) {
                 this._templateLabel = value;
             }
         };
@@ -552,7 +564,8 @@
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: core.ChangeDetectionStrategy.Default,
                     encapsulation: core.ViewEncapsulation.None,
-                    exportAs: 'matTab'
+                    exportAs: 'matTab',
+                    providers: [{ provide: MAT_TAB, useExisting: MatTab }]
                 },] }
     ];
     MatTab.ctorParameters = function () { return [
@@ -2136,6 +2149,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.MAT_TAB = MAT_TAB;
     exports.MAT_TABS_CONFIG = MAT_TABS_CONFIG;
     exports.MAT_TAB_GROUP = MAT_TAB_GROUP;
     exports.MatInkBar = MatInkBar;
