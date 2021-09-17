@@ -72,7 +72,7 @@ export declare class MatTab extends _MatTabBase implements OnInit, CanDisable, O
      * TS 4.0 doesn't allow properties to override accessors or vice-versa.
      * @docs-private
      */
-    protected _setTemplateLabelInput(value: MatTabLabel): void;
+    protected _setTemplateLabelInput(value: MatTabLabel | undefined): void;
     static ngAcceptInputType_disabled: BooleanInput;
 }
 export {};
