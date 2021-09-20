@@ -810,7 +810,9 @@
         Object.defineProperty(_MatSelectBase.prototype, "selected", {
             /** The currently selected option. */
             get: function () {
-                return this.multiple ? this._selectionModel.selected : this._selectionModel.selected[0];
+                var _a, _b;
+                return this.multiple ? (((_a = this._selectionModel) === null || _a === void 0 ? void 0 : _a.selected) || []) :
+                    (_b = this._selectionModel) === null || _b === void 0 ? void 0 : _b.selected[0];
             },
             enumerable: false,
             configurable: true
