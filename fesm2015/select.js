@@ -458,7 +458,9 @@ class _MatSelectBase extends _MatSelectMixinBase {
     }
     /** The currently selected option. */
     get selected() {
-        return this.multiple ? this._selectionModel.selected : this._selectionModel.selected[0];
+        var _a, _b;
+        return this.multiple ? (((_a = this._selectionModel) === null || _a === void 0 ? void 0 : _a.selected) || []) :
+            (_b = this._selectionModel) === null || _b === void 0 ? void 0 : _b.selected[0];
     }
     /** The value displayed in the trigger. */
     get triggerValue() {
