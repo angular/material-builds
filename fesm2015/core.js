@@ -4,9 +4,9 @@ import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchs
 import { BidiModule } from '@angular/cdk/bidi';
 import { VERSION as VERSION$2 } from '@angular/cdk';
 import { DOCUMENT, CommonModule } from '@angular/common';
+import { _isTestEnvironment, Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
-import { Platform, PlatformModule, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { startWith } from 'rxjs/operators';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
@@ -87,29 +87,19 @@ class MatCommonModule {
             this._hasDoneGlobalChecks = true;
         }
     }
-    /** Use defaultView of injected document if available or fallback to global window reference */
-    _getWindow() {
-        const win = this._document.defaultView || window;
-        return typeof win === 'object' && win ? win : null;
-    }
     /** Gets whether a specific sanity check is enabled. */
     _checkIsEnabled(name) {
         // TODO(crisbeto): we can't use `ngDevMode` here yet, because ViewEngine apps might not support
         // it. Since these checks can have performance implications and they aren't tree shakeable
         // in their current form, we can leave the `isDevMode` check in for now.
         // tslint:disable-next-line:ban
-        if (!isDevMode() || this._isTestEnv()) {
+        if (!isDevMode() || _isTestEnvironment()) {
             return false;
         }
         if (typeof this._sanityChecks === 'boolean') {
             return this._sanityChecks;
         }
         return !!this._sanityChecks[name];
-    }
-    /** Whether the code is running in tests. */
-    _isTestEnv() {
-        const window = this._getWindow();
-        return window && (window.__karma__ || window.jasmine);
     }
     _checkDoctypeIsDefined() {
         if (this._checkIsEnabled('doctype') && !this._document.doctype) {
