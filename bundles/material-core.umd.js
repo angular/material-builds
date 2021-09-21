@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/common'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk', '@angular/common', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.ng.common, global.ng.cdk.coercion, global.rxjs, global.ng.cdk.platform, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
-}(this, (function (exports, i0, a11y, bidi, cdk, common, coercion, rxjs, platform, operators, animations, keycodes) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk', '@angular/common', '@angular/cdk/platform', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators', '@angular/platform-browser/animations', '@angular/cdk/keycodes'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.bidi, global.ng.cdk, global.ng.common, global.ng.cdk.platform, global.ng.cdk.coercion, global.rxjs, global.rxjs.operators, global.ng.platformBrowser.animations, global.ng.cdk.keycodes));
+}(this, (function (exports, i0, a11y, bidi, cdk, common, platform, coercion, rxjs, operators, animations, keycodes) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -108,29 +108,19 @@
                 this._hasDoneGlobalChecks = true;
             }
         }
-        /** Use defaultView of injected document if available or fallback to global window reference */
-        MatCommonModule.prototype._getWindow = function () {
-            var win = this._document.defaultView || window;
-            return typeof win === 'object' && win ? win : null;
-        };
         /** Gets whether a specific sanity check is enabled. */
         MatCommonModule.prototype._checkIsEnabled = function (name) {
             // TODO(crisbeto): we can't use `ngDevMode` here yet, because ViewEngine apps might not support
             // it. Since these checks can have performance implications and they aren't tree shakeable
             // in their current form, we can leave the `isDevMode` check in for now.
             // tslint:disable-next-line:ban
-            if (!i0.isDevMode() || this._isTestEnv()) {
+            if (!i0.isDevMode() || platform._isTestEnvironment()) {
                 return false;
             }
             if (typeof this._sanityChecks === 'boolean') {
                 return this._sanityChecks;
             }
             return !!this._sanityChecks[name];
-        };
-        /** Whether the code is running in tests. */
-        MatCommonModule.prototype._isTestEnv = function () {
-            var window = this._getWindow();
-            return window && (window.__karma__ || window.jasmine);
         };
         MatCommonModule.prototype._checkDoctypeIsDefined = function () {
             if (this._checkIsEnabled('doctype') && !this._document.doctype) {

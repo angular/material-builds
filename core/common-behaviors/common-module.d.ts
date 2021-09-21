@@ -36,12 +36,8 @@ export declare class MatCommonModule {
     /** Used to reference correct document/window */
     protected _document: Document;
     constructor(highContrastModeDetector: HighContrastModeDetector, sanityChecks: any, document: any);
-    /** Use defaultView of injected document if available or fallback to global window reference */
-    private _getWindow;
     /** Gets whether a specific sanity check is enabled. */
     private _checkIsEnabled;
-    /** Whether the code is running in tests. */
-    private _isTestEnv;
     private _checkDoctypeIsDefined;
     private _checkThemeIsPresent;
     /** Checks whether the material version matches the cdk version */
