@@ -326,7 +326,7 @@
     var MatGridTileHarness = /** @class */ (function (_super) {
         __extends(MatGridTileHarness, _super);
         function MatGridTileHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._header = _this.locatorForOptional(".mat-grid-tile-header" /* HEADER */);
             _this._footer = _this.locatorForOptional(".mat-grid-tile-footer" /* FOOTER */);
             _this._avatar = _this.locatorForOptional('.mat-grid-avatar');
@@ -444,7 +444,7 @@
     var MatGridListHarness = /** @class */ (function (_super) {
         __extends(MatGridListHarness, _super);
         function MatGridListHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             /**
              * Tile coordinator that is used by the "MatGridList" for computing
              * positions of tiles. We leverage the coordinator to provide an API

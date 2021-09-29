@@ -482,7 +482,7 @@
     var MatCalendarCellHarness = /** @class */ (function (_super) {
         __extends(MatCalendarCellHarness, _super);
         function MatCalendarCellHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             /** Reference to the inner content element inside the cell. */
             _this._content = _this.locatorFor('.mat-calendar-body-cell-content');
             return _this;
@@ -770,7 +770,7 @@
     var MatCalendarHarness = /** @class */ (function (_super) {
         __extends(MatCalendarHarness, _super);
         function MatCalendarHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             /** Queries for the calendar's period toggle button. */
             _this._periodButton = _this.locatorFor('.mat-calendar-period-button');
             return _this;
@@ -1114,7 +1114,7 @@
     var MatDatepickerToggleHarness = /** @class */ (function (_super) {
         __extends(MatDatepickerToggleHarness, _super);
         function MatDatepickerToggleHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             /** The clickable button inside the toggle. */
             _this._button = _this.locatorFor('button');
             return _this;

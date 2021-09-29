@@ -326,7 +326,7 @@
     var MatSortHeaderHarness = /** @class */ (function (_super) {
         __extends(MatSortHeaderHarness, _super);
         function MatSortHeaderHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._container = _this.locatorFor('.mat-sort-header-container');
             return _this;
         }

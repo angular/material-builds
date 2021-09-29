@@ -325,7 +325,7 @@
     var _MatAutocompleteHarnessBase = /** @class */ (function (_super) {
         __extends(_MatAutocompleteHarnessBase, _super);
         function _MatAutocompleteHarnessBase() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._documentRootLocator = _this.documentRootLocatorFactory();
             return _this;
         }
@@ -517,7 +517,7 @@
     var MatAutocompleteHarness = /** @class */ (function (_super) {
         __extends(MatAutocompleteHarness, _super);
         function MatAutocompleteHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._prefix = 'mat';
             _this._optionClass = testing$1.MatOptionHarness;
             _this._optionGroupClass = testing$1.MatOptgroupHarness;

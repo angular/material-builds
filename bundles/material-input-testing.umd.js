@@ -768,7 +768,7 @@
                                 ]; })];
                         case 2:
                             _b = __read.apply(void 0, [_c.sent(), 2]), host = _b[0], optionIndexes = _b[1];
-                            return [4 /*yield*/, host.selectOptions.apply(host, __spreadArray([], __read(optionIndexes)))];
+                            return [4 /*yield*/, host.selectOptions.apply(host, __spreadArray([], __read(optionIndexes), false))];
                         case 3:
                             _c.sent();
                             return [2 /*return*/];

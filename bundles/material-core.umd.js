@@ -497,7 +497,7 @@
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, __spreadArray([], __read(args))) || this;
+                var _this = _super.apply(this, __spreadArray([], __read(args), false)) || this;
                 _this._disabled = false;
                 return _this;
             }
@@ -526,7 +526,7 @@
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, __spreadArray([], __read(args))) || this;
+                var _this = _super.apply(this, __spreadArray([], __read(args), false)) || this;
                 _this.defaultColor = defaultColor;
                 // Set the default color that can be specified from the mixin.
                 _this.color = defaultColor;
@@ -561,7 +561,7 @@
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, __spreadArray([], __read(args))) || this;
+                var _this = _super.apply(this, __spreadArray([], __read(args), false)) || this;
                 _this._disableRipple = false;
                 return _this;
             }
@@ -585,7 +585,7 @@
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, __spreadArray([], __read(args))) || this;
+                var _this = _super.apply(this, __spreadArray([], __read(args), false)) || this;
                 _this._tabIndex = defaultTabIndex;
                 _this.defaultTabIndex = defaultTabIndex;
                 return _this;
@@ -611,7 +611,7 @@
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, __spreadArray([], __read(args))) || this;
+                var _this = _super.apply(this, __spreadArray([], __read(args), false)) || this;
                 // This class member exists as an interop with `MatFormFieldControl` which expects
                 // a public `stateChanges` observable to emit whenever the form field should be updated.
                 // The description is not specifically mentioning the error state, as classes using this
@@ -647,7 +647,7 @@
                 for (var _i = 0; _i < arguments.length; _i++) {
                     args[_i] = arguments[_i];
                 }
-                var _this = _super.apply(this, __spreadArray([], __read(args))) || this;
+                var _this = _super.apply(this, __spreadArray([], __read(args), false)) || this;
                 /** Whether this directive has been marked as initialized. */
                 _this._isInitialized = false;
                 /**

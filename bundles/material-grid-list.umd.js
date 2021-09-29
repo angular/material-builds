@@ -365,7 +365,7 @@
              * Ex: A list with 1 row that contains a tile with rowspan 2 will have a total rowspan of 2.
              */
             get: function () {
-                var lastRowMax = Math.max.apply(Math, __spreadArray([], __read(this.tracker)));
+                var lastRowMax = Math.max.apply(Math, __spreadArray([], __read(this.tracker), false));
                 // if any of the tiles has a rowspan that pushes it beyond the total row count,
                 // add the difference to the rowcount
                 return lastRowMax > 1 ? this.rowCount + lastRowMax - 1 : this.rowCount;

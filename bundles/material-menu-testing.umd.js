@@ -325,7 +325,7 @@
     var _MatMenuHarnessBase = /** @class */ (function (_super) {
         __extends(_MatMenuHarnessBase, _super);
         function _MatMenuHarnessBase() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._documentRootLocator = _this.documentRootLocatorFactory();
             return _this;
         }
@@ -488,7 +488,7 @@
                             if (!menu) {
                                 throw Error("Item matching " + JSON.stringify(itemFilter) + " does not have a submenu");
                             }
-                            return [2 /*return*/, menu.clickItem.apply(menu, __spreadArray([], __read(subItemFilters)))];
+                            return [2 /*return*/, menu.clickItem.apply(menu, __spreadArray([], __read(subItemFilters), false))];
                     }
                 });
             });
@@ -645,7 +645,7 @@
     var MatMenuHarness = /** @class */ (function (_super) {
         __extends(MatMenuHarness, _super);
         function MatMenuHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._itemClass = MatMenuItemHarness;
             return _this;
         }
@@ -668,7 +668,7 @@
     var MatMenuItemHarness = /** @class */ (function (_super) {
         __extends(MatMenuItemHarness, _super);
         function MatMenuItemHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._menuClass = MatMenuHarness;
             return _this;
         }

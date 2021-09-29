@@ -327,7 +327,7 @@
     var MatDialogHarness = /** @class */ (function (_super) {
         __extends(MatDialogHarness, _super);
         function MatDialogHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._title = _this.locatorForOptional(".mat-dialog-title" /* TITLE */);
             _this._content = _this.locatorForOptional(".mat-dialog-content" /* CONTENT */);
             _this._actions = _this.locatorForOptional(".mat-dialog-actions" /* ACTIONS */);

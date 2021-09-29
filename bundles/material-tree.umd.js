@@ -784,7 +784,7 @@
     var MatTreeNestedDataSource = /** @class */ (function (_super) {
         __extends(MatTreeNestedDataSource, _super);
         function MatTreeNestedDataSource() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._data = new rxjs.BehaviorSubject([]);
             return _this;
         }

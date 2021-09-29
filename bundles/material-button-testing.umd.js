@@ -349,7 +349,7 @@
                 return __generator(this, function (_b) {
                     switch (_b.label) {
                         case 0: return [4 /*yield*/, this.host()];
-                        case 1: return [2 /*return*/, (_a = (_b.sent())).click.apply(_a, __spreadArray([], __read(args)))];
+                        case 1: return [2 /*return*/, (_a = (_b.sent())).click.apply(_a, __spreadArray([], __read(args), false))];
                     }
                 });
             });

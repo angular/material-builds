@@ -351,7 +351,7 @@
     var MatNavList = /** @class */ (function (_super) {
         __extends(MatNavList, _super);
         function MatNavList() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             /** Emits when the state of the list changes. */
             _this._stateChanges = new rxjs.Subject();
             return _this;

@@ -452,7 +452,7 @@
     var MatPaginatorHarness = /** @class */ (function (_super) {
         __extends(MatPaginatorHarness, _super);
         function MatPaginatorHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._nextButton = _this.locatorFor('.mat-paginator-navigation-next');
             _this._previousButton = _this.locatorFor('.mat-paginator-navigation-previous');
             _this._firstPageButton = _this.locatorForOptional('.mat-paginator-navigation-first');

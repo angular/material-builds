@@ -482,7 +482,7 @@
     var MatRowHarness = /** @class */ (function (_super) {
         __extends(MatRowHarness, _super);
         function MatRowHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._cellHarness = MatCellHarness;
             return _this;
         }
@@ -503,7 +503,7 @@
     var MatHeaderRowHarness = /** @class */ (function (_super) {
         __extends(MatHeaderRowHarness, _super);
         function MatHeaderRowHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._cellHarness = MatHeaderCellHarness;
             return _this;
         }
@@ -525,7 +525,7 @@
     var MatFooterRowHarness = /** @class */ (function (_super) {
         __extends(MatFooterRowHarness, _super);
         function MatFooterRowHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._cellHarness = MatFooterCellHarness;
             return _this;
         }
@@ -636,7 +636,7 @@
     var MatTableHarness = /** @class */ (function (_super) {
         __extends(MatTableHarness, _super);
         function MatTableHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._headerRowHarness = MatHeaderRowHarness;
             _this._rowHarness = MatRowHarness;
             _this._footerRowHarness = MatFooterRowHarness;

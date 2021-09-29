@@ -459,7 +459,7 @@
         };
         MatButtonToggleGroup.prototype.ngAfterContentInit = function () {
             var _a;
-            (_a = this._selectionModel).select.apply(_a, __spreadArray([], __read(this._buttonToggles.filter(function (toggle) { return toggle.checked; }))));
+            (_a = this._selectionModel).select.apply(_a, __spreadArray([], __read(this._buttonToggles.filter(function (toggle) { return toggle.checked; })), false));
         };
         /**
          * Sets the model value. Implemented as part of ControlValueAccessor.

@@ -326,7 +326,7 @@
     var MatSliderHarness = /** @class */ (function (_super) {
         __extends(MatSliderHarness, _super);
         function MatSliderHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._textLabel = _this.locatorFor('.mat-slider-thumb-label-text');
             _this._wrapper = _this.locatorFor('.mat-slider-wrapper');
             return _this;

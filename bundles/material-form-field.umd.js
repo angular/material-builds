@@ -881,7 +881,7 @@
                 // TODO(wagnermaciel): Remove the type check when we find the root cause of this bug.
                 if (this._control.userAriaDescribedBy &&
                     typeof this._control.userAriaDescribedBy === 'string') {
-                    ids.push.apply(ids, __spreadArray([], __read(this._control.userAriaDescribedBy.split(' '))));
+                    ids.push.apply(ids, __spreadArray([], __read(this._control.userAriaDescribedBy.split(' ')), false));
                 }
                 if (this._getDisplayedMessages() === 'hint') {
                     var startHint = this._hintChildren ?
@@ -899,7 +899,7 @@
                     }
                 }
                 else if (this._errorChildren) {
-                    ids.push.apply(ids, __spreadArray([], __read(this._errorChildren.map(function (error) { return error.id; }))));
+                    ids.push.apply(ids, __spreadArray([], __read(this._errorChildren.map(function (error) { return error.id; })), false));
                 }
                 this._control.setDescribedByIds(ids);
             }

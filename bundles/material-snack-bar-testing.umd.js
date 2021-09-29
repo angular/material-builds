@@ -326,7 +326,7 @@
     var MatSnackBarHarness = /** @class */ (function (_super) {
         __extends(MatSnackBarHarness, _super);
         function MatSnackBarHarness() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             _this._messageSelector = '.mat-simple-snackbar > span';
             _this._actionButtonSelector = '.mat-simple-snackbar-action > button';
             _this._snackBarLiveRegion = _this.locatorFor('[aria-live]');

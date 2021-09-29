@@ -810,7 +810,7 @@
     var MatAccordion = /** @class */ (function (_super) {
         __extends(MatAccordion, _super);
         function MatAccordion() {
-            var _this = _super.apply(this, __spreadArray([], __read(arguments))) || this;
+            var _this = _super.apply(this, __spreadArray([], __read(arguments), false)) || this;
             /** Headers belonging to this accordion. */
             _this._ownHeaders = new core.QueryList();
             _this._hideToggle = false;

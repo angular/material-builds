@@ -508,7 +508,7 @@
         MatBottomSheetContainer.prototype._setPanelClass = function () {
             var _a;
             var element = this._elementRef.nativeElement;
-            (_a = element.classList).add.apply(_a, __spreadArray([], __read(coercion.coerceArray(this.bottomSheetConfig.panelClass || []))));
+            (_a = element.classList).add.apply(_a, __spreadArray([], __read(coercion.coerceArray(this.bottomSheetConfig.panelClass || [])), false));
         };
         /**
          * Focuses the provided element. If the element is not focusable, it will add a tabIndex
