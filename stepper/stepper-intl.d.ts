@@ -16,6 +16,10 @@ export declare class MatStepperIntl {
     readonly changes: Subject<void>;
     /** Label that is rendered below optional steps. */
     optionalLabel: string;
+    /** Label that is used to indicate step as completed to screen readers. */
+    completedLabel: string;
+    /** Label that is used to indicate step as editable to screen readers. */
+    editableLabel: string;
 }
 /** @docs-private */
 export declare function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl: MatStepperIntl): MatStepperIntl;

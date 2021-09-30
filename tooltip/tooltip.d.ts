@@ -208,9 +208,9 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
         [key: string]: any;
     };
     /** The timeout ID of any current timer set to show the tooltip */
-    _showTimeoutId: number | undefined;
+    _showTimeoutId: any;
     /** The timeout ID of any current timer set to hide the tooltip */
-    _hideTimeoutId: number | undefined;
+    _hideTimeoutId: any;
     /** Property watched by the animation framework to show or hide the tooltip */
     _visibility: TooltipVisibility;
     /** Whether interactions on the page should close the tooltip */
