@@ -9,7 +9,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, A } from '@angular/cdk/keycodes';
-import { NgForm, FormGroupDirective, NgControl } from '@angular/forms';
+import { Validators, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, take, filter, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { trigger, transition, query, animateChild, state, style, animate } from '@angular/animations';
@@ -224,7 +224,6 @@ class _MatSelectBase extends _MatSelectMixinBase {
         this._focused = false;
         /** A name for this control that can be used by `mat-form-field`. */
         this.controlType = 'mat-select';
-        this._required = false;
         this._multiple = false;
         this._disableOptionCentering = (_c = (_b = this._defaultOptions) === null || _b === void 0 ? void 0 : _b.disableOptionCentering) !== null && _c !== void 0 ? _c : false;
         /** Aria label of the select. */
@@ -279,7 +278,10 @@ class _MatSelectBase extends _MatSelectMixinBase {
         this.stateChanges.next();
     }
     /** Whether the component is required. */
-    get required() { return this._required; }
+    get required() {
+        var _a, _b, _c, _d;
+        return (_d = (_a = this._required) !== null && _a !== void 0 ? _a : (_c = (_b = this.ngControl) === null || _b === void 0 ? void 0 : _b.control) === null || _c === void 0 ? void 0 : _c.hasValidator(Validators.required)) !== null && _d !== void 0 ? _d : false;
+    }
     set required(value) {
         this._required = coerceBooleanProperty(value);
         this.stateChanges.next();

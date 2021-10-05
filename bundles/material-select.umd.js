@@ -532,7 +532,6 @@
             _this._focused = false;
             /** A name for this control that can be used by `mat-form-field`. */
             _this.controlType = 'mat-select';
-            _this._required = false;
             _this._multiple = false;
             _this._disableOptionCentering = (_c = (_b = _this._defaultOptions) === null || _b === void 0 ? void 0 : _b.disableOptionCentering) !== null && _c !== void 0 ? _c : false;
             /** Aria label of the select. */
@@ -597,7 +596,10 @@
         });
         Object.defineProperty(_MatSelectBase.prototype, "required", {
             /** Whether the component is required. */
-            get: function () { return this._required; },
+            get: function () {
+                var _a, _b, _c, _d;
+                return (_d = (_a = this._required) !== null && _a !== void 0 ? _a : (_c = (_b = this.ngControl) === null || _b === void 0 ? void 0 : _b.control) === null || _c === void 0 ? void 0 : _c.hasValidator(forms.Validators.required)) !== null && _d !== void 0 ? _d : false;
+            },
             set: function (value) {
                 this._required = coercion.coerceBooleanProperty(value);
                 this.stateChanges.next();
