@@ -845,7 +845,7 @@ class MatIcon extends _MatIconBase {
             // 1 corresponds to Node.ELEMENT_NODE. We remove all non-element nodes in order to get rid
             // of any loose text nodes, as well as any SVG elements in order to remove any old icons.
             if (child.nodeType !== 1 || child.nodeName.toLowerCase() === 'svg') {
-                layoutElement.removeChild(child);
+                child.remove();
             }
         }
     }

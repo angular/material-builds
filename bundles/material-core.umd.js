@@ -147,7 +147,7 @@
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
             }
-            this._document.body.removeChild(testElement);
+            testElement.remove();
         };
         /** Checks whether the material version matches the cdk version */
         MatCommonModule.prototype._checkCdkVersionMatch = function () {
@@ -1328,7 +1328,7 @@
             // Once the ripple faded out, the ripple can be safely removed from the DOM.
             this._runTimeoutOutsideZone(function () {
                 rippleRef.state = 3 /* HIDDEN */;
-                rippleEl.parentNode.removeChild(rippleEl);
+                rippleEl.remove();
             }, animationConfig.exitDuration);
         };
         /** Fades out all currently active ripples. */

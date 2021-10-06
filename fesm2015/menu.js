@@ -330,15 +330,14 @@ class MatMenuItem extends _MatMenuItemBase {
     }
     /** Gets the label to be used when determining whether the option should be focused. */
     getLabel() {
-        var _a, _b;
+        var _a;
         const clone = this._elementRef.nativeElement.cloneNode(true);
         const icons = clone.querySelectorAll('mat-icon, .material-icons');
         // Strip away icons so they don't show up in the text.
         for (let i = 0; i < icons.length; i++) {
-            const icon = icons[i];
-            (_a = icon.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(icon);
+            icons[i].remove();
         }
-        return ((_b = clone.textContent) === null || _b === void 0 ? void 0 : _b.trim()) || '';
+        return ((_a = clone.textContent) === null || _a === void 0 ? void 0 : _a.trim()) || '';
     }
     _setHighlighted(isHighlighted) {
         var _a;
