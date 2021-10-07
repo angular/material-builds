@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/menu/testing",
-  "main": "../../bundles/material-menu-testing.umd.js",
-  "fesm2015": "../../fesm2015/menu/testing.js",
-  "esm2015": "../../esm2015/menu/testing/index.js",
+  "fesm2020": "../../fesm2020/menu/testing.mjs",
+  "fesm2015": "../../fesm2015/menu/testing.mjs",
+  "esm2020": "../../esm2020/menu/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/menu/testing.js",
-  "es2015": "../../fesm2015/menu/testing.js"
+  "module": "../../fesm2015/menu/testing.mjs",
+  "es2020": "../../fesm2020/menu/testing.mjs"
 }

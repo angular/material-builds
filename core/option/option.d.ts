@@ -11,6 +11,7 @@ import { FocusOptions, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
 import { MatOptgroup, _MatOptgroupBase } from './optgroup';
 import { MatOptionParentComponent } from './option-parent';
+import * as i0 from "@angular/core";
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {
     /** Reference to the option that emitted the event. */
@@ -105,12 +106,16 @@ export declare class _MatOptionBase implements FocusableOption, AfterViewChecked
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptionBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase, never, never, { "value": "value"; "id": "id"; "disabled": "disabled"; }, { "onSelectionChange": "onSelectionChange"; }, never>;
 }
 /**
  * Single option inside of a `<mat-select>` element.
  */
 export declare class MatOption extends _MatOptionBase {
     constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatOptionParentComponent, group: MatOptgroup);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatOption, [null, null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption, "mat-option", ["matOption"], {}, {}, never, ["*"]>;
 }
 /**
  * Counts the amount of option group labels that precede the specified option.

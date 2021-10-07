@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/progress-bar/testing",
-  "main": "../../bundles/material-progress-bar-testing.umd.js",
-  "fesm2015": "../../fesm2015/progress-bar/testing.js",
-  "esm2015": "../../esm2015/progress-bar/testing/index.js",
+  "fesm2020": "../../fesm2020/progress-bar/testing.mjs",
+  "fesm2015": "../../fesm2015/progress-bar/testing.mjs",
+  "esm2020": "../../esm2020/progress-bar/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/progress-bar/testing.js",
-  "es2015": "../../fesm2015/progress-bar/testing.js"
+  "module": "../../fesm2015/progress-bar/testing.mjs",
+  "es2020": "../../fesm2020/progress-bar/testing.mjs"
 }

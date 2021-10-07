@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/slider",
-  "main": "../bundles/material-slider.umd.js",
-  "fesm2015": "../fesm2015/slider.js",
-  "esm2015": "../esm2015/slider/index.js",
+  "fesm2020": "../fesm2020/slider.mjs",
+  "fesm2015": "../fesm2015/slider.mjs",
+  "esm2020": "../esm2020/slider/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/slider.js",
-  "es2015": "../fesm2015/slider.js"
+  "module": "../fesm2015/slider.mjs",
+  "es2020": "../fesm2020/slider.mjs"
 }

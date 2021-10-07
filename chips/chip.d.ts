@@ -11,6 +11,7 @@ import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
 import { Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /** Represents an event fired on an individual `mat-chip`. */
 export interface MatChipEvent {
     /** The chip the event was fired on. */
@@ -56,18 +57,22 @@ declare abstract class MatChipBase {
     abstract disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-declare const _MatChipMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & typeof MatChipBase;
+declare const _MatChipMixinBase: import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & typeof MatChipBase;
 /**
  * Dummy directive to add CSS class to chip avatar.
  * @docs-private
  */
 export declare class MatChipAvatar {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipAvatar, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never>;
 }
 /**
  * Dummy directive to add CSS class to chip trailing icon.
  * @docs-private
  */
 export declare class MatChipTrailingIcon {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipTrailingIcon, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never>;
 }
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
@@ -182,6 +187,8 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_tabIndex: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, [null, null, null, { optional: true; }, null, null, { optional: true; }, { attribute: "tabindex"; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"]>;
 }
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
@@ -201,5 +208,7 @@ export declare class MatChipRemove {
     constructor(_parentChip: MatChip, elementRef: ElementRef<HTMLElement>);
     /** Calls the parent chip's public `remove()` method if applicable. */
     _handleClick(event: Event): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRemove, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipRemove, "[matChipRemove]", never, {}, {}, never>;
 }
 export {};

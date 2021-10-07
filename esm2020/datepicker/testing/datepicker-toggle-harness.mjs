@@ -1,0 +1,41 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { HarnessPredicate } from '@angular/cdk/testing';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { DatepickerTriggerHarnessBase } from './datepicker-trigger-harness-base';
+/** Harness for interacting with a standard Material datepicker toggle in tests. */
+export class MatDatepickerToggleHarness extends DatepickerTriggerHarnessBase {
+    constructor() {
+        super(...arguments);
+        /** The clickable button inside the toggle. */
+        this._button = this.locatorFor('button');
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatDatepickerToggleHarness` that
+     * meets certain criteria.
+     * @param options Options for filtering which datepicker toggle instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatDatepickerToggleHarness, options);
+    }
+    /** Gets whether the calendar associated with the toggle is open. */
+    async isCalendarOpen() {
+        return (await this.host()).hasClass('mat-datepicker-toggle-active');
+    }
+    /** Whether the toggle is disabled. */
+    async isDisabled() {
+        const button = await this._button();
+        return coerceBooleanProperty(await button.getAttribute('disabled'));
+    }
+    async _openCalendar() {
+        return (await this._button()).click();
+    }
+}
+MatDatepickerToggleHarness.hostSelector = '.mat-datepicker-toggle';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGF0ZXBpY2tlci10b2dnbGUtaGFybmVzcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9kYXRlcGlja2VyL3Rlc3RpbmcvZGF0ZXBpY2tlci10b2dnbGUtaGFybmVzcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7QUFFSCxPQUFPLEVBQUMsZ0JBQWdCLEVBQUMsTUFBTSxzQkFBc0IsQ0FBQztBQUN0RCxPQUFPLEVBQUMscUJBQXFCLEVBQUMsTUFBTSx1QkFBdUIsQ0FBQztBQUU1RCxPQUFPLEVBQUMsNEJBQTRCLEVBQUMsTUFBTSxtQ0FBbUMsQ0FBQztBQUcvRSxtRkFBbUY7QUFDbkYsTUFBTSxPQUFPLDBCQUEyQixTQUFRLDRCQUE0QjtJQUE1RTs7UUFHRSw4Q0FBOEM7UUFDdEMsWUFBTyxHQUFHLElBQUksQ0FBQyxVQUFVLENBQUMsUUFBUSxDQUFDLENBQUM7SUEyQjlDLENBQUM7SUF6QkM7Ozs7O09BS0c7SUFDSCxNQUFNLENBQUMsSUFBSSxDQUFDLFVBQTBDLEVBQUU7UUFFdEQsT0FBTyxJQUFJLGdCQUFnQixDQUFDLDBCQUEwQixFQUFFLE9BQU8sQ0FBQyxDQUFDO0lBQ25FLENBQUM7SUFFRCxvRUFBb0U7SUFDcEUsS0FBSyxDQUFDLGNBQWM7UUFDbEIsT0FBTyxDQUFDLE1BQU0sSUFBSSxDQUFDLElBQUksRUFBRSxDQUFDLENBQUMsUUFBUSxDQUFDLDhCQUE4QixDQUFDLENBQUM7SUFDdEUsQ0FBQztJQUVELHNDQUFzQztJQUN0QyxLQUFLLENBQUMsVUFBVTtRQUNkLE1BQU0sTUFBTSxHQUFHLE1BQU0sSUFBSSxDQUFDLE9BQU8sRUFBRSxDQUFDO1FBQ3BDLE9BQU8scUJBQXFCLENBQUMsTUFBTSxNQUFNLENBQUMsWUFBWSxDQUFDLFVBQVUsQ0FBQyxDQUFDLENBQUM7SUFDdEUsQ0FBQztJQUVTLEtBQUssQ0FBQyxhQUFhO1FBQzNCLE9BQU8sQ0FBQyxNQUFNLElBQUksQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDLEtBQUssRUFBRSxDQUFDO0lBQ3hDLENBQUM7O0FBN0JNLHVDQUFZLEdBQUcsd0JBQXdCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHtIYXJuZXNzUHJlZGljYXRlfSBmcm9tICdAYW5ndWxhci9jZGsvdGVzdGluZyc7XG5pbXBvcnQge2NvZXJjZUJvb2xlYW5Qcm9wZXJ0eX0gZnJvbSAnQGFuZ3VsYXIvY2RrL2NvZXJjaW9uJztcbmltcG9ydCB7RGF0ZXBpY2tlclRvZ2dsZUhhcm5lc3NGaWx0ZXJzfSBmcm9tICcuL2RhdGVwaWNrZXItaGFybmVzcy1maWx0ZXJzJztcbmltcG9ydCB7RGF0ZXBpY2tlclRyaWdnZXJIYXJuZXNzQmFzZX0gZnJvbSAnLi9kYXRlcGlja2VyLXRyaWdnZXItaGFybmVzcy1iYXNlJztcblxuXG4vKiogSGFybmVzcyBmb3IgaW50ZXJhY3Rpbmcgd2l0aCBhIHN0YW5kYXJkIE1hdGVyaWFsIGRhdGVwaWNrZXIgdG9nZ2xlIGluIHRlc3RzLiAqL1xuZXhwb3J0IGNsYXNzIE1hdERhdGVwaWNrZXJUb2dnbGVIYXJuZXNzIGV4dGVuZHMgRGF0ZXBpY2tlclRyaWdnZXJIYXJuZXNzQmFzZSB7XG4gIHN0YXRpYyBob3N0U2VsZWN0b3IgPSAnLm1hdC1kYXRlcGlja2VyLXRvZ2dsZSc7XG5cbiAgLyoqIFRoZSBjbGlja2FibGUgYnV0dG9uIGluc2lkZSB0aGUgdG9nZ2xlLiAqL1xuICBwcml2YXRlIF9idXR0b24gPSB0aGlzLmxvY2F0b3JGb3IoJ2J1dHRvbicpO1xuXG4gIC8qKlxuICAgKiBHZXRzIGEgYEhhcm5lc3NQcmVkaWNhdGVgIHRoYXQgY2FuIGJlIHVzZWQgdG8gc2VhcmNoIGZvciBhIGBNYXREYXRlcGlja2VyVG9nZ2xlSGFybmVzc2AgdGhhdFxuICAgKiBtZWV0cyBjZXJ0YWluIGNyaXRlcmlhLlxuICAgKiBAcGFyYW0gb3B0aW9ucyBPcHRpb25zIGZvciBmaWx0ZXJpbmcgd2hpY2ggZGF0ZXBpY2tlciB0b2dnbGUgaW5zdGFuY2VzIGFyZSBjb25zaWRlcmVkIGEgbWF0Y2guXG4gICAqIEByZXR1cm4gYSBgSGFybmVzc1ByZWRpY2F0ZWAgY29uZmlndXJlZCB3aXRoIHRoZSBnaXZlbiBvcHRpb25zLlxuICAgKi9cbiAgc3RhdGljIHdpdGgob3B0aW9uczogRGF0ZXBpY2tlclRvZ2dsZUhhcm5lc3NGaWx0ZXJzID0ge30pOlxuICAgIEhhcm5lc3NQcmVkaWNhdGU8TWF0RGF0ZXBpY2tlclRvZ2dsZUhhcm5lc3M+IHtcbiAgICByZXR1cm4gbmV3IEhhcm5lc3NQcmVkaWNhdGUoTWF0RGF0ZXBpY2tlclRvZ2dsZUhhcm5lc3MsIG9wdGlvbnMpO1xuICB9XG5cbiAgLyoqIEdldHMgd2hldGhlciB0aGUgY2FsZW5kYXIgYXNzb2NpYXRlZCB3aXRoIHRoZSB0b2dnbGUgaXMgb3Blbi4gKi9cbiAgYXN5bmMgaXNDYWxlbmRhck9wZW4oKTogUHJvbWlzZTxib29sZWFuPiB7XG4gICAgcmV0dXJuIChhd2FpdCB0aGlzLmhvc3QoKSkuaGFzQ2xhc3MoJ21hdC1kYXRlcGlja2VyLXRvZ2dsZS1hY3RpdmUnKTtcbiAgfVxuXG4gIC8qKiBXaGV0aGVyIHRoZSB0b2dnbGUgaXMgZGlzYWJsZWQuICovXG4gIGFzeW5jIGlzRGlzYWJsZWQoKTogUHJvbWlzZTxib29sZWFuPiB7XG4gICAgY29uc3QgYnV0dG9uID0gYXdhaXQgdGhpcy5fYnV0dG9uKCk7XG4gICAgcmV0dXJuIGNvZXJjZUJvb2xlYW5Qcm9wZXJ0eShhd2FpdCBidXR0b24uZ2V0QXR0cmlidXRlKCdkaXNhYmxlZCcpKTtcbiAgfVxuXG4gIHByb3RlY3RlZCBhc3luYyBfb3BlbkNhbGVuZGFyKCk6IFByb21pc2U8dm9pZD4ge1xuICAgIHJldHVybiAoYXdhaXQgdGhpcy5fYnV0dG9uKCkpLmNsaWNrKCk7XG4gIH1cbn1cbiJdfQ==

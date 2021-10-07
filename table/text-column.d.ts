@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkTextColumn } from '@angular/cdk/table';
+import * as i0 from "@angular/core";
 /**
  * Column that simply shows text content for the header and row cells. Assumes that the table
  * is using the native table implementation (`<table>`).
@@ -16,4 +17,6 @@ import { CdkTextColumn } from '@angular/cdk/table';
  * input.
  */
 export declare class MatTextColumn<T> extends CdkTextColumn<T> {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTextColumn<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTextColumn<any>, "mat-text-column", never, {}, {}, never, never>;
 }

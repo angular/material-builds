@@ -18,6 +18,7 @@ import { DateFilterFn } from './datepicker-input-base';
 import { ExtractDateTypeFromSelection, MatDateSelectionModel, DateRange } from './date-selection-model';
 import { MatDateRangeSelectionStrategy } from './date-range-selection-strategy';
 import { MatDatepickerIntl } from './datepicker-intl';
+import * as i0 from "@angular/core";
 /** Injection token that determines the scroll handling while the calendar is open. */
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
@@ -33,7 +34,7 @@ export declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 };
 /** @docs-private */
-declare const _MatDatepickerContentBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+declare const _MatDatepickerContentBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
@@ -81,6 +82,8 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _getSelected(): D | DateRange<D> | null;
     /** Applies the current pending selection to the global model. */
     _applyPendingSelection(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerContent<any, any>, [null, null, null, null, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerContent<any, any>, "mat-datepicker-content", ["matDatepickerContent"], { "color": "color"; }, {}, never, never>;
 }
 /** Form control that can be associated with a datepicker. */
 export interface MatDatepickerControl<D> {
@@ -265,5 +268,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     static ngAcceptInputType_opened: BooleanInput;
     static ngAcceptInputType_touchUi: BooleanInput;
     static ngAcceptInputType_restoreFocus: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerBase<any, any, any>, [null, null, null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerBase<any, any, any>, never, never, { "calendarHeaderComponent": "calendarHeaderComponent"; "startAt": "startAt"; "startView": "startView"; "color": "color"; "touchUi": "touchUi"; "disabled": "disabled"; "xPosition": "xPosition"; "yPosition": "yPosition"; "restoreFocus": "restoreFocus"; "dateClass": "dateClass"; "panelClass": "panelClass"; "opened": "opened"; }, { "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "openedStream": "opened"; "closedStream": "closed"; }, never>;
 }
 export {};

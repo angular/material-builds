@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/sidenav/testing",
-  "main": "../../bundles/material-sidenav-testing.umd.js",
-  "fesm2015": "../../fesm2015/sidenav/testing.js",
-  "esm2015": "../../esm2015/sidenav/testing/index.js",
+  "fesm2020": "../../fesm2020/sidenav/testing.mjs",
+  "fesm2015": "../../fesm2015/sidenav/testing.mjs",
+  "esm2020": "../../esm2020/sidenav/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/sidenav/testing.js",
-  "es2015": "../../fesm2015/sidenav/testing.js"
+  "module": "../../fesm2015/sidenav/testing.mjs",
+  "es2020": "../../fesm2020/sidenav/testing.mjs"
 }

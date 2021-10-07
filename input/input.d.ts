@@ -13,8 +13,9 @@ import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatInputBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanUpdateErrorState> & {
+declare const _MatInputBase: import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & {
     new (_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
         _defaultErrorStateMatcher: ErrorStateMatcher;
         _parentForm: NgForm;
@@ -153,5 +154,7 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
     static ngAcceptInputType_readonly: BooleanInput;
     static ngAcceptInputType_required: BooleanInput;
     static ngAcceptInputType_value: any;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatInput, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }, null, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], { "disabled": "disabled"; "id": "id"; "placeholder": "placeholder"; "required": "required"; "type": "type"; "errorStateMatcher": "errorStateMatcher"; "userAriaDescribedBy": "aria-describedby"; "value": "value"; "readonly": "readonly"; }, {}, never>;
 }
 export {};

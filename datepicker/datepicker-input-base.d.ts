@@ -11,6 +11,7 @@ import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator, Val
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { ExtractDateTypeFromSelection, MatDateSelectionModel, DateSelectionModelChange } from './date-selection-model';
+import * as i0 from "@angular/core";
 /**
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
@@ -127,6 +128,8 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     _matchesFilter(value: D | null): boolean;
     static ngAcceptInputType_value: any;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInputBase<any, any>, [null, { optional: true; }, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": "value"; "disabled": "disabled"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never>;
 }
 /**
  * Checks whether the `SimpleChanges` object from an `ngOnChanges`

@@ -1,10 +1,6 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { CdkStepLabel } from '@angular/cdk/stepper';
+import * as i0 from "@angular/core";
 export declare class MatStepLabel extends CdkStepLabel {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepLabel, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepLabel, "[matStepLabel]", never, {}, {}, never>;
 }

@@ -8,12 +8,13 @@
 import { NumberInput } from '@angular/cdk/coercion';
 import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy } from '@angular/core';
 import { CanColor, ThemePalette } from '@angular/material/core';
+import * as i0 from "@angular/core";
 /** Last animation end data. */
 export interface ProgressAnimationEnd {
     value: number;
 }
 /** @docs-private */
-declare const _MatProgressBarBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+declare const _MatProgressBarBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
@@ -100,5 +101,7 @@ export declare class MatProgressBar extends _MatProgressBarBase implements CanCo
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_value: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBar, [null, null, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": "color"; "value": "value"; "bufferValue": "bufferValue"; "mode": "mode"; }, { "animationEnd": "animationEnd"; }, never, never>;
 }
 export {};

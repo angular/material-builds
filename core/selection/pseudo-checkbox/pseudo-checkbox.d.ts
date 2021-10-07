@@ -1,10 +1,4 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+import * as i0 from "@angular/core";
 /**
  * Possible states for a pseudo checkbox.
  * @docs-private
@@ -30,4 +24,6 @@ export declare class MatPseudoCheckbox {
     /** Whether the checkbox is disabled. */
     disabled: boolean;
     constructor(_animationMode?: string | undefined);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, [{ optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": "state"; "disabled": "disabled"; }, {}, never, never>;
 }

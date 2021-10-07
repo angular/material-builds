@@ -11,8 +11,9 @@ import { ElementRef, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angula
 import { CanDisable, CanDisableRipple } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatMenuPanel } from './menu-panel';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatMenuItemBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+declare const _MatMenuItemBase: import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & {
     new (): {};
 };
 /**
@@ -65,5 +66,7 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     _setHighlighted(isHighlighted: boolean): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, [null, null, null, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "role": "role"; }, {}, never, ["*"]>;
 }
 export {};

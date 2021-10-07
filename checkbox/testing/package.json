@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/checkbox/testing",
-  "main": "../../bundles/material-checkbox-testing.umd.js",
-  "fesm2015": "../../fesm2015/checkbox/testing.js",
-  "esm2015": "../../esm2015/checkbox/testing/index.js",
+  "fesm2020": "../../fesm2020/checkbox/testing.mjs",
+  "fesm2015": "../../fesm2015/checkbox/testing.mjs",
+  "esm2020": "../../esm2020/checkbox/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/checkbox/testing.js",
-  "es2015": "../../fesm2015/checkbox/testing.js"
+  "module": "../../fesm2015/checkbox/testing.mjs",
+  "es2020": "../../fesm2020/checkbox/testing.mjs"
 }

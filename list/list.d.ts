@@ -9,12 +9,13 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ElementRef, QueryList, OnChanges, OnDestroy, ChangeDetectorRef, InjectionToken } from '@angular/core';
 import { CanDisable, CanDisableRipple, MatLine } from '@angular/material/core';
 import { Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatListBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+declare const _MatListBase: import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & {
     new (): {};
 };
 /** @docs-private */
-declare const _MatListItemMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+declare const _MatListItemMixinBase: import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & {
     new (): {};
 };
 /**
@@ -36,6 +37,8 @@ export declare class MatNavList extends _MatListBase implements CanDisable, CanD
     ngOnDestroy(): void;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatNavList, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"]>;
 }
 export declare class MatList extends _MatListBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     private _elementRef;
@@ -47,24 +50,32 @@ export declare class MatList extends _MatListBase implements CanDisable, CanDisa
     ngOnDestroy(): void;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatList, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list, mat-action-list", ["matList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"]>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
 export declare class MatListAvatarCssMatStyler {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListAvatarCssMatStyler, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListAvatarCssMatStyler, "[mat-list-avatar], [matListAvatar]", never, {}, {}, never>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
 export declare class MatListIconCssMatStyler {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListIconCssMatStyler, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListIconCssMatStyler, "[mat-list-icon], [matListIcon]", never, {}, {}, never>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
 export declare class MatListSubheaderCssMatStyler {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListSubheaderCssMatStyler, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never>;
 }
 /** An item within a Material Design list. */
 export declare class MatListItem extends _MatListItemMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
@@ -88,5 +99,7 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     _getHostElement(): HTMLElement;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatar", "_icon", "_lines"], ["[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]", "[mat-line], [matLine]", "*"]>;
 }
 export {};

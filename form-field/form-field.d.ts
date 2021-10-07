@@ -18,11 +18,12 @@ import { MatPrefix } from './prefix';
 import { MatSuffix } from './suffix';
 import { Platform } from '@angular/cdk/platform';
 import { NgControl } from '@angular/forms';
+import * as i0 from "@angular/core";
 /**
  * Boilerplate for applying mixins to MatFormField.
  * @docs-private
  */
-declare const _MatFormFieldBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+declare const _MatFormFieldBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
@@ -176,5 +177,7 @@ export declare class MatFormField extends _MatFormFieldBase implements AfterCont
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDOM;
     static ngAcceptInputType_hideRequiredMarker: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "color": "color"; "appearance": "appearance"; "hideRequiredMarker": "hideRequiredMarker"; "hintLabel": "hintLabel"; "floatLabel": "floatLabel"; }, {}, ["_controlNonStatic", "_controlStatic", "_labelChildNonStatic", "_labelChildStatic", "_placeholderChild", "_errorChildren", "_hintChildren", "_prefixChildren", "_suffixChildren"], ["[matPrefix]", "*", "mat-placeholder", "mat-label", "[matSuffix]", "mat-error", "mat-hint:not([align='end'])", "mat-hint[align='end']"]>;
 }
 export {};

@@ -10,8 +10,11 @@ import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChange
 import { MatButton } from '@angular/material/button';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatDatepickerControl, MatDatepickerPanel } from './datepicker-base';
+import * as i0 from "@angular/core";
 /** Can be used to override the icon of a `matDatepickerToggle`. */
 export declare class MatDatepickerToggleIcon {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggleIcon, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never>;
 }
 export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnDestroy {
     _intl: MatDatepickerIntl;
@@ -40,4 +43,6 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     _open(event: Event): void;
     private _watchStateChanges;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggle<any>, [null, null, { attribute: "tabindex"; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerToggle<any>, "mat-datepicker-toggle", ["matDatepickerToggle"], { "datepicker": "for"; "tabIndex": "tabIndex"; "ariaLabel": "aria-label"; "disabled": "disabled"; "disableRipple": "disableRipple"; }, {}, ["_customIcon"], ["[matDatepickerToggleIcon]"]>;
 }

@@ -16,8 +16,9 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
 import { MatChipTextControl } from './chip-text-control';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatChipListBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanUpdateErrorState> & {
+declare const _MatChipListBase: import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & {
     new (_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
         _defaultErrorStateMatcher: ErrorStateMatcher;
         _parentForm: NgForm;
@@ -271,5 +272,7 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
     static ngAcceptInputType_required: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_selectable: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipList, [null, null, { optional: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipList, "mat-chip-list", ["matChipList"], { "errorStateMatcher": "errorStateMatcher"; "multiple": "multiple"; "compareWith": "compareWith"; "value": "value"; "required": "required"; "placeholder": "placeholder"; "disabled": "disabled"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "tabIndex": "tabIndex"; }, { "change": "change"; "valueChange": "valueChange"; }, ["chips"], ["*"]>;
 }
 export {};

@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, EventEmitter, NgZone, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import * as i0 from "@angular/core";
 /** Extra CSS classes that can be associated with a calendar cell. */
 export declare type MatCalendarCellCssClasses = string | string[] | Set<string> | {
     [key: string]: any;
@@ -140,4 +141,6 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy {
     private _leaveHandler;
     /** Finds the MatCalendarCell that corresponds to a DOM node. */
     private _getCellFromElement;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarBody, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody, "[mat-calendar-body]", ["matCalendarBody"], { "label": "label"; "rows": "rows"; "todayValue": "todayValue"; "startValue": "startValue"; "endValue": "endValue"; "labelMinRequiredCells": "labelMinRequiredCells"; "numCols": "numCols"; "activeCell": "activeCell"; "isRange": "isRange"; "cellAspectRatio": "cellAspectRatio"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "previewStart": "previewStart"; "previewEnd": "previewEnd"; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; }, never, never>;
 }

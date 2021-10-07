@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/input/testing",
-  "main": "../../bundles/material-input-testing.umd.js",
-  "fesm2015": "../../fesm2015/input/testing.js",
-  "esm2015": "../../esm2015/input/testing/index.js",
+  "fesm2020": "../../fesm2020/input/testing.mjs",
+  "fesm2015": "../../fesm2015/input/testing.mjs",
+  "esm2020": "../../esm2020/input/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/input/testing.js",
-  "es2015": "../../fesm2015/input/testing.js"
+  "module": "../../fesm2015/input/testing.mjs",
+  "es2020": "../../fesm2020/input/testing.mjs"
 }

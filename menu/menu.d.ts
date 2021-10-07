@@ -15,6 +15,7 @@ import { MenuPositionX, MenuPositionY } from './menu-positions';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 import { AnimationEvent } from '@angular/animations';
+import * as i0 from "@angular/core";
 /** Default `mat-menu` options that can be overridden. */
 export interface MatMenuDefaultOptions {
     /** The x-axis position of the menu. */
@@ -190,10 +191,14 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     private _updateDirectDescendants;
     static ngAcceptInputType_overlapTrigger: BooleanInput;
     static ngAcceptInputType_hasBackdrop: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuBase, never, never, { "backdropClass": "backdropClass"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "xPosition": "xPosition"; "yPosition": "yPosition"; "overlapTrigger": "overlapTrigger"; "hasBackdrop": "hasBackdrop"; "panelClass": "class"; "classList": "classList"; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"]>;
 }
 /** @docs-public MatMenu */
 export declare class MatMenu extends _MatMenuBase {
     protected _elevationPrefix: string;
     protected _baseElevation: number;
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenu, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], {}, {}, never, ["*"]>;
 }

@@ -9,7 +9,8 @@ import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angula
 import { AfterContentInit, DoCheck, ElementRef, IterableDiffers, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable, HasTabIndex } from '@angular/material/core';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
-declare const _MatTreeNodeBase: import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & typeof CdkTreeNode;
+import * as i0 from "@angular/core";
+declare const _MatTreeNodeBase: import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & typeof CdkTreeNode;
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
@@ -20,6 +21,8 @@ export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implem
     ngOnDestroy(): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_tabIndex: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNode<any, any>, [null, null, { attribute: "tabindex"; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "role": "role"; "disabled": "disabled"; "tabIndex": "tabIndex"; }, {}, never>;
 }
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
@@ -27,6 +30,8 @@ export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implem
  */
 export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
     data: T;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodeDef<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeDef<any>, "[matTreeNodeDef]", never, { "when": "matTreeNodeDefWhen"; "data": "matTreeNode"; }, {}, never>;
 }
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
@@ -47,5 +52,7 @@ export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K>
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatNestedTreeNode<any, any>, [null, null, null, { attribute: "tabindex"; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "role": "role"; "disabled": "disabled"; "tabIndex": "tabIndex"; "node": "matNestedTreeNode"; }, {}, never>;
 }
 export {};

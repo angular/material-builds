@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken } from '@angular/core';
+import * as i0 from "@angular/core";
 /**
  * Injection token that can be used to reference instances of `MatHint`. It serves as
  * alternative token to the actual `MatHint` class which could cause unnecessary
@@ -21,4 +22,6 @@ export declare class MatHint {
     align: 'start' | 'end';
     /** Unique ID for the hint. Used for the aria-describedby on the form field control. */
     id: string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatHint, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHint, "mat-hint", never, { "align": "align"; "id": "id"; }, {}, never>;
 }

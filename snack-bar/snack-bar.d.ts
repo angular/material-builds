@@ -14,6 +14,7 @@ import { TextOnlySnackBar } from './simple-snack-bar';
 import { MatSnackBarConfig } from './snack-bar-config';
 import { _SnackBarContainer } from './snack-bar-container';
 import { MatSnackBarRef } from './snack-bar-ref';
+import * as i0 from "@angular/core";
 /** Injection token that can be used to specify default snack bar. */
 export declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<any>>;
 /** @docs-private */
@@ -93,4 +94,6 @@ export declare class MatSnackBar implements OnDestroy {
      * @param snackBarRef Reference to the snack bar.
      */
     private _createInjector;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBar, [null, null, null, null, { optional: true; skipSelf: true; }, null]>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatSnackBar>;
 }

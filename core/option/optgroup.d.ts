@@ -9,8 +9,9 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { InjectionToken } from '@angular/core';
 import { CanDisable } from '../common-behaviors/disabled';
 import { MatOptionParentComponent } from './option-parent';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatOptgroupMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+declare const _MatOptgroupMixinBase: import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & {
     new (): {};
 };
 export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements CanDisable {
@@ -22,6 +23,8 @@ export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements C
     _inert: boolean;
     constructor(parent?: MatOptionParentComponent);
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptgroupBase, [{ optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptgroupBase, never, never, { "label": "label"; }, {}, never>;
 }
 /**
  * Injection token that can be used to reference instances of `MatOptgroup`. It serves as
@@ -33,5 +36,7 @@ export declare const MAT_OPTGROUP: InjectionToken<MatOptgroup>;
  * Component that is used to group instances of `mat-option`.
  */
 export declare class MatOptgroup extends _MatOptgroupBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": "disabled"; }, {}, never, ["*", "mat-option, ng-container"]>;
 }
 export {};

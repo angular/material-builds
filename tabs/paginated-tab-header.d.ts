@@ -12,6 +12,7 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusableOption } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
+import * as i0 from "@angular/core";
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
@@ -188,4 +189,6 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      */
     private _scrollTo;
     static ngAcceptInputType_selectedIndex: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatedTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": "disablePagination"; }, {}, never>;
 }

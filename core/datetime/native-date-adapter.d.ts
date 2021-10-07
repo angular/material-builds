@@ -7,6 +7,7 @@
  */
 import { Platform } from '@angular/cdk/platform';
 import { DateAdapter } from './date-adapter';
+import * as i0 from "@angular/core";
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 export declare class NativeDateAdapter extends DateAdapter<Date> {
     /**
@@ -68,4 +69,6 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @returns A Date object with its UTC representation based on the passed in date info
      */
     private _format;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, [{ optional: true; }, null]>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<NativeDateAdapter>;
 }

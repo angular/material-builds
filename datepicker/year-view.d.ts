@@ -1,15 +1,9 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatCalendarBody, MatCalendarCell, MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
 import { DateRange } from './date-selection-model';
+import * as i0 from "@angular/core";
 /**
  * An internal component used to display a single year in the datepicker.
  * @docs-private
@@ -97,4 +91,6 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     private _isRtl;
     /** Sets the currently-selected month based on a model value. */
     private _setSelectedMonth;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatYearView<any>, [null, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatYearView<any>, "mat-year-view", ["matYearView"], { "activeDate": "activeDate"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; }, { "selectedChange": "selectedChange"; "monthSelected": "monthSelected"; "activeDateChange": "activeDateChange"; }, never, never>;
 }

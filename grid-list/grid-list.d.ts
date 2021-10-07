@@ -11,6 +11,7 @@ import { TileStyleTarget } from './tile-styler';
 import { Directionality } from '@angular/cdk/bidi';
 import { NumberInput } from '@angular/cdk/coercion';
 import { MatGridListBase } from './grid-list-base';
+import * as i0 from "@angular/core";
 export declare class MatGridList implements MatGridListBase, OnInit, AfterContentChecked, TileStyleTarget {
     private _element;
     private _dir;
@@ -58,4 +59,6 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     /** Sets style on the main grid-list element, given the style name and value. */
     _setListStyle(style: [string, string | null] | null): void;
     static ngAcceptInputType_cols: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridList, [null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": "cols"; "gutterSize": "gutterSize"; "rowHeight": "rowHeight"; }, {}, ["_tiles"], ["*"]>;
 }

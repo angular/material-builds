@@ -16,6 +16,7 @@ import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@an
 import { CanDisable, CanDisableRipple, CanUpdateErrorState, ErrorStateMatcher, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange, _MatOptionBase } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -78,7 +79,7 @@ export declare class MatSelectChange {
     value: any);
 }
 /** @docs-private */
-declare const _MatSelectMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanUpdateErrorState> & {
+declare const _MatSelectMixinBase: import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & {
     new (_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
         _elementRef: ElementRef;
         _defaultErrorStateMatcher: ErrorStateMatcher;
@@ -97,6 +98,8 @@ export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 export declare class MatSelectTrigger {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectTrigger, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSelectTrigger, "mat-select-trigger", never, {}, {}, never>;
 }
 /** Base class with all of the `MatSelect` functionality. */
 export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
@@ -362,6 +365,8 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_tabIndex: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSelectBase<any>, [null, null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; self: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSelectBase<any>, never, never, { "panelClass": "panelClass"; "placeholder": "placeholder"; "required": "required"; "multiple": "multiple"; "disableOptionCentering": "disableOptionCentering"; "compareWith": "compareWith"; "value": "value"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "errorStateMatcher": "errorStateMatcher"; "typeaheadDebounceInterval": "typeaheadDebounceInterval"; "sortComparator": "sortComparator"; "id": "id"; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, never>;
 }
 export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit {
     /** The scroll position of the overlay panel, calculated to center the selected option. */
@@ -430,5 +435,7 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     private _getItemHeight;
     /** Calculates the amount of items in the select. This includes options and group labels. */
     private _getItemCount;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"]>;
 }
 export {};

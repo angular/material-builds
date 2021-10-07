@@ -16,6 +16,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { _MatAutocompleteBase, MatAutocompleteDefaultOptions } from './autocomplete';
 import { _MatAutocompleteOriginBase } from './autocomplete-origin';
+import * as i0 from "@angular/core";
 /** Injection token that determines the scroll handling while the autocomplete panel is open. */
 export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
@@ -190,7 +191,11 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     /** Scrolls to a particular option in the list. */
     private _scrollToOption;
     static ngAcceptInputType_autocompleteDisabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteTriggerBase, [null, null, null, null, null, null, { optional: true; }, { optional: true; host: true; }, { optional: true; }, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteTriggerBase, never, never, { "autocomplete": "matAutocomplete"; "position": "matAutocompletePosition"; "connectedTo": "matAutocompleteConnectedTo"; "autocompleteAttribute": "autocomplete"; "autocompleteDisabled": "matAutocompleteDisabled"; }, {}, never>;
 }
 export declare class MatAutocompleteTrigger extends _MatAutocompleteTriggerBase {
     protected _aboveClass: string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteTrigger, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], {}, {}, never>;
 }

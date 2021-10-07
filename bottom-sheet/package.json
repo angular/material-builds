@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/bottom-sheet",
-  "main": "../bundles/material-bottom-sheet.umd.js",
-  "fesm2015": "../fesm2015/bottom-sheet.js",
-  "esm2015": "../esm2015/bottom-sheet/index.js",
+  "fesm2020": "../fesm2020/bottom-sheet.mjs",
+  "fesm2015": "../fesm2015/bottom-sheet.mjs",
+  "esm2020": "../esm2020/bottom-sheet/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/bottom-sheet.js",
-  "es2015": "../fesm2015/bottom-sheet.js"
+  "module": "../fesm2015/bottom-sheet.mjs",
+  "es2020": "../fesm2020/bottom-sheet.mjs"
 }

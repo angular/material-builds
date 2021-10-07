@@ -8,6 +8,7 @@
 import { FactoryProvider, OnDestroy } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { Observable } from 'rxjs';
+import * as i0 from "@angular/core";
 /** A class representing a range of dates. */
 export declare class DateRange<D> {
     /** The start date of the range. */
@@ -72,6 +73,8 @@ export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSe
     abstract isComplete(): boolean;
     /** Clones the selection model. */
     abstract clone(): MatDateSelectionModel<S, D>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateSelectionModel<any, any>, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatDateSelectionModel<any, any>>;
 }
 /**
  * A selection model that contains a single date.
@@ -93,6 +96,8 @@ export declare class MatSingleDateSelectionModel<D> extends MatDateSelectionMode
     isComplete(): boolean;
     /** Clones the selection model. */
     clone(): MatSingleDateSelectionModel<D>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSingleDateSelectionModel<any>, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatSingleDateSelectionModel<any>>;
 }
 /**
  * A selection model that contains a date range.
@@ -115,6 +120,8 @@ export declare class MatRangeDateSelectionModel<D> extends MatDateSelectionModel
     isComplete(): boolean;
     /** Clones the selection model. */
     clone(): MatRangeDateSelectionModel<D>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRangeDateSelectionModel<any>, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatRangeDateSelectionModel<any>>;
 }
 /** @docs-private */
 export declare function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;

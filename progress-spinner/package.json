@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/progress-spinner",
-  "main": "../bundles/material-progress-spinner.umd.js",
-  "fesm2015": "../fesm2015/progress-spinner.js",
-  "esm2015": "../esm2015/progress-spinner/index.js",
+  "fesm2020": "../fesm2020/progress-spinner.mjs",
+  "fesm2015": "../fesm2015/progress-spinner.mjs",
+  "esm2020": "../esm2020/progress-spinner/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/progress-spinner.js",
-  "es2015": "../fesm2015/progress-spinner.js"
+  "module": "../fesm2015/progress-spinner.mjs",
+  "es2020": "../fesm2020/progress-spinner.mjs"
 }

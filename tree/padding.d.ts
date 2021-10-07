@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkTreeNodePadding } from '@angular/cdk/tree';
+import * as i0 from "@angular/core";
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  */
@@ -16,4 +17,6 @@ export declare class MatTreeNodePadding<T, K = T> extends CdkTreeNodePadding<T, 
     /** The indent for each level. Default number 40px from material design menu sub-menu spec. */
     get indent(): number | string;
     set indent(indent: number | string);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodePadding<any, any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodePadding<any, any>, "[matTreeNodePadding]", never, { "level": "matTreeNodePadding"; "indent": "matTreeNodePaddingIndent"; }, {}, never>;
 }

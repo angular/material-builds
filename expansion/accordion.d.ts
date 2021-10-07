@@ -10,6 +10,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { MatAccordionBase, MatAccordionDisplayMode, MatAccordionTogglePosition } from './accordion-base';
 import { MatExpansionPanelHeader } from './expansion-panel-header';
+import * as i0 from "@angular/core";
 /**
  * Directive for a Material Design Accordion.
  */
@@ -40,4 +41,6 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     _handleHeaderFocus(header: MatExpansionPanelHeader): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_hideToggle: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatAccordion, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "multi": "multi"; "hideToggle": "hideToggle"; "displayMode": "displayMode"; "togglePosition": "togglePosition"; }, {}, ["_headers"]>;
 }

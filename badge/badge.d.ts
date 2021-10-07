@@ -9,8 +9,9 @@ import { AriaDescriber } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, NgZone, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { CanDisable, ThemePalette } from '@angular/material/core';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatBadgeBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+declare const _MatBadgeBase: import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & {
     new (): {};
 };
 /** Allowed position options for matBadgePosition */
@@ -82,5 +83,7 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_hidden: BooleanInput;
     static ngAcceptInputType_overlap: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBadge, [null, null, null, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatBadge, "[matBadge]", never, { "disabled": "matBadgeDisabled"; "color": "matBadgeColor"; "overlap": "matBadgeOverlap"; "position": "matBadgePosition"; "content": "matBadge"; "description": "matBadgeDescription"; "size": "matBadgeSize"; "hidden": "matBadgeHidden"; }, {}, never>;
 }
 export {};

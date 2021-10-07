@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/list",
-  "main": "../bundles/material-list.umd.js",
-  "fesm2015": "../fesm2015/list.js",
-  "esm2015": "../esm2015/list/index.js",
+  "fesm2020": "../fesm2020/list.mjs",
+  "fesm2015": "../fesm2015/list.mjs",
+  "esm2020": "../esm2020/list/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/list.js",
-  "es2015": "../fesm2015/list.js"
+  "module": "../fesm2015/list.mjs",
+  "es2020": "../fesm2020/list.mjs"
 }

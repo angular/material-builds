@@ -8,6 +8,7 @@
 import { InjectionToken, FactoryProvider } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange } from './date-selection-model';
+import * as i0 from "@angular/core";
 /** Injection token used to customize the date range selection behavior. */
 export declare const MAT_DATE_RANGE_SELECTION_STRATEGY: InjectionToken<MatDateRangeSelectionStrategy<any>>;
 /** Object that can be provided in order to customize the date range selection behavior. */
@@ -38,6 +39,8 @@ export declare class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeS
     constructor(_dateAdapter: DateAdapter<D>);
     selectionFinished(date: D, currentRange: DateRange<D>): DateRange<D>;
     createPreview(activeDate: D | null, currentRange: DateRange<D>): DateRange<D>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<DefaultMatCalendarRangeStrategy<any>, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<DefaultMatCalendarRangeStrategy<any>>;
 }
 /** @docs-private */
 export declare function MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY(parent: MatDateRangeSelectionStrategy<unknown>, adapter: DateAdapter<unknown>): MatDateRangeSelectionStrategy<unknown>;

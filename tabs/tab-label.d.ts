@@ -7,6 +7,7 @@
  */
 import { InjectionToken, TemplateRef, ViewContainerRef } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
+import * as i0 from "@angular/core";
 /**
  * Injection token that can be used to reference instances of `MatTabLabel`. It serves as
  * alternative token to the actual `MatTabLabel` class which could cause unnecessary
@@ -22,4 +23,6 @@ export declare const MAT_TAB: InjectionToken<any>;
 export declare class MatTabLabel extends CdkPortal {
     _closestTab: any;
     constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _closestTab: any);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabel, [null, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabel, "[mat-tab-label], [matTabLabel]", never, {}, {}, never>;
 }

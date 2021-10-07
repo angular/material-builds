@@ -12,6 +12,7 @@ import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, Dom
 import { ChangeDetectorRef, ComponentRef, ElementRef, EmbeddedViewRef, NgZone, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatSnackBarConfig } from './snack-bar-config';
+import * as i0 from "@angular/core";
 /**
  * Internal interface for a snack bar container.
  * @docs-private
@@ -95,4 +96,6 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      * announce it.
      */
     private _screenReaderAnnounce;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarContainer, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "snack-bar-container", never, {}, {}, never, never>;
 }

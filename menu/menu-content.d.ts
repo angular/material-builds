@@ -1,12 +1,6 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { ApplicationRef, ChangeDetectorRef, ComponentFactoryResolver, InjectionToken, Injector, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /**
  * Injection token that can be used to reference instances of `MatMenuContent`. It serves
  * as alternative token to the actual `MatMenuContent` class which could cause unnecessary
@@ -37,9 +31,13 @@ export declare abstract class _MatMenuContentBase implements OnDestroy {
      */
     detach(): void;
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuContentBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuContentBase, never, never, {}, {}, never>;
 }
 /**
  * Menu content that will be rendered lazily once the menu is opened.
  */
 export declare class MatMenuContent extends _MatMenuContentBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuContent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never>;
 }

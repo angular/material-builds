@@ -11,6 +11,7 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
 import { MatTabsConfig } from './tab-config';
+import * as i0 from "@angular/core";
 /** A simple change event emitted on focus or selection changes. */
 export declare class MatTabChangeEvent {
     /** Index of the currently-selected tab. */
@@ -21,7 +22,7 @@ export declare class MatTabChangeEvent {
 /** Possible positions for the tab header. */
 export declare type MatTabHeaderPosition = 'above' | 'below';
 /** @docs-private */
-declare const _MatTabGroupMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+declare const _MatTabGroupMixinBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
@@ -147,6 +148,8 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     static ngAcceptInputType_selectedIndex: NumberInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_contentTabIndex: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabGroupBase, [null, null, { optional: true; }, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabGroupBase, never, never, { "dynamicHeight": "dynamicHeight"; "selectedIndex": "selectedIndex"; "headerPosition": "headerPosition"; "animationDuration": "animationDuration"; "contentTabIndex": "contentTabIndex"; "disablePagination": "disablePagination"; "backgroundColor": "backgroundColor"; }, { "selectedIndexChange": "selectedIndexChange"; "focusChange": "focusChange"; "animationDone": "animationDone"; "selectedTabChange": "selectedTabChange"; }, never>;
 }
 /**
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
@@ -158,5 +161,7 @@ export declare class MatTabGroup extends _MatTabGroupBase {
     _tabBodyWrapper: ElementRef;
     _tabHeader: MatTabGroupBaseHeader;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, animationMode?: string);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabGroup, [null, null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabGroup, "mat-tab-group", ["matTabGroup"], { "color": "color"; "disableRipple": "disableRipple"; }, {}, ["_allTabs"], never>;
 }
 export {};

@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 export { MatCommonModule, MATERIAL_SANITY_CHECKS, SanityChecks, GranularSanityChecks, } from './common-module';
+export { Constructor as _Constructor, AbstractConstructor as _AbstractConstructor } from './constructor';
 export { CanDisable, mixinDisabled } from './disabled';
 export { CanColor, mixinColor, ThemePalette } from './color';
 export { CanDisableRipple, mixinDisableRipple } from './disable-ripple';
