@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/chips/testing",
-  "main": "../../bundles/material-chips-testing.umd.js",
-  "fesm2015": "../../fesm2015/chips/testing.js",
-  "esm2015": "../../esm2015/chips/testing/index.js",
+  "fesm2020": "../../fesm2020/chips/testing.mjs",
+  "fesm2015": "../../fesm2015/chips/testing.mjs",
+  "esm2020": "../../esm2020/chips/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/chips/testing.js",
-  "es2015": "../../fesm2015/chips/testing.js"
+  "module": "../../fesm2015/chips/testing.mjs",
+  "es2020": "../../fesm2020/chips/testing.mjs"
 }

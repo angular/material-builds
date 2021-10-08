@@ -10,6 +10,7 @@ import { FocusMonitor, FocusOrigin, FocusTrapFactory, InteractivityChecker } fro
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, DomPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, NgZone } from '@angular/core';
 import { MatDialogConfig } from './dialog-config';
+import * as i0 from "@angular/core";
 /** Event that captures the state of dialog container animations. */
 interface DialogAnimationEvent {
     state: 'opened' | 'opening' | 'closing' | 'closed';
@@ -105,6 +106,8 @@ export declare abstract class _MatDialogContainerBase extends BasePortalOutlet {
     private _focusDialogContainer;
     /** Returns whether focus is inside the dialog. */
     private _containsFocus;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatDialogContainerBase, [null, null, null, { optional: true; }, null, null, null, null]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatDialogContainerBase, never, never, {}, {}, never>;
 }
 /**
  * Internal component that wraps user-provided dialog content.
@@ -120,5 +123,7 @@ export declare class MatDialogContainer extends _MatDialogContainerBase {
     _onAnimationStart({ toState, totalTime }: AnimationEvent): void;
     /** Starts the dialog exit animation. */
     _startExitAnimation(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never>;
 }
 export {};

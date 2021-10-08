@@ -9,7 +9,8 @@ import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
-declare const _MatButtonBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+import * as i0 from "@angular/core";
+declare const _MatButtonBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
@@ -37,6 +38,8 @@ export declare class MatButton extends _MatButtonBase implements AfterViewInit, 
     _hasHostAttributes(...attributes: string[]): boolean;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, [null, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "button[mat-button], button[mat-raised-button], button[mat-icon-button],             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],             button[mat-flat-button]", ["matButton"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; }, {}, never, ["*"]>;
 }
 /**
  * Material design anchor button.
@@ -46,5 +49,7 @@ export declare class MatAnchor extends MatButton {
     tabIndex: number;
     constructor(focusMonitor: FocusMonitor, elementRef: ElementRef, animationMode: string);
     _haltDisabledEvents(event: Event): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchor, [null, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAnchor, "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab],             a[mat-mini-fab], a[mat-stroked-button], a[mat-flat-button]", ["matButton", "matAnchor"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"]>;
 }
 export {};

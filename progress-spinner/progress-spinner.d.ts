@@ -9,10 +9,11 @@ import { NumberInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, InjectionToken, OnInit } from '@angular/core';
 import { CanColor } from '@angular/material/core';
+import * as i0 from "@angular/core";
 /** Possible mode for a progress spinner. */
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /** @docs-private */
-declare const _MatProgressSpinnerBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+declare const _MatProgressSpinnerBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
@@ -95,6 +96,8 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     static ngAcceptInputType_diameter: NumberInput;
     static ngAcceptInputType_strokeWidth: NumberInput;
     static ngAcceptInputType_value: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never>;
 }
 /**
  * `<mat-spinner>` component.
@@ -104,5 +107,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
  */
 export declare class MatSpinner extends MatProgressSpinner {
     constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSpinner, [null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSpinner, "mat-spinner", never, { "color": "color"; }, {}, never, never>;
 }
 export {};

@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/slide-toggle",
-  "main": "../bundles/material-slide-toggle.umd.js",
-  "fesm2015": "../fesm2015/slide-toggle.js",
-  "esm2015": "../esm2015/slide-toggle/index.js",
+  "fesm2020": "../fesm2020/slide-toggle.mjs",
+  "fesm2015": "../fesm2015/slide-toggle.mjs",
+  "esm2020": "../esm2020/slide-toggle/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/slide-toggle.js",
-  "es2015": "../fesm2015/slide-toggle.js"
+  "module": "../fesm2015/slide-toggle.mjs",
+  "es2020": "../fesm2020/slide-toggle.mjs"
 }

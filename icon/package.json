@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/icon",
-  "main": "../bundles/material-icon.umd.js",
-  "fesm2015": "../fesm2015/icon.js",
-  "esm2015": "../esm2015/icon/index.js",
+  "fesm2020": "../fesm2020/icon.mjs",
+  "fesm2015": "../fesm2015/icon.mjs",
+  "esm2020": "../esm2020/icon/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/icon.js",
-  "es2015": "../fesm2015/icon.js"
+  "module": "../fesm2015/icon.mjs",
+  "es2020": "../fesm2020/icon.mjs"
 }

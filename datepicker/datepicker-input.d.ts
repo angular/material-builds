@@ -12,6 +12,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatDatepickerInputBase, DateFilterFn } from './datepicker-input-base';
 import { MatDatepickerControl, MatDatepickerPanel } from './datepicker-base';
 import { DateSelectionModelChange } from './date-selection-model';
+import * as i0 from "@angular/core";
 /** @docs-private */
 export declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
 /** @docs-private */
@@ -61,4 +62,6 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     /** Gets the input's date filtering function. */
     protected _getDateFilter(): DateFilterFn<D | null>;
     protected _shouldHandleChangeEvent(event: DateSelectionModelChange<D>): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInput<any>, [null, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInput<any>, "input[matDatepicker]", ["matDatepickerInput"], { "matDatepicker": "matDatepicker"; "min": "min"; "max": "max"; "dateFilter": "matDatepickerFilter"; }, {}, never>;
 }

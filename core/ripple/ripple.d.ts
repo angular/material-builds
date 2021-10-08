@@ -9,6 +9,7 @@ import { Platform } from '@angular/cdk/platform';
 import { ElementRef, InjectionToken, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { RippleAnimationConfig, RippleConfig, RippleRef } from './ripple-ref';
 import { RippleTarget } from './ripple-renderer';
+import * as i0 from "@angular/core";
 /** Configurable options for `matRipple`. */
 export interface RippleGlobalOptions {
     /**
@@ -107,4 +108,6 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * @param config Optional ripple configuration for the manual ripple.
      */
     launch(x: number, y: number, config?: RippleConfig): RippleRef;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, [null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": "matRippleColor"; "unbounded": "matRippleUnbounded"; "centered": "matRippleCentered"; "radius": "matRippleRadius"; "animation": "matRippleAnimation"; "disabled": "matRippleDisabled"; "trigger": "matRippleTrigger"; }, {}, never>;
 }

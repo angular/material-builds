@@ -10,6 +10,7 @@ import { NgForm, FormGroupDirective, NgControl, ValidatorFn } from '@angular/for
 import { CanUpdateErrorState, DateAdapter, MatDateFormats, ErrorStateMatcher } from '@angular/material/core';
 import { MatDatepickerInputBase, DateFilterFn } from './datepicker-input-base';
 import { DateRange, DateSelectionModelChange } from './date-selection-model';
+import * as i0 from "@angular/core";
 /** Parent component that should be wrapped around `MatStartDate` and `MatEndDate`. */
 export interface MatDateRangeInputParent<D> {
     id: string;
@@ -69,8 +70,10 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected _parentDisabled(): boolean;
     protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueProgrammatically(value: D | null): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInputPartBase<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, {}, {}, never>;
 }
-declare const _MatDateRangeInputBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanUpdateErrorState> & typeof MatDateRangeInputPartBase;
+declare const _MatDateRangeInputBase: import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & typeof MatDateRangeInputPartBase;
 /** Input for entering the start date in a `mat-date-range-input`. */
 export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState, DoCheck, OnInit {
     /** Validator that checks that the start date isn't after the end date. */
@@ -85,6 +88,8 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     protected _formatValue(value: D | null): void;
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue(): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never>;
 }
 /** Input for entering the end date in a `mat-date-range-input`. */
 export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState, DoCheck, OnInit {
@@ -98,5 +103,7 @@ export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements 
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatEndDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never>;
 }
 export {};

@@ -8,6 +8,7 @@
 import { OnDestroy } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { Observable } from 'rxjs';
+import * as i0 from "@angular/core";
 declare type PublicApi<T> = {
     [K in keyof T]: T[K] extends (...x: any[]) => T ? (...x: any[]) => PublicApi<T> : T[K];
 };
@@ -33,8 +34,13 @@ export declare class FakeMatIconRegistry implements PublicApi<MatIconRegistry>, 
     addSvgIconResolver(): this;
     ngOnDestroy(): void;
     private _generateEmptySvg;
+    static ɵfac: i0.ɵɵFactoryDeclaration<FakeMatIconRegistry, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<FakeMatIconRegistry>;
 }
 /** Import this module in tests to install the null icon registry. */
 export declare class MatIconTestingModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatIconTestingModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatIconTestingModule, never, never, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatIconTestingModule>;
 }
 export {};

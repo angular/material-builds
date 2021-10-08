@@ -14,6 +14,7 @@ import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef
 import { CanDisable, CanDisableRipple, HasTabIndex, RippleConfig, RippleGlobalOptions, RippleTarget, ThemePalette } from '@angular/material/core';
 import { MatInkBar } from '../ink-bar';
 import { MatPaginatedTabHeader, MatPaginatedTabHeaderItem } from '../paginated-tab-header';
+import * as i0 from "@angular/core";
 /**
  * Base class with all of the `MatTabNav` functionality.
  * @docs-private
@@ -38,6 +39,8 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
     ngAfterContentInit(): void;
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabNavBase, [null, { optional: true; }, null, null, null, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabNavBase, never, never, { "backgroundColor": "backgroundColor"; "disableRipple": "disableRipple"; "color": "color"; }, {}, never>;
 }
 /**
  * Navigation component matching the styles of the tab group header.
@@ -52,8 +55,10 @@ export declare class MatTabNav extends _MatTabNavBase {
     _previousPaginator: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string);
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNav, [null, { optional: true; }, null, null, null, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": "color"; }, {}, ["_items"], ["*"]>;
 }
-declare const _MatTabLinkMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+declare const _MatTabLinkMixinBase: import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & {
     new (): {};
 };
 /** Base class with all of the `MatTabLink` functionality. */
@@ -89,6 +94,8 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_tabIndex: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabLinkBase, [null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; }, {}, never>;
 }
 /**
  * Link inside of a `mat-tab-nav-bar`.
@@ -98,5 +105,7 @@ export declare class MatTabLink extends _MatTabLinkBase implements OnDestroy {
     private _tabLinkRipple;
     constructor(tabNavBar: MatTabNav, elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, focusMonitor: FocusMonitor, animationMode?: string);
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLink, [null, null, null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never>;
 }
 export {};

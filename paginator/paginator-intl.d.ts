@@ -7,6 +7,7 @@
  */
 import { Optional } from '@angular/core';
 import { Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
  * include it in a custom provider
@@ -29,6 +30,8 @@ export declare class MatPaginatorIntl {
     lastPageLabel: string;
     /** A label for the range of items within the current page and the length of the whole list. */
     getRangeLabel: (page: number, pageSize: number, length: number) => string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorIntl, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatPaginatorIntl>;
 }
 /** @docs-private */
 export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPaginatorIntl): MatPaginatorIntl;

@@ -17,6 +17,7 @@ import { MatDatepickerControl, MatDatepickerPanel } from './datepicker-base';
 import { DateFilterFn } from './datepicker-input-base';
 import { MatDateRangePickerInput } from './date-range-picker';
 import { DateRange } from './date-selection-model';
+import * as i0 from "@angular/core";
 export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
@@ -129,4 +130,6 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _registerModel;
     static ngAcceptInputType_required: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInput<any>, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangeInput<any>, "mat-date-range-input", ["matDateRangeInput"], { "rangePicker": "rangePicker"; "required": "required"; "dateFilter": "dateFilter"; "min": "min"; "max": "max"; "disabled": "disabled"; "separator": "separator"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; }, {}, ["_startInput", "_endInput"], ["input[matStartDate]", "input[matEndDate]"]>;
 }

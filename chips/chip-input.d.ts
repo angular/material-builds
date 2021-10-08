@@ -10,6 +10,7 @@ import { AfterContentInit, ElementRef, EventEmitter, OnChanges, OnDestroy } from
 import { MatChipsDefaultOptions } from './chip-default-options';
 import { MatChipList } from './chip-list';
 import { MatChipTextControl } from './chip-text-control';
+import * as i0 from "@angular/core";
 /** Represents an input event on a `matChipInput`. */
 export interface MatChipInputEvent {
     /**
@@ -90,4 +91,6 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDe
     private _isSeparatorKey;
     static ngAcceptInputType_addOnBlur: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipInput, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipList": "matChipInputFor"; "addOnBlur": "matChipInputAddOnBlur"; "separatorKeyCodes": "matChipInputSeparatorKeyCodes"; "placeholder": "placeholder"; "id": "id"; "disabled": "disabled"; }, { "chipEnd": "matChipInputTokenEnd"; }, never>;
 }

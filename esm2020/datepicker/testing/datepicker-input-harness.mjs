@@ -1,0 +1,58 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { parallel, TestKey } from '@angular/cdk/testing';
+import { MatDatepickerInputHarnessBase, getInputPredicate } from './datepicker-input-harness-base';
+import { closeCalendar, getCalendarId, getCalendar, } from './datepicker-trigger-harness-base';
+/** Harness for interacting with a standard Material datepicker inputs in tests. */
+export class MatDatepickerInputHarness extends MatDatepickerInputHarnessBase {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatDatepickerInputHarness`
+     * that meets certain criteria.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return getInputPredicate(MatDatepickerInputHarness, options);
+    }
+    /** Gets whether the calendar associated with the input is open. */
+    async isCalendarOpen() {
+        // `aria-owns` is set only if there's an open datepicker so we can use it as an indicator.
+        const host = await this.host();
+        return (await host.getAttribute('aria-owns')) != null;
+    }
+    /** Opens the calendar associated with the input. */
+    async openCalendar() {
+        const [isDisabled, hasCalendar] = await parallel(() => [this.isDisabled(), this.hasCalendar()]);
+        if (!isDisabled && hasCalendar) {
+            // Alt + down arrow is the combination for opening the calendar with the keyboard.
+            const host = await this.host();
+            return host.sendKeys({ alt: true }, TestKey.DOWN_ARROW);
+        }
+    }
+    /** Closes the calendar associated with the input. */
+    async closeCalendar() {
+        if (await this.isCalendarOpen()) {
+            await closeCalendar(getCalendarId(this.host()), this.documentRootLocatorFactory());
+            // This is necessary so that we wait for the closing animation to finish in touch UI mode.
+            await this.forceStabilize();
+        }
+    }
+    /** Whether a calendar is associated with the input. */
+    async hasCalendar() {
+        return (await getCalendarId(this.host())) != null;
+    }
+    /**
+     * Gets the `MatCalendarHarness` that is associated with the trigger.
+     * @param filter Optionally filters which calendar is included.
+     */
+    async getCalendar(filter = {}) {
+        return getCalendar(filter, this.host(), this.documentRootLocatorFactory());
+    }
+}
+MatDatepickerInputHarness.hostSelector = '.mat-datepicker-input';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGF0ZXBpY2tlci1pbnB1dC1oYXJuZXNzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vLi4vc3JjL21hdGVyaWFsL2RhdGVwaWNrZXIvdGVzdGluZy9kYXRlcGlja2VyLWlucHV0LWhhcm5lc3MudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFtQixRQUFRLEVBQUUsT0FBTyxFQUFDLE1BQU0sc0JBQXNCLENBQUM7QUFFekUsT0FBTyxFQUFDLDZCQUE2QixFQUFFLGlCQUFpQixFQUFDLE1BQU0saUNBQWlDLENBQUM7QUFFakcsT0FBTyxFQUVMLGFBQWEsRUFDYixhQUFhLEVBQ2IsV0FBVyxHQUNaLE1BQU0sbUNBQW1DLENBQUM7QUFFM0MsbUZBQW1GO0FBQ25GLE1BQU0sT0FBTyx5QkFBMEIsU0FBUSw2QkFBNkI7SUFJMUU7Ozs7O09BS0c7SUFDSCxNQUFNLENBQUMsSUFBSSxDQUFDLFVBQXlDLEVBQUU7UUFFckQsT0FBTyxpQkFBaUIsQ0FBQyx5QkFBeUIsRUFBRSxPQUFPLENBQUMsQ0FBQztJQUMvRCxDQUFDO0lBRUQsbUVBQW1FO0lBQ25FLEtBQUssQ0FBQyxjQUFjO1FBQ2xCLDBGQUEwRjtRQUMxRixNQUFNLElBQUksR0FBRyxNQUFNLElBQUksQ0FBQyxJQUFJLEVBQUUsQ0FBQztRQUMvQixPQUFPLENBQUMsTUFBTSxJQUFJLENBQUMsWUFBWSxDQUFDLFdBQVcsQ0FBQyxDQUFDLElBQUksSUFBSSxDQUFDO0lBQ3hELENBQUM7SUFFRCxvREFBb0Q7SUFDcEQsS0FBSyxDQUFDLFlBQVk7UUFDaEIsTUFBTSxDQUFDLFVBQVUsRUFBRSxXQUFXLENBQUMsR0FBRyxNQUFNLFFBQVEsQ0FBQyxHQUFHLEVBQUUsQ0FBQyxDQUFDLElBQUksQ0FBQyxVQUFVLEVBQUUsRUFBRSxJQUFJLENBQUMsV0FBVyxFQUFFLENBQUMsQ0FBQyxDQUFDO1FBRWhHLElBQUksQ0FBQyxVQUFVLElBQUksV0FBVyxFQUFFO1lBQzlCLGtGQUFrRjtZQUNsRixNQUFNLElBQUksR0FBRyxNQUFNLElBQUksQ0FBQyxJQUFJLEVBQUUsQ0FBQztZQUMvQixPQUFPLElBQUksQ0FBQyxRQUFRLENBQUMsRUFBQyxHQUFHLEVBQUUsSUFBSSxFQUFDLEVBQUUsT0FBTyxDQUFDLFVBQVUsQ0FBQyxDQUFDO1NBQ3ZEO0lBQ0gsQ0FBQztJQUVELHFEQUFxRDtJQUNyRCxLQUFLLENBQUMsYUFBYTtRQUNqQixJQUFJLE1BQU0sSUFBSSxDQUFDLGNBQWMsRUFBRSxFQUFFO1lBQy9CLE1BQU0sYUFBYSxDQUFDLGFBQWEsQ0FBQyxJQUFJLENBQUMsSUFBSSxFQUFFLENBQUMsRUFBRSxJQUFJLENBQUMsMEJBQTBCLEVBQUUsQ0FBQyxDQUFDO1lBQ25GLDBGQUEwRjtZQUMxRixNQUFNLElBQUksQ0FBQyxjQUFjLEVBQUUsQ0FBQztTQUM3QjtJQUNILENBQUM7SUFFRCx1REFBdUQ7SUFDdkQsS0FBSyxDQUFDLFdBQVc7UUFDZixPQUFPLENBQUMsTUFBTSxhQUFhLENBQUMsSUFBSSxDQUFDLElBQUksRUFBRSxDQUFDLENBQUMsSUFBSSxJQUFJLENBQUM7SUFDcEQsQ0FBQztJQUVEOzs7T0FHRztJQUNILEtBQUssQ0FBQyxXQUFXLENBQUMsU0FBaUMsRUFBRTtRQUNuRCxPQUFPLFdBQVcsQ0FBQyxNQUFNLEVBQUUsSUFBSSxDQUFDLElBQUksRUFBRSxFQUFFLElBQUksQ0FBQywwQkFBMEIsRUFBRSxDQUFDLENBQUM7SUFDN0UsQ0FBQzs7QUFuRE0sc0NBQVksR0FBRyx1QkFBdUIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge0hhcm5lc3NQcmVkaWNhdGUsIHBhcmFsbGVsLCBUZXN0S2V5fSBmcm9tICdAYW5ndWxhci9jZGsvdGVzdGluZyc7XG5pbXBvcnQge0RhdGVwaWNrZXJJbnB1dEhhcm5lc3NGaWx0ZXJzLCBDYWxlbmRhckhhcm5lc3NGaWx0ZXJzfSBmcm9tICcuL2RhdGVwaWNrZXItaGFybmVzcy1maWx0ZXJzJztcbmltcG9ydCB7TWF0RGF0ZXBpY2tlcklucHV0SGFybmVzc0Jhc2UsIGdldElucHV0UHJlZGljYXRlfSBmcm9tICcuL2RhdGVwaWNrZXItaW5wdXQtaGFybmVzcy1iYXNlJztcbmltcG9ydCB7TWF0Q2FsZW5kYXJIYXJuZXNzfSBmcm9tICcuL2NhbGVuZGFyLWhhcm5lc3MnO1xuaW1wb3J0IHtcbiAgRGF0ZXBpY2tlclRyaWdnZXIsXG4gIGNsb3NlQ2FsZW5kYXIsXG4gIGdldENhbGVuZGFySWQsXG4gIGdldENhbGVuZGFyLFxufSBmcm9tICcuL2RhdGVwaWNrZXItdHJpZ2dlci1oYXJuZXNzLWJhc2UnO1xuXG4vKiogSGFybmVzcyBmb3IgaW50ZXJhY3Rpbmcgd2l0aCBhIHN0YW5kYXJkIE1hdGVyaWFsIGRhdGVwaWNrZXIgaW5wdXRzIGluIHRlc3RzLiAqL1xuZXhwb3J0IGNsYXNzIE1hdERhdGVwaWNrZXJJbnB1dEhhcm5lc3MgZXh0ZW5kcyBNYXREYXRlcGlja2VySW5wdXRIYXJuZXNzQmFzZSBpbXBsZW1lbnRzXG4gIERhdGVwaWNrZXJUcmlnZ2VyIHtcbiAgc3RhdGljIGhvc3RTZWxlY3RvciA9ICcubWF0LWRhdGVwaWNrZXItaW5wdXQnO1xuXG4gIC8qKlxuICAgKiBHZXRzIGEgYEhhcm5lc3NQcmVkaWNhdGVgIHRoYXQgY2FuIGJlIHVzZWQgdG8gc2VhcmNoIGZvciBhIGBNYXREYXRlcGlja2VySW5wdXRIYXJuZXNzYFxuICAgKiB0aGF0IG1lZXRzIGNlcnRhaW4gY3JpdGVyaWEuXG4gICAqIEBwYXJhbSBvcHRpb25zIE9wdGlvbnMgZm9yIGZpbHRlcmluZyB3aGljaCBpbnB1dCBpbnN0YW5jZXMgYXJlIGNvbnNpZGVyZWQgYSBtYXRjaC5cbiAgICogQHJldHVybiBhIGBIYXJuZXNzUHJlZGljYXRlYCBjb25maWd1cmVkIHdpdGggdGhlIGdpdmVuIG9wdGlvbnMuXG4gICAqL1xuICBzdGF0aWMgd2l0aChvcHRpb25zOiBEYXRlcGlja2VySW5wdXRIYXJuZXNzRmlsdGVycyA9IHt9KTpcbiAgICBIYXJuZXNzUHJlZGljYXRlPE1hdERhdGVwaWNrZXJJbnB1dEhhcm5lc3M+IHtcbiAgICByZXR1cm4gZ2V0SW5wdXRQcmVkaWNhdGUoTWF0RGF0ZXBpY2tlcklucHV0SGFybmVzcywgb3B0aW9ucyk7XG4gIH1cblxuICAvKiogR2V0cyB3aGV0aGVyIHRoZSBjYWxlbmRhciBhc3NvY2lhdGVkIHdpdGggdGhlIGlucHV0IGlzIG9wZW4uICovXG4gIGFzeW5jIGlzQ2FsZW5kYXJPcGVuKCk6IFByb21pc2U8Ym9vbGVhbj4ge1xuICAgIC8vIGBhcmlhLW93bnNgIGlzIHNldCBvbmx5IGlmIHRoZXJlJ3MgYW4gb3BlbiBkYXRlcGlja2VyIHNvIHdlIGNhbiB1c2UgaXQgYXMgYW4gaW5kaWNhdG9yLlxuICAgIGNvbnN0IGhvc3QgPSBhd2FpdCB0aGlzLmhvc3QoKTtcbiAgICByZXR1cm4gKGF3YWl0IGhvc3QuZ2V0QXR0cmlidXRlKCdhcmlhLW93bnMnKSkgIT0gbnVsbDtcbiAgfVxuXG4gIC8qKiBPcGVucyB0aGUgY2FsZW5kYXIgYXNzb2NpYXRlZCB3aXRoIHRoZSBpbnB1dC4gKi9cbiAgYXN5bmMgb3BlbkNhbGVuZGFyKCk6IFByb21pc2U8dm9pZD4ge1xuICAgIGNvbnN0IFtpc0Rpc2FibGVkLCBoYXNDYWxlbmRhcl0gPSBhd2FpdCBwYXJhbGxlbCgoKSA9PiBbdGhpcy5pc0Rpc2FibGVkKCksIHRoaXMuaGFzQ2FsZW5kYXIoKV0pO1xuXG4gICAgaWYgKCFpc0Rpc2FibGVkICYmIGhhc0NhbGVuZGFyKSB7XG4gICAgICAvLyBBbHQgKyBkb3duIGFycm93IGlzIHRoZSBjb21iaW5hdGlvbiBmb3Igb3BlbmluZyB0aGUgY2FsZW5kYXIgd2l0aCB0aGUga2V5Ym9hcmQuXG4gICAgICBjb25zdCBob3N0ID0gYXdhaXQgdGhpcy5ob3N0KCk7XG4gICAgICByZXR1cm4gaG9zdC5zZW5kS2V5cyh7YWx0OiB0cnVlfSwgVGVzdEtleS5ET1dOX0FSUk9XKTtcbiAgICB9XG4gIH1cblxuICAvKiogQ2xvc2VzIHRoZSBjYWxlbmRhciBhc3NvY2lhdGVkIHdpdGggdGhlIGlucHV0LiAqL1xuICBhc3luYyBjbG9zZUNhbGVuZGFyKCk6IFByb21pc2U8dm9pZD4ge1xuICAgIGlmIChhd2FpdCB0aGlzLmlzQ2FsZW5kYXJPcGVuKCkpIHtcbiAgICAgIGF3YWl0IGNsb3NlQ2FsZW5kYXIoZ2V0Q2FsZW5kYXJJZCh0aGlzLmhvc3QoKSksIHRoaXMuZG9jdW1lbnRSb290TG9jYXRvckZhY3RvcnkoKSk7XG4gICAgICAvLyBUaGlzIGlzIG5lY2Vzc2FyeSBzbyB0aGF0IHdlIHdhaXQgZm9yIHRoZSBjbG9zaW5nIGFuaW1hdGlvbiB0byBmaW5pc2ggaW4gdG91Y2ggVUkgbW9kZS5cbiAgICAgIGF3YWl0IHRoaXMuZm9yY2VTdGFiaWxpemUoKTtcbiAgICB9XG4gIH1cblxuICAvKiogV2hldGhlciBhIGNhbGVuZGFyIGlzIGFzc29jaWF0ZWQgd2l0aCB0aGUgaW5wdXQuICovXG4gIGFzeW5jIGhhc0NhbGVuZGFyKCk6IFByb21pc2U8Ym9vbGVhbj4ge1xuICAgIHJldHVybiAoYXdhaXQgZ2V0Q2FsZW5kYXJJZCh0aGlzLmhvc3QoKSkpICE9IG51bGw7XG4gIH1cblxuICAvKipcbiAgICogR2V0cyB0aGUgYE1hdENhbGVuZGFySGFybmVzc2AgdGhhdCBpcyBhc3NvY2lhdGVkIHdpdGggdGhlIHRyaWdnZXIuXG4gICAqIEBwYXJhbSBmaWx0ZXIgT3B0aW9uYWxseSBmaWx0ZXJzIHdoaWNoIGNhbGVuZGFyIGlzIGluY2x1ZGVkLlxuICAgKi9cbiAgYXN5bmMgZ2V0Q2FsZW5kYXIoZmlsdGVyOiBDYWxlbmRhckhhcm5lc3NGaWx0ZXJzID0ge30pOiBQcm9taXNlPE1hdENhbGVuZGFySGFybmVzcz4ge1xuICAgIHJldHVybiBnZXRDYWxlbmRhcihmaWx0ZXIsIHRoaXMuaG9zdCgpLCB0aGlzLmRvY3VtZW50Um9vdExvY2F0b3JGYWN0b3J5KCkpO1xuICB9XG59XG4iXX0=

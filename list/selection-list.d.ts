@@ -12,10 +12,11 @@ import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnChange
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple, MatLine, ThemePalette } from '@angular/material/core';
 import { MatListAvatarCssMatStyler, MatListIconCssMatStyler } from './list';
-declare const _MatSelectionListBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+import * as i0 from "@angular/core";
+declare const _MatSelectionListBase: import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & {
     new (): {};
 };
-declare const _MatListOptionBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+declare const _MatListOptionBase: import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & {
     new (): {};
 };
 /** @docs-private */
@@ -127,6 +128,8 @@ export declare class MatListOption extends _MatListOptionBase implements AfterCo
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_selected: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "disableRipple": "disableRipple"; "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "disabled": "disabled"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_avatar", "_icon", "_lines"], ["*", "[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]"]>;
 }
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -240,5 +243,7 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_multiple: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, [null, { attribute: "tabindex"; }, null, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "color": "color"; "compareWith": "compareWith"; "disabled": "disabled"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["options"], ["*"]>;
 }
 export {};

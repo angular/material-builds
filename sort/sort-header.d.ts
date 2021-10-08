@@ -12,8 +12,9 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatSort, MatSortable } from './sort';
 import { SortDirection } from './sort-direction';
 import { MatSortHeaderIntl } from './sort-header-intl';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatSortHeaderBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+declare const _MatSortHeaderBase: import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & {
     new (): {};
 };
 /**
@@ -144,5 +145,7 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     private _handleStateChanges;
     static ngAcceptInputType_disableClear: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, [null, null, { optional: true; }, { optional: true; }, null, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "disabled": "disabled"; "id": "mat-sort-header"; "arrowPosition": "arrowPosition"; "start": "start"; "disableClear": "disableClear"; }, {}, never, ["*"]>;
 }
 export {};

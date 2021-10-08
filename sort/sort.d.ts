@@ -10,6 +10,7 @@ import { EventEmitter, InjectionToken, OnChanges, OnDestroy, OnInit } from '@ang
 import { CanDisable, HasInitialized } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { SortDirection } from './sort-direction';
+import * as i0 from "@angular/core";
 /** Interface for a directive that holds sorting state consumed by `MatSortHeader`. */
 export interface MatSortable {
     /** The id of the column being sorted. */
@@ -34,7 +35,7 @@ export interface MatSortDefaultOptions {
 /** Injection token to be used to override the default options for `mat-sort`. */
 export declare const MAT_SORT_DEFAULT_OPTIONS: InjectionToken<MatSortDefaultOptions>;
 /** @docs-private */
-declare const _MatSortBase: (new (...args: any[]) => HasInitialized) & import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+declare const _MatSortBase: (new (...args: any[]) => HasInitialized) & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & {
     new (): {};
 };
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
@@ -84,5 +85,7 @@ export declare class MatSort extends _MatSortBase implements CanDisable, HasInit
     ngOnDestroy(): void;
     static ngAcceptInputType_disableClear: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSort, [{ optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSort, "[matSort]", ["matSort"], { "disabled": "matSortDisabled"; "active": "matSortActive"; "start": "matSortStart"; "direction": "matSortDirection"; "disableClear": "matSortDisableClear"; }, { "sortChange": "matSortChange"; }, never>;
 }
 export {};

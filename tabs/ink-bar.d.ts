@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, InjectionToken, NgZone } from '@angular/core';
+import * as i0 from "@angular/core";
 /**
  * Interface for a a MatInkBar positioner method, defining the positioning and width of the ink
  * bar in a set of tabs.
@@ -48,4 +49,6 @@ export declare class MatInkBar {
      * @param element
      */
     private _setStyles;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatInkBar, [null, null, null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatInkBar, "mat-ink-bar", never, {}, {}, never>;
 }

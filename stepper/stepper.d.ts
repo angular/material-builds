@@ -17,6 +17,7 @@ import { MatStepHeader } from './step-header';
 import { MatStepLabel } from './step-label';
 import { MatStepperIcon, MatStepperIconContext } from './stepper-icon';
 import { MatStepContent } from './step-content';
+import * as i0 from "@angular/core";
 export declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContentInit, OnDestroy {
     private _errorStateMatcher;
     private _viewContainerRef;
@@ -34,6 +35,8 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     ngOnDestroy(): void;
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, [null, { skipSelf: true; }, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": "color"; }, {}, ["stepLabel", "_lazyContent"], ["*"]>;
 }
 /**
  * Proxies the public APIs from `MatStepper` to the deprecated `MatHorizontalStepper` and
@@ -48,18 +51,24 @@ declare abstract class _MatProxyStepperBase extends CdkStepper {
     disableRipple: boolean;
     color: ThemePalette;
     labelPosition: 'bottom' | 'end';
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatProxyStepperBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatProxyStepperBase, never, never, {}, {}, never>;
 }
 /**
  * @deprecated Use `MatStepper` instead.
  * @breaking-change 13.0.0
  */
 export declare class MatHorizontalStepper extends _MatProxyStepperBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatHorizontalStepper, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHorizontalStepper, "mat-horizontal-stepper", never, {}, {}, never>;
 }
 /**
  * @deprecated Use `MatStepper` instead.
  * @breaking-change 13.0.0
  */
 export declare class MatVerticalStepper extends _MatProxyStepperBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatVerticalStepper, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatVerticalStepper, "mat-vertical-stepper", never, {}, {}, never>;
 }
 export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** The list of step headers of the steps in the stepper. */
@@ -88,5 +97,7 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _document: any);
     ngAfterContentInit(): void;
     _stepIsNavigable(index: number, step: MatStep): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, [{ optional: true; }, null, null, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": "selectedIndex"; "disableRipple": "disableRipple"; "color": "color"; "labelPosition": "labelPosition"; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never>;
 }
 export {};

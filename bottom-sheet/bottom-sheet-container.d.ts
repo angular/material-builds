@@ -11,6 +11,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, DomPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 import { MatBottomSheetConfig } from './bottom-sheet-config';
+import * as i0 from "@angular/core";
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * @docs-private
@@ -81,4 +82,6 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _restoreFocus;
     /** Saves a reference to the element that was focused before the bottom sheet was opened. */
     private _savePreviouslyFocusedElement;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, [null, null, null, null, null, null, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never>;
 }

@@ -7,6 +7,7 @@
  */
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
+import * as i0 from "@angular/core";
 /** An interface which allows a control to work inside of a `MatFormField`. */
 export declare abstract class MatFormFieldControl<T> {
     /** The value of the control. */
@@ -54,4 +55,6 @@ export declare abstract class MatFormFieldControl<T> {
     abstract setDescribedByIds(ids: string[]): void;
     /** Handles a click on the control's container. */
     abstract onContainerClick(event: MouseEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldControl<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldControl<any>, never, never, {}, {}, never>;
 }

@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/badge",
-  "main": "../bundles/material-badge.umd.js",
-  "fesm2015": "../fesm2015/badge.js",
-  "esm2015": "../esm2015/badge/index.js",
+  "fesm2020": "../fesm2020/badge.mjs",
+  "fesm2015": "../fesm2015/badge.mjs",
+  "esm2020": "../esm2020/badge/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/badge.js",
-  "es2015": "../fesm2015/badge.js"
+  "module": "../fesm2015/badge.mjs",
+  "es2020": "../fesm2020/badge.mjs"
 }

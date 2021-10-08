@@ -12,12 +12,15 @@ import { MatStepperIntl } from './stepper-intl';
 import { MatStepperIconContext } from './stepper-icon';
 import { StepState } from '@angular/cdk/stepper';
 import { CanColor } from '@angular/material/core';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatStepHeaderBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+declare const _MatStepHeaderBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & {
     new (elementRef: ElementRef): {
         _elementRef: ElementRef<HTMLElement>;
         focus(): void;
     };
+    ɵfac: unknown;
+    ɵdir: unknown;
 };
 export declare class MatStepHeader extends _MatStepHeaderBase implements AfterViewInit, OnDestroy, CanColor {
     _intl: MatStepperIntl;
@@ -57,5 +60,7 @@ export declare class MatStepHeader extends _MatStepHeaderBase implements AfterVi
     /** Template context variables that are exposed to the `matStepperIcon` instances. */
     _getIconContext(): MatStepperIconContext;
     _getDefaultTextForState(state: StepState): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepHeader, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "color": "color"; "state": "state"; "label": "label"; "errorMessage": "errorMessage"; "iconOverrides": "iconOverrides"; "index": "index"; "selected": "selected"; "active": "active"; "optional": "optional"; "disableRipple": "disableRipple"; }, {}, never, never>;
 }
 export {};

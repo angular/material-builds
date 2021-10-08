@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/tree",
-  "main": "../bundles/material-tree.umd.js",
-  "fesm2015": "../fesm2015/tree.js",
-  "esm2015": "../esm2015/tree/index.js",
+  "fesm2020": "../fesm2020/tree.mjs",
+  "fesm2015": "../fesm2015/tree.mjs",
+  "esm2020": "../esm2020/tree/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/tree.js",
-  "es2015": "../fesm2015/tree.js"
+  "module": "../fesm2015/tree.mjs",
+  "es2020": "../fesm2020/tree.mjs"
 }

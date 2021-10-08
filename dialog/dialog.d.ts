@@ -1,10 +1,3 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { Overlay, OverlayContainer, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Location } from '@angular/common';
@@ -13,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { MatDialogConfig } from './dialog-config';
 import { MatDialogContainer, _MatDialogContainerBase } from './dialog-container';
 import { MatDialogRef } from './dialog-ref';
+import * as i0 from "@angular/core";
 /** Injection token that can be used to access the data that was passed in to a dialog. */
 export declare const MAT_DIALOG_DATA: InjectionToken<any>;
 /** Injection token that can be used to specify default dialog options. */
@@ -136,6 +130,8 @@ export declare abstract class _MatDialogBase<C extends _MatDialogContainerBase> 
     private _hideNonDialogContentFromAssistiveTechnology;
     /** Closes all of the dialogs in an array. */
     private _closeDialogs;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatDialogBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatDialogBase<any>, never, never, {}, {}, never>;
 }
 /**
  * Service to open Material Design modal dialogs.
@@ -147,4 +143,6 @@ export declare class MatDialog extends _MatDialogBase<MatDialogContainer> {
      * @breaking-change 10.0.0
      */
     location: Location, defaultOptions: MatDialogConfig, scrollStrategy: any, parentDialog: MatDialog, overlayContainer: OverlayContainer, animationMode?: 'NoopAnimations' | 'BrowserAnimations');
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialog, [null, null, { optional: true; }, { optional: true; }, null, { optional: true; skipSelf: true; }, null, { optional: true; }]>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatDialog>;
 }

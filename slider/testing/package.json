@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/slider/testing",
-  "main": "../../bundles/material-slider-testing.umd.js",
-  "fesm2015": "../../fesm2015/slider/testing.js",
-  "esm2015": "../../esm2015/slider/testing/index.js",
+  "fesm2020": "../../fesm2020/slider/testing.mjs",
+  "fesm2015": "../../fesm2015/slider/testing.mjs",
+  "esm2020": "../../esm2020/slider/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/slider/testing.js",
-  "es2015": "../../fesm2015/slider/testing.js"
+  "module": "../../fesm2015/slider/testing.mjs",
+  "es2020": "../../fesm2020/slider/testing.mjs"
 }

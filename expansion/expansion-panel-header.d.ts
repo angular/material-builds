@@ -11,11 +11,12 @@ import { HasTabIndex } from '@angular/material/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { MatAccordionTogglePosition } from './accordion-base';
 import { MatExpansionPanel, MatExpansionPanelDefaultOptions } from './expansion-panel';
+import * as i0 from "@angular/core";
 /** @docs-private */
 declare abstract class MatExpansionPanelHeaderBase {
     abstract readonly disabled: boolean;
 }
-declare const _MatExpansionPanelHeaderMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & typeof MatExpansionPanelHeaderBase;
+declare const _MatExpansionPanelHeaderMixinBase: import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & typeof MatExpansionPanelHeaderBase;
 /**
  * Header element of a `<mat-expansion-panel>`.
  */
@@ -64,15 +65,21 @@ export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMix
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_tabIndex: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelHeader, [{ host: true; }, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "tabIndex": "tabIndex"; "expandedHeight": "expandedHeight"; "collapsedHeight": "collapsedHeight"; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"]>;
 }
 /**
  * Description element of a `<mat-expansion-panel-header>`.
  */
 export declare class MatExpansionPanelDescription {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelDescription, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never>;
 }
 /**
  * Title element of a `<mat-expansion-panel-header>`.
  */
 export declare class MatExpansionPanelTitle {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelTitle, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelTitle, "mat-panel-title", never, {}, {}, never>;
 }
 export {};

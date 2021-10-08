@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/progress-bar",
-  "main": "../bundles/material-progress-bar.umd.js",
-  "fesm2015": "../fesm2015/progress-bar.js",
-  "esm2015": "../esm2015/progress-bar/index.js",
+  "fesm2020": "../fesm2020/progress-bar.mjs",
+  "fesm2015": "../fesm2015/progress-bar.mjs",
+  "esm2020": "../esm2020/progress-bar/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/progress-bar.js",
-  "es2015": "../fesm2015/progress-bar.js"
+  "module": "../fesm2015/progress-bar.mjs",
+  "es2020": "../fesm2020/progress-bar.mjs"
 }

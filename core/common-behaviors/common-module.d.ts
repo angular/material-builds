@@ -7,6 +7,8 @@
  */
 import { HighContrastModeDetector } from '@angular/cdk/a11y';
 import { InjectionToken } from '@angular/core';
+import * as i0 from "@angular/core";
+import * as i1 from "@angular/cdk/bidi";
 /** @docs-private */
 export declare function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks;
 /** Injection token that configures whether the Material sanity checks are enabled. */
@@ -42,4 +44,7 @@ export declare class MatCommonModule {
     private _checkThemeIsPresent;
     /** Checks whether the material version matches the cdk version */
     private _checkCdkVersionMatch;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCommonModule, [null, { optional: true; }, null]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCommonModule, never, [typeof i1.BidiModule], [typeof i1.BidiModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatCommonModule>;
 }

@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/toolbar",
-  "main": "../bundles/material-toolbar.umd.js",
-  "fesm2015": "../fesm2015/toolbar.js",
-  "esm2015": "../esm2015/toolbar/index.js",
+  "fesm2020": "../fesm2020/toolbar.mjs",
+  "fesm2015": "../fesm2015/toolbar.mjs",
+  "esm2020": "../esm2020/toolbar/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/toolbar.js",
-  "es2015": "../fesm2015/toolbar.js"
+  "module": "../fesm2015/toolbar.mjs",
+  "es2020": "../fesm2020/toolbar.mjs"
 }

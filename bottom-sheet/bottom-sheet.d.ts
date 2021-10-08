@@ -1,15 +1,9 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Injector, TemplateRef, InjectionToken, OnDestroy } from '@angular/core';
 import { MatBottomSheetConfig } from './bottom-sheet-config';
 import { MatBottomSheetRef } from './bottom-sheet-ref';
+import * as i0 from "@angular/core";
 /** Injection token that can be used to specify default bottom sheet options. */
 export declare const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: InjectionToken<MatBottomSheetConfig<any>>;
 /**
@@ -60,4 +54,6 @@ export declare class MatBottomSheet implements OnDestroy {
      * @param bottomSheetRef Reference to the bottom sheet.
      */
     private _createInjector;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheet, [null, null, { optional: true; skipSelf: true; }, { optional: true; }]>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatBottomSheet>;
 }

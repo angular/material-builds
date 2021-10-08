@@ -1,15 +1,9 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatCalendarBody, MatCalendarCell, MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
 import { DateRange } from './date-selection-model';
+import * as i0 from "@angular/core";
 export declare const yearsPerPage = 24;
 export declare const yearsPerRow = 4;
 /**
@@ -79,6 +73,8 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     private _isRtl;
     /** Sets the currently-highlighted year based on a model value. */
     private _setSelectedYear;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMultiYearView<any>, [null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMultiYearView<any>, "mat-multi-year-view", ["matMultiYearView"], { "activeDate": "activeDate"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "activeDateChange": "activeDateChange"; }, never, never>;
 }
 export declare function isSameMultiYearView<D>(dateAdapter: DateAdapter<D>, date1: D, date2: D, minDate: D | null, maxDate: D | null): boolean;
 /**

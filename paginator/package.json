@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/paginator",
-  "main": "../bundles/material-paginator.umd.js",
-  "fesm2015": "../fesm2015/paginator.js",
-  "esm2015": "../esm2015/paginator/index.js",
+  "fesm2020": "../fesm2020/paginator.mjs",
+  "fesm2015": "../fesm2015/paginator.mjs",
+  "esm2020": "../esm2020/paginator/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/paginator.js",
-  "es2015": "../fesm2015/paginator.js"
+  "module": "../fesm2015/paginator.mjs",
+  "es2020": "../fesm2020/paginator.mjs"
 }

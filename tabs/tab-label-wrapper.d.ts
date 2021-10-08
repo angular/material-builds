@@ -8,8 +8,9 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatTabLabelWrapperBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & {
+declare const _MatTabLabelWrapperBase: import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & {
     new (): {};
 };
 /**
@@ -24,5 +25,7 @@ export declare class MatTabLabelWrapper extends _MatTabLabelWrapperBase implemen
     getOffsetLeft(): number;
     getOffsetWidth(): number;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabelWrapper, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; }, {}, never>;
 }
 export {};

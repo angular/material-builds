@@ -10,6 +10,7 @@ import { AnimationEvent } from '@angular/animations';
 import { TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Directionality, Direction } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /**
  * These position states are used internally as animation states for the tab body. Setting the
  * position state to left, right, or center will transition the tab body from its current
@@ -43,6 +44,8 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
     ngOnInit(): void;
     /** Clean up centering subscription. */
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabBodyPortal, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabBodyPortal, "[matTabBodyHost]", never, {}, {}, never>;
 }
 /**
  * Base class with all of the `MatTabBody` functionality.
@@ -96,6 +99,8 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
      * tab is becoming visible immediately after creation.
      */
     private _computePositionFromOrigin;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabBodyBase, [null, { optional: true; }, null]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBodyBase, never, never, { "_content": "content"; "origin": "origin"; "animationDuration": "animationDuration"; "position": "position"; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_afterLeavingCenter": "_afterLeavingCenter"; "_onCentered": "_onCentered"; }, never>;
 }
 /**
  * Wrapper for the contents of a tab.
@@ -104,4 +109,6 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
 export declare class MatTabBody extends _MatTabBodyBase {
     _portalHost: CdkPortalOutlet;
     constructor(elementRef: ElementRef<HTMLElement>, dir: Directionality, changeDetectorRef: ChangeDetectorRef);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabBody, [null, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabBody, "mat-tab-body", never, {}, {}, never, never>;
 }

@@ -16,6 +16,7 @@ import { ComponentType } from '@angular/cdk/portal';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import * as i0 from "@angular/core";
 /** Possible positions for a tooltip. */
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /**
@@ -188,6 +189,8 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_hideDelay: NumberInput;
     static ngAcceptInputType_showDelay: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatTooltipBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTooltipBase<any>, never, never, { "position": "matTooltipPosition"; "disabled": "matTooltipDisabled"; "showDelay": "matTooltipShowDelay"; "hideDelay": "matTooltipHideDelay"; "touchGestures": "matTooltipTouchGestures"; "message": "matTooltip"; "tooltipClass": "matTooltipClass"; }, {}, never>;
 }
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
@@ -198,6 +201,8 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
 export declare class MatTooltip extends _MatTooltipBase<TooltipComponent> {
     protected readonly _tooltipComponent: typeof TooltipComponent;
     constructor(overlay: Overlay, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, viewContainerRef: ViewContainerRef, ngZone: NgZone, platform: Platform, ariaDescriber: AriaDescriber, focusMonitor: FocusMonitor, scrollStrategy: any, dir: Directionality, defaultOptions: MatTooltipDefaultOptions, _document: any);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltip, [null, null, null, null, null, null, null, null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTooltip, "[matTooltip]", ["matTooltip"], {}, {}, never>;
 }
 export declare abstract class _TooltipComponentBase implements OnDestroy {
     private _changeDetectorRef;
@@ -253,6 +258,8 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
      * in the mdc-tooltip, not here.
      */
     protected _onShow(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_TooltipComponentBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_TooltipComponentBase, never, never, {}, {}, never>;
 }
 /**
  * Internal component that wraps the tooltip's content.
@@ -263,4 +270,6 @@ export declare class TooltipComponent extends _TooltipComponentBase {
     /** Stream that emits whether the user has a handset-sized display.  */
     _isHandset: Observable<BreakpointState>;
     constructor(changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver);
+    static ɵfac: i0.ɵɵFactoryDeclaration<TooltipComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<TooltipComponent, "mat-tooltip-component", never, {}, {}, never, never>;
 }

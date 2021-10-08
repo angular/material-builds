@@ -1,16 +1,10 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatCalendarBody, MatCalendarCell, MatCalendarUserEvent, MatCalendarCellClassFunction } from './calendar-body';
 import { DateRange } from './date-selection-model';
 import { MatDateRangeSelectionStrategy } from './date-range-selection-strategy';
+import * as i0 from "@angular/core";
 /**
  * An internal component used to display a single month in the datepicker.
  * @docs-private
@@ -122,4 +116,6 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     private _setRanges;
     /** Gets whether a date can be selected in the month view. */
     private _canSelect;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMonthView<any>, [null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": "activeDate"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "activeDateChange": "activeDateChange"; }, never, never>;
 }

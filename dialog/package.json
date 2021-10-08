@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/dialog",
-  "main": "../bundles/material-dialog.umd.js",
-  "fesm2015": "../fesm2015/dialog.js",
-  "esm2015": "../esm2015/dialog/index.js",
+  "fesm2020": "../fesm2020/dialog.mjs",
+  "fesm2015": "../fesm2015/dialog.mjs",
+  "esm2020": "../esm2020/dialog/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/dialog.js",
-  "es2015": "../fesm2015/dialog.js"
+  "module": "../fesm2015/dialog.mjs",
+  "es2020": "../fesm2020/dialog.mjs"
 }

@@ -9,8 +9,9 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterViewChecked, ElementRef, ErrorHandler, InjectionToken, OnDestroy, OnInit } from '@angular/core';
 import { CanColor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
+import * as i0 from "@angular/core";
 /** @docs-private */
-declare const _MatIconBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanColor> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanColor> & {
+declare const _MatIconBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
@@ -132,5 +133,7 @@ export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewCh
     /** Sets a new SVG icon with a particular name. */
     private _updateSvgIcon;
     static ngAcceptInputType_inline: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, [null, null, { attribute: "aria-hidden"; }, null, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": "color"; "inline": "inline"; "svgIcon": "svgIcon"; "fontSet": "fontSet"; "fontIcon": "fontIcon"; }, {}, never, ["*"]>;
 }
 export {};

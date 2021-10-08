@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/sidenav",
-  "main": "../bundles/material-sidenav.umd.js",
-  "fesm2015": "../fesm2015/sidenav.js",
-  "esm2015": "../esm2015/sidenav/index.js",
+  "fesm2020": "../fesm2020/sidenav.mjs",
+  "fesm2015": "../fesm2015/sidenav.mjs",
+  "esm2020": "../esm2020/sidenav/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../fesm2015/sidenav.js",
-  "es2015": "../fesm2015/sidenav.js"
+  "module": "../fesm2015/sidenav.mjs",
+  "es2020": "../fesm2020/sidenav.mjs"
 }

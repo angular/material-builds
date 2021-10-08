@@ -11,6 +11,7 @@ import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple, HasTabIndex, ThemePalette } from '@angular/material/core';
+import * as i0 from "@angular/core";
 export interface MatRadioDefaultOptions {
     color: ThemePalette;
 }
@@ -145,12 +146,16 @@ export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> 
     setDisabledState(isDisabled: boolean): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_required: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatRadioGroupBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioGroupBase<any>, never, never, { "color": "color"; "name": "name"; "labelPosition": "labelPosition"; "value": "value"; "selected": "selected"; "disabled": "disabled"; "required": "required"; }, { "change": "change"; }, never>;
 }
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
 export declare class MatRadioGroup extends _MatRadioGroupBase<MatRadioButton> {
     _radios: QueryList<MatRadioButton>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioGroup, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRadioGroup, "mat-radio-group", ["matRadioGroup"], {}, {}, ["_radios"]>;
 }
 /** @docs-private */
 declare abstract class MatRadioButtonBase {
@@ -158,7 +163,7 @@ declare abstract class MatRadioButtonBase {
     abstract disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-declare const _MatRadioButtonMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").Constructor<HasTabIndex> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<HasTabIndex> & typeof MatRadioButtonBase;
+declare const _MatRadioButtonMixinBase: import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & typeof MatRadioButtonBase;
 /**
  * Base class with all of the `MatRadioButton` functionality.
  * @docs-private
@@ -248,11 +253,15 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     static ngAcceptInputType_required: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
     static ngAcceptInputType_tabIndex: NumberInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatRadioButtonBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioButtonBase, never, never, { "id": "id"; "name": "name"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "checked": "checked"; "value": "value"; "labelPosition": "labelPosition"; "disabled": "disabled"; "required": "required"; "color": "color"; }, { "change": "change"; }, never>;
 }
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
 export declare class MatRadioButton extends _MatRadioButtonBase {
     constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, changeDetector: ChangeDetectorRef, focusMonitor: FocusMonitor, radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, providerOverride?: MatRadioDefaultOptions, tabIndex?: string);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioButton, [{ optional: true; }, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatRadioButton, "mat-radio-button", ["matRadioButton"], { "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never, ["*"]>;
 }
 export {};

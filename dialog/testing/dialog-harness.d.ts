@@ -14,20 +14,11 @@ export declare const enum MatDialogSection {
     CONTENT = ".mat-dialog-content",
     ACTIONS = ".mat-dialog-actions"
 }
-/** Harness for interacting with a standard `MatDialog` in tests. */
-export declare class MatDialogHarness extends ContentContainerComponentHarness<MatDialogSection | string> {
-    /** The selector for the host element of a `MatDialog` instance. */
-    static hostSelector: string;
+/** Base class for the `MatDialogHarness` implementation. */
+export declare class _MatDialogHarnessBase extends ContentContainerComponentHarness<MatDialogSection | string> {
     protected _title: import("@angular/cdk/testing").AsyncFactoryFn<import("@angular/cdk/testing").TestElement | null>;
     protected _content: import("@angular/cdk/testing").AsyncFactoryFn<import("@angular/cdk/testing").TestElement | null>;
     protected _actions: import("@angular/cdk/testing").AsyncFactoryFn<import("@angular/cdk/testing").TestElement | null>;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatDialogHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which dialog instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: DialogHarnessFilters): HarnessPredicate<MatDialogHarness>;
     /** Gets the id of the dialog. */
     getId(): Promise<string | null>;
     /** Gets the role of the dialog. */
@@ -52,4 +43,16 @@ export declare class MatDialogHarness extends ContentContainerComponentHarness<M
     getContentText(): Promise<string>;
     /** Gets the dialog's actions text. This only works if the dialog is using mat-dialog-actions. */
     getActionsText(): Promise<string>;
+}
+/** Harness for interacting with a standard `MatDialog` in tests. */
+export declare class MatDialogHarness extends _MatDialogHarnessBase {
+    /** The selector for the host element of a `MatDialog` instance. */
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatDialogHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which dialog instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: DialogHarnessFilters): HarnessPredicate<MatDialogHarness>;
 }

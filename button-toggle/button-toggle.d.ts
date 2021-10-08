@@ -10,6 +10,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, InjectionToken, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple } from '@angular/material/core';
+import * as i0 from "@angular/core";
 /**
  * @deprecated No longer used.
  * @breaking-change 11.0.0
@@ -144,9 +145,11 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_multiple: BooleanInput;
     static ngAcceptInputType_vertical: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleGroup, [null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonToggleGroup, "mat-button-toggle-group", ["matButtonToggleGroup"], { "appearance": "appearance"; "name": "name"; "vertical": "vertical"; "value": "value"; "multiple": "multiple"; "disabled": "disabled"; }, { "valueChange": "valueChange"; "change": "change"; }, ["_buttonToggles"]>;
 }
 /** @docs-private */
-declare const _MatButtonToggleBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisableRipple> & {
+declare const _MatButtonToggleBase: import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & {
     new (): {};
 };
 /** Single button inside of a toggle group. */
@@ -211,5 +214,7 @@ export declare class MatButtonToggle extends _MatButtonToggleBase implements OnI
     static ngAcceptInputType_vertical: BooleanInput;
     static ngAcceptInputType_multiple: BooleanInput;
     static ngAcceptInputType_disableRipple: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggle, [{ optional: true; }, null, null, null, { attribute: "tabindex"; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButtonToggle, "mat-button-toggle", ["matButtonToggle"], { "disableRipple": "disableRipple"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "id": "id"; "name": "name"; "value": "value"; "tabIndex": "tabIndex"; "appearance": "appearance"; "checked": "checked"; "disabled": "disabled"; }, { "change": "change"; }, never, ["*"]>;
 }
 export {};

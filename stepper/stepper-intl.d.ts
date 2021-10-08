@@ -7,6 +7,7 @@
  */
 import { Optional } from '@angular/core';
 import { Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /** Stepper data that is required for internationalization. */
 export declare class MatStepperIntl {
     /**
@@ -20,6 +21,8 @@ export declare class MatStepperIntl {
     completedLabel: string;
     /** Label that is used to indicate step as editable to screen readers. */
     editableLabel: string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIntl, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatStepperIntl>;
 }
 /** @docs-private */
 export declare function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl: MatStepperIntl): MatStepperIntl;

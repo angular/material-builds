@@ -15,6 +15,7 @@ import { MatMonthView } from './month-view';
 import { MatMultiYearView } from './multi-year-view';
 import { MatYearView } from './year-view';
 import { DateRange } from './date-selection-model';
+import * as i0 from "@angular/core";
 /**
  * Possible views for the calendar.
  * @docs-private
@@ -47,6 +48,8 @@ export declare class MatCalendarHeader<D> {
     nextEnabled(): boolean;
     /** Whether the two dates represent the same view in the current view mode (month or year). */
     private _isSameView;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarHeader<any>, [null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarHeader<any>, "mat-calendar-header", ["matCalendarHeader"], {}, {}, never, ["*"]>;
 }
 /** A calendar that is used as part of the datepicker. */
 export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
@@ -148,4 +151,6 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;
     /** Returns the component instance that corresponds to the current calendar view. */
     private _getCurrentViewComponent;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendar<any>, [null, { optional: true; }, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": "headerComponent"; "startAt": "startAt"; "startView": "startView"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; }, never, never>;
 }

@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/icon/testing",
-  "main": "../../bundles/material-icon-testing.umd.js",
-  "fesm2015": "../../fesm2015/icon/testing.js",
-  "esm2015": "../../esm2015/icon/testing/index.js",
+  "fesm2020": "../../fesm2020/icon/testing.mjs",
+  "fesm2015": "../../fesm2015/icon/testing.mjs",
+  "esm2020": "../../esm2020/icon/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/icon/testing.js",
-  "es2015": "../../fesm2015/icon/testing.js"
+  "module": "../../fesm2015/icon/testing.mjs",
+  "es2020": "../../fesm2020/icon/testing.mjs"
 }

@@ -7,6 +7,7 @@
  */
 import { TemplateRef } from '@angular/core';
 import { StepState } from '@angular/cdk/stepper';
+import * as i0 from "@angular/core";
 /** Template context available to an attached `matStepperIcon`. */
 export interface MatStepperIconContext {
     /** Index of the step. */
@@ -24,4 +25,6 @@ export declare class MatStepperIcon {
     /** Name of the icon to be overridden. */
     name: StepState;
     constructor(templateRef: TemplateRef<MatStepperIconContext>);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIcon, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": "matStepperIcon"; }, {}, never>;
 }

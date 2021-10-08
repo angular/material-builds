@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/button/testing",
-  "main": "../../bundles/material-button-testing.umd.js",
-  "fesm2015": "../../fesm2015/button/testing.js",
-  "esm2015": "../../esm2015/button/testing/index.js",
+  "fesm2020": "../../fesm2020/button/testing.mjs",
+  "fesm2015": "../../fesm2015/button/testing.mjs",
+  "esm2020": "../../esm2020/button/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/button/testing.js",
-  "es2015": "../../fesm2015/button/testing.js"
+  "module": "../../fesm2015/button/testing.mjs",
+  "es2020": "../../fesm2020/button/testing.mjs"
 }

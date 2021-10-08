@@ -1,11 +1,5 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 /** Datepicker data that requires internationalization. */
 export declare class MatDatepickerIntl {
     /**
@@ -37,4 +31,6 @@ export declare class MatDatepickerIntl {
     switchToMultiYearViewLabel: string;
     /** Formats a range of years. */
     formatYearRange(start: string, end: string): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerIntl, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatDatepickerIntl>;
 }

@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/core/testing",
-  "main": "../../bundles/material-core-testing.umd.js",
-  "fesm2015": "../../fesm2015/core/testing.js",
-  "esm2015": "../../esm2015/core/testing/index.js",
+  "fesm2020": "../../fesm2020/core/testing.mjs",
+  "fesm2015": "../../fesm2015/core/testing.mjs",
+  "esm2020": "../../esm2020/core/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/core/testing.js",
-  "es2015": "../../fesm2015/core/testing.js"
+  "module": "../../fesm2015/core/testing.mjs",
+  "es2020": "../../fesm2020/core/testing.mjs"
 }

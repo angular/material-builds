@@ -1,9 +1,9 @@
 {
   "name": "@angular/material/radio/testing",
-  "main": "../../bundles/material-radio-testing.umd.js",
-  "fesm2015": "../../fesm2015/radio/testing.js",
-  "esm2015": "../../esm2015/radio/testing/index.js",
+  "fesm2020": "../../fesm2020/radio/testing.mjs",
+  "fesm2015": "../../fesm2015/radio/testing.mjs",
+  "esm2020": "../../esm2020/radio/testing/index.mjs",
   "typings": "./index.d.ts",
-  "module": "../../fesm2015/radio/testing.js",
-  "es2015": "../../fesm2015/radio/testing.js"
+  "module": "../../fesm2015/radio/testing.mjs",
+  "es2020": "../../fesm2020/radio/testing.mjs"
 }

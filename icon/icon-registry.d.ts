@@ -1,14 +1,8 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { HttpClient } from '@angular/common/http';
 import { ErrorHandler, Optional, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import * as i0 from "@angular/core";
 /**
  * Returns an exception to be thrown in the case when attempting to
  * load an icon with a name that cannot be found.
@@ -257,6 +251,8 @@ export declare class MatIconRegistry implements OnDestroy {
     private _svgElementFromConfig;
     /** Tries to create an icon config through the registered resolver functions. */
     private _getIconConfigFromResolvers;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatIconRegistry, [{ optional: true; }, null, { optional: true; }, null]>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatIconRegistry>;
 }
 /** @docs-private */
 export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, errorHandler: ErrorHandler, document?: any): MatIconRegistry;

@@ -10,6 +10,7 @@ import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, InjectionToken } fr
 import { MatPaginatorIntl } from './paginator-intl';
 import { HasInitialized, ThemePalette, CanDisable } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import * as i0 from "@angular/core";
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
@@ -43,7 +44,7 @@ export interface MatPaginatorDefaultOptions {
 /** Injection token that can be used to provide the default options for the paginator module. */
 export declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorDefaultOptions>;
 /** @docs-private */
-declare const _MatPaginatorMixinBase: import("@angular/material/core/common-behaviors/constructor").Constructor<CanDisable> & import("@angular/material/core/common-behaviors/constructor").AbstractConstructor<CanDisable> & (new (...args: any[]) => HasInitialized) & {
+declare const _MatPaginatorMixinBase: import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & (new (...args: any[]) => HasInitialized) & {
     new (): {};
 };
 /**
@@ -133,6 +134,8 @@ export declare abstract class _MatPaginatorBase<O extends {
     static ngAcceptInputType_hidePageSize: BooleanInput;
     static ngAcceptInputType_showFirstLastButtons: BooleanInput;
     static ngAcceptInputType_disabled: BooleanInput;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatPaginatorBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatPaginatorBase<any>, never, never, { "color": "color"; "pageIndex": "pageIndex"; "length": "length"; "pageSize": "pageSize"; "pageSizeOptions": "pageSizeOptions"; "hidePageSize": "hidePageSize"; "showFirstLastButtons": "showFirstLastButtons"; }, { "page": "page"; }, never>;
 }
 /**
  * Component to provide navigation between paged information. Displays the size of the current
@@ -143,5 +146,7 @@ export declare class MatPaginator extends _MatPaginatorBase<MatPaginatorDefaultO
     /** If set, styles the "page size" form field with the designated style. */
     _formFieldAppearance?: MatFormFieldAppearance;
     constructor(intl: MatPaginatorIntl, changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, [null, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "disabled": "disabled"; }, {}, never, never>;
 }
 export {};
