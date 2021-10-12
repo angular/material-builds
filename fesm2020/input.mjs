@@ -6,6 +6,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
 import { InjectionToken, Directive, Optional, Self, Inject, Input, HostListener, NgModule } from '@angular/core';
 import * as i2 from '@angular/forms';
+import { Validators } from '@angular/forms';
 import * as i3 from '@angular/material/core';
 import { mixinErrorState, MatCommonModule, ErrorStateMatcher } from '@angular/material/core';
 import * as i5 from '@angular/material/form-field';
@@ -104,7 +105,6 @@ class MatInput extends _MatInputBase {
          */
         this.autofilled = false;
         this._disabled = false;
-        this._required = false;
         this._type = 'text';
         this._readonly = false;
         this._neverEmptyInputTypes = [
@@ -185,7 +185,9 @@ class MatInput extends _MatInputBase {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    get required() { return this._required; }
+    get required() {
+        return this._required ?? this.ngControl?.control?.hasValidator(Validators.required) ?? false;
+    }
     set required(value) { this._required = coerceBooleanProperty(value); }
     /** Input type of the element. */
     get type() { return this._type; }

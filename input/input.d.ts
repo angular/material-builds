@@ -87,7 +87,7 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
      */
     get required(): boolean;
     set required(value: boolean);
-    protected _required: boolean;
+    protected _required: boolean | undefined;
     /** Input type of the element. */
     get type(): string;
     set type(value: string);
