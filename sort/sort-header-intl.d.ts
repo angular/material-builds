@@ -10,8 +10,6 @@ import { Subject } from 'rxjs';
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
- * @deprecated No longer being used. To be removed.
- * @breaking-change 13.0.0
  */
 export declare class MatSortHeaderIntl {
     /**

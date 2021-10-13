@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs'), require('@angular/animations'), require('@angular/common')) :
-    typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs', '@angular/animations', '@angular/common'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}), global.ng.core, global.ng.cdk.coercion, global.ng.material.core, global.ng.cdk.a11y, global.ng.cdk.keycodes, global.rxjs, global.ng.animations, global.ng.common));
-}(this, (function (exports, i0, coercion, core, a11y, keycodes, rxjs, animations, common) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/common')) :
+    typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/common'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}), global.ng.core, global.ng.cdk.a11y, global.ng.cdk.coercion, global.ng.cdk.keycodes, global.ng.material.core, global.rxjs, global.ng.animations, global.ng.common));
+}(this, (function (exports, i0, a11y, coercion, keycodes, core, rxjs, animations, common) { 'use strict';
 
     function _interopNamespace(e) {
         if (e && e.__esModule) return e;
@@ -602,8 +602,6 @@
     /**
      * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
      * include it in a custom provider.
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 13.0.0
      */
     var MatSortHeaderIntl = /** @class */ (function () {
         function MatSortHeaderIntl() {
@@ -657,7 +655,9 @@
         _intl, _changeDetectorRef, 
         // `MatSort` is not optionally injected, but just asserted manually w/ better error.
         // tslint:disable-next-line: lightweight-tokens
-        _sort, _columnDef, _focusMonitor, _elementRef) {
+        _sort, _columnDef, _focusMonitor, _elementRef, 
+        /** @breaking-change 14.0.0 _ariaDescriber will be required. */
+        _ariaDescriber) {
             var _this = 
             // Note that we use a string token for the `_columnDef`, because the value is provided both by
             // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
@@ -670,6 +670,7 @@
             _this._columnDef = _columnDef;
             _this._focusMonitor = _focusMonitor;
             _this._elementRef = _elementRef;
+            _this._ariaDescriber = _ariaDescriber;
             /**
              * Flag set to true when the indicator should be displayed while the sort is not active. Used to
              * provide an affordance that the header is sortable by showing on focus and hover.
@@ -689,12 +690,30 @@
             _this._disableViewStateAnimation = false;
             /** Sets the position of the arrow that displays when sorted. */
             _this.arrowPosition = 'after';
+            // Default the action description to "Sort" because it's better than nothing.
+            // Without a description, the button's label comes from the sort header text content,
+            // which doesn't give any indication that it performs a sorting operation.
+            _this._sortActionDescription = 'Sort';
             if (!_sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getSortHeaderNotContainedWithinSortError();
             }
             _this._handleStateChanges();
             return _this;
         }
+        Object.defineProperty(MatSortHeader.prototype, "sortActionDescription", {
+            /**
+             * Description applied to MatSortHeader's button element with aria-describedby. This text should
+             * describe the action that will occur when the user clicks the sort header.
+             */
+            get: function () {
+                return this._sortActionDescription;
+            },
+            set: function (value) {
+                this._updateSortActionDescription(value);
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(MatSortHeader.prototype, "disableClear", {
             /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
             get: function () { return this._disableClear; },
@@ -710,6 +729,8 @@
             this._updateArrowDirection();
             this._setAnimationTransitionState({ toState: this._isSorted() ? 'active' : this._arrowDirection });
             this._sort.register(this);
+            this._sortButton = this._elementRef.nativeElement.querySelector('[role="button"]');
+            this._updateSortActionDescription(this._sortActionDescription);
         };
         MatSortHeader.prototype.ngAfterViewInit = function () {
             var _this = this;
@@ -828,6 +849,21 @@
         MatSortHeader.prototype._renderArrow = function () {
             return !this._isDisabled() || this._isSorted();
         };
+        MatSortHeader.prototype._updateSortActionDescription = function (newDescription) {
+            // We use AriaDescriber for the sort button instead of setting an `aria-label` because some
+            // screen readers (notably VoiceOver) will read both the column header *and* the button's label
+            // for every *cell* in the table, creating a lot of unnecessary noise.
+            var _a, _b;
+            // If _sortButton is undefined, the component hasn't been initialized yet so there's
+            // nothing to update in the DOM.
+            if (this._sortButton) {
+                // removeDescription will no-op if there is no existing message.
+                // TODO(jelbourn): remove optional chaining when AriaDescriber is required.
+                (_a = this._ariaDescriber) === null || _a === void 0 ? void 0 : _a.removeDescription(this._sortButton, this._sortActionDescription);
+                (_b = this._ariaDescriber) === null || _b === void 0 ? void 0 : _b.describe(this._sortButton, newDescription);
+            }
+            this._sortActionDescription = newDescription;
+        };
         /** Handles changes in the sorting state. */
         MatSortHeader.prototype._handleStateChanges = function () {
             var _this = this;
@@ -886,12 +922,14 @@
         { type: MatSort, decorators: [{ type: i0.Optional }] },
         { type: undefined, decorators: [{ type: i0.Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: i0.Optional }] },
         { type: a11y.FocusMonitor },
-        { type: i0.ElementRef }
+        { type: i0.ElementRef },
+        { type: a11y.AriaDescriber, decorators: [{ type: i0.Optional }] }
     ]; };
     MatSortHeader.propDecorators = {
         id: [{ type: i0.Input, args: ['mat-sort-header',] }],
         arrowPosition: [{ type: i0.Input }],
         start: [{ type: i0.Input }],
+        sortActionDescription: [{ type: i0.Input }],
         disableClear: [{ type: i0.Input }]
     };
 

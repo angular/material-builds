@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, OnDestroy, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatSort, MatSortable } from './sort';
 import { SortDirection } from './sort-direction';
 import { MatSortHeaderIntl } from './sort-header-intl';
@@ -58,7 +58,14 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     _columnDef: MatSortHeaderColumnDef;
     private _focusMonitor;
     private _elementRef;
+    /** @breaking-change 14.0.0 _ariaDescriber will be required. */
+    private _ariaDescriber?;
     private _rerenderSubscription;
+    /**
+     * The element with role="button" inside this component's view. We need this
+     * in order to apply a description with AriaDescriber.
+     */
+    private _sortButton;
     /**
      * Flag set to true when the indicator should be displayed while the sort is not active. Used to
      * provide an affordance that the header is sortable by showing on focus and hover.
@@ -85,6 +92,13 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     arrowPosition: 'before' | 'after';
     /** Overrides the sort start value of the containing MatSort for this MatSortable. */
     start: 'asc' | 'desc';
+    /**
+     * Description applied to MatSortHeader's button element with aria-describedby. This text should
+     * describe the action that will occur when the user clicks the sort header.
+     */
+    get sortActionDescription(): string;
+    set sortActionDescription(value: string);
+    private _sortActionDescription;
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
     get disableClear(): boolean;
     set disableClear(v: boolean);
@@ -94,7 +108,9 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
      * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.
      * @breaking-change 13.0.0
      */
-    _intl: MatSortHeaderIntl, _changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>);
+    _intl: MatSortHeaderIntl, _changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, 
+    /** @breaking-change 14.0.0 _ariaDescriber will be required. */
+    _ariaDescriber?: AriaDescriber | null | undefined);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -140,6 +156,7 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     _getAriaSortAttribute(): "none" | "ascending" | "descending";
     /** Whether the arrow inside the sort header should be rendered. */
     _renderArrow(): boolean;
+    private _updateSortActionDescription;
     /** Handles changes in the sorting state. */
     private _handleStateChanges;
     static ngAcceptInputType_disableClear: BooleanInput;

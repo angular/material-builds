@@ -1,9 +1,9 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, EventEmitter, Directive, Optional, Inject, Input, Output, Injectable, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgModule } from '@angular/core';
+import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { mixinInitialized, mixinDisabled, AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
+import { mixinInitialized, mixinDisabled, AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { trigger, state, style, transition, animate, keyframes, query, animateChild } from '@angular/animations';
 import { CommonModule } from '@angular/common';
@@ -259,8 +259,6 @@ const matSortAnimations = {
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
- * @deprecated No longer being used. To be removed.
- * @breaking-change 13.0.0
  */
 class MatSortHeaderIntl {
     constructor() {
@@ -316,7 +314,9 @@ class MatSortHeader extends _MatSortHeaderBase {
     _intl, _changeDetectorRef, 
     // `MatSort` is not optionally injected, but just asserted manually w/ better error.
     // tslint:disable-next-line: lightweight-tokens
-    _sort, _columnDef, _focusMonitor, _elementRef) {
+    _sort, _columnDef, _focusMonitor, _elementRef, 
+    /** @breaking-change 14.0.0 _ariaDescriber will be required. */
+    _ariaDescriber) {
         // Note that we use a string token for the `_columnDef`, because the value is provided both by
         // `material/table` and `cdk/table` and we can't have the CDK depending on Material,
         // and we want to avoid having the sort header depending on the CDK table because
@@ -328,6 +328,7 @@ class MatSortHeader extends _MatSortHeaderBase {
         this._columnDef = _columnDef;
         this._focusMonitor = _focusMonitor;
         this._elementRef = _elementRef;
+        this._ariaDescriber = _ariaDescriber;
         /**
          * Flag set to true when the indicator should be displayed while the sort is not active. Used to
          * provide an affordance that the header is sortable by showing on focus and hover.
@@ -347,10 +348,24 @@ class MatSortHeader extends _MatSortHeaderBase {
         this._disableViewStateAnimation = false;
         /** Sets the position of the arrow that displays when sorted. */
         this.arrowPosition = 'after';
+        // Default the action description to "Sort" because it's better than nothing.
+        // Without a description, the button's label comes from the sort header text content,
+        // which doesn't give any indication that it performs a sorting operation.
+        this._sortActionDescription = 'Sort';
         if (!_sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getSortHeaderNotContainedWithinSortError();
         }
         this._handleStateChanges();
+    }
+    /**
+     * Description applied to MatSortHeader's button element with aria-describedby. This text should
+     * describe the action that will occur when the user clicks the sort header.
+     */
+    get sortActionDescription() {
+        return this._sortActionDescription;
+    }
+    set sortActionDescription(value) {
+        this._updateSortActionDescription(value);
     }
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
     get disableClear() { return this._disableClear; }
@@ -363,6 +378,8 @@ class MatSortHeader extends _MatSortHeaderBase {
         this._updateArrowDirection();
         this._setAnimationTransitionState({ toState: this._isSorted() ? 'active' : this._arrowDirection });
         this._sort.register(this);
+        this._sortButton = this._elementRef.nativeElement.querySelector('[role="button"]');
+        this._updateSortActionDescription(this._sortActionDescription);
     }
     ngAfterViewInit() {
         // We use the focus monitor because we also want to style
@@ -480,6 +497,21 @@ class MatSortHeader extends _MatSortHeaderBase {
     _renderArrow() {
         return !this._isDisabled() || this._isSorted();
     }
+    _updateSortActionDescription(newDescription) {
+        // We use AriaDescriber for the sort button instead of setting an `aria-label` because some
+        // screen readers (notably VoiceOver) will read both the column header *and* the button's label
+        // for every *cell* in the table, creating a lot of unnecessary noise.
+        var _a, _b;
+        // If _sortButton is undefined, the component hasn't been initialized yet so there's
+        // nothing to update in the DOM.
+        if (this._sortButton) {
+            // removeDescription will no-op if there is no existing message.
+            // TODO(jelbourn): remove optional chaining when AriaDescriber is required.
+            (_a = this._ariaDescriber) === null || _a === void 0 ? void 0 : _a.removeDescription(this._sortButton, this._sortActionDescription);
+            (_b = this._ariaDescriber) === null || _b === void 0 ? void 0 : _b.describe(this._sortButton, newDescription);
+        }
+        this._sortActionDescription = newDescription;
+    }
     /** Handles changes in the sorting state. */
     _handleStateChanges() {
         this._rerenderSubscription =
@@ -536,12 +568,14 @@ MatSortHeader.ctorParameters = () => [
     { type: MatSort, decorators: [{ type: Optional }] },
     { type: undefined, decorators: [{ type: Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: Optional }] },
     { type: FocusMonitor },
-    { type: ElementRef }
+    { type: ElementRef },
+    { type: AriaDescriber, decorators: [{ type: Optional }] }
 ];
 MatSortHeader.propDecorators = {
     id: [{ type: Input, args: ['mat-sort-header',] }],
     arrowPosition: [{ type: Input }],
     start: [{ type: Input }],
+    sortActionDescription: [{ type: Input }],
     disableClear: [{ type: Input }]
 };
 
