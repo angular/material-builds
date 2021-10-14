@@ -330,7 +330,6 @@
         }
         return class_1;
     }()));
-    var BADGE_CONTENT_CLASS = 'mat-badge-content';
     /** Directive to display a text badge. */
     var MatBadge = /** @class */ (function (_super) {
         __extends(MatBadge, _super);
@@ -341,6 +340,8 @@
             _this._ariaDescriber = _ariaDescriber;
             _this._renderer = _renderer;
             _this._animationMode = _animationMode;
+            /** Whether the badge has any content. */
+            _this._hasContent = false;
             _this._color = 'primary';
             _this._overlap = true;
             /**
@@ -352,8 +353,6 @@
             _this.size = 'medium';
             /** Unique id for the badge */
             _this._id = nextId++;
-            /** Whether the OnInit lifecycle hook has run yet */
-            _this._isInitialized = false;
             if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 var nativeElement = _elementRef.nativeElement;
                 if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
@@ -381,22 +380,19 @@
             enumerable: false,
             configurable: true
         });
-        Object.defineProperty(MatBadge.prototype, "content", {
-            /** The content for the badge */
-            get: function () {
-                return this._content;
-            },
-            set: function (newContent) {
-                this._updateRenderedContent(newContent);
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(MatBadge.prototype, "description", {
             /** Message used to describe the decorated element via aria-describedby */
             get: function () { return this._description; },
             set: function (newDescription) {
-                this._updateHostAriaDescription(newDescription);
+                if (newDescription !== this._description) {
+                    var badgeElement = this._badgeElement;
+                    this._updateHostAriaDescription(newDescription, this._description);
+                    this._description = newDescription;
+                    if (badgeElement) {
+                        newDescription ? badgeElement.setAttribute('aria-label', newDescription) :
+                            badgeElement.removeAttribute('aria-label');
+                    }
+                }
             },
             enumerable: false,
             configurable: true
@@ -418,43 +414,59 @@
         MatBadge.prototype.isAfter = function () {
             return this.position.indexOf('before') === -1;
         };
+        MatBadge.prototype.ngOnChanges = function (changes) {
+            var contentChange = changes['content'];
+            if (contentChange) {
+                var value = contentChange.currentValue;
+                this._hasContent = value != null && ("" + value).trim().length > 0;
+                this._updateTextContent();
+            }
+        };
+        MatBadge.prototype.ngOnDestroy = function () {
+            var badgeElement = this._badgeElement;
+            if (badgeElement) {
+                if (this.description) {
+                    this._ariaDescriber.removeDescription(badgeElement, this.description);
+                }
+                // When creating a badge through the Renderer, Angular will keep it in an index.
+                // We have to destroy it ourselves, otherwise it'll be retained in memory.
+                if (this._renderer.destroyNode) {
+                    this._renderer.destroyNode(badgeElement);
+                }
+            }
+        };
         /**
-         * Gets the element into which the badge's content is being rendered. Undefined if the element
-         * hasn't been created (e.g. if the badge doesn't have content).
+         * Gets the element into which the badge's content is being rendered.
+         * Undefined if the element hasn't been created (e.g. if the badge doesn't have content).
          */
         MatBadge.prototype.getBadgeElement = function () {
             return this._badgeElement;
         };
-        MatBadge.prototype.ngOnInit = function () {
-            // We may have server-side rendered badge that we need to clear.
-            // We need to do this in ngOnInit because the full content of the component
-            // on which the badge is attached won't necessarily be in the DOM until this point.
-            this._clearExistingBadges();
-            if (this.content && !this._badgeElement) {
+        /** Injects a span element into the DOM with the content. */
+        MatBadge.prototype._updateTextContent = function () {
+            if (!this._badgeElement) {
                 this._badgeElement = this._createBadgeElement();
-                this._updateRenderedContent(this.content);
             }
-            this._isInitialized = true;
-        };
-        MatBadge.prototype.ngOnDestroy = function () {
-            // ViewEngine only: when creating a badge through the Renderer, Angular remembers its index.
-            // We have to destroy it ourselves, otherwise it'll be retained in memory.
-            if (this._renderer.destroyNode) {
-                this._renderer.destroyNode(this._badgeElement);
+            else {
+                this._badgeElement.textContent = this._stringifyContent();
             }
-            this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.description);
+            return this._badgeElement;
         };
         /** Creates the badge element */
         MatBadge.prototype._createBadgeElement = function () {
             var badgeElement = this._renderer.createElement('span');
             var activeClass = 'mat-badge-active';
+            var contentClass = 'mat-badge-content';
+            // Clear any existing badges which may have persisted from a server-side render.
+            this._clearExistingBadges(contentClass);
             badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
-            // The badge is aria-hidden because we don't want it to appear in the page's navigation
-            // flow. Instead, we use the badge to describe the decorated element with aria-describedby.
-            badgeElement.setAttribute('aria-hidden', 'true');
-            badgeElement.classList.add(BADGE_CONTENT_CLASS);
+            badgeElement.classList.add(contentClass);
+            badgeElement.textContent = this._stringifyContent();
             if (this._animationMode === 'NoopAnimations') {
                 badgeElement.classList.add('_mat-animation-noopable');
+            }
+            if (this.description) {
+                badgeElement.setAttribute('aria-label', this.description);
             }
             this._elementRef.nativeElement.appendChild(badgeElement);
             // animate in after insertion
@@ -470,57 +482,47 @@
             }
             return badgeElement;
         };
-        /** Update the text content of the badge element in the DOM, creating the element if necessary. */
-        MatBadge.prototype._updateRenderedContent = function (newContent) {
-            var newContentNormalized = ("" + (newContent !== null && newContent !== void 0 ? newContent : '')).trim();
-            // Don't create the badge element if the directive isn't initialized because we want to
-            // append the badge element to the *end* of the host element's content for backwards
-            // compatibility.
-            if (this._isInitialized && newContentNormalized && !this._badgeElement) {
-                this._badgeElement = this._createBadgeElement();
+        /** Sets the aria-label property on the element */
+        MatBadge.prototype._updateHostAriaDescription = function (newDescription, oldDescription) {
+            // ensure content available before setting label
+            var content = this._updateTextContent();
+            if (oldDescription) {
+                this._ariaDescriber.removeDescription(content, oldDescription);
             }
-            if (this._badgeElement) {
-                this._badgeElement.textContent = newContentNormalized;
-            }
-            this._content = newContentNormalized;
-        };
-        /** Updates the host element's aria description via AriaDescriber. */
-        MatBadge.prototype._updateHostAriaDescription = function (newDescription) {
-            this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.description);
             if (newDescription) {
-                this._ariaDescriber.describe(this._elementRef.nativeElement, newDescription);
+                this._ariaDescriber.describe(content, newDescription);
             }
-            this._description = newDescription;
         };
         /** Adds css theme class given the color to the component host */
         MatBadge.prototype._setColor = function (colorPalette) {
-            var classList = this._elementRef.nativeElement.classList;
-            classList.remove("mat-badge-" + this._color);
-            if (colorPalette) {
-                classList.add("mat-badge-" + colorPalette);
+            if (colorPalette !== this._color) {
+                var classList = this._elementRef.nativeElement.classList;
+                if (this._color) {
+                    classList.remove("mat-badge-" + this._color);
+                }
+                if (colorPalette) {
+                    classList.add("mat-badge-" + colorPalette);
+                }
             }
         };
         /** Clears any existing badges that might be left over from server-side rendering. */
-        MatBadge.prototype._clearExistingBadges = function () {
-            var e_1, _a;
-            // Only check direct children of this host element in order to avoid deleting
-            // any badges that might exist in descendant elements.
-            var badges = this._elementRef.nativeElement.querySelectorAll(":scope > ." + BADGE_CONTENT_CLASS);
-            try {
-                for (var _b = __values(Array.from(badges)), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var badgeElement = _c.value;
-                    if (badgeElement !== this._badgeElement) {
-                        badgeElement.remove();
-                    }
+        MatBadge.prototype._clearExistingBadges = function (cssClass) {
+            var element = this._elementRef.nativeElement;
+            var childCount = element.children.length;
+            // Use a reverse while, because we'll be removing elements from the list as we're iterating.
+            while (childCount--) {
+                var currentChild = element.children[childCount];
+                if (currentChild.classList.contains(cssClass)) {
+                    element.removeChild(currentChild);
                 }
             }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
+        };
+        /** Gets the string representation of the badge content. */
+        MatBadge.prototype._stringifyContent = function () {
+            // Convert null and undefined to an empty string which is consistent
+            // with how Angular handles them in inside template interpolations.
+            var content = this.content;
+            return content == null ? '' : "" + content;
         };
         return MatBadge;
     }(_MatBadgeBase));
@@ -538,7 +540,7 @@
                         '[class.mat-badge-small]': 'size === "small"',
                         '[class.mat-badge-medium]': 'size === "medium"',
                         '[class.mat-badge-large]': 'size === "large"',
-                        '[class.mat-badge-hidden]': 'hidden || !content',
+                        '[class.mat-badge-hidden]': 'hidden || !_hasContent',
                         '[class.mat-badge-disabled]': 'disabled',
                     },
                 },] }
