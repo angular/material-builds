@@ -923,7 +923,7 @@
         { type: undefined, decorators: [{ type: i0.Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: i0.Optional }] },
         { type: a11y.FocusMonitor },
         { type: i0.ElementRef },
-        { type: a11y.AriaDescriber, decorators: [{ type: i0.Optional }] }
+        { type: a11y.AriaDescriber, decorators: [{ type: i0.Inject, args: [a11y.AriaDescriber,] }, { type: i0.Optional }] }
     ]; };
     MatSortHeader.propDecorators = {
         id: [{ type: i0.Input, args: ['mat-sort-header',] }],

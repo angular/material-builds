@@ -569,7 +569,7 @@ MatSortHeader.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: ['MAT_SORT_HEADER_COLUMN_DEF',] }, { type: Optional }] },
     { type: FocusMonitor },
     { type: ElementRef },
-    { type: AriaDescriber, decorators: [{ type: Optional }] }
+    { type: AriaDescriber, decorators: [{ type: Inject, args: [AriaDescriber,] }, { type: Optional }] }
 ];
 MatSortHeader.propDecorators = {
     id: [{ type: Input, args: ['mat-sort-header',] }],
