@@ -73,7 +73,7 @@ const matExpansionAnimations = {
         state('collapsed, void', style({ height: '0px', visibility: 'hidden' })),
         state('expanded', style({ height: '*', visibility: 'visible' })),
         transition('expanded <=> collapsed, void => collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-    ])
+    ]),
 };
 
 /**
@@ -97,7 +97,7 @@ MatExpansionPanelContent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatExpansionPanelContent, decorators: [{
             type: Directive,
             args: [{
-                    selector: 'ng-template[matExpansionPanelContent]'
+                    selector: 'ng-template[matExpansionPanelContent]',
                 }]
         }], ctorParameters: function () { return [{ type: i0.TemplateRef }]; } });
 
@@ -132,9 +132,11 @@ class MatExpansionPanel extends CdkAccordionItem {
         this._document = _document;
         // We need a Subject with distinctUntilChanged, because the `done` event
         // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
-        this._bodyAnimationDone.pipe(distinctUntilChanged((x, y) => {
+        this._bodyAnimationDone
+            .pipe(distinctUntilChanged((x, y) => {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(event => {
+        }))
+            .subscribe(event => {
             if (event.fromState !== 'void') {
                 if (event.toState === 'expanded') {
                     this.afterExpand.emit();
@@ -188,7 +190,9 @@ class MatExpansionPanel extends CdkAccordionItem {
     ngAfterContentInit() {
         if (this._lazyContent) {
             // Render the content as soon as the panel becomes open.
-            this.opened.pipe(startWith(null), filter(() => this.expanded && !this._portal), take(1)).subscribe(() => {
+            this.opened
+                .pipe(startWith(null), filter(() => this.expanded && !this._portal), take(1))
+                .subscribe(() => {
                 this._portal = new TemplatePortal(this._lazyContent._template, this._viewContainerRef);
             });
         }
@@ -278,8 +282,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{
                     selector: 'mat-action-row',
                     host: {
-                        class: 'mat-action-row'
-                    }
+                        class: 'mat-action-row',
+                    },
                 }]
         }] });
 
@@ -300,19 +304,15 @@ class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMixinBase {
         this._changeDetectorRef = _changeDetectorRef;
         this._animationMode = _animationMode;
         this._parentChangeSubscription = Subscription.EMPTY;
-        const accordionHideToggleChange = panel.accordion ?
-            panel.accordion._stateChanges.pipe(filter(changes => !!(changes['hideToggle'] || changes['togglePosition']))) :
-            EMPTY;
+        const accordionHideToggleChange = panel.accordion
+            ? panel.accordion._stateChanges.pipe(filter(changes => !!(changes['hideToggle'] || changes['togglePosition'])))
+            : EMPTY;
         this.tabIndex = parseInt(tabIndex || '') || 0;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
-        this._parentChangeSubscription =
-            merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(changes => {
-                return !!(changes['hideToggle'] ||
-                    changes['disabled'] ||
-                    changes['togglePosition']);
-            })))
-                .subscribe(() => this._changeDetectorRef.markForCheck());
+        this._parentChangeSubscription = merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(changes => {
+            return !!(changes['hideToggle'] || changes['disabled'] || changes['togglePosition']);
+        }))).subscribe(() => this._changeDetectorRef.markForCheck());
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
             .pipe(filter(() => panel._containsFocus()))
@@ -413,14 +413,10 @@ class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMixinBase {
     }
 }
 MatExpansionPanelHeader.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatExpansionPanelHeader, deps: [{ token: MatExpansionPanel, host: true }, { token: i0.ElementRef }, { token: i2$1.FocusMonitor }, { token: i0.ChangeDetectorRef }, { token: MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Component });
-MatExpansionPanelHeader.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatExpansionPanelHeader, selector: "mat-expansion-panel-header", inputs: { tabIndex: "tabIndex", expandedHeight: "expandedHeight", collapsedHeight: "collapsedHeight" }, host: { attributes: { "role": "button" }, listeners: { "click": "_toggle()", "keydown": "_keydown($event)" }, properties: { "attr.id": "panel._headerId", "attr.tabindex": "tabIndex", "attr.aria-controls": "_getPanelId()", "attr.aria-expanded": "_isExpanded()", "attr.aria-disabled": "panel.disabled", "class.mat-expanded": "_isExpanded()", "class.mat-expansion-toggle-indicator-after": "_getTogglePosition() === 'after'", "class.mat-expansion-toggle-indicator-before": "_getTogglePosition() === 'before'", "class._mat-animation-noopable": "_animationMode === \"NoopAnimations\"", "style.height": "_getHeaderHeight()" }, classAttribute: "mat-expansion-panel-header mat-focus-indicator" }, usesInheritance: true, ngImport: i0, template: "<span class=\"mat-content\">\n  <ng-content select=\"mat-panel-title\"></ng-content>\n  <ng-content select=\"mat-panel-description\"></ng-content>\n  <ng-content></ng-content>\n</span>\n<span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\"\n      class=\"mat-expansion-indicator\"></span>\n", styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}.cdk-high-contrast-active .mat-expansion-panel .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled=true])::before,.cdk-high-contrast-active .mat-expansion-panel .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled=true])::before,.cdk-high-contrast-active .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true])::before{top:0;left:0;right:0;bottom:0;position:absolute;box-sizing:border-box;pointer-events:none;border:3px solid;border-radius:4px;content:\"\"}.cdk-high-contrast-active .mat-expansion-panel-content{border-top:1px solid;border-top-left-radius:0;border-top-right-radius:0}\n"], directives: [{ type: i3.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], animations: [
-        matExpansionAnimations.indicatorRotate,
-    ], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+MatExpansionPanelHeader.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatExpansionPanelHeader, selector: "mat-expansion-panel-header", inputs: { tabIndex: "tabIndex", expandedHeight: "expandedHeight", collapsedHeight: "collapsedHeight" }, host: { attributes: { "role": "button" }, listeners: { "click": "_toggle()", "keydown": "_keydown($event)" }, properties: { "attr.id": "panel._headerId", "attr.tabindex": "tabIndex", "attr.aria-controls": "_getPanelId()", "attr.aria-expanded": "_isExpanded()", "attr.aria-disabled": "panel.disabled", "class.mat-expanded": "_isExpanded()", "class.mat-expansion-toggle-indicator-after": "_getTogglePosition() === 'after'", "class.mat-expansion-toggle-indicator-before": "_getTogglePosition() === 'before'", "class._mat-animation-noopable": "_animationMode === \"NoopAnimations\"", "style.height": "_getHeaderHeight()" }, classAttribute: "mat-expansion-panel-header mat-focus-indicator" }, usesInheritance: true, ngImport: i0, template: "<span class=\"mat-content\">\n  <ng-content select=\"mat-panel-title\"></ng-content>\n  <ng-content select=\"mat-panel-description\"></ng-content>\n  <ng-content></ng-content>\n</span>\n<span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\"\n      class=\"mat-expansion-indicator\"></span>\n", styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}.cdk-high-contrast-active .mat-expansion-panel .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled=true])::before,.cdk-high-contrast-active .mat-expansion-panel .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled=true])::before,.cdk-high-contrast-active .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true])::before{top:0;left:0;right:0;bottom:0;position:absolute;box-sizing:border-box;pointer-events:none;border:3px solid;border-radius:4px;content:\"\"}.cdk-high-contrast-active .mat-expansion-panel-content{border-top:1px solid;border-top-left-radius:0;border-top-right-radius:0}\n"], directives: [{ type: i3.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }], animations: [matExpansionAnimations.indicatorRotate], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatExpansionPanelHeader, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-expansion-panel-header', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, inputs: ['tabIndex'], animations: [
-                        matExpansionAnimations.indicatorRotate,
-                    ], host: {
+            args: [{ selector: 'mat-expansion-panel-header', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, inputs: ['tabIndex'], animations: [matExpansionAnimations.indicatorRotate], host: {
                         'class': 'mat-expansion-panel-header mat-focus-indicator',
                         'role': 'button',
                         '[attr.id]': 'panel._headerId',
@@ -470,8 +466,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{
                     selector: 'mat-panel-description',
                     host: {
-                        class: 'mat-expansion-panel-header-description'
-                    }
+                        class: 'mat-expansion-panel-header-description',
+                    },
                 }]
         }] });
 /**
@@ -486,8 +482,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{
                     selector: 'mat-panel-title',
                     host: {
-                        class: 'mat-expansion-panel-header-title'
-                    }
+                        class: 'mat-expansion-panel-header-title',
+                    },
                 }]
         }] });
 
@@ -520,8 +516,12 @@ class MatAccordion extends CdkAccordion {
         this.togglePosition = 'after';
     }
     /** Whether the expansion indicator should be hidden. */
-    get hideToggle() { return this._hideToggle; }
-    set hideToggle(show) { this._hideToggle = coerceBooleanProperty(show); }
+    get hideToggle() {
+        return this._hideToggle;
+    }
+    set hideToggle(show) {
+        this._hideToggle = coerceBooleanProperty(show);
+    }
     ngAfterContentInit() {
         this._headers.changes
             .pipe(startWith(this._headers))
@@ -544,26 +544,30 @@ class MatAccordion extends CdkAccordion {
     }
 }
 MatAccordion.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatAccordion, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatAccordion.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatAccordion, selector: "mat-accordion", inputs: { multi: "multi", hideToggle: "hideToggle", displayMode: "displayMode", togglePosition: "togglePosition" }, host: { properties: { "class.mat-accordion-multi": "this.multi" }, classAttribute: "mat-accordion" }, providers: [{
+MatAccordion.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatAccordion, selector: "mat-accordion", inputs: { multi: "multi", hideToggle: "hideToggle", displayMode: "displayMode", togglePosition: "togglePosition" }, host: { properties: { "class.mat-accordion-multi": "this.multi" }, classAttribute: "mat-accordion" }, providers: [
+        {
             provide: MAT_ACCORDION,
-            useExisting: MatAccordion
-        }], queries: [{ propertyName: "_headers", predicate: MatExpansionPanelHeader, descendants: true }], exportAs: ["matAccordion"], usesInheritance: true, ngImport: i0 });
+            useExisting: MatAccordion,
+        },
+    ], queries: [{ propertyName: "_headers", predicate: MatExpansionPanelHeader, descendants: true }], exportAs: ["matAccordion"], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatAccordion, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-accordion',
                     exportAs: 'matAccordion',
                     inputs: ['multi'],
-                    providers: [{
+                    providers: [
+                        {
                             provide: MAT_ACCORDION,
-                            useExisting: MatAccordion
-                        }],
+                            useExisting: MatAccordion,
+                        },
+                    ],
                     host: {
                         class: 'mat-accordion',
                         // Class binding which is only used by the test harness as there is no other
                         // way for the harness to detect if multiple panel support is enabled.
                         '[class.mat-accordion-multi]': 'this.multi',
-                    }
+                    },
                 }]
         }], propDecorators: { _headers: [{
                 type: ContentChildren,

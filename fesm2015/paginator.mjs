@@ -50,9 +50,7 @@ class MatPaginatorIntl {
             length = Math.max(length, 0);
             const startIndex = page * pageSize;
             // If the start index exceeds the list length, do not try and fix the end index to the end.
-            const endIndex = startIndex < length ?
-                Math.min(startIndex + pageSize, length) :
-                startIndex + pageSize;
+            const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
             return `${startIndex + 1} – ${endIndex} of ${length}`;
         };
     }
@@ -72,7 +70,7 @@ const MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,
     deps: [[new Optional(), new SkipSelf(), MatPaginatorIntl]],
-    useFactory: MAT_PAGINATOR_INTL_PROVIDER_FACTORY
+    useFactory: MAT_PAGINATOR_INTL_PROVIDER_FACTORY,
 };
 
 /**
@@ -114,7 +112,7 @@ class _MatPaginatorBase extends _MatPaginatorMixinBase {
         this.page = new EventEmitter();
         this._intlChanges = _intl.changes.subscribe(() => this._changeDetectorRef.markForCheck());
         if (defaults) {
-            const { pageSize, pageSizeOptions, hidePageSize, showFirstLastButtons, } = defaults;
+            const { pageSize, pageSizeOptions, hidePageSize, showFirstLastButtons } = defaults;
             if (pageSize != null) {
                 this._pageSize = pageSize;
             }
@@ -130,36 +128,48 @@ class _MatPaginatorBase extends _MatPaginatorMixinBase {
         }
     }
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */
-    get pageIndex() { return this._pageIndex; }
+    get pageIndex() {
+        return this._pageIndex;
+    }
     set pageIndex(value) {
         this._pageIndex = Math.max(coerceNumberProperty(value), 0);
         this._changeDetectorRef.markForCheck();
     }
     /** The length of the total number of items that are being paginated. Defaulted to 0. */
-    get length() { return this._length; }
+    get length() {
+        return this._length;
+    }
     set length(value) {
         this._length = coerceNumberProperty(value);
         this._changeDetectorRef.markForCheck();
     }
     /** Number of items to display on a page. By default set to 50. */
-    get pageSize() { return this._pageSize; }
+    get pageSize() {
+        return this._pageSize;
+    }
     set pageSize(value) {
         this._pageSize = Math.max(coerceNumberProperty(value), 0);
         this._updateDisplayedPageSizeOptions();
     }
     /** The set of provided page size options to display to the user. */
-    get pageSizeOptions() { return this._pageSizeOptions; }
+    get pageSizeOptions() {
+        return this._pageSizeOptions;
+    }
     set pageSizeOptions(value) {
         this._pageSizeOptions = (value || []).map(p => coerceNumberProperty(p));
         this._updateDisplayedPageSizeOptions();
     }
     /** Whether to hide the page size selection UI from the user. */
-    get hidePageSize() { return this._hidePageSize; }
+    get hidePageSize() {
+        return this._hidePageSize;
+    }
     set hidePageSize(value) {
         this._hidePageSize = coerceBooleanProperty(value);
     }
     /** Whether to show the first/last buttons UI to the user. */
-    get showFirstLastButtons() { return this._showFirstLastButtons; }
+    get showFirstLastButtons() {
+        return this._showFirstLastButtons;
+    }
     set showFirstLastButtons(value) {
         this._showFirstLastButtons = coerceBooleanProperty(value);
     }
@@ -260,9 +270,8 @@ class _MatPaginatorBase extends _MatPaginatorMixinBase {
         }
         // If no page size is provided, use the first page size option or the default page size.
         if (!this.pageSize) {
-            this._pageSize = this.pageSizeOptions.length != 0 ?
-                this.pageSizeOptions[0] :
-                DEFAULT_PAGE_SIZE;
+            this._pageSize =
+                this.pageSizeOptions.length != 0 ? this.pageSizeOptions[0] : DEFAULT_PAGE_SIZE;
         }
         this._displayedPageSizeOptions = this.pageSizeOptions.slice();
         if (this._displayedPageSizeOptions.indexOf(this.pageSize) === -1) {
@@ -278,7 +287,7 @@ class _MatPaginatorBase extends _MatPaginatorMixinBase {
             previousPageIndex,
             pageIndex: this.pageIndex,
             pageSize: this.pageSize,
-            length: this.length
+            length: this.length,
         });
     }
 }
@@ -343,28 +352,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatPaginatorModule {
 }
 MatPaginatorModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatPaginatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatPaginatorModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatPaginatorModule, declarations: [MatPaginator], imports: [CommonModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatTooltipModule,
-        MatCommonModule], exports: [MatPaginator] });
-MatPaginatorModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatPaginatorModule, providers: [MAT_PAGINATOR_INTL_PROVIDER], imports: [[
-            CommonModule,
-            MatButtonModule,
-            MatSelectModule,
-            MatTooltipModule,
-            MatCommonModule,
-        ]] });
+MatPaginatorModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatPaginatorModule, declarations: [MatPaginator], imports: [CommonModule, MatButtonModule, MatSelectModule, MatTooltipModule, MatCommonModule], exports: [MatPaginator] });
+MatPaginatorModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatPaginatorModule, providers: [MAT_PAGINATOR_INTL_PROVIDER], imports: [[CommonModule, MatButtonModule, MatSelectModule, MatTooltipModule, MatCommonModule]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatPaginatorModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        CommonModule,
-                        MatButtonModule,
-                        MatSelectModule,
-                        MatTooltipModule,
-                        MatCommonModule,
-                    ],
+                    imports: [CommonModule, MatButtonModule, MatSelectModule, MatTooltipModule, MatCommonModule],
                     exports: [MatPaginator],
                     declarations: [MatPaginator],
                     providers: [MAT_PAGINATOR_INTL_PROVIDER],

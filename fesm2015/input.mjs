@@ -57,7 +57,7 @@ const MAT_INPUT_INVALID_TYPES = [
     'radio',
     'range',
     'reset',
-    'submit'
+    'submit',
 ];
 let nextUniqueId = 0;
 // Boilerplate for applying mixins to MatInput.
@@ -113,7 +113,7 @@ class MatInput extends _MatInputBase {
             'datetime-local',
             'month',
             'time',
-            'week'
+            'week',
         ].filter(t => getSupportedInputTypes().has(t));
         const element = this._elementRef.nativeElement;
         const nodeName = element.nodeName.toLowerCase();
@@ -152,8 +152,9 @@ class MatInput extends _MatInputBase {
         this._isTextarea = nodeName === 'textarea';
         this._isInFormField = !!_formField;
         if (this._isNativeSelect) {
-            this.controlType = element.multiple ? 'mat-native-select-multiple' :
-                'mat-native-select';
+            this.controlType = element.multiple
+                ? 'mat-native-select-multiple'
+                : 'mat-native-select';
         }
     }
     /**
@@ -179,8 +180,12 @@ class MatInput extends _MatInputBase {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    get id() { return this._id; }
-    set id(value) { this._id = value || this._uid; }
+    get id() {
+        return this._id;
+    }
+    set id(value) {
+        this._id = value || this._uid;
+    }
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -189,9 +194,13 @@ class MatInput extends _MatInputBase {
         var _a, _b, _c, _d;
         return (_d = (_a = this._required) !== null && _a !== void 0 ? _a : (_c = (_b = this.ngControl) === null || _b === void 0 ? void 0 : _b.control) === null || _c === void 0 ? void 0 : _c.hasValidator(Validators.required)) !== null && _d !== void 0 ? _d : false;
     }
-    set required(value) { this._required = coerceBooleanProperty(value); }
+    set required(value) {
+        this._required = coerceBooleanProperty(value);
+    }
     /** Input type of the element. */
-    get type() { return this._type; }
+    get type() {
+        return this._type;
+    }
     set type(value) {
         this._type = value || 'text';
         this._validateType();
@@ -206,7 +215,9 @@ class MatInput extends _MatInputBase {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    get value() { return this._inputValueAccessor.value; }
+    get value() {
+        return this._inputValueAccessor.value;
+    }
     set value(value) {
         if (value !== this.value) {
             this._inputValueAccessor.value = value;
@@ -214,8 +225,12 @@ class MatInput extends _MatInputBase {
         }
     }
     /** Whether the element is readonly. */
-    get readonly() { return this._readonly; }
-    set readonly(value) { this._readonly = coerceBooleanProperty(value); }
+    get readonly() {
+        return this._readonly;
+    }
+    set readonly(value) {
+        this._readonly = coerceBooleanProperty(value);
+    }
     ngAfterViewInit() {
         if (this._platform.isBrowser) {
             this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(event => {
@@ -290,8 +305,9 @@ class MatInput extends _MatInputBase {
         if (placeholder !== this._previousPlaceholder) {
             const element = this._elementRef.nativeElement;
             this._previousPlaceholder = placeholder;
-            placeholder ?
-                element.setAttribute('placeholder', placeholder) : element.removeAttribute('placeholder');
+            placeholder
+                ? element.setAttribute('placeholder', placeholder)
+                : element.removeAttribute('placeholder');
         }
     }
     /** Does some manual dirty checking on the native input `value` property. */
@@ -324,8 +340,10 @@ class MatInput extends _MatInputBase {
      * @docs-private
      */
     get empty() {
-        return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput() &&
-            !this.autofilled;
+        return (!this._isNeverEmpty() &&
+            !this._elementRef.nativeElement.value &&
+            !this._isBadInput() &&
+            !this.autofilled);
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -340,8 +358,10 @@ class MatInput extends _MatInputBase {
             const firstOption = selectElement.options[0];
             // On most browsers the `selectedIndex` will always be 0, however on IE and Edge it'll be
             // -1 if the `value` is set to something, that isn't in the list of options, at a later point.
-            return this.focused || selectElement.multiple || !this.empty ||
-                !!(selectElement.selectedIndex > -1 && firstOption && firstOption.label);
+            return (this.focused ||
+                selectElement.multiple ||
+                !this.empty ||
+                !!(selectElement.selectedIndex > -1 && firstOption && firstOption.label));
         }
         else {
             return this.focused || !this.empty;
@@ -467,18 +487,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatInputModule {
 }
 MatInputModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatInputModule, declarations: [MatInput], imports: [TextFieldModule,
-        MatFormFieldModule,
-        MatCommonModule], exports: [TextFieldModule,
+MatInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatInputModule, declarations: [MatInput], imports: [TextFieldModule, MatFormFieldModule, MatCommonModule], exports: [TextFieldModule,
         // We re-export the `MatFormFieldModule` since `MatInput` will almost always
         // be used together with `MatFormField`.
         MatFormFieldModule,
         MatInput] });
-MatInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatInputModule, providers: [ErrorStateMatcher], imports: [[
-            TextFieldModule,
-            MatFormFieldModule,
-            MatCommonModule,
-        ], TextFieldModule,
+MatInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatInputModule, providers: [ErrorStateMatcher], imports: [[TextFieldModule, MatFormFieldModule, MatCommonModule], TextFieldModule,
         // We re-export the `MatFormFieldModule` since `MatInput` will almost always
         // be used together with `MatFormField`.
         MatFormFieldModule] });
@@ -486,11 +500,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: NgModule,
             args: [{
                     declarations: [MatInput],
-                    imports: [
-                        TextFieldModule,
-                        MatFormFieldModule,
-                        MatCommonModule,
-                    ],
+                    imports: [TextFieldModule, MatFormFieldModule, MatCommonModule],
                     exports: [
                         TextFieldModule,
                         // We re-export the `MatFormFieldModule` since `MatInput` will almost always

@@ -188,8 +188,7 @@ class MatMenuHarness extends _MatMenuHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatMenuHarness, options)
-            .addOption('triggerText', options.triggerText, (harness, text) => HarnessPredicate.stringMatches(harness.getTriggerText(), text));
+        return new HarnessPredicate(MatMenuHarness, options).addOption('triggerText', options.triggerText, (harness, text) => HarnessPredicate.stringMatches(harness.getTriggerText(), text));
     }
 }
 /** The selector for the host element of a `MatMenu` instance. */

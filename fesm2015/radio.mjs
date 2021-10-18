@@ -10,11 +10,11 @@ import * as i2 from '@angular/cdk/collections';
 
 const MAT_RADIO_DEFAULT_OPTIONS = new InjectionToken('mat-radio-default-options', {
     providedIn: 'root',
-    factory: MAT_RADIO_DEFAULT_OPTIONS_FACTORY
+    factory: MAT_RADIO_DEFAULT_OPTIONS_FACTORY,
 });
 function MAT_RADIO_DEFAULT_OPTIONS_FACTORY() {
     return {
-        color: 'accent'
+        color: 'accent',
     };
 }
 // Increasing integer for generating unique ids for radio components.
@@ -27,7 +27,7 @@ let nextUniqueId = 0;
 const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatRadioGroup),
-    multi: true
+    multi: true,
 };
 /** Change event object emitted by MatRadio and MatRadioGroup. */
 class MatRadioChange {
@@ -82,7 +82,9 @@ class _MatRadioGroupBase {
         this.change = new EventEmitter();
     }
     /** Name of the radio button group. All radio buttons inside this group will use this name. */
-    get name() { return this._name; }
+    get name() {
+        return this._name;
+    }
     set name(value) {
         this._name = value;
         this._updateRadioButtonNames();
@@ -101,7 +103,9 @@ class _MatRadioGroupBase {
      * radio button, this value persists to be applied in case a new radio button is added with a
      * matching value.
      */
-    get value() { return this._value; }
+    get value() {
+        return this._value;
+    }
     set value(newValue) {
         if (this._value !== newValue) {
             // Set this before proceeding to ensure no circular loop occurs with selection.
@@ -119,20 +123,26 @@ class _MatRadioGroupBase {
      * The currently selected radio button. If set to a new radio button, the radio group value
      * will be updated to match the new selected button.
      */
-    get selected() { return this._selected; }
+    get selected() {
+        return this._selected;
+    }
     set selected(selected) {
         this._selected = selected;
         this.value = selected ? selected.value : null;
         this._checkSelectedRadioButton();
     }
     /** Whether the radio group is disabled */
-    get disabled() { return this._disabled; }
+    get disabled() {
+        return this._disabled;
+    }
     set disabled(value) {
         this._disabled = coerceBooleanProperty(value);
         this._markRadiosForCheck();
     }
     /** Whether the radio group is required */
-    get required() { return this._required; }
+    get required() {
+        return this._required;
+    }
     set required(value) {
         this._required = coerceBooleanProperty(value);
         this._markRadiosForCheck();
@@ -312,15 +322,16 @@ class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
         if (tabIndex) {
             this.tabIndex = coerceNumberProperty(tabIndex, 0);
         }
-        this._removeUniqueSelectionListener =
-            _radioDispatcher.listen((id, name) => {
-                if (id !== this.id && name === this.name) {
-                    this.checked = false;
-                }
-            });
+        this._removeUniqueSelectionListener = _radioDispatcher.listen((id, name) => {
+            if (id !== this.id && name === this.name) {
+                this.checked = false;
+            }
+        });
     }
     /** Whether this radio button is checked. */
-    get checked() { return this._checked; }
+    get checked() {
+        return this._checked;
+    }
     set checked(value) {
         const newCheckedState = coerceBooleanProperty(value);
         if (this._checked !== newCheckedState) {
@@ -341,7 +352,9 @@ class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
         }
     }
     /** The value of this radio button. */
-    get value() { return this._value; }
+    get value() {
+        return this._value;
+    }
     set value(value) {
         if (this._value !== value) {
             this._value = value;
@@ -381,13 +394,18 @@ class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
     get color() {
         // As per Material design specifications the selection control radio should use the accent color
         // palette by default. https://material.io/guidelines/components/selection-controls.html
-        return this._color ||
+        return (this._color ||
             (this.radioGroup && this.radioGroup.color) ||
-            this._providerOverride && this._providerOverride.color || 'accent';
+            (this._providerOverride && this._providerOverride.color) ||
+            'accent');
     }
-    set color(newValue) { this._color = newValue; }
+    set color(newValue) {
+        this._color = newValue;
+    }
     /** ID of the native input element inside `<mat-radio-button>` */
-    get inputId() { return `${this.id || this._uniqueId}-input`; }
+    get inputId() {
+        return `${this.id || this._uniqueId}-input`;
+    }
     /** Focuses the radio button. */
     focus(options, origin) {
         if (origin) {
@@ -419,9 +437,7 @@ class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
         }
     }
     ngAfterViewInit() {
-        this._focusMonitor
-            .monitor(this._elementRef, true)
-            .subscribe(focusOrigin => {
+        this._focusMonitor.monitor(this._elementRef, true).subscribe(focusOrigin => {
             if (!focusOrigin && this.radioGroup) {
                 this.radioGroup._touch();
             }

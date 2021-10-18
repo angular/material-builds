@@ -7,9 +7,9 @@
  */
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, ContentContainerComponentHarness, HarnessLoader, HarnessPredicate } from '@angular/cdk/testing';
 import { MenuHarnessFilters, MenuItemHarnessFilters } from './menu-harness-filters';
-export declare abstract class _MatMenuHarnessBase<ItemType extends (ComponentHarnessConstructor<Item> & {
+export declare abstract class _MatMenuHarnessBase<ItemType extends ComponentHarnessConstructor<Item> & {
     with: (options?: ItemFilters) => HarnessPredicate<Item>;
-}), Item extends ComponentHarness & {
+}, Item extends ComponentHarness & {
     click(): Promise<void>;
     getSubmenu(): Promise<_MatMenuHarnessBase<ItemType, Item, ItemFilters> | null>;
 }, ItemFilters extends BaseHarnessFilters> extends ContentContainerComponentHarness<string> {

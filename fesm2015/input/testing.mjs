@@ -41,14 +41,14 @@ class MatInputHarness extends MatFormFieldControlHarness {
     getValue() {
         return __awaiter(this, void 0, void 0, function* () {
             // The "value" property of the native input is never undefined.
-            return (yield (yield this.host()).getProperty('value'));
+            return yield (yield this.host()).getProperty('value');
         });
     }
     /** Gets the name of the input. */
     getName() {
         return __awaiter(this, void 0, void 0, function* () {
             // The "name" property of the native input is never undefined.
-            return (yield (yield this.host()).getProperty('name'));
+            return yield (yield this.host()).getProperty('name');
         });
     }
     /**
@@ -58,7 +58,7 @@ class MatInputHarness extends MatFormFieldControlHarness {
     getType() {
         return __awaiter(this, void 0, void 0, function* () {
             // The "type" property of the native input is never undefined.
-            return (yield (yield this.host()).getProperty('type'));
+            return yield (yield this.host()).getProperty('type');
         });
     }
     /** Gets the placeholder of the input. */
@@ -67,7 +67,7 @@ class MatInputHarness extends MatFormFieldControlHarness {
             const host = yield this.host();
             const [nativePlaceholder, fallback] = yield parallel(() => [
                 host.getProperty('placeholder'),
-                host.getAttribute('data-placeholder')
+                host.getAttribute('data-placeholder'),
             ]);
             return nativePlaceholder || fallback || '';
         });
@@ -77,7 +77,7 @@ class MatInputHarness extends MatFormFieldControlHarness {
         return __awaiter(this, void 0, void 0, function* () {
             // The input directive always assigns a unique id to the input in
             // case no id has been explicitly specified.
-            return (yield (yield this.host()).getProperty('id'));
+            return yield (yield this.host()).getProperty('id');
         });
     }
     /**
@@ -205,14 +205,14 @@ class MatNativeSelectHarness extends MatFormFieldControlHarness {
     getName() {
         return __awaiter(this, void 0, void 0, function* () {
             // The "name" property of the native select is never undefined.
-            return (yield (yield this.host()).getProperty('name'));
+            return yield (yield this.host()).getProperty('name');
         });
     }
     /** Gets the id of the select. */
     getId() {
         return __awaiter(this, void 0, void 0, function* () {
             // We're guaranteed to have an id, because the `matNativeControl` always assigns one.
-            return (yield (yield this.host()).getProperty('id'));
+            return yield (yield this.host()).getProperty('id');
         });
     }
     /** Focuses the select and returns a void promise that indicates when the action is complete. */
@@ -253,7 +253,7 @@ class MatNativeSelectHarness extends MatFormFieldControlHarness {
             }
             const [host, optionIndexes] = yield parallel(() => [
                 this.host(),
-                parallel(() => options.slice(0, isMultiple ? undefined : 1).map(option => option.getIndex()))
+                parallel(() => options.slice(0, isMultiple ? undefined : 1).map(option => option.getIndex())),
             ]);
             yield host.selectOptions(...optionIndexes);
         });

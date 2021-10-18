@@ -19,14 +19,12 @@ const avatarSelector = '.mat-list-avatar';
  * @return A `HarnessPredicate` for the given harness type with the given options applied.
  */
 function getListItemPredicate(harnessType, options) {
-    return new HarnessPredicate(harnessType, options)
-        .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+    return new HarnessPredicate(harnessType, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
 }
 /** Harness for interacting with a list subheader. */
 class MatSubheaderHarness extends ComponentHarness {
     static with(options = {}) {
-        return new HarnessPredicate(MatSubheaderHarness, options)
-            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+        return new HarnessPredicate(MatSubheaderHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
     }
     /** Gets the full text content of the list item (including text from any font icons). */
     async getText() {
@@ -56,11 +54,11 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
     }
     /** Whether this list item has an avatar. */
     async hasAvatar() {
-        return !!await this._avatar();
+        return !!(await this._avatar());
     }
     /** Whether this list item has an icon. */
     async hasIcon() {
-        return !!await this._icon();
+        return !!(await this._icon());
     }
     /**
      * Gets a `HarnessLoader` used to get harnesses within the list item's content.
@@ -104,7 +102,10 @@ class MatListHarnessBase extends ComponentHarness {
     async getItemsGroupedBySubheader(filters) {
         const listSections = [];
         let currentSection = { items: [] };
-        const itemsAndSubheaders = await this.getItemsWithSubheadersAndDividers({ item: filters, divider: false });
+        const itemsAndSubheaders = await this.getItemsWithSubheadersAndDividers({
+            item: filters,
+            divider: false,
+        });
         for (const itemOrSubheader of itemsAndSubheaders) {
             if (itemOrSubheader instanceof MatSubheaderHarness) {
                 if (currentSection.heading !== undefined || currentSection.items.length) {
@@ -116,7 +117,8 @@ class MatListHarnessBase extends ComponentHarness {
                 currentSection.items.push(itemOrSubheader);
             }
         }
-        if (currentSection.heading !== undefined || currentSection.items.length ||
+        if (currentSection.heading !== undefined ||
+            currentSection.items.length ||
             !listSections.length) {
             listSections.push(currentSection);
         }
@@ -131,7 +133,10 @@ class MatListHarnessBase extends ComponentHarness {
      */
     async getItemsGroupedByDividers(filters) {
         const listSections = [[]];
-        const itemsAndDividers = await this.getItemsWithSubheadersAndDividers({ item: filters, subheader: false });
+        const itemsAndDividers = await this.getItemsWithSubheadersAndDividers({
+            item: filters,
+            subheader: false,
+        });
         for (const itemOrDivider of itemsAndDividers) {
             if (itemOrDivider instanceof MatDividerHarness) {
                 listSections.push([]);
@@ -295,8 +300,7 @@ class MatNavListItemHarness extends MatListItemHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getListItemPredicate(MatNavListItemHarness, options)
-            .addOption('href', options.href, async (harness, href) => HarnessPredicate.stringMatches(harness.getHref(), href));
+        return getListItemPredicate(MatNavListItemHarness, options).addOption('href', options.href, async (harness, href) => HarnessPredicate.stringMatches(harness.getHref(), href));
     }
     /** Gets the href for this nav list item. */
     async getHref() {
@@ -346,7 +350,7 @@ class MatSelectionListHarness extends MatListHarnessBase {
     }
     /** Whether the selection list is disabled. */
     async isDisabled() {
-        return await (await this.host()).getAttribute('aria-disabled') === 'true';
+        return (await (await this.host()).getAttribute('aria-disabled')) === 'true';
     }
     /**
      * Selects all items matching any of the given filters.
@@ -390,21 +394,21 @@ class MatListOptionHarness extends MatListItemHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getListItemPredicate(MatListOptionHarness, options)
-            .addOption('is selected', options.selected, async (harness, selected) => await harness.isSelected() === selected);
+        return getListItemPredicate(MatListOptionHarness, options).addOption('is selected', options.selected, async (harness, selected) => (await harness.isSelected()) === selected);
     }
     /** Gets the position of the checkbox relative to the list option content. */
     async getCheckboxPosition() {
-        return await (await this._itemContent()).hasClass('mat-list-item-content-reverse') ?
-            'after' : 'before';
+        return (await (await this._itemContent()).hasClass('mat-list-item-content-reverse'))
+            ? 'after'
+            : 'before';
     }
     /** Whether the list option is selected. */
     async isSelected() {
-        return await (await this.host()).getAttribute('aria-selected') === 'true';
+        return (await (await this.host()).getAttribute('aria-selected')) === 'true';
     }
     /** Whether the list option is disabled. */
     async isDisabled() {
-        return await (await this.host()).getAttribute('aria-disabled') === 'true';
+        return (await (await this.host()).getAttribute('aria-disabled')) === 'true';
     }
     /** Focuses the list option. */
     async focus() {
@@ -427,7 +431,7 @@ class MatListOptionHarness extends MatListItemHarnessBase {
      * nothing if it is already checked.
      */
     async select() {
-        if (!await this.isSelected()) {
+        if (!(await this.isSelected())) {
             return this.toggle();
         }
     }

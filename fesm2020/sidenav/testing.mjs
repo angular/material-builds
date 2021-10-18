@@ -42,8 +42,7 @@ class MatDrawerHarness extends MatDrawerHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatDrawerHarness, options)
-            .addOption('position', options.position, async (harness, position) => (await harness.getPosition()) === position);
+        return new HarnessPredicate(MatDrawerHarness, options).addOption('position', options.position, async (harness, position) => (await harness.getPosition()) === position);
     }
 }
 /** The selector for the host element of a `MatDrawer` instance. */
@@ -150,8 +149,7 @@ class MatSidenavHarness extends MatDrawerHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatSidenavHarness, options)
-            .addOption('position', options.position, async (harness, position) => (await harness.getPosition()) === position);
+        return new HarnessPredicate(MatSidenavHarness, options).addOption('position', options.position, async (harness, position) => (await harness.getPosition()) === position);
     }
     /** Whether the sidenav is fixed in the viewport. */
     async isFixedInViewport() {

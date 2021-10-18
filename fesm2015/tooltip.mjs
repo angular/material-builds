@@ -40,10 +40,10 @@ const matTooltipAnimations = {
         transition('* => visible', animate('200ms cubic-bezier(0, 0, 0.2, 1)', keyframes([
             style({ opacity: 0, transform: 'scale(0)', offset: 0 }),
             style({ opacity: 0.5, transform: 'scale(0.99)', offset: 0.5 }),
-            style({ opacity: 1, transform: 'scale(1)', offset: 1 })
+            style({ opacity: 1, transform: 'scale(1)', offset: 1 }),
         ]))),
         transition('* => hidden', animate('100ms cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 0 }))),
-    ])
+    ]),
 };
 
 /** Time in ms to throttle repositioning after scroll events. */
@@ -84,7 +84,7 @@ const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 /** Injection token to be used to override the default options for `matTooltip`. */
 const MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
-    factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
+    factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY,
 });
 /** @docs-private */
 function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
@@ -167,7 +167,9 @@ class _MatTooltipBase {
         });
     }
     /** Allows the user to define the position of the tooltip relative to the parent element */
-    get position() { return this._position; }
+    get position() {
+        return this._position;
+    }
     set position(value) {
         var _a;
         if (value !== this._position) {
@@ -180,7 +182,9 @@ class _MatTooltipBase {
         }
     }
     /** Disables the display of the tooltip. */
-    get disabled() { return this._disabled; }
+    get disabled() {
+        return this._disabled;
+    }
     set disabled(value) {
         this._disabled = coerceBooleanProperty(value);
         // If tooltip is disabled, hide immediately.
@@ -192,7 +196,9 @@ class _MatTooltipBase {
         }
     }
     /** The message to be displayed in the tooltip */
-    get message() { return this._message; }
+    get message() {
+        return this._message;
+    }
     set message(value) {
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message, 'tooltip');
         // If the message is not a string (e.g. number), convert it to a string and trim it.
@@ -217,7 +223,9 @@ class _MatTooltipBase {
         }
     }
     /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
-    get tooltipClass() { return this._tooltipClass; }
+    get tooltipClass() {
+        return this._tooltipClass;
+    }
     set tooltipClass(value) {
         this._tooltipClass = value;
         if (this._tooltipInstance) {
@@ -228,7 +236,8 @@ class _MatTooltipBase {
         // This needs to happen after view init so the initial values for all inputs have been set.
         this._viewInitialized = true;
         this._setupPointerEnterEventsIfNeeded();
-        this._focusMonitor.monitor(this._elementRef)
+        this._focusMonitor
+            .monitor(this._elementRef)
             .pipe(takeUntil(this._destroyed))
             .subscribe(origin => {
             // Note that the focus monitor runs outside the Angular zone.
@@ -263,16 +272,20 @@ class _MatTooltipBase {
     }
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
     show(delay = this.showDelay) {
-        if (this.disabled || !this.message || (this._isTooltipVisible() &&
-            !this._tooltipInstance._showTimeoutId && !this._tooltipInstance._hideTimeoutId)) {
+        if (this.disabled ||
+            !this.message ||
+            (this._isTooltipVisible() &&
+                !this._tooltipInstance._showTimeoutId &&
+                !this._tooltipInstance._hideTimeoutId)) {
             return;
         }
         const overlayRef = this._createOverlay();
         this._detach();
-        this._portal = this._portal ||
-            new ComponentPortal(this._tooltipComponent, this._viewContainerRef);
+        this._portal =
+            this._portal || new ComponentPortal(this._tooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
-        this._tooltipInstance.afterHidden()
+        this._tooltipInstance
+            .afterHidden()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => this._detach());
         this._setTooltipClass(this._tooltipClass);
@@ -300,7 +313,8 @@ class _MatTooltipBase {
         }
         const scrollableAncestors = this._scrollDispatcher.getAncestorScrollContainers(this._elementRef);
         // Create connected position strategy that listens for scroll events to reposition.
-        const strategy = this._overlay.position()
+        const strategy = this._overlay
+            .position()
             .flexibleConnectedTo(this._elementRef)
             .withTransformOriginOn(`.${this._cssClassPrefix}-tooltip`)
             .withFlexibleDimensions(false)
@@ -320,13 +334,15 @@ class _MatTooltipBase {
             direction: this._dir,
             positionStrategy: strategy,
             panelClass: `${this._cssClassPrefix}-${PANEL_CLASS}`,
-            scrollStrategy: this._scrollStrategy()
+            scrollStrategy: this._scrollStrategy(),
         });
         this._updatePosition(this._overlayRef);
-        this._overlayRef.detachments()
+        this._overlayRef
+            .detachments()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => this._detach());
-        this._overlayRef.outsidePointerEvents()
+        this._overlayRef
+            .outsidePointerEvents()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => { var _a; return (_a = this._tooltipInstance) === null || _a === void 0 ? void 0 : _a._handleBodyInteraction(); });
         return this._overlayRef;
@@ -345,7 +361,7 @@ class _MatTooltipBase {
         const overlay = this._getOverlayPosition();
         position.withPositions([
             this._addOffset(Object.assign(Object.assign({}, origin.main), overlay.main)),
-            this._addOffset(Object.assign(Object.assign({}, origin.fallback), overlay.fallback))
+            this._addOffset(Object.assign(Object.assign({}, origin.fallback), overlay.fallback)),
         ]);
     }
     /** Adds the configured offset to a position. Used as a hook for child classes. */
@@ -379,7 +395,7 @@ class _MatTooltipBase {
         const { x, y } = this._invertPosition(originPosition.originX, originPosition.originY);
         return {
             main: originPosition,
-            fallback: { originX: x, originY: y }
+            fallback: { originX: x, originY: y },
         };
     }
     /** Returns the overlay position and a fallback position based on the user's preference */
@@ -409,7 +425,7 @@ class _MatTooltipBase {
         const { x, y } = this._invertPosition(overlayPosition.overlayX, overlayPosition.overlayY);
         return {
             main: overlayPosition,
-            fallback: { overlayX: x, overlayY: y }
+            fallback: { overlayX: x, overlayY: y },
         };
     }
     /** Updates the tooltip message and repositions the overlay according to the new message length */
@@ -486,29 +502,35 @@ class _MatTooltipBase {
     /** Binds the pointer events to the tooltip trigger. */
     _setupPointerEnterEventsIfNeeded() {
         // Optimization: Defer hooking up events if there's no message or the tooltip is disabled.
-        if (this._disabled || !this.message || !this._viewInitialized ||
+        if (this._disabled ||
+            !this.message ||
+            !this._viewInitialized ||
             this._passiveListeners.length) {
             return;
         }
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (this._platformSupportsMouseEvents()) {
-            this._passiveListeners
-                .push(['mouseenter', () => {
+            this._passiveListeners.push([
+                'mouseenter',
+                () => {
                     this._setupPointerExitEventsIfNeeded();
                     this.show();
-                }]);
+                },
+            ]);
         }
         else if (this.touchGestures !== 'off') {
             this._disableNativeGesturesIfNecessary();
-            this._passiveListeners
-                .push(['touchstart', () => {
+            this._passiveListeners.push([
+                'touchstart',
+                () => {
                     // Note that it's important that we don't `preventDefault` here,
                     // because it can prevent click events from firing on the element.
                     this._setupPointerExitEventsIfNeeded();
                     clearTimeout(this._touchstartTimeout);
                     this._touchstartTimeout = setTimeout(() => this.show(), LONGPRESS_DELAY);
-                }]);
+                },
+            ]);
         }
         this._addListeners(this._passiveListeners);
     }
@@ -563,8 +585,11 @@ class _MatTooltipBase {
             // If gestures are set to `auto`, we don't disable text selection on inputs and
             // textareas, because it prevents the user from typing into them on iOS Safari.
             if (gestures === 'on' || (element.nodeName !== 'INPUT' && element.nodeName !== 'TEXTAREA')) {
-                style.userSelect = style.msUserSelect = style.webkitUserSelect =
-                    style.MozUserSelect = 'none';
+                style.userSelect =
+                    style.msUserSelect =
+                        style.webkitUserSelect =
+                            style.MozUserSelect =
+                                'none';
             }
             // If we have `auto` gestures and the element uses native HTML dragging,
             // we don't set `-webkit-user-drag` because it prevents the native behavior.
@@ -627,8 +652,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                     selector: '[matTooltip]',
                     exportAs: 'matTooltip',
                     host: {
-                        'class': 'mat-tooltip-trigger'
-                    }
+                        'class': 'mat-tooltip-trigger',
+                    },
                 }]
         }], ctorParameters: function () {
         return [{ type: i1.Overlay }, { type: i0.ElementRef }, { type: i2.ScrollDispatcher }, { type: i0.ViewContainerRef }, { type: i0.NgZone }, { type: i3.Platform }, { type: i4.AriaDescriber }, { type: i4.FocusMonitor }, { type: undefined, decorators: [{
@@ -778,29 +803,16 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatTooltipModule {
 }
 MatTooltipModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTooltipModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatTooltipModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTooltipModule, declarations: [MatTooltip, TooltipComponent], imports: [A11yModule,
-        CommonModule,
-        OverlayModule,
-        MatCommonModule], exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule] });
-MatTooltipModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [[
-            A11yModule,
-            CommonModule,
-            OverlayModule,
-            MatCommonModule,
-        ], MatCommonModule, CdkScrollableModule] });
+MatTooltipModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTooltipModule, declarations: [MatTooltip, TooltipComponent], imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule], exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule] });
+MatTooltipModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [[A11yModule, CommonModule, OverlayModule, MatCommonModule], MatCommonModule, CdkScrollableModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTooltipModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        A11yModule,
-                        CommonModule,
-                        OverlayModule,
-                        MatCommonModule,
-                    ],
+                    imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule],
                     exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule],
                     declarations: [MatTooltip, TooltipComponent],
                     entryComponents: [TooltipComponent],
-                    providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]
+                    providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 }]
         }] });
 

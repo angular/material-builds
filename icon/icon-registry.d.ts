@@ -38,7 +38,7 @@ export interface IconOptions {
  * Function that will be invoked by the icon registry when trying to resolve the
  * URL from which to fetch an icon. The returned URL will be used to make a request for the icon.
  */
-export declare type IconResolver = (name: string, namespace: string) => (SafeResourceUrl | SafeResourceUrlWithIconOptions | null);
+export declare type IconResolver = (name: string, namespace: string) => SafeResourceUrl | SafeResourceUrlWithIconOptions | null;
 /** Object that specifies a URL from which to fetch an icon and the options to use for it. */
 export interface SafeResourceUrlWithIconOptions {
     url: SafeResourceUrl;

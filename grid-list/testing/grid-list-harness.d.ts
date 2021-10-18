@@ -34,7 +34,7 @@ export declare class MatGridListHarness extends ComponentHarness {
      * @param row Zero-based row index.
      * @param column Zero-based column index.
      */
-    getTileAtPosition({ row, column }: {
+    getTileAtPosition({ row, column, }: {
         row: number;
         column: number;
     }): Promise<MatGridTileHarness>;

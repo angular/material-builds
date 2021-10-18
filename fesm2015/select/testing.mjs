@@ -98,7 +98,10 @@ class _MatSelectHarnessBase extends MatFormFieldControlHarness {
     clickOptions(filter) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.open();
-            const [isMultiple, options] = yield parallel(() => [this.isMultiple(), this.getOptions(filter)]);
+            const [isMultiple, options] = yield parallel(() => [
+                this.isMultiple(),
+                this.getOptions(filter),
+            ]);
             if (options.length === 0) {
                 throw Error('Select does not have options matching the specified filter');
             }

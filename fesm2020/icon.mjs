@@ -406,7 +406,7 @@ class MatIconRegistry {
      * from it.
      */
     _loadSvgIconFromConfig(config) {
-        return this._fetchIcon(config).pipe(tap(svgText => config.svgText = svgText), map(() => this._svgElementFromConfig(config)));
+        return this._fetchIcon(config).pipe(tap(svgText => (config.svgText = svgText)), map(() => this._svgElementFromConfig(config)));
     }
     /**
      * Loads the content of the icon set URL specified in the
@@ -416,7 +416,7 @@ class MatIconRegistry {
         if (config.svgText) {
             return of(null);
         }
-        return this._fetchIcon(config).pipe(tap(svgText => config.svgText = svgText));
+        return this._fetchIcon(config).pipe(tap(svgText => (config.svgText = svgText)));
     }
     /**
      * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
@@ -575,9 +575,9 @@ class MatIconRegistry {
         for (let i = 0; i < this._resolvers.length; i++) {
             const result = this._resolvers[i](name, namespace);
             if (result) {
-                return isSafeUrlWithOptions(result) ?
-                    new SvgIconConfig(result.url, null, result.options) :
-                    new SvgIconConfig(result, null);
+                return isSafeUrlWithOptions(result)
+                    ? new SvgIconConfig(result.url, null, result.options)
+                    : new SvgIconConfig(result, null);
             }
         }
         return undefined;
@@ -646,7 +646,7 @@ const _MatIconBase = mixinColor(class {
  */
 const MAT_ICON_LOCATION = new InjectionToken('mat-icon-location', {
     providedIn: 'root',
-    factory: MAT_ICON_LOCATION_FACTORY
+    factory: MAT_ICON_LOCATION_FACTORY,
 });
 /** @docs-private */
 function MAT_ICON_LOCATION_FACTORY() {
@@ -655,7 +655,7 @@ function MAT_ICON_LOCATION_FACTORY() {
     return {
         // Note that this needs to be a function, rather than a property, because Angular
         // will only resolve it once, but we want the current path on each call.
-        getPathname: () => _location ? (_location.pathname + _location.search) : ''
+        getPathname: () => (_location ? _location.pathname + _location.search : ''),
     };
 }
 /** SVG attributes that accept a FuncIRI (e.g. `url(<something>)`). */
@@ -671,7 +671,7 @@ const funcIriAttributes = [
     'marker-mid',
     'marker-end',
     'mask',
-    'stroke'
+    'stroke',
 ];
 /** Selector that can be used to find all elements that are using a `FuncIRI`. */
 const funcIriAttributeSelector = funcIriAttributes.map(attr => `[${attr}]`).join(', ');
@@ -730,7 +730,9 @@ class MatIcon extends _MatIconBase {
         this._inline = coerceBooleanProperty(inline);
     }
     /** Name of the icon in the SVG icon set. */
-    get svgIcon() { return this._svgIcon; }
+    get svgIcon() {
+        return this._svgIcon;
+    }
     set svgIcon(value) {
         if (value !== this._svgIcon) {
             if (value) {
@@ -743,7 +745,9 @@ class MatIcon extends _MatIconBase {
         }
     }
     /** Font set that the icon is a part of. */
-    get fontSet() { return this._fontSet; }
+    get fontSet() {
+        return this._fontSet;
+    }
     set fontSet(value) {
         const newValue = this._cleanupFontValue(value);
         if (newValue !== this._fontSet) {
@@ -752,7 +756,9 @@ class MatIcon extends _MatIconBase {
         }
     }
     /** Name of an icon within a font set. */
-    get fontIcon() { return this._fontIcon; }
+    get fontIcon() {
+        return this._fontIcon;
+    }
     set fontIcon(value) {
         const newValue = this._cleanupFontValue(value);
         if (newValue !== this._fontIcon) {
@@ -779,9 +785,12 @@ class MatIcon extends _MatIconBase {
         }
         const parts = iconName.split(':');
         switch (parts.length) {
-            case 1: return ['', parts[0]]; // Use default namespace.
-            case 2: return parts;
-            default: throw Error(`Invalid icon name: "${iconName}"`); // TODO: add an ngDevMode check
+            case 1:
+                return ['', parts[0]]; // Use default namespace.
+            case 2:
+                return parts;
+            default:
+                throw Error(`Invalid icon name: "${iconName}"`); // TODO: add an ngDevMode check
         }
     }
     ngOnInit() {
@@ -853,9 +862,9 @@ class MatIcon extends _MatIconBase {
             return;
         }
         const elem = this._elementRef.nativeElement;
-        const fontSetClass = this.fontSet ?
-            this._iconRegistry.classNameForFontAlias(this.fontSet) :
-            this._iconRegistry.getDefaultFontSetClass();
+        const fontSetClass = this.fontSet
+            ? this._iconRegistry.classNameForFontAlias(this.fontSet)
+            : this._iconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
             if (this._previousFontSetClass) {
                 elem.classList.remove(this._previousFontSetClass);
@@ -904,8 +913,8 @@ class MatIcon extends _MatIconBase {
      */
     _cacheChildrenWithExternalReferences(element) {
         const elementsWithFuncIri = element.querySelectorAll(funcIriAttributeSelector);
-        const elements = this._elementsWithExternalReferences =
-            this._elementsWithExternalReferences || new Map();
+        const elements = (this._elementsWithExternalReferences =
+            this._elementsWithExternalReferences || new Map());
         for (let i = 0; i < elementsWithFuncIri.length; i++) {
             funcIriAttributes.forEach(attr => {
                 const elementWithReference = elementsWithFuncIri[i];
@@ -935,7 +944,8 @@ class MatIcon extends _MatIconBase {
             if (iconName) {
                 this._svgName = iconName;
             }
-            this._currentIconFetch = this._iconRegistry.getNamedSvgIcon(iconName, namespace)
+            this._currentIconFetch = this._iconRegistry
+                .getNamedSvgIcon(iconName, namespace)
                 .pipe(take(1))
                 .subscribe(svg => this._setSvgElement(svg), (err) => {
                 const errorMessage = `Error retrieving icon ${namespace}:${iconName}! ${err.message}`;

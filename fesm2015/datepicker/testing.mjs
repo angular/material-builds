@@ -31,7 +31,7 @@ class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
     getValue() {
         return __awaiter(this, void 0, void 0, function* () {
             // The "value" property of the native input is always defined.
-            return (yield (yield this.host()).getProperty('value'));
+            return yield (yield this.host()).getProperty('value');
         });
     }
     /**
@@ -54,7 +54,7 @@ class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
     /** Gets the placeholder of the input. */
     getPlaceholder() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this.host()).getProperty('placeholder'));
+            return yield (yield this.host()).getProperty('placeholder');
         });
     }
     /**
@@ -545,8 +545,7 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatDateRangeInputHarness, options)
-            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
+        return new HarnessPredicate(MatDateRangeInputHarness, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
     }
     /** Gets the combined value of the start and end inputs, including the separator. */
     getValue() {
@@ -554,7 +553,7 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
             const [start, end, separator] = yield parallel(() => [
                 this.getStartInput().then(input => input.getValue()),
                 this.getEndInput().then(input => input.getValue()),
-                this.getSeparator()
+                this.getSeparator(),
             ]);
             return start + `${end ? ` ${separator} ${end}` : ''}`;
         });
@@ -585,7 +584,7 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
             // We consider the input as disabled if both of the sub-inputs are disabled.
             const [startDisabled, endDisabled] = yield parallel(() => [
                 this.getStartInput().then(input => input.isDisabled()),
-                this.getEndInput().then(input => input.isDisabled())
+                this.getEndInput().then(input => input.isDisabled()),
             ]);
             return startDisabled && endDisabled;
         });

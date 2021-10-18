@@ -183,7 +183,7 @@ class MatTreeHarness extends ComponentHarness {
         return result;
     }
     _addChildToNode(result, child) {
-        result.children ? result.children.push(child) : result.children = [child];
+        result.children ? result.children.push(child) : (result.children = [child]);
     }
 }
 /** The selector for the host element of a `MatTableHarness` instance. */

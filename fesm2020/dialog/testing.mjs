@@ -8,9 +8,9 @@ import { ContentContainerComponentHarness, TestKey, HarnessPredicate } from '@an
  * found in the LICENSE file at https://angular.io/license
  */
 /** Base class for the `MatDialogHarness` implementation. */
-class _MatDialogHarnessBase extends 
+class _MatDialogHarnessBase
 // @breaking-change 14.0.0 change generic type to MatDialogSection.
-ContentContainerComponentHarness {
+ extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
         this._title = this.locatorForOptional(".mat-dialog-title" /* TITLE */);

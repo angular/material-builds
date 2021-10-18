@@ -2,9 +2,9 @@ import { __awaiter } from 'tslib';
 import { ContentContainerComponentHarness, TestKey, HarnessPredicate } from '@angular/cdk/testing';
 
 /** Base class for the `MatDialogHarness` implementation. */
-class _MatDialogHarnessBase extends 
+class _MatDialogHarnessBase
 // @breaking-change 14.0.0 change generic type to MatDialogSection.
-ContentContainerComponentHarness {
+ extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
         this._title = this.locatorForOptional(".mat-dialog-title" /* TITLE */);

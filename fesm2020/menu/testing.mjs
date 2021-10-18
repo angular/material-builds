@@ -41,7 +41,7 @@ class _MatMenuHarnessBase extends ContentContainerComponentHarness {
     }
     /** Opens the menu. */
     async open() {
-        if (!await this.isOpen()) {
+        if (!(await this.isOpen())) {
             return (await this.host()).click();
         }
     }
@@ -61,7 +61,7 @@ class _MatMenuHarnessBase extends ContentContainerComponentHarness {
         if (panelId) {
             return this._documentRootLocator.locatorForAll(this._itemClass.with({
                 ...(filters || {}),
-                ancestor: `#${panelId}`
+                ancestor: `#${panelId}`,
             }))();
         }
         return [];
@@ -155,8 +155,7 @@ class MatMenuHarness extends _MatMenuHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatMenuHarness, options)
-            .addOption('triggerText', options.triggerText, (harness, text) => HarnessPredicate.stringMatches(harness.getTriggerText(), text));
+        return new HarnessPredicate(MatMenuHarness, options).addOption('triggerText', options.triggerText, (harness, text) => HarnessPredicate.stringMatches(harness.getTriggerText(), text));
     }
 }
 /** The selector for the host element of a `MatMenu` instance. */

@@ -56,23 +56,23 @@ class _MatSelectHarnessBase extends MatFormFieldControlHarness {
     async getOptions(filter) {
         return this._documentRootLocator.locatorForAll(this._optionClass.with({
             ...(filter || {}),
-            ancestor: await this._getPanelSelector()
+            ancestor: await this._getPanelSelector(),
         }))();
     }
     /** Gets the groups of options inside the panel. */
     async getOptionGroups(filter) {
         return this._documentRootLocator.locatorForAll(this._optionGroupClass.with({
             ...(filter || {}),
-            ancestor: await this._getPanelSelector()
+            ancestor: await this._getPanelSelector(),
         }))();
     }
     /** Gets whether the select is open. */
     async isOpen() {
-        return !!await this._documentRootLocator.locatorForOptional(await this._getPanelSelector())();
+        return !!(await this._documentRootLocator.locatorForOptional(await this._getPanelSelector())());
     }
     /** Opens the select's panel. */
     async open() {
-        if (!await this.isOpen()) {
+        if (!(await this.isOpen())) {
             const trigger = await this.locatorFor(`.${this._prefix}-select-trigger`)();
             return trigger.click();
         }
@@ -83,7 +83,10 @@ class _MatSelectHarnessBase extends MatFormFieldControlHarness {
      */
     async clickOptions(filter) {
         await this.open();
-        const [isMultiple, options] = await parallel(() => [this.isMultiple(), this.getOptions(filter)]);
+        const [isMultiple, options] = await parallel(() => [
+            this.isMultiple(),
+            this.getOptions(filter),
+        ]);
         if (options.length === 0) {
             throw Error('Select does not have options matching the specified filter');
         }

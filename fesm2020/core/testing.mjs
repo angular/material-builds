@@ -23,7 +23,7 @@ class MatOptionHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatOptionHarness, options)
             .addOption('text', options.text, async (harness, title) => HarnessPredicate.stringMatches(await harness.getText(), title))
-            .addOption('isSelected', options.isSelected, async (harness, isSelected) => await harness.isSelected() === isSelected);
+            .addOption('isSelected', options.isSelected, async (harness, isSelected) => (await harness.isSelected()) === isSelected);
     }
     /** Clicks the option. */
     async click() {
@@ -81,8 +81,7 @@ class MatOptgroupHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatOptgroupHarness, options)
-            .addOption('labelText', options.labelText, async (harness, title) => HarnessPredicate.stringMatches(await harness.getLabelText(), title));
+        return new HarnessPredicate(MatOptgroupHarness, options).addOption('labelText', options.labelText, async (harness, title) => HarnessPredicate.stringMatches(await harness.getLabelText(), title));
     }
     /** Gets the option group's label text. */
     async getLabelText() {

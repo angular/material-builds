@@ -35,8 +35,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
      */
     getAriaLive() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this._snackBarLiveRegion())
-                .getAttribute('aria-live');
+            return (yield this._snackBarLiveRegion()).getAttribute('aria-live');
         });
     }
     /**

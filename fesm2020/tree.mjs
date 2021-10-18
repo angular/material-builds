@@ -49,7 +49,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                     selector: 'mat-tree-node',
                     exportAs: 'matTreeNode',
                     inputs: ['role', 'disabled', 'tabIndex'],
-                    providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }]
+                    providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }],
                 }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i1.CdkTree }, { type: undefined, decorators: [{
                     type: Attribute,
@@ -67,10 +67,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[matTreeNodeDef]',
-                    inputs: [
-                        'when: matTreeNodeDefWhen'
-                    ],
-                    providers: [{ provide: CdkTreeNodeDef, useExisting: MatTreeNodeDef }]
+                    inputs: ['when: matTreeNodeDefWhen'],
+                    providers: [{ provide: CdkTreeNodeDef, useExisting: MatTreeNodeDef }],
                 }]
         }], propDecorators: { data: [{
                 type: Input,
@@ -91,10 +89,16 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
         elementRef.nativeElement.classList.add('mat-nested-tree-node');
     }
     /** Whether the node is disabled. */
-    get disabled() { return this._disabled; }
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    get disabled() {
+        return this._disabled;
+    }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+    }
     /** Tabindex for the node. */
-    get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
+    get tabIndex() {
+        return this.disabled ? -1 : this._tabIndex;
+    }
     set tabIndex(value) {
         // If the specified tabIndex value is null or undefined, fall back to the default value.
         this._tabIndex = value != null ? value : 0;
@@ -119,7 +123,7 @@ MatNestedTreeNode.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", versio
 MatNestedTreeNode.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatNestedTreeNode, selector: "mat-nested-tree-node", inputs: { role: "role", disabled: "disabled", tabIndex: "tabIndex", node: ["matNestedTreeNode", "node"] }, providers: [
         { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
         { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
-        { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode }
+        { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode },
     ], exportAs: ["matNestedTreeNode"], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatNestedTreeNode, decorators: [{
             type: Directive,
@@ -130,8 +134,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                     providers: [
                         { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
                         { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
-                        { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode }
-                    ]
+                        { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode },
+                    ],
                 }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i1.CdkTree }, { type: i0.IterableDiffers }, { type: undefined, decorators: [{
                     type: Attribute,
@@ -157,11 +161,19 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  */
 class MatTreeNodePadding extends CdkTreeNodePadding {
     /** The level of depth of the tree node. The padding will be `level * indent` pixels. */
-    get level() { return this._level; }
-    set level(value) { this._setLevelInput(value); }
+    get level() {
+        return this._level;
+    }
+    set level(value) {
+        this._setLevelInput(value);
+    }
     /** The indent for each level. Default number 40px from material design menu sub-menu spec. */
-    get indent() { return this._indent; }
-    set indent(indent) { this._setIndentInput(indent); }
+    get indent() {
+        return this._indent;
+    }
+    set indent(indent) {
+        this._setIndentInput(indent);
+    }
 }
 MatTreeNodePadding.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTreeNodePadding, deps: null, target: i0.ɵɵFactoryTarget.Directive });
 MatTreeNodePadding.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatTreeNodePadding, selector: "[matTreeNodePadding]", inputs: { level: ["matTreeNodePadding", "level"], indent: ["matTreeNodePaddingIndent", "indent"] }, providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }], usesInheritance: true, ngImport: i0 });
@@ -169,7 +181,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[matTreeNodePadding]',
-                    providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
+                    providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }],
                 }]
         }], propDecorators: { level: [{
                 type: Input,
@@ -197,18 +209,22 @@ class MatTreeNodeOutlet {
     }
 }
 MatTreeNodeOutlet.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTreeNodeOutlet, deps: [{ token: i0.ViewContainerRef }, { token: CDK_TREE_NODE_OUTLET_NODE, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatTreeNodeOutlet.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatTreeNodeOutlet, selector: "[matTreeNodeOutlet]", providers: [{
+MatTreeNodeOutlet.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatTreeNodeOutlet, selector: "[matTreeNodeOutlet]", providers: [
+        {
             provide: CdkTreeNodeOutlet,
-            useExisting: MatTreeNodeOutlet
-        }], ngImport: i0 });
+            useExisting: MatTreeNodeOutlet,
+        },
+    ], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTreeNodeOutlet, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matTreeNodeOutlet]',
-                    providers: [{
+                    providers: [
+                        {
                             provide: CdkTreeNodeOutlet,
-                            useExisting: MatTreeNodeOutlet
-                        }]
+                            useExisting: MatTreeNodeOutlet,
+                        },
+                    ],
                 }]
         }], ctorParameters: function () { return [{ type: i0.ViewContainerRef }, { type: undefined, decorators: [{
                     type: Inject,
@@ -261,7 +277,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  */
 // tslint:disable-next-line: coercion-types
 class MatTreeNodeToggle extends CdkTreeNodeToggle {
-    get recursive() { return this._recursive; }
+    get recursive() {
+        return this._recursive;
+    }
     set recursive(value) {
         // TODO: when we remove support for ViewEngine, change this setter to an input
         // alias in the decorator metadata.
@@ -274,7 +292,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[matTreeNodeToggle]',
-                    providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
+                    providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }],
                 }]
         }], propDecorators: { recursive: [{
                 type: Input,
@@ -295,7 +313,7 @@ const MAT_TREE_DIRECTIVES = [
     MatTreeNodeToggle,
     MatTree,
     MatTreeNode,
-    MatTreeNodeOutlet
+    MatTreeNodeOutlet,
 ];
 class MatTreeModule {
 }
@@ -449,7 +467,9 @@ class MatTreeFlatDataSource extends DataSource {
             this.data = initialData;
         }
     }
-    get data() { return this._data.value; }
+    get data() {
+        return this._data.value;
+    }
     set data(value) {
         this._data.next(value);
         this._flattenedData.next(this._treeFlattener.flattenNodes(this.data));
@@ -487,11 +507,14 @@ class MatTreeNestedDataSource extends DataSource {
     /**
      * Data for the nested tree
      */
-    get data() { return this._data.value; }
-    set data(value) { this._data.next(value); }
+    get data() {
+        return this._data.value;
+    }
+    set data(value) {
+        this._data.next(value);
+    }
     connect(collectionViewer) {
-        return merge(...[collectionViewer.viewChange, this._data])
-            .pipe(map(() => this.data));
+        return merge(...[collectionViewer.viewChange, this._data]).pipe(map(() => this.data));
     }
     disconnect() {
         // no op

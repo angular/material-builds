@@ -8,7 +8,7 @@
 export { MatTabsModule } from './tabs-module';
 export * from './tab-group';
 export { MatInkBar, _MatInkBarPositioner, _MAT_INK_BAR_POSITIONER } from './ink-bar';
-export { MatTabBody, _MatTabBodyBase, MatTabBodyOriginState, MatTabBodyPositionState, MatTabBodyPortal } from './tab-body';
+export { MatTabBody, _MatTabBodyBase, MatTabBodyOriginState, MatTabBodyPositionState, MatTabBodyPortal, } from './tab-body';
 export { MatTabHeader, _MatTabHeaderBase } from './tab-header';
 export { MatTabLabelWrapper } from './tab-label-wrapper';
 export { MatTab, MAT_TAB_GROUP } from './tab';

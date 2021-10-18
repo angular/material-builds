@@ -16,8 +16,7 @@ class MatTabHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabHarness, options)
-            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
+        return new HarnessPredicate(MatTabHarness, options).addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
     }
     /** Gets the label of the tab. */
     async getLabel() {
@@ -81,8 +80,7 @@ class MatTabGroupHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabGroupHarness, options)
-            .addOption('selectedTabLabel', options.selectedTabLabel, async (harness, label) => {
+        return new HarnessPredicate(MatTabGroupHarness, options).addOption('selectedTabLabel', options.selectedTabLabel, async (harness, label) => {
             const selectedTab = await harness.getSelectedTab();
             return HarnessPredicate.stringMatches(await selectedTab.getLabel(), label);
         });
@@ -137,8 +135,7 @@ class MatTabLinkHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabLinkHarness, options)
-            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
+        return new HarnessPredicate(MatTabLinkHarness, options).addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
     }
     /** Gets the label of the link. */
     async getLabel() {

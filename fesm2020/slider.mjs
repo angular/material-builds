@@ -39,7 +39,7 @@ const MIN_VALUE_ACTIVE_THUMB_GAP = 10;
 const MAT_SLIDER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSlider),
-    multi: true
+    multi: true,
 };
 /** A simple change event emitted by the MatSlider component. */
 class MatSliderChange {
@@ -109,8 +109,9 @@ class MatSlider extends _MatSliderBase {
                 return;
             }
             this._ngZone.run(() => {
-                this._touchId = isTouchEvent(event) ?
-                    getTouchIdForSlider(event, this._elementRef.nativeElement) : undefined;
+                this._touchId = isTouchEvent(event)
+                    ? getTouchIdForSlider(event, this._elementRef.nativeElement)
+                    : undefined;
                 const pointerPosition = getPointerPositionOnPage(event, this._touchId);
                 if (pointerPosition) {
                     const oldValue = this.value;
@@ -153,7 +154,8 @@ class MatSlider extends _MatSliderBase {
         /** Called when the user has lifted their pointer. Bound on the document level. */
         this._pointerUp = (event) => {
             if (this._isSliding === 'pointer') {
-                if (!isTouchEvent(event) || typeof this._touchId !== 'number' ||
+                if (!isTouchEvent(event) ||
+                    typeof this._touchId !== 'number' ||
                     // Note that we use `changedTouches`, rather than `touches` because it
                     // seems like in most cases `touches` is empty for `touchend` events.
                     findMatchingTouch(event.changedTouches, this._touchId)) {
@@ -185,12 +187,16 @@ class MatSlider extends _MatSliderBase {
         });
     }
     /** Whether the slider is inverted. */
-    get invert() { return this._invert; }
+    get invert() {
+        return this._invert;
+    }
     set invert(value) {
         this._invert = coerceBooleanProperty(value);
     }
     /** The maximum value that the slider can have. */
-    get max() { return this._max; }
+    get max() {
+        return this._max;
+    }
     set max(v) {
         this._max = coerceNumberProperty(v, this._max);
         this._percent = this._calculatePercentage(this._value);
@@ -198,7 +204,9 @@ class MatSlider extends _MatSliderBase {
         this._changeDetectorRef.markForCheck();
     }
     /** The minimum value that the slider can have. */
-    get min() { return this._min; }
+    get min() {
+        return this._min;
+    }
     set min(v) {
         this._min = coerceNumberProperty(v, this._min);
         this._percent = this._calculatePercentage(this._value);
@@ -206,7 +214,9 @@ class MatSlider extends _MatSliderBase {
         this._changeDetectorRef.markForCheck();
     }
     /** The values at which the thumb will snap. */
-    get step() { return this._step; }
+    get step() {
+        return this._step;
+    }
     set step(v) {
         this._step = coerceNumberProperty(v, this._step);
         if (this._step % 1 !== 0) {
@@ -216,13 +226,19 @@ class MatSlider extends _MatSliderBase {
         this._changeDetectorRef.markForCheck();
     }
     /** Whether or not to show the thumb label. */
-    get thumbLabel() { return this._thumbLabel; }
-    set thumbLabel(value) { this._thumbLabel = coerceBooleanProperty(value); }
+    get thumbLabel() {
+        return this._thumbLabel;
+    }
+    set thumbLabel(value) {
+        this._thumbLabel = coerceBooleanProperty(value);
+    }
     /**
      * How often to show ticks. Relative to the step so that a tick always appears on a step.
      * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
      */
-    get tickInterval() { return this._tickInterval; }
+    get tickInterval() {
+        return this._tickInterval;
+    }
     set tickInterval(value) {
         if (value === 'auto') {
             this._tickInterval = 'auto';
@@ -257,7 +273,9 @@ class MatSlider extends _MatSliderBase {
         }
     }
     /** Whether the slider is vertical. */
-    get vertical() { return this._vertical; }
+    get vertical() {
+        return this._vertical;
+    }
     set vertical(value) {
         this._vertical = coerceBooleanProperty(value);
     }
@@ -285,7 +303,9 @@ class MatSlider extends _MatSliderBase {
         this._blurHostElement();
     }
     /** The percentage of the slider that coincides with the value. */
-    get percent() { return this._clamp(this._percent); }
+    get percent() {
+        return this._clamp(this._percent);
+    }
     /**
      * Whether the axis of the slider is inverted.
      * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
@@ -319,7 +339,7 @@ class MatSlider extends _MatSliderBase {
         const sign = this._shouldInvertMouseCoords() ? '-' : '';
         return {
             // scale3d avoids some rendering issues in Chrome. See #12071.
-            transform: `translate${axis}(${sign}${this._getThumbGap()}px) scale3d(${scale})`
+            transform: `translate${axis}(${sign}${this._getThumbGap()}px) scale3d(${scale})`,
         };
     }
     /** CSS styles for the track fill element. */
@@ -335,7 +355,7 @@ class MatSlider extends _MatSliderBase {
             // something forces a style recalculation on it. Since we'll end up with `scale(0)` when
             // the value of the slider is 0, we can easily get into this situation. We force a
             // recalculation by changing the element's `display` when it goes from 0 to any other value.
-            display: percent === 0 ? 'none' : ''
+            display: percent === 0 ? 'none' : '',
         };
     }
     /** CSS styles for the ticks container element. */
@@ -344,9 +364,9 @@ class MatSlider extends _MatSliderBase {
         // For a horizontal slider in RTL languages we push the ticks container off the left edge
         // instead of the right edge to avoid causing a horizontal scrollbar to appear.
         let sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
-        let offset = this._tickIntervalPercent / 2 * 100;
+        let offset = (this._tickIntervalPercent / 2) * 100;
         return {
-            'transform': `translate${axis}(${sign}${offset}%)`
+            'transform': `translate${axis}(${sign}${offset}%)`,
         };
     }
     /** CSS styles for the ticks element. */
@@ -362,7 +382,7 @@ class MatSlider extends _MatSliderBase {
         let styles = {
             'backgroundSize': backgroundSize,
             // Without translateZ ticks sometimes jitter as the slider moves on Chrome & Firefox.
-            'transform': `translateZ(0) translate${axis}(${sign}${tickSize / 2}%)${rotate}`
+            'transform': `translateZ(0) translate${axis}(${sign}${tickSize / 2}%)${rotate}`,
         };
         if (this._isMinValue() && this._getThumbGap()) {
             const shouldInvertAxis = this._shouldInvertAxis();
@@ -382,10 +402,10 @@ class MatSlider extends _MatSliderBase {
         let axis = this.vertical ? 'Y' : 'X';
         // For a horizontal slider in RTL languages we push the thumb container off the left edge
         // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-        let invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !shouldInvertAxis : shouldInvertAxis;
+        let invertOffset = this._getDirection() == 'rtl' && !this.vertical ? !shouldInvertAxis : shouldInvertAxis;
         let offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
         return {
-            'transform': `translate${axis}(-${offset}%)`
+            'transform': `translate${axis}(-${offset}%)`,
         };
     }
     /**
@@ -394,16 +414,14 @@ class MatSlider extends _MatSliderBase {
      */
     _shouldInvertMouseCoords() {
         const shouldInvertAxis = this._shouldInvertAxis();
-        return (this._getDirection() == 'rtl' && !this.vertical) ? !shouldInvertAxis : shouldInvertAxis;
+        return this._getDirection() == 'rtl' && !this.vertical ? !shouldInvertAxis : shouldInvertAxis;
     }
     /** The language direction for this slider element. */
     _getDirection() {
-        return (this._dir && this._dir.value == 'rtl') ? 'rtl' : 'ltr';
+        return this._dir && this._dir.value == 'rtl' ? 'rtl' : 'ltr';
     }
     ngAfterViewInit() {
-        this._focusMonitor
-            .monitor(this._elementRef, true)
-            .subscribe((origin) => {
+        this._focusMonitor.monitor(this._elementRef, true).subscribe((origin) => {
             this._isActive = !!origin && origin !== 'keyboard';
             this._changeDetectorRef.detectChanges();
         });
@@ -441,7 +459,8 @@ class MatSlider extends _MatSliderBase {
         this.onTouched();
     }
     _onKeydown(event) {
-        if (this.disabled || hasModifierKey(event) ||
+        if (this.disabled ||
+            hasModifierKey(event) ||
             (this._isSliding && this._isSliding !== 'keyboard')) {
             return;
         }
@@ -588,13 +607,13 @@ class MatSlider extends _MatSliderBase {
         }
         if (this.tickInterval == 'auto') {
             let trackSize = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-            let pixelsPerStep = trackSize * this.step / (this.max - this.min);
+            let pixelsPerStep = (trackSize * this.step) / (this.max - this.min);
             let stepsPerTick = Math.ceil(MIN_AUTO_TICK_SEPARATION / pixelsPerStep);
             let pixelsPerTick = stepsPerTick * this.step;
             this._tickIntervalPercent = pixelsPerTick / trackSize;
         }
         else {
-            this._tickIntervalPercent = this.tickInterval * this.step / (this.max - this.min);
+            this._tickIntervalPercent = (this.tickInterval * this.step) / (this.max - this.min);
         }
     }
     /** Creates a slider change object from the specified value. */

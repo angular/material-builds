@@ -112,8 +112,7 @@ class MatStepperHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatStepperHarness, options)
-            .addOption('orientation', options.orientation, (harness, orientation) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getOrientation()) === orientation; }));
+        return new HarnessPredicate(MatStepperHarness, options).addOption('orientation', options.orientation, (harness, orientation) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getOrientation()) === orientation; }));
     }
     /**
      * Gets the list of steps in the stepper.
@@ -128,8 +127,9 @@ class MatStepperHarness extends ComponentHarness {
     getOrientation() {
         return __awaiter(this, void 0, void 0, function* () {
             const host = yield this.host();
-            return (yield host.hasClass('mat-stepper-horizontal')) ?
-                0 /* HORIZONTAL */ : 1 /* VERTICAL */;
+            return (yield host.hasClass('mat-stepper-horizontal'))
+                ? 0 /* HORIZONTAL */
+                : 1 /* VERTICAL */;
         });
     }
     /**
@@ -174,8 +174,7 @@ class MatStepperNextHarness extends StepperButtonHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatStepperNextHarness, options)
-            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+        return new HarnessPredicate(MatStepperNextHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
     }
 }
 /** The selector for the host element of a `MatStep` instance. */
@@ -189,8 +188,7 @@ class MatStepperPreviousHarness extends StepperButtonHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatStepperPreviousHarness, options)
-            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+        return new HarnessPredicate(MatStepperPreviousHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
     }
 }
 /** The selector for the host element of a `MatStep` instance. */

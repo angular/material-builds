@@ -110,12 +110,14 @@ class MatGridListHarness extends ComponentHarness {
      * @param row Zero-based row index.
      * @param column Zero-based column index.
      */
-    getTileAtPosition({ row, column }) {
+    getTileAtPosition({ row, column, }) {
         return __awaiter(this, void 0, void 0, function* () {
             const [tileHarnesses, columns] = yield parallel(() => [this.getTiles(), this.getColumns()]);
             const tileSpans = tileHarnesses.map(t => parallel(() => [t.getColspan(), t.getRowspan()]));
-            const tiles = (yield parallel(() => tileSpans))
-                .map(([colspan, rowspan]) => ({ colspan, rowspan }));
+            const tiles = (yield parallel(() => tileSpans)).map(([colspan, rowspan]) => ({
+                colspan,
+                rowspan,
+            }));
             // Update the tile coordinator to reflect the current column amount and
             // rendered tiles. We update upon every call of this method since we do not
             // know if tiles have been added, removed or updated (in terms of rowspan/colspan).
@@ -129,7 +131,9 @@ class MatGridListHarness extends ComponentHarness {
                 const position = this._tileCoordinator.positions[i];
                 const { rowspan, colspan } = tiles[i];
                 // Return the tile harness if the given position visually resolves to the tile.
-                if (column >= position.col && column <= position.col + colspan - 1 && row >= position.row &&
+                if (column >= position.col &&
+                    column <= position.col + colspan - 1 &&
+                    row >= position.row &&
                     row <= position.row + rowspan - 1) {
                     return tileHarnesses[i];
                 }

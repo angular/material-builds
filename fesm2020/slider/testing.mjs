@@ -77,7 +77,11 @@ class MatSliderHarness extends ComponentHarness {
      * select the given value or expand the slider's size for a better user experience.
      */
     async setValue(value) {
-        const [sliderEl, wrapperEl, orientation] = await parallel(() => [this.host(), this._wrapper(), this.getOrientation()]);
+        const [sliderEl, wrapperEl, orientation] = await parallel(() => [
+            this.host(),
+            this._wrapper(),
+            this.getOrientation(),
+        ]);
         let percentage = await this._calculatePercentage(value);
         const { height, width } = await wrapperEl.getDimensions();
         const isVertical = orientation === 'vertical';

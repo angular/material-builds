@@ -57,7 +57,7 @@ class MatExpansionPanelHarness extends ContentContainerComponentHarness {
     }
     /** Whether the panel is disabled. */
     async isDisabled() {
-        return await (await this._header()).getAttribute('aria-disabled') === 'true';
+        return (await (await this._header()).getAttribute('aria-disabled')) === 'true';
     }
     /**
      * Toggles the expanded state of the panel by clicking on the panel
@@ -68,7 +68,7 @@ class MatExpansionPanelHarness extends ContentContainerComponentHarness {
     }
     /** Expands the expansion panel if collapsed. */
     async expand() {
-        if (!await this.isExpanded()) {
+        if (!(await this.isExpanded())) {
             await this.toggle();
         }
     }

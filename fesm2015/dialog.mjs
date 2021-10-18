@@ -94,7 +94,7 @@ const matDialogAnimations = {
         state('enter', style({ transform: 'none' })),
         transition('* => enter', animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 }))),
         transition('* => void, * => exit', animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 }))),
-    ])
+    ]),
 };
 
 /**
@@ -250,7 +250,8 @@ class _MatDialogContainerBase extends BasePortalOutlet {
     _restoreFocus() {
         const previousElement = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
-        if (this._config.restoreFocus && previousElement &&
+        if (this._config.restoreFocus &&
+            previousElement &&
             typeof previousElement.focus === 'function') {
             const activeElement = _getFocusedElementPierceShadowDom();
             const element = this._elementRef.nativeElement;
@@ -258,7 +259,9 @@ class _MatDialogContainerBase extends BasePortalOutlet {
             // non-focusable element like the backdrop was clicked) before moving it. It's possible that
             // the consumer moved it themselves before the animation was done, in which case we shouldn't
             // do anything.
-            if (!activeElement || activeElement === this._document.body || activeElement === element ||
+            if (!activeElement ||
+                activeElement === this._document.body ||
+                activeElement === element ||
                 element.contains(activeElement)) {
                 if (this._focusMonitor) {
                     this._focusMonitor.focusVia(previousElement, this._closeInteractionType);
@@ -403,13 +406,16 @@ class MatDialogRef {
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(filter(event => event.state === 'opened'), take(1))
+        _containerInstance._animationStateChanged
+            .pipe(filter(event => event.state === 'opened'), take(1))
             .subscribe(() => {
             this._afterOpened.next();
             this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter(event => event.state === 'closed'), take(1)).subscribe(() => {
+        _containerInstance._animationStateChanged
+            .pipe(filter(event => event.state === 'closed'), take(1))
+            .subscribe(() => {
             clearTimeout(this._closeFallbackTimeout);
             this._finishDialogClose();
         });
@@ -421,7 +427,8 @@ class MatDialogRef {
             this.componentInstance = null;
             this._overlayRef.dispose();
         });
-        _overlayRef.keydownEvents()
+        _overlayRef
+            .keydownEvents()
             .pipe(filter(event => {
             return event.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event);
         }))
@@ -445,7 +452,8 @@ class MatDialogRef {
     close(dialogResult) {
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(filter(event => event.state === 'closing'), take(1))
+        this._containerInstance._animationStateChanged
+            .pipe(filter(event => event.state === 'closing'), take(1))
             .subscribe(event => {
             this._beforeClosed.next(dialogResult);
             this._beforeClosed.complete();
@@ -615,9 +623,9 @@ class _MatDialogBase {
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = defer(() => this.openDialogs.length ?
-            this._getAfterAllClosed() :
-            this._getAfterAllClosed().pipe(startWith(undefined)));
+        this.afterAllClosed = defer(() => this.openDialogs.length
+            ? this._getAfterAllClosed()
+            : this._getAfterAllClosed().pipe(startWith(undefined)));
         this._scrollStrategy = scrollStrategy;
     }
     /** Keeps track of the currently-open dialogs. */
@@ -634,7 +642,8 @@ class _MatDialogBase {
     }
     open(componentOrTemplateRef, config) {
         config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
-        if (config.id && this.getDialogById(config.id) &&
+        if (config.id &&
+            this.getDialogById(config.id) &&
             (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
         }
@@ -645,7 +654,7 @@ class _MatDialogBase {
         const overlayRef = this._createOverlay(config);
         const dialogContainer = this._attachDialogContainer(overlayRef, config);
         if (this._animationMode !== 'NoopAnimations') {
-            const animationStateSubscription = dialogContainer._animationStateChanged.subscribe((dialogAnimationEvent) => {
+            const animationStateSubscription = dialogContainer._animationStateChanged.subscribe(dialogAnimationEvent => {
                 if (dialogAnimationEvent.state === 'opening') {
                     this._dialogAnimatingOpen = true;
                 }
@@ -721,7 +730,7 @@ class _MatDialogBase {
             minHeight: dialogConfig.minHeight,
             maxWidth: dialogConfig.maxWidth,
             maxHeight: dialogConfig.maxHeight,
-            disposeOnNavigation: dialogConfig.closeOnNavigation
+            disposeOnNavigation: dialogConfig.closeOnNavigation,
         });
         if (dialogConfig.backdropClass) {
             state.backdropClass = dialogConfig.backdropClass;
@@ -738,7 +747,7 @@ class _MatDialogBase {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this._injector,
-            providers: [{ provide: MatDialogConfig, useValue: config }]
+            providers: [{ provide: MatDialogConfig, useValue: config }],
         });
         const containerPortal = new ComponentPortal(this._dialogContainerType, config.viewContainerRef, injector, config.componentFactoryResolver);
         const containerRef = overlay.attach(containerPortal);
@@ -758,16 +767,17 @@ class _MatDialogBase {
         // to modify and close it.
         const dialogRef = new this._dialogRefConstructor(overlayRef, dialogContainer, config.id);
         if (componentOrTemplateRef instanceof TemplateRef) {
-            dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null, { $implicit: config.data, dialogRef }));
+            dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null, {
+                $implicit: config.data,
+                dialogRef,
+            }));
         }
         else {
             const injector = this._createInjector(config, dialogRef, dialogContainer);
             const contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector));
             dialogRef.componentInstance = contentRef.instance;
         }
-        dialogRef
-            .updateSize(config.width, config.height)
-            .updatePosition(config.position);
+        dialogRef.updateSize(config.width, config.height).updatePosition(config.position);
         return dialogRef;
     }
     /**
@@ -787,13 +797,14 @@ class _MatDialogBase {
         const providers = [
             { provide: this._dialogContainerType, useValue: dialogContainer },
             { provide: this._dialogDataToken, useValue: config.data },
-            { provide: this._dialogRefConstructor, useValue: dialogRef }
+            { provide: this._dialogRefConstructor, useValue: dialogRef },
         ];
-        if (config.direction && (!userInjector ||
-            !userInjector.get(Directionality, null, InjectFlags.Optional))) {
+        if (config.direction &&
+            (!userInjector ||
+                !userInjector.get(Directionality, null, InjectFlags.Optional))) {
             providers.push({
                 provide: Directionality,
-                useValue: { value: config.direction, change: of() }
+                useValue: { value: config.direction, change: of() },
             });
         }
         return Injector.create({ parent: userInjector || this._injector, providers });
@@ -971,7 +982,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         '(click)': '_onButtonClick($event)',
                         '[attr.aria-label]': 'ariaLabel || null',
                         '[attr.type]': 'type',
-                    }
+                    },
                 }]
         }], ctorParameters: function () {
         return [{ type: MatDialogRef, decorators: [{
@@ -1047,7 +1058,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: `[mat-dialog-content], mat-dialog-content, [matDialogContent]`,
-                    host: { 'class': 'mat-dialog-content' }
+                    host: { 'class': 'mat-dialog-content' },
                 }]
         }] });
 /**
@@ -1062,7 +1073,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: `[mat-dialog-actions], mat-dialog-actions, [matDialogActions]`,
-                    host: { 'class': 'mat-dialog-actions' }
+                    host: { 'class': 'mat-dialog-actions' },
                 }]
         }] });
 /**
@@ -1092,30 +1103,17 @@ MatDialogModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version
         MatDialogClose,
         MatDialogTitle,
         MatDialogActions,
-        MatDialogContent], imports: [OverlayModule,
-        PortalModule,
-        MatCommonModule], exports: [MatDialogContainer,
+        MatDialogContent], imports: [OverlayModule, PortalModule, MatCommonModule], exports: [MatDialogContainer,
         MatDialogClose,
         MatDialogTitle,
         MatDialogContent,
         MatDialogActions,
         MatCommonModule] });
-MatDialogModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatDialogModule, providers: [
-        MatDialog,
-        MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
-    ], imports: [[
-            OverlayModule,
-            PortalModule,
-            MatCommonModule,
-        ], MatCommonModule] });
+MatDialogModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatDialogModule, providers: [MatDialog, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER], imports: [[OverlayModule, PortalModule, MatCommonModule], MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatDialogModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        OverlayModule,
-                        PortalModule,
-                        MatCommonModule,
-                    ],
+                    imports: [OverlayModule, PortalModule, MatCommonModule],
                     exports: [
                         MatDialogContainer,
                         MatDialogClose,
@@ -1131,10 +1129,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         MatDialogActions,
                         MatDialogContent,
                     ],
-                    providers: [
-                        MatDialog,
-                        MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
-                    ],
+                    providers: [MatDialog, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER],
                     entryComponents: [MatDialogContainer],
                 }]
         }] });

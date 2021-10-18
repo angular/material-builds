@@ -151,8 +151,7 @@ class MatRadioGroupHarness extends _MatRadioGroupHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatRadioGroupHarness, options)
-            .addOption('name', options.name, this._checkRadioGroupName);
+        return new HarnessPredicate(MatRadioGroupHarness, options).addOption('name', options.name, this._checkRadioGroupName);
     }
 }
 /** The selector for the host element of a `MatRadioGroup` instance. */

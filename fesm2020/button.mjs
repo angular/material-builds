@@ -161,31 +161,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatButtonModule {
 }
 MatButtonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatButtonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatButtonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatButtonModule, declarations: [MatButton,
-        MatAnchor], imports: [MatRippleModule,
-        MatCommonModule], exports: [MatButton,
-        MatAnchor,
-        MatCommonModule] });
-MatButtonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatButtonModule, imports: [[
-            MatRippleModule,
-            MatCommonModule,
-        ], MatCommonModule] });
+MatButtonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatButtonModule, declarations: [MatButton, MatAnchor], imports: [MatRippleModule, MatCommonModule], exports: [MatButton, MatAnchor, MatCommonModule] });
+MatButtonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatButtonModule, imports: [[MatRippleModule, MatCommonModule], MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatButtonModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        MatRippleModule,
-                        MatCommonModule,
-                    ],
-                    exports: [
-                        MatButton,
-                        MatAnchor,
-                        MatCommonModule,
-                    ],
-                    declarations: [
-                        MatButton,
-                        MatAnchor,
-                    ],
+                    imports: [MatRippleModule, MatCommonModule],
+                    exports: [MatButton, MatAnchor, MatCommonModule],
+                    declarations: [MatButton, MatAnchor],
                 }]
         }] });
 

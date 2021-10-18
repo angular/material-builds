@@ -28,7 +28,7 @@ class MatProgressSpinnerHarness extends ComponentHarness {
     /** Gets the progress spinner's mode. */
     async getMode() {
         const modeAttr = (await this.host()).getAttribute('mode');
-        return await modeAttr;
+        return (await modeAttr);
     }
 }
 /** The selector for the host element of a `MatProgressSpinner` instance. */

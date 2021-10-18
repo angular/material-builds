@@ -32,7 +32,7 @@ const matBottomSheetAnimations = {
         state('visible', style({ transform: 'translateY(0%)' })),
         transition('visible => void, visible => hidden', animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.ACCELERATION_CURVE}`)),
         transition('void => visible', animate(`${AnimationDurations.EXITING} ${AnimationCurves.DECELERATION_CURVE}`)),
-    ])
+    ]),
 };
 
 /**
@@ -254,7 +254,9 @@ class MatBottomSheetContainer extends BasePortalOutlet {
             // non-focusable element like the backdrop was clicked) before moving it. It's possible that
             // the consumer moved it themselves before the animation was done, in which case we shouldn't
             // do anything.
-            if (!activeElement || activeElement === this._document.body || activeElement === element ||
+            if (!activeElement ||
+                activeElement === this._document.body ||
+                activeElement === element ||
                 element.contains(activeElement)) {
                 toFocus.focus();
             }
@@ -284,7 +286,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
                         '[@state]': '_animationState',
                         '(@state.start)': '_onAnimationStart($event)',
-                        '(@state.done)': '_onAnimationDone($event)'
+                        '(@state.done)': '_onAnimationDone($event)',
                     }, template: "<ng-template cdkPortalOutlet></ng-template>\r\n", styles: [".mat-bottom-sheet-container{padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto}.cdk-high-contrast-active .mat-bottom-sheet-container{outline:1px solid}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:4px;border-top-right-radius:4px}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}\n"] }]
         }], ctorParameters: function () {
         return [{ type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: i1.FocusTrapFactory }, { type: i1.InteractivityChecker }, { type: i0.NgZone }, { type: i2.BreakpointObserver }, { type: undefined, decorators: [{
@@ -308,22 +310,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatBottomSheetModule {
 }
 MatBottomSheetModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBottomSheetModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatBottomSheetModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBottomSheetModule, declarations: [MatBottomSheetContainer], imports: [OverlayModule,
-        MatCommonModule,
-        PortalModule], exports: [MatBottomSheetContainer, MatCommonModule] });
-MatBottomSheetModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBottomSheetModule, imports: [[
-            OverlayModule,
-            MatCommonModule,
-            PortalModule,
-        ], MatCommonModule] });
+MatBottomSheetModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBottomSheetModule, declarations: [MatBottomSheetContainer], imports: [OverlayModule, MatCommonModule, PortalModule], exports: [MatBottomSheetContainer, MatCommonModule] });
+MatBottomSheetModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBottomSheetModule, imports: [[OverlayModule, MatCommonModule, PortalModule], MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBottomSheetModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        OverlayModule,
-                        MatCommonModule,
-                        PortalModule,
-                    ],
+                    imports: [OverlayModule, MatCommonModule, PortalModule],
                     exports: [MatBottomSheetContainer, MatCommonModule],
                     declarations: [MatBottomSheetContainer],
                     entryComponents: [MatBottomSheetContainer],
@@ -350,7 +342,8 @@ class MatBottomSheetRef {
         this.containerInstance = containerInstance;
         this.disableClose = containerInstance.bottomSheetConfig.disableClose;
         // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'visible'), take(1))
+        containerInstance._animationStateChanged
+            .pipe(filter(event => event.phaseName === 'done' && event.toState === 'visible'), take(1))
             .subscribe(() => {
             this._afterOpened.next();
             this._afterOpened.complete();
@@ -362,7 +355,10 @@ class MatBottomSheetRef {
             clearTimeout(this._closeFallbackTimeout);
             _overlayRef.dispose();
         });
-        _overlayRef.detachments().pipe(take(1)).subscribe(() => {
+        _overlayRef
+            .detachments()
+            .pipe(take(1))
+            .subscribe(() => {
             this._afterDismissed.next(this._result);
             this._afterDismissed.complete();
         });
@@ -381,7 +377,9 @@ class MatBottomSheetRef {
     dismiss(result) {
         if (!this._afterDismissed.closed) {
             // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), take(1)).subscribe(event => {
+            this.containerInstance._animationStateChanged
+                .pipe(filter(event => event.phaseName === 'start'), take(1))
+                .subscribe(event => {
                 // The logic that disposes of the overlay depends on the exit animation completing, however
                 // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
                 // timeout which will clean everything up if the animation hasn't fired within the specified
@@ -459,7 +457,7 @@ class MatBottomSheet {
         if (componentOrTemplateRef instanceof TemplateRef) {
             container.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null, {
                 $implicit: _config.data,
-                bottomSheetRef: ref
+                bottomSheetRef: ref,
             }));
         }
         else {
@@ -508,7 +506,7 @@ class MatBottomSheet {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this._injector,
-            providers: [{ provide: MatBottomSheetConfig, useValue: config }]
+            providers: [{ provide: MatBottomSheetConfig, useValue: config }],
         });
         const containerPortal = new ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
         const containerRef = overlayRef.attach(containerPortal);
@@ -525,7 +523,7 @@ class MatBottomSheet {
             disposeOnNavigation: config.closeOnNavigation,
             maxWidth: '100%',
             scrollStrategy: config.scrollStrategy || this._overlay.scrollStrategies.block(),
-            positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0')
+            positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0'),
         });
         if (config.backdropClass) {
             overlayConfig.backdropClass = config.backdropClass;
@@ -541,13 +539,14 @@ class MatBottomSheet {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const providers = [
             { provide: MatBottomSheetRef, useValue: bottomSheetRef },
-            { provide: MAT_BOTTOM_SHEET_DATA, useValue: config.data }
+            { provide: MAT_BOTTOM_SHEET_DATA, useValue: config.data },
         ];
-        if (config.direction && (!userInjector ||
-            !userInjector.get(Directionality, null, InjectFlags.Optional))) {
+        if (config.direction &&
+            (!userInjector ||
+                !userInjector.get(Directionality, null, InjectFlags.Optional))) {
             providers.push({
                 provide: Directionality,
-                useValue: { value: config.direction, change: of() }
+                useValue: { value: config.direction, change: of() },
             });
         }
         return Injector.create({ parent: userInjector || this._injector, providers });

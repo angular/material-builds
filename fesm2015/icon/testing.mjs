@@ -143,7 +143,7 @@ MatIconTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", ve
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatIconTestingModule, decorators: [{
             type: NgModule,
             args: [{
-                    providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }]
+                    providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }],
                 }]
         }] });
 

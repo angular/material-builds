@@ -31,7 +31,7 @@ import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 /** Injection token for the MatInkBar's Positioner. */
 const _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
-    factory: _MAT_INK_BAR_POSITIONER_FACTORY
+    factory: _MAT_INK_BAR_POSITIONER_FACTORY,
 });
 /**
  * The default positioner function for the MatInkBar.
@@ -126,8 +126,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 const MAT_TAB_CONTENT = new InjectionToken('MatTabContent');
 /** Decorates the `ng-template` tags and reads out the template from it. */
 class MatTabContent {
-    constructor(
-    /** Content for the tab. */ template) {
+    constructor(/** Content for the tab. */ template) {
         this.template = template;
     }
 }
@@ -217,8 +216,12 @@ class MatTab extends _MatTabBase {
         this.isActive = false;
     }
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
-    get templateLabel() { return this._templateLabel; }
-    set templateLabel(value) { this._setTemplateLabelInput(value); }
+    get templateLabel() {
+        return this._templateLabel;
+    }
+    set templateLabel(value) {
+        this._setTemplateLabelInput(value);
+    }
     /** @docs-private */
     get content() {
         return this._contentPortal;
@@ -305,13 +308,13 @@ const matTabsAnimations = {
         transition('* => left, * => right, left => center, right => center', animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)')),
         transition('void => left-origin-center', [
             style({ transform: 'translate3d(-100%, 0, 0)' }),
-            animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)')
+            animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)'),
         ]),
         transition('void => right-origin-center', [
             style({ transform: 'translate3d(100%, 0, 0)' }),
-            animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)')
-        ])
-    ])
+            animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)'),
+        ]),
+    ]),
 };
 
 /**
@@ -360,7 +363,7 @@ MatTabBodyPortal.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", versi
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTabBodyPortal, decorators: [{
             type: Directive,
             args: [{
-                    selector: '[matTabBodyHost]'
+                    selector: '[matTabBodyHost]',
                 }]
         }], ctorParameters: function () { return [{ type: i0.ComponentFactoryResolver }, { type: i0.ViewContainerRef }, { type: MatTabBody, decorators: [{
                     type: Inject,
@@ -401,9 +404,11 @@ class _MatTabBodyBase {
         }
         // Ensure that we get unique animation events, because the `.done` callback can get
         // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
-        this._translateTabComplete.pipe(distinctUntilChanged((x, y) => {
+        this._translateTabComplete
+            .pipe(distinctUntilChanged((x, y) => {
             return x.fromState === y.fromState && x.toState === y.toState;
-        })).subscribe(event => {
+        }))
+            .subscribe(event => {
             // If the transition to the center is complete, emit an event.
             if (this._isCenterPosition(event.toState) && this._isCenterPosition(this._position)) {
                 this._onCentered.emit();
@@ -444,9 +449,7 @@ class _MatTabBodyBase {
     }
     /** Whether the provided position state is considered center, regardless of origin. */
     _isCenterPosition(position) {
-        return position == 'center' ||
-            position == 'left-origin-center' ||
-            position == 'right-origin-center';
+        return (position == 'center' || position == 'left-origin-center' || position == 'right-origin-center');
     }
     /** Computes the position state that will be used for the tab-body animation trigger. */
     _computePositionAnimationState(dir = this._getLayoutDirection()) {
@@ -563,7 +566,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                     host: {
                         '[class.mat-tab-disabled]': 'disabled',
                         '[attr.aria-disabled]': '!!disabled',
-                    }
+                    },
                 }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }]; } });
 
@@ -575,7 +578,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  * found in the LICENSE file at https://angular.io/license
  */
 /** Config used to bind passive event listeners */
-const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
+const passiveEventListenerOptions = normalizePassiveListenerOptions({
+    passive: true,
+});
 /**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
@@ -638,7 +643,9 @@ class MatPaginatedTabHeader {
         });
     }
     /** The index of the active tab. */
-    get selectedIndex() { return this._selectedIndex; }
+    get selectedIndex() {
+        return this._selectedIndex;
+    }
     set selectedIndex(value) {
         value = coerceNumberProperty(value);
         if (this._selectedIndex != value) {
@@ -679,7 +686,9 @@ class MatPaginatedTabHeader {
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
         // On dir change or window resize, realign the ink bar and update the orientation of
         // the key manager if the direction has changed.
-        merge(dirChange, resize, this._items.changes).pipe(takeUntil(this._destroyed)).subscribe(() => {
+        merge(dirChange, resize, this._items.changes)
+            .pipe(takeUntil(this._destroyed))
+            .subscribe(() => {
             // We need to defer this to give the browser some time to recalculate
             // the element dimensions. The call has to be wrapped in `NgZone.run`,
             // because the viewport change handler runs outside of Angular.
@@ -844,7 +853,9 @@ class MatPaginatedTabHeader {
         }
     }
     /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
-    get scrollDistance() { return this._scrollDistance; }
+    get scrollDistance() {
+        return this._scrollDistance;
+    }
     set scrollDistance(value) {
         this._scrollTo(value);
     }
@@ -859,7 +870,7 @@ class MatPaginatedTabHeader {
     _scrollHeader(direction) {
         const viewLength = this._tabListContainer.nativeElement.offsetWidth;
         // Move the scroll distance one-third the length of the tab list's viewport.
-        const scrollAmount = (direction == 'before' ? -1 : 1) * viewLength / 3;
+        const scrollAmount = ((direction == 'before' ? -1 : 1) * viewLength) / 3;
         return this._scrollTo(this._scrollDistance + scrollAmount);
     }
     /** Handles click events on the pagination arrows. */
@@ -957,12 +968,11 @@ class MatPaginatedTabHeader {
     _getMaxScrollDistance() {
         const lengthOfTabList = this._tabList.nativeElement.scrollWidth;
         const viewLength = this._tabListContainer.nativeElement.offsetWidth;
-        return (lengthOfTabList - viewLength) || 0;
+        return lengthOfTabList - viewLength || 0;
     }
     /** Tells the ink-bar to align itself to the current label wrapper */
     _alignInkBarToSelectedTab() {
-        const selectedItem = this._items && this._items.length ?
-            this._items.toArray()[this.selectedIndex] : null;
+        const selectedItem = this._items && this._items.length ? this._items.toArray()[this.selectedIndex] : null;
         const selectedLabelWrapper = selectedItem ? selectedItem.elementRef.nativeElement : null;
         if (selectedLabelWrapper) {
             this._inkBar.alignToElement(selectedLabelWrapper);
@@ -1050,8 +1060,12 @@ class _MatTabHeaderBase extends MatPaginatedTabHeader {
         this._disableRipple = false;
     }
     /** Whether the ripple effect is disabled or not. */
-    get disableRipple() { return this._disableRipple; }
-    set disableRipple(value) { this._disableRipple = coerceBooleanProperty(value); }
+    get disableRipple() {
+        return this._disableRipple;
+    }
+    set disableRipple(value) {
+        this._disableRipple = coerceBooleanProperty(value);
+    }
     _itemSelected(event) {
         event.preventDefault();
     }
@@ -1168,24 +1182,34 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         /** Event emitted when the tab selection has changed. */
         this.selectedTabChange = new EventEmitter(true);
         this._groupId = nextId++;
-        this.animationDuration = defaultConfig && defaultConfig.animationDuration ?
-            defaultConfig.animationDuration : '500ms';
-        this.disablePagination = defaultConfig && defaultConfig.disablePagination != null ?
-            defaultConfig.disablePagination : false;
-        this.dynamicHeight = defaultConfig && defaultConfig.dynamicHeight != null ?
-            defaultConfig.dynamicHeight : false;
+        this.animationDuration =
+            defaultConfig && defaultConfig.animationDuration ? defaultConfig.animationDuration : '500ms';
+        this.disablePagination =
+            defaultConfig && defaultConfig.disablePagination != null
+                ? defaultConfig.disablePagination
+                : false;
+        this.dynamicHeight =
+            defaultConfig && defaultConfig.dynamicHeight != null ? defaultConfig.dynamicHeight : false;
         this.contentTabIndex = defaultConfig?.contentTabIndex ?? null;
     }
     /** Whether the tab group should grow to the size of the active tab. */
-    get dynamicHeight() { return this._dynamicHeight; }
-    set dynamicHeight(value) { this._dynamicHeight = coerceBooleanProperty(value); }
+    get dynamicHeight() {
+        return this._dynamicHeight;
+    }
+    set dynamicHeight(value) {
+        this._dynamicHeight = coerceBooleanProperty(value);
+    }
     /** The index of the active tab. */
-    get selectedIndex() { return this._selectedIndex; }
+    get selectedIndex() {
+        return this._selectedIndex;
+    }
     set selectedIndex(value) {
         this._indexToSelect = coerceNumberProperty(value, null);
     }
     /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
-    get animationDuration() { return this._animationDuration; }
+    get animationDuration() {
+        return this._animationDuration;
+    }
     set animationDuration(value) {
         this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
     }
@@ -1195,12 +1219,16 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
      * The `tabindex` will be removed automatically for inactive tabs.
      * Read more at https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-2/tabs.html
      */
-    get contentTabIndex() { return this._contentTabIndex; }
+    get contentTabIndex() {
+        return this._contentTabIndex;
+    }
     set contentTabIndex(value) {
         this._contentTabIndex = coerceNumberProperty(value, null);
     }
     /** Background color of the tab group. */
-    get backgroundColor() { return this._backgroundColor; }
+    get backgroundColor() {
+        return this._backgroundColor;
+    }
     set backgroundColor(value) {
         const nativeElement = this._elementRef.nativeElement;
         nativeElement.classList.remove(`mat-background-${this.backgroundColor}`);
@@ -1218,7 +1246,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
     ngAfterContentChecked() {
         // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
         // the amount of tabs changes before the actual change detection runs.
-        const indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
+        const indexToSelect = (this._indexToSelect = this._clampTabIndex(this._indexToSelect));
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
         if (this._selectedIndex != indexToSelect) {
@@ -1233,7 +1261,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
             // Changing these values after change detection has run
             // since the checked content may contain references to them.
             Promise.resolve().then(() => {
-                this._tabs.forEach((tab, index) => tab.isActive = index === indexToSelect);
+                this._tabs.forEach((tab, index) => (tab.isActive = index === indexToSelect));
                 if (!isFirstRun) {
                     this.selectedIndexChange.emit(indexToSelect);
                     // Clear the min-height, this was needed during tab change to avoid
@@ -1285,9 +1313,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         // Since we use a query with `descendants: true` to pick up the tabs, we may end up catching
         // some that are inside of nested tab groups. We filter them out manually by checking that
         // the closest group to the tab is the current one.
-        this._allTabs.changes
-            .pipe(startWith(this._allTabs))
-            .subscribe((tabs) => {
+        this._allTabs.changes.pipe(startWith(this._allTabs)).subscribe((tabs) => {
             this._tabs.reset(tabs.filter(tab => {
                 return tab._closestTabGroup === this || !tab._closestTabGroup;
             }));
@@ -1319,7 +1345,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         this.focusChange.emit(this._createChangeEvent(index));
     }
     _createChangeEvent(index) {
-        const event = new MatTabChangeEvent;
+        const event = new MatTabChangeEvent();
         event.index = index;
         if (this._tabs && this._tabs.length) {
             event.tab = this._tabs.toArray()[index];
@@ -1336,8 +1362,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
         }
-        this._tabLabelSubscription = merge(...this._tabs.map(tab => tab._stateChanges))
-            .subscribe(() => this._changeDetectorRef.markForCheck());
+        this._tabLabelSubscription = merge(...this._tabs.map(tab => tab._stateChanges)).subscribe(() => this._changeDetectorRef.markForCheck());
     }
     /** Clamps the given index to the bounds of 0 and the tabs length. */
     _clampTabIndex(index) {
@@ -1449,16 +1474,20 @@ class MatTabGroup extends _MatTabGroupBase {
     }
 }
 MatTabGroup.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTabGroup, deps: [{ token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: MAT_TABS_CONFIG, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatTabGroup.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatTabGroup, selector: "mat-tab-group", inputs: { color: "color", disableRipple: "disableRipple" }, host: { properties: { "class.mat-tab-group-dynamic-height": "dynamicHeight", "class.mat-tab-group-inverted-header": "headerPosition === \"below\"" }, classAttribute: "mat-tab-group" }, providers: [{
+MatTabGroup.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatTabGroup, selector: "mat-tab-group", inputs: { color: "color", disableRipple: "disableRipple" }, host: { properties: { "class.mat-tab-group-dynamic-height": "dynamicHeight", "class.mat-tab-group-inverted-header": "headerPosition === \"below\"" }, classAttribute: "mat-tab-group" }, providers: [
+        {
             provide: MAT_TAB_GROUP,
-            useExisting: MatTabGroup
-        }], queries: [{ propertyName: "_allTabs", predicate: MatTab, descendants: true }], viewQueries: [{ propertyName: "_tabBodyWrapper", first: true, predicate: ["tabBodyWrapper"], descendants: true }, { propertyName: "_tabHeader", first: true, predicate: ["tabHeader"], descendants: true }], exportAs: ["matTabGroup"], usesInheritance: true, ngImport: i0, template: "<mat-tab-header #tabHeader\n               [selectedIndex]=\"selectedIndex || 0\"\n               [disableRipple]=\"disableRipple\"\n               [disablePagination]=\"disablePagination\"\n               (indexFocused)=\"_focusChanged($event)\"\n               (selectFocusedIndex)=\"selectedIndex = $event\">\n  <div class=\"mat-tab-label mat-focus-indicator\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus\n       *ngFor=\"let tab of _tabs; let i = index\"\n       [id]=\"_getTabLabelId(i)\"\n       [attr.tabIndex]=\"_getTabIndex(tab, i)\"\n       [attr.aria-posinset]=\"i + 1\"\n       [attr.aria-setsize]=\"_tabs.length\"\n       [attr.aria-controls]=\"_getTabContentId(i)\"\n       [attr.aria-selected]=\"selectedIndex == i\"\n       [attr.aria-label]=\"tab.ariaLabel || null\"\n       [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\"\n       [class.mat-tab-label-active]=\"selectedIndex == i\"\n       [disabled]=\"tab.disabled\"\n       [matRippleDisabled]=\"tab.disabled || disableRipple\"\n       (click)=\"_handleClick(tab, tabHeader, i)\"\n       (cdkFocusChange)=\"_tabFocusChanged($event, i)\">\n\n\n    <div class=\"mat-tab-label-content\">\n      <!-- If there is a label template, use it. -->\n      <ng-template [ngIf]=\"tab.templateLabel\">\n        <ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template>\n      </ng-template>\n\n      <!-- If there is not a label template, fall back to the text label. -->\n      <ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template>\n    </div>\n  </div>\n</mat-tab-header>\n\n<div\n  class=\"mat-tab-body-wrapper\"\n  [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n  #tabBodyWrapper>\n  <mat-tab-body role=\"tabpanel\"\n               *ngFor=\"let tab of _tabs; let i = index\"\n               [id]=\"_getTabContentId(i)\"\n               [attr.tabindex]=\"(contentTabIndex != null && selectedIndex === i) ? contentTabIndex : null\"\n               [attr.aria-labelledby]=\"_getTabLabelId(i)\"\n               [class.mat-tab-body-active]=\"selectedIndex === i\"\n               [content]=\"tab.content!\"\n               [position]=\"tab.position!\"\n               [origin]=\"tab.origin\"\n               [animationDuration]=\"animationDuration\"\n               (_onCentered)=\"_removeTabBodyWrapperHeight()\"\n               (_onCentering)=\"_setTabBodyWrapperHeight($event)\">\n  </mat-tab-body>\n</div>\n", styles: [".mat-tab-group{display:flex;flex-direction:column;max-width:100%}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:none}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-label:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-label.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-label.mat-tab-disabled{opacity:.5}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-label{opacity:1}@media(max-width: 599px){.mat-tab-label{padding:0 12px}}@media(max-width: 959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height 500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-tab-body-wrapper{transition:none;animation:none}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden;outline:0;flex-basis:100%}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}\n"], components: [{ type: MatTabHeader, selector: "mat-tab-header", inputs: ["selectedIndex"], outputs: ["selectFocusedIndex", "indexFocused"] }, { type: MatTabBody, selector: "mat-tab-body" }], directives: [{ type: i3$1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: MatTabLabelWrapper, selector: "[matTabLabelWrapper]", inputs: ["disabled"] }, { type: i4.MatRipple, selector: "[mat-ripple], [matRipple]", inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"], exportAs: ["matRipple"] }, { type: i7.CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"] }, { type: i3$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i7$1.CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
+            useExisting: MatTabGroup,
+        },
+    ], queries: [{ propertyName: "_allTabs", predicate: MatTab, descendants: true }], viewQueries: [{ propertyName: "_tabBodyWrapper", first: true, predicate: ["tabBodyWrapper"], descendants: true }, { propertyName: "_tabHeader", first: true, predicate: ["tabHeader"], descendants: true }], exportAs: ["matTabGroup"], usesInheritance: true, ngImport: i0, template: "<mat-tab-header #tabHeader\n               [selectedIndex]=\"selectedIndex || 0\"\n               [disableRipple]=\"disableRipple\"\n               [disablePagination]=\"disablePagination\"\n               (indexFocused)=\"_focusChanged($event)\"\n               (selectFocusedIndex)=\"selectedIndex = $event\">\n  <div class=\"mat-tab-label mat-focus-indicator\" role=\"tab\" matTabLabelWrapper mat-ripple cdkMonitorElementFocus\n       *ngFor=\"let tab of _tabs; let i = index\"\n       [id]=\"_getTabLabelId(i)\"\n       [attr.tabIndex]=\"_getTabIndex(tab, i)\"\n       [attr.aria-posinset]=\"i + 1\"\n       [attr.aria-setsize]=\"_tabs.length\"\n       [attr.aria-controls]=\"_getTabContentId(i)\"\n       [attr.aria-selected]=\"selectedIndex == i\"\n       [attr.aria-label]=\"tab.ariaLabel || null\"\n       [attr.aria-labelledby]=\"(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null\"\n       [class.mat-tab-label-active]=\"selectedIndex == i\"\n       [disabled]=\"tab.disabled\"\n       [matRippleDisabled]=\"tab.disabled || disableRipple\"\n       (click)=\"_handleClick(tab, tabHeader, i)\"\n       (cdkFocusChange)=\"_tabFocusChanged($event, i)\">\n\n\n    <div class=\"mat-tab-label-content\">\n      <!-- If there is a label template, use it. -->\n      <ng-template [ngIf]=\"tab.templateLabel\">\n        <ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template>\n      </ng-template>\n\n      <!-- If there is not a label template, fall back to the text label. -->\n      <ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template>\n    </div>\n  </div>\n</mat-tab-header>\n\n<div\n  class=\"mat-tab-body-wrapper\"\n  [class._mat-animation-noopable]=\"_animationMode === 'NoopAnimations'\"\n  #tabBodyWrapper>\n  <mat-tab-body role=\"tabpanel\"\n               *ngFor=\"let tab of _tabs; let i = index\"\n               [id]=\"_getTabContentId(i)\"\n               [attr.tabindex]=\"(contentTabIndex != null && selectedIndex === i) ? contentTabIndex : null\"\n               [attr.aria-labelledby]=\"_getTabLabelId(i)\"\n               [class.mat-tab-body-active]=\"selectedIndex === i\"\n               [content]=\"tab.content!\"\n               [position]=\"tab.position!\"\n               [origin]=\"tab.origin\"\n               [animationDuration]=\"animationDuration\"\n               (_onCentered)=\"_removeTabBodyWrapperHeight()\"\n               (_onCentering)=\"_setTabBodyWrapperHeight($event)\">\n  </mat-tab-body>\n</div>\n", styles: [".mat-tab-group{display:flex;flex-direction:column;max-width:100%}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:none}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.cdk-high-contrast-active .mat-tab-label:focus{outline:dotted 2px;outline-offset:-2px}.mat-tab-label.mat-tab-disabled{cursor:default}.cdk-high-contrast-active .mat-tab-label.mat-tab-disabled{opacity:.5}.mat-tab-label .mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}.cdk-high-contrast-active .mat-tab-label{opacity:1}@media(max-width: 599px){.mat-tab-label{padding:0 12px}}@media(max-width: 959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height 500ms cubic-bezier(0.35, 0, 0.25, 1)}._mat-animation-noopable.mat-tab-body-wrapper{transition:none;animation:none}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden;outline:0;flex-basis:100%}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}\n"], components: [{ type: MatTabHeader, selector: "mat-tab-header", inputs: ["selectedIndex"], outputs: ["selectFocusedIndex", "indexFocused"] }, { type: MatTabBody, selector: "mat-tab-body" }], directives: [{ type: i3$1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { type: MatTabLabelWrapper, selector: "[matTabLabelWrapper]", inputs: ["disabled"] }, { type: i4.MatRipple, selector: "[mat-ripple], [matRipple]", inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"], exportAs: ["matRipple"] }, { type: i7.CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"] }, { type: i3$1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: i7$1.CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTabGroup, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-tab-group', exportAs: 'matTabGroup', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.Default, inputs: ['color', 'disableRipple'], providers: [{
+            args: [{ selector: 'mat-tab-group', exportAs: 'matTabGroup', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.Default, inputs: ['color', 'disableRipple'], providers: [
+                        {
                             provide: MAT_TAB_GROUP,
-                            useExisting: MatTabGroup
-                        }], host: {
+                            useExisting: MatTabGroup,
+                        },
+                    ], host: {
                         'class': 'mat-tab-group',
                         '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
                         '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
@@ -1503,7 +1532,9 @@ class _MatTabNavBase extends MatPaginatedTabHeader {
         this.color = 'primary';
     }
     /** Background color of the tab nav. */
-    get backgroundColor() { return this._backgroundColor; }
+    get backgroundColor() {
+        return this._backgroundColor;
+    }
     set backgroundColor(value) {
         const classList = this._elementRef.nativeElement.classList;
         classList.remove(`mat-background-${this.backgroundColor}`);
@@ -1513,8 +1544,12 @@ class _MatTabNavBase extends MatPaginatedTabHeader {
         this._backgroundColor = value;
     }
     /** Whether the ripple effect is disabled or not. */
-    get disableRipple() { return this._disableRipple; }
-    set disableRipple(value) { this._disableRipple = coerceBooleanProperty(value); }
+    get disableRipple() {
+        return this._disableRipple;
+    }
+    set disableRipple(value) {
+        this._disableRipple = coerceBooleanProperty(value);
+    }
     _itemSelected() {
         // noop
     }
@@ -1629,7 +1664,9 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
         }
     }
     /** Whether the link is active. */
-    get active() { return this._isActive; }
+    get active() {
+        return this._isActive;
+    }
     set active(value) {
         const newValue = coerceBooleanProperty(value);
         if (newValue !== this._isActive) {
@@ -1642,8 +1679,10 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
      * @docs-private
      */
     get rippleDisabled() {
-        return this.disabled || this.disableRipple || this._tabNavBar.disableRipple ||
-            !!this.rippleConfig.disabled;
+        return (this.disabled ||
+            this.disableRipple ||
+            this._tabNavBar.disableRipple ||
+            !!this.rippleConfig.disabled);
     }
     /** Focuses the tab link. */
     focus() {
@@ -1710,8 +1749,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         '[attr.tabIndex]': 'tabIndex',
                         '[class.mat-tab-disabled]': 'disabled',
                         '[class.mat-tab-label-active]': 'active',
-                        '(focus)': '_handleFocus()'
-                    }
+                        '(focus)': '_handleFocus()',
+                    },
                 }]
         }], ctorParameters: function () { return [{ type: MatTabNav }, { type: i0.ElementRef }, { type: i0.NgZone }, { type: i3.Platform }, { type: undefined, decorators: [{
                     type: Optional

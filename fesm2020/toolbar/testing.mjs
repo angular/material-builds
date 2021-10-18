@@ -20,8 +20,7 @@ class MatToolbarHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatToolbarHarness, options)
-            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness._getText(), text));
+        return new HarnessPredicate(MatToolbarHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness._getText(), text));
     }
     /** Whether the toolbar has multiple rows. */
     async hasMultipleRows() {
@@ -34,7 +33,7 @@ class MatToolbarHarness extends ContentContainerComponentHarness {
     /** Gets the text of each row in the toolbar. */
     async getRowsAsText() {
         const rows = await this._getRows();
-        return parallel(() => rows.length ? rows.map(r => r.text()) : [this._getText()]);
+        return parallel(() => (rows.length ? rows.map(r => r.text()) : [this._getText()]));
     }
 }
 MatToolbarHarness.hostSelector = '.mat-toolbar';

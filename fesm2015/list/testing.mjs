@@ -13,14 +13,12 @@ const avatarSelector = '.mat-list-avatar';
  * @return A `HarnessPredicate` for the given harness type with the given options applied.
  */
 function getListItemPredicate(harnessType, options) {
-    return new HarnessPredicate(harnessType, options)
-        .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+    return new HarnessPredicate(harnessType, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
 }
 /** Harness for interacting with a list subheader. */
 class MatSubheaderHarness extends ComponentHarness {
     static with(options = {}) {
-        return new HarnessPredicate(MatSubheaderHarness, options)
-            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+        return new HarnessPredicate(MatSubheaderHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
     }
     /** Gets the full text content of the list item (including text from any font icons). */
     getText() {
@@ -106,7 +104,10 @@ class MatListHarnessBase extends ComponentHarness {
         return __awaiter(this, void 0, void 0, function* () {
             const listSections = [];
             let currentSection = { items: [] };
-            const itemsAndSubheaders = yield this.getItemsWithSubheadersAndDividers({ item: filters, divider: false });
+            const itemsAndSubheaders = yield this.getItemsWithSubheadersAndDividers({
+                item: filters,
+                divider: false,
+            });
             for (const itemOrSubheader of itemsAndSubheaders) {
                 if (itemOrSubheader instanceof MatSubheaderHarness) {
                     if (currentSection.heading !== undefined || currentSection.items.length) {
@@ -118,7 +119,8 @@ class MatListHarnessBase extends ComponentHarness {
                     currentSection.items.push(itemOrSubheader);
                 }
             }
-            if (currentSection.heading !== undefined || currentSection.items.length ||
+            if (currentSection.heading !== undefined ||
+                currentSection.items.length ||
                 !listSections.length) {
                 listSections.push(currentSection);
             }
@@ -135,7 +137,10 @@ class MatListHarnessBase extends ComponentHarness {
     getItemsGroupedByDividers(filters) {
         return __awaiter(this, void 0, void 0, function* () {
             const listSections = [[]];
-            const itemsAndDividers = yield this.getItemsWithSubheadersAndDividers({ item: filters, subheader: false });
+            const itemsAndDividers = yield this.getItemsWithSubheadersAndDividers({
+                item: filters,
+                subheader: false,
+            });
             for (const itemOrDivider of itemsAndDividers) {
                 if (itemOrDivider instanceof MatDividerHarness) {
                     listSections.push([]);
@@ -288,8 +293,7 @@ class MatNavListItemHarness extends MatListItemHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getListItemPredicate(MatNavListItemHarness, options)
-            .addOption('href', options.href, (harness, href) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(harness.getHref(), href); }));
+        return getListItemPredicate(MatNavListItemHarness, options).addOption('href', options.href, (harness, href) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(harness.getHref(), href); }));
     }
     /** Gets the href for this nav list item. */
     getHref() {
@@ -394,14 +398,14 @@ class MatListOptionHarness extends MatListItemHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getListItemPredicate(MatListOptionHarness, options)
-            .addOption('is selected', options.selected, (harness, selected) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isSelected()) === selected; }));
+        return getListItemPredicate(MatListOptionHarness, options).addOption('is selected', options.selected, (harness, selected) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isSelected()) === selected; }));
     }
     /** Gets the position of the checkbox relative to the list option content. */
     getCheckboxPosition() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this._itemContent()).hasClass('mat-list-item-content-reverse')) ?
-                'after' : 'before';
+            return (yield (yield this._itemContent()).hasClass('mat-list-item-content-reverse'))
+                ? 'after'
+                : 'before';
         });
     }
     /** Whether the list option is selected. */

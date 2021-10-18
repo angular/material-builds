@@ -38,8 +38,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
      * determined based on the ARIA politeness specified in the snack-bar config.
      */
     async getAriaLive() {
-        return (await this._snackBarLiveRegion())
-            .getAttribute('aria-live');
+        return (await this._snackBarLiveRegion()).getAttribute('aria-live');
     }
     /**
      * Whether the snack-bar has an action. Method cannot be used for snack-bar's with custom content.
@@ -89,7 +88,7 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
      * if content is not annotated.
      */
     async _assertContentAnnotated() {
-        if (!await this._isSimpleSnackBar()) {
+        if (!(await this._isSimpleSnackBar())) {
             throw Error('Method cannot be used for snack-bar with custom content.');
         }
     }
@@ -99,13 +98,13 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
      */
     async _assertHasAction() {
         await this._assertContentAnnotated();
-        if (!await this.hasAction()) {
+        if (!(await this.hasAction())) {
             throw Error('Method cannot be used for a snack-bar without an action.');
         }
     }
     /** Whether the snack-bar is using the default content template. */
     async _isSimpleSnackBar() {
-        return await this.locatorForOptional('.mat-simple-snackbar')() !== null;
+        return (await this.locatorForOptional('.mat-simple-snackbar')()) !== null;
     }
     /** Gets the simple snack bar action button. */
     async _getActionButton() {

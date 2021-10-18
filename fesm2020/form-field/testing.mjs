@@ -38,7 +38,7 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
             this._selectControl(),
             this._inputControl(),
             this._datepickerInputControl(),
-            this._dateRangeInputControl()
+            this._dateRangeInputControl(),
         ]);
         // Match the datepicker inputs first since they can also have a `MatInput`.
         return datepickerInput || dateRangeInput || select || input;
@@ -82,7 +82,7 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
      * if no form control is set up.
      */
     async isControlTouched() {
-        if (!await this._hasFormControl()) {
+        if (!(await this._hasFormControl())) {
             return null;
         }
         return (await this.host()).hasClass('ng-touched');
@@ -92,7 +92,7 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
      * if no form control is set up.
      */
     async isControlDirty() {
-        if (!await this._hasFormControl()) {
+        if (!(await this._hasFormControl())) {
             return null;
         }
         return (await this.host()).hasClass('ng-dirty');
@@ -102,7 +102,7 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
      * if no form control is set up.
      */
     async isControlValid() {
-        if (!await this._hasFormControl()) {
+        if (!(await this._hasFormControl())) {
             return null;
         }
         return (await this.host()).hasClass('ng-valid');
@@ -112,7 +112,7 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
      * if no form control is set up.
      */
     async isControlPending() {
-        if (!await this._hasFormControl()) {
+        if (!(await this._hasFormControl())) {
             return null;
         }
         return (await this.host()).hasClass('ng-pending');
@@ -123,7 +123,10 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
         // If no form "NgControl" is bound to the form-field control, the form-field
         // is not able to forward any control status classes. Therefore if either the
         // "ng-touched" or "ng-untouched" class is set, we know that it has a form control
-        const [isTouched, isUntouched] = await parallel(() => [hostEl.hasClass('ng-touched'), hostEl.hasClass('ng-untouched')]);
+        const [isTouched, isUntouched] = await parallel(() => [
+            hostEl.hasClass('ng-touched'),
+            hostEl.hasClass('ng-untouched'),
+        ]);
         return isTouched || isUntouched;
     }
 }
@@ -150,7 +153,7 @@ class MatFormFieldHarness extends _MatFormFieldHarnessBase {
     static with(options = {}) {
         return new HarnessPredicate(MatFormFieldHarness, options)
             .addOption('floatingLabelText', options.floatingLabelText, async (harness, text) => HarnessPredicate.stringMatches(await harness.getLabel(), text))
-            .addOption('hasErrors', options.hasErrors, async (harness, hasErrors) => await harness.hasErrors() === hasErrors);
+            .addOption('hasErrors', options.hasErrors, async (harness, hasErrors) => (await harness.hasErrors()) === hasErrors);
     }
     /** Gets the appearance of the form-field. */
     async getAppearance() {
