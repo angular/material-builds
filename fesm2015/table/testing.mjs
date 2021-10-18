@@ -24,7 +24,10 @@ class MatCellHarness extends ContentContainerComponentHarness {
             const classAttribute = yield host.getAttribute('class');
             if (classAttribute) {
                 const prefix = 'mat-column-';
-                const name = classAttribute.split(' ').map(c => c.trim()).find(c => c.startsWith(prefix));
+                const name = classAttribute
+                    .split(' ')
+                    .map(c => c.trim())
+                    .find(c => c.startsWith(prefix));
                 if (name) {
                     return name.split(prefix)[1];
                 }
@@ -91,7 +94,7 @@ class _MatRowHarnessBase extends ComponentHarness {
             const cellsData = yield parallel(() => cells.map(cell => {
                 return parallel(() => [cell.getColumnName(), cell.getText()]);
             }));
-            cellsData.forEach(([columnName, text]) => output[columnName] = text);
+            cellsData.forEach(([columnName, text]) => (output[columnName] = text));
             return output;
         });
     }
@@ -182,7 +185,7 @@ class _MatTableHarnessBase extends ContentContainerComponentHarness {
             const [headerRows, footerRows, dataRows] = yield parallel(() => [
                 this.getHeaderRows(),
                 this.getFooterRows(),
-                this.getRows()
+                this.getRows(),
             ]);
             const text = {};
             const [headerData, footerData, rowsData] = yield parallel(() => [
@@ -197,7 +200,7 @@ class _MatTableHarnessBase extends ContentContainerComponentHarness {
                         text[columnName] = {
                             headerText: getCellTextsByColumn(headerData, columnName),
                             footerText: getCellTextsByColumn(footerData, columnName),
-                            text: []
+                            text: [],
                         };
                     }
                     text[columnName].text.push(cellText);

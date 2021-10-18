@@ -22,7 +22,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: 'mat-card-content, [mat-card-content], [matCardContent]',
-                    host: { 'class': 'mat-card-content' }
+                    host: { 'class': 'mat-card-content' },
                 }]
         }] });
 /**
@@ -38,8 +38,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{
                     selector: `mat-card-title, [mat-card-title], [matCardTitle]`,
                     host: {
-                        'class': 'mat-card-title'
-                    }
+                        'class': 'mat-card-title',
+                    },
                 }]
         }] });
 /**
@@ -55,8 +55,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{
                     selector: `mat-card-subtitle, [mat-card-subtitle], [matCardSubtitle]`,
                     host: {
-                        'class': 'mat-card-subtitle'
-                    }
+                        'class': 'mat-card-subtitle',
+                    },
                 }]
         }] });
 /**
@@ -79,7 +79,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                     host: {
                         'class': 'mat-card-actions',
                         '[class.mat-card-actions-align-end]': 'align === "end"',
-                    }
+                    },
                 }]
         }], propDecorators: { align: [{
                 type: Input
@@ -96,7 +96,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: 'mat-card-footer',
-                    host: { 'class': 'mat-card-footer' }
+                    host: { 'class': 'mat-card-footer' },
                 }]
         }] });
 /**
@@ -111,7 +111,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[mat-card-image], [matCardImage]',
-                    host: { 'class': 'mat-card-image' }
+                    host: { 'class': 'mat-card-image' },
                 }]
         }] });
 /**
@@ -126,7 +126,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[mat-card-sm-image], [matCardImageSmall]',
-                    host: { 'class': 'mat-card-sm-image' }
+                    host: { 'class': 'mat-card-sm-image' },
                 }]
         }] });
 /**
@@ -141,7 +141,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[mat-card-md-image], [matCardImageMedium]',
-                    host: { 'class': 'mat-card-md-image' }
+                    host: { 'class': 'mat-card-md-image' },
                 }]
         }] });
 /**
@@ -156,7 +156,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[mat-card-lg-image], [matCardImageLarge]',
-                    host: { 'class': 'mat-card-lg-image' }
+                    host: { 'class': 'mat-card-lg-image' },
                 }]
         }] });
 /**
@@ -171,7 +171,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[mat-card-xl-image], [matCardImageXLarge]',
-                    host: { 'class': 'mat-card-xl-image' }
+                    host: { 'class': 'mat-card-xl-image' },
                 }]
         }] });
 /**
@@ -186,7 +186,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[mat-card-avatar], [matCardAvatar]',
-                    host: { 'class': 'mat-card-avatar' }
+                    host: { 'class': 'mat-card-avatar' },
                 }]
         }] });
 /**
@@ -257,9 +257,20 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatCardModule {
 }
 MatCardModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatCardModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatCardModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatCardModule, declarations: [MatCard, MatCardHeader, MatCardTitleGroup, MatCardContent, MatCardTitle, MatCardSubtitle,
-        MatCardActions, MatCardFooter, MatCardSmImage, MatCardMdImage, MatCardLgImage, MatCardImage,
-        MatCardXlImage, MatCardAvatar], imports: [MatCommonModule], exports: [MatCard,
+MatCardModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatCardModule, declarations: [MatCard,
+        MatCardHeader,
+        MatCardTitleGroup,
+        MatCardContent,
+        MatCardTitle,
+        MatCardSubtitle,
+        MatCardActions,
+        MatCardFooter,
+        MatCardSmImage,
+        MatCardMdImage,
+        MatCardLgImage,
+        MatCardImage,
+        MatCardXlImage,
+        MatCardAvatar], imports: [MatCommonModule], exports: [MatCard,
         MatCardHeader,
         MatCardTitleGroup,
         MatCardContent,
@@ -297,9 +308,20 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         MatCommonModule,
                     ],
                     declarations: [
-                        MatCard, MatCardHeader, MatCardTitleGroup, MatCardContent, MatCardTitle, MatCardSubtitle,
-                        MatCardActions, MatCardFooter, MatCardSmImage, MatCardMdImage, MatCardLgImage, MatCardImage,
-                        MatCardXlImage, MatCardAvatar,
+                        MatCard,
+                        MatCardHeader,
+                        MatCardTitleGroup,
+                        MatCardContent,
+                        MatCardTitle,
+                        MatCardSubtitle,
+                        MatCardActions,
+                        MatCardFooter,
+                        MatCardSmImage,
+                        MatCardMdImage,
+                        MatCardLgImage,
+                        MatCardImage,
+                        MatCardXlImage,
+                        MatCardAvatar,
                     ],
                 }]
         }] });

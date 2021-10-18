@@ -71,7 +71,7 @@ function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
 const MAT_STEPPER_INTL_PROVIDER = {
     provide: MatStepperIntl,
     deps: [[new Optional(), new SkipSelf(), MatStepperIntl]],
-    useFactory: MAT_STEPPER_INTL_PROVIDER_FACTORY
+    useFactory: MAT_STEPPER_INTL_PROVIDER_FACTORY,
 };
 
 // Boilerplate for applying mixins to MatStepHeader.
@@ -121,7 +121,7 @@ class MatStepHeader extends _MatStepHeaderBase {
         return {
             index: this.index,
             active: this.active,
-            optional: this.optional
+            optional: this.optional,
         };
     }
     _getDefaultTextForState(state) {
@@ -185,7 +185,7 @@ const matStepperAnimations = {
         // making this element focusable inside of a `hidden` element.
         state('current', style({ transform: 'none', visibility: 'inherit' })),
         state('next', style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
-        transition('* => *', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
+        transition('* => *', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
     ]),
     /** Animation that transitions the step along the Y axis in a vertical stepper. */
     verticalStepTransition: trigger('verticalStepTransition', [
@@ -195,8 +195,8 @@ const matStepperAnimations = {
         // because visibility on a child element the one from the parent,
         // making this element focusable inside of a `hidden` element.
         state('current', style({ height: '*', visibility: 'inherit' })),
-        transition('* <=> current', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
-    ])
+        transition('* <=> current', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
 };
 
 /**
@@ -246,7 +246,7 @@ MatStepContent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatStepContent, decorators: [{
             type: Directive,
             args: [{
-                    selector: 'ng-template[matStepContent]'
+                    selector: 'ng-template[matStepContent]',
                 }]
         }], ctorParameters: function () { return [{ type: i0.TemplateRef }]; } });
 
@@ -258,9 +258,11 @@ class MatStep extends CdkStep {
         this._isSelected = Subscription.EMPTY;
     }
     ngAfterContentInit() {
-        this._isSelected = this._stepper.steps.changes.pipe(switchMap(() => {
+        this._isSelected = this._stepper.steps.changes
+            .pipe(switchMap(() => {
             return this._stepper.selectionChange.pipe(map(event => event.selectedStep === this), startWith(this._stepper.selected === this));
-        })).subscribe(isSelected => {
+        }))
+            .subscribe(isSelected => {
             if (isSelected && this._lazyContent && !this._portal) {
                 this._portal = new TemplatePortal(this._lazyContent._template, this._viewContainerRef);
             }
@@ -370,16 +372,18 @@ class MatStepper extends CdkStepper {
     }
     ngAfterContentInit() {
         super.ngAfterContentInit();
-        this._icons.forEach(({ name, templateRef }) => this._iconOverrides[name] = templateRef);
+        this._icons.forEach(({ name, templateRef }) => (this._iconOverrides[name] = templateRef));
         // Mark the component for change detection whenever the content children query changes
         this.steps.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
             this._stateChanged();
         });
-        this._animationDone.pipe(
+        this._animationDone
+            .pipe(
         // This needs a `distinctUntilChanged` in order to avoid emitting the same event twice due
         // to a bug in animations where the `.done` callback gets invoked twice on some browsers.
         // See https://github.com/angular/angular/issues/24084
-        distinctUntilChanged((x, y) => x.fromState === y.fromState && x.toState === y.toState), takeUntil(this._destroyed)).subscribe(event => {
+        distinctUntilChanged((x, y) => x.fromState === y.fromState && x.toState === y.toState), takeUntil(this._destroyed))
+            .subscribe(event => {
             if (event.toState === 'current') {
                 this.animationDone.emit();
             }
@@ -461,7 +465,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         'class': 'mat-stepper-next',
                         '[type]': 'type',
                     },
-                    inputs: ['type']
+                    inputs: ['type'],
                 }]
         }] });
 /** Button that moves to the previous step in a stepper workflow. */
@@ -477,7 +481,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         'class': 'mat-stepper-previous',
                         '[type]': 'type',
                     },
-                    inputs: ['type']
+                    inputs: ['type'],
                 }]
         }] });
 

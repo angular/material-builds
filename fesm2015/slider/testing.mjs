@@ -88,7 +88,11 @@ class MatSliderHarness extends ComponentHarness {
      */
     setValue(value) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [sliderEl, wrapperEl, orientation] = yield parallel(() => [this.host(), this._wrapper(), this.getOrientation()]);
+            const [sliderEl, wrapperEl, orientation] = yield parallel(() => [
+                this.host(),
+                this._wrapper(),
+                this.getOrientation(),
+            ]);
             let percentage = yield this._calculatePercentage(value);
             const { height, width } = yield wrapperEl.getDimensions();
             const isVertical = orientation === 'vertical';

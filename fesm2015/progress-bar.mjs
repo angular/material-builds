@@ -35,7 +35,7 @@ function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
     return {
         // Note that this needs to be a function, rather than a property, because Angular
         // will only resolve it once, but we want the current path on each call.
-        getPathname: () => _location ? (_location.pathname + _location.search) : ''
+        getPathname: () => (_location ? _location.pathname + _location.search : ''),
     };
 }
 /** Injection token to be used to override the default options for `mat-progress-bar`. */
@@ -94,13 +94,19 @@ class MatProgressBar extends _MatProgressBarBase {
         }
     }
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
-    get value() { return this._value; }
+    get value() {
+        return this._value;
+    }
     set value(v) {
         this._value = clamp(coerceNumberProperty(v) || 0);
     }
     /** Buffer value of the progress bar. Defaults to zero. */
-    get bufferValue() { return this._bufferValue; }
-    set bufferValue(v) { this._bufferValue = clamp(v || 0); }
+    get bufferValue() {
+        return this._bufferValue;
+    }
+    set bufferValue(v) {
+        this._bufferValue = clamp(v || 0);
+    }
     /** Gets the current transform value for the progress bar's primary indicator. */
     _primaryTransform() {
         // We use a 3d transform to work around some rendering issues in iOS Safari. See #19328.
@@ -122,17 +128,16 @@ class MatProgressBar extends _MatProgressBarBase {
     ngAfterViewInit() {
         // Run outside angular so change detection didn't get triggered on every transition end
         // instead only on the animation that we care about (primary value bar's transitionend)
-        this._ngZone.runOutsideAngular((() => {
+        this._ngZone.runOutsideAngular(() => {
             const element = this._primaryValueBar.nativeElement;
-            this._animationEndSubscription =
-                fromEvent(element, 'transitionend')
-                    .pipe(filter(((e) => e.target === element)))
-                    .subscribe(() => {
-                    if (this.mode === 'determinate' || this.mode === 'buffer') {
-                        this._ngZone.run(() => this.animationEnd.next({ value: this.value }));
-                    }
-                });
-        }));
+            this._animationEndSubscription = fromEvent(element, 'transitionend')
+                .pipe(filter((e) => e.target === element))
+                .subscribe(() => {
+                if (this.mode === 'determinate' || this.mode === 'buffer') {
+                    this._ngZone.run(() => this.animationEnd.next({ value: this.value }));
+                }
+            });
+        });
     }
     ngOnDestroy() {
         this._animationEndSubscription.unsubscribe();

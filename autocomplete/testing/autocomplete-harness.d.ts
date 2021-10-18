@@ -8,13 +8,13 @@
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 import { MatOptgroupHarness, MatOptionHarness, OptgroupHarnessFilters, OptionHarnessFilters } from '@angular/material/core/testing';
 import { AutocompleteHarnessFilters } from './autocomplete-harness-filters';
-export declare abstract class _MatAutocompleteHarnessBase<OptionType extends (ComponentHarnessConstructor<Option> & {
+export declare abstract class _MatAutocompleteHarnessBase<OptionType extends ComponentHarnessConstructor<Option> & {
     with: (options?: OptionFilters) => HarnessPredicate<Option>;
-}), Option extends ComponentHarness & {
+}, Option extends ComponentHarness & {
     click(): Promise<void>;
-}, OptionFilters extends BaseHarnessFilters, OptionGroupType extends (ComponentHarnessConstructor<OptionGroup> & {
+}, OptionFilters extends BaseHarnessFilters, OptionGroupType extends ComponentHarnessConstructor<OptionGroup> & {
     with: (options?: OptionGroupFilters) => HarnessPredicate<OptionGroup>;
-}), OptionGroup extends ComponentHarness, OptionGroupFilters extends BaseHarnessFilters> extends ComponentHarness {
+}, OptionGroup extends ComponentHarness, OptionGroupFilters extends BaseHarnessFilters> extends ComponentHarness {
     private _documentRootLocator;
     protected abstract _prefix: string;
     protected abstract _optionClass: OptionType;

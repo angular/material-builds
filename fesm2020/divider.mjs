@@ -16,11 +16,19 @@ class MatDivider {
         this._inset = false;
     }
     /** Whether the divider is vertically aligned. */
-    get vertical() { return this._vertical; }
-    set vertical(value) { this._vertical = coerceBooleanProperty(value); }
+    get vertical() {
+        return this._vertical;
+    }
+    set vertical(value) {
+        this._vertical = coerceBooleanProperty(value);
+    }
     /** Whether the divider is an inset divider. */
-    get inset() { return this._inset; }
-    set inset(value) { this._inset = coerceBooleanProperty(value); }
+    get inset() {
+        return this._inset;
+    }
+    set inset(value) {
+        this._inset = coerceBooleanProperty(value);
+    }
 }
 MatDivider.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatDivider, deps: [], target: i0.ɵɵFactoryTarget.Component });
 MatDivider.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatDivider, selector: "mat-divider", inputs: { vertical: "vertical", inset: "inset" }, host: { attributes: { "role": "separator" }, properties: { "attr.aria-orientation": "vertical ? \"vertical\" : \"horizontal\"", "class.mat-divider-vertical": "vertical", "class.mat-divider-horizontal": "!vertical", "class.mat-divider-inset": "inset" }, classAttribute: "mat-divider" }, ngImport: i0, template: '', isInline: true, styles: [".mat-divider{display:block;margin:0;border-top-width:1px;border-top-style:solid}.mat-divider.mat-divider-vertical{border-top:0;border-right-width:1px;border-right-style:solid}.mat-divider.mat-divider-inset{margin-left:80px}[dir=rtl] .mat-divider.mat-divider-inset{margin-left:auto;margin-right:80px}\n"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
@@ -32,7 +40,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         '[class.mat-divider-vertical]': 'vertical',
                         '[class.mat-divider-horizontal]': '!vertical',
                         '[class.mat-divider-inset]': 'inset',
-                        'class': 'mat-divider'
+                        'class': 'mat-divider',
                     }, template: '', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, styles: [".mat-divider{display:block;margin:0;border-top-width:1px;border-top-style:solid}.mat-divider.mat-divider-vertical{border-top:0;border-right-width:1px;border-right-style:solid}.mat-divider.mat-divider-inset{margin-left:80px}[dir=rtl] .mat-divider.mat-divider-inset{margin-left:auto;margin-right:80px}\n"] }]
         }], propDecorators: { vertical: [{
                 type: Input

@@ -14,8 +14,7 @@ class MatToolbarHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatToolbarHarness, options)
-            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness._getText(), text));
+        return new HarnessPredicate(MatToolbarHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness._getText(), text));
     }
     /** Whether the toolbar has multiple rows. */
     hasMultipleRows() {
@@ -33,7 +32,7 @@ class MatToolbarHarness extends ContentContainerComponentHarness {
     getRowsAsText() {
         return __awaiter(this, void 0, void 0, function* () {
             const rows = yield this._getRows();
-            return parallel(() => rows.length ? rows.map(r => r.text()) : [this._getText()]);
+            return parallel(() => (rows.length ? rows.map(r => r.text()) : [this._getText()]));
         });
     }
 }

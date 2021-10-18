@@ -86,7 +86,7 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     /** Gets the selector that can be used to find the autocomplete trigger's panel. */
     _getPanelSelector() {
         return __awaiter(this, void 0, void 0, function* () {
-            return `#${(yield (yield this.host()).getAttribute('aria-owns'))}`;
+            return `#${yield (yield this.host()).getAttribute('aria-owns')}`;
         });
     }
 }
@@ -105,8 +105,7 @@ class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatAutocompleteHarness, options)
-            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
+        return new HarnessPredicate(MatAutocompleteHarness, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
     }
 }
 /** The selector for the host element of a `MatAutocomplete` instance. */

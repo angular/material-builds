@@ -59,7 +59,7 @@ class MatChipHarness extends ContentContainerComponentHarness {
     getText() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).text({
-                exclude: '.mat-chip-avatar, .mat-chip-trailing-icon, .mat-icon'
+                exclude: '.mat-chip-avatar, .mat-chip-trailing-icon, .mat-icon',
             });
         });
     }
@@ -180,7 +180,7 @@ class MatChipInputHarness extends ComponentHarness {
     /** Gets the placeholder of the input. */
     getPlaceholder() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this.host()).getProperty('placeholder'));
+            return yield (yield this.host()).getProperty('placeholder');
         });
     }
     /**

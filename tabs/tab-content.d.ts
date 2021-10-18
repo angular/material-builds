@@ -15,9 +15,8 @@ import * as i0 from "@angular/core";
 export declare const MAT_TAB_CONTENT: InjectionToken<MatTabContent>;
 /** Decorates the `ng-template` tags and reads out the template from it. */
 export declare class MatTabContent {
-    /** Content for the tab. */ template: TemplateRef<any>;
-    constructor(
-    /** Content for the tab. */ template: TemplateRef<any>);
+    template: TemplateRef<any>;
+    constructor(/** Content for the tab. */ template: TemplateRef<any>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabContent, "[matTabContent]", never, {}, {}, never>;
 }

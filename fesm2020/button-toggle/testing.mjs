@@ -57,7 +57,7 @@ class MatButtonToggleHarness extends ComponentHarness {
     async getAppearance() {
         const host = await this.host();
         const className = 'mat-button-toggle-appearance-standard';
-        return await host.hasClass(className) ? 'standard' : 'legacy';
+        return (await host.hasClass(className)) ? 'standard' : 'legacy';
     }
     /** Focuses the toggle. */
     async focus() {
@@ -132,7 +132,7 @@ class MatButtonToggleGroupHarness extends ComponentHarness {
     }
     /** Gets whether the button toggle group is disabled. */
     async isDisabled() {
-        return await (await this.host()).getAttribute('aria-disabled') === 'true';
+        return (await (await this.host()).getAttribute('aria-disabled')) === 'true';
     }
     /** Gets whether the button toggle group is laid out vertically. */
     async isVertical() {
@@ -142,7 +142,7 @@ class MatButtonToggleGroupHarness extends ComponentHarness {
     async getAppearance() {
         const host = await this.host();
         const className = 'mat-button-toggle-group-appearance-standard';
-        return await host.hasClass(className) ? 'standard' : 'legacy';
+        return (await host.hasClass(className)) ? 'standard' : 'legacy';
     }
 }
 /** The selector for the host element of a `MatButton` instance. */

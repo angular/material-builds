@@ -7,9 +7,9 @@
  */
 import { AsyncFactoryFn, BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate, TestElement } from '@angular/cdk/testing';
 import { RadioButtonHarnessFilters, RadioGroupHarnessFilters } from './radio-harness-filters';
-export declare abstract class _MatRadioGroupHarnessBase<ButtonType extends (ComponentHarnessConstructor<Button> & {
+export declare abstract class _MatRadioGroupHarnessBase<ButtonType extends ComponentHarnessConstructor<Button> & {
     with: (options?: ButtonFilters) => HarnessPredicate<Button>;
-}), Button extends ComponentHarness & {
+}, Button extends ComponentHarness & {
     isChecked(): Promise<boolean>;
     getValue(): Promise<string | null>;
     getName(): Promise<string | null>;

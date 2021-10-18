@@ -49,13 +49,17 @@ class MatBadge extends _MatBadgeBase {
         }
     }
     /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
-    get color() { return this._color; }
+    get color() {
+        return this._color;
+    }
     set color(value) {
         this._setColor(value);
         this._color = value;
     }
     /** Whether the badge should overlap its contents or not */
-    get overlap() { return this._overlap; }
+    get overlap() {
+        return this._overlap;
+    }
     set overlap(val) {
         this._overlap = coerceBooleanProperty(val);
     }
@@ -67,12 +71,16 @@ class MatBadge extends _MatBadgeBase {
         this._updateRenderedContent(newContent);
     }
     /** Message used to describe the decorated element via aria-describedby */
-    get description() { return this._description; }
+    get description() {
+        return this._description;
+    }
     set description(newDescription) {
         this._updateHostAriaDescription(newDescription);
     }
     /** Whether the badge is hidden. */
-    get hidden() { return this._hidden; }
+    get hidden() {
+        return this._hidden;
+    }
     set hidden(val) {
         this._hidden = coerceBooleanProperty(val);
     }
@@ -237,19 +245,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatBadgeModule {
 }
 MatBadgeModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBadgeModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatBadgeModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBadgeModule, declarations: [MatBadge], imports: [A11yModule,
-        MatCommonModule], exports: [MatBadge, MatCommonModule] });
-MatBadgeModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBadgeModule, imports: [[
-            A11yModule,
-            MatCommonModule
-        ], MatCommonModule] });
+MatBadgeModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBadgeModule, declarations: [MatBadge], imports: [A11yModule, MatCommonModule], exports: [MatBadge, MatCommonModule] });
+MatBadgeModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBadgeModule, imports: [[A11yModule, MatCommonModule], MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatBadgeModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        A11yModule,
-                        MatCommonModule
-                    ],
+                    imports: [A11yModule, MatCommonModule],
                     exports: [MatBadge, MatCommonModule],
                     declarations: [MatBadge],
                 }]

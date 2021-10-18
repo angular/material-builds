@@ -20,13 +20,13 @@ interface RowBase extends ComponentHarness {
     getCellTextByColumnName(): Promise<MatRowHarnessColumnsText>;
     getCellTextByIndex(): Promise<string[]>;
 }
-export declare abstract class _MatTableHarnessBase<HeaderRowType extends (ComponentHarnessConstructor<HeaderRow> & {
+export declare abstract class _MatTableHarnessBase<HeaderRowType extends ComponentHarnessConstructor<HeaderRow> & {
     with: (options?: RowHarnessFilters) => HarnessPredicate<HeaderRow>;
-}), HeaderRow extends RowBase, RowType extends (ComponentHarnessConstructor<Row> & {
+}, HeaderRow extends RowBase, RowType extends ComponentHarnessConstructor<Row> & {
     with: (options?: RowHarnessFilters) => HarnessPredicate<Row>;
-}), Row extends RowBase, FooterRowType extends (ComponentHarnessConstructor<FooterRow> & {
+}, Row extends RowBase, FooterRowType extends ComponentHarnessConstructor<FooterRow> & {
     with: (options?: RowHarnessFilters) => HarnessPredicate<FooterRow>;
-}), FooterRow extends RowBase> extends ContentContainerComponentHarness<string> {
+}, FooterRow extends RowBase> extends ContentContainerComponentHarness<string> {
     protected abstract _headerRowHarness: HeaderRowType;
     protected abstract _rowHarness: RowType;
     protected abstract _footerRowHarness: FooterRowType;

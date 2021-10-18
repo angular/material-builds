@@ -19,7 +19,7 @@ import { ObserversModule } from '@angular/cdk/observers';
 /** Injection token to be used to override the default options for `mat-checkbox`. */
 const MAT_CHECKBOX_DEFAULT_OPTIONS = new InjectionToken('mat-checkbox-default-options', {
     providedIn: 'root',
-    factory: MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY
+    factory: MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY,
 });
 /** @docs-private */
 function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY() {
@@ -48,7 +48,7 @@ const defaults = MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY();
 const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatCheckbox),
-    multi: true
+    multi: true,
 };
 /** Change event object emitted by MatCheckbox. */
 class MatCheckboxChange {
@@ -112,10 +112,16 @@ class MatCheckbox extends _MatCheckboxBase {
         this.tabIndex = parseInt(tabIndex) || 0;
     }
     /** Returns the unique id for the visual hidden input. */
-    get inputId() { return `${this.id || this._uniqueId}-input`; }
+    get inputId() {
+        return `${this.id || this._uniqueId}-input`;
+    }
     /** Whether the checkbox is required. */
-    get required() { return this._required; }
-    set required(value) { this._required = coerceBooleanProperty(value); }
+    get required() {
+        return this._required;
+    }
+    set required(value) {
+        this._required = coerceBooleanProperty(value);
+    }
     ngAfterViewInit() {
         this._focusMonitor.monitor(this._elementRef, true).subscribe(focusOrigin => {
             if (!focusOrigin) {
@@ -140,7 +146,9 @@ class MatCheckbox extends _MatCheckboxBase {
     /**
      * Whether the checkbox is checked.
      */
-    get checked() { return this._checked; }
+    get checked() {
+        return this._checked;
+    }
     set checked(value) {
         if (value != this.checked) {
             this._checked = value;
@@ -151,7 +159,9 @@ class MatCheckbox extends _MatCheckboxBase {
      * Whether the checkbox is disabled. This fully overrides the implementation provided by
      * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
      */
-    get disabled() { return this._disabled; }
+    get disabled() {
+        return this._disabled;
+    }
     set disabled(value) {
         const newValue = coerceBooleanProperty(value);
         if (newValue !== this.disabled) {
@@ -165,7 +175,9 @@ class MatCheckbox extends _MatCheckboxBase {
      * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
      * set to false.
      */
-    get indeterminate() { return this._indeterminate; }
+    get indeterminate() {
+        return this._indeterminate;
+    }
     set indeterminate(value) {
         const changed = value != this._indeterminate;
         this._indeterminate = coerceBooleanProperty(value);
@@ -328,16 +340,22 @@ class MatCheckbox extends _MatCheckboxBase {
                 }
                 break;
             case 2 /* Unchecked */:
-                animSuffix = newState === 1 /* Checked */ ?
-                    'unchecked-checked' : 'unchecked-indeterminate';
+                animSuffix =
+                    newState === 1 /* Checked */
+                        ? 'unchecked-checked'
+                        : 'unchecked-indeterminate';
                 break;
             case 1 /* Checked */:
-                animSuffix = newState === 2 /* Unchecked */ ?
-                    'checked-unchecked' : 'checked-indeterminate';
+                animSuffix =
+                    newState === 2 /* Unchecked */
+                        ? 'checked-unchecked'
+                        : 'checked-indeterminate';
                 break;
             case 3 /* Indeterminate */:
-                animSuffix = newState === 1 /* Checked */ ?
-                    'indeterminate-checked' : 'indeterminate-unchecked';
+                animSuffix =
+                    newState === 1 /* Checked */
+                        ? 'indeterminate-checked'
+                        : 'indeterminate-unchecked';
                 break;
         }
         return `mat-checkbox-anim-${animSuffix}`;
@@ -431,7 +449,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 const MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => MatCheckboxRequiredValidator),
-    multi: true
+    multi: true,
 };
 /**
  * Validator for Material checkbox's required attribute in template-driven checkbox.
@@ -475,17 +493,11 @@ class MatCheckboxModule {
 }
 MatCheckboxModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatCheckboxModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 MatCheckboxModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatCheckboxModule, declarations: [MatCheckbox], imports: [MatRippleModule, MatCommonModule, ObserversModule, _MatCheckboxRequiredValidatorModule], exports: [MatCheckbox, MatCommonModule, _MatCheckboxRequiredValidatorModule] });
-MatCheckboxModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatCheckboxModule, imports: [[
-            MatRippleModule, MatCommonModule, ObserversModule,
-            _MatCheckboxRequiredValidatorModule
-        ], MatCommonModule, _MatCheckboxRequiredValidatorModule] });
+MatCheckboxModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatCheckboxModule, imports: [[MatRippleModule, MatCommonModule, ObserversModule, _MatCheckboxRequiredValidatorModule], MatCommonModule, _MatCheckboxRequiredValidatorModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatCheckboxModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        MatRippleModule, MatCommonModule, ObserversModule,
-                        _MatCheckboxRequiredValidatorModule
-                    ],
+                    imports: [MatRippleModule, MatCommonModule, ObserversModule, _MatCheckboxRequiredValidatorModule],
                     exports: [MatCheckbox, MatCommonModule, _MatCheckboxRequiredValidatorModule],
                     declarations: [MatCheckbox],
                 }]

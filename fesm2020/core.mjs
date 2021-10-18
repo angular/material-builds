@@ -113,7 +113,8 @@ class MatCommonModule {
     _checkThemeIsPresent() {
         // We need to assert that the `body` is defined, because these checks run very early
         // and the `body` won't be defined if the consumer put their scripts in the `head`.
-        if (!this._checkIsEnabled('theme') || !this._document.body ||
+        if (!this._checkIsEnabled('theme') ||
+            !this._document.body ||
             typeof getComputedStyle !== 'function') {
             return;
         }
@@ -134,8 +135,12 @@ class MatCommonModule {
     /** Checks whether the material version matches the cdk version */
     _checkCdkVersionMatch() {
         if (this._checkIsEnabled('version') && VERSION.full !== VERSION$2.full) {
-            console.warn('The Angular Material version (' + VERSION.full + ') does not match ' +
-                'the Angular CDK version (' + VERSION$2.full + ').\n' +
+            console.warn('The Angular Material version (' +
+                VERSION.full +
+                ') does not match ' +
+                'the Angular CDK version (' +
+                VERSION$2.full +
+                ').\n' +
                 'Please ensure the versions of these two packages exactly match.');
         }
     }
@@ -172,8 +177,12 @@ function mixinDisabled(base) {
             super(...args);
             this._disabled = false;
         }
-        get disabled() { return this._disabled; }
-        set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+        get disabled() {
+            return this._disabled;
+        }
+        set disabled(value) {
+            this._disabled = coerceBooleanProperty(value);
+        }
     };
 }
 
@@ -192,7 +201,9 @@ function mixinColor(base, defaultColor) {
             // Set the default color that can be specified from the mixin.
             this.color = defaultColor;
         }
-        get color() { return this._color; }
+        get color() {
+            return this._color;
+        }
         set color(value) {
             const colorPalette = value || this.defaultColor;
             if (colorPalette !== this._color) {
@@ -222,8 +233,12 @@ function mixinDisableRipple(base) {
             this._disableRipple = false;
         }
         /** Whether the ripple effect is disabled or not. */
-        get disableRipple() { return this._disableRipple; }
-        set disableRipple(value) { this._disableRipple = coerceBooleanProperty(value); }
+        get disableRipple() {
+            return this._disableRipple;
+        }
+        set disableRipple(value) {
+            this._disableRipple = coerceBooleanProperty(value);
+        }
     };
 }
 
@@ -241,7 +256,9 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
             this._tabIndex = defaultTabIndex;
             this.defaultTabIndex = defaultTabIndex;
         }
-        get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
+        get tabIndex() {
+            return this.disabled ? -1 : this._tabIndex;
+        }
         set tabIndex(value) {
             // If the specified tabIndex value is null or undefined, fall back to the default value.
             this._tabIndex = value != null ? coerceNumberProperty(value) : this.defaultTabIndex;
@@ -394,7 +411,7 @@ class DateAdapter {
      *     deserialized into a null date (e.g. the empty string), or an invalid date.
      */
     deserialize(value) {
-        if (value == null || this.isDateInstance(value) && this.isValid(value)) {
+        if (value == null || (this.isDateInstance(value) && this.isValid(value))) {
             return value;
         }
         return this.invalid();
@@ -415,9 +432,9 @@ class DateAdapter {
      *     a number greater than 0 if the first date is later.
      */
     compareDate(first, second) {
-        return this.getYear(first) - this.getYear(second) ||
+        return (this.getYear(first) - this.getYear(second) ||
             this.getMonth(first) - this.getMonth(second) ||
-            this.getDate(first) - this.getDate(second);
+            this.getDate(first) - this.getDate(second));
     }
     /**
      * Checks if two dates are equal.
@@ -585,7 +602,7 @@ class NativeDateAdapter extends DateAdapter {
         // month. In this case we want to go to the last day of the desired month.
         // Note: the additional + 12 % 12 ensures we end up with a positive number, since JS % doesn't
         // guarantee this.
-        if (this.getMonth(newDate) != ((this.getMonth(date) + months) % 12 + 12) % 12) {
+        if (this.getMonth(newDate) != (((this.getMonth(date) + months) % 12) + 12) % 12) {
             newDate = this._createDateWithOverflow(this.getYear(newDate), this.getMonth(newDate), 0);
         }
         return newDate;
@@ -597,7 +614,7 @@ class NativeDateAdapter extends DateAdapter {
         return [
             date.getUTCFullYear(),
             this._2digit(date.getUTCMonth() + 1),
-            this._2digit(date.getUTCDate())
+            this._2digit(date.getUTCDate()),
         ].join('-');
     }
     /**
@@ -694,7 +711,7 @@ const MAT_NATIVE_DATE_FORMATS = {
         monthYearLabel: { year: 'numeric', month: 'short' },
         dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
         monthYearA11yLabel: { year: 'numeric', month: 'long' },
-    }
+    },
 };
 
 /**
@@ -708,16 +725,12 @@ class NativeDateModule {
 }
 NativeDateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: NativeDateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 NativeDateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: NativeDateModule, imports: [PlatformModule] });
-NativeDateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: NativeDateModule, providers: [
-        { provide: DateAdapter, useClass: NativeDateAdapter },
-    ], imports: [[PlatformModule]] });
+NativeDateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: NativeDateModule, providers: [{ provide: DateAdapter, useClass: NativeDateAdapter }], imports: [[PlatformModule]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: NativeDateModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [PlatformModule],
-                    providers: [
-                        { provide: DateAdapter, useClass: NativeDateAdapter },
-                    ],
+                    providers: [{ provide: DateAdapter, useClass: NativeDateAdapter }],
                 }]
         }] });
 class MatNativeDateModule {
@@ -784,7 +797,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[mat-line], [matLine]',
-                    host: { 'class': 'mat-line' }
+                    host: { 'class': 'mat-line' },
                 }]
         }] });
 /**
@@ -859,7 +872,7 @@ class RippleRef {
  */
 const defaultRippleAnimationConfig = {
     enterDuration: 225,
-    exitDuration: 150
+    exitDuration: 150,
 };
 /**
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
@@ -901,8 +914,8 @@ class RippleRenderer {
      * @param config Extra ripple options.
      */
     fadeInRipple(x, y, config = {}) {
-        const containerRect = this._containerRect =
-            this._containerRect || this._containerElement.getBoundingClientRect();
+        const containerRect = (this._containerRect =
+            this._containerRect || this._containerElement.getBoundingClientRect());
         const animationConfig = { ...defaultRippleAnimationConfig, ...config.animation };
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
@@ -1061,7 +1074,7 @@ class RippleRenderer {
             // By default, only ripples that are completely visible will fade out on pointer release.
             // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
             const isVisible = ripple.state === 1 /* VISIBLE */ ||
-                ripple.config.terminateOnPointerUp && ripple.state === 0 /* FADING_IN */;
+                (ripple.config.terminateOnPointerUp && ripple.state === 0 /* FADING_IN */);
             if (!ripple.config.persistent && isVisible) {
                 ripple.fadeOut();
             }
@@ -1074,7 +1087,7 @@ class RippleRenderer {
     /** Registers event listeners for a given list of events. */
     _registerEvents(eventTypes) {
         this._ngZone.runOutsideAngular(() => {
-            eventTypes.forEach((type) => {
+            eventTypes.forEach(type => {
                 this._triggerElement.addEventListener(type, this, passiveEventOptions);
             });
         });
@@ -1082,11 +1095,11 @@ class RippleRenderer {
     /** Removes previously registered event listeners from the trigger element. */
     _removeTriggerEvents() {
         if (this._triggerElement) {
-            pointerDownEvents.forEach((type) => {
+            pointerDownEvents.forEach(type => {
                 this._triggerElement.removeEventListener(type, this, passiveEventOptions);
             });
             if (this._pointerUpEventsRegistered) {
-                pointerUpEvents.forEach((type) => {
+                pointerUpEvents.forEach(type => {
                     this._triggerElement.removeEventListener(type, this, passiveEventOptions);
                 });
             }
@@ -1138,7 +1151,9 @@ class MatRipple {
      * Whether click events will not trigger the ripple. Ripples can be still launched manually
      * by using the `launch()` method.
      */
-    get disabled() { return this._disabled; }
+    get disabled() {
+        return this._disabled;
+    }
     set disabled(value) {
         if (value) {
             this.fadeOutAllNonPersistent();
@@ -1150,7 +1165,9 @@ class MatRipple {
      * The element that triggers the ripple when click events are received.
      * Defaults to the directive's host element.
      */
-    get trigger() { return this._trigger || this._elementRef.nativeElement; }
+    get trigger() {
+        return this._trigger || this._elementRef.nativeElement;
+    }
     set trigger(trigger) {
         this._trigger = trigger;
         this._setupTriggerEventsIfEnabled();
@@ -1182,7 +1199,7 @@ class MatRipple {
             animation: {
                 ...this._globalOptions.animation,
                 ...(this._animationMode === 'NoopAnimations' ? { enterDuration: 0, exitDuration: 0 } : {}),
-                ...this.animation
+                ...this.animation,
             },
             terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
         };
@@ -1219,8 +1236,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                     exportAs: 'matRipple',
                     host: {
                         'class': 'mat-ripple',
-                        '[class.mat-ripple-unbounded]': 'unbounded'
-                    }
+                        '[class.mat-ripple-unbounded]': 'unbounded',
+                    },
                 }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i0.NgZone }, { type: i1$1.Platform }, { type: undefined, decorators: [{
                     type: Optional
@@ -1344,7 +1361,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{
                     imports: [MatCommonModule],
                     exports: [MatPseudoCheckbox],
-                    declarations: [MatPseudoCheckbox]
+                    declarations: [MatPseudoCheckbox],
                 }]
         }] });
 
@@ -1471,14 +1488,24 @@ class _MatOptionBase {
         this._stateChanges = new Subject();
     }
     /** Whether the wrapping component is in multiple selection mode. */
-    get multiple() { return this._parent && this._parent.multiple; }
+    get multiple() {
+        return this._parent && this._parent.multiple;
+    }
     /** Whether or not the option is currently selected. */
-    get selected() { return this._selected; }
+    get selected() {
+        return this._selected;
+    }
     /** Whether the option is disabled. */
-    get disabled() { return (this.group && this.group.disabled) || this._disabled; }
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    get disabled() {
+        return (this.group && this.group.disabled) || this._disabled;
+    }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+    }
     /** Whether ripples for the option are disabled. */
-    get disableRipple() { return this._parent && this._parent.disableRipple; }
+    get disableRipple() {
+        return this._parent && this._parent.disableRipple;
+    }
     /**
      * Whether or not the option is currently active and ready to be selected.
      * An active option displays styles as if it is focused, but the
@@ -1711,7 +1738,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{
                     imports: [MatRippleModule, CommonModule, MatCommonModule, MatPseudoCheckboxModule],
                     exports: [MatOption, MatOptgroup],
-                    declarations: [MatOption, MatOptgroup]
+                    declarations: [MatOption, MatOptgroup],
                 }]
         }] });
 

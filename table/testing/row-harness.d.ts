@@ -12,9 +12,9 @@ import { MatCellHarness, MatHeaderCellHarness, MatFooterCellHarness } from './ce
 export interface MatRowHarnessColumnsText {
     [columnName: string]: string;
 }
-export declare abstract class _MatRowHarnessBase<CellType extends (ComponentHarnessConstructor<Cell> & {
+export declare abstract class _MatRowHarnessBase<CellType extends ComponentHarnessConstructor<Cell> & {
     with: (options?: CellHarnessFilters) => HarnessPredicate<Cell>;
-}), Cell extends ComponentHarness & {
+}, Cell extends ComponentHarness & {
     getText(): Promise<string>;
     getColumnName(): Promise<string>;
 }> extends ComponentHarness {

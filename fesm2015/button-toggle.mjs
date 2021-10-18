@@ -26,7 +26,7 @@ const MAT_BUTTON_TOGGLE_GROUP = new InjectionToken('MatButtonToggleGroup');
 const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatButtonToggleGroup),
-    multi: true
+    multi: true,
 };
 // Counter used to generate unique IDs.
 let uniqueIdCounter = 0;
@@ -68,7 +68,9 @@ class MatButtonToggleGroup {
             defaultOptions && defaultOptions.appearance ? defaultOptions.appearance : 'standard';
     }
     /** `name` attribute for the underlying `input` element. */
-    get name() { return this._name; }
+    get name() {
+        return this._name;
+    }
     set name(value) {
         this._name = value;
         if (this._buttonToggles) {
@@ -79,7 +81,9 @@ class MatButtonToggleGroup {
         }
     }
     /** Whether the toggle group is vertical. */
-    get vertical() { return this._vertical; }
+    get vertical() {
+        return this._vertical;
+    }
     set vertical(value) {
         this._vertical = coerceBooleanProperty(value);
     }
@@ -98,15 +102,19 @@ class MatButtonToggleGroup {
     /** Selected button toggles in the group. */
     get selected() {
         const selected = this._selectionModel ? this._selectionModel.selected : [];
-        return this.multiple ? selected : (selected[0] || null);
+        return this.multiple ? selected : selected[0] || null;
     }
     /** Whether multiple button toggles can be selected. */
-    get multiple() { return this._multiple; }
+    get multiple() {
+        return this._multiple;
+    }
     set multiple(value) {
         this._multiple = coerceBooleanProperty(value);
     }
     /** Whether multiple button toggle group is disabled. */
-    get disabled() { return this._disabled; }
+    get disabled() {
+        return this._disabled;
+    }
     set disabled(value) {
         this._disabled = coerceBooleanProperty(value);
         if (this._buttonToggles) {
@@ -216,7 +224,7 @@ class MatButtonToggleGroup {
     /** Clears the selected toggles. */
     _clearSelection() {
         this._selectionModel.clear();
-        this._buttonToggles.forEach(toggle => toggle.checked = false);
+        this._buttonToggles.forEach(toggle => (toggle.checked = false));
     }
     /** Selects a value if there's a toggle that corresponds to it. */
     _selectValue(value) {
@@ -273,7 +281,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                 args: [forwardRef(() => MatButtonToggle), {
                         // Note that this would technically pick up toggles
                         // from nested groups, but that's not a case that we support.
-                        descendants: true
+                        descendants: true,
                     }]
             }], appearance: [{
                 type: Input
@@ -313,13 +321,15 @@ class MatButtonToggle extends _MatButtonToggleBase {
         /** Event emitted when the group value changes. */
         this.change = new EventEmitter();
         const parsedTabIndex = Number(defaultTabIndex);
-        this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
+        this.tabIndex = parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;
         this.buttonToggleGroup = toggleGroup;
         this.appearance =
             defaultOptions && defaultOptions.appearance ? defaultOptions.appearance : 'standard';
     }
     /** Unique ID for the underlying `button` element. */
-    get buttonId() { return `${this.id}-button`; }
+    get buttonId() {
+        return `${this.id}-button`;
+    }
     /** The appearance style of the button. */
     get appearance() {
         return this.buttonToggleGroup ? this.buttonToggleGroup.appearance : this._appearance;
@@ -345,7 +355,9 @@ class MatButtonToggle extends _MatButtonToggleBase {
     get disabled() {
         return this._disabled || (this.buttonToggleGroup && this.buttonToggleGroup.disabled);
     }
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+    }
     ngOnInit() {
         const group = this.buttonToggleGroup;
         this._isSingleSelector = group && !group.multiple;

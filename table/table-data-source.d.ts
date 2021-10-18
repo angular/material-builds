@@ -89,7 +89,7 @@ export declare class _MatTableDataSource<T, P extends MatTableDataSourcePaginato
      * @param data Data object that is being accessed.
      * @param sortHeaderId The name of the column that represents the data.
      */
-    sortingDataAccessor: ((data: T, sortHeaderId: string) => string | number);
+    sortingDataAccessor: (data: T, sortHeaderId: string) => string | number;
     /**
      * Gets a sorted copy of the data array based on the state of the MatSort. Called
      * after changes are made to the filtered data or when sort changes are emitted from MatSort.
@@ -99,7 +99,7 @@ export declare class _MatTableDataSource<T, P extends MatTableDataSourcePaginato
      * @param data The array of data that should be sorted.
      * @param sort The connected MatSort that holds the current sort state.
      */
-    sortData: ((data: T[], sort: MatSort) => T[]);
+    sortData: (data: T[], sort: MatSort) => T[];
     /**
      * Checks if a data object matches the data source's filter string. By default, each data object
      * is converted to a string of its properties and returns true if the filter has
@@ -110,7 +110,7 @@ export declare class _MatTableDataSource<T, P extends MatTableDataSourcePaginato
      * @param filter Filter string that has been set on the data source.
      * @returns Whether the filter matches against the data
      */
-    filterPredicate: ((data: T, filter: string) => boolean);
+    filterPredicate: (data: T, filter: string) => boolean;
     constructor(initialData?: T[]);
     /**
      * Subscribe to changes that should trigger an update to the table's rendered rows. When the

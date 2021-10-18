@@ -199,9 +199,9 @@ const matSnackBarAnimations = {
         })),
         transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
         transition('* => void, * => hidden', animate('75ms cubic-bezier(0.4, 0.0, 1, 1)', style({
-            opacity: 0
+            opacity: 0,
         }))),
-    ])
+    ]),
 };
 
 /**
@@ -391,7 +391,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{ selector: 'snack-bar-container', changeDetection: ChangeDetectionStrategy.Default, encapsulation: ViewEncapsulation.None, animations: [matSnackBarAnimations.snackBarState], host: {
                         'class': 'mat-snack-bar-container',
                         '[@state]': '_animationState',
-                        '(@state.done)': 'onAnimationEnd($event)'
+                        '(@state.done)': 'onAnimationEnd($event)',
                     }, template: "<!-- Initially holds the snack bar content, will be empty after announcing to screen readers. -->\n<div aria-hidden=\"true\">\n  <ng-template cdkPortalOutlet></ng-template>\n</div>\n\n<!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n<div [attr.aria-live]=\"_live\" [attr.role]=\"_role\"></div>\n", styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}.cdk-high-contrast-active .mat-snack-bar-container{border:solid 1px}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}\n"] }]
         }], ctorParameters: function () { return [{ type: i0.NgZone }, { type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: i1.Platform }, { type: MatSnackBarConfig }]; }, propDecorators: { _portalOutlet: [{
                 type: ViewChild,
@@ -408,28 +408,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatSnackBarModule {
 }
 MatSnackBarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSnackBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatSnackBarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSnackBarModule, declarations: [MatSnackBarContainer, SimpleSnackBar], imports: [OverlayModule,
-        PortalModule,
-        CommonModule,
-        MatButtonModule,
-        MatCommonModule], exports: [MatSnackBarContainer, MatCommonModule] });
-MatSnackBarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSnackBarModule, imports: [[
-            OverlayModule,
-            PortalModule,
-            CommonModule,
-            MatButtonModule,
-            MatCommonModule,
-        ], MatCommonModule] });
+MatSnackBarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSnackBarModule, declarations: [MatSnackBarContainer, SimpleSnackBar], imports: [OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule], exports: [MatSnackBarContainer, MatCommonModule] });
+MatSnackBarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSnackBarModule, imports: [[OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule], MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSnackBarModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        OverlayModule,
-                        PortalModule,
-                        CommonModule,
-                        MatButtonModule,
-                        MatCommonModule,
-                    ],
+                    imports: [OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule],
                     exports: [MatSnackBarContainer, MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
@@ -548,7 +532,7 @@ class MatSnackBar {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this._injector,
-            providers: [{ provide: MatSnackBarConfig, useValue: config }]
+            providers: [{ provide: MatSnackBarConfig, useValue: config }],
         });
         const containerPortal = new ComponentPortal(this.snackBarContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlayRef.attach(containerPortal);
@@ -566,7 +550,7 @@ class MatSnackBar {
         if (content instanceof TemplateRef) {
             const portal = new TemplatePortal(content, null, {
                 $implicit: config.data,
-                snackBarRef
+                snackBarRef,
             });
             snackBarRef.instance = container.attachTemplatePortal(portal);
         }
@@ -580,7 +564,10 @@ class MatSnackBar {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(Breakpoints.HandsetPortrait).pipe(takeUntil(overlayRef.detachments())).subscribe(state => {
+        this._breakpointObserver
+            .observe(Breakpoints.HandsetPortrait)
+            .pipe(takeUntil(overlayRef.detachments()))
+            .subscribe(state => {
             overlayRef.overlayElement.classList.toggle(this.handsetCssClass, state.matches);
         });
         if (config.announcementMessage) {
@@ -632,9 +619,9 @@ class MatSnackBar {
         let positionStrategy = this._overlay.position().global();
         // Set horizontal position.
         const isRtl = config.direction === 'rtl';
-        const isLeft = (config.horizontalPosition === 'left' ||
+        const isLeft = config.horizontalPosition === 'left' ||
             (config.horizontalPosition === 'start' && !isRtl) ||
-            (config.horizontalPosition === 'end' && isRtl));
+            (config.horizontalPosition === 'end' && isRtl);
         const isRight = !isLeft && config.horizontalPosition !== 'center';
         if (isLeft) {
             positionStrategy.left('0');
@@ -666,8 +653,8 @@ class MatSnackBar {
             parent: userInjector || this._injector,
             providers: [
                 { provide: MatSnackBarRef, useValue: snackBarRef },
-                { provide: MAT_SNACK_BAR_DATA, useValue: config.data }
-            ]
+                { provide: MAT_SNACK_BAR_DATA, useValue: config.data },
+            ],
         });
     }
 }

@@ -19,7 +19,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 /** Injection token to be used to override the default options for `mat-slide-toggle`. */
 const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
-    factory: () => ({ disableToggleValue: false })
+    factory: () => ({ disableToggleValue: false }),
 });
 
 /**
@@ -35,7 +35,7 @@ let nextUniqueId = 0;
 const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSlideToggle),
-    multi: true
+    multi: true,
 };
 /** Change event object emitted by a MatSlideToggle. */
 class MatSlideToggleChange {
@@ -90,20 +90,26 @@ class MatSlideToggle extends _MatSlideToggleBase {
         this._noopAnimations = animationMode === 'NoopAnimations';
     }
     /** Whether the slide-toggle is required. */
-    get required() { return this._required; }
-    set required(value) { this._required = coerceBooleanProperty(value); }
+    get required() {
+        return this._required;
+    }
+    set required(value) {
+        this._required = coerceBooleanProperty(value);
+    }
     /** Whether the slide-toggle element is checked or not. */
-    get checked() { return this._checked; }
+    get checked() {
+        return this._checked;
+    }
     set checked(value) {
         this._checked = coerceBooleanProperty(value);
         this._changeDetectorRef.markForCheck();
     }
     /** Returns the unique id for the visual hidden input. */
-    get inputId() { return `${this.id || this._uniqueId}-input`; }
+    get inputId() {
+        return `${this.id || this._uniqueId}-input`;
+    }
     ngAfterContentInit() {
-        this._focusMonitor
-            .monitor(this._elementRef, true)
-            .subscribe(focusOrigin => {
+        this._focusMonitor.monitor(this._elementRef, true).subscribe(focusOrigin => {
             // Only forward focus manually when it was received programmatically or through the
             // keyboard. We should not do this for mouse/touch focus for two reasons:
             // 1. It can prevent clicks from landing in Chrome (see #18269).
@@ -274,7 +280,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 const MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => MatSlideToggleRequiredValidator),
-    multi: true
+    multi: true,
 };
 /**
  * Validator for Material slide-toggle components with the required attribute in a
@@ -322,8 +328,7 @@ class MatSlideToggleModule {
 MatSlideToggleModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSlideToggleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 MatSlideToggleModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSlideToggleModule, declarations: [MatSlideToggle], imports: [_MatSlideToggleRequiredValidatorModule, MatRippleModule,
         MatCommonModule,
-        ObserversModule], exports: [_MatSlideToggleRequiredValidatorModule, MatSlideToggle,
-        MatCommonModule] });
+        ObserversModule], exports: [_MatSlideToggleRequiredValidatorModule, MatSlideToggle, MatCommonModule] });
 MatSlideToggleModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatSlideToggleModule, imports: [[
             _MatSlideToggleRequiredValidatorModule,
             MatRippleModule,
@@ -339,11 +344,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         MatCommonModule,
                         ObserversModule,
                     ],
-                    exports: [
-                        _MatSlideToggleRequiredValidatorModule,
-                        MatSlideToggle,
-                        MatCommonModule
-                    ],
+                    exports: [_MatSlideToggleRequiredValidatorModule, MatSlideToggle, MatCommonModule],
                     declarations: [MatSlideToggle],
                 }]
         }] });

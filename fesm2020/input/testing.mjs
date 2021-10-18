@@ -40,12 +40,12 @@ class MatInputHarness extends MatFormFieldControlHarness {
     /** Gets the value of the input. */
     async getValue() {
         // The "value" property of the native input is never undefined.
-        return (await (await this.host()).getProperty('value'));
+        return await (await this.host()).getProperty('value');
     }
     /** Gets the name of the input. */
     async getName() {
         // The "name" property of the native input is never undefined.
-        return (await (await this.host()).getProperty('name'));
+        return await (await this.host()).getProperty('name');
     }
     /**
      * Gets the type of the input. Returns "textarea" if the input is
@@ -53,14 +53,14 @@ class MatInputHarness extends MatFormFieldControlHarness {
      */
     async getType() {
         // The "type" property of the native input is never undefined.
-        return (await (await this.host()).getProperty('type'));
+        return await (await this.host()).getProperty('type');
     }
     /** Gets the placeholder of the input. */
     async getPlaceholder() {
         const host = await this.host();
         const [nativePlaceholder, fallback] = await parallel(() => [
             host.getProperty('placeholder'),
-            host.getAttribute('data-placeholder')
+            host.getAttribute('data-placeholder'),
         ]);
         return nativePlaceholder || fallback || '';
     }
@@ -68,7 +68,7 @@ class MatInputHarness extends MatFormFieldControlHarness {
     async getId() {
         // The input directive always assigns a unique id to the input in
         // case no id has been explicitly specified.
-        return (await (await this.host()).getProperty('id'));
+        return await (await this.host()).getProperty('id');
     }
     /**
      * Focuses the input and returns a promise that indicates when the
@@ -138,8 +138,8 @@ class MatNativeOptionHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatNativeOptionHarness, options)
             .addOption('text', options.text, async (harness, title) => HarnessPredicate.stringMatches(await harness.getText(), title))
-            .addOption('index', options.index, async (harness, index) => await harness.getIndex() === index)
-            .addOption('isSelected', options.isSelected, async (harness, isSelected) => await harness.isSelected() === isSelected);
+            .addOption('index', options.index, async (harness, index) => (await harness.getIndex()) === index)
+            .addOption('isSelected', options.isSelected, async (harness, isSelected) => (await harness.isSelected()) === isSelected);
     }
     /** Gets the option's label text. */
     async getText() {
@@ -194,12 +194,12 @@ class MatNativeSelectHarness extends MatFormFieldControlHarness {
     /** Gets the name of the select. */
     async getName() {
         // The "name" property of the native select is never undefined.
-        return (await (await this.host()).getProperty('name'));
+        return await (await this.host()).getProperty('name');
     }
     /** Gets the id of the select. */
     async getId() {
         // We're guaranteed to have an id, because the `matNativeControl` always assigns one.
-        return (await (await this.host()).getProperty('id'));
+        return await (await this.host()).getProperty('id');
     }
     /** Focuses the select and returns a void promise that indicates when the action is complete. */
     async focus() {
@@ -230,7 +230,7 @@ class MatNativeSelectHarness extends MatFormFieldControlHarness {
         }
         const [host, optionIndexes] = await parallel(() => [
             this.host(),
-            parallel(() => options.slice(0, isMultiple ? undefined : 1).map(option => option.getIndex()))
+            parallel(() => options.slice(0, isMultiple ? undefined : 1).map(option => option.getIndex())),
         ]);
         await host.selectOptions(...optionIndexes);
     }

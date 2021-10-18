@@ -108,12 +108,12 @@ class MatCheckboxHarness extends _MatCheckboxHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatCheckboxHarness, options)
+        return (new HarnessPredicate(MatCheckboxHarness, options)
             .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
             // We want to provide a filter option for "name" because the name of the checkbox is
             // only set on the underlying input. This means that it's not possible for developers
             // to retrieve the harness of a specific checkbox with name through a CSS selector.
-            .addOption('name', options.name, async (harness, name) => await harness.getName() === name);
+            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name));
     }
     async toggle() {
         return (await this._inputContainer()).click();

@@ -91,8 +91,8 @@ class MatProgressSpinner extends _MatProgressSpinnerBase {
         if (!trackedDiameters.has(_document.head)) {
             trackedDiameters.set(_document.head, new Set([BASE_SIZE]));
         }
-        this._noopAnimations = animationMode === 'NoopAnimations' &&
-            (!!defaults && !defaults._forceAnimations);
+        this._noopAnimations =
+            animationMode === 'NoopAnimations' && !!defaults && !defaults._forceAnimations;
         if (defaults) {
             if (defaults.diameter) {
                 this.diameter = defaults.diameter;
@@ -103,7 +103,9 @@ class MatProgressSpinner extends _MatProgressSpinnerBase {
         }
     }
     /** The diameter of the progress spinner (will set width and height of svg). */
-    get diameter() { return this._diameter; }
+    get diameter() {
+        return this._diameter;
+    }
     set diameter(size) {
         this._diameter = coerceNumberProperty(size);
         this._spinnerAnimationLabel = this._getSpinnerAnimationLabel();
@@ -151,13 +153,13 @@ class MatProgressSpinner extends _MatProgressSpinnerBase {
     /** The dash offset of the svg circle. */
     _getStrokeDashOffset() {
         if (this.mode === 'determinate') {
-            return this._getStrokeCircumference() * (100 - this._value) / 100;
+            return (this._getStrokeCircumference() * (100 - this._value)) / 100;
         }
         return null;
     }
     /** Stroke width of the circle in percent. */
     _getCircleStrokeWidth() {
-        return this.strokeWidth / this.diameter * 100;
+        return (this.strokeWidth / this.diameter) * 100;
     }
     /** Dynamically generates a style tag containing the correct animation for this diameter. */
     _attachStyleNode() {
@@ -180,11 +182,11 @@ class MatProgressSpinner extends _MatProgressSpinnerBase {
     /** Generates animation styles adjusted for the spinner's diameter. */
     _getAnimationText() {
         const strokeCircumference = this._getStrokeCircumference();
-        return INDETERMINATE_ANIMATION_TEMPLATE
+        return (INDETERMINATE_ANIMATION_TEMPLATE
             // Animation should begin at 5% and end at 80%
             .replace(/START_VALUE/g, `${0.95 * strokeCircumference}`)
             .replace(/END_VALUE/g, `${0.2 * strokeCircumference}`)
-            .replace(/DIAMETER/g, `${this._spinnerAnimationLabel}`);
+            .replace(/DIAMETER/g, `${this._spinnerAnimationLabel}`));
     }
     /** Returns the circle diameter formatted for use with the animation-name CSS property. */
     _getSpinnerAnimationLabel() {
@@ -293,24 +295,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
 class MatProgressSpinnerModule {
 }
 MatProgressSpinnerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatProgressSpinnerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatProgressSpinnerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatProgressSpinnerModule, declarations: [MatProgressSpinner,
-        MatSpinner], imports: [MatCommonModule, CommonModule], exports: [MatProgressSpinner,
-        MatSpinner,
-        MatCommonModule] });
+MatProgressSpinnerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatProgressSpinnerModule, declarations: [MatProgressSpinner, MatSpinner], imports: [MatCommonModule, CommonModule], exports: [MatProgressSpinner, MatSpinner, MatCommonModule] });
 MatProgressSpinnerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatProgressSpinnerModule, imports: [[MatCommonModule, CommonModule], MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatProgressSpinnerModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, CommonModule],
-                    exports: [
-                        MatProgressSpinner,
-                        MatSpinner,
-                        MatCommonModule
-                    ],
-                    declarations: [
-                        MatProgressSpinner,
-                        MatSpinner
-                    ],
+                    exports: [MatProgressSpinner, MatSpinner, MatCommonModule],
+                    declarations: [MatProgressSpinner, MatSpinner],
                 }]
         }] });
 

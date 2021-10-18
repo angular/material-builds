@@ -69,7 +69,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             args: [{
                     selector: 'mat-chip-avatar, [matChipAvatar]',
                     host: { 'class': 'mat-chip-avatar' },
-                    providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatChipAvatar }]
+                    providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatChipAvatar }],
                 }]
         }] });
 /**
@@ -129,18 +129,22 @@ class MatChip extends _MatChipMixinBase {
         this._chipRipple.setupTriggerEvents(elementRef);
         this.rippleConfig = globalRippleOptions || {};
         this._animationsDisabled = animationMode === 'NoopAnimations';
-        this.tabIndex = tabIndex != null ? (parseInt(tabIndex) || -1) : -1;
+        this.tabIndex = tabIndex != null ? parseInt(tabIndex) || -1 : -1;
     }
     /**
      * Whether ripples are disabled on interaction
      * @docs-private
      */
     get rippleDisabled() {
-        return this.disabled || this.disableRipple || this._animationsDisabled ||
-            !!this.rippleConfig.disabled;
+        return (this.disabled ||
+            this.disableRipple ||
+            this._animationsDisabled ||
+            !!this.rippleConfig.disabled);
     }
     /** Whether the chip is selected. */
-    get selected() { return this._selected; }
+    get selected() {
+        return this._selected;
+    }
     set selected(value) {
         const coercedValue = coerceBooleanProperty(value);
         if (coercedValue !== this._selected) {
@@ -150,30 +154,36 @@ class MatChip extends _MatChipMixinBase {
     }
     /** The value of the chip. Defaults to the content inside `<mat-chip>` tags. */
     get value() {
-        return this._value !== undefined
-            ? this._value
-            : this._elementRef.nativeElement.textContent;
+        return this._value !== undefined ? this._value : this._elementRef.nativeElement.textContent;
     }
-    set value(value) { this._value = value; }
+    set value(value) {
+        this._value = value;
+    }
     /**
      * Whether or not the chip is selectable. When a chip is not selectable,
      * changes to its selected state are always ignored. By default a chip is
      * selectable, and it becomes non-selectable if its parent chip list is
      * not selectable.
      */
-    get selectable() { return this._selectable && this.chipListSelectable; }
+    get selectable() {
+        return this._selectable && this.chipListSelectable;
+    }
     set selectable(value) {
         this._selectable = coerceBooleanProperty(value);
     }
     /** Whether the chip is disabled. */
-    get disabled() { return this._chipListDisabled || this._disabled; }
+    get disabled() {
+        return this._chipListDisabled || this._disabled;
+    }
     set disabled(value) {
         this._disabled = coerceBooleanProperty(value);
     }
     /**
      * Determines whether or not the chip displays the remove styling and emits (removed) events.
      */
-    get removable() { return this._removable; }
+    get removable() {
+        return this._removable;
+    }
     set removable(value) {
         this._removable = coerceBooleanProperty(value);
     }
@@ -181,8 +191,9 @@ class MatChip extends _MatChipMixinBase {
     get ariaSelected() {
         // Remove the `aria-selected` when the chip is deselected in single-selection mode, because
         // it adds noise to NVDA users where "not selected" will be read out for each chip.
-        return this.selectable && (this._chipListMultiple || this.selected) ?
-            this.selected.toString() : null;
+        return this.selectable && (this._chipListMultiple || this.selected)
+            ? this.selected.toString()
+            : null;
     }
     _addHostClassName() {
         const basicChipAttrName = 'mat-basic-chip';
@@ -287,9 +298,7 @@ class MatChip extends _MatChipMixinBase {
         // earlier than usual, causing it to be blurred and throwing off the logic in the chip list
         // that moves focus not the next item. To work around the issue, we defer marking the chip
         // as not focused until the next time the zone stabilizes.
-        this._ngZone.onStable
-            .pipe(take(1))
-            .subscribe(() => {
+        this._ngZone.onStable.pipe(take(1)).subscribe(() => {
             this._ngZone.run(() => {
                 this._hasFocus = false;
                 this._onBlur.next({ chip: this });
@@ -300,7 +309,7 @@ class MatChip extends _MatChipMixinBase {
         this.selectionChange.emit({
             source: this,
             isUserInput,
-            selected: this._selected
+            selected: this._selected,
         });
     }
 }
@@ -517,13 +526,16 @@ class MatChipList extends _MatChipListBase {
     }
     /** The array of selected chips inside chip list. */
     get selected() {
-        return this.multiple ? (this._selectionModel?.selected || []) :
-            this._selectionModel?.selected[0];
+        return this.multiple ? this._selectionModel?.selected || [] : this._selectionModel?.selected[0];
     }
     /** The ARIA role applied to the chip list. */
-    get role() { return this.empty ? null : 'listbox'; }
+    get role() {
+        return this.empty ? null : 'listbox';
+    }
     /** Whether the user should be allowed to select multiple chips. */
-    get multiple() { return this._multiple; }
+    get multiple() {
+        return this._multiple;
+    }
     set multiple(value) {
         this._multiple = coerceBooleanProperty(value);
         this._syncChipsState();
@@ -533,7 +545,9 @@ class MatChipList extends _MatChipListBase {
      * is a value from an option. The second is a value from the selection. A boolean
      * should be returned.
      */
-    get compareWith() { return this._compareWith; }
+    get compareWith() {
+        return this._compareWith;
+    }
     set compareWith(fn) {
         this._compareWith = fn;
         if (this._selectionModel) {
@@ -545,7 +559,9 @@ class MatChipList extends _MatChipListBase {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    get value() { return this._value; }
+    get value() {
+        return this._value;
+    }
     set value(value) {
         this.writeValue(value);
         this._value = value;
@@ -594,12 +610,16 @@ class MatChipList extends _MatChipListBase {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    get shouldLabelFloat() { return !this.empty || this.focused; }
+    get shouldLabelFloat() {
+        return !this.empty || this.focused;
+    }
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    get disabled() { return this.ngControl ? !!this.ngControl.disabled : this._disabled; }
+    get disabled() {
+        return this.ngControl ? !!this.ngControl.disabled : this._disabled;
+    }
     set disabled(value) {
         this._disabled = coerceBooleanProperty(value);
         this._syncChipsState();
@@ -608,11 +628,13 @@ class MatChipList extends _MatChipListBase {
      * Whether or not this chip list is selectable. When a chip list is not selectable,
      * the selected states for all the chips inside the chip list are always ignored.
      */
-    get selectable() { return this._selectable; }
+    get selectable() {
+        return this._selectable;
+    }
     set selectable(value) {
         this._selectable = coerceBooleanProperty(value);
         if (this.chips) {
-            this.chips.forEach(chip => chip.chipListSelectable = this._selectable);
+            this.chips.forEach(chip => (chip.chipListSelectable = this._selectable));
         }
     }
     set tabIndex(value) {
@@ -700,7 +722,9 @@ class MatChipList extends _MatChipListBase {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    setDescribedByIds(ids) { this._ariaDescribedby = ids.join(' '); }
+    setDescribedByIds(ids) {
+        this._ariaDescribedby = ids.join(' ');
+    }
     // Implemented as part of ControlValueAccessor.
     writeValue(value) {
         if (this.chips) {
@@ -1084,7 +1108,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                 args: [MatChip, {
                         // We need to use `descendants: true`, because Ivy will no longer match
                         // indirect descendants if it's left as false.
-                        descendants: true
+                        descendants: true,
                     }]
             }] } });
 
@@ -1133,13 +1157,23 @@ class MatChipInput {
     /**
      * Whether or not the chipEnd event will be emitted when the input is blurred.
      */
-    get addOnBlur() { return this._addOnBlur; }
-    set addOnBlur(value) { this._addOnBlur = coerceBooleanProperty(value); }
+    get addOnBlur() {
+        return this._addOnBlur;
+    }
+    set addOnBlur(value) {
+        this._addOnBlur = coerceBooleanProperty(value);
+    }
     /** Whether the input is disabled. */
-    get disabled() { return this._disabled || (this._chipList && this._chipList.disabled); }
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    get disabled() {
+        return this._disabled || (this._chipList && this._chipList.disabled);
+    }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+    }
     /** Whether the input is empty. */
-    get empty() { return !this.inputElement.value; }
+    get empty() {
+        return !this.inputElement.value;
+    }
     ngOnChanges() {
         this._chipList.stateChanges.next();
     }
@@ -1249,7 +1283,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         '[attr.placeholder]': 'placeholder || null',
                         '[attr.aria-invalid]': '_chipList && _chipList.ngControl ? _chipList.ngControl.invalid : null',
                         '[attr.aria-required]': '_chipList && _chipList.required || null',
-                    }
+                    },
                 }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: undefined, decorators: [{
                     type: Inject,
@@ -1308,9 +1342,9 @@ MatChipsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version:
         {
             provide: MAT_CHIPS_DEFAULT_OPTIONS,
             useValue: {
-                separatorKeyCodes: [ENTER]
-            }
-        }
+                separatorKeyCodes: [ENTER],
+            },
+        },
     ], imports: [[MatCommonModule]] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatChipsModule, decorators: [{
             type: NgModule,
@@ -1323,10 +1357,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                         {
                             provide: MAT_CHIPS_DEFAULT_OPTIONS,
                             useValue: {
-                                separatorKeyCodes: [ENTER]
-                            }
-                        }
-                    ]
+                                separatorKeyCodes: [ENTER],
+                            },
+                        },
+                    ],
                 }]
         }] });
 

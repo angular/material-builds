@@ -43,14 +43,14 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     async getOptions(filters) {
         return this._documentRootLocator.locatorForAll(this._optionClass.with({
             ...(filters || {}),
-            ancestor: await this._getPanelSelector()
+            ancestor: await this._getPanelSelector(),
         }))();
     }
     /** Gets the option groups inside the autocomplete panel. */
     async getOptionGroups(filters) {
         return this._documentRootLocator.locatorForAll(this._optionGroupClass.with({
             ...(filters || {}),
-            ancestor: await this._getPanelSelector()
+            ancestor: await this._getPanelSelector(),
         }))();
     }
     /** Selects the first option matching the given filters. */
@@ -65,7 +65,7 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     /** Whether the autocomplete is open. */
     async isOpen() {
         const panel = await this._getPanel();
-        return !!panel && await panel.hasClass(`${this._prefix}-autocomplete-visible`);
+        return !!panel && (await panel.hasClass(`${this._prefix}-autocomplete-visible`));
     }
     /** Gets the panel associated with this autocomplete trigger. */
     async _getPanel() {
@@ -75,7 +75,7 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     }
     /** Gets the selector that can be used to find the autocomplete trigger's panel. */
     async _getPanelSelector() {
-        return `#${(await (await this.host()).getAttribute('aria-owns'))}`;
+        return `#${await (await this.host()).getAttribute('aria-owns')}`;
     }
 }
 /** Harness for interacting with a standard mat-autocomplete in tests. */
@@ -93,8 +93,7 @@ class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatAutocompleteHarness, options)
-            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
+        return new HarnessPredicate(MatAutocompleteHarness, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
     }
 }
 /** The selector for the host element of a `MatAutocomplete` instance. */

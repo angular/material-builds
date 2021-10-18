@@ -41,7 +41,7 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
                 this._selectControl(),
                 this._inputControl(),
                 this._datepickerInputControl(),
-                this._dateRangeInputControl()
+                this._dateRangeInputControl(),
             ]);
             // Match the datepicker inputs first since they can also have a `MatInput`.
             return datepickerInput || dateRangeInput || select || input;
@@ -146,7 +146,10 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
             // If no form "NgControl" is bound to the form-field control, the form-field
             // is not able to forward any control status classes. Therefore if either the
             // "ng-touched" or "ng-untouched" class is set, we know that it has a form control
-            const [isTouched, isUntouched] = yield parallel(() => [hostEl.hasClass('ng-touched'), hostEl.hasClass('ng-untouched')]);
+            const [isTouched, isUntouched] = yield parallel(() => [
+                hostEl.hasClass('ng-touched'),
+                hostEl.hasClass('ng-untouched'),
+            ]);
             return isTouched || isUntouched;
         });
     }

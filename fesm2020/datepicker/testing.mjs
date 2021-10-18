@@ -40,7 +40,7 @@ class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
     /** Gets the value of the input. */
     async getValue() {
         // The "value" property of the native input is always defined.
-        return (await (await this.host()).getProperty('value'));
+        return await (await this.host()).getProperty('value');
     }
     /**
      * Sets the value of the input. The value will be set by simulating
@@ -59,7 +59,7 @@ class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
     }
     /** Gets the placeholder of the input. */
     async getPlaceholder() {
-        return (await (await this.host()).getProperty('placeholder'));
+        return await (await this.host()).getProperty('placeholder');
     }
     /**
      * Focuses the input and returns a promise that indicates when the
@@ -359,7 +359,7 @@ async function getCalendar(filter, host, documentLocator) {
     }
     return documentLocator.locatorFor(MatCalendarHarness.with({
         ...filter,
-        selector: `#${calendarId}`
+        selector: `#${calendarId}`,
     }))();
 }
 
@@ -498,15 +498,14 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatDateRangeInputHarness, options)
-            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
+        return new HarnessPredicate(MatDateRangeInputHarness, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
     }
     /** Gets the combined value of the start and end inputs, including the separator. */
     async getValue() {
         const [start, end, separator] = await parallel(() => [
             this.getStartInput().then(input => input.getValue()),
             this.getEndInput().then(input => input.getValue()),
-            this.getSeparator()
+            this.getSeparator(),
         ]);
         return start + `${end ? ` ${separator} ${end}` : ''}`;
     }
@@ -529,7 +528,7 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
         // We consider the input as disabled if both of the sub-inputs are disabled.
         const [startDisabled, endDisabled] = await parallel(() => [
             this.getStartInput().then(input => input.isDisabled()),
-            this.getEndInput().then(input => input.isDisabled())
+            this.getEndInput().then(input => input.isDisabled()),
         ]);
         return startDisabled && endDisabled;
     }

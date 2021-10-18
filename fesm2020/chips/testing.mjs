@@ -69,7 +69,7 @@ class MatChipHarness extends ContentContainerComponentHarness {
     /** Gets the text of the chip. */
     async getText() {
         return (await this.host()).text({
-            exclude: '.mat-chip-avatar, .mat-chip-trailing-icon, .mat-icon'
+            exclude: '.mat-chip-avatar, .mat-chip-trailing-icon, .mat-icon',
         });
     }
     /**
@@ -173,7 +173,7 @@ class MatChipInputHarness extends ComponentHarness {
     }
     /** Gets the placeholder of the input. */
     async getPlaceholder() {
-        return (await (await this.host()).getProperty('placeholder'));
+        return await (await this.host()).getProperty('placeholder');
     }
     /**
      * Focuses the input and returns a promise that indicates when the
@@ -226,19 +226,19 @@ MatChipInputHarness.hostSelector = '.mat-chip-input';
 class _MatChipListHarnessBase extends ComponentHarness {
     /** Gets whether the chip list is disabled. */
     async isDisabled() {
-        return await (await this.host()).getAttribute('aria-disabled') === 'true';
+        return (await (await this.host()).getAttribute('aria-disabled')) === 'true';
     }
     /** Gets whether the chip list is required. */
     async isRequired() {
-        return await (await this.host()).getAttribute('aria-required') === 'true';
+        return (await (await this.host()).getAttribute('aria-required')) === 'true';
     }
     /** Gets whether the chip list is invalid. */
     async isInvalid() {
-        return await (await this.host()).getAttribute('aria-invalid') === 'true';
+        return (await (await this.host()).getAttribute('aria-invalid')) === 'true';
     }
     /** Gets whether the chip list is in multi selection mode. */
     async isMultiple() {
-        return await (await this.host()).getAttribute('aria-multiselectable') === 'true';
+        return (await (await this.host()).getAttribute('aria-multiselectable')) === 'true';
     }
     /** Gets whether the orientation of the chip list. */
     async getOrientation() {

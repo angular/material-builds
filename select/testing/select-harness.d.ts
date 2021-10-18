@@ -9,13 +9,13 @@ import { HarnessPredicate, ComponentHarness, BaseHarnessFilters, ComponentHarnes
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { MatOptionHarness, MatOptgroupHarness, OptionHarnessFilters, OptgroupHarnessFilters } from '@angular/material/core/testing';
 import { SelectHarnessFilters } from './select-harness-filters';
-export declare abstract class _MatSelectHarnessBase<OptionType extends (ComponentHarnessConstructor<Option> & {
+export declare abstract class _MatSelectHarnessBase<OptionType extends ComponentHarnessConstructor<Option> & {
     with: (options?: OptionFilters) => HarnessPredicate<Option>;
-}), Option extends ComponentHarness & {
+}, Option extends ComponentHarness & {
     click(): Promise<void>;
-}, OptionFilters extends BaseHarnessFilters, OptionGroupType extends (ComponentHarnessConstructor<OptionGroup> & {
+}, OptionFilters extends BaseHarnessFilters, OptionGroupType extends ComponentHarnessConstructor<OptionGroup> & {
     with: (options?: OptionGroupFilters) => HarnessPredicate<OptionGroup>;
-}), OptionGroup extends ComponentHarness, OptionGroupFilters extends BaseHarnessFilters> extends MatFormFieldControlHarness {
+}, OptionGroup extends ComponentHarness, OptionGroupFilters extends BaseHarnessFilters> extends MatFormFieldControlHarness {
     protected abstract _prefix: string;
     protected abstract _optionClass: OptionType;
     protected abstract _optionGroupClass: OptionGroupType;

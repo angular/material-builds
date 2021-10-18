@@ -22,16 +22,12 @@ import { map } from 'rxjs/operators';
 class MatRecycleRows {
 }
 MatRecycleRows.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatRecycleRows, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatRecycleRows.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatRecycleRows, selector: "mat-table[recycleRows], table[mat-table][recycleRows]", providers: [
-        { provide: _VIEW_REPEATER_STRATEGY, useClass: _RecycleViewRepeaterStrategy },
-    ], ngImport: i0 });
+MatRecycleRows.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatRecycleRows, selector: "mat-table[recycleRows], table[mat-table][recycleRows]", providers: [{ provide: _VIEW_REPEATER_STRATEGY, useClass: _RecycleViewRepeaterStrategy }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatRecycleRows, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-table[recycleRows], table[mat-table][recycleRows]',
-                    providers: [
-                        { provide: _VIEW_REPEATER_STRATEGY, useClass: _RecycleViewRepeaterStrategy },
-                    ],
+                    providers: [{ provide: _VIEW_REPEATER_STRATEGY, useClass: _RecycleViewRepeaterStrategy }],
                 }]
         }] });
 /**
@@ -93,7 +89,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[matCellDef]',
-                    providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
+                    providers: [{ provide: CdkCellDef, useExisting: MatCellDef }],
                 }]
         }] });
 /**
@@ -108,7 +104,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[matHeaderCellDef]',
-                    providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
+                    providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }],
                 }]
         }] });
 /**
@@ -123,7 +119,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
             type: Directive,
             args: [{
                     selector: '[matFooterCellDef]',
-                    providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
+                    providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }],
                 }]
         }] });
 /**
@@ -132,8 +128,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
  */
 class MatColumnDef extends CdkColumnDef {
     /** Unique name for this column. */
-    get name() { return this._name; }
-    set name(name) { this._setNameInput(name); }
+    get name() {
+        return this._name;
+    }
+    set name(name) {
+        this._setNameInput(name);
+    }
     /**
      * Add "mat-column-" prefix in addition to "cdk-column-" prefix.
      * In the future, this will only add "mat-column-" and columnCssClassName
@@ -148,7 +148,7 @@ class MatColumnDef extends CdkColumnDef {
 MatColumnDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatColumnDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
 MatColumnDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatColumnDef, selector: "[matColumnDef]", inputs: { sticky: "sticky", name: ["matColumnDef", "name"] }, providers: [
         { provide: CdkColumnDef, useExisting: MatColumnDef },
-        { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
+        { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef },
     ], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatColumnDef, decorators: [{
             type: Directive,
@@ -157,7 +157,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
                     inputs: ['sticky'],
                     providers: [
                         { provide: CdkColumnDef, useExisting: MatColumnDef },
-                        { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef }
+                        { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef },
                     ],
                 }]
         }], propDecorators: { name: [{
@@ -453,8 +453,7 @@ MatTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version:
         MatRow,
         MatFooterRow,
         MatNoDataRow,
-        MatTextColumn], imports: [CdkTableModule,
-        MatCommonModule], exports: [MatCommonModule, 
+        MatTextColumn], imports: [CdkTableModule, MatCommonModule], exports: [MatCommonModule, 
         // Table
         MatTable,
         MatRecycleRows,
@@ -476,17 +475,11 @@ MatTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version:
         MatFooterRow,
         MatNoDataRow,
         MatTextColumn] });
-MatTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTableModule, imports: [[
-            CdkTableModule,
-            MatCommonModule,
-        ], MatCommonModule] });
+MatTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTableModule, imports: [[CdkTableModule, MatCommonModule], MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatTableModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        CdkTableModule,
-                        MatCommonModule,
-                    ],
+                    imports: [CdkTableModule, MatCommonModule],
                     exports: [MatCommonModule, EXPORTED_DECLARATIONS],
                     declarations: EXPORTED_DECLARATIONS,
                 }]
@@ -604,7 +597,8 @@ class _MatTableDataSource extends DataSource {
          */
         this.filterPredicate = (data, filter) => {
             // Transform the data into a lowercase string of all property values.
-            const dataStr = Object.keys(data).reduce((currentTerm, key) => {
+            const dataStr = Object.keys(data)
+                .reduce((currentTerm, key) => {
                 // Use an obscure Unicode character to delimit the words in the concatenated string.
                 // This avoids matches where the values of two columns combined will match the user's query
                 // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
@@ -612,7 +606,8 @@ class _MatTableDataSource extends DataSource {
                 // particular is "White up-pointing triangle with dot" from
                 // https://en.wikipedia.org/wiki/List_of_Unicode_characters
                 return currentTerm + data[key] + '◬';
-            }, '').toLowerCase();
+            }, '')
+                .toLowerCase();
             // Transform the filter by converting it to lowercase and removing whitespace.
             const transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
@@ -621,7 +616,9 @@ class _MatTableDataSource extends DataSource {
         this._updateChangeSubscription();
     }
     /** Array of data that should be rendered by the table, where each object represents one row. */
-    get data() { return this._data.value; }
+    get data() {
+        return this._data.value;
+    }
     set data(data) {
         this._data.next(data);
         // Normally the `filteredData` is updated by the re-render
@@ -634,7 +631,9 @@ class _MatTableDataSource extends DataSource {
      * Filter term that should be used to filter out objects from the data array. To override how
      * data objects match to this filter string, provide a custom function for filterPredicate.
      */
-    get filter() { return this._filter.value; }
+    get filter() {
+        return this._filter.value;
+    }
     set filter(filter) {
         this._filter.next(filter);
         // Normally the `filteredData` is updated by the re-render
@@ -647,7 +646,9 @@ class _MatTableDataSource extends DataSource {
      * Instance of the MatSort directive used by the table to control its sorting. Sort changes
      * emitted by the MatSort will trigger an update to the table's rendered data.
      */
-    get sort() { return this._sort; }
+    get sort() {
+        return this._sort;
+    }
     set sort(sort) {
         this._sort = sort;
         this._updateChangeSubscription();
@@ -662,7 +663,9 @@ class _MatTableDataSource extends DataSource {
      * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been
      * initialized before assigning it to this data source.
      */
-    get paginator() { return this._paginator; }
+    get paginator() {
+        return this._paginator;
+    }
     set paginator(paginator) {
         this._paginator = paginator;
         this._updateChangeSubscription();
@@ -679,22 +682,19 @@ class _MatTableDataSource extends DataSource {
         // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
         // pipeline can progress to the next step. Note that the value from these streams are not used,
         // they purely act as a signal to progress in the pipeline.
-        const sortChange = this._sort ?
-            merge(this._sort.sortChange, this._sort.initialized) :
-            of(null);
-        const pageChange = this._paginator ?
-            merge(this._paginator.page, this._internalPageChanges, this._paginator.initialized) :
-            of(null);
+        const sortChange = this._sort
+            ? merge(this._sort.sortChange, this._sort.initialized)
+            : of(null);
+        const pageChange = this._paginator
+            ? merge(this._paginator.page, this._internalPageChanges, this._paginator.initialized)
+            : of(null);
         const dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
-        const filteredData = combineLatest([dataStream, this._filter])
-            .pipe(map(([data]) => this._filterData(data)));
+        const filteredData = combineLatest([dataStream, this._filter]).pipe(map(([data]) => this._filterData(data)));
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        const orderedData = combineLatest([filteredData, sortChange])
-            .pipe(map(([data]) => this._orderData(data)));
+        const orderedData = combineLatest([filteredData, sortChange]).pipe(map(([data]) => this._orderData(data)));
         // Watch for ordered data or page changes to provide a paged set of data.
-        const paginatedData = combineLatest([orderedData, pageChange])
-            .pipe(map(([data]) => this._pageData(data)));
+        const paginatedData = combineLatest([orderedData, pageChange]).pipe(map(([data]) => this._pageData(data)));
         // Watched for paged data changes and send the result to the table to render.
         this._renderChangesSubscription?.unsubscribe();
         this._renderChangesSubscription = paginatedData.subscribe(data => this._renderData.next(data));
@@ -708,8 +708,10 @@ class _MatTableDataSource extends DataSource {
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overridden for customization.
-        this.filteredData = (this.filter == null || this.filter === '') ? data :
-            data.filter(obj => this.filterPredicate(obj, this.filter));
+        this.filteredData =
+            this.filter == null || this.filter === ''
+                ? data
+                : data.filter(obj => this.filterPredicate(obj, this.filter));
         if (this.paginator) {
             this._updatePaginator(this.filteredData.length);
         }

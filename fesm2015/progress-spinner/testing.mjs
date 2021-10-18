@@ -25,7 +25,7 @@ class MatProgressSpinnerHarness extends ComponentHarness {
     getMode() {
         return __awaiter(this, void 0, void 0, function* () {
             const modeAttr = (yield this.host()).getAttribute('mode');
-            return yield modeAttr;
+            return (yield modeAttr);
         });
     }
 }

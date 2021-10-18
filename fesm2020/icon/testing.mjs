@@ -40,7 +40,7 @@ class MatIconHarness extends ComponentHarness {
         }
         // Some icons support defining the icon as a ligature.
         // As a fallback, try to extract it from the DOM text.
-        if (await this.getType() === 1 /* FONT */) {
+        if ((await this.getType()) === 1 /* FONT */) {
             return host.text();
         }
         return null;
@@ -149,7 +149,7 @@ MatIconTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", ve
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatIconTestingModule, decorators: [{
             type: NgModule,
             args: [{
-                    providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }]
+                    providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }],
                 }]
         }] });
 

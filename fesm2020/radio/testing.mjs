@@ -108,7 +108,7 @@ class _MatRadioGroupHarnessBase extends ComponentHarness {
         // the "name" of a radio-group by reading the attribute. This is because
         // the radio-group does not set the "name" as an element attribute if the
         // "name" value is set through a binding.
-        if (await harness._getGroupNameFromHost() === name) {
+        if ((await harness._getGroupNameFromHost()) === name) {
             return true;
         }
         // Check if there is a group with radio-buttons that all have the same
@@ -139,8 +139,7 @@ class MatRadioGroupHarness extends _MatRadioGroupHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatRadioGroupHarness, options)
-            .addOption('name', options.name, this._checkRadioGroupName);
+        return new HarnessPredicate(MatRadioGroupHarness, options).addOption('name', options.name, this._checkRadioGroupName);
     }
 }
 /** The selector for the host element of a `MatRadioGroup` instance. */
