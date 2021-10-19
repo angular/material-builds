@@ -150,6 +150,8 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
      * @docs-private
      */
     onContainerClick(): void;
+    /** Whether the form control is a native select that is displayed inline. */
+    _isInlineSelect(): boolean;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_readonly: BooleanInput;
     static ngAcceptInputType_required: BooleanInput;
