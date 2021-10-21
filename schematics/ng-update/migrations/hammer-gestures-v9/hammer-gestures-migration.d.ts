@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { SchematicContext, Tree } from '@angular-devkit/schematics';
-import { DevkitMigration, PostMigrationAction, ResolvedResource } from '@angular/cdk/schematics';
+import { DevkitMigration, PostMigrationAction, ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 export declare class HammerGesturesMigration extends DevkitMigration<null> {
     enabled: boolean;
@@ -162,10 +162,12 @@ export declare class HammerGesturesMigration extends DevkitMigration<null> {
      * on the analysis of the individual targets. For example: we only remove Hammer
      * from the "package.json" if it is not used in *any* project target.
      */
-    static globalPostMigration(tree: Tree, context: SchematicContext): PostMigrationAction;
+    static globalPostMigration(tree: Tree, target: TargetVersion, context: SchematicContext): PostMigrationAction;
     /**
      * Removes the hammer package from the workspace "package.json".
      * @returns Whether Hammer was set up and has been removed from the "package.json"
      */
     private static _removeHammerFromPackageJson;
+    /** Gets whether the migration is allowed to run for specified target version. */
+    private static _isAllowedVersion;
 }
