@@ -52,8 +52,8 @@
       "default": "./package.json"
     },
     "./autocomplete": {
-      "types": "./autocomplete/index.d.ts",
-      "esm2020": "./esm2020/autocomplete/index.mjs",
+      "types": "./autocomplete/autocomplete_public_index.d.ts",
+      "esm2020": "./esm2020/autocomplete/autocomplete_public_index.mjs",
       "es2020": "./fesm2020/autocomplete.mjs",
       "es2015": "./fesm2015/autocomplete.mjs",
       "node": "./fesm2015/autocomplete.mjs",
@@ -68,8 +68,8 @@
       "default": "./fesm2020/autocomplete/testing.mjs"
     },
     "./badge": {
-      "types": "./badge/index.d.ts",
-      "esm2020": "./esm2020/badge/index.mjs",
+      "types": "./badge/badge_public_index.d.ts",
+      "esm2020": "./esm2020/badge/badge_public_index.mjs",
       "es2020": "./fesm2020/badge.mjs",
       "es2015": "./fesm2015/badge.mjs",
       "node": "./fesm2015/badge.mjs",
@@ -84,8 +84,8 @@
       "default": "./fesm2020/badge/testing.mjs"
     },
     "./bottom-sheet": {
-      "types": "./bottom-sheet/index.d.ts",
-      "esm2020": "./esm2020/bottom-sheet/index.mjs",
+      "types": "./bottom-sheet/bottom-sheet_public_index.d.ts",
+      "esm2020": "./esm2020/bottom-sheet/bottom-sheet_public_index.mjs",
       "es2020": "./fesm2020/bottom-sheet.mjs",
       "es2015": "./fesm2015/bottom-sheet.mjs",
       "node": "./fesm2015/bottom-sheet.mjs",
@@ -100,16 +100,16 @@
       "default": "./fesm2020/bottom-sheet/testing.mjs"
     },
     "./button": {
-      "types": "./button/index.d.ts",
-      "esm2020": "./esm2020/button/index.mjs",
+      "types": "./button/button_public_index.d.ts",
+      "esm2020": "./esm2020/button/button_public_index.mjs",
       "es2020": "./fesm2020/button.mjs",
       "es2015": "./fesm2015/button.mjs",
       "node": "./fesm2015/button.mjs",
       "default": "./fesm2020/button.mjs"
     },
     "./button-toggle": {
-      "types": "./button-toggle/index.d.ts",
-      "esm2020": "./esm2020/button-toggle/index.mjs",
+      "types": "./button-toggle/button-toggle_public_index.d.ts",
+      "esm2020": "./esm2020/button-toggle/button-toggle_public_index.mjs",
       "es2020": "./fesm2020/button-toggle.mjs",
       "es2015": "./fesm2015/button-toggle.mjs",
       "node": "./fesm2015/button-toggle.mjs",
@@ -132,8 +132,8 @@
       "default": "./fesm2020/button/testing.mjs"
     },
     "./card": {
-      "types": "./card/index.d.ts",
-      "esm2020": "./esm2020/card/index.mjs",
+      "types": "./card/card_public_index.d.ts",
+      "esm2020": "./esm2020/card/card_public_index.mjs",
       "es2020": "./fesm2020/card.mjs",
       "es2015": "./fesm2015/card.mjs",
       "node": "./fesm2015/card.mjs",
@@ -148,8 +148,8 @@
       "default": "./fesm2020/card/testing.mjs"
     },
     "./checkbox": {
-      "types": "./checkbox/index.d.ts",
-      "esm2020": "./esm2020/checkbox/index.mjs",
+      "types": "./checkbox/checkbox_public_index.d.ts",
+      "esm2020": "./esm2020/checkbox/checkbox_public_index.mjs",
       "es2020": "./fesm2020/checkbox.mjs",
       "es2015": "./fesm2015/checkbox.mjs",
       "node": "./fesm2015/checkbox.mjs",
@@ -164,8 +164,8 @@
       "default": "./fesm2020/checkbox/testing.mjs"
     },
     "./chips": {
-      "types": "./chips/index.d.ts",
-      "esm2020": "./esm2020/chips/index.mjs",
+      "types": "./chips/chips_public_index.d.ts",
+      "esm2020": "./esm2020/chips/chips_public_index.mjs",
       "es2020": "./fesm2020/chips.mjs",
       "es2015": "./fesm2015/chips.mjs",
       "node": "./fesm2015/chips.mjs",
@@ -180,8 +180,8 @@
       "default": "./fesm2020/chips/testing.mjs"
     },
     "./core": {
-      "types": "./core/index.d.ts",
-      "esm2020": "./esm2020/core/index.mjs",
+      "types": "./core/core_public_index.d.ts",
+      "esm2020": "./esm2020/core/core_public_index.mjs",
       "es2020": "./fesm2020/core.mjs",
       "es2015": "./fesm2015/core.mjs",
       "node": "./fesm2015/core.mjs",
@@ -196,8 +196,8 @@
       "default": "./fesm2020/core/testing.mjs"
     },
     "./datepicker": {
-      "types": "./datepicker/index.d.ts",
-      "esm2020": "./esm2020/datepicker/index.mjs",
+      "types": "./datepicker/datepicker_public_index.d.ts",
+      "esm2020": "./esm2020/datepicker/datepicker_public_index.mjs",
       "es2020": "./fesm2020/datepicker.mjs",
       "es2015": "./fesm2015/datepicker.mjs",
       "node": "./fesm2015/datepicker.mjs",
@@ -212,8 +212,8 @@
       "default": "./fesm2020/datepicker/testing.mjs"
     },
     "./dialog": {
-      "types": "./dialog/index.d.ts",
-      "esm2020": "./esm2020/dialog/index.mjs",
+      "types": "./dialog/dialog_public_index.d.ts",
+      "esm2020": "./esm2020/dialog/dialog_public_index.mjs",
       "es2020": "./fesm2020/dialog.mjs",
       "es2015": "./fesm2015/dialog.mjs",
       "node": "./fesm2015/dialog.mjs",
@@ -228,8 +228,8 @@
       "default": "./fesm2020/dialog/testing.mjs"
     },
     "./divider": {
-      "types": "./divider/index.d.ts",
-      "esm2020": "./esm2020/divider/index.mjs",
+      "types": "./divider/divider_public_index.d.ts",
+      "esm2020": "./esm2020/divider/divider_public_index.mjs",
       "es2020": "./fesm2020/divider.mjs",
       "es2015": "./fesm2015/divider.mjs",
       "node": "./fesm2015/divider.mjs",
@@ -244,8 +244,8 @@
       "default": "./fesm2020/divider/testing.mjs"
     },
     "./expansion": {
-      "types": "./expansion/index.d.ts",
-      "esm2020": "./esm2020/expansion/index.mjs",
+      "types": "./expansion/expansion_public_index.d.ts",
+      "esm2020": "./esm2020/expansion/expansion_public_index.mjs",
       "es2020": "./fesm2020/expansion.mjs",
       "es2015": "./fesm2015/expansion.mjs",
       "node": "./fesm2015/expansion.mjs",
@@ -260,8 +260,8 @@
       "default": "./fesm2020/expansion/testing.mjs"
     },
     "./form-field": {
-      "types": "./form-field/index.d.ts",
-      "esm2020": "./esm2020/form-field/index.mjs",
+      "types": "./form-field/form-field_public_index.d.ts",
+      "esm2020": "./esm2020/form-field/form-field_public_index.mjs",
       "es2020": "./fesm2020/form-field.mjs",
       "es2015": "./fesm2015/form-field.mjs",
       "node": "./fesm2015/form-field.mjs",
@@ -284,8 +284,8 @@
       "default": "./fesm2020/form-field/testing/control.mjs"
     },
     "./grid-list": {
-      "types": "./grid-list/index.d.ts",
-      "esm2020": "./esm2020/grid-list/index.mjs",
+      "types": "./grid-list/grid-list_public_index.d.ts",
+      "esm2020": "./esm2020/grid-list/grid-list_public_index.mjs",
       "es2020": "./fesm2020/grid-list.mjs",
       "es2015": "./fesm2015/grid-list.mjs",
       "node": "./fesm2015/grid-list.mjs",
@@ -300,24 +300,24 @@
       "default": "./fesm2020/grid-list/testing.mjs"
     },
     "./icon": {
-      "types": "./icon/index.d.ts",
-      "esm2020": "./esm2020/icon/index.mjs",
+      "types": "./icon/icon_public_index.d.ts",
+      "esm2020": "./esm2020/icon/icon_public_index.mjs",
       "es2020": "./fesm2020/icon.mjs",
       "es2015": "./fesm2015/icon.mjs",
       "node": "./fesm2015/icon.mjs",
       "default": "./fesm2020/icon.mjs"
     },
     "./icon/testing": {
-      "types": "./icon/testing/index.d.ts",
-      "esm2020": "./esm2020/icon/testing/index.mjs",
+      "types": "./icon/testing/testing_public_index.d.ts",
+      "esm2020": "./esm2020/icon/testing/testing_public_index.mjs",
       "es2020": "./fesm2020/icon/testing.mjs",
       "es2015": "./fesm2015/icon/testing.mjs",
       "node": "./fesm2015/icon/testing.mjs",
       "default": "./fesm2020/icon/testing.mjs"
     },
     "./input": {
-      "types": "./input/index.d.ts",
-      "esm2020": "./esm2020/input/index.mjs",
+      "types": "./input/input_public_index.d.ts",
+      "esm2020": "./esm2020/input/input_public_index.mjs",
       "es2020": "./fesm2020/input.mjs",
       "es2015": "./fesm2015/input.mjs",
       "node": "./fesm2015/input.mjs",
@@ -332,8 +332,8 @@
       "default": "./fesm2020/input/testing.mjs"
     },
     "./list": {
-      "types": "./list/index.d.ts",
-      "esm2020": "./esm2020/list/index.mjs",
+      "types": "./list/list_public_index.d.ts",
+      "esm2020": "./esm2020/list/list_public_index.mjs",
       "es2020": "./fesm2020/list.mjs",
       "es2015": "./fesm2015/list.mjs",
       "node": "./fesm2015/list.mjs",
@@ -348,8 +348,8 @@
       "default": "./fesm2020/list/testing.mjs"
     },
     "./menu": {
-      "types": "./menu/index.d.ts",
-      "esm2020": "./esm2020/menu/index.mjs",
+      "types": "./menu/menu_public_index.d.ts",
+      "esm2020": "./esm2020/menu/menu_public_index.mjs",
       "es2020": "./fesm2020/menu.mjs",
       "es2015": "./fesm2015/menu.mjs",
       "node": "./fesm2015/menu.mjs",
@@ -364,8 +364,8 @@
       "default": "./fesm2020/menu/testing.mjs"
     },
     "./paginator": {
-      "types": "./paginator/index.d.ts",
-      "esm2020": "./esm2020/paginator/index.mjs",
+      "types": "./paginator/paginator_public_index.d.ts",
+      "esm2020": "./esm2020/paginator/paginator_public_index.mjs",
       "es2020": "./fesm2020/paginator.mjs",
       "es2015": "./fesm2015/paginator.mjs",
       "node": "./fesm2015/paginator.mjs",
@@ -380,8 +380,8 @@
       "default": "./fesm2020/paginator/testing.mjs"
     },
     "./progress-bar": {
-      "types": "./progress-bar/index.d.ts",
-      "esm2020": "./esm2020/progress-bar/index.mjs",
+      "types": "./progress-bar/progress-bar_public_index.d.ts",
+      "esm2020": "./esm2020/progress-bar/progress-bar_public_index.mjs",
       "es2020": "./fesm2020/progress-bar.mjs",
       "es2015": "./fesm2015/progress-bar.mjs",
       "node": "./fesm2015/progress-bar.mjs",
@@ -396,8 +396,8 @@
       "default": "./fesm2020/progress-bar/testing.mjs"
     },
     "./progress-spinner": {
-      "types": "./progress-spinner/index.d.ts",
-      "esm2020": "./esm2020/progress-spinner/index.mjs",
+      "types": "./progress-spinner/progress-spinner_public_index.d.ts",
+      "esm2020": "./esm2020/progress-spinner/progress-spinner_public_index.mjs",
       "es2020": "./fesm2020/progress-spinner.mjs",
       "es2015": "./fesm2015/progress-spinner.mjs",
       "node": "./fesm2015/progress-spinner.mjs",
@@ -412,8 +412,8 @@
       "default": "./fesm2020/progress-spinner/testing.mjs"
     },
     "./radio": {
-      "types": "./radio/index.d.ts",
-      "esm2020": "./esm2020/radio/index.mjs",
+      "types": "./radio/radio_public_index.d.ts",
+      "esm2020": "./esm2020/radio/radio_public_index.mjs",
       "es2020": "./fesm2020/radio.mjs",
       "es2015": "./fesm2015/radio.mjs",
       "node": "./fesm2015/radio.mjs",
@@ -428,8 +428,8 @@
       "default": "./fesm2020/radio/testing.mjs"
     },
     "./select": {
-      "types": "./select/index.d.ts",
-      "esm2020": "./esm2020/select/index.mjs",
+      "types": "./select/select_public_index.d.ts",
+      "esm2020": "./esm2020/select/select_public_index.mjs",
       "es2020": "./fesm2020/select.mjs",
       "es2015": "./fesm2015/select.mjs",
       "node": "./fesm2015/select.mjs",
@@ -444,8 +444,8 @@
       "default": "./fesm2020/select/testing.mjs"
     },
     "./sidenav": {
-      "types": "./sidenav/index.d.ts",
-      "esm2020": "./esm2020/sidenav/index.mjs",
+      "types": "./sidenav/sidenav_public_index.d.ts",
+      "esm2020": "./esm2020/sidenav/sidenav_public_index.mjs",
       "es2020": "./fesm2020/sidenav.mjs",
       "es2015": "./fesm2015/sidenav.mjs",
       "node": "./fesm2015/sidenav.mjs",
@@ -460,8 +460,8 @@
       "default": "./fesm2020/sidenav/testing.mjs"
     },
     "./slide-toggle": {
-      "types": "./slide-toggle/index.d.ts",
-      "esm2020": "./esm2020/slide-toggle/index.mjs",
+      "types": "./slide-toggle/slide-toggle_public_index.d.ts",
+      "esm2020": "./esm2020/slide-toggle/slide-toggle_public_index.mjs",
       "es2020": "./fesm2020/slide-toggle.mjs",
       "es2015": "./fesm2015/slide-toggle.mjs",
       "node": "./fesm2015/slide-toggle.mjs",
@@ -476,8 +476,8 @@
       "default": "./fesm2020/slide-toggle/testing.mjs"
     },
     "./slider": {
-      "types": "./slider/index.d.ts",
-      "esm2020": "./esm2020/slider/index.mjs",
+      "types": "./slider/slider_public_index.d.ts",
+      "esm2020": "./esm2020/slider/slider_public_index.mjs",
       "es2020": "./fesm2020/slider.mjs",
       "es2015": "./fesm2015/slider.mjs",
       "node": "./fesm2015/slider.mjs",
@@ -492,8 +492,8 @@
       "default": "./fesm2020/slider/testing.mjs"
     },
     "./snack-bar": {
-      "types": "./snack-bar/index.d.ts",
-      "esm2020": "./esm2020/snack-bar/index.mjs",
+      "types": "./snack-bar/snack-bar_public_index.d.ts",
+      "esm2020": "./esm2020/snack-bar/snack-bar_public_index.mjs",
       "es2020": "./fesm2020/snack-bar.mjs",
       "es2015": "./fesm2015/snack-bar.mjs",
       "node": "./fesm2015/snack-bar.mjs",
@@ -508,8 +508,8 @@
       "default": "./fesm2020/snack-bar/testing.mjs"
     },
     "./sort": {
-      "types": "./sort/index.d.ts",
-      "esm2020": "./esm2020/sort/index.mjs",
+      "types": "./sort/sort_public_index.d.ts",
+      "esm2020": "./esm2020/sort/sort_public_index.mjs",
       "es2020": "./fesm2020/sort.mjs",
       "es2015": "./fesm2015/sort.mjs",
       "node": "./fesm2015/sort.mjs",
@@ -524,8 +524,8 @@
       "default": "./fesm2020/sort/testing.mjs"
     },
     "./stepper": {
-      "types": "./stepper/index.d.ts",
-      "esm2020": "./esm2020/stepper/index.mjs",
+      "types": "./stepper/stepper_public_index.d.ts",
+      "esm2020": "./esm2020/stepper/stepper_public_index.mjs",
       "es2020": "./fesm2020/stepper.mjs",
       "es2015": "./fesm2015/stepper.mjs",
       "node": "./fesm2015/stepper.mjs",
@@ -540,8 +540,8 @@
       "default": "./fesm2020/stepper/testing.mjs"
     },
     "./table": {
-      "types": "./table/index.d.ts",
-      "esm2020": "./esm2020/table/index.mjs",
+      "types": "./table/table_public_index.d.ts",
+      "esm2020": "./esm2020/table/table_public_index.mjs",
       "es2020": "./fesm2020/table.mjs",
       "es2015": "./fesm2015/table.mjs",
       "node": "./fesm2015/table.mjs",
@@ -556,8 +556,8 @@
       "default": "./fesm2020/table/testing.mjs"
     },
     "./tabs": {
-      "types": "./tabs/index.d.ts",
-      "esm2020": "./esm2020/tabs/index.mjs",
+      "types": "./tabs/tabs_public_index.d.ts",
+      "esm2020": "./esm2020/tabs/tabs_public_index.mjs",
       "es2020": "./fesm2020/tabs.mjs",
       "es2015": "./fesm2015/tabs.mjs",
       "node": "./fesm2015/tabs.mjs",
@@ -572,8 +572,8 @@
       "default": "./fesm2020/tabs/testing.mjs"
     },
     "./toolbar": {
-      "types": "./toolbar/index.d.ts",
-      "esm2020": "./esm2020/toolbar/index.mjs",
+      "types": "./toolbar/toolbar_public_index.d.ts",
+      "esm2020": "./esm2020/toolbar/toolbar_public_index.mjs",
       "es2020": "./fesm2020/toolbar.mjs",
       "es2015": "./fesm2015/toolbar.mjs",
       "node": "./fesm2015/toolbar.mjs",
@@ -588,8 +588,8 @@
       "default": "./fesm2020/toolbar/testing.mjs"
     },
     "./tooltip": {
-      "types": "./tooltip/index.d.ts",
-      "esm2020": "./esm2020/tooltip/index.mjs",
+      "types": "./tooltip/tooltip_public_index.d.ts",
+      "esm2020": "./esm2020/tooltip/tooltip_public_index.mjs",
       "es2020": "./fesm2020/tooltip.mjs",
       "es2015": "./fesm2015/tooltip.mjs",
       "node": "./fesm2015/tooltip.mjs",
@@ -604,8 +604,8 @@
       "default": "./fesm2020/tooltip/testing.mjs"
     },
     "./tree": {
-      "types": "./tree/index.d.ts",
-      "esm2020": "./esm2020/tree/index.mjs",
+      "types": "./tree/tree_public_index.d.ts",
+      "esm2020": "./esm2020/tree/tree_public_index.mjs",
       "es2020": "./fesm2020/tree.mjs",
       "es2015": "./fesm2015/tree.mjs",
       "node": "./fesm2015/tree.mjs",
