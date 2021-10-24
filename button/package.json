@@ -2,8 +2,8 @@
   "name": "@angular/material/button",
   "fesm2020": "../fesm2020/button.mjs",
   "fesm2015": "../fesm2015/button.mjs",
-  "esm2020": "../esm2020/button/index.mjs",
-  "typings": "./index.d.ts",
+  "esm2020": "../esm2020/button/button_public_index.mjs",
+  "typings": "./button_public_index.d.ts",
   "module": "../fesm2015/button.mjs",
   "es2020": "../fesm2020/button.mjs"
 }
