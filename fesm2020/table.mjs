@@ -334,6 +334,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0-next.15",
         }] });
 /** Row that can be used to display a message when no data is shown in the table. */
 class MatNoDataRow extends CdkNoDataRow {
+    constructor() {
+        super(...arguments);
+        this._contentClassName = 'mat-no-data-row';
+    }
 }
 MatNoDataRow.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0-next.15", ngImport: i0, type: MatNoDataRow, deps: null, target: i0.ɵɵFactoryTarget.Directive });
 MatNoDataRow.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0-next.15", type: MatNoDataRow, selector: "ng-template[matNoDataRow]", providers: [{ provide: CdkNoDataRow, useExisting: MatNoDataRow }], usesInheritance: true, ngImport: i0 });
