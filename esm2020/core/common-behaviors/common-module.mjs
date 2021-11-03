@@ -17,7 +17,7 @@ import * as i1 from "@angular/cdk/a11y";
 // i.e. avoid core to depend on the @angular/material primary entry-point
 // Can be removed once the Material primary entry-point no longer
 // re-exports all secondary entry-points
-const VERSION = new Version('13.0.0-rc.2');
+const VERSION = new Version('13.0.0-rc.3');
 /** @docs-private */
 export function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
