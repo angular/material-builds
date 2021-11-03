@@ -621,12 +621,12 @@
     }
   },
   "peerDependencies": {
-    "@angular/animations": "^13.0.0-0 || ^14.0.0-0",
+    "@angular/animations": "^13.0.0 || ^14.0.0-0",
     "@angular/cdk": "13.0.0-rc.3",
-    "@angular/core": "^13.0.0-0 || ^14.0.0-0",
-    "@angular/common": "^13.0.0-0 || ^14.0.0-0",
-    "@angular/forms": "^13.0.0-0 || ^14.0.0-0",
-    "rxjs": "^6.5.3 || ^7.0.0"
+    "@angular/core": "^13.0.0 || ^14.0.0-0",
+    "@angular/common": "^13.0.0 || ^14.0.0-0",
+    "@angular/forms": "^13.0.0 || ^14.0.0-0",
+    "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
