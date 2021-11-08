@@ -168,8 +168,6 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     _getWidth(): number;
     /** Updates the enabled state of the focus trap. */
     private _updateFocusTrapState;
-    _animationStartListener(event: AnimationEvent): void;
-    _animationDoneListener(event: AnimationEvent): void;
     static ngAcceptInputType_disableClose: BooleanInput;
     static ngAcceptInputType_autoFocus: AutoFocusTarget | string | BooleanInput;
     static ngAcceptInputType_opened: BooleanInput;

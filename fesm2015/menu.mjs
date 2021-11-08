@@ -3,7 +3,7 @@ import { FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromS
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Inject, Component, ChangeDetectionStrategy, ViewEncapsulation, Optional, Input, HostListener, QueryList, EventEmitter, TemplateRef, ContentChildren, ViewChild, ContentChild, Output, Self, HostBinding, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Inject, Component, ChangeDetectionStrategy, ViewEncapsulation, Optional, Input, QueryList, EventEmitter, TemplateRef, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -307,11 +307,6 @@ class MatMenuItem extends _MatMenuItemBase {
         return this._elementRef.nativeElement;
     }
     /** Prevents the default element actions if it is disabled. */
-    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
-    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritten.
-    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
-    // tslint:disable-next-line:no-host-decorator-in-concrete
     _checkDisabled(event) {
         if (this.disabled) {
             event.preventDefault();
@@ -319,11 +314,6 @@ class MatMenuItem extends _MatMenuItemBase {
         }
     }
     /** Emits to the hover stream. */
-    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
-    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritten.
-    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
-    // tslint:disable-next-line:no-host-decorator-in-concrete
     _handleMouseEnter() {
         this._hovered.next(this);
     }
@@ -361,6 +351,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.disabled]': 'disabled || null',
                         'class': 'mat-focus-indicator',
+                        '(click)': '_checkDisabled($event)',
+                        '(mouseenter)': '_handleMouseEnter()',
                     }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<ng-content></ng-content>\n<div class=\"mat-menu-ripple\" matRipple\n     [matRippleDisabled]=\"disableRipple || disabled\"\n     [matRippleTrigger]=\"_getHostElement()\">\n</div>\n\n<svg\n  *ngIf=\"_triggersSubmenu\"\n  class=\"mat-menu-submenu-icon\"\n  viewBox=\"0 0 5 10\"\n  focusable=\"false\"><polygon points=\"0,0 5,5 0,10\"/></svg>\n" }]
         }], ctorParameters: function () {
         return [{ type: i0.ElementRef }, { type: undefined, decorators: [{
@@ -374,12 +366,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                     }] }, { type: i0.ChangeDetectorRef }];
     }, propDecorators: { role: [{
                 type: Input
-            }], _checkDisabled: [{
-                type: HostListener,
-                args: ['click', ['$event']]
-            }], _handleMouseEnter: [{
-                type: HostListener,
-                args: ['mouseenter']
             }] } });
 
 /**
@@ -832,7 +818,6 @@ class _MatMenuTriggerBase {
         // Tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedBy = undefined;
-        this._ariaHaspopup = true;
         /**
          * Whether focus should be restored when the menu is closed.
          * Note that disabling this option can have accessibility implications
@@ -863,12 +848,6 @@ class _MatMenuTriggerBase {
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
-    }
-    get _ariaExpanded() {
-        return this.menuOpen || null;
-    }
-    get _ariaControl() {
-        return this.menuOpen ? this.menu.panelId : null;
     }
     /**
      * @deprecated
@@ -1237,9 +1216,19 @@ class _MatMenuTriggerBase {
     }
 }
 _MatMenuTriggerBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: _MatMenuTriggerBase, deps: [{ token: i1$1.Overlay }, { token: i0.ElementRef }, { token: i0.ViewContainerRef }, { token: MAT_MENU_SCROLL_STRATEGY }, { token: MAT_MENU_PANEL, optional: true }, { token: MatMenuItem, optional: true, self: true }, { token: i3$1.Directionality, optional: true }, { token: i1.FocusMonitor }], target: i0.ɵɵFactoryTarget.Directive });
-_MatMenuTriggerBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0", type: _MatMenuTriggerBase, inputs: { _deprecatedMatMenuTriggerFor: ["mat-menu-trigger-for", "_deprecatedMatMenuTriggerFor"], menu: ["matMenuTriggerFor", "menu"], menuData: ["matMenuTriggerData", "menuData"], restoreFocus: ["matMenuTriggerRestoreFocus", "restoreFocus"] }, outputs: { menuOpened: "menuOpened", onMenuOpen: "onMenuOpen", menuClosed: "menuClosed", onMenuClose: "onMenuClose" }, host: { listeners: { "mousedown": "_handleMousedown($event)", "keydown": "_handleKeydown($event)", "click": "_handleClick($event)" }, properties: { "attr.aria-expanded": "this._ariaExpanded", "attr.aria-controls": "this._ariaControl", "attr.aria-haspopup": "this._ariaHaspopup" } }, ngImport: i0 });
+_MatMenuTriggerBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0", type: _MatMenuTriggerBase, inputs: { _deprecatedMatMenuTriggerFor: ["mat-menu-trigger-for", "_deprecatedMatMenuTriggerFor"], menu: ["matMenuTriggerFor", "menu"], menuData: ["matMenuTriggerData", "menuData"], restoreFocus: ["matMenuTriggerRestoreFocus", "restoreFocus"] }, outputs: { menuOpened: "menuOpened", onMenuOpen: "onMenuOpen", menuClosed: "menuClosed", onMenuClose: "onMenuClose" }, host: { attributes: { "aria-haspopup": "true" }, listeners: { "click": "_handleClick($event)", "mousedown": "_handleMousedown($event)", "keydown": "_handleKeydown($event)" }, properties: { "attr.aria-expanded": "menuOpen || null", "attr.aria-controls": "menuOpen ? menu.panelId : null" } }, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: _MatMenuTriggerBase, decorators: [{
-            type: Directive
+            type: Directive,
+            args: [{
+                    host: {
+                        'aria-haspopup': 'true',
+                        '[attr.aria-expanded]': 'menuOpen || null',
+                        '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
+                        '(click)': '_handleClick($event)',
+                        '(mousedown)': '_handleMousedown($event)',
+                        '(keydown)': '_handleKeydown($event)',
+                    },
+                }]
         }], ctorParameters: function () {
         return [{ type: i1$1.Overlay }, { type: i0.ElementRef }, { type: i0.ViewContainerRef }, { type: undefined, decorators: [{
                         type: Inject,
@@ -1256,16 +1245,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                     }] }, { type: i3$1.Directionality, decorators: [{
                         type: Optional
                     }] }, { type: i1.FocusMonitor }];
-    }, propDecorators: { _ariaExpanded: [{
-                type: HostBinding,
-                args: ['attr.aria-expanded']
-            }], _ariaControl: [{
-                type: HostBinding,
-                args: ['attr.aria-controls']
-            }], _ariaHaspopup: [{
-                type: HostBinding,
-                args: ['attr.aria-haspopup']
-            }], _deprecatedMatMenuTriggerFor: [{
+    }, propDecorators: { _deprecatedMatMenuTriggerFor: [{
                 type: Input,
                 args: ['mat-menu-trigger-for']
             }], menu: [{
@@ -1285,15 +1265,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                 type: Output
             }], onMenuClose: [{
                 type: Output
-            }], _handleMousedown: [{
-                type: HostListener,
-                args: ['mousedown', ['$event']]
-            }], _handleKeydown: [{
-                type: HostListener,
-                args: ['keydown', ['$event']]
-            }], _handleClick: [{
-                type: HostListener,
-                args: ['click', ['$event']]
             }] } });
 /** Directive applied to an element that should trigger a `mat-menu`. */
 class MatMenuTrigger extends _MatMenuTriggerBase {

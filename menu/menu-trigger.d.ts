@@ -49,9 +49,6 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
      */
     private _handleTouchStart;
     _openedBy: Exclude<FocusOrigin, 'program' | null> | undefined;
-    get _ariaExpanded(): true | null;
-    get _ariaControl(): string | null | undefined;
-    _ariaHaspopup: boolean;
     /**
      * @deprecated
      * @breaking-change 8.0.0

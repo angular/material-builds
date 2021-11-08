@@ -5,7 +5,7 @@ import { CdkScrollable, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i5 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, HostBinding, Output, HostListener, QueryList, ContentChildren, ContentChild, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, Output, QueryList, ContentChildren, ContentChild, ViewChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i2 from '@angular/cdk/a11y';
 import * as i4 from '@angular/cdk/bidi';
@@ -125,10 +125,6 @@ class MatDrawer {
         /** Emits whenever the drawer is done animating. */
         this._animationEnd = new Subject();
         /** Current state of the sidenav animation. */
-        // @HostBinding is used in the class as it is expected to be extended.  Since @Component decorator
-        // metadata is not inherited by child classes, instead the host binding data is defined in a way
-        // that can be inherited.
-        // tslint:disable-next-line:no-host-decorator-in-concrete
         this._animationState = 'void';
         /** Event emitted when the drawer open state is changed. */
         this.openedChange = 
@@ -431,25 +427,9 @@ class MatDrawer {
             this._focusTrap.enabled = this.opened && this.mode !== 'side';
         }
     }
-    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
-    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritten.
-    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
-    // tslint:disable-next-line:no-host-decorator-in-concrete
-    _animationStartListener(event) {
-        this._animationStarted.next(event);
-    }
-    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
-    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritten.
-    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
-    // tslint:disable-next-line:no-host-decorator-in-concrete
-    _animationDoneListener(event) {
-        this._animationEnd.next(event);
-    }
 }
 MatDrawer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatDrawer, deps: [{ token: i0.ElementRef }, { token: i2.FocusTrapFactory }, { token: i2.FocusMonitor }, { token: i3.Platform }, { token: i0.NgZone }, { token: i2.InteractivityChecker }, { token: DOCUMENT, optional: true }, { token: MAT_DRAWER_CONTAINER, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatDrawer.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0", type: MatDrawer, selector: "mat-drawer", inputs: { position: "position", mode: "mode", disableClose: "disableClose", autoFocus: "autoFocus", opened: "opened" }, outputs: { openedChange: "openedChange", _openedStream: "opened", openedStart: "openedStart", _closedStream: "closed", closedStart: "closedStart", onPositionChanged: "positionChanged" }, host: { attributes: { "tabIndex": "-1" }, listeners: { "@transform.start": "_animationStartListener($event)", "@transform.done": "_animationDoneListener($event)" }, properties: { "attr.align": "null", "class.mat-drawer-end": "position === \"end\"", "class.mat-drawer-over": "mode === \"over\"", "class.mat-drawer-push": "mode === \"push\"", "class.mat-drawer-side": "mode === \"side\"", "class.mat-drawer-opened": "opened", "@transform": "this._animationState" }, classAttribute: "mat-drawer" }, exportAs: ["matDrawer"], ngImport: i0, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n", directives: [{ type: i1.CdkScrollable, selector: "[cdk-scrollable], [cdkScrollable]" }], animations: [matDrawerAnimations.transformDrawer], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+MatDrawer.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0", type: MatDrawer, selector: "mat-drawer", inputs: { position: "position", mode: "mode", disableClose: "disableClose", autoFocus: "autoFocus", opened: "opened" }, outputs: { openedChange: "openedChange", _openedStream: "opened", openedStart: "openedStart", _closedStream: "closed", closedStart: "closedStart", onPositionChanged: "positionChanged" }, host: { attributes: { "tabIndex": "-1" }, listeners: { "@transform.start": "_animationStarted.next($event)", "@transform.done": "_animationEnd.next($event)" }, properties: { "attr.align": "null", "class.mat-drawer-end": "position === \"end\"", "class.mat-drawer-over": "mode === \"over\"", "class.mat-drawer-push": "mode === \"push\"", "class.mat-drawer-side": "mode === \"side\"", "class.mat-drawer-opened": "opened", "@transform": "_animationState" }, classAttribute: "mat-drawer" }, exportAs: ["matDrawer"], ngImport: i0, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n", directives: [{ type: i1.CdkScrollable, selector: "[cdk-scrollable], [cdkScrollable]" }], animations: [matDrawerAnimations.transformDrawer], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatDrawer, decorators: [{
             type: Component,
             args: [{ selector: 'mat-drawer', exportAs: 'matDrawer', animations: [matDrawerAnimations.transformDrawer], host: {
@@ -462,6 +442,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                         '[class.mat-drawer-side]': 'mode === "side"',
                         '[class.mat-drawer-opened]': 'opened',
                         'tabIndex': '-1',
+                        '[@transform]': '_animationState',
+                        '(@transform.start)': '_animationStarted.next($event)',
+                        '(@transform.done)': '_animationEnd.next($event)',
                     }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n" }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i2.FocusTrapFactory }, { type: i2.FocusMonitor }, { type: i3.Platform }, { type: i0.NgZone }, { type: i2.InteractivityChecker }, { type: undefined, decorators: [{
                     type: Optional
@@ -483,9 +466,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                 type: Input
             }], opened: [{
                 type: Input
-            }], _animationState: [{
-                type: HostBinding,
-                args: ['@transform']
             }], openedChange: [{
                 type: Output
             }], _openedStream: [{
@@ -501,12 +481,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
             }], onPositionChanged: [{
                 type: Output,
                 args: ['positionChanged']
-            }], _animationStartListener: [{
-                type: HostListener,
-                args: ['@transform.start', ['$event']]
-            }], _animationDoneListener: [{
-                type: HostListener,
-                args: ['@transform.done', ['$event']]
             }] } });
 /**
  * `<mat-drawer-container>` component.

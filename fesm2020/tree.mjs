@@ -23,26 +23,18 @@ class MatTreeNode extends _MatTreeNodeBase {
     constructor(elementRef, tree, tabIndex) {
         super(elementRef, tree);
         this.tabIndex = Number(tabIndex) || 0;
-        // The classes are directly added here instead of in the host property because classes on
-        // the host property are not inherited with View Engine. It is not set as a @HostBinding because
-        // it is not set by the time it's children nodes try to read the class from it.
-        // TODO: move to host after View Engine deprecation
-        elementRef.nativeElement.classList.add('mat-tree-node');
     }
     // This is a workaround for https://github.com/angular/angular/issues/23091
     // In aot mode, the lifecycle hooks from parent class are not called.
     ngOnInit() {
         super.ngOnInit();
     }
-    ngDoCheck() {
-        super.ngDoCheck();
-    }
     ngOnDestroy() {
         super.ngOnDestroy();
     }
 }
 MatTreeNode.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatTreeNode, deps: [{ token: i0.ElementRef }, { token: i1.CdkTree }, { token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatTreeNode.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0", type: MatTreeNode, selector: "mat-tree-node", inputs: { role: "role", disabled: "disabled", tabIndex: "tabIndex" }, providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }], exportAs: ["matTreeNode"], usesInheritance: true, ngImport: i0 });
+MatTreeNode.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0", type: MatTreeNode, selector: "mat-tree-node", inputs: { role: "role", disabled: "disabled", tabIndex: "tabIndex" }, host: { classAttribute: "mat-tree-node" }, providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }], exportAs: ["matTreeNode"], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatTreeNode, decorators: [{
             type: Directive,
             args: [{
@@ -50,6 +42,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                     exportAs: 'matTreeNode',
                     inputs: ['role', 'disabled', 'tabIndex'],
                     providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }],
+                    host: {
+                        'class': 'mat-tree-node',
+                    },
                 }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i1.CdkTree }, { type: undefined, decorators: [{
                     type: Attribute,
@@ -82,11 +77,6 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
         super(elementRef, tree, differs);
         this._disabled = false;
         this.tabIndex = Number(tabIndex) || 0;
-        // The classes are directly added here instead of in the host property because classes on
-        // the host property are not inherited with View Engine. It is not set as a @HostBinding because
-        // it is not set by the time it's children nodes try to read the class from it.
-        // TODO: move to host after View Engine deprecation
-        elementRef.nativeElement.classList.add('mat-nested-tree-node');
     }
     /** Whether the node is disabled. */
     get disabled() {
@@ -109,9 +99,6 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
     ngOnInit() {
         super.ngOnInit();
     }
-    ngDoCheck() {
-        super.ngDoCheck();
-    }
     ngAfterContentInit() {
         super.ngAfterContentInit();
     }
@@ -120,7 +107,7 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
     }
 }
 MatNestedTreeNode.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatNestedTreeNode, deps: [{ token: i0.ElementRef }, { token: i1.CdkTree }, { token: i0.IterableDiffers }, { token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatNestedTreeNode.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0", type: MatNestedTreeNode, selector: "mat-nested-tree-node", inputs: { role: "role", disabled: "disabled", tabIndex: "tabIndex", node: ["matNestedTreeNode", "node"] }, providers: [
+MatNestedTreeNode.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.0", type: MatNestedTreeNode, selector: "mat-nested-tree-node", inputs: { role: "role", disabled: "disabled", tabIndex: "tabIndex", node: ["matNestedTreeNode", "node"] }, host: { classAttribute: "mat-nested-tree-node" }, providers: [
         { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
         { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
         { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode },
@@ -136,6 +123,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                         { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
                         { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode },
                     ],
+                    host: {
+                        'class': 'mat-nested-tree-node',
+                    },
                 }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i1.CdkTree }, { type: i0.IterableDiffers }, { type: undefined, decorators: [{
                     type: Attribute,
@@ -246,18 +236,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
 class MatTree extends CdkTree {
 }
 MatTree.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatTree, deps: null, target: i0.ɵɵFactoryTarget.Component });
-MatTree.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0", type: MatTree, selector: "mat-tree", host: { attributes: { "role": "tree" }, classAttribute: "mat-tree cdk-tree" }, providers: [{ provide: CdkTree, useExisting: MatTree }], viewQueries: [{ propertyName: "_nodeOutlet", first: true, predicate: MatTreeNodeOutlet, descendants: true, static: true }], exportAs: ["matTree"], usesInheritance: true, ngImport: i0, template: `<ng-container matTreeNodeOutlet></ng-container>`, isInline: true, styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"], directives: [{ type: MatTreeNodeOutlet, selector: "[matTreeNodeOutlet]" }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
+MatTree.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.0.0", type: MatTree, selector: "mat-tree", host: { attributes: { "role": "tree" }, classAttribute: "mat-tree" }, providers: [{ provide: CdkTree, useExisting: MatTree }], viewQueries: [{ propertyName: "_nodeOutlet", first: true, predicate: MatTreeNodeOutlet, descendants: true, static: true }], exportAs: ["matTree"], usesInheritance: true, ngImport: i0, template: `<ng-container matTreeNodeOutlet></ng-container>`, isInline: true, styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"], directives: [{ type: MatTreeNodeOutlet, selector: "[matTreeNodeOutlet]" }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatTree, decorators: [{
             type: Component,
             args: [{ selector: 'mat-tree', exportAs: 'matTree', template: `<ng-container matTreeNodeOutlet></ng-container>`, host: {
-                        // The 'cdk-tree' class needs to be included here because classes set in the host in the
-                        // parent class are not inherited with View Engine. The 'cdk-tree' class in CdkTreeNode has
-                        // to be set in the host because:
-                        // if it is set as a @HostBinding it is not set by the time the tree nodes try to read the
-                        // class from it.
-                        // the ElementRef is not available in the constructor so the class can't be applied directly
-                        // without a breaking constructor change.
-                        'class': 'mat-tree cdk-tree',
+                        'class': 'mat-tree',
                         'role': 'tree',
                     }, encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.Default, providers: [{ provide: CdkTree, useExisting: MatTree }], styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word}.mat-nested-tree-node{border-bottom-width:0}\n"] }]
         }], propDecorators: { _nodeOutlet: [{
