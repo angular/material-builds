@@ -2,7 +2,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { getSupportedInputTypes } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Optional, Self, Inject, Input, HostListener, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Optional, Self, Inject, Input, NgModule } from '@angular/core';
 import * as i2 from '@angular/forms';
 import { Validators } from '@angular/forms';
 import * as i3 from '@angular/material/core';
@@ -267,24 +267,13 @@ class MatInput extends _MatInputBase {
     focus(options) {
         this._elementRef.nativeElement.focus(options);
     }
-    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
-    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritten.
-    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
     /** Callback for the cases where the focused state of the input changes. */
-    // tslint:disable:no-host-decorator-in-concrete
-    // tslint:enable:no-host-decorator-in-concrete
     _focusChanged(isFocused) {
         if (isFocused !== this.focused) {
             this.focused = isFocused;
             this.stateChanges.next();
         }
     }
-    // We have to use a `HostListener` here in order to support both Ivy and ViewEngine.
-    // In Ivy the `host` bindings will be merged when this class is extended, whereas in
-    // ViewEngine they're overwritten.
-    // TODO(crisbeto): we move this back into `host` once Ivy is turned on by default.
-    // tslint:disable-next-line:no-host-decorator-in-concrete
     _onInput() {
         // This is a noop function and is used to let Angular know whenever the value changes.
         // Angular will run a new change detection each time the `input` event has been dispatched.
@@ -426,6 +415,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                         // state usually overlaps with `aria-required` when the input is empty and can be redundant.
                         '[attr.aria-invalid]': '(empty && required) ? null : errorState',
                         '[attr.aria-required]': 'required',
+                        '(focus)': '_focusChanged(true)',
+                        '(blur)': '_focusChanged(false)',
+                        '(input)': '_onInput()',
                     },
                     providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
                 }]
@@ -470,17 +462,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImpor
                 type: Input
             }], readonly: [{
                 type: Input
-            }],
-        // tslint:enable:no-host-decorator-in-concrete
-        _focusChanged: [{
-                type: HostListener,
-                args: ['focus', ['true']]
-            }, {
-                type: HostListener,
-                args: ['blur', ['false']]
-            }], _onInput: [{
-                type: HostListener,
-                args: ['input']
             }] } });
 
 /**

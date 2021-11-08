@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angular/cdk/tree';
-import { AfterContentInit, DoCheck, ElementRef, IterableDiffers, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable, HasTabIndex } from '@angular/material/core';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import * as i0 from "@angular/core";
@@ -14,10 +14,9 @@ declare const _MatTreeNodeBase: import("@angular/material/core")._Constructor<Ha
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
-export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implements CanDisable, DoCheck, HasTabIndex, OnInit, OnDestroy {
+export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implements CanDisable, HasTabIndex, OnInit, OnDestroy {
     constructor(elementRef: ElementRef<HTMLElement>, tree: CdkTree<T, K>, tabIndex: string);
     ngOnInit(): void;
-    ngDoCheck(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ngAcceptInputType_tabIndex: NumberInput;
@@ -36,7 +35,7 @@ export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  */
-export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K> implements AfterContentInit, DoCheck, OnDestroy, OnInit {
+export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K> implements AfterContentInit, OnDestroy, OnInit {
     node: T;
     /** Whether the node is disabled. */
     get disabled(): any;
@@ -48,7 +47,6 @@ export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K>
     private _tabIndex;
     constructor(elementRef: ElementRef<HTMLElement>, tree: CdkTree<T, K>, differs: IterableDiffers, tabIndex: string);
     ngOnInit(): void;
-    ngDoCheck(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     static ngAcceptInputType_disabled: BooleanInput;
