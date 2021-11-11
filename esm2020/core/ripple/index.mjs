@@ -15,10 +15,10 @@ export * from './ripple-ref';
 export * from './ripple-renderer';
 export class MatRippleModule {
 }
-MatRippleModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatRippleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatRippleModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatRippleModule, declarations: [MatRipple], imports: [MatCommonModule, PlatformModule], exports: [MatRipple, MatCommonModule] });
-MatRippleModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatRippleModule, imports: [[MatCommonModule, PlatformModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.0", ngImport: i0, type: MatRippleModule, decorators: [{
+MatRippleModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.1", ngImport: i0, type: MatRippleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatRippleModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.0.1", ngImport: i0, type: MatRippleModule, declarations: [MatRipple], imports: [MatCommonModule, PlatformModule], exports: [MatRipple, MatCommonModule] });
+MatRippleModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.0.1", ngImport: i0, type: MatRippleModule, imports: [[MatCommonModule, PlatformModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.1", ngImport: i0, type: MatRippleModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, PlatformModule],
