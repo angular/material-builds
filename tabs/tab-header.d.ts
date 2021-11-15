@@ -40,6 +40,7 @@ export declare class MatTabHeader extends _MatTabHeaderBase {
     _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
+    _tabListInner: ElementRef;
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);

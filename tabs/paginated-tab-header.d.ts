@@ -42,6 +42,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     };
     abstract _tabListContainer: ElementRef<HTMLElement>;
     abstract _tabList: ElementRef<HTMLElement>;
+    abstract _tabListInner: ElementRef<HTMLElement>;
     abstract _nextPaginator: ElementRef<HTMLElement>;
     abstract _previousPaginator: ElementRef<HTMLElement>;
     /** The distance in pixels that the tab labels should be translated to the left. */

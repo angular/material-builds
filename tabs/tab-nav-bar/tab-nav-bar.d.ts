@@ -51,6 +51,7 @@ export declare class MatTabNav extends _MatTabNavBase {
     _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
+    _tabListInner: ElementRef;
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string);
