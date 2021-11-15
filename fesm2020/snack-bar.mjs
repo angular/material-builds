@@ -416,7 +416,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.1", ngImpor
                     imports: [OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule],
                     exports: [MatSnackBarContainer, MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
-                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
                 }]
         }] });
 

@@ -75,12 +75,10 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
 }
 declare const _MatDateRangeInputBase: import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & typeof MatDateRangeInputPartBase;
 /** Input for entering the start date in a `mat-date-range-input`. */
-export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState, DoCheck, OnInit {
+export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
     /** Validator that checks that the start date isn't after the end date. */
     private _startValidator;
     constructor(rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, defaultErrorStateMatcher: ErrorStateMatcher, injector: Injector, parentForm: NgForm, parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
-    ngOnInit(): void;
-    ngDoCheck(): void;
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
@@ -92,12 +90,10 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never>;
 }
 /** Input for entering the end date in a `mat-date-range-input`. */
-export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState, DoCheck, OnInit {
+export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
     /** Validator that checks that the end date isn't before the start date. */
     private _endValidator;
     constructor(rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, defaultErrorStateMatcher: ErrorStateMatcher, injector: Injector, parentForm: NgForm, parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
-    ngOnInit(): void;
-    ngDoCheck(): void;
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
