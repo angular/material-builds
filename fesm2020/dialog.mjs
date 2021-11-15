@@ -1122,7 +1122,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.1", ngImpor
                         MatDialogContent,
                     ],
                     providers: [MatDialog, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER],
-                    entryComponents: [MatDialogContainer],
                 }]
         }] });
 
