@@ -264,16 +264,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.1", ngImpor
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  */
-// tslint:disable-next-line: coercion-types
 class MatTreeNodeToggle extends CdkTreeNodeToggle {
-    get recursive() {
-        return this._recursive;
-    }
-    set recursive(value) {
-        // TODO: when we remove support for ViewEngine, change this setter to an input
-        // alias in the decorator metadata.
-        this._recursive = coerceBooleanProperty(value);
-    }
 }
 MatTreeNodeToggle.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.0.1", ngImport: i0, type: MatTreeNodeToggle, deps: null, target: i0.ɵɵFactoryTarget.Directive });
 MatTreeNodeToggle.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.0.1", type: MatTreeNodeToggle, selector: "[matTreeNodeToggle]", inputs: { recursive: ["matTreeNodeToggleRecursive", "recursive"] }, providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }], usesInheritance: true, ngImport: i0 });
@@ -282,11 +273,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.1", ngImpor
             args: [{
                     selector: '[matTreeNodeToggle]',
                     providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }],
+                    inputs: ['recursive: matTreeNodeToggleRecursive'],
                 }]
-        }], propDecorators: { recursive: [{
-                type: Input,
-                args: ['matTreeNodeToggleRecursive']
-            }] } });
+        }] });
 
 /**
  * @license

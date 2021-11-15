@@ -3189,9 +3189,6 @@ const _MatDateRangeInputBase = mixinErrorState(MatDateRangeInputPartBase);
 /** Input for entering the start date in a `mat-date-range-input`. */
 class MatStartDate extends _MatDateRangeInputBase {
     constructor(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats) {
-        // TODO(crisbeto): this constructor shouldn't be necessary, but ViewEngine doesn't seem to
-        // handle DI correctly when it is inherited from `MatDateRangeInputPartBase`. We can drop this
-        // constructor once ViewEngine is removed.
         super(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats);
         /** Validator that checks that the start date isn't after the end date. */
         this._startValidator = (control) => {
@@ -3202,24 +3199,6 @@ class MatStartDate extends _MatDateRangeInputBase {
                 : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
         };
         this._validator = Validators.compose([...super._getValidators(), this._startValidator]);
-    }
-    ngOnInit() {
-        // Normally this happens automatically, but it seems to break if not added explicitly when all
-        // of the criteria below are met:
-        // 1) The class extends a TS mixin.
-        // 2) The application is running in ViewEngine.
-        // 3) The application is being transpiled through tsickle.
-        // This can be removed once google3 is completely migrated to Ivy.
-        super.ngOnInit();
-    }
-    ngDoCheck() {
-        // Normally this happens automatically, but it seems to break if not added explicitly when all
-        // of the criteria below are met:
-        // 1) The class extends a TS mixin.
-        // 2) The application is running in ViewEngine.
-        // 3) The application is being transpiled through tsickle.
-        // This can be removed once google3 is completely migrated to Ivy.
-        super.ngDoCheck();
     }
     _getValueFromModel(modelValue) {
         return modelValue.start;
@@ -3303,9 +3282,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.1", ngImpor
 /** Input for entering the end date in a `mat-date-range-input`. */
 class MatEndDate extends _MatDateRangeInputBase {
     constructor(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats) {
-        // TODO(crisbeto): this constructor shouldn't be necessary, but ViewEngine doesn't seem to
-        // handle DI correctly when it is inherited from `MatDateRangeInputPartBase`. We can drop this
-        // constructor once ViewEngine is removed.
         super(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats);
         /** Validator that checks that the end date isn't before the start date. */
         this._endValidator = (control) => {
@@ -3316,24 +3292,6 @@ class MatEndDate extends _MatDateRangeInputBase {
                 : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
         };
         this._validator = Validators.compose([...super._getValidators(), this._endValidator]);
-    }
-    ngOnInit() {
-        // Normally this happens automatically, but it seems to break if not added explicitly when all
-        // of the criteria below are met:
-        // 1) The class extends a TS mixin.
-        // 2) The application is running in ViewEngine.
-        // 3) The application is being transpiled through tsickle.
-        // This can be removed once google3 is completely migrated to Ivy.
-        super.ngOnInit();
-    }
-    ngDoCheck() {
-        // Normally this happens automatically, but it seems to break if not added explicitly when all
-        // of the criteria below are met:
-        // 1) The class extends a TS mixin.
-        // 2) The application is running in ViewEngine.
-        // 3) The application is being transpiled through tsickle.
-        // This can be removed once google3 is completely migrated to Ivy.
-        super.ngDoCheck();
     }
     _getValueFromModel(modelValue) {
         return modelValue.end;
@@ -3977,7 +3935,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.1", ngImpor
                         MatDatepickerApply,
                     ],
                     providers: [MatDatepickerIntl, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER],
-                    entryComponents: [MatDatepickerContent, MatCalendarHeader],
                 }]
         }] });
 

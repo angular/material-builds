@@ -811,7 +811,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.0.1", ngImpor
                     imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule],
                     exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule],
                     declarations: [MatTooltip, TooltipComponent],
-                    entryComponents: [TooltipComponent],
                     providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 }]
         }] });
