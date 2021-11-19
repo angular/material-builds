@@ -270,7 +270,9 @@ class MatBottomSheetContainer extends BasePortalOutlet {
         this._elementFocusedBeforeOpened = _getFocusedElementPierceShadowDom();
         // The `focus` method isn't available during server-side rendering.
         if (this._elementRef.nativeElement.focus) {
-            Promise.resolve().then(() => this._elementRef.nativeElement.focus());
+            this._ngZone.runOutsideAngular(() => {
+                Promise.resolve().then(() => this._elementRef.nativeElement.focus());
+            });
         }
     }
 }
