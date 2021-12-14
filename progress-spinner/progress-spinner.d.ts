@@ -61,15 +61,15 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     _spinnerAnimationLabel: string;
     /** The diameter of the progress spinner (will set width and height of svg). */
     get diameter(): number;
-    set diameter(size: number);
+    set diameter(size: NumberInput);
     /** Stroke width of the progress spinner. */
     get strokeWidth(): number;
-    set strokeWidth(value: number);
+    set strokeWidth(value: NumberInput);
     /** Mode of the progress circle */
     mode: ProgressSpinnerMode;
     /** Value of the progress circle. */
     get value(): number;
-    set value(newValue: number);
+    set value(newValue: NumberInput);
     constructor(elementRef: ElementRef<HTMLElement>, 
     /**
      * @deprecated `_platform` parameter no longer being used.
@@ -93,9 +93,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     private _getAnimationText;
     /** Returns the circle diameter formatted for use with the animation-name CSS property. */
     private _getSpinnerAnimationLabel;
-    static ngAcceptInputType_diameter: NumberInput;
-    static ngAcceptInputType_strokeWidth: NumberInput;
-    static ngAcceptInputType_value: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never>;
 }

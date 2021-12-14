@@ -179,15 +179,15 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _placeholder;
     /** Whether the component is required. */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     private _required;
     /** Whether the user should be allowed to select multiple options. */
     get multiple(): boolean;
-    set multiple(value: boolean);
+    set multiple(value: BooleanInput);
     private _multiple;
     /** Whether to center the active option over the trigger. */
     get disableOptionCentering(): boolean;
-    set disableOptionCentering(value: boolean);
+    set disableOptionCentering(value: BooleanInput);
     private _disableOptionCentering;
     /**
      * Function to compare the option values with the selected values. The first argument
@@ -208,7 +208,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     errorStateMatcher: ErrorStateMatcher;
     /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
     get typeaheadDebounceInterval(): number;
-    set typeaheadDebounceInterval(value: number);
+    set typeaheadDebounceInterval(value: NumberInput);
     private _typeaheadDebounceInterval;
     /**
      * Function used to sort the values in a select in multiple mode.
@@ -358,13 +358,6 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      * @docs-private
      */
     get shouldLabelFloat(): boolean;
-    static ngAcceptInputType_required: BooleanInput;
-    static ngAcceptInputType_multiple: BooleanInput;
-    static ngAcceptInputType_disableOptionCentering: BooleanInput;
-    static ngAcceptInputType_typeaheadDebounceInterval: NumberInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatSelectBase<any>, [null, null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; self: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSelectBase<any>, never, never, { "panelClass": "panelClass"; "placeholder": "placeholder"; "required": "required"; "multiple": "multiple"; "disableOptionCentering": "disableOptionCentering"; "compareWith": "compareWith"; "value": "value"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "errorStateMatcher": "errorStateMatcher"; "typeaheadDebounceInterval": "typeaheadDebounceInterval"; "sortComparator": "sortComparator"; "id": "id"; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, never>;
 }

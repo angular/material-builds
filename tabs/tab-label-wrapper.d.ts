@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
 import * as i0 from "@angular/core";
@@ -24,7 +23,6 @@ export declare class MatTabLabelWrapper extends _MatTabLabelWrapperBase implemen
     focus(): void;
     getOffsetLeft(): number;
     getOffsetWidth(): number;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabelWrapper, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; }, {}, never>;
 }

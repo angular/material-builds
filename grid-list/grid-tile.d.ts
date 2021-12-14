@@ -18,17 +18,15 @@ export declare class MatGridTile {
     constructor(_element: ElementRef<HTMLElement>, _gridList?: MatGridListBase | undefined);
     /** Amount of rows that the grid tile takes up. */
     get rowspan(): number;
-    set rowspan(value: number);
+    set rowspan(value: NumberInput);
     /** Amount of columns that the grid tile takes up. */
     get colspan(): number;
-    set colspan(value: number);
+    set colspan(value: NumberInput);
     /**
      * Sets the style of the grid-tile element.  Needs to be set manually to avoid
      * "Changed after checked" errors that would occur with HostBinding.
      */
     _setStyle(property: string, value: any): void;
-    static ngAcceptInputType_rowspan: NumberInput;
-    static ngAcceptInputType_colspan: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTile, [null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTile, "mat-grid-tile", ["matGridTile"], { "rowspan": "rowspan"; "colspan": "colspan"; }, {}, never, ["*"]>;
 }

@@ -57,17 +57,17 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     private _tabLabelSubscription;
     /** Whether the tab group should grow to the size of the active tab. */
     get dynamicHeight(): boolean;
-    set dynamicHeight(value: boolean);
+    set dynamicHeight(value: BooleanInput);
     private _dynamicHeight;
     /** The index of the active tab. */
     get selectedIndex(): number | null;
-    set selectedIndex(value: number | null);
+    set selectedIndex(value: NumberInput);
     private _selectedIndex;
     /** Position of the tab header. */
     headerPosition: MatTabHeaderPosition;
     /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
     get animationDuration(): string;
-    set animationDuration(value: string);
+    set animationDuration(value: NumberInput);
     private _animationDuration;
     /**
      * `tabindex` to be set on the inner element that wraps the tab content. Can be used for improved
@@ -76,7 +76,7 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
      * Read more at https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-2/tabs.html
      */
     get contentTabIndex(): number | null;
-    set contentTabIndex(value: number | null);
+    set contentTabIndex(value: NumberInput);
     private _contentTabIndex;
     /**
      * Whether pagination should be disabled. This can be used to avoid unnecessary
@@ -143,11 +143,6 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     _getTabIndex(tab: MatTab, idx: number): number | null;
     /** Callback for when the focused state of a tab has changed. */
     _tabFocusChanged(focusOrigin: FocusOrigin, index: number): void;
-    static ngAcceptInputType_dynamicHeight: BooleanInput;
-    static ngAcceptInputType_animationDuration: NumberInput;
-    static ngAcceptInputType_selectedIndex: NumberInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_contentTabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabGroupBase, [null, null, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabGroupBase, never, never, { "dynamicHeight": "dynamicHeight"; "selectedIndex": "selectedIndex"; "headerPosition": "headerPosition"; "animationDuration": "animationDuration"; "contentTabIndex": "contentTabIndex"; "disablePagination": "disablePagination"; "backgroundColor": "backgroundColor"; }, { "selectedIndexChange": "selectedIndexChange"; "focusChange": "focusChange"; "animationDone": "animationDone"; "selectedTabChange": "selectedTabChange"; }, never>;
 }

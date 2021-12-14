@@ -89,7 +89,7 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _name;
     /** Whether the toggle group is vertical. */
     get vertical(): boolean;
-    set vertical(value: boolean);
+    set vertical(value: BooleanInput);
     /** Value of the toggle group. */
     get value(): any;
     set value(newValue: any);
@@ -103,10 +103,10 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     get selected(): MatButtonToggle | MatButtonToggle[];
     /** Whether multiple button toggles can be selected. */
     get multiple(): boolean;
-    set multiple(value: boolean);
+    set multiple(value: BooleanInput);
     /** Whether multiple button toggle group is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     /** Event emitted when the group's value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
     constructor(_changeDetector: ChangeDetectorRef, defaultOptions?: MatButtonToggleDefaultOptions);
@@ -142,9 +142,6 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _selectValue;
     /** Syncs up the group's value with the model and emits the change event. */
     private _updateModelValue;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_multiple: BooleanInput;
-    static ngAcceptInputType_vertical: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleGroup, [null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonToggleGroup, "mat-button-toggle-group", ["matButtonToggleGroup"], { "appearance": "appearance"; "name": "name"; "vertical": "vertical"; "value": "value"; "multiple": "multiple"; "disabled": "disabled"; }, { "valueChange": "valueChange"; "change": "change"; }, ["_buttonToggles"]>;
 }
@@ -188,10 +185,10 @@ export declare class MatButtonToggle extends _MatButtonToggleBase implements OnI
     private _appearance;
     /** Whether the button is checked. */
     get checked(): boolean;
-    set checked(value: boolean);
+    set checked(value: BooleanInput);
     /** Whether the button is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Event emitted when the group value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
@@ -209,11 +206,6 @@ export declare class MatButtonToggle extends _MatButtonToggleBase implements OnI
      * update bound properties of the radio button.
      */
     _markForCheck(): void;
-    static ngAcceptInputType_checked: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_vertical: BooleanInput;
-    static ngAcceptInputType_multiple: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggle, [{ optional: true; }, null, null, null, { attribute: "tabindex"; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatButtonToggle, "mat-button-toggle", ["matButtonToggle"], { "disableRipple": "disableRipple"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "id": "id"; "name": "name"; "value": "value"; "tabIndex": "tabIndex"; "appearance": "appearance"; "checked": "checked"; "disabled": "disabled"; }, { "change": "change"; }, never, ["*"]>;
 }

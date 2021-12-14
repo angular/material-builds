@@ -187,7 +187,7 @@ class _MatPaginatorBase extends _MatPaginatorMixinBase {
             return;
         }
         const previousPageIndex = this.pageIndex;
-        this.pageIndex++;
+        this.pageIndex = this.pageIndex + 1;
         this._emitPageEvent(previousPageIndex);
     }
     /** Move back to the previous page if it exists. */
@@ -196,7 +196,7 @@ class _MatPaginatorBase extends _MatPaginatorMixinBase {
             return;
         }
         const previousPageIndex = this.pageIndex;
-        this.pageIndex--;
+        this.pageIndex = this.pageIndex - 1;
         this._emitPageEvent(previousPageIndex);
     }
     /** Move to the first page if not already there. */

@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { BooleanInput } from '@angular/cdk/coercion';
 import { InjectionToken } from '@angular/core';
 import { CanDisable } from '../common-behaviors/disabled';
 import { MatOptionParentComponent } from './option-parent';
@@ -22,7 +21,6 @@ export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements C
     /** Whether the group is in inert a11y mode. */
     _inert: boolean;
     constructor(parent?: MatOptionParentComponent);
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptgroupBase, [{ optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptgroupBase, never, never, { "label": "label"; }, {}, never>;
 }

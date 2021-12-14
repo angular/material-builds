@@ -147,11 +147,11 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
      * than a dropdown and elements have more padding to allow for bigger touch targets.
      */
     get touchUi(): boolean;
-    set touchUi(value: boolean);
+    set touchUi(value: BooleanInput);
     private _touchUi;
     /** Whether the datepicker pop-up should be disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Preferred position of the datepicker in the X axis. */
     xPosition: DatepickerDropdownPositionX;
@@ -163,7 +163,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
      * you provide your own equivalent, if you decide to turn it off.
      */
     get restoreFocus(): boolean;
-    set restoreFocus(value: boolean);
+    set restoreFocus(value: BooleanInput);
     private _restoreFocus;
     /**
      * Emits selected year in multiyear view.
@@ -194,7 +194,7 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     private _panelClass;
     /** Whether the calendar is open. */
     get opened(): boolean;
-    set opened(value: boolean);
+    set opened(value: BooleanInput);
     private _opened;
     /** The id for the datepicker calendar. */
     id: string;
@@ -264,10 +264,6 @@ export declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D
     private _setConnectedPositions;
     /** Gets an observable that will emit when the overlay is supposed to be closed. */
     private _getCloseStream;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_opened: BooleanInput;
-    static ngAcceptInputType_touchUi: BooleanInput;
-    static ngAcceptInputType_restoreFocus: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerBase<any, any, any>, [null, null, null, null, { optional: true; }, { optional: true; }, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerBase<any, any, any>, never, never, { "calendarHeaderComponent": "calendarHeaderComponent"; "startAt": "startAt"; "startView": "startView"; "color": "color"; "touchUi": "touchUi"; "disabled": "disabled"; "xPosition": "xPosition"; "yPosition": "yPosition"; "restoreFocus": "restoreFocus"; "dateClass": "dateClass"; "panelClass": "panelClass"; "opened": "opened"; }, { "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "openedStream": "opened"; "closedStream": "closed"; }, never>;
 }

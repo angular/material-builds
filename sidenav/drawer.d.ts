@@ -68,7 +68,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _mode;
     /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
     get disableClose(): boolean;
-    set disableClose(value: boolean);
+    set disableClose(value: BooleanInput);
     private _disableClose;
     /**
      * Whether the drawer should focus the first focusable element automatically when opened.
@@ -78,14 +78,14 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * instead.
      */
     get autoFocus(): AutoFocusTarget | string | boolean;
-    set autoFocus(value: AutoFocusTarget | string | boolean);
+    set autoFocus(value: AutoFocusTarget | string | BooleanInput);
     private _autoFocus;
     /**
      * Whether the drawer is opened. We overload this because we trigger an event when it
      * starts or end.
      */
     get opened(): boolean;
-    set opened(value: boolean);
+    set opened(value: BooleanInput);
     private _opened;
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
@@ -168,9 +168,6 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     _getWidth(): number;
     /** Updates the enabled state of the focus trap. */
     private _updateFocusTrapState;
-    static ngAcceptInputType_disableClose: BooleanInput;
-    static ngAcceptInputType_autoFocus: AutoFocusTarget | string | BooleanInput;
-    static ngAcceptInputType_opened: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawer, [null, null, null, null, null, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawer, "mat-drawer", ["matDrawer"], { "position": "position"; "mode": "mode"; "disableClose": "disableClose"; "autoFocus": "autoFocus"; "opened": "opened"; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "openedStart": "openedStart"; "_closedStream": "closed"; "closedStart": "closedStart"; "onPositionChanged": "positionChanged"; }, never, ["*"]>;
 }
@@ -205,15 +202,15 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
      * `MAT_DRAWER_DEFAULT_AUTOSIZE` token.
      */
     get autosize(): boolean;
-    set autosize(value: boolean);
+    set autosize(value: BooleanInput);
     private _autosize;
     /**
      * Whether the drawer container should have a backdrop while one of the sidenavs is open.
      * If explicitly set to `true`, the backdrop will be enabled for drawers in the `side`
      * mode as well.
      */
-    get hasBackdrop(): any;
-    set hasBackdrop(value: any);
+    get hasBackdrop(): boolean;
+    set hasBackdrop(value: BooleanInput);
     _backdropOverride: boolean | null;
     /** Event emitted when the drawer backdrop is clicked. */
     readonly backdropClick: EventEmitter<void>;
@@ -284,8 +281,6 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     _isShowingBackdrop(): boolean;
     private _canHaveBackdrop;
     private _isDrawerOpen;
-    static ngAcceptInputType_autosize: BooleanInput;
-    static ngAcceptInputType_hasBackdrop: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContainer, [{ optional: true; }, null, null, null, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContainer, "mat-drawer-container", ["matDrawerContainer"], { "autosize": "autosize"; "hasBackdrop": "hasBackdrop"; }, { "backdropClick": "backdropClick"; }, ["_content", "_allDrawers"], ["mat-drawer", "mat-drawer-content", "*"]>;
 }

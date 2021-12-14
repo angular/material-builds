@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, MatRipple } from '@angular/material/core';
@@ -77,7 +77,7 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
     get inputId(): string;
     /** Whether the checkbox is required. */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     private _required;
     /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
     labelPosition: 'before' | 'after';
@@ -115,8 +115,8 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
      * Whether the checkbox is disabled. This fully overrides the implementation provided by
      * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
      */
-    get disabled(): any;
-    set disabled(value: any);
+    get disabled(): boolean;
+    set disabled(value: BooleanInput);
     private _disabled;
     /**
      * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
@@ -125,9 +125,9 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
      * set to false.
      */
     get indeterminate(): boolean;
-    set indeterminate(value: boolean);
+    set indeterminate(value: BooleanInput);
     private _indeterminate;
-    _isRippleDisabled(): any;
+    _isRippleDisabled(): boolean;
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
     writeValue(value: any): void;
@@ -160,11 +160,6 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
      * server-side rendering.
      */
     private _syncIndeterminate;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_required: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_indeterminate: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "id": "id"; "required": "required"; "labelPosition": "labelPosition"; "name": "name"; "value": "value"; "checked": "checked"; "disabled": "disabled"; "indeterminate": "indeterminate"; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"]>;
 }

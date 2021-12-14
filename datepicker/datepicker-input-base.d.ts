@@ -41,11 +41,11 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     private _isInitialized;
     /** The value of the input. */
     get value(): D | null;
-    set value(value: D | null);
+    set value(value: any);
     protected _model: MatDateSelectionModel<S, D> | undefined;
     /** Whether the datepicker-input is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Emits when a `change` event is fired on this `<input>`. */
     readonly dateChange: EventEmitter<MatDatepickerInputEvent<D, S>>;
@@ -126,8 +126,6 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     protected _assignValueProgrammatically(value: D | null): void;
     /** Gets whether a value matches the current date filter. */
     _matchesFilter(value: D | null): boolean;
-    static ngAcceptInputType_value: any;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInputBase<any, any>, [null, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": "value"; "disabled": "disabled"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never>;
 }

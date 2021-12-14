@@ -240,7 +240,7 @@ class MatDrawer {
         return value;
     }
     set autoFocus(value) {
-        if (value === 'true' || value === 'false') {
+        if (value === 'true' || value === 'false' || value == null) {
             value = coerceBooleanProperty(value);
         }
         this._autoFocus = value;

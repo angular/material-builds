@@ -77,7 +77,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     disablePagination: boolean;
     /** The index of the active tab. */
     get selectedIndex(): number;
-    set selectedIndex(value: number);
+    set selectedIndex(value: NumberInput);
     private _selectedIndex;
     /** Event emitted when the option is selected. */
     readonly selectFocusedIndex: EventEmitter<number>;
@@ -189,7 +189,6 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      * @returns Information on the current scroll distance and the maximum.
      */
     private _scrollTo;
-    static ngAcceptInputType_selectedIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatedTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": "disablePagination"; }, {}, never>;
 }

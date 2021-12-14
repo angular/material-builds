@@ -8,7 +8,6 @@
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
 import { HasTabIndex } from '@angular/material/core';
-import { NumberInput } from '@angular/cdk/coercion';
 import { MatAccordionTogglePosition } from './accordion-base';
 import { MatExpansionPanel, MatExpansionPanelDefaultOptions } from './expansion-panel';
 import * as i0 from "@angular/core";
@@ -64,7 +63,6 @@ export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMix
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelHeader, [{ host: true; }, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "tabIndex": "tabIndex"; "expandedHeight": "expandedHeight"; "collapsedHeight": "collapsedHeight"; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"]>;
 }

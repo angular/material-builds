@@ -35,8 +35,6 @@ export declare class MatNavList extends _MatListBase implements CanDisable, CanD
     readonly _stateChanges: Subject<void>;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNavList, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"]>;
 }
@@ -48,8 +46,6 @@ export declare class MatList extends _MatListBase implements CanDisable, CanDisa
     _getListType(): 'list' | 'action-list' | null;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatList, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list, mat-action-list", ["matList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"]>;
 }
@@ -89,7 +85,7 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, navList?: MatNavList, list?: MatList);
     /** Whether the option is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -97,8 +93,6 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     _isRippleDisabled(): boolean;
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatar", "_icon", "_lines"], ["[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]", "[mat-line], [matLine]", "*"]>;
 }

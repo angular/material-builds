@@ -102,7 +102,7 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     private _sortActionDescription;
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
     get disableClear(): boolean;
-    set disableClear(v: boolean);
+    set disableClear(v: BooleanInput);
     private _disableClear;
     constructor(
     /**
@@ -160,8 +160,6 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     private _updateSortActionDescription;
     /** Handles changes in the sorting state. */
     private _handleStateChanges;
-    static ngAcceptInputType_disableClear: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "disabled": "disabled"; "id": "mat-sort-header"; "arrowPosition": "arrowPosition"; "start": "start"; "sortActionDescription": "sortActionDescription"; "disableClear": "disableClear"; }, {}, never, ["*"]>;
 }

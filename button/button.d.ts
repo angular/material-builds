@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
 import * as i0 from "@angular/core";
@@ -36,8 +35,6 @@ export declare class MatButton extends _MatButtonBase implements AfterViewInit, 
     _isRippleDisabled(): boolean;
     /** Gets whether the button has one of the given attributes. */
     _hasHostAttributes(...attributes: string[]): boolean;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, [null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "button[mat-button], button[mat-raised-button], button[mat-icon-button],             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],             button[mat-flat-button]", ["matButton"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; }, {}, never, ["*"]>;
 }

@@ -7,7 +7,7 @@
  */
 import { FocusableOption, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList } from '@angular/core';
@@ -29,8 +29,8 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
     set backgroundColor(value: ThemePalette);
     private _backgroundColor;
     /** Whether the ripple effect is disabled or not. */
-    get disableRipple(): any;
-    set disableRipple(value: any);
+    get disableRipple(): boolean;
+    set disableRipple(value: BooleanInput);
     private _disableRipple;
     /** Theme color of the nav bar. */
     color: ThemePalette;
@@ -55,7 +55,6 @@ export declare class MatTabNav extends _MatTabNavBase {
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string);
-    static ngAcceptInputType_disableRipple: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNav, [null, { optional: true; }, null, null, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": "color"; }, {}, ["_items"], ["*"]>;
 }
@@ -71,7 +70,7 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     protected _isActive: boolean;
     /** Whether the link is active. */
     get active(): boolean;
-    set active(value: boolean);
+    set active(value: BooleanInput);
     /**
      * Ripple configuration for ripples that are launched on pointer down. The ripple config
      * is set to the global ripple options since we don't have any configurable options for
@@ -91,10 +90,6 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _handleFocus(): void;
-    static ngAcceptInputType_active: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabLinkBase, [null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; }, {}, never>;
 }

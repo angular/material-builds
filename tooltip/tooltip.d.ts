@@ -90,11 +90,15 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     set position(value: TooltipPosition);
     /** Disables the display of the tooltip. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     /** The default delay in ms before showing the tooltip after show is called */
-    showDelay: number;
+    get showDelay(): number;
+    set showDelay(value: NumberInput);
+    private _showDelay;
     /** The default delay in ms before hiding the tooltip after hide is called */
-    hideDelay: number;
+    get hideDelay(): number;
+    set hideDelay(value: NumberInput);
+    private _hideDelay;
     /**
      * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
      * uses a long press gesture to show and hide, however it can conflict with the native browser
@@ -186,9 +190,6 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     private _wheelListener;
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_hideDelay: NumberInput;
-    static ngAcceptInputType_showDelay: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTooltipBase<any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTooltipBase<any>, never, never, { "position": "matTooltipPosition"; "disabled": "matTooltipDisabled"; "showDelay": "matTooltipShowDelay"; "hideDelay": "matTooltipHideDelay"; "touchGestures": "matTooltipTouchGestures"; "message": "matTooltip"; "tooltipClass": "matTooltipClass"; }, {}, never>;
 }
