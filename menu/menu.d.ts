@@ -99,11 +99,11 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     lazyContent: MatMenuContent;
     /** Whether the menu should overlap its trigger. */
     get overlapTrigger(): boolean;
-    set overlapTrigger(value: boolean);
+    set overlapTrigger(value: BooleanInput);
     private _overlapTrigger;
     /** Whether the menu has a backdrop. */
     get hasBackdrop(): boolean | undefined;
-    set hasBackdrop(value: boolean | undefined);
+    set hasBackdrop(value: BooleanInput);
     private _hasBackdrop;
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
@@ -189,8 +189,6 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * when it comes to maintaining the item order.
      */
     private _updateDirectDescendants;
-    static ngAcceptInputType_overlapTrigger: BooleanInput;
-    static ngAcceptInputType_hasBackdrop: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuBase, never, never, { "backdropClass": "backdropClass"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "xPosition": "xPosition"; "yPosition": "yPosition"; "overlapTrigger": "overlapTrigger"; "hasBackdrop": "hasBackdrop"; "panelClass": "class"; "classList": "classList"; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"]>;
 }

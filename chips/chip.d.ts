@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusableOption } from '@angular/cdk/a11y';
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
@@ -118,7 +118,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     removeIcon: MatChipRemove;
     /** Whether the chip is selected. */
     get selected(): boolean;
-    set selected(value: boolean);
+    set selected(value: BooleanInput);
     protected _selected: boolean;
     /** The value of the chip. Defaults to the content inside `<mat-chip>` tags. */
     get value(): any;
@@ -131,17 +131,17 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
      * not selectable.
      */
     get selectable(): boolean;
-    set selectable(value: boolean);
+    set selectable(value: BooleanInput);
     protected _selectable: boolean;
     /** Whether the chip is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     protected _disabled: boolean;
     /**
      * Determines whether or not the chip displays the remove styling and emits (removed) events.
      */
     get removable(): boolean;
-    set removable(value: boolean);
+    set removable(value: BooleanInput);
     protected _removable: boolean;
     /** Emits when the chip is focused. */
     readonly _onFocus: Subject<MatChipEvent>;
@@ -181,12 +181,6 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _handleKeydown(event: KeyboardEvent): void;
     _blur(): void;
     private _dispatchSelectionChange;
-    static ngAcceptInputType_selected: BooleanInput;
-    static ngAcceptInputType_selectable: BooleanInput;
-    static ngAcceptInputType_removable: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, [null, null, null, { optional: true; }, null, null, { optional: true; }, { attribute: "tabindex"; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"]>;
 }

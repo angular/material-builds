@@ -35,7 +35,7 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     constructor(_element: ElementRef<HTMLElement>, _dir: Directionality);
     /** Amount of columns in the grid list. */
     get cols(): number;
-    set cols(value: number);
+    set cols(value: NumberInput);
     /** Size of the grid list's gutter in pixels. */
     get gutterSize(): string;
     set gutterSize(value: string);
@@ -58,7 +58,6 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     private _layoutTiles;
     /** Sets style on the main grid-list element, given the style name and value. */
     _setListStyle(style: [string, string | null] | null): void;
-    static ngAcceptInputType_cols: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridList, [null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": "cols"; "gutterSize": "gutterSize"; "rowHeight": "rowHeight"; }, {}, ["_tiles"], ["*"]>;
 }

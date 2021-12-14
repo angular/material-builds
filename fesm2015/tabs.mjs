@@ -184,6 +184,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImpor
                     }] }];
     } });
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 // Boilerplate for applying mixins to MatTab.
 /** @docs-private */
 const _MatTabBase = mixinDisabled(class {
@@ -544,6 +551,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImpor
 /** Injection token that can be used to provide the default options the tabs module. */
 const MAT_TABS_CONFIG = new InjectionToken('MAT_TABS_CONFIG');
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 // Boilerplate for applying mixins to MatTabLabelWrapper.
 /** @docs-private */
 const _MatTabLabelWrapperBase = mixinDisabled(class {
@@ -1226,7 +1240,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         return this._animationDuration;
     }
     set animationDuration(value) {
-        this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
+        this._animationDuration = /^\d+$/.test(value + '') ? value + 'ms' : value;
     }
     /**
      * `tabindex` to be set on the inner element that wraps the tab content. Can be used for improved
@@ -1689,7 +1703,7 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
     set active(value) {
         const newValue = coerceBooleanProperty(value);
         if (newValue !== this._isActive) {
-            this._isActive = value;
+            this._isActive = newValue;
             this._tabNavBar.updateActiveLink();
         }
     }

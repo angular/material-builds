@@ -31,7 +31,7 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     private _color;
     /** Whether the badge should overlap its contents or not */
     get overlap(): boolean;
-    set overlap(val: boolean);
+    set overlap(val: BooleanInput);
     private _overlap;
     /**
      * Position the badge should reside.
@@ -50,7 +50,7 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     size: MatBadgeSize;
     /** Whether the badge is hidden. */
     get hidden(): boolean;
-    set hidden(val: boolean);
+    set hidden(val: BooleanInput);
     private _hidden;
     /** Unique id for the badge */
     _id: number;
@@ -80,9 +80,6 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     private _setColor;
     /** Clears any existing badges that might be left over from server-side rendering. */
     private _clearExistingBadges;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_hidden: BooleanInput;
-    static ngAcceptInputType_overlap: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadge, [null, null, null, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatBadge, "[matBadge]", never, { "disabled": "matBadgeDisabled"; "color": "matBadgeColor"; "overlap": "matBadgeOverlap"; "position": "matBadgePosition"; "content": "matBadge"; "description": "matBadgeDescription"; "size": "matBadgeSize"; "hidden": "matBadgeHidden"; }, {}, never>;
 }

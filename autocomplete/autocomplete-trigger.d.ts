@@ -106,7 +106,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      * act as a regular input and the user won't be able to open the panel.
      */
     get autocompleteDisabled(): boolean;
-    set autocompleteDisabled(value: boolean);
+    set autocompleteDisabled(value: BooleanInput);
     constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | undefined);
     /** Class to apply to the panel when it's above the input. */
     protected abstract _aboveClass: string;
@@ -190,7 +190,6 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _getWindow;
     /** Scrolls to a particular option in the list. */
     private _scrollToOption;
-    static ngAcceptInputType_autocompleteDisabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteTriggerBase, [null, null, null, null, null, null, { optional: true; }, { optional: true; host: true; }, { optional: true; }, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteTriggerBase, never, never, { "autocomplete": "matAutocomplete"; "position": "matAutocompletePosition"; "connectedTo": "matAutocompleteConnectedTo"; "autocompleteAttribute": "autocomplete"; "autocompleteDisabled": "matAutocompleteDisabled"; }, {}, never>;
 }

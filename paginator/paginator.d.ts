@@ -65,15 +65,15 @@ export declare abstract class _MatPaginatorBase<O extends {
     color: ThemePalette;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */
     get pageIndex(): number;
-    set pageIndex(value: number);
+    set pageIndex(value: NumberInput);
     private _pageIndex;
     /** The length of the total number of items that are being paginated. Defaulted to 0. */
     get length(): number;
-    set length(value: number);
+    set length(value: NumberInput);
     private _length;
     /** Number of items to display on a page. By default set to 50. */
     get pageSize(): number;
-    set pageSize(value: number);
+    set pageSize(value: NumberInput);
     private _pageSize;
     /** The set of provided page size options to display to the user. */
     get pageSizeOptions(): number[];
@@ -81,11 +81,11 @@ export declare abstract class _MatPaginatorBase<O extends {
     private _pageSizeOptions;
     /** Whether to hide the page size selection UI from the user. */
     get hidePageSize(): boolean;
-    set hidePageSize(value: boolean);
+    set hidePageSize(value: BooleanInput);
     private _hidePageSize;
     /** Whether to show the first/last buttons UI to the user. */
     get showFirstLastButtons(): boolean;
-    set showFirstLastButtons(value: boolean);
+    set showFirstLastButtons(value: BooleanInput);
     private _showFirstLastButtons;
     /** Event emitted when the paginator changes the page size or page index. */
     readonly page: EventEmitter<PageEvent>;
@@ -128,12 +128,6 @@ export declare abstract class _MatPaginatorBase<O extends {
     private _updateDisplayedPageSizeOptions;
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     private _emitPageEvent;
-    static ngAcceptInputType_pageIndex: NumberInput;
-    static ngAcceptInputType_length: NumberInput;
-    static ngAcceptInputType_pageSize: NumberInput;
-    static ngAcceptInputType_hidePageSize: BooleanInput;
-    static ngAcceptInputType_showFirstLastButtons: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatPaginatorBase<any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatPaginatorBase<any>, never, never, { "color": "color"; "pageIndex": "pageIndex"; "length": "length"; "pageSize": "pageSize"; "pageSizeOptions": "pageSizeOptions"; "hidePageSize": "hidePageSize"; "showFirstLastButtons": "showFirstLastButtons"; }, { "page": "page"; }, never>;
 }

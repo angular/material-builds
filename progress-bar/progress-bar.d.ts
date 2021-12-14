@@ -60,7 +60,7 @@ export declare class MatProgressBar extends _MatProgressBarBase implements CanCo
     _isNoopAnimation: boolean;
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
     get value(): number;
-    set value(v: number);
+    set value(v: NumberInput);
     private _value;
     /** Buffer value of the progress bar. Defaults to zero. */
     get bufferValue(): number;
@@ -100,7 +100,6 @@ export declare class MatProgressBar extends _MatProgressBarBase implements CanCo
     } | null;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_value: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBar, [null, null, { optional: true; }, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": "color"; "value": "value"; "bufferValue": "bufferValue"; "mode": "mode"; }, { "animationEnd": "animationEnd"; }, never, never>;
 }

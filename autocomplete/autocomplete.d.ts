@@ -80,7 +80,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
      * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
      */
     get autoActiveFirstOption(): boolean;
-    set autoActiveFirstOption(value: boolean);
+    set autoActiveFirstOption(value: BooleanInput);
     private _autoActiveFirstOption;
     /**
      * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
@@ -128,8 +128,6 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     _getPanelAriaLabelledby(labelId: string | null): string | null;
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
-    static ngAcceptInputType_autoActiveFirstOption: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never>;
 }

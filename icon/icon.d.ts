@@ -67,7 +67,7 @@ export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewCh
      * the element the icon is contained in.
      */
     get inline(): boolean;
-    set inline(inline: boolean);
+    set inline(inline: BooleanInput);
     private _inline;
     /** Name of the icon in the SVG icon set. */
     get svgIcon(): string;
@@ -132,7 +132,6 @@ export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewCh
     private _cacheChildrenWithExternalReferences;
     /** Sets a new SVG icon with a particular name. */
     private _updateSvgIcon;
-    static ngAcceptInputType_inline: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, [null, null, { attribute: "aria-hidden"; }, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": "color"; "inline": "inline"; "svgIcon": "svgIcon"; "fontSet": "fontSet"; "fontIcon": "fontIcon"; }, {}, never, ["*"]>;
 }

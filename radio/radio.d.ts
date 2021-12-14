@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
@@ -101,10 +101,10 @@ export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> 
     set selected(selected: T | null);
     /** Whether the radio group is disabled */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     /** Whether the radio group is required */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     constructor(_changeDetector: ChangeDetectorRef);
     /**
      * Initialize properties once content children are available.
@@ -144,8 +144,6 @@ export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> 
      * @param isDisabled Whether the control should be disabled.
      */
     setDisabledState(isDisabled: boolean): void;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_required: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatRadioGroupBase<any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioGroupBase<any>, never, never, { "color": "color"; "name": "name"; "labelPosition": "labelPosition"; "value": "value"; "selected": "selected"; "disabled": "disabled"; "required": "required"; }, { "change": "change"; }, never>;
 }
@@ -186,7 +184,7 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     ariaDescribedby: string;
     /** Whether this radio button is checked. */
     get checked(): boolean;
-    set checked(value: boolean);
+    set checked(value: BooleanInput);
     /** The value of this radio button. */
     get value(): any;
     set value(value: any);
@@ -196,10 +194,10 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     private _labelPosition;
     /** Whether the radio button is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     /** Whether the radio button is required. */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     /** Theme color of the radio button. */
     get color(): ThemePalette;
     set color(newValue: ThemePalette);
@@ -248,11 +246,6 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     _onInputInteraction(event: Event): void;
     /** Sets the disabled state and marks for check if a change occurred. */
     protected _setDisabled(value: boolean): void;
-    static ngAcceptInputType_checked: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_required: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatRadioButtonBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioButtonBase, never, never, { "id": "id"; "name": "name"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "checked": "checked"; "value": "value"; "labelPosition": "labelPosition"; "disabled": "disabled"; "required": "required"; "color": "color"; }, { "change": "change"; }, never>;
 }

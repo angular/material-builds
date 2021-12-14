@@ -95,7 +95,7 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
     errorStateMatcher: ErrorStateMatcher;
     /** Whether the user should be allowed to select multiple chips. */
     get multiple(): boolean;
-    set multiple(value: boolean);
+    set multiple(value: BooleanInput);
     private _multiple;
     /**
      * A function to compare the option values with the selected values. The first argument
@@ -122,7 +122,7 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
      * @docs-private
      */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     protected _required: boolean | undefined;
     /**
      * Implemented as part of MatFormFieldControl.
@@ -148,7 +148,7 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
      * @docs-private
      */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     protected _disabled: boolean;
     /** Orientation of the chip list. */
     ariaOrientation: 'horizontal' | 'vertical';
@@ -157,7 +157,7 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
      * the selected states for all the chips inside the chip list are always ignored.
      */
     get selectable(): boolean;
-    set selectable(value: boolean);
+    set selectable(value: BooleanInput);
     protected _selectable: boolean;
     set tabIndex(value: number);
     /** Combined stream of all of the child chips' selection change events. */
@@ -268,10 +268,6 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
     private _hasFocusedChip;
     /** Syncs the list's state with the individual chips. */
     private _syncChipsState;
-    static ngAcceptInputType_multiple: BooleanInput;
-    static ngAcceptInputType_required: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_selectable: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipList, [null, null, { optional: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChipList, "mat-chip-list", ["matChipList"], { "errorStateMatcher": "errorStateMatcher"; "multiple": "multiple"; "compareWith": "compareWith"; "value": "value"; "required": "required"; "placeholder": "placeholder"; "disabled": "disabled"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "tabIndex": "tabIndex"; }, { "change": "change"; "valueChange": "valueChange"; }, ["chips"], ["*"]>;
 }

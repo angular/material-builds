@@ -61,7 +61,7 @@ export declare class MatSort extends _MatSortBase implements CanDisable, HasInit
      * May be overriden by the MatSortable's disable clear input.
      */
     get disableClear(): boolean;
-    set disableClear(v: boolean);
+    set disableClear(v: BooleanInput);
     private _disableClear;
     /** Event emitted when the user changes either the active sort or sort direction. */
     readonly sortChange: EventEmitter<Sort>;
@@ -83,8 +83,6 @@ export declare class MatSort extends _MatSortBase implements CanDisable, HasInit
     ngOnInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disableClear: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSort, [{ optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatSort, "[matSort]", ["matSort"], { "disabled": "matSortDisabled"; "active": "matSortActive"; "start": "matSortStart"; "direction": "matSortDirection"; "disableClear": "matSortDisableClear"; }, { "sortChange": "matSortChange"; }, never>;
 }

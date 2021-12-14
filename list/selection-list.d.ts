@@ -90,11 +90,11 @@ export declare class MatListOption extends _MatListOptionBase implements AfterCo
     set value(newValue: any);
     private _value;
     /** Whether the option is disabled. */
-    get disabled(): any;
-    set disabled(value: any);
+    get disabled(): boolean;
+    set disabled(value: BooleanInput);
     /** Whether the option is selected. */
     get selected(): boolean;
-    set selected(value: boolean);
+    set selected(value: BooleanInput);
     constructor(_element: ElementRef<HTMLElement>, _changeDetector: ChangeDetectorRef, 
     /** @docs-private */
     selectionList: MatSelectionList);
@@ -111,7 +111,7 @@ export declare class MatListOption extends _MatListOptionBase implements AfterCo
      */
     getLabel(): any;
     /** Whether this list item should show a ripple effect when clicked. */
-    _isRippleDisabled(): any;
+    _isRippleDisabled(): boolean;
     _handleClick(): void;
     _handleFocus(): void;
     _handleBlur(): void;
@@ -125,9 +125,6 @@ export declare class MatListOption extends _MatListOptionBase implements AfterCo
      * changed.
      */
     _markForCheck(): void;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_selected: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "disableRipple": "disableRipple"; "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "disabled": "disabled"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_avatar", "_icon", "_lines"], ["*", "[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]"]>;
 }
@@ -161,11 +158,11 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
     compareWith: (o1: any, o2: any) => boolean;
     /** Whether the selection list is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Whether selection is limited to one or multiple items (default multiple). */
     get multiple(): boolean;
-    set multiple(value: boolean);
+    set multiple(value: BooleanInput);
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
     /** The tabindex of the selection list. */
@@ -240,9 +237,6 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
     private _allowFocusEscape;
     /** Updates the tabindex based upon if the selection list is empty. */
     private _updateTabIndex;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_multiple: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, [null, { attribute: "tabindex"; }, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "color": "color"; "compareWith": "compareWith"; "disabled": "disabled"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["options"], ["*"]>;
 }

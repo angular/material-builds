@@ -45,7 +45,7 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDe
      * Whether or not the chipEnd event will be emitted when the input is blurred.
      */
     get addOnBlur(): boolean;
-    set addOnBlur(value: boolean);
+    set addOnBlur(value: BooleanInput);
     _addOnBlur: boolean;
     /**
      * The list of key codes that will trigger a chipEnd event.
@@ -61,7 +61,7 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDe
     id: string;
     /** Whether the input is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Whether the input is empty. */
     get empty(): boolean;
@@ -89,8 +89,6 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDe
     clear(): void;
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
-    static ngAcceptInputType_addOnBlur: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipInput, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipList": "matChipInputFor"; "addOnBlur": "matChipInputAddOnBlur"; "separatorKeyCodes": "matChipInputSeparatorKeyCodes"; "placeholder": "placeholder"; "id": "id"; "disabled": "disabled"; }, { "chipEnd": "matChipInputTokenEnd"; }, never>;
 }

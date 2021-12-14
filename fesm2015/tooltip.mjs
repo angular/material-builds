@@ -9,7 +9,7 @@ import { InjectionToken, Directive, Inject, Input, Optional, Component, ViewEnca
 import { MatCommonModule } from '@angular/material/core';
 import * as i2 from '@angular/cdk/scrolling';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i6 from '@angular/cdk/layout';
 import { Breakpoints } from '@angular/cdk/layout';
@@ -112,10 +112,8 @@ class _MatTooltipBase {
         this._pointerExitEventsInitialized = false;
         this._viewportMargin = 8;
         this._cssClassPrefix = 'mat';
-        /** The default delay in ms before showing the tooltip after show is called */
-        this.showDelay = this._defaultOptions.showDelay;
-        /** The default delay in ms before hiding the tooltip after hide is called */
-        this.hideDelay = this._defaultOptions.hideDelay;
+        this._showDelay = this._defaultOptions.showDelay;
+        this._hideDelay = this._defaultOptions.hideDelay;
         /**
          * How touch gestures should be handled by the tooltip. On touch devices the tooltip directive
          * uses a long press gesture to show and hide, however it can conflict with the native browser
@@ -194,6 +192,20 @@ class _MatTooltipBase {
         else {
             this._setupPointerEnterEventsIfNeeded();
         }
+    }
+    /** The default delay in ms before showing the tooltip after show is called */
+    get showDelay() {
+        return this._showDelay;
+    }
+    set showDelay(value) {
+        this._showDelay = coerceNumberProperty(value);
+    }
+    /** The default delay in ms before hiding the tooltip after hide is called */
+    get hideDelay() {
+        return this._hideDelay;
+    }
+    set hideDelay(value) {
+        this._hideDelay = coerceNumberProperty(value);
     }
     /** The message to be displayed in the tooltip */
     get message() {

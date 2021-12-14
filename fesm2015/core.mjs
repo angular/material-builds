@@ -1362,6 +1362,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImpor
  */
 const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 // Notes on the accessibility pattern used for `mat-optgroup`.
 // The option group has two different "modes": regular and inert. The regular mode uses the
 // recommended a11y pattern which has `role="group"` on the group element with `aria-labelledby`
@@ -1492,7 +1499,7 @@ class _MatOptionBase {
     }
     /** Whether ripples for the option are disabled. */
     get disableRipple() {
-        return this._parent && this._parent.disableRipple;
+        return !!(this._parent && this._parent.disableRipple);
     }
     /**
      * Whether or not the option is currently active and ready to be selected.

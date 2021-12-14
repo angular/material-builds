@@ -8,7 +8,7 @@
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angular/cdk/tree';
 import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable, HasTabIndex } from '@angular/material/core';
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { BooleanInput } from '@angular/cdk/coercion';
 import * as i0 from "@angular/core";
 declare const _MatTreeNodeBase: import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & typeof CdkTreeNode;
 /**
@@ -18,8 +18,6 @@ export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implem
     constructor(elementRef: ElementRef<HTMLElement>, tree: CdkTree<T, K>, tabIndex: string);
     ngOnInit(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNode<any, any>, [null, null, { attribute: "tabindex"; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "role": "role"; "disabled": "disabled"; "tabIndex": "tabIndex"; }, {}, never>;
 }
@@ -38,8 +36,8 @@ export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
 export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K> implements AfterContentInit, OnDestroy, OnInit {
     node: T;
     /** Whether the node is disabled. */
-    get disabled(): any;
-    set disabled(value: any);
+    get disabled(): boolean;
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Tabindex for the node. */
     get tabIndex(): number;
@@ -49,7 +47,6 @@ export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K>
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNestedTreeNode<any, any>, [null, null, null, { attribute: "tabindex"; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "role": "role"; "disabled": "disabled"; "tabIndex": "tabIndex"; "node": "matNestedTreeNode"; }, {}, never>;
 }

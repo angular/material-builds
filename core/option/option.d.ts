@@ -42,10 +42,10 @@ export declare class _MatOptionBase implements FocusableOption, AfterViewChecked
     /** The unique ID of the option. */
     id: string;
     /** Whether the option is disabled. */
-    get disabled(): any;
-    set disabled(value: any);
+    get disabled(): boolean;
+    set disabled(value: BooleanInput);
     /** Whether ripples for the option are disabled. */
-    get disableRipple(): boolean | undefined;
+    get disableRipple(): boolean;
     /** Event emitted when the option is selected or deselected. */
     readonly onSelectionChange: EventEmitter<MatOptionSelectionChange>;
     /** Emits when the state of the option changes and any parents have to be notified. */
@@ -105,7 +105,6 @@ export declare class _MatOptionBase implements FocusableOption, AfterViewChecked
     ngOnDestroy(): void;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptionBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase, never, never, { "value": "value"; "id": "id"; "disabled": "disabled"; }, { "onSelectionChange": "onSelectionChange"; }, never>;
 }

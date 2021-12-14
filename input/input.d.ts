@@ -67,7 +67,7 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
      * @docs-private
      */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     protected _disabled: boolean;
     /**
      * Implemented as part of MatFormFieldControl.
@@ -86,7 +86,7 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
      * @docs-private
      */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     protected _required: boolean | undefined;
     /** Input type of the element. */
     get type(): string;
@@ -104,10 +104,10 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
      * @docs-private
      */
     get value(): string;
-    set value(value: string);
+    set value(value: any);
     /** Whether the element is readonly. */
     get readonly(): boolean;
-    set readonly(value: boolean);
+    set readonly(value: BooleanInput);
     private _readonly;
     protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone, _formField?: MatFormField | undefined);
@@ -152,10 +152,6 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
     onContainerClick(): void;
     /** Whether the form control is a native select that is displayed inline. */
     _isInlineSelect(): boolean;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_readonly: BooleanInput;
-    static ngAcceptInputType_required: BooleanInput;
-    static ngAcceptInputType_value: any;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInput, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }, null, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], { "disabled": "disabled"; "id": "id"; "placeholder": "placeholder"; "required": "required"; "type": "type"; "errorStateMatcher": "errorStateMatcher"; "userAriaDescribedBy": "aria-describedby"; "value": "value"; "readonly": "readonly"; }, {}, never>;
 }

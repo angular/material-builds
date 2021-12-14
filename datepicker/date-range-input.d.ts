@@ -46,7 +46,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _rangePicker;
     /** Whether the input is required. */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     private _required;
     /** Function that can be used to filter out dates within the date range picker. */
     get dateFilter(): DateFilterFn<D>;
@@ -62,7 +62,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _max;
     /** Whether the input is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     _groupDisabled: boolean;
     /** Whether the input is in an error state. */
     get errorState(): boolean;
@@ -128,8 +128,6 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _revalidate;
     /** Registers the current date selection model with the start/end inputs. */
     private _registerModel;
-    static ngAcceptInputType_required: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInput<any>, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangeInput<any>, "mat-date-range-input", ["matDateRangeInput"], { "rangePicker": "rangePicker"; "required": "required"; "dateFilter": "dateFilter"; "min": "min"; "max": "max"; "disabled": "disabled"; "separator": "separator"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; }, {}, ["_startInput", "_endInput"], ["input[matStartDate]", "input[matEndDate]"]>;
 }

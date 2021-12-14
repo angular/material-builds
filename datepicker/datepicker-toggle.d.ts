@@ -28,7 +28,7 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     ariaLabel: string;
     /** Whether the toggle button is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Whether ripples on the toggle should be disabled. */
     disableRipple: boolean;
@@ -42,7 +42,6 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     ngAfterContentInit(): void;
     _open(event: Event): void;
     private _watchStateChanges;
-    static ngAcceptInputType_disabled: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggle<any>, [null, null, { attribute: "tabindex"; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerToggle<any>, "mat-datepicker-toggle", ["matDatepickerToggle"], { "datepicker": "for"; "tabIndex": "tabIndex"; "ariaLabel": "aria-label"; "disabled": "disabled"; "disableRipple": "disableRipple"; }, {}, ["_customIcon"], ["[matDatepickerToggleIcon]"]>;
 }

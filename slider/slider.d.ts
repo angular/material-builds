@@ -43,34 +43,34 @@ export declare class MatSlider extends _MatSliderBase implements ControlValueAcc
     _animationMode?: string | undefined;
     /** Whether the slider is inverted. */
     get invert(): boolean;
-    set invert(value: boolean);
+    set invert(value: BooleanInput);
     private _invert;
     /** The maximum value that the slider can have. */
     get max(): number;
-    set max(v: number);
+    set max(v: NumberInput);
     private _max;
     /** The minimum value that the slider can have. */
     get min(): number;
-    set min(v: number);
+    set min(v: NumberInput);
     private _min;
     /** The values at which the thumb will snap. */
     get step(): number;
-    set step(v: number);
+    set step(v: NumberInput);
     private _step;
     /** Whether or not to show the thumb label. */
     get thumbLabel(): boolean;
-    set thumbLabel(value: boolean);
+    set thumbLabel(value: BooleanInput);
     private _thumbLabel;
     /**
      * How often to show ticks. Relative to the step so that a tick always appears on a step.
      * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
      */
     get tickInterval(): 'auto' | number;
-    set tickInterval(value: 'auto' | number);
+    set tickInterval(value: 'auto' | NumberInput);
     private _tickInterval;
     /** Value of the slider. */
     get value(): number;
-    set value(v: number);
+    set value(v: NumberInput);
     private _value;
     /**
      * Function that will be used to format the value before it is displayed
@@ -82,7 +82,7 @@ export declare class MatSlider extends _MatSliderBase implements ControlValueAcc
     valueText: string;
     /** Whether the slider is vertical. */
     get vertical(): boolean;
-    set vertical(value: boolean);
+    set vertical(value: BooleanInput);
     private _vertical;
     /** Event emitted when the slider value has changed. */
     readonly change: EventEmitter<MatSliderChange>;
@@ -261,16 +261,6 @@ export declare class MatSlider extends _MatSliderBase implements ControlValueAcc
      * @param isDisabled
      */
     setDisabledState(isDisabled: boolean): void;
-    static ngAcceptInputType_invert: BooleanInput;
-    static ngAcceptInputType_max: NumberInput;
-    static ngAcceptInputType_min: NumberInput;
-    static ngAcceptInputType_step: NumberInput;
-    static ngAcceptInputType_thumbLabel: BooleanInput;
-    static ngAcceptInputType_tickInterval: NumberInput;
-    static ngAcceptInputType_value: NumberInput;
-    static ngAcceptInputType_vertical: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlider, [null, null, null, { optional: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "disabled": "disabled"; "color": "color"; "tabIndex": "tabIndex"; "invert": "invert"; "max": "max"; "min": "min"; "step": "step"; "thumbLabel": "thumbLabel"; "tickInterval": "tickInterval"; "value": "value"; "displayWith": "displayWith"; "valueText": "valueText"; "vertical": "vertical"; }, { "change": "change"; "input": "input"; "valueChange": "valueChange"; }, never, never>;
 }

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanDisable, CanDisableRipple, HasTabIndex } from '@angular/material/core';
@@ -62,10 +62,10 @@ export declare class MatSlideToggle extends _MatSlideToggleBase implements OnDes
     ariaDescribedby: string;
     /** Whether the slide-toggle is required. */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     /** Whether the slide-toggle element is checked or not. */
     get checked(): boolean;
-    set checked(value: boolean);
+    set checked(value: BooleanInput);
     /** An event will be dispatched each time the slide-toggle changes its value. */
     readonly change: EventEmitter<MatSlideToggleChange>;
     /**
@@ -103,11 +103,6 @@ export declare class MatSlideToggle extends _MatSlideToggleBase implements OnDes
     private _emitChangeEvent;
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
-    static ngAcceptInputType_required: BooleanInput;
-    static ngAcceptInputType_checked: BooleanInput;
-    static ngAcceptInputType_disabled: BooleanInput;
-    static ngAcceptInputType_disableRipple: BooleanInput;
-    static ngAcceptInputType_tabIndex: NumberInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; "name": "name"; "id": "id"; "labelPosition": "labelPosition"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "required": "required"; "checked": "checked"; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, ["*"]>;
 }

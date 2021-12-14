@@ -22,7 +22,7 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     _headers: QueryList<MatExpansionPanelHeader>;
     /** Whether the expansion indicator should be hidden. */
     get hideToggle(): boolean;
-    set hideToggle(show: boolean);
+    set hideToggle(show: BooleanInput);
     private _hideToggle;
     /**
      * Display mode used for all expansion panels in the accordion. Currently two display
@@ -40,7 +40,6 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     _handleHeaderKeydown(event: KeyboardEvent): void;
     _handleHeaderFocus(header: MatExpansionPanelHeader): void;
     ngOnDestroy(): void;
-    static ngAcceptInputType_hideToggle: BooleanInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAccordion, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "multi": "multi"; "hideToggle": "hideToggle"; "displayMode": "displayMode"; "togglePosition": "togglePosition"; }, {}, ["_headers"]>;
 }
