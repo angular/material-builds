@@ -8,6 +8,7 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { TabNavBarHarnessFilters, TabLinkHarnessFilters } from './tab-harness-filters';
 import { MatTabLinkHarness } from './tab-link-harness';
+import { MatTabNavPanelHarness } from './tab-nav-panel-harness';
 /** Harness for interacting with a standard mat-tab-nav-bar in tests. */
 export declare class MatTabNavBarHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabNavBar` instance. */
@@ -32,4 +33,6 @@ export declare class MatTabNavBarHarness extends ComponentHarness {
      *     will be clicked.
      */
     clickLink(filter?: TabLinkHarnessFilters): Promise<void>;
+    /** Gets the panel associated with the nav bar. */
+    getPanel(): Promise<MatTabNavPanelHarness>;
 }

@@ -23,6 +23,7 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
     /** Query list of all tab links of the tab navigation. */
     abstract _items: QueryList<MatPaginatedTabHeaderItem & {
         active: boolean;
+        id: string;
     }>;
     /** Background color of the tab nav. */
     get backgroundColor(): ThemePalette;
@@ -34,13 +35,20 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
     private _disableRipple;
     /** Theme color of the nav bar. */
     color: ThemePalette;
+    /**
+     * Associated tab panel controlled by the nav bar. If not provided, then the nav bar
+     * follows the ARIA link / navigation landmark pattern. If provided, it follows the
+     * ARIA tabs design pattern.
+     */
+    tabPanel?: MatTabNavPanel;
     constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string);
     protected _itemSelected(): void;
     ngAfterContentInit(): void;
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(): void;
+    _getRole(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabNavBase, [null, { optional: true; }, null, null, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabNavBase, never, never, { "backgroundColor": "backgroundColor"; "disableRipple": "disableRipple"; "color": "color"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabNavBase, never, never, { "backgroundColor": "backgroundColor"; "disableRipple": "disableRipple"; "color": "color"; "tabPanel": "tabPanel"; }, {}, never>;
 }
 /**
  * Navigation component matching the styles of the tab group header.
@@ -83,6 +91,8 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
      * @docs-private
      */
     get rippleDisabled(): boolean;
+    /** Unique id for the tab. */
+    id: string;
     constructor(_tabNavBar: _MatTabNavBase, 
     /** @docs-private */ elementRef: ElementRef, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, _focusMonitor: FocusMonitor, animationMode?: string);
     /** Focuses the tab link. */
@@ -90,8 +100,14 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _handleFocus(): void;
+    _handleKeydown(event: KeyboardEvent): void;
+    _getAriaControls(): string | null;
+    _getAriaSelected(): string | null;
+    _getAriaCurrent(): string | null;
+    _getRole(): string | null;
+    _getTabIndex(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabLinkBase, [null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; "id": "id"; }, {}, never>;
 }
 /**
  * Link inside of a `mat-tab-nav-bar`.
@@ -103,5 +119,16 @@ export declare class MatTabLink extends _MatTabLinkBase implements OnDestroy {
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLink, [null, null, null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never>;
+}
+/**
+ * Tab panel component associated with MatTabNav.
+ */
+export declare class MatTabNavPanel {
+    /** Unique id for the tab panel. */
+    id: string;
+    /** Id of the active tab in the nav bar. */
+    _activeTabId?: string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNavPanel, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNavPanel, "mat-tab-nav-panel", ["matTabNavPanel"], { "id": "id"; }, {}, never, ["*"]>;
 }
 export {};

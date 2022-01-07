@@ -166,6 +166,32 @@ MatTabLinkHarness.hostSelector = '.mat-tab-link';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Harness for interacting with a standard mat-tab-nav-panel in tests. */
+class MatTabNavPanelHarness extends ContentContainerComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabNavPanel` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab nav panel instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatTabNavPanelHarness, options);
+    }
+    /** Gets the tab panel text content. */
+    async getTextContent() {
+        return (await this.host()).text();
+    }
+}
+/** The selector for the host element of a `MatTabNavPanel` instance. */
+MatTabNavPanelHarness.hostSelector = '.mat-tab-nav-panel';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** Harness for interacting with a standard mat-tab-nav-bar in tests. */
 class MatTabNavBarHarness extends ComponentHarness {
     /**
@@ -206,6 +232,17 @@ class MatTabNavBarHarness extends ComponentHarness {
             throw Error(`Cannot find mat-tab-link matching filter ${JSON.stringify(filter)}`);
         }
         await tabs[0].click();
+    }
+    /** Gets the panel associated with the nav bar. */
+    async getPanel() {
+        const link = await this.getActiveLink();
+        const host = await link.host();
+        const panelId = await host.getAttribute('aria-controls');
+        if (!panelId) {
+            throw Error('No panel is controlled by the nav bar.');
+        }
+        const filter = { selector: `#${panelId}` };
+        return await this.documentRootLocatorFactory().locatorFor(MatTabNavPanelHarness.with(filter))();
     }
 }
 /** The selector for the host element of a `MatTabNavBar` instance. */

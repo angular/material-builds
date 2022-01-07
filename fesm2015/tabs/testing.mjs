@@ -171,6 +171,27 @@ class MatTabLinkHarness extends ComponentHarness {
 /** The selector for the host element of a `MatTabLink` instance. */
 MatTabLinkHarness.hostSelector = '.mat-tab-link';
 
+/** Harness for interacting with a standard mat-tab-nav-panel in tests. */
+class MatTabNavPanelHarness extends ContentContainerComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatTabNavPanel` that meets
+     * certain criteria.
+     * @param options Options for filtering which tab nav panel instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatTabNavPanelHarness, options);
+    }
+    /** Gets the tab panel text content. */
+    getTextContent() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).text();
+        });
+    }
+}
+/** The selector for the host element of a `MatTabNavPanel` instance. */
+MatTabNavPanelHarness.hostSelector = '.mat-tab-nav-panel';
+
 /** Harness for interacting with a standard mat-tab-nav-bar in tests. */
 class MatTabNavBarHarness extends ComponentHarness {
     /**
@@ -216,6 +237,19 @@ class MatTabNavBarHarness extends ComponentHarness {
                 throw Error(`Cannot find mat-tab-link matching filter ${JSON.stringify(filter)}`);
             }
             yield tabs[0].click();
+        });
+    }
+    /** Gets the panel associated with the nav bar. */
+    getPanel() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const link = yield this.getActiveLink();
+            const host = yield link.host();
+            const panelId = yield host.getAttribute('aria-controls');
+            if (!panelId) {
+                throw Error('No panel is controlled by the nav bar.');
+            }
+            const filter = { selector: `#${panelId}` };
+            return yield this.documentRootLocatorFactory().locatorFor(MatTabNavPanelHarness.with(filter))();
         });
     }
 }
