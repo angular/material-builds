@@ -30,7 +30,7 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
     private _viewContainerRef;
     private _menuItemInstance;
     private _dir;
-    private _focusMonitor?;
+    private _focusMonitor;
     private _portal;
     private _overlayRef;
     private _menuOpen;
@@ -83,7 +83,11 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
      * @breaking-change 8.0.0
      */
     readonly onMenuClose: EventEmitter<void>;
-    constructor(_overlay: Overlay, _element: ElementRef<HTMLElement>, _viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, _menuItemInstance: MatMenuItem, _dir: Directionality, _focusMonitor?: FocusMonitor | undefined);
+    /**
+     * @deprecated `focusMonitor` will become a required parameter.
+     * @breaking-change 8.0.0
+     */
+    constructor(overlay: Overlay, element: ElementRef<HTMLElement>, viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, menuItemInstance: MatMenuItem, dir: Directionality, focusMonitor?: FocusMonitor | null);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */

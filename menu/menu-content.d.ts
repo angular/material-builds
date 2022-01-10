@@ -19,7 +19,11 @@ export declare abstract class _MatMenuContentBase implements OnDestroy {
     private _outlet;
     /** Emits when the menu content has been attached. */
     readonly _attached: Subject<void>;
-    constructor(_template: TemplateRef<any>, _componentFactoryResolver: ComponentFactoryResolver, _appRef: ApplicationRef, _injector: Injector, _viewContainerRef: ViewContainerRef, _document: any, _changeDetectorRef?: ChangeDetectorRef | undefined);
+    /**
+     * @deprecated `changeDetectorRef` is now a required parameter.
+     * @breaking-change 9.0.0
+     */
+    constructor(template: TemplateRef<any>, componentFactoryResolver: ComponentFactoryResolver, appRef: ApplicationRef, injector: Injector, viewContainerRef: ViewContainerRef, document: any, changeDetectorRef?: ChangeDetectorRef);
     /**
      * Attaches the content with a particular context.
      * @docs-private

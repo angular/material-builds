@@ -126,9 +126,7 @@ class _MatMenuContentBase {
         // not be updated by Angular. By explicitly marking for check here, we tell Angular that
         // it needs to check for new menu items and update the `@ContentChild` in `MatMenu`.
         // @breaking-change 9.0.0 Make change detector ref required
-        if (this._changeDetectorRef) {
-            this._changeDetectorRef.markForCheck();
-        }
+        this._changeDetectorRef?.markForCheck();
         this._portal.attach(this._outlet, context);
         this._attached.next();
     }
@@ -244,18 +242,7 @@ const _MatMenuItemBase = mixinDisableRipple(mixinDisabled(class {
  * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
 class MatMenuItem extends _MatMenuItemBase {
-    constructor(_elementRef, 
-    /**
-     * @deprecated `_document` parameter is no longer being used and will be removed.
-     * @breaking-change 12.0.0
-     */
-    _document, _focusMonitor, _parentMenu, 
-    /**
-     * @deprecated `_changeDetectorRef` to become a required parameter.
-     * @breaking-change 14.0.0
-     */
-    _changeDetectorRef) {
-        // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
+    constructor(_elementRef, _document, _focusMonitor, _parentMenu, _changeDetectorRef) {
         super();
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
@@ -271,9 +258,7 @@ class MatMenuItem extends _MatMenuItemBase {
         this._highlighted = false;
         /** Whether the menu item acts as a trigger for a sub-menu. */
         this._triggersSubmenu = false;
-        if (_parentMenu && _parentMenu.addItem) {
-            _parentMenu.addItem(this);
-        }
+        _parentMenu?.addItem?.(this);
     }
     /** Focuses the menu item. */
     focus(origin, options) {
@@ -336,7 +321,7 @@ class MatMenuItem extends _MatMenuItemBase {
         // We need to mark this for check for the case where the content is coming from a
         // `matMenuContent` whose change detection tree is at the declaration position,
         // not the insertion position. See #23175.
-        // @breaking-change 14.0.0 Remove null check for `_changeDetectorRef`.
+        // @breaking-change 12.0.0 Remove null check for `_changeDetectorRef`.
         this._highlighted = isHighlighted;
         this._changeDetectorRef?.markForCheck();
     }
@@ -788,10 +773,7 @@ class _MatMenuTriggerBase {
     constructor(_overlay, _element, _viewContainerRef, scrollStrategy, parentMenu, 
     // `MatMenuTrigger` is commonly used in combination with a `MatMenuItem`.
     // tslint:disable-next-line: lightweight-tokens
-    _menuItemInstance, _dir, 
-    // TODO(crisbeto): make the _focusMonitor required when doing breaking changes.
-    // @breaking-change 8.0.0
-    _focusMonitor) {
+    _menuItemInstance, _dir, _focusMonitor) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;

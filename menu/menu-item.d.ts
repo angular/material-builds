@@ -22,10 +22,6 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     private _elementRef;
     private _focusMonitor?;
     _parentMenu?: MatMenuPanel<MatMenuItem> | undefined;
-    /**
-     * @deprecated `_changeDetectorRef` to become a required parameter.
-     * @breaking-change 14.0.0
-     */
     private _changeDetectorRef?;
     /** ARIA role for the menu item. */
     role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
@@ -37,17 +33,12 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, 
     /**
-     * @deprecated `_document` parameter is no longer being used and will be removed.
+     * @deprecated `document` parameter to be removed, `changeDetectorRef` and
+     * `focusMonitor` to become required.
      * @breaking-change 12.0.0
      */
-    _document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined, 
-    /**
-     * @deprecated `_changeDetectorRef` to become a required parameter.
-     * @breaking-change 14.0.0
-     */
-    _changeDetectorRef?: ChangeDetectorRef | undefined);
+    constructor(elementRef: ElementRef<HTMLElement>, document?: any, focusMonitor?: FocusMonitor, parentMenu?: MatMenuPanel<MatMenuItem>, changeDetectorRef?: ChangeDetectorRef);
     /** Focuses the menu item. */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngAfterViewInit(): void;
