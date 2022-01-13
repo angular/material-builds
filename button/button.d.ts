@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-import { ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { ElementRef, OnDestroy, AfterViewInit, NgZone } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
 import * as i0 from "@angular/core";
 declare const _MatButtonBase: import("@angular/material/core")._Constructor<CanColor> & import("@angular/material/core")._AbstractConstructor<CanColor> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & {
@@ -41,12 +41,18 @@ export declare class MatButton extends _MatButtonBase implements AfterViewInit, 
 /**
  * Material design anchor button.
  */
-export declare class MatAnchor extends MatButton {
+export declare class MatAnchor extends MatButton implements AfterViewInit, OnDestroy {
+    /** @breaking-change 14.0.0 _ngZone will be required. */
+    private _ngZone?;
     /** Tabindex of the button. */
     tabIndex: number;
-    constructor(focusMonitor: FocusMonitor, elementRef: ElementRef, animationMode: string);
-    _haltDisabledEvents(event: Event): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchor, [null, null, { optional: true; }]>;
+    constructor(focusMonitor: FocusMonitor, elementRef: ElementRef, animationMode: string, 
+    /** @breaking-change 14.0.0 _ngZone will be required. */
+    _ngZone?: NgZone | undefined);
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    _haltDisabledEvents: (event: Event) => void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchor, [null, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatAnchor, "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab],             a[mat-mini-fab], a[mat-stroked-button], a[mat-flat-button]", ["matButton", "matAnchor"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"]>;
 }
 export {};

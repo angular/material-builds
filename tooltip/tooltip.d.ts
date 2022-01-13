@@ -147,11 +147,6 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     toggle(): void;
     /** Returns true if the tooltip is currently visible to the user */
     _isTooltipVisible(): boolean;
-    /**
-     * Handles the keydown events on the host element.
-     * Needs to be an arrow function so that we can use it in addEventListener.
-     */
-    private _handleKeydown;
     /** Create the overlay config and position strategy */
     private _createOverlay;
     /** Detaches the currently-attached tooltip. */

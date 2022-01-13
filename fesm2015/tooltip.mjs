@@ -134,17 +134,6 @@ class _MatTooltipBase {
         this._passiveListeners = [];
         /** Emits when the component is destroyed. */
         this._destroyed = new Subject();
-        /**
-         * Handles the keydown events on the host element.
-         * Needs to be an arrow function so that we can use it in addEventListener.
-         */
-        this._handleKeydown = (event) => {
-            if (this._isTooltipVisible() && event.keyCode === ESCAPE && !hasModifierKey(event)) {
-                event.preventDefault();
-                event.stopPropagation();
-                this._ngZone.run(() => this.hide(0));
-            }
-        };
         this._scrollStrategy = scrollStrategy;
         this._document = _document;
         if (_defaultOptions) {
@@ -159,9 +148,6 @@ class _MatTooltipBase {
             if (this._overlayRef) {
                 this._updatePosition(this._overlayRef);
             }
-        });
-        _ngZone.runOutsideAngular(() => {
-            _elementRef.nativeElement.addEventListener('keydown', this._handleKeydown);
         });
     }
     /** Allows the user to define the position of the tooltip relative to the parent element */
@@ -272,7 +258,6 @@ class _MatTooltipBase {
             this._tooltipInstance = null;
         }
         // Clean up the event listeners set in the constructor
-        nativeElement.removeEventListener('keydown', this._handleKeydown);
         this._passiveListeners.forEach(([event, listener]) => {
             nativeElement.removeEventListener(event, listener, passiveListenerOptions);
         });
@@ -357,6 +342,16 @@ class _MatTooltipBase {
             .outsidePointerEvents()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => { var _a; return (_a = this._tooltipInstance) === null || _a === void 0 ? void 0 : _a._handleBodyInteraction(); });
+        this._overlayRef
+            .keydownEvents()
+            .pipe(takeUntil(this._destroyed))
+            .subscribe(event => {
+            if (this._isTooltipVisible() && event.keyCode === ESCAPE && !hasModifierKey(event)) {
+                event.preventDefault();
+                event.stopPropagation();
+                this._ngZone.run(() => this.hide(0));
+            }
+        });
         return this._overlayRef;
     }
     /** Detaches the currently-attached tooltip. */
