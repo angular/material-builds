@@ -556,7 +556,10 @@ class MatSlider extends _MatSliderBase {
     }
     /** Increments the slider by the given number of steps (negative number decrements). */
     _increment(numSteps) {
-        this.value = this._clamp((this.value || 0) + this.step * numSteps, this.min, this.max);
+        // Pre-clamp the current value since it's allowed to be
+        // out of bounds when assigned programmatically.
+        const clampedValue = this._clamp(this.value || 0, this.min, this.max);
+        this.value = this._clamp(clampedValue + this.step * numSteps, this.min, this.max);
     }
     /** Calculate the new value from the new physical location. The value will always be snapped. */
     _updateValueFromPosition(pos) {
