@@ -435,10 +435,7 @@ const MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-
 function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
     return new MatSnackBarConfig();
 }
-/**
- * Service to dispatch Material Design snack bar messages.
- */
-class MatSnackBar {
+class _MatSnackBarBase {
     constructor(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar, _defaultConfig) {
         this._overlay = _overlay;
         this._live = _live;
@@ -452,12 +449,6 @@ class MatSnackBar {
          * via `_openedSnackBarRef`.
          */
         this._snackBarRefAtThisLevel = null;
-        /** The component that should be rendered as the snack bar's simple component. */
-        this.simpleSnackBarComponent = SimpleSnackBar;
-        /** The container component that attaches the provided template or component. */
-        this.snackBarContainerComponent = MatSnackBarContainer;
-        /** The CSS class to apply for handset mode. */
-        this.handsetCssClass = 'mat-snack-bar-handset';
     }
     /** Reference to the currently opened snackbar at *any* level. */
     get _openedSnackBarRef() {
@@ -657,6 +648,29 @@ class MatSnackBar {
         });
     }
 }
+_MatSnackBarBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: _MatSnackBarBase, deps: [{ token: i1$1.Overlay }, { token: i2$1.LiveAnnouncer }, { token: i0.Injector }, { token: i3$2.BreakpointObserver }, { token: _MatSnackBarBase, optional: true, skipSelf: true }, { token: MAT_SNACK_BAR_DEFAULT_OPTIONS }], target: i0.ɵɵFactoryTarget.Injectable });
+_MatSnackBarBase.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: _MatSnackBarBase });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: _MatSnackBarBase, decorators: [{
+            type: Injectable
+        }], ctorParameters: function () { return [{ type: i1$1.Overlay }, { type: i2$1.LiveAnnouncer }, { type: i0.Injector }, { type: i3$2.BreakpointObserver }, { type: _MatSnackBarBase, decorators: [{
+                    type: Optional
+                }, {
+                    type: SkipSelf
+                }] }, { type: MatSnackBarConfig, decorators: [{
+                    type: Inject,
+                    args: [MAT_SNACK_BAR_DEFAULT_OPTIONS]
+                }] }]; } });
+/**
+ * Service to dispatch Material Design snack bar messages.
+ */
+class MatSnackBar extends _MatSnackBarBase {
+    constructor(overlay, live, injector, breakpointObserver, parentSnackBar, defaultConfig) {
+        super(overlay, live, injector, breakpointObserver, parentSnackBar, defaultConfig);
+        this.simpleSnackBarComponent = SimpleSnackBar;
+        this.snackBarContainerComponent = MatSnackBarContainer;
+        this.handsetCssClass = 'mat-snack-bar-handset';
+    }
+}
 MatSnackBar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: MatSnackBar, deps: [{ token: i1$1.Overlay }, { token: i2$1.LiveAnnouncer }, { token: i0.Injector }, { token: i3$2.BreakpointObserver }, { token: MatSnackBar, optional: true, skipSelf: true }, { token: MAT_SNACK_BAR_DEFAULT_OPTIONS }], target: i0.ɵɵFactoryTarget.Injectable });
 MatSnackBar.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: MatSnackBar, providedIn: MatSnackBarModule });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: MatSnackBar, decorators: [{
@@ -691,5 +705,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.2", 
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
+export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar, _MatSnackBarBase, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.mjs.map
