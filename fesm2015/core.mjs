@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { Version, InjectionToken, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, Output } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
-import { VERSION as VERSION$2 } from '@angular/cdk';
+import { VERSION as VERSION$1 } from '@angular/cdk';
 import * as i3 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i1$1 from '@angular/cdk/platform';
@@ -22,7 +22,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION$1 = new Version('13.1.2');
+const VERSION = new Version('13.1.2');
 
 /**
  * @license
@@ -45,11 +45,6 @@ AnimationDurations.COMPLEX = '375ms';
 AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 
-// Private version constant to circumvent test/build issues,
-// i.e. avoid core to depend on the @angular/material primary entry-point
-// Can be removed once the Material primary entry-point no longer
-// re-exports all secondary entry-points
-const VERSION = new Version('13.1.2');
 /** @docs-private */
 function MATERIAL_SANITY_CHECKS_FACTORY() {
     return true;
@@ -150,12 +145,12 @@ function _checkThemeIsPresent(doc) {
 }
 /** Checks whether the Material version matches the CDK version. */
 function _checkCdkVersionMatch() {
-    if (VERSION.full !== VERSION$2.full) {
+    if (VERSION.full !== VERSION$1.full) {
         console.warn('The Angular Material version (' +
             VERSION.full +
             ') does not match ' +
             'the Angular CDK version (' +
-            VERSION$2.full +
+            VERSION$1.full +
             ').\n' +
             'Please ensure the versions of these two packages exactly match.');
     }
@@ -1767,5 +1762,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION$1 as VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines };
 //# sourceMappingURL=core.mjs.map
