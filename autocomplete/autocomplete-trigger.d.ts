@@ -130,7 +130,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      * when an option is selected, on blur, and when TAB is pressed.
      */
     get panelClosingActions(): Observable<MatOptionSelectionChange | null>;
-    /** Stream of autocomplete option selections. */
+    /** Stream of changes to the selection state of the autocomplete options. */
     readonly optionSelections: Observable<MatOptionSelectionChange>;
     /** The currently active option, coerced to MatOption type. */
     get activeOption(): MatOption | null;

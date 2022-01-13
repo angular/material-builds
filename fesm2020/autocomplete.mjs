@@ -18,7 +18,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as i4 from '@angular/material/form-field';
 import { MAT_FORM_FIELD } from '@angular/material/form-field';
-import { take, switchMap, filter, map, tap, delay } from 'rxjs/operators';
+import { startWith, switchMap, take, filter, map, tap, delay } from 'rxjs/operators';
 
 /**
  * @license
@@ -356,10 +356,11 @@ class _MatAutocompleteTriggerBase {
          */
         this.autocompleteAttribute = 'off';
         this._overlayAttached = false;
-        /** Stream of autocomplete option selections. */
+        /** Stream of changes to the selection state of the autocomplete options. */
         this.optionSelections = defer(() => {
-            if (this.autocomplete && this.autocomplete.options) {
-                return merge(...this.autocomplete.options.map(option => option.onSelectionChange));
+            const options = this.autocomplete ? this.autocomplete.options : null;
+            if (options) {
+                return options.changes.pipe(startWith(options), switchMap(() => merge(...options.map(option => option.onSelectionChange))));
             }
             // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
             // Return a stream that we'll replace with the real one once everything is in place.
@@ -480,7 +481,7 @@ class _MatAutocompleteTriggerBase {
     }
     // Implemented as part of ControlValueAccessor.
     writeValue(value) {
-        Promise.resolve(null).then(() => this._setTriggerValue(value));
+        Promise.resolve().then(() => this._setTriggerValue(value));
     }
     // Implemented as part of ControlValueAccessor.
     registerOnChange(fn) {
