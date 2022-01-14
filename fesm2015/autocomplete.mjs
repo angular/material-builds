@@ -463,7 +463,7 @@ class _MatAutocompleteTriggerBase {
         if (keyCode === ESCAPE && !hasModifierKey(event)) {
             event.preventDefault();
         }
-        if (this.activeOption && keyCode === ENTER && this.panelOpen) {
+        if (this.activeOption && keyCode === ENTER && this.panelOpen && !hasModifierKey(event)) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
