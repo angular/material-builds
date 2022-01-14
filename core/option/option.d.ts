@@ -13,18 +13,18 @@ import { MatOptgroup, _MatOptgroupBase } from './optgroup';
 import { MatOptionParentComponent } from './option-parent';
 import * as i0 from "@angular/core";
 /** Event object emitted by MatOption when selected or deselected. */
-export declare class MatOptionSelectionChange {
+export declare class MatOptionSelectionChange<T = any> {
     /** Reference to the option that emitted the event. */
-    source: _MatOptionBase;
+    source: _MatOptionBase<T>;
     /** Whether the change in the option's value was a result of a user action. */
     isUserInput: boolean;
     constructor(
     /** Reference to the option that emitted the event. */
-    source: _MatOptionBase, 
+    source: _MatOptionBase<T>, 
     /** Whether the change in the option's value was a result of a user action. */
     isUserInput?: boolean);
 }
-export declare class _MatOptionBase implements FocusableOption, AfterViewChecked, OnDestroy {
+export declare class _MatOptionBase<T = any> implements FocusableOption, AfterViewChecked, OnDestroy {
     private _element;
     private _changeDetectorRef;
     private _parent;
@@ -38,7 +38,7 @@ export declare class _MatOptionBase implements FocusableOption, AfterViewChecked
     /** Whether or not the option is currently selected. */
     get selected(): boolean;
     /** The form value of the option. */
-    value: any;
+    value: T;
     /** The unique ID of the option. */
     id: string;
     /** Whether the option is disabled. */
@@ -47,7 +47,7 @@ export declare class _MatOptionBase implements FocusableOption, AfterViewChecked
     /** Whether ripples for the option are disabled. */
     get disableRipple(): boolean;
     /** Event emitted when the option is selected or deselected. */
-    readonly onSelectionChange: EventEmitter<MatOptionSelectionChange>;
+    readonly onSelectionChange: EventEmitter<MatOptionSelectionChange<T>>;
     /** Emits when the state of the option changes and any parents have to be notified. */
     readonly _stateChanges: Subject<void>;
     constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: _MatOptgroupBase);
@@ -105,16 +105,16 @@ export declare class _MatOptionBase implements FocusableOption, AfterViewChecked
     ngOnDestroy(): void;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptionBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase, never, never, { "value": "value"; "id": "id"; "disabled": "disabled"; }, { "onSelectionChange": "onSelectionChange"; }, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptionBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase<any>, never, never, { "value": "value"; "id": "id"; "disabled": "disabled"; }, { "onSelectionChange": "onSelectionChange"; }, never>;
 }
 /**
  * Single option inside of a `<mat-select>` element.
  */
-export declare class MatOption extends _MatOptionBase {
+export declare class MatOption<T = any> extends _MatOptionBase<T> {
     constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatOptionParentComponent, group: MatOptgroup);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatOption, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption, "mat-option", ["matOption"], {}, {}, never, ["*"]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"]>;
 }
 /**
  * Counts the amount of option group labels that precede the specified option.
