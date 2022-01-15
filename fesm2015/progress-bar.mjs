@@ -51,10 +51,16 @@ class MatProgressBar extends _MatProgressBarBase {
      * @deprecated `location` parameter to be made required.
      * @breaking-change 8.0.0
      */
-    location, defaults) {
+    location, defaults, 
+    /**
+     * @deprecated `_changeDetectorRef` parameter to be made required.
+     * @breaking-change 11.0.0
+     */
+    _changeDetectorRef) {
         super(elementRef);
         this._ngZone = _ngZone;
         this._animationMode = _animationMode;
+        this._changeDetectorRef = _changeDetectorRef;
         /** Flag that indicates whether NoopAnimations mode is set to true. */
         this._isNoopAnimation = false;
         this._value = 0;
@@ -79,10 +85,10 @@ class MatProgressBar extends _MatProgressBarBase {
         this.progressbarId = `mat-progress-bar-${progressbarId++}`;
         // We need to prefix the SVG reference with the current path, otherwise they won't work
         // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338). Also we don't use since
-        // we can't tell the difference between whether
-        // the consumer is using the hash location strategy or not, because `Location` normalizes
-        // both `/#/foo/bar` and `/foo/bar` to the same thing.
+        // because named route URLs can contain parentheses (see #12338). Also we don't use `Location`
+        // since we can't tell the difference between whether the consumer is using the hash location
+        // strategy or not, because `Location` normalizes both `/#/foo/bar` and `/foo/bar` to
+        // the same thing.
         const path = location ? location.getPathname().split('#')[0] : '';
         this._rectangleFillValue = `url('${path}#${this.progressbarId}')`;
         this._isNoopAnimation = _animationMode === 'NoopAnimations';
@@ -98,14 +104,20 @@ class MatProgressBar extends _MatProgressBarBase {
         return this._value;
     }
     set value(v) {
+        var _a;
         this._value = clamp(coerceNumberProperty(v) || 0);
+        // @breaking-change 11.0.0 Remove null check for _changeDetectorRef.
+        (_a = this._changeDetectorRef) === null || _a === void 0 ? void 0 : _a.markForCheck();
     }
     /** Buffer value of the progress bar. Defaults to zero. */
     get bufferValue() {
         return this._bufferValue;
     }
     set bufferValue(v) {
+        var _a;
         this._bufferValue = clamp(v || 0);
+        // @breaking-change 11.0.0 Remove null check for _changeDetectorRef.
+        (_a = this._changeDetectorRef) === null || _a === void 0 ? void 0 : _a.markForCheck();
     }
     /** Gets the current transform value for the progress bar's primary indicator. */
     _primaryTransform() {
@@ -143,7 +155,7 @@ class MatProgressBar extends _MatProgressBarBase {
         this._animationEndSubscription.unsubscribe();
     }
 }
-MatProgressBar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: MatProgressBar, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: MAT_PROGRESS_BAR_LOCATION, optional: true }, { token: MAT_PROGRESS_BAR_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+MatProgressBar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: MatProgressBar, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: MAT_PROGRESS_BAR_LOCATION, optional: true }, { token: MAT_PROGRESS_BAR_DEFAULT_OPTIONS, optional: true }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
 MatProgressBar.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0-next.2", type: MatProgressBar, selector: "mat-progress-bar", inputs: { color: "color", value: "value", bufferValue: "bufferValue", mode: "mode" }, outputs: { animationEnd: "animationEnd" }, host: { attributes: { "role": "progressbar", "aria-valuemin": "0", "aria-valuemax": "100", "tabindex": "-1" }, properties: { "attr.aria-valuenow": "(mode === \"indeterminate\" || mode === \"query\") ? null : value", "attr.mode": "mode", "class._mat-animation-noopable": "_isNoopAnimation" }, classAttribute: "mat-progress-bar" }, viewQueries: [{ propertyName: "_primaryValueBar", first: true, predicate: ["primaryValueBar"], descendants: true }], exportAs: ["matProgressBar"], usesInheritance: true, ngImport: i0, template: "<!--\n  All children need to be hidden for screen readers in order to support ChromeVox.\n  More context in the issue: https://github.com/angular/components/issues/22165.\n-->\n<div aria-hidden=\"true\">\n  <svg width=\"100%\" height=\"4\" focusable=\"false\" class=\"mat-progress-bar-background mat-progress-bar-element\">\n    <defs>\n      <pattern [id]=\"progressbarId\" x=\"4\" y=\"0\" width=\"8\" height=\"4\" patternUnits=\"userSpaceOnUse\">\n        <circle cx=\"2\" cy=\"2\" r=\"2\"/>\n      </pattern>\n    </defs>\n    <rect [attr.fill]=\"_rectangleFillValue\" width=\"100%\" height=\"100%\"/>\n  </svg>\n  <!--\n    The background div is named as such because it appears below the other divs and is not sized based\n    on values.\n  -->\n  <div class=\"mat-progress-bar-buffer mat-progress-bar-element\" [ngStyle]=\"_bufferTransform()\"></div>\n  <div class=\"mat-progress-bar-primary mat-progress-bar-fill mat-progress-bar-element\" [ngStyle]=\"_primaryTransform()\" #primaryValueBar></div>\n  <div class=\"mat-progress-bar-secondary mat-progress-bar-fill mat-progress-bar-element\"></div>\n</div>\n", styles: [".mat-progress-bar{display:block;height:4px;overflow:hidden;position:relative;transition:opacity 250ms linear;width:100%}._mat-animation-noopable.mat-progress-bar{transition:none;animation:none}.mat-progress-bar .mat-progress-bar-element,.mat-progress-bar .mat-progress-bar-fill::after{height:100%;position:absolute;width:100%}.mat-progress-bar .mat-progress-bar-background{width:calc(100% + 10px)}.cdk-high-contrast-active .mat-progress-bar .mat-progress-bar-background{display:none}.mat-progress-bar .mat-progress-bar-buffer{transform-origin:top left;transition:transform 250ms ease}.cdk-high-contrast-active .mat-progress-bar .mat-progress-bar-buffer{border-top:solid 5px;opacity:.5}.mat-progress-bar .mat-progress-bar-secondary{display:none}.mat-progress-bar .mat-progress-bar-fill{animation:none;transform-origin:top left;transition:transform 250ms ease}.cdk-high-contrast-active .mat-progress-bar .mat-progress-bar-fill{border-top:solid 4px}.mat-progress-bar .mat-progress-bar-fill::after{animation:none;content:\"\";display:inline-block;left:0}.mat-progress-bar[dir=rtl],[dir=rtl] .mat-progress-bar{transform:rotateY(180deg)}.mat-progress-bar[mode=query]{transform:rotateZ(180deg)}.mat-progress-bar[mode=query][dir=rtl],[dir=rtl] .mat-progress-bar[mode=query]{transform:rotateZ(180deg) rotateY(180deg)}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-fill,.mat-progress-bar[mode=query] .mat-progress-bar-fill{transition:none}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary,.mat-progress-bar[mode=query] .mat-progress-bar-primary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-translate 2000ms infinite linear;left:-145.166611%}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-primary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-scale 2000ms infinite linear}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary,.mat-progress-bar[mode=query] .mat-progress-bar-secondary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-translate 2000ms infinite linear;left:-54.888891%;display:block}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-secondary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-scale 2000ms infinite linear}.mat-progress-bar[mode=buffer] .mat-progress-bar-background{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-background-scroll 250ms infinite linear;display:block}.mat-progress-bar._mat-animation-noopable .mat-progress-bar-fill,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-fill::after,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-buffer,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-primary,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-primary.mat-progress-bar-fill::after,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-secondary,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-secondary.mat-progress-bar-fill::after,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-background{animation:none;transition-duration:1ms}@keyframes mat-progress-bar-primary-indeterminate-translate{0%{transform:translateX(0)}20%{animation-timing-function:cubic-bezier(0.5, 0, 0.701732, 0.495819);transform:translateX(0)}59.15%{animation-timing-function:cubic-bezier(0.302435, 0.381352, 0.55, 0.956352);transform:translateX(83.67142%)}100%{transform:translateX(200.611057%)}}@keyframes mat-progress-bar-primary-indeterminate-scale{0%{transform:scaleX(0.08)}36.65%{animation-timing-function:cubic-bezier(0.334731, 0.12482, 0.785844, 1);transform:scaleX(0.08)}69.15%{animation-timing-function:cubic-bezier(0.06, 0.11, 0.6, 1);transform:scaleX(0.661479)}100%{transform:scaleX(0.08)}}@keyframes mat-progress-bar-secondary-indeterminate-translate{0%{animation-timing-function:cubic-bezier(0.15, 0, 0.515058, 0.409685);transform:translateX(0)}25%{animation-timing-function:cubic-bezier(0.31033, 0.284058, 0.8, 0.733712);transform:translateX(37.651913%)}48.35%{animation-timing-function:cubic-bezier(0.4, 0.627035, 0.6, 0.902026);transform:translateX(84.386165%)}100%{transform:translateX(160.277782%)}}@keyframes mat-progress-bar-secondary-indeterminate-scale{0%{animation-timing-function:cubic-bezier(0.15, 0, 0.515058, 0.409685);transform:scaleX(0.08)}19.15%{animation-timing-function:cubic-bezier(0.31033, 0.284058, 0.8, 0.733712);transform:scaleX(0.457104)}44.15%{animation-timing-function:cubic-bezier(0.4, 0.627035, 0.6, 0.902026);transform:scaleX(0.72796)}100%{transform:scaleX(0.08)}}@keyframes mat-progress-bar-background-scroll{to{transform:translateX(-8px)}}\n"], directives: [{ type: i1.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.2", ngImport: i0, type: MatProgressBar, decorators: [{
             type: Component,
@@ -175,7 +187,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-next.2", 
                     }, {
                         type: Inject,
                         args: [MAT_PROGRESS_BAR_DEFAULT_OPTIONS]
-                    }] }];
+                    }] }, { type: i0.ChangeDetectorRef }];
     }, propDecorators: { value: [{
                 type: Input
             }], bufferValue: [{
