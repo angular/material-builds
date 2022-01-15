@@ -7,7 +7,8 @@
  */
 import { NumberInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
-import { ElementRef, InjectionToken, OnInit } from '@angular/core';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { ElementRef, InjectionToken, OnInit, ChangeDetectorRef, OnDestroy, NgZone } from '@angular/core';
 import { CanColor } from '@angular/material/core';
 import * as i0 from "@angular/core";
 /** Possible mode for a progress spinner. */
@@ -37,11 +38,12 @@ export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgr
 /**
  * `<mat-progress-spinner>` component.
  */
-export declare class MatProgressSpinner extends _MatProgressSpinnerBase implements OnInit, CanColor {
+export declare class MatProgressSpinner extends _MatProgressSpinnerBase implements OnInit, OnDestroy, CanColor {
     private _document;
     private _diameter;
     private _value;
     private _strokeWidth;
+    private _resizeSubscription;
     /**
      * Element to which we should add the generated style tags for the indeterminate animation.
      * For most elements this is the document, but for the ones in the Shadow DOM we need to
@@ -70,13 +72,15 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     /** Value of the progress circle. */
     get value(): number;
     set value(newValue: NumberInput);
-    constructor(elementRef: ElementRef<HTMLElement>, 
+    constructor(elementRef: ElementRef<HTMLElement>, _platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions, 
     /**
-     * @deprecated `_platform` parameter no longer being used.
+     * @deprecated `changeDetectorRef`, `viewportRuler` and `ngZone`
+     * parameters to become required.
      * @breaking-change 14.0.0
      */
-    _platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
+    changeDetectorRef?: ChangeDetectorRef, viewportRuler?: ViewportRuler, ngZone?: NgZone);
     ngOnInit(): void;
+    ngOnDestroy(): void;
     /** The radius of the spinner, adjusted for stroke width. */
     _getCircleRadius(): number;
     /** The view box of the spinner's svg element. */
@@ -87,13 +91,15 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     _getStrokeDashOffset(): number | null;
     /** Stroke width of the circle in percent. */
     _getCircleStrokeWidth(): number;
+    /** Gets the `transform-origin` for the inner circle element. */
+    _getCircleTransformOrigin(svg: HTMLElement): string;
     /** Dynamically generates a style tag containing the correct animation for this diameter. */
     private _attachStyleNode;
     /** Generates animation styles adjusted for the spinner's diameter. */
     private _getAnimationText;
     /** Returns the circle diameter formatted for use with the animation-name CSS property. */
     private _getSpinnerAnimationLabel;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null, null, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never>;
 }
 /**
@@ -103,8 +109,14 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
  * indeterminate `<mat-progress-spinner>` instance.
  */
 export declare class MatSpinner extends MatProgressSpinner {
-    constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSpinner, [null, null, { optional: true; }, { optional: true; }, null]>;
+    constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions, 
+    /**
+     * @deprecated `changeDetectorRef`, `viewportRuler` and `ngZone`
+     * parameters to become required.
+     * @breaking-change 14.0.0
+     */
+    changeDetectorRef?: ChangeDetectorRef, viewportRuler?: ViewportRuler, ngZone?: NgZone);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSpinner, [null, null, { optional: true; }, { optional: true; }, null, null, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSpinner, "mat-spinner", never, { "color": "color"; }, {}, never, never>;
 }
 export {};
