@@ -42,6 +42,16 @@ export declare class MatTab extends _MatTabBase implements OnInit, CanDisable, O
      * Will be cleared if `aria-label` is set at the same time.
      */
     ariaLabelledby: string;
+    /**
+     * Classes to be passed to the tab label inside the mat-tab-header container.
+     * Supports string and string array values, same as `ngClass`.
+     */
+    labelClass: string | string[];
+    /**
+     * Classes to be passed to the tab mat-tab-body container.
+     * Supports string and string array values, same as `ngClass`.
+     */
+    bodyClass: string | string[];
     /** Portal that will be the hosted content of the tab */
     private _contentPortal;
     /** @docs-private */
@@ -74,6 +84,6 @@ export declare class MatTab extends _MatTabBase implements OnInit, CanDisable, O
      */
     protected _setTemplateLabelInput(value: MatTabLabel | undefined): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTab, [null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTab, "mat-tab", ["matTab"], { "disabled": "disabled"; "textLabel": "label"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; }, {}, ["templateLabel", "_explicitContent"], ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTab, "mat-tab", ["matTab"], { "disabled": "disabled"; "textLabel": "label"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "labelClass": "labelClass"; "bodyClass": "bodyClass"; }, {}, ["templateLabel", "_explicitContent"], ["*"]>;
 }
 export {};
