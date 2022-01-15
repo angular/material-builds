@@ -28,7 +28,8 @@ declare const _MatTabGroupMixinBase: import("@angular/material/core")._Construct
     };
 };
 interface MatTabGroupBaseHeader {
-    _alignInkBarToSelectedTab: () => void;
+    _alignInkBarToSelectedTab(): void;
+    updatePagination(): void;
     focusIndex: number;
 }
 /**
@@ -110,6 +111,14 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     ngOnDestroy(): void;
     /** Re-aligns the ink bar to the selected tab element. */
     realignInkBar(): void;
+    /**
+     * Recalculates the tab group's pagination dimensions.
+     *
+     * WARNING: Calling this method can be very costly in terms of performance. It should be called
+     * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
+     * page.
+     */
+    updatePagination(): void;
     /**
      * Sets focus to a particular tab.
      * @param index Index of the tab to be focused.

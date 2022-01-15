@@ -1361,6 +1361,18 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         }
     }
     /**
+     * Recalculates the tab group's pagination dimensions.
+     *
+     * WARNING: Calling this method can be very costly in terms of performance. It should be called
+     * as infrequently as possible from outside of the Tabs component as it causes a reflow of the
+     * page.
+     */
+    updatePagination() {
+        if (this._tabHeader) {
+            this._tabHeader.updatePagination();
+        }
+    }
+    /**
      * Sets focus to a particular tab.
      * @param index Index of the tab to be focused.
      */
