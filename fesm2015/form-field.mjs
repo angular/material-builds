@@ -591,14 +591,19 @@ class MatFormField extends _MatFormFieldBase {
      */
     updateOutlineGap() {
         const labelEl = this._label ? this._label.nativeElement : null;
-        if (this.appearance !== 'outline' ||
-            !labelEl ||
-            !labelEl.children.length ||
-            !labelEl.textContent.trim()) {
+        const container = this._connectionContainerRef.nativeElement;
+        const outlineStartSelector = '.mat-form-field-outline-start';
+        const outlineGapSelector = '.mat-form-field-outline-gap';
+        // getBoundingClientRect isn't available on the server.
+        if (this.appearance !== 'outline' || !this._platform.isBrowser) {
             return;
         }
-        if (!this._platform.isBrowser) {
-            // getBoundingClientRect isn't available on the server.
+        // If there is no content, set the gap elements to zero.
+        if (!labelEl || !labelEl.children.length || !labelEl.textContent.trim()) {
+            const gapElements = container.querySelectorAll(`${outlineStartSelector}, ${outlineGapSelector}`);
+            for (let i = 0; i < gapElements.length; i++) {
+                gapElements[i].style.width = '0';
+            }
             return;
         }
         // If the element is not present in the DOM, the outline gap will need to be calculated
@@ -609,9 +614,8 @@ class MatFormField extends _MatFormFieldBase {
         }
         let startWidth = 0;
         let gapWidth = 0;
-        const container = this._connectionContainerRef.nativeElement;
-        const startEls = container.querySelectorAll('.mat-form-field-outline-start');
-        const gapEls = container.querySelectorAll('.mat-form-field-outline-gap');
+        const startEls = container.querySelectorAll(outlineStartSelector);
+        const gapEls = container.querySelectorAll(outlineGapSelector);
         if (this._label && this._label.nativeElement.children.length) {
             const containerRect = container.getBoundingClientRect();
             // If the container's width and height are zero, it means that the element is
