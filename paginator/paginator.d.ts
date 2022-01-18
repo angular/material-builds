@@ -77,7 +77,7 @@ export declare abstract class _MatPaginatorBase<O extends {
     private _pageSize;
     /** The set of provided page size options to display to the user. */
     get pageSizeOptions(): number[];
-    set pageSizeOptions(value: number[]);
+    set pageSizeOptions(value: number[] | readonly number[]);
     private _pageSizeOptions;
     /** Whether to hide the page size selection UI from the user. */
     get hidePageSize(): boolean;
