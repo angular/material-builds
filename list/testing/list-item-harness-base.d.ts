@@ -43,6 +43,8 @@ export declare abstract class MatListItemHarnessBase extends ContentContainerCom
     hasAvatar(): Promise<boolean>;
     /** Whether this list item has an icon. */
     hasIcon(): Promise<boolean>;
+    /** Whether this list option is disabled. */
+    isDisabled(): Promise<boolean>;
     /**
      * Gets a `HarnessLoader` used to get harnesses within the list item's content.
      * @deprecated Use `getChildLoader(MatListItemSection.CONTENT)` or `getHarness` instead.

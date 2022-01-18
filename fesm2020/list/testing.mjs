@@ -60,6 +60,10 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
     async hasIcon() {
         return !!(await this._icon());
     }
+    /** Whether this list option is disabled. */
+    async isDisabled() {
+        return (await this.host()).hasClass('mat-list-item-disabled');
+    }
     /**
      * Gets a `HarnessLoader` used to get harnesses within the list item's content.
      * @deprecated Use `getChildLoader(MatListItemSection.CONTENT)` or `getHarness` instead.
@@ -405,10 +409,6 @@ class MatListOptionHarness extends MatListItemHarnessBase {
     /** Whether the list option is selected. */
     async isSelected() {
         return (await (await this.host()).getAttribute('aria-selected')) === 'true';
-    }
-    /** Whether the list option is disabled. */
-    async isDisabled() {
-        return (await (await this.host()).getAttribute('aria-disabled')) === 'true';
     }
     /** Focuses the list option. */
     async focus() {

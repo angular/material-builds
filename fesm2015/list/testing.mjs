@@ -64,6 +64,12 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
             return !!(yield this._icon());
         });
     }
+    /** Whether this list option is disabled. */
+    isDisabled() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).hasClass('mat-list-item-disabled');
+        });
+    }
     /**
      * Gets a `HarnessLoader` used to get harnesses within the list item's content.
      * @deprecated Use `getChildLoader(MatListItemSection.CONTENT)` or `getHarness` instead.
@@ -412,12 +418,6 @@ class MatListOptionHarness extends MatListItemHarnessBase {
     isSelected() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield (yield this.host()).getAttribute('aria-selected')) === 'true';
-        });
-    }
-    /** Whether the list option is disabled. */
-    isDisabled() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield (yield this.host()).getAttribute('aria-disabled')) === 'true';
         });
     }
     /** Focuses the list option. */

@@ -53,8 +53,6 @@ export declare class MatListOptionHarness extends MatListItemHarnessBase {
     getCheckboxPosition(): Promise<MatListOptionCheckboxPosition>;
     /** Whether the list option is selected. */
     isSelected(): Promise<boolean>;
-    /** Whether the list option is disabled. */
-    isDisabled(): Promise<boolean>;
     /** Focuses the list option. */
     focus(): Promise<void>;
     /** Blurs the list option. */
