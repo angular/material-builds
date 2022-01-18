@@ -5,7 +5,7 @@ import { CdkScrollable, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i5 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, Output, QueryList, ContentChildren, ContentChild, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, Output, ViewChild, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
@@ -209,7 +209,11 @@ class MatDrawer {
     set position(value) {
         // Make sure we have a valid value.
         value = value === 'end' ? 'end' : 'start';
-        if (value != this._position) {
+        if (value !== this._position) {
+            // Static inputs in Ivy are set before the element is in the DOM.
+            if (this._isAttached) {
+                this._updatePositionInParent(value);
+            }
             this._position = value;
             this.onPositionChanged.emit();
         }
@@ -344,13 +348,18 @@ class MatDrawer {
     }
     /** Whether focus is currently within the drawer. */
     _isFocusWithinDrawer() {
-        var _a;
-        const activeEl = (_a = this._doc) === null || _a === void 0 ? void 0 : _a.activeElement;
+        const activeEl = this._doc.activeElement;
         return !!activeEl && this._elementRef.nativeElement.contains(activeEl);
     }
-    ngAfterContentInit() {
+    ngAfterViewInit() {
+        this._isAttached = true;
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         this._updateFocusTrapState();
+        // Only update the DOM position when the sidenav is positioned at
+        // the end since we project the sidenav before the content by default.
+        if (this._position === 'end') {
+            this._updatePositionInParent('end');
+        }
     }
     ngAfterContentChecked() {
         // Enable the animations after the lifecycle hooks have run, in order to avoid animating
@@ -362,9 +371,12 @@ class MatDrawer {
         }
     }
     ngOnDestroy() {
+        var _a;
         if (this._focusTrap) {
             this._focusTrap.destroy();
         }
+        (_a = this._anchor) === null || _a === void 0 ? void 0 : _a.remove();
+        this._anchor = null;
         this._animationStarted.complete();
         this._animationEnd.complete();
         this._modeChanged.complete();
@@ -441,9 +453,29 @@ class MatDrawer {
             this._focusTrap.enabled = this.opened && this.mode !== 'side';
         }
     }
+    /**
+     * Updates the position of the drawer in the DOM. We need to move the element around ourselves
+     * when it's in the `end` position so that it comes after the content and the visual order
+     * matches the tab order. We also need to be able to move it back to `start` if the sidenav
+     * started off as `end` and was changed to `start`.
+     */
+    _updatePositionInParent(newPosition) {
+        const element = this._elementRef.nativeElement;
+        const parent = element.parentNode;
+        if (newPosition === 'end') {
+            if (!this._anchor) {
+                this._anchor = this._doc.createComment('mat-drawer-anchor');
+                parent.insertBefore(this._anchor, element);
+            }
+            parent.appendChild(element);
+        }
+        else if (this._anchor) {
+            this._anchor.parentNode.insertBefore(element, this._anchor);
+        }
+    }
 }
 MatDrawer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0", ngImport: i0, type: MatDrawer, deps: [{ token: i0.ElementRef }, { token: i2.FocusTrapFactory }, { token: i2.FocusMonitor }, { token: i3.Platform }, { token: i0.NgZone }, { token: i2.InteractivityChecker }, { token: DOCUMENT, optional: true }, { token: MAT_DRAWER_CONTAINER, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatDrawer.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.1.0", type: MatDrawer, selector: "mat-drawer", inputs: { position: "position", mode: "mode", disableClose: "disableClose", autoFocus: "autoFocus", opened: "opened" }, outputs: { openedChange: "openedChange", _openedStream: "opened", openedStart: "openedStart", _closedStream: "closed", closedStart: "closedStart", onPositionChanged: "positionChanged" }, host: { attributes: { "tabIndex": "-1" }, listeners: { "@transform.start": "_animationStarted.next($event)", "@transform.done": "_animationEnd.next($event)" }, properties: { "attr.align": "null", "class.mat-drawer-end": "position === \"end\"", "class.mat-drawer-over": "mode === \"over\"", "class.mat-drawer-push": "mode === \"push\"", "class.mat-drawer-side": "mode === \"side\"", "class.mat-drawer-opened": "opened", "@transform": "_animationState" }, classAttribute: "mat-drawer" }, exportAs: ["matDrawer"], ngImport: i0, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n", directives: [{ type: i1.CdkScrollable, selector: "[cdk-scrollable], [cdkScrollable]" }], animations: [matDrawerAnimations.transformDrawer], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+MatDrawer.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.1.0", type: MatDrawer, selector: "mat-drawer", inputs: { position: "position", mode: "mode", disableClose: "disableClose", autoFocus: "autoFocus", opened: "opened" }, outputs: { openedChange: "openedChange", _openedStream: "opened", openedStart: "openedStart", _closedStream: "closed", closedStart: "closedStart", onPositionChanged: "positionChanged" }, host: { attributes: { "tabIndex": "-1" }, listeners: { "@transform.start": "_animationStarted.next($event)", "@transform.done": "_animationEnd.next($event)" }, properties: { "attr.align": "null", "class.mat-drawer-end": "position === \"end\"", "class.mat-drawer-over": "mode === \"over\"", "class.mat-drawer-push": "mode === \"push\"", "class.mat-drawer-side": "mode === \"side\"", "class.mat-drawer-opened": "opened", "@transform": "_animationState" }, classAttribute: "mat-drawer" }, viewQueries: [{ propertyName: "_content", first: true, predicate: ["content"], descendants: true }], exportAs: ["matDrawer"], ngImport: i0, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable #content>\r\n  <ng-content></ng-content>\r\n</div>\r\n", directives: [{ type: i1.CdkScrollable, selector: "[cdk-scrollable], [cdkScrollable]" }], animations: [matDrawerAnimations.transformDrawer], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImport: i0, type: MatDrawer, decorators: [{
             type: Component,
             args: [{ selector: 'mat-drawer', exportAs: 'matDrawer', animations: [matDrawerAnimations.transformDrawer], host: {
@@ -459,7 +491,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImpor
                         '[@transform]': '_animationState',
                         '(@transform.start)': '_animationStarted.next($event)',
                         '(@transform.done)': '_animationEnd.next($event)',
-                    }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n" }]
+                    }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable #content>\r\n  <ng-content></ng-content>\r\n</div>\r\n" }]
         }], ctorParameters: function () {
         return [{ type: i0.ElementRef }, { type: i2.FocusTrapFactory }, { type: i2.FocusMonitor }, { type: i3.Platform }, { type: i0.NgZone }, { type: i2.InteractivityChecker }, { type: undefined, decorators: [{
                         type: Optional
@@ -497,6 +529,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImpor
             }], onPositionChanged: [{
                 type: Output,
                 args: ['positionChanged']
+            }], _content: [{
+                type: ViewChild,
+                args: ['content']
             }] } });
 /**
  * `<mat-drawer-container>` component.
@@ -926,7 +961,7 @@ class MatSidenav extends MatDrawer {
     }
 }
 MatSidenav.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.1.0", ngImport: i0, type: MatSidenav, deps: null, target: i0.ɵɵFactoryTarget.Component });
-MatSidenav.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.1.0", type: MatSidenav, selector: "mat-sidenav", inputs: { fixedInViewport: "fixedInViewport", fixedTopGap: "fixedTopGap", fixedBottomGap: "fixedBottomGap" }, host: { attributes: { "tabIndex": "-1" }, properties: { "attr.align": "null", "class.mat-drawer-end": "position === \"end\"", "class.mat-drawer-over": "mode === \"over\"", "class.mat-drawer-push": "mode === \"push\"", "class.mat-drawer-side": "mode === \"side\"", "class.mat-drawer-opened": "opened", "class.mat-sidenav-fixed": "fixedInViewport", "style.top.px": "fixedInViewport ? fixedTopGap : null", "style.bottom.px": "fixedInViewport ? fixedBottomGap : null" }, classAttribute: "mat-drawer mat-sidenav" }, exportAs: ["matSidenav"], usesInheritance: true, ngImport: i0, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n", directives: [{ type: i1.CdkScrollable, selector: "[cdk-scrollable], [cdkScrollable]" }], animations: [matDrawerAnimations.transformDrawer], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+MatSidenav.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.1.0", type: MatSidenav, selector: "mat-sidenav", inputs: { fixedInViewport: "fixedInViewport", fixedTopGap: "fixedTopGap", fixedBottomGap: "fixedBottomGap" }, host: { attributes: { "tabIndex": "-1" }, properties: { "attr.align": "null", "class.mat-drawer-end": "position === \"end\"", "class.mat-drawer-over": "mode === \"over\"", "class.mat-drawer-push": "mode === \"push\"", "class.mat-drawer-side": "mode === \"side\"", "class.mat-drawer-opened": "opened", "class.mat-sidenav-fixed": "fixedInViewport", "style.top.px": "fixedInViewport ? fixedTopGap : null", "style.bottom.px": "fixedInViewport ? fixedBottomGap : null" }, classAttribute: "mat-drawer mat-sidenav" }, exportAs: ["matSidenav"], usesInheritance: true, ngImport: i0, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable #content>\r\n  <ng-content></ng-content>\r\n</div>\r\n", directives: [{ type: i1.CdkScrollable, selector: "[cdk-scrollable], [cdkScrollable]" }], animations: [matDrawerAnimations.transformDrawer], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImport: i0, type: MatSidenav, decorators: [{
             type: Component,
             args: [{ selector: 'mat-sidenav', exportAs: 'matSidenav', animations: [matDrawerAnimations.transformDrawer], host: {
@@ -942,7 +977,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.1.0", ngImpor
                         '[class.mat-sidenav-fixed]': 'fixedInViewport',
                         '[style.top.px]': 'fixedInViewport ? fixedTopGap : null',
                         '[style.bottom.px]': 'fixedInViewport ? fixedBottomGap : null',
-                    }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable>\r\n  <ng-content></ng-content>\r\n</div>\r\n" }]
+                    }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div class=\"mat-drawer-inner-container\" cdkScrollable #content>\r\n  <ng-content></ng-content>\r\n</div>\r\n" }]
         }], propDecorators: { fixedInViewport: [{
                 type: Input
             }], fixedTopGap: [{

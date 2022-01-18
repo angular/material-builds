@@ -11,7 +11,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler } from '@angular/cdk/scrolling';
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, QueryList } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import * as i0 from "@angular/core";
 /**
@@ -45,7 +45,7 @@ export declare class MatDrawerContent extends CdkScrollable implements AfterCont
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
-export declare class MatDrawer implements AfterContentInit, AfterContentChecked, OnDestroy {
+export declare class MatDrawer implements AfterViewInit, AfterContentChecked, OnDestroy {
     private _elementRef;
     private _focusTrapFactory;
     private _focusMonitor;
@@ -58,6 +58,10 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _elementFocusedBeforeDrawerWasOpened;
     /** Whether the drawer is initialized. Used for disabling the initial animation. */
     private _enableAnimations;
+    /** Whether the view of the component has been attached. */
+    private _isAttached;
+    /** Anchor node used to restore the drawer to its initial position. */
+    private _anchor;
     /** The side that the drawer is attached to. */
     get position(): 'start' | 'end';
     set position(value: 'start' | 'end');
@@ -109,6 +113,8 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private readonly _destroyed;
     /** Event emitted when the drawer's position changes. */
     readonly onPositionChanged: EventEmitter<void>;
+    /** Reference to the inner element that contains all the content. */
+    _content: ElementRef<HTMLElement>;
     /**
      * An observable that emits when the drawer mode changes. This is used by the drawer container to
      * to know when to when the mode changes so it can adapt the margins on the content.
@@ -138,7 +144,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _restoreFocus;
     /** Whether focus is currently within the drawer. */
     private _isFocusWithinDrawer;
-    ngAfterContentInit(): void;
+    ngAfterViewInit(): void;
     ngAfterContentChecked(): void;
     ngOnDestroy(): void;
     /**
@@ -168,6 +174,13 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     _getWidth(): number;
     /** Updates the enabled state of the focus trap. */
     private _updateFocusTrapState;
+    /**
+     * Updates the position of the drawer in the DOM. We need to move the element around ourselves
+     * when it's in the `end` position so that it comes after the content and the visual order
+     * matches the tab order. We also need to be able to move it back to `start` if the sidenav
+     * started off as `end` and was changed to `start`.
+     */
+    private _updatePositionInParent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawer, [null, null, null, null, null, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawer, "mat-drawer", ["matDrawer"], { "position": "position"; "mode": "mode"; "disableClose": "disableClose"; "autoFocus": "autoFocus"; "opened": "opened"; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "openedStart": "openedStart"; "_closedStream": "closed"; "closedStart": "closedStart"; "onPositionChanged": "positionChanged"; }, never, ["*"]>;
 }
