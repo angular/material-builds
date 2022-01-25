@@ -149,7 +149,7 @@ class MatCalendarCellHarness extends ComponentHarness {
     /** Whether the cell is selected. */
     async isSelected() {
         const host = await this.host();
-        return (await host.getAttribute('aria-selected')) === 'true';
+        return (await host.getAttribute('aria-pressed')) === 'true';
     }
     /** Whether the cell is disabled. */
     async isDisabled() {
