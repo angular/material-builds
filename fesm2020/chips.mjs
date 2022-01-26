@@ -266,9 +266,6 @@ class MatChip extends _MatChipMixinBase {
         if (this.disabled) {
             event.preventDefault();
         }
-        else {
-            event.stopPropagation();
-        }
     }
     /** Handle custom key presses. */
     _handleKeydown(event) {
