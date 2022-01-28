@@ -613,16 +613,18 @@ class MatSlider extends _MatSliderBase {
         if (!this.tickInterval || !this._sliderDimensions) {
             return;
         }
+        let tickIntervalPercent;
         if (this.tickInterval == 'auto') {
             let trackSize = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
             let pixelsPerStep = (trackSize * this.step) / (this.max - this.min);
             let stepsPerTick = Math.ceil(MIN_AUTO_TICK_SEPARATION / pixelsPerStep);
             let pixelsPerTick = stepsPerTick * this.step;
-            this._tickIntervalPercent = pixelsPerTick / trackSize;
+            tickIntervalPercent = pixelsPerTick / trackSize;
         }
         else {
-            this._tickIntervalPercent = (this.tickInterval * this.step) / (this.max - this.min);
+            tickIntervalPercent = (this.tickInterval * this.step) / (this.max - this.min);
         }
+        this._tickIntervalPercent = isSafeNumber(tickIntervalPercent) ? tickIntervalPercent : 0;
     }
     /** Creates a slider change object from the specified value. */
     _createChangeEvent(value = this.value) {
@@ -633,7 +635,8 @@ class MatSlider extends _MatSliderBase {
     }
     /** Calculates the percentage of the slider that a value is. */
     _calculatePercentage(value) {
-        return ((value || 0) - this.min) / (this.max - this.min);
+        const percentage = ((value || 0) - this.min) / (this.max - this.min);
+        return isSafeNumber(percentage) ? percentage : 0;
     }
     /** Calculates the value a percentage of the slider corresponds to. */
     _calculateValue(percentage) {
@@ -778,6 +781,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0-rc.1", ng
                 type: ViewChild,
                 args: ['sliderWrapper']
             }] } });
+/** Checks if number is safe for calculation */
+function isSafeNumber(value) {
+    return !isNaN(value) && isFinite(value);
+}
 /** Returns whether an event is a touch event. */
 function isTouchEvent(event) {
     // This function is called for every pixel that the user has dragged so we need it to be
