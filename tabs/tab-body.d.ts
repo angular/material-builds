@@ -78,6 +78,8 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
     origin: number | null;
     /** Duration for the tab's animation. */
     animationDuration: string;
+    /** Whether the tab's content should be kept in the DOM while it's off-screen. */
+    preserveContent: boolean;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     set position(position: number);
     constructor(_elementRef: ElementRef<HTMLElement>, _dir: Directionality, changeDetectorRef: ChangeDetectorRef);
@@ -100,7 +102,7 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
      */
     private _computePositionFromOrigin;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabBodyBase, [null, { optional: true; }, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBodyBase, never, never, { "_content": "content"; "origin": "origin"; "animationDuration": "animationDuration"; "position": "position"; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_afterLeavingCenter": "_afterLeavingCenter"; "_onCentered": "_onCentered"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBodyBase, never, never, { "_content": "content"; "origin": "origin"; "animationDuration": "animationDuration"; "preserveContent": "preserveContent"; "position": "position"; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_afterLeavingCenter": "_afterLeavingCenter"; "_onCentered": "_onCentered"; }, never>;
 }
 /**
  * Wrapper for the contents of a tab.
