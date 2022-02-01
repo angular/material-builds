@@ -5,7 +5,7 @@ import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, 
 import * as i0 from '@angular/core';
 import { InjectionToken, Directive, Inject, Component, ChangeDetectionStrategy, ViewEncapsulation, Optional, Input, QueryList, EventEmitter, TemplateRef, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
-import { startWith, switchMap, take, filter, takeUntil, delay } from 'rxjs/operators';
+import { startWith, switchMap, take, takeUntil, filter, delay } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import * as i3 from '@angular/common';
@@ -908,7 +908,8 @@ class _MatMenuTriggerBase {
         this._checkMenu();
         const overlayRef = this._createOverlay();
         const overlayConfig = overlayRef.getConfig();
-        this._setPosition(overlayConfig.positionStrategy);
+        const positionStrategy = overlayConfig.positionStrategy;
+        this._setPosition(positionStrategy);
         overlayConfig.hasBackdrop =
             this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop;
         overlayRef.attach(this._getPortal());
@@ -919,6 +920,12 @@ class _MatMenuTriggerBase {
         this._initMenu();
         if (this.menu instanceof _MatMenuBase) {
             this.menu._startAnimation();
+            this.menu._directDescendantItems.changes.pipe(takeUntil(this.menu.close)).subscribe(() => {
+                // Re-adjust the position without locking when the amount of items
+                // changes so that the overlay is allowed to pick a new optimal position.
+                positionStrategy.withLockedPosition(false).reapplyLastPosition();
+                positionStrategy.withLockedPosition(true);
+            });
         }
     }
     /** Closes the menu. */
