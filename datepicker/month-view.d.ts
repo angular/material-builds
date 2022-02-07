@@ -85,6 +85,17 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     ngOnDestroy(): void;
     /** Handles when a new date is selected. */
     _dateSelected(event: MatCalendarUserEvent<number>): void;
+    /**
+     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
+     * that date.
+     *
+     * This fucntion is used to match each component's model of the active date with the calendar
+     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
+     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * updated value asynchronously via the `activeCell` Input.
+     */
+    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
     /** Handles keydown events on the calendar body when calendar is in month view. */
     _handleCalendarBodyKeydown(event: KeyboardEvent): void;
     /** Handles keyup events on the calendar body when calendar is in month view. */
@@ -93,8 +104,15 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     _init(): void;
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(movePreview?: boolean): void;
+    /** Focuses the active cell after change detection has run and the microtask queue is empty. */
+    _focusActiveCellAfterViewChecked(): void;
     /** Called when the user has activated a new cell and the preview needs to be updated. */
     _previewChanged({ event, value: cell }: MatCalendarUserEvent<MatCalendarCell<D> | null>): void;
+    /**
+     * Takes a day of the month and returns a new date in the same month and year as the currently
+     *  active date. The returned date will have the same day of the month as the argument date.
+     */
+    private _getDateFromDayOfMonth;
     /** Initializes the weekdays. */
     private _initWeekdays;
     /** Creates MatCalendarCells for the dates in this month. */
