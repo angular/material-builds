@@ -58,6 +58,17 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     _init(): void;
     /** Handles when a new year is selected. */
     _yearSelected(event: MatCalendarUserEvent<number>): void;
+    /**
+     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
+     * that date.
+     *
+     * This fucntion is used to match each component's model of the active date with the calendar
+     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
+     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * updated value asynchronously via the `activeCell` Input.
+     */
+    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
     /** Handles keydown events on the calendar body when calendar is in multi-year view. */
     _handleCalendarBodyKeydown(event: KeyboardEvent): void;
     /** Handles keyup events on the calendar body when calendar is in multi-year view. */
@@ -65,6 +76,13 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     _getActiveCell(): number;
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(): void;
+    /** Focuses the active cell after change detection has run and the microtask queue is empty. */
+    _focusActiveCellAfterViewChecked(): void;
+    /**
+     * Takes a year and returns a new date on the same day and month as the currently active date
+     *  The returned date will have the same year as the argument date.
+     */
+    private _getDateFromYear;
     /** Creates an MatCalendarCell for the given year. */
     private _createCellForYear;
     /** Whether the given year is enabled. */
