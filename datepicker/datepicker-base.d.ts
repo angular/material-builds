@@ -73,6 +73,8 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _closeButtonFocused: boolean;
     /** Portal with projected action buttons. */
     _actionsPortal: TemplatePortal | null;
+    /** Id of the label for the `role="dialog"` element. */
+    _dialogLabelId: string | null;
     constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _globalModel: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, intl: MatDatepickerIntl);
     ngOnInit(): void;
     ngAfterViewInit(): void;
