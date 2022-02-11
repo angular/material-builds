@@ -98,6 +98,9 @@ class MatProgressSpinner extends _MatProgressSpinnerBase {
         this._noopAnimations =
             animationMode === 'NoopAnimations' && !!defaults && !defaults._forceAnimations;
         if (defaults) {
+            if (defaults.color) {
+                this.color = this.defaultColor = defaults.color;
+            }
             if (defaults.diameter) {
                 this.diameter = defaults.diameter;
             }
