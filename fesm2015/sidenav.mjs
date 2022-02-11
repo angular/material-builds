@@ -1,5 +1,3 @@
-import * as i3 from '@angular/cdk/platform';
-import { PlatformModule } from '@angular/cdk/platform';
 import * as i1 from '@angular/cdk/scrolling';
 import { CdkScrollable, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i5 from '@angular/common';
@@ -14,6 +12,7 @@ import { filter, map, mapTo, takeUntil, distinctUntilChanged, take, startWith, d
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import * as i2 from '@angular/cdk/a11y';
+import * as i3 from '@angular/cdk/platform';
 import * as i4 from '@angular/cdk/bidi';
 
 /**
@@ -1032,7 +1031,7 @@ MatSidenavModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", versio
         MatDrawerContent,
         MatSidenav,
         MatSidenavContainer,
-        MatSidenavContent], imports: [CommonModule, MatCommonModule, PlatformModule, CdkScrollableModule], exports: [CdkScrollableModule,
+        MatSidenavContent], imports: [CommonModule, MatCommonModule, CdkScrollableModule], exports: [CdkScrollableModule,
         MatCommonModule,
         MatDrawer,
         MatDrawerContainer,
@@ -1040,12 +1039,12 @@ MatSidenavModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", versio
         MatSidenav,
         MatSidenavContainer,
         MatSidenavContent] });
-MatSidenavModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSidenavModule, imports: [[CommonModule, MatCommonModule, PlatformModule, CdkScrollableModule], CdkScrollableModule,
+MatSidenavModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSidenavModule, imports: [[CommonModule, MatCommonModule, CdkScrollableModule], CdkScrollableModule,
         MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSidenavModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [CommonModule, MatCommonModule, PlatformModule, CdkScrollableModule],
+                    imports: [CommonModule, MatCommonModule, CdkScrollableModule],
                     exports: [
                         CdkScrollableModule,
                         MatCommonModule,
