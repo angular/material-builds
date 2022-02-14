@@ -379,10 +379,13 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
 let menuPanelUid = 0;
 /** Base class with all of the `MatMenu` functionality. */
 class _MatMenuBase {
-    constructor(_elementRef, _ngZone, _defaultOptions) {
+    constructor(_elementRef, _ngZone, _defaultOptions, 
+    // @breaking-change 15.0.0 `_changeDetectorRef` to become a required parameter.
+    _changeDetectorRef) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
         this._defaultOptions = _defaultOptions;
+        this._changeDetectorRef = _changeDetectorRef;
         this._xPosition = this._defaultOptions.xPosition;
         this._yPosition = this._defaultOptions.yPosition;
         /** Only the direct descendant menu items. */
@@ -632,11 +635,14 @@ class _MatMenuBase {
      * @docs-private
      */
     setPositionClasses(posX = this.xPosition, posY = this.yPosition) {
+        var _a;
         const classes = this._classList;
         classes['mat-menu-before'] = posX === 'before';
         classes['mat-menu-after'] = posX === 'after';
         classes['mat-menu-above'] = posY === 'above';
         classes['mat-menu-below'] = posY === 'below';
+        // @breaking-change 15.0.0 Remove null check for `_changeDetectorRef`.
+        (_a = this._changeDetectorRef) === null || _a === void 0 ? void 0 : _a.markForCheck();
     }
     /** Starts the enter animation. */
     _startAnimation() {
@@ -680,7 +686,7 @@ class _MatMenuBase {
         });
     }
 }
-_MatMenuBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatMenuBase, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: MAT_MENU_DEFAULT_OPTIONS }], target: i0.ɵɵFactoryTarget.Directive });
+_MatMenuBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatMenuBase, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: MAT_MENU_DEFAULT_OPTIONS }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive });
 _MatMenuBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: _MatMenuBase, inputs: { backdropClass: "backdropClass", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"], xPosition: "xPosition", yPosition: "yPosition", overlapTrigger: "overlapTrigger", hasBackdrop: "hasBackdrop", panelClass: ["class", "panelClass"], classList: "classList" }, outputs: { closed: "closed", close: "close" }, queries: [{ propertyName: "lazyContent", first: true, predicate: MAT_MENU_CONTENT, descendants: true }, { propertyName: "_allItems", predicate: MatMenuItem, descendants: true }, { propertyName: "items", predicate: MatMenuItem }], viewQueries: [{ propertyName: "templateRef", first: true, predicate: TemplateRef, descendants: true }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatMenuBase, decorators: [{
             type: Directive
@@ -688,7 +694,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
         return [{ type: i0.ElementRef }, { type: i0.NgZone }, { type: undefined, decorators: [{
                         type: Inject,
                         args: [MAT_MENU_DEFAULT_OPTIONS]
-                    }] }];
+                    }] }, { type: i0.ChangeDetectorRef }];
     }, propDecorators: { _allItems: [{
                 type: ContentChildren,
                 args: [MatMenuItem, { descendants: true }]
@@ -732,13 +738,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
             }] } });
 /** @docs-public MatMenu */
 class MatMenu extends _MatMenuBase {
-    constructor(elementRef, ngZone, defaultOptions) {
-        super(elementRef, ngZone, defaultOptions);
+    constructor(elementRef, ngZone, defaultOptions, changeDetectorRef) {
+        super(elementRef, ngZone, defaultOptions, changeDetectorRef);
         this._elevationPrefix = 'mat-elevation-z';
         this._baseElevation = 4;
     }
 }
-MatMenu.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatMenu, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: MAT_MENU_DEFAULT_OPTIONS }], target: i0.ɵɵFactoryTarget.Component });
+MatMenu.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatMenu, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: MAT_MENU_DEFAULT_OPTIONS }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
 MatMenu.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: MatMenu, selector: "mat-menu", host: { properties: { "attr.aria-label": "null", "attr.aria-labelledby": "null", "attr.aria-describedby": "null" } }, providers: [{ provide: MAT_MENU_PANEL, useExisting: MatMenu }], exportAs: ["matMenu"], usesInheritance: true, ngImport: i0, template: "<ng-template>\n  <div\n    class=\"mat-menu-panel\"\n    [id]=\"panelId\"\n    [ngClass]=\"_classList\"\n    (keydown)=\"_handleKeydown($event)\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n", styles: ["mat-menu{display:none}.mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0;min-height:64px}.mat-menu-panel.ng-animating{pointer-events:none}.cdk-high-contrast-active .mat-menu-panel{outline:solid 1px}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item[disabled]{pointer-events:none}.cdk-high-contrast-active .mat-menu-item{margin-top:1px}.cdk-high-contrast-active .mat-menu-item.cdk-program-focused,.cdk-high-contrast-active .mat-menu-item.cdk-keyboard-focused,.cdk-high-contrast-active .mat-menu-item-highlighted{outline:dotted 1px}.mat-menu-item-submenu-trigger{padding-right:32px}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}.mat-menu-submenu-icon{position:absolute;top:50%;right:16px;transform:translateY(-50%);width:5px;height:10px;fill:currentColor}[dir=rtl] .mat-menu-submenu-icon{right:auto;left:16px;transform:translateY(-50%) scaleX(-1)}.cdk-high-contrast-active .mat-menu-submenu-icon{fill:CanvasText}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}\n"], directives: [{ type: i3.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], animations: [matMenuAnimations.transformMenu, matMenuAnimations.fadeInItems], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatMenu, decorators: [{
             type: Component,
@@ -751,7 +757,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
         return [{ type: i0.ElementRef }, { type: i0.NgZone }, { type: undefined, decorators: [{
                         type: Inject,
                         args: [MAT_MENU_DEFAULT_OPTIONS]
-                    }] }];
+                    }] }, { type: i0.ChangeDetectorRef }];
     } });
 
 /**
@@ -782,13 +788,14 @@ class _MatMenuTriggerBase {
     constructor(_overlay, _element, _viewContainerRef, scrollStrategy, parentMenu, 
     // `MatMenuTrigger` is commonly used in combination with a `MatMenuItem`.
     // tslint:disable-next-line: lightweight-tokens
-    _menuItemInstance, _dir, _focusMonitor) {
+    _menuItemInstance, _dir, _focusMonitor, _ngZone) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
         this._menuItemInstance = _menuItemInstance;
         this._dir = _dir;
         this._focusMonitor = _focusMonitor;
+        this._ngZone = _ngZone;
         this._overlayRef = null;
         this._menuOpen = false;
         this._closingActionsSubscription = Subscription.EMPTY;
@@ -1076,7 +1083,15 @@ class _MatMenuTriggerBase {
             position.positionChanges.subscribe(change => {
                 const posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
                 const posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
-                this.menu.setPositionClasses(posX, posY);
+                // @breaking-change 15.0.0 Remove null check for `ngZone`.
+                // `positionChanges` fires outside of the `ngZone` and `setPositionClasses` might be
+                // updating something in the view so we need to bring it back in.
+                if (this._ngZone) {
+                    this._ngZone.run(() => this.menu.setPositionClasses(posX, posY));
+                }
+                else {
+                    this.menu.setPositionClasses(posX, posY);
+                }
             });
         }
     }
@@ -1210,7 +1225,7 @@ class _MatMenuTriggerBase {
         return this._portal;
     }
 }
-_MatMenuTriggerBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatMenuTriggerBase, deps: [{ token: i1$1.Overlay }, { token: i0.ElementRef }, { token: i0.ViewContainerRef }, { token: MAT_MENU_SCROLL_STRATEGY }, { token: MAT_MENU_PANEL, optional: true }, { token: MatMenuItem, optional: true, self: true }, { token: i3$1.Directionality, optional: true }, { token: i1.FocusMonitor }], target: i0.ɵɵFactoryTarget.Directive });
+_MatMenuTriggerBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatMenuTriggerBase, deps: [{ token: i1$1.Overlay }, { token: i0.ElementRef }, { token: i0.ViewContainerRef }, { token: MAT_MENU_SCROLL_STRATEGY }, { token: MAT_MENU_PANEL, optional: true }, { token: MatMenuItem, optional: true, self: true }, { token: i3$1.Directionality, optional: true }, { token: i1.FocusMonitor }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Directive });
 _MatMenuTriggerBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: _MatMenuTriggerBase, inputs: { _deprecatedMatMenuTriggerFor: ["mat-menu-trigger-for", "_deprecatedMatMenuTriggerFor"], menu: ["matMenuTriggerFor", "menu"], menuData: ["matMenuTriggerData", "menuData"], restoreFocus: ["matMenuTriggerRestoreFocus", "restoreFocus"] }, outputs: { menuOpened: "menuOpened", onMenuOpen: "onMenuOpen", menuClosed: "menuClosed", onMenuClose: "onMenuClose" }, host: { attributes: { "aria-haspopup": "true" }, listeners: { "click": "_handleClick($event)", "mousedown": "_handleMousedown($event)", "keydown": "_handleKeydown($event)" }, properties: { "attr.aria-expanded": "menuOpen || null", "attr.aria-controls": "menuOpen ? menu.panelId : null" } }, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatMenuTriggerBase, decorators: [{
             type: Directive,
@@ -1239,7 +1254,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
                         type: Self
                     }] }, { type: i3$1.Directionality, decorators: [{
                         type: Optional
-                    }] }, { type: i1.FocusMonitor }];
+                    }] }, { type: i1.FocusMonitor }, { type: i0.NgZone }];
     }, propDecorators: { _deprecatedMatMenuTriggerFor: [{
                 type: Input,
                 args: ['mat-menu-trigger-for']

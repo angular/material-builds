@@ -31,6 +31,7 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
     private _menuItemInstance;
     private _dir;
     private _focusMonitor;
+    private _ngZone?;
     private _portal;
     private _overlayRef;
     private _menuOpen;
@@ -88,6 +89,11 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
      * @breaking-change 8.0.0
      */
     constructor(overlay: Overlay, element: ElementRef<HTMLElement>, viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, menuItemInstance: MatMenuItem, dir: Directionality, focusMonitor?: FocusMonitor | null);
+    /**
+     * @deprecated `ngZone` will become a required parameter.
+     * @breaking-change 15.0.0
+     */
+    constructor(overlay: Overlay, element: ElementRef<HTMLElement>, viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, menuItemInstance: MatMenuItem, dir: Directionality, focusMonitor: FocusMonitor);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */
@@ -160,7 +166,7 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
     private _handleHover;
     /** Gets the portal that should be attached to the overlay. */
     private _getPortal;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuTriggerBase, [null, null, null, null, { optional: true; }, { optional: true; self: true; }, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuTriggerBase, [null, null, null, null, { optional: true; }, { optional: true; self: true; }, { optional: true; }, null, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuTriggerBase, never, never, { "_deprecatedMatMenuTriggerFor": "mat-menu-trigger-for"; "menu": "matMenuTriggerFor"; "menuData": "matMenuTriggerData"; "restoreFocus": "matMenuTriggerRestoreFocus"; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never>;
 }
 /** Directive applied to an element that should trigger a `mat-menu`. */
