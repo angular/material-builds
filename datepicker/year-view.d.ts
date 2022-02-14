@@ -60,6 +60,17 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     ngOnDestroy(): void;
     /** Handles when a new month is selected. */
     _monthSelected(event: MatCalendarUserEvent<number>): void;
+    /**
+     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
+     * that date.
+     *
+     * This fucntion is used to match each component's model of the active date with the calendar
+     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
+     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * updated value asynchronously via the `activeCell` Input.
+     */
+    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
     /** Handles keydown events on the calendar body when calendar is in year view. */
     _handleCalendarBodyKeydown(event: KeyboardEvent): void;
     /** Handles keyup events on the calendar body when calendar is in year view. */
@@ -68,11 +79,18 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     _init(): void;
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(): void;
+    /** Schedules the matCalendarBody to focus the active cell after change detection has run */
+    _focusActiveCellAfterViewChecked(): void;
     /**
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.
      */
     private _getMonthInCurrentYear;
+    /**
+     * Takes a month and returns a new date in the same day and year as the currently active date.
+     *  The returned date will have the same month as the argument date.
+     */
+    private _getDateFromMonth;
     /** Creates an MatCalendarCell for the given month. */
     private _createCellForMonth;
     /** Whether the given month is enabled. */
