@@ -71,8 +71,6 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
     protected _chipInput: MatChipTextControl;
     /** Uid of the chip list */
     _uid: string;
-    /** The aria-describedby attribute on the chip list for improved a11y. */
-    _ariaDescribedby: string;
     /** Tab index for the chip list. */
     _tabIndex: number;
     /**
@@ -91,6 +89,11 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
     get selected(): MatChip[] | MatChip;
     /** The ARIA role applied to the chip list. */
     get role(): string | null;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    userAriaDescribedBy: string;
     /** An object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
     /** Whether the user should be allowed to select multiple chips. */
@@ -269,6 +272,6 @@ export declare class MatChipList extends _MatChipListBase implements MatFormFiel
     /** Syncs the list's state with the individual chips. */
     private _syncChipsState;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipList, [null, null, { optional: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipList, "mat-chip-list", ["matChipList"], { "errorStateMatcher": "errorStateMatcher"; "multiple": "multiple"; "compareWith": "compareWith"; "value": "value"; "required": "required"; "placeholder": "placeholder"; "disabled": "disabled"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "tabIndex": "tabIndex"; }, { "change": "change"; "valueChange": "valueChange"; }, ["chips"], ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipList, "mat-chip-list", ["matChipList"], { "userAriaDescribedBy": "aria-describedby"; "errorStateMatcher": "errorStateMatcher"; "multiple": "multiple"; "compareWith": "compareWith"; "value": "value"; "required": "required"; "placeholder": "placeholder"; "disabled": "disabled"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "tabIndex": "tabIndex"; }, { "change": "change"; "valueChange": "valueChange"; }, ["chips"], ["*"]>;
 }
 export {};
