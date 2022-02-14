@@ -8,7 +8,7 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, TemplateRef, QueryList, OnInit } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, TemplateRef, QueryList, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatMenuContent } from './menu-content';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
@@ -42,6 +42,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     private _elementRef;
     private _ngZone;
     private _defaultOptions;
+    private _changeDetectorRef?;
     private _keyManager;
     private _xPosition;
     private _yPosition;
@@ -131,7 +132,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      */
     readonly close: EventEmitter<MenuCloseReason>;
     readonly panelId: string;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions, _changeDetectorRef?: ChangeDetectorRef | undefined);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -196,6 +197,10 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
 export declare class MatMenu extends _MatMenuBase {
     protected _elevationPrefix: string;
     protected _baseElevation: number;
+    /**
+     * @deprecated `changeDetectorRef` parameter will become a required parameter.
+     * @breaking-change 15.0.0
+     */
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenu, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], {}, {}, never, ["*"]>;
