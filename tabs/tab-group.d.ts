@@ -83,13 +83,17 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
      * Whether pagination should be disabled. This can be used to avoid unnecessary
      * layout recalculations if it's known that pagination won't be required.
      */
-    disablePagination: boolean;
+    get disablePagination(): boolean;
+    set disablePagination(value: BooleanInput);
+    private _disablePagination;
     /**
      * By default tabs remove their content from the DOM while it's off-screen.
      * Setting this to `true` will keep it in the DOM which will prevent elements
      * like iframes and videos from reloading next time it comes back into the view.
      */
-    preserveContent: boolean;
+    get preserveContent(): boolean;
+    set preserveContent(value: BooleanInput);
+    private _preserveContent;
     /** Background color of the tab group. */
     get backgroundColor(): ThemePalette;
     set backgroundColor(value: ThemePalette);

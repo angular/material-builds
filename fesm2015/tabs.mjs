@@ -15,7 +15,7 @@ import { Subject, Subscription, fromEvent, of, merge, timer } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import * as i1 from '@angular/cdk/bidi';
-import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 import * as i3 from '@angular/cdk/platform';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
@@ -669,11 +669,7 @@ class MatPaginatedTabHeader {
         this._disableScrollBefore = true;
         /** Stream that will stop the automated scrolling. */
         this._stopScrolling = new Subject();
-        /**
-         * Whether pagination should be disabled. This can be used to avoid unnecessary
-         * layout recalculations if it's known that pagination won't be required.
-         */
-        this.disablePagination = false;
+        this._disablePagination = false;
         this._selectedIndex = 0;
         /** Event emitted when the option is selected. */
         this.selectFocusedIndex = new EventEmitter();
@@ -687,6 +683,16 @@ class MatPaginatedTabHeader {
                 this._stopInterval();
             });
         });
+    }
+    /**
+     * Whether pagination should be disabled. This can be used to avoid unnecessary
+     * layout recalculations if it's known that pagination won't be required.
+     */
+    get disablePagination() {
+        return this._disablePagination;
+    }
+    set disablePagination(value) {
+        this._disablePagination = coerceBooleanProperty(value);
     }
     /** The index of the active tab. */
     get selectedIndex() {
@@ -1219,9 +1225,12 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         this._tabsSubscription = Subscription.EMPTY;
         /** Subscription to changes in the tab labels. */
         this._tabLabelSubscription = Subscription.EMPTY;
+        this._dynamicHeight = false;
         this._selectedIndex = null;
         /** Position of the tab header. */
         this.headerPosition = 'above';
+        this._disablePagination = false;
+        this._preserveContent = false;
         /** Output to enable support for two-way binding on `[(selectedIndex)]` */
         this.selectedIndexChange = new EventEmitter();
         /** Event emitted when focus has changed within a tab group. */
@@ -1274,6 +1283,27 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
     }
     set contentTabIndex(value) {
         this._contentTabIndex = coerceNumberProperty(value, null);
+    }
+    /**
+     * Whether pagination should be disabled. This can be used to avoid unnecessary
+     * layout recalculations if it's known that pagination won't be required.
+     */
+    get disablePagination() {
+        return this._disablePagination;
+    }
+    set disablePagination(value) {
+        this._disablePagination = coerceBooleanProperty(value);
+    }
+    /**
+     * By default tabs remove their content from the DOM while it's off-screen.
+     * Setting this to `true` will keep it in the DOM which will prevent elements
+     * like iframes and videos from reloading next time it comes back into the view.
+     */
+    get preserveContent() {
+        return this._preserveContent;
+    }
+    set preserveContent(value) {
+        this._preserveContent = coerceBooleanProperty(value);
     }
     /** Background color of the tab group. */
     get backgroundColor() {
