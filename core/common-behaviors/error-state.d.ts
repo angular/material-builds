@@ -11,8 +11,6 @@ import { ErrorStateMatcher } from '../error/error-options';
 import { AbstractConstructor, Constructor } from './constructor';
 /** @docs-private */
 export interface CanUpdateErrorState {
-    /** Emits whenever the component state changes. */
-    readonly stateChanges: Subject<void>;
     /** Updates the error state based on the provided error state matcher. */
     updateErrorState(): void;
     /** Whether the component is in an error state. */
@@ -27,6 +25,7 @@ export interface HasErrorState {
     _parentForm: NgForm;
     _defaultErrorStateMatcher: ErrorStateMatcher;
     ngControl: NgControl;
+    stateChanges: Subject<void>;
 }
 /**
  * Mixin to augment a directive with updateErrorState method.

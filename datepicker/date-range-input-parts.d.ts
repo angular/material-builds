@@ -41,7 +41,10 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     private _injector;
     _parentForm: NgForm;
     _parentFormGroup: FormGroupDirective;
-    /** @docs-private */
+    /**
+     * Form control bound to this input part.
+     * @docs-private
+     */
     ngControl: NgControl;
     /** @docs-private */
     abstract updateErrorState(): void;

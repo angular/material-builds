@@ -9,7 +9,7 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i1$1 from '@angular/cdk/platform';
 import { _isTestEnvironment, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
@@ -274,12 +274,6 @@ function mixinErrorState(base) {
     return class extends base {
         constructor(...args) {
             super(...args);
-            // This class member exists as an interop with `MatFormFieldControl` which expects
-            // a public `stateChanges` observable to emit whenever the form field should be updated.
-            // The description is not specifically mentioning the error state, as classes using this
-            // mixin can/should emit an event in other cases too.
-            /** Emits whenever the component state changes. */
-            this.stateChanges = new Subject();
             /** Whether the component is in an error state. */
             this.errorState = false;
         }

@@ -64,12 +64,22 @@ let nextUniqueId = 0;
 /** @docs-private */
 const _MatInputBase = mixinErrorState(class {
     constructor(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
-    /** @docs-private */
+    /**
+     * Form control bound to the component.
+     * Implemented as part of `MatFormFieldControl`.
+     * @docs-private
+     */
     ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
+        /**
+         * Emits whenever the component state changes and should cause the parent
+         * form-field to update. Implemented as part of `MatFormFieldControl`.
+         * @docs-private
+         */
+        this.stateChanges = new Subject();
     }
 });
 /** Directive that allows a native input to work inside a `MatFormField`. */

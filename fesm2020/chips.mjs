@@ -447,12 +447,22 @@ const MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options'
 /** @docs-private */
 const _MatChipListBase = mixinErrorState(class {
     constructor(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
-    /** @docs-private */
+    /**
+     * Form control bound to the component.
+     * Implemented as part of `MatFormFieldControl`.
+     * @docs-private
+     */
     ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
+        /**
+         * Emits whenever the component state changes and should cause the parent
+         * form-field to update. Implemented as part of `MatFormFieldControl`.
+         * @docs-private
+         */
+        this.stateChanges = new Subject();
     }
 });
 // Increasing integer for generating unique ids for chip-list components.

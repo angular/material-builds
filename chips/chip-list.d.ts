@@ -13,17 +13,27 @@ import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter,
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
 import { MatChipTextControl } from './chip-text-control';
 import * as i0 from "@angular/core";
 /** @docs-private */
 declare const _MatChipListBase: import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & {
     new (_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
+        /**
+         * Emits whenever the component state changes and should cause the parent
+         * form-field to update. Implemented as part of `MatFormFieldControl`.
+         * @docs-private
+         */
+        readonly stateChanges: Subject<void>;
         _defaultErrorStateMatcher: ErrorStateMatcher;
         _parentForm: NgForm;
         _parentFormGroup: FormGroupDirective;
-        /** @docs-private */
+        /**
+         * Form control bound to the component.
+         * Implemented as part of `MatFormFieldControl`.
+         * @docs-private
+         */
         ngControl: NgControl;
     };
 };

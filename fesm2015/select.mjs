@@ -173,12 +173,24 @@ class MatSelectChange {
 // Boilerplate for applying mixins to MatSelect.
 /** @docs-private */
 const _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(class {
-    constructor(_elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
+    constructor(_elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
+    /**
+     * Form control bound to the component.
+     * Implemented as part of `MatFormFieldControl`.
+     * @docs-private
+     */
+    ngControl) {
         this._elementRef = _elementRef;
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
+        /**
+         * Emits whenever the component state changes and should cause the parent
+         * form-field to update. Implemented as part of `MatFormFieldControl`.
+         * @docs-private
+         */
+        this.stateChanges = new Subject();
     }
 }))));
 /**
