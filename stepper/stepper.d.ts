@@ -38,38 +38,6 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, [null, { skipSelf: true; }, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": "color"; }, {}, ["stepLabel", "_lazyContent"], ["*"]>;
 }
-/**
- * Proxies the public APIs from `MatStepper` to the deprecated `MatHorizontalStepper` and
- * `MatVerticalStepper`.
- * @deprecated Use `MatStepper` instead.
- * @breaking-change 13.0.0
- * @docs-private
- */
-declare abstract class _MatProxyStepperBase extends CdkStepper {
-    readonly steps: QueryList<MatStep>;
-    readonly animationDone: EventEmitter<void>;
-    disableRipple: boolean;
-    color: ThemePalette;
-    labelPosition: 'bottom' | 'end';
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatProxyStepperBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatProxyStepperBase, never, never, {}, {}, never>;
-}
-/**
- * @deprecated Use `MatStepper` instead.
- * @breaking-change 13.0.0
- */
-export declare class MatHorizontalStepper extends _MatProxyStepperBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatHorizontalStepper, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHorizontalStepper, "mat-horizontal-stepper", never, {}, {}, never>;
-}
-/**
- * @deprecated Use `MatStepper` instead.
- * @breaking-change 13.0.0
- */
-export declare class MatVerticalStepper extends _MatProxyStepperBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatVerticalStepper, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatVerticalStepper, "mat-vertical-stepper", never, {}, {}, never>;
-}
 export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** The list of step headers of the steps in the stepper. */
     _stepHeader: QueryList<MatStepHeader>;
@@ -94,10 +62,9 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     _iconOverrides: Record<string, TemplateRef<MatStepperIconContext>>;
     /** Stream of animation `done` events when the body expands/collapses. */
     readonly _animationDone: Subject<AnimationEvent>;
-    constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _document: any);
+    constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>);
     ngAfterContentInit(): void;
     _stepIsNavigable(index: number, step: MatStep): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, [{ optional: true; }, null, null, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, [{ optional: true; }, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": "selectedIndex"; "disableRipple": "disableRipple"; "color": "color"; "labelPosition": "labelPosition"; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never>;
 }
-export {};
