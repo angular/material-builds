@@ -11,6 +11,8 @@ import { CanDisable, HasInitialized } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { SortDirection } from './sort-direction';
 import * as i0 from "@angular/core";
+/** Position of the arrow that displays when sorted. */
+export declare type SortHeaderArrowPosition = 'before' | 'after';
 /** Interface for a directive that holds sorting state consumed by `MatSortHeader`. */
 export interface MatSortable {
     /** The id of the column being sorted. */
@@ -31,6 +33,8 @@ export interface Sort {
 export interface MatSortDefaultOptions {
     /** Whether to disable clearing the sorting state. */
     disableClear?: boolean;
+    /** Position of the arrow that displays when sorted. */
+    arrowPosition?: SortHeaderArrowPosition;
 }
 /** Injection token to be used to override the default options for `mat-sort`. */
 export declare const MAT_SORT_DEFAULT_OPTIONS: InjectionToken<MatSortDefaultOptions>;
