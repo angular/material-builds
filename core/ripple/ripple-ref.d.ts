@@ -39,6 +39,7 @@ export declare class RippleRef {
     element: HTMLElement;
     /** Ripple configuration used for the ripple. */
     config: RippleConfig;
+    _animationForciblyDisabledThroughCss: boolean;
     /** Current state of the ripple. */
     state: RippleState;
     constructor(_renderer: {
@@ -47,7 +48,7 @@ export declare class RippleRef {
     /** Reference to the ripple HTML element. */
     element: HTMLElement, 
     /** Ripple configuration used for the ripple. */
-    config: RippleConfig);
+    config: RippleConfig, _animationForciblyDisabledThroughCss?: boolean);
     /** Fades out the ripple element. */
     fadeOut(): void;
 }
