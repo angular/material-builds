@@ -19,7 +19,7 @@ declare const _MatInputBase: import("@angular/material/core")._Constructor<CanUp
     new (_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
         /**
          * Emits whenever the component state changes and should cause the parent
-         * form-field to update. Implemented as part of `MatFormFieldControl`.
+         * form field to update. Implemented as part of `MatFormFieldControl`.
          * @docs-private
          */
         readonly stateChanges: Subject<void>;

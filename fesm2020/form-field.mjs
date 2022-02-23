@@ -299,6 +299,7 @@ class MatFormField extends _MatFormFieldBase {
         /** Whether the outline gap needs to be calculated next time the zone has stabilized. */
         this._outlineGapCalculationNeededOnStable = false;
         this._destroyed = new Subject();
+        this._hideRequiredMarker = false;
         /** Override for the logic that disables the label animation in certain cases. */
         this._showAlwaysAnimate = false;
         /** State of the mat-hint and mat-error animations. */
@@ -311,17 +312,21 @@ class MatFormField extends _MatFormFieldBase {
         this.floatLabel = this._getDefaultFloatLabelState();
         this._animationsEnabled = _animationMode !== 'NoopAnimations';
         // Set the default through here so we invoke the setter on the first run.
-        this.appearance = _defaults && _defaults.appearance ? _defaults.appearance : 'legacy';
-        this._hideRequiredMarker =
-            _defaults && _defaults.hideRequiredMarker != null ? _defaults.hideRequiredMarker : false;
+        this.appearance = _defaults?.appearance || 'legacy';
+        if (_defaults) {
+            this._hideRequiredMarker = Boolean(_defaults.hideRequiredMarker);
+            if (_defaults.color) {
+                this.color = this.defaultColor = _defaults.color;
+            }
+        }
     }
-    /** The form-field appearance style. */
+    /** The form field appearance style. */
     get appearance() {
         return this._appearance;
     }
     set appearance(value) {
         const oldValue = this._appearance;
-        this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
+        this._appearance = value || this._defaults?.appearance || 'legacy';
         if (this._appearance === 'outline' && oldValue !== value) {
             this._outlineGapCalculationNeededOnStable = true;
         }
@@ -381,7 +386,7 @@ class MatFormField extends _MatFormFieldBase {
         return this._hasFloatingLabel() ? this._labelId : null;
     }
     /**
-     * Gets an ElementRef for the element that a overlay attached to the form-field should be
+     * Gets an ElementRef for the element that a overlay attached to the form field should be
      * positioned relative to.
      */
     getConnectedOverlayOrigin() {
