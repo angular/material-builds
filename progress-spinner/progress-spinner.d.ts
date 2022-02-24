@@ -100,23 +100,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     /** Returns the circle diameter formatted for use with the animation-name CSS property. */
     private _getSpinnerAnimationLabel;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null, null, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never>;
-}
-/**
- * `<mat-spinner>` component.
- *
- * This is a component definition to be used as a convenience reference to create an
- * indeterminate `<mat-progress-spinner>` instance.
- */
-export declare class MatSpinner extends MatProgressSpinner {
-    constructor(elementRef: ElementRef<HTMLElement>, platform: Platform, document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions, 
-    /**
-     * @deprecated `changeDetectorRef`, `viewportRuler` and `ngZone`
-     * parameters to become required.
-     * @breaking-change 14.0.0
-     */
-    changeDetectorRef?: ChangeDetectorRef, viewportRuler?: ViewportRuler, ngZone?: NgZone);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSpinner, [null, null, { optional: true; }, { optional: true; }, null, null, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSpinner, "mat-spinner", never, { "color": "color"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never>;
 }
 export {};
