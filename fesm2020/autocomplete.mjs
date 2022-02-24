@@ -13,7 +13,7 @@ import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import * as i3 from '@angular/cdk/scrolling';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i2$1 from '@angular/cdk/bidi';
-import { ESCAPE, hasModifierKey, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
+import { hasModifierKey, ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as i4 from '@angular/material/form-field';
@@ -502,14 +502,15 @@ class _MatAutocompleteTriggerBase {
     }
     _handleKeydown(event) {
         const keyCode = event.keyCode;
+        const hasModifier = hasModifierKey(event);
         // Prevent the default action on all escape key presses. This is here primarily to bring IE
         // in line with other browsers. By default, pressing escape on IE will cause it to revert
         // the input value to the one that it had on focus, however it won't dispatch any events
         // which means that the model value will be out of sync with the view.
-        if (keyCode === ESCAPE && !hasModifierKey(event)) {
+        if (keyCode === ESCAPE && !hasModifier) {
             event.preventDefault();
         }
-        if (this.activeOption && keyCode === ENTER && this.panelOpen && !hasModifierKey(event)) {
+        if (this.activeOption && keyCode === ENTER && this.panelOpen && !hasModifier) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
@@ -517,7 +518,7 @@ class _MatAutocompleteTriggerBase {
         else if (this.autocomplete) {
             const prevActiveItem = this.autocomplete._keyManager.activeItem;
             const isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
-            if (this.panelOpen || keyCode === TAB) {
+            if (keyCode === TAB || (isArrowKey && !hasModifier && this.panelOpen)) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
             else if (isArrowKey && this._canOpen()) {
