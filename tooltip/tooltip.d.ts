@@ -10,7 +10,7 @@ import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { ConnectedPosition, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollStrategy, ConnectedPosition } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ComponentType } from '@angular/cdk/portal';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
@@ -51,11 +51,18 @@ export declare const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: {
 };
 /** Default `matTooltip` options that can be overridden. */
 export interface MatTooltipDefaultOptions {
+    /** Default delay when the tooltip is shown. */
     showDelay: number;
+    /** Default delay when the tooltip is hidden. */
     hideDelay: number;
+    /** Default delay when hiding the tooltip on a touch device. */
     touchendHideDelay: number;
+    /** Default touch gesture handling for tooltips. */
     touchGestures?: TooltipTouchGestures;
+    /** Default position for tooltips. */
     position?: TooltipPosition;
+    /** Disables the ability for the user to interact with the tooltip element. */
+    disableTooltipInteractivity?: boolean;
 }
 /** Injection token to be used to override the default options for `matTooltip`. */
 export declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;
@@ -214,6 +221,10 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
     _hideTimeoutId: number | undefined;
     /** Property watched by the animation framework to show or hide the tooltip */
     _visibility: TooltipVisibility;
+    /** Element that caused the tooltip to open. */
+    _triggerElement: HTMLElement;
+    /** Amount of milliseconds to delay the closing sequence. */
+    _mouseLeaveHideDelay: number;
     /** Whether interactions on the page should close the tooltip */
     private _closeOnInteraction;
     /** Subject for notifying that the tooltip has been hidden from the view */
@@ -248,6 +259,7 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
      * can be problematic in components with OnPush change detection.
      */
     _markForCheck(): void;
+    _handleMouseLeave({ relatedTarget }: MouseEvent): void;
     /**
      * Callback for when the timeout in this.show() gets completed.
      * This method is only needed by the mdc-tooltip, and so it is only implemented
