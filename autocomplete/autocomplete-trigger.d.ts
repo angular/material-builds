@@ -143,6 +143,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     _handleKeydown(event: KeyboardEvent): void;
     _handleInput(event: KeyboardEvent): void;
     _handleFocus(): void;
+    _handleClick(): void;
     /**
      * In "auto" mode, the label will animate down as soon as focus is lost.
      * This causes the value to jump when selecting an option with the mouse.
