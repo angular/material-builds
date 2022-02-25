@@ -191,6 +191,9 @@ class _MatTooltipBase {
     }
     set hideDelay(value) {
         this._hideDelay = coerceNumberProperty(value);
+        if (this._tooltipInstance) {
+            this._tooltipInstance._mouseLeaveHideDelay = this._hideDelay;
+        }
     }
     /** The message to be displayed in the tooltip */
     get message() {
@@ -279,14 +282,16 @@ class _MatTooltipBase {
         this._detach();
         this._portal =
             this._portal || new ComponentPortal(this._tooltipComponent, this._viewContainerRef);
-        this._tooltipInstance = overlayRef.attach(this._portal).instance;
-        this._tooltipInstance
+        const instance = (this._tooltipInstance = overlayRef.attach(this._portal).instance);
+        instance._triggerElement = this._elementRef.nativeElement;
+        instance._mouseLeaveHideDelay = this._hideDelay;
+        instance
             .afterHidden()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => this._detach());
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage();
-        this._tooltipInstance.show(delay);
+        instance.show(delay);
     }
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
     hide(delay = this.hideDelay) {
@@ -351,6 +356,9 @@ class _MatTooltipBase {
                 this._ngZone.run(() => this.hide(0));
             }
         });
+        if (this._defaultOptions?.disableTooltipInteractivity) {
+            this._overlayRef.addPanelClass(`${this._cssClassPrefix}-tooltip-panel-non-interactive`);
+        }
         return this._overlayRef;
     }
     /** Detaches the currently-attached tooltip. */
@@ -547,7 +555,15 @@ class _MatTooltipBase {
         this._pointerExitEventsInitialized = true;
         const exitListeners = [];
         if (this._platformSupportsMouseEvents()) {
-            exitListeners.push(['mouseleave', () => this.hide()], ['wheel', event => this._wheelListener(event)]);
+            exitListeners.push([
+                'mouseleave',
+                event => {
+                    const newTarget = event.relatedTarget;
+                    if (!newTarget || !this._overlayRef?.overlayElement.contains(newTarget)) {
+                        this.hide();
+                    }
+                },
+            ], ['wheel', event => this._wheelListener(event)]);
         }
         else if (this.touchGestures !== 'off') {
             this._disableNativeGesturesIfNecessary();
@@ -728,6 +744,7 @@ class _TooltipComponentBase {
         clearTimeout(this._showTimeoutId);
         clearTimeout(this._hideTimeoutId);
         this._onHide.complete();
+        this._triggerElement = null;
     }
     _animationStart() {
         this._closeOnInteraction = false;
@@ -759,6 +776,11 @@ class _TooltipComponentBase {
     _markForCheck() {
         this._changeDetectorRef.markForCheck();
     }
+    _handleMouseLeave({ relatedTarget }) {
+        if (!relatedTarget || !this._triggerElement.contains(relatedTarget)) {
+            this.hide(this._mouseLeaveHideDelay);
+        }
+    }
     /**
      * Callback for when the timeout in this.show() gets completed.
      * This method is only needed by the mdc-tooltip, and so it is only implemented
@@ -784,15 +806,16 @@ class TooltipComponent extends _TooltipComponentBase {
     }
 }
 TooltipComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: TooltipComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: i6.BreakpointObserver }], target: i0.ɵɵFactoryTarget.Component });
-TooltipComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: TooltipComponent, selector: "mat-tooltip-component", host: { attributes: { "aria-hidden": "true" }, properties: { "style.zoom": "_visibility === \"visible\" ? 1 : null" } }, usesInheritance: true, ngImport: i0, template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n", styles: [".mat-tooltip-panel{pointer-events:none !important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}\n"], directives: [{ type: i7.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], pipes: { "async": i7.AsyncPipe }, animations: [matTooltipAnimations.tooltipState], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+TooltipComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: TooltipComponent, selector: "mat-tooltip-component", host: { attributes: { "aria-hidden": "true" }, listeners: { "mouseleave": "_handleMouseLeave($event)" }, properties: { "style.zoom": "_visibility === \"visible\" ? 1 : null" } }, usesInheritance: true, ngImport: i0, template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n", styles: [".mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}.mat-tooltip-panel-non-interactive{pointer-events:none}\n"], directives: [{ type: i7.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], pipes: { "async": i7.AsyncPipe }, animations: [matTooltipAnimations.tooltipState], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: TooltipComponent, decorators: [{
             type: Component,
             args: [{ selector: 'mat-tooltip-component', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, animations: [matTooltipAnimations.tooltipState], host: {
                         // Forces the element to have a layout in IE and Edge. This fixes issues where the element
                         // won't be rendered if the animations are disabled or there is no web animations polyfill.
                         '[style.zoom]': '_visibility === "visible" ? 1 : null',
+                        '(mouseleave)': '_handleMouseLeave($event)',
                         'aria-hidden': 'true',
-                    }, template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n", styles: [".mat-tooltip-panel{pointer-events:none !important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}\n"] }]
+                    }, template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n", styles: [".mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}.mat-tooltip-panel-non-interactive{pointer-events:none}\n"] }]
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i6.BreakpointObserver }]; } });
 
 /**
