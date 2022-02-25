@@ -54,7 +54,7 @@ const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-de
 });
 /** @docs-private */
 function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
-    return { autoActiveFirstOption: false };
+    return { autoActiveFirstOption: false, autoSelectActiveOption: false };
 }
 /** Base class with all of the `MatAutocomplete` functionality. */
 class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
@@ -85,6 +85,7 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
         // option altogether.
         this.inertGroups = platform?.SAFARI || false;
         this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
+        this._autoSelectActiveOption = !!defaults.autoSelectActiveOption;
     }
     /** Whether the autocomplete panel is open. */
     get isOpen() {
@@ -99,6 +100,13 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
     }
     set autoActiveFirstOption(value) {
         this._autoActiveFirstOption = coerceBooleanProperty(value);
+    }
+    /** Whether the active option should be selected as the user is navigating. */
+    get autoSelectActiveOption() {
+        return this._autoSelectActiveOption;
+    }
+    set autoSelectActiveOption(value) {
+        this._autoSelectActiveOption = coerceBooleanProperty(value);
     }
     /**
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
@@ -169,7 +177,7 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
     }
 }
 _MatAutocompleteBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatAutocompleteBase, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS }, { token: i1.Platform }], target: i0.ɵɵFactoryTarget.Directive });
-_MatAutocompleteBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: _MatAutocompleteBase, inputs: { ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], displayWith: "displayWith", autoActiveFirstOption: "autoActiveFirstOption", panelWidth: "panelWidth", classList: ["class", "classList"] }, outputs: { optionSelected: "optionSelected", opened: "opened", closed: "closed", optionActivated: "optionActivated" }, viewQueries: [{ propertyName: "template", first: true, predicate: TemplateRef, descendants: true, static: true }, { propertyName: "panel", first: true, predicate: ["panel"], descendants: true }], usesInheritance: true, ngImport: i0 });
+_MatAutocompleteBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: _MatAutocompleteBase, inputs: { ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], displayWith: "displayWith", autoActiveFirstOption: "autoActiveFirstOption", autoSelectActiveOption: "autoSelectActiveOption", panelWidth: "panelWidth", classList: ["class", "classList"] }, outputs: { optionSelected: "optionSelected", opened: "opened", closed: "closed", optionActivated: "optionActivated" }, viewQueries: [{ propertyName: "template", first: true, predicate: TemplateRef, descendants: true, static: true }, { propertyName: "panel", first: true, predicate: ["panel"], descendants: true }], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatAutocompleteBase, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i0.ElementRef }, { type: undefined, decorators: [{
@@ -190,6 +198,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
             }], displayWith: [{
                 type: Input
             }], autoActiveFirstOption: [{
+                type: Input
+            }], autoSelectActiveOption: [{
                 type: Input
             }], panelWidth: [{
                 type: Input
@@ -422,6 +432,7 @@ class _MatAutocompleteTriggerBase {
             this.autocomplete.closed.emit();
         }
         this.autocomplete._isOpen = this._overlayAttached = false;
+        this._pendingAutoselectedOption = null;
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
             this._closingActionsSubscription.unsubscribe();
@@ -486,7 +497,7 @@ class _MatAutocompleteTriggerBase {
     }
     // Implemented as part of ControlValueAccessor.
     writeValue(value) {
-        Promise.resolve().then(() => this._setTriggerValue(value));
+        Promise.resolve(null).then(() => this._assignOptionValue(value));
     }
     // Implemented as part of ControlValueAccessor.
     registerOnChange(fn) {
@@ -526,6 +537,13 @@ class _MatAutocompleteTriggerBase {
             }
             if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
                 this._scrollToOption(this.autocomplete._keyManager.activeItemIndex || 0);
+                if (this.autocomplete.autoSelectActiveOption && this.activeOption) {
+                    if (!this._pendingAutoselectedOption) {
+                        this._valueBeforeAutoSelection = this._element.nativeElement.value;
+                    }
+                    this._pendingAutoselectedOption = this.activeOption;
+                    this._assignOptionValue(this.activeOption.value);
+                }
             }
         }
     }
@@ -543,6 +561,7 @@ class _MatAutocompleteTriggerBase {
         // See: https://connect.microsoft.com/IE/feedback/details/885747/
         if (this._previousValue !== value) {
             this._previousValue = value;
+            this._pendingAutoselectedOption = null;
             this._onChange(value);
             if (this._canOpen() && this._document.activeElement === event.target) {
                 this.openPanel();
@@ -632,22 +651,24 @@ class _MatAutocompleteTriggerBase {
             this._overlayRef = null;
         }
     }
-    _setTriggerValue(value) {
+    _assignOptionValue(value) {
         const toDisplay = this.autocomplete && this.autocomplete.displayWith
             ? this.autocomplete.displayWith(value)
             : value;
         // Simply falling back to an empty string if the display value is falsy does not work properly.
         // The display value can also be the number zero and shouldn't fall back to an empty string.
-        const inputValue = toDisplay != null ? toDisplay : '';
+        this._updateNativeInputValue(toDisplay != null ? toDisplay : '');
+    }
+    _updateNativeInputValue(value) {
         // If it's used within a `MatFormField`, we should set it through the property so it can go
         // through change detection.
         if (this._formField) {
-            this._formField._control.value = inputValue;
+            this._formField._control.value = value;
         }
         else {
-            this._element.nativeElement.value = inputValue;
+            this._element.nativeElement.value = value;
         }
-        this._previousValue = inputValue;
+        this._previousValue = value;
     }
     /**
      * This method closes the panel, and if a value is specified, also sets the associated
@@ -655,12 +676,12 @@ class _MatAutocompleteTriggerBase {
      * stemmed from the user.
      */
     _setValueAndClose(event) {
-        const source = event && event.source;
-        if (source) {
-            this._clearPreviousSelectedOption(source);
-            this._setTriggerValue(source.value);
-            this._onChange(source.value);
-            this.autocomplete._emitSelectEvent(source);
+        const toSelect = event ? event.source : this._pendingAutoselectedOption;
+        if (toSelect) {
+            this._clearPreviousSelectedOption(toSelect);
+            this._assignOptionValue(toSelect.value);
+            this._onChange(toSelect.value);
+            this.autocomplete._emitSelectEvent(toSelect);
             this._element.nativeElement.focus();
         }
         this.closePanel();
@@ -686,21 +707,7 @@ class _MatAutocompleteTriggerBase {
             });
             overlayRef = this._overlay.create(this._getOverlayConfig());
             this._overlayRef = overlayRef;
-            // Use the `keydownEvents` in order to take advantage of
-            // the overlay event targeting provided by the CDK overlay.
-            overlayRef.keydownEvents().subscribe(event => {
-                // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
-                // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-                if ((event.keyCode === ESCAPE && !hasModifierKey(event)) ||
-                    (event.keyCode === UP_ARROW && hasModifierKey(event, 'altKey'))) {
-                    this._closeKeyEventStream.next();
-                    this._resetActiveItem();
-                    // We need to stop propagation, otherwise the event will eventually
-                    // reach the input itself and cause the overlay to be reopened.
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            });
+            this._handleOverlayEvents(overlayRef);
             this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
                 if (this.panelOpen && overlayRef) {
                     overlayRef.updateSize({ width: this._getPanelWidth() });
@@ -834,6 +841,30 @@ class _MatAutocompleteTriggerBase {
                 autocomplete._setScrollTop(newScrollPosition);
             }
         }
+    }
+    /** Handles keyboard events coming from the overlay panel. */
+    _handleOverlayEvents(overlayRef) {
+        // Use the `keydownEvents` in order to take advantage of
+        // the overlay event targeting provided by the CDK overlay.
+        overlayRef.keydownEvents().subscribe(event => {
+            // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
+            // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
+            if ((event.keyCode === ESCAPE && !hasModifierKey(event)) ||
+                (event.keyCode === UP_ARROW && hasModifierKey(event, 'altKey'))) {
+                // If the user had typed something in before we autoselected an option, and they decided
+                // to cancel the selection, restore the input value to the one they had typed in.
+                if (this._pendingAutoselectedOption) {
+                    this._updateNativeInputValue(this._valueBeforeAutoSelection ?? '');
+                    this._pendingAutoselectedOption = null;
+                }
+                this._closeKeyEventStream.next();
+                this._resetActiveItem();
+                // We need to stop propagation, otherwise the event will eventually
+                // reach the input itself and cause the overlay to be reopened.
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
     }
 }
 _MatAutocompleteTriggerBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatAutocompleteTriggerBase, deps: [{ token: i0.ElementRef }, { token: i1$1.Overlay }, { token: i0.ViewContainerRef }, { token: i0.NgZone }, { token: i0.ChangeDetectorRef }, { token: MAT_AUTOCOMPLETE_SCROLL_STRATEGY }, { token: i2$1.Directionality, optional: true }, { token: MAT_FORM_FIELD, host: true, optional: true }, { token: DOCUMENT, optional: true }, { token: i3.ViewportRuler }, { token: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Directive });

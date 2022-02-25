@@ -38,6 +38,8 @@ declare const _MatAutocompleteMixinBase: import("@angular/material/core")._Const
 export interface MatAutocompleteDefaultOptions {
     /** Whether the first option should be highlighted when an autocomplete panel is opened. */
     autoActiveFirstOption?: boolean;
+    /** Whether the active option should be selected as the user is navigating. */
+    autoSelectActiveOption?: boolean;
     /** Class or list of classes to be applied to the autocomplete's overlay panel. */
     overlayPanelClass?: string | string[];
 }
@@ -82,6 +84,10 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     get autoActiveFirstOption(): boolean;
     set autoActiveFirstOption(value: BooleanInput);
     private _autoActiveFirstOption;
+    /** Whether the active option should be selected as the user is navigating. */
+    get autoSelectActiveOption(): boolean;
+    set autoSelectActiveOption(value: BooleanInput);
+    private _autoSelectActiveOption;
     /**
      * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
      * match the width of its host.
@@ -129,7 +135,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "autoSelectActiveOption": "autoSelectActiveOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never>;
 }
 export declare class MatAutocomplete extends _MatAutocompleteBase {
     /** Reference to all option groups within the autocomplete. */
