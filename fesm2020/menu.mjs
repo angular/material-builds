@@ -245,6 +245,7 @@ class MatMenuItem extends _MatMenuItemBase {
     constructor(_elementRef, _document, _focusMonitor, _parentMenu, _changeDetectorRef) {
         super();
         this._elementRef = _elementRef;
+        this._document = _document;
         this._focusMonitor = _focusMonitor;
         this._parentMenu = _parentMenu;
         this._changeDetectorRef = _changeDetectorRef;
@@ -324,6 +325,9 @@ class MatMenuItem extends _MatMenuItemBase {
         // @breaking-change 12.0.0 Remove null check for `_changeDetectorRef`.
         this._highlighted = isHighlighted;
         this._changeDetectorRef?.markForCheck();
+    }
+    _hasFocus() {
+        return this._document && this._document.activeElement === this._getHostElement();
     }
 }
 MatMenuItem.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatMenuItem, deps: [{ token: i0.ElementRef }, { token: DOCUMENT }, { token: i1.FocusMonitor }, { token: MAT_MENU_PANEL, optional: true }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Component });
@@ -501,6 +505,22 @@ class _MatMenuBase {
         this._directDescendantItems.changes
             .pipe(startWith(this._directDescendantItems), switchMap(items => merge(...items.map((item) => item._focused))))
             .subscribe(focusedItem => this._keyManager.updateActiveItem(focusedItem));
+        this._directDescendantItems.changes.subscribe((itemsList) => {
+            // Move focus to another item, if the active item is removed from the list.
+            // We need to debounce the callback, because multiple items might be removed
+            // in quick succession.
+            const manager = this._keyManager;
+            if (this._panelAnimationState === 'enter' && manager.activeItem?._hasFocus()) {
+                const items = itemsList.toArray();
+                const index = Math.max(0, Math.min(items.length - 1, manager.activeItemIndex || 0));
+                if (items[index] && !items[index].disabled) {
+                    manager.setActiveItem(index);
+                }
+                else {
+                    manager.setNextItemActive();
+                }
+            }
+        });
     }
     ngOnDestroy() {
         this._directDescendantItems.destroy();
