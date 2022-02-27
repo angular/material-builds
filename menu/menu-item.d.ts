@@ -20,6 +20,7 @@ declare const _MatMenuItemBase: import("@angular/material/core")._Constructor<Ca
  */
 export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOption, CanDisable, CanDisableRipple, AfterViewInit, OnDestroy {
     private _elementRef;
+    private _document?;
     private _focusMonitor?;
     _parentMenu?: MatMenuPanel<MatMenuItem> | undefined;
     private _changeDetectorRef?;
@@ -34,8 +35,7 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
     /**
-     * @deprecated `document` parameter to be removed, `changeDetectorRef` and
-     * `focusMonitor` to become required.
+     * @deprecated `_document`, `changeDetectorRef` and `focusMonitor` to become required.
      * @breaking-change 12.0.0
      */
     constructor(elementRef: ElementRef<HTMLElement>, document?: any, focusMonitor?: FocusMonitor, parentMenu?: MatMenuPanel<MatMenuItem>, changeDetectorRef?: ChangeDetectorRef);
@@ -54,6 +54,7 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     /** Gets the label to be used when determining whether the option should be focused. */
     getLabel(): string;
     _setHighlighted(isHighlighted: boolean): void;
+    _hasFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, [null, null, null, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "role": "role"; }, {}, never, ["*"]>;
 }
