@@ -22,7 +22,11 @@ export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     deps: (typeof Overlay)[];
     useFactory: typeof MAT_MENU_SCROLL_STRATEGY_FACTORY;
 };
-/** Default top padding of the menu panel. */
+/**
+ * Default top padding of the menu panel.
+ * @deprecated No longer being used. Will be removed.
+ * @breaking-change 15.0.0
+ */
 export declare const MENU_PANEL_TOP_PADDING = 8;
 export declare abstract class _MatMenuTriggerBase implements AfterContentInit, OnDestroy {
     private _overlay;
@@ -44,6 +48,11 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
      * interface lacks some functionality around nested menus and animations.
      */
     private _parentMaterialMenu;
+    /**
+     * Cached value of the padding of the parent menu panel.
+     * Used to offset sub-menus to compensate for the padding.
+     */
+    private _parentInnerPadding;
     /**
      * Handles touch start events on the trigger.
      * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
