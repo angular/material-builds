@@ -74,9 +74,9 @@ export declare class MatIconRegistry implements OnDestroy {
     /** Registered icon resolver functions. */
     private _resolvers;
     /**
-     * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
-     * The default 'material-icons' value assumes that the material icon font has been loaded as
-     * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
+     * The CSS classes to apply when an `<mat-icon>` component has no icon name, url, or font
+     * specified. The default 'material-icons' value assumes that the material icon font has been
+     * loaded as described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
     private _defaultFontSetClass;
     constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any, _errorHandler: ErrorHandler);
@@ -152,17 +152,15 @@ export declare class MatIconRegistry implements OnDestroy {
      */
     classNameForFontAlias(alias: string): string;
     /**
-     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * Sets the CSS classes to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
-     *
-     * @param className
      */
-    setDefaultFontSetClass(className: string): this;
+    setDefaultFontSetClass(...classNames: string[]): this;
     /**
-     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * Returns the CSS classes to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      */
-    getDefaultFontSetClass(): string;
+    getDefaultFontSetClass(): string[];
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
      * The response from the URL may be cached so this will not always cause an HTTP request, but

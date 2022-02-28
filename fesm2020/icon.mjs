@@ -137,11 +137,11 @@ class MatIconRegistry {
         /** Registered icon resolver functions. */
         this._resolvers = [];
         /**
-         * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
-         * The default 'material-icons' value assumes that the material icon font has been loaded as
-         * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
+         * The CSS classes to apply when an `<mat-icon>` component has no icon name, url, or font
+         * specified. The default 'material-icons' value assumes that the material icon font has been
+         * loaded as described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
-        this._defaultFontSetClass = 'material-icons';
+        this._defaultFontSetClass = ['material-icons'];
         this._document = document;
     }
     /**
@@ -253,17 +253,15 @@ class MatIconRegistry {
         return this._fontCssClassesByAlias.get(alias) || alias;
     }
     /**
-     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * Sets the CSS classes to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
-     *
-     * @param className
      */
-    setDefaultFontSetClass(className) {
-        this._defaultFontSetClass = className;
+    setDefaultFontSetClass(...classNames) {
+        this._defaultFontSetClass = classNames;
         return this;
     }
     /**
-     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * Returns the CSS classes to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      */
     getDefaultFontSetClass() {
@@ -713,6 +711,7 @@ class MatIcon extends _MatIconBase {
         this._location = _location;
         this._errorHandler = _errorHandler;
         this._inline = false;
+        this._previousFontSetClass = [];
         /** Subscription to the current in-progress SVG icon request. */
         this._currentIconFetch = Subscription.EMPTY;
         if (defaults) {
@@ -872,19 +871,13 @@ class MatIcon extends _MatIconBase {
             return;
         }
         const elem = this._elementRef.nativeElement;
-        const fontSetClass = this.fontSet
-            ? this._iconRegistry.classNameForFontAlias(this.fontSet)
-            : this._iconRegistry.getDefaultFontSetClass();
-        if (fontSetClass != this._previousFontSetClass) {
-            if (this._previousFontSetClass) {
-                elem.classList.remove(this._previousFontSetClass);
-            }
-            if (fontSetClass) {
-                elem.classList.add(fontSetClass);
-            }
-            this._previousFontSetClass = fontSetClass;
-        }
-        if (this.fontIcon != this._previousFontIconClass) {
+        const fontSetClasses = (this.fontSet
+            ? [this._iconRegistry.classNameForFontAlias(this.fontSet)]
+            : this._iconRegistry.getDefaultFontSetClass()).filter(className => className.length > 0);
+        this._previousFontSetClass.forEach(className => elem.classList.remove(className));
+        fontSetClasses.forEach(className => elem.classList.add(className));
+        this._previousFontSetClass = fontSetClasses;
+        if (this.fontIcon !== this._previousFontIconClass) {
             if (this._previousFontIconClass) {
                 elem.classList.remove(this._previousFontIconClass);
             }

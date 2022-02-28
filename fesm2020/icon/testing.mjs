@@ -108,7 +108,7 @@ class FakeMatIconRegistry {
         return alias;
     }
     getDefaultFontSetClass() {
-        return 'material-icons';
+        return ['material-icons'];
     }
     getSvgIconFromUrl() {
         return of(this._generateEmptySvg());

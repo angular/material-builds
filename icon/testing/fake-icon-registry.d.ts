@@ -27,7 +27,7 @@ export declare class FakeMatIconRegistry implements PublicApi<MatIconRegistry>, 
     addSvgIconSetLiteralInNamespace(): this;
     registerFontClassAlias(): this;
     classNameForFontAlias(alias: string): string;
-    getDefaultFontSetClass(): string;
+    getDefaultFontSetClass(): string[];
     getSvgIconFromUrl(): Observable<SVGElement>;
     getNamedSvgIcon(): Observable<SVGElement>;
     setDefaultFontSetClass(): this;
