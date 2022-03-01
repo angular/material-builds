@@ -4,7 +4,7 @@ import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import * as i3 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, SkipSelf, Inject, Input, Output, ContentChild, ViewChild, Host, Attribute, QueryList, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Inject, Optional, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, SkipSelf, Input, Output, ContentChild, ViewChild, Host, Attribute, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { mixinTabIndex, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import * as i2$1 from '@angular/cdk/a11y';
@@ -84,22 +84,41 @@ const matExpansionAnimations = {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Token used to provide a `MatExpansionPanel` to `MatExpansionPanelContent`.
+ * Used to avoid circular imports between `MatExpansionPanel` and `MatExpansionPanelContent`.
+ */
+const MAT_EXPANSION_PANEL = new InjectionToken('MAT_EXPANSION_PANEL');
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Expansion panel content that will be rendered lazily
  * after the panel is opened for the first time.
  */
 class MatExpansionPanelContent {
-    constructor(_template) {
+    constructor(_template, _expansionPanel) {
         this._template = _template;
+        this._expansionPanel = _expansionPanel;
     }
 }
-MatExpansionPanelContent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.4", ngImport: i0, type: MatExpansionPanelContent, deps: [{ token: i0.TemplateRef }], target: i0.ɵɵFactoryTarget.Directive });
+MatExpansionPanelContent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.4", ngImport: i0, type: MatExpansionPanelContent, deps: [{ token: i0.TemplateRef }, { token: MAT_EXPANSION_PANEL, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
 MatExpansionPanelContent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "14.0.0-next.4", type: MatExpansionPanelContent, selector: "ng-template[matExpansionPanelContent]", ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.4", ngImport: i0, type: MatExpansionPanelContent, decorators: [{
             type: Directive,
             args: [{
                     selector: 'ng-template[matExpansionPanelContent]',
                 }]
-        }], ctorParameters: function () { return [{ type: i0.TemplateRef }]; } });
+        }], ctorParameters: function () { return [{ type: i0.TemplateRef }, { type: undefined, decorators: [{
+                    type: Inject,
+                    args: [MAT_EXPANSION_PANEL]
+                }, {
+                    type: Optional
+                }] }]; } });
 
 /** Counter for generating unique element ids. */
 let uniqueId = 0;
@@ -188,7 +207,7 @@ class MatExpansionPanel extends CdkAccordionItem {
         this.expanded = true;
     }
     ngAfterContentInit() {
-        if (this._lazyContent) {
+        if (this._lazyContent && this._lazyContent._expansionPanel === this) {
             // Render the content as soon as the panel becomes open.
             this.opened
                 .pipe(startWith(null), filter(() => this.expanded && !this._portal), take(1))
@@ -220,6 +239,7 @@ MatExpansionPanel.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", vers
         // Provide MatAccordion as undefined to prevent nested expansion panels from registering
         // to the same accordion.
         { provide: MAT_ACCORDION, useValue: undefined },
+        { provide: MAT_EXPANSION_PANEL, useExisting: MatExpansionPanel },
     ], queries: [{ propertyName: "_lazyContent", first: true, predicate: MatExpansionPanelContent, descendants: true }], viewQueries: [{ propertyName: "_body", first: true, predicate: ["body"], descendants: true }], exportAs: ["matExpansionPanel"], usesInheritance: true, usesOnChanges: true, ngImport: i0, template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content>\n<div class=\"mat-expansion-panel-content\"\n     role=\"region\"\n     [@bodyExpansion]=\"_getExpandedState()\"\n     (@bodyExpansion.done)=\"_bodyAnimationDone.next($event)\"\n     [attr.aria-labelledby]=\"_headerId\"\n     [id]=\"id\"\n     #body>\n  <div class=\"mat-expansion-panel-body\">\n    <ng-content></ng-content>\n    <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n  </div>\n  <ng-content select=\"mat-action-row\"></ng-content>\n</div>\n", styles: [".mat-expansion-panel{box-sizing:content-box;display:block;margin:0;border-radius:4px;overflow:hidden;transition:margin 225ms cubic-bezier(0.4, 0, 0.2, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);position:relative}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:4px;border-top-left-radius:4px}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:4px;border-bottom-left-radius:4px}.cdk-high-contrast-active .mat-expansion-panel{outline:solid 1px}.mat-expansion-panel.ng-animate-disabled,.ng-animate-disabled .mat-expansion-panel,.mat-expansion-panel._mat-animation-noopable{transition:none}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>*:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button-base,.mat-action-row button.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button-base,[dir=rtl] .mat-action-row button.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"], directives: [{ type: i2.CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], animations: [matExpansionAnimations.bodyExpansion], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.4", ngImport: i0, type: MatExpansionPanel, decorators: [{
             type: Component,
@@ -227,6 +247,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.4", 
                         // Provide MatAccordion as undefined to prevent nested expansion panels from registering
                         // to the same accordion.
                         { provide: MAT_ACCORDION, useValue: undefined },
+                        { provide: MAT_EXPANSION_PANEL, useExisting: MatExpansionPanel },
                     ], host: {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
@@ -652,5 +673,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.4", 
  * Generated bundle index. Do not edit.
  */
 
-export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle, matExpansionAnimations };
+export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle, matExpansionAnimations };
 //# sourceMappingURL=expansion.mjs.map

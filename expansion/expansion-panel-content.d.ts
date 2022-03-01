@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { TemplateRef } from '@angular/core';
+import { MatExpansionPanelBase } from './expansion-panel-base';
 import * as i0 from "@angular/core";
 /**
  * Expansion panel content that will be rendered lazily
@@ -13,7 +14,8 @@ import * as i0 from "@angular/core";
  */
 export declare class MatExpansionPanelContent {
     _template: TemplateRef<any>;
-    constructor(_template: TemplateRef<any>);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, never>;
+    _expansionPanel?: MatExpansionPanelBase | undefined;
+    constructor(_template: TemplateRef<any>, _expansionPanel?: MatExpansionPanelBase | undefined);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, [null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never>;
 }
