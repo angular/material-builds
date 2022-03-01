@@ -772,7 +772,7 @@ class _MatDialogBase {
         }
         else {
             const injector = this._createInjector(config, dialogRef, dialogContainer);
-            const contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector));
+            const contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector, config.componentFactoryResolver));
             dialogRef.componentInstance = contentRef.instance;
         }
         dialogRef.updateSize(config.width, config.height).updatePosition(config.position);
