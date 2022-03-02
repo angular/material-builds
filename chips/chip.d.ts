@@ -116,6 +116,8 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     trailingIcon: MatChipTrailingIcon;
     /** The chip's remove toggler. */
     removeIcon: MatChipRemove;
+    /** ARIA role that should be applied to the chip. */
+    role: string;
     /** Whether the chip is selected. */
     get selected(): boolean;
     set selected(value: BooleanInput);
@@ -182,7 +184,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _blur(): void;
     private _dispatchSelectionChange;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, [null, null, null, { optional: true; }, null, null, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"]>;
 }
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
