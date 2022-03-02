@@ -22,7 +22,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('14.0.0-next.4');
+const VERSION = new Version('14.0.0-next.5');
 
 /**
  * @license
