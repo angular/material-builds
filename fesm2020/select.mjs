@@ -382,6 +382,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
     }
     ngDoCheck() {
         const newAriaLabelledby = this._getTriggerAriaLabelledby();
+        const ngControl = this.ngControl;
         // We have to manage setting the `aria-labelledby` ourselves, because part of its value
         // is computed as a result of a content query which can cause this binding to trigger a
         // "changed after checked" error.
@@ -395,7 +396,16 @@ class _MatSelectBase extends _MatSelectMixinBase {
                 element.removeAttribute('aria-labelledby');
             }
         }
-        if (this.ngControl) {
+        if (ngControl) {
+            // The disabled state might go out of sync if the form group is swapped out. See #17860.
+            if (this._previousControl !== ngControl.control) {
+                if (this._previousControl !== undefined &&
+                    ngControl.disabled !== null &&
+                    ngControl.disabled !== this.disabled) {
+                    this.disabled = ngControl.disabled;
+                }
+                this._previousControl = ngControl.control;
+            }
             this.updateErrorState();
         }
     }

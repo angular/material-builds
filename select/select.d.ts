@@ -139,6 +139,11 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _uid;
     /** Current `ariar-labelledby` value for the select trigger. */
     private _triggerAriaLabelledBy;
+    /**
+     * Keeps track of the previous form control assigned to the select.
+     * Used to detect if it has changed.
+     */
+    private _previousControl;
     /** Emits whenever the component is destroyed. */
     protected readonly _destroy: Subject<void>;
     /** The aria-describedby attribute on the select for improved a11y. */
