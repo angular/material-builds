@@ -1,4 +1,8 @@
 import { ContentContainerComponentHarness, TestKey, HarnessPredicate } from '@angular/cdk/testing';
+import { __decorate, __metadata } from 'tslib';
+import { Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from '@angular/core';
+import { _MatDialogBase, MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
  * @license
@@ -97,6 +101,58 @@ MatDialogHarness.hostSelector = '.mat-dialog-container';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var _MatTestDialogOpenerBase_1, MatTestDialogOpener_1;
+/** Base class for a component that immediately opens a dialog when created. */
+let _MatTestDialogOpenerBase = _MatTestDialogOpenerBase_1 = class _MatTestDialogOpenerBase {
+    constructor(dialog) {
+        this.dialog = dialog;
+        if (!_MatTestDialogOpenerBase_1.component) {
+            throw new Error(`MatTestDialogOpener does not have a component provided.`);
+        }
+        this.dialogRef = this.dialog.open(_MatTestDialogOpenerBase_1.component, _MatTestDialogOpenerBase_1.config || {});
+        this._afterClosedSubscription = this.dialogRef.afterClosed().subscribe(result => {
+            this.closedResult = result;
+        });
+    }
+    ngOnDestroy() {
+        this._afterClosedSubscription.unsubscribe();
+        _MatTestDialogOpenerBase_1.component = undefined;
+        _MatTestDialogOpenerBase_1.config = undefined;
+    }
+};
+_MatTestDialogOpenerBase = _MatTestDialogOpenerBase_1 = __decorate([
+    Directive(),
+    __metadata("design:paramtypes", [_MatDialogBase])
+], _MatTestDialogOpenerBase);
+/** Test component that immediately opens a dialog when created. */
+let MatTestDialogOpener = MatTestDialogOpener_1 = class MatTestDialogOpener extends _MatTestDialogOpenerBase {
+    constructor(dialog) {
+        super(dialog);
+    }
+    /** Static method that prepares this class to open the provided component. */
+    static withComponent(component, config) {
+        _MatTestDialogOpenerBase.component = component;
+        _MatTestDialogOpenerBase.config = config;
+        return MatTestDialogOpener_1;
+    }
+};
+MatTestDialogOpener = MatTestDialogOpener_1 = __decorate([
+    Component({
+        selector: 'mat-test-dialog-opener',
+        template: '',
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        encapsulation: ViewEncapsulation.None,
+    }),
+    __metadata("design:paramtypes", [MatDialog])
+], MatTestDialogOpener);
+let MatTestDialogOpenerModule = class MatTestDialogOpenerModule {
+};
+MatTestDialogOpenerModule = __decorate([
+    NgModule({
+        declarations: [MatTestDialogOpener],
+        imports: [MatDialogModule, NoopAnimationsModule],
+    })
+], MatTestDialogOpenerModule);
 
 /**
  * @license
@@ -106,5 +162,13 @@ MatDialogHarness.hostSelector = '.mat-dialog-container';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatDialogHarness, _MatDialogHarnessBase };
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+
+export { MatDialogHarness, MatTestDialogOpener, MatTestDialogOpenerModule, _MatDialogHarnessBase, _MatTestDialogOpenerBase };
 //# sourceMappingURL=testing.mjs.map
