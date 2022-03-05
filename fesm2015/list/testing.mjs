@@ -70,16 +70,6 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
             return (yield this.host()).hasClass('mat-list-item-disabled');
         });
     }
-    /**
-     * Gets a `HarnessLoader` used to get harnesses within the list item's content.
-     * @deprecated Use `getChildLoader(MatListItemSection.CONTENT)` or `getHarness` instead.
-     * @breaking-change 12.0.0
-     */
-    getHarnessLoaderForContent() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.getChildLoader(".mat-list-item-content" /* CONTENT */);
-        });
-    }
 }
 
 /**
