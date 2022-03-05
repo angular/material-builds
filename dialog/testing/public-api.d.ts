@@ -7,3 +7,4 @@
  */
 export * from './dialog-harness';
 export * from './dialog-harness-filters';
+export * from './dialog-opener';
