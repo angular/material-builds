@@ -4,34 +4,34 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 class _MatTooltipHarnessBase extends ComponentHarness {
     /** Shows the tooltip. */
     show() {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const host = yield this.host();
             // We need to dispatch both `touchstart` and a hover event, because the tooltip binds
             // different events depending on the device. The `changedTouches` is there in case the
             // element has ripples.
-            // @breaking-change 12.0.0 Remove null assertion from `dispatchEvent`.
-            yield ((_a = host.dispatchEvent) === null || _a === void 0 ? void 0 : _a.call(host, 'touchstart', { changedTouches: [] }));
+            yield host.dispatchEvent('touchstart', { changedTouches: [] });
             yield host.hover();
+            const panel = yield this._optionalPanel();
+            yield (panel === null || panel === void 0 ? void 0 : panel.dispatchEvent('animationend', { animationName: this._showAnimationName }));
         });
     }
     /** Hides the tooltip. */
     hide() {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const host = yield this.host();
             // We need to dispatch both `touchstart` and a hover event, because
             // the tooltip binds different events depending on the device.
-            // @breaking-change 12.0.0 Remove null assertion from `dispatchEvent`.
-            yield ((_a = host.dispatchEvent) === null || _a === void 0 ? void 0 : _a.call(host, 'touchend'));
+            yield host.dispatchEvent('touchend');
             yield host.mouseAway();
-            yield this.forceStabilize(); // Needed in order to flush the `hide` animation.
+            const panel = yield this._optionalPanel();
+            yield (panel === null || panel === void 0 ? void 0 : panel.dispatchEvent('animationend', { animationName: this._hideAnimationName }));
         });
     }
     /** Gets whether the tooltip is open. */
     isOpen() {
         return __awaiter(this, void 0, void 0, function* () {
-            return !!(yield this._optionalPanel());
+            const panel = yield this._optionalPanel();
+            return !!panel && !(yield panel.hasClass(this._hiddenClass));
         });
     }
     /** Gets a promise for the tooltip panel's text. */
@@ -47,6 +47,9 @@ class MatTooltipHarness extends _MatTooltipHarnessBase {
     constructor() {
         super(...arguments);
         this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-tooltip');
+        this._hiddenClass = 'mat-tooltip-hide';
+        this._showAnimationName = 'mat-tooltip-show';
+        this._hideAnimationName = 'mat-tooltip-hide';
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search

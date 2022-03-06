@@ -5,7 +5,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import * as i7 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Inject, Input, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Inject, Input, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i2 from '@angular/cdk/scrolling';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -17,6 +17,7 @@ import { Breakpoints } from '@angular/cdk/layout';
 import * as i3 from '@angular/cdk/platform';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
@@ -28,24 +29,6 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Animations used by MatTooltip.
- * @docs-private
- */
-const matTooltipAnimations = {
-    /** Animation that transitions a tooltip in and out. */
-    tooltipState: trigger('state', [
-        state('initial, void, hidden', style({ opacity: 0, transform: 'scale(0)' })),
-        state('visible', style({ transform: 'scale(1)' })),
-        transition('* => visible', animate('200ms cubic-bezier(0, 0, 0.2, 1)', keyframes([
-            style({ opacity: 0, transform: 'scale(0)', offset: 0 }),
-            style({ opacity: 0.5, transform: 'scale(0.99)', offset: 0.5 }),
-            style({ opacity: 1, transform: 'scale(1)', offset: 1 }),
-        ]))),
-        transition('* => hidden', animate('100ms cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 0 }))),
-    ]),
-};
-
 /** Time in ms to throttle repositioning after scroll events. */
 const SCROLL_THROTTLE_MS = 20;
 /**
@@ -690,14 +673,17 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
                     args: [DOCUMENT]
                 }] }]; } });
 class _TooltipComponentBase {
-    constructor(_changeDetectorRef) {
+    constructor(_changeDetectorRef, animationMode) {
         this._changeDetectorRef = _changeDetectorRef;
         /** Property watched by the animation framework to show or hide the tooltip */
         this._visibility = 'initial';
         /** Whether interactions on the page should close the tooltip */
         this._closeOnInteraction = false;
+        /** Whether the tooltip is currently visible. */
+        this._isVisible = false;
         /** Subject for notifying that the tooltip has been hidden from the view */
         this._onHide = new Subject();
+        this._animationsDisabled = animationMode === 'NoopAnimations';
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
@@ -706,15 +692,9 @@ class _TooltipComponentBase {
     show(delay) {
         // Cancel the delayed hide if it is scheduled
         clearTimeout(this._hideTimeoutId);
-        // Body interactions should cancel the tooltip if there is a delay in showing.
-        this._closeOnInteraction = true;
         this._showTimeoutId = setTimeout(() => {
-            this._visibility = 'visible';
+            this._toggleVisibility(true);
             this._showTimeoutId = undefined;
-            this._onShow();
-            // Mark for check so if any parent component has set the
-            // ChangeDetectionStrategy to OnPush it will be checked anyways
-            this._markForCheck();
         }, delay);
     }
     /**
@@ -725,11 +705,8 @@ class _TooltipComponentBase {
         // Cancel the delayed show if it is scheduled
         clearTimeout(this._showTimeoutId);
         this._hideTimeoutId = setTimeout(() => {
-            this._visibility = 'hidden';
+            this._toggleVisibility(false);
             this._hideTimeoutId = undefined;
-            // Mark for check so if any parent component has set the
-            // ChangeDetectionStrategy to OnPush it will be checked anyways
-            this._markForCheck();
         }, delay);
     }
     /** Returns an observable that notifies when the tooltip has been hidden from view. */
@@ -738,25 +715,13 @@ class _TooltipComponentBase {
     }
     /** Whether the tooltip is being displayed. */
     isVisible() {
-        return this._visibility === 'visible';
+        return this._isVisible;
     }
     ngOnDestroy() {
         clearTimeout(this._showTimeoutId);
         clearTimeout(this._hideTimeoutId);
         this._onHide.complete();
         this._triggerElement = null;
-    }
-    _animationStart() {
-        this._closeOnInteraction = false;
-    }
-    _animationDone(event) {
-        const toState = event.toState;
-        if (toState === 'hidden' && !this.isVisible()) {
-            this._onHide.next();
-        }
-        if (toState === 'visible' || toState === 'hidden') {
-            this._closeOnInteraction = true;
-        }
     }
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
@@ -787,36 +752,99 @@ class _TooltipComponentBase {
      * in the mdc-tooltip, not here.
      */
     _onShow() { }
+    /** Event listener dispatched when an animation on the tooltip finishes. */
+    _handleAnimationEnd({ animationName }) {
+        if (animationName === this._showAnimation || animationName === this._hideAnimation) {
+            this._finalizeAnimation(animationName === this._showAnimation);
+        }
+    }
+    /** Handles the cleanup after an animation has finished. */
+    _finalizeAnimation(toVisible) {
+        if (toVisible) {
+            this._closeOnInteraction = true;
+        }
+        else if (!this.isVisible()) {
+            this._onHide.next();
+        }
+    }
+    /** Toggles the visibility of the tooltip element. */
+    _toggleVisibility(isVisible) {
+        // We set the classes directly here ourselves so that toggling the tooltip state
+        // isn't bound by change detection. This allows us to hide it even if the
+        // view ref has been detached from the CD tree.
+        const tooltip = this._tooltip.nativeElement;
+        const showClass = this._showAnimation;
+        const hideClass = this._hideAnimation;
+        tooltip.classList.remove(isVisible ? hideClass : showClass);
+        tooltip.classList.add(isVisible ? showClass : hideClass);
+        this._isVisible = isVisible;
+        // It's common for internal apps to disable animations using `* { animation: none !important }`
+        // which can break the opening sequence. Try to detect such cases and work around them.
+        if (isVisible && !this._animationsDisabled && typeof getComputedStyle === 'function') {
+            const styles = getComputedStyle(tooltip);
+            // Use `getPropertyValue` to avoid issues with property renaming.
+            if (styles.getPropertyValue('animation-duration') === '0s' ||
+                styles.getPropertyValue('animation-name') === 'none') {
+                this._animationsDisabled = true;
+            }
+        }
+        if (isVisible) {
+            this._onShow();
+        }
+        if (this._animationsDisabled) {
+            tooltip.classList.add('_mat-animation-noopable');
+            this._finalizeAnimation(isVisible);
+        }
+    }
 }
-_TooltipComponentBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _TooltipComponentBase, deps: [{ token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive });
+_TooltipComponentBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _TooltipComponentBase, deps: [{ token: i0.ChangeDetectorRef }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
 _TooltipComponentBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: _TooltipComponentBase, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _TooltipComponentBase, decorators: [{
             type: Directive
-        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }]; } });
+        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: undefined, decorators: [{
+                    type: Optional
+                }, {
+                    type: Inject,
+                    args: [ANIMATION_MODULE_TYPE]
+                }] }]; } });
 /**
  * Internal component that wraps the tooltip's content.
  * @docs-private
  */
 class TooltipComponent extends _TooltipComponentBase {
-    constructor(changeDetectorRef, _breakpointObserver) {
-        super(changeDetectorRef);
+    constructor(changeDetectorRef, _breakpointObserver, animationMode) {
+        super(changeDetectorRef, animationMode);
         this._breakpointObserver = _breakpointObserver;
         /** Stream that emits whether the user has a handset-sized display.  */
         this._isHandset = this._breakpointObserver.observe(Breakpoints.Handset);
+        this._showAnimation = 'mat-tooltip-show';
+        this._hideAnimation = 'mat-tooltip-hide';
     }
 }
-TooltipComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: TooltipComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: i6.BreakpointObserver }], target: i0.ɵɵFactoryTarget.Component });
-TooltipComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: TooltipComponent, selector: "mat-tooltip-component", host: { attributes: { "aria-hidden": "true" }, listeners: { "mouseleave": "_handleMouseLeave($event)" }, properties: { "style.zoom": "_visibility === \"visible\" ? 1 : null" } }, usesInheritance: true, ngImport: i0, template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n", styles: [".mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}.mat-tooltip-panel-non-interactive{pointer-events:none}\n"], directives: [{ type: i7.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], pipes: { "async": i7.AsyncPipe }, animations: [matTooltipAnimations.tooltipState], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+TooltipComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: TooltipComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: i6.BreakpointObserver }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+TooltipComponent.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: TooltipComponent, selector: "mat-tooltip-component", host: { attributes: { "aria-hidden": "true" }, listeners: { "mouseleave": "_handleMouseLeave($event)" }, properties: { "style.zoom": "isVisible() ? 1 : null" } }, viewQueries: [{ propertyName: "_tooltip", first: true, predicate: ["tooltip"], descendants: true, static: true }], usesInheritance: true, ngImport: i0, template: "<div #tooltip\n     class=\"mat-tooltip\"\n     (animationend)=\"_handleAnimationEnd($event)\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\">{{message}}</div>\n", styles: [".mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis;transform:scale(0)}.mat-tooltip._mat-animation-noopable{animation:none;transform:scale(1)}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}.mat-tooltip-panel-non-interactive{pointer-events:none}@keyframes mat-tooltip-show{0%{opacity:0;transform:scale(0)}50%{opacity:.5;transform:scale(0.99)}100%{opacity:1;transform:scale(1)}}@keyframes mat-tooltip-hide{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1)}}.mat-tooltip-show{animation:mat-tooltip-show 200ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-tooltip-hide{animation:mat-tooltip-hide 100ms cubic-bezier(0, 0, 0.2, 1) forwards}\n"], directives: [{ type: i7.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], pipes: { "async": i7.AsyncPipe }, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: TooltipComponent, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-tooltip-component', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, animations: [matTooltipAnimations.tooltipState], host: {
+            args: [{ selector: 'mat-tooltip-component', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, host: {
                         // Forces the element to have a layout in IE and Edge. This fixes issues where the element
                         // won't be rendered if the animations are disabled or there is no web animations polyfill.
-                        '[style.zoom]': '_visibility === "visible" ? 1 : null',
+                        '[style.zoom]': 'isVisible() ? 1 : null',
                         '(mouseleave)': '_handleMouseLeave($event)',
                         'aria-hidden': 'true',
-                    }, template: "<div class=\"mat-tooltip\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\"\n     [@state]=\"_visibility\"\n     (@state.start)=\"_animationStart()\"\n     (@state.done)=\"_animationDone($event)\">{{message}}</div>\n", styles: [".mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}.mat-tooltip-panel-non-interactive{pointer-events:none}\n"] }]
-        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i6.BreakpointObserver }]; } });
+                    }, template: "<div #tooltip\n     class=\"mat-tooltip\"\n     (animationend)=\"_handleAnimationEnd($event)\"\n     [ngClass]=\"tooltipClass\"\n     [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\">{{message}}</div>\n", styles: [".mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis;transform:scale(0)}.mat-tooltip._mat-animation-noopable{animation:none;transform:scale(1)}.cdk-high-contrast-active .mat-tooltip{outline:solid 1px}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}.mat-tooltip-panel-non-interactive{pointer-events:none}@keyframes mat-tooltip-show{0%{opacity:0;transform:scale(0)}50%{opacity:.5;transform:scale(0.99)}100%{opacity:1;transform:scale(1)}}@keyframes mat-tooltip-hide{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1)}}.mat-tooltip-show{animation:mat-tooltip-show 200ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-tooltip-hide{animation:mat-tooltip-hide 100ms cubic-bezier(0, 0, 0.2, 1) forwards}\n"] }]
+        }], ctorParameters: function () { return [{ type: i0.ChangeDetectorRef }, { type: i6.BreakpointObserver }, { type: undefined, decorators: [{
+                    type: Optional
+                }, {
+                    type: Inject,
+                    args: [ANIMATION_MODULE_TYPE]
+                }] }]; }, propDecorators: { _tooltip: [{
+                type: ViewChild,
+                args: ['tooltip', {
+                        // Use a static query here since we interact directly with
+                        // the DOM which can happen before `ngAfterViewInit`.
+                        static: true,
+                    }]
+            }] } });
 
 /**
  * @license
@@ -839,6 +867,31 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
                     providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 }]
         }] });
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Animations used by MatTooltip.
+ * @docs-private
+ */
+const matTooltipAnimations = {
+    /** Animation that transitions a tooltip in and out. */
+    tooltipState: trigger('state', [
+        state('initial, void, hidden', style({ opacity: 0, transform: 'scale(0)' })),
+        state('visible', style({ transform: 'scale(1)' })),
+        transition('* => visible', animate('200ms cubic-bezier(0, 0, 0.2, 1)', keyframes([
+            style({ opacity: 0, transform: 'scale(0)', offset: 0 }),
+            style({ opacity: 0.5, transform: 'scale(0.99)', offset: 0.5 }),
+            style({ opacity: 1, transform: 'scale(1)', offset: 1 }),
+        ]))),
+        transition('* => hidden', animate('100ms cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 0 }))),
+    ]),
+};
 
 /**
  * @license
