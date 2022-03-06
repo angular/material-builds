@@ -10,7 +10,7 @@ import * as i2 from '@angular/cdk/layout';
 import { Breakpoints } from '@angular/cdk/layout';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 import * as i1 from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subject, merge, of } from 'rxjs';
@@ -30,8 +30,14 @@ const matBottomSheetAnimations = {
     bottomSheetState: trigger('state', [
         state('void, hidden', style({ transform: 'translateY(100%)' })),
         state('visible', style({ transform: 'translateY(0%)' })),
-        transition('visible => void, visible => hidden', animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.ACCELERATION_CURVE}`)),
-        transition('void => visible', animate(`${AnimationDurations.EXITING} ${AnimationCurves.DECELERATION_CURVE}`)),
+        transition('visible => void, visible => hidden', group([
+            animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.ACCELERATION_CURVE}`),
+            query('@*', animateChild(), { optional: true }),
+        ])),
+        transition('void => visible', group([
+            animate(`${AnimationDurations.EXITING} ${AnimationCurves.DECELERATION_CURVE}`),
+            query('@*', animateChild(), { optional: true }),
+        ])),
     ]),
 };
 

@@ -12,7 +12,7 @@ import { Subject, defer, Subscription, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import * as i1 from '@angular/cdk/a11y';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
@@ -92,8 +92,14 @@ const matDialogAnimations = {
         // decimate the animation performance. Leaving it as `none` solves both issues.
         state('void, exit', style({ opacity: 0, transform: 'scale(0.7)' })),
         state('enter', style({ transform: 'none' })),
-        transition('* => enter', animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 }))),
-        transition('* => void, * => exit', animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 }))),
+        transition('* => enter', group([
+            animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 })),
+            query('@*', animateChild(), { optional: true }),
+        ])),
+        transition('* => void, * => exit', group([
+            animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 })),
+            query('@*', animateChild(), { optional: true }),
+        ])),
     ]),
 };
 
