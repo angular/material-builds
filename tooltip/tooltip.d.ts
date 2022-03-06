@@ -5,7 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
@@ -225,11 +224,21 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
     _triggerElement: HTMLElement;
     /** Amount of milliseconds to delay the closing sequence. */
     _mouseLeaveHideDelay: number;
+    /** Whether animations are currently disabled. */
+    private _animationsDisabled;
+    /** Reference to the internal tooltip element. */
+    abstract _tooltip: ElementRef<HTMLElement>;
     /** Whether interactions on the page should close the tooltip */
     private _closeOnInteraction;
+    /** Whether the tooltip is currently visible. */
+    private _isVisible;
     /** Subject for notifying that the tooltip has been hidden from the view */
     private readonly _onHide;
-    constructor(_changeDetectorRef: ChangeDetectorRef);
+    /** Name of the show animation and the class that toggles it. */
+    protected abstract readonly _showAnimation: string;
+    /** Name of the hide animation and the class that toggles it. */
+    protected abstract readonly _hideAnimation: string;
+    constructor(_changeDetectorRef: ChangeDetectorRef, animationMode?: string);
     /**
      * Shows the tooltip with an animation originating from the provided origin
      * @param delay Amount of milliseconds to the delay showing the tooltip.
@@ -245,8 +254,6 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
     /** Whether the tooltip is being displayed. */
     isVisible(): boolean;
     ngOnDestroy(): void;
-    _animationStart(): void;
-    _animationDone(event: AnimationEvent): void;
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
@@ -266,7 +273,13 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
      * in the mdc-tooltip, not here.
      */
     protected _onShow(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_TooltipComponentBase, never>;
+    /** Event listener dispatched when an animation on the tooltip finishes. */
+    _handleAnimationEnd({ animationName }: AnimationEvent): void;
+    /** Handles the cleanup after an animation has finished. */
+    private _finalizeAnimation;
+    /** Toggles the visibility of the tooltip element. */
+    private _toggleVisibility;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_TooltipComponentBase, [null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_TooltipComponentBase, never, never, {}, {}, never>;
 }
 /**
@@ -277,7 +290,10 @@ export declare class TooltipComponent extends _TooltipComponentBase {
     private _breakpointObserver;
     /** Stream that emits whether the user has a handset-sized display.  */
     _isHandset: Observable<BreakpointState>;
-    constructor(changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver);
-    static ɵfac: i0.ɵɵFactoryDeclaration<TooltipComponent, never>;
+    _showAnimation: string;
+    _hideAnimation: string;
+    _tooltip: ElementRef<HTMLElement>;
+    constructor(changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver, animationMode?: string);
+    static ɵfac: i0.ɵɵFactoryDeclaration<TooltipComponent, [null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<TooltipComponent, "mat-tooltip-component", never, {}, {}, never, never>;
 }

@@ -9,6 +9,9 @@ import { AsyncFactoryFn, ComponentHarness, HarnessPredicate, TestElement } from 
 import { TooltipHarnessFilters } from './tooltip-harness-filters';
 export declare abstract class _MatTooltipHarnessBase extends ComponentHarness {
     protected abstract _optionalPanel: AsyncFactoryFn<TestElement | null>;
+    protected abstract _hiddenClass: string;
+    protected abstract _showAnimationName: string;
+    protected abstract _hideAnimationName: string;
     /** Shows the tooltip. */
     show(): Promise<void>;
     /** Hides the tooltip. */
@@ -21,6 +24,9 @@ export declare abstract class _MatTooltipHarnessBase extends ComponentHarness {
 /** Harness for interacting with a standard mat-tooltip in tests. */
 export declare class MatTooltipHarness extends _MatTooltipHarnessBase {
     protected _optionalPanel: AsyncFactoryFn<TestElement | null>;
+    protected _hiddenClass: string;
+    protected _showAnimationName: string;
+    protected _hideAnimationName: string;
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search
