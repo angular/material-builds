@@ -81,6 +81,8 @@ export declare class MatDialogConfig<D = any> {
      * previously-focused element, after it's closed.
      */
     restoreFocus?: boolean;
+    /** Whether to wait for the opening animation to finish before trapping focus. */
+    delayFocusTrap?: boolean;
     /** Scroll strategy to be used for the dialog. */
     scrollStrategy?: ScrollStrategy;
     /**

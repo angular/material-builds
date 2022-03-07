@@ -36,15 +36,11 @@ export declare abstract class _MatDialogBase<C extends _MatDialogContainerBase> 
     private _dialogRefConstructor;
     private _dialogContainerType;
     private _dialogDataToken;
-    private _animationMode?;
     private _openDialogsAtThisLevel;
     private readonly _afterAllClosedAtThisLevel;
     private readonly _afterOpenedAtThisLevel;
     private _ariaHiddenElements;
     private _scrollStrategy;
-    private _dialogAnimatingOpen;
-    private _animationStateSubscriptions;
-    private _lastDialogRef;
     /** Keeps track of the currently-open dialogs. */
     get openDialogs(): MatDialogRef<any>[];
     /** Stream that emits when a dialog has been opened. */
@@ -55,7 +51,12 @@ export declare abstract class _MatDialogBase<C extends _MatDialogContainerBase> 
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
     readonly afterAllClosed: Observable<void>;
-    constructor(_overlay: Overlay, _injector: Injector, _defaultOptions: MatDialogConfig | undefined, _parentDialog: _MatDialogBase<C> | undefined, _overlayContainer: OverlayContainer, scrollStrategy: any, _dialogRefConstructor: Type<MatDialogRef<any>>, _dialogContainerType: Type<C>, _dialogDataToken: InjectionToken<any>, _animationMode?: "NoopAnimations" | "BrowserAnimations" | undefined);
+    constructor(_overlay: Overlay, _injector: Injector, _defaultOptions: MatDialogConfig | undefined, _parentDialog: _MatDialogBase<C> | undefined, _overlayContainer: OverlayContainer, scrollStrategy: any, _dialogRefConstructor: Type<MatDialogRef<any>>, _dialogContainerType: Type<C>, _dialogDataToken: InjectionToken<any>, 
+    /**
+     * @deprecated No longer used. To be removed.
+     * @breaking-change 14.0.0
+     */
+    _animationMode?: 'NoopAnimations' | 'BrowserAnimations');
     /**
      * Opens a modal dialog containing the given component.
      * @param component Type of the component to load into the dialog.
@@ -142,7 +143,12 @@ export declare class MatDialog extends _MatDialogBase<MatDialogContainer> {
      * @deprecated `_location` parameter to be removed.
      * @breaking-change 10.0.0
      */
-    location: Location, defaultOptions: MatDialogConfig, scrollStrategy: any, parentDialog: MatDialog, overlayContainer: OverlayContainer, animationMode?: 'NoopAnimations' | 'BrowserAnimations');
+    location: Location, defaultOptions: MatDialogConfig, scrollStrategy: any, parentDialog: MatDialog, overlayContainer: OverlayContainer, 
+    /**
+     * @deprecated No longer used. To be removed.
+     * @breaking-change 14.0.0
+     */
+    animationMode?: 'NoopAnimations' | 'BrowserAnimations');
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialog, [null, null, { optional: true; }, { optional: true; }, null, { optional: true; skipSelf: true; }, null, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatDialog>;
 }
