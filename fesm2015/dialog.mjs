@@ -6,7 +6,7 @@ import * as i0 from '@angular/core';
 import { EventEmitter, Directive, Optional, Inject, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, InjectionToken, Injector, TemplateRef, InjectFlags, Injectable, SkipSelf, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { Subject, defer, Subscription, of } from 'rxjs';
+import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import * as i2 from '@angular/common';
@@ -63,6 +63,8 @@ class MatDialogConfig {
          * previously-focused element, after it's closed.
          */
         this.restoreFocus = true;
+        /** Whether to wait for the opening animation to finish before trapping focus. */
+        this.delayFocusTrap = true;
         /**
          * Whether the dialog should close when the user goes backwards/forwards in history.
          * Note that this usually doesn't include clicking on links (unless the user is using
@@ -154,10 +156,12 @@ class _MatDialogContainerBase extends BasePortalOutlet {
     }
     /** Initializes the dialog container with the attached content. */
     _initializeWithAttachedContent() {
-        this._setupFocusTrap();
+        this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         // Save the previously focused element. This element will be re-focused
         // when the dialog closes.
-        this._capturePreviouslyFocusedElement();
+        if (this._document) {
+            this._elementFocusedBeforeDialogWasOpened = _getFocusedElementPierceShadowDom();
+        }
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -282,16 +286,6 @@ class _MatDialogContainerBase extends BasePortalOutlet {
             this._focusTrap.destroy();
         }
     }
-    /** Sets up the focus trap. */
-    _setupFocusTrap() {
-        this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-    }
-    /** Captures the element that was focused before the dialog was opened. */
-    _capturePreviouslyFocusedElement() {
-        if (this._document) {
-            this._elementFocusedBeforeDialogWasOpened = _getFocusedElementPierceShadowDom();
-        }
-    }
     /** Focuses the dialog container. */
     _focusDialogContainer() {
         // Note that there is no focus method when rendering on the server.
@@ -335,7 +329,9 @@ class MatDialogContainer extends _MatDialogContainerBase {
     /** Callback, invoked whenever an animation on the host completes. */
     _onAnimationDone({ toState, totalTime }) {
         if (toState === 'enter') {
-            this._trapFocus();
+            if (this._config.delayFocusTrap) {
+                this._trapFocus();
+            }
             this._animationStateChanged.next({ state: 'opened', totalTime });
         }
         else if (toState === 'exit') {
@@ -358,6 +354,12 @@ class MatDialogContainer extends _MatDialogContainerBase {
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
         this._changeDetectorRef.markForCheck();
+    }
+    _initializeWithAttachedContent() {
+        super._initializeWithAttachedContent();
+        if (!this._config.delayFocusTrap) {
+            this._trapFocus();
+        }
     }
 }
 MatDialogContainer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatDialogContainer, deps: null, target: i0.ɵɵFactoryTarget.Component });
@@ -609,7 +611,12 @@ const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * for arbitrary dialog refs and dialog container components.
  */
 class _MatDialogBase {
-    constructor(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken, _animationMode) {
+    constructor(_overlay, _injector, _defaultOptions, _parentDialog, _overlayContainer, scrollStrategy, _dialogRefConstructor, _dialogContainerType, _dialogDataToken, 
+    /**
+     * @deprecated No longer used. To be removed.
+     * @breaking-change 14.0.0
+     */
+    _animationMode) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._defaultOptions = _defaultOptions;
@@ -618,12 +625,10 @@ class _MatDialogBase {
         this._dialogRefConstructor = _dialogRefConstructor;
         this._dialogContainerType = _dialogContainerType;
         this._dialogDataToken = _dialogDataToken;
-        this._animationMode = _animationMode;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
         this._afterOpenedAtThisLevel = new Subject();
         this._ariaHiddenElements = new Map();
-        this._dialogAnimatingOpen = false;
         // TODO (jelbourn): tighten the typing right-hand side of this expression.
         /**
          * Stream that emits when all open dialog have finished closing.
@@ -653,29 +658,9 @@ class _MatDialogBase {
             (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
         }
-        // If there is a dialog that is currently animating open, return the MatDialogRef of that dialog
-        if (this._dialogAnimatingOpen) {
-            return this._lastDialogRef;
-        }
         const overlayRef = this._createOverlay(config);
         const dialogContainer = this._attachDialogContainer(overlayRef, config);
-        if (this._animationMode !== 'NoopAnimations') {
-            const animationStateSubscription = dialogContainer._animationStateChanged.subscribe(dialogAnimationEvent => {
-                if (dialogAnimationEvent.state === 'opening') {
-                    this._dialogAnimatingOpen = true;
-                }
-                if (dialogAnimationEvent.state === 'opened') {
-                    this._dialogAnimatingOpen = false;
-                    animationStateSubscription.unsubscribe();
-                }
-            });
-            if (!this._animationStateSubscriptions) {
-                this._animationStateSubscriptions = new Subscription();
-            }
-            this._animationStateSubscriptions.add(animationStateSubscription);
-        }
         const dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
-        this._lastDialogRef = dialogRef;
         // If this is the first dialog that we're opening, hide all the non-overlay content.
         if (!this.openDialogs.length) {
             this._hideNonDialogContentFromAssistiveTechnology();
@@ -706,10 +691,6 @@ class _MatDialogBase {
         this._closeDialogs(this._openDialogsAtThisLevel);
         this._afterAllClosedAtThisLevel.complete();
         this._afterOpenedAtThisLevel.complete();
-        // Clean up any subscriptions to dialogs that never finished opening.
-        if (this._animationStateSubscriptions) {
-            this._animationStateSubscriptions.unsubscribe();
-        }
     }
     /**
      * Creates the overlay into which the dialog will be loaded.
@@ -885,7 +866,12 @@ class MatDialog extends _MatDialogBase {
      * @deprecated `_location` parameter to be removed.
      * @breaking-change 10.0.0
      */
-    location, defaultOptions, scrollStrategy, parentDialog, overlayContainer, animationMode) {
+    location, defaultOptions, scrollStrategy, parentDialog, overlayContainer, 
+    /**
+     * @deprecated No longer used. To be removed.
+     * @breaking-change 14.0.0
+     */
+    animationMode) {
         super(overlay, injector, defaultOptions, parentDialog, overlayContainer, scrollStrategy, MatDialogRef, MatDialogContainer, MAT_DIALOG_DATA, animationMode);
     }
 }

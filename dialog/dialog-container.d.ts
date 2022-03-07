@@ -98,10 +98,6 @@ export declare abstract class _MatDialogContainerBase extends BasePortalOutlet {
     protected _trapFocus(): void;
     /** Restores focus to the element that was focused before the dialog opened. */
     protected _restoreFocus(): void;
-    /** Sets up the focus trap. */
-    private _setupFocusTrap;
-    /** Captures the element that was focused before the dialog was opened. */
-    private _capturePreviouslyFocusedElement;
     /** Focuses the dialog container. */
     private _focusDialogContainer;
     /** Returns whether focus is inside the dialog. */
@@ -123,6 +119,7 @@ export declare class MatDialogContainer extends _MatDialogContainerBase {
     _onAnimationStart({ toState, totalTime }: AnimationEvent): void;
     /** Starts the dialog exit animation. */
     _startExitAnimation(): void;
+    _initializeWithAttachedContent(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never>;
 }
