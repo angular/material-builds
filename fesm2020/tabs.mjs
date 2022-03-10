@@ -1813,7 +1813,7 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
     }
     _getTabIndex() {
         if (this._tabNavBar.tabPanel) {
-            return this._isActive ? 0 : -1;
+            return this._isActive && !this.disabled ? 0 : -1;
         }
         else {
             return this.tabIndex;
