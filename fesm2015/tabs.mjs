@@ -11,9 +11,9 @@ import { InjectionToken, Directive, Inject, Optional, TemplateRef, Component, Ch
 import * as i4 from '@angular/material/core';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { take, startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Subject, Subscription, fromEvent, of, merge, timer } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import * as i1 from '@angular/cdk/bidi';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
@@ -62,14 +62,12 @@ class MatInkBar {
      */
     alignToElement(element) {
         this.show();
-        if (typeof requestAnimationFrame !== 'undefined') {
-            this._ngZone.runOutsideAngular(() => {
-                requestAnimationFrame(() => this._setStyles(element));
-            });
-        }
-        else {
-            this._setStyles(element);
-        }
+        this._ngZone.onStable.pipe(take(1)).subscribe(() => {
+            const positions = this._inkBarPositioner(element);
+            const inkBar = this._elementRef.nativeElement;
+            inkBar.style.left = positions.left;
+            inkBar.style.width = positions.width;
+        });
     }
     /** Shows the ink bar. */
     show() {
@@ -78,16 +76,6 @@ class MatInkBar {
     /** Hides the ink bar. */
     hide() {
         this._elementRef.nativeElement.style.visibility = 'hidden';
-    }
-    /**
-     * Sets the proper styles to the ink bar element.
-     * @param element
-     */
-    _setStyles(element) {
-        const positions = this._inkBarPositioner(element);
-        const inkBar = this._elementRef.nativeElement;
-        inkBar.style.left = positions.left;
-        inkBar.style.width = positions.width;
     }
 }
 MatInkBar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatInkBar, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: _MAT_INK_BAR_POSITIONER }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
@@ -713,7 +701,9 @@ class MatPaginatedTabHeader {
         this._keyManager.updateActiveItem(this._selectedIndex);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
-        typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
+        // Note that we use `onStable` instead of `requestAnimationFrame`, because the latter
+        // can hold up tests that are in a background tab.
+        this._ngZone.onStable.pipe(take(1)).subscribe(realign);
         // On dir change or window resize, realign the ink bar and update the orientation of
         // the key manager if the direction has changed.
         merge(dirChange, resize, this._items.changes)

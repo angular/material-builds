@@ -44,11 +44,6 @@ export declare class MatInkBar {
     show(): void;
     /** Hides the ink bar. */
     hide(): void;
-    /**
-     * Sets the proper styles to the ink bar element.
-     * @param element
-     */
-    private _setStyles;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInkBar, [null, null, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatInkBar, "mat-ink-bar", never, {}, {}, never>;
 }
