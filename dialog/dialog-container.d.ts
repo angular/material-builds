@@ -120,6 +120,13 @@ export declare class MatDialogContainer extends _MatDialogContainerBase {
     /** Starts the dialog exit animation. */
     _startExitAnimation(): void;
     _initializeWithAttachedContent(): void;
+    _getAnimationState(): {
+        value: "enter" | "void" | "exit";
+        params: {
+            enterAnimationDuration: string;
+            exitAnimationDuration: string;
+        };
+    };
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never>;
 }
