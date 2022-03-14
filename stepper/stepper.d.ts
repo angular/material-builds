@@ -58,6 +58,11 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
      * Only applies in the `horizontal` orientation.
      */
     labelPosition: 'bottom' | 'end';
+    /**
+     * Position of the stepper's header.
+     * Only applies in the `horizontal` orientation.
+     */
+    headerPosition: 'top' | 'bottom';
     /** Consumer-specified template-refs to be used to override the header icons. */
     _iconOverrides: Record<string, TemplateRef<MatStepperIconContext>>;
     /** Stream of animation `done` events when the body expands/collapses. */
@@ -66,5 +71,5 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     ngAfterContentInit(): void;
     _stepIsNavigable(index: number, step: MatStep): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, [{ optional: true; }, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": "selectedIndex"; "disableRipple": "disableRipple"; "color": "color"; "labelPosition": "labelPosition"; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": "selectedIndex"; "disableRipple": "disableRipple"; "color": "color"; "labelPosition": "labelPosition"; "headerPosition": "headerPosition"; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never>;
 }
