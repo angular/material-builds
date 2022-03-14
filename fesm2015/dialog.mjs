@@ -8,13 +8,50 @@ import { MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { Subject, defer, of } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
+import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import * as i2 from '@angular/common';
 import { DOCUMENT } from '@angular/common';
-import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 import * as i1 from '@angular/cdk/a11y';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Default parameters for the animation for backwards compatibility.
+ * @docs-private
+ */
+const defaultParams = {
+    params: { enterAnimationDuration: '150ms', exitAnimationDuration: '75ms' },
+};
+/**
+ * Animations used by MatDialog.
+ * @docs-private
+ */
+const matDialogAnimations = {
+    /** Animation that is applied on the dialog container by default. */
+    dialogContainer: trigger('dialogContainer', [
+        // Note: The `enter` animation transitions to `transform: none`, because for some reason
+        // specifying the transform explicitly, causes IE both to blur the dialog content and
+        // decimate the animation performance. Leaving it as `none` solves both issues.
+        state('void, exit', style({ opacity: 0, transform: 'scale(0.7)' })),
+        state('enter', style({ transform: 'none' })),
+        transition('* => enter', group([
+            animate('{{enterAnimationDuration}} cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 })),
+            query('@*', animateChild(), { optional: true }),
+        ]), defaultParams),
+        transition('* => void, * => exit', group([
+            animate('{{exitAnimationDuration}} cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 })),
+            query('@*', animateChild(), { optional: true }),
+        ]), defaultParams),
+    ]),
+};
 
 /**
  * @license
@@ -72,42 +109,12 @@ class MatDialogConfig {
          */
         this.closeOnNavigation = true;
         /** Duration of the enter animation. Has to be a valid CSS value (e.g. 100ms). */
-        this.enterAnimationDuration = '150ms';
+        this.enterAnimationDuration = defaultParams.params.enterAnimationDuration;
         /** Duration of the exit animation. Has to be a valid CSS value (e.g. 50ms). */
-        this.exitAnimationDuration = '75ms';
+        this.exitAnimationDuration = defaultParams.params.exitAnimationDuration;
         // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
 }
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Animations used by MatDialog.
- * @docs-private
- */
-const matDialogAnimations = {
-    /** Animation that is applied on the dialog container by default. */
-    dialogContainer: trigger('dialogContainer', [
-        // Note: The `enter` animation transitions to `transform: none`, because for some reason
-        // specifying the transform explicitly, causes IE both to blur the dialog content and
-        // decimate the animation performance. Leaving it as `none` solves both issues.
-        state('void, exit', style({ opacity: 0, transform: 'scale(0.7)' })),
-        state('enter', style({ transform: 'none' })),
-        transition('* => enter', group([
-            animate('{{enterAnimationDuration}} cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 })),
-            query('@*', animateChild(), { optional: true }),
-        ])),
-        transition('* => void, * => exit', group([
-            animate('{{exitAnimationDuration}} cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 })),
-            query('@*', animateChild(), { optional: true }),
-        ])),
-    ]),
-};
 
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -369,8 +376,8 @@ class MatDialogContainer extends _MatDialogContainerBase {
         return {
             value: this._state,
             params: {
-                enterAnimationDuration: this._config.enterAnimationDuration || '150ms',
-                exitAnimationDuration: this._config.exitAnimationDuration || '75ms',
+                enterAnimationDuration: this._config.enterAnimationDuration || defaultParams.params.enterAnimationDuration,
+                exitAnimationDuration: this._config.exitAnimationDuration || defaultParams.params.exitAnimationDuration,
             },
         };
     }
