@@ -11,7 +11,7 @@ import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef, OnChanges, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { _MatOptionBase, MatOptionSelectionChange } from '@angular/material/core';
+import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { _MatAutocompleteBase, MatAutocompleteDefaultOptions } from './autocomplete';
@@ -70,13 +70,6 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      * comes back.
      */
     private _canOpenOnNextFocus;
-    /** Value inside the input before we auto-selected an option. */
-    private _valueBeforeAutoSelection;
-    /**
-     * Current option that we have auto-selected as the user is navigating,
-     * but which hasn't been propagated to the model value yet.
-     */
-    private _pendingAutoselectedOption;
     /** Stream of keyboard events that can close the panel. */
     private readonly _closeKeyEventStream;
     /**
@@ -140,7 +133,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     /** Stream of changes to the selection state of the autocomplete options. */
     readonly optionSelections: Observable<MatOptionSelectionChange>;
     /** The currently active option, coerced to MatOption type. */
-    get activeOption(): _MatOptionBase | null;
+    get activeOption(): MatOption | null;
     /** Stream of clicks outside of the autocomplete panel. */
     private _getOutsideClickStream;
     writeValue(value: any): void;
@@ -167,8 +160,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _subscribeToClosingActions;
     /** Destroys the autocomplete suggestion panel. */
     private _destroyPanel;
-    private _assignOptionValue;
-    private _updateNativeInputValue;
+    private _setTriggerValue;
     /**
      * This method closes the panel, and if a value is specified, also sets the associated
      * control to that value. It will also mark the control as dirty if this interaction
@@ -199,8 +191,6 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _getWindow;
     /** Scrolls to a particular option in the list. */
     private _scrollToOption;
-    /** Handles keyboard events coming from the overlay panel. */
-    private _handleOverlayEvents;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteTriggerBase, [null, null, null, null, null, null, { optional: true; }, { optional: true; host: true; }, { optional: true; }, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteTriggerBase, never, never, { "autocomplete": "matAutocomplete"; "position": "matAutocompletePosition"; "connectedTo": "matAutocompleteConnectedTo"; "autocompleteAttribute": "autocomplete"; "autocompleteDisabled": "matAutocompleteDisabled"; }, {}, never>;
 }

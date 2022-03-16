@@ -25,11 +25,23 @@ export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 export declare class MatSelectionListChange {
     /** Reference to the selection list that emitted the event. */
     source: MatSelectionList;
+    /**
+     * Reference to the option that has been changed.
+     * @deprecated Use `options` instead, because some events may change more than one option.
+     * @breaking-change 12.0.0
+     */
+    option: MatListOption;
     /** Reference to the options that have been changed. */
     options: MatListOption[];
     constructor(
     /** Reference to the selection list that emitted the event. */
     source: MatSelectionList, 
+    /**
+     * Reference to the option that has been changed.
+     * @deprecated Use `options` instead, because some events may change more than one option.
+     * @breaking-change 12.0.0
+     */
+    option: MatListOption, 
     /** Reference to the options that have been changed. */
     options: MatListOption[]);
 }
@@ -122,7 +134,7 @@ export declare class MatListOption extends _MatListOptionBase implements AfterCo
 export declare class MatSelectionList extends _MatSelectionListBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
     private _element;
     private _changeDetector;
-    private _focusMonitor;
+    private _focusMonitor?;
     private _multiple;
     private _contentInitialized;
     /** The FocusKeyManager which handles focus. */
@@ -131,6 +143,11 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
     options: QueryList<MatListOption>;
     /** Emits a change event whenever the selected state of an option changes. */
     readonly selectionChange: EventEmitter<MatSelectionListChange>;
+    /**
+     * Tabindex of the selection list.
+     * @breaking-change 11.0.0 Remove `tabIndex` input.
+     */
+    tabIndex: number;
     /** Theme color of the selection list. This sets the checkbox color for all list options. */
     color: ThemePalette;
     /**
@@ -160,7 +177,7 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
     _onTouched: () => void;
     /** Whether the list has been destroyed. */
     private _isDestroyed;
-    constructor(_element: ElementRef<HTMLElement>, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor);
+    constructor(_element: ElementRef<HTMLElement>, tabIndex: string, _changeDetector: ChangeDetectorRef, _focusMonitor?: FocusMonitor | undefined);
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
@@ -220,7 +237,7 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
     private _allowFocusEscape;
     /** Updates the tabindex based upon if the selection list is empty. */
     private _updateTabIndex;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "disableRipple": "disableRipple"; "color": "color"; "compareWith": "compareWith"; "disabled": "disabled"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["options"], ["*"]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, [null, { attribute: "tabindex"; }, null, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "color": "color"; "compareWith": "compareWith"; "disabled": "disabled"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["options"], ["*"]>;
 }
 export {};

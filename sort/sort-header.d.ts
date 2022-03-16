@@ -9,7 +9,7 @@ import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
-import { MatSort, MatSortable, MatSortDefaultOptions, SortHeaderArrowPosition } from './sort';
+import { MatSort, MatSortable } from './sort';
 import { SortDirection } from './sort-direction';
 import { MatSortHeaderIntl } from './sort-header-intl';
 import * as i0 from "@angular/core";
@@ -90,7 +90,7 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
      */
     id: string;
     /** Sets the position of the arrow that displays when sorted. */
-    arrowPosition: SortHeaderArrowPosition;
+    arrowPosition: 'before' | 'after';
     /** Overrides the sort start value of the containing MatSort for this MatSortable. */
     start: 'asc' | 'desc';
     /**
@@ -111,7 +111,7 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
      */
     _intl: MatSortHeaderIntl, _changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, 
     /** @breaking-change 14.0.0 _ariaDescriber will be required. */
-    _ariaDescriber?: AriaDescriber | null | undefined, defaultOptions?: MatSortDefaultOptions);
+    _ariaDescriber?: AriaDescriber | null | undefined);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -160,7 +160,7 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     private _updateSortActionDescription;
     /** Handles changes in the sorting state. */
     private _handleStateChanges;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "disabled": "disabled"; "id": "mat-sort-header"; "arrowPosition": "arrowPosition"; "start": "start"; "sortActionDescription": "sortActionDescription"; "disableClear": "disableClear"; }, {}, never, ["*"]>;
 }
 export {};

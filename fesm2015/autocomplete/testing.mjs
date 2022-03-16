@@ -48,18 +48,12 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     /** Gets the options inside the autocomplete panel. */
     getOptions(filters) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!(yield this.isOpen())) {
-                throw new Error('Unable to retrieve options for autocomplete. Autocomplete panel is closed.');
-            }
             return this._documentRootLocator.locatorForAll(this._optionClass.with(Object.assign(Object.assign({}, (filters || {})), { ancestor: yield this._getPanelSelector() })))();
         });
     }
     /** Gets the option groups inside the autocomplete panel. */
     getOptionGroups(filters) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!(yield this.isOpen())) {
-                throw new Error('Unable to retrieve option groups for autocomplete. Autocomplete panel is closed.');
-            }
             return this._documentRootLocator.locatorForAll(this._optionGroupClass.with(Object.assign(Object.assign({}, (filters || {})), { ancestor: yield this._getPanelSelector() })))();
         });
     }

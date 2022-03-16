@@ -7,7 +7,7 @@
  */
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterViewChecked, ElementRef, ErrorHandler, InjectionToken, OnDestroy, OnInit } from '@angular/core';
-import { CanColor, ThemePalette } from '@angular/material/core';
+import { CanColor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 import * as i0 from "@angular/core";
 /** @docs-private */
@@ -16,15 +16,6 @@ declare const _MatIconBase: import("@angular/material/core")._Constructor<CanCol
         _elementRef: ElementRef;
     };
 };
-/** Default options for `mat-icon`.  */
-export interface MatIconDefaultOptions {
-    /** Default color of the icon. */
-    color?: ThemePalette;
-    /** Font set that the icon is a part of. */
-    fontSet?: string;
-}
-/** Injection token to be used to override the default options for `mat-icon`. */
-export declare const MAT_ICON_DEFAULT_OPTIONS: InjectionToken<MatIconDefaultOptions>;
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -100,7 +91,7 @@ export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewCh
     private _elementsWithExternalReferences?;
     /** Subscription to the current in-progress SVG icon request. */
     private _currentIconFetch;
-    constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, _location: MatIconLocation, _errorHandler: ErrorHandler, defaults?: MatIconDefaultOptions);
+    constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, _location: MatIconLocation, _errorHandler: ErrorHandler);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
@@ -141,7 +132,7 @@ export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewCh
     private _cacheChildrenWithExternalReferences;
     /** Sets a new SVG icon with a particular name. */
     private _updateSvgIcon;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, [null, null, { attribute: "aria-hidden"; }, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, [null, null, { attribute: "aria-hidden"; }, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": "color"; "inline": "inline"; "svgIcon": "svgIcon"; "fontSet": "fontSet"; "fontIcon": "fontIcon"; }, {}, never, ["*"]>;
 }
 export {};

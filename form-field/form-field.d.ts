@@ -8,7 +8,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList, OnDestroy } from '@angular/core';
-import { CanColor, ThemePalette } from '@angular/material/core';
+import { CanColor } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
 import { MatHint } from './hint';
@@ -30,21 +30,17 @@ declare const _MatFormFieldBase: import("@angular/material/core")._Constructor<C
 };
 /** Possible appearance styles for the form field. */
 export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
-/** Possible values for the "floatLabel" form field input. */
+/** Possible values for the "floatLabel" form-field input. */
 export declare type FloatLabelType = 'always' | 'never' | 'auto';
 /**
  * Represents the default options for the form field that can be configured
  * using the `MAT_FORM_FIELD_DEFAULT_OPTIONS` injection token.
  */
 export interface MatFormFieldDefaultOptions {
-    /** Default form field appearance style. */
     appearance?: MatFormFieldAppearance;
-    /** Default color of the form field. */
-    color?: ThemePalette;
-    /** Whether the required marker should be hidden by default. */
     hideRequiredMarker?: boolean;
     /**
-     * Whether the label for form fields should by default float `always`,
+     * Whether the label for form-fields should by default float `always`,
      * `never`, or `auto` (only when necessary).
      */
     floatLabel?: FloatLabelType;
@@ -75,7 +71,7 @@ export declare class MatFormField extends _MatFormFieldBase implements AfterCont
     /** Whether the outline gap needs to be calculated next time the zone has stabilized. */
     private _outlineGapCalculationNeededOnStable;
     private readonly _destroyed;
-    /** The form field appearance style. */
+    /** The form-field appearance style. */
     get appearance(): MatFormFieldAppearance;
     set appearance(value: MatFormFieldAppearance);
     _appearance: MatFormFieldAppearance;
@@ -131,7 +127,7 @@ export declare class MatFormField extends _MatFormFieldBase implements AfterCont
      */
     getLabelId(): string | null;
     /**
-     * Gets an ElementRef for the element that a overlay attached to the form field should be
+     * Gets an ElementRef for the element that a overlay attached to the form-field should be
      * positioned relative to.
      */
     getConnectedOverlayOrigin(): ElementRef;

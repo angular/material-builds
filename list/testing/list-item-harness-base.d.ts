@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentHarness, ComponentHarnessConstructor, HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
+import { ComponentHarness, ComponentHarnessConstructor, HarnessLoader, HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { BaseListItemHarnessFilters, SubheaderHarnessFilters } from './list-harness-filters';
 /**
  * Gets a `HarnessPredicate` that applies the given `BaseListItemHarnessFilters` to the given
@@ -45,4 +45,10 @@ export declare abstract class MatListItemHarnessBase extends ContentContainerCom
     hasIcon(): Promise<boolean>;
     /** Whether this list option is disabled. */
     isDisabled(): Promise<boolean>;
+    /**
+     * Gets a `HarnessLoader` used to get harnesses within the list item's content.
+     * @deprecated Use `getChildLoader(MatListItemSection.CONTENT)` or `getHarness` instead.
+     * @breaking-change 12.0.0
+     */
+    getHarnessLoaderForContent(): Promise<HarnessLoader>;
 }

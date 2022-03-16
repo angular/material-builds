@@ -67,10 +67,6 @@ export declare class MatDialogContent {
  * Stays fixed to the bottom when scrolling.
  */
 export declare class MatDialogActions {
-    /**
-     * Horizontal alignment of action buttons.
-     */
-    align?: 'start' | 'center' | 'end';
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, { "align": "align"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, {}, {}, never>;
 }

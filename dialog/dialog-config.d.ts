@@ -93,8 +93,4 @@ export declare class MatDialogConfig<D = any> {
     closeOnNavigation?: boolean;
     /** Alternate `ComponentFactoryResolver` to use when resolving the associated component. */
     componentFactoryResolver?: ComponentFactoryResolver;
-    /** Duration of the enter animation. Has to be a valid CSS value (e.g. 100ms). */
-    enterAnimationDuration?: string;
-    /** Duration of the exit animation. Has to be a valid CSS value (e.g. 50ms). */
-    exitAnimationDuration?: string;
 }

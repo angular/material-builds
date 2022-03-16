@@ -7,7 +7,7 @@
  */
 import { ChangeDetectorRef, ElementRef, NgZone, QueryList, EventEmitter, AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Direction, Directionality } from '@angular/cdk/bidi';
-import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { NumberInput } from '@angular/cdk/coercion';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusableOption } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
@@ -74,9 +74,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      * Whether pagination should be disabled. This can be used to avoid unnecessary
      * layout recalculations if it's known that pagination won't be required.
      */
-    get disablePagination(): boolean;
-    set disablePagination(value: BooleanInput);
-    private _disablePagination;
+    disablePagination: boolean;
     /** The index of the active tab. */
     get selectedIndex(): number;
     set selectedIndex(value: NumberInput);

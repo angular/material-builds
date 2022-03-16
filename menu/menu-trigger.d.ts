@@ -22,11 +22,7 @@ export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     deps: (typeof Overlay)[];
     useFactory: typeof MAT_MENU_SCROLL_STRATEGY_FACTORY;
 };
-/**
- * Default top padding of the menu panel.
- * @deprecated No longer being used. Will be removed.
- * @breaking-change 15.0.0
- */
+/** Default top padding of the menu panel. */
 export declare const MENU_PANEL_TOP_PADDING = 8;
 export declare abstract class _MatMenuTriggerBase implements AfterContentInit, OnDestroy {
     private _overlay;
@@ -49,11 +45,6 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
      */
     private _parentMaterialMenu;
     /**
-     * Cached value of the padding of the parent menu panel.
-     * Used to offset sub-menus to compensate for the padding.
-     */
-    private _parentInnerPadding;
-    /**
      * Handles touch start events on the trigger.
      * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
      */
@@ -63,11 +54,11 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
      * @deprecated
      * @breaking-change 8.0.0
      */
-    get _deprecatedMatMenuTriggerFor(): MatMenuPanel | null;
-    set _deprecatedMatMenuTriggerFor(v: MatMenuPanel | null);
+    get _deprecatedMatMenuTriggerFor(): MatMenuPanel;
+    set _deprecatedMatMenuTriggerFor(v: MatMenuPanel);
     /** References the menu instance that the trigger is associated with. */
-    get menu(): MatMenuPanel | null;
-    set menu(menu: MatMenuPanel | null);
+    get menu(): MatMenuPanel;
+    set menu(menu: MatMenuPanel);
     private _menu;
     /** Data to be passed along to any lazily-rendered content. */
     menuData: any;
@@ -136,6 +127,11 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
     /** Updates the menu elevation based on the amount of parent menus that it has. */
     private _setMenuElevation;
     private _setIsMenuOpen;
+    /**
+     * This method checks that a valid instance of MatMenu has been passed into
+     * matMenuTriggerFor. If not, an exception is thrown.
+     */
+    private _checkMenu;
     /**
      * This method creates the overlay from the provided menu's template and saves its
      * OverlayRef so that it can be attached to the DOM when openMenu is called.

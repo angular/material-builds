@@ -9,7 +9,7 @@ import { _isTestEnvironment, normalizePassiveListenerOptions } from '@angular/cd
 import * as i1 from '@angular/cdk/a11y';
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
-import { Observable, Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
@@ -22,7 +22,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
  * found in the LICENSE file at https://angular.io/license
  */
 /** Current version of Angular Material. */
-const VERSION = new Version('14.0.0-next.6');
+const VERSION = new Version('13.2.6');
 
 /**
  * @license
@@ -95,10 +95,10 @@ class MatCommonModule {
         return !!this._sanityChecks[name];
     }
 }
-MatCommonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatCommonModule, deps: [{ token: i1.HighContrastModeDetector }, { token: MATERIAL_SANITY_CHECKS, optional: true }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.NgModule });
-MatCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatCommonModule, imports: [BidiModule], exports: [BidiModule] });
-MatCommonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatCommonModule, imports: [[BidiModule], BidiModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatCommonModule, decorators: [{
+MatCommonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatCommonModule, deps: [{ token: i1.HighContrastModeDetector }, { token: MATERIAL_SANITY_CHECKS, optional: true }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.NgModule });
+MatCommonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatCommonModule, imports: [BidiModule], exports: [BidiModule] });
+MatCommonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatCommonModule, imports: [[BidiModule], BidiModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatCommonModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [BidiModule],
@@ -269,6 +269,12 @@ function mixinErrorState(base) {
     return class extends base {
         constructor(...args) {
             super(...args);
+            // This class member exists as an interop with `MatFormFieldControl` which expects
+            // a public `stateChanges` observable to emit whenever the form field should be updated.
+            // The description is not specifically mentioning the error state, as classes using this
+            // mixin can/should emit an event in other cases too.
+            /** Emits whenever the component state changes. */
+            this.stateChanges = new Subject();
             /** Whether the component is in an error state. */
             this.errorState = false;
         }
@@ -663,9 +669,9 @@ class NativeDateAdapter extends DateAdapter {
         return dtf.format(d);
     }
 }
-NativeDateAdapter.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: NativeDateAdapter, deps: [{ token: MAT_DATE_LOCALE, optional: true }, { token: i1$1.Platform }], target: i0.ɵɵFactoryTarget.Injectable });
-NativeDateAdapter.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: NativeDateAdapter });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: NativeDateAdapter, decorators: [{
+NativeDateAdapter.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: NativeDateAdapter, deps: [{ token: MAT_DATE_LOCALE, optional: true }, { token: i1$1.Platform }], target: i0.ɵɵFactoryTarget.Injectable });
+NativeDateAdapter.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: NativeDateAdapter });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: NativeDateAdapter, decorators: [{
             type: Injectable
         }], ctorParameters: function () {
         return [{ type: undefined, decorators: [{
@@ -704,10 +710,10 @@ const MAT_NATIVE_DATE_FORMATS = {
  */
 class NativeDateModule {
 }
-NativeDateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: NativeDateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-NativeDateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: NativeDateModule });
-NativeDateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: NativeDateModule, providers: [{ provide: DateAdapter, useClass: NativeDateAdapter }] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: NativeDateModule, decorators: [{
+NativeDateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: NativeDateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+NativeDateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: NativeDateModule });
+NativeDateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: NativeDateModule, providers: [{ provide: DateAdapter, useClass: NativeDateAdapter }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: NativeDateModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [{ provide: DateAdapter, useClass: NativeDateAdapter }],
@@ -715,10 +721,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", 
         }] });
 class MatNativeDateModule {
 }
-MatNativeDateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatNativeDateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatNativeDateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatNativeDateModule, imports: [NativeDateModule] });
-MatNativeDateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatNativeDateModule, providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }], imports: [[NativeDateModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatNativeDateModule, decorators: [{
+MatNativeDateModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatNativeDateModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatNativeDateModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatNativeDateModule, imports: [NativeDateModule] });
+MatNativeDateModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatNativeDateModule, providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }], imports: [[NativeDateModule]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatNativeDateModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [NativeDateModule],
@@ -739,9 +745,9 @@ class ShowOnDirtyErrorStateMatcher {
         return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
     }
 }
-ShowOnDirtyErrorStateMatcher.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: ShowOnDirtyErrorStateMatcher, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-ShowOnDirtyErrorStateMatcher.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: ShowOnDirtyErrorStateMatcher });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: ShowOnDirtyErrorStateMatcher, decorators: [{
+ShowOnDirtyErrorStateMatcher.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: ShowOnDirtyErrorStateMatcher, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+ShowOnDirtyErrorStateMatcher.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: ShowOnDirtyErrorStateMatcher });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: ShowOnDirtyErrorStateMatcher, decorators: [{
             type: Injectable
         }] });
 /** Provider that defines how form controls behave with regards to displaying error messages. */
@@ -750,9 +756,9 @@ class ErrorStateMatcher {
         return !!(control && control.invalid && (control.touched || (form && form.submitted)));
     }
 }
-ErrorStateMatcher.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: ErrorStateMatcher, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-ErrorStateMatcher.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: ErrorStateMatcher, providedIn: 'root' });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: ErrorStateMatcher, decorators: [{
+ErrorStateMatcher.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: ErrorStateMatcher, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+ErrorStateMatcher.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: ErrorStateMatcher, providedIn: 'root' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: ErrorStateMatcher, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });
@@ -771,9 +777,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", 
  */
 class MatLine {
 }
-MatLine.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatLine, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLine.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "14.0.0-next.6", type: MatLine, selector: "[mat-line], [matLine]", host: { classAttribute: "mat-line" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatLine, decorators: [{
+MatLine.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatLine, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatLine.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: MatLine, selector: "[mat-line], [matLine]", host: { classAttribute: "mat-line" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatLine, decorators: [{
             type: Directive,
             args: [{
                     selector: '[mat-line], [matLine]',
@@ -805,10 +811,10 @@ function setClass(element, className, isAdd) {
 }
 class MatLineModule {
 }
-MatLineModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatLineModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLineModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatLineModule, declarations: [MatLine], imports: [MatCommonModule], exports: [MatLine, MatCommonModule] });
-MatLineModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatLineModule, imports: [[MatCommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatLineModule, decorators: [{
+MatLineModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatLineModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLineModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatLineModule, declarations: [MatLine], imports: [MatCommonModule], exports: [MatLine, MatCommonModule] });
+MatLineModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatLineModule, imports: [[MatCommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatLineModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],
@@ -832,13 +838,10 @@ class RippleRef {
     /** Reference to the ripple HTML element. */
     element, 
     /** Ripple configuration used for the ripple. */
-    config, 
-    /* Whether animations are forcibly disabled for ripples through CSS. */
-    _animationForciblyDisabledThroughCss = false) {
+    config) {
         this._renderer = _renderer;
         this.element = element;
         this.config = config;
-        this._animationForciblyDisabledThroughCss = _animationForciblyDisabledThroughCss;
         /** Current state of the ripple. */
         this.state = 3 /* HIDDEN */;
     }
@@ -907,7 +910,7 @@ class RippleRenderer {
         const radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
         const offsetX = x - containerRect.left;
         const offsetY = y - containerRect.top;
-        const enterDuration = animationConfig.enterDuration;
+        const duration = animationConfig.enterDuration;
         const ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = `${offsetX - radius}px`;
@@ -919,73 +922,59 @@ class RippleRenderer {
         if (config.color != null) {
             ripple.style.backgroundColor = config.color;
         }
-        ripple.style.transitionDuration = `${enterDuration}ms`;
+        ripple.style.transitionDuration = `${duration}ms`;
         this._containerElement.appendChild(ripple);
         // By default the browser does not recalculate the styles of dynamically created
-        // ripple elements. This is critical to ensure that the `scale` animates properly.
-        // We enforce a style recalculation by calling `getComputedStyle` and *accessing* a property.
-        // See: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
-        const computedStyles = window.getComputedStyle(ripple);
-        const userTransitionProperty = computedStyles.transitionProperty;
-        const userTransitionDuration = computedStyles.transitionDuration;
-        // Note: We detect whether animation is forcibly disabled through CSS by the use of
-        // `transition: none`. This is technically unexpected since animations are controlled
-        // through the animation config, but this exists for backwards compatibility. This logic does
-        // not need to be super accurate since it covers some edge cases which can be easily avoided by users.
-        const animationForciblyDisabledThroughCss = userTransitionProperty === 'none' ||
-            // Note: The canonical unit for serialized CSS `<time>` properties is seconds. Additionally
-            // some browsers expand the duration for every property (in our case `opacity` and `transform`).
-            userTransitionDuration === '0s' ||
-            userTransitionDuration === '0s, 0s';
+        // ripple elements. This is critical because then the `scale` would not animate properly.
+        enforceStyleRecalculation(ripple);
+        ripple.style.transform = 'scale(1)';
         // Exposed reference to the ripple that will be returned.
-        const rippleRef = new RippleRef(this, ripple, config, animationForciblyDisabledThroughCss);
-        // Start the enter animation by setting the transform/scale to 100%. The animation will
-        // execute as part of this statement because we forced a style recalculation before.
-        // Note: We use a 3d transform here in order to avoid an issue in Safari where
-        // the ripples aren't clipped when inside the shadow DOM (see #24028).
-        ripple.style.transform = 'scale3d(1, 1, 1)';
+        const rippleRef = new RippleRef(this, ripple, config);
         rippleRef.state = 0 /* FADING_IN */;
         // Add the ripple reference to the list of all active ripples.
         this._activeRipples.add(rippleRef);
         if (!config.persistent) {
             this._mostRecentTransientRipple = rippleRef;
         }
-        // Do not register the `transition` event listener if fade-in and fade-out duration
-        // are set to zero. The events won't fire anyway and we can save resources here.
-        if (!animationForciblyDisabledThroughCss && (enterDuration || animationConfig.exitDuration)) {
-            this._ngZone.runOutsideAngular(() => {
-                ripple.addEventListener('transitionend', () => this._finishRippleTransition(rippleRef));
-                // If the transition is cancelled (e.g. due to DOM removal), we destroy the ripple
-                // directly as otherwise we would keep it part of the ripple container forever.
-                // https://www.w3.org/TR/css-transitions-1/#:~:text=no%20longer%20in%20the%20document.
-                ripple.addEventListener('transitioncancel', () => this._destroyRipple(rippleRef));
-            });
-        }
-        // In case there is no fade-in transition duration, we need to manually call the transition
-        // end listener because `transitionend` doesn't fire if there is no transition.
-        if (animationForciblyDisabledThroughCss || !enterDuration) {
-            this._finishRippleTransition(rippleRef);
-        }
+        // Wait for the ripple element to be completely faded in.
+        // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
+        this._runTimeoutOutsideZone(() => {
+            const isMostRecentTransientRipple = rippleRef === this._mostRecentTransientRipple;
+            rippleRef.state = 1 /* VISIBLE */;
+            // When the timer runs out while the user has kept their pointer down, we want to
+            // keep only the persistent ripples and the latest transient ripple. We do this,
+            // because we don't want stacked transient ripples to appear after their enter
+            // animation has finished.
+            if (!config.persistent && (!isMostRecentTransientRipple || !this._isPointerDown)) {
+                rippleRef.fadeOut();
+            }
+        }, duration);
         return rippleRef;
     }
     /** Fades out a ripple reference. */
     fadeOutRipple(rippleRef) {
-        // For ripples already fading out or hidden, this should be a noop.
-        if (rippleRef.state === 2 /* FADING_OUT */ || rippleRef.state === 3 /* HIDDEN */) {
+        const wasActive = this._activeRipples.delete(rippleRef);
+        if (rippleRef === this._mostRecentTransientRipple) {
+            this._mostRecentTransientRipple = null;
+        }
+        // Clear out the cached bounding rect if we have no more ripples.
+        if (!this._activeRipples.size) {
+            this._containerRect = null;
+        }
+        // For ripples that are not active anymore, don't re-run the fade-out animation.
+        if (!wasActive) {
             return;
         }
         const rippleEl = rippleRef.element;
         const animationConfig = Object.assign(Object.assign({}, defaultRippleAnimationConfig), rippleRef.config.animation);
-        // This starts the fade-out transition and will fire the transition end listener that
-        // removes the ripple element from the DOM.
         rippleEl.style.transitionDuration = `${animationConfig.exitDuration}ms`;
         rippleEl.style.opacity = '0';
         rippleRef.state = 2 /* FADING_OUT */;
-        // In case there is no fade-out transition duration, we need to manually call the
-        // transition end listener because `transitionend` doesn't fire if there is no transition.
-        if (rippleRef._animationForciblyDisabledThroughCss || !animationConfig.exitDuration) {
-            this._finishRippleTransition(rippleRef);
-        }
+        // Once the ripple faded out, the ripple can be safely removed from the DOM.
+        this._runTimeoutOutsideZone(() => {
+            rippleRef.state = 3 /* HIDDEN */;
+            rippleEl.remove();
+        }, animationConfig.exitDuration);
     }
     /** Fades out all currently active ripples. */
     fadeOutAll() {
@@ -1032,46 +1021,6 @@ class RippleRenderer {
             this._pointerUpEventsRegistered = true;
         }
     }
-    /** Method that will be called if the fade-in or fade-in transition completed. */
-    _finishRippleTransition(rippleRef) {
-        if (rippleRef.state === 0 /* FADING_IN */) {
-            this._startFadeOutTransition(rippleRef);
-        }
-        else if (rippleRef.state === 2 /* FADING_OUT */) {
-            this._destroyRipple(rippleRef);
-        }
-    }
-    /**
-     * Starts the fade-out transition of the given ripple if it's not persistent and the pointer
-     * is not held down anymore.
-     */
-    _startFadeOutTransition(rippleRef) {
-        const isMostRecentTransientRipple = rippleRef === this._mostRecentTransientRipple;
-        const { persistent } = rippleRef.config;
-        rippleRef.state = 1 /* VISIBLE */;
-        // When the timer runs out while the user has kept their pointer down, we want to
-        // keep only the persistent ripples and the latest transient ripple. We do this,
-        // because we don't want stacked transient ripples to appear after their enter
-        // animation has finished.
-        if (!persistent && (!isMostRecentTransientRipple || !this._isPointerDown)) {
-            rippleRef.fadeOut();
-        }
-    }
-    /** Destroys the given ripple by removing it from the DOM and updating its state. */
-    _destroyRipple(rippleRef) {
-        this._activeRipples.delete(rippleRef);
-        // Clear out the cached bounding rect if we have no more ripples.
-        if (!this._activeRipples.size) {
-            this._containerRect = null;
-        }
-        // If the current ref is the most recent transient ripple, unset it
-        // avoid memory leaks.
-        if (rippleRef === this._mostRecentTransientRipple) {
-            this._mostRecentTransientRipple = null;
-        }
-        rippleRef.state = 3 /* HIDDEN */;
-        rippleRef.element.remove();
-    }
     /** Function being called whenever the trigger is being pressed using mouse. */
     _onMousedown(event) {
         // Screen readers will fire fake mouse events for space/enter. Skip launching a
@@ -1117,6 +1066,10 @@ class RippleRenderer {
             }
         });
     }
+    /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
+    _runTimeoutOutsideZone(fn, delay = 0) {
+        this._ngZone.runOutsideAngular(() => setTimeout(fn, delay));
+    }
     /** Registers event listeners for a given list of events. */
     _registerEvents(eventTypes) {
         this._ngZone.runOutsideAngular(() => {
@@ -1138,6 +1091,13 @@ class RippleRenderer {
             }
         }
     }
+}
+/** Enforces a style recalculation of a DOM element by computing its styles. */
+function enforceStyleRecalculation(element) {
+    // Enforce a style recalculation by calling `getComputedStyle` and accessing any property.
+    // Calling `getPropertyValue` is important to let optimizers know that this is not a noop.
+    // See: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
+    window.getComputedStyle(element).getPropertyValue('opacity');
 }
 /**
  * Returns the distance from the point (x, y) to the furthest corner of a rectangle.
@@ -1242,9 +1202,9 @@ class MatRipple {
         }
     }
 }
-MatRipple.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatRipple, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: i1$1.Platform }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatRipple.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "14.0.0-next.6", type: MatRipple, selector: "[mat-ripple], [matRipple]", inputs: { color: ["matRippleColor", "color"], unbounded: ["matRippleUnbounded", "unbounded"], centered: ["matRippleCentered", "centered"], radius: ["matRippleRadius", "radius"], animation: ["matRippleAnimation", "animation"], disabled: ["matRippleDisabled", "disabled"], trigger: ["matRippleTrigger", "trigger"] }, host: { properties: { "class.mat-ripple-unbounded": "unbounded" }, classAttribute: "mat-ripple" }, exportAs: ["matRipple"], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatRipple, decorators: [{
+MatRipple.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatRipple, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: i1$1.Platform }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
+MatRipple.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: MatRipple, selector: "[mat-ripple], [matRipple]", inputs: { color: ["matRippleColor", "color"], unbounded: ["matRippleUnbounded", "unbounded"], centered: ["matRippleCentered", "centered"], radius: ["matRippleRadius", "radius"], animation: ["matRippleAnimation", "animation"], disabled: ["matRippleDisabled", "disabled"], trigger: ["matRippleTrigger", "trigger"] }, host: { properties: { "class.mat-ripple-unbounded": "unbounded" }, classAttribute: "mat-ripple" }, exportAs: ["matRipple"], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatRipple, decorators: [{
             type: Directive,
             args: [{
                     selector: '[mat-ripple], [matRipple]',
@@ -1298,10 +1258,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", 
  */
 class MatRippleModule {
 }
-MatRippleModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatRippleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatRippleModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatRippleModule, declarations: [MatRipple], imports: [MatCommonModule], exports: [MatRipple, MatCommonModule] });
-MatRippleModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatRippleModule, imports: [[MatCommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatRippleModule, decorators: [{
+MatRippleModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatRippleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatRippleModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatRippleModule, declarations: [MatRipple], imports: [MatCommonModule], exports: [MatRipple, MatCommonModule] });
+MatRippleModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatRippleModule, imports: [[MatCommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatRippleModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],
@@ -1339,9 +1299,9 @@ class MatPseudoCheckbox {
         this.disabled = false;
     }
 }
-MatPseudoCheckbox.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatPseudoCheckbox, deps: [{ token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatPseudoCheckbox.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "14.0.0-next.6", type: MatPseudoCheckbox, selector: "mat-pseudo-checkbox", inputs: { state: "state", disabled: "disabled" }, host: { properties: { "class.mat-pseudo-checkbox-indeterminate": "state === \"indeterminate\"", "class.mat-pseudo-checkbox-checked": "state === \"checked\"", "class.mat-pseudo-checkbox-disabled": "disabled", "class._mat-animation-noopable": "_animationMode === \"NoopAnimations\"" }, classAttribute: "mat-pseudo-checkbox" }, ngImport: i0, template: '', isInline: true, styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatPseudoCheckbox, decorators: [{
+MatPseudoCheckbox.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatPseudoCheckbox, deps: [{ token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+MatPseudoCheckbox.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: MatPseudoCheckbox, selector: "mat-pseudo-checkbox", inputs: { state: "state", disabled: "disabled" }, host: { properties: { "class.mat-pseudo-checkbox-indeterminate": "state === \"indeterminate\"", "class.mat-pseudo-checkbox-checked": "state === \"checked\"", "class.mat-pseudo-checkbox-disabled": "disabled", "class._mat-animation-noopable": "_animationMode === \"NoopAnimations\"" }, classAttribute: "mat-pseudo-checkbox" }, ngImport: i0, template: '', isInline: true, styles: [".mat-pseudo-checkbox{width:16px;height:16px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0, 0, 0.2, 0.1),background-color 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:\"\";border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0, 0, 0.2, 0.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:5px;left:1px;width:10px;opacity:1;border-radius:2px}.mat-pseudo-checkbox-checked::after{top:2.4px;left:1px;width:8px;height:3px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1;box-sizing:content-box}\n"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatPseudoCheckbox, decorators: [{
             type: Component,
             args: [{ encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, selector: 'mat-pseudo-checkbox', template: '', host: {
                         'class': 'mat-pseudo-checkbox',
@@ -1372,10 +1332,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", 
  */
 class MatPseudoCheckboxModule {
 }
-MatPseudoCheckboxModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatPseudoCheckboxModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatPseudoCheckboxModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatPseudoCheckboxModule, declarations: [MatPseudoCheckbox], imports: [MatCommonModule], exports: [MatPseudoCheckbox] });
-MatPseudoCheckboxModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatPseudoCheckboxModule, imports: [[MatCommonModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatPseudoCheckboxModule, decorators: [{
+MatPseudoCheckboxModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatPseudoCheckboxModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatPseudoCheckboxModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatPseudoCheckboxModule, declarations: [MatPseudoCheckbox], imports: [MatCommonModule], exports: [MatPseudoCheckbox] });
+MatPseudoCheckboxModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatPseudoCheckboxModule, imports: [[MatCommonModule]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatPseudoCheckboxModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],
@@ -1445,9 +1405,9 @@ class _MatOptgroupBase extends _MatOptgroupMixinBase {
         this._inert = (_a = parent === null || parent === void 0 ? void 0 : parent.inertGroups) !== null && _a !== void 0 ? _a : false;
     }
 }
-_MatOptgroupBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: _MatOptgroupBase, deps: [{ token: MAT_OPTION_PARENT_COMPONENT, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
-_MatOptgroupBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "14.0.0-next.6", type: _MatOptgroupBase, inputs: { label: "label" }, usesInheritance: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: _MatOptgroupBase, decorators: [{
+_MatOptgroupBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatOptgroupBase, deps: [{ token: MAT_OPTION_PARENT_COMPONENT, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
+_MatOptgroupBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: _MatOptgroupBase, inputs: { label: "label" }, usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatOptgroupBase, decorators: [{
             type: Directive
         }], ctorParameters: function () {
         return [{ type: undefined, decorators: [{
@@ -1470,9 +1430,9 @@ const MAT_OPTGROUP = new InjectionToken('MatOptgroup');
  */
 class MatOptgroup extends _MatOptgroupBase {
 }
-MatOptgroup.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatOptgroup, deps: null, target: i0.ɵɵFactoryTarget.Component });
-MatOptgroup.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "14.0.0-next.6", type: MatOptgroup, selector: "mat-optgroup", inputs: { disabled: "disabled" }, host: { properties: { "attr.role": "_inert ? null : \"group\"", "attr.aria-disabled": "_inert ? null : disabled.toString()", "attr.aria-labelledby": "_inert ? null : _labelId", "class.mat-optgroup-disabled": "disabled" }, classAttribute: "mat-optgroup" }, providers: [{ provide: MAT_OPTGROUP, useExisting: MatOptgroup }], exportAs: ["matOptgroup"], usesInheritance: true, ngImport: i0, template: "<span class=\"mat-optgroup-label\" aria-hidden=\"true\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></span>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n", styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatOptgroup, decorators: [{
+MatOptgroup.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatOptgroup, deps: null, target: i0.ɵɵFactoryTarget.Component });
+MatOptgroup.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: MatOptgroup, selector: "mat-optgroup", inputs: { disabled: "disabled" }, host: { properties: { "attr.role": "_inert ? null : \"group\"", "attr.aria-disabled": "_inert ? null : disabled.toString()", "attr.aria-labelledby": "_inert ? null : _labelId", "class.mat-optgroup-disabled": "disabled" }, classAttribute: "mat-optgroup" }, providers: [{ provide: MAT_OPTGROUP, useExisting: MatOptgroup }], exportAs: ["matOptgroup"], usesInheritance: true, ngImport: i0, template: "<span class=\"mat-optgroup-label\" aria-hidden=\"true\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></span>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n", styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;-moz-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}\n"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatOptgroup, decorators: [{
             type: Component,
             args: [{ selector: 'mat-optgroup', exportAs: 'matOptgroup', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, inputs: ['disabled'], host: {
                         'class': 'mat-optgroup',
@@ -1669,9 +1629,9 @@ class _MatOptionBase {
         this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     }
 }
-_MatOptionBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: _MatOptionBase, deps: "invalid", target: i0.ɵɵFactoryTarget.Directive });
-_MatOptionBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "14.0.0-next.6", type: _MatOptionBase, inputs: { value: "value", id: "id", disabled: "disabled" }, outputs: { onSelectionChange: "onSelectionChange" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: _MatOptionBase, decorators: [{
+_MatOptionBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatOptionBase, deps: "invalid", target: i0.ɵɵFactoryTarget.Directive });
+_MatOptionBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: _MatOptionBase, inputs: { value: "value", id: "id", disabled: "disabled" }, outputs: { onSelectionChange: "onSelectionChange" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatOptionBase, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: undefined }, { type: _MatOptgroupBase }]; }, propDecorators: { value: [{
                 type: Input
@@ -1690,9 +1650,9 @@ class MatOption extends _MatOptionBase {
         super(element, changeDetectorRef, parent, group);
     }
 }
-MatOption.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatOption, deps: [{ token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: MAT_OPTION_PARENT_COMPONENT, optional: true }, { token: MAT_OPTGROUP, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatOption.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "14.0.0-next.6", type: MatOption, selector: "mat-option", host: { attributes: { "role": "option" }, listeners: { "click": "_selectViaInteraction()", "keydown": "_handleKeydown($event)" }, properties: { "attr.tabindex": "_getTabIndex()", "class.mat-selected": "selected", "class.mat-option-multiple": "multiple", "class.mat-active": "active", "id": "id", "attr.aria-selected": "_getAriaSelected()", "attr.aria-disabled": "disabled.toString()", "class.mat-option-disabled": "disabled" }, classAttribute: "mat-option mat-focus-indicator" }, exportAs: ["matOption"], usesInheritance: true, ngImport: i0, template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<!-- See a11y notes inside optgroup.ts for context behind this element. -->\n<span class=\"cdk-visually-hidden\" *ngIf=\"group && group._inert\">({{ group.label }})</span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n", styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.cdk-high-contrast-active .mat-option[aria-disabled=true]{opacity:.5}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"], components: [{ type: MatPseudoCheckbox, selector: "mat-pseudo-checkbox", inputs: ["state", "disabled"] }], directives: [{ type: i3.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: MatRipple, selector: "[mat-ripple], [matRipple]", inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"], exportAs: ["matRipple"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatOption, decorators: [{
+MatOption.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatOption, deps: [{ token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: MAT_OPTION_PARENT_COMPONENT, optional: true }, { token: MAT_OPTGROUP, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+MatOption.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: MatOption, selector: "mat-option", host: { attributes: { "role": "option" }, listeners: { "click": "_selectViaInteraction()", "keydown": "_handleKeydown($event)" }, properties: { "attr.tabindex": "_getTabIndex()", "class.mat-selected": "selected", "class.mat-option-multiple": "multiple", "class.mat-active": "active", "id": "id", "attr.aria-selected": "_getAriaSelected()", "attr.aria-disabled": "disabled.toString()", "class.mat-option-disabled": "disabled" }, classAttribute: "mat-option mat-focus-indicator" }, exportAs: ["matOption"], usesInheritance: true, ngImport: i0, template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\"\n    [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n<span class=\"mat-option-text\"><ng-content></ng-content></span>\n\n<!-- See a11y notes inside optgroup.ts for context behind this element. -->\n<span class=\"cdk-visually-hidden\" *ngIf=\"group && group._inert\">({{ group.label }})</span>\n\n<div class=\"mat-option-ripple\" mat-ripple\n     [matRippleTrigger]=\"_getHostElement()\"\n     [matRippleDisabled]=\"disabled || disableRipple\">\n</div>\n", styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative;cursor:pointer;outline:none;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center;-webkit-tap-highlight-color:transparent}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}.mat-option .mat-icon svg{vertical-align:top}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.cdk-high-contrast-active .mat-option{margin:0 1px}.cdk-high-contrast-active .mat-option.mat-active{border:solid 1px currentColor;margin:0}.cdk-high-contrast-active .mat-option[aria-disabled=true]{opacity:.5}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option .mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}\n"], components: [{ type: MatPseudoCheckbox, selector: "mat-pseudo-checkbox", inputs: ["state", "disabled"] }], directives: [{ type: i3.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { type: MatRipple, selector: "[mat-ripple], [matRipple]", inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"], exportAs: ["matRipple"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatOption, decorators: [{
             type: Component,
             args: [{ selector: 'mat-option', exportAs: 'matOption', host: {
                         'role': 'option',
@@ -1769,10 +1729,10 @@ function _getOptionScrollPosition(optionOffset, optionHeight, currentScrollPosit
  */
 class MatOptionModule {
 }
-MatOptionModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatOptionModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatOptionModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatOptionModule, declarations: [MatOption, MatOptgroup], imports: [MatRippleModule, CommonModule, MatCommonModule, MatPseudoCheckboxModule], exports: [MatOption, MatOptgroup] });
-MatOptionModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatOptionModule, imports: [[MatRippleModule, CommonModule, MatCommonModule, MatPseudoCheckboxModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatOptionModule, decorators: [{
+MatOptionModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatOptionModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatOptionModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatOptionModule, declarations: [MatOption, MatOptgroup], imports: [MatRippleModule, CommonModule, MatCommonModule, MatPseudoCheckboxModule], exports: [MatOption, MatOptgroup] });
+MatOptionModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatOptionModule, imports: [[MatRippleModule, CommonModule, MatCommonModule, MatPseudoCheckboxModule]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatOptionModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatRippleModule, CommonModule, MatCommonModule, MatPseudoCheckboxModule],

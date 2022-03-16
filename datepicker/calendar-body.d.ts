@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, EventEmitter, NgZone, OnChanges, SimpleChanges, OnDestroy, AfterViewChecked } from '@angular/core';
+import { ElementRef, EventEmitter, NgZone, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import * as i0 from "@angular/core";
 /** Extra CSS classes that can be associated with a calendar cell. */
 export declare type MatCalendarCellCssClasses = string | string[] | Set<string> | {
@@ -36,7 +36,7 @@ export interface MatCalendarUserEvent<D> {
  * An internal component used to display calendar data in a table.
  * @docs-private
  */
-export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewChecked {
+export declare class MatCalendarBody implements OnChanges, OnDestroy {
     private _elementRef;
     private _ngZone;
     /**
@@ -44,10 +44,6 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
      * We need a flag like this, because some browsers fire focus events asynchronously.
      */
     private _skipNextFocus;
-    /**
-     * Used to focus the active cell after change detection has run.
-     */
-    private _focusActiveCellAfterViewChecked;
     /** The label for the table. (e.g. "Jan 2017"). */
     label: string;
     /** The cells to display in the table. */
@@ -64,7 +60,6 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
     numCols: number;
     /** The cell number of the active cell in the table. */
     activeCell: number;
-    ngAfterViewChecked(): void;
     /** Whether a range is being selected. */
     isRange: boolean;
     /**
@@ -84,7 +79,6 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
     readonly selectedValueChange: EventEmitter<MatCalendarUserEvent<number>>;
     /** Emits when the preview has changed as a result of a user action. */
     readonly previewChange: EventEmitter<MatCalendarUserEvent<MatCalendarCell<any> | null>>;
-    readonly activeDateChange: EventEmitter<MatCalendarUserEvent<number>>;
     /** The number of blank cells to put at the beginning for the first row. */
     _firstRowOffset: number;
     /** Padding for the individual date cells. */
@@ -94,7 +88,6 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
     /** Called when a cell is clicked. */
     _cellClicked(cell: MatCalendarCell, event: MouseEvent): void;
-    _emitActiveDateChange(cell: MatCalendarCell, event: FocusEvent): void;
     /** Returns whether a cell should be marked as selected. */
     _isSelected(value: number): boolean;
     ngOnChanges(changes: SimpleChanges): void;
@@ -124,8 +117,6 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
      * Adding delay also complicates writing tests.
      */
     _focusActiveCell(movePreview?: boolean): void;
-    /** Focuses the active cell after change detection has run and the microtask queue is empty. */
-    _scheduleFocusActiveCellAfterViewChecked(): void;
     /** Gets whether a value is the start of the main range. */
     _isRangeStart(value: number): boolean;
     /** Gets whether a value is the end of the main range. */
@@ -172,5 +163,5 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
     /** Finds the MatCalendarCell that corresponds to a DOM node. */
     private _getCellFromElement;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarBody, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody, "[mat-calendar-body]", ["matCalendarBody"], { "label": "label"; "rows": "rows"; "todayValue": "todayValue"; "startValue": "startValue"; "endValue": "endValue"; "labelMinRequiredCells": "labelMinRequiredCells"; "numCols": "numCols"; "activeCell": "activeCell"; "isRange": "isRange"; "cellAspectRatio": "cellAspectRatio"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "previewStart": "previewStart"; "previewEnd": "previewEnd"; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody, "[mat-calendar-body]", ["matCalendarBody"], { "label": "label"; "rows": "rows"; "todayValue": "todayValue"; "startValue": "startValue"; "endValue": "endValue"; "labelMinRequiredCells": "labelMinRequiredCells"; "numCols": "numCols"; "activeCell": "activeCell"; "isRange": "isRange"; "cellAspectRatio": "cellAspectRatio"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "previewStart": "previewStart"; "previewEnd": "previewEnd"; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; }, never, never>;
 }

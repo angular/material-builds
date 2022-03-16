@@ -9,7 +9,7 @@ import { NumberInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ElementRef, InjectionToken, OnInit, ChangeDetectorRef, OnDestroy, NgZone } from '@angular/core';
-import { CanColor, ThemePalette } from '@angular/material/core';
+import { CanColor } from '@angular/material/core';
 import * as i0 from "@angular/core";
 /** Possible mode for a progress spinner. */
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
@@ -21,8 +21,6 @@ declare const _MatProgressSpinnerBase: import("@angular/material/core")._Constru
 };
 /** Default `mat-progress-spinner` options that can be overridden. */
 export interface MatProgressSpinnerDefaultOptions {
-    /** Default color of the spinner. */
-    color?: ThemePalette;
     /** Diameter of the spinner. */
     diameter?: number;
     /** Width of the spinner's stroke. */

@@ -41,9 +41,6 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     }
     /** Gets the options inside the autocomplete panel. */
     async getOptions(filters) {
-        if (!(await this.isOpen())) {
-            throw new Error('Unable to retrieve options for autocomplete. Autocomplete panel is closed.');
-        }
         return this._documentRootLocator.locatorForAll(this._optionClass.with({
             ...(filters || {}),
             ancestor: await this._getPanelSelector(),
@@ -51,9 +48,6 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     }
     /** Gets the option groups inside the autocomplete panel. */
     async getOptionGroups(filters) {
-        if (!(await this.isOpen())) {
-            throw new Error('Unable to retrieve option groups for autocomplete. Autocomplete panel is closed.');
-        }
         return this._documentRootLocator.locatorForAll(this._optionGroupClass.with({
             ...(filters || {}),
             ancestor: await this._getPanelSelector(),

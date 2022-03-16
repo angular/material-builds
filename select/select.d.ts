@@ -81,21 +81,10 @@ export declare class MatSelectChange {
 /** @docs-private */
 declare const _MatSelectMixinBase: import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & {
     new (_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
-        /**
-         * Emits whenever the component state changes and should cause the parent
-         * form-field to update. Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
-        readonly stateChanges: Subject<void>;
         _elementRef: ElementRef;
         _defaultErrorStateMatcher: ErrorStateMatcher;
         _parentForm: NgForm;
         _parentFormGroup: FormGroupDirective;
-        /**
-         * Form control bound to the component.
-         * Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
         ngControl: NgControl;
     };
 };

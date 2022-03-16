@@ -17,20 +17,10 @@ import * as i0 from "@angular/core";
 /** @docs-private */
 declare const _MatInputBase: import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & {
     new (_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
-        /**
-         * Emits whenever the component state changes and should cause the parent
-         * form field to update. Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
-        readonly stateChanges: Subject<void>;
         _defaultErrorStateMatcher: ErrorStateMatcher;
         _parentForm: NgForm;
         _parentFormGroup: FormGroupDirective;
-        /**
-         * Form control bound to the component.
-         * Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
+        /** @docs-private */
         ngControl: NgControl;
     };
 };

@@ -47,15 +47,6 @@ export declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorD
 declare const _MatPaginatorMixinBase: import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & (new (...args: any[]) => HasInitialized) & {
     new (): {};
 };
-/** Object that can used to configure the underlying `MatSelect` inside a `MatPaginator`. */
-export interface MatPaginatorSelectConfig {
-    /** Whether to center the active option over the trigger. */
-    disableOptionCentering?: boolean;
-    /** Classes to be passed to the select panel. */
-    panelClass?: string | string[] | Set<string> | {
-        [key: string]: any;
-    };
-}
 /**
  * Base class with all of the `MatPaginator` functionality.
  * @docs-private
@@ -96,8 +87,6 @@ export declare abstract class _MatPaginatorBase<O extends {
     get showFirstLastButtons(): boolean;
     set showFirstLastButtons(value: BooleanInput);
     private _showFirstLastButtons;
-    /** Used to configure the underlying `MatSelect` inside the paginator. */
-    selectConfig: MatPaginatorSelectConfig;
     /** Event emitted when the paginator changes the page size or page index. */
     readonly page: EventEmitter<PageEvent>;
     /** Displayed set of page size options. Will be sorted and include current page size. */
@@ -140,7 +129,7 @@ export declare abstract class _MatPaginatorBase<O extends {
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     private _emitPageEvent;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatPaginatorBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatPaginatorBase<any>, never, never, { "color": "color"; "pageIndex": "pageIndex"; "length": "length"; "pageSize": "pageSize"; "pageSizeOptions": "pageSizeOptions"; "hidePageSize": "hidePageSize"; "showFirstLastButtons": "showFirstLastButtons"; "selectConfig": "selectConfig"; }, { "page": "page"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatPaginatorBase<any>, never, never, { "color": "color"; "pageIndex": "pageIndex"; "length": "length"; "pageSize": "pageSize"; "pageSizeOptions": "pageSizeOptions"; "hidePageSize": "hidePageSize"; "showFirstLastButtons": "showFirstLastButtons"; }, { "page": "page"; }, never>;
 }
 /**
  * Component to provide navigation between paged information. Displays the size of the current

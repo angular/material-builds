@@ -77,21 +77,14 @@ export declare class RippleRenderer implements EventListenerObject {
      * @docs-private
      */
     handleEvent(event: Event): void;
-    /** Method that will be called if the fade-in or fade-in transition completed. */
-    private _finishRippleTransition;
-    /**
-     * Starts the fade-out transition of the given ripple if it's not persistent and the pointer
-     * is not held down anymore.
-     */
-    private _startFadeOutTransition;
-    /** Destroys the given ripple by removing it from the DOM and updating its state. */
-    private _destroyRipple;
     /** Function being called whenever the trigger is being pressed using mouse. */
     private _onMousedown;
     /** Function being called whenever the trigger is being pressed using touch. */
     private _onTouchStart;
     /** Function being called whenever the trigger is being released. */
     private _onPointerUp;
+    /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
+    private _runTimeoutOutsideZone;
     /** Registers event listeners for a given list of events. */
     private _registerEvents;
     /** Removes previously registered event listeners from the trigger element. */

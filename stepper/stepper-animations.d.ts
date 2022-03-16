@@ -6,8 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationTriggerMetadata } from '@angular/animations';
-export declare const DEFAULT_HORIZONTAL_ANIMATION_DURATION = "500ms";
-export declare const DEFAULT_VERTICAL_ANIMATION_DURATION = "225ms";
 /**
  * Animations used by the Material steppers.
  * @docs-private
