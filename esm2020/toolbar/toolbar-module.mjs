@@ -11,10 +11,10 @@ import { MatToolbar, MatToolbarRow } from './toolbar';
 import * as i0 from "@angular/core";
 export class MatToolbarModule {
 }
-MatToolbarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatToolbarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatToolbarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatToolbarModule, declarations: [MatToolbar, MatToolbarRow], imports: [MatCommonModule], exports: [MatToolbar, MatToolbarRow, MatCommonModule] });
-MatToolbarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatToolbarModule, imports: [[MatCommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatToolbarModule, decorators: [{
+MatToolbarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatToolbarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatToolbarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatToolbarModule, declarations: [MatToolbar, MatToolbarRow], imports: [MatCommonModule], exports: [MatToolbar, MatToolbarRow, MatCommonModule] });
+MatToolbarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatToolbarModule, imports: [[MatCommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatToolbarModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],

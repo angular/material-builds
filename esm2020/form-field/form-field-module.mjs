@@ -19,8 +19,8 @@ import { MatSuffix } from './suffix';
 import * as i0 from "@angular/core";
 export class MatFormFieldModule {
 }
-MatFormFieldModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatFormFieldModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatFormFieldModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatFormFieldModule, declarations: [MatError, MatFormField, MatHint, MatLabel, MatPlaceholder, MatPrefix, MatSuffix], imports: [CommonModule, MatCommonModule, ObserversModule], exports: [MatCommonModule,
+MatFormFieldModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatFormFieldModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatFormFieldModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatFormFieldModule, declarations: [MatError, MatFormField, MatHint, MatLabel, MatPlaceholder, MatPrefix, MatSuffix], imports: [CommonModule, MatCommonModule, ObserversModule], exports: [MatCommonModule,
         MatError,
         MatFormField,
         MatHint,
@@ -28,8 +28,8 @@ MatFormFieldModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", vers
         MatPlaceholder,
         MatPrefix,
         MatSuffix] });
-MatFormFieldModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatFormFieldModule, imports: [[CommonModule, MatCommonModule, ObserversModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatFormFieldModule, decorators: [{
+MatFormFieldModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatFormFieldModule, imports: [[CommonModule, MatCommonModule, ObserversModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatFormFieldModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [MatError, MatFormField, MatHint, MatLabel, MatPlaceholder, MatPrefix, MatSuffix],

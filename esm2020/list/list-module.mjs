@@ -14,8 +14,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import * as i0 from "@angular/core";
 export class MatListModule {
 }
-MatListModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatListModule, declarations: [MatList,
+MatListModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatListModule, declarations: [MatList,
         MatNavList,
         MatListItem,
         MatListAvatarCssMatStyler,
@@ -34,11 +34,11 @@ MatListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: 
         MatSelectionList,
         MatListOption,
         MatDividerModule] });
-MatListModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatListModule, imports: [[MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, CommonModule], MatLineModule,
+MatListModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatListModule, imports: [[MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, CommonModule], MatLineModule,
         MatCommonModule,
         MatPseudoCheckboxModule,
         MatDividerModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatListModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatListModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, CommonModule],

@@ -14,10 +14,10 @@ import { MatCommonModule } from '@angular/material/core';
 import * as i0 from "@angular/core";
 export class MatSortModule {
 }
-MatSortModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSortModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatSortModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSortModule, declarations: [MatSort, MatSortHeader], imports: [CommonModule, MatCommonModule], exports: [MatSort, MatSortHeader] });
-MatSortModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSortModule, providers: [MAT_SORT_HEADER_INTL_PROVIDER], imports: [[CommonModule, MatCommonModule]] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSortModule, decorators: [{
+MatSortModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSortModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatSortModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSortModule, declarations: [MatSort, MatSortHeader], imports: [CommonModule, MatCommonModule], exports: [MatSort, MatSortHeader] });
+MatSortModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSortModule, providers: [MAT_SORT_HEADER_INTL_PROVIDER], imports: [[CommonModule, MatCommonModule]] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSortModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, MatCommonModule],

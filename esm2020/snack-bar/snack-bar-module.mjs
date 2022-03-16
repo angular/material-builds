@@ -16,10 +16,10 @@ import { MatSnackBarContainer } from './snack-bar-container';
 import * as i0 from "@angular/core";
 export class MatSnackBarModule {
 }
-MatSnackBarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSnackBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatSnackBarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSnackBarModule, declarations: [MatSnackBarContainer, SimpleSnackBar], imports: [OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule], exports: [MatSnackBarContainer, MatCommonModule] });
-MatSnackBarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSnackBarModule, imports: [[OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSnackBarModule, decorators: [{
+MatSnackBarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSnackBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatSnackBarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSnackBarModule, declarations: [MatSnackBarContainer, SimpleSnackBar], imports: [OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule], exports: [MatSnackBarContainer, MatCommonModule] });
+MatSnackBarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSnackBarModule, imports: [[OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSnackBarModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [OverlayModule, PortalModule, CommonModule, MatButtonModule, MatCommonModule],

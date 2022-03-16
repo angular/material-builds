@@ -25,9 +25,9 @@ export class MatError {
         }
     }
 }
-MatError.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatError, deps: [{ token: 'aria-live', attribute: true }, { token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-MatError.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: MatError, selector: "mat-error", inputs: { id: "id" }, host: { attributes: { "aria-atomic": "true" }, properties: { "attr.id": "id" }, classAttribute: "mat-error" }, providers: [{ provide: MAT_ERROR, useExisting: MatError }], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatError, decorators: [{
+MatError.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatError, deps: [{ token: 'aria-live', attribute: true }, { token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+MatError.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.0", type: MatError, selector: "mat-error", inputs: { id: "id" }, host: { attributes: { "aria-atomic": "true" }, properties: { "attr.id": "id" }, classAttribute: "mat-error" }, providers: [{ provide: MAT_ERROR, useExisting: MatError }], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatError, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-error',

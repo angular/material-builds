@@ -12,8 +12,8 @@ import { MatGridList } from './grid-list';
 import * as i0 from "@angular/core";
 export class MatGridListModule {
 }
-MatGridListModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatGridListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatGridListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatGridListModule, declarations: [MatGridList,
+MatGridListModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatGridListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatGridListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatGridListModule, declarations: [MatGridList,
         MatGridTile,
         MatGridTileText,
         MatGridTileHeaderCssMatStyler,
@@ -26,9 +26,9 @@ MatGridListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", versi
         MatGridTileHeaderCssMatStyler,
         MatGridTileFooterCssMatStyler,
         MatGridAvatarCssMatStyler] });
-MatGridListModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatGridListModule, imports: [[MatLineModule, MatCommonModule], MatLineModule,
+MatGridListModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatGridListModule, imports: [[MatLineModule, MatCommonModule], MatLineModule,
         MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatGridListModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatGridListModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatLineModule, MatCommonModule],

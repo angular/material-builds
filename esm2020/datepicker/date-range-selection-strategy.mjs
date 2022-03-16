@@ -41,9 +41,9 @@ export class DefaultMatCalendarRangeStrategy {
         return new DateRange(start, end);
     }
 }
-DefaultMatCalendarRangeStrategy.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: DefaultMatCalendarRangeStrategy, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
-DefaultMatCalendarRangeStrategy.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: DefaultMatCalendarRangeStrategy });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: DefaultMatCalendarRangeStrategy, decorators: [{
+DefaultMatCalendarRangeStrategy.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: DefaultMatCalendarRangeStrategy, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+DefaultMatCalendarRangeStrategy.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: DefaultMatCalendarRangeStrategy });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: DefaultMatCalendarRangeStrategy, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i1.DateAdapter }]; } });
 /** @docs-private */

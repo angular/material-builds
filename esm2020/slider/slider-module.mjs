@@ -12,10 +12,10 @@ import { MatSlider } from './slider';
 import * as i0 from "@angular/core";
 export class MatSliderModule {
 }
-MatSliderModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatSliderModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSliderModule, declarations: [MatSlider], imports: [CommonModule, MatCommonModule], exports: [MatSlider, MatCommonModule] });
-MatSliderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSliderModule, imports: [[CommonModule, MatCommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSliderModule, decorators: [{
+MatSliderModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatSliderModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSliderModule, declarations: [MatSlider], imports: [CommonModule, MatCommonModule], exports: [MatSlider, MatCommonModule] });
+MatSliderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSliderModule, imports: [[CommonModule, MatCommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSliderModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, MatCommonModule],

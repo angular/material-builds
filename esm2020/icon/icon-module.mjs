@@ -11,10 +11,10 @@ import { MatIcon } from './icon';
 import * as i0 from "@angular/core";
 export class MatIconModule {
 }
-MatIconModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatIconModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatIconModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatIconModule, declarations: [MatIcon], imports: [MatCommonModule], exports: [MatIcon, MatCommonModule] });
-MatIconModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatIconModule, imports: [[MatCommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatIconModule, decorators: [{
+MatIconModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatIconModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatIconModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatIconModule, declarations: [MatIcon], imports: [MatCommonModule], exports: [MatIcon, MatCommonModule] });
+MatIconModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatIconModule, imports: [[MatCommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatIconModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],

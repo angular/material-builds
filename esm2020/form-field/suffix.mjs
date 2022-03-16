@@ -16,9 +16,9 @@ export const MAT_SUFFIX = new InjectionToken('MatSuffix');
 /** Suffix to be placed at the end of the form field. */
 export class MatSuffix {
 }
-MatSuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatSuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: MatSuffix, selector: "[matSuffix]", providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatSuffix, decorators: [{
+MatSuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatSuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.0", type: MatSuffix, selector: "[matSuffix]", providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatSuffix, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matSuffix]',

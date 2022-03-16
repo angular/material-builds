@@ -11,10 +11,10 @@ import { MatButtonToggle, MatButtonToggleGroup } from './button-toggle';
 import * as i0 from "@angular/core";
 export class MatButtonToggleModule {
 }
-MatButtonToggleModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatButtonToggleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatButtonToggleModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatButtonToggleModule, declarations: [MatButtonToggleGroup, MatButtonToggle], imports: [MatCommonModule, MatRippleModule], exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle] });
-MatButtonToggleModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatButtonToggleModule, imports: [[MatCommonModule, MatRippleModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatButtonToggleModule, decorators: [{
+MatButtonToggleModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatButtonToggleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatButtonToggleModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatButtonToggleModule, declarations: [MatButtonToggleGroup, MatButtonToggle], imports: [MatCommonModule, MatRippleModule], exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle] });
+MatButtonToggleModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatButtonToggleModule, imports: [[MatCommonModule, MatRippleModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatButtonToggleModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, MatRippleModule],

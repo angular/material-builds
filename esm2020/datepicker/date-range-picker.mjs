@@ -24,13 +24,13 @@ export class MatDateRangePicker extends MatDatepickerBase {
         }
     }
 }
-MatDateRangePicker.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatDateRangePicker, deps: null, target: i0.ɵɵFactoryTarget.Component });
-MatDateRangePicker.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: MatDateRangePicker, selector: "mat-date-range-picker", providers: [
+MatDateRangePicker.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatDateRangePicker, deps: null, target: i0.ɵɵFactoryTarget.Component });
+MatDateRangePicker.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.0", type: MatDateRangePicker, selector: "mat-date-range-picker", providers: [
         MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER,
         MAT_CALENDAR_RANGE_STRATEGY_PROVIDER,
         { provide: MatDatepickerBase, useExisting: MatDateRangePicker },
     ], exportAs: ["matDateRangePicker"], usesInheritance: true, ngImport: i0, template: '', isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatDateRangePicker, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatDateRangePicker, decorators: [{
             type: Component,
             args: [{
                     selector: 'mat-date-range-picker',

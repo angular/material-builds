@@ -55,12 +55,12 @@ export class MatStep extends CdkStep {
         return originalErrorState || customErrorState;
     }
 }
-MatStep.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatStep, deps: [{ token: forwardRef(() => MatStepper) }, { token: i1.ErrorStateMatcher, skipSelf: true }, { token: i0.ViewContainerRef }, { token: STEPPER_GLOBAL_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatStep.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: MatStep, selector: "mat-step", inputs: { color: "color" }, providers: [
+MatStep.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatStep, deps: [{ token: forwardRef(() => MatStepper) }, { token: i1.ErrorStateMatcher, skipSelf: true }, { token: i0.ViewContainerRef }, { token: STEPPER_GLOBAL_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+MatStep.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.0", type: MatStep, selector: "mat-step", inputs: { color: "color" }, providers: [
         { provide: ErrorStateMatcher, useExisting: MatStep },
         { provide: CdkStep, useExisting: MatStep },
     ], queries: [{ propertyName: "stepLabel", first: true, predicate: MatStepLabel, descendants: true }, { propertyName: "_lazyContent", first: true, predicate: MatStepContent, descendants: true }], exportAs: ["matStep"], usesInheritance: true, ngImport: i0, template: "<ng-template>\n  <ng-content></ng-content>\n  <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n</ng-template>\n", directives: [{ type: i2.CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatStep, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatStep, decorators: [{
             type: Component,
             args: [{ selector: 'mat-step', providers: [
                         { provide: ErrorStateMatcher, useExisting: MatStep },
@@ -94,9 +94,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
  */
 class _MatProxyStepperBase extends CdkStepper {
 }
-_MatProxyStepperBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatProxyStepperBase, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-_MatProxyStepperBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: _MatProxyStepperBase, usesInheritance: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: _MatProxyStepperBase, decorators: [{
+_MatProxyStepperBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: _MatProxyStepperBase, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+_MatProxyStepperBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.0", type: _MatProxyStepperBase, usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: _MatProxyStepperBase, decorators: [{
             type: Directive
         }] });
 /**
@@ -105,9 +105,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
  */
 export class MatHorizontalStepper extends _MatProxyStepperBase {
 }
-MatHorizontalStepper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatHorizontalStepper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatHorizontalStepper.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: MatHorizontalStepper, selector: "mat-horizontal-stepper", usesInheritance: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatHorizontalStepper, decorators: [{
+MatHorizontalStepper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatHorizontalStepper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatHorizontalStepper.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.0", type: MatHorizontalStepper, selector: "mat-horizontal-stepper", usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatHorizontalStepper, decorators: [{
             type: Directive,
             args: [{ selector: 'mat-horizontal-stepper' }]
         }] });
@@ -117,9 +117,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImpor
  */
 export class MatVerticalStepper extends _MatProxyStepperBase {
 }
-MatVerticalStepper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatVerticalStepper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatVerticalStepper.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.2.0", type: MatVerticalStepper, selector: "mat-vertical-stepper", usesInheritance: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatVerticalStepper, decorators: [{
+MatVerticalStepper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatVerticalStepper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatVerticalStepper.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "13.3.0", type: MatVerticalStepper, selector: "mat-vertical-stepper", usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatVerticalStepper, decorators: [{
             type: Directive,
             args: [{ selector: 'mat-vertical-stepper' }]
         }] });
@@ -165,8 +165,8 @@ export class MatStepper extends CdkStepper {
         return step.completed || this.selectedIndex === index || !this.linear;
     }
 }
-MatStepper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatStepper, deps: [{ token: i3.Directionality, optional: true }, { token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Component });
-MatStepper.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.2.0", type: MatStepper, selector: "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", inputs: { selectedIndex: "selectedIndex", disableRipple: "disableRipple", color: "color", labelPosition: "labelPosition" }, outputs: { animationDone: "animationDone" }, host: { attributes: { "role": "tablist" }, properties: { "class.mat-stepper-horizontal": "orientation === \"horizontal\"", "class.mat-stepper-vertical": "orientation === \"vertical\"", "class.mat-stepper-label-position-end": "orientation === \"horizontal\" && labelPosition == \"end\"", "class.mat-stepper-label-position-bottom": "orientation === \"horizontal\" && labelPosition == \"bottom\"", "attr.aria-orientation": "orientation" } }, providers: [
+MatStepper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatStepper, deps: [{ token: i3.Directionality, optional: true }, { token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Component });
+MatStepper.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "13.3.0", type: MatStepper, selector: "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", inputs: { selectedIndex: "selectedIndex", disableRipple: "disableRipple", color: "color", labelPosition: "labelPosition" }, outputs: { animationDone: "animationDone" }, host: { attributes: { "role": "tablist" }, properties: { "class.mat-stepper-horizontal": "orientation === \"horizontal\"", "class.mat-stepper-vertical": "orientation === \"vertical\"", "class.mat-stepper-label-position-end": "orientation === \"horizontal\" && labelPosition == \"end\"", "class.mat-stepper-label-position-bottom": "orientation === \"horizontal\" && labelPosition == \"bottom\"", "attr.aria-orientation": "orientation" } }, providers: [
         { provide: CdkStepper, useExisting: MatStepper },
         { provide: MatHorizontalStepper, useExisting: MatStepper },
         { provide: MatVerticalStepper, useExisting: MatStepper },
@@ -174,7 +174,7 @@ MatStepper.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "12.0.0", version: "1
         matStepperAnimations.horizontalStepTransition,
         matStepperAnimations.verticalStepTransition,
     ], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatStepper, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatStepper, decorators: [{
             type: Component,
             args: [{ selector: 'mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]', exportAs: 'matStepper, matVerticalStepper, matHorizontalStepper', inputs: ['selectedIndex'], host: {
                         '[class.mat-stepper-horizontal]': 'orientation === "horizontal"',

@@ -11,10 +11,10 @@ import { MatDivider } from './divider';
 import * as i0 from "@angular/core";
 export class MatDividerModule {
 }
-MatDividerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatDividerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatDividerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatDividerModule, declarations: [MatDivider], imports: [MatCommonModule], exports: [MatDivider, MatCommonModule] });
-MatDividerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatDividerModule, imports: [[MatCommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatDividerModule, decorators: [{
+MatDividerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatDividerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatDividerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatDividerModule, declarations: [MatDivider], imports: [MatCommonModule], exports: [MatDivider, MatCommonModule] });
+MatDividerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatDividerModule, imports: [[MatCommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatDividerModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],

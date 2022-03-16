@@ -13,17 +13,17 @@ import { MatInput } from './input';
 import * as i0 from "@angular/core";
 export class MatInputModule {
 }
-MatInputModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatInputModule, declarations: [MatInput], imports: [TextFieldModule, MatFormFieldModule, MatCommonModule], exports: [TextFieldModule,
+MatInputModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatInputModule, declarations: [MatInput], imports: [TextFieldModule, MatFormFieldModule, MatCommonModule], exports: [TextFieldModule,
         // We re-export the `MatFormFieldModule` since `MatInput` will almost always
         // be used together with `MatFormField`.
         MatFormFieldModule,
         MatInput] });
-MatInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatInputModule, providers: [ErrorStateMatcher], imports: [[TextFieldModule, MatFormFieldModule, MatCommonModule], TextFieldModule,
+MatInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatInputModule, providers: [ErrorStateMatcher], imports: [[TextFieldModule, MatFormFieldModule, MatCommonModule], TextFieldModule,
         // We re-export the `MatFormFieldModule` since `MatInput` will almost always
         // be used together with `MatFormField`.
         MatFormFieldModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.2.0", ngImport: i0, type: MatInputModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatInputModule, decorators: [{
             type: NgModule,
             args: [{
                     declarations: [MatInput],
