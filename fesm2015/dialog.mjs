@@ -773,14 +773,14 @@ class _MatDialogBase {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         const dialogRef = new this._dialogRefConstructor(overlayRef, dialogContainer, config.id);
+        const injector = this._createInjector(config, dialogRef, dialogContainer);
         if (componentOrTemplateRef instanceof TemplateRef) {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null, {
                 $implicit: config.data,
                 dialogRef,
-            }));
+            }, injector));
         }
         else {
-            const injector = this._createInjector(config, dialogRef, dialogContainer);
             const contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector, config.componentFactoryResolver));
             dialogRef.componentInstance = contentRef.instance;
         }
@@ -1100,6 +1100,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", 
         }], propDecorators: { align: [{
                 type: Input
             }] } });
+// TODO(crisbeto): this utility shouldn't be necessary anymore, because the dialog ref is provided
+// both to component and template dialogs through DI. We need to keep it around, because there are
+// some internal wrappers around `MatDialog` that happened to work by accident, because we had this
+// fallback logic in place.
 /**
  * Finds the closest MatDialogRef to an element by looking at the DOM.
  * @param element Element relative to which to look for a dialog.
