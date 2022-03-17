@@ -125,6 +125,23 @@ class MatInput extends _MatInputBase {
             'time',
             'week',
         ].filter(t => getSupportedInputTypes().has(t));
+        this._iOSKeyupListener = (event) => {
+            const el = event.target;
+            // Note: We specifically check for 0, rather than `!el.selectionStart`, because the two
+            // indicate different things. If the value is 0, it means that the caret is at the start
+            // of the input, whereas a value of `null` means that the input doesn't support
+            // manipulating the selection range. Inputs that don't support setting the selection range
+            // will throw an error so we want to avoid calling `setSelectionRange` on them. See:
+            // https://html.spec.whatwg.org/multipage/input.html#do-not-apply
+            if (!el.value && el.selectionStart === 0 && el.selectionEnd === 0) {
+                // Note: Just setting `0, 0` doesn't fix the issue. Setting
+                // `1, 1` fixes it for the first time that you type text and
+                // then hold delete. Toggling to `1, 1` and then back to
+                // `0, 0` seems to completely fix it.
+                el.setSelectionRange(1, 1);
+                el.setSelectionRange(0, 0);
+            }
+        };
         const element = this._elementRef.nativeElement;
         const nodeName = element.nodeName.toLowerCase();
         // If no input value accessor was explicitly specified, use the element as the input value
@@ -138,23 +155,7 @@ class MatInput extends _MatInputBase {
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
             ngZone.runOutsideAngular(() => {
-                _elementRef.nativeElement.addEventListener('keyup', (event) => {
-                    const el = event.target;
-                    // Note: We specifically check for 0, rather than `!el.selectionStart`, because the two
-                    // indicate different things. If the value is 0, it means that the caret is at the start
-                    // of the input, whereas a value of `null` means that the input doesn't support
-                    // manipulating the selection range. Inputs that don't support setting the selection range
-                    // will throw an error so we want to avoid calling `setSelectionRange` on them. See:
-                    // https://html.spec.whatwg.org/multipage/input.html#do-not-apply
-                    if (!el.value && el.selectionStart === 0 && el.selectionEnd === 0) {
-                        // Note: Just setting `0, 0` doesn't fix the issue. Setting
-                        // `1, 1` fixes it for the first time that you type text and
-                        // then hold delete. Toggling to `1, 1` and then back to
-                        // `0, 0` seems to completely fix it.
-                        el.setSelectionRange(1, 1);
-                        el.setSelectionRange(0, 0);
-                    }
-                });
+                _elementRef.nativeElement.addEventListener('keyup', this._iOSKeyupListener);
             });
         }
         this._isServer = !this._platform.isBrowser;
@@ -256,6 +257,9 @@ class MatInput extends _MatInputBase {
         this.stateChanges.complete();
         if (this._platform.isBrowser) {
             this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+        }
+        if (this._platform.IOS) {
+            this._elementRef.nativeElement.removeEventListener('keyup', this._iOSKeyupListener);
         }
     }
     ngDoCheck() {
