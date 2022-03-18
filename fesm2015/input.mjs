@@ -299,12 +299,15 @@ class MatInput extends _MatInputBase {
     }
     /** Does some manual dirty checking on the native input `placeholder` attribute. */
     _dirtyCheckPlaceholder() {
-        var _a, _b;
+        var _a;
         // If we're hiding the native placeholder, it should also be cleared from the DOM, otherwise
         // screen readers will read it out twice: once from the label and once from the attribute.
         // TODO: can be removed once we get rid of the `legacy` style for the form field, because it's
         // the only one that supports promoting the placeholder to a label.
-        const placeholder = ((_b = (_a = this._formField) === null || _a === void 0 ? void 0 : _a._hideControlPlaceholder) === null || _b === void 0 ? void 0 : _b.call(_a)) ? null : this.placeholder;
+        const formField = this._formField;
+        const placeholder = formField && formField.appearance === 'legacy' && !((_a = formField._hasLabel) === null || _a === void 0 ? void 0 : _a.call(formField))
+            ? null
+            : this.placeholder;
         if (placeholder !== this._previousPlaceholder) {
             const element = this._elementRef.nativeElement;
             this._previousPlaceholder = placeholder;
