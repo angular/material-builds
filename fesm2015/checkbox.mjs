@@ -256,6 +256,7 @@ class MatCheckbox extends _MatCheckboxBase {
     /** Toggles the `checked` state of the checkbox. */
     toggle() {
         this.checked = !this.checked;
+        this._controlValueAccessorChangeFn(this.checked);
     }
     /**
      * Event handler for checkbox input element.
@@ -284,7 +285,7 @@ class MatCheckbox extends _MatCheckboxBase {
                     this.indeterminateChange.emit(this._indeterminate);
                 });
             }
-            this.toggle();
+            this._checked = !this._checked;
             this._transitionCheckState(this._checked ? 1 /* Checked */ : 2 /* Unchecked */);
             // Emit our custom change event if the native input emitted one.
             // It is important to only emit it, if the native input triggered one, because
