@@ -350,12 +350,9 @@ class _MatSelectBase extends _MatSelectMixinBase {
         return this._value;
     }
     set value(newValue) {
-        // Always re-assign an array, because it might have been mutated.
-        if (newValue !== this._value || (this._multiple && Array.isArray(newValue))) {
-            if (this.options) {
-                this._setSelectionByValue(newValue);
-            }
-            this._value = newValue;
+        const hasAssigned = this._assignValue(newValue);
+        if (hasAssigned) {
+            this._onChange(newValue);
         }
     }
     /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
@@ -467,7 +464,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
      * @param value New value to be written to the model.
      */
     writeValue(value) {
-        this.value = value;
+        this._assignValue(value);
     }
     /**
      * Saves a callback function to be invoked when the select's value
@@ -659,11 +656,11 @@ class _MatSelectBase extends _MatSelectMixinBase {
             if (!Array.isArray(value) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
                 throw getMatSelectNonArrayValueError();
             }
-            value.forEach((currentValue) => this._selectValue(currentValue));
+            value.forEach((currentValue) => this._selectOptionByValue(currentValue));
             this._sortValues();
         }
         else {
-            const correspondingOption = this._selectValue(value);
+            const correspondingOption = this._selectOptionByValue(value);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.
             if (correspondingOption) {
@@ -681,7 +678,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
      * Finds and selects and option based on its value.
      * @returns Option that has the corresponding value.
      */
-    _selectValue(value) {
+    _selectOptionByValue(value) {
         const correspondingOption = this.options.find((option) => {
             // Skip options that are already in the model. This allows us to handle cases
             // where the same primitive value is selected multiple times.
@@ -704,6 +701,18 @@ class _MatSelectBase extends _MatSelectMixinBase {
             this._selectionModel.select(correspondingOption);
         }
         return correspondingOption;
+    }
+    /** Assigns a specific value to the select. Returns whether the value has changed. */
+    _assignValue(newValue) {
+        // Always re-assign an array, because it might have been mutated.
+        if (newValue !== this._value || (this._multiple && Array.isArray(newValue))) {
+            if (this.options) {
+                this._setSelectionByValue(newValue);
+            }
+            this._value = newValue;
+            return true;
+        }
+        return false;
     }
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     _initKeyManager() {
