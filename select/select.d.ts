@@ -320,7 +320,9 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      * Finds and selects and option based on its value.
      * @returns Option that has the corresponding value.
      */
-    private _selectValue;
+    private _selectOptionByValue;
+    /** Assigns a specific value to the select. Returns whether the value has changed. */
+    private _assignValue;
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     private _initKeyManager;
     /** Drops current option subscriptions and IDs and resets from scratch. */
