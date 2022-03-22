@@ -94,7 +94,8 @@ class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
             // We want to provide a filter option for "name" because the name of the slide-toggle is
             // only set on the underlying input. This means that it's not possible for developers
             // to retrieve the harness of a specific checkbox with name through a CSS selector.
-            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name));
+            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
+            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked));
     }
     /** Toggle the checked state of the slide-toggle. */
     async toggle() {

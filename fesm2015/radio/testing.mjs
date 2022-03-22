@@ -257,7 +257,8 @@ class MatRadioButtonHarness extends _MatRadioButtonHarnessBase {
     static with(options = {}) {
         return new HarnessPredicate(MatRadioButtonHarness, options)
             .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
-            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }));
+            .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }))
+            .addOption('checked', options.checked, (harness, checked) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isChecked()) == checked; }));
     }
 }
 /** The selector for the host element of a `MatRadioButton` instance. */
