@@ -17,7 +17,7 @@ import { MatPlaceholder } from './placeholder';
 import { MatPrefix } from './prefix';
 import { MatSuffix } from './suffix';
 import { Platform } from '@angular/cdk/platform';
-import { NgControl } from '@angular/forms';
+import { AbstractControlDirective } from '@angular/forms';
 import * as i0 from "@angular/core";
 /**
  * Boilerplate for applying mixins to MatFormField.
@@ -139,8 +139,11 @@ export declare class MatFormField extends _MatFormFieldBase implements AfterCont
     ngAfterContentChecked(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    /** Determines whether a class from the NgControl should be forwarded to the host element. */
-    _shouldForward(prop: keyof NgControl): boolean;
+    /**
+     * Determines whether a class from the AbstractControlDirective
+     * should be forwarded to the host element.
+     */
+    _shouldForward(prop: keyof AbstractControlDirective): boolean;
     _hasPlaceholder(): boolean;
     _hasLabel(): boolean;
     _shouldLabelFloat(): boolean;

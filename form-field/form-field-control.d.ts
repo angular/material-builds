@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Observable } from 'rxjs';
-import { NgControl } from '@angular/forms';
+import { AbstractControlDirective, NgControl } from '@angular/forms';
 import * as i0 from "@angular/core";
 /** An interface which allows a control to work inside of a `MatFormField`. */
 export declare abstract class MatFormFieldControl<T> {
@@ -21,8 +21,8 @@ export declare abstract class MatFormFieldControl<T> {
     readonly id: string;
     /** The placeholder for this control. */
     readonly placeholder: string;
-    /** Gets the NgControl for this control. */
-    readonly ngControl: NgControl | null;
+    /** Gets the AbstractControlDirective for this control. */
+    readonly ngControl: NgControl | AbstractControlDirective | null;
     /** Whether the control is focused. */
     readonly focused: boolean;
     /** Whether the control is empty. */

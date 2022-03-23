@@ -459,10 +459,13 @@ class MatFormField extends _MatFormFieldBase {
         this._destroyed.next();
         this._destroyed.complete();
     }
-    /** Determines whether a class from the NgControl should be forwarded to the host element. */
+    /**
+     * Determines whether a class from the AbstractControlDirective
+     * should be forwarded to the host element.
+     */
     _shouldForward(prop) {
-        const ngControl = this._control ? this._control.ngControl : null;
-        return ngControl && ngControl[prop];
+        const control = this._control ? this._control.ngControl : null;
+        return control && control[prop];
     }
     _hasPlaceholder() {
         return !!((this._control && this._control.placeholder) || this._placeholderChild);
