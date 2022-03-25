@@ -1353,14 +1353,25 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
             // explicit change that selects a different tab.
             if (indexToSelect === this._selectedIndex) {
                 const tabs = this._tabs.toArray();
+                let selectedTab;
                 for (let i = 0; i < tabs.length; i++) {
                     if (tabs[i].isActive) {
                         // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
                         // event, otherwise the consumer may end up in an infinite loop in some edge cases like
                         // adding a tab within the `selectedIndexChange` event.
                         this._indexToSelect = this._selectedIndex = i;
+                        selectedTab = tabs[i];
                         break;
                     }
+                }
+                // If we haven't found an active tab and a tab exists at the selected index, it means
+                // that the active tab was swapped out. Since this won't be picked up by the rendering
+                // loop in `ngAfterContentChecked`, we need to sync it up manually.
+                if (!selectedTab && tabs[indexToSelect]) {
+                    Promise.resolve().then(() => {
+                        tabs[indexToSelect].isActive = true;
+                        this.selectedTabChange.emit(this._createChangeEvent(indexToSelect));
+                    });
                 }
             }
             this._changeDetectorRef.markForCheck();
