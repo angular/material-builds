@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { ViewContainerRef, ComponentFactoryResolver, Injector } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 /** Options for where to set focus to automatically on dialog open */
@@ -34,6 +34,11 @@ export declare class MatDialogConfig<D = any> {
      * content will be rendered.
      */
     viewContainerRef?: ViewContainerRef;
+    /**
+     * Injector used for the instantiation of the component to be attached. If provided,
+     * takes precedence over the injector indirectly provided by `ViewContainerRef`.
+     */
+    injector?: Injector;
     /** ID for the dialog. If omitted, a unique one will be generated. */
     id?: string;
     /** The ARIA role of the dialog element. */
