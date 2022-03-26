@@ -12,10 +12,10 @@ import { MatProgressSpinner } from './progress-spinner';
 import * as i0 from "@angular/core";
 export class MatProgressSpinnerModule {
 }
-MatProgressSpinnerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatProgressSpinnerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatProgressSpinnerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatProgressSpinnerModule, declarations: [MatProgressSpinner], imports: [MatCommonModule, CommonModule], exports: [MatProgressSpinner, MatCommonModule] });
-MatProgressSpinnerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatProgressSpinnerModule, imports: [[MatCommonModule, CommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.6", ngImport: i0, type: MatProgressSpinnerModule, decorators: [{
+MatProgressSpinnerModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.9", ngImport: i0, type: MatProgressSpinnerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatProgressSpinnerModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.9", ngImport: i0, type: MatProgressSpinnerModule, declarations: [MatProgressSpinner], imports: [MatCommonModule, CommonModule], exports: [MatProgressSpinner, MatCommonModule] });
+MatProgressSpinnerModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.9", ngImport: i0, type: MatProgressSpinnerModule, imports: [[MatCommonModule, CommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.9", ngImport: i0, type: MatProgressSpinnerModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, CommonModule],
