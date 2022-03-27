@@ -8,7 +8,7 @@
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisableRipple, HasTabIndex, ThemePalette } from '@angular/material/core';
 import * as i0 from "@angular/core";
@@ -166,7 +166,7 @@ declare const _MatRadioButtonMixinBase: import("@angular/material/core")._Constr
  * Base class with all of the `MatRadioButton` functionality.
  * @docs-private
  */
-export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanDisableRipple, HasTabIndex {
+export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, DoCheck, OnDestroy, CanDisableRipple, HasTabIndex {
     protected _changeDetector: ChangeDetectorRef;
     private _focusMonitor;
     private _radioDispatcher;
@@ -222,6 +222,8 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     private _value;
     /** Unregister function for _radioDispatcher */
     private _removeUniqueSelectionListener;
+    /** Previous value of the input's tabindex. */
+    private _previousTabIndex;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef<HTMLInputElement>;
     /** Whether animations are disabled. */
@@ -236,6 +238,7 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
      */
     _markForCheck(): void;
     ngOnInit(): void;
+    ngDoCheck(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Dispatch change event with current value. */
@@ -246,6 +249,8 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     _onInputInteraction(event: Event): void;
     /** Sets the disabled state and marks for check if a change occurred. */
     protected _setDisabled(value: boolean): void;
+    /** Gets the tabindex for the underlying input element. */
+    private _updateTabIndex;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatRadioButtonBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioButtonBase, never, never, { "id": "id"; "name": "name"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "checked": "checked"; "value": "value"; "labelPosition": "labelPosition"; "disabled": "disabled"; "required": "required"; "color": "color"; }, { "change": "change"; }, never>;
 }
