@@ -1197,6 +1197,8 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         this._tabs = new QueryList();
         /** The tab index that should be selected after the content has been checked. */
         this._indexToSelect = 0;
+        /** Index of the tab that was focused last. */
+        this._lastFocusedTabIndex = null;
         /** Snapshot of the height of the tab body wrapper before another tab is activated. */
         this._tabBodyWrapperHeight = 0;
         /** Subscription to tabs being added/removed. */
@@ -1339,6 +1341,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         });
         if (this._selectedIndex !== indexToSelect) {
             this._selectedIndex = indexToSelect;
+            this._lastFocusedTabIndex = null;
             this._changeDetectorRef.markForCheck();
         }
     }
@@ -1360,6 +1363,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
                         // event, otherwise the consumer may end up in an infinite loop in some edge cases like
                         // adding a tab within the `selectedIndexChange` event.
                         this._indexToSelect = this._selectedIndex = i;
+                        this._lastFocusedTabIndex = null;
                         selectedTab = tabs[i];
                         break;
                     }
@@ -1423,6 +1427,7 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         }
     }
     _focusChanged(index) {
+        this._lastFocusedTabIndex = index;
         this.focusChange.emit(this._createChangeEvent(index));
     }
     _createChangeEvent(index) {
@@ -1490,11 +1495,12 @@ class _MatTabGroupBase extends _MatTabGroupMixinBase {
         }
     }
     /** Retrieves the tabindex for the tab. */
-    _getTabIndex(tab, idx) {
+    _getTabIndex(tab, index) {
         if (tab.disabled) {
             return null;
         }
-        return this.selectedIndex === idx ? 0 : -1;
+        const targetIndex = this._lastFocusedTabIndex ?? this.selectedIndex;
+        return index === targetIndex ? 0 : -1;
     }
     /** Callback for when the focused state of a tab has changed. */
     _tabFocusChanged(focusOrigin, index) {

@@ -50,6 +50,8 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     _tabs: QueryList<MatTab>;
     /** The tab index that should be selected after the content has been checked. */
     private _indexToSelect;
+    /** Index of the tab that was focused last. */
+    private _lastFocusedTabIndex;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
     private _tabBodyWrapperHeight;
     /** Subscription to tabs being added/removed. */
@@ -159,7 +161,7 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     /** Handle click events, setting new selected index if appropriate. */
     _handleClick(tab: MatTab, tabHeader: MatTabGroupBaseHeader, index: number): void;
     /** Retrieves the tabindex for the tab. */
-    _getTabIndex(tab: MatTab, idx: number): number | null;
+    _getTabIndex(tab: MatTab, index: number): number | null;
     /** Callback for when the focused state of a tab has changed. */
     _tabFocusChanged(focusOrigin: FocusOrigin, index: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabGroupBase, [null, null, { optional: true; }, { optional: true; }]>;
