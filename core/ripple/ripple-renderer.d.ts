@@ -43,7 +43,12 @@ export declare class RippleRenderer implements EventListenerObject {
     private _triggerElement;
     /** Whether the pointer is currently down or not. */
     private _isPointerDown;
-    /** Set of currently active ripple references. */
+    /**
+     * Map of currently active ripple references.
+     * The ripple reference is mapped to its element event listeners.
+     * The reason why `| null` is used is that event listeners are added only
+     * when the condition is truthy (see the `_startFadeOutTransition` method).
+     */
     private _activeRipples;
     /** Latest non-persistent ripple that was triggered. */
     private _mostRecentTransientRipple;
@@ -94,6 +99,7 @@ export declare class RippleRenderer implements EventListenerObject {
     private _onPointerUp;
     /** Registers event listeners for a given list of events. */
     private _registerEvents;
+    private _getActiveRipples;
     /** Removes previously registered event listeners from the trigger element. */
     _removeTriggerEvents(): void;
 }
