@@ -9,7 +9,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { CdkStep, CdkStepper, StepperOptions } from '@angular/cdk/stepper';
 import { AnimationEvent } from '@angular/animations';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, TemplateRef, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { UntypedFormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, ThemePalette } from '@angular/material/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
@@ -34,7 +34,7 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Custom error state matcher that additionally checks for validity of interacted form. */
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
+    isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, [null, { skipSelf: true; }, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": "color"; }, {}, ["stepLabel", "_lazyContent"], ["*"]>;
 }
