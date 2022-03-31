@@ -700,7 +700,13 @@ class MatPaginatedTabHeader {
             // We need to defer this to give the browser some time to recalculate
             // the element dimensions. The call has to be wrapped in `NgZone.run`,
             // because the viewport change handler runs outside of Angular.
-            this._ngZone.run(() => Promise.resolve().then(realign));
+            this._ngZone.run(() => {
+                Promise.resolve().then(() => {
+                    // Clamp the scroll distance, because it can change with the number of tabs.
+                    this._scrollDistance = Math.max(0, Math.min(this._getMaxScrollDistance(), this._scrollDistance));
+                    realign();
+                });
+            });
             this._keyManager.withHorizontalOrientation(this._getLayoutDirection());
         });
         // If there is a change in the focus key manager we need to emit the `indexFocused`
