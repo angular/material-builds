@@ -1829,7 +1829,18 @@ class MatCalendar {
         this.stateChanges.complete();
     }
     ngOnChanges(changes) {
-        const change = changes['minDate'] || changes['maxDate'] || changes['dateFilter'];
+        // Ignore date changes that are at a different time on the same day. This fixes issues where
+        // the calendar re-renders when there is no meaningful change to [minDate] or [maxDate]
+        // (#24435).
+        const minDateChange = changes['minDate'] &&
+            !this._dateAdapter.sameDate(changes['minDate'].previousValue, changes['minDate'].currentValue)
+            ? changes['minDate']
+            : undefined;
+        const maxDateChange = changes['maxDate'] &&
+            !this._dateAdapter.sameDate(changes['maxDate'].previousValue, changes['maxDate'].currentValue)
+            ? changes['maxDate']
+            : undefined;
+        const change = minDateChange || maxDateChange || changes['dateFilter'];
         if (change && !change.firstChange) {
             const view = this._getCurrentViewComponent();
             if (view) {
