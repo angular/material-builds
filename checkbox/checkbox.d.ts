@@ -109,7 +109,7 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
      * Whether the checkbox is checked.
      */
     get checked(): boolean;
-    set checked(value: boolean);
+    set checked(value: BooleanInput);
     private _checked;
     /**
      * Whether the checkbox is disabled. This fully overrides the implementation provided by
