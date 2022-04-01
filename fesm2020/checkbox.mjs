@@ -150,8 +150,9 @@ class MatCheckbox extends _MatCheckboxBase {
         return this._checked;
     }
     set checked(value) {
-        if (value != this.checked) {
-            this._checked = value;
+        const checked = coerceBooleanProperty(value);
+        if (checked != this.checked) {
+            this._checked = checked;
             this._changeDetectorRef.markForCheck();
         }
     }
