@@ -102,6 +102,11 @@ export declare abstract class _MatDialogContainerBase extends BasePortalOutlet {
     private _focusDialogContainer;
     /** Returns whether focus is inside the dialog. */
     private _containsFocus;
+    /**
+     * Callback for when the open dialog animation has finished. Intended to
+     * be called by sub-classes that use different animation implementations.
+     */
+    protected _openAnimationDone(totalTime: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatDialogContainerBase, [null, null, null, { optional: true; }, null, null, null, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatDialogContainerBase, never, never, {}, {}, never>;
 }
@@ -119,7 +124,6 @@ export declare class MatDialogContainer extends _MatDialogContainerBase {
     _onAnimationStart({ toState, totalTime }: AnimationEvent): void;
     /** Starts the dialog exit animation. */
     _startExitAnimation(): void;
-    _initializeWithAttachedContent(): void;
     _getAnimationState(): {
         value: "enter" | "void" | "exit";
         params: {

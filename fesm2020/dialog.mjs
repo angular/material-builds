@@ -173,6 +173,9 @@ class _MatDialogContainerBase extends BasePortalOutlet {
         if (this._document) {
             this._elementFocusedBeforeDialogWasOpened = _getFocusedElementPierceShadowDom();
         }
+        if (!this._config.delayFocusTrap) {
+            this._trapFocus();
+        }
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -315,6 +318,16 @@ class _MatDialogContainerBase extends BasePortalOutlet {
         const activeElement = _getFocusedElementPierceShadowDom();
         return element === activeElement || element.contains(activeElement);
     }
+    /**
+     * Callback for when the open dialog animation has finished. Intended to
+     * be called by sub-classes that use different animation implementations.
+     */
+    _openAnimationDone(totalTime) {
+        if (this._config.delayFocusTrap) {
+            this._trapFocus();
+        }
+        this._animationStateChanged.next({ state: 'opened', totalTime });
+    }
 }
 _MatDialogContainerBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.9", ngImport: i0, type: _MatDialogContainerBase, deps: [{ token: i0.ElementRef }, { token: i1.FocusTrapFactory }, { token: i0.ChangeDetectorRef }, { token: DOCUMENT, optional: true }, { token: MatDialogConfig }, { token: i1.InteractivityChecker }, { token: i0.NgZone }, { token: i1.FocusMonitor }], target: i0.ɵɵFactoryTarget.Directive });
 _MatDialogContainerBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "12.0.0", version: "14.0.0-next.9", type: _MatDialogContainerBase, viewQueries: [{ propertyName: "_portalOutlet", first: true, predicate: CdkPortalOutlet, descendants: true, static: true }], usesInheritance: true, ngImport: i0 });
@@ -343,10 +356,7 @@ class MatDialogContainer extends _MatDialogContainerBase {
     /** Callback, invoked whenever an animation on the host completes. */
     _onAnimationDone({ toState, totalTime }) {
         if (toState === 'enter') {
-            if (this._config.delayFocusTrap) {
-                this._trapFocus();
-            }
-            this._animationStateChanged.next({ state: 'opened', totalTime });
+            this._openAnimationDone(totalTime);
         }
         else if (toState === 'exit') {
             this._restoreFocus();
@@ -368,12 +378,6 @@ class MatDialogContainer extends _MatDialogContainerBase {
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
         this._changeDetectorRef.markForCheck();
-    }
-    _initializeWithAttachedContent() {
-        super._initializeWithAttachedContent();
-        if (!this._config.delayFocusTrap) {
-            this._trapFocus();
-        }
     }
     _getAnimationState() {
         return {
