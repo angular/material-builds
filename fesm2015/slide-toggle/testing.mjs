@@ -113,7 +113,8 @@ class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
             // only set on the underlying input. This means that it's not possible for developers
             // to retrieve the harness of a specific checkbox with name through a CSS selector.
             .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }))
-            .addOption('checked', options.checked, (harness, checked) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isChecked()) == checked; })));
+            .addOption('checked', options.checked, (harness, checked) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isChecked()) == checked; }))
+            .addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isDisabled()) == disabled; })));
     }
     /** Toggle the checked state of the slide-toggle. */
     toggle() {
