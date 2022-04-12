@@ -49,7 +49,7 @@ export declare abstract class _MatSnackBarBase implements OnDestroy {
      * @param component Component to be instantiated.
      * @param config Extra configuration for the snack bar.
      */
-    openFromComponent<T>(component: ComponentType<T>, config?: MatSnackBarConfig): MatSnackBarRef<T>;
+    openFromComponent<T, D = any>(component: ComponentType<T>, config?: MatSnackBarConfig<D>): MatSnackBarRef<T>;
     /**
      * Creates and dispatches a snack bar with a custom template for the content, removing any
      * currently opened snack bars.
