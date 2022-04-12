@@ -412,6 +412,7 @@ class MatChipRemove {
         // the parent click listener of the `MatChip` would prevent propagation, but it can happen
         // that the chip is being removed before the event bubbles up.
         event.stopPropagation();
+        event.preventDefault();
     }
 }
 MatChipRemove.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "13.3.0", ngImport: i0, type: MatChipRemove, deps: [{ token: MatChip }, { token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
