@@ -10,6 +10,20 @@ class _MatPaginatorHarnessBase extends ComponentHarness {
             return (yield this._nextButton()).click();
         });
     }
+    /** Returns whether or not the next page button is disabled. */
+    isNextPageDisabled() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const disabledValue = yield (yield this._nextButton()).getAttribute('disabled');
+            return disabledValue == 'true';
+        });
+    }
+    /* Returns whether or not the previous page button is disabled. */
+    isPreviousPageDisabled() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const disabledValue = yield (yield this._previousButton()).getAttribute('disabled');
+            return disabledValue == 'true';
+        });
+    }
     /** Goes to the previous page in the paginator. */
     goToPreviousPage() {
         return __awaiter(this, void 0, void 0, function* () {

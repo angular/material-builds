@@ -21,6 +21,9 @@ export declare abstract class _MatPaginatorHarnessBase extends ComponentHarness 
     protected abstract _rangeLabel: AsyncFactoryFn<TestElement>;
     /** Goes to the next page in the paginator. */
     goToNextPage(): Promise<void>;
+    /** Returns whether or not the next page button is disabled. */
+    isNextPageDisabled(): Promise<boolean>;
+    isPreviousPageDisabled(): Promise<boolean>;
     /** Goes to the previous page in the paginator. */
     goToPreviousPage(): Promise<void>;
     /** Goes to the first page in the paginator. */
