@@ -88,9 +88,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.13",
                     providers: [{ provide: MAT_CHIP_TRAILING_ICON, useExisting: MatChipTrailingIcon }],
                 }]
         }] });
-/**
- * Material design styled Chip component. Used inside the MatChipList component.
- */
+/** Material Design styled chip directive. Used inside the MatChipList component. */
 class MatChip extends _MatChipMixinBase {
     constructor(elementRef, _ngZone, platform, globalRippleOptions, _changeDetectorRef, _document, animationMode, tabIndex) {
         super(elementRef);
