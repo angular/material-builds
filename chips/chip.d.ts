@@ -74,9 +74,7 @@ export declare class MatChipTrailingIcon {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipTrailingIcon, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never>;
 }
-/**
- * Material design styled Chip component. Used inside the MatChipList component.
- */
+/** Material Design styled chip directive. Used inside the MatChipList component. */
 export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisableRipple, RippleTarget, HasTabIndex, CanDisable {
     private _ngZone;
     private _changeDetectorRef;
