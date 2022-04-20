@@ -157,8 +157,11 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _previousControl;
     /** Emits whenever the component is destroyed. */
     protected readonly _destroy: Subject<void>;
-    /** The aria-describedby attribute on the select for improved a11y. */
-    _ariaDescribedby: string;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    userAriaDescribedBy: string;
     /** Deals with the selection logic. */
     _selectionModel: SelectionModel<MatOption>;
     /** Manages keyboard events for options in the panel. */
@@ -377,7 +380,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      */
     get shouldLabelFloat(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatSelectBase<any>, [null, null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; self: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSelectBase<any>, never, never, { "panelClass": "panelClass"; "placeholder": "placeholder"; "required": "required"; "multiple": "multiple"; "disableOptionCentering": "disableOptionCentering"; "compareWith": "compareWith"; "value": "value"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "errorStateMatcher": "errorStateMatcher"; "typeaheadDebounceInterval": "typeaheadDebounceInterval"; "sortComparator": "sortComparator"; "id": "id"; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSelectBase<any>, never, never, { "userAriaDescribedBy": "aria-describedby"; "panelClass": "panelClass"; "placeholder": "placeholder"; "required": "required"; "multiple": "multiple"; "disableOptionCentering": "disableOptionCentering"; "compareWith": "compareWith"; "value": "value"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "errorStateMatcher": "errorStateMatcher"; "typeaheadDebounceInterval": "typeaheadDebounceInterval"; "sortComparator": "sortComparator"; "id": "id"; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, never>;
 }
 export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit {
     /** The scroll position of the overlay panel, calculated to center the selected option. */
