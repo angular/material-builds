@@ -83,5 +83,5 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     /** Saves a reference to the element that was focused before the bottom sheet was opened. */
     private _savePreviouslyFocusedElement;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, [null, null, null, null, null, null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, false>;
 }

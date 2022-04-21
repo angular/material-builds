@@ -15,7 +15,7 @@ import * as i1 from "../common-behaviors/common-module";
  */
 export declare class MatLine {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLine, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLine, "[mat-line], [matLine]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLine, "[mat-line], [matLine]", never, {}, {}, never, never, false>;
 }
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.

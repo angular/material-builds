@@ -36,7 +36,7 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, [null, { skipSelf: true; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": "color"; }, {}, ["stepLabel", "_lazyContent"], ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": "color"; }, {}, ["stepLabel", "_lazyContent"], ["*"], false>;
 }
 export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** The list of step headers of the steps in the stepper. */
@@ -76,5 +76,5 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     _stepIsNavigable(index: number, step: MatStep): boolean;
     _getAnimationDuration(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, [{ optional: true; }, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": "selectedIndex"; "disableRipple": "disableRipple"; "color": "color"; "labelPosition": "labelPosition"; "headerPosition": "headerPosition"; "animationDuration": "animationDuration"; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": "selectedIndex"; "disableRipple": "disableRipple"; "color": "color"; "labelPosition": "labelPosition"; "headerPosition": "headerPosition"; "animationDuration": "animationDuration"; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never, false>;
 }

@@ -36,7 +36,7 @@ export declare class MatNavList extends _MatListBase implements CanDisable, CanD
     ngOnChanges(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNavList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"], false>;
 }
 export declare class MatList extends _MatListBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     private _elementRef;
@@ -47,7 +47,7 @@ export declare class MatList extends _MatListBase implements CanDisable, CanDisa
     ngOnChanges(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list, mat-action-list", ["matList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list, mat-action-list", ["matList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"], false>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -55,7 +55,7 @@ export declare class MatList extends _MatListBase implements CanDisable, CanDisa
  */
 export declare class MatListAvatarCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListAvatarCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListAvatarCssMatStyler, "[mat-list-avatar], [matListAvatar]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListAvatarCssMatStyler, "[mat-list-avatar], [matListAvatar]", never, {}, {}, never, never, false>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -63,7 +63,7 @@ export declare class MatListAvatarCssMatStyler {
  */
 export declare class MatListIconCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListIconCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListIconCssMatStyler, "[mat-list-icon], [matListIcon]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListIconCssMatStyler, "[mat-list-icon], [matListIcon]", never, {}, {}, never, never, false>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -71,7 +71,7 @@ export declare class MatListIconCssMatStyler {
  */
 export declare class MatListSubheaderCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListSubheaderCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, false>;
 }
 /** An item within a Material Design list. */
 export declare class MatListItem extends _MatListItemMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
@@ -94,6 +94,6 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatar", "_icon", "_lines"], ["[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]", "[mat-line], [matLine]", "*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatar", "_icon", "_lines"], ["[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]", "[mat-line], [matLine]", "*"], false>;
 }
 export {};

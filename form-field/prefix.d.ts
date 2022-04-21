@@ -16,5 +16,5 @@ export declare const MAT_PREFIX: InjectionToken<MatPrefix>;
 /** Prefix to be placed in front of the form field. */
 export declare class MatPrefix {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPrefix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPrefix, "[matPrefix]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPrefix, "[matPrefix]", never, {}, {}, never, never, false>;
 }

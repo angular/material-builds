@@ -18,5 +18,5 @@ export declare class MatError {
     id: string;
     constructor(ariaLive: string, elementRef: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatError, [{ attribute: "aria-live"; }, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatError, "mat-error", never, { "id": "id"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatError, "mat-error", never, { "id": "id"; }, {}, never, never, false>;
 }

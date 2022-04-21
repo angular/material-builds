@@ -135,7 +135,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "autoSelectActiveOption": "autoSelectActiveOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "autoSelectActiveOption": "autoSelectActiveOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false>;
 }
 export declare class MatAutocomplete extends _MatAutocompleteBase {
     /** Reference to all option groups within the autocomplete. */
@@ -145,6 +145,6 @@ export declare class MatAutocomplete extends _MatAutocompleteBase {
     protected _visibleClass: string;
     protected _hiddenClass: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocomplete, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": "disableRipple"; }, {}, ["optionGroups", "options"], ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": "disableRipple"; }, {}, ["optionGroups", "options"], ["*"], false>;
 }
 export {};

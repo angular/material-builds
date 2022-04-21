@@ -145,7 +145,7 @@ export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> 
      */
     setDisabledState(isDisabled: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatRadioGroupBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioGroupBase<any>, never, never, { "color": "color"; "name": "name"; "labelPosition": "labelPosition"; "value": "value"; "selected": "selected"; "disabled": "disabled"; "required": "required"; }, { "change": "change"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioGroupBase<any>, never, never, { "color": "color"; "name": "name"; "labelPosition": "labelPosition"; "value": "value"; "selected": "selected"; "disabled": "disabled"; "required": "required"; }, { "change": "change"; }, never, never, false>;
 }
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
@@ -153,7 +153,7 @@ export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> 
 export declare class MatRadioGroup extends _MatRadioGroupBase<MatRadioButton> {
     _radios: QueryList<MatRadioButton>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioGroup, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRadioGroup, "mat-radio-group", ["matRadioGroup"], {}, {}, ["_radios"]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRadioGroup, "mat-radio-group", ["matRadioGroup"], {}, {}, ["_radios"], never, false>;
 }
 /** @docs-private */
 declare abstract class MatRadioButtonBase {
@@ -252,7 +252,7 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     /** Gets the tabindex for the underlying input element. */
     private _updateTabIndex;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatRadioButtonBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioButtonBase, never, never, { "id": "id"; "name": "name"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "checked": "checked"; "value": "value"; "labelPosition": "labelPosition"; "disabled": "disabled"; "required": "required"; "color": "color"; }, { "change": "change"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatRadioButtonBase, never, never, { "id": "id"; "name": "name"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "checked": "checked"; "value": "value"; "labelPosition": "labelPosition"; "disabled": "disabled"; "required": "required"; "color": "color"; }, { "change": "change"; }, never, never, false>;
 }
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
@@ -260,6 +260,6 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
 export declare class MatRadioButton extends _MatRadioButtonBase {
     constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, changeDetector: ChangeDetectorRef, focusMonitor: FocusMonitor, radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, providerOverride?: MatRadioDefaultOptions, tabIndex?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioButton, [{ optional: true; }, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatRadioButton, "mat-radio-button", ["matRadioButton"], { "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatRadioButton, "mat-radio-button", ["matRadioButton"], { "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false>;
 }
 export {};

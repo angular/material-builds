@@ -64,20 +64,20 @@ export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMix
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelHeader, [{ host: true; }, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "tabIndex": "tabIndex"; "expandedHeight": "expandedHeight"; "collapsedHeight": "collapsedHeight"; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "tabIndex": "tabIndex"; "expandedHeight": "expandedHeight"; "collapsedHeight": "collapsedHeight"; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], false>;
 }
 /**
  * Description element of a `<mat-expansion-panel-header>`.
  */
 export declare class MatExpansionPanelDescription {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelDescription, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never, never, false>;
 }
 /**
  * Title element of a `<mat-expansion-panel-header>`.
  */
 export declare class MatExpansionPanelTitle {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelTitle, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelTitle, "mat-panel-title", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelTitle, "mat-panel-title", never, {}, {}, never, never, false>;
 }
 export {};

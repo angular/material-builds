@@ -14,14 +14,14 @@ export declare class MatDatepickerApply {
     constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<unknown>, unknown>);
     _applySelection(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerApply, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerApply, "[matDatepickerApply], [matDateRangePickerApply]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerApply, "[matDatepickerApply], [matDateRangePickerApply]", never, {}, {}, never, never, false>;
 }
 /** Button that will close the datepicker and discard the current selection. */
 export declare class MatDatepickerCancel {
     _datepicker: MatDatepickerBase<MatDatepickerControl<unknown>, unknown>;
     constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<unknown>, unknown>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerCancel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerCancel, "[matDatepickerCancel], [matDateRangePickerCancel]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerCancel, "[matDatepickerCancel], [matDateRangePickerCancel]", never, {}, {}, never, never, false>;
 }
 /**
  * Container that can be used to project a row of action buttons
@@ -36,5 +36,5 @@ export declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerActions, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerActions, "mat-datepicker-actions, mat-date-range-picker-actions", never, {}, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerActions, "mat-datepicker-actions, mat-date-range-picker-actions", never, {}, {}, never, ["*"], false>;
 }

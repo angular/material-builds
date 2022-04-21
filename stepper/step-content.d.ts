@@ -14,5 +14,5 @@ export declare class MatStepContent {
     _template: TemplateRef<any>;
     constructor(_template: TemplateRef<any>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never, never, false>;
 }

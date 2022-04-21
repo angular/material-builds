@@ -14,7 +14,7 @@ import * as i0 from "@angular/core";
 /** Can be used to override the icon of a `matDatepickerToggle`. */
 export declare class MatDatepickerToggleIcon {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggleIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never, never, false>;
 }
 export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnDestroy {
     _intl: MatDatepickerIntl;
@@ -43,5 +43,5 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     _open(event: Event): void;
     private _watchStateChanges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggle<any>, [null, null, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerToggle<any>, "mat-datepicker-toggle", ["matDatepickerToggle"], { "datepicker": "for"; "tabIndex": "tabIndex"; "ariaLabel": "aria-label"; "disabled": "disabled"; "disableRipple": "disableRipple"; }, {}, ["_customIcon"], ["[matDatepickerToggleIcon]"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerToggle<any>, "mat-datepicker-toggle", ["matDatepickerToggle"], { "datepicker": "for"; "tabIndex": "tabIndex"; "ariaLabel": "aria-label"; "disabled": "disabled"; "disableRipple": "disableRipple"; }, {}, ["_customIcon"], ["[matDatepickerToggleIcon]"], false>;
 }

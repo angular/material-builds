@@ -29,5 +29,5 @@ export declare class SimpleSnackBar implements TextOnlySnackBar {
     /** If the action button should be shown. */
     get hasAction(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<SimpleSnackBar, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<SimpleSnackBar, "simple-snack-bar", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<SimpleSnackBar, "simple-snack-bar", never, {}, {}, never, never, false>;
 }

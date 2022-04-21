@@ -48,7 +48,7 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
     updateActiveLink(): void;
     _getRole(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabNavBase, [null, { optional: true; }, null, null, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabNavBase, never, never, { "backgroundColor": "backgroundColor"; "disableRipple": "disableRipple"; "color": "color"; "tabPanel": "tabPanel"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabNavBase, never, never, { "backgroundColor": "backgroundColor"; "disableRipple": "disableRipple"; "color": "color"; "tabPanel": "tabPanel"; }, {}, never, never, false>;
 }
 /**
  * Navigation component matching the styles of the tab group header.
@@ -64,7 +64,7 @@ export declare class MatTabNav extends _MatTabNavBase {
     _previousPaginator: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNav, [null, { optional: true; }, null, null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": "color"; }, {}, ["_items"], ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": "color"; }, {}, ["_items"], ["*"], false>;
 }
 declare const _MatTabLinkMixinBase: import("@angular/material/core")._Constructor<HasTabIndex> & import("@angular/material/core")._AbstractConstructor<HasTabIndex> & import("@angular/material/core")._Constructor<CanDisableRipple> & import("@angular/material/core")._AbstractConstructor<CanDisableRipple> & import("@angular/material/core")._Constructor<CanDisable> & import("@angular/material/core")._AbstractConstructor<CanDisable> & {
     new (): {};
@@ -107,7 +107,7 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     _getRole(): string | null;
     _getTabIndex(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabLinkBase, [null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; "id": "id"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; "id": "id"; }, {}, never, never, false>;
 }
 /**
  * Link inside of a `mat-tab-nav-bar`.
@@ -118,7 +118,7 @@ export declare class MatTabLink extends _MatTabLinkBase implements OnDestroy {
     constructor(tabNavBar: MatTabNav, elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, focusMonitor: FocusMonitor, animationMode?: string);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLink, [null, null, null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never, never, false>;
 }
 /**
  * Tab panel component associated with MatTabNav.
@@ -129,6 +129,6 @@ export declare class MatTabNavPanel {
     /** Id of the active tab in the nav bar. */
     _activeTabId?: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNavPanel, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNavPanel, "mat-tab-nav-panel", ["matTabNavPanel"], { "id": "id"; }, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNavPanel, "mat-tab-nav-panel", ["matTabNavPanel"], { "id": "id"; }, {}, never, ["*"], false>;
 }
 export {};

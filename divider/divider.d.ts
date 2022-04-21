@@ -10,5 +10,5 @@ export declare class MatDivider {
     set inset(value: BooleanInput);
     private _inset;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDivider, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDivider, "mat-divider", never, { "vertical": "vertical"; "inset": "inset"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDivider, "mat-divider", never, { "vertical": "vertical"; "inset": "inset"; }, {}, never, never, false>;
 }

@@ -45,5 +45,5 @@ export declare class MatInkBar {
     /** Hides the ink bar. */
     hide(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInkBar, [null, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatInkBar, "mat-ink-bar", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatInkBar, "mat-ink-bar", never, {}, {}, never, never, false>;
 }

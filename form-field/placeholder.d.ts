@@ -7,5 +7,5 @@ import * as i0 from "@angular/core";
  */
 export declare class MatPlaceholder {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPlaceholder, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPlaceholder, "mat-placeholder", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPlaceholder, "mat-placeholder", never, {}, {}, never, never, false>;
 }

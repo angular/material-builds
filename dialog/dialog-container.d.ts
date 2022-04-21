@@ -108,7 +108,7 @@ export declare abstract class _MatDialogContainerBase extends BasePortalOutlet {
      */
     protected _openAnimationDone(totalTime: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatDialogContainerBase, [null, null, null, { optional: true; }, null, null, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatDialogContainerBase, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatDialogContainerBase, never, never, {}, {}, never, never, false>;
 }
 /**
  * Internal component that wraps user-provided dialog content.
@@ -132,6 +132,6 @@ export declare class MatDialogContainer extends _MatDialogContainerBase {
         };
     };
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never, false>;
 }
 export {};

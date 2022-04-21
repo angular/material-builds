@@ -24,5 +24,5 @@ export declare class MatTabLabel extends CdkPortal {
     _closestTab: any;
     constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _closestTab: any);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabel, [null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabel, "[mat-tab-label], [matTabLabel]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabel, "[mat-tab-label], [matTabLabel]", never, {}, {}, never, never, false>;
 }

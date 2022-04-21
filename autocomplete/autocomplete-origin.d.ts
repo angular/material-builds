@@ -15,7 +15,7 @@ export declare abstract class _MatAutocompleteOriginBase {
     /** Reference to the element on which the directive is applied. */
     elementRef: ElementRef<HTMLElement>);
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteOriginBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteOriginBase, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteOriginBase, never, never, {}, {}, never, never, false>;
 }
 /**
  * Directive applied to an element to make it usable
@@ -23,5 +23,5 @@ export declare abstract class _MatAutocompleteOriginBase {
  */
 export declare class MatAutocompleteOrigin extends _MatAutocompleteOriginBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteOrigin, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, false>;
 }

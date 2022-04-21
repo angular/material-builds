@@ -97,5 +97,5 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      */
     private _screenReaderAnnounce;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "snack-bar-container", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "snack-bar-container", never, {}, {}, never, never, false>;
 }

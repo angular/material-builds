@@ -36,12 +36,12 @@ export declare abstract class _MatMenuContentBase implements OnDestroy {
     detach(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuContentBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuContentBase, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuContentBase, never, never, {}, {}, never, never, false>;
 }
 /**
  * Menu content that will be rendered lazily once the menu is opened.
  */
 export declare class MatMenuContent extends _MatMenuContentBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, false>;
 }

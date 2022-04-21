@@ -171,10 +171,10 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
     /** Gets the portal that should be attached to the overlay. */
     private _getPortal;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuTriggerBase, [null, null, null, null, { optional: true; }, { optional: true; self: true; }, { optional: true; }, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuTriggerBase, never, never, { "_deprecatedMatMenuTriggerFor": "mat-menu-trigger-for"; "menu": "matMenuTriggerFor"; "menuData": "matMenuTriggerData"; "restoreFocus": "matMenuTriggerRestoreFocus"; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuTriggerBase, never, never, { "_deprecatedMatMenuTriggerFor": "mat-menu-trigger-for"; "menu": "matMenuTriggerFor"; "menuData": "matMenuTriggerData"; "restoreFocus": "matMenuTriggerRestoreFocus"; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never, never, false>;
 }
 /** Directive applied to an element that should trigger a `mat-menu`. */
 export declare class MatMenuTrigger extends _MatMenuTriggerBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], {}, {}, never, never, false>;
 }

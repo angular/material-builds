@@ -24,6 +24,6 @@ export declare class MatTabLabelWrapper extends _MatTabLabelWrapperBase implemen
     getOffsetLeft(): number;
     getOffsetWidth(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabelWrapper, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; }, {}, never, never, false>;
 }
 export {};

@@ -28,7 +28,7 @@ export declare class MatGridTile {
      */
     _setStyle(property: string, value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTile, [null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTile, "mat-grid-tile", ["matGridTile"], { "rowspan": "rowspan"; "colspan": "colspan"; }, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTile, "mat-grid-tile", ["matGridTile"], { "rowspan": "rowspan"; "colspan": "colspan"; }, {}, never, ["*"], false>;
 }
 export declare class MatGridTileText implements AfterContentInit {
     private _element;
@@ -36,7 +36,7 @@ export declare class MatGridTileText implements AfterContentInit {
     constructor(_element: ElementRef<HTMLElement>);
     ngAfterContentInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileText, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTileText, "mat-grid-tile-header, mat-grid-tile-footer", never, {}, {}, ["_lines"], ["[mat-grid-avatar], [matGridAvatar]", "[mat-line], [matLine]", "*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTileText, "mat-grid-tile-header, mat-grid-tile-footer", never, {}, {}, ["_lines"], ["[mat-grid-avatar], [matGridAvatar]", "[mat-line], [matLine]", "*"], false>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -44,7 +44,7 @@ export declare class MatGridTileText implements AfterContentInit {
  */
 export declare class MatGridAvatarCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridAvatarCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridAvatarCssMatStyler, "[mat-grid-avatar], [matGridAvatar]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridAvatarCssMatStyler, "[mat-grid-avatar], [matGridAvatar]", never, {}, {}, never, never, false>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -52,7 +52,7 @@ export declare class MatGridAvatarCssMatStyler {
  */
 export declare class MatGridTileHeaderCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileHeaderCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridTileHeaderCssMatStyler, "mat-grid-tile-header", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridTileHeaderCssMatStyler, "mat-grid-tile-header", never, {}, {}, never, never, false>;
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -60,5 +60,5 @@ export declare class MatGridTileHeaderCssMatStyler {
  */
 export declare class MatGridTileFooterCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileFooterCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridTileFooterCssMatStyler, "mat-grid-tile-footer", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridTileFooterCssMatStyler, "mat-grid-tile-footer", never, {}, {}, never, never, false>;
 }

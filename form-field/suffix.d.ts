@@ -16,5 +16,5 @@ export declare const MAT_SUFFIX: InjectionToken<MatSuffix>;
 /** Suffix to be placed at the end of the form field. */
 export declare class MatSuffix {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSuffix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSuffix, "[matSuffix]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSuffix, "[matSuffix]", never, {}, {}, never, never, false>;
 }

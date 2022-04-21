@@ -132,7 +132,7 @@ export declare abstract class _MatDialogBase<C extends _MatDialogContainerBase> 
     /** Closes all of the dialogs in an array. */
     private _closeDialogs;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatDialogBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatDialogBase<any>, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatDialogBase<any>, never, never, {}, {}, never, never, false>;
 }
 /**
  * Service to open Material Design modal dialogs.

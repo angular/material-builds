@@ -26,7 +26,7 @@ export declare abstract class _MatTabHeaderBase extends MatPaginatedTabHeader im
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
     protected _itemSelected(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabHeaderBase, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabHeaderBase, never, never, { "disableRipple": "disableRipple"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabHeaderBase, never, never, { "disableRipple": "disableRipple"; }, {}, never, never, false>;
 }
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
@@ -45,5 +45,5 @@ export declare class MatTabHeader extends _MatTabHeaderBase {
     _previousPaginator: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabHeader, "mat-tab-header", never, { "selectedIndex": "selectedIndex"; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, ["_items"], ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabHeader, "mat-tab-header", never, { "selectedIndex": "selectedIndex"; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, ["_items"], ["*"], false>;
 }

@@ -45,7 +45,7 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
     /** Clean up centering subscription. */
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabBodyPortal, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabBodyPortal, "[matTabBodyHost]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabBodyPortal, "[matTabBodyHost]", never, {}, {}, never, never, false>;
 }
 /**
  * Base class with all of the `MatTabBody` functionality.
@@ -102,7 +102,7 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
      */
     private _computePositionFromOrigin;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabBodyBase, [null, { optional: true; }, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBodyBase, never, never, { "_content": "content"; "origin": "origin"; "animationDuration": "animationDuration"; "preserveContent": "preserveContent"; "position": "position"; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_afterLeavingCenter": "_afterLeavingCenter"; "_onCentered": "_onCentered"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBodyBase, never, never, { "_content": "content"; "origin": "origin"; "animationDuration": "animationDuration"; "preserveContent": "preserveContent"; "position": "position"; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_afterLeavingCenter": "_afterLeavingCenter"; "_onCentered": "_onCentered"; }, never, never, false>;
 }
 /**
  * Wrapper for the contents of a tab.
@@ -112,5 +112,5 @@ export declare class MatTabBody extends _MatTabBodyBase {
     _portalHost: CdkPortalOutlet;
     constructor(elementRef: ElementRef<HTMLElement>, dir: Directionality, changeDetectorRef: ChangeDetectorRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabBody, [null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabBody, "mat-tab-body", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabBody, "mat-tab-body", never, {}, {}, never, never, false>;
 }

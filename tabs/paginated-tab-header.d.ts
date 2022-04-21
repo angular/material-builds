@@ -192,5 +192,5 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      */
     private _scrollTo;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatedTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": "disablePagination"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": "disablePagination"; }, {}, never, never, false>;
 }

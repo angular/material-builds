@@ -59,5 +59,5 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     /** Sets style on the main grid-list element, given the style name and value. */
     _setListStyle(style: [string, string | null] | null): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridList, [null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": "cols"; "gutterSize": "gutterSize"; "rowHeight": "rowHeight"; }, {}, ["_tiles"], ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": "cols"; "gutterSize": "gutterSize"; "rowHeight": "rowHeight"; }, {}, ["_tiles"], ["*"], false>;
 }

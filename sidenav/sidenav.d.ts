@@ -13,7 +13,7 @@ import * as i0 from "@angular/core";
 export declare class MatSidenavContent extends MatDrawerContent {
     constructor(changeDetectorRef: ChangeDetectorRef, container: MatSidenavContainer, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, ngZone: NgZone);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContent, "mat-sidenav-content", never, {}, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContent, "mat-sidenav-content", never, {}, {}, never, ["*"], false>;
 }
 export declare class MatSidenav extends MatDrawer {
     /** Whether the sidenav is fixed in the viewport. */
@@ -35,11 +35,11 @@ export declare class MatSidenav extends MatDrawer {
     set fixedBottomGap(value: NumberInput);
     private _fixedBottomGap;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenav, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenav, "mat-sidenav", ["matSidenav"], { "fixedInViewport": "fixedInViewport"; "fixedTopGap": "fixedTopGap"; "fixedBottomGap": "fixedBottomGap"; }, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenav, "mat-sidenav", ["matSidenav"], { "fixedInViewport": "fixedInViewport"; "fixedTopGap": "fixedTopGap"; "fixedBottomGap": "fixedBottomGap"; }, {}, never, ["*"], false>;
 }
 export declare class MatSidenavContainer extends MatDrawerContainer {
     _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContainer, "mat-sidenav-container", ["matSidenavContainer"], {}, {}, ["_content", "_allDrawers"], ["mat-sidenav", "mat-sidenav-content", "*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContainer, "mat-sidenav-container", ["matSidenavContainer"], {}, {}, ["_content", "_allDrawers"], ["mat-sidenav", "mat-sidenav-content", "*"], false>;
 }

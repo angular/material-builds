@@ -26,5 +26,5 @@ export declare class MatStepperIcon {
     name: StepState;
     constructor(templateRef: TemplateRef<MatStepperIconContext>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": "matStepperIcon"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": "matStepperIcon"; }, {}, never, never, false>;
 }

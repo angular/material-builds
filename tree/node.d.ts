@@ -19,7 +19,7 @@ export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implem
     ngOnInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNode<any, any>, [null, null, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "role": "role"; "disabled": "disabled"; "tabIndex": "tabIndex"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "role": "role"; "disabled": "disabled"; "tabIndex": "tabIndex"; }, {}, never, never, false>;
 }
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
@@ -28,7 +28,7 @@ export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implem
 export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
     data: T;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodeDef<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeDef<any>, "[matTreeNodeDef]", never, { "when": "matTreeNodeDefWhen"; "data": "matTreeNode"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeDef<any>, "[matTreeNodeDef]", never, { "when": "matTreeNodeDefWhen"; "data": "matTreeNode"; }, {}, never, never, false>;
 }
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
@@ -48,6 +48,6 @@ export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K>
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNestedTreeNode<any, any>, [null, null, null, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "role": "role"; "disabled": "disabled"; "tabIndex": "tabIndex"; "node": "matNestedTreeNode"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "role": "role"; "disabled": "disabled"; "tabIndex": "tabIndex"; "node": "matNestedTreeNode"; }, {}, never, never, false>;
 }
 export {};

@@ -18,5 +18,5 @@ import * as i0 from "@angular/core";
  */
 export declare class MatTextColumn<T> extends CdkTextColumn<T> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTextColumn<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTextColumn<any>, "mat-text-column", never, {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTextColumn<any>, "mat-text-column", never, {}, {}, never, never, false>;
 }

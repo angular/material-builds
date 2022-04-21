@@ -106,7 +106,7 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptionBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase<any>, never, never, { "value": "value"; "id": "id"; "disabled": "disabled"; }, { "onSelectionChange": "onSelectionChange"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase<any>, never, never, { "value": "value"; "id": "id"; "disabled": "disabled"; }, { "onSelectionChange": "onSelectionChange"; }, never, never, false>;
 }
 /**
  * Single option inside of a `<mat-select>` element.
@@ -114,7 +114,7 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
 export declare class MatOption<T = any> extends _MatOptionBase<T> {
     constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatOptionParentComponent, group: MatOptgroup);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"], false>;
 }
 /**
  * Counts the amount of option group labels that precede the specified option.

@@ -23,5 +23,5 @@ export declare class MatHint {
     /** Unique ID for the hint. Used for the aria-describedby on the form field control. */
     id: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHint, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHint, "mat-hint", never, { "align": "align"; "id": "id"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHint, "mat-hint", never, { "align": "align"; "id": "id"; }, {}, never, never, false>;
 }

@@ -127,7 +127,7 @@ export declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromS
     /** Gets whether a value matches the current date filter. */
     _matchesFilter(value: D | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInputBase<any, any>, [null, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": "value"; "disabled": "disabled"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": "value"; "disabled": "disabled"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false>;
 }
 /**
  * Checks whether the `SimpleChanges` object from an `ngOnChanges`

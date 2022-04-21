@@ -110,7 +110,7 @@ export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
  */
 export declare class MatSelectTrigger {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSelectTrigger, "mat-select-trigger", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSelectTrigger, "mat-select-trigger", never, {}, {}, never, never, false>;
 }
 /** Base class with all of the `MatSelect` functionality. */
 export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
@@ -380,7 +380,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      */
     get shouldLabelFloat(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatSelectBase<any>, [null, null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; self: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSelectBase<any>, never, never, { "userAriaDescribedBy": "aria-describedby"; "panelClass": "panelClass"; "placeholder": "placeholder"; "required": "required"; "multiple": "multiple"; "disableOptionCentering": "disableOptionCentering"; "compareWith": "compareWith"; "value": "value"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "errorStateMatcher": "errorStateMatcher"; "typeaheadDebounceInterval": "typeaheadDebounceInterval"; "sortComparator": "sortComparator"; "id": "id"; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSelectBase<any>, never, never, { "userAriaDescribedBy": "aria-describedby"; "panelClass": "panelClass"; "placeholder": "placeholder"; "required": "required"; "multiple": "multiple"; "disableOptionCentering": "disableOptionCentering"; "compareWith": "compareWith"; "value": "value"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "errorStateMatcher": "errorStateMatcher"; "typeaheadDebounceInterval": "typeaheadDebounceInterval"; "sortComparator": "sortComparator"; "id": "id"; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, never, never, false>;
 }
 export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit {
     /** The scroll position of the overlay panel, calculated to center the selected option. */
@@ -450,6 +450,6 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     /** Calculates the amount of items in the select. This includes options and group labels. */
     private _getItemCount;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false>;
 }
 export {};

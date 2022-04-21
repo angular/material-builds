@@ -6,7 +6,7 @@ import * as i0 from "@angular/core";
  */
 export declare class MatCellDef extends CdkCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCellDef, "[matCellDef]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCellDef, "[matCellDef]", never, {}, {}, never, never, false>;
 }
 /**
  * Header cell definition for the mat-table.
@@ -14,7 +14,7 @@ export declare class MatCellDef extends CdkCellDef {
  */
 export declare class MatHeaderCellDef extends CdkHeaderCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, false>;
 }
 /**
  * Footer cell definition for the mat-table.
@@ -22,7 +22,7 @@ export declare class MatHeaderCellDef extends CdkHeaderCellDef {
  */
 export declare class MatFooterCellDef extends CdkFooterCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCellDef, "[matFooterCellDef]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCellDef, "[matFooterCellDef]", never, {}, {}, never, never, false>;
 }
 /**
  * Column definition for the mat-table.
@@ -40,20 +40,20 @@ export declare class MatColumnDef extends CdkColumnDef {
      */
     protected _updateColumnCssClassName(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatColumnDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "sticky": "sticky"; "name": "matColumnDef"; }, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "sticky": "sticky"; "name": "matColumnDef"; }, {}, never, never, false>;
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends CdkHeaderCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCell, "mat-header-cell, th[mat-header-cell]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCell, "mat-header-cell, th[mat-header-cell]", never, {}, {}, never, never, false>;
 }
 /** Footer cell template container that adds the right classes and role. */
 export declare class MatFooterCell extends CdkFooterCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCell, "mat-footer-cell, td[mat-footer-cell]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCell, "mat-footer-cell, td[mat-footer-cell]", never, {}, {}, never, never, false>;
 }
 /** Cell template container that adds the right classes and role. */
 export declare class MatCell extends CdkCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCell, "mat-cell, td[mat-cell]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCell, "mat-cell, td[mat-cell]", never, {}, {}, never, never, false>;
 }

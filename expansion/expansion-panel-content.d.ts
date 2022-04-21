@@ -17,5 +17,5 @@ export declare class MatExpansionPanelContent {
     _expansionPanel?: MatExpansionPanelBase | undefined;
     constructor(_template: TemplateRef<any>, _expansionPanel?: MatExpansionPanelBase | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, [null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, false>;
 }

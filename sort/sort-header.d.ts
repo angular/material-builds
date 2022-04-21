@@ -161,6 +161,6 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     /** Handles changes in the sorting state. */
     private _handleStateChanges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "disabled": "disabled"; "id": "mat-sort-header"; "arrowPosition": "arrowPosition"; "start": "start"; "sortActionDescription": "sortActionDescription"; "disableClear": "disableClear"; }, {}, never, ["*"]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "disabled": "disabled"; "id": "mat-sort-header"; "arrowPosition": "arrowPosition"; "start": "start"; "sortActionDescription": "sortActionDescription"; "disableClear": "disableClear"; }, {}, never, ["*"], false>;
 }
 export {};

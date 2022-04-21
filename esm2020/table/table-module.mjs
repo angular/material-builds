@@ -38,8 +38,8 @@ const EXPORTED_DECLARATIONS = [
 ];
 export class MatTableModule {
 }
-MatTableModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.13", ngImport: i0, type: MatTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.13", ngImport: i0, type: MatTableModule, declarations: [
+MatTableModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.14", ngImport: i0, type: MatTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.14", ngImport: i0, type: MatTableModule, declarations: [
         // Table
         MatTable,
         MatRecycleRows,
@@ -82,8 +82,8 @@ MatTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version:
         MatFooterRow,
         MatNoDataRow,
         MatTextColumn] });
-MatTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.13", ngImport: i0, type: MatTableModule, imports: [[CdkTableModule, MatCommonModule], MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.13", ngImport: i0, type: MatTableModule, decorators: [{
+MatTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.14", ngImport: i0, type: MatTableModule, imports: [[CdkTableModule, MatCommonModule], MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.14", ngImport: i0, type: MatTableModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CdkTableModule, MatCommonModule],

@@ -13,5 +13,5 @@ export interface MatDateRangePickerInput<D> extends MatDatepickerControl<D> {
 export declare class MatDateRangePicker<D> extends MatDatepickerBase<MatDateRangePickerInput<D>, DateRange<D>, D> {
     protected _forwardContentValues(instance: MatDatepickerContent<DateRange<D>, D>): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangePicker<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangePicker<any>, "mat-date-range-picker", ["matDateRangePicker"], {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangePicker<any>, "mat-date-range-picker", ["matDateRangePicker"], {}, {}, never, never, false>;
 }

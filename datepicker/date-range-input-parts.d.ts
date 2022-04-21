@@ -74,7 +74,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueProgrammatically(value: D | null): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInputPartBase<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, {}, {}, never, never, false>;
 }
 declare const _MatDateRangeInputBase: import("@angular/material/core")._Constructor<CanUpdateErrorState> & import("@angular/material/core")._AbstractConstructor<CanUpdateErrorState> & typeof MatDateRangeInputPartBase;
 /** Input for entering the start date in a `mat-date-range-input`. */
@@ -90,7 +90,7 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false>;
 }
 /** Input for entering the end date in a `mat-date-range-input`. */
 export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
@@ -103,6 +103,6 @@ export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements 
     protected _assignValueToModel(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatEndDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false>;
 }
 export {};

@@ -14,5 +14,5 @@ import * as i0 from "@angular/core";
 export declare class MatTree<T, K = T> extends CdkTree<T, K> {
     _nodeOutlet: MatTreeNodeOutlet;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTree<any, any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTree<any, any>, "mat-tree", ["matTree"], {}, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTree<any, any>, "mat-tree", ["matTree"], {}, {}, never, never, false>;
 }

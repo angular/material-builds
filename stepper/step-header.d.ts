@@ -61,6 +61,6 @@ export declare class MatStepHeader extends _MatStepHeaderBase implements AfterVi
     _getIconContext(): MatStepperIconContext;
     _getDefaultTextForState(state: StepState): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepHeader, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "color": "color"; "state": "state"; "label": "label"; "errorMessage": "errorMessage"; "iconOverrides": "iconOverrides"; "index": "index"; "selected": "selected"; "active": "active"; "optional": "optional"; "disableRipple": "disableRipple"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "color": "color"; "state": "state"; "label": "label"; "errorMessage": "errorMessage"; "iconOverrides": "iconOverrides"; "index": "index"; "selected": "selected"; "active": "active"; "optional": "optional"; "disableRipple": "disableRipple"; }, {}, never, never, false>;
 }
 export {};

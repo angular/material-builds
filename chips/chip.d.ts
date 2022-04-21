@@ -64,7 +64,7 @@ declare const _MatChipMixinBase: import("@angular/material/core")._Constructor<H
  */
 export declare class MatChipAvatar {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipAvatar, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never, never, false>;
 }
 /**
  * Dummy directive to add CSS class to chip trailing icon.
@@ -72,7 +72,7 @@ export declare class MatChipAvatar {
  */
 export declare class MatChipTrailingIcon {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipTrailingIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never, never, false>;
 }
 /** Material Design styled chip directive. Used inside the MatChipList component. */
 export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisableRipple, RippleTarget, HasTabIndex, CanDisable {
@@ -182,7 +182,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _blur(): void;
     private _dispatchSelectionChange;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, [null, null, null, { optional: true; }, null, null, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"], never, false>;
 }
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
@@ -203,6 +203,6 @@ export declare class MatChipRemove {
     /** Calls the parent chip's public `remove()` method if applicable. */
     _handleClick(event: Event): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRemove, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipRemove, "[matChipRemove]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipRemove, "[matChipRemove]", never, {}, {}, never, never, false>;
 }
 export {};

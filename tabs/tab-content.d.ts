@@ -18,5 +18,5 @@ export declare class MatTabContent {
     template: TemplateRef<any>;
     constructor(/** Content for the tab. */ template: TemplateRef<any>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabContent, "[matTabContent]", never, {}, {}, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabContent, "[matTabContent]", never, {}, {}, never, never, false>;
 }
