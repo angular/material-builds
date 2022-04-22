@@ -92,7 +92,7 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     /** Sets the position of the arrow that displays when sorted. */
     arrowPosition: 'before' | 'after';
     /** Overrides the sort start value of the containing MatSort for this MatSortable. */
-    start: 'asc' | 'desc';
+    start: SortDirection;
     /**
      * Description applied to MatSortHeader's button element with aria-describedby. This text should
      * describe the action that will occur when the user clicks the sort header.
