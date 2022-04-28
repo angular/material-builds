@@ -93,7 +93,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     readonly opened: EventEmitter<void>;
     /** Event that is emitted when the autocomplete panel is closed. */
     readonly closed: EventEmitter<void>;
-    /** Emits whenever an option is activated using the keyboard. */
+    /** Emits whenever an option is activated. */
     readonly optionActivated: EventEmitter<MatAutocompleteActivatedEvent>;
     /**
      * Takes classes set on the host mat-autocomplete element and applies them to the panel

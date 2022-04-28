@@ -74,7 +74,7 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
         this.opened = new EventEmitter();
         /** Event that is emitted when the autocomplete panel is closed. */
         this.closed = new EventEmitter();
-        /** Emits whenever an option is activated using the keyboard. */
+        /** Emits whenever an option is activated. */
         this.optionActivated = new EventEmitter();
         this._classList = {};
         /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
