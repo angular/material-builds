@@ -8,7 +8,7 @@
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 import * as i0 from "@angular/core";
@@ -84,6 +84,7 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
      * @breaking-change 8.0.0
      */
     readonly onMenuClose: EventEmitter<void>;
+    constructor(overlay: Overlay, element: ElementRef<HTMLElement>, viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, menuItemInstance: MatMenuItem, dir: Directionality, focusMonitor: FocusMonitor, ngZone: NgZone);
     /**
      * @deprecated `focusMonitor` will become a required parameter.
      * @breaking-change 8.0.0

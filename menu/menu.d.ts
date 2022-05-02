@@ -132,7 +132,12 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      */
     readonly close: EventEmitter<MenuCloseReason>;
     readonly panelId: string;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions, _changeDetectorRef?: ChangeDetectorRef | undefined);
+    constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions, changeDetectorRef: ChangeDetectorRef);
+    /**
+     * @deprecated `_changeDetectorRef` to become a required parameter.
+     * @breaking-change 15.0.0
+     */
+    constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions, changeDetectorRef?: ChangeDetectorRef);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
