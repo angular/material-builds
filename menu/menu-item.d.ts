@@ -34,8 +34,9 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
+    constructor(elementRef: ElementRef<HTMLElement>, document: any, focusMonitor: FocusMonitor, parentMenu: MatMenuPanel<MatMenuItem> | undefined, changeDetectorRef: ChangeDetectorRef);
     /**
-     * @deprecated `_document`, `changeDetectorRef` and `focusMonitor` to become required.
+     * @deprecated `document`, `changeDetectorRef` and `focusMonitor` to become required.
      * @breaking-change 12.0.0
      */
     constructor(elementRef: ElementRef<HTMLElement>, document?: any, focusMonitor?: FocusMonitor, parentMenu?: MatMenuPanel<MatMenuItem>, changeDetectorRef?: ChangeDetectorRef);
