@@ -31,6 +31,8 @@ export declare abstract class _MatAutocompleteHarnessBase<OptionType extends Com
     isFocused(): Promise<boolean>;
     /** Enters text into the autocomplete. */
     enterText(value: string): Promise<void>;
+    /** Clears the input value. */
+    clear(): Promise<void>;
     /** Gets the options inside the autocomplete panel. */
     getOptions(filters?: Omit<OptionFilters, 'ancestor'>): Promise<Option[]>;
     /** Gets the option groups inside the autocomplete panel. */

@@ -45,6 +45,12 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
             return (yield this.host()).sendKeys(value);
         });
     }
+    /** Clears the input value. */
+    clear() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this.host()).clear();
+        });
+    }
     /** Gets the options inside the autocomplete panel. */
     getOptions(filters) {
         return __awaiter(this, void 0, void 0, function* () {

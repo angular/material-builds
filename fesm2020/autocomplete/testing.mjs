@@ -39,6 +39,10 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     async enterText(value) {
         return (await this.host()).sendKeys(value);
     }
+    /** Clears the input value. */
+    async clear() {
+        return (await this.host()).clear();
+    }
     /** Gets the options inside the autocomplete panel. */
     async getOptions(filters) {
         if (!(await this.isOpen())) {
