@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { DialogRef } from '@angular/cdk/dialog';
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
-import { DialogPosition } from './dialog-config';
+import { DialogPosition, MatDialogConfig } from './dialog-config';
 import { _MatDialogContainerBase } from './dialog-container';
 /** Possible states of the lifecycle of a dialog. */
 export declare const enum MatDialogState {
@@ -20,18 +20,16 @@ export declare const enum MatDialogState {
  * Reference to a dialog opened via the MatDialog service.
  */
 export declare class MatDialogRef<T, R = any> {
-    private _overlayRef;
+    private _ref;
     _containerInstance: _MatDialogContainerBase;
-    /** Id of the dialog. */
-    readonly id: string;
     /** The instance of component opened into the dialog. */
     componentInstance: T;
     /** Whether the user is allowed to close the dialog. */
     disableClose: boolean | undefined;
+    /** Unique ID for the dialog. */
+    id: string;
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened;
-    /** Subject for notifying the user that the dialog has finished closing. */
-    private readonly _afterClosed;
     /** Subject for notifying the user that the dialog has started closing. */
     private readonly _beforeClosed;
     /** Result to be passed to afterClosed. */
@@ -40,9 +38,9 @@ export declare class MatDialogRef<T, R = any> {
     private _closeFallbackTimeout;
     /** Current state of the dialog. */
     private _state;
-    constructor(_overlayRef: OverlayRef, _containerInstance: _MatDialogContainerBase, 
-    /** Id of the dialog. */
-    id?: string);
+    /** Interaction that caused the dialog to close. */
+    private _closeInteractionType;
+    constructor(_ref: DialogRef<R, T>, config: MatDialogConfig, _containerInstance: _MatDialogContainerBase);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.
@@ -90,8 +88,6 @@ export declare class MatDialogRef<T, R = any> {
      * and disposing the overlay.
      */
     private _finishDialogClose;
-    /** Fetches the position strategy object from the overlay ref. */
-    private _getPositionStrategy;
 }
 /**
  * Closes the dialog with the specified interaction type. This is currently not part of
