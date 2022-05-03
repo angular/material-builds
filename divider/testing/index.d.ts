@@ -1,8 +1,16 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-export * from './public-api';
+import { BaseHarnessFilters } from '@angular/cdk/testing';
+import { ComponentHarness } from '@angular/cdk/testing';
+import { HarnessPredicate } from '@angular/cdk/testing';
+
+export declare interface DividerHarnessFilters extends BaseHarnessFilters {
+}
+
+/** Harness for interacting with a `mat-divider`. */
+export declare class MatDividerHarness extends ComponentHarness {
+    static hostSelector: string;
+    static with(options?: DividerHarnessFilters): HarnessPredicate<MatDividerHarness>;
+    getOrientation(): Promise<'horizontal' | 'vertical'>;
+    isInset(): Promise<boolean>;
+}
+
+export { }
