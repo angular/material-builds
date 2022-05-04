@@ -73,8 +73,6 @@ class MatSnackBarRef {
         /** Whether the snack bar was dismissed using the action button. */
         this._dismissedByAction = false;
         this.containerInstance = containerInstance;
-        // Dismiss snackbar on action.
-        this.onAction().subscribe(() => this.dismiss());
         containerInstance._onExit.subscribe(() => this._finishDismiss());
     }
     /** Dismisses the snack bar. */
@@ -90,6 +88,7 @@ class MatSnackBarRef {
             this._dismissedByAction = true;
             this._onAction.next();
             this._onAction.complete();
+            this.dismiss();
         }
         clearTimeout(this._durationTimeoutId);
     }
