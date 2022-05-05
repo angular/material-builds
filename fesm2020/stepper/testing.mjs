@@ -118,8 +118,8 @@ class MatStepperHarness extends ComponentHarness {
     async getOrientation() {
         const host = await this.host();
         return (await host.hasClass('mat-stepper-horizontal'))
-            ? 0 /* HORIZONTAL */
-            : 1 /* VERTICAL */;
+            ? 0 /* StepperOrientation.HORIZONTAL */
+            : 1 /* StepperOrientation.VERTICAL */;
     }
     /**
      * Selects a step in this stepper.

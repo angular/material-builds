@@ -128,8 +128,8 @@ class MatStepperHarness extends ComponentHarness {
         return __awaiter(this, void 0, void 0, function* () {
             const host = yield this.host();
             return (yield host.hasClass('mat-stepper-horizontal'))
-                ? 0 /* HORIZONTAL */
-                : 1 /* VERTICAL */;
+                ? 0 /* StepperOrientation.HORIZONTAL */
+                : 1 /* StepperOrientation.VERTICAL */;
         });
     }
     /**

@@ -259,12 +259,12 @@ class MatCalendarHarness extends ComponentHarness {
     /** Gets the current view that is being shown inside the calendar. */
     async getCurrentView() {
         if (await this.locatorForOptional('mat-multi-year-view')()) {
-            return 2 /* MULTI_YEAR */;
+            return 2 /* CalendarView.MULTI_YEAR */;
         }
         if (await this.locatorForOptional('mat-year-view')()) {
-            return 1 /* YEAR */;
+            return 1 /* CalendarView.YEAR */;
         }
-        return 0 /* MONTH */;
+        return 0 /* CalendarView.MONTH */;
     }
     /** Gets the label of the current calendar view. */
     async getCurrentViewLabel() {
