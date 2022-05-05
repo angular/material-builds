@@ -17,9 +17,9 @@ class _MatDialogHarnessBase
  extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._title = this.locatorForOptional(".mat-dialog-title" /* TITLE */);
-        this._content = this.locatorForOptional(".mat-dialog-content" /* CONTENT */);
-        this._actions = this.locatorForOptional(".mat-dialog-actions" /* ACTIONS */);
+        this._title = this.locatorForOptional(".mat-dialog-title" /* MatDialogSection.TITLE */);
+        this._content = this.locatorForOptional(".mat-dialog-content" /* MatDialogSection.CONTENT */);
+        this._actions = this.locatorForOptional(".mat-dialog-actions" /* MatDialogSection.ACTIONS */);
     }
     /** Gets the id of the dialog. */
     async getId() {

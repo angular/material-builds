@@ -11,11 +11,11 @@ import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } 
 class MatExpansionPanelHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._header = this.locatorFor(".mat-expansion-panel-header" /* HEADER */);
-        this._title = this.locatorForOptional(".mat-expansion-panel-header-title" /* TITLE */);
-        this._description = this.locatorForOptional(".mat-expansion-panel-header-description" /* DESCRIPTION */);
+        this._header = this.locatorFor(".mat-expansion-panel-header" /* MatExpansionPanelSection.HEADER */);
+        this._title = this.locatorForOptional(".mat-expansion-panel-header-title" /* MatExpansionPanelSection.TITLE */);
+        this._description = this.locatorForOptional(".mat-expansion-panel-header-description" /* MatExpansionPanelSection.DESCRIPTION */);
         this._expansionIndicator = this.locatorForOptional('.mat-expansion-indicator');
-        this._content = this.locatorFor(".mat-expansion-panel-content" /* CONTENT */);
+        this._content = this.locatorFor(".mat-expansion-panel-content" /* MatExpansionPanelSection.CONTENT */);
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for an expansion-panel
@@ -90,7 +90,7 @@ class MatExpansionPanelHarness extends ContentContainerComponentHarness {
      * @breaking-change 12.0.0
      */
     async getHarnessLoaderForContent() {
-        return this.getChildLoader(".mat-expansion-panel-content" /* CONTENT */);
+        return this.getChildLoader(".mat-expansion-panel-content" /* MatExpansionPanelSection.CONTENT */);
     }
     /** Focuses the panel. */
     async focus() {

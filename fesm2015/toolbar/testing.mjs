@@ -5,7 +5,7 @@ import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@a
 class MatToolbarHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._getRows = this.locatorForAll(".mat-toolbar-row" /* ROW */);
+        this._getRows = this.locatorForAll(".mat-toolbar-row" /* MatToolbarSection.ROW */);
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatToolbarHarness` that meets

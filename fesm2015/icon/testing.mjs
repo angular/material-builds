@@ -23,7 +23,7 @@ class MatIconHarness extends ComponentHarness {
     getType() {
         return __awaiter(this, void 0, void 0, function* () {
             const type = yield (yield this.host()).getAttribute('data-mat-icon-type');
-            return type === 'svg' ? 0 /* SVG */ : 1 /* FONT */;
+            return type === 'svg' ? 0 /* IconType.SVG */ : 1 /* IconType.FONT */;
         });
     }
     /** Gets the name of the icon. */
@@ -37,7 +37,7 @@ class MatIconHarness extends ComponentHarness {
             }
             // Some icons support defining the icon as a ligature.
             // As a fallback, try to extract it from the DOM text.
-            if ((yield this.getType()) === 1 /* FONT */) {
+            if ((yield this.getType()) === 1 /* IconType.FONT */) {
                 return host.text();
             }
             return null;
@@ -129,18 +129,18 @@ class FakeMatIconRegistry {
         return emptySvg;
     }
 }
-FakeMatIconRegistry.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.15", ngImport: i0, type: FakeMatIconRegistry, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
-FakeMatIconRegistry.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.0-next.15", ngImport: i0, type: FakeMatIconRegistry });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.15", ngImport: i0, type: FakeMatIconRegistry, decorators: [{
+FakeMatIconRegistry.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.16", ngImport: i0, type: FakeMatIconRegistry, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+FakeMatIconRegistry.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.0-next.16", ngImport: i0, type: FakeMatIconRegistry });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.16", ngImport: i0, type: FakeMatIconRegistry, decorators: [{
             type: Injectable
         }] });
 /** Import this module in tests to install the null icon registry. */
 class MatIconTestingModule {
 }
-MatIconTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.15", ngImport: i0, type: MatIconTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatIconTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "12.0.0", version: "14.0.0-next.15", ngImport: i0, type: MatIconTestingModule });
-MatIconTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.15", ngImport: i0, type: MatIconTestingModule, providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.15", ngImport: i0, type: MatIconTestingModule, decorators: [{
+MatIconTestingModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-next.16", ngImport: i0, type: MatIconTestingModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatIconTestingModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.0-next.16", ngImport: i0, type: MatIconTestingModule });
+MatIconTestingModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.0-next.16", ngImport: i0, type: MatIconTestingModule, providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-next.16", ngImport: i0, type: MatIconTestingModule, decorators: [{
             type: NgModule,
             args: [{
                     providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }],

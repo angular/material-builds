@@ -6,8 +6,8 @@ import { ɵTileCoordinator } from '@angular/material/grid-list';
 class MatGridTileHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._header = this.locatorForOptional(".mat-grid-tile-header" /* HEADER */);
-        this._footer = this.locatorForOptional(".mat-grid-tile-footer" /* FOOTER */);
+        this._header = this.locatorForOptional(".mat-grid-tile-header" /* MatGridTileSection.HEADER */);
+        this._footer = this.locatorForOptional(".mat-grid-tile-footer" /* MatGridTileSection.FOOTER */);
         this._avatar = this.locatorForOptional('.mat-grid-avatar');
     }
     /**
