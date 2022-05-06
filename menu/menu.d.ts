@@ -159,11 +159,6 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      */
     focusFirstItem(origin?: FocusOrigin): void;
     /**
-     * Actual implementation that focuses the first item. Needs to be separated
-     * out so we don't repeat the same logic in the public `focusFirstItem` method.
-     */
-    private _focusFirstItem;
-    /**
      * Resets the active item in the menu. This is used when the menu is opened, allowing
      * the user to start from the first option when pressing the down arrow.
      */
