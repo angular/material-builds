@@ -1,5 +1,4 @@
 import { _AbstractConstructor } from '@angular/material/core';
-import { AfterViewChecked } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CanColor } from '@angular/material/core';
@@ -37,6 +36,7 @@ declare namespace i2 {
         MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
         TransitionCheckState,
         MatCheckboxChange,
+        _MatCheckboxBase,
         MatCheckbox
     }
 }
@@ -64,12 +64,55 @@ export declare const MAT_CHECKBOX_REQUIRED_VALIDATOR: Provider;
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://material.io/design/components/selection-controls.html
  */
-export declare class MatCheckbox extends _MatCheckboxBase implements ControlValueAccessor, AfterViewInit, AfterViewChecked, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple, FocusableOption {
-    private _changeDetectorRef;
+export declare class MatCheckbox extends _MatCheckboxBase<MatCheckboxChange> implements AfterViewInit, OnDestroy {
     private _focusMonitor;
-    private _ngZone;
+    protected _animationClasses: {
+        uncheckedToChecked: string;
+        uncheckedToIndeterminate: string;
+        checkedToUnchecked: string;
+        checkedToIndeterminate: string;
+        indeterminateToChecked: string;
+        indeterminateToUnchecked: string;
+    };
+    constructor(elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, ngZone: NgZone, tabIndex: string, animationMode?: string, options?: MatCheckboxDefaultOptions);
+    protected _createChangeEvent(isChecked: boolean): MatCheckboxChange;
+    protected _getAnimationTargetElement(): any;
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    /**
+     * Event handler for checkbox input element.
+     * Toggles checked state if element is not disabled.
+     * Do not toggle on (change) event since IE doesn't fire change event when
+     *   indeterminate checkbox is clicked.
+     * @param event
+     */
+    _onInputClick(event: Event): void;
+    /** Focuses the checkbox. */
+    focus(origin?: FocusOrigin, options?: FocusOptions): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false>;
+}
+
+export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase implements AfterViewInit, ControlValueAccessor, CanColor, CanDisable, HasTabIndex, CanDisableRipple, FocusableOption {
+    protected _changeDetectorRef: ChangeDetectorRef;
+    protected _ngZone: NgZone;
     _animationMode?: string | undefined;
-    private _options?;
+    protected _options?: MatCheckboxDefaultOptions | undefined;
+    /** Focuses the checkbox. */
+    abstract focus(origin?: FocusOrigin): void;
+    /** Creates the change event that will be emitted by the checkbox. */
+    protected abstract _createChangeEvent(isChecked: boolean): E;
+    /** Gets the element on which to add the animation CSS classes. */
+    protected abstract _getAnimationTargetElement(): HTMLElement | null;
+    /** CSS classes to add when transitioning between the different checkbox states. */
+    protected abstract _animationClasses: {
+        uncheckedToChecked: string;
+        uncheckedToIndeterminate: string;
+        checkedToUnchecked: string;
+        checkedToIndeterminate: string;
+        indeterminateToChecked: string;
+        indeterminateToUnchecked: string;
+    };
     /**
      * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
      * take precedence so this may be omitted.
@@ -95,7 +138,7 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
     /** Name value will be applied to the input element if present */
     name: string | null;
     /** Event emitted when the checkbox's `checked` value changes. */
-    readonly change: EventEmitter<MatCheckboxChange>;
+    readonly change: EventEmitter<E>;
     /** Event emitted when the checkbox's `indeterminate` value changes. */
     readonly indeterminateChange: EventEmitter<boolean>;
     /** The value attribute of the native input element */
@@ -112,13 +155,9 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
     private _currentAnimationClass;
     private _currentCheckState;
     private _controlValueAccessorChangeFn;
-    constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
+    constructor(idPrefix: string, elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
     ngAfterViewInit(): void;
-    ngAfterViewChecked(): void;
-    ngOnDestroy(): void;
-    /**
-     * Whether the checkbox is checked.
-     */
+    /** Whether the checkbox is checked. */
     get checked(): boolean;
     set checked(value: BooleanInput);
     private _checked;
@@ -150,17 +189,9 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
     private _emitChangeEvent;
     /** Toggles the `checked` state of the checkbox. */
     toggle(): void;
-    /**
-     * Event handler for checkbox input element.
-     * Toggles checked state if element is not disabled.
-     * Do not toggle on (change) event since IE doesn't fire change event when
-     *   indeterminate checkbox is clicked.
-     * @param event
-     */
-    _onInputClick(event: Event): void;
-    /** Focuses the checkbox. */
-    focus(origin?: FocusOrigin, options?: FocusOptions): void;
+    protected _handleInputClick(): void;
     _onInteractionEvent(event: Event): void;
+    _onBlur(): void;
     private _getAnimationClassForCheckStateTransition;
     /**
      * Syncs the indeterminate value with the checkbox DOM node.
@@ -171,16 +202,9 @@ export declare class MatCheckbox extends _MatCheckboxBase implements ControlValu
      * server-side rendering.
      */
     private _syncIndeterminate;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "id": "id"; "required": "required"; "labelPosition": "labelPosition"; "name": "name"; "value": "value"; "checked": "checked"; "disabled": "disabled"; "indeterminate": "indeterminate"; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], false>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatCheckboxBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatCheckboxBase<any>, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "id": "id"; "required": "required"; "labelPosition": "labelPosition"; "name": "name"; "value": "value"; "checked": "checked"; "disabled": "disabled"; "indeterminate": "indeterminate"; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, never, false>;
 }
-
-/** @docs-private */
-declare const _MatCheckboxBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanColor> & _AbstractConstructor<CanColor> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
-    new (_elementRef: ElementRef): {
-        _elementRef: ElementRef;
-    };
-};
 
 /** Change event object emitted by MatCheckbox. */
 export declare class MatCheckboxChange {
@@ -206,6 +230,13 @@ export declare interface MatCheckboxDefaultOptions {
     /** Default checkbox click action for checkboxes. */
     clickAction?: MatCheckboxClickAction;
 }
+
+/** @docs-private */
+declare const _MatCheckboxMixinBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanColor> & _AbstractConstructor<CanColor> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 
 export declare class MatCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;
