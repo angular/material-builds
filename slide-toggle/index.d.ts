@@ -20,6 +20,7 @@ import { InjectionToken } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { Type } from '@angular/core';
 
 declare namespace i1 {
     export {
@@ -32,6 +33,7 @@ declare namespace i2 {
     export {
         MAT_SLIDE_TOGGLE_VALUE_ACCESSOR,
         MatSlideToggleChange,
+        _MatSlideToggleBase,
         MatSlideToggle
     }
 }
@@ -42,24 +44,45 @@ export declare const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatSlideTo
 export declare const MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR: Provider;
 
 /** @docs-private */
-export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
+export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: {
+    provide: InjectionToken<readonly ControlValueAccessor[]>;
+    useExisting: Type<any>;
+    multi: boolean;
+};
 
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
-export declare class MatSlideToggle extends _MatSlideToggleBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
-    private _focusMonitor;
-    private _changeDetectorRef;
+export declare class MatSlideToggle extends _MatSlideToggleBase<MatSlideToggleChange> {
+    /** Reference to the underlying input element. */
+    _inputElement: ElementRef<HTMLInputElement>;
+    constructor(elementRef: ElementRef, focusMonitor: FocusMonitor, changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
+    protected _createChangeEvent(isChecked: boolean): MatSlideToggleChange;
+    /** Method being called whenever the underlying input emits a change event. */
+    _onChangeEvent(event: Event): void;
+    /** Method being called whenever the slide-toggle has been clicked. */
+    _onInputClick(event: Event): void;
+    /** Focuses the slide-toggle. */
+    focus(options?: FocusOptions, origin?: FocusOrigin): void;
+    /** Method being called whenever the label text changes. */
+    _onLabelTextChange(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false>;
+}
+
+export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
+    protected _focusMonitor: FocusMonitor;
+    protected _changeDetectorRef: ChangeDetectorRef;
     defaults: MatSlideToggleDefaultOptions;
-    private _onChange;
+    protected _onChange: (_: any) => void;
     private _onTouched;
-    private _uniqueId;
+    protected _uniqueId: string;
     private _required;
     private _checked;
+    protected abstract _createChangeEvent(isChecked: boolean): T;
+    abstract focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /** Whether noop animations are enabled. */
     _noopAnimations: boolean;
-    /** Reference to the thumb HTMLElement. */
-    _thumbEl: ElementRef;
-    /** Reference to the thumb bar HTMLElement. */
-    _thumbBarEl: ElementRef;
+    /** Whether the slide toggle is currently focused. */
+    _focused: boolean;
     /** Name value will be applied to the input element if present. */
     name: string | null;
     /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
@@ -79,7 +102,7 @@ export declare class MatSlideToggle extends _MatSlideToggleBase implements OnDes
     get checked(): boolean;
     set checked(value: BooleanInput);
     /** An event will be dispatched each time the slide-toggle changes its value. */
-    readonly change: EventEmitter<MatSlideToggleChange>;
+    readonly change: EventEmitter<T>;
     /**
      * An event will be dispatched each time the slide-toggle input is toggled.
      * This event is always emitted when the user toggles the slide toggle, but this does not mean
@@ -88,15 +111,9 @@ export declare class MatSlideToggle extends _MatSlideToggleBase implements OnDes
     readonly toggleChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */
     get inputId(): string;
-    /** Reference to the underlying input element. */
-    _inputElement: ElementRef<HTMLInputElement>;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode: string | undefined, idPrefix: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
-    /** Method being called whenever the underlying input emits a change event. */
-    _onChangeEvent(event: Event): void;
-    /** Method being called whenever the slide-toggle has been clicked. */
-    _onInputClick(event: Event): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
     /** Implemented as part of ControlValueAccessor. */
@@ -105,26 +122,15 @@ export declare class MatSlideToggle extends _MatSlideToggleBase implements OnDes
     registerOnTouched(fn: any): void;
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
-    /** Focuses the slide-toggle. */
-    focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /** Toggles the checked state of the slide-toggle. */
     toggle(): void;
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
      */
-    private _emitChangeEvent;
-    /** Method being called whenever the label text changes. */
-    _onLabelTextChange(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; "name": "name"; "id": "id"; "labelPosition": "labelPosition"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "required": "required"; "checked": "checked"; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, ["*"], false>;
+    protected _emitChangeEvent(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSlideToggleBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSlideToggleBase<any>, never, never, { "name": "name"; "id": "id"; "labelPosition": "labelPosition"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "required": "required"; "checked": "checked"; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, never, false>;
 }
-
-/** @docs-private */
-declare const _MatSlideToggleBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanColor> & _AbstractConstructor<CanColor> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
-    new (_elementRef: ElementRef): {
-        _elementRef: ElementRef;
-    };
-};
 
 /** Change event object emitted by a MatSlideToggle. */
 export declare class MatSlideToggleChange {
@@ -146,6 +152,13 @@ export declare interface MatSlideToggleDefaultOptions {
     /** Default color for slide toggles. */
     color?: ThemePalette;
 }
+
+/** @docs-private */
+declare const _MatSlideToggleMixinBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanColor> & _AbstractConstructor<CanColor> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 
 export declare class MatSlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleModule, never>;
