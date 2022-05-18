@@ -88,6 +88,8 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     protected abstract _itemSelected(event: KeyboardEvent): void;
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
+    /** Sends any changes that could affect the layout of the items. */
+    private _itemsResized;
     ngAfterContentChecked(): void;
     ngOnDestroy(): void;
     /** Handles keyboard events on the header. */

@@ -11,8 +11,8 @@ import { InjectionToken, Directive, Inject, Optional, TemplateRef, Component, Ch
 import * as i4 from '@angular/material/core';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
-import { take, startWith, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { Subject, Subscription, fromEvent, of, merge, timer } from 'rxjs';
+import { take, startWith, distinctUntilChanged, takeUntil, switchMap, skip } from 'rxjs/operators';
+import { Subject, Subscription, fromEvent, of, merge, EMPTY, Observable, timer } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import * as i1 from '@angular/cdk/bidi';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -706,7 +706,7 @@ class MatPaginatedTabHeader {
         this._ngZone.onStable.pipe(take(1)).subscribe(realign);
         // On dir change or window resize, realign the ink bar and update the orientation of
         // the key manager if the direction has changed.
-        merge(dirChange, resize, this._items.changes)
+        merge(dirChange, resize, this._items.changes, this._itemsResized())
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => {
             // We need to defer this to give the browser some time to recalculate
@@ -728,6 +728,26 @@ class MatPaginatedTabHeader {
             this.indexFocused.emit(newFocusIndex);
             this._setTabFocus(newFocusIndex);
         });
+    }
+    /** Sends any changes that could affect the layout of the items. */
+    _itemsResized() {
+        if (typeof ResizeObserver !== 'function') {
+            return EMPTY;
+        }
+        return this._items.changes.pipe(startWith(this._items), switchMap((tabItems) => new Observable((observer) => this._ngZone.runOutsideAngular(() => {
+            const resizeObserver = new ResizeObserver(() => {
+                observer.next();
+            });
+            tabItems.forEach(item => {
+                resizeObserver.observe(item.elementRef.nativeElement);
+            });
+            return () => {
+                resizeObserver.disconnect();
+            };
+        }))), 
+        // Skip the first emit since the resize observer emits when an item
+        // is observed for new items when the tab is already inserted
+        skip(1));
     }
     ngAfterContentChecked() {
         // If the number of tab labels have changed, check if scrolling should be enabled
