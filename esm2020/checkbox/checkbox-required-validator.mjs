@@ -20,9 +20,9 @@ export const MAT_CHECKBOX_REQUIRED_VALIDATOR = {
  */
 export class MatCheckboxRequiredValidator extends CheckboxRequiredValidator {
 }
-MatCheckboxRequiredValidator.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-rc.0", ngImport: i0, type: MatCheckboxRequiredValidator, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatCheckboxRequiredValidator.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.0-rc.0", type: MatCheckboxRequiredValidator, selector: "mat-checkbox[required][formControlName],\n             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]", providers: [MAT_CHECKBOX_REQUIRED_VALIDATOR], usesInheritance: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-rc.0", ngImport: i0, type: MatCheckboxRequiredValidator, decorators: [{
+MatCheckboxRequiredValidator.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: MatCheckboxRequiredValidator, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatCheckboxRequiredValidator.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.0-rc.1", type: MatCheckboxRequiredValidator, selector: "mat-checkbox[required][formControlName],\n             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]", providers: [MAT_CHECKBOX_REQUIRED_VALIDATOR], usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: MatCheckboxRequiredValidator, decorators: [{
             type: Directive,
             args: [{
                     selector: `mat-checkbox[required][formControlName],

@@ -20,8 +20,8 @@ import * as i1 from "./cell";
  */
 export class MatTextColumn extends CdkTextColumn {
 }
-MatTextColumn.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-rc.0", ngImport: i0, type: MatTextColumn, deps: null, target: i0.ɵɵFactoryTarget.Component });
-MatTextColumn.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.0-rc.0", type: MatTextColumn, selector: "mat-text-column", usesInheritance: true, ngImport: i0, template: `
+MatTextColumn.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: MatTextColumn, deps: null, target: i0.ɵɵFactoryTarget.Component });
+MatTextColumn.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.0-rc.1", type: MatTextColumn, selector: "mat-text-column", usesInheritance: true, ngImport: i0, template: `
     <ng-container matColumnDef>
       <th mat-header-cell *matHeaderCellDef [style.text-align]="justify">
         {{headerText}}
@@ -31,7 +31,7 @@ MatTextColumn.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version:
       </td>
     </ng-container>
   `, isInline: true, dependencies: [{ kind: "directive", type: i1.MatHeaderCellDef, selector: "[matHeaderCellDef]" }, { kind: "directive", type: i1.MatColumnDef, selector: "[matColumnDef]", inputs: ["sticky", "matColumnDef"] }, { kind: "directive", type: i1.MatCellDef, selector: "[matCellDef]" }, { kind: "directive", type: i1.MatHeaderCell, selector: "mat-header-cell, th[mat-header-cell]" }, { kind: "directive", type: i1.MatCell, selector: "mat-cell, td[mat-cell]" }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-rc.0", ngImport: i0, type: MatTextColumn, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: MatTextColumn, decorators: [{
             type: Component,
             args: [{
                     selector: 'mat-text-column',
