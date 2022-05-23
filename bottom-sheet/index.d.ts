@@ -1,20 +1,18 @@
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { BasePortalOutlet } from '@angular/cdk/portal';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { CdkDialogContainer } from '@angular/cdk/dialog';
 import { ChangeDetectorRef } from '@angular/core';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
+import { DialogConfig } from '@angular/cdk/dialog';
+import { DialogRef } from '@angular/cdk/dialog';
 import { Direction } from '@angular/cdk/bidi';
-import { DomPortal } from '@angular/cdk/portal';
 import { ElementRef } from '@angular/core';
-import { EmbeddedViewRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/cdk/overlay';
+import * as i2 from '@angular/cdk/dialog';
 import * as i3 from '@angular/material/core';
 import * as i4 from '@angular/cdk/portal';
 import { InjectionToken } from '@angular/core';
@@ -26,7 +24,6 @@ import { OnDestroy } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { TemplateRef } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 
@@ -50,14 +47,14 @@ export declare const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: InjectionToken<MatBottomS
  */
 export declare class MatBottomSheet implements OnDestroy {
     private _overlay;
-    private _injector;
     private _parentBottomSheet;
     private _defaultOptions?;
     private _bottomSheetRefAtThisLevel;
+    private _dialog;
     /** Reference to the currently opened bottom sheet. */
     get _openedBottomSheetRef(): MatBottomSheetRef<any> | null;
     set _openedBottomSheetRef(value: MatBottomSheetRef<any> | null);
-    constructor(_overlay: Overlay, _injector: Injector, _parentBottomSheet: MatBottomSheet, _defaultOptions?: MatBottomSheetConfig<any> | undefined);
+    constructor(_overlay: Overlay, injector: Injector, _parentBottomSheet: MatBottomSheet, _defaultOptions?: MatBottomSheetConfig<any> | undefined);
     /**
      * Opens a bottom sheet containing the given component.
      * @param component Type of the component to load into the bottom sheet.
@@ -78,21 +75,6 @@ export declare class MatBottomSheet implements OnDestroy {
      */
     dismiss<R = any>(result?: R): void;
     ngOnDestroy(): void;
-    /**
-     * Attaches the bottom sheet container component to the overlay.
-     */
-    private _attachContainer;
-    /**
-     * Creates a new overlay and places it in the correct location.
-     * @param config The user-specified bottom sheet config.
-     */
-    private _createOverlay;
-    /**
-     * Creates an injector to be used inside of a bottom sheet component.
-     * @param config Config that was used to create the bottom sheet.
-     * @param bottomSheetRef Reference to the bottom sheet.
-     */
-    private _createInjector;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheet, [null, null, { optional: true; skipSelf: true; }, { optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatBottomSheet>;
 }
@@ -147,42 +129,16 @@ export declare class MatBottomSheetConfig<D = any> {
  * Internal component that wraps user-provided bottom sheet content.
  * @docs-private
  */
-export declare class MatBottomSheetContainer extends BasePortalOutlet implements OnDestroy {
-    private _elementRef;
+export declare class MatBottomSheetContainer extends CdkDialogContainer implements OnDestroy {
     private _changeDetectorRef;
-    private _focusTrapFactory;
-    private readonly _interactivityChecker;
-    private readonly _ngZone;
-    /** The bottom sheet configuration. */
-    bottomSheetConfig: MatBottomSheetConfig;
     private _breakpointSubscription;
-    /** The portal outlet inside of this container into which the content will be loaded. */
-    _portalOutlet: CdkPortalOutlet;
     /** The state of the bottom sheet animations. */
     _animationState: 'void' | 'visible' | 'hidden';
     /** Emits whenever the state of the animation changes. */
     _animationStateChanged: EventEmitter<AnimationEvent_2>;
-    /** The class that traps and manages focus within the bottom sheet. */
-    private _focusTrap;
-    /** Element that was focused before the bottom sheet was opened. */
-    private _elementFocusedBeforeOpened;
-    /** Server-side rendering-compatible reference to the global document object. */
-    private _document;
     /** Whether the component has been destroyed. */
     private _destroyed;
-    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusTrapFactory: FocusTrapFactory, _interactivityChecker: InteractivityChecker, _ngZone: NgZone, breakpointObserver: BreakpointObserver, document: any, 
-    /** The bottom sheet configuration. */
-    bottomSheetConfig: MatBottomSheetConfig);
-    /** Attach a component portal as content to this bottom sheet container. */
-    attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
-    /** Attach a template portal as content to this bottom sheet container. */
-    attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C>;
-    /**
-     * Attaches a DOM portal to the bottom sheet container.
-     * @deprecated To be turned into a method.
-     * @breaking-change 10.0.0
-     */
-    attachDomPortal: (portal: DomPortal) => void;
+    constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, document: any, config: DialogConfig, checker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, breakpointObserver: BreakpointObserver, _changeDetectorRef: ChangeDetectorRef, focusMonitor?: FocusMonitor);
     /** Begin animation of bottom sheet entrance into view. */
     enter(): void;
     /** Begin animation of the bottom sheet exiting from view. */
@@ -190,36 +146,15 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     ngOnDestroy(): void;
     _onAnimationDone(event: AnimationEvent_2): void;
     _onAnimationStart(event: AnimationEvent_2): void;
+    protected _captureInitialFocus(): void;
     private _toggleClass;
-    private _validatePortalAttached;
-    private _setPanelClass;
-    /**
-     * Focuses the provided element. If the element is not focusable, it will add a tabIndex
-     * attribute to forcefully focus it. The attribute is removed after focus is moved.
-     * @param element The element to focus.
-     */
-    private _forceFocus;
-    /**
-     * Focuses the first element that matches the given selector within the focus trap.
-     * @param selector The CSS selector for the element to set focus to.
-     */
-    private _focusByCssSelector;
-    /**
-     * Moves the focus inside the focus trap. When autoFocus is not set to 'bottom-sheet',
-     * if focus cannot be moved then focus will go to the bottom sheet container.
-     */
-    private _trapFocus;
-    /** Restores focus to the element that was focused before the bottom sheet was opened. */
-    private _restoreFocus;
-    /** Saves a reference to the element that was focused before the bottom sheet was opened. */
-    private _savePreviouslyFocusedElement;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, [null, null, null, null, null, null, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, [null, null, { optional: true; }, null, null, null, null, null, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, false>;
 }
 
 export declare class MatBottomSheetModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBottomSheetModule, [typeof i1.MatBottomSheetContainer], [typeof i2.OverlayModule, typeof i3.MatCommonModule, typeof i4.PortalModule], [typeof i1.MatBottomSheetContainer, typeof i3.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBottomSheetModule, [typeof i1.MatBottomSheetContainer], [typeof i2.DialogModule, typeof i3.MatCommonModule, typeof i4.PortalModule], [typeof i1.MatBottomSheetContainer, typeof i3.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatBottomSheetModule>;
 }
 
@@ -227,9 +162,9 @@ export declare class MatBottomSheetModule {
  * Reference to a bottom sheet dispatched from the bottom sheet service.
  */
 export declare class MatBottomSheetRef<T = any, R = any> {
-    private _overlayRef;
+    private _ref;
     /** Instance of the component making up the content of the bottom sheet. */
-    instance: T;
+    get instance(): T;
     /**
      * Instance of the component into which the bottom sheet content is projected.
      * @docs-private
@@ -237,15 +172,13 @@ export declare class MatBottomSheetRef<T = any, R = any> {
     containerInstance: MatBottomSheetContainer;
     /** Whether the user is allowed to close the bottom sheet. */
     disableClose: boolean | undefined;
-    /** Subject for notifying the user that the bottom sheet has been dismissed. */
-    private readonly _afterDismissed;
     /** Subject for notifying the user that the bottom sheet has opened and appeared. */
     private readonly _afterOpened;
     /** Result to be passed down to the `afterDismissed` stream. */
     private _result;
     /** Handle to the timeout that's running as a fallback in case the exit animation doesn't fire. */
     private _closeFallbackTimeout;
-    constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef);
+    constructor(_ref: DialogRef<R, T>, config: MatBottomSheetConfig, containerInstance: MatBottomSheetContainer);
     /**
      * Dismisses the bottom sheet.
      * @param result Data to be passed back to the bottom sheet opener.
