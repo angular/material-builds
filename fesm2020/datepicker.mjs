@@ -2480,6 +2480,21 @@ class MatDatepickerBase {
             }
             this.close();
         });
+        // The `preventDefault` call happens inside the calendar as well, however focus moves into
+        // it inside a timeout which can give browsers a chance to fire off a keyboard event in-between
+        // that can scroll the page (see #24969). Always block default actions of arrow keys for the
+        // entire overlay so the page doesn't get scrolled by accident.
+        overlayRef.keydownEvents().subscribe(event => {
+            const keyCode = event.keyCode;
+            if (keyCode === UP_ARROW ||
+                keyCode === DOWN_ARROW ||
+                keyCode === LEFT_ARROW ||
+                keyCode === RIGHT_ARROW ||
+                keyCode === PAGE_UP ||
+                keyCode === PAGE_DOWN) {
+                event.preventDefault();
+            }
+        });
         this._componentRef = overlayRef.attach(portal);
         this._forwardContentValues(this._componentRef.instance);
         // Update the position once the calendar has rendered. Only relevant in dropdown mode.
