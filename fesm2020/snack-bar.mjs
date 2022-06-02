@@ -5,7 +5,7 @@ import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, Templ
 import * as i2 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, ViewChild, NgModule, Injector, TemplateRef, Injectable, Optional, SkipSelf } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, Directive, ViewChild, NgModule, Injector, TemplateRef, Injectable, Optional, SkipSelf } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i3 from '@angular/material/button';
 import { MatButtonModule } from '@angular/material/button';
@@ -204,10 +204,10 @@ const matSnackBarAnimations = {
 };
 
 /**
- * Internal component that wraps user-provided snack bar content.
+ * Base class for snack bar containers.
  * @docs-private
  */
-class MatSnackBarContainer extends BasePortalOutlet {
+class _MatSnackBarContainerBase extends BasePortalOutlet {
     constructor(_ngZone, _elementRef, _changeDetectorRef, _platform, 
     /** The snack bar configuration. */
     snackBarConfig) {
@@ -236,8 +236,9 @@ class MatSnackBarContainer extends BasePortalOutlet {
          */
         this.attachDomPortal = (portal) => {
             this._assertNotAttached();
-            this._applySnackBarClasses();
-            return this._portalOutlet.attachDomPortal(portal);
+            const result = this._portalOutlet.attachDomPortal(portal);
+            this._afterPortalAttached();
+            return result;
         };
         // Use aria-live rather than a live role like 'alert' or 'status'
         // because NVDA and JAWS have show inconsistent behavior with live roles.
@@ -264,14 +265,16 @@ class MatSnackBarContainer extends BasePortalOutlet {
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal(portal) {
         this._assertNotAttached();
-        this._applySnackBarClasses();
-        return this._portalOutlet.attachComponentPortal(portal);
+        const result = this._portalOutlet.attachComponentPortal(portal);
+        this._afterPortalAttached();
+        return result;
     }
     /** Attach a template portal as content to this snack bar container. */
     attachTemplatePortal(portal) {
         this._assertNotAttached();
-        this._applySnackBarClasses();
-        return this._portalOutlet.attachTemplatePortal(portal);
+        const result = this._portalOutlet.attachTemplatePortal(portal);
+        this._afterPortalAttached();
+        return result;
     }
     /** Handle end of animations, updating the state of the snackbar. */
     onAnimationEnd(event) {
@@ -333,8 +336,11 @@ class MatSnackBarContainer extends BasePortalOutlet {
             });
         });
     }
-    /** Applies the various positioning and user-configured CSS classes to the snack bar. */
-    _applySnackBarClasses() {
+    /**
+     * Called after the portal contents have been attached. Can be
+     * used to modify the DOM once it's guaranteed to be in place.
+     */
+    _afterPortalAttached() {
         const element = this._elementRef.nativeElement;
         const panelClasses = this.snackBarConfig.panelClass;
         if (panelClasses) {
@@ -345,12 +351,6 @@ class MatSnackBarContainer extends BasePortalOutlet {
             else {
                 element.classList.add(panelClasses);
             }
-        }
-        if (this.snackBarConfig.horizontalPosition === 'center') {
-            element.classList.add('mat-snack-bar-center');
-        }
-        if (this.snackBarConfig.verticalPosition === 'top') {
-            element.classList.add('mat-snack-bar-top');
         }
     }
     /** Asserts that no content is already attached to the container. */
@@ -389,8 +389,31 @@ class MatSnackBarContainer extends BasePortalOutlet {
         }
     }
 }
-MatSnackBarContainer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: MatSnackBarContainer, deps: [{ token: i0.NgZone }, { token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: i1.Platform }, { token: MatSnackBarConfig }], target: i0.ɵɵFactoryTarget.Component });
-MatSnackBarContainer.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.0-rc.1", type: MatSnackBarContainer, selector: "snack-bar-container", host: { listeners: { "@state.done": "onAnimationEnd($event)" }, properties: { "@state": "_animationState" }, classAttribute: "mat-snack-bar-container" }, viewQueries: [{ propertyName: "_portalOutlet", first: true, predicate: CdkPortalOutlet, descendants: true, static: true }], usesInheritance: true, ngImport: i0, template: "<!-- Initially holds the snack bar content, will be empty after announcing to screen readers. -->\n<div aria-hidden=\"true\">\n  <ng-template cdkPortalOutlet></ng-template>\n</div>\n\n<!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n<div [attr.aria-live]=\"_live\" [attr.role]=\"_role\"></div>\n", styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}.cdk-high-contrast-active .mat-snack-bar-container{border:solid 1px}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}"], dependencies: [{ kind: "directive", type: i3$1.CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], animations: [matSnackBarAnimations.snackBarState], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
+_MatSnackBarContainerBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: _MatSnackBarContainerBase, deps: [{ token: i0.NgZone }, { token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: i1.Platform }, { token: MatSnackBarConfig }], target: i0.ɵɵFactoryTarget.Directive });
+_MatSnackBarContainerBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.0-rc.1", type: _MatSnackBarContainerBase, viewQueries: [{ propertyName: "_portalOutlet", first: true, predicate: CdkPortalOutlet, descendants: true, static: true }], usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: _MatSnackBarContainerBase, decorators: [{
+            type: Directive
+        }], ctorParameters: function () { return [{ type: i0.NgZone }, { type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: i1.Platform }, { type: MatSnackBarConfig }]; }, propDecorators: { _portalOutlet: [{
+                type: ViewChild,
+                args: [CdkPortalOutlet, { static: true }]
+            }] } });
+/**
+ * Internal component that wraps user-provided snack bar content.
+ * @docs-private
+ */
+class MatSnackBarContainer extends _MatSnackBarContainerBase {
+    _afterPortalAttached() {
+        super._afterPortalAttached();
+        if (this.snackBarConfig.horizontalPosition === 'center') {
+            this._elementRef.nativeElement.classList.add('mat-snack-bar-center');
+        }
+        if (this.snackBarConfig.verticalPosition === 'top') {
+            this._elementRef.nativeElement.classList.add('mat-snack-bar-top');
+        }
+    }
+}
+MatSnackBarContainer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: MatSnackBarContainer, deps: null, target: i0.ɵɵFactoryTarget.Component });
+MatSnackBarContainer.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.0-rc.1", type: MatSnackBarContainer, selector: "snack-bar-container", host: { listeners: { "@state.done": "onAnimationEnd($event)" }, properties: { "@state": "_animationState" }, classAttribute: "mat-snack-bar-container" }, usesInheritance: true, ngImport: i0, template: "<!-- Initially holds the snack bar content, will be empty after announcing to screen readers. -->\n<div aria-hidden=\"true\">\n  <ng-template cdkPortalOutlet></ng-template>\n</div>\n\n<!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n<div [attr.aria-live]=\"_live\" [attr.role]=\"_role\"></div>\n", styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}.cdk-high-contrast-active .mat-snack-bar-container{border:solid 1px}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}"], dependencies: [{ kind: "directive", type: i3$1.CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], animations: [matSnackBarAnimations.snackBarState], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: MatSnackBarContainer, decorators: [{
             type: Component,
             args: [{ selector: 'snack-bar-container', changeDetection: ChangeDetectionStrategy.Default, encapsulation: ViewEncapsulation.None, animations: [matSnackBarAnimations.snackBarState], host: {
@@ -398,10 +421,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-rc.1", ng
                         '[@state]': '_animationState',
                         '(@state.done)': 'onAnimationEnd($event)',
                     }, template: "<!-- Initially holds the snack bar content, will be empty after announcing to screen readers. -->\n<div aria-hidden=\"true\">\n  <ng-template cdkPortalOutlet></ng-template>\n</div>\n\n<!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n<div [attr.aria-live]=\"_live\" [attr.role]=\"_role\"></div>\n", styles: [".mat-snack-bar-container{border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}.cdk-high-contrast-active .mat-snack-bar-container{border:solid 1px}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;min-width:0;width:100%}"] }]
-        }], ctorParameters: function () { return [{ type: i0.NgZone }, { type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: i1.Platform }, { type: MatSnackBarConfig }]; }, propDecorators: { _portalOutlet: [{
-                type: ViewChild,
-                args: [CdkPortalOutlet, { static: true }]
-            }] } });
+        }] });
 
 /**
  * @license
@@ -710,5 +730,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.0-rc.1", ng
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar, _MatSnackBarBase, matSnackBarAnimations };
+export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar, _MatSnackBarBase, _MatSnackBarContainerBase, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.mjs.map
