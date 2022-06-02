@@ -35,7 +35,7 @@ import { ViewContainerRef } from '@angular/core';
 
 declare namespace i1 {
     export {
-        _SnackBarContainer,
+        _MatSnackBarContainerBase,
         MatSnackBarContainer
     }
 }
@@ -92,7 +92,7 @@ export declare abstract class _MatSnackBarBase implements OnDestroy {
     /** The component that should be rendered as the snack bar's simple component. */
     protected abstract simpleSnackBarComponent: Type<TextOnlySnackBar>;
     /** The container component that attaches the provided template or component. */
-    protected abstract snackBarContainerComponent: Type<_SnackBarContainer>;
+    protected abstract snackBarContainerComponent: Type<_MatSnackBarContainerBase>;
     /** The CSS class to apply for handset mode. */
     protected abstract handsetCssClass: string;
     /** Reference to the currently opened snackbar at *any* level. */
@@ -186,9 +186,19 @@ export declare class MatSnackBarConfig<D = any> {
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
  */
-export declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy, _SnackBarContainer {
+export declare class MatSnackBarContainer extends _MatSnackBarContainerBase {
+    protected _afterPortalAttached(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarContainer, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "snack-bar-container", never, {}, {}, never, never, false>;
+}
+
+/**
+ * Base class for snack bar containers.
+ * @docs-private
+ */
+export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet implements OnDestroy {
     private _ngZone;
-    private _elementRef;
+    protected _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _platform;
     /** The snack bar configuration. */
@@ -242,8 +252,11 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      * errors where we end up removing an element which is in the middle of an animation.
      */
     private _completeExit;
-    /** Applies the various positioning and user-configured CSS classes to the snack bar. */
-    private _applySnackBarClasses;
+    /**
+     * Called after the portal contents have been attached. Can be
+     * used to modify the DOM once it's guaranteed to be in place.
+     */
+    protected _afterPortalAttached(): void;
     /** Asserts that no content is already attached to the container. */
     private _assertNotAttached;
     /**
@@ -251,8 +264,8 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      * announce it.
      */
     private _screenReaderAnnounce;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "snack-bar-container", never, {}, {}, never, never, false>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSnackBarContainerBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSnackBarContainerBase, never, never, {}, {}, never, never, false>;
 }
 
 /** Event that is emitted when a snack bar is dismissed. */
@@ -281,7 +294,7 @@ export declare class MatSnackBarRef<T> {
      * The instance of the component making up the content of the snack bar.
      * @docs-private
      */
-    containerInstance: _SnackBarContainer;
+    containerInstance: _MatSnackBarContainerBase;
     /** Subject for notifying the user that the snack bar has been dismissed. */
     private readonly _afterDismissed;
     /** Subject for notifying the user that the snack bar has opened and appeared. */
@@ -295,7 +308,7 @@ export declare class MatSnackBarRef<T> {
     private _durationTimeoutId;
     /** Whether the snack bar was dismissed using the action button. */
     private _dismissedByAction;
-    constructor(containerInstance: _SnackBarContainer, _overlayRef: OverlayRef);
+    constructor(containerInstance: _MatSnackBarContainerBase, _overlayRef: OverlayRef);
     /** Dismisses the snack bar. */
     dismiss(): void;
     /** Marks the snackbar action clicked. */
@@ -341,21 +354,6 @@ export declare class SimpleSnackBar implements TextOnlySnackBar {
     get hasAction(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<SimpleSnackBar, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<SimpleSnackBar, "simple-snack-bar", never, {}, {}, never, never, false>;
-}
-
-/**
- * Internal interface for a snack bar container.
- * @docs-private
- */
-export declare interface _SnackBarContainer {
-    snackBarConfig: MatSnackBarConfig;
-    readonly _onAnnounce: Subject<any>;
-    readonly _onExit: Subject<any>;
-    readonly _onEnter: Subject<any>;
-    enter: () => void;
-    exit: () => Observable<void>;
-    attachTemplatePortal: <C>(portal: TemplatePortal<C>) => EmbeddedViewRef<C>;
-    attachComponentPortal: <T>(portal: ComponentPortal<T>) => ComponentRef<T>;
 }
 
 /**
