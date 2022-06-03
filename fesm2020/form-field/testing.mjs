@@ -1,4 +1,4 @@
-export * from '@angular/material/form-field/testing/control';
+export { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { ComponentHarness, parallel, HarnessPredicate } from '@angular/cdk/testing';
 import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
