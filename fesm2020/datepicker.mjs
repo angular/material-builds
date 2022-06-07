@@ -77,10 +77,18 @@ class MatDatepickerIntl {
         this.switchToMonthViewLabel = 'Choose date';
         /** A label for the 'switch to year view' button (used by screen readers). */
         this.switchToMultiYearViewLabel = 'Choose month and year';
+        /** A label for the first date of a range of dates (used by screen readers). */
+        this.startDateLabel = 'Start date';
+        /** A label for the last date of a range of dates (used by screen readers). */
+        this.endDateLabel = 'End date';
     }
-    /** Formats a range of years. */
+    /** Formats a range of years (used for visuals). */
     formatYearRange(start, end) {
         return `${start} \u2013 ${end}`;
+    }
+    /** Formats a label for a range of years (used by screen readers). */
+    formatYearRangeLabel(start, end) {
+        return `${start} to ${end}`;
     }
 }
 MatDatepickerIntl.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.0-rc.1", ngImport: i0, type: MatDatepickerIntl, deps: [], target: i0.ɵɵFactoryTarget.Injectable });

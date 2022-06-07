@@ -1044,8 +1044,14 @@ export declare class MatDatepickerIntl {
     switchToMonthViewLabel: string;
     /** A label for the 'switch to year view' button (used by screen readers). */
     switchToMultiYearViewLabel: string;
-    /** Formats a range of years. */
+    /** A label for the first date of a range of dates (used by screen readers). */
+    startDateLabel: string;
+    /** A label for the last date of a range of dates (used by screen readers). */
+    endDateLabel: string;
+    /** Formats a range of years (used for visuals). */
     formatYearRange(start: string, end: string): string;
+    /** Formats a label for a range of years (used by screen readers). */
+    formatYearRangeLabel(start: string, end: string): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerIntl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatDatepickerIntl>;
 }
