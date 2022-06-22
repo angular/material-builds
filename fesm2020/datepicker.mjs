@@ -2133,10 +2133,6 @@ class MatDatepickerContent extends _MatDatepickerContentBase {
         this._closeButtonText = intl.closeCalendarLabel;
     }
     ngOnInit() {
-        // If we have actions, clone the model so that we have the ability to cancel the selection,
-        // otherwise update the global model directly. Note that we want to assign this as soon as
-        // possible, but `_actionsPortal` isn't available in the constructor so we do it in `ngOnInit`.
-        this._model = this._actionsPortal ? this._globalModel.clone() : this._globalModel;
         this._animationState = this.datepicker.touchUi ? 'enter-dialog' : 'enter-dropdown';
     }
     ngAfterViewInit() {
@@ -2182,6 +2178,23 @@ class MatDatepickerContent extends _MatDatepickerContentBase {
     _applyPendingSelection() {
         if (this._model !== this._globalModel) {
             this._globalModel.updateSelection(this._model.selection, this);
+        }
+    }
+    /**
+     * Assigns a new portal containing the datepicker actions.
+     * @param portal Portal with the actions to be assigned.
+     * @param forceRerender Whether a re-render of the portal should be triggered. This isn't
+     * necessary if the portal is assigned during initialization, but it may be required if it's
+     * added at a later point.
+     */
+    _assignActions(portal, forceRerender) {
+        // If we have actions, clone the model so that we have the ability to cancel the selection,
+        // otherwise update the global model directly. Note that we want to assign this as soon as
+        // possible, but `_actionsPortal` isn't available in the constructor so we do it in `ngOnInit`.
+        this._model = portal ? this._globalModel.clone() : this._globalModel;
+        this._actionsPortal = portal;
+        if (forceRerender) {
+            this._changeDetectorRef.detectChanges();
         }
     }
 }
@@ -2390,6 +2403,7 @@ class MatDatepickerBase {
             throw Error('A MatDatepicker can only be associated with a single actions row.');
         }
         this._actionsPortal = portal;
+        this._componentRef?.instance._assignActions(portal, true);
     }
     /**
      * Removes a portal containing action buttons from the datepicker.
@@ -2398,6 +2412,7 @@ class MatDatepickerBase {
     removeActions(portal) {
         if (portal === this._actionsPortal) {
             this._actionsPortal = null;
+            this._componentRef?.instance._assignActions(null, true);
         }
     }
     /** Open the calendar. */
@@ -2455,8 +2470,8 @@ class MatDatepickerBase {
     _forwardContentValues(instance) {
         instance.datepicker = this;
         instance.color = this.color;
-        instance._actionsPortal = this._actionsPortal;
         instance._dialogLabelId = this.datepickerInput.getOverlayLabelId();
+        instance._assignActions(this._actionsPortal, false);
     }
     /** Opens the overlay with the calendar. */
     _openOverlay() {

@@ -825,6 +825,14 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _getSelected(): D | DateRange<D> | null;
     /** Applies the current pending selection to the global model. */
     _applyPendingSelection(): void;
+    /**
+     * Assigns a new portal containing the datepicker actions.
+     * @param portal Portal with the actions to be assigned.
+     * @param forceRerender Whether a re-render of the portal should be triggered. This isn't
+     * necessary if the portal is assigned during initialization, but it may be required if it's
+     * added at a later point.
+     */
+    _assignActions(portal: TemplatePortal<any> | null, forceRerender: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerContent<any, any>, [null, null, null, null, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerContent<any, any>, "mat-datepicker-content", ["matDatepickerContent"], { "color": "color"; }, {}, never, never, false>;
 }
