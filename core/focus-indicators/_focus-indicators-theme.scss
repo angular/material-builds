@@ -1,29 +1,32 @@
 @use 'sass:map';
 @use 'sass:meta';
 @use '../theming/theming';
+@use './private';
 
-@mixin _border-color($color) {
-  .mat-focus-indicator::before {
-    border-color: $color;
-  }
-}
+$_prefix: 'mat';
 
 // stylelint-disable-next-line material/theme-mixin-api
 @mixin color($config-or-theme-or-color) {
   @if meta.type-of($config-or-theme-or-color) == 'color' {
-    @include _border-color($config-or-theme-or-color);
+    @include private.customize-focus-indicators((
+      border-color: $config-or-theme-or-color
+    ), $_prefix);
   }
   @else {
     $config: theming.get-color-config($config-or-theme-or-color);
     $border-color: theming.get-color-from-palette(map.get($config, primary));
-    @include _border-color($border-color);
+    @include private.customize-focus-indicators((
+      border-color: $border-color
+    ), $_prefix);
   }
 }
 
 // stylelint-disable-next-line material/theme-mixin-api
 @mixin theme($theme-or-color-config-or-color) {
   @if meta.type-of($theme-or-color-config-or-color) == 'color' {
-    @include _border-color($theme-or-color-config-or-color);
+    @include private.customize-focus-indicators((
+      border-color: $theme-or-color-config-or-color
+    ), $_prefix);
   }
   @else {
     $theme: theming.private-legacy-get-theme($theme-or-color-config-or-color);

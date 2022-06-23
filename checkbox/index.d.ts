@@ -145,6 +145,8 @@ export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase 
     value: string;
     /** The native `<input type="checkbox">` element */
     _inputElement: ElementRef<HTMLInputElement>;
+    /** The native `<label>` element */
+    _labelElement: ElementRef<HTMLInputElement>;
     /** Reference to the ripple instance of the checkbox. */
     ripple: MatRipple;
     /**
