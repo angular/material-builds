@@ -48,6 +48,21 @@
     "./prebuilt-themes/*": {
       "style": "./prebuilt-themes/*.css"
     },
+    "./legacy-prebuilt-themes/indigo-pink.css": {
+      "style": "./legacy-prebuilt-themes/indigo-pink.css"
+    },
+    "./legacy-prebuilt-themes/deeppurple-amber.css": {
+      "style": "./legacy-prebuilt-themes/deeppurple-amber.css"
+    },
+    "./legacy-prebuilt-themes/pink-bluegrey.css": {
+      "style": "./legacy-prebuilt-themes/pink-bluegrey.css"
+    },
+    "./legacy-prebuilt-themes/purple-green.css": {
+      "style": "./legacy-prebuilt-themes/purple-green.css"
+    },
+    "./legacy-prebuilt-themes/*": {
+      "style": "./legacy-prebuilt-themes/*.css"
+    },
     "./package.json": {
       "default": "./package.json"
     },
@@ -330,6 +345,14 @@
       "es2015": "./fesm2015/input/testing.mjs",
       "node": "./fesm2015/input/testing.mjs",
       "default": "./fesm2020/input/testing.mjs"
+    },
+    "./legacy-core": {
+      "types": "./legacy-core/index.d.ts",
+      "esm2020": "./esm2020/legacy-core/legacy-core_public_index.mjs",
+      "es2020": "./fesm2020/legacy-core.mjs",
+      "es2015": "./fesm2015/legacy-core.mjs",
+      "node": "./fesm2015/legacy-core.mjs",
+      "default": "./fesm2020/legacy-core.mjs"
     },
     "./list": {
       "types": "./list/index.d.ts",
@@ -630,7 +653,54 @@
     "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@material/animation": "15.0.0-canary.5b40eb988.0",
+    "@material/auto-init": "15.0.0-canary.5b40eb988.0",
+    "@material/banner": "15.0.0-canary.5b40eb988.0",
+    "@material/base": "15.0.0-canary.5b40eb988.0",
+    "@material/button": "15.0.0-canary.5b40eb988.0",
+    "@material/card": "15.0.0-canary.5b40eb988.0",
+    "@material/checkbox": "15.0.0-canary.5b40eb988.0",
+    "@material/chips": "15.0.0-canary.5b40eb988.0",
+    "@material/circular-progress": "15.0.0-canary.5b40eb988.0",
+    "@material/data-table": "15.0.0-canary.5b40eb988.0",
+    "@material/density": "15.0.0-canary.5b40eb988.0",
+    "@material/dialog": "15.0.0-canary.5b40eb988.0",
+    "@material/dom": "15.0.0-canary.5b40eb988.0",
+    "@material/drawer": "15.0.0-canary.5b40eb988.0",
+    "@material/elevation": "15.0.0-canary.5b40eb988.0",
+    "@material/fab": "15.0.0-canary.5b40eb988.0",
+    "@material/feature-targeting": "15.0.0-canary.5b40eb988.0",
+    "@material/floating-label": "15.0.0-canary.5b40eb988.0",
+    "@material/form-field": "15.0.0-canary.5b40eb988.0",
+    "@material/icon-button": "15.0.0-canary.5b40eb988.0",
+    "@material/image-list": "15.0.0-canary.5b40eb988.0",
+    "@material/layout-grid": "15.0.0-canary.5b40eb988.0",
+    "@material/line-ripple": "15.0.0-canary.5b40eb988.0",
+    "@material/linear-progress": "15.0.0-canary.5b40eb988.0",
+    "@material/list": "15.0.0-canary.5b40eb988.0",
+    "@material/menu": "15.0.0-canary.5b40eb988.0",
+    "@material/menu-surface": "15.0.0-canary.5b40eb988.0",
+    "@material/notched-outline": "15.0.0-canary.5b40eb988.0",
+    "@material/radio": "15.0.0-canary.5b40eb988.0",
+    "@material/ripple": "15.0.0-canary.5b40eb988.0",
+    "@material/rtl": "15.0.0-canary.5b40eb988.0",
+    "@material/segmented-button": "15.0.0-canary.5b40eb988.0",
+    "@material/select": "15.0.0-canary.5b40eb988.0",
+    "@material/shape": "15.0.0-canary.5b40eb988.0",
+    "@material/slider": "15.0.0-canary.5b40eb988.0",
+    "@material/snackbar": "15.0.0-canary.5b40eb988.0",
+    "@material/switch": "15.0.0-canary.5b40eb988.0",
+    "@material/tab": "15.0.0-canary.5b40eb988.0",
+    "@material/tab-bar": "15.0.0-canary.5b40eb988.0",
+    "@material/tab-indicator": "15.0.0-canary.5b40eb988.0",
+    "@material/tab-scroller": "15.0.0-canary.5b40eb988.0",
+    "@material/textfield": "15.0.0-canary.5b40eb988.0",
+    "@material/theme": "15.0.0-canary.5b40eb988.0",
+    "@material/tooltip": "15.0.0-canary.5b40eb988.0",
+    "@material/top-app-bar": "15.0.0-canary.5b40eb988.0",
+    "@material/touch-target": "15.0.0-canary.5b40eb988.0",
+    "@material/typography": "15.0.0-canary.5b40eb988.0"
   },
   "schematics": "./schematics/collection.json",
   "ng-update": {

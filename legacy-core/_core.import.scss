@@ -1,0 +1,5 @@
+@forward 'core' hide core;
+@forward 'core' as mat-legacy-* hide mat-legacy-mdc-core;
+@forward 'core' as mat-legacy-core-legacy-* hide mat-legacy-core-mdc-core;
+
+@import './typography/all-typography';
