@@ -7,21 +7,20 @@ import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-card in tests. */
+/** Harness for interacting with an MDC-based mat-card in tests. */
 class MatCardHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._title = this.locatorForOptional('.mat-card-title');
-        this._subtitle = this.locatorForOptional('.mat-card-subtitle');
+        this._title = this.locatorForOptional('.mat-mdc-card-title');
+        this._subtitle = this.locatorForOptional('.mat-mdc-card-subtitle');
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatCardHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a card with specific attributes.
      * @param options Options for filtering which card instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatCardHarness, options)
+        return new HarnessPredicate(this, options)
             .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
             .addOption('title', options.title, (harness, title) => HarnessPredicate.stringMatches(harness.getTitleText(), title))
             .addOption('subtitle', options.subtitle, (harness, subtitle) => HarnessPredicate.stringMatches(harness.getSubtitleText(), subtitle));
@@ -40,7 +39,7 @@ class MatCardHarness extends ContentContainerComponentHarness {
     }
 }
 /** The selector for the host element of a `MatCard` instance. */
-MatCardHarness.hostSelector = '.mat-card';
+MatCardHarness.hostSelector = '.mat-mdc-card';
 
 /**
  * @license
