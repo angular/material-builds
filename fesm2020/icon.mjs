@@ -141,7 +141,7 @@ class MatIconRegistry {
          * specified. The default 'material-icons' value assumes that the material icon font has been
          * loaded as described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
-        this._defaultFontSetClass = ['material-icons'];
+        this._defaultFontSetClass = ['material-icons', 'mat-ligature-font'];
         this._document = document;
     }
     /**
@@ -234,15 +234,28 @@ class MatIconRegistry {
         return this._addSvgIconSetConfig(namespace, new SvgIconConfig('', trustedLiteral, options));
     }
     /**
-     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
+     * Defines an alias for CSS class names to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
      * to the `<mat-icon>` element.
      *
+     * If the registered font is a ligature font, then don't forget to also include the special
+     * class `mat-ligature-font` to allow the usage via attribute. So register like this:
+     *
+     * ```ts
+     * iconRegistry.registerFontClassAlias('f1', 'font1 mat-ligature-font');
+     * ```
+     *
+     * And use like this:
+     *
+     * ```html
+     * <mat-icon fontSet="f1" fontIcon="home"></mat-icon>
+     * ```
+     *
      * @param alias Alias for the font.
-     * @param className Class name override to be used instead of the alias.
+     * @param classNames Class names override to be used instead of the alias.
      */
-    registerFontClassAlias(alias, className = alias) {
-        this._fontCssClassesByAlias.set(alias, className);
+    registerFontClassAlias(alias, classNames = alias) {
+        this._fontCssClassesByAlias.set(alias, classNames);
         return this;
     }
     /**
@@ -688,13 +701,18 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  *     `<mat-icon svgIcon="left-arrow"></mat-icon>
  *     <mat-icon svgIcon="animals:cat"></mat-icon>`
  *
- * - Use a font ligature as an icon by putting the ligature text in the content of the `<mat-icon>`
- *   component. By default the Material icons font is used as described at
+ * - Use a font ligature as an icon by putting the ligature text in the `fontIcon` attribute or the
+ *   content of the `<mat-icon>` component. If you register a custom font class, don't forget to also
+ *   include the special class `mat-ligature-font`. It is recommended to use the attribute alternative
+ *   to prevent the ligature text to be selectable and to appear in search engine results.
+ *   By default, the Material icons font is used as described at
  *   http://google.github.io/material-design-icons/#icon-font-for-the-web. You can specify an
  *   alternate font by setting the fontSet input to either the CSS class to apply to use the
  *   desired font, or to an alias previously registered with MatIconRegistry.registerFontClassAlias.
  *   Examples:
- *     `<mat-icon>home</mat-icon>
+ *     `<mat-icon fontIcon="home"></mat-icon>
+ *     <mat-icon>home</mat-icon>
+ *     <mat-icon fontSet="myfont" fontIcon="sun"></mat-icon>
  *     <mat-icon fontSet="myfont">sun</mat-icon>`
  *
  * - Specify a font glyph to be included via CSS rules by setting the fontSet input to specify the
@@ -865,12 +883,13 @@ class MatIcon extends _MatIconBase {
         }
         const elem = this._elementRef.nativeElement;
         const fontSetClasses = (this.fontSet
-            ? [this._iconRegistry.classNameForFontAlias(this.fontSet)]
+            ? this._iconRegistry.classNameForFontAlias(this.fontSet).split(/ +/)
             : this._iconRegistry.getDefaultFontSetClass()).filter(className => className.length > 0);
         this._previousFontSetClass.forEach(className => elem.classList.remove(className));
         fontSetClasses.forEach(className => elem.classList.add(className));
         this._previousFontSetClass = fontSetClasses;
-        if (this.fontIcon !== this._previousFontIconClass) {
+        if (this.fontIcon !== this._previousFontIconClass &&
+            !fontSetClasses.includes('mat-ligature-font')) {
             if (this._previousFontIconClass) {
                 elem.classList.remove(this._previousFontIconClass);
             }
@@ -951,7 +970,7 @@ class MatIcon extends _MatIconBase {
     }
 }
 MatIcon.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatIcon, deps: [{ token: i0.ElementRef }, { token: MatIconRegistry }, { token: 'aria-hidden', attribute: true }, { token: MAT_ICON_LOCATION }, { token: i0.ErrorHandler }, { token: MAT_ICON_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatIcon.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.1", type: MatIcon, selector: "mat-icon", inputs: { color: "color", inline: "inline", svgIcon: "svgIcon", fontSet: "fontSet", fontIcon: "fontIcon" }, host: { attributes: { "role": "img" }, properties: { "attr.data-mat-icon-type": "_usingFontIcon() ? \"font\" : \"svg\"", "attr.data-mat-icon-name": "_svgName || fontIcon", "attr.data-mat-icon-namespace": "_svgNamespace || fontSet", "class.mat-icon-inline": "inline", "class.mat-icon-no-color": "color !== \"primary\" && color !== \"accent\" && color !== \"warn\"" }, classAttribute: "mat-icon notranslate" }, exportAs: ["matIcon"], usesInheritance: true, ngImport: i0, template: '<ng-content></ng-content>', isInline: true, styles: [".mat-icon{-webkit-user-select:none;user-select:none;background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px;overflow:hidden}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+MatIcon.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.1", type: MatIcon, selector: "mat-icon", inputs: { color: "color", inline: "inline", svgIcon: "svgIcon", fontSet: "fontSet", fontIcon: "fontIcon" }, host: { attributes: { "role": "img" }, properties: { "attr.data-mat-icon-type": "_usingFontIcon() ? \"font\" : \"svg\"", "attr.data-mat-icon-name": "_svgName || fontIcon", "attr.data-mat-icon-namespace": "_svgNamespace || fontSet", "class.mat-icon-inline": "inline", "class.mat-icon-no-color": "color !== \"primary\" && color !== \"accent\" && color !== \"warn\"" }, classAttribute: "mat-icon notranslate" }, exportAs: ["matIcon"], usesInheritance: true, ngImport: i0, template: '<ng-content></ng-content>', isInline: true, styles: [".mat-icon{-webkit-user-select:none;user-select:none;background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px;overflow:hidden}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-icon.mat-ligature-font[fontIcon]::before{content:attr(fontIcon)}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatIcon, decorators: [{
             type: Component,
             args: [{ template: '<ng-content></ng-content>', selector: 'mat-icon', exportAs: 'matIcon', inputs: ['color'], host: {
@@ -962,7 +981,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
                         '[attr.data-mat-icon-namespace]': '_svgNamespace || fontSet',
                         '[class.mat-icon-inline]': 'inline',
                         '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"',
-                    }, encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, styles: [".mat-icon{-webkit-user-select:none;user-select:none;background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px;overflow:hidden}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"] }]
+                    }, encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, styles: [".mat-icon{-webkit-user-select:none;user-select:none;background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px;overflow:hidden}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-icon.mat-ligature-font[fontIcon]::before{content:attr(fontIcon)}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"] }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: MatIconRegistry }, { type: undefined, decorators: [{
                     type: Attribute,
                     args: ['aria-hidden']
