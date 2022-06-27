@@ -105,13 +105,18 @@ export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
  *     `<mat-icon svgIcon="left-arrow"></mat-icon>
  *     <mat-icon svgIcon="animals:cat"></mat-icon>`
  *
- * - Use a font ligature as an icon by putting the ligature text in the content of the `<mat-icon>`
- *   component. By default the Material icons font is used as described at
+ * - Use a font ligature as an icon by putting the ligature text in the `fontIcon` attribute or the
+ *   content of the `<mat-icon>` component. If you register a custom font class, don't forget to also
+ *   include the special class `mat-ligature-font`. It is recommended to use the attribute alternative
+ *   to prevent the ligature text to be selectable and to appear in search engine results.
+ *   By default, the Material icons font is used as described at
  *   http://google.github.io/material-design-icons/#icon-font-for-the-web. You can specify an
  *   alternate font by setting the fontSet input to either the CSS class to apply to use the
  *   desired font, or to an alias previously registered with MatIconRegistry.registerFontClassAlias.
  *   Examples:
- *     `<mat-icon>home</mat-icon>
+ *     `<mat-icon fontIcon="home"></mat-icon>
+ *     <mat-icon>home</mat-icon>
+ *     <mat-icon fontSet="myfont" fontIcon="sun"></mat-icon>
  *     <mat-icon fontSet="myfont">sun</mat-icon>`
  *
  * - Specify a font glyph to be included via CSS rules by setting the fontSet input to specify the
@@ -322,14 +327,27 @@ export declare class MatIconRegistry implements OnDestroy {
      */
     addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml, options?: IconOptions): this;
     /**
-     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
+     * Defines an alias for CSS class names to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
      * to the `<mat-icon>` element.
      *
+     * If the registered font is a ligature font, then don't forget to also include the special
+     * class `mat-ligature-font` to allow the usage via attribute. So register like this:
+     *
+     * ```ts
+     * iconRegistry.registerFontClassAlias('f1', 'font1 mat-ligature-font');
+     * ```
+     *
+     * And use like this:
+     *
+     * ```html
+     * <mat-icon fontSet="f1" fontIcon="home"></mat-icon>
+     * ```
+     *
      * @param alias Alias for the font.
-     * @param className Class name override to be used instead of the alias.
+     * @param classNames Class names override to be used instead of the alias.
      */
-    registerFontClassAlias(alias: string, className?: string): this;
+    registerFontClassAlias(alias: string, classNames?: string): this;
     /**
      * Returns the CSS class name associated with the alias by a previous call to
      * registerFontClassAlias. If no CSS class has been associated, returns the alias unmodified.
