@@ -569,7 +569,7 @@ class NativeDateAdapter extends DateAdapter {
     today() {
         return new Date();
     }
-    parse(value) {
+    parse(value, parseFormat) {
         // We have no way using the native JS Date to set the parse format or locale, so we ignore these
         // parameters.
         if (typeof value == 'number') {
