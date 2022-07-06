@@ -848,7 +848,7 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
     clone(date: Date): Date;
     createDate(year: number, month: number, date: number): Date;
     today(): Date;
-    parse(value: any): Date | null;
+    parse(value: any, parseFormat?: any): Date | null;
     format(date: Date, displayFormat: Object): string;
     addCalendarYears(date: Date, years: number): Date;
     addCalendarMonths(date: Date, months: number): Date;
