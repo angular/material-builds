@@ -2,10 +2,8 @@ import { AfterViewInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { AriaDescriber } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { BreakpointState } from '@angular/cdk/layout';
 import { ChangeDetectorRef } from '@angular/core';
-import { ComponentType } from '@angular/cdk/portal';
+import { ComponentType } from '@angular/cdk/overlay';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
@@ -26,7 +24,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { OverlayConnectionPosition } from '@angular/cdk/overlay';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
+import { ScrollDispatcher } from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ViewContainerRef } from '@angular/core';
 
@@ -45,11 +43,11 @@ declare namespace i1 {
         TooltipTouchGestures,
         TooltipVisibility,
         SCROLL_THROTTLE_MS,
-        TOOLTIP_PANEL_CLASS,
         MAT_TOOLTIP_SCROLL_STRATEGY,
         MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER,
-        MatTooltipDefaultOptions,
         MAT_TOOLTIP_DEFAULT_OPTIONS,
+        MatTooltipDefaultOptions,
+        TOOLTIP_PANEL_CLASS,
         _MatTooltipBase,
         MatTooltip,
         _TooltipComponentBase,
@@ -84,7 +82,9 @@ export declare const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: {
  */
 export declare class MatTooltip extends _MatTooltipBase<TooltipComponent> {
     protected readonly _tooltipComponent: typeof TooltipComponent;
+    protected readonly _cssClassPrefix = "mat-mdc";
     constructor(overlay: Overlay, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, viewContainerRef: ViewContainerRef, ngZone: NgZone, platform: Platform, ariaDescriber: AriaDescriber, focusMonitor: FocusMonitor, scrollStrategy: any, dir: Directionality, defaultOptions: MatTooltipDefaultOptions, _document: any);
+    protected _addOffset(position: ConnectedPosition): ConnectedPosition;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltip, [null, null, null, null, null, null, null, null, null, { optional: true; }, { optional: true; }, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTooltip, "[matTooltip]", ["matTooltip"], {}, {}, never, never, false>;
 }
@@ -255,20 +255,23 @@ export declare const SCROLL_THROTTLE_MS = 20;
  * @deprecated
  * @breaking-change 13.0.0 remove this variable
  */
-export declare const TOOLTIP_PANEL_CLASS = "mat-tooltip-panel";
+export declare const TOOLTIP_PANEL_CLASS = "mat-mdc-tooltip-panel";
 
 /**
  * Internal component that wraps the tooltip's content.
  * @docs-private
  */
 export declare class TooltipComponent extends _TooltipComponentBase {
-    private _breakpointObserver;
-    /** Stream that emits whether the user has a handset-sized display.  */
-    _isHandset: Observable<BreakpointState>;
+    private _elementRef;
+    _isMultiline: boolean;
+    /** Reference to the internal tooltip element. */
+    _tooltip: ElementRef<HTMLElement>;
     _showAnimation: string;
     _hideAnimation: string;
-    _tooltip: ElementRef<HTMLElement>;
-    constructor(changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver, animationMode?: string);
+    constructor(changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, animationMode?: string);
+    protected _onShow(): void;
+    /** Whether the tooltip text has overflown to the next line */
+    private _isTooltipMultiline;
     static ɵfac: i0.ɵɵFactoryDeclaration<TooltipComponent, [null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<TooltipComponent, "mat-tooltip-component", never, {}, {}, never, never, false>;
 }

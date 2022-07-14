@@ -44,22 +44,22 @@ class _MatTooltipHarnessBase extends ComponentHarness {
 class MatTooltipHarness extends _MatTooltipHarnessBase {
     constructor() {
         super(...arguments);
-        this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-tooltip');
-        this._hiddenClass = 'mat-tooltip-hide';
-        this._showAnimationName = 'mat-tooltip-show';
-        this._hideAnimationName = 'mat-tooltip-hide';
+        this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-mdc-tooltip');
+        this._hiddenClass = 'mat-mdc-tooltip-hide';
+        this._showAnimationName = 'mat-mdc-tooltip-show';
+        this._hideAnimationName = 'mat-mdc-tooltip-hide';
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search
-     * for a tooltip trigger with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a tooltip trigger with specific
+     * attributes.
      * @param options Options for narrowing the search.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTooltipHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
-MatTooltipHarness.hostSelector = '.mat-tooltip-trigger';
+MatTooltipHarness.hostSelector = '.mat-mdc-tooltip-trigger';
 
 /**
  * @license
