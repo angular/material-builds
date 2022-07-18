@@ -39,7 +39,7 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     private _dir;
     /** Number of columns being rendered. */
     private _cols;
-    /** Used for determiningthe position of each tile in the grid. */
+    /** Used for determining the position of each tile in the grid. */
     private _tileCoordinator;
     /**
      * Row height value passed in by user. This can be one of three types:

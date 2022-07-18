@@ -159,7 +159,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     protected _removable: boolean;
     /** Emits when the chip is focused. */
     readonly _onFocus: Subject<MatChipEvent>;
-    /** Emits when the chip is blured. */
+    /** Emits when the chip is blurred. */
     readonly _onBlur: Subject<MatChipEvent>;
     /** Emitted when the chip is selected or deselected. */
     readonly selectionChange: EventEmitter<MatChipSelectionChange>;

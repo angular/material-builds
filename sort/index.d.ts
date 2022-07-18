@@ -83,7 +83,7 @@ export declare class MatSort extends _MatSortBase implements CanDisable, HasInit
     active: string;
     /**
      * The direction to set when an MatSortable is initially sorted.
-     * May be overriden by the MatSortable's sort start.
+     * May be overridden by the MatSortable's sort start.
      */
     start: SortDirection;
     /** The sort direction of the currently active MatSortable. */
@@ -92,7 +92,7 @@ export declare class MatSort extends _MatSortBase implements CanDisable, HasInit
     private _direction;
     /**
      * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
-     * May be overriden by the MatSortable's disable clear input.
+     * May be overridden by the MatSortable's disable clear input.
      */
     get disableClear(): boolean;
     set disableClear(v: BooleanInput);
