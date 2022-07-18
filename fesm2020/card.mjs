@@ -116,7 +116,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
  */
 class MatCardActions {
     constructor() {
-        // TODO(jelbourn): deprecate `align` in favor of `actionPositon` or `actionAlignment`
+        // TODO(jelbourn): deprecate `align` in favor of `actionPosition` or `actionAlignment`
         // as to not conflict with the native `align` attribute.
         /** Position of the actions inside the card. */
         this.align = 'start';

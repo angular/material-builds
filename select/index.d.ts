@@ -211,7 +211,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _compareWith;
     /** Unique id for this input. */
     private _uid;
-    /** Current `ariar-labelledby` value for the select trigger. */
+    /** Current `aria-labelledby` value for the select trigger. */
     private _triggerAriaLabelledBy;
     /**
      * Keeps track of the previous form control assigned to the select.

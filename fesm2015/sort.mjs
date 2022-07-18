@@ -57,7 +57,7 @@ class MatSort extends _MatSortBase {
         this._stateChanges = new Subject();
         /**
          * The direction to set when an MatSortable is initially sorted.
-         * May be overriden by the MatSortable's sort start.
+         * May be overridden by the MatSortable's sort start.
          */
         this.start = 'asc';
         this._direction = '';
@@ -79,7 +79,7 @@ class MatSort extends _MatSortBase {
     }
     /**
      * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
-     * May be overriden by the MatSortable's disable clear input.
+     * May be overridden by the MatSortable's disable clear input.
      */
     get disableClear() {
         return this._disableClear;

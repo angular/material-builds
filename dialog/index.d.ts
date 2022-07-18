@@ -229,7 +229,7 @@ export declare class MatDialogClose implements OnInit, OnChanges {
     dialogRef: MatDialogRef<any>;
     private _elementRef;
     private _dialog;
-    /** Screenreader label for the button. */
+    /** Screen reader label for the button. */
     ariaLabel: string;
     /** Default to "button" to prevents accidental form submits. */
     type: 'submit' | 'button' | 'reset';
