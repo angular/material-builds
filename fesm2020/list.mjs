@@ -542,7 +542,7 @@ class MatSelectionList extends _MatSelectionListBase {
             .withTypeAhead()
             .withHomeAndEnd()
             // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
-            // screenreader users, that allows reading the different options of the list.
+            // screen reader users, that allows reading the different options of the list.
             .skipPredicate(() => false)
             .withAllowedModifierKeys(['shiftKey']);
         if (this._value) {

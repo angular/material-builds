@@ -1102,7 +1102,7 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     datepicker: MatDatepickerPanel<MatDatepickerControl<any>, D>;
     /** Tabindex for the toggle. */
     tabIndex: number | null;
-    /** Screenreader label for the button. */
+    /** Screen-reader label for the button. */
     ariaLabel: string;
     /** Whether the toggle button is disabled. */
     get disabled(): boolean;
@@ -1480,9 +1480,9 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
-     * This fucntion is used to match each component's model of the active date with the calendar
+     * This function is used to match each component's model of the active date with the calendar
      * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
      * updated value asynchronously via the `activeCell` Input.
      */
     _updateActiveDate(event: MatCalendarUserEvent<number>): void;
@@ -1585,9 +1585,9 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
-     * This fucntion is used to match each component's model of the active date with the calendar
+     * This function is used to match each component's model of the active date with the calendar
      * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
      * updated value asynchronously via the `activeCell` Input.
      */
     _updateActiveDate(event: MatCalendarUserEvent<number>): void;
@@ -1743,9 +1743,9 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
-     * This fucntion is used to match each component's model of the active date with the calendar
+     * This function is used to match each component's model of the active date with the calendar
      * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
      * updated value asynchronously via the `activeCell` Input.
      */
     _updateActiveDate(event: MatCalendarUserEvent<number>): void;

@@ -737,9 +737,9 @@ class MatMonthView {
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
-     * This fucntion is used to match each component's model of the active date with the calendar
+     * This function is used to match each component's model of the active date with the calendar
      * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
      * updated value asynchronously via the `activeCell` Input.
      */
     _updateActiveDate(event) {
@@ -1123,9 +1123,9 @@ class MatMultiYearView {
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
-     * This fucntion is used to match each component's model of the active date with the calendar
+     * This function is used to match each component's model of the active date with the calendar
      * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
      * updated value asynchronously via the `activeCell` Input.
      */
     _updateActiveDate(event) {
@@ -1427,9 +1427,9 @@ class MatYearView {
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
-     * This fucntion is used to match each component's model of the active date with the calendar
+     * This function is used to match each component's model of the active date with the calendar
      * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchonously via the `activeDateChange` event. The child component receives an
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
      * updated value asynchronously via the `activeCell` Input.
      */
     _updateActiveDate(event) {
@@ -2005,7 +2005,7 @@ class MatCalendar {
     /** Returns the component instance that corresponds to the current calendar view. */
     _getCurrentViewComponent() {
         // The return type is explicitly written as a union to ensure that the Closure compiler does
-        // not optimize calls to _init(). Without the explict return type, TypeScript narrows it to
+        // not optimize calls to _init(). Without the explicit return type, TypeScript narrows it to
         // only the first component type. See https://github.com/angular/components/issues/22996.
         return this.monthView || this.yearView || this.multiYearView;
     }

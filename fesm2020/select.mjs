@@ -230,7 +230,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
         this._compareWith = (o1, o2) => o1 === o2;
         /** Unique id for this input. */
         this._uid = `mat-select-${nextUniqueId++}`;
-        /** Current `ariar-labelledby` value for the select trigger. */
+        /** Current `aria-labelledby` value for the select trigger. */
         this._triggerAriaLabelledBy = null;
         /** Emits whenever the component is destroyed. */
         this._destroy = new Subject();

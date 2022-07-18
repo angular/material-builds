@@ -110,7 +110,7 @@ class MatChip extends _MatChipMixinBase {
         this._removable = true;
         /** Emits when the chip is focused. */
         this._onFocus = new Subject();
-        /** Emits when the chip is blured. */
+        /** Emits when the chip is blurred. */
         this._onBlur = new Subject();
         /** Emitted when the chip is selected or deselected. */
         this.selectionChange = new EventEmitter();
