@@ -145,7 +145,9 @@ class MatSlider extends _MatSliderBase {
                 const pointerPosition = getPointerPositionOnPage(event, this._touchId);
                 if (pointerPosition) {
                     // Prevent the slide from selecting anything else.
-                    event.preventDefault();
+                    if (event.cancelable) {
+                        event.preventDefault();
+                    }
                     const oldValue = this.value;
                     this._lastPointerEvent = event;
                     this._updateValueFromPosition(pointerPosition);
@@ -164,7 +166,9 @@ class MatSlider extends _MatSliderBase {
                     // Note that we use `changedTouches`, rather than `touches` because it
                     // seems like in most cases `touches` is empty for `touchend` events.
                     findMatchingTouch(event.changedTouches, this._touchId)) {
-                    event.preventDefault();
+                    if (event.cancelable) {
+                        event.preventDefault();
+                    }
                     this._removeGlobalEvents();
                     this._isSliding = null;
                     this._touchId = undefined;
