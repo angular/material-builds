@@ -847,6 +847,10 @@ class _MatAutocompleteTriggerBase {
                 event.preventDefault();
             }
         });
+        // Subscribe to the pointer events stream so that it doesn't get picked up by other overlays.
+        // TODO(crisbeto): we should switch `_getOutsideClickStream` eventually to use this stream,
+        // but the behvior isn't exactly the same and it ends up breaking some internal tests.
+        overlayRef.outsidePointerEvents().subscribe();
     }
 }
 _MatAutocompleteTriggerBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: _MatAutocompleteTriggerBase, deps: [{ token: i0.ElementRef }, { token: i1$1.Overlay }, { token: i0.ViewContainerRef }, { token: i0.NgZone }, { token: i0.ChangeDetectorRef }, { token: MAT_AUTOCOMPLETE_SCROLL_STRATEGY }, { token: i2$1.Directionality, optional: true }, { token: MAT_FORM_FIELD, host: true, optional: true }, { token: DOCUMENT, optional: true }, { token: i3.ViewportRuler }, { token: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
