@@ -6,8 +6,6 @@
 @use '../../../paginator/paginator-theme';
 @use '../../../form-field/form-field-theme';
 @use '../../../button-toggle/button-toggle-theme';
-@use '../../../card/card-theme';
-@use '../../../tooltip/tooltip-theme';
 
 // Includes all of the density styles.
 @mixin all-component-densities($config-or-theme) {
@@ -33,8 +31,6 @@
   @include paginator-theme.density($config);
   @include form-field-theme.density($config);
   @include button-toggle-theme.density($config);
-  @include card-theme.density($config);
-  @include tooltip-theme.density($config);
 }
 
 

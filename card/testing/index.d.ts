@@ -1,5 +1,4 @@
 import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
@@ -13,16 +12,17 @@ export declare interface CardHarnessFilters extends BaseHarnessFilters {
     subtitle?: string | RegExp;
 }
 
-/** Harness for interacting with an MDC-based mat-card in tests. */
+/** Harness for interacting with a standard mat-card in tests. */
 export declare class MatCardHarness extends ContentContainerComponentHarness<MatCardSection> {
     /** The selector for the host element of a `MatCard` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a card with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatCardHarness` that meets
+     * certain criteria.
      * @param options Options for filtering which card instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with<T extends MatCardHarness>(this: ComponentHarnessConstructor<T>, options?: CardHarnessFilters): HarnessPredicate<T>;
+    static with(options?: CardHarnessFilters): HarnessPredicate<MatCardHarness>;
     private _title;
     private _subtitle;
     /** Gets all of the card's content as text. */
@@ -35,10 +35,10 @@ export declare class MatCardHarness extends ContentContainerComponentHarness<Mat
 
 /** Selectors for different sections of the mat-card that can container user content. */
 export declare const enum MatCardSection {
-    HEADER = ".mat-mdc-card-header",
-    CONTENT = ".mat-mdc-card-content",
-    ACTIONS = ".mat-mdc-card-actions",
-    FOOTER = ".mat-mdc-card-footer"
+    HEADER = ".mat-card-header",
+    CONTENT = ".mat-card-content",
+    ACTIONS = ".mat-card-actions",
+    FOOTER = ".mat-card-footer"
 }
 
 export { }

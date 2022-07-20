@@ -1,20 +1,21 @@
 import { __awaiter } from 'tslib';
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-card in tests. */
+/** Harness for interacting with a standard mat-card in tests. */
 class MatCardHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._title = this.locatorForOptional('.mat-mdc-card-title');
-        this._subtitle = this.locatorForOptional('.mat-mdc-card-subtitle');
+        this._title = this.locatorForOptional('.mat-card-title');
+        this._subtitle = this.locatorForOptional('.mat-card-subtitle');
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a card with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a `MatCardHarness` that meets
+     * certain criteria.
      * @param options Options for filtering which card instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options)
+        return new HarnessPredicate(MatCardHarness, options)
             .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
             .addOption('title', options.title, (harness, title) => HarnessPredicate.stringMatches(harness.getTitleText(), title))
             .addOption('subtitle', options.subtitle, (harness, subtitle) => HarnessPredicate.stringMatches(harness.getSubtitleText(), subtitle));
@@ -41,7 +42,7 @@ class MatCardHarness extends ContentContainerComponentHarness {
     }
 }
 /** The selector for the host element of a `MatCard` instance. */
-MatCardHarness.hostSelector = '.mat-mdc-card';
+MatCardHarness.hostSelector = '.mat-card';
 
 /**
  * @license
