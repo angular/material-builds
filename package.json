@@ -370,6 +370,22 @@
       "node": "./fesm2015/legacy-core.mjs",
       "default": "./fesm2020/legacy-core.mjs"
     },
+    "./legacy-progress-bar": {
+      "types": "./legacy-progress-bar/index.d.ts",
+      "esm2020": "./esm2020/legacy-progress-bar/legacy-progress-bar_public_index.mjs",
+      "es2020": "./fesm2020/legacy-progress-bar.mjs",
+      "es2015": "./fesm2015/legacy-progress-bar.mjs",
+      "node": "./fesm2015/legacy-progress-bar.mjs",
+      "default": "./fesm2020/legacy-progress-bar.mjs"
+    },
+    "./legacy-progress-bar/testing": {
+      "types": "./legacy-progress-bar/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-progress-bar/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-progress-bar/testing.mjs",
+      "es2015": "./fesm2015/legacy-progress-bar/testing.mjs",
+      "node": "./fesm2015/legacy-progress-bar/testing.mjs",
+      "default": "./fesm2020/legacy-progress-bar/testing.mjs"
+    },
     "./legacy-tooltip": {
       "types": "./legacy-tooltip/index.d.ts",
       "esm2020": "./esm2020/legacy-tooltip/legacy-tooltip_public_index.mjs",
@@ -444,7 +460,7 @@
     },
     "./progress-bar/testing": {
       "types": "./progress-bar/testing/index.d.ts",
-      "esm2020": "./esm2020/progress-bar/testing/index.mjs",
+      "esm2020": "./esm2020/progress-bar/testing/testing_public_index.mjs",
       "es2020": "./fesm2020/progress-bar/testing.mjs",
       "es2015": "./fesm2015/progress-bar/testing.mjs",
       "node": "./fesm2015/progress-bar/testing.mjs",
