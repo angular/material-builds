@@ -370,6 +370,38 @@
       "node": "./fesm2015/legacy-core.mjs",
       "default": "./fesm2020/legacy-core.mjs"
     },
+    "./legacy-form-field": {
+      "types": "./legacy-form-field/index.d.ts",
+      "esm2020": "./esm2020/legacy-form-field/legacy-form-field_public_index.mjs",
+      "es2020": "./fesm2020/legacy-form-field.mjs",
+      "es2015": "./fesm2015/legacy-form-field.mjs",
+      "node": "./fesm2015/legacy-form-field.mjs",
+      "default": "./fesm2020/legacy-form-field.mjs"
+    },
+    "./legacy-form-field/testing": {
+      "types": "./legacy-form-field/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-form-field/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-form-field/testing.mjs",
+      "es2015": "./fesm2015/legacy-form-field/testing.mjs",
+      "node": "./fesm2015/legacy-form-field/testing.mjs",
+      "default": "./fesm2020/legacy-form-field/testing.mjs"
+    },
+    "./legacy-input": {
+      "types": "./legacy-input/index.d.ts",
+      "esm2020": "./esm2020/legacy-input/legacy-input_public_index.mjs",
+      "es2020": "./fesm2020/legacy-input.mjs",
+      "es2015": "./fesm2015/legacy-input.mjs",
+      "node": "./fesm2015/legacy-input.mjs",
+      "default": "./fesm2020/legacy-input.mjs"
+    },
+    "./legacy-input/testing": {
+      "types": "./legacy-input/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-input/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-input/testing.mjs",
+      "es2015": "./fesm2015/legacy-input/testing.mjs",
+      "node": "./fesm2015/legacy-input/testing.mjs",
+      "default": "./fesm2020/legacy-input/testing.mjs"
+    },
     "./legacy-progress-bar": {
       "types": "./legacy-progress-bar/index.d.ts",
       "esm2020": "./esm2020/legacy-progress-bar/legacy-progress-bar_public_index.mjs",

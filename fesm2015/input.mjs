@@ -6,7 +6,7 @@ import { InjectionToken, Directive, Optional, Self, Inject, Input, NgModule } fr
 import * as i2 from '@angular/forms';
 import { Validators } from '@angular/forms';
 import * as i3 from '@angular/material/core';
-import { mixinErrorState, MatCommonModule, ErrorStateMatcher } from '@angular/material/core';
+import { mixinErrorState, MatCommonModule } from '@angular/material/core';
 import * as i5 from '@angular/material/form-field';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
@@ -82,7 +82,6 @@ const _MatInputBase = mixinErrorState(class {
         this.stateChanges = new Subject();
     }
 });
-/** Directive that allows a native input to work inside a `MatFormField`. */
 class MatInput extends _MatInputBase {
     constructor(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
     // TODO: Remove this once the legacy appearance has been removed. We only need
@@ -297,17 +296,17 @@ class MatInput extends _MatInputBase {
         // Listening to the input event wouldn't be necessary when the input is using the
         // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
     }
+    /** Does some manual dirty checking on the native input `value` property. */
+    _dirtyCheckNativeValue() {
+        const newValue = this._elementRef.nativeElement.value;
+        if (this._previousNativeValue !== newValue) {
+            this._previousNativeValue = newValue;
+            this.stateChanges.next();
+        }
+    }
     /** Does some manual dirty checking on the native input `placeholder` attribute. */
     _dirtyCheckPlaceholder() {
-        var _a;
-        // If we're hiding the native placeholder, it should also be cleared from the DOM, otherwise
-        // screen readers will read it out twice: once from the label and once from the attribute.
-        // TODO: can be removed once we get rid of the `legacy` style for the form field, because it's
-        // the only one that supports promoting the placeholder to a label.
-        const formField = this._formField;
-        const placeholder = formField && formField.appearance === 'legacy' && !((_a = formField._hasLabel) === null || _a === void 0 ? void 0 : _a.call(formField))
-            ? null
-            : this.placeholder;
+        const placeholder = this._getPlaceholder();
         if (placeholder !== this._previousPlaceholder) {
             const element = this._elementRef.nativeElement;
             this._previousPlaceholder = placeholder;
@@ -316,13 +315,9 @@ class MatInput extends _MatInputBase {
                 : element.removeAttribute('placeholder');
         }
     }
-    /** Does some manual dirty checking on the native input `value` property. */
-    _dirtyCheckNativeValue() {
-        const newValue = this._elementRef.nativeElement.value;
-        if (this._previousNativeValue !== newValue) {
-            this._previousNativeValue = newValue;
-            this.stateChanges.next();
-        }
+    /** Gets the current placeholder of the form field. */
+    _getPlaceholder() {
+        return this.placeholder || null;
     }
     /** Make sure the input is a supported type. */
     _validateType() {
@@ -404,7 +399,7 @@ class MatInput extends _MatInputBase {
     }
 }
 MatInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatInput, deps: [{ token: i0.ElementRef }, { token: i1.Platform }, { token: i2.NgControl, optional: true, self: true }, { token: i2.NgForm, optional: true }, { token: i2.FormGroupDirective, optional: true }, { token: i3.ErrorStateMatcher }, { token: MAT_INPUT_VALUE_ACCESSOR, optional: true, self: true }, { token: i4.AutofillMonitor }, { token: i0.NgZone }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatInput.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.1", type: MatInput, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly" }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "attr.id": "id", "attr.data-placeholder": "placeholder", "disabled": "disabled", "required": "required", "attr.name": "name || null", "attr.readonly": "readonly && !_isNativeSelect || null", "class.mat-native-select-inline": "_isInlineSelect()", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required" }, classAttribute: "mat-input-element mat-form-field-autofill-control" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesInheritance: true, usesOnChanges: true, ngImport: i0 });
+MatInput.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.1", type: MatInput, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly" }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled", "required": "required", "attr.name": "name || null", "attr.readonly": "readonly && !_isNativeSelect || null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesInheritance: true, usesOnChanges: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatInput, decorators: [{
             type: Directive,
             args: [{
@@ -412,27 +407,29 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
       input[matNativeControl], textarea[matNativeControl]`,
                     exportAs: 'matInput',
                     host: {
-                        /**
-                         * @breaking-change 8.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
-                         */
-                        'class': 'mat-input-element mat-form-field-autofill-control',
+                        'class': 'mat-mdc-input-element',
+                        // The BaseMatInput parent class adds `mat-input-element`, `mat-form-field-control` and
+                        // `mat-form-field-autofill-control` to the CSS class list, but this should not be added for
+                        // this MDC equivalent input.
                         '[class.mat-input-server]': '_isServer',
+                        '[class.mat-mdc-form-field-textarea-control]': '_isInFormField && _isTextarea',
+                        '[class.mat-mdc-form-field-input-control]': '_isInFormField',
+                        '[class.mdc-text-field__input]': '_isInFormField',
+                        '[class.mat-mdc-native-select-inline]': '_isInlineSelect()',
                         // Native input properties that are overwritten by Angular inputs need to be synced with
                         // the native input element. Otherwise property bindings for those don't work.
-                        '[attr.id]': 'id',
-                        // At the time of writing, we have a lot of customer tests that look up the input based on its
-                        // placeholder. Since we sometimes omit the placeholder attribute from the DOM to prevent screen
-                        // readers from reading it twice, we have to keep it somewhere in the DOM for the lookup.
-                        '[attr.data-placeholder]': 'placeholder',
+                        '[id]': 'id',
                         '[disabled]': 'disabled',
                         '[required]': 'required',
                         '[attr.name]': 'name || null',
                         '[attr.readonly]': 'readonly && !_isNativeSelect || null',
-                        '[class.mat-native-select-inline]': '_isInlineSelect()',
                         // Only mark the input as invalid for assistive technology if it has a value since the
                         // state usually overlaps with `aria-required` when the input is empty and can be redundant.
                         '[attr.aria-invalid]': '(empty && required) ? null : errorState',
                         '[attr.aria-required]': 'required',
+                        // Native input properties that are overwritten by Angular inputs need to be synced with
+                        // the native input element. Otherwise property bindings for those don't work.
+                        '[attr.id]': 'id',
                         '(focus)': '_focusChanged(true)',
                         '(blur)': '_focusChanged(false)',
                         '(input)': '_onInput()',
@@ -494,28 +491,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
 class MatInputModule {
 }
 MatInputModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.1", ngImport: i0, type: MatInputModule, declarations: [MatInput], imports: [TextFieldModule, MatFormFieldModule, MatCommonModule], exports: [TextFieldModule,
-        // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-        // be used together with `MatFormField`.
-        MatFormFieldModule,
-        MatInput] });
-MatInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatInputModule, providers: [ErrorStateMatcher], imports: [TextFieldModule, MatFormFieldModule, MatCommonModule, TextFieldModule,
-        // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-        // be used together with `MatFormField`.
-        MatFormFieldModule] });
+MatInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.1", ngImport: i0, type: MatInputModule, declarations: [MatInput], imports: [MatCommonModule, MatFormFieldModule], exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule] });
+MatInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatFormFieldModule, TextFieldModule, MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatInputModule, decorators: [{
             type: NgModule,
             args: [{
+                    imports: [MatCommonModule, MatFormFieldModule],
+                    exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule],
                     declarations: [MatInput],
-                    imports: [TextFieldModule, MatFormFieldModule, MatCommonModule],
-                    exports: [
-                        TextFieldModule,
-                        // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-                        // be used together with `MatFormField`.
-                        MatFormFieldModule,
-                        MatInput,
-                    ],
-                    providers: [ErrorStateMatcher],
                 }]
         }] });
 

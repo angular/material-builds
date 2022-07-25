@@ -1,19 +1,16 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AbstractControlDirective } from '@angular/forms';
 import { AfterContentChecked } from '@angular/core';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { CanColor } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { _Constructor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i10 from '@angular/cdk/observers';
-import * as i8 from '@angular/common';
-import * as i9 from '@angular/material/core';
+import * as i10 from '@angular/material/core';
+import * as i11 from '@angular/common';
+import * as i12 from '@angular/cdk/observers';
 import { InjectionToken } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -23,8 +20,8 @@ import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-/** Possible values for the "floatLabel" form field input. */
-export declare type FloatLabelType = 'always' | 'never' | 'auto';
+/** Type for the available floatLabel values. */
+export declare type FloatLabelType = 'always' | 'auto';
 
 /** @docs-private */
 export declare function getMatFormFieldDuplicatedHintError(align: string): Error;
@@ -38,52 +35,64 @@ export declare function getMatFormFieldPlaceholderConflictError(): Error;
 
 declare namespace i1 {
     export {
-        MAT_ERROR,
-        MatError
+        FloatLabelType,
+        MatFormFieldAppearance,
+        SubscriptSizing,
+        MatFormFieldDefaultOptions,
+        MAT_FORM_FIELD,
+        MAT_FORM_FIELD_DEFAULT_OPTIONS,
+        MatFormField
     }
 }
 
 declare namespace i2 {
     export {
-        MatFormFieldAppearance,
-        FloatLabelType,
-        MatFormFieldDefaultOptions,
-        MAT_FORM_FIELD_DEFAULT_OPTIONS,
-        MAT_FORM_FIELD,
-        MatFormField
+        MatLabel
     }
 }
 
 declare namespace i3 {
     export {
-        _MAT_HINT,
-        MatHint
+        MAT_ERROR,
+        MatError
     }
 }
 
 declare namespace i4 {
     export {
-        MatLabel
+        MatHint
     }
 }
 
 declare namespace i5 {
-    export {
-        MatPlaceholder
-    }
-}
-
-declare namespace i6 {
     export {
         MAT_PREFIX,
         MatPrefix
     }
 }
 
-declare namespace i7 {
+declare namespace i6 {
     export {
         MAT_SUFFIX,
         MatSuffix
+    }
+}
+
+declare namespace i7 {
+    export {
+        MatFormFieldFloatingLabel
+    }
+}
+
+declare namespace i8 {
+    export {
+        MatFormFieldNotchedOutline
+    }
+}
+
+declare namespace i9 {
+    export {
+        MatFormFieldLineRipple
     }
 }
 
@@ -108,16 +117,6 @@ export declare const MAT_FORM_FIELD: InjectionToken<MatFormField>;
 export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatFormFieldDefaultOptions>;
 
 /**
- * Injection token that can be used to reference instances of `MatHint`. It serves as
- * alternative token to the actual `MatHint` class which could cause unnecessary
- * retention of the class and its directive metadata.
- *
- * *Note*: This is not part of the public API as the MDC-based form-field will not
- * need a lightweight token for `MatHint` and we want to reduce breaking changes.
- */
-export declare const _MAT_HINT: InjectionToken<MatHint>;
-
-/**
  * Injection token that can be used to reference instances of `MatPrefix`. It serves as
  * alternative token to the actual `MatPrefix` class which could cause unnecessary
  * retention of the class and its directive metadata.
@@ -131,7 +130,7 @@ export declare const MAT_PREFIX: InjectionToken<MatPrefix>;
  */
 export declare const MAT_SUFFIX: InjectionToken<MatSuffix>;
 
-/** Single error message to be shown underneath the form field. */
+/** Single error message to be shown underneath the form-field. */
 export declare class MatError {
     id: string;
     constructor(ariaLive: string, elementRef: ElementRef);
@@ -140,130 +139,161 @@ export declare class MatError {
 }
 
 /** Container for form controls that applies Material Design styling and behavior. */
-export declare class MatFormField extends _MatFormFieldBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
+export declare class MatFormField implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
+    private _elementRef;
     private _changeDetectorRef;
-    private _dir;
-    private _defaults;
-    private _platform;
     private _ngZone;
-    /**
-     * Whether the outline gap needs to be calculated
-     * immediately on the next change detection run.
-     */
-    private _outlineGapCalculationNeededImmediately;
-    /** Whether the outline gap needs to be calculated next time the zone has stabilized. */
-    private _outlineGapCalculationNeededOnStable;
-    private readonly _destroyed;
-    /** The form field appearance style. */
-    get appearance(): MatFormFieldAppearance;
-    set appearance(value: MatFormFieldAppearance);
-    _appearance: MatFormFieldAppearance;
+    private _dir;
+    private _platform;
+    private _defaults?;
+    _animationMode?: string | undefined;
+    private _document?;
+    _textField: ElementRef<HTMLElement>;
+    _iconPrefixContainer: ElementRef<HTMLElement>;
+    _textPrefixContainer: ElementRef<HTMLElement>;
+    _floatingLabel: MatFormFieldFloatingLabel | undefined;
+    _notchedOutline: MatFormFieldNotchedOutline | undefined;
+    _lineRipple: MatFormFieldLineRipple | undefined;
+    _labelChildNonStatic: MatLabel | undefined;
+    _labelChildStatic: MatLabel | undefined;
+    _formFieldControl: MatFormFieldControl<any>;
+    _prefixChildren: QueryList<MatPrefix>;
+    _suffixChildren: QueryList<MatSuffix>;
+    _errorChildren: QueryList<MatError>;
+    _hintChildren: QueryList<MatHint>;
     /** Whether the required marker should be hidden. */
     get hideRequiredMarker(): boolean;
     set hideRequiredMarker(value: BooleanInput);
     private _hideRequiredMarker;
-    /** Override for the logic that disables the label animation in certain cases. */
-    private _showAlwaysAnimate;
-    /** Whether the floating label should always float or not. */
-    _shouldAlwaysFloat(): boolean;
-    /** Whether the label can float or not. */
-    _canLabelFloat(): boolean;
-    /** State of the mat-hint and mat-error animations. */
-    _subscriptAnimationState: string;
+    /** The color palette for the form field. */
+    color: ThemePalette;
+    /** Whether the label should always float or float as the user types. */
+    get floatLabel(): FloatLabelType;
+    set floatLabel(value: FloatLabelType);
+    private _floatLabel;
+    /** The form field appearance style. */
+    get appearance(): MatFormFieldAppearance;
+    set appearance(value: MatFormFieldAppearance);
+    private _appearance;
+    /**
+     * Whether the form field should reserve space for one line of hint/error text (default)
+     * or to have the spacing grow from 0px as needed based on the size of the hint/error content.
+     * Note that when using dynamic sizing, layout shifts will occur when hint/error text changes.
+     */
+    get subscriptSizing(): SubscriptSizing;
+    set subscriptSizing(value: SubscriptSizing);
+    private _subscriptSizing;
     /** Text for the form field hint. */
     get hintLabel(): string;
     set hintLabel(value: string);
     private _hintLabel;
-    readonly _hintLabelId: string;
+    _hasIconPrefix: boolean;
+    _hasTextPrefix: boolean;
+    _hasIconSuffix: boolean;
+    _hasTextSuffix: boolean;
     readonly _labelId: string;
-    /**
-     * Whether the label should always float, never float or float as the user types.
-     *
-     * Note: only the legacy appearance supports the `never` option. `never` was originally added as a
-     * way to make the floating label emulate the behavior of a standard input placeholder. However
-     * the form field now supports both floating labels and placeholders. Therefore in the non-legacy
-     * appearances the `never` option has been disabled in favor of just using the placeholder.
-     */
-    get floatLabel(): FloatLabelType;
-    set floatLabel(value: FloatLabelType);
-    private _floatLabel;
-    /** Whether the Angular animations are enabled. */
-    _animationsEnabled: boolean;
-    _connectionContainerRef: ElementRef;
-    _inputContainerRef: ElementRef;
-    private _label;
-    _controlNonStatic: MatFormFieldControl<any>;
-    _controlStatic: MatFormFieldControl<any>;
+    readonly _hintLabelId: string;
+    /** State of the mat-hint and mat-error animations. */
+    _subscriptAnimationState: string;
+    /** Width of the label element (at scale=1). */
+    _labelWidth: number;
+    /** Gets the current form field control */
     get _control(): MatFormFieldControl<any>;
     set _control(value: MatFormFieldControl<any>);
+    private _destroyed;
+    private _isFocused;
     private _explicitFormFieldControl;
-    _labelChildNonStatic: MatLabel;
-    _labelChildStatic: MatLabel;
-    _placeholderChild: MatPlaceholder;
-    _errorChildren: QueryList<MatError>;
-    _hintChildren: QueryList<MatHint>;
-    _prefixChildren: QueryList<MatPrefix>;
-    _suffixChildren: QueryList<MatSuffix>;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform: Platform, _ngZone: NgZone, _animationMode: string);
+    private _needsOutlineLabelOffsetUpdateOnStable;
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _dir: Directionality, _platform: Platform, _defaults?: MatFormFieldDefaultOptions | undefined, _animationMode?: string | undefined, _document?: any);
+    ngAfterViewInit(): void;
+    ngAfterContentInit(): void;
+    ngAfterContentChecked(): void;
+    ngOnDestroy(): void;
     /**
      * Gets the id of the label element. If no label is present, returns `null`.
      */
     getLabelId(): string | null;
     /**
-     * Gets an ElementRef for the element that a overlay attached to the form field should be
-     * positioned relative to.
+     * Gets an ElementRef for the element that a overlay attached to the form field
+     * should be positioned relative to.
      */
     getConnectedOverlayOrigin(): ElementRef;
-    ngAfterContentInit(): void;
-    ngAfterContentChecked(): void;
-    ngAfterViewInit(): void;
-    ngOnDestroy(): void;
+    /** Animates the placeholder up and locks it in position. */
+    _animateAndLockLabel(): void;
+    /** Initializes the registered form field control. */
+    private _initializeControl;
+    private _checkPrefixAndSuffixTypes;
+    /** Initializes the prefix and suffix containers. */
+    private _initializePrefixAndSuffix;
+    /**
+     * Initializes the subscript by validating hints and synchronizing "aria-describedby" ids
+     * with the custom form field control. Also subscribes to hint and error changes in order
+     * to be able to validate and synchronize ids on change.
+     */
+    private _initializeSubscript;
+    /** Throws an error if the form field's control is missing. */
+    private _assertFormFieldControl;
+    private _updateFocusState;
+    /**
+     * The floating label in the docked state needs to account for prefixes. The horizontal offset
+     * is calculated whenever the appearance changes to `outline`, the prefixes change, or when the
+     * form field is added to the DOM. This method sets up all subscriptions which are needed to
+     * trigger the label offset update. In general, we want to avoid performing measurements often,
+     * so we rely on the `NgZone` as indicator when the offset should be recalculated, instead of
+     * checking every change detection cycle.
+     */
+    private _initializeOutlineLabelOffsetSubscriptions;
+    /** Whether the floating label should always float or not. */
+    _shouldAlwaysFloat(): boolean;
+    _hasOutline(): boolean;
+    /**
+     * Whether the label should display in the infix. Labels in the outline appearance are
+     * displayed as part of the notched-outline and are horizontally offset to account for
+     * form field prefix content. This won't work in server side rendering since we cannot
+     * measure the width of the prefix container. To make the docked label appear as if the
+     * right offset has been calculated, we forcibly render the label inside the infix. Since
+     * the label is part of the infix, the label cannot overflow the prefix content.
+     */
+    _forceDisplayInfixLabel(): boolean | 0;
+    _hasFloatingLabel(): boolean;
+    _shouldLabelFloat(): boolean;
     /**
      * Determines whether a class from the AbstractControlDirective
      * should be forwarded to the host element.
      */
     _shouldForward(prop: keyof AbstractControlDirective): boolean;
-    _hasPlaceholder(): boolean;
-    _hasLabel(): boolean;
-    _shouldLabelFloat(): boolean;
-    _hideControlPlaceholder(): boolean;
-    _hasFloatingLabel(): boolean;
     /** Determines whether to display hints or errors. */
     _getDisplayedMessages(): 'error' | 'hint';
-    /** Animates the placeholder up and locks it in position. */
-    _animateAndLockLabel(): void;
-    /**
-     * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
-     * or child element with the `mat-placeholder` directive).
-     */
-    private _validatePlaceholders;
+    /** Refreshes the width of the outline-notch, if present. */
+    _refreshOutlineNotchWidth(): void;
     /** Does any extra processing that is required when handling the hints. */
     private _processHints;
     /**
-     * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
-     * attribute being considered as `align="start"`.
+     * Ensure that there is a maximum of one of each "mat-hint" alignment specified. The hint
+     * label specified set through the input is being considered as "start" aligned.
+     *
+     * This method is a noop if Angular runs in production mode.
      */
     private _validateHints;
-    /** Gets the default float label state. */
-    private _getDefaultFloatLabelState;
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
      * its `aria-describedby` attribute accordingly.
      */
     private _syncDescribedByIds;
-    /** Throws an error if the form field's control is missing. */
-    protected _validateControlChild(): void;
     /**
-     * Updates the width and position of the gap in the outline. Only relevant for the outline
-     * appearance.
+     * Updates the horizontal offset of the label in the outline appearance. In the outline
+     * appearance, the notched-outline and label are not relative to the infix container because
+     * the outline intends to surround prefixes, suffixes and the infix. This means that the
+     * floating label by default overlaps prefixes in the docked state. To avoid this, we need to
+     * horizontally offset the label by the width of the prefix container. The MDC text-field does
+     * not need to do this because they use a fixed width for prefixes. Hence, they can simply
+     * incorporate the horizontal offset into their default text-field styles.
      */
-    updateOutlineGap(): void;
-    /** Gets the start end of the rect considering the current directionality. */
-    private _getStartEnd;
+    private _updateOutlineLabelOffset;
     /** Checks whether the form field is attached to the DOM. */
-    private _isAttachedToDOM;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "color": "color"; "appearance": "appearance"; "hideRequiredMarker": "hideRequiredMarker"; "hintLabel": "hintLabel"; "floatLabel": "floatLabel"; }, {}, ["_controlNonStatic", "_controlStatic", "_labelChildNonStatic", "_labelChildStatic", "_placeholderChild", "_errorChildren", "_hintChildren", "_prefixChildren", "_suffixChildren"], ["[matPrefix]", "*", "mat-placeholder", "mat-label", "[matSuffix]", "mat-error", "mat-hint:not([align='end'])", "mat-hint[align='end']"], false>;
+    private _isAttachedToDom;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, [null, null, null, null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "hideRequiredMarker": "hideRequiredMarker"; "color": "color"; "floatLabel": "floatLabel"; "appearance": "appearance"; "subscriptSizing": "subscriptSizing"; "hintLabel": "hintLabel"; }, {}, ["_labelChildNonStatic", "_labelChildStatic", "_formFieldControl", "_prefixChildren", "_suffixChildren", "_errorChildren", "_hintChildren"], ["mat-label", "[matPrefix], [matIconPrefix]", "[matTextPrefix]", "*", "[matTextSuffix]", "[matSuffix], [matIconSuffix]", "mat-error", "mat-hint:not([align='end'])", "mat-hint[align='end']"], false>;
 }
 
 /**
@@ -275,17 +305,7 @@ export declare const matFormFieldAnimations: {
 };
 
 /** Possible appearance styles for the form field. */
-export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
-
-/**
- * Boilerplate for applying mixins to MatFormField.
- * @docs-private
- */
-declare const _MatFormFieldBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {
-    new (_elementRef: ElementRef): {
-        _elementRef: ElementRef;
-    };
-};
+export declare type MatFormFieldAppearance = 'fill' | 'outline';
 
 /** An interface which allows a control to work inside of a `MatFormField`. */
 export declare abstract class MatFormFieldControl<T> {
@@ -354,12 +374,79 @@ export declare interface MatFormFieldDefaultOptions {
      * `never`, or `auto` (only when necessary).
      */
     floatLabel?: FloatLabelType;
+    /** Whether the form field should reserve space for one line by default. */
+    subscriptSizing?: SubscriptSizing;
+}
+
+/**
+ * Internal directive that maintains a MDC floating label. This directive does not
+ * use the `MDCFloatingLabelFoundation` class, as it is not worth the size cost of
+ * including it just to measure the label width and toggle some classes.
+ *
+ * The use of a directive allows us to conditionally render a floating label in the
+ * template without having to manually manage instantiation and destruction of the
+ * floating label component based on.
+ *
+ * The component is responsible for setting up the floating label styles, measuring label
+ * width for the outline notch, and providing inputs that can be used to toggle the
+ * label's floating or required state.
+ */
+declare class MatFormFieldFloatingLabel {
+    private _elementRef;
+    /** Whether the label is floating. */
+    floating: boolean;
+    constructor(_elementRef: ElementRef<HTMLElement>);
+    /** Gets the width of the label. Used for the outline notch. */
+    getWidth(): number;
+    /** Gets the HTML element for the floating label. */
+    get element(): HTMLElement;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldFloatingLabel, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldFloatingLabel, "label[matFormFieldFloatingLabel]", never, { "floating": "floating"; }, {}, never, never, false>;
+}
+
+/**
+ * Internal directive that creates an instance of the MDC line-ripple component. Using a
+ * directive allows us to conditionally render a line-ripple in the template without having
+ * to manually create and destroy the `MDCLineRipple` component whenever the condition changes.
+ *
+ * The directive sets up the styles for the line-ripple and provides an API for activating
+ * and deactivating the line-ripple.
+ */
+declare class MatFormFieldLineRipple implements OnDestroy {
+    private _elementRef;
+    constructor(_elementRef: ElementRef<HTMLElement>, ngZone: NgZone);
+    activate(): void;
+    deactivate(): void;
+    private _handleTransitionEnd;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldLineRipple, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldLineRipple, "div[matFormFieldLineRipple]", never, {}, {}, never, never, false>;
 }
 
 export declare class MatFormFieldModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatFormFieldModule, [typeof i1.MatError, typeof i2.MatFormField, typeof i3.MatHint, typeof i4.MatLabel, typeof i5.MatPlaceholder, typeof i6.MatPrefix, typeof i7.MatSuffix], [typeof i8.CommonModule, typeof i9.MatCommonModule, typeof i10.ObserversModule], [typeof i9.MatCommonModule, typeof i1.MatError, typeof i2.MatFormField, typeof i3.MatHint, typeof i4.MatLabel, typeof i5.MatPlaceholder, typeof i6.MatPrefix, typeof i7.MatSuffix]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatFormFieldModule, [typeof i1.MatFormField, typeof i2.MatLabel, typeof i3.MatError, typeof i4.MatHint, typeof i5.MatPrefix, typeof i6.MatSuffix, typeof i7.MatFormFieldFloatingLabel, typeof i8.MatFormFieldNotchedOutline, typeof i9.MatFormFieldLineRipple], [typeof i10.MatCommonModule, typeof i11.CommonModule, typeof i12.ObserversModule], [typeof i1.MatFormField, typeof i2.MatLabel, typeof i4.MatHint, typeof i3.MatError, typeof i5.MatPrefix, typeof i6.MatSuffix, typeof i10.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatFormFieldModule>;
+}
+
+/**
+ * Internal component that creates an instance of the MDC notched-outline component.
+ *
+ * The component sets up the HTML structure and styles for the notched-outline. It provides
+ * inputs to toggle the notch state and width.
+ */
+declare class MatFormFieldNotchedOutline implements AfterViewInit {
+    private _elementRef;
+    private _ngZone;
+    /** Width of the label (original scale) */
+    labelWidth: number;
+    /** Whether the notch should be opened. */
+    open: boolean;
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
+    ngAfterViewInit(): void;
+    _getNotchWidth(): string | null;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldNotchedOutline, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormFieldNotchedOutline, "div[matFormFieldNotchedOutline]", never, { "labelWidth": "matFormFieldNotchedOutlineLabelWidth"; "open": "matFormFieldNotchedOutlineOpen"; }, {}, never, ["*"], false>;
 }
 
 /** Hint text to be shown underneath the form field control. */
@@ -378,27 +465,23 @@ export declare class MatLabel {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLabel, "mat-label", never, {}, {}, never, never, false>;
 }
 
-/**
- * The placeholder text for an `MatFormField`.
- * @deprecated Use `<mat-label>` to specify the label and the `placeholder` attribute to specify the
- *     placeholder.
- * @breaking-change 8.0.0
- */
-export declare class MatPlaceholder {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatPlaceholder, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPlaceholder, "mat-placeholder", never, {}, {}, never, never, false>;
-}
-
 /** Prefix to be placed in front of the form field. */
 export declare class MatPrefix {
+    _isText: boolean;
+    constructor(elementRef: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPrefix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPrefix, "[matPrefix]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPrefix, "[matPrefix], [matIconPrefix], [matTextPrefix]", never, {}, {}, never, never, false>;
 }
 
 /** Suffix to be placed at the end of the form field. */
 export declare class MatSuffix {
+    _isText: boolean;
+    constructor(elementRef: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSuffix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSuffix, "[matSuffix]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSuffix, "[matSuffix], [matIconSuffix], [matTextSuffix]", never, {}, {}, never, never, false>;
 }
+
+/** Behaviors for how the subscript height is set. */
+export declare type SubscriptSizing = 'fixed' | 'dynamic';
 
 export { }

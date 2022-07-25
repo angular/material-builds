@@ -23,11 +23,11 @@ import * as i2 from '@angular/common';
 import * as i3 from '@angular/cdk/overlay';
 import * as i4 from '@angular/material/core';
 import * as i5 from '@angular/cdk/scrolling';
-import * as i6 from '@angular/material/form-field';
+import * as i6 from '@angular/material/legacy-form-field';
 import { InjectionToken } from '@angular/core';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatFormField } from '@angular/material/form-field';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { MatLegacyFormField } from '@angular/material/legacy-form-field';
+import { MatLegacyFormFieldControl } from '@angular/material/legacy-form-field';
 import { MatOptgroup } from '@angular/material/core';
 import { MatOption } from '@angular/material/core';
 import { _MatOptionBase } from '@angular/material/core';
@@ -176,12 +176,12 @@ export declare const matSelectAnimations: {
 };
 
 /** Base class with all of the `MatSelect` functionality. */
-export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
+export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatLegacyFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
     protected _viewportRuler: ViewportRuler;
     protected _changeDetectorRef: ChangeDetectorRef;
     protected _ngZone: NgZone;
     private _dir;
-    protected _parentFormField: MatFormField;
+    protected _parentFormField: MatLegacyFormField;
     private _liveAnnouncer;
     private _defaultOptions?;
     /** All of the defined select options. */
@@ -317,7 +317,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatLegacyFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
@@ -493,7 +493,7 @@ declare const _MatSelectMixinBase: _Constructor<CanDisableRipple> & _AbstractCon
 
 export declare class MatSelectModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, [typeof i1.MatSelect, typeof i1.MatSelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatOptionModule, typeof i4.MatCommonModule], [typeof i5.CdkScrollableModule, typeof i6.MatFormFieldModule, typeof i1.MatSelect, typeof i1.MatSelectTrigger, typeof i4.MatOptionModule, typeof i4.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, [typeof i1.MatSelect, typeof i1.MatSelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatOptionModule, typeof i4.MatCommonModule], [typeof i5.CdkScrollableModule, typeof i6.MatLegacyFormFieldModule, typeof i1.MatSelect, typeof i1.MatSelectTrigger, typeof i4.MatOptionModule, typeof i4.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSelectModule>;
 }
 

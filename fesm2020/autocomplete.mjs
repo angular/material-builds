@@ -16,8 +16,8 @@ import * as i2$1 from '@angular/cdk/bidi';
 import { hasModifierKey, ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import * as i4 from '@angular/material/form-field';
-import { MAT_FORM_FIELD } from '@angular/material/form-field';
+import * as i4 from '@angular/material/legacy-form-field';
+import { MAT_FORM_FIELD } from '@angular/material/legacy-form-field';
 import { startWith, switchMap, take, filter, map, tap, delay } from 'rxjs/operators';
 
 /**
@@ -899,7 +899,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
                     args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY]
                 }] }, { type: i2$1.Directionality, decorators: [{
                     type: Optional
-                }] }, { type: i4.MatFormField, decorators: [{
+                }] }, { type: i4.MatLegacyFormField, decorators: [{
                     type: Optional
                 }, {
                     type: Inject,

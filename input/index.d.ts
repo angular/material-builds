@@ -9,9 +9,9 @@ import { ElementRef } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/cdk/text-field';
+import * as i2 from '@angular/material/core';
 import * as i3 from '@angular/material/form-field';
-import * as i4 from '@angular/material/core';
+import * as i4 from '@angular/cdk/text-field';
 import { InjectionToken } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -43,12 +43,11 @@ export declare const MAT_INPUT_VALUE_ACCESSOR: InjectionToken<{
     value: any;
 }>;
 
-/** Directive that allows a native input to work inside a `MatFormField`. */
 export declare class MatInput extends _MatInputBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, AfterViewInit, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
     protected _platform: Platform;
     private _autofillMonitor;
-    private _formField?;
+    protected _formField?: MatFormField | undefined;
     protected _uid: string;
     protected _previousNativeValue: any;
     private _inputValueAccessor;
@@ -144,10 +143,12 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
-    /** Does some manual dirty checking on the native input `placeholder` attribute. */
-    private _dirtyCheckPlaceholder;
     /** Does some manual dirty checking on the native input `value` property. */
     protected _dirtyCheckNativeValue(): void;
+    /** Does some manual dirty checking on the native input `placeholder` attribute. */
+    private _dirtyCheckPlaceholder;
+    /** Gets the current placeholder of the form field. */
+    protected _getPlaceholder(): string | null;
     /** Make sure the input is a supported type. */
     protected _validateType(): void;
     /** Checks whether the input type is one of the types that are never empty. */
@@ -204,7 +205,7 @@ declare const _MatInputBase: _Constructor<CanUpdateErrorState> & _AbstractConstr
 
 export declare class MatInputModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInputModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatInputModule, [typeof i1.MatInput], [typeof i2.TextFieldModule, typeof i3.MatFormFieldModule, typeof i4.MatCommonModule], [typeof i2.TextFieldModule, typeof i3.MatFormFieldModule, typeof i1.MatInput]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatInputModule, [typeof i1.MatInput], [typeof i2.MatCommonModule, typeof i3.MatFormFieldModule], [typeof i1.MatInput, typeof i3.MatFormFieldModule, typeof i4.TextFieldModule, typeof i2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatInputModule>;
 }
 

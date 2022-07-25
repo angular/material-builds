@@ -33,8 +33,8 @@ import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDateFormats } from '@angular/material/core';
-import { MatFormField } from '@angular/material/form-field';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { MatLegacyFormField } from '@angular/material/legacy-form-field';
+import { MatLegacyFormFieldControl } from '@angular/material/legacy-form-field';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -878,7 +878,7 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     private _dateFilter;
     /** The combined form control validator for this input. */
     protected _validator: ValidatorFn | null;
-    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField?: MatFormField | undefined);
+    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField?: MatLegacyFormField | undefined);
     /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
@@ -1130,7 +1130,7 @@ export declare class MatDatepickerToggleIcon {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never, never, false>;
 }
 
-export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
+export declare class MatDateRangeInput<D> implements MatLegacyFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _dateAdapter;
@@ -1200,7 +1200,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     ngControl: NgControl | null;
     /** Emits when the input's state has changed. */
     readonly stateChanges: Subject<void>;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: MatFormField | undefined);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: MatLegacyFormField | undefined);
     /**
      * Implemented as a part of `MatFormFieldControl`.
      * @docs-private

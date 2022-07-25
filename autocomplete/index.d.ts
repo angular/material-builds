@@ -16,7 +16,7 @@ import * as i5 from '@angular/material/core';
 import * as i6 from '@angular/common';
 import * as i7 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
-import { MatFormField } from '@angular/material/form-field';
+import { MatLegacyFormField } from '@angular/material/legacy-form-field';
 import { MatOptgroup } from '@angular/material/core';
 import { _MatOptgroupBase } from '@angular/material/core';
 import { MatOption } from '@angular/material/core';
@@ -344,7 +344,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      */
     get autocompleteDisabled(): boolean;
     set autocompleteDisabled(value: BooleanInput);
-    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | undefined);
+    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatLegacyFormField, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | undefined);
     /** Class to apply to the panel when it's above the input. */
     protected abstract _aboveClass: string;
     ngAfterViewInit(): void;

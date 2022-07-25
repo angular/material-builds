@@ -12,7 +12,7 @@ import * as i4 from '@angular/material/select';
 import * as i5 from '@angular/material/legacy-tooltip';
 import * as i6 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { MatLegacyFormFieldAppearance } from '@angular/material/legacy-form-field';
 import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -51,7 +51,7 @@ export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPagin
  */
 export declare class MatPaginator extends _MatPaginatorBase<MatPaginatorDefaultOptions> {
     /** If set, styles the "page size" form field with the designated style. */
-    _formFieldAppearance?: MatFormFieldAppearance;
+    _formFieldAppearance?: MatLegacyFormFieldAppearance;
     constructor(intl: MatPaginatorIntl, changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, [null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "disabled": "disabled"; }, {}, never, never, false>;
@@ -155,7 +155,7 @@ export declare interface MatPaginatorDefaultOptions {
     /** Whether to show the first/last buttons UI to the user. */
     showFirstLastButtons?: boolean;
     /** The default form-field appearance to apply to the page size options selector. */
-    formFieldAppearance?: MatFormFieldAppearance;
+    formFieldAppearance?: MatLegacyFormFieldAppearance;
 }
 
 /**
