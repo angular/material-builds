@@ -1,21 +1,20 @@
 import { __awaiter } from 'tslib';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with a `mat-option` in tests. */
+/** Harness for interacting with an MDC-based `mat-option` in tests. */
 class MatOptionHarness extends ComponentHarness {
     constructor() {
         super(...arguments);
         /** Element containing the option's text. */
-        this._text = this.locatorFor('.mat-option-text');
+        this._text = this.locatorFor('.mdc-list-item__primary-text');
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatOptionsHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for an option with specific attributes.
      * @param options Options for filtering which option instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatOptionHarness, options)
+        return new HarnessPredicate(this, options)
             .addOption('text', options.text, (harness, title) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getText(), title); }))
             .addOption('isSelected', options.isSelected, (harness, isSelected) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isSelected()) === isSelected; }));
     }
@@ -34,45 +33,45 @@ class MatOptionHarness extends ComponentHarness {
     /** Gets whether the option is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hasClass('mat-option-disabled');
+            return (yield this.host()).hasClass('mdc-list-item--disabled');
         });
     }
     /** Gets whether the option is selected. */
     isSelected() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hasClass('mat-selected');
+            return (yield this.host()).hasClass('mdc-list-item--selected');
         });
     }
     /** Gets whether the option is active. */
     isActive() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hasClass('mat-active');
+            return (yield this.host()).hasClass('mat-mdc-option-active');
         });
     }
     /** Gets whether the option is in multiple selection mode. */
     isMultiple() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hasClass('mat-option-multiple');
+            return (yield this.host()).hasClass('mat-mdc-option-multiple');
         });
     }
 }
 /** Selector used to locate option instances. */
-MatOptionHarness.hostSelector = '.mat-option';
+MatOptionHarness.hostSelector = '.mat-mdc-option';
 
-/** Harness for interacting with a `mat-optgroup` in tests. */
+/** Harness for interacting with an MDC-based `mat-optgroup` in tests. */
 class MatOptgroupHarness extends ComponentHarness {
     constructor() {
         super(...arguments);
-        this._label = this.locatorFor('.mat-optgroup-label');
+        this._label = this.locatorFor('.mat-mdc-optgroup-label');
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatOptgroupHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a option group with specific
+     * attributes.
      * @param options Options for filtering which option instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatOptgroupHarness, options).addOption('labelText', options.labelText, (harness, title) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getLabelText(), title); }));
+        return new HarnessPredicate(this, options).addOption('labelText', options.labelText, (harness, title) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getLabelText(), title); }));
     }
     /** Gets the option group's label text. */
     getLabelText() {
@@ -83,7 +82,7 @@ class MatOptgroupHarness extends ComponentHarness {
     /** Gets whether the option group is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.host()).hasClass('mat-optgroup-disabled');
+            return (yield (yield this.host()).getAttribute('aria-disabled')) === 'true';
         });
     }
     /**
@@ -97,7 +96,7 @@ class MatOptgroupHarness extends ComponentHarness {
     }
 }
 /** Selector used to locate option group instances. */
-MatOptgroupHarness.hostSelector = '.mat-optgroup';
+MatOptgroupHarness.hostSelector = '.mat-mdc-optgroup';
 
 /**
  * @license

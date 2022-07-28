@@ -21632,7 +21632,7 @@ var IMPORT_REPLACEMENTS = {
   },
   "core": {
     old: "@angular/material/core",
-    new: "@angular/material-experimental/mdc-core"
+    new: "@angular/material/core"
   },
   "list": {
     old: "@angular/material/list",

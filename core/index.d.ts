@@ -7,7 +7,6 @@ import { _Constructor as _Constructor_2 } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusOptions as FocusOptions_2 } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FormGroupDirective } from '@angular/forms';
 import { HighContrastModeDetector } from '@angular/cdk/a11y';
@@ -607,7 +606,7 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
     /** Deselects the option. */
     deselect(): void;
     /** Sets focus onto this option. */
-    focus(_origin?: FocusOrigin, options?: FocusOptions_2): void;
+    focus(_origin?: FocusOrigin, options?: FocusOptions): void;
     /**
      * This method sets display styles on the option to make it appear
      * active. This is used by the ActiveDescendantKeyManager so key

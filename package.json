@@ -370,6 +370,14 @@
       "node": "./fesm2015/legacy-core.mjs",
       "default": "./fesm2020/legacy-core.mjs"
     },
+    "./legacy-core/testing": {
+      "types": "./legacy-core/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-core/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-core/testing.mjs",
+      "es2015": "./fesm2015/legacy-core/testing.mjs",
+      "node": "./fesm2015/legacy-core/testing.mjs",
+      "default": "./fesm2020/legacy-core/testing.mjs"
+    },
     "./legacy-form-field": {
       "types": "./legacy-form-field/index.d.ts",
       "esm2020": "./esm2020/legacy-form-field/legacy-form-field_public_index.mjs",

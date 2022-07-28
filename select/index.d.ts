@@ -21,17 +21,18 @@ import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/common';
 import * as i3 from '@angular/cdk/overlay';
-import * as i4 from '@angular/material/core';
-import * as i5 from '@angular/cdk/scrolling';
-import * as i6 from '@angular/material/legacy-form-field';
+import * as i4 from '@angular/material/legacy-core';
+import * as i5 from '@angular/material/core';
+import * as i6 from '@angular/cdk/scrolling';
+import * as i7 from '@angular/material/legacy-form-field';
 import { InjectionToken } from '@angular/core';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatLegacyFormField } from '@angular/material/legacy-form-field';
 import { MatLegacyFormFieldControl } from '@angular/material/legacy-form-field';
-import { MatOptgroup } from '@angular/material/core';
-import { MatOption } from '@angular/material/core';
-import { _MatOptionBase } from '@angular/material/core';
-import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatLegacyOptgroup } from '@angular/material/legacy-core';
+import { MatLegacyOption } from '@angular/material/legacy-core';
+import { _MatOptionBase } from '@angular/material/legacy-core';
+import { MatOptionSelectionChange } from '@angular/material/legacy-core';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -107,8 +108,8 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
      * when the panel opens. Will change based on the y-position of the selected option.
      */
     _offsetY: number;
-    options: QueryList<MatOption>;
-    optionGroups: QueryList<MatOptgroup>;
+    options: QueryList<MatLegacyOption>;
+    optionGroups: QueryList<MatLegacyOptgroup>;
     customTrigger: MatSelectTrigger;
     _positions: ConnectedPosition[];
     /**
@@ -187,7 +188,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     /** All of the defined select options. */
     abstract options: QueryList<_MatOptionBase>;
     /** All of the defined groups of options. */
-    abstract optionGroups: QueryList<MatOptgroup>;
+    abstract optionGroups: QueryList<MatLegacyOptgroup>;
     /** User-supplied override of the trigger element. */
     abstract customTrigger: {};
     /**
@@ -226,9 +227,9 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      */
     userAriaDescribedBy: string;
     /** Deals with the selection logic. */
-    _selectionModel: SelectionModel<MatOption>;
+    _selectionModel: SelectionModel<MatLegacyOption>;
     /** Manages keyboard events for options in the panel. */
-    _keyManager: ActiveDescendantKeyManager<MatOption>;
+    _keyManager: ActiveDescendantKeyManager<MatLegacyOption>;
     /** `View -> model callback called when value changes` */
     _onChange: (value: any) => void;
     /** `View -> model callback called when select has been touched` */
@@ -296,7 +297,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      * Function used to sort the values in a select in multiple mode.
      * Follows the same logic as `Array.prototype.sort`.
      */
-    sortComparator: (a: MatOption, b: MatOption, options: MatOption[]) => number;
+    sortComparator: (a: MatLegacyOption, b: MatLegacyOption, options: MatLegacyOption[]) => number;
     /** Unique id of the element. */
     get id(): string;
     set id(value: string);
@@ -362,7 +363,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     /** Whether or not the overlay panel is open. */
     get panelOpen(): boolean;
     /** The currently selected option. */
-    get selected(): MatOption | MatOption[];
+    get selected(): MatLegacyOption | MatLegacyOption[];
     /** The value displayed in the trigger. */
     get triggerValue(): string;
     /** Whether the element is in RTL mode. */
@@ -493,7 +494,7 @@ declare const _MatSelectMixinBase: _Constructor<CanDisableRipple> & _AbstractCon
 
 export declare class MatSelectModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, [typeof i1.MatSelect, typeof i1.MatSelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatOptionModule, typeof i4.MatCommonModule], [typeof i5.CdkScrollableModule, typeof i6.MatLegacyFormFieldModule, typeof i1.MatSelect, typeof i1.MatSelectTrigger, typeof i4.MatOptionModule, typeof i4.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, [typeof i1.MatSelect, typeof i1.MatSelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule], [typeof i6.CdkScrollableModule, typeof i7.MatLegacyFormFieldModule, typeof i1.MatSelect, typeof i1.MatSelectTrigger, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSelectModule>;
 }
 

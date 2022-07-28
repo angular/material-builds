@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
+import { MatLegacyOptionHarness, MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
 
 /**
  * @license
@@ -93,8 +93,8 @@ class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
     constructor() {
         super(...arguments);
         this._prefix = 'mat';
-        this._optionClass = MatOptionHarness;
-        this._optionGroupClass = MatOptgroupHarness;
+        this._optionClass = MatLegacyOptionHarness;
+        this._optionGroupClass = MatLegacyOptgroupHarness;
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteHarness` that meets

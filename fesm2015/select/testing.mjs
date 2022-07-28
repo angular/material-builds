@@ -1,7 +1,7 @@
 import { __awaiter } from 'tslib';
 import { parallel, HarnessPredicate } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
-import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
+import { MatLegacyOptionHarness, MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
 
 class _MatSelectHarnessBase extends MatFormFieldControlHarness {
     constructor() {
@@ -137,8 +137,8 @@ class MatSelectHarness extends _MatSelectHarnessBase {
     constructor() {
         super(...arguments);
         this._prefix = 'mat';
-        this._optionClass = MatOptionHarness;
-        this._optionGroupClass = MatOptgroupHarness;
+        this._optionClass = MatLegacyOptionHarness;
+        this._optionGroupClass = MatLegacyOptgroupHarness;
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSelectHarness` that meets
