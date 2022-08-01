@@ -3,7 +3,7 @@ import { HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 import { _MatFormFieldHarnessBase } from '@angular/material/form-field/testing';
 import { MatLegacyInputHarness } from '@angular/material/legacy-input/testing';
-import { MatSelectHarness } from '@angular/material/select/testing';
+import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing';
 
 /**
  * @license
@@ -22,7 +22,7 @@ class MatLegacyFormFieldHarness extends _MatFormFieldHarnessBase {
         this._errors = this.locatorForAll('.mat-error');
         this._hints = this.locatorForAll('mat-hint, .mat-hint');
         this._inputControl = this.locatorForOptional(MatLegacyInputHarness);
-        this._selectControl = this.locatorForOptional(MatSelectHarness);
+        this._selectControl = this.locatorForOptional(MatLegacySelectHarness);
         this._datepickerInputControl = this.locatorForOptional(MatDatepickerInputHarness);
         this._dateRangeInputControl = this.locatorForOptional(MatDateRangeInputHarness);
     }

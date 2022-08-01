@@ -5,8 +5,8 @@ import { Injectable, Optional, SkipSelf, InjectionToken, EventEmitter, Directive
 import { mixinDisabled, mixinInitialized, MatCommonModule } from '@angular/material/core';
 import * as i3 from '@angular/material/button';
 import { MatButtonModule } from '@angular/material/button';
-import * as i5 from '@angular/material/select';
-import { MatSelectModule } from '@angular/material/select';
+import * as i5 from '@angular/material/legacy-select';
+import { MatLegacySelectModule } from '@angular/material/legacy-select';
 import * as i7 from '@angular/material/legacy-tooltip';
 import { MatLegacyTooltipModule } from '@angular/material/legacy-tooltip';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -356,12 +356,12 @@ class MatPaginatorModule {
 MatPaginatorModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatPaginatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
 MatPaginatorModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.1", ngImport: i0, type: MatPaginatorModule, declarations: [MatPaginator], imports: [CommonModule,
         MatButtonModule,
-        MatSelectModule,
+        MatLegacySelectModule,
         MatLegacyTooltipModule,
         MatCommonModule], exports: [MatPaginator] });
 MatPaginatorModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatPaginatorModule, providers: [MAT_PAGINATOR_INTL_PROVIDER], imports: [CommonModule,
         MatButtonModule,
-        MatSelectModule,
+        MatLegacySelectModule,
         MatLegacyTooltipModule,
         MatCommonModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatPaginatorModule, decorators: [{
@@ -370,7 +370,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
                     imports: [
                         CommonModule,
                         MatButtonModule,
-                        MatSelectModule,
+                        MatLegacySelectModule,
                         MatLegacyTooltipModule,
                         MatCommonModule,
                     ],

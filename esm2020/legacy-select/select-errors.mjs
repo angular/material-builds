@@ -1,0 +1,33 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Returns an exception to be thrown when attempting to change a select's `multiple` option
+ * after initialization.
+ * @docs-private
+ */
+export function getMatSelectDynamicMultipleError() {
+    return Error('Cannot change `multiple` mode of select after initialization.');
+}
+/**
+ * Returns an exception to be thrown when attempting to assign a non-array value to a select
+ * in `multiple` mode. Note that `undefined` and `null` are still valid values to allow for
+ * resetting the value.
+ * @docs-private
+ */
+export function getMatSelectNonArrayValueError() {
+    return Error('Value must be an array in multiple-selection mode.');
+}
+/**
+ * Returns an exception to be thrown when assigning a non-function value to the comparator
+ * used to determine if a value corresponds to an option. Note that whether the function
+ * actually takes two values and returns a boolean is not checked.
+ */
+export function getMatSelectNonFunctionValueError() {
+    return Error('`compareWith` must be a function.');
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2VsZWN0LWVycm9ycy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9sZWdhY3ktc2VsZWN0L3NlbGVjdC1lcnJvcnMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUg7Ozs7R0FJRztBQUNILE1BQU0sVUFBVSxnQ0FBZ0M7SUFDOUMsT0FBTyxLQUFLLENBQUMsK0RBQStELENBQUMsQ0FBQztBQUNoRixDQUFDO0FBRUQ7Ozs7O0dBS0c7QUFDSCxNQUFNLFVBQVUsOEJBQThCO0lBQzVDLE9BQU8sS0FBSyxDQUFDLG9EQUFvRCxDQUFDLENBQUM7QUFDckUsQ0FBQztBQUVEOzs7O0dBSUc7QUFDSCxNQUFNLFVBQVUsaUNBQWlDO0lBQy9DLE9BQU8sS0FBSyxDQUFDLG1DQUFtQyxDQUFDLENBQUM7QUFDcEQsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG4vKipcbiAqIFJldHVybnMgYW4gZXhjZXB0aW9uIHRvIGJlIHRocm93biB3aGVuIGF0dGVtcHRpbmcgdG8gY2hhbmdlIGEgc2VsZWN0J3MgYG11bHRpcGxlYCBvcHRpb25cbiAqIGFmdGVyIGluaXRpYWxpemF0aW9uLlxuICogQGRvY3MtcHJpdmF0ZVxuICovXG5leHBvcnQgZnVuY3Rpb24gZ2V0TWF0U2VsZWN0RHluYW1pY011bHRpcGxlRXJyb3IoKTogRXJyb3Ige1xuICByZXR1cm4gRXJyb3IoJ0Nhbm5vdCBjaGFuZ2UgYG11bHRpcGxlYCBtb2RlIG9mIHNlbGVjdCBhZnRlciBpbml0aWFsaXphdGlvbi4nKTtcbn1cblxuLyoqXG4gKiBSZXR1cm5zIGFuIGV4Y2VwdGlvbiB0byBiZSB0aHJvd24gd2hlbiBhdHRlbXB0aW5nIHRvIGFzc2lnbiBhIG5vbi1hcnJheSB2YWx1ZSB0byBhIHNlbGVjdFxuICogaW4gYG11bHRpcGxlYCBtb2RlLiBOb3RlIHRoYXQgYHVuZGVmaW5lZGAgYW5kIGBudWxsYCBhcmUgc3RpbGwgdmFsaWQgdmFsdWVzIHRvIGFsbG93IGZvclxuICogcmVzZXR0aW5nIHRoZSB2YWx1ZS5cbiAqIEBkb2NzLXByaXZhdGVcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIGdldE1hdFNlbGVjdE5vbkFycmF5VmFsdWVFcnJvcigpOiBFcnJvciB7XG4gIHJldHVybiBFcnJvcignVmFsdWUgbXVzdCBiZSBhbiBhcnJheSBpbiBtdWx0aXBsZS1zZWxlY3Rpb24gbW9kZS4nKTtcbn1cblxuLyoqXG4gKiBSZXR1cm5zIGFuIGV4Y2VwdGlvbiB0byBiZSB0aHJvd24gd2hlbiBhc3NpZ25pbmcgYSBub24tZnVuY3Rpb24gdmFsdWUgdG8gdGhlIGNvbXBhcmF0b3JcbiAqIHVzZWQgdG8gZGV0ZXJtaW5lIGlmIGEgdmFsdWUgY29ycmVzcG9uZHMgdG8gYW4gb3B0aW9uLiBOb3RlIHRoYXQgd2hldGhlciB0aGUgZnVuY3Rpb25cbiAqIGFjdHVhbGx5IHRha2VzIHR3byB2YWx1ZXMgYW5kIHJldHVybnMgYSBib29sZWFuIGlzIG5vdCBjaGVja2VkLlxuICovXG5leHBvcnQgZnVuY3Rpb24gZ2V0TWF0U2VsZWN0Tm9uRnVuY3Rpb25WYWx1ZUVycm9yKCk6IEVycm9yIHtcbiAgcmV0dXJuIEVycm9yKCdgY29tcGFyZVdpdGhgIG11c3QgYmUgYSBmdW5jdGlvbi4nKTtcbn1cbiJdfQ==

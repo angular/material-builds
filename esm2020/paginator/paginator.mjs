@@ -14,7 +14,7 @@ import * as i1 from "./paginator-intl";
 import * as i2 from "@angular/common";
 import * as i3 from "@angular/material/button";
 import * as i4 from "@angular/material/legacy-form-field";
-import * as i5 from "@angular/material/select";
+import * as i5 from "@angular/material/legacy-select";
 import * as i6 from "@angular/material/legacy-core";
 import * as i7 from "@angular/material/legacy-tooltip";
 /** The default page size if there is no page size and there are no provided page size options. */

@@ -1,6 +1,6 @@
 import { parallel, HarnessPredicate } from '@angular/cdk/testing';
+import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
-import { MatLegacyOptionHarness, MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
 
 /**
  * @license
@@ -112,25 +112,24 @@ class _MatSelectHarnessBase extends MatFormFieldControlHarness {
         return `#${id}-panel`;
     }
 }
-/** Harness for interacting with a standard mat-select in tests. */
+/** Harness for interacting with an MDC-based mat-select in tests. */
 class MatSelectHarness extends _MatSelectHarnessBase {
     constructor() {
         super(...arguments);
-        this._prefix = 'mat';
-        this._optionClass = MatLegacyOptionHarness;
-        this._optionGroupClass = MatLegacyOptgroupHarness;
+        this._prefix = 'mat-mdc';
+        this._optionClass = MatOptionHarness;
+        this._optionGroupClass = MatOptgroupHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSelectHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a select with specific attributes.
      * @param options Options for filtering which select instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatSelectHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
-MatSelectHarness.hostSelector = '.mat-select';
+MatSelectHarness.hostSelector = '.mat-mdc-select';
 
 /**
  * @license

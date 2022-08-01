@@ -2,7 +2,7 @@ import { AsyncFactoryFn } from '@angular/cdk/testing';
 import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatSelectHarness } from '@angular/material/select/testing';
+import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing';
 import { TestElement } from '@angular/cdk/testing';
 
 /** Harness for interacting with a standard mat-paginator in tests. */
@@ -13,7 +13,7 @@ export declare class MatPaginatorHarness extends _MatPaginatorHarnessBase {
     protected _previousButton: AsyncFactoryFn<TestElement>;
     protected _firstPageButton: AsyncFactoryFn<TestElement | null>;
     protected _lastPageButton: AsyncFactoryFn<TestElement | null>;
-    protected _select: AsyncFactoryFn<MatSelectHarness | null>;
+    protected _select: AsyncFactoryFn<MatLegacySelectHarness | null>;
     protected _pageSizeFallback: AsyncFactoryFn<TestElement>;
     protected _rangeLabel: AsyncFactoryFn<TestElement>;
     /**

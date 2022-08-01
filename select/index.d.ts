@@ -1,12 +1,14 @@
 import { _AbstractConstructor } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CanDisable } from '@angular/material/core';
 import { CanDisableRipple } from '@angular/material/core';
 import { CanUpdateErrorState } from '@angular/material/core';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { ChangeDetectorRef } from '@angular/core';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import { _Constructor } from '@angular/material/core';
@@ -21,18 +23,17 @@ import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/common';
 import * as i3 from '@angular/cdk/overlay';
-import * as i4 from '@angular/material/legacy-core';
-import * as i5 from '@angular/material/core';
-import * as i6 from '@angular/cdk/scrolling';
-import * as i7 from '@angular/material/legacy-form-field';
+import * as i4 from '@angular/material/core';
+import * as i5 from '@angular/cdk/scrolling';
+import * as i6 from '@angular/material/form-field';
 import { InjectionToken } from '@angular/core';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatLegacyFormField } from '@angular/material/legacy-form-field';
-import { MatLegacyFormFieldControl } from '@angular/material/legacy-form-field';
-import { MatLegacyOptgroup } from '@angular/material/legacy-core';
-import { MatLegacyOption } from '@angular/material/legacy-core';
-import { _MatOptionBase } from '@angular/material/legacy-core';
-import { MatOptionSelectionChange } from '@angular/material/legacy-core';
+import { MatFormField } from '@angular/material/form-field';
+import { MatFormFieldControl } from '@angular/material/form-field';
+import { MatOptgroup } from '@angular/material/core';
+import { MatOption } from '@angular/material/core';
+import { _MatOptionBase } from '@angular/material/core';
+import { MatOptionSelectionChange } from '@angular/material/core';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -52,20 +53,14 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 declare namespace i1 {
     export {
         MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
-        SELECT_PANEL_MAX_HEIGHT,
-        SELECT_PANEL_PADDING_X,
-        SELECT_PANEL_INDENT_PADDING_X,
-        SELECT_ITEM_HEIGHT_EM,
-        SELECT_MULTIPLE_PANEL_PADDING_X,
-        SELECT_PANEL_VIEWPORT_PADDING,
         MAT_SELECT_SCROLL_STRATEGY,
         MatSelectConfig,
         MAT_SELECT_CONFIG,
         MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
-        MatSelectChange,
         MAT_SELECT_TRIGGER,
-        MatSelectTrigger,
+        MatSelectChange,
         _MatSelectBase,
+        MatSelectTrigger,
         MatSelect
     }
 }
@@ -93,73 +88,26 @@ export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ove
  */
 export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
 
-export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit {
-    /** The scroll position of the overlay panel, calculated to center the selected option. */
-    private _scrollTop;
-    /** The last measured value for the trigger's client bounding rect. */
-    _triggerRect: ClientRect;
-    /** The cached font-size of the trigger element. */
-    _triggerFontSize: number;
-    /** The value of the select panel's transform-origin property. */
-    _transformOrigin: string;
-    /**
-     * The y-offset of the overlay panel in relation to the trigger's top start corner.
-     * This must be adjusted to align the selected option text over the trigger text.
-     * when the panel opens. Will change based on the y-position of the selected option.
-     */
-    _offsetY: number;
-    options: QueryList<MatLegacyOption>;
-    optionGroups: QueryList<MatLegacyOptgroup>;
+export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit, AfterViewInit {
+    options: QueryList<MatOption>;
+    optionGroups: QueryList<MatOptgroup>;
     customTrigger: MatSelectTrigger;
     _positions: ConnectedPosition[];
-    /**
-     * Calculates the scroll position of the select's overlay panel.
-     *
-     * Attempts to center the selected option in the panel. If the option is
-     * too high or too low in the panel to be scrolled to the center, it clamps the
-     * scroll position to the min or max scroll positions respectively.
-     */
-    _calculateOverlayScroll(selectedIndex: number, scrollBuffer: number, maxScroll: number): number;
+    /** Ideal origin for the overlay panel. */
+    _preferredOverlayOrigin: CdkOverlayOrigin | ElementRef | undefined;
+    /** Width of the overlay panel. */
+    _overlayWidth: number;
+    get shouldLabelFloat(): boolean;
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     open(): void;
+    close(): void;
     /** Scrolls the active option into view. */
     protected _scrollOptionIntoView(index: number): void;
     protected _positioningSettled(): void;
-    protected _panelDoneAnimating(isOpen: boolean): void;
     protected _getChangeEvent(value: any): MatSelectChange;
-    /**
-     * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
-     * This must be adjusted to align the selected option text over the trigger text when
-     * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
-     * can't be calculated until the panel has been attached, because we need to know the
-     * content width in order to constrain the panel within the viewport.
-     */
-    private _calculateOverlayOffsetX;
-    /**
-     * Calculates the y-offset of the select's overlay panel in relation to the
-     * top start corner of the trigger. It has to be adjusted in order for the
-     * selected option to be aligned over the trigger when the panel opens.
-     */
-    private _calculateOverlayOffsetY;
-    /**
-     * Checks that the attempted overlay position will fit within the viewport.
-     * If it will not fit, tries to adjust the scroll position and the associated
-     * y-offset so the panel can open fully on-screen. If it still won't fit,
-     * sets the offset back to 0 to allow the fallback position to take over.
-     */
-    private _checkOverlayWithinViewport;
-    /** Adjusts the overlay panel up to fit in the viewport. */
-    private _adjustPanelUp;
-    /** Adjusts the overlay panel down to fit in the viewport. */
-    private _adjustPanelDown;
-    /** Calculates the scroll position and x- and y-offsets of the overlay panel. */
-    private _calculateOverlayPosition;
-    /** Sets the transform origin point based on the selected option. */
-    private _getOriginBasedOnOption;
-    /** Calculates the height of the select's options. */
-    private _getItemHeight;
-    /** Calculates the amount of items in the select. This includes options and group labels. */
-    private _getItemCount;
+    /** Gets how wide the overlay panel should be. */
+    private _getOverlayWidth;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false>;
 }
@@ -172,23 +120,27 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
  * @docs-private
  */
 export declare const matSelectAnimations: {
+    /**
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 12.0.0
+     */
     readonly transformPanelWrap: AnimationTriggerMetadata;
     readonly transformPanel: AnimationTriggerMetadata;
 };
 
 /** Base class with all of the `MatSelect` functionality. */
-export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatLegacyFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
+export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
     protected _viewportRuler: ViewportRuler;
     protected _changeDetectorRef: ChangeDetectorRef;
     protected _ngZone: NgZone;
     private _dir;
-    protected _parentFormField: MatLegacyFormField;
+    protected _parentFormField: MatFormField;
     private _liveAnnouncer;
     private _defaultOptions?;
     /** All of the defined select options. */
     abstract options: QueryList<_MatOptionBase>;
     /** All of the defined groups of options. */
-    abstract optionGroups: QueryList<MatLegacyOptgroup>;
+    abstract optionGroups: QueryList<MatOptgroup>;
     /** User-supplied override of the trigger element. */
     abstract customTrigger: {};
     /**
@@ -227,9 +179,9 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      */
     userAriaDescribedBy: string;
     /** Deals with the selection logic. */
-    _selectionModel: SelectionModel<MatLegacyOption>;
+    _selectionModel: SelectionModel<MatOption>;
     /** Manages keyboard events for options in the panel. */
-    _keyManager: ActiveDescendantKeyManager<MatLegacyOption>;
+    _keyManager: ActiveDescendantKeyManager<MatOption>;
     /** `View -> model callback called when value changes` */
     _onChange: (value: any) => void;
     /** `View -> model callback called when select has been touched` */
@@ -297,7 +249,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      * Function used to sort the values in a select in multiple mode.
      * Follows the same logic as `Array.prototype.sort`.
      */
-    sortComparator: (a: MatLegacyOption, b: MatLegacyOption, options: MatLegacyOption[]) => number;
+    sortComparator: (a: MatOption, b: MatOption, options: MatOption[]) => number;
     /** Unique id of the element. */
     get id(): string;
     set id(value: string);
@@ -318,7 +270,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatLegacyFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
@@ -363,7 +315,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     /** Whether or not the overlay panel is open. */
     get panelOpen(): boolean;
     /** The currently selected option. */
-    get selected(): MatLegacyOption | MatLegacyOption[];
+    get selected(): MatOption | MatOption[];
     /** The value displayed in the trigger. */
     get triggerValue(): string;
     /** Whether the element is in RTL mode. */
@@ -494,7 +446,7 @@ declare const _MatSelectMixinBase: _Constructor<CanDisableRipple> & _AbstractCon
 
 export declare class MatSelectModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, [typeof i1.MatSelect, typeof i1.MatSelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule], [typeof i6.CdkScrollableModule, typeof i7.MatLegacyFormFieldModule, typeof i1.MatSelect, typeof i1.MatSelectTrigger, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, [typeof i1.MatSelect, typeof i1.MatSelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatOptionModule, typeof i4.MatCommonModule], [typeof i5.CdkScrollableModule, typeof i6.MatFormFieldModule, typeof i1.MatSelect, typeof i1.MatSelectTrigger, typeof i4.MatOptionModule, typeof i4.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSelectModule>;
 }
 
@@ -505,34 +457,5 @@ export declare class MatSelectTrigger {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectTrigger, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatSelectTrigger, "mat-select-trigger", never, {}, {}, never, never, false>;
 }
-
-/** The height of the select items in `em` units. */
-declare const SELECT_ITEM_HEIGHT_EM = 3;
-
-/**
- * Distance between the panel edge and the option text in
- * multi-selection mode.
- *
- * Calculated as:
- * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
- * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
- * The checkbox width is 16px.
- */
-declare const SELECT_MULTIPLE_PANEL_PADDING_X: number;
-
-/** The panel's x axis padding if it is indented (e.g. there is an option group). */
-declare const SELECT_PANEL_INDENT_PADDING_X: number;
-
-/** The max height of the select's overlay panel. */
-declare const SELECT_PANEL_MAX_HEIGHT = 256;
-
-/** The panel's padding on the x-axis. */
-declare const SELECT_PANEL_PADDING_X = 16;
-
-/**
- * The select panel will only "fit" inside the viewport if it is positioned at
- * this value or more away from the viewport boundary.
- */
-declare const SELECT_PANEL_VIEWPORT_PADDING = 8;
 
 export { }

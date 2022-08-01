@@ -6,11 +6,11 @@ import { MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { _MatFormFieldHarnessBase } from '@angular/material/form-field/testing';
 import { MatLegacyInputHarness } from '@angular/material/legacy-input/testing';
-import { MatSelectHarness } from '@angular/material/select/testing';
+import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing';
 import { TestElement } from '@angular/cdk/testing';
 
 /** Possible harnesses of controls which can be bound to a form-field. */
-export declare type FormFieldControlHarness = MatLegacyInputHarness | MatSelectHarness | MatDatepickerInputHarness | MatDateRangeInputHarness;
+export declare type FormFieldControlHarness = MatLegacyInputHarness | MatLegacySelectHarness | MatDatepickerInputHarness | MatDateRangeInputHarness;
 
 export { FormFieldHarnessFilters }
 
@@ -32,7 +32,7 @@ export declare class MatLegacyFormFieldHarness extends _MatFormFieldHarnessBase<
     protected _errors: AsyncFactoryFn<TestElement[]>;
     protected _hints: AsyncFactoryFn<TestElement[]>;
     protected _inputControl: AsyncFactoryFn<MatLegacyInputHarness | null>;
-    protected _selectControl: AsyncFactoryFn<MatSelectHarness | null>;
+    protected _selectControl: AsyncFactoryFn<MatLegacySelectHarness | null>;
     protected _datepickerInputControl: AsyncFactoryFn<MatDatepickerInputHarness | null>;
     protected _dateRangeInputControl: AsyncFactoryFn<MatDateRangeInputHarness | null>;
     /** Gets the appearance of the form-field. */

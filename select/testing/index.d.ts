@@ -3,24 +3,23 @@ import { ComponentHarness } from '@angular/cdk/testing';
 import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
-import { MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
-import { MatLegacyOptionHarness } from '@angular/material/legacy-core/testing';
-import { OptgroupHarnessFilters } from '@angular/material/legacy-core/testing';
-import { OptionHarnessFilters } from '@angular/material/legacy-core/testing';
+import { MatOptgroupHarness } from '@angular/material/core/testing';
+import { MatOptionHarness } from '@angular/material/core/testing';
+import { OptgroupHarnessFilters } from '@angular/material/core/testing';
+import { OptionHarnessFilters } from '@angular/material/core/testing';
 
-/** Harness for interacting with a standard mat-select in tests. */
-export declare class MatSelectHarness extends _MatSelectHarnessBase<typeof MatLegacyOptionHarness, MatLegacyOptionHarness, OptionHarnessFilters, typeof MatLegacyOptgroupHarness, MatLegacyOptgroupHarness, OptgroupHarnessFilters> {
+/** Harness for interacting with an MDC-based mat-select in tests. */
+export declare class MatSelectHarness extends _MatSelectHarnessBase<typeof MatOptionHarness, MatOptionHarness, OptionHarnessFilters, typeof MatOptgroupHarness, MatOptgroupHarness, OptgroupHarnessFilters> {
     static hostSelector: string;
     protected _prefix: string;
-    protected _optionClass: typeof MatLegacyOptionHarness;
-    protected _optionGroupClass: typeof MatLegacyOptgroupHarness;
+    protected _optionClass: typeof MatOptionHarness;
+    protected _optionGroupClass: typeof MatOptgroupHarness;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSelectHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a select with specific attributes.
      * @param options Options for filtering which select instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: SelectHarnessFilters): HarnessPredicate<MatSelectHarness>;
+    static with<T extends MatSelectHarness>(this: ComponentHarnessConstructor<T>, options?: SelectHarnessFilters): HarnessPredicate<T>;
 }
 
 export declare abstract class _MatSelectHarnessBase<OptionType extends ComponentHarnessConstructor<Option> & {
