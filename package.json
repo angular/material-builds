@@ -346,6 +346,22 @@
       "node": "./fesm2015/input/testing.mjs",
       "default": "./fesm2020/input/testing.mjs"
     },
+    "./legacy-autocomplete": {
+      "types": "./legacy-autocomplete/index.d.ts",
+      "esm2020": "./esm2020/legacy-autocomplete/legacy-autocomplete_public_index.mjs",
+      "es2020": "./fesm2020/legacy-autocomplete.mjs",
+      "es2015": "./fesm2015/legacy-autocomplete.mjs",
+      "node": "./fesm2015/legacy-autocomplete.mjs",
+      "default": "./fesm2020/legacy-autocomplete.mjs"
+    },
+    "./legacy-autocomplete/testing": {
+      "types": "./legacy-autocomplete/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-autocomplete/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-autocomplete/testing.mjs",
+      "es2015": "./fesm2015/legacy-autocomplete/testing.mjs",
+      "node": "./fesm2015/legacy-autocomplete/testing.mjs",
+      "default": "./fesm2020/legacy-autocomplete/testing.mjs"
+    },
     "./legacy-card": {
       "types": "./legacy-card/index.d.ts",
       "esm2020": "./esm2020/legacy-card/legacy-card_public_index.mjs",

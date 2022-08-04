@@ -1,7 +1,7 @@
 import { __awaiter } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatLegacyOptionHarness, MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
+import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 
 class _MatAutocompleteHarnessBase extends ComponentHarness {
     constructor() {
@@ -102,26 +102,26 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
         });
     }
 }
-/** Harness for interacting with a standard mat-autocomplete in tests. */
+/** Harness for interacting with an MDC-based mat-autocomplete in tests. */
 class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
     constructor() {
         super(...arguments);
-        this._prefix = 'mat';
-        this._optionClass = MatLegacyOptionHarness;
-        this._optionGroupClass = MatLegacyOptgroupHarness;
+        this._prefix = 'mat-mdc';
+        this._optionClass = MatOptionHarness;
+        this._optionGroupClass = MatOptgroupHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatAutocompleteHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for an autocomplete with specific
+     * attributes.
      * @param options Options for filtering which autocomplete instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatAutocompleteHarness, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
+        return new HarnessPredicate(this, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
     }
 }
 /** The selector for the host element of a `MatAutocomplete` instance. */
-MatAutocompleteHarness.hostSelector = '.mat-autocomplete-trigger';
+MatAutocompleteHarness.hostSelector = '.mat-mdc-autocomplete-trigger';
 
 /**
  * @license

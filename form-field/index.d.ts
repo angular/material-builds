@@ -140,7 +140,7 @@ export declare class MatError {
 
 /** Container for form controls that applies Material Design styling and behavior. */
 export declare class MatFormField implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
-    private _elementRef;
+    _elementRef: ElementRef;
     private _changeDetectorRef;
     private _ngZone;
     private _dir;
