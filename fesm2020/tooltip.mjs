@@ -792,8 +792,18 @@ class _TooltipComponentBase {
         const tooltip = this._tooltip.nativeElement;
         const showClass = this._showAnimation;
         const hideClass = this._hideAnimation;
-        tooltip.classList.remove(isVisible ? hideClass : showClass);
-        tooltip.classList.add(isVisible ? showClass : hideClass);
+        if (isVisible) {
+            tooltip.classList.remove(hideClass);
+            tooltip.classList.add(showClass);
+        }
+        if (!isVisible) {
+            // It's avoids the problem when `mat-tooltip-hide` triggers the animation of
+            // a tooltip that has not been shown yet.
+            if (tooltip.classList.contains(showClass)) {
+                tooltip.classList.add(hideClass);
+            }
+            tooltip.classList.remove(showClass);
+        }
         this._isVisible = isVisible;
         // It's common for internal apps to disable animations using `* { animation: none !important }`
         // which can break the opening sequence. Try to detect such cases and work around them.
