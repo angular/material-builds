@@ -1,0 +1,39 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { HarnessPredicate } from '@angular/cdk/testing';
+import { _MatCheckboxHarnessBase } from '@angular/material/checkbox/testing';
+/** Harness for interacting with a standard mat-checkbox in tests. */
+export class MatLegacyCheckboxHarness extends _MatCheckboxHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._input = this.locatorFor('input');
+        this._label = this.locatorFor('.mat-checkbox-label');
+        this._inputContainer = this.locatorFor('.mat-checkbox-inner-container');
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a checkbox harness that meets
+     * certain criteria.
+     * @param options Options for filtering which checkbox instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return (new HarnessPredicate(MatLegacyCheckboxHarness, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
+            // We want to provide a filter option for "name" because the name of the checkbox is
+            // only set on the underlying input. This means that it's not possible for developers
+            // to retrieve the harness of a specific checkbox with name through a CSS selector.
+            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
+            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked));
+    }
+    async toggle() {
+        return (await this._inputContainer()).click();
+    }
+}
+/** The selector for the host element of a checkbox instance. */
+MatLegacyCheckboxHarness.hostSelector = '.mat-checkbox';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2hlY2tib3gtaGFybmVzcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9sZWdhY3ktY2hlY2tib3gvdGVzdGluZy9jaGVja2JveC1oYXJuZXNzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUVILE9BQU8sRUFBQyxnQkFBZ0IsRUFBQyxNQUFNLHNCQUFzQixDQUFDO0FBQ3RELE9BQU8sRUFBQyx1QkFBdUIsRUFBeUIsTUFBTSxvQ0FBb0MsQ0FBQztBQUVuRyxxRUFBcUU7QUFDckUsTUFBTSxPQUFPLHdCQUF5QixTQUFRLHVCQUF1QjtJQUFyRTs7UUFnQ1ksV0FBTSxHQUFHLElBQUksQ0FBQyxVQUFVLENBQUMsT0FBTyxDQUFDLENBQUM7UUFDbEMsV0FBTSxHQUFHLElBQUksQ0FBQyxVQUFVLENBQUMscUJBQXFCLENBQUMsQ0FBQztRQUNsRCxvQkFBZSxHQUFHLElBQUksQ0FBQyxVQUFVLENBQUMsK0JBQStCLENBQUMsQ0FBQztJQUs3RSxDQUFDO0lBbkNDOzs7OztPQUtHO0lBQ0gsTUFBTSxDQUFDLElBQUksQ0FBQyxVQUFrQyxFQUFFO1FBQzlDLE9BQU8sQ0FDTCxJQUFJLGdCQUFnQixDQUFDLHdCQUF3QixFQUFFLE9BQU8sQ0FBQzthQUNwRCxTQUFTLENBQUMsT0FBTyxFQUFFLE9BQU8sQ0FBQyxLQUFLLEVBQUUsQ0FBQyxPQUFPLEVBQUUsS0FBSyxFQUFFLEVBQUUsQ0FDcEQsZ0JBQWdCLENBQUMsYUFBYSxDQUFDLE9BQU8sQ0FBQyxZQUFZLEVBQUUsRUFBRSxLQUFLLENBQUMsQ0FDOUQ7WUFDRCxvRkFBb0Y7WUFDcEYscUZBQXFGO1lBQ3JGLG1GQUFtRjthQUNsRixTQUFTLENBQ1IsTUFBTSxFQUNOLE9BQU8sQ0FBQyxJQUFJLEVBQ1osS0FBSyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsRUFBRSxDQUFDLENBQUMsTUFBTSxPQUFPLENBQUMsT0FBTyxFQUFFLENBQUMsS0FBSyxJQUFJLENBQzVEO2FBQ0EsU0FBUyxDQUNSLFNBQVMsRUFDVCxPQUFPLENBQUMsT0FBTyxFQUNmLEtBQUssRUFBRSxPQUFPLEVBQUUsT0FBTyxFQUFFLEVBQUUsQ0FBQyxDQUFDLE1BQU0sT0FBTyxDQUFDLFNBQVMsRUFBRSxDQUFDLElBQUksT0FBTyxDQUNuRSxDQUNKLENBQUM7SUFDSixDQUFDO0lBTUQsS0FBSyxDQUFDLE1BQU07UUFDVixPQUFPLENBQUMsTUFBTSxJQUFJLENBQUMsZUFBZSxFQUFFLENBQUMsQ0FBQyxLQUFLLEVBQUUsQ0FBQztJQUNoRCxDQUFDOztBQXJDRCxnRUFBZ0U7QUFDekQscUNBQVksR0FBRyxlQUFlLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHtIYXJuZXNzUHJlZGljYXRlfSBmcm9tICdAYW5ndWxhci9jZGsvdGVzdGluZyc7XG5pbXBvcnQge19NYXRDaGVja2JveEhhcm5lc3NCYXNlLCBDaGVja2JveEhhcm5lc3NGaWx0ZXJzfSBmcm9tICdAYW5ndWxhci9tYXRlcmlhbC9jaGVja2JveC90ZXN0aW5nJztcblxuLyoqIEhhcm5lc3MgZm9yIGludGVyYWN0aW5nIHdpdGggYSBzdGFuZGFyZCBtYXQtY2hlY2tib3ggaW4gdGVzdHMuICovXG5leHBvcnQgY2xhc3MgTWF0TGVnYWN5Q2hlY2tib3hIYXJuZXNzIGV4dGVuZHMgX01hdENoZWNrYm94SGFybmVzc0Jhc2Uge1xuICAvKiogVGhlIHNlbGVjdG9yIGZvciB0aGUgaG9zdCBlbGVtZW50IG9mIGEgY2hlY2tib3ggaW5zdGFuY2UuICovXG4gIHN0YXRpYyBob3N0U2VsZWN0b3IgPSAnLm1hdC1jaGVja2JveCc7XG5cbiAgLyoqXG4gICAqIEdldHMgYSBgSGFybmVzc1ByZWRpY2F0ZWAgdGhhdCBjYW4gYmUgdXNlZCB0byBzZWFyY2ggZm9yIGEgY2hlY2tib3ggaGFybmVzcyB0aGF0IG1lZXRzXG4gICAqIGNlcnRhaW4gY3JpdGVyaWEuXG4gICAqIEBwYXJhbSBvcHRpb25zIE9wdGlvbnMgZm9yIGZpbHRlcmluZyB3aGljaCBjaGVja2JveCBpbnN0YW5jZXMgYXJlIGNvbnNpZGVyZWQgYSBtYXRjaC5cbiAgICogQHJldHVybiBhIGBIYXJuZXNzUHJlZGljYXRlYCBjb25maWd1cmVkIHdpdGggdGhlIGdpdmVuIG9wdGlvbnMuXG4gICAqL1xuICBzdGF0aWMgd2l0aChvcHRpb25zOiBDaGVja2JveEhhcm5lc3NGaWx0ZXJzID0ge30pOiBIYXJuZXNzUHJlZGljYXRlPE1hdExlZ2FjeUNoZWNrYm94SGFybmVzcz4ge1xuICAgIHJldHVybiAoXG4gICAgICBuZXcgSGFybmVzc1ByZWRpY2F0ZShNYXRMZWdhY3lDaGVja2JveEhhcm5lc3MsIG9wdGlvbnMpXG4gICAgICAgIC5hZGRPcHRpb24oJ2xhYmVsJywgb3B0aW9ucy5sYWJlbCwgKGhhcm5lc3MsIGxhYmVsKSA9PlxuICAgICAgICAgIEhhcm5lc3NQcmVkaWNhdGUuc3RyaW5nTWF0Y2hlcyhoYXJuZXNzLmdldExhYmVsVGV4dCgpLCBsYWJlbCksXG4gICAgICAgIClcbiAgICAgICAgLy8gV2Ugd2FudCB0byBwcm92aWRlIGEgZmlsdGVyIG9wdGlvbiBmb3IgXCJuYW1lXCIgYmVjYXVzZSB0aGUgbmFtZSBvZiB0aGUgY2hlY2tib3ggaXNcbiAgICAgICAgLy8gb25seSBzZXQgb24gdGhlIHVuZGVybHlpbmcgaW5wdXQuIFRoaXMgbWVhbnMgdGhhdCBpdCdzIG5vdCBwb3NzaWJsZSBmb3IgZGV2ZWxvcGVyc1xuICAgICAgICAvLyB0byByZXRyaWV2ZSB0aGUgaGFybmVzcyBvZiBhIHNwZWNpZmljIGNoZWNrYm94IHdpdGggbmFtZSB0aHJvdWdoIGEgQ1NTIHNlbGVjdG9yLlxuICAgICAgICAuYWRkT3B0aW9uKFxuICAgICAgICAgICduYW1lJyxcbiAgICAgICAgICBvcHRpb25zLm5hbWUsXG4gICAgICAgICAgYXN5bmMgKGhhcm5lc3MsIG5hbWUpID0+IChhd2FpdCBoYXJuZXNzLmdldE5hbWUoKSkgPT09IG5hbWUsXG4gICAgICAgIClcbiAgICAgICAgLmFkZE9wdGlvbihcbiAgICAgICAgICAnY2hlY2tlZCcsXG4gICAgICAgICAgb3B0aW9ucy5jaGVja2VkLFxuICAgICAgICAgIGFzeW5jIChoYXJuZXNzLCBjaGVja2VkKSA9PiAoYXdhaXQgaGFybmVzcy5pc0NoZWNrZWQoKSkgPT0gY2hlY2tlZCxcbiAgICAgICAgKVxuICAgICk7XG4gIH1cblxuICBwcm90ZWN0ZWQgX2lucHV0ID0gdGhpcy5sb2NhdG9yRm9yKCdpbnB1dCcpO1xuICBwcm90ZWN0ZWQgX2xhYmVsID0gdGhpcy5sb2NhdG9yRm9yKCcubWF0LWNoZWNrYm94LWxhYmVsJyk7XG4gIHByaXZhdGUgX2lucHV0Q29udGFpbmVyID0gdGhpcy5sb2NhdG9yRm9yKCcubWF0LWNoZWNrYm94LWlubmVyLWNvbnRhaW5lcicpO1xuXG4gIGFzeW5jIHRvZ2dsZSgpOiBQcm9taXNlPHZvaWQ+IHtcbiAgICByZXR1cm4gKGF3YWl0IHRoaXMuX2lucHV0Q29udGFpbmVyKCkpLmNsaWNrKCk7XG4gIH1cbn1cbiJdfQ==

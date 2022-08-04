@@ -30,12 +30,12 @@ const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     useExisting: forwardRef(() => MatSlideToggle),
     multi: true,
 };
-/** Change event object emitted by a MatSlideToggle. */
+/** Change event object emitted by a slide toggle. */
 class MatSlideToggleChange {
     constructor(
-    /** The source MatSlideToggle of the event. */
+    /** The source slide toggle of the event. */
     source, 
-    /** The new `checked` value of the MatSlideToggle. */
+    /** The new `checked` value of the slide toggle. */
     checked) {
         this.source = source;
         this.checked = checked;

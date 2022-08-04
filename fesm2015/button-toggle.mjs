@@ -30,12 +30,12 @@ const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 };
 // Counter used to generate unique IDs.
 let uniqueIdCounter = 0;
-/** Change event object emitted by MatButtonToggle. */
+/** Change event object emitted by button toggle. */
 class MatButtonToggleChange {
     constructor(
-    /** The MatButtonToggle that emits the event. */
+    /** The button toggle that emits the event. */
     source, 
-    /** The value assigned to the MatButtonToggle. */
+    /** The value assigned to the button toggle. */
     value) {
         this.source = source;
         this.value = value;

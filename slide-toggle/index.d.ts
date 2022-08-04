@@ -132,16 +132,16 @@ export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixi
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSlideToggleBase<any>, never, never, { "name": "name"; "id": "id"; "labelPosition": "labelPosition"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "required": "required"; "checked": "checked"; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, never, false>;
 }
 
-/** Change event object emitted by a MatSlideToggle. */
+/** Change event object emitted by a slide toggle. */
 export declare class MatSlideToggleChange {
-    /** The source MatSlideToggle of the event. */
+    /** The source slide toggle of the event. */
     source: MatSlideToggle;
-    /** The new `checked` value of the MatSlideToggle. */
+    /** The new `checked` value of the slide toggle. */
     checked: boolean;
     constructor(
-    /** The source MatSlideToggle of the event. */
+    /** The source slide toggle of the event. */
     source: MatSlideToggle, 
-    /** The new `checked` value of the MatSlideToggle. */
+    /** The new `checked` value of the slide toggle. */
     checked: boolean);
 }
 

@@ -165,16 +165,16 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
 
 declare const _MatRadioButtonMixinBase: _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & typeof MatRadioButtonBase;
 
-/** Change event object emitted by MatRadio and MatRadioGroup. */
+/** Change event object emitted by radio button and radio group. */
 export declare class MatRadioChange {
-    /** The MatRadioButton that emits the change event. */
+    /** The radio button that emits the change event. */
     source: _MatRadioButtonBase;
-    /** The value of the MatRadioButton. */
+    /** The value of the radio button. */
     value: any;
     constructor(
-    /** The MatRadioButton that emits the change event. */
+    /** The radio button that emits the change event. */
     source: _MatRadioButtonBase, 
-    /** The value of the MatRadioButton. */
+    /** The value of the radio button. */
     value: any);
 }
 

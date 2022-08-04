@@ -36,12 +36,12 @@ const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     useExisting: forwardRef(() => MatRadioGroup),
     multi: true,
 };
-/** Change event object emitted by MatRadio and MatRadioGroup. */
+/** Change event object emitted by radio button and radio group. */
 class MatRadioChange {
     constructor(
-    /** The MatRadioButton that emits the change event. */
+    /** The radio button that emits the change event. */
     source, 
-    /** The value of the MatRadioButton. */
+    /** The value of the radio button. */
     value) {
         this.source = source;
         this.value = value;

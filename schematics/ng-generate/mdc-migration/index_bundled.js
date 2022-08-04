@@ -21603,8 +21603,8 @@ var IMPORT_REPLACEMENTS = {
     new: "@angular/material-experimental/mdc-card"
   },
   "checkbox": {
-    old: "@angular/material/checkbox",
-    new: "@angular/material-experimental/mdc-checkbox"
+    old: "@angular/material/legacy-checkbox",
+    new: "@angular/material/checkbox"
   },
   "chips": {
     old: "@angular/material/chips",

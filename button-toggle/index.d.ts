@@ -119,16 +119,16 @@ declare const _MatButtonToggleBase: _Constructor<CanDisableRipple> & _AbstractCo
     new (): {};
 };
 
-/** Change event object emitted by MatButtonToggle. */
+/** Change event object emitted by button toggle. */
 export declare class MatButtonToggleChange {
-    /** The MatButtonToggle that emits the event. */
+    /** The button toggle that emits the event. */
     source: MatButtonToggle;
-    /** The value assigned to the MatButtonToggle. */
+    /** The value assigned to the button toggle. */
     value: any;
     constructor(
-    /** The MatButtonToggle that emits the event. */
+    /** The button toggle that emits the event. */
     source: MatButtonToggle, 
-    /** The value assigned to the MatButtonToggle. */
+    /** The value assigned to the button toggle. */
     value: any);
 }
 

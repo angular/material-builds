@@ -11,16 +11,13 @@ import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i3 from '@angular/material/core';
-import * as i4 from '@angular/cdk/observers';
 import { InjectionToken } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { NgZone } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
@@ -33,19 +30,14 @@ declare namespace i1 {
 
 declare namespace i2 {
     export {
-        MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
         TransitionCheckState,
+        MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
         MatCheckboxChange,
         _MatCheckboxBase,
         MatCheckbox
     }
 }
 
-/**
- * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)].
- * @docs-private
- */
 export declare const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR: any;
 
 /** Injection token to be used to override the default options for `mat-checkbox`. */
@@ -56,16 +48,7 @@ export declare function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY(): MatCheckboxDefau
 
 export declare const MAT_CHECKBOX_REQUIRED_VALIDATOR: Provider;
 
-/**
- * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
- * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
- * disabled. Note that all additional accessibility attributes are taken care of by the component,
- * so there is no need to provide them yourself. However, if you want to omit a label and still
- * have the checkbox be accessible, you may supply an [aria-label] input.
- * See: https://material.io/design/components/selection-controls.html
- */
-export declare class MatCheckbox extends _MatCheckboxBase<MatCheckboxChange> implements AfterViewInit, OnDestroy {
-    private _focusMonitor;
+export declare class MatCheckbox extends _MatCheckboxBase<MatCheckboxChange> implements ControlValueAccessor, CanColor, CanDisable {
     protected _animationClasses: {
         uncheckedToChecked: string;
         uncheckedToIndeterminate: string;
@@ -74,22 +57,21 @@ export declare class MatCheckbox extends _MatCheckboxBase<MatCheckboxChange> imp
         indeterminateToChecked: string;
         indeterminateToUnchecked: string;
     };
-    constructor(elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, ngZone: NgZone, tabIndex: string, animationMode?: string, options?: MatCheckboxDefaultOptions);
-    protected _createChangeEvent(isChecked: boolean): MatCheckboxChange;
-    protected _getAnimationTargetElement(): any;
-    ngAfterViewInit(): void;
-    ngOnDestroy(): void;
-    /**
-     * Event handler for checkbox input element.
-     * Toggles checked state if element is not disabled.
-     * Do not toggle on (change) event since IE doesn't fire change event when
-     *   indeterminate checkbox is clicked.
-     * @param event
-     */
-    _onInputClick(event: Event): void;
+    constructor(elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, ngZone: NgZone, tabIndex: string, animationMode?: string, options?: MatCheckboxDefaultOptions);
     /** Focuses the checkbox. */
-    focus(origin?: FocusOrigin, options?: FocusOptions): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
+    focus(): void;
+    protected _createChangeEvent(isChecked: boolean): MatCheckboxChange;
+    protected _getAnimationTargetElement(): HTMLInputElement;
+    _onInputClick(): void;
+    /**
+     *  Prevent click events that come from the `<label/>` element from bubbling. This prevents the
+     *  click handler on the host from triggering twice when clicking on the `<label/>` element. After
+     *  the click event on the `<label/>` propagates, the browsers dispatches click on the associated
+     *  `<input/>`. By preventing clicks on the label by bubbling, we ensure only one click event
+     *  bubbles when the label is clicked.
+     */
+    _preventBubblingFromLabel(event: MouseEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false>;
 }
 
@@ -208,9 +190,9 @@ export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase 
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatCheckboxBase<any>, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "id": "id"; "required": "required"; "labelPosition": "labelPosition"; "name": "name"; "value": "value"; "checked": "checked"; "disabled": "disabled"; "indeterminate": "indeterminate"; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, never, false>;
 }
 
-/** Change event object emitted by MatCheckbox. */
+/** Change event object emitted by checkbox. */
 export declare class MatCheckboxChange {
-    /** The source MatCheckbox of the event. */
+    /** The source checkbox of the event. */
     source: MatCheckbox;
     /** The new `checked` value of the checkbox. */
     checked: boolean;
@@ -242,7 +224,7 @@ declare const _MatCheckboxMixinBase: _Constructor<HasTabIndex> & _AbstractConstr
 
 export declare class MatCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, [typeof i2.MatCheckbox], [typeof i3.MatRippleModule, typeof i3.MatCommonModule, typeof i4.ObserversModule, typeof _MatCheckboxRequiredValidatorModule], [typeof i2.MatCheckbox, typeof i3.MatCommonModule, typeof _MatCheckboxRequiredValidatorModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, [typeof i2.MatCheckbox], [typeof i3.MatCommonModule, typeof i3.MatRippleModule, typeof _MatCheckboxRequiredValidatorModule], [typeof i2.MatCheckbox, typeof i3.MatCommonModule, typeof _MatCheckboxRequiredValidatorModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 
