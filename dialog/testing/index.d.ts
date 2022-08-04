@@ -1,5 +1,6 @@
 import { AsyncFactoryFn } from '@angular/cdk/testing';
 import { BaseHarnessFilters } from '@angular/cdk/testing';
+import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { ComponentType } from '@angular/cdk/overlay';
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { DialogRole } from '@angular/material/dialog';
@@ -22,12 +23,11 @@ export declare class MatDialogHarness extends _MatDialogHarnessBase {
     /** The selector for the host element of a `MatDialog` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatDialogHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a dialog with specific attributes.
      * @param options Options for filtering which dialog instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: DialogHarnessFilters): HarnessPredicate<MatDialogHarness>;
+    static with<T extends MatDialogHarness>(this: ComponentHarnessConstructor<T>, options?: DialogHarnessFilters): HarnessPredicate<T>;
 }
 
 /** Base class for the `MatDialogHarness` implementation. */
@@ -63,12 +63,12 @@ export declare class _MatDialogHarnessBase extends ContentContainerComponentHarn
 
 /** Selectors for different sections of the mat-dialog that can contain user content. */
 export declare const enum MatDialogSection {
-    TITLE = ".mat-dialog-title",
-    CONTENT = ".mat-dialog-content",
-    ACTIONS = ".mat-dialog-actions"
+    TITLE = ".mat-mdc-dialog-title",
+    CONTENT = ".mat-mdc-dialog-content",
+    ACTIONS = ".mat-mdc-dialog-actions"
 }
 
-/** Test component that immediately opens a dialog when created. */
+/** Test component that immediately opens a dialog when bootstrapped. */
 export declare class MatTestDialogOpener<T = unknown, R = unknown> extends _MatTestDialogOpenerBase<MatDialogContainer, T, R> {
     constructor(dialog: MatDialog);
     /** Static method that prepares this class to open the provided component. */

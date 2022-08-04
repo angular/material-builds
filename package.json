@@ -410,6 +410,22 @@
       "node": "./fesm2015/legacy-core/testing.mjs",
       "default": "./fesm2020/legacy-core/testing.mjs"
     },
+    "./legacy-dialog": {
+      "types": "./legacy-dialog/index.d.ts",
+      "esm2020": "./esm2020/legacy-dialog/legacy-dialog_public_index.mjs",
+      "es2020": "./fesm2020/legacy-dialog.mjs",
+      "es2015": "./fesm2015/legacy-dialog.mjs",
+      "node": "./fesm2015/legacy-dialog.mjs",
+      "default": "./fesm2020/legacy-dialog.mjs"
+    },
+    "./legacy-dialog/testing": {
+      "types": "./legacy-dialog/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-dialog/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-dialog/testing.mjs",
+      "es2015": "./fesm2015/legacy-dialog/testing.mjs",
+      "node": "./fesm2015/legacy-dialog/testing.mjs",
+      "default": "./fesm2020/legacy-dialog/testing.mjs"
+    },
     "./legacy-form-field": {
       "types": "./legacy-form-field/index.d.ts",
       "esm2020": "./esm2020/legacy-form-field/legacy-form-field_public_index.mjs",

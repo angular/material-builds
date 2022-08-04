@@ -17,9 +17,9 @@ class _MatDialogHarnessBase
  extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._title = this.locatorForOptional(".mat-dialog-title" /* MatDialogSection.TITLE */);
-        this._content = this.locatorForOptional(".mat-dialog-content" /* MatDialogSection.CONTENT */);
-        this._actions = this.locatorForOptional(".mat-dialog-actions" /* MatDialogSection.ACTIONS */);
+        this._title = this.locatorForOptional(".mat-mdc-dialog-title" /* MatDialogSection.TITLE */);
+        this._content = this.locatorForOptional(".mat-mdc-dialog-content" /* MatDialogSection.CONTENT */);
+        this._actions = this.locatorForOptional(".mat-mdc-dialog-actions" /* MatDialogSection.ACTIONS */);
     }
     /** Gets the id of the dialog. */
     async getId() {
@@ -72,27 +72,16 @@ class _MatDialogHarnessBase
 /** Harness for interacting with a standard `MatDialog` in tests. */
 class MatDialogHarness extends _MatDialogHarnessBase {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatDialogHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a dialog with specific attributes.
      * @param options Options for filtering which dialog instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatDialogHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
-// Developers can provide a custom component or template for the
-// dialog. The canonical dialog parent is the "MatDialogContainer".
 /** The selector for the host element of a `MatDialog` instance. */
-MatDialogHarness.hostSelector = '.mat-dialog-container';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+MatDialogHarness.hostSelector = '.mat-mdc-dialog-container';
 
 /**
  * @license
@@ -124,7 +113,7 @@ _MatTestDialogOpenerBase = _MatTestDialogOpenerBase_1 = __decorate([
     Directive(),
     __metadata("design:paramtypes", [_MatDialogBase])
 ], _MatTestDialogOpenerBase);
-/** Test component that immediately opens a dialog when created. */
+/** Test component that immediately opens a dialog when bootstrapped. */
 let MatTestDialogOpener = MatTestDialogOpener_1 = class MatTestDialogOpener extends _MatTestDialogOpenerBase {
     constructor(dialog) {
         super(dialog);

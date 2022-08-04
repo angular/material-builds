@@ -1,9 +1,7 @@
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
-import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFactoryResolver } from '@angular/core';
-import { ComponentType } from '@angular/cdk/portal';
+import { ComponentType } from '@angular/cdk/overlay';
 import { DialogRef } from '@angular/cdk/dialog';
 import { Direction } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
@@ -45,12 +43,6 @@ export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-headi
  */
 export declare function _closeDialogVia<R>(ref: MatDialogRef<R>, interactionType: FocusOrigin, result?: R): void;
 
-/** Event that captures the state of dialog container animations. */
-declare interface DialogAnimationEvent {
-    state: 'opened' | 'opening' | 'closing' | 'closed';
-    totalTime: number;
-}
-
 /** Possible overrides for a dialog's position. */
 export declare interface DialogPosition {
     /** Override for the dialog's top position. */
@@ -80,6 +72,12 @@ declare namespace i2 {
         MatDialogContent,
         MatDialogActions
     }
+}
+
+/** Event that captures the state of dialog container animations. */
+declare interface LegacyDialogAnimationEvent {
+    state: 'opened' | 'opening' | 'closing' | 'closed';
+    totalTime: number;
 }
 
 /** Injection token that can be used to access the data that was passed in to a dialog. */
@@ -113,7 +111,7 @@ export declare class MatDialog extends _MatDialogBase<MatDialogContainer> {
      * @deprecated `_location` parameter to be removed.
      * @breaking-change 10.0.0
      */
-    _location: Location_2, defaultOptions: MatDialogConfig, scrollStrategy: any, parentDialog: MatDialog, 
+    location: Location_2, defaultOptions: MatDialogConfig, scrollStrategy: any, parentDialog: MatDialog, 
     /**
      * @deprecated No longer used. To be removed.
      * @breaking-change 15.0.0
@@ -221,28 +219,17 @@ export declare abstract class _MatDialogBase<C extends _MatDialogContainerBase> 
  * Button that will close the current dialog.
  */
 export declare class MatDialogClose implements OnInit, OnChanges {
-    /**
-     * Reference to the containing dialog.
-     * @deprecated `dialogRef` property to become private.
-     * @breaking-change 13.0.0
-     */
     dialogRef: MatDialogRef<any>;
     private _elementRef;
     private _dialog;
-    /** Screen reader label for the button. */
+    /** Screen-reader label for the button. */
     ariaLabel: string;
     /** Default to "button" to prevents accidental form submits. */
     type: 'submit' | 'button' | 'reset';
     /** Dialog close input. */
     dialogResult: any;
     _matDialogClose: any;
-    constructor(
-    /**
-     * Reference to the containing dialog.
-     * @deprecated `dialogRef` property to become private.
-     * @breaking-change 13.0.0
-     */
-    dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
+    constructor(dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     _onButtonClick(event: MouseEvent): void;
@@ -332,29 +319,45 @@ export declare class MatDialogConfig<D = any> {
 }
 
 /**
- * Internal component that wraps user-provided dialog content.
- * Animation is based on https://material.io/guidelines/motion/choreography.html.
+ * Internal component that wraps user-provided dialog content in a MDC dialog.
  * @docs-private
  */
-export declare class MatDialogContainer extends _MatDialogContainerBase {
-    private _changeDetectorRef;
-    /** State of the dialog animation. */
-    _state: 'void' | 'enter' | 'exit';
-    /** Callback, invoked whenever an animation on the host completes. */
-    _onAnimationDone({ toState, totalTime }: AnimationEvent_2): void;
-    /** Callback, invoked when an animation on the host starts. */
-    _onAnimationStart({ toState, totalTime }: AnimationEvent_2): void;
-    /** Starts the dialog exit animation. */
+export declare class MatDialogContainer extends _MatDialogContainerBase implements OnDestroy {
+    private _animationMode?;
+    /** Whether animations are enabled. */
+    _animationsEnabled: boolean;
+    /** Host element of the dialog container component. */
+    private _hostElement;
+    /** Duration of the dialog open animation. */
+    private _openAnimationDuration;
+    /** Duration of the dialog close animation. */
+    private _closeAnimationDuration;
+    /** Current timer for dialog animations. */
+    private _animationTimer;
+    constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, document: any, dialogConfig: MatDialogConfig, checker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, _animationMode?: string | undefined, focusMonitor?: FocusMonitor);
+    protected _contentAttached(): void;
+    ngOnDestroy(): void;
+    /** Starts the dialog open animation if enabled. */
+    private _startOpenAnimation;
+    /**
+     * Starts the exit animation of the dialog if enabled. This method is
+     * called by the dialog ref.
+     */
     _startExitAnimation(): void;
-    constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, document: any, dialogConfig: MatDialogConfig, checker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, _changeDetectorRef: ChangeDetectorRef, focusMonitor?: FocusMonitor);
-    _getAnimationState(): {
-        value: "enter" | "void" | "exit";
-        params: {
-            enterAnimationDuration: string;
-            exitAnimationDuration: string;
-        };
-    };
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, [null, null, { optional: true; }, null, null, null, null, null, null]>;
+    /**
+     * Completes the dialog open by clearing potential animation classes, trapping
+     * focus and emitting an opened event.
+     */
+    private _finishDialogOpen;
+    /**
+     * Completes the dialog close by clearing potential animation classes, restoring
+     * focus and emitting a closed event.
+     */
+    private _finishDialogClose;
+    /** Clears all dialog animation classes. */
+    private _clearAnimationClasses;
+    private _waitForAnimationToComplete;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, [null, null, { optional: true; }, null, null, null, null, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never, false>;
 }
 
@@ -364,7 +367,7 @@ export declare class MatDialogContainer extends _MatDialogContainerBase {
  */
 export declare abstract class _MatDialogContainerBase extends CdkDialogContainer<MatDialogConfig> {
     /** Emits when an animation state changes. */
-    _animationStateChanged: EventEmitter<DialogAnimationEvent>;
+    _animationStateChanged: EventEmitter<LegacyDialogAnimationEvent>;
     constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, _document: any, dialogConfig: MatDialogConfig, interactivityChecker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, focusMonitor?: FocusMonitor);
     /** Starts the dialog exit animation. */
     abstract _startExitAnimation(): void;
@@ -466,7 +469,6 @@ export declare class MatDialogRef<T, R = any> {
     private _finishDialogClose;
 }
 
-/** Possible states of the lifecycle of a dialog. */
 export declare const enum MatDialogState {
     OPEN = 0,
     CLOSING = 1,
@@ -480,7 +482,6 @@ export declare class MatDialogTitle implements OnInit {
     private _dialogRef;
     private _elementRef;
     private _dialog;
-    /** Unique id for the dialog title. If none is supplied, it will be auto-generated. */
     id: string;
     constructor(_dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;
