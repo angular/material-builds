@@ -394,6 +394,22 @@
       "node": "./fesm2015/legacy-checkbox/testing.mjs",
       "default": "./fesm2020/legacy-checkbox/testing.mjs"
     },
+    "./legacy-chips": {
+      "types": "./legacy-chips/index.d.ts",
+      "esm2020": "./esm2020/legacy-chips/legacy-chips_public_index.mjs",
+      "es2020": "./fesm2020/legacy-chips.mjs",
+      "es2015": "./fesm2015/legacy-chips.mjs",
+      "node": "./fesm2015/legacy-chips.mjs",
+      "default": "./fesm2020/legacy-chips.mjs"
+    },
+    "./legacy-chips/testing": {
+      "types": "./legacy-chips/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-chips/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-chips/testing.mjs",
+      "es2015": "./fesm2015/legacy-chips/testing.mjs",
+      "node": "./fesm2015/legacy-chips/testing.mjs",
+      "default": "./fesm2020/legacy-chips/testing.mjs"
+    },
     "./legacy-core": {
       "types": "./legacy-core/index.d.ts",
       "esm2020": "./esm2020/legacy-core/legacy-core_public_index.mjs",
