@@ -1268,6 +1268,7 @@ declare interface MatDateRangeInputParent<D> {
  */
 declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBase<DateRange<D>> implements OnInit, DoCheck {
     _rangeInput: MatDateRangeInputParent<D>;
+    _elementRef: ElementRef<HTMLInputElement>;
     _defaultErrorStateMatcher: ErrorStateMatcher;
     private _injector;
     _parentForm: NgForm;
@@ -1282,7 +1283,8 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected abstract _validator: ValidatorFn | null;
     protected abstract _assignValueToModel(value: D | null): void;
     protected abstract _getValueFromModel(modelValue: DateRange<D>): D | null;
-    constructor(_rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, _defaultErrorStateMatcher: ErrorStateMatcher, _injector: Injector, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
+    protected readonly _dir: Directionality | null;
+    constructor(_rangeInput: MatDateRangeInputParent<D>, _elementRef: ElementRef<HTMLInputElement>, _defaultErrorStateMatcher: ErrorStateMatcher, _injector: Injector, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
     ngOnInit(): void;
     ngDoCheck(): void;
     /** Gets whether the input is empty. */
@@ -1678,6 +1680,7 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     protected _formatValue(value: D | null): void;
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue(): string;
+    _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false>;
 }
