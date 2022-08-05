@@ -7,7 +7,7 @@ import { ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/port
 import * as i1 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Injectable, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, Directive, Attribute, ContentChild, InjectFlags, Self, TemplateRef, NgModule } from '@angular/core';
+import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Injectable, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, Directive, Attribute, ContentChild, inject, InjectFlags, Self, TemplateRef, NgModule } from '@angular/core';
 import * as i3 from '@angular/material/button';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -17,6 +17,7 @@ import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { take, startWith, filter } from 'rxjs/operators';
 import * as i2 from '@angular/cdk/bidi';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
@@ -3286,13 +3287,15 @@ const MAT_DATE_RANGE_INPUT_PARENT = new InjectionToken('MAT_DATE_RANGE_INPUT_PAR
  * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
  */
 class MatDateRangeInputPartBase extends MatDatepickerInputBase {
-    constructor(_rangeInput, elementRef, _defaultErrorStateMatcher, _injector, _parentForm, _parentFormGroup, dateAdapter, dateFormats) {
-        super(elementRef, dateAdapter, dateFormats);
+    constructor(_rangeInput, _elementRef, _defaultErrorStateMatcher, _injector, _parentForm, _parentFormGroup, dateAdapter, dateFormats) {
+        super(_elementRef, dateAdapter, dateFormats);
         this._rangeInput = _rangeInput;
+        this._elementRef = _elementRef;
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._injector = _injector;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
+        this._dir = inject(Directionality, InjectFlags.Optional);
     }
     ngOnInit() {
         // We need the date input to provide itself as a `ControlValueAccessor` and a `Validator`, while
@@ -3430,6 +3433,24 @@ class MatStartDate extends _MatDateRangeInputBase {
         const value = element.value;
         return value.length > 0 ? value : element.placeholder;
     }
+    _onKeydown(event) {
+        var _a;
+        const endInput = this._rangeInput._endInput;
+        const element = this._elementRef.nativeElement;
+        const isLtr = ((_a = this._dir) === null || _a === void 0 ? void 0 : _a.value) !== 'rtl';
+        // If the user hits RIGHT (LTR) when at the end of the input (and no
+        // selection), move the cursor to the start of the end input.
+        if (((event.keyCode === RIGHT_ARROW && isLtr) || (event.keyCode === LEFT_ARROW && !isLtr)) &&
+            element.selectionStart === element.value.length &&
+            element.selectionEnd === element.value.length) {
+            event.preventDefault();
+            endInput._elementRef.nativeElement.setSelectionRange(0, 0);
+            endInput.focus();
+        }
+        else {
+            super._onKeydown(event);
+        }
+    }
 }
 MatStartDate.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatStartDate, deps: [{ token: MAT_DATE_RANGE_INPUT_PARENT }, { token: i0.ElementRef }, { token: i1$1.ErrorStateMatcher }, { token: i0.Injector }, { token: i2$2.NgForm, optional: true }, { token: i2$2.FormGroupDirective, optional: true }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_DATE_FORMATS, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
 MatStartDate.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.1", type: MatStartDate, selector: "input[matStartDate]", inputs: { errorStateMatcher: "errorStateMatcher" }, outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.id": "_rangeInput.id", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "(_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
@@ -3516,11 +3537,27 @@ class MatEndDate extends _MatDateRangeInputBase {
         }
     }
     _onKeydown(event) {
+        var _a;
+        const startInput = this._rangeInput._startInput;
+        const element = this._elementRef.nativeElement;
+        const isLtr = ((_a = this._dir) === null || _a === void 0 ? void 0 : _a.value) !== 'rtl';
         // If the user is pressing backspace on an empty end input, move focus back to the start.
-        if (event.keyCode === BACKSPACE && !this._elementRef.nativeElement.value) {
-            this._rangeInput._startInput.focus();
+        if (event.keyCode === BACKSPACE && !element.value) {
+            startInput.focus();
         }
-        super._onKeydown(event);
+        // If the user hits LEFT (LTR) when at the start of the input (and no
+        // selection), move the cursor to the end of the start input.
+        else if (((event.keyCode === LEFT_ARROW && isLtr) || (event.keyCode === RIGHT_ARROW && !isLtr)) &&
+            element.selectionStart === 0 &&
+            element.selectionEnd === 0) {
+            event.preventDefault();
+            const endPosition = startInput._elementRef.nativeElement.value.length;
+            startInput._elementRef.nativeElement.setSelectionRange(endPosition, endPosition);
+            startInput.focus();
+        }
+        else {
+            super._onKeydown(event);
+        }
     }
 }
 MatEndDate.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatEndDate, deps: [{ token: MAT_DATE_RANGE_INPUT_PARENT }, { token: i0.ElementRef }, { token: i1$1.ErrorStateMatcher }, { token: i0.Injector }, { token: i2$2.NgForm, optional: true }, { token: i2$2.FormGroupDirective, optional: true }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_DATE_FORMATS, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
