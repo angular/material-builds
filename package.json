@@ -506,6 +506,22 @@
       "node": "./fesm2015/legacy-select/testing.mjs",
       "default": "./fesm2020/legacy-select/testing.mjs"
     },
+    "./legacy-slide-toggle": {
+      "types": "./legacy-slide-toggle/index.d.ts",
+      "esm2020": "./esm2020/legacy-slide-toggle/legacy-slide-toggle_public_index.mjs",
+      "es2020": "./fesm2020/legacy-slide-toggle.mjs",
+      "es2015": "./fesm2015/legacy-slide-toggle.mjs",
+      "node": "./fesm2015/legacy-slide-toggle.mjs",
+      "default": "./fesm2020/legacy-slide-toggle.mjs"
+    },
+    "./legacy-slide-toggle/testing": {
+      "types": "./legacy-slide-toggle/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-slide-toggle/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-slide-toggle/testing.mjs",
+      "es2015": "./fesm2015/legacy-slide-toggle/testing.mjs",
+      "node": "./fesm2015/legacy-slide-toggle/testing.mjs",
+      "default": "./fesm2020/legacy-slide-toggle/testing.mjs"
+    },
     "./legacy-tooltip": {
       "types": "./legacy-tooltip/index.d.ts",
       "esm2020": "./esm2020/legacy-tooltip/legacy-tooltip_public_index.mjs",

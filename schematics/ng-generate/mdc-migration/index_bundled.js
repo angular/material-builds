@@ -21659,8 +21659,8 @@ var IMPORT_REPLACEMENTS = {
     new: "@angular/material-experimental/mdc-sidenav"
   },
   "slide-toggle": {
-    old: "@angular/material/slide-toggle",
-    new: "@angular/material-experimental/mdc-slide-toggle"
+    old: "@angular/material/legacy-slide-toggle",
+    new: "@angular/material/slide-toggle"
   },
   "slider": {
     old: "@angular/material/slider",
@@ -21734,8 +21734,8 @@ var SlideToggleStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-slide-toggle"];
     this.mixinChanges = [
       {
-        old: "slide-toggle-theme",
-        new: ["mdc-slide-toggle-theme", "mdc-slide-toggle-typography"]
+        old: "legacy-slide-toggle-theme",
+        new: ["slide-toggle-theme", "slide-toggle-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-slide-toggle", new: ".mat-mdc-slide-toggle" }];

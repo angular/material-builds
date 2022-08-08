@@ -75,21 +75,21 @@ class _MatSlideToggleHarnessBase extends ComponentHarness {
         }
     }
 }
-/** Harness for interacting with a standard mat-slide-toggle in tests. */
+/** Harness for interacting with a MDC-based mat-slide-toggle in tests. */
 class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
     constructor() {
         super(...arguments);
-        this._inputContainer = this.locatorFor('.mat-slide-toggle-bar');
-        this._nativeElement = this.locatorFor('input');
+        this._nativeElement = this.locatorFor('button');
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSlideToggleHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which slide toggle instances are considered a match.
+     * Gets a `HarnessPredicate` that can be used to search for a slide-toggle w/ specific attributes.
+     * @param options Options for narrowing the search:
+     *   - `selector` finds a slide-toggle whose host element matches the given selector.
+     *   - `label` finds a slide-toggle with specific label text.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return (new HarnessPredicate(MatSlideToggleHarness, options)
+        return (new HarnessPredicate(this, options)
             .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
             // We want to provide a filter option for "name" because the name of the slide-toggle is
             // only set on the underlying input. This means that it's not possible for developers
@@ -98,18 +98,19 @@ class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
             .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked)
             .addOption('disabled', options.disabled, async (harness, disabled) => (await harness.isDisabled()) == disabled));
     }
-    /** Toggle the checked state of the slide-toggle. */
     async toggle() {
-        return (await this._inputContainer()).click();
+        return (await this._nativeElement()).click();
     }
-    /** Whether the slide-toggle is checked. */
+    async isRequired() {
+        const ariaRequired = await (await this._nativeElement()).getAttribute('aria-required');
+        return ariaRequired === 'true';
+    }
     async isChecked() {
-        const checked = (await this._nativeElement()).getProperty('checked');
+        const checked = (await this._nativeElement()).getAttribute('aria-checked');
         return coerceBooleanProperty(await checked);
     }
 }
-/** The selector for the host element of a `MatSlideToggle` instance. */
-MatSlideToggleHarness.hostSelector = '.mat-slide-toggle';
+MatSlideToggleHarness.hostSelector = '.mat-mdc-slide-toggle';
 
 /**
  * @license

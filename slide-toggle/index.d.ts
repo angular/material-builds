@@ -15,7 +15,7 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i3 from '@angular/material/core';
-import * as i4 from '@angular/cdk/observers';
+import * as i4 from '@angular/common';
 import { InjectionToken } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
@@ -50,20 +50,20 @@ export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: {
     multi: boolean;
 };
 
-/** Represents a slidable "switch" toggle that can be moved between on and off. */
 export declare class MatSlideToggle extends _MatSlideToggleBase<MatSlideToggleChange> {
-    /** Reference to the underlying input element. */
-    _inputElement: ElementRef<HTMLInputElement>;
+    /** Unique ID for the label element. */
+    _labelId: string;
+    /** Returns the unique id for the visual hidden button. */
+    get buttonId(): string;
+    /** Reference to the MDC switch element. */
+    _switchElement: ElementRef<HTMLElement>;
     constructor(elementRef: ElementRef, focusMonitor: FocusMonitor, changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
-    protected _createChangeEvent(isChecked: boolean): MatSlideToggleChange;
-    /** Method being called whenever the underlying input emits a change event. */
-    _onChangeEvent(event: Event): void;
-    /** Method being called whenever the slide-toggle has been clicked. */
-    _onInputClick(event: Event): void;
+    /** Method being called whenever the underlying button is clicked. */
+    _handleClick(): void;
     /** Focuses the slide-toggle. */
-    focus(options?: FocusOptions, origin?: FocusOrigin): void;
-    /** Method being called whenever the label text changes. */
-    _onLabelTextChange(): void;
+    focus(): void;
+    protected _createChangeEvent(isChecked: boolean): MatSlideToggleChange;
+    _getAriaLabelledBy(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false>;
 }
@@ -162,7 +162,7 @@ declare const _MatSlideToggleMixinBase: _Constructor<HasTabIndex> & _AbstractCon
 
 export declare class MatSlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, [typeof i2.MatSlideToggle], [typeof _MatSlideToggleRequiredValidatorModule, typeof i3.MatRippleModule, typeof i3.MatCommonModule, typeof i4.ObserversModule], [typeof _MatSlideToggleRequiredValidatorModule, typeof i2.MatSlideToggle, typeof i3.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, [typeof i2.MatSlideToggle], [typeof _MatSlideToggleRequiredValidatorModule, typeof i3.MatCommonModule, typeof i3.MatRippleModule, typeof i4.CommonModule], [typeof _MatSlideToggleRequiredValidatorModule, typeof i2.MatSlideToggle, typeof i3.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSlideToggleModule>;
 }
 
