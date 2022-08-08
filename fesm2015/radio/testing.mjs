@@ -138,24 +138,24 @@ class _MatRadioGroupHarnessBase extends ComponentHarness {
         });
     }
 }
-/** Harness for interacting with a standard mat-radio-group in tests. */
+/** Harness for interacting with an MDC-based mat-radio-group in tests. */
 class MatRadioGroupHarness extends _MatRadioGroupHarnessBase {
     constructor() {
         super(...arguments);
         this._buttonClass = MatRadioButtonHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioGroupHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a radio group with specific
+     * attributes.
      * @param options Options for filtering which radio group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatRadioGroupHarness, options).addOption('name', options.name, this._checkRadioGroupName);
+        return new HarnessPredicate(this, options).addOption('name', options.name, MatRadioGroupHarness._checkRadioGroupName);
     }
 }
 /** The selector for the host element of a `MatRadioGroup` instance. */
-MatRadioGroupHarness.hostSelector = '.mat-radio-group';
+MatRadioGroupHarness.hostSelector = '.mat-mdc-radio-group';
 class _MatRadioButtonHarnessBase extends ComponentHarness {
     constructor() {
         super(...arguments);
@@ -241,28 +241,28 @@ class _MatRadioButtonHarnessBase extends ComponentHarness {
         });
     }
 }
-/** Harness for interacting with a standard mat-radio-button in tests. */
+/** Harness for interacting with an MDC-based mat-radio-button in tests. */
 class MatRadioButtonHarness extends _MatRadioButtonHarnessBase {
     constructor() {
         super(...arguments);
-        this._textLabel = this.locatorFor('.mat-radio-label-content');
-        this._clickLabel = this.locatorFor('.mat-radio-label');
+        this._textLabel = this.locatorFor('label');
+        this._clickLabel = this._textLabel;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioButtonHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a radio button with specific
+     * attributes.
      * @param options Options for filtering which radio button instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatRadioButtonHarness, options)
+        return new HarnessPredicate(this, options)
             .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
             .addOption('name', options.name, (harness, name) => __awaiter(this, void 0, void 0, function* () { return (yield harness.getName()) === name; }))
             .addOption('checked', options.checked, (harness, checked) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isChecked()) == checked; }));
     }
 }
 /** The selector for the host element of a `MatRadioButton` instance. */
-MatRadioButtonHarness.hostSelector = '.mat-radio-button';
+MatRadioButtonHarness.hostSelector = '.mat-mdc-radio-button';
 
 /**
  * @license

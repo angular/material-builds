@@ -490,6 +490,22 @@
       "node": "./fesm2015/legacy-progress-bar/testing.mjs",
       "default": "./fesm2020/legacy-progress-bar/testing.mjs"
     },
+    "./legacy-radio": {
+      "types": "./legacy-radio/index.d.ts",
+      "esm2020": "./esm2020/legacy-radio/legacy-radio_public_index.mjs",
+      "es2020": "./fesm2020/legacy-radio.mjs",
+      "es2015": "./fesm2015/legacy-radio.mjs",
+      "node": "./fesm2015/legacy-radio.mjs",
+      "default": "./fesm2020/legacy-radio.mjs"
+    },
+    "./legacy-radio/testing": {
+      "types": "./legacy-radio/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-radio/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-radio/testing.mjs",
+      "es2015": "./fesm2015/legacy-radio/testing.mjs",
+      "node": "./fesm2015/legacy-radio/testing.mjs",
+      "default": "./fesm2020/legacy-radio/testing.mjs"
+    },
     "./legacy-select": {
       "types": "./legacy-select/index.d.ts",
       "esm2020": "./esm2020/legacy-select/legacy-select_public_index.mjs",

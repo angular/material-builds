@@ -14,6 +14,7 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/material/core';
+import * as i3 from '@angular/common';
 import { InjectionToken } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -24,14 +25,14 @@ import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 declare namespace i1 {
     export {
         MAT_RADIO_DEFAULT_OPTIONS_FACTORY,
+        MatRadioChange,
+        MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
+        MAT_RADIO_GROUP,
         MatRadioDefaultOptions,
         MAT_RADIO_DEFAULT_OPTIONS,
-        MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
-        MatRadioChange,
-        MAT_RADIO_GROUP,
         _MatRadioGroupBase,
-        MatRadioGroup,
         _MatRadioButtonBase,
+        MatRadioGroup,
         MatRadioButton
     }
 }
@@ -54,11 +55,8 @@ export declare const MAT_RADIO_GROUP: InjectionToken<_MatRadioGroupBase<_MatRadi
  */
 export declare const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any;
 
-/**
- * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
- */
 export declare class MatRadioButton extends _MatRadioButtonBase {
-    constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, changeDetector: ChangeDetectorRef, focusMonitor: FocusMonitor, radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, providerOverride?: MatRadioDefaultOptions, tabIndex?: string);
+    constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, _providerOverride?: MatRadioDefaultOptions, tabIndex?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioButton, [{ optional: true; }, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatRadioButton, "mat-radio-button", ["matRadioButton"], { "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false>;
 }
@@ -186,6 +184,7 @@ export declare interface MatRadioDefaultOptions {
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
 export declare class MatRadioGroup extends _MatRadioGroupBase<MatRadioButton> {
+    /** Child radio buttons. */
     _radios: QueryList<MatRadioButton>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioGroup, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatRadioGroup, "mat-radio-group", ["matRadioGroup"], {}, {}, ["_radios"], never, false>;
@@ -300,7 +299,7 @@ export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> 
 
 export declare class MatRadioModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRadioModule, [typeof i1.MatRadioGroup, typeof i1.MatRadioButton], [typeof i2.MatRippleModule, typeof i2.MatCommonModule], [typeof i1.MatRadioGroup, typeof i1.MatRadioButton, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRadioModule, [typeof i1.MatRadioGroup, typeof i1.MatRadioButton], [typeof i2.MatCommonModule, typeof i3.CommonModule, typeof i2.MatRippleModule], [typeof i2.MatCommonModule, typeof i1.MatRadioGroup, typeof i1.MatRadioButton]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRadioModule>;
 }
 
