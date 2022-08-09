@@ -1,5 +1,5 @@
 import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
-import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 /**
  * @license
@@ -8,114 +8,149 @@ import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coerci
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-slider in tests. */
-class MatSliderHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._textLabel = this.locatorFor('.mat-slider-thumb-label-text');
-        this._wrapper = this.locatorFor('.mat-slider-wrapper');
-    }
+/** Harness for interacting with a thumb inside of a Material slider in tests. */
+class MatSliderThumbHarness extends ComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSliderHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which slider instances are considered a match.
+     * Gets a `HarnessPredicate` that can be used to search for a slider thumb with specific attributes.
+     * @param options Options for filtering which thumb instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatSliderHarness, options);
+        return new HarnessPredicate(this, options).addOption('position', options.position, async (harness, value) => {
+            return (await harness.getPosition()) === value;
+        });
     }
-    /** Gets the slider's id. */
-    async getId() {
-        const id = await (await this.host()).getAttribute('id');
-        // In case no id has been specified, the "id" property always returns
-        // an empty string. To make this method more explicit, we return null.
-        return id !== '' ? id : null;
+    /** Gets the position of the thumb inside the slider. */
+    async getPosition() {
+        // Meant to mimic MDC's logic where `matSliderThumb` is treated as END.
+        const isStart = (await (await this.host()).getAttribute('matSliderStartThumb')) != null;
+        return isStart ? 0 /* ThumbPosition.START */ : 1 /* ThumbPosition.END */;
     }
-    /**
-     * Gets the current display value of the slider. Returns a null promise if the thumb label is
-     * disabled.
-     */
-    async getDisplayValue() {
-        const [host, textLabel] = await parallel(() => [this.host(), this._textLabel()]);
-        if (await host.hasClass('mat-slider-thumb-label-showing')) {
-            return textLabel.text();
-        }
-        return null;
+    /** Gets the value of the thumb. */
+    async getValue() {
+        return await (await this.host()).getProperty('valueAsNumber');
+    }
+    /** Sets the value of the thumb. */
+    async setValue(newValue) {
+        const input = await this.host();
+        // Since this is a range input, we can't simulate the user interacting with it so we set the
+        // value directly and dispatch a couple of fake events to ensure that everything fires.
+        await input.setInputValue(newValue + '');
+        await input.dispatchEvent('input');
+        await input.dispatchEvent('change');
     }
     /** Gets the current percentage value of the slider. */
     async getPercentage() {
-        return this._calculatePercentage(await this.getValue());
+        const [value, min, max] = await parallel(() => [
+            this.getValue(),
+            this.getMinValue(),
+            this.getMaxValue(),
+        ]);
+        return (value - min) / (max - min);
     }
-    /** Gets the current value of the slider. */
-    async getValue() {
-        return coerceNumberProperty(await (await this.host()).getAttribute('aria-valuenow'));
-    }
-    /** Gets the maximum value of the slider. */
+    /** Gets the maximum value of the thumb. */
     async getMaxValue() {
-        return coerceNumberProperty(await (await this.host()).getAttribute('aria-valuemax'));
+        return coerceNumberProperty(await (await this.host()).getProperty('max'));
     }
-    /** Gets the minimum value of the slider. */
+    /** Gets the minimum value of the thumb. */
     async getMinValue() {
-        return coerceNumberProperty(await (await this.host()).getAttribute('aria-valuemin'));
+        return coerceNumberProperty(await (await this.host()).getProperty('min'));
     }
-    /** Whether the slider is disabled. */
+    /** Gets the text representation of the slider's value. */
+    async getDisplayValue() {
+        return (await (await this.host()).getAttribute('aria-valuetext')) || '';
+    }
+    /** Whether the thumb is disabled. */
     async isDisabled() {
-        const disabled = (await this.host()).getAttribute('aria-disabled');
-        return coerceBooleanProperty(await disabled);
+        return (await this.host()).getProperty('disabled');
     }
-    /** Gets the orientation of the slider. */
-    async getOrientation() {
-        // "aria-orientation" will always be set to either "horizontal" or "vertical".
-        return (await this.host()).getAttribute('aria-orientation');
+    /** Gets the name of the thumb. */
+    async getName() {
+        return await (await this.host()).getProperty('name');
+    }
+    /** Gets the id of the thumb. */
+    async getId() {
+        return await (await this.host()).getProperty('id');
     }
     /**
-     * Sets the value of the slider by clicking on the slider track.
-     *
-     * Note that in rare cases the value cannot be set to the exact specified value. This
-     * can happen if not every value of the slider maps to a single pixel that could be
-     * clicked using mouse interaction. In such cases consider using the keyboard to
-     * select the given value or expand the slider's size for a better user experience.
+     * Focuses the thumb and returns a promise that indicates when the
+     * action is complete.
      */
-    async setValue(value) {
-        const [sliderEl, wrapperEl, orientation] = await parallel(() => [
-            this.host(),
-            this._wrapper(),
-            this.getOrientation(),
-        ]);
-        let percentage = await this._calculatePercentage(value);
-        const { height, width } = await wrapperEl.getDimensions();
-        const isVertical = orientation === 'vertical';
-        // In case the slider is inverted in LTR mode or not inverted in RTL mode,
-        // we need to invert the percentage so that the proper value is set.
-        if (await sliderEl.hasClass('mat-slider-invert-mouse-coords')) {
-            percentage = 1 - percentage;
-        }
-        // We need to round the new coordinates because creating fake DOM
-        // events will cause the coordinates to be rounded down.
-        const relativeX = isVertical ? 0 : Math.round(width * percentage);
-        const relativeY = isVertical ? Math.round(height * percentage) : 0;
-        await wrapperEl.click(relativeX, relativeY);
-    }
-    /** Focuses the slider. */
     async focus() {
         return (await this.host()).focus();
     }
-    /** Blurs the slider. */
+    /**
+     * Blurs the thumb and returns a promise that indicates when the
+     * action is complete.
+     */
     async blur() {
         return (await this.host()).blur();
     }
-    /** Whether the slider is focused. */
+    /** Whether the thumb is focused. */
     async isFocused() {
         return (await this.host()).isFocused();
     }
-    /** Calculates the percentage of the given value. */
-    async _calculatePercentage(value) {
-        const [min, max] = await parallel(() => [this.getMinValue(), this.getMaxValue()]);
-        return (value - min) / (max - min);
+}
+MatSliderThumbHarness.hostSelector = 'input[matSliderThumb], input[matSliderStartThumb], input[matSliderEndThumb]';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Harness for interacting with a MDC mat-slider in tests. */
+class MatSliderHarness extends ComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a slider with specific attributes.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options).addOption('isRange', options.isRange, async (harness, value) => {
+            return (await harness.isRange()) === value;
+        });
+    }
+    /** Gets the start thumb of the slider (only applicable for range sliders). */
+    async getStartThumb() {
+        if (!(await this.isRange())) {
+            throw Error('`getStartThumb` is only applicable for range sliders. ' +
+                'Did you mean to use `getEndThumb`?');
+        }
+        return this.locatorFor(MatSliderThumbHarness.with({ position: 0 /* ThumbPosition.START */ }))();
+    }
+    /** Gets the thumb (for single point sliders), or the end thumb (for range sliders). */
+    async getEndThumb() {
+        return this.locatorFor(MatSliderThumbHarness.with({ position: 1 /* ThumbPosition.END */ }))();
+    }
+    /** Gets whether the slider is a range slider. */
+    async isRange() {
+        return await (await this.host()).hasClass('mdc-slider--range');
+    }
+    /** Gets whether the slider is disabled. */
+    async isDisabled() {
+        return await (await this.host()).hasClass('mdc-slider--disabled');
+    }
+    /** Gets the value step increments of the slider. */
+    async getStep() {
+        // The same step value is forwarded to both thumbs.
+        const startHost = await (await this.getEndThumb()).host();
+        return coerceNumberProperty(await startHost.getProperty('step'));
+    }
+    /** Gets the maximum value of the slider. */
+    async getMaxValue() {
+        return (await this.getEndThumb()).getMaxValue();
+    }
+    /** Gets the minimum value of the slider. */
+    async getMinValue() {
+        const startThumb = (await this.isRange())
+            ? await this.getStartThumb()
+            : await this.getEndThumb();
+        return startThumb.getMinValue();
     }
 }
-/** The selector for the host element of a `MatSlider` instance. */
-MatSliderHarness.hostSelector = '.mat-slider';
+MatSliderHarness.hostSelector = '.mat-mdc-slider';
 
 /**
  * @license
@@ -133,5 +168,5 @@ MatSliderHarness.hostSelector = '.mat-slider';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatSliderHarness };
+export { MatSliderHarness, MatSliderThumbHarness };
 //# sourceMappingURL=testing.mjs.map

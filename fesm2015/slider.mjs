@@ -1,666 +1,361 @@
-import * as i3 from '@angular/common';
+import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
+import * as i3 from '@angular/cdk/platform';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
+import * as i1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { forwardRef, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Attribute, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
-import { mixinTabIndex, mixinColor, mixinDisabled, MatCommonModule } from '@angular/material/core';
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { hasModifierKey, DOWN_ARROW, RIGHT_ARROW, UP_ARROW, LEFT_ARROW, HOME, END, PAGE_DOWN, PAGE_UP } from '@angular/cdk/keycodes';
+import { Injectable, Inject, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, EventEmitter, Directive, Output, Optional, ViewChildren, ContentChildren, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import * as i2 from '@angular/material/core';
+import { MatRipple, mixinColor, mixinDisableRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
-import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { Subscription } from 'rxjs';
-import * as i1 from '@angular/cdk/a11y';
-import * as i2 from '@angular/cdk/bidi';
+import { Thumb, MDCSliderFoundation, TickMark } from '@material/slider';
+import { Subject, fromEvent, Subscription } from 'rxjs';
+import { takeUntil, finalize, share } from 'rxjs/operators';
+import * as i5 from '@angular/cdk/bidi';
 
-const activeEventOptions = normalizePassiveListenerOptions({ passive: false });
 /**
- * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
- * the default separation we chose.
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
-const MIN_AUTO_TICK_SEPARATION = 30;
-/** The thumb gap size for a disabled slider. */
-const DISABLED_THUMB_GAP = 7;
-/** The thumb gap size for a non-active slider at its minimum value. */
-const MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
-/** The thumb gap size for an active slider at its minimum value. */
-const MIN_VALUE_ACTIVE_THUMB_GAP = 10;
 /**
- * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)] and [formControl].
+ * Handles listening for all change and input events that occur on the document.
+ *
+ * This service exposes a single method #listen to allow users to subscribe to change and input
+ * events that occur on the document. Since listening for these events can be expensive, we use
+ * #fromEvent which will lazily attach a listener when the first subscription is made and remove the
+ * listener once the last observer unsubscribes.
+ */
+class GlobalChangeAndInputListener {
+    constructor(document, _ngZone) {
+        this._ngZone = _ngZone;
+        /** Stores the subjects that emit the events that occur on the global document. */
+        this._observables = new Map();
+        /** The notifier that triggers the global event observables to stop emitting and complete. */
+        this._destroyed = new Subject();
+        this._document = document;
+    }
+    ngOnDestroy() {
+        this._destroyed.next();
+        this._destroyed.complete();
+        this._observables.clear();
+    }
+    /** Returns a subscription to global change or input events. */
+    listen(type, callback) {
+        // If this is the first time we are listening to this event, create the observable for it.
+        if (!this._observables.has(type)) {
+            this._observables.set(type, this._createGlobalEventObservable(type));
+        }
+        return this._ngZone.runOutsideAngular(() => this._observables
+            .get(type)
+            .subscribe((event) => this._ngZone.run(() => callback(event))));
+    }
+    /** Creates an observable that emits all events of the given type. */
+    _createGlobalEventObservable(type) {
+        return fromEvent(this._document, type, { capture: true, passive: true }).pipe(takeUntil(this._destroyed), finalize(() => this._observables.delete(type)), share());
+    }
+}
+GlobalChangeAndInputListener.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: GlobalChangeAndInputListener, deps: [{ token: DOCUMENT }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Injectable });
+GlobalChangeAndInputListener.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: GlobalChangeAndInputListener, providedIn: 'root' });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: GlobalChangeAndInputListener, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'root' }]
+        }], ctorParameters: function () {
+        return [{ type: undefined, decorators: [{
+                        type: Inject,
+                        args: [DOCUMENT]
+                    }] }, { type: i0.NgZone }];
+    } });
+
+/** Options used to bind passive event listeners. */
+const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
+/**
+ * The visual slider thumb.
+ *
+ * Handles the slider thumb ripple states (hover, focus, and active),
+ * and displaying the value tooltip on discrete sliders.
  * @docs-private
  */
-const MAT_SLIDER_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatSlider),
-    multi: true,
-};
-/** A simple change event emitted by the MatSlider component. */
-class MatSliderChange {
-}
-// Boilerplate for applying mixins to MatSlider.
-/** @docs-private */
-const _MatSliderBase = mixinTabIndex(mixinColor(mixinDisabled(class {
-    constructor(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-}), 'accent'));
-/**
- * Allows users to select from a range of values by moving the slider thumb. It is similar in
- * behavior to the native `<input type="range">` element.
- */
-class MatSlider extends _MatSliderBase {
-    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _ngZone, _document, _animationMode) {
-        super(elementRef);
-        this._focusMonitor = _focusMonitor;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._dir = _dir;
+class MatSliderVisualThumb {
+    constructor(_ngZone, _slider, _elementRef) {
         this._ngZone = _ngZone;
-        this._animationMode = _animationMode;
-        this._invert = false;
-        this._max = 100;
-        this._min = 0;
-        this._step = 1;
-        this._thumbLabel = false;
-        this._tickInterval = 0;
-        this._value = null;
-        this._vertical = false;
-        /** Event emitted when the slider value has changed. */
-        this.change = new EventEmitter();
-        /** Event emitted when the slider thumb moves. */
-        this.input = new EventEmitter();
+        this._slider = _slider;
+        this._elementRef = _elementRef;
+        /** Whether ripples on the slider thumb should be disabled. */
+        this.disableRipple = false;
+        /** Whether the slider thumb is currently being pressed. */
+        this._isActive = false;
+        /** Whether the slider thumb is currently being hovered. */
+        this._isHovered = false;
+        this._onMouseEnter = () => {
+            this._isHovered = true;
+            // We don't want to show the hover ripple on top of the focus ripple.
+            // This can happen if the user tabs to a thumb and then the user moves their cursor over it.
+            if (!this._isShowingRipple(this._focusRippleRef)) {
+                this._showHoverRipple();
+            }
+        };
+        this._onMouseLeave = () => {
+            var _a;
+            this._isHovered = false;
+            (_a = this._hoverRippleRef) === null || _a === void 0 ? void 0 : _a.fadeOut();
+        };
+    }
+    ngAfterViewInit() {
+        this._ripple.radius = 24;
+        this._sliderInput = this._slider._getInput(this.thumbPosition);
+        // Note that we don't unsubscribe from these, because they're complete on destroy.
+        this._sliderInput.dragStart.subscribe(event => this._onDragStart(event));
+        this._sliderInput.dragEnd.subscribe(event => this._onDragEnd(event));
+        this._sliderInput._focus.subscribe(() => this._onFocus());
+        this._sliderInput._blur.subscribe(() => this._onBlur());
+        // These two listeners don't update any data bindings so we bind them
+        // outside of the NgZone to prevent Angular from needlessly running change detection.
+        this._ngZone.runOutsideAngular(() => {
+            this._elementRef.nativeElement.addEventListener('mouseenter', this._onMouseEnter);
+            this._elementRef.nativeElement.addEventListener('mouseleave', this._onMouseLeave);
+        });
+    }
+    ngOnDestroy() {
+        this._elementRef.nativeElement.removeEventListener('mouseenter', this._onMouseEnter);
+        this._elementRef.nativeElement.removeEventListener('mouseleave', this._onMouseLeave);
+    }
+    /** Used to append a class to indicate when the value indicator text is short. */
+    _isShortValue() {
+        var _a;
+        return ((_a = this.valueIndicatorText) === null || _a === void 0 ? void 0 : _a.length) <= 2;
+    }
+    _onFocus() {
+        var _a;
+        // We don't want to show the hover ripple on top of the focus ripple.
+        // Happen when the users cursor is over a thumb and then the user tabs to it.
+        (_a = this._hoverRippleRef) === null || _a === void 0 ? void 0 : _a.fadeOut();
+        this._showFocusRipple();
+    }
+    _onBlur() {
+        var _a;
+        // Happens when the user tabs away while still dragging a thumb.
+        if (!this._isActive) {
+            (_a = this._focusRippleRef) === null || _a === void 0 ? void 0 : _a.fadeOut();
+        }
+        // Happens when the user tabs away from a thumb but their cursor is still over it.
+        if (this._isHovered) {
+            this._showHoverRipple();
+        }
+    }
+    _onDragStart(event) {
+        if (event.source._thumbPosition === this.thumbPosition) {
+            this._isActive = true;
+            this._showActiveRipple();
+        }
+    }
+    _onDragEnd(event) {
+        var _a, _b;
+        if (event.source._thumbPosition === this.thumbPosition) {
+            this._isActive = false;
+            (_a = this._activeRippleRef) === null || _a === void 0 ? void 0 : _a.fadeOut();
+            // Happens when the user starts dragging a thumb, tabs away, and then stops dragging.
+            if (!this._sliderInput._isFocused()) {
+                (_b = this._focusRippleRef) === null || _b === void 0 ? void 0 : _b.fadeOut();
+            }
+        }
+    }
+    /** Handles displaying the hover ripple. */
+    _showHoverRipple() {
+        var _a;
+        if (!this._isShowingRipple(this._hoverRippleRef)) {
+            this._hoverRippleRef = this._showRipple({ enterDuration: 0, exitDuration: 0 });
+            (_a = this._hoverRippleRef) === null || _a === void 0 ? void 0 : _a.element.classList.add('mat-mdc-slider-hover-ripple');
+        }
+    }
+    /** Handles displaying the focus ripple. */
+    _showFocusRipple() {
+        var _a;
+        // Show the focus ripple event if noop animations are enabled.
+        if (!this._isShowingRipple(this._focusRippleRef)) {
+            this._focusRippleRef = this._showRipple({ enterDuration: 0, exitDuration: 0 });
+            (_a = this._focusRippleRef) === null || _a === void 0 ? void 0 : _a.element.classList.add('mat-mdc-slider-focus-ripple');
+        }
+    }
+    /** Handles displaying the active ripple. */
+    _showActiveRipple() {
+        var _a;
+        if (!this._isShowingRipple(this._activeRippleRef)) {
+            this._activeRippleRef = this._showRipple({ enterDuration: 225, exitDuration: 400 });
+            (_a = this._activeRippleRef) === null || _a === void 0 ? void 0 : _a.element.classList.add('mat-mdc-slider-active-ripple');
+        }
+    }
+    /** Whether the given rippleRef is currently fading in or visible. */
+    _isShowingRipple(rippleRef) {
+        return (rippleRef === null || rippleRef === void 0 ? void 0 : rippleRef.state) === 0 /* RippleState.FADING_IN */ || (rippleRef === null || rippleRef === void 0 ? void 0 : rippleRef.state) === 1 /* RippleState.VISIBLE */;
+    }
+    /** Manually launches the slider thumb ripple using the specified ripple animation config. */
+    _showRipple(animation) {
+        if (this.disableRipple) {
+            return;
+        }
+        return this._ripple.launch({
+            animation: this._slider._noopAnimations ? { enterDuration: 0, exitDuration: 0 } : animation,
+            centered: true,
+            persistent: true,
+        });
+    }
+    /** Gets the hosts native HTML element. */
+    _getHostElement() {
+        return this._elementRef.nativeElement;
+    }
+    /** Gets the native HTML element of the slider thumb knob. */
+    _getKnob() {
+        return this._knob.nativeElement;
+    }
+    /**
+     * Gets the native HTML element of the slider thumb value indicator
+     * container.
+     */
+    _getValueIndicatorContainer() {
+        return this._valueIndicatorContainer.nativeElement;
+    }
+}
+MatSliderVisualThumb.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSliderVisualThumb, deps: [{ token: i0.NgZone }, { token: forwardRef(() => MatSlider) }, { token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Component });
+MatSliderVisualThumb.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.1", type: MatSliderVisualThumb, selector: "mat-slider-visual-thumb", inputs: { discrete: "discrete", thumbPosition: "thumbPosition", valueIndicatorText: "valueIndicatorText", disableRipple: "disableRipple" }, host: { properties: { "class.mdc-slider__thumb--short-value": "_isShortValue()" }, classAttribute: "mdc-slider__thumb mat-mdc-slider-visual-thumb" }, viewQueries: [{ propertyName: "_ripple", first: true, predicate: MatRipple, descendants: true }, { propertyName: "_knob", first: true, predicate: ["knob"], descendants: true }, { propertyName: "_valueIndicatorContainer", first: true, predicate: ["valueIndicatorContainer"], descendants: true }], ngImport: i0, template: "<div class=\"mdc-slider__value-indicator-container\" *ngIf=\"discrete\" #valueIndicatorContainer>\n  <div class=\"mdc-slider__value-indicator\">\n    <span class=\"mdc-slider__value-indicator-text\">{{valueIndicatorText}}</span>\n  </div>\n</div>\n<div class=\"mdc-slider__thumb-knob\" #knob></div>\n<div\n  matRipple\n  class=\"mat-mdc-focus-indicator\"\n  [matRippleDisabled]=\"true\"></div>\n", styles: [".mat-mdc-slider-visual-thumb .mat-ripple{height:100%;width:100%}"], dependencies: [{ kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "directive", type: i2.MatRipple, selector: "[mat-ripple], [matRipple]", inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"], exportAs: ["matRipple"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSliderVisualThumb, decorators: [{
+            type: Component,
+            args: [{ selector: 'mat-slider-visual-thumb', host: {
+                        'class': 'mdc-slider__thumb mat-mdc-slider-visual-thumb',
+                        // NOTE: This class is used internally.
+                        // TODO(wagnermaciel): Remove this once it is handled by the mdc foundation (cl/388828896).
+                        '[class.mdc-slider__thumb--short-value]': '_isShortValue()',
+                    }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, template: "<div class=\"mdc-slider__value-indicator-container\" *ngIf=\"discrete\" #valueIndicatorContainer>\n  <div class=\"mdc-slider__value-indicator\">\n    <span class=\"mdc-slider__value-indicator-text\">{{valueIndicatorText}}</span>\n  </div>\n</div>\n<div class=\"mdc-slider__thumb-knob\" #knob></div>\n<div\n  matRipple\n  class=\"mat-mdc-focus-indicator\"\n  [matRippleDisabled]=\"true\"></div>\n", styles: [".mat-mdc-slider-visual-thumb .mat-ripple{height:100%;width:100%}"] }]
+        }], ctorParameters: function () {
+        return [{ type: i0.NgZone }, { type: MatSlider, decorators: [{
+                        type: Inject,
+                        args: [forwardRef(() => MatSlider)]
+                    }] }, { type: i0.ElementRef }];
+    }, propDecorators: { discrete: [{
+                type: Input
+            }], thumbPosition: [{
+                type: Input
+            }], valueIndicatorText: [{
+                type: Input
+            }], disableRipple: [{
+                type: Input
+            }], _ripple: [{
+                type: ViewChild,
+                args: [MatRipple]
+            }], _knob: [{
+                type: ViewChild,
+                args: ['knob']
+            }], _valueIndicatorContainer: [{
+                type: ViewChild,
+                args: ['valueIndicatorContainer']
+            }] } });
+/**
+ * Directive that adds slider-specific behaviors to an input element inside `<mat-slider>`.
+ * Up to two may be placed inside of a `<mat-slider>`.
+ *
+ * If one is used, the selector `matSliderThumb` must be used, and the outcome will be a normal
+ * slider. If two are used, the selectors `matSliderStartThumb` and `matSliderEndThumb` must be
+ * used, and the outcome will be a range slider with two slider thumbs.
+ */
+class MatSliderThumb {
+    constructor(document, _slider, _elementRef) {
+        this._slider = _slider;
+        this._elementRef = _elementRef;
         /**
          * Emits when the raw value of the slider changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
          * @docs-private
          */
         this.valueChange = new EventEmitter();
-        /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-        this.onTouched = () => { };
-        this._percent = 0;
+        /** Event emitted when the slider thumb starts being dragged. */
+        this.dragStart = new EventEmitter();
+        /** Event emitted when the slider thumb stops being dragged. */
+        this.dragEnd = new EventEmitter();
+        /** Event emitted every time the MatSliderThumb is blurred. */
+        this._blur = new EventEmitter();
+        /** Event emitted every time the MatSliderThumb is focused. */
+        this._focus = new EventEmitter();
         /**
-         * Whether or not the thumb is sliding and what the user is using to slide it with.
-         * Used to determine if there should be a transition for the thumb and fill track.
+         * Used to determine the disabled state of the MatSlider (ControlValueAccessor).
+         * For ranged sliders, the disabled state of the MatSlider depends on the combined state of the
+         * start and end inputs. See MatSlider._updateDisabled.
          */
-        this._isSliding = null;
+        this._disabled = false;
         /**
-         * Whether or not the slider is active (clicked or sliding).
-         * Used to shrink and grow the thumb as according to the Material Design spec.
+         * A callback function that is called when the
+         * control's value changes in the UI (ControlValueAccessor).
          */
-        this._isActive = false;
-        /** The size of a tick interval as a percentage of the size of the track. */
-        this._tickIntervalPercent = 0;
-        /** The dimensions of the slider. */
-        this._sliderDimensions = null;
-        this._controlValueAccessorChangeFn = () => { };
-        /** Subscription to the Directionality change EventEmitter. */
-        this._dirChangeSubscription = Subscription.EMPTY;
-        /** Called when the user has put their pointer down on the slider. */
-        this._pointerDown = (event) => {
-            // Don't do anything if the slider is disabled or the
-            // user is using anything other than the main mouse button.
-            if (this.disabled || this._isSliding || (!isTouchEvent(event) && event.button !== 0)) {
-                return;
-            }
-            this._ngZone.run(() => {
-                this._touchId = isTouchEvent(event)
-                    ? getTouchIdForSlider(event, this._elementRef.nativeElement)
-                    : undefined;
-                const pointerPosition = getPointerPositionOnPage(event, this._touchId);
-                if (pointerPosition) {
-                    const oldValue = this.value;
-                    this._isSliding = 'pointer';
-                    this._lastPointerEvent = event;
-                    this._focusHostElement();
-                    this._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
-                    this._bindGlobalEvents(event);
-                    this._focusHostElement();
-                    this._updateValueFromPosition(pointerPosition);
-                    this._valueOnSlideStart = oldValue;
-                    // Despite the fact that we explicitly bind active events, in some cases the browser
-                    // still dispatches non-cancelable events which cause this call to throw an error.
-                    // There doesn't appear to be a good way of avoiding them. See #23820.
-                    if (event.cancelable) {
-                        event.preventDefault();
-                    }
-                    // Emit a change and input event if the value changed.
-                    if (oldValue != this.value) {
-                        this._emitInputEvent();
-                    }
-                }
-            });
-        };
+        this._onChange = () => { };
         /**
-         * Called when the user has moved their pointer after
-         * starting to drag. Bound on the document level.
+         * A callback function that is called by the forms API on
+         * initialization to update the form model on blur (ControlValueAccessor).
          */
-        this._pointerMove = (event) => {
-            if (this._isSliding === 'pointer') {
-                const pointerPosition = getPointerPositionOnPage(event, this._touchId);
-                if (pointerPosition) {
-                    // Prevent the slide from selecting anything else.
-                    if (event.cancelable) {
-                        event.preventDefault();
-                    }
-                    const oldValue = this.value;
-                    this._lastPointerEvent = event;
-                    this._updateValueFromPosition(pointerPosition);
-                    // Native range elements always emit `input` events when the value changed while sliding.
-                    if (oldValue != this.value) {
-                        this._emitInputEvent();
-                    }
-                }
-            }
-        };
-        /** Called when the user has lifted their pointer. Bound on the document level. */
-        this._pointerUp = (event) => {
-            if (this._isSliding === 'pointer') {
-                if (!isTouchEvent(event) ||
-                    typeof this._touchId !== 'number' ||
-                    // Note that we use `changedTouches`, rather than `touches` because it
-                    // seems like in most cases `touches` is empty for `touchend` events.
-                    findMatchingTouch(event.changedTouches, this._touchId)) {
-                    if (event.cancelable) {
-                        event.preventDefault();
-                    }
-                    this._removeGlobalEvents();
-                    this._isSliding = null;
-                    this._touchId = undefined;
-                    if (this._valueOnSlideStart != this.value && !this.disabled) {
-                        this._emitChangeEvent();
-                    }
-                    this._valueOnSlideStart = this._lastPointerEvent = null;
-                }
-            }
-        };
-        /** Called when the window has lost focus. */
-        this._windowBlur = () => {
-            // If the window is blurred while dragging we need to stop dragging because the
-            // browser won't dispatch the `mouseup` and `touchend` events anymore.
-            if (this._lastPointerEvent) {
-                this._pointerUp(this._lastPointerEvent);
-            }
-        };
-        this._document = _document;
-        this.tabIndex = parseInt(tabIndex) || 0;
-        _ngZone.runOutsideAngular(() => {
-            const element = elementRef.nativeElement;
-            element.addEventListener('mousedown', this._pointerDown, activeEventOptions);
-            element.addEventListener('touchstart', this._pointerDown, activeEventOptions);
-        });
+        this._onTouched = () => { };
+        /** Indicates which slider thumb this input corresponds to. */
+        this._thumbPosition = this._elementRef.nativeElement.hasAttribute('matSliderStartThumb')
+            ? Thumb.START
+            : Thumb.END;
+        this._document = document;
+        this._hostElement = _elementRef.nativeElement;
     }
-    /** Whether the slider is inverted. */
-    get invert() {
-        return this._invert;
-    }
-    set invert(value) {
-        this._invert = coerceBooleanProperty(value);
-    }
-    /** The maximum value that the slider can have. */
-    get max() {
-        return this._max;
-    }
-    set max(v) {
-        this._max = coerceNumberProperty(v, this._max);
-        this._percent = this._calculatePercentage(this._value);
-        // Since this also modifies the percentage, we need to let the change detection know.
-        this._changeDetectorRef.markForCheck();
-    }
-    /** The minimum value that the slider can have. */
-    get min() {
-        return this._min;
-    }
-    set min(v) {
-        this._min = coerceNumberProperty(v, this._min);
-        this._percent = this._calculatePercentage(this._value);
-        // Since this also modifies the percentage, we need to let the change detection know.
-        this._changeDetectorRef.markForCheck();
-    }
-    /** The values at which the thumb will snap. */
-    get step() {
-        return this._step;
-    }
-    set step(v) {
-        this._step = coerceNumberProperty(v, this._step);
-        if (this._step % 1 !== 0) {
-            this._roundToDecimal = this._step.toString().split('.').pop().length;
-        }
-        // Since this could modify the label, we need to notify the change detection.
-        this._changeDetectorRef.markForCheck();
-    }
-    /** Whether or not to show the thumb label. */
-    get thumbLabel() {
-        return this._thumbLabel;
-    }
-    set thumbLabel(value) {
-        this._thumbLabel = coerceBooleanProperty(value);
-    }
-    /**
-     * How often to show ticks. Relative to the step so that a tick always appears on a step.
-     * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
-     */
-    get tickInterval() {
-        return this._tickInterval;
-    }
-    set tickInterval(value) {
-        if (value === 'auto') {
-            this._tickInterval = 'auto';
-        }
-        else if (typeof value === 'number' || typeof value === 'string') {
-            this._tickInterval = coerceNumberProperty(value, this._tickInterval);
-        }
-        else {
-            this._tickInterval = 0;
-        }
-    }
-    /** Value of the slider. */
+    // ** IMPORTANT NOTE **
+    //
+    // The way `value` is implemented for MatSliderThumb doesn't follow typical Angular conventions.
+    // Normally we would define a private variable `_value` as the source of truth for the value of
+    // the slider thumb input. The source of truth for the value of the slider inputs has already
+    // been decided for us by MDC to be the value attribute on the slider thumb inputs. This is
+    // because the MDC foundation and adapter expect that the value attribute is the source of truth
+    // for the slider inputs.
+    //
+    // Also, note that the value attribute is completely disconnected from the value property.
+    /** The current value of this slider input. */
     get value() {
-        // If the value needs to be read and it is still uninitialized, initialize it to the min.
-        if (this._value === null) {
-            this.value = this._min;
-        }
-        return this._value;
+        return coerceNumberProperty(this._hostElement.getAttribute('value'));
     }
     set value(v) {
-        if (v !== this._value) {
-            let value = coerceNumberProperty(v, 0);
-            // While incrementing by a decimal we can end up with values like 33.300000000000004.
-            // Truncate it to ensure that it matches the label and to make it easier to work with.
-            if (this._roundToDecimal && value !== this.min && value !== this.max) {
-                value = parseFloat(value.toFixed(this._roundToDecimal));
-            }
-            this._value = value;
-            this._percent = this._calculatePercentage(this._value);
-            // Since this also modifies the percentage, we need to let the change detection know.
-            this._changeDetectorRef.markForCheck();
+        const value = coerceNumberProperty(v);
+        // If the foundation has already been initialized, we need to
+        // relay any value updates to it so that it can update the UI.
+        if (this._slider._initialized) {
+            this._slider._setValue(value, this._thumbPosition);
+        }
+        else {
+            // Setup for the MDC foundation.
+            this._hostElement.setAttribute('value', `${value}`);
         }
     }
-    /** Whether the slider is vertical. */
-    get vertical() {
-        return this._vertical;
-    }
-    set vertical(value) {
-        this._vertical = coerceBooleanProperty(value);
-    }
-    /** The value to be used for display purposes. */
-    get displayValue() {
-        if (this.displayWith) {
-            // Value is never null but since setters and getters cannot have
-            // different types, the value getter is also typed to return null.
-            return this.displayWith(this.value);
-        }
-        // Note that this could be improved further by rounding something like 0.999 to 1 or
-        // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
-        // every change detection cycle.
-        if (this._roundToDecimal && this.value && this.value % 1 !== 0) {
-            return this.value.toFixed(this._roundToDecimal);
-        }
-        return this.value || 0;
-    }
-    /** set focus to the host element */
-    focus(options) {
-        this._focusHostElement(options);
-    }
-    /** blur the host element */
-    blur() {
-        this._blurHostElement();
-    }
-    /** The percentage of the slider that coincides with the value. */
-    get percent() {
-        return this._clamp(this._percent);
-    }
-    /**
-     * Whether the axis of the slider is inverted.
-     * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
-     */
-    _shouldInvertAxis() {
-        // Standard non-inverted mode for a vertical slider should be dragging the thumb from bottom to
-        // top. However from a y-axis standpoint this is inverted.
-        return this.vertical ? !this.invert : this.invert;
-    }
-    /** Whether the slider is at its minimum value. */
-    _isMinValue() {
-        return this.percent === 0;
-    }
-    /**
-     * The amount of space to leave between the slider thumb and the track fill & track background
-     * elements.
-     */
-    _getThumbGap() {
-        if (this.disabled) {
-            return DISABLED_THUMB_GAP;
-        }
-        if (this._isMinValue() && !this.thumbLabel) {
-            return this._isActive ? MIN_VALUE_ACTIVE_THUMB_GAP : MIN_VALUE_NONACTIVE_THUMB_GAP;
-        }
-        return 0;
-    }
-    /** CSS styles for the track background element. */
-    _getTrackBackgroundStyles() {
-        const axis = this.vertical ? 'Y' : 'X';
-        const scale = this.vertical ? `1, ${1 - this.percent}, 1` : `${1 - this.percent}, 1, 1`;
-        const sign = this._shouldInvertMouseCoords() ? '-' : '';
-        return {
-            // scale3d avoids some rendering issues in Chrome. See #12071.
-            transform: `translate${axis}(${sign}${this._getThumbGap()}px) scale3d(${scale})`,
-        };
-    }
-    /** CSS styles for the track fill element. */
-    _getTrackFillStyles() {
-        const percent = this.percent;
-        const axis = this.vertical ? 'Y' : 'X';
-        const scale = this.vertical ? `1, ${percent}, 1` : `${percent}, 1, 1`;
-        const sign = this._shouldInvertMouseCoords() ? '' : '-';
-        return {
-            // scale3d avoids some rendering issues in Chrome. See #12071.
-            transform: `translate${axis}(${sign}${this._getThumbGap()}px) scale3d(${scale})`,
-            // iOS Safari has a bug where it won't re-render elements which start of as `scale(0)` until
-            // something forces a style recalculation on it. Since we'll end up with `scale(0)` when
-            // the value of the slider is 0, we can easily get into this situation. We force a
-            // recalculation by changing the element's `display` when it goes from 0 to any other value.
-            display: percent === 0 ? 'none' : '',
-        };
-    }
-    /** CSS styles for the ticks container element. */
-    _getTicksContainerStyles() {
-        let axis = this.vertical ? 'Y' : 'X';
-        // For a horizontal slider in RTL languages we push the ticks container off the left edge
-        // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-        let sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
-        let offset = (this._tickIntervalPercent / 2) * 100;
-        return {
-            'transform': `translate${axis}(${sign}${offset}%)`,
-        };
-    }
-    /** CSS styles for the ticks element. */
-    _getTicksStyles() {
-        let tickSize = this._tickIntervalPercent * 100;
-        let backgroundSize = this.vertical ? `2px ${tickSize}%` : `${tickSize}% 2px`;
-        let axis = this.vertical ? 'Y' : 'X';
-        // Depending on the direction we pushed the ticks container, push the ticks the opposite
-        // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
-        // ticks 180 degrees so we're really cutting off the end edge abd not the start.
-        let sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
-        let rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
-        let styles = {
-            'backgroundSize': backgroundSize,
-            // Without translateZ ticks sometimes jitter as the slider moves on Chrome & Firefox.
-            'transform': `translateZ(0) translate${axis}(${sign}${tickSize / 2}%)${rotate}`,
-        };
-        if (this._isMinValue() && this._getThumbGap()) {
-            const shouldInvertAxis = this._shouldInvertAxis();
-            let side;
-            if (this.vertical) {
-                side = shouldInvertAxis ? 'Bottom' : 'Top';
-            }
-            else {
-                side = shouldInvertAxis ? 'Right' : 'Left';
-            }
-            styles[`padding${side}`] = `${this._getThumbGap()}px`;
-        }
-        return styles;
-    }
-    _getThumbContainerStyles() {
-        const shouldInvertAxis = this._shouldInvertAxis();
-        let axis = this.vertical ? 'Y' : 'X';
-        // For a horizontal slider in RTL languages we push the thumb container off the left edge
-        // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-        let invertOffset = this._getDirection() == 'rtl' && !this.vertical ? !shouldInvertAxis : shouldInvertAxis;
-        let offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
-        return {
-            'transform': `translate${axis}(-${offset}%)`,
-        };
-    }
-    /**
-     * Whether mouse events should be converted to a slider position by calculating their distance
-     * from the right or bottom edge of the slider as opposed to the top or left.
-     */
-    _shouldInvertMouseCoords() {
-        const shouldInvertAxis = this._shouldInvertAxis();
-        return this._getDirection() == 'rtl' && !this.vertical ? !shouldInvertAxis : shouldInvertAxis;
-    }
-    /** The language direction for this slider element. */
-    _getDirection() {
-        return this._dir && this._dir.value == 'rtl' ? 'rtl' : 'ltr';
+    ngOnInit() {
+        // By calling this in ngOnInit() we guarantee that the sibling sliders initial value by
+        // has already been set by the time we reach ngAfterViewInit().
+        this._initializeInputValueAttribute();
+        this._initializeAriaValueText();
     }
     ngAfterViewInit() {
-        this._focusMonitor.monitor(this._elementRef, true).subscribe((origin) => {
-            this._isActive = !!origin && origin !== 'keyboard';
-            this._changeDetectorRef.detectChanges();
-        });
-        if (this._dir) {
-            this._dirChangeSubscription = this._dir.change.subscribe(() => {
-                this._changeDetectorRef.markForCheck();
-            });
+        this._initializeInputState();
+        this._initializeInputValueProperty();
+        // Setup for the MDC foundation.
+        if (this._slider.disabled) {
+            this._hostElement.disabled = true;
         }
     }
     ngOnDestroy() {
-        const element = this._elementRef.nativeElement;
-        element.removeEventListener('mousedown', this._pointerDown, activeEventOptions);
-        element.removeEventListener('touchstart', this._pointerDown, activeEventOptions);
-        this._lastPointerEvent = null;
-        this._removeGlobalEvents();
-        this._focusMonitor.stopMonitoring(this._elementRef);
-        this._dirChangeSubscription.unsubscribe();
-    }
-    _onMouseenter() {
-        if (this.disabled) {
-            return;
-        }
-        // We save the dimensions of the slider here so we can use them to update the spacing of the
-        // ticks and determine where on the slider click and slide events happen.
-        this._sliderDimensions = this._getSliderDimensions();
-        this._updateTickIntervalPercent();
-    }
-    _onFocus() {
-        // We save the dimensions of the slider here so we can use them to update the spacing of the
-        // ticks and determine where on the slider click and slide events happen.
-        this._sliderDimensions = this._getSliderDimensions();
-        this._updateTickIntervalPercent();
+        this.dragStart.complete();
+        this.dragEnd.complete();
+        this._focus.complete();
+        this._blur.complete();
+        this.valueChange.complete();
     }
     _onBlur() {
-        this.onTouched();
+        this._onTouched();
+        this._blur.emit();
     }
-    _onKeydown(event) {
-        if (this.disabled ||
-            hasModifierKey(event) ||
-            (this._isSliding && this._isSliding !== 'keyboard')) {
-            return;
-        }
-        const oldValue = this.value;
-        switch (event.keyCode) {
-            case PAGE_UP:
-                this._increment(10);
-                break;
-            case PAGE_DOWN:
-                this._increment(-10);
-                break;
-            case END:
-                this.value = this.max;
-                break;
-            case HOME:
-                this.value = this.min;
-                break;
-            case LEFT_ARROW:
-                // NOTE: For a sighted user it would make more sense that when they press an arrow key on an
-                // inverted slider the thumb moves in that direction. However for a blind user, nothing
-                // about the slider indicates that it is inverted. They will expect left to be decrement,
-                // regardless of how it appears on the screen. For speakers ofRTL languages, they probably
-                // expect left to mean increment. Therefore we flip the meaning of the side arrow keys for
-                // RTL. For inverted sliders we prefer a good a11y experience to having it "look right" for
-                // sighted users, therefore we do not swap the meaning.
-                this._increment(this._getDirection() == 'rtl' ? 1 : -1);
-                break;
-            case UP_ARROW:
-                this._increment(1);
-                break;
-            case RIGHT_ARROW:
-                // See comment on LEFT_ARROW about the conditions under which we flip the meaning.
-                this._increment(this._getDirection() == 'rtl' ? -1 : 1);
-                break;
-            case DOWN_ARROW:
-                this._increment(-1);
-                break;
-            default:
-                // Return if the key is not one that we explicitly handle to avoid calling preventDefault on
-                // it.
-                return;
-        }
-        if (oldValue != this.value) {
-            this._emitInputEvent();
-            this._emitChangeEvent();
-        }
-        this._isSliding = 'keyboard';
-        event.preventDefault();
-    }
-    _onKeyup() {
-        if (this._isSliding === 'keyboard') {
-            this._isSliding = null;
-        }
-    }
-    /** Use defaultView of injected document if available or fallback to global window reference */
-    _getWindow() {
-        return this._document.defaultView || window;
-    }
-    /**
-     * Binds our global move and end events. They're bound at the document level and only while
-     * dragging so that the user doesn't have to keep their pointer exactly over the slider
-     * as they're swiping across the screen.
-     */
-    _bindGlobalEvents(triggerEvent) {
-        // Note that we bind the events to the `document`, because it allows us to capture
-        // drag cancel events where the user's pointer is outside the browser window.
-        const document = this._document;
-        const isTouch = isTouchEvent(triggerEvent);
-        const moveEventName = isTouch ? 'touchmove' : 'mousemove';
-        const endEventName = isTouch ? 'touchend' : 'mouseup';
-        document.addEventListener(moveEventName, this._pointerMove, activeEventOptions);
-        document.addEventListener(endEventName, this._pointerUp, activeEventOptions);
-        if (isTouch) {
-            document.addEventListener('touchcancel', this._pointerUp, activeEventOptions);
-        }
-        const window = this._getWindow();
-        if (typeof window !== 'undefined' && window) {
-            window.addEventListener('blur', this._windowBlur);
-        }
-    }
-    /** Removes any global event listeners that we may have added. */
-    _removeGlobalEvents() {
-        const document = this._document;
-        document.removeEventListener('mousemove', this._pointerMove, activeEventOptions);
-        document.removeEventListener('mouseup', this._pointerUp, activeEventOptions);
-        document.removeEventListener('touchmove', this._pointerMove, activeEventOptions);
-        document.removeEventListener('touchend', this._pointerUp, activeEventOptions);
-        document.removeEventListener('touchcancel', this._pointerUp, activeEventOptions);
-        const window = this._getWindow();
-        if (typeof window !== 'undefined' && window) {
-            window.removeEventListener('blur', this._windowBlur);
-        }
-    }
-    /** Increments the slider by the given number of steps (negative number decrements). */
-    _increment(numSteps) {
-        // Pre-clamp the current value since it's allowed to be
-        // out of bounds when assigned programmatically.
-        const clampedValue = this._clamp(this.value || 0, this.min, this.max);
-        this.value = this._clamp(clampedValue + this.step * numSteps, this.min, this.max);
-    }
-    /** Calculate the new value from the new physical location. The value will always be snapped. */
-    _updateValueFromPosition(pos) {
-        if (!this._sliderDimensions) {
-            return;
-        }
-        let offset = this.vertical ? this._sliderDimensions.top : this._sliderDimensions.left;
-        let size = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-        let posComponent = this.vertical ? pos.y : pos.x;
-        // The exact value is calculated from the event and used to find the closest snap value.
-        let percent = this._clamp((posComponent - offset) / size);
-        if (this._shouldInvertMouseCoords()) {
-            percent = 1 - percent;
-        }
-        // Since the steps may not divide cleanly into the max value, if the user
-        // slid to 0 or 100 percent, we jump to the min/max value. This approach
-        // is slightly more intuitive than using `Math.ceil` below, because it
-        // follows the user's pointer closer.
-        if (percent === 0) {
-            this.value = this.min;
-        }
-        else if (percent === 1) {
-            this.value = this.max;
-        }
-        else {
-            const exactValue = this._calculateValue(percent);
-            // This calculation finds the closest step by finding the closest
-            // whole number divisible by the step relative to the min.
-            const closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
-            // The value needs to snap to the min and max.
-            this.value = this._clamp(closestValue, this.min, this.max);
-        }
-    }
-    /** Emits a change event if the current value is different from the last emitted value. */
-    _emitChangeEvent() {
-        this._controlValueAccessorChangeFn(this.value);
-        this.valueChange.emit(this.value);
-        this.change.emit(this._createChangeEvent());
-    }
-    /** Emits an input event when the current value is different from the last emitted value. */
-    _emitInputEvent() {
-        this.input.emit(this._createChangeEvent());
-    }
-    /** Updates the amount of space between ticks as a percentage of the width of the slider. */
-    _updateTickIntervalPercent() {
-        if (!this.tickInterval || !this._sliderDimensions) {
-            return;
-        }
-        let tickIntervalPercent;
-        if (this.tickInterval == 'auto') {
-            let trackSize = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-            let pixelsPerStep = (trackSize * this.step) / (this.max - this.min);
-            let stepsPerTick = Math.ceil(MIN_AUTO_TICK_SEPARATION / pixelsPerStep);
-            let pixelsPerTick = stepsPerTick * this.step;
-            tickIntervalPercent = pixelsPerTick / trackSize;
-        }
-        else {
-            tickIntervalPercent = (this.tickInterval * this.step) / (this.max - this.min);
-        }
-        this._tickIntervalPercent = isSafeNumber(tickIntervalPercent) ? tickIntervalPercent : 0;
-    }
-    /** Creates a slider change object from the specified value. */
-    _createChangeEvent(value = this.value) {
-        let event = new MatSliderChange();
-        event.source = this;
-        event.value = value;
-        return event;
-    }
-    /** Calculates the percentage of the slider that a value is. */
-    _calculatePercentage(value) {
-        const percentage = ((value || 0) - this.min) / (this.max - this.min);
-        return isSafeNumber(percentage) ? percentage : 0;
-    }
-    /** Calculates the value a percentage of the slider corresponds to. */
-    _calculateValue(percentage) {
-        return this.min + percentage * (this.max - this.min);
-    }
-    /** Return a number between two numbers. */
-    _clamp(value, min = 0, max = 1) {
-        return Math.max(min, Math.min(value, max));
-    }
-    /**
-     * Get the bounding client rect of the slider track element.
-     * The track is used rather than the native element to ignore the extra space that the thumb can
-     * take up.
-     */
-    _getSliderDimensions() {
-        return this._sliderWrapper ? this._sliderWrapper.nativeElement.getBoundingClientRect() : null;
-    }
-    /**
-     * Focuses the native element.
-     * Currently only used to allow a blur event to fire but will be used with keyboard input later.
-     */
-    _focusHostElement(options) {
-        this._elementRef.nativeElement.focus(options);
-    }
-    /** Blurs the native element. */
-    _blurHostElement() {
-        this._elementRef.nativeElement.blur();
+    _emitFakeEvent(type) {
+        const event = new Event(type);
+        event._matIsHandled = true;
+        this._hostElement.dispatchEvent(event);
     }
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -675,7 +370,7 @@ class MatSlider extends _MatSliderBase {
      * @param fn Callback to be registered.
      */
     registerOnChange(fn) {
-        this._controlValueAccessorChangeFn = fn;
+        this._onChange = fn;
     }
     /**
      * Registers a callback to be triggered when the component is touched.
@@ -683,7 +378,7 @@ class MatSlider extends _MatSliderBase {
      * @param fn Callback to be registered.
      */
     registerOnTouched(fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     }
     /**
      * Sets whether the component should be disabled.
@@ -691,144 +386,784 @@ class MatSlider extends _MatSliderBase {
      * @param isDisabled
      */
     setDisabledState(isDisabled) {
-        this.disabled = isDisabled;
+        this._disabled = isDisabled;
+        this._slider._updateDisabled();
+    }
+    focus() {
+        this._hostElement.focus();
+    }
+    blur() {
+        this._hostElement.blur();
+    }
+    /** Returns true if this slider input currently has focus. */
+    _isFocused() {
+        return this._document.activeElement === this._hostElement;
+    }
+    /**
+     * Sets the min, max, and step properties on the slider thumb input.
+     *
+     * Must be called AFTER the sibling slider thumb input is guaranteed to have had its value
+     * attribute value set. For a range slider, the min and max of the slider thumb input depends on
+     * the value of its sibling slider thumb inputs value.
+     *
+     * Must be called BEFORE the value property is set. In the case where the min and max have not
+     * yet been set and we are setting the input value property to a value outside of the native
+     * inputs default min or max. The value property would not be set to our desired value, but
+     * instead be capped at either the default min or max.
+     *
+     */
+    _initializeInputState() {
+        const min = this._hostElement.hasAttribute('matSliderEndThumb')
+            ? this._slider._getInput(Thumb.START).value
+            : this._slider.min;
+        const max = this._hostElement.hasAttribute('matSliderStartThumb')
+            ? this._slider._getInput(Thumb.END).value
+            : this._slider.max;
+        this._hostElement.min = `${min}`;
+        this._hostElement.max = `${max}`;
+        this._hostElement.step = `${this._slider.step}`;
+    }
+    /**
+     * Sets the value property on the slider thumb input.
+     *
+     * Must be called AFTER the min and max have been set. In the case where the min and max have not
+     * yet been set and we are setting the input value property to a value outside of the native
+     * inputs default min or max. The value property would not be set to our desired value, but
+     * instead be capped at either the default min or max.
+     */
+    _initializeInputValueProperty() {
+        this._hostElement.value = `${this.value}`;
+    }
+    /**
+     * Ensures the value attribute is initialized.
+     *
+     * Must be called BEFORE the min and max are set. For a range slider, the min and max of the
+     * slider thumb input depends on the value of its sibling slider thumb inputs value.
+     */
+    _initializeInputValueAttribute() {
+        // Only set the default value if an initial value has not already been provided.
+        if (!this._hostElement.hasAttribute('value')) {
+            this.value = this._hostElement.hasAttribute('matSliderEndThumb')
+                ? this._slider.max
+                : this._slider.min;
+        }
+    }
+    /**
+     * Initializes the aria-valuetext attribute.
+     *
+     * Must be called AFTER the value attribute is set. This is because the slider's parent
+     * `displayWith` function is used to set the `aria-valuetext` attribute.
+     */
+    _initializeAriaValueText() {
+        this._hostElement.setAttribute('aria-valuetext', this._slider.displayWith(this.value));
     }
 }
-MatSlider.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSlider, deps: [{ token: i0.ElementRef }, { token: i1.FocusMonitor }, { token: i0.ChangeDetectorRef }, { token: i2.Directionality, optional: true }, { token: 'tabindex', attribute: true }, { token: i0.NgZone }, { token: DOCUMENT }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatSlider.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.1", type: MatSlider, selector: "mat-slider", inputs: { disabled: "disabled", color: "color", tabIndex: "tabIndex", invert: "invert", max: "max", min: "min", step: "step", thumbLabel: "thumbLabel", tickInterval: "tickInterval", value: "value", displayWith: "displayWith", valueText: "valueText", vertical: "vertical" }, outputs: { change: "change", input: "input", valueChange: "valueChange" }, host: { attributes: { "role": "slider" }, listeners: { "focus": "_onFocus()", "blur": "_onBlur()", "keydown": "_onKeydown($event)", "keyup": "_onKeyup()", "mouseenter": "_onMouseenter()", "selectstart": "$event.preventDefault()" }, properties: { "tabIndex": "tabIndex", "attr.aria-disabled": "disabled", "attr.aria-valuemax": "max", "attr.aria-valuemin": "min", "attr.aria-valuenow": "value", "attr.aria-valuetext": "valueText == null ? displayValue : valueText", "attr.aria-orientation": "vertical ? \"vertical\" : \"horizontal\"", "class.mat-slider-disabled": "disabled", "class.mat-slider-has-ticks": "tickInterval", "class.mat-slider-horizontal": "!vertical", "class.mat-slider-axis-inverted": "_shouldInvertAxis()", "class.mat-slider-invert-mouse-coords": "_shouldInvertMouseCoords()", "class.mat-slider-sliding": "_isSliding", "class.mat-slider-thumb-label-showing": "thumbLabel", "class.mat-slider-vertical": "vertical", "class.mat-slider-min-value": "_isMinValue()", "class.mat-slider-hide-last-tick": "disabled || _isMinValue() && _getThumbGap() && _shouldInvertAxis()", "class._mat-animation-noopable": "_animationMode === \"NoopAnimations\"" }, classAttribute: "mat-slider mat-focus-indicator" }, providers: [MAT_SLIDER_VALUE_ACCESSOR], viewQueries: [{ propertyName: "_sliderWrapper", first: true, predicate: ["sliderWrapper"], descendants: true }], exportAs: ["matSlider"], usesInheritance: true, ngImport: i0, template: "<div class=\"mat-slider-wrapper\" #sliderWrapper>\n  <div class=\"mat-slider-track-wrapper\">\n    <div class=\"mat-slider-track-background\" [ngStyle]=\"_getTrackBackgroundStyles()\"></div>\n    <div class=\"mat-slider-track-fill\" [ngStyle]=\"_getTrackFillStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-ticks-container\" [ngStyle]=\"_getTicksContainerStyles()\">\n    <div class=\"mat-slider-ticks\" [ngStyle]=\"_getTicksStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-thumb-container\" [ngStyle]=\"_getThumbContainerStyles()\">\n    <div class=\"mat-slider-focus-ring\"></div>\n    <div class=\"mat-slider-thumb\"></div>\n    <div class=\"mat-slider-thumb-label\">\n      <span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span>\n    </div>\n  </div>\n</div>\n", styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:none;vertical-align:middle}.mat-slider:not(.mat-slider-disabled):active,.mat-slider.mat-slider-sliding:not(.mat-slider-disabled){cursor:grabbing}.mat-slider-wrapper{-webkit-print-color-adjust:exact;color-adjust:exact;position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{-webkit-background-clip:content-box;background-clip:content-box;background-repeat:repeat;box-sizing:border-box;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1),opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider.cdk-keyboard-focused .mat-slider-focus-ring,.mat-slider.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb{cursor:grab}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid rgba(0,0,0,0);border-radius:50%;transform:scale(0.7);transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1),border-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),border-radius 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.cdk-high-contrast-active .mat-slider-thumb-label{outline:solid 1px}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-sliding .mat-slider-track-fill,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-thumb-container{transition-duration:0ms}.mat-slider-has-ticks .mat-slider-wrapper::after{content:\"\";position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{display:none}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(0.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.cdk-high-contrast-active .mat-slider-horizontal .mat-slider-ticks-container{height:0;outline:solid 2px;top:1px}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(0.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.cdk-high-contrast-active .mat-slider-horizontal.cdk-focused .mat-slider-thumb-label,.cdk-high-contrast-active .mat-slider-horizontal.cdk-focused .mat-slider-thumb-label-text{transform:none}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.cdk-high-contrast-active .mat-slider-vertical .mat-slider-ticks-container{width:0;outline:solid 2px;left:1px}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb{-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(0.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}.mat-slider._mat-animation-noopable .mat-slider-track-fill,.mat-slider._mat-animation-noopable .mat-slider-track-background,.mat-slider._mat-animation-noopable .mat-slider-ticks,.mat-slider._mat-animation-noopable .mat-slider-thumb-container,.mat-slider._mat-animation-noopable .mat-slider-focus-ring,.mat-slider._mat-animation-noopable .mat-slider-thumb,.mat-slider._mat-animation-noopable .mat-slider-thumb-label,.mat-slider._mat-animation-noopable .mat-slider-thumb-label-text,.mat-slider._mat-animation-noopable .mat-slider-has-ticks .mat-slider-wrapper::after{transition:none}"], dependencies: [{ kind: "directive", type: i3.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSlider, decorators: [{
-            type: Component,
-            args: [{ selector: 'mat-slider', exportAs: 'matSlider', providers: [MAT_SLIDER_VALUE_ACCESSOR], host: {
-                        '(focus)': '_onFocus()',
+MatSliderThumb.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSliderThumb, deps: [{ token: DOCUMENT }, { token: forwardRef(() => MatSlider) }, { token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+MatSliderThumb.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.1", type: MatSliderThumb, selector: "input[matSliderThumb], input[matSliderStartThumb], input[matSliderEndThumb]", inputs: { value: "value" }, outputs: { valueChange: "valueChange", dragStart: "dragStart", dragEnd: "dragEnd", _blur: "_blur", _focus: "_focus" }, host: { attributes: { "type": "range" }, listeners: { "blur": "_onBlur()", "focus": "_focus.emit()" }, classAttribute: "mdc-slider__input" }, providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: MatSliderThumb,
+            multi: true,
+        },
+    ], exportAs: ["matSliderThumb"], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSliderThumb, decorators: [{
+            type: Directive,
+            args: [{
+                    selector: 'input[matSliderThumb], input[matSliderStartThumb], input[matSliderEndThumb]',
+                    exportAs: 'matSliderThumb',
+                    host: {
+                        'class': 'mdc-slider__input',
+                        'type': 'range',
                         '(blur)': '_onBlur()',
-                        '(keydown)': '_onKeydown($event)',
-                        '(keyup)': '_onKeyup()',
-                        '(mouseenter)': '_onMouseenter()',
-                        // On Safari starting to slide temporarily triggers text selection mode which
-                        // show the wrong cursor. We prevent it by stopping the `selectstart` event.
-                        '(selectstart)': '$event.preventDefault()',
-                        'class': 'mat-slider mat-focus-indicator',
-                        'role': 'slider',
-                        '[tabIndex]': 'tabIndex',
-                        '[attr.aria-disabled]': 'disabled',
-                        '[attr.aria-valuemax]': 'max',
-                        '[attr.aria-valuemin]': 'min',
-                        '[attr.aria-valuenow]': 'value',
-                        // NVDA and Jaws appear to announce the `aria-valuenow` by calculating its percentage based
-                        // on its value between `aria-valuemin` and `aria-valuemax`. Due to how decimals are handled,
-                        // it can cause the slider to read out a very long value like 0.20000068 if the current value
-                        // is 0.2 with a min of 0 and max of 1. We work around the issue by setting `aria-valuetext`
-                        // to the same value that we set on the slider's thumb which will be truncated.
-                        '[attr.aria-valuetext]': 'valueText == null ? displayValue : valueText',
-                        '[attr.aria-orientation]': 'vertical ? "vertical" : "horizontal"',
-                        '[class.mat-slider-disabled]': 'disabled',
-                        '[class.mat-slider-has-ticks]': 'tickInterval',
-                        '[class.mat-slider-horizontal]': '!vertical',
-                        '[class.mat-slider-axis-inverted]': '_shouldInvertAxis()',
-                        // Class binding which is only used by the test harness as there is no other
-                        // way for the harness to detect if mouse coordinates need to be inverted.
-                        '[class.mat-slider-invert-mouse-coords]': '_shouldInvertMouseCoords()',
-                        '[class.mat-slider-sliding]': '_isSliding',
-                        '[class.mat-slider-thumb-label-showing]': 'thumbLabel',
-                        '[class.mat-slider-vertical]': 'vertical',
-                        '[class.mat-slider-min-value]': '_isMinValue()',
-                        '[class.mat-slider-hide-last-tick]': 'disabled || _isMinValue() && _getThumbGap() && _shouldInvertAxis()',
-                        '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-                    }, inputs: ['disabled', 'color', 'tabIndex'], encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, template: "<div class=\"mat-slider-wrapper\" #sliderWrapper>\n  <div class=\"mat-slider-track-wrapper\">\n    <div class=\"mat-slider-track-background\" [ngStyle]=\"_getTrackBackgroundStyles()\"></div>\n    <div class=\"mat-slider-track-fill\" [ngStyle]=\"_getTrackFillStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-ticks-container\" [ngStyle]=\"_getTicksContainerStyles()\">\n    <div class=\"mat-slider-ticks\" [ngStyle]=\"_getTicksStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-thumb-container\" [ngStyle]=\"_getThumbContainerStyles()\">\n    <div class=\"mat-slider-focus-ring\"></div>\n    <div class=\"mat-slider-thumb\"></div>\n    <div class=\"mat-slider-thumb-label\">\n      <span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span>\n    </div>\n  </div>\n</div>\n", styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:none;vertical-align:middle}.mat-slider:not(.mat-slider-disabled):active,.mat-slider.mat-slider-sliding:not(.mat-slider-disabled){cursor:grabbing}.mat-slider-wrapper{-webkit-print-color-adjust:exact;color-adjust:exact;position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{-webkit-background-clip:content-box;background-clip:content-box;background-repeat:repeat;box-sizing:border-box;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1),opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider.cdk-keyboard-focused .mat-slider-focus-ring,.mat-slider.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb{cursor:grab}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid rgba(0,0,0,0);border-radius:50%;transform:scale(0.7);transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1),border-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),border-radius 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.cdk-high-contrast-active .mat-slider-thumb-label{outline:solid 1px}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-sliding .mat-slider-track-fill,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-thumb-container{transition-duration:0ms}.mat-slider-has-ticks .mat-slider-wrapper::after{content:\"\";position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{display:none}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(0.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.cdk-high-contrast-active .mat-slider-horizontal .mat-slider-ticks-container{height:0;outline:solid 2px;top:1px}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(0.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.cdk-high-contrast-active .mat-slider-horizontal.cdk-focused .mat-slider-thumb-label,.cdk-high-contrast-active .mat-slider-horizontal.cdk-focused .mat-slider-thumb-label-text{transform:none}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.cdk-high-contrast-active .mat-slider-vertical .mat-slider-ticks-container{width:0;outline:solid 2px;left:1px}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb{-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(0.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}.mat-slider._mat-animation-noopable .mat-slider-track-fill,.mat-slider._mat-animation-noopable .mat-slider-track-background,.mat-slider._mat-animation-noopable .mat-slider-ticks,.mat-slider._mat-animation-noopable .mat-slider-thumb-container,.mat-slider._mat-animation-noopable .mat-slider-focus-ring,.mat-slider._mat-animation-noopable .mat-slider-thumb,.mat-slider._mat-animation-noopable .mat-slider-thumb-label,.mat-slider._mat-animation-noopable .mat-slider-thumb-label-text,.mat-slider._mat-animation-noopable .mat-slider-has-ticks .mat-slider-wrapper::after{transition:none}"] }]
+                        '(focus)': '_focus.emit()',
+                    },
+                    providers: [
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: MatSliderThumb,
+                            multi: true,
+                        },
+                    ],
+                }]
         }], ctorParameters: function () {
-        return [{ type: i0.ElementRef }, { type: i1.FocusMonitor }, { type: i0.ChangeDetectorRef }, { type: i2.Directionality, decorators: [{
-                        type: Optional
-                    }] }, { type: undefined, decorators: [{
-                        type: Attribute,
-                        args: ['tabindex']
-                    }] }, { type: i0.NgZone }, { type: undefined, decorators: [{
+        return [{ type: undefined, decorators: [{
                         type: Inject,
                         args: [DOCUMENT]
+                    }] }, { type: MatSlider, decorators: [{
+                        type: Inject,
+                        args: [forwardRef(() => MatSlider)]
+                    }] }, { type: i0.ElementRef }];
+    }, propDecorators: { value: [{
+                type: Input
+            }], valueChange: [{
+                type: Output
+            }], dragStart: [{
+                type: Output
+            }], dragEnd: [{
+                type: Output
+            }], _blur: [{
+                type: Output
+            }], _focus: [{
+                type: Output
+            }] } });
+// Boilerplate for applying mixins to MatSlider.
+const _MatSliderMixinBase = mixinColor(mixinDisableRipple(class {
+    constructor(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+}), 'primary');
+/**
+ * Allows users to select from a range of values by moving the slider thumb. It is similar in
+ * behavior to the native `<input type="range">` element.
+ */
+class MatSlider extends _MatSliderMixinBase {
+    constructor(_ngZone, _cdr, elementRef, _platform, _globalChangeAndInputListener, document, _dir, _globalRippleOptions, animationMode) {
+        super(elementRef);
+        this._ngZone = _ngZone;
+        this._cdr = _cdr;
+        this._platform = _platform;
+        this._globalChangeAndInputListener = _globalChangeAndInputListener;
+        this._dir = _dir;
+        this._globalRippleOptions = _globalRippleOptions;
+        this._disabled = false;
+        this._discrete = false;
+        this._showTickMarks = false;
+        this._min = 0;
+        this._max = 100;
+        this._step = 1;
+        /**
+         * Function that will be used to format the value before it is displayed
+         * in the thumb label. Can be used to format very large number in order
+         * for them to fit into the slider thumb.
+         */
+        this.displayWith = (value) => `${value}`;
+        /** Instance of the MDC slider foundation for this slider. */
+        this._foundation = new MDCSliderFoundation(new SliderAdapter(this));
+        /** Whether the foundation has been initialized. */
+        this._initialized = false;
+        /**
+         * Whether the browser supports pointer events.
+         *
+         * We exclude iOS to mirror the MDC Foundation. The MDC Foundation cannot use pointer events on
+         * iOS because of this open bug - https://bugs.webkit.org/show_bug.cgi?id=220196.
+         */
+        this._SUPPORTS_POINTER_EVENTS = typeof PointerEvent !== 'undefined' && !!PointerEvent && !this._platform.IOS;
+        /** Wrapper function for calling layout (needed for adding & removing an event listener). */
+        this._layout = () => this._foundation.layout();
+        this._document = document;
+        this._window = this._document.defaultView || window;
+        this._noopAnimations = animationMode === 'NoopAnimations';
+        this._dirChangeSubscription = this._dir.change.subscribe(() => this._onDirChange());
+        this._attachUISyncEventListener();
+    }
+    /** Whether the slider is disabled. */
+    get disabled() {
+        return this._disabled;
+    }
+    set disabled(v) {
+        this._setDisabled(coerceBooleanProperty(v));
+        this._updateInputsDisabledState();
+    }
+    /** Whether the slider displays a numeric value label upon pressing the thumb. */
+    get discrete() {
+        return this._discrete;
+    }
+    set discrete(v) {
+        this._discrete = coerceBooleanProperty(v);
+    }
+    /** Whether the slider displays tick marks along the slider track. */
+    get showTickMarks() {
+        return this._showTickMarks;
+    }
+    set showTickMarks(v) {
+        this._showTickMarks = coerceBooleanProperty(v);
+    }
+    /** The minimum value that the slider can have. */
+    get min() {
+        return this._min;
+    }
+    set min(v) {
+        this._min = coerceNumberProperty(v, this._min);
+        this._reinitialize();
+    }
+    /** The maximum value that the slider can have. */
+    get max() {
+        return this._max;
+    }
+    set max(v) {
+        this._max = coerceNumberProperty(v, this._max);
+        this._reinitialize();
+    }
+    /** The values at which the thumb will snap. */
+    get step() {
+        return this._step;
+    }
+    set step(v) {
+        this._step = coerceNumberProperty(v, this._step);
+        this._reinitialize();
+    }
+    ngAfterViewInit() {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            _validateThumbs(this._isRange(), this._getThumb(Thumb.START), this._getThumb(Thumb.END));
+            _validateInputs(this._isRange(), this._getInputElement(Thumb.START), this._getInputElement(Thumb.END));
+        }
+        if (this._platform.isBrowser) {
+            this._foundation.init();
+            this._foundation.layout();
+            this._initialized = true;
+            this._observeHostResize();
+        }
+        // The MDC foundation requires access to the view and content children of the MatSlider. In
+        // order to access the view and content children of MatSlider we need to wait until change
+        // detection runs and materializes them. That is why we call init() and layout() in
+        // ngAfterViewInit().
+        //
+        // The MDC foundation then uses the information it gathers from the DOM to compute an initial
+        // value for the tickMarks array. It then tries to update the component data, but because it is
+        // updating the component data AFTER change detection already ran, we will get a changed after
+        // checked error. Because of this, we need to force change detection to update the UI with the
+        // new state.
+        this._cdr.detectChanges();
+    }
+    ngOnDestroy() {
+        var _a;
+        if (this._platform.isBrowser) {
+            this._foundation.destroy();
+        }
+        this._dirChangeSubscription.unsubscribe();
+        (_a = this._resizeObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
+        this._resizeObserver = null;
+        clearTimeout(this._resizeTimer);
+        this._removeUISyncEventListener();
+    }
+    /** Returns true if the language direction for this slider element is right to left. */
+    _isRTL() {
+        return this._dir && this._dir.value === 'rtl';
+    }
+    /**
+     * Attaches an event listener that keeps sync the slider UI and the foundation in sync.
+     *
+     * Because the MDC Foundation stores the value of the bounding client rect when layout is called,
+     * we need to keep calling layout to avoid the position of the slider getting out of sync with
+     * what the foundation has stored. If we don't do this, the foundation will not be able to
+     * correctly calculate the slider value on click/slide.
+     */
+    _attachUISyncEventListener() {
+        // Implementation detail: It may seem weird that we are using "mouseenter" instead of
+        // "mousedown" as the default for when a browser does not support pointer events. While we
+        // would prefer to use "mousedown" as the default, for some reason it does not work (the
+        // callback is never triggered).
+        if (this._SUPPORTS_POINTER_EVENTS) {
+            this._elementRef.nativeElement.addEventListener('pointerdown', this._layout);
+        }
+        else {
+            this._elementRef.nativeElement.addEventListener('mouseenter', this._layout);
+            this._elementRef.nativeElement.addEventListener('touchstart', this._layout, passiveEventListenerOptions);
+        }
+    }
+    /** Removes the event listener that keeps sync the slider UI and the foundation in sync. */
+    _removeUISyncEventListener() {
+        if (this._SUPPORTS_POINTER_EVENTS) {
+            this._elementRef.nativeElement.removeEventListener('pointerdown', this._layout);
+        }
+        else {
+            this._elementRef.nativeElement.removeEventListener('mouseenter', this._layout);
+            this._elementRef.nativeElement.removeEventListener('touchstart', this._layout, passiveEventListenerOptions);
+        }
+    }
+    /**
+     * Reinitializes the slider foundation and input state(s).
+     *
+     * The MDC Foundation does not support changing some slider attributes after it has been
+     * initialized (e.g. min, max, and step). To continue supporting this feature, we need to
+     * destroy the foundation and re-initialize everything whenever we make these changes.
+     */
+    _reinitialize() {
+        if (this._initialized) {
+            this._foundation.destroy();
+            if (this._isRange()) {
+                this._getInput(Thumb.START)._initializeInputState();
+            }
+            this._getInput(Thumb.END)._initializeInputState();
+            this._foundation.init();
+            this._foundation.layout();
+        }
+    }
+    /** Handles updating the slider foundation after a dir change. */
+    _onDirChange() {
+        this._ngZone.runOutsideAngular(() => {
+            // We need to call layout() a few milliseconds after the dir change callback
+            // because we need to wait until the bounding client rect of the slider has updated.
+            setTimeout(() => this._foundation.layout(), 10);
+        });
+    }
+    /** Sets the value of a slider thumb. */
+    _setValue(value, thumbPosition) {
+        thumbPosition === Thumb.START
+            ? this._foundation.setValueStart(value)
+            : this._foundation.setValue(value);
+    }
+    /** Sets the disabled state of the MatSlider. */
+    _setDisabled(value) {
+        this._disabled = value;
+        // If we want to disable the slider after the foundation has been initialized,
+        // we need to inform the foundation by calling `setDisabled`. Also, we can't call
+        // this before initializing the foundation because it will throw errors.
+        if (this._initialized) {
+            this._foundation.setDisabled(value);
+        }
+    }
+    /** Sets the disabled state of the individual slider thumb(s) (ControlValueAccessor). */
+    _updateInputsDisabledState() {
+        if (this._initialized) {
+            this._getInput(Thumb.END)._disabled = true;
+            if (this._isRange()) {
+                this._getInput(Thumb.START)._disabled = true;
+            }
+        }
+    }
+    /** Whether this is a ranged slider. */
+    _isRange() {
+        return this._inputs.length === 2;
+    }
+    /** Sets the disabled state based on the disabled state of the inputs (ControlValueAccessor). */
+    _updateDisabled() {
+        var _a;
+        const disabled = ((_a = this._inputs) === null || _a === void 0 ? void 0 : _a.some(input => input._disabled)) || false;
+        this._setDisabled(disabled);
+    }
+    /** Gets the slider thumb input of the given thumb position. */
+    _getInput(thumbPosition) {
+        var _a, _b;
+        return thumbPosition === Thumb.END ? (_a = this._inputs) === null || _a === void 0 ? void 0 : _a.last : (_b = this._inputs) === null || _b === void 0 ? void 0 : _b.first;
+    }
+    /** Gets the slider thumb HTML input element of the given thumb position. */
+    _getInputElement(thumbPosition) {
+        var _a;
+        return (_a = this._getInput(thumbPosition)) === null || _a === void 0 ? void 0 : _a._hostElement;
+    }
+    _getThumb(thumbPosition) {
+        var _a, _b;
+        return thumbPosition === Thumb.END ? (_a = this._thumbs) === null || _a === void 0 ? void 0 : _a.last : (_b = this._thumbs) === null || _b === void 0 ? void 0 : _b.first;
+    }
+    /** Gets the slider thumb HTML element of the given thumb position. */
+    _getThumbElement(thumbPosition) {
+        var _a;
+        return (_a = this._getThumb(thumbPosition)) === null || _a === void 0 ? void 0 : _a._getHostElement();
+    }
+    /** Gets the slider knob HTML element of the given thumb position. */
+    _getKnobElement(thumbPosition) {
+        var _a;
+        return (_a = this._getThumb(thumbPosition)) === null || _a === void 0 ? void 0 : _a._getKnob();
+    }
+    /**
+     * Gets the slider value indicator container HTML element of the given thumb
+     * position.
+     */
+    _getValueIndicatorContainerElement(thumbPosition) {
+        return this._getThumb(thumbPosition)._getValueIndicatorContainer();
+    }
+    /**
+     * Sets the value indicator text of the given thumb position using the given value.
+     *
+     * Uses the `displayWith` function if one has been provided. Otherwise, it just uses the
+     * numeric value as a string.
+     */
+    _setValueIndicatorText(value, thumbPosition) {
+        thumbPosition === Thumb.START
+            ? (this._startValueIndicatorText = this.displayWith(value))
+            : (this._endValueIndicatorText = this.displayWith(value));
+        this._cdr.markForCheck();
+    }
+    /** Gets the value indicator text for the given thumb position. */
+    _getValueIndicatorText(thumbPosition) {
+        return thumbPosition === Thumb.START
+            ? this._startValueIndicatorText
+            : this._endValueIndicatorText;
+    }
+    /** Determines the class name for a HTML element. */
+    _getTickMarkClass(tickMark) {
+        return tickMark === TickMark.ACTIVE
+            ? 'mdc-slider__tick-mark--active'
+            : 'mdc-slider__tick-mark--inactive';
+    }
+    /** Whether the slider thumb ripples should be disabled. */
+    _isRippleDisabled() {
+        var _a;
+        return this.disabled || this.disableRipple || !!((_a = this._globalRippleOptions) === null || _a === void 0 ? void 0 : _a.disabled);
+    }
+    /** Gets the dimensions of the host element. */
+    _getHostDimensions() {
+        return this._cachedHostRect || this._elementRef.nativeElement.getBoundingClientRect();
+    }
+    /** Starts observing and updating the slider if the host changes its size. */
+    _observeHostResize() {
+        if (typeof ResizeObserver === 'undefined' || !ResizeObserver) {
+            return;
+        }
+        // MDC only updates the slider when the window is resized which
+        // doesn't capture changes of the container itself. We use a resize
+        // observer to ensure that the layout is correct (see #24590 and #25286).
+        this._ngZone.runOutsideAngular(() => {
+            this._resizeObserver = new ResizeObserver(entries => {
+                // Triggering a layout while the user is dragging can throw off the alignment.
+                if (this._isActive()) {
+                    return;
+                }
+                clearTimeout(this._resizeTimer);
+                this._resizeTimer = setTimeout(() => {
+                    var _a;
+                    // The `layout` call is going to call `getBoundingClientRect` to update the dimensions
+                    // of the host. Since the `ResizeObserver` already calculated them, we can save some
+                    // work by returning them instead of having to check the DOM again.
+                    if (!this._isActive()) {
+                        this._cachedHostRect = (_a = entries[0]) === null || _a === void 0 ? void 0 : _a.contentRect;
+                        this._layout();
+                        this._cachedHostRect = null;
+                    }
+                }, 50);
+            });
+            this._resizeObserver.observe(this._elementRef.nativeElement);
+        });
+    }
+    /** Whether any of the thumbs are currently active. */
+    _isActive() {
+        return this._getThumb(Thumb.START)._isActive || this._getThumb(Thumb.END)._isActive;
+    }
+}
+MatSlider.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSlider, deps: [{ token: i0.NgZone }, { token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: i3.Platform }, { token: GlobalChangeAndInputListener }, { token: DOCUMENT }, { token: i5.Directionality, optional: true }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+MatSlider.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.0.1", type: MatSlider, selector: "mat-slider", inputs: { color: "color", disableRipple: "disableRipple", disabled: "disabled", discrete: "discrete", showTickMarks: "showTickMarks", min: "min", max: "max", step: "step", displayWith: "displayWith" }, host: { properties: { "class.mdc-slider--range": "_isRange()", "class.mdc-slider--disabled": "disabled", "class.mdc-slider--discrete": "discrete", "class.mdc-slider--tick-marks": "showTickMarks", "class._mat-animation-noopable": "_noopAnimations" }, classAttribute: "mat-mdc-slider mdc-slider" }, queries: [{ propertyName: "_inputs", predicate: MatSliderThumb }], viewQueries: [{ propertyName: "_trackActive", first: true, predicate: ["trackActive"], descendants: true }, { propertyName: "_thumbs", predicate: MatSliderVisualThumb, descendants: true }], exportAs: ["matSlider"], usesInheritance: true, ngImport: i0, template: "<!-- Inputs -->\n<ng-content></ng-content>\n\n<!-- Track -->\n<div class=\"mdc-slider__track\">\n  <div class=\"mdc-slider__track--inactive\"></div>\n  <div class=\"mdc-slider__track--active\">\n    <div class=\"mdc-slider__track--active_fill\" #trackActive></div>\n  </div>\n  <div *ngIf=\"showTickMarks\" class=\"mdc-slider__tick-marks\" #tickMarkContainer>\n    <div *ngFor=\"let tickMark of _tickMarks\" [class]=\"_getTickMarkClass(tickMark)\"></div>\n  </div>\n</div>\n\n<!-- Thumbs -->\n<mat-slider-visual-thumb\n  *ngFor=\"let thumb of _inputs\"\n  [discrete]=\"discrete\"\n  [disableRipple]=\"_isRippleDisabled()\"\n  [thumbPosition]=\"thumb._thumbPosition\"\n  [valueIndicatorText]=\"_getValueIndicatorText(thumb._thumbPosition)\">\n</mat-slider-visual-thumb>\n", styles: [".mdc-slider{cursor:pointer;height:48px;margin:0 24px;position:relative;touch-action:pan-y}.mdc-slider .mdc-slider__track{height:4px;position:absolute;top:50%;transform:translateY(-50%);width:100%}.mdc-slider .mdc-slider__track--active,.mdc-slider .mdc-slider__track--inactive{display:flex;height:100%;position:absolute;width:100%}.mdc-slider .mdc-slider__track--active{border-radius:3px;height:6px;overflow:hidden;top:-1px}.mdc-slider .mdc-slider__track--active_fill{border-top:6px solid;box-sizing:border-box;height:100%;width:100%;position:relative;-webkit-transform-origin:left;transform-origin:left}[dir=rtl] .mdc-slider .mdc-slider__track--active_fill,.mdc-slider .mdc-slider__track--active_fill[dir=rtl]{-webkit-transform-origin:right;transform-origin:right}.mdc-slider .mdc-slider__track--inactive{border-radius:2px;height:4px;left:0;top:0}.mdc-slider .mdc-slider__track--inactive::before{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:1px solid rgba(0,0,0,0);border-radius:inherit;content:\"\";pointer-events:none}@media screen and (forced-colors: active){.mdc-slider .mdc-slider__track--inactive::before{border-color:CanvasText}}.mdc-slider .mdc-slider__value-indicator-container{bottom:44px;left:var(--slider-value-indicator-container-left, 50%);pointer-events:none;position:absolute;right:var(--slider-value-indicator-container-right);transform:var(--slider-value-indicator-container-transform, translateX(-50%))}.mdc-slider .mdc-slider__value-indicator{transition:transform 100ms 0ms cubic-bezier(0.4, 0, 1, 1);align-items:center;border-radius:4px;display:flex;height:32px;padding:0 12px;transform:scale(0);transform-origin:bottom}.mdc-slider .mdc-slider__value-indicator::before{border-left:6px solid rgba(0,0,0,0);border-right:6px solid rgba(0,0,0,0);border-top:6px solid;bottom:-5px;content:\"\";height:0;left:var(--slider-value-indicator-caret-left, 50%);position:absolute;right:var(--slider-value-indicator-caret-right);transform:var(--slider-value-indicator-caret-transform, translateX(-50%));width:0}.mdc-slider .mdc-slider__value-indicator::after{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:1px solid rgba(0,0,0,0);border-radius:inherit;content:\"\";pointer-events:none}@media screen and (forced-colors: active){.mdc-slider .mdc-slider__value-indicator::after{border-color:CanvasText}}.mdc-slider .mdc-slider__thumb--with-indicator .mdc-slider__value-indicator-container{pointer-events:auto}.mdc-slider .mdc-slider__thumb--with-indicator .mdc-slider__value-indicator{transition:transform 100ms 0ms cubic-bezier(0, 0, 0.2, 1);transform:scale(1)}@media(prefers-reduced-motion){.mdc-slider .mdc-slider__value-indicator,.mdc-slider .mdc-slider__thumb--with-indicator .mdc-slider__value-indicator{transition:none}}.mdc-slider .mdc-slider__thumb{display:flex;height:48px;left:-24px;outline:none;position:absolute;user-select:none;width:48px}.mdc-slider .mdc-slider__thumb--top{z-index:1}.mdc-slider .mdc-slider__thumb--top .mdc-slider__thumb-knob,.mdc-slider .mdc-slider__thumb--top.mdc-slider__thumb:hover .mdc-slider__thumb-knob,.mdc-slider .mdc-slider__thumb--top.mdc-slider__thumb--focused .mdc-slider__thumb-knob{border-style:solid;border-width:1px;box-sizing:content-box}.mdc-slider .mdc-slider__thumb-knob{border:10px solid;border-radius:50%;box-sizing:border-box;height:20px;left:50%;position:absolute;top:50%;transform:translate(-50%, -50%);width:20px}.mdc-slider .mdc-slider__tick-marks{align-items:center;box-sizing:border-box;display:flex;height:100%;justify-content:space-between;padding:0 1px;position:absolute;width:100%}.mdc-slider .mdc-slider__tick-mark--active,.mdc-slider .mdc-slider__tick-mark--inactive{border-radius:50%;height:2px;width:2px}.mdc-slider--discrete .mdc-slider__thumb,.mdc-slider--discrete .mdc-slider__track--active_fill{transition:transform 80ms ease}@media(prefers-reduced-motion){.mdc-slider--discrete .mdc-slider__thumb,.mdc-slider--discrete .mdc-slider__track--active_fill{transition:none}}.mdc-slider--disabled{cursor:auto}.mdc-slider--disabled .mdc-slider__thumb{pointer-events:none}.mdc-slider__input{cursor:pointer;left:0;margin:0;height:100%;opacity:0;pointer-events:none;position:absolute;top:0;width:100%}.mdc-slider .mdc-slider__thumb.mdc-ripple-upgraded--background-focused::before,.mdc-slider .mdc-slider__thumb:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms}.mdc-slider .mdc-slider__thumb:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-slider .mdc-slider__thumb:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms}.mat-mdc-slider{display:inline-block;box-sizing:border-box;outline:none;vertical-align:middle;margin-left:8px;margin-right:8px;width:auto;min-width:112px}.mat-mdc-slider._mat-animation-noopable.mdc-slider--discrete .mdc-slider__thumb,.mat-mdc-slider._mat-animation-noopable.mdc-slider--discrete .mdc-slider__track--active_fill,.mat-mdc-slider._mat-animation-noopable .mdc-slider__value-indicator{transition:none}.mat-mdc-slider .mat-mdc-focus-indicator::before{border-radius:50%}.mdc-slider__thumb--focused .mat-mdc-focus-indicator::before{content:\"\"}"], dependencies: [{ kind: "directive", type: i1.NgForOf, selector: "[ngFor][ngForOf]", inputs: ["ngForOf", "ngForTrackBy", "ngForTemplate"] }, { kind: "directive", type: i1.NgIf, selector: "[ngIf]", inputs: ["ngIf", "ngIfThen", "ngIfElse"] }, { kind: "component", type: MatSliderVisualThumb, selector: "mat-slider-visual-thumb", inputs: ["discrete", "thumbPosition", "valueIndicatorText", "disableRipple"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSlider, decorators: [{
+            type: Component,
+            args: [{ selector: 'mat-slider', host: {
+                        'class': 'mat-mdc-slider mdc-slider',
+                        '[class.mdc-slider--range]': '_isRange()',
+                        '[class.mdc-slider--disabled]': 'disabled',
+                        '[class.mdc-slider--discrete]': 'discrete',
+                        '[class.mdc-slider--tick-marks]': 'showTickMarks',
+                        '[class._mat-animation-noopable]': '_noopAnimations',
+                    }, exportAs: 'matSlider', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, inputs: ['color', 'disableRipple'], template: "<!-- Inputs -->\n<ng-content></ng-content>\n\n<!-- Track -->\n<div class=\"mdc-slider__track\">\n  <div class=\"mdc-slider__track--inactive\"></div>\n  <div class=\"mdc-slider__track--active\">\n    <div class=\"mdc-slider__track--active_fill\" #trackActive></div>\n  </div>\n  <div *ngIf=\"showTickMarks\" class=\"mdc-slider__tick-marks\" #tickMarkContainer>\n    <div *ngFor=\"let tickMark of _tickMarks\" [class]=\"_getTickMarkClass(tickMark)\"></div>\n  </div>\n</div>\n\n<!-- Thumbs -->\n<mat-slider-visual-thumb\n  *ngFor=\"let thumb of _inputs\"\n  [discrete]=\"discrete\"\n  [disableRipple]=\"_isRippleDisabled()\"\n  [thumbPosition]=\"thumb._thumbPosition\"\n  [valueIndicatorText]=\"_getValueIndicatorText(thumb._thumbPosition)\">\n</mat-slider-visual-thumb>\n", styles: [".mdc-slider{cursor:pointer;height:48px;margin:0 24px;position:relative;touch-action:pan-y}.mdc-slider .mdc-slider__track{height:4px;position:absolute;top:50%;transform:translateY(-50%);width:100%}.mdc-slider .mdc-slider__track--active,.mdc-slider .mdc-slider__track--inactive{display:flex;height:100%;position:absolute;width:100%}.mdc-slider .mdc-slider__track--active{border-radius:3px;height:6px;overflow:hidden;top:-1px}.mdc-slider .mdc-slider__track--active_fill{border-top:6px solid;box-sizing:border-box;height:100%;width:100%;position:relative;-webkit-transform-origin:left;transform-origin:left}[dir=rtl] .mdc-slider .mdc-slider__track--active_fill,.mdc-slider .mdc-slider__track--active_fill[dir=rtl]{-webkit-transform-origin:right;transform-origin:right}.mdc-slider .mdc-slider__track--inactive{border-radius:2px;height:4px;left:0;top:0}.mdc-slider .mdc-slider__track--inactive::before{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:1px solid rgba(0,0,0,0);border-radius:inherit;content:\"\";pointer-events:none}@media screen and (forced-colors: active){.mdc-slider .mdc-slider__track--inactive::before{border-color:CanvasText}}.mdc-slider .mdc-slider__value-indicator-container{bottom:44px;left:var(--slider-value-indicator-container-left, 50%);pointer-events:none;position:absolute;right:var(--slider-value-indicator-container-right);transform:var(--slider-value-indicator-container-transform, translateX(-50%))}.mdc-slider .mdc-slider__value-indicator{transition:transform 100ms 0ms cubic-bezier(0.4, 0, 1, 1);align-items:center;border-radius:4px;display:flex;height:32px;padding:0 12px;transform:scale(0);transform-origin:bottom}.mdc-slider .mdc-slider__value-indicator::before{border-left:6px solid rgba(0,0,0,0);border-right:6px solid rgba(0,0,0,0);border-top:6px solid;bottom:-5px;content:\"\";height:0;left:var(--slider-value-indicator-caret-left, 50%);position:absolute;right:var(--slider-value-indicator-caret-right);transform:var(--slider-value-indicator-caret-transform, translateX(-50%));width:0}.mdc-slider .mdc-slider__value-indicator::after{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:1px solid rgba(0,0,0,0);border-radius:inherit;content:\"\";pointer-events:none}@media screen and (forced-colors: active){.mdc-slider .mdc-slider__value-indicator::after{border-color:CanvasText}}.mdc-slider .mdc-slider__thumb--with-indicator .mdc-slider__value-indicator-container{pointer-events:auto}.mdc-slider .mdc-slider__thumb--with-indicator .mdc-slider__value-indicator{transition:transform 100ms 0ms cubic-bezier(0, 0, 0.2, 1);transform:scale(1)}@media(prefers-reduced-motion){.mdc-slider .mdc-slider__value-indicator,.mdc-slider .mdc-slider__thumb--with-indicator .mdc-slider__value-indicator{transition:none}}.mdc-slider .mdc-slider__thumb{display:flex;height:48px;left:-24px;outline:none;position:absolute;user-select:none;width:48px}.mdc-slider .mdc-slider__thumb--top{z-index:1}.mdc-slider .mdc-slider__thumb--top .mdc-slider__thumb-knob,.mdc-slider .mdc-slider__thumb--top.mdc-slider__thumb:hover .mdc-slider__thumb-knob,.mdc-slider .mdc-slider__thumb--top.mdc-slider__thumb--focused .mdc-slider__thumb-knob{border-style:solid;border-width:1px;box-sizing:content-box}.mdc-slider .mdc-slider__thumb-knob{border:10px solid;border-radius:50%;box-sizing:border-box;height:20px;left:50%;position:absolute;top:50%;transform:translate(-50%, -50%);width:20px}.mdc-slider .mdc-slider__tick-marks{align-items:center;box-sizing:border-box;display:flex;height:100%;justify-content:space-between;padding:0 1px;position:absolute;width:100%}.mdc-slider .mdc-slider__tick-mark--active,.mdc-slider .mdc-slider__tick-mark--inactive{border-radius:50%;height:2px;width:2px}.mdc-slider--discrete .mdc-slider__thumb,.mdc-slider--discrete .mdc-slider__track--active_fill{transition:transform 80ms ease}@media(prefers-reduced-motion){.mdc-slider--discrete .mdc-slider__thumb,.mdc-slider--discrete .mdc-slider__track--active_fill{transition:none}}.mdc-slider--disabled{cursor:auto}.mdc-slider--disabled .mdc-slider__thumb{pointer-events:none}.mdc-slider__input{cursor:pointer;left:0;margin:0;height:100%;opacity:0;pointer-events:none;position:absolute;top:0;width:100%}.mdc-slider .mdc-slider__thumb.mdc-ripple-upgraded--background-focused::before,.mdc-slider .mdc-slider__thumb:not(.mdc-ripple-upgraded):focus::before{transition-duration:75ms}.mdc-slider .mdc-slider__thumb:not(.mdc-ripple-upgraded)::after{transition:opacity 150ms linear}.mdc-slider .mdc-slider__thumb:not(.mdc-ripple-upgraded):active::after{transition-duration:75ms}.mat-mdc-slider{display:inline-block;box-sizing:border-box;outline:none;vertical-align:middle;margin-left:8px;margin-right:8px;width:auto;min-width:112px}.mat-mdc-slider._mat-animation-noopable.mdc-slider--discrete .mdc-slider__thumb,.mat-mdc-slider._mat-animation-noopable.mdc-slider--discrete .mdc-slider__track--active_fill,.mat-mdc-slider._mat-animation-noopable .mdc-slider__value-indicator{transition:none}.mat-mdc-slider .mat-mdc-focus-indicator::before{border-radius:50%}.mdc-slider__thumb--focused .mat-mdc-focus-indicator::before{content:\"\"}"] }]
+        }], ctorParameters: function () {
+        return [{ type: i0.NgZone }, { type: i0.ChangeDetectorRef }, { type: i0.ElementRef }, { type: i3.Platform }, { type: GlobalChangeAndInputListener }, { type: undefined, decorators: [{
+                        type: Inject,
+                        args: [DOCUMENT]
+                    }] }, { type: i5.Directionality, decorators: [{
+                        type: Optional
+                    }] }, { type: undefined, decorators: [{
+                        type: Optional
+                    }, {
+                        type: Inject,
+                        args: [MAT_RIPPLE_GLOBAL_OPTIONS]
                     }] }, { type: undefined, decorators: [{
                         type: Optional
                     }, {
                         type: Inject,
                         args: [ANIMATION_MODULE_TYPE]
                     }] }];
-    }, propDecorators: { invert: [{
+    }, propDecorators: { _thumbs: [{
+                type: ViewChildren,
+                args: [MatSliderVisualThumb]
+            }], _trackActive: [{
+                type: ViewChild,
+                args: ['trackActive']
+            }], _inputs: [{
+                type: ContentChildren,
+                args: [MatSliderThumb, { descendants: false }]
+            }], disabled: [{
                 type: Input
-            }], max: [{
+            }], discrete: [{
+                type: Input
+            }], showTickMarks: [{
                 type: Input
             }], min: [{
                 type: Input
+            }], max: [{
+                type: Input
             }], step: [{
-                type: Input
-            }], thumbLabel: [{
-                type: Input
-            }], tickInterval: [{
-                type: Input
-            }], value: [{
                 type: Input
             }], displayWith: [{
                 type: Input
-            }], valueText: [{
-                type: Input
-            }], vertical: [{
-                type: Input
-            }], change: [{
-                type: Output
-            }], input: [{
-                type: Output
-            }], valueChange: [{
-                type: Output
-            }], _sliderWrapper: [{
-                type: ViewChild,
-                args: ['sliderWrapper']
             }] } });
-/** Checks if number is safe for calculation */
-function isSafeNumber(value) {
-    return !isNaN(value) && isFinite(value);
-}
-/** Returns whether an event is a touch event. */
-function isTouchEvent(event) {
-    // This function is called for every pixel that the user has dragged so we need it to be
-    // as fast as possible. Since we only bind mouse events and touch events, we can assume
-    // that if the event's name starts with `t`, it's a touch event.
-    return event.type[0] === 't';
-}
-/** Gets the coordinates of a touch or mouse event relative to the viewport. */
-function getPointerPositionOnPage(event, id) {
-    let point;
-    if (isTouchEvent(event)) {
-        // The `identifier` could be undefined if the browser doesn't support `TouchEvent.identifier`.
-        // If that's the case, attribute the first touch to all active sliders. This should still cover
-        // the most common case while only breaking multi-touch.
-        if (typeof id === 'number') {
-            point = findMatchingTouch(event.touches, id) || findMatchingTouch(event.changedTouches, id);
+/** The MDCSliderAdapter implementation. */
+class SliderAdapter {
+    constructor(_delegate) {
+        this._delegate = _delegate;
+        /** The global event listener subscription used to handle events on the slider inputs. */
+        this._globalEventSubscriptions = new Subscription();
+        // We manually assign functions instead of using prototype methods because
+        // MDC clobbers the values otherwise.
+        // See https://github.com/material-components/material-components-web/pull/6256
+        this.hasClass = (className) => {
+            return this._delegate._elementRef.nativeElement.classList.contains(className);
+        };
+        this.addClass = (className) => {
+            this._delegate._elementRef.nativeElement.classList.add(className);
+        };
+        this.removeClass = (className) => {
+            this._delegate._elementRef.nativeElement.classList.remove(className);
+        };
+        this.getAttribute = (attribute) => {
+            return this._delegate._elementRef.nativeElement.getAttribute(attribute);
+        };
+        this.addThumbClass = (className, thumbPosition) => {
+            this._delegate._getThumbElement(thumbPosition).classList.add(className);
+        };
+        this.removeThumbClass = (className, thumbPosition) => {
+            this._delegate._getThumbElement(thumbPosition).classList.remove(className);
+        };
+        this.getInputValue = (thumbPosition) => {
+            return this._delegate._getInputElement(thumbPosition).value;
+        };
+        this.setInputValue = (value, thumbPosition) => {
+            this._delegate._getInputElement(thumbPosition).value = value;
+        };
+        this.getInputAttribute = (attribute, thumbPosition) => {
+            return this._delegate._getInputElement(thumbPosition).getAttribute(attribute);
+        };
+        this.setInputAttribute = (attribute, value, thumbPosition) => {
+            const input = this._delegate._getInputElement(thumbPosition);
+            // TODO(wagnermaciel): remove this check once this component is
+            // added to the internal allowlist for calling setAttribute.
+            // Explicitly check the attribute we are setting to prevent xss.
+            switch (attribute) {
+                case 'aria-valuetext':
+                    input.setAttribute('aria-valuetext', value);
+                    break;
+                case 'disabled':
+                    input.setAttribute('disabled', value);
+                    break;
+                case 'min':
+                    input.setAttribute('min', value);
+                    break;
+                case 'max':
+                    input.setAttribute('max', value);
+                    break;
+                case 'value':
+                    input.setAttribute('value', value);
+                    break;
+                case 'step':
+                    input.setAttribute('step', value);
+                    break;
+                default:
+                    throw Error(`Tried to set invalid attribute ${attribute} on the mdc-slider.`);
+            }
+        };
+        this.removeInputAttribute = (attribute, thumbPosition) => {
+            this._delegate._getInputElement(thumbPosition).removeAttribute(attribute);
+        };
+        this.focusInput = (thumbPosition) => {
+            this._delegate._getInputElement(thumbPosition).focus();
+        };
+        this.isInputFocused = (thumbPosition) => {
+            return this._delegate._getInput(thumbPosition)._isFocused();
+        };
+        this.getThumbKnobWidth = (thumbPosition) => {
+            return this._delegate._getKnobElement(thumbPosition).getBoundingClientRect().width;
+        };
+        this.getThumbBoundingClientRect = (thumbPosition) => {
+            return this._delegate._getThumbElement(thumbPosition).getBoundingClientRect();
+        };
+        this.getBoundingClientRect = () => {
+            return this._delegate._getHostDimensions();
+        };
+        this.getValueIndicatorContainerWidth = (thumbPosition) => {
+            return this._delegate._getValueIndicatorContainerElement(thumbPosition).getBoundingClientRect()
+                .width;
+        };
+        this.isRTL = () => {
+            return this._delegate._isRTL();
+        };
+        this.setThumbStyleProperty = (propertyName, value, thumbPosition) => {
+            this._delegate._getThumbElement(thumbPosition).style.setProperty(propertyName, value);
+        };
+        this.removeThumbStyleProperty = (propertyName, thumbPosition) => {
+            this._delegate._getThumbElement(thumbPosition).style.removeProperty(propertyName);
+        };
+        this.setTrackActiveStyleProperty = (propertyName, value) => {
+            this._delegate._trackActive.nativeElement.style.setProperty(propertyName, value);
+        };
+        this.removeTrackActiveStyleProperty = (propertyName) => {
+            this._delegate._trackActive.nativeElement.style.removeProperty(propertyName);
+        };
+        this.setValueIndicatorText = (value, thumbPosition) => {
+            this._delegate._setValueIndicatorText(value, thumbPosition);
+        };
+        this.getValueToAriaValueTextFn = () => {
+            return this._delegate.displayWith;
+        };
+        this.updateTickMarks = (tickMarks) => {
+            this._delegate._tickMarks = tickMarks;
+            this._delegate._cdr.markForCheck();
+        };
+        this.setPointerCapture = (pointerId) => {
+            this._delegate._elementRef.nativeElement.setPointerCapture(pointerId);
+        };
+        this.emitChangeEvent = (value, thumbPosition) => {
+            // We block all real slider input change events and emit fake change events from here, instead.
+            // We do this because the mdc implementation of the slider does not trigger real change events
+            // on pointer up (only on left or right arrow key down).
+            //
+            // By stopping real change events from reaching users, and dispatching fake change events
+            // (which we allow to reach the user) the slider inputs change events are triggered at the
+            // appropriate times. This allows users to listen for change events directly on the slider
+            // input as they would with a native range input.
+            const input = this._delegate._getInput(thumbPosition);
+            input._emitFakeEvent('change');
+            input._onChange(value);
+            input.valueChange.emit(value);
+        };
+        this.emitInputEvent = (value, thumbPosition) => {
+            this._delegate._getInput(thumbPosition)._emitFakeEvent('input');
+        };
+        this.emitDragStartEvent = (value, thumbPosition) => {
+            const input = this._delegate._getInput(thumbPosition);
+            input.dragStart.emit({ source: input, parent: this._delegate, value });
+        };
+        this.emitDragEndEvent = (value, thumbPosition) => {
+            const input = this._delegate._getInput(thumbPosition);
+            input.dragEnd.emit({ source: input, parent: this._delegate, value });
+        };
+        this.registerEventHandler = (evtType, handler) => {
+            this._delegate._elementRef.nativeElement.addEventListener(evtType, handler);
+        };
+        this.deregisterEventHandler = (evtType, handler) => {
+            this._delegate._elementRef.nativeElement.removeEventListener(evtType, handler);
+        };
+        this.registerThumbEventHandler = (thumbPosition, evtType, handler) => {
+            this._delegate._getThumbElement(thumbPosition).addEventListener(evtType, handler);
+        };
+        this.deregisterThumbEventHandler = (thumbPosition, evtType, handler) => {
+            var _a;
+            (_a = this._delegate._getThumbElement(thumbPosition)) === null || _a === void 0 ? void 0 : _a.removeEventListener(evtType, handler);
+        };
+        this.registerInputEventHandler = (thumbPosition, evtType, handler) => {
+            var _a;
+            if (evtType === 'change') {
+                this._saveChangeEventHandler(thumbPosition, handler);
+            }
+            else {
+                (_a = this._delegate._getInputElement(thumbPosition)) === null || _a === void 0 ? void 0 : _a.addEventListener(evtType, handler);
+            }
+        };
+        this.deregisterInputEventHandler = (thumbPosition, evtType, handler) => {
+            var _a;
+            if (evtType === 'change') {
+                this._globalEventSubscriptions.unsubscribe();
+            }
+            else {
+                (_a = this._delegate._getInputElement(thumbPosition)) === null || _a === void 0 ? void 0 : _a.removeEventListener(evtType, handler);
+            }
+        };
+        this.registerBodyEventHandler = (evtType, handler) => {
+            this._delegate._document.body.addEventListener(evtType, handler);
+        };
+        this.deregisterBodyEventHandler = (evtType, handler) => {
+            this._delegate._document.body.removeEventListener(evtType, handler);
+        };
+        this.registerWindowEventHandler = (evtType, handler) => {
+            this._delegate._window.addEventListener(evtType, handler);
+        };
+        this.deregisterWindowEventHandler = (evtType, handler) => {
+            this._delegate._window.removeEventListener(evtType, handler);
+        };
+        this._globalEventSubscriptions.add(this._subscribeToSliderInputEvents('change'));
+        this._globalEventSubscriptions.add(this._subscribeToSliderInputEvents('input'));
+    }
+    /**
+     * Handles "change" and "input" events on the slider inputs.
+     *
+     * Exposes a callback to allow the MDC Foundations "change" event handler to be called for "real"
+     * events.
+     *
+     * ** IMPORTANT NOTE **
+     *
+     * We block all "real" change and input events and emit fake events from #emitChangeEvent and
+     * #emitInputEvent, instead. We do this because interacting with the MDC slider won't trigger all
+     * of the correct change and input events, but it will call #emitChangeEvent and #emitInputEvent
+     * at the correct times. This allows users to listen for these events directly on the slider
+     * input as they would with a native range input.
+     */
+    _subscribeToSliderInputEvents(type) {
+        return this._delegate._globalChangeAndInputListener.listen(type, (event) => {
+            const thumbPosition = this._getInputThumbPosition(event.target);
+            // Do nothing if the event isn't from a thumb input.
+            if (thumbPosition === null) {
+                return;
+            }
+            // Do nothing if the event is "fake".
+            if (event._matIsHandled) {
+                return;
+            }
+            // Prevent "real" events from reaching end users.
+            event.stopImmediatePropagation();
+            // Relay "real" change events to the MDC Foundation.
+            if (type === 'change') {
+                this._callChangeEventHandler(event, thumbPosition);
+            }
+        });
+    }
+    /** Calls the MDC Foundations change event handler for the specified thumb position. */
+    _callChangeEventHandler(event, thumbPosition) {
+        if (thumbPosition === Thumb.START) {
+            this._startInputChangeEventHandler(event);
         }
         else {
-            // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
-            point = event.touches[0] || event.changedTouches[0];
+            this._endInputChangeEventHandler(event);
         }
     }
-    else {
-        point = event;
+    /** Save the event handler so it can be used in our global change event listener subscription. */
+    _saveChangeEventHandler(thumbPosition, handler) {
+        if (thumbPosition === Thumb.START) {
+            this._startInputChangeEventHandler = handler;
+        }
+        else {
+            this._endInputChangeEventHandler = handler;
+        }
     }
-    return point ? { x: point.clientX, y: point.clientY } : undefined;
+    /**
+     * Returns the thumb position of the given event target.
+     * Returns null if the given event target does not correspond to a slider thumb input.
+     */
+    _getInputThumbPosition(target) {
+        if (target === this._delegate._getInputElement(Thumb.END)) {
+            return Thumb.END;
+        }
+        if (this._delegate._isRange() && target === this._delegate._getInputElement(Thumb.START)) {
+            return Thumb.START;
+        }
+        return null;
+    }
 }
-/** Finds a `Touch` with a specific ID in a `TouchList`. */
-function findMatchingTouch(touches, id) {
-    for (let i = 0; i < touches.length; i++) {
-        if (touches[i].identifier === id) {
-            return touches[i];
-        }
+/** Ensures that there is not an invalid configuration for the slider thumb inputs. */
+function _validateInputs(isRange, startInputElement, endInputElement) {
+    const startValid = !isRange || startInputElement.hasAttribute('matSliderStartThumb');
+    const endValid = endInputElement.hasAttribute(isRange ? 'matSliderEndThumb' : 'matSliderThumb');
+    if (!startValid || !endValid) {
+        _throwInvalidInputConfigurationError();
     }
-    return undefined;
 }
-/** Gets the unique ID of a touch that matches a specific slider. */
-function getTouchIdForSlider(event, sliderHost) {
-    for (let i = 0; i < event.touches.length; i++) {
-        const target = event.touches[i].target;
-        if (sliderHost === target || sliderHost.contains(target)) {
-            return event.touches[i].identifier;
-        }
+/** Validates that the slider has the correct set of thumbs. */
+function _validateThumbs(isRange, start, end) {
+    if (!end && (!isRange || !start)) {
+        _throwInvalidInputConfigurationError();
     }
-    return undefined;
+}
+function _throwInvalidInputConfigurationError() {
+    throw Error(`Invalid slider thumb input configuration!
+
+  Valid configurations are as follows:
+
+    <mat-slider>
+      <input matSliderThumb>
+    </mat-slider>
+
+    or
+
+    <mat-slider>
+      <input matSliderStartThumb>
+      <input matSliderEndThumb>
+    </mat-slider>
+  `);
 }
 
 /**
@@ -841,14 +1176,14 @@ function getTouchIdForSlider(event, sliderHost) {
 class MatSliderModule {
 }
 MatSliderModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatSliderModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.1", ngImport: i0, type: MatSliderModule, declarations: [MatSlider], imports: [CommonModule, MatCommonModule], exports: [MatSlider, MatCommonModule] });
-MatSliderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSliderModule, imports: [CommonModule, MatCommonModule, MatCommonModule] });
+MatSliderModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "14.0.1", ngImport: i0, type: MatSliderModule, declarations: [MatSlider, MatSliderThumb, MatSliderVisualThumb], imports: [MatCommonModule, CommonModule, MatRippleModule], exports: [MatSlider, MatSliderThumb] });
+MatSliderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSliderModule, imports: [MatCommonModule, CommonModule, MatRippleModule] });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatSliderModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [CommonModule, MatCommonModule],
-                    exports: [MatSlider, MatCommonModule],
-                    declarations: [MatSlider],
+                    imports: [MatCommonModule, CommonModule, MatRippleModule],
+                    exports: [MatSlider, MatSliderThumb],
+                    declarations: [MatSlider, MatSliderThumb, MatSliderVisualThumb],
                 }]
         }] });
 
@@ -872,5 +1207,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_SLIDER_VALUE_ACCESSOR, MatSlider, MatSliderChange, MatSliderModule };
+export { MatSlider, MatSliderModule, MatSliderThumb };
 //# sourceMappingURL=slider.mjs.map
