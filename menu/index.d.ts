@@ -45,9 +45,9 @@ export declare const fadeInItems: AnimationTriggerMetadata;
 declare namespace i1 {
     export {
         MAT_MENU_DEFAULT_OPTIONS_FACTORY,
+        MenuCloseReason,
         MatMenuDefaultOptions,
         MAT_MENU_DEFAULT_OPTIONS,
-        MenuCloseReason,
         _MatMenuBase,
         MatMenu
     }
@@ -61,20 +61,20 @@ declare namespace i2 {
 
 declare namespace i3 {
     export {
+        MAT_MENU_CONTENT,
+        _MatMenuContentBase,
+        MatMenuContent
+    }
+}
+
+declare namespace i4 {
+    export {
         MAT_MENU_SCROLL_STRATEGY_FACTORY,
         MAT_MENU_SCROLL_STRATEGY,
         MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER,
         MENU_PANEL_TOP_PADDING,
         _MatMenuTriggerBase,
         MatMenuTrigger
-    }
-}
-
-declare namespace i4 {
-    export {
-        MAT_MENU_CONTENT,
-        _MatMenuContentBase,
-        MatMenuContent
     }
 }
 
@@ -104,20 +104,15 @@ export declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrate
 declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
 
 /** @docs-private */
-declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
+export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
     useFactory: typeof MAT_MENU_SCROLL_STRATEGY_FACTORY;
 };
 
-/** @docs-public MatMenu */
 export declare class MatMenu extends _MatMenuBase {
     protected _elevationPrefix: string;
     protected _baseElevation: number;
-    /**
-     * @deprecated `changeDetectorRef` parameter will become a required parameter.
-     * @breaking-change 15.0.0
-     */
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenu, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], {}, {}, never, ["*"], false>;
@@ -291,9 +286,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuBase, never, never, { "backdropClass": "backdropClass"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "ariaDescribedby": "aria-describedby"; "xPosition": "xPosition"; "yPosition": "yPosition"; "overlapTrigger": "overlapTrigger"; "hasBackdrop": "hasBackdrop"; "panelClass": "class"; "classList": "classList"; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"], never, false>;
 }
 
-/**
- * Menu content that will be rendered lazily once the menu is opened.
- */
+/** Menu content that will be rendered lazily once the menu is opened. */
 export declare class MatMenuContent extends _MatMenuContentBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, false>;
@@ -390,7 +383,7 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     _setHighlighted(isHighlighted: boolean): void;
     _hasFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, [null, null, null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "role": "role"; }, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "role": "role"; }, {}, never, ["mat-icon", "*"], false>;
 }
 
 /** @docs-private */
@@ -400,7 +393,7 @@ declare const _MatMenuItemBase: _Constructor<CanDisableRipple> & _AbstractConstr
 
 export declare class MatMenuModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, [typeof i1.MatMenu, typeof i2.MatMenuItem, typeof i3.MatMenuTrigger, typeof i4.MatMenuContent], [typeof i5.CommonModule, typeof i6.MatCommonModule, typeof i6.MatRippleModule, typeof i7.OverlayModule], [typeof i8.CdkScrollableModule, typeof i6.MatCommonModule, typeof i1.MatMenu, typeof i2.MatMenuItem, typeof i3.MatMenuTrigger, typeof i4.MatMenuContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, [typeof i1.MatMenu, typeof i2.MatMenuItem, typeof i3.MatMenuContent, typeof i4.MatMenuTrigger], [typeof i5.CommonModule, typeof i6.MatRippleModule, typeof i6.MatCommonModule, typeof i7.OverlayModule], [typeof i8.CdkScrollableModule, typeof i1.MatMenu, typeof i6.MatCommonModule, typeof i2.MatMenuItem, typeof i3.MatMenuContent, typeof i4.MatMenuTrigger]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatMenuModule>;
 }
 
@@ -595,7 +588,7 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
  * @deprecated No longer being used. Will be removed.
  * @breaking-change 15.0.0
  */
-declare const MENU_PANEL_TOP_PADDING = 8;
+export declare const MENU_PANEL_TOP_PADDING = 8;
 
 /** Reason why the menu was closed. */
 declare type MenuCloseReason = void | 'click' | 'keydown' | 'tab';

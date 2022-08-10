@@ -474,6 +474,22 @@
       "node": "./fesm2015/legacy-input/testing.mjs",
       "default": "./fesm2020/legacy-input/testing.mjs"
     },
+    "./legacy-menu": {
+      "types": "./legacy-menu/index.d.ts",
+      "esm2020": "./esm2020/legacy-menu/legacy-menu_public_index.mjs",
+      "es2020": "./fesm2020/legacy-menu.mjs",
+      "es2015": "./fesm2015/legacy-menu.mjs",
+      "node": "./fesm2015/legacy-menu.mjs",
+      "default": "./fesm2020/legacy-menu.mjs"
+    },
+    "./legacy-menu/testing": {
+      "types": "./legacy-menu/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-menu/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-menu/testing.mjs",
+      "es2015": "./fesm2015/legacy-menu/testing.mjs",
+      "node": "./fesm2015/legacy-menu/testing.mjs",
+      "default": "./fesm2020/legacy-menu/testing.mjs"
+    },
     "./legacy-progress-bar": {
       "types": "./legacy-progress-bar/index.d.ts",
       "esm2020": "./esm2020/legacy-progress-bar/legacy-progress-bar_public_index.mjs",
