@@ -2,7 +2,7 @@ import { takeUntil, take } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
-import { InjectionToken, ElementRef, Directive, Inject, Input, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Inject, Input, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import * as i5 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i2 from '@angular/cdk/platform';
@@ -88,7 +88,6 @@ class _MatTooltipBase {
         this._dir = _dir;
         this._defaultOptions = _defaultOptions;
         this._position = 'below';
-        this._positionAtOrigin = false;
         this._disabled = false;
         this._viewInitialized = false;
         this._pointerExitEventsInitialized = false;
@@ -122,9 +121,6 @@ class _MatTooltipBase {
             if (_defaultOptions.position) {
                 this.position = _defaultOptions.position;
             }
-            if (_defaultOptions.positionAtOrigin) {
-                this.positionAtOrigin = _defaultOptions.positionAtOrigin;
-            }
             if (_defaultOptions.touchGestures) {
                 this.touchGestures = _defaultOptions.touchGestures;
             }
@@ -149,14 +145,6 @@ class _MatTooltipBase {
                 this._overlayRef.updatePosition();
             }
         }
-    }
-    get positionAtOrigin() {
-        return this._positionAtOrigin;
-    }
-    set positionAtOrigin(value) {
-        this._positionAtOrigin = coerceBooleanProperty(value);
-        this._detach();
-        this._overlayRef = null;
     }
     /** Disables the display of the tooltip. */
     get disabled() {
@@ -264,7 +252,7 @@ class _MatTooltipBase {
         this._focusMonitor.stopMonitoring(nativeElement);
     }
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
-    show(delay = this.showDelay, origin) {
+    show(delay = this.showDelay) {
         if (this.disabled ||
             !this.message ||
             (this._isTooltipVisible() &&
@@ -272,7 +260,7 @@ class _MatTooltipBase {
                 !this._tooltipInstance._hideTimeoutId)) {
             return;
         }
-        const overlayRef = this._createOverlay(origin);
+        const overlayRef = this._createOverlay();
         this._detach();
         this._portal =
             this._portal || new ComponentPortal(this._tooltipComponent, this._viewContainerRef);
@@ -294,28 +282,24 @@ class _MatTooltipBase {
         }
     }
     /** Shows/hides the tooltip */
-    toggle(origin) {
-        this._isTooltipVisible() ? this.hide() : this.show(undefined, origin);
+    toggle() {
+        this._isTooltipVisible() ? this.hide() : this.show();
     }
     /** Returns true if the tooltip is currently visible to the user */
     _isTooltipVisible() {
         return !!this._tooltipInstance && this._tooltipInstance.isVisible();
     }
     /** Create the overlay config and position strategy */
-    _createOverlay(origin) {
+    _createOverlay() {
         var _a;
         if (this._overlayRef) {
-            const existingStrategy = this._overlayRef.getConfig().positionStrategy;
-            if ((!this.positionAtOrigin || !origin) && existingStrategy._origin instanceof ElementRef) {
-                return this._overlayRef;
-            }
-            this._detach();
+            return this._overlayRef;
         }
         const scrollableAncestors = this._scrollDispatcher.getAncestorScrollContainers(this._elementRef);
         // Create connected position strategy that listens for scroll events to reposition.
         const strategy = this._overlay
             .position()
-            .flexibleConnectedTo(this.positionAtOrigin ? (origin || this._elementRef) : this._elementRef)
+            .flexibleConnectedTo(this._elementRef)
             .withTransformOriginOn(`.${this._cssClassPrefix}-tooltip`)
             .withFlexibleDimensions(false)
             .withViewportMargin(this._viewportMargin)
@@ -526,9 +510,9 @@ class _MatTooltipBase {
         if (this._platformSupportsMouseEvents()) {
             this._passiveListeners.push([
                 'mouseenter',
-                event => {
+                () => {
                     this._setupPointerExitEventsIfNeeded();
-                    this.show(undefined, { x: event.x, y: event.y });
+                    this.show();
                 },
             ]);
         }
@@ -536,14 +520,12 @@ class _MatTooltipBase {
             this._disableNativeGesturesIfNecessary();
             this._passiveListeners.push([
                 'touchstart',
-                event => {
-                    const touch = event.targetTouches[0];
-                    const origin = touch ? { x: touch.clientX, y: touch.clientY } : undefined;
+                () => {
                     // Note that it's important that we don't `preventDefault` here,
                     // because it can prevent click events from firing on the element.
                     this._setupPointerExitEventsIfNeeded();
                     clearTimeout(this._touchstartTimeout);
-                    this._touchstartTimeout = setTimeout(() => this.show(undefined, origin), LONGPRESS_DELAY);
+                    this._touchstartTimeout = setTimeout(() => this.show(), LONGPRESS_DELAY);
                 },
             ]);
         }
@@ -626,7 +608,7 @@ class _MatTooltipBase {
     }
 }
 _MatTooltipBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: _MatTooltipBase, deps: "invalid", target: i0.ɵɵFactoryTarget.Directive });
-_MatTooltipBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.1", type: _MatTooltipBase, inputs: { position: ["matTooltipPosition", "position"], positionAtOrigin: ["matTooltipPositionAtOrigin", "positionAtOrigin"], disabled: ["matTooltipDisabled", "disabled"], showDelay: ["matTooltipShowDelay", "showDelay"], hideDelay: ["matTooltipHideDelay", "hideDelay"], touchGestures: ["matTooltipTouchGestures", "touchGestures"], message: ["matTooltip", "message"], tooltipClass: ["matTooltipClass", "tooltipClass"] }, ngImport: i0 });
+_MatTooltipBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.0.1", type: _MatTooltipBase, inputs: { position: ["matTooltipPosition", "position"], disabled: ["matTooltipDisabled", "disabled"], showDelay: ["matTooltipShowDelay", "showDelay"], hideDelay: ["matTooltipHideDelay", "hideDelay"], touchGestures: ["matTooltipTouchGestures", "touchGestures"], message: ["matTooltip", "message"], tooltipClass: ["matTooltipClass", "tooltipClass"] }, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: _MatTooltipBase, decorators: [{
             type: Directive
         }], ctorParameters: function () {
@@ -637,9 +619,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
     }, propDecorators: { position: [{
                 type: Input,
                 args: ['matTooltipPosition']
-            }], positionAtOrigin: [{
-                type: Input,
-                args: ['matTooltipPositionAtOrigin']
             }], disabled: [{
                 type: Input,
                 args: ['matTooltipDisabled']

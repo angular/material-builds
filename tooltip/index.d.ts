@@ -112,7 +112,6 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     _tooltipInstance: T | null;
     private _portal;
     private _position;
-    private _positionAtOrigin;
     private _disabled;
     private _tooltipClass;
     private _scrollStrategy;
@@ -125,8 +124,6 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position(): TooltipPosition;
     set position(value: TooltipPosition);
-    get positionAtOrigin(): boolean;
-    set positionAtOrigin(value: BooleanInput);
     /** Disables the display of the tooltip. */
     get disabled(): boolean;
     set disabled(value: BooleanInput);
@@ -179,17 +176,11 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
      */
     ngOnDestroy(): void;
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
-    show(delay?: number, origin?: {
-        x: number;
-        y: number;
-    }): void;
+    show(delay?: number): void;
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
     hide(delay?: number): void;
     /** Shows/hides the tooltip */
-    toggle(origin?: {
-        x: number;
-        y: number;
-    }): void;
+    toggle(): void;
     /** Returns true if the tooltip is currently visible to the user */
     _isTooltipVisible(): boolean;
     /** Create the overlay config and position strategy */
@@ -231,7 +222,7 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTooltipBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTooltipBase<any>, never, never, { "position": "matTooltipPosition"; "positionAtOrigin": "matTooltipPositionAtOrigin"; "disabled": "matTooltipDisabled"; "showDelay": "matTooltipShowDelay"; "hideDelay": "matTooltipHideDelay"; "touchGestures": "matTooltipTouchGestures"; "message": "matTooltip"; "tooltipClass": "matTooltipClass"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTooltipBase<any>, never, never, { "position": "matTooltipPosition"; "disabled": "matTooltipDisabled"; "showDelay": "matTooltipShowDelay"; "hideDelay": "matTooltipHideDelay"; "touchGestures": "matTooltipTouchGestures"; "message": "matTooltip"; "tooltipClass": "matTooltipClass"; }, {}, never, never, false>;
 }
 
 /** Default `matTooltip` options that can be overridden. */
@@ -246,11 +237,6 @@ export declare interface MatTooltipDefaultOptions {
     touchGestures?: TooltipTouchGestures;
     /** Default position for tooltips. */
     position?: TooltipPosition;
-    /**
-     * Default value for whether tooltips should be positioned near the click or touch origin
-     * instead of outside the element bounding box.
-     */
-    positionAtOrigin?: boolean;
     /** Disables the ability for the user to interact with the tooltip element. */
     disableTooltipInteractivity?: boolean;
 }
