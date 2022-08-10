@@ -71,6 +71,7 @@ class MatList extends _MatListBase {
         this._stateChanges = new Subject();
         if (this._getListType() === 'action-list') {
             _elementRef.nativeElement.classList.add('mat-action-list');
+            _elementRef.nativeElement.setAttribute('role', 'group');
         }
     }
     _getListType() {
