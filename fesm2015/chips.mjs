@@ -851,9 +851,7 @@ class MatChipList extends _MatChipListBase {
     }
     set selectable(value) {
         this._selectable = coerceBooleanProperty(value);
-        if (this.chips) {
-            this.chips.forEach(chip => (chip.chipListSelectable = this._selectable));
-        }
+        this._syncChipsState();
     }
     set tabIndex(value) {
         this._userTabIndex = value;
@@ -891,7 +889,7 @@ class MatChipList extends _MatChipListBase {
         });
         // When the list changes, re-subscribe
         this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
-            if (this.disabled) {
+            if (this.disabled || !this.selectable) {
                 // Since this happens after the content has been
                 // checked, we need to defer it to the next tick.
                 Promise.resolve().then(() => {
@@ -1265,6 +1263,7 @@ class MatChipList extends _MatChipListBase {
             this.chips.forEach(chip => {
                 chip._chipListDisabled = this._disabled;
                 chip._chipListMultiple = this.multiple;
+                chip.chipListSelectable = this._selectable;
             });
         }
     }
