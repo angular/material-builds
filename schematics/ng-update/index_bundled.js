@@ -9122,6 +9122,7 @@ var require_constants = __commonJS({
       "select",
       "slide-toggle",
       "snack-bar",
+      "slider",
       "table",
       "tabs",
       "tooltip"
