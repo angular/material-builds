@@ -14,6 +14,14 @@ export declare interface ActionListItemHarnessFilters extends BaseListItemHarnes
 }
 
 export declare interface BaseListItemHarnessFilters extends BaseHarnessFilters {
+    title?: string | RegExp;
+    secondaryText?: string | RegExp | null;
+    tertiaryText?: string | RegExp | null;
+    fullText?: string | RegExp;
+    /**
+     * @deprecated Use the `fullText` filter instead.
+     * @breaking-change 16.0.0
+     */
     text?: string | RegExp;
 }
 
@@ -35,17 +43,17 @@ declare interface ListSection<I> {
     items: I[];
 }
 
-/** Harness for interacting with a standard mat-action-list in tests. */
+/** Harness for interacting with a MDC-based action-list in tests. */
 export declare class MatActionListHarness extends MatListHarnessBase<typeof MatActionListItemHarness, MatActionListItemHarness, ActionListItemHarnessFilters> {
     /** The selector for the host element of a `MatActionList` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatActionListHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for an action list with specific
+     * attributes.
      * @param options Options for filtering which action list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ActionListHarnessFilters): HarnessPredicate<MatActionListHarness>;
+    static with<T extends MatActionListHarness>(this: ComponentHarnessConstructor<T>, options?: ActionListHarnessFilters): HarnessPredicate<T>;
     _itemHarness: typeof MatActionListItemHarness;
 }
 
@@ -54,12 +62,12 @@ export declare class MatActionListItemHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatActionListItemHarness` that
-     * meets certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a list item with specific
+     * attributes.
      * @param options Options for filtering which action list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ActionListItemHarnessFilters): HarnessPredicate<MatActionListItemHarness>;
+    static with<T extends MatActionListItemHarness>(this: ComponentHarnessConstructor<T>, options?: ActionListItemHarnessFilters): HarnessPredicate<T>;
     /** Clicks on the action list item. */
     click(): Promise<void>;
     /** Focuses the action list item. */
@@ -70,17 +78,16 @@ export declare class MatActionListItemHarness extends MatListItemHarnessBase {
     isFocused(): Promise<boolean>;
 }
 
-/** Harness for interacting with a standard mat-list in tests. */
+/** Harness for interacting with a MDC-based list in tests. */
 export declare class MatListHarness extends MatListHarnessBase<typeof MatListItemHarness, MatListItemHarness, ListItemHarnessFilters> {
     /** The selector for the host element of a `MatList` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListHarness` that meets certain
-     * criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a list with specific attributes.
      * @param options Options for filtering which list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ListHarnessFilters): HarnessPredicate<MatListHarness>;
+    static with<T extends MatListHarness>(this: ComponentHarnessConstructor<T>, options?: ListHarnessFilters): HarnessPredicate<T>;
     _itemHarness: typeof MatListItemHarness;
 }
 
@@ -172,12 +179,11 @@ export declare class MatListItemHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListItemHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a list item with specific attributes.
      * @param options Options for filtering which list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ListItemHarnessFilters): HarnessPredicate<MatListItemHarness>;
+    static with<T extends MatListItemHarness>(this: ComponentHarnessConstructor<T>, options?: ListItemHarnessFilters): HarnessPredicate<T>;
 }
 
 /**
@@ -186,37 +192,69 @@ export declare class MatListItemHarness extends MatListItemHarnessBase {
  */
 declare abstract class MatListItemHarnessBase extends ContentContainerComponentHarness<MatListItemSection> {
     private _lines;
+    private _primaryText;
     private _avatar;
     private _icon;
-    /** Gets the full text content of the list item. */
+    private _unscopedTextContent;
+    /** Gets the type of the list item, currently describing how many lines there are. */
+    getType(): Promise<MatListItemType>;
+    /**
+     * Gets the full text content of the list item, excluding text
+     * from icons and avatars.
+     *
+     * @deprecated Use the `getFullText` method instead.
+     * @breaking-change 16.0.0
+     */
     getText(): Promise<string>;
-    /** Gets the lines of text (`mat-line` elements) in this nav list item. */
-    getLinesText(): Promise<string[]>;
+    /**
+     * Gets the full text content of the list item, excluding text
+     * from icons and avatars.
+     */
+    getFullText(): Promise<string>;
+    /** Gets the title of the list item. */
+    getTitle(): Promise<string>;
+    /** Whether the list item is disabled. */
+    isDisabled(): Promise<boolean>;
+    /**
+     * Gets the secondary line text of the list item. Null if the list item
+     * does not have a secondary line.
+     */
+    getSecondaryText(): Promise<string | null>;
+    /**
+     * Gets the tertiary line text of the list item. Null if the list item
+     * does not have a tertiary line.
+     */
+    getTertiaryText(): Promise<string | null>;
     /** Whether this list item has an avatar. */
     hasAvatar(): Promise<boolean>;
     /** Whether this list item has an icon. */
     hasIcon(): Promise<boolean>;
-    /** Whether this list option is disabled. */
-    isDisabled(): Promise<boolean>;
 }
 
 /** Selectors for the various list item sections that may contain user content. */
 export declare const enum MatListItemSection {
-    CONTENT = ".mat-list-item-content"
+    CONTENT = ".mdc-list-item__content"
 }
 
-/** Harness for interacting with a list option. */
+/** Enum describing the possible variants of a list item. */
+export declare const enum MatListItemType {
+    ONE_LINE_ITEM = 0,
+    TWO_LINE_ITEM = 1,
+    THREE_LINE_ITEM = 2
+}
+
+/** Harness for interacting with a MDC-based list option. */
 export declare class MatListOptionHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListOption` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListOptionHarness` that
-     * meets certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a list option with specific
+     * attributes.
      * @param options Options for filtering which list option instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ListOptionHarnessFilters): HarnessPredicate<MatListOptionHarness>;
-    private _itemContent;
+    static with<T extends MatListOptionHarness>(this: ComponentHarnessConstructor<T>, options?: ListOptionHarnessFilters): HarnessPredicate<T>;
+    private _beforeCheckbox;
     /** Gets the position of the checkbox relative to the list option content. */
     getCheckboxPosition(): Promise<MatListOptionCheckboxPosition>;
     /** Whether the list option is selected. */
@@ -230,42 +268,42 @@ export declare class MatListOptionHarness extends MatListItemHarnessBase {
     /** Toggles the checked state of the checkbox. */
     toggle(): Promise<void>;
     /**
-     * Puts the list option in a checked state by toggling it if it is currently unchecked, or doing
-     * nothing if it is already checked.
+     * Puts the list option in a checked state by toggling it if it is currently
+     * unchecked, or doing nothing if it is already checked.
      */
     select(): Promise<void>;
     /**
-     * Puts the list option in an unchecked state by toggling it if it is currently checked, or doing
-     * nothing if it is already unchecked.
+     * Puts the list option in an unchecked state by toggling it if it is currently
+     * checked, or doing nothing if it is already unchecked.
      */
     deselect(): Promise<void>;
 }
 
-/** Harness for interacting with a standard mat-nav-list in tests. */
+/** Harness for interacting with a MDC-based mat-nav-list in tests. */
 export declare class MatNavListHarness extends MatListHarnessBase<typeof MatNavListItemHarness, MatNavListItemHarness, NavListItemHarnessFilters> {
     /** The selector for the host element of a `MatNavList` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatNavListHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a nav list with specific
+     * attributes.
      * @param options Options for filtering which nav list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: NavListHarnessFilters): HarnessPredicate<MatNavListHarness>;
+    static with<T extends MatNavListHarness>(this: ComponentHarnessConstructor<T>, options?: NavListHarnessFilters): HarnessPredicate<T>;
     _itemHarness: typeof MatNavListItemHarness;
 }
 
-/** Harness for interacting with a nav list item. */
+/** Harness for interacting with a MDC-based nav-list item. */
 export declare class MatNavListItemHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatNavListItemHarness` that
-     * meets certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a nav list item with specific
+     * attributes.
      * @param options Options for filtering which nav list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: NavListItemHarnessFilters): HarnessPredicate<MatNavListItemHarness>;
+    static with<T extends MatNavListItemHarness>(this: ComponentHarnessConstructor<T>, options?: NavListItemHarnessFilters): HarnessPredicate<T>;
     /** Gets the href for this nav list item. */
     getHref(): Promise<string | null>;
     /** Clicks on the nav list item. */
@@ -276,19 +314,21 @@ export declare class MatNavListItemHarness extends MatListItemHarnessBase {
     blur(): Promise<void>;
     /** Whether the nav list item is focused. */
     isFocused(): Promise<boolean>;
+    /** Whether the list item is activated. Should only be used for nav list items. */
+    isActivated(): Promise<boolean>;
 }
 
-/** Harness for interacting with a standard mat-selection-list in tests. */
+/** Harness for interacting with a MDC_based selection-list in tests. */
 export declare class MatSelectionListHarness extends MatListHarnessBase<typeof MatListOptionHarness, MatListOptionHarness, ListOptionHarnessFilters> {
     /** The selector for the host element of a `MatSelectionList` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSelectionListHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a selection list with specific
+     * attributes.
      * @param options Options for filtering which selection list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: SelectionListHarnessFilters): HarnessPredicate<MatSelectionListHarness>;
+    static with<T extends MatSelectionListHarness>(this: ComponentHarnessConstructor<T>, options?: SelectionListHarnessFilters): HarnessPredicate<T>;
     _itemHarness: typeof MatListOptionHarness;
     /** Whether the selection list is disabled. */
     isDisabled(): Promise<boolean>;
@@ -306,8 +346,8 @@ export declare class MatSelectionListHarness extends MatListHarnessBase<typeof M
     private _getItems;
 }
 
-/** Harness for interacting with a list subheader. */
-declare class MatSubheaderHarness extends ComponentHarness {
+/** Harness for interacting with a MDC-based list subheader. */
+export declare class MatSubheaderHarness extends ComponentHarness {
     static hostSelector: string;
     static with(options?: SubheaderHarnessFilters): HarnessPredicate<MatSubheaderHarness>;
     /** Gets the full text content of the list item (including text from any font icons). */
@@ -319,6 +359,7 @@ export declare interface NavListHarnessFilters extends BaseHarnessFilters {
 
 export declare interface NavListItemHarnessFilters extends BaseListItemHarnessFilters {
     href?: string | RegExp | null;
+    activated?: boolean;
 }
 
 export declare interface SelectionListHarnessFilters extends BaseHarnessFilters {

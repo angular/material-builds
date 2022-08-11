@@ -1,52 +1,89 @@
-import { _AbstractConstructor } from '@angular/material/core';
-import { AfterContentInit } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { CanDisable } from '@angular/material/core';
-import { CanDisableRipple } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { _Constructor } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusKeyManager } from '@angular/cdk/a11y';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i3 from '@angular/material/core';
-import * as i4 from '@angular/common';
-import * as i5 from '@angular/material/divider';
+import * as i10 from '@angular/material/core';
+import * as i11 from '@angular/material/divider';
+import * as i8 from '@angular/cdk/observers';
+import * as i9 from '@angular/common';
 import { InjectionToken } from '@angular/core';
-import { MatLine } from '@angular/material/core';
+import { NgZone } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
+import { RippleConfig } from '@angular/material/core';
+import { RippleGlobalOptions } from '@angular/material/core';
+import { RippleTarget } from '@angular/material/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
 import { ThemePalette } from '@angular/material/core';
 
 declare namespace i1 {
     export {
         MAT_LIST,
-        MAT_NAV_LIST,
-        MatNavList,
         MatList,
-        MatListAvatarCssMatStyler,
-        MatListIconCssMatStyler,
-        MatListSubheaderCssMatStyler,
         MatListItem
     }
 }
 
 declare namespace i2 {
     export {
+        MatActionList
+    }
+}
+
+declare namespace i3 {
+    export {
+        MAT_NAV_LIST,
+        MatNavList
+    }
+}
+
+declare namespace i4 {
+    export {
         MAT_SELECTION_LIST_VALUE_ACCESSOR,
         MatSelectionListChange,
-        MatListOptionCheckboxPosition,
-        MatListOption,
         MatSelectionList
     }
+}
+
+declare namespace i5 {
+    export {
+        SELECTION_LIST,
+        SelectionList,
+        MatListOption
+    }
+}
+
+declare namespace i6 {
+    export {
+        MatListSubheaderCssMatStyler
+    }
+}
+
+declare namespace i7 {
+    export {
+        MatListItemTitle,
+        MatListItemLine,
+        MatListItemMeta,
+        _MatListItemGraphicBase,
+        MatListItemAvatar,
+        MatListItemIcon
+    }
+}
+
+/**
+ * Interface describing a list option. This is used to avoid circular
+ * dependencies between the list-option and the styler directives.
+ * @docs-private
+ */
+declare interface ListOption {
+    _getCheckboxPosition(): MatListOptionCheckboxPosition;
 }
 
 /**
@@ -63,161 +100,287 @@ export declare const MAT_LIST: InjectionToken<MatList>;
  */
 export declare const MAT_NAV_LIST: InjectionToken<MatNavList>;
 
-/** @docs-private */
 export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 
-export declare class MatList extends _MatListBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
-    private _elementRef;
-    /** Emits when the state of the list changes. */
-    readonly _stateChanges: Subject<void>;
-    constructor(_elementRef: ElementRef<HTMLElement>);
-    _getListType(): 'list' | 'action-list' | null;
-    ngOnChanges(): void;
-    ngOnDestroy(): void;
+export declare class MatActionList extends MatListBase {
+    _isNonInteractive: boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatActionList, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatActionList, "mat-action-list", ["matActionList"], {}, {}, never, ["*"], false>;
+}
+
+export declare class MatList extends MatListBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list, mat-action-list", ["matList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list", ["matList"], {}, {}, never, ["*"], false>;
 }
 
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatListAvatarCssMatStyler {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListAvatarCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListAvatarCssMatStyler, "[mat-list-avatar], [matListAvatar]", never, {}, {}, never, never, false>;
-}
-
-/** @docs-private */
-declare const _MatListBase: _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & {
-    new (): {};
-};
-
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatListIconCssMatStyler {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListIconCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListIconCssMatStyler, "[mat-list-icon], [matListIcon]", never, {}, {}, never, never, false>;
-}
-
-/** An item within a Material Design list. */
-export declare class MatListItem extends _MatListItemMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
-    private _element;
-    private _isInteractiveList;
-    private _list?;
-    private readonly _destroyed;
-    _lines: QueryList<MatLine>;
-    _avatar: MatListAvatarCssMatStyler;
-    _icon: MatListIconCssMatStyler;
-    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, navList?: MatNavList, list?: MatList);
-    /** Whether the option is disabled. */
+declare abstract class MatListBase {
+    _isNonInteractive: boolean;
+    /** Whether ripples for all list items is disabled. */
+    get disableRipple(): boolean;
+    set disableRipple(value: BooleanInput);
+    private _disableRipple;
+    /** Whether all list items are disabled. */
     get disabled(): boolean;
     set disabled(value: BooleanInput);
     private _disabled;
-    ngAfterContentInit(): void;
-    ngOnDestroy(): void;
-    /** Whether this list item should show a ripple effect when clicked. */
-    _isRippleDisabled(): boolean;
-    /** Retrieves the DOM element of the component host. */
-    _getHostElement(): HTMLElement;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatar", "_icon", "_lines"], ["[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]", "[mat-line], [matLine]", "*"], false>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, never, false>;
 }
 
-/** @docs-private */
-declare const _MatListItemMixinBase: _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & {
-    new (): {};
-};
-
-export declare class MatListModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, [typeof i1.MatList, typeof i1.MatNavList, typeof i1.MatListItem, typeof i1.MatListAvatarCssMatStyler, typeof i1.MatListIconCssMatStyler, typeof i1.MatListSubheaderCssMatStyler, typeof i2.MatSelectionList, typeof i2.MatListOption], [typeof i3.MatLineModule, typeof i3.MatRippleModule, typeof i3.MatCommonModule, typeof i3.MatPseudoCheckboxModule, typeof i4.CommonModule], [typeof i1.MatList, typeof i1.MatNavList, typeof i1.MatListItem, typeof i1.MatListAvatarCssMatStyler, typeof i3.MatLineModule, typeof i3.MatCommonModule, typeof i1.MatListIconCssMatStyler, typeof i1.MatListSubheaderCssMatStyler, typeof i3.MatPseudoCheckboxModule, typeof i2.MatSelectionList, typeof i2.MatListOption, typeof i5.MatDividerModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
+export declare class MatListItem extends MatListItemBase {
+    _lines: QueryList<MatListItemLine>;
+    _titles: QueryList<MatListItemTitle>;
+    _meta: QueryList<MatListItemMeta>;
+    _unscopedContent: ElementRef<HTMLSpanElement>;
+    _itemText: ElementRef<HTMLElement>;
+    /** Indicates whether an item in a `<mat-nav-list>` is the currently active page. */
+    get activated(): boolean;
+    set activated(activated: boolean);
+    _activated: boolean;
+    constructor(element: ElementRef, ngZone: NgZone, listBase: MatListBase, platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": "activated"; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], false>;
 }
 
 /**
- * Component for list-options of selection-list. Each list-option can automatically
- * generate a checkbox and can put current item into the selectionModel of selection-list
- * if the current item is selected.
+ * Directive matching an optional avatar within a list item.
+ *
+ * List items can reserve space at the beginning of an item to display an avatar.
  */
-export declare class MatListOption extends _MatListOptionBase implements AfterContentInit, OnDestroy, OnInit, FocusableOption, CanDisableRipple {
-    private _element;
-    private _changeDetector;
-    /** @docs-private */
-    selectionList: MatSelectionList;
-    private _selected;
+export declare class MatListItemAvatar extends _MatListItemGraphicBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemAvatar, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemAvatar, "[matListItemAvatar]", never, {}, {}, never, never, false>;
+}
+
+declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, RippleTarget {
+    _elementRef: ElementRef<HTMLElement>;
+    protected _ngZone: NgZone;
+    private _listBase;
+    private _platform;
+    /** Query list matching list-item line elements. */
+    abstract _lines: QueryList<MatListItemLine> | undefined;
+    /** Query list matching list-item title elements. */
+    abstract _titles: QueryList<MatListItemTitle> | undefined;
+    /**
+     * Element reference to the unscoped content in a list item.
+     *
+     * Unscoped content is user-projected text content in a list item that is
+     * not part of an explicit line or title.
+     */
+    abstract _unscopedContent: ElementRef<HTMLSpanElement> | undefined;
+    /** Host element for the list item. */
+    _hostElement: HTMLElement;
+    /** Whether animations are disabled. */
+    _noopAnimations: boolean;
+    _avatars: QueryList<never>;
+    _icons: QueryList<never>;
+    /**
+     * The number of lines this list item should reserve space for. If not specified,
+     * lines are inferred based on the projected content.
+     *
+     * Explicitly specifying the number of lines is useful if you want to acquire additional
+     * space and enable the wrapping of text. The unscoped text content of a list item will
+     * always be able to take up the remaining space of the item, unless it represents the title.
+     *
+     * A maximum of three lines is supported as per the Material Design specification.
+     */
+    set lines(lines: number | string | null);
+    _explicitLines: number | null;
+    get disableRipple(): boolean;
+    set disableRipple(value: boolean);
+    private _disableRipple;
+    /** Whether the list-item is disabled. */
+    get disabled(): boolean;
+    set disabled(value: BooleanInput);
     private _disabled;
-    private _hasFocus;
-    _avatar: MatListAvatarCssMatStyler;
-    _icon: MatListIconCssMatStyler;
-    _lines: QueryList<MatLine>;
+    private _subscriptions;
+    private _rippleRenderer;
+    /** Whether the list item has unscoped text content. */
+    _hasUnscopedTextContent: boolean;
+    /**
+     * Implemented as part of `RippleTarget`.
+     * @docs-private
+     */
+    rippleConfig: RippleConfig & RippleGlobalOptions;
+    /**
+     * Implemented as part of `RippleTarget`.
+     * @docs-private
+     */
+    get rippleDisabled(): boolean;
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _listBase: MatListBase, _platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    /** Whether the list item has icons or avatars. */
+    _hasIconOrAvatar(): boolean;
+    private _initInteractiveListItem;
+    /**
+     * Subscribes to changes in the projected title and lines. Triggers a
+     * item lines update whenever a change occurs.
+     */
+    private _monitorProjectedLinesAndTitle;
+    /**
+     * Updates the lines of the list item. Based on the projected user content and optional
+     * explicit lines setting, the visual appearance of the list item is determined.
+     *
+     * This method should be invoked whenever the projected user content changes, or
+     * when the explicit lines have been updated.
+     *
+     * @param recheckUnscopedContent Whether the projected unscoped content should be re-checked.
+     *   The unscoped content is not re-checked for every update as it is a rather expensive check
+     *   for content that is expected to not change very often.
+     */
+    _updateItemLines(recheckUnscopedContent: boolean): void;
+    /**
+     * Infers the number of lines based on the projected user content. This is useful
+     * if no explicit number of lines has been specified on the list item.
+     *
+     * The number of lines is inferred based on whether there is a title, the number of
+     * additional lines (secondary/tertiary). An additional line is acquired if there is
+     * unscoped text content.
+     */
+    private _inferLinesFromContent;
+    /** Checks whether the list item has unscoped text content. */
+    private _checkDomForUnscopedTextContent;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemBase, [null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": "lines"; "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatars", "_icons"], never, false>;
+}
+
+/**
+ * @docs-private
+ *
+ * MDC uses the very intuitively named classes `.mdc-list-item__start` and `.mat-list-item__end`
+ * to position content such as icons or checkboxes that comes either before or after the text
+ * content respectively. This directive detects the placement of the checkbox and applies the
+ * correct MDC class to position the icon/avatar on the opposite side.
+ */
+export declare class _MatListItemGraphicBase {
+    _listOption: ListOption;
+    constructor(_listOption: ListOption);
+    _isAlignedAtStart(): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatListItemGraphicBase, [{ optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, false>;
+}
+
+/**
+ * Directive matching an optional icon within a list item.
+ *
+ * List items can reserve space at the beginning of an item to display an icon.
+ */
+export declare class MatListItemIcon extends _MatListItemGraphicBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemIcon, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemIcon, "[matListItemIcon]", never, {}, {}, never, never, false>;
+}
+
+/**
+ * Directive capturing a line in a list item. A list item usually consists of a
+ * title and optional secondary or tertiary lines.
+ *
+ * Text content inside a line never wraps. There can be at maximum two lines per list item.
+ */
+export declare class MatListItemLine {
+    _elementRef: ElementRef<HTMLElement>;
+    constructor(_elementRef: ElementRef<HTMLElement>);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemLine, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, false>;
+}
+
+/**
+ * Directive matching an optional meta section for list items.
+ *
+ * List items can reserve space at the end of an item to display a control,
+ * button or additional text content.
+ */
+export declare class MatListItemMeta {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemMeta, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemMeta, "[matListItemMeta]", never, {}, {}, never, never, false>;
+}
+
+/**
+ * Directive capturing the title of a list item. A list item usually consists of a
+ * title and optional secondary or tertiary lines.
+ *
+ * Text content for the title never wraps. There can only be a single title per list item.
+ */
+export declare class MatListItemTitle {
+    _elementRef: ElementRef<HTMLElement>;
+    constructor(_elementRef: ElementRef<HTMLElement>);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemTitle, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, false>;
+}
+
+export declare class MatListModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, [typeof i1.MatList, typeof i2.MatActionList, typeof i3.MatNavList, typeof i4.MatSelectionList, typeof i1.MatListItem, typeof i5.MatListOption, typeof i6.MatListSubheaderCssMatStyler, typeof i7.MatListItemAvatar, typeof i7.MatListItemIcon, typeof i7.MatListItemLine, typeof i7.MatListItemTitle, typeof i7.MatListItemMeta], [typeof i8.ObserversModule, typeof i9.CommonModule, typeof i10.MatCommonModule, typeof i10.MatRippleModule, typeof i10.MatPseudoCheckboxModule], [typeof i1.MatList, typeof i2.MatActionList, typeof i3.MatNavList, typeof i4.MatSelectionList, typeof i1.MatListItem, typeof i5.MatListOption, typeof i7.MatListItemAvatar, typeof i7.MatListItemIcon, typeof i6.MatListSubheaderCssMatStyler, typeof i11.MatDividerModule, typeof i7.MatListItemLine, typeof i7.MatListItemTitle, typeof i7.MatListItemMeta]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
+}
+
+export declare class MatListOption extends MatListItemBase implements ListOption, OnInit, OnDestroy {
+    private _selectionList;
+    private _changeDetectorRef;
+    _lines: QueryList<MatListItemLine>;
+    _titles: QueryList<MatListItemTitle>;
+    _unscopedContent: ElementRef<HTMLSpanElement>;
     /**
      * Emits when the selected state of the option has changed.
      * Use to facilitate two-data binding to the `selected` property.
      * @docs-private
      */
     readonly selectedChange: EventEmitter<boolean>;
-    /** DOM element containing the item's text. */
-    _text: ElementRef;
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
     checkboxPosition: MatListOptionCheckboxPosition;
     /** Theme color of the list option. This sets the color of the checkbox. */
     get color(): ThemePalette;
     set color(newValue: ThemePalette);
     private _color;
-    /**
-     * This is set to true after the first OnChanges cycle so we don't clear the value of `selected`
-     * in the first cycle.
-     */
-    private _inputsInitialized;
     /** Value of the option */
     get value(): any;
     set value(newValue: any);
     private _value;
-    /** Whether the option is disabled. */
-    get disabled(): boolean;
-    set disabled(value: BooleanInput);
     /** Whether the option is selected. */
     get selected(): boolean;
     set selected(value: BooleanInput);
-    constructor(_element: ElementRef<HTMLElement>, _changeDetector: ChangeDetectorRef, 
-    /** @docs-private */
-    selectionList: MatSelectionList);
+    private _selected;
+    /**
+     * This is set to true after the first OnChanges cycle so we don't
+     * clear the value of `selected` in the first cycle.
+     */
+    private _inputsInitialized;
+    constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, _selectionList: SelectionList, platform: Platform, _changeDetectorRef: ChangeDetectorRef, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
     ngOnInit(): void;
-    ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Toggles the selection state of the option. */
     toggle(): void;
     /** Allows for programmatic focusing of the option. */
     focus(): void;
-    /**
-     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
-     * @docs-private
-     */
-    getLabel(): any;
-    /** Whether this list item should show a ripple effect when clicked. */
-    _isRippleDisabled(): boolean;
-    _handleClick(): void;
-    _handleFocus(): void;
+    /** Gets the text label of the list option. Used for the typeahead functionality in the list. */
+    getLabel(): string;
+    /** Whether a checkbox is shown at the given position. */
+    _hasCheckboxAt(position: MatListOptionCheckboxPosition): boolean;
+    /** Whether icons or avatars are shown at the given position. */
+    _hasIconsOrAvatarsAt(position: 'before' | 'after'): boolean;
+    /** Gets whether the given type of element is projected at the specified position. */
+    _hasProjected(type: 'icons' | 'avatars', position: 'before' | 'after'): boolean;
     _handleBlur(): void;
-    /** Retrieves the DOM element of the component host. */
-    _getHostElement(): HTMLElement;
-    /** Sets the selected state of the option. Returns whether the value has changed. */
+    /** Gets the current position of the checkbox. */
+    _getCheckboxPosition(): MatListOptionCheckboxPosition;
+    /**
+     * Sets the selected state of the option.
+     * @returns Whether the value has changed.
+     */
     _setSelected(selected: boolean): boolean;
     /**
-     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
-     * used to trigger an update of the list option if the disabled state of the selection list
-     * changed.
+     * Notifies Angular that the option needs to be checked in the next change detection run.
+     * Mainly used to trigger an update of the list option if the disabled state of the selection
+     * list changed.
      */
     _markForCheck(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "disableRipple": "disableRipple"; "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "disabled": "disabled"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_avatar", "_icon", "_lines"], ["*", "[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]"], false>;
+    /** Toggles the option's value based on a user interaction. */
+    _toggleOnInteraction(): void;
+    /** Sets the tabindex of the list option. */
+    _setTabindex(value: number): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, [null, null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], false>;
 }
-
-declare const _MatListOptionBase: _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & {
-    new (): {};
-};
 
 /**
  * Type describing possible positions of a checkbox in a list option
@@ -234,28 +397,24 @@ export declare class MatListSubheaderCssMatStyler {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, false>;
 }
 
-export declare class MatNavList extends _MatListBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
-    /** Emits when the state of the list changes. */
-    readonly _stateChanges: Subject<void>;
-    ngOnChanges(): void;
-    ngOnDestroy(): void;
+export declare class MatNavList extends MatListBase {
+    _isNonInteractive: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNavList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], {}, {}, never, ["*"], false>;
 }
 
-/**
- * Material Design list component where each item is a selectable option. Behaves as a listbox.
- */
-export declare class MatSelectionList extends _MatSelectionListBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
-    private _element;
-    private _changeDetector;
-    private _focusMonitor;
-    private _multiple;
-    private _contentInitialized;
-    /** The FocusKeyManager which handles focus. */
-    _keyManager: FocusKeyManager<MatListOption>;
-    /** The option components contained within this selection-list. */
-    options: QueryList<MatListOption>;
+export declare class MatSelectionList extends MatListBase implements SelectionList, ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
+    _element: ElementRef<HTMLElement>;
+    private _ngZone;
+    private _initialized;
+    private _keyManager;
+    /** Emits when the list has been destroyed. */
+    private _destroyed;
+    /** Whether the list has been destroyed. */
+    private _isDestroyed;
+    /** View to model callback that should be called whenever the selected options change. */
+    private _onChange;
+    _items: QueryList<MatListOption>;
     /** Emits a change event whenever the selected state of an option changes. */
     readonly selectionChange: EventEmitter<MatSelectionListChange>;
     /** Theme color of the selection list. This sets the checkbox color for all list options. */
@@ -266,29 +425,18 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
      * one is a value from the selected value. A boolean must be returned.
      */
     compareWith: (o1: any, o2: any) => boolean;
-    /** Whether the selection list is disabled. */
-    get disabled(): boolean;
-    set disabled(value: BooleanInput);
-    private _disabled;
     /** Whether selection is limited to one or multiple items (default multiple). */
     get multiple(): boolean;
     set multiple(value: BooleanInput);
+    private _multiple;
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
-    /** The tabindex of the selection list. */
-    _tabIndex: number;
-    /** View to model callback that should be called whenever the selected options change. */
-    private _onChange;
     /** Keeps track of the currently-selected value. */
     _value: string[] | null;
-    /** Emits when the list has been destroyed. */
-    private readonly _destroyed;
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
-    /** Whether the list has been destroyed. */
-    private _isDestroyed;
-    constructor(_element: ElementRef<HTMLElement>, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor);
-    ngAfterContentInit(): void;
+    constructor(_element: ElementRef<HTMLElement>, _ngZone: NgZone);
+    ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Focuses the selection list. */
@@ -297,15 +445,6 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
     selectAll(): MatListOption[];
     /** Deselects all of the options. Returns the options that changed as a result. */
     deselectAll(): MatListOption[];
-    /** Sets the focused option of the selection-list. */
-    _setFocusedOption(option: MatListOption): void;
-    /**
-     * Removes an option from the selection list and updates the active item.
-     * @returns Currently-active item.
-     */
-    _removeOptionFromList(option: MatListOption): MatListOption | null;
-    /** Passes relevant key presses to our key manager. */
-    _keydown(event: KeyboardEvent): void;
     /** Reports a value change to the ControlValueAccessor */
     _reportValueChange(): void;
     /** Emits a change event if the selected state of an option changed. */
@@ -318,54 +457,88 @@ export declare class MatSelectionList extends _MatSelectionListBase implements C
     registerOnChange(fn: (value: any) => void): void;
     /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: () => void): void;
+    /** Watches for changes in the selected state of the options and updates the list accordingly. */
+    private _watchForSelectionChange;
     /** Sets the selected options based on the specified values. */
     private _setOptionsFromValues;
     /** Returns the values of the selected options. */
     private _getSelectedOptionValues;
-    /** Toggles the state of the currently focused option if enabled. */
-    private _toggleFocusedOption;
+    /** Marks all the options to be checked in the next change detection run. */
+    private _markOptionsForCheck;
     /**
      * Sets the selected state on all of the options
      * and emits an event if anything changed.
      */
     private _setAllOptionsSelected;
+    /** The option components contained within this selection-list. */
+    get options(): QueryList<MatListOption>;
+    /** Handles keydown events within the list. */
+    _handleKeydown(event: KeyboardEvent): void;
+    /** Handles focusout events within the list. */
+    private _handleFocusout;
+    /** Handles focusin events within the list. */
+    private _handleFocusin;
+    /** Sets up the logic for maintaining the roving tabindex. */
+    private _setupRovingTabindex;
     /**
-     * Utility to ensure all indexes are valid.
-     * @param index The index to be checked.
-     * @returns True if the index is valid for our list of options.
+     * Sets an option as active.
+     * @param index Index of the active option. If set to -1, no option will be active.
      */
-    private _isValidIndex;
-    /** Returns the index of the specified list option. */
-    private _getOptionIndex;
-    /** Marks all the options to be checked in the next change detection run. */
-    private _markOptionsForCheck;
-    /**
-     * Removes the tabindex from the selection list and resets it back afterwards, allowing the user
-     * to tab out of it. This prevents the list from capturing focus and redirecting it back within
-     * the list, creating a focus trap if it user tries to tab away.
-     */
-    private _allowFocusEscape;
-    /** Updates the tabindex based upon if the selection list is empty. */
-    private _updateTabIndex;
+    private _setActiveOption;
+    /** Resets the active option to the first selected option. */
+    private _resetActiveOption;
+    /** Returns whether the focus is currently within the list. */
+    private _containsFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "disableRipple": "disableRipple"; "color": "color"; "compareWith": "compareWith"; "disabled": "disabled"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["options"], ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": "color"; "compareWith": "compareWith"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false>;
 }
-
-declare const _MatSelectionListBase: _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & {
-    new (): {};
-};
 
 /** Change event that is being fired whenever the selected state of an option changes. */
 export declare class MatSelectionListChange {
     /** Reference to the selection list that emitted the event. */
     source: MatSelectionList;
+    /**
+     * Reference to the option that has been changed.
+     * @deprecated Use `options` instead, because some events may change more than one option.
+     * @breaking-change 12.0.0
+     */
+    option: MatListOption;
     /** Reference to the options that have been changed. */
     options: MatListOption[];
     constructor(
     /** Reference to the selection list that emitted the event. */
     source: MatSelectionList, 
+    /**
+     * Reference to the option that has been changed.
+     * @deprecated Use `options` instead, because some events may change more than one option.
+     * @breaking-change 12.0.0
+     */
+    option: MatListOption, 
     /** Reference to the options that have been changed. */
     options: MatListOption[]);
+}
+
+/**
+ * Injection token that can be used to reference instances of an `SelectionList`. It serves
+ * as alternative token to an actual implementation which would result in circular references.
+ * @docs-private
+ */
+export declare const SELECTION_LIST: InjectionToken<SelectionList>;
+
+/**
+ * Interface describing the containing list of an list option. This is used to avoid
+ * circular dependencies between the list-option and the selection list.
+ * @docs-private
+ */
+export declare interface SelectionList extends MatListBase {
+    multiple: boolean;
+    color: ThemePalette;
+    selectedOptions: SelectionModel<MatListOption>;
+    compareWith: (o1: any, o2: any) => boolean;
+    _value: string[] | null;
+    _reportValueChange(): void;
+    _emitChangeEvent(options: MatListOption[]): void;
+    _onTouched(): void;
 }
 
 export { }

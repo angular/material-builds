@@ -8,8 +8,8 @@ import { MatDividerHarness } from '@angular/material/divider/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-const iconSelector = '.mat-list-icon';
-const avatarSelector = '.mat-list-avatar';
+const iconSelector = '.mat-mdc-list-item-icon';
+const avatarSelector = '.mat-mdc-list-item-avatar';
 /**
  * Gets a `HarnessPredicate` that applies the given `BaseListItemHarnessFilters` to the given
  * list item harness.
@@ -19,9 +19,14 @@ const avatarSelector = '.mat-list-avatar';
  * @return A `HarnessPredicate` for the given harness type with the given options applied.
  */
 function getListItemPredicate(harnessType, options) {
-    return new HarnessPredicate(harnessType, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+    return new HarnessPredicate(harnessType, options)
+        .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
+        .addOption('fullText', options.fullText, (harness, fullText) => HarnessPredicate.stringMatches(harness.getFullText(), fullText))
+        .addOption('title', options.title, (harness, title) => HarnessPredicate.stringMatches(harness.getTitle(), title))
+        .addOption('secondaryText', options.secondaryText, (harness, secondaryText) => HarnessPredicate.stringMatches(harness.getSecondaryText(), secondaryText))
+        .addOption('tertiaryText', options.tertiaryText, (harness, tertiaryText) => HarnessPredicate.stringMatches(harness.getTertiaryText(), tertiaryText));
 }
-/** Harness for interacting with a list subheader. */
+/** Harness for interacting with a MDC-based list subheader. */
 class MatSubheaderHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatSubheaderHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
@@ -31,7 +36,7 @@ class MatSubheaderHarness extends ComponentHarness {
         return (await this.host()).text();
     }
 }
-MatSubheaderHarness.hostSelector = '.mat-subheader';
+MatSubheaderHarness.hostSelector = '.mat-mdc-subheader';
 /**
  * Shared behavior among the harnesses for the various `MatListItem` flavors.
  * @docs-private
@@ -39,18 +44,101 @@ MatSubheaderHarness.hostSelector = '.mat-subheader';
 class MatListItemHarnessBase extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._lines = this.locatorForAll('.mat-line');
-        this._avatar = this.locatorForOptional(avatarSelector);
-        this._icon = this.locatorForOptional(iconSelector);
+        this._lines = this.locatorForAll('.mat-mdc-list-item-line');
+        this._primaryText = this.locatorFor('.mdc-list-item__primary-text');
+        this._avatar = this.locatorForOptional('.mat-mdc-list-item-avatar');
+        this._icon = this.locatorForOptional('.mat-mdc-list-item-icon');
+        this._unscopedTextContent = this.locatorFor('.mat-mdc-list-item-unscoped-content');
     }
-    /** Gets the full text content of the list item. */
+    /** Gets the type of the list item, currently describing how many lines there are. */
+    async getType() {
+        const host = await this.host();
+        const [isOneLine, isTwoLine] = await parallel(() => [
+            host.hasClass('mdc-list-item--with-one-line'),
+            host.hasClass('mdc-list-item--with-two-lines'),
+        ]);
+        if (isOneLine) {
+            return 0 /* MatListItemType.ONE_LINE_ITEM */;
+        }
+        else if (isTwoLine) {
+            return 1 /* MatListItemType.TWO_LINE_ITEM */;
+        }
+        else {
+            return 2 /* MatListItemType.THREE_LINE_ITEM */;
+        }
+    }
+    /**
+     * Gets the full text content of the list item, excluding text
+     * from icons and avatars.
+     *
+     * @deprecated Use the `getFullText` method instead.
+     * @breaking-change 16.0.0
+     */
     async getText() {
+        return this.getFullText();
+    }
+    /**
+     * Gets the full text content of the list item, excluding text
+     * from icons and avatars.
+     */
+    async getFullText() {
         return (await this.host()).text({ exclude: `${iconSelector}, ${avatarSelector}` });
     }
-    /** Gets the lines of text (`mat-line` elements) in this nav list item. */
-    async getLinesText() {
-        const lines = await this._lines();
-        return parallel(() => lines.map(l => l.text()));
+    /** Gets the title of the list item. */
+    async getTitle() {
+        return (await this._primaryText()).text();
+    }
+    /** Whether the list item is disabled. */
+    async isDisabled() {
+        return (await this.host()).hasClass('mdc-list-item--disabled');
+    }
+    /**
+     * Gets the secondary line text of the list item. Null if the list item
+     * does not have a secondary line.
+     */
+    async getSecondaryText() {
+        const type = await this.getType();
+        if (type === 0 /* MatListItemType.ONE_LINE_ITEM */) {
+            return null;
+        }
+        const [lines, unscopedTextContent] = await parallel(() => [
+            this._lines(),
+            this._unscopedTextContent(),
+        ]);
+        // If there is no explicit line for the secondary text, the unscoped text content
+        // is rendered as the secondary text (with potential text wrapping enabled).
+        if (lines.length >= 1) {
+            return lines[0].text();
+        }
+        else {
+            return unscopedTextContent.text();
+        }
+    }
+    /**
+     * Gets the tertiary line text of the list item. Null if the list item
+     * does not have a tertiary line.
+     */
+    async getTertiaryText() {
+        const type = await this.getType();
+        if (type !== 2 /* MatListItemType.THREE_LINE_ITEM */) {
+            return null;
+        }
+        const [lines, unscopedTextContent] = await parallel(() => [
+            this._lines(),
+            this._unscopedTextContent(),
+        ]);
+        // First we check if there is an explicit line for the tertiary text. If so, we return it.
+        // If there is at least an explicit secondary line though, then we know that the unscoped
+        // text content corresponds to the tertiary line. If there are no explicit lines at all,
+        // we know that the unscoped text content from the secondary text just wraps into the third
+        // line, but there *no* actual dedicated tertiary text.
+        if (lines.length === 2) {
+            return lines[1].text();
+        }
+        else if (lines.length === 1) {
+            return unscopedTextContent.text();
+        }
+        return null;
     }
     /** Whether this list item has an avatar. */
     async hasAvatar() {
@@ -59,10 +147,6 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
     /** Whether this list item has an icon. */
     async hasIcon() {
         return !!(await this._icon());
-    }
-    /** Whether this list option is disabled. */
-    async isDisabled() {
-        return (await this.host()).hasClass('mat-list-item-disabled');
     }
 }
 
@@ -165,34 +249,34 @@ class MatListHarnessBase extends ComponentHarness {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-action-list in tests. */
+/** Harness for interacting with a MDC-based action-list in tests. */
 class MatActionListHarness extends MatListHarnessBase {
     constructor() {
         super(...arguments);
         this._itemHarness = MatActionListItemHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatActionListHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for an action list with specific
+     * attributes.
      * @param options Options for filtering which action list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatActionListHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatActionList` instance. */
-MatActionListHarness.hostSelector = 'mat-action-list.mat-list';
+MatActionListHarness.hostSelector = '.mat-mdc-action-list';
 /** Harness for interacting with an action list item. */
 class MatActionListItemHarness extends MatListItemHarnessBase {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatActionListItemHarness` that
-     * meets certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a list item with specific
+     * attributes.
      * @param options Options for filtering which action list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getListItemPredicate(MatActionListItemHarness, options);
+        return getListItemPredicate(this, options);
     }
     /** Clicks on the action list item. */
     async click() {
@@ -212,7 +296,7 @@ class MatActionListItemHarness extends MatListItemHarnessBase {
     }
 }
 /** The selector for the host element of a `MatListItem` instance. */
-MatActionListItemHarness.hostSelector = `${MatActionListHarness.hostSelector} .mat-list-item`;
+MatActionListItemHarness.hostSelector = `${MatActionListHarness.hostSelector} .mat-mdc-list-item`;
 
 /**
  * @license
@@ -221,38 +305,36 @@ MatActionListItemHarness.hostSelector = `${MatActionListHarness.hostSelector} .m
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-list in tests. */
+/** Harness for interacting with a MDC-based list in tests. */
 class MatListHarness extends MatListHarnessBase {
     constructor() {
         super(...arguments);
         this._itemHarness = MatListItemHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListHarness` that meets certain
-     * criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a list with specific attributes.
      * @param options Options for filtering which list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatListHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatList` instance. */
-MatListHarness.hostSelector = '.mat-list:not(mat-action-list)';
+MatListHarness.hostSelector = '.mat-mdc-list';
 /** Harness for interacting with a list item. */
 class MatListItemHarness extends MatListItemHarnessBase {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListItemHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a list item with specific attributes.
      * @param options Options for filtering which list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getListItemPredicate(MatListItemHarness, options);
+        return getListItemPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatListItem` instance. */
-MatListItemHarness.hostSelector = `${MatListHarness.hostSelector} .mat-list-item`;
+MatListItemHarness.hostSelector = `${MatListHarness.hostSelector} .mat-mdc-list-item`;
 
 /**
  * @license
@@ -269,34 +351,36 @@ MatListItemHarness.hostSelector = `${MatListHarness.hostSelector} .mat-list-item
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-nav-list in tests. */
+/** Harness for interacting with a MDC-based mat-nav-list in tests. */
 class MatNavListHarness extends MatListHarnessBase {
     constructor() {
         super(...arguments);
         this._itemHarness = MatNavListItemHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatNavListHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a nav list with specific
+     * attributes.
      * @param options Options for filtering which nav list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatNavListHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatNavList` instance. */
-MatNavListHarness.hostSelector = '.mat-nav-list';
-/** Harness for interacting with a nav list item. */
+MatNavListHarness.hostSelector = '.mat-mdc-nav-list';
+/** Harness for interacting with a MDC-based nav-list item. */
 class MatNavListItemHarness extends MatListItemHarnessBase {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatNavListItemHarness` that
-     * meets certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a nav list item with specific
+     * attributes.
      * @param options Options for filtering which nav list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getListItemPredicate(MatNavListItemHarness, options).addOption('href', options.href, async (harness, href) => HarnessPredicate.stringMatches(harness.getHref(), href));
+        return getListItemPredicate(this, options)
+            .addOption('href', options.href, async (harness, href) => HarnessPredicate.stringMatches(harness.getHref(), href))
+            .addOption('activated', options.activated, async (harness, activated) => (await harness.isActivated()) === activated);
     }
     /** Gets the href for this nav list item. */
     async getHref() {
@@ -318,9 +402,13 @@ class MatNavListItemHarness extends MatListItemHarnessBase {
     async isFocused() {
         return (await this.host()).isFocused();
     }
+    /** Whether the list item is activated. Should only be used for nav list items. */
+    async isActivated() {
+        return (await this.host()).hasClass('mdc-list-item--activated');
+    }
 }
 /** The selector for the host element of a `MatListItem` instance. */
-MatNavListItemHarness.hostSelector = `${MatNavListHarness.hostSelector} .mat-list-item`;
+MatNavListItemHarness.hostSelector = `${MatNavListHarness.hostSelector} .mat-mdc-list-item`;
 
 /**
  * @license
@@ -329,20 +417,20 @@ MatNavListItemHarness.hostSelector = `${MatNavListHarness.hostSelector} .mat-lis
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-selection-list in tests. */
+/** Harness for interacting with a MDC_based selection-list in tests. */
 class MatSelectionListHarness extends MatListHarnessBase {
     constructor() {
         super(...arguments);
         this._itemHarness = MatListOptionHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSelectionListHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a selection list with specific
+     * attributes.
      * @param options Options for filtering which selection list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatSelectionListHarness, options);
+        return new HarnessPredicate(this, options);
     }
     /** Whether the selection list is disabled. */
     async isDisabled() {
@@ -369,34 +457,30 @@ class MatSelectionListHarness extends MatListHarnessBase {
         if (!filters.length) {
             return this.getItems();
         }
-        const matches = await parallel(() => {
-            return filters.map(filter => this.locatorForAll(MatListOptionHarness.with(filter))());
-        });
+        const matches = await parallel(() => filters.map(filter => this.locatorForAll(MatListOptionHarness.with(filter))()));
         return matches.reduce((result, current) => [...result, ...current], []);
     }
 }
 /** The selector for the host element of a `MatSelectionList` instance. */
-MatSelectionListHarness.hostSelector = '.mat-selection-list';
-/** Harness for interacting with a list option. */
+MatSelectionListHarness.hostSelector = '.mat-mdc-selection-list';
+/** Harness for interacting with a MDC-based list option. */
 class MatListOptionHarness extends MatListItemHarnessBase {
     constructor() {
         super(...arguments);
-        this._itemContent = this.locatorFor('.mat-list-item-content');
+        this._beforeCheckbox = this.locatorForOptional('.mdc-list-item__start .mdc-checkbox');
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatListOptionHarness` that
-     * meets certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a list option with specific
+     * attributes.
      * @param options Options for filtering which list option instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return getListItemPredicate(MatListOptionHarness, options).addOption('is selected', options.selected, async (harness, selected) => (await harness.isSelected()) === selected);
+        return getListItemPredicate(this, options).addOption('is selected', options.selected, async (harness, selected) => (await harness.isSelected()) === selected);
     }
     /** Gets the position of the checkbox relative to the list option content. */
     async getCheckboxPosition() {
-        return (await (await this._itemContent()).hasClass('mat-list-item-content-reverse'))
-            ? 'after'
-            : 'before';
+        return (await this._beforeCheckbox()) !== null ? 'before' : 'after';
     }
     /** Whether the list option is selected. */
     async isSelected() {
@@ -419,8 +503,8 @@ class MatListOptionHarness extends MatListItemHarnessBase {
         return (await this.host()).click();
     }
     /**
-     * Puts the list option in a checked state by toggling it if it is currently unchecked, or doing
-     * nothing if it is already checked.
+     * Puts the list option in a checked state by toggling it if it is currently
+     * unchecked, or doing nothing if it is already checked.
      */
     async select() {
         if (!(await this.isSelected())) {
@@ -428,8 +512,8 @@ class MatListOptionHarness extends MatListItemHarnessBase {
         }
     }
     /**
-     * Puts the list option in an unchecked state by toggling it if it is currently checked, or doing
-     * nothing if it is already unchecked.
+     * Puts the list option in an unchecked state by toggling it if it is currently
+     * checked, or doing nothing if it is already unchecked.
      */
     async deselect() {
         if (await this.isSelected()) {
@@ -438,7 +522,7 @@ class MatListOptionHarness extends MatListItemHarnessBase {
     }
 }
 /** The selector for the host element of a `MatListOption` instance. */
-MatListOptionHarness.hostSelector = '.mat-list-option';
+MatListOptionHarness.hostSelector = '.mat-mdc-list-option';
 
 /**
  * @license
@@ -456,5 +540,5 @@ MatListOptionHarness.hostSelector = '.mat-list-option';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatActionListHarness, MatActionListItemHarness, MatListHarness, MatListItemHarness, MatListOptionHarness, MatNavListHarness, MatNavListItemHarness, MatSelectionListHarness };
+export { MatActionListHarness, MatActionListItemHarness, MatListHarness, MatListItemHarness, MatListOptionHarness, MatNavListHarness, MatNavListItemHarness, MatSelectionListHarness, MatSubheaderHarness };
 //# sourceMappingURL=testing.mjs.map
