@@ -8,7 +8,7 @@ import * as i1 from '@angular/cdk/a11y';
 /** Default color palette for round buttons (mat-fab and mat-mini-fab) */
 const DEFAULT_ROUND_BUTTON_COLOR = 'accent';
 /**
- * List of classes to add to MatLegacyButton instances based on host attributes to
+ * List of classes to add to button instances based on host attributes to
  * style as different variants.
  */
 const BUTTON_HOST_ATTRIBUTES = [
@@ -20,7 +20,7 @@ const BUTTON_HOST_ATTRIBUTES = [
     'mat-mini-fab',
     'mat-fab',
 ];
-// Boilerplate for applying mixins to MatLegacyButton.
+// Boilerplate for applying mixins to button.
 const _MatButtonBase = mixinColor(mixinDisabled(mixinDisableRipple(class {
     constructor(_elementRef) {
         this._elementRef = _elementRef;

@@ -5,7 +5,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 /** Harness for interacting with a standard mat-button in tests. */
 class MatLegacyButtonHarness extends ContentContainerComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatLegacyButtonHarness` that meets
+     * Gets a `HarnessPredicate` that can be used to search for a button harness that meets
      * certain criteria.
      * @param options Options for filtering which button instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
@@ -51,7 +51,7 @@ class MatLegacyButtonHarness extends ContentContainerComponentHarness {
     }
 }
 // TODO(jelbourn) use a single class, like `.mat-button-base`
-/** The selector for the host element of a `MatLegacyButton` instance. */
+/** The selector for the host element of a button instance. */
 MatLegacyButtonHarness.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button], [mat-icon-button],
                          [mat-stroked-button], [mat-fab], [mat-mini-fab]`;
 

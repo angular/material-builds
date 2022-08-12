@@ -10,10 +10,10 @@ export declare interface LegacyButtonHarnessFilters extends BaseHarnessFilters {
 
 /** Harness for interacting with a standard mat-button in tests. */
 export declare class MatLegacyButtonHarness extends ContentContainerComponentHarness {
-    /** The selector for the host element of a `MatLegacyButton` instance. */
+    /** The selector for the host element of a button instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatLegacyButtonHarness` that meets
+     * Gets a `HarnessPredicate` that can be used to search for a button harness that meets
      * certain criteria.
      * @param options Options for filtering which button instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
