@@ -2,7 +2,7 @@ import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** A set of criteria that can be used to filter a list of `MatLegacyButtonHarness` instances. */
+/** A set of criteria that can be used to filter a list of button harness instances. */
 export declare interface LegacyButtonHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
