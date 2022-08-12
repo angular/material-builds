@@ -5,7 +5,7 @@ import * as i3 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
 import { Directive, Injectable, Optional, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, forwardRef, Inject, ContentChild, QueryList, EventEmitter, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import * as i1 from '@angular/material/core';
 import { mixinColor, ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import * as i4 from '@angular/material/icon';
@@ -498,7 +498,7 @@ MatStepperModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", versio
         MatStepContent], imports: [MatCommonModule,
         CommonModule,
         PortalModule,
-        MatButtonModule,
+        MatLegacyButtonModule,
         CdkStepperModule,
         MatIconModule,
         MatRippleModule], exports: [MatCommonModule,
@@ -513,7 +513,7 @@ MatStepperModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", versio
 MatStepperModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.0.1", ngImport: i0, type: MatStepperModule, providers: [MAT_STEPPER_INTL_PROVIDER, ErrorStateMatcher], imports: [MatCommonModule,
         CommonModule,
         PortalModule,
-        MatButtonModule,
+        MatLegacyButtonModule,
         CdkStepperModule,
         MatIconModule,
         MatRippleModule, MatCommonModule] });
@@ -524,7 +524,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
                         MatCommonModule,
                         CommonModule,
                         PortalModule,
-                        MatButtonModule,
+                        MatLegacyButtonModule,
                         CdkStepperModule,
                         MatIconModule,
                         MatRippleModule,

@@ -362,6 +362,22 @@
       "node": "./fesm2015/legacy-autocomplete/testing.mjs",
       "default": "./fesm2020/legacy-autocomplete/testing.mjs"
     },
+    "./legacy-button": {
+      "types": "./legacy-button/index.d.ts",
+      "esm2020": "./esm2020/legacy-button/legacy-button_public_index.mjs",
+      "es2020": "./fesm2020/legacy-button.mjs",
+      "es2015": "./fesm2015/legacy-button.mjs",
+      "node": "./fesm2015/legacy-button.mjs",
+      "default": "./fesm2020/legacy-button.mjs"
+    },
+    "./legacy-button/testing": {
+      "types": "./legacy-button/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-button/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-button/testing.mjs",
+      "es2015": "./fesm2015/legacy-button/testing.mjs",
+      "node": "./fesm2015/legacy-button/testing.mjs",
+      "default": "./fesm2020/legacy-button/testing.mjs"
+    },
     "./legacy-card": {
       "types": "./legacy-card/index.d.ts",
       "esm2020": "./esm2020/legacy-card/legacy-card_public_index.mjs",

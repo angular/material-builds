@@ -13,7 +13,7 @@ class _MatMenuHarnessBase extends ContentContainerComponentHarness {
         super(...arguments);
         this._documentRootLocator = this.documentRootLocatorFactory();
     }
-    // TODO: potentially extend MatButtonHarness
+    // TODO: potentially extend MatLegacyButtonHarness
     /** Whether the menu is disabled. */
     async isDisabled() {
         const disabled = (await this.host()).getAttribute('disabled');

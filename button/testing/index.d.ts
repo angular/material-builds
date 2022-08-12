@@ -1,24 +1,21 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
+import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { LegacyButtonHarnessFilters } from '@angular/material/legacy-button/testing';
 
-/** A set of criteria that can be used to filter a list of `MatButtonHarness` instances. */
-export declare interface ButtonHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose text matches the given value. */
-    text?: string | RegExp;
-}
+export { LegacyButtonHarnessFilters }
 
-/** Harness for interacting with a standard mat-button in tests. */
+/** Harness for interacting with a MDC-based mat-button in tests. */
 export declare class MatButtonHarness extends ContentContainerComponentHarness {
-    /** The selector for the host element of a `MatButton` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatButtonHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which button instances are considered a match.
+     * Gets a `HarnessPredicate` that can be used to search for a button with specific attributes.
+     * @param options Options for narrowing the search:
+     *   - `selector` finds a button whose host element matches the given selector.
+     *   - `text` finds a button with specific text content.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ButtonHarnessFilters): HarnessPredicate<MatButtonHarness>;
+    static with<T extends MatButtonHarness>(this: ComponentHarnessConstructor<T>, options?: LegacyButtonHarnessFilters): HarnessPredicate<T>;
     /**
      * Clicks the button at the given position relative to its top-left.
      * @param relativeX The relative x position of the click.
@@ -29,13 +26,13 @@ export declare class MatButtonHarness extends ContentContainerComponentHarness {
     click(location: 'center'): Promise<void>;
     /** Clicks the button. */
     click(): Promise<void>;
-    /** Whether the button is disabled. */
+    /** Gets a boolean promise indicating if the button is disabled. */
     isDisabled(): Promise<boolean>;
-    /** Gets the button's label text. */
+    /** Gets a promise for the button's label text. */
     getText(): Promise<string>;
-    /** Focuses the button. */
+    /** Focuses the button and returns a void promise that indicates when the action is complete. */
     focus(): Promise<void>;
-    /** Blurs the button. */
+    /** Blurs the button and returns a void promise that indicates when the action is complete. */
     blur(): Promise<void>;
     /** Whether the button is focused. */
     isFocused(): Promise<boolean>;

@@ -2,42 +2,43 @@ import { __awaiter } from 'tslib';
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-/** Harness for interacting with a standard mat-button in tests. */
+/** Harness for interacting with a MDC-based mat-button in tests. */
 class MatButtonHarness extends ContentContainerComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatButtonHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which button instances are considered a match.
+     * Gets a `HarnessPredicate` that can be used to search for a button with specific attributes.
+     * @param options Options for narrowing the search:
+     *   - `selector` finds a button whose host element matches the given selector.
+     *   - `text` finds a button with specific text content.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatButtonHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+        return new HarnessPredicate(this, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
     }
     click(...args) {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).click(...args);
         });
     }
-    /** Whether the button is disabled. */
+    /** Gets a boolean promise indicating if the button is disabled. */
     isDisabled() {
         return __awaiter(this, void 0, void 0, function* () {
             const disabled = (yield this.host()).getAttribute('disabled');
             return coerceBooleanProperty(yield disabled);
         });
     }
-    /** Gets the button's label text. */
+    /** Gets a promise for the button's label text. */
     getText() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).text();
         });
     }
-    /** Focuses the button. */
+    /** Focuses the button and returns a void promise that indicates when the action is complete. */
     focus() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).focus();
         });
     }
-    /** Blurs the button. */
+    /** Blurs the button and returns a void promise that indicates when the action is complete. */
     blur() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).blur();
@@ -51,9 +52,8 @@ class MatButtonHarness extends ContentContainerComponentHarness {
     }
 }
 // TODO(jelbourn) use a single class, like `.mat-button-base`
-/** The selector for the host element of a `MatButton` instance. */
-MatButtonHarness.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button], [mat-icon-button],
-                         [mat-stroked-button], [mat-fab], [mat-mini-fab]`;
+MatButtonHarness.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button],
+                         [mat-icon-button], [mat-stroked-button], [mat-fab], [mat-mini-fab]`;
 
 /**
  * @license
