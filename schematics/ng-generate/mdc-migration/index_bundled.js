@@ -21679,8 +21679,8 @@ var IMPORT_REPLACEMENTS = {
     new: "@angular/material-experimental/mdc-tabs"
   },
   "paginator": {
-    old: "@angular/material/paginator",
-    new: "@angular/material-experimental/mdc-paginator"
+    old: "@angular/material/legacy-paginator",
+    new: "@angular/material/paginator"
   },
   "tooltip": {
     old: "@angular/material/tooltip",

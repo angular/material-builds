@@ -7,12 +7,11 @@ import { EventEmitter } from '@angular/core';
 import { HasInitialized } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/common';
-import * as i3 from '@angular/material/legacy-button';
-import * as i4 from '@angular/material/legacy-select';
-import * as i5 from '@angular/material/legacy-tooltip';
-import * as i6 from '@angular/material/core';
+import * as i3 from '@angular/material/button';
+import * as i4 from '@angular/material/select';
+import * as i5 from '@angular/material/tooltip';
 import { InjectionToken } from '@angular/core';
-import { MatLegacyFormFieldAppearance } from '@angular/material/legacy-form-field';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -22,10 +21,10 @@ import { ThemePalette } from '@angular/material/core';
 
 declare namespace i1 {
     export {
+        MatPaginatorSelectConfig,
         PageEvent,
         MatPaginatorDefaultOptions,
         MAT_PAGINATOR_DEFAULT_OPTIONS,
-        MatPaginatorSelectConfig,
         _MatPaginatorBase,
         MatPaginator
     }
@@ -51,7 +50,9 @@ export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPagin
  */
 export declare class MatPaginator extends _MatPaginatorBase<MatPaginatorDefaultOptions> {
     /** If set, styles the "page size" form field with the designated style. */
-    _formFieldAppearance?: MatLegacyFormFieldAppearance;
+    _formFieldAppearance?: MatFormFieldAppearance;
+    /** ID for the DOM node containing the paginator's items per page label. */
+    readonly _pageSizeLabelId: string;
     constructor(intl: MatPaginatorIntl, changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, [null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "disabled": "disabled"; }, {}, never, never, false>;
@@ -155,7 +156,7 @@ export declare interface MatPaginatorDefaultOptions {
     /** Whether to show the first/last buttons UI to the user. */
     showFirstLastButtons?: boolean;
     /** The default form-field appearance to apply to the page size options selector. */
-    formFieldAppearance?: MatLegacyFormFieldAppearance;
+    formFieldAppearance?: MatFormFieldAppearance;
 }
 
 /**
@@ -191,7 +192,7 @@ declare const _MatPaginatorMixinBase: _Constructor<CanDisable> & _AbstractConstr
 
 export declare class MatPaginatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, [typeof i1.MatPaginator], [typeof i2.CommonModule, typeof i3.MatLegacyButtonModule, typeof i4.MatLegacySelectModule, typeof i5.MatLegacyTooltipModule, typeof i6.MatCommonModule], [typeof i1.MatPaginator]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, [typeof i1.MatPaginator], [typeof i2.CommonModule, typeof i3.MatButtonModule, typeof i4.MatSelectModule, typeof i5.MatTooltipModule], [typeof i1.MatPaginator]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatPaginatorModule>;
 }
 

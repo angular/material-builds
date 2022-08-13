@@ -19,7 +19,7 @@ import { DataSource } from '@angular/cdk/table';
 import * as i0 from '@angular/core';
 import * as i5 from '@angular/cdk/table';
 import * as i6 from '@angular/material/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatLegacyPaginator } from '@angular/material/legacy-paginator';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
@@ -202,7 +202,7 @@ export declare class MatTable<T> extends CdkTable<T> {
 
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
- * sorting (using MatSort), and pagination (using MatPaginator).
+ * sorting (using MatSort), and pagination (using paginator).
  *
  * Allows for sort customization by overriding sortingDataAccessor, which defines how data
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
@@ -213,7 +213,7 @@ export declare class MatTable<T> extends CdkTable<T> {
  * interactions. If your app needs to support more advanced use cases, consider implementing your
  * own `DataSource`.
  */
-export declare class MatTableDataSource<T> extends _MatTableDataSource<T, MatPaginator> {
+export declare class MatTableDataSource<T> extends _MatTableDataSource<T, MatLegacyPaginator> {
 }
 
 /** Shared base class with MDC-based implementation. */
@@ -255,8 +255,8 @@ export declare class _MatTableDataSource<T, P extends MatTableDataSourcePaginato
     set sort(sort: MatSort | null);
     private _sort;
     /**
-     * Instance of the MatPaginator component used by the table to control what page of the data is
-     * displayed. Page changes emitted by the MatPaginator will trigger an update to the
+     * Instance of the paginator component used by the table to control what page of the data is
+     * displayed. Page changes emitted by the paginator will trigger an update to the
      * table's rendered data.
      *
      * Note that the data source uses the paginator's properties to calculate which page of data
@@ -318,7 +318,7 @@ export declare class _MatTableDataSource<T, P extends MatTableDataSourcePaginato
      */
     _orderData(data: T[]): T[];
     /**
-     * Returns a paged slice of the provided data array according to the provided MatPaginator's page
+     * Returns a paged slice of the provided data array according to the provided paginator's page
      * index and length. If there is no paginator provided, returns the data array as provided.
      */
     _pageData(data: T[]): T[];
