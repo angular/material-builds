@@ -4,6 +4,7 @@ import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
+import { BehaviorSubject } from 'rxjs';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CanColor } from '@angular/material/core';
 import { CanDisable } from '@angular/material/core';
@@ -22,11 +23,11 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
-import * as i10 from '@angular/common';
-import * as i11 from '@angular/material/core';
-import * as i12 from '@angular/cdk/portal';
-import * as i13 from '@angular/cdk/observers';
-import * as i14 from '@angular/cdk/a11y';
+import * as i10 from '@angular/material/core';
+import * as i11 from '@angular/cdk/portal';
+import * as i12 from '@angular/cdk/observers';
+import * as i13 from '@angular/cdk/a11y';
+import * as i9 from '@angular/common';
 import { InjectionToken } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
@@ -48,10 +49,8 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 
 declare namespace i1 {
     export {
-        MatTabChangeEvent,
-        MatTabHeaderPosition,
-        _MatTabGroupBase,
-        MatTabGroup
+        MAT_TAB_CONTENT,
+        MatTabContent
     }
 }
 
@@ -66,42 +65,45 @@ declare namespace i2 {
 declare namespace i3 {
     export {
         MAT_TAB_GROUP,
+        _MatTabBase,
         MatTab
     }
 }
 
 declare namespace i4 {
     export {
-        _MAT_INK_BAR_POSITIONER_FACTORY,
-        _MatInkBarPositioner,
-        _MAT_INK_BAR_POSITIONER,
-        MatInkBar
+        MatTabGroupBaseHeader,
+        MatTabHeaderPosition,
+        _MatTabGroupBase,
+        MatTabGroup,
+        MatTabChangeEvent
     }
 }
 
 declare namespace i5 {
     export {
-        MatTabLabelWrapper
-    }
-}
-
-declare namespace i6 {
-    export {
+        _MatTabLinkBase,
         _MatTabNavBase,
         MatTabNav,
-        _MatTabLinkBase,
         MatTabLink,
         MatTabNavPanel
     }
 }
 
+declare namespace i6 {
+    export {
+        MatTabBodyPortal,
+        MatTabBodyPositionState,
+        _MatTabBodyBase,
+        MatTabBody,
+        MatTabBodyOriginState
+    }
+}
+
 declare namespace i7 {
     export {
-        MatTabBodyPositionState,
-        MatTabBodyOriginState,
-        MatTabBodyPortal,
-        _MatTabBodyBase,
-        MatTabBody
+        _MatTabLabelWrapperBase,
+        MatTabLabelWrapper
     }
 }
 
@@ -112,13 +114,6 @@ declare namespace i8 {
     }
 }
 
-declare namespace i9 {
-    export {
-        MAT_TAB_CONTENT,
-        MatTabContent
-    }
-}
-
 /** Injection token for the MatInkBar's Positioner. */
 export declare const _MAT_INK_BAR_POSITIONER: InjectionToken<_MatInkBarPositioner>;
 
@@ -126,7 +121,7 @@ export declare const _MAT_INK_BAR_POSITIONER: InjectionToken<_MatInkBarPositione
  * The default positioner function for the MatInkBar.
  * @docs-private
  */
-declare function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner;
+export declare function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner;
 
 /**
  * Used to provide a tab label to a tab without causing a circular dependency.
@@ -139,7 +134,7 @@ export declare const MAT_TAB: InjectionToken<any>;
  * alternative token to the actual `MatTabContent` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-declare const MAT_TAB_CONTENT: InjectionToken<MatTabContent>;
+export declare const MAT_TAB_CONTENT: InjectionToken<MatTabContent>;
 
 /**
  * Used to provide a tab group to a tab without causing a circular dependency.
@@ -152,33 +147,35 @@ export declare const MAT_TAB_GROUP: InjectionToken<any>;
  * alternative token to the actual `MatTabLabel` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-declare const MAT_TAB_LABEL: InjectionToken<MatTabLabel>;
+export declare const MAT_TAB_LABEL: InjectionToken<MatTabLabel>;
 
 /** Injection token that can be used to provide the default options the tabs module. */
 export declare const MAT_TABS_CONFIG: InjectionToken<MatTabsConfig>;
 
 /**
- * The ink-bar is used to display and animate the line underneath the current active tab label.
+ * Abstraction around the MDC tab indicator that acts as the tab header's ink bar.
  * @docs-private
  */
 export declare class MatInkBar {
-    private _elementRef;
-    private _ngZone;
-    private _inkBarPositioner;
-    _animationMode?: string | undefined;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _inkBarPositioner: _MatInkBarPositioner, _animationMode?: string | undefined);
-    /**
-     * Calculates the styles from the provided element in order to align the ink-bar to that element.
-     * Shows the ink bar if previously set as hidden.
-     * @param element
-     */
-    alignToElement(element: HTMLElement): void;
-    /** Shows the ink bar. */
-    show(): void;
+    private _items;
+    /** Item to which the ink bar is aligned currently. */
+    private _currentItem;
+    constructor(_items: QueryList<MatInkBarItem>);
     /** Hides the ink bar. */
     hide(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatInkBar, [null, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatInkBar, "mat-ink-bar", never, {}, {}, never, never, false>;
+    /** Aligns the ink bar to a DOM node. */
+    alignToElement(element: HTMLElement): void;
+}
+
+/**
+ * Item inside a tab header relative to which the ink bar can be aligned.
+ * @docs-private
+ */
+declare interface MatInkBarItem extends OnInit, OnDestroy {
+    elementRef: ElementRef<HTMLElement>;
+    activateInkBar(previousIndicatorClientRect?: ClientRect): void;
+    deactivateInkBar(): void;
+    fitInkBarToContent: boolean;
 }
 
 /**
@@ -196,7 +193,7 @@ export declare interface _MatInkBarPositioner {
  * Base class for a tab header that supported pagination.
  * @docs-private
  */
-declare abstract class MatPaginatedTabHeader implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy {
+export declare abstract class MatPaginatedTabHeader implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy {
     protected _elementRef: ElementRef<HTMLElement>;
     protected _changeDetectorRef: ChangeDetectorRef;
     private _viewportRuler;
@@ -371,12 +368,23 @@ declare type MatPaginatedTabHeaderItem = FocusableOption & {
     elementRef: ElementRef;
 };
 
-export declare class MatTab extends _MatTabBase implements OnInit, CanDisable, OnChanges, OnDestroy {
-    private _viewContainerRef;
-    _closestTabGroup: any;
+export declare class MatTab extends _MatTabBase {
+    /**
+     * Template provided in the tab content that will be used if present, used to enable lazy-loading
+     */
+    _explicitContent: TemplateRef<any>;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     get templateLabel(): MatTabLabel;
     set templateLabel(value: MatTabLabel);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTab, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTab, "mat-tab", ["matTab"], { "disabled": "disabled"; }, {}, ["_explicitContent", "templateLabel"], ["*"], false>;
+}
+
+/** @docs-private */
+export declare class _MatTabBase extends _MatTabMixinBase implements CanDisable, OnInit, OnChanges, OnDestroy {
+    private _viewContainerRef;
+    _closestTabGroup: any;
+    /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     protected _templateLabel: MatTabLabel;
     /**
      * Template provided in the tab content that will be used if present, used to enable lazy-loading
@@ -434,14 +442,9 @@ export declare class MatTab extends _MatTabBase implements OnInit, CanDisable, O
      * @docs-private
      */
     protected _setTemplateLabelInput(value: MatTabLabel | undefined): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTab, [null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTab, "mat-tab", ["matTab"], { "disabled": "disabled"; "textLabel": "label"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "labelClass": "labelClass"; "bodyClass": "bodyClass"; }, {}, ["templateLabel", "_explicitContent"], ["*"], false>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabBase, [null, { optional: true; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBase, never, never, { "textLabel": "label"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "labelClass": "labelClass"; "bodyClass": "bodyClass"; }, {}, never, never, false>;
 }
-
-/** @docs-private */
-declare const _MatTabBase: _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
-    new (): {};
-};
 
 /**
  * Wrapper for the contents of a tab.
@@ -575,10 +578,18 @@ export declare class MatTabContent {
 export declare class MatTabGroup extends _MatTabGroupBase {
     _allTabs: QueryList<MatTab>;
     _tabBodyWrapper: ElementRef;
-    _tabHeader: MatTabGroupBaseHeader;
+    _tabHeader: MatTabHeader;
+    /** Whether the ink bar should fit its width to the size of the tab label content. */
+    get fitInkBarToContent(): boolean;
+    set fitInkBarToContent(v: BooleanInput);
+    private _fitInkBarToContent;
+    /** Whether tabs should be stretched to fill the header. */
+    get stretchTabs(): boolean;
+    set stretchTabs(v: BooleanInput);
+    private _stretchTabs;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabGroup, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabGroup, "mat-tab-group", ["matTabGroup"], { "color": "color"; "disableRipple": "disableRipple"; }, {}, ["_allTabs"], never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabGroup, "mat-tab-group", ["matTabGroup"], { "color": "color"; "disableRipple": "disableRipple"; "fitInkBarToContent": "fitInkBarToContent"; "stretchTabs": "mat-stretch-tabs"; }, {}, ["_allTabs"], never, false>;
 }
 
 /**
@@ -717,7 +728,8 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabGroupBase, never, never, { "dynamicHeight": "dynamicHeight"; "selectedIndex": "selectedIndex"; "headerPosition": "headerPosition"; "animationDuration": "animationDuration"; "contentTabIndex": "contentTabIndex"; "disablePagination": "disablePagination"; "preserveContent": "preserveContent"; "backgroundColor": "backgroundColor"; }, { "selectedIndexChange": "selectedIndexChange"; "focusChange": "focusChange"; "animationDone": "animationDone"; "selectedTabChange": "selectedTabChange"; }, never, never, false>;
 }
 
-declare interface MatTabGroupBaseHeader {
+/** @docs-private */
+export declare interface MatTabGroupBaseHeader {
     _alignInkBarToSelectedTab(): void;
     updatePagination(): void;
     focusIndex: number;
@@ -737,15 +749,16 @@ declare const _MatTabGroupMixinBase: _Constructor<CanColor> & _AbstractConstruct
  * left and right across the header.
  * @docs-private
  */
-export declare class MatTabHeader extends _MatTabHeaderBase {
+export declare class MatTabHeader extends _MatTabHeaderBase implements AfterContentInit {
     _items: QueryList<MatTabLabelWrapper>;
-    _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
     _tabListInner: ElementRef;
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
+    _inkBar: MatInkBar;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
+    ngAfterContentInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTabHeader, "mat-tab-header", never, { "selectedIndex": "selectedIndex"; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, ["_items"], ["*"], false>;
 }
@@ -780,32 +793,42 @@ export declare class MatTabLabel extends CdkPortal {
  * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private
  */
-export declare class MatTabLabelWrapper extends _MatTabLabelWrapperBase implements CanDisable {
+export declare class MatTabLabelWrapper extends _MatTabLabelWrapperBaseWithInkBarItem implements MatInkBarItem {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabelWrapper, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; "fitInkBarToContent": "fitInkBarToContent"; }, {}, never, never, false>;
+}
+
+/**
+ * Used in the `mat-tab-group` view to display tab labels.
+ * @docs-private
+ */
+export declare class _MatTabLabelWrapperBase extends _MatTabLabelWrapperMixinBase implements CanDisable {
     elementRef: ElementRef;
     constructor(elementRef: ElementRef);
     /** Sets focus on the wrapper element */
     focus(): void;
     getOffsetLeft(): number;
     getOffsetWidth(): number;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabelWrapper, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; }, {}, never, never, false>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabLabelWrapperBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLabelWrapperBase, never, never, {}, {}, never, never, false>;
 }
 
+declare const _MatTabLabelWrapperBaseWithInkBarItem: typeof _MatTabLabelWrapperBase & (new (...args: any[]) => MatInkBarItem);
+
 /** @docs-private */
-declare const _MatTabLabelWrapperBase: _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
+declare const _MatTabLabelWrapperMixinBase: _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
     new (): {};
 };
 
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
-export declare class MatTabLink extends _MatTabLinkBase implements OnDestroy {
-    /** Reference to the RippleRenderer for the tab-link. */
-    private _tabLinkRipple;
-    constructor(tabNavBar: MatTabNav, elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, focusMonitor: FocusMonitor, animationMode?: string);
+export declare class MatTabLink extends _MatTabLinkBaseWithInkBarItem implements MatInkBarItem, OnDestroy {
+    private readonly _destroyed;
+    constructor(tabNavBar: MatTabNav, elementRef: ElementRef, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, focusMonitor: FocusMonitor, animationMode?: string);
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLink, [null, null, null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, never, never, false>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLink, [null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "active": "active"; "id": "id"; }, {}, never, ["*"], false>;
 }
 
 /** Base class with all of the `MatTabLink` functionality. */
@@ -849,7 +872,14 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; "id": "id"; }, {}, never, never, false>;
 }
 
+declare const _MatTabLinkBaseWithInkBarItem: typeof _MatTabLinkBase & (new (...args: any[]) => MatInkBarItem);
+
 declare const _MatTabLinkMixinBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
+    new (): {};
+};
+
+/** @docs-private */
+declare const _MatTabMixinBase: _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
     new (): {};
 };
 
@@ -857,17 +887,27 @@ declare const _MatTabLinkMixinBase: _Constructor<HasTabIndex> & _AbstractConstru
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MatTabNav extends _MatTabNavBase {
+export declare class MatTabNav extends _MatTabNavBase implements AfterContentInit, AfterViewInit {
+    /** Whether the ink bar should fit its width to the size of the tab label content. */
+    get fitInkBarToContent(): boolean;
+    set fitInkBarToContent(v: BooleanInput);
+    _fitInkBarToContent: BehaviorSubject<boolean>;
+    /** Whether tabs should be stretched to fill the header. */
+    get stretchTabs(): boolean;
+    set stretchTabs(v: BooleanInput);
+    private _stretchTabs;
     _items: QueryList<MatTabLink>;
-    _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
     _tabListInner: ElementRef;
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
-    constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNav, [null, { optional: true; }, null, null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": "color"; }, {}, ["_items"], ["*"], false>;
+    _inkBar: MatInkBar;
+    constructor(elementRef: ElementRef, dir: Directionality, ngZone: NgZone, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, platform: Platform, animationMode?: string, defaultConfig?: MatTabsConfig);
+    ngAfterContentInit(): void;
+    ngAfterViewInit(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNav, [null, { optional: true; }, null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": "color"; "fitInkBarToContent": "fitInkBarToContent"; "stretchTabs": "mat-stretch-tabs"; }, {}, ["_items"], ["*"], false>;
 }
 
 /**
@@ -954,7 +994,7 @@ export declare interface MatTabsConfig {
 
 export declare class MatTabsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTabsModule, [typeof i1.MatTabGroup, typeof i2.MatTabLabel, typeof i3.MatTab, typeof i4.MatInkBar, typeof i5.MatTabLabelWrapper, typeof i6.MatTabNav, typeof i6.MatTabNavPanel, typeof i6.MatTabLink, typeof i7.MatTabBody, typeof i7.MatTabBodyPortal, typeof i8.MatTabHeader, typeof i9.MatTabContent], [typeof i10.CommonModule, typeof i11.MatCommonModule, typeof i12.PortalModule, typeof i11.MatRippleModule, typeof i13.ObserversModule, typeof i14.A11yModule], [typeof i11.MatCommonModule, typeof i1.MatTabGroup, typeof i2.MatTabLabel, typeof i3.MatTab, typeof i6.MatTabNav, typeof i6.MatTabNavPanel, typeof i6.MatTabLink, typeof i9.MatTabContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTabsModule, [typeof i1.MatTabContent, typeof i2.MatTabLabel, typeof i3.MatTab, typeof i4.MatTabGroup, typeof i5.MatTabNav, typeof i5.MatTabNavPanel, typeof i5.MatTabLink, typeof i6.MatTabBody, typeof i6.MatTabBodyPortal, typeof i7.MatTabLabelWrapper, typeof i8.MatTabHeader], [typeof i9.CommonModule, typeof i10.MatCommonModule, typeof i11.PortalModule, typeof i10.MatRippleModule, typeof i12.ObserversModule, typeof i13.A11yModule], [typeof i10.MatCommonModule, typeof i1.MatTabContent, typeof i2.MatTabLabel, typeof i3.MatTab, typeof i4.MatTabGroup, typeof i5.MatTabNav, typeof i5.MatTabNavPanel, typeof i5.MatTabLink]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTabsModule>;
 }
 

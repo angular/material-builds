@@ -21675,8 +21675,8 @@ var IMPORT_REPLACEMENTS = {
     new: "@angular/material-experimental/mdc-table"
   },
   "tabs": {
-    old: "@angular/material/tabs",
-    new: "@angular/material-experimental/mdc-tabs"
+    old: "@angular/material/legacy-tabs",
+    new: "@angular/material/tabs"
   },
   "paginator": {
     old: "@angular/material/legacy-paginator",
@@ -21825,8 +21825,8 @@ var TabsStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-tabs", "mat-tab"];
     this.mixinChanges = [
       {
-        old: "tabs-theme",
-        new: ["mdc-tabs-theme", "mdc-tabs-typography"]
+        old: "legacy-tabs-theme",
+        new: ["tabs-theme", "tabs-typography"]
       }
     ];
     this.classChanges = [

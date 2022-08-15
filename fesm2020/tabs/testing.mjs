@@ -7,16 +7,15 @@ import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, p
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Angular Material tab-label in tests. */
+/** Harness for interacting with an MDC_based Angular Material tab in tests. */
 class MatTabHarness extends ContentContainerComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatTabHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a tab with specific attributes.
      * @param options Options for filtering which tab instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabHarness, options).addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
+        return new HarnessPredicate(this, options).addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
     }
     /** Gets the label of the tab. */
     async getLabel() {
@@ -42,7 +41,7 @@ class MatTabHarness extends ContentContainerComponentHarness {
     }
     /** Selects the given tab by clicking on the label. Tab cannot be selected if disabled. */
     async select() {
-        await (await this.host()).click();
+        await (await this.host()).click('center');
     }
     /** Gets the text content of the tab. */
     async getTextContent() {
@@ -62,7 +61,7 @@ class MatTabHarness extends ContentContainerComponentHarness {
     }
 }
 /** The selector for the host element of a `MatTab` instance. */
-MatTabHarness.hostSelector = '.mat-tab-label';
+MatTabHarness.hostSelector = '.mat-mdc-tab';
 
 /**
  * @license
@@ -71,16 +70,15 @@ MatTabHarness.hostSelector = '.mat-tab-label';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-tab-group in tests. */
+/** Harness for interacting with an MDC-based mat-tab-group in tests. */
 class MatTabGroupHarness extends ComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatTabGroupHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a tab group with specific attributes.
      * @param options Options for filtering which tab group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabGroupHarness, options).addOption('selectedTabLabel', options.selectedTabLabel, async (harness, label) => {
+        return new HarnessPredicate(this, options).addOption('selectedTabLabel', options.selectedTabLabel, async (harness, label) => {
             const selectedTab = await harness.getSelectedTab();
             return HarnessPredicate.stringMatches(await selectedTab.getLabel(), label);
         });
@@ -117,7 +115,7 @@ class MatTabGroupHarness extends ComponentHarness {
     }
 }
 /** The selector for the host element of a `MatTabGroup` instance. */
-MatTabGroupHarness.hostSelector = '.mat-tab-group';
+MatTabGroupHarness.hostSelector = '.mat-mdc-tab-group';
 
 /**
  * @license
@@ -126,16 +124,15 @@ MatTabGroupHarness.hostSelector = '.mat-tab-group';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Angular Material tab link in tests. */
+/** Harness for interacting with an MDC-based Angular Material tab link in tests. */
 class MatTabLinkHarness extends ComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatTabLinkHarness` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a tab link with specific attributes.
      * @param options Options for filtering which tab link instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabLinkHarness, options).addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
+        return new HarnessPredicate(this, options).addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabel(), label));
     }
     /** Gets the label of the link. */
     async getLabel() {
@@ -144,12 +141,12 @@ class MatTabLinkHarness extends ComponentHarness {
     /** Whether the link is active. */
     async isActive() {
         const host = await this.host();
-        return host.hasClass('mat-tab-label-active');
+        return host.hasClass('mdc-tab--active');
     }
     /** Whether the link is disabled. */
     async isDisabled() {
         const host = await this.host();
-        return host.hasClass('mat-tab-disabled');
+        return host.hasClass('mat-mdc-tab-disabled');
     }
     /** Clicks on the link. */
     async click() {
@@ -157,7 +154,7 @@ class MatTabLinkHarness extends ComponentHarness {
     }
 }
 /** The selector for the host element of a `MatTabLink` instance. */
-MatTabLinkHarness.hostSelector = '.mat-tab-link';
+MatTabLinkHarness.hostSelector = '.mat-mdc-tab-link';
 
 /**
  * @license
@@ -169,13 +166,13 @@ MatTabLinkHarness.hostSelector = '.mat-tab-link';
 /** Harness for interacting with a standard mat-tab-nav-panel in tests. */
 class MatTabNavPanelHarness extends ContentContainerComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatTabNavPanel` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a tab nav panel with specific
+     * attributes.
      * @param options Options for filtering which tab nav panel instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabNavPanelHarness, options);
+        return new HarnessPredicate(this, options);
     }
     /** Gets the tab panel text content. */
     async getTextContent() {
@@ -183,7 +180,7 @@ class MatTabNavPanelHarness extends ContentContainerComponentHarness {
     }
 }
 /** The selector for the host element of a `MatTabNavPanel` instance. */
-MatTabNavPanelHarness.hostSelector = '.mat-tab-nav-panel';
+MatTabNavPanelHarness.hostSelector = '.mat-mdc-tab-nav-panel';
 
 /**
  * @license
@@ -192,16 +189,16 @@ MatTabNavPanelHarness.hostSelector = '.mat-tab-nav-panel';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-tab-nav-bar in tests. */
+/** Harness for interacting with an MDC-based mat-tab-nav-bar in tests. */
 class MatTabNavBarHarness extends ComponentHarness {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatTabNavBar` that meets
-     * certain criteria.
+     * Gets a `HarnessPredicate` that can be used to search for a tab nav bar with specific
+     * attributes.
      * @param options Options for filtering which tab nav bar instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTabNavBarHarness, options);
+        return new HarnessPredicate(this, options);
     }
     /**
      * Gets the list of links in the nav bar.
@@ -246,7 +243,7 @@ class MatTabNavBarHarness extends ComponentHarness {
     }
 }
 /** The selector for the host element of a `MatTabNavBar` instance. */
-MatTabNavBarHarness.hostSelector = '.mat-tab-nav-bar';
+MatTabNavBarHarness.hostSelector = '.mat-mdc-tab-nav-bar';
 
 /**
  * @license
