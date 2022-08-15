@@ -9102,7 +9102,7 @@ var require_constants = __commonJS({
   "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/legacy-components-v15/constants.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.MIXINS = exports.COMPONENTS = void 0;
+    exports.MAT_MDC_IMPORT_CHANGE = exports.MAT_IMPORT_CHANGE = exports.MIXINS = exports.COMPONENTS = void 0;
     exports.COMPONENTS = [
       "autocomplete",
       "button",
@@ -9133,6 +9133,14 @@ var require_constants = __commonJS({
       `${component}-density`,
       `${component}-typography`
     ]);
+    exports.MAT_IMPORT_CHANGE = {
+      old: "@angular/material/",
+      new: "@angular/material/legacy-"
+    };
+    exports.MAT_MDC_IMPORT_CHANGE = {
+      old: "@angular/material-experimental/mdc-",
+      new: "@angular/material/"
+    };
   }
 });
 
@@ -9199,7 +9207,7 @@ var require_legacy_components_v15 = __commonJS({
           this._handleImportDeclaration(node);
           return;
         }
-        if (this._isDestructuredAsyncImport(node)) {
+        if (this._isDestructuredAsyncLegacyImport(node)) {
           this._handleDestructuredAsyncImport(node);
           return;
         }
@@ -9223,17 +9231,23 @@ var require_legacy_components_v15 = __commonJS({
       _handleImportDeclaration(node) {
         var _a;
         const moduleSpecifier = node.moduleSpecifier;
-        if (moduleSpecifier.text.startsWith("@angular/material/")) {
-          this._tsReplaceAt(node, { old: "@angular/material/", new: "@angular/material/legacy-" });
+        if (moduleSpecifier.text.startsWith(constants_1.MAT_IMPORT_CHANGE.old)) {
+          this._tsReplaceAt(node, constants_1.MAT_IMPORT_CHANGE);
           if (((_a = node.importClause) == null ? void 0 : _a.namedBindings) && ts.isNamedImports(node.importClause.namedBindings)) {
             this._handleNamedImportBindings(node.importClause.namedBindings);
           }
         }
+        if (moduleSpecifier.text.startsWith(constants_1.MAT_MDC_IMPORT_CHANGE.old)) {
+          this._tsReplaceAt(node, constants_1.MAT_MDC_IMPORT_CHANGE);
+        }
       }
       _handleImportExpression(node) {
         const moduleSpecifier = node.arguments[0];
-        if (moduleSpecifier.text.startsWith("@angular/material/")) {
-          this._tsReplaceAt(node, { old: "@angular/material/", new: "@angular/material/legacy-" });
+        if (moduleSpecifier.text.startsWith(constants_1.MAT_IMPORT_CHANGE.old)) {
+          this._tsReplaceAt(node, constants_1.MAT_IMPORT_CHANGE);
+        }
+        if (moduleSpecifier.text.startsWith(constants_1.MAT_MDC_IMPORT_CHANGE.old)) {
+          this._tsReplaceAt(node, constants_1.MAT_MDC_IMPORT_CHANGE);
         }
       }
       _handleNamedImportBindings(node) {
@@ -9246,8 +9260,8 @@ var require_legacy_components_v15 = __commonJS({
           this._tsReplaceAt(name, { old: oldExport, new: newExport });
         }
       }
-      _isDestructuredAsyncImport(node) {
-        return ts.isVariableDeclaration(node) && !!node.initializer && ts.isAwaitExpression(node.initializer) && ts.isCallExpression(node.initializer.expression) && ts.SyntaxKind.ImportKeyword === node.initializer.expression.expression.kind && ts.isObjectBindingPattern(node.name);
+      _isDestructuredAsyncLegacyImport(node) {
+        return ts.isVariableDeclaration(node) && !!node.initializer && ts.isAwaitExpression(node.initializer) && this._isImportCallExpression(node.initializer.expression) && node.initializer.expression.arguments[0].text.startsWith(constants_1.MAT_IMPORT_CHANGE.old) && ts.isObjectBindingPattern(node.name);
       }
       _isImportCallExpression(node) {
         return ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments.length === 1 && ts.isStringLiteralLike(node.arguments[0]);
