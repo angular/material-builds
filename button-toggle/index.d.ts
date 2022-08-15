@@ -55,7 +55,6 @@ export declare class MatButtonToggle extends _MatButtonToggleBase implements OnI
     private _changeDetectorRef;
     private _elementRef;
     private _focusMonitor;
-    private _isSingleSelector;
     private _checked;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
@@ -107,6 +106,10 @@ export declare class MatButtonToggle extends _MatButtonToggleBase implements OnI
      * update bound properties of the radio button.
      */
     _markForCheck(): void;
+    /** Gets the name that should be assigned to the inner DOM node. */
+    _getButtonName(): string | null;
+    /** Whether the toggle is in single selection mode. */
+    private _isSingleSelector;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggle, [{ optional: true; }, null, null, null, { attribute: "tabindex"; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatButtonToggle, "mat-button-toggle", ["matButtonToggle"], { "disableRipple": "disableRipple"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "id": "id"; "name": "name"; "value": "value"; "tabIndex": "tabIndex"; "appearance": "appearance"; "checked": "checked"; "disabled": "disabled"; }, { "change": "change"; }, never, ["*"], false>;
 }
@@ -228,6 +231,8 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _selectValue;
     /** Syncs up the group's value with the model and emits the change event. */
     private _updateModelValue;
+    /** Marks all of the child button toggles to be checked. */
+    private _markButtonsForCheck;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleGroup, [null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonToggleGroup, "mat-button-toggle-group", ["matButtonToggleGroup"], { "appearance": "appearance"; "name": "name"; "vertical": "vertical"; "value": "value"; "multiple": "multiple"; "disabled": "disabled"; }, { "valueChange": "valueChange"; "change": "change"; }, ["_buttonToggles"], never, false>;
 }
