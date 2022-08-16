@@ -21975,77 +21975,11 @@ var MIGRATORS = [
 var import_schematics4 = require("@angular/cdk/schematics");
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/runtime-migration.js
-var import_schematics = require("@angular/cdk/schematics");
-var ts2 = __toESM(require("typescript"));
-var RuntimeCodeMigration = class extends import_schematics.Migration {
-  constructor() {
-    super(...arguments);
-    this.enabled = true;
-    this._printer = ts2.createPrinter({ newLine: ts2.NewLineKind.LineFeed });
-  }
-  visitNode(node) {
-    if (this._isImportExpression(node)) {
-      this._migrateModuleSpecifier(node.arguments[0]);
-    } else if (this._isTypeImportExpression(node)) {
-      this._migrateModuleSpecifier(node.argument.literal);
-    } else if (ts2.isImportDeclaration(node)) {
-      this._migrateModuleSpecifier(node.moduleSpecifier);
-    }
-  }
-  _migrateModuleSpecifier(specifierLiteral) {
-    var _a, _b;
-    const sourceFile = specifierLiteral.getSourceFile();
-    for (const migrator of this.upgradeData) {
-      const newModuleSpecifier = (_b = (_a = migrator.runtime) == null ? void 0 : _a.updateModuleSpecifier(specifierLiteral)) != null ? _b : null;
-      if (newModuleSpecifier !== null) {
-        this._printAndUpdateNode(sourceFile, specifierLiteral, newModuleSpecifier);
-        break;
-      }
-    }
-  }
-  _isImportExpression(node) {
-    return ts2.isCallExpression(node) && node.expression.kind === ts2.SyntaxKind.ImportKeyword && node.arguments.length === 1 && ts2.isStringLiteralLike(node.arguments[0]);
-  }
-  _isTypeImportExpression(node) {
-    return ts2.isImportTypeNode(node) && ts2.isLiteralTypeNode(node.argument) && ts2.isStringLiteralLike(node.argument.literal);
-  }
-  _printAndUpdateNode(sourceFile, oldNode, newNode) {
-    const filePath = this.fileSystem.resolve(sourceFile.fileName);
-    const newNodeText = this._printer.printNode(ts2.EmitHint.Unspecified, newNode, sourceFile);
-    const start = oldNode.getStart();
-    const width = oldNode.getWidth();
-    this.fileSystem.edit(filePath).remove(start, width).insertRight(start, newNodeText);
-  }
-};
-
-// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/template-migration.js
 var import_schematics2 = require("@angular/cdk/schematics");
-
-// bazel-out/k8-fastbuild/bin/src/material/schematics/migration-utilities/update.js
-function writeUpdates(content, updates) {
-  updates.sort((a, b) => b.offset - a.offset);
-  updates.forEach((update) => content = update.updateFn(content));
-  return content;
-}
-
-// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/template-migration.js
-var TemplateMigration = class extends import_schematics2.Migration {
-  constructor() {
-    super(...arguments);
-    this.enabled = true;
-  }
-  visitTemplate(template) {
-    const ast = parseTemplate2(template.content, template.filePath);
-    const migrators = this.upgradeData.filter((m) => m.template).map((m) => m.template);
-    const updates = [];
-    migrators.forEach((m) => updates.push(...m.getUpdates(ast)));
-    const content = writeUpdates(template.content, updates);
-    this.fileSystem.overwrite(template.filePath, content);
-  }
-};
+var ts2 = __toESM(require("typescript"));
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
-var import_schematics3 = require("@angular/cdk/schematics");
+var import_schematics = require("@angular/cdk/schematics");
 
 // node_modules/postcss-scss/lib/scss-syntax.mjs
 var scss_syntax_exports = {};
@@ -22060,12 +21994,15 @@ var stringify3 = import_scss_syntax.default.stringify;
 var parse3 = import_scss_syntax.default.parse;
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
-var ThemingStylesMigration = class extends import_schematics3.Migration {
+var ThemingStylesMigration = class extends import_schematics.Migration {
   constructor() {
     super(...arguments);
     this.enabled = true;
   }
   visitStylesheet(stylesheet) {
+    this.fileSystem.overwrite(stylesheet.filePath, this.migrateStyles(stylesheet.content));
+  }
+  migrateStyles(styles) {
     const processor = new Processor([
       {
         postcssPlugin: "theming-styles-migration-plugin",
@@ -22076,8 +22013,7 @@ var ThemingStylesMigration = class extends import_schematics3.Migration {
         Rule: this.ruleHandler.bind(this)
       }
     ]);
-    const result = processor.process(stylesheet.content, { syntax: scss_syntax_exports });
-    this.fileSystem.overwrite(stylesheet.filePath, result.toString());
+    return processor.process(styles, { syntax: scss_syntax_exports }).toString();
   }
   atUseHandler(atRule2) {
     if (isAngularMaterialImport(atRule2)) {
@@ -22118,6 +22054,122 @@ function parseNamespace(atRule2) {
   const params = list.space(atRule2.params);
   return params[params.length - 1];
 }
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/runtime-migration.js
+var RuntimeCodeMigration = class extends import_schematics2.Migration {
+  constructor() {
+    super(...arguments);
+    this.enabled = true;
+    this._printer = ts2.createPrinter({ newLine: ts2.NewLineKind.LineFeed });
+  }
+  visitNode(node) {
+    if (this._isImportExpression(node)) {
+      this._migrateModuleSpecifier(node.arguments[0]);
+    } else if (this._isTypeImportExpression(node)) {
+      this._migrateModuleSpecifier(node.argument.literal);
+    } else if (ts2.isImportDeclaration(node)) {
+      this._migrateModuleSpecifier(node.moduleSpecifier);
+    } else if (this._isComponentDecorator(node)) {
+      this._migrateTemplatesAndStyles(node);
+    }
+  }
+  _migrateTemplatesAndStyles(node) {
+    if (node.getChildCount() > 0) {
+      if (node.kind === ts2.SyntaxKind.PropertyAssignment) {
+        const identifier = node.getChildAt(0);
+        if (identifier.getText() === "styles") {
+          this._migrateStyles(node);
+        }
+      } else {
+        node.forEachChild((child) => this._migrateTemplatesAndStyles(child));
+      }
+    }
+  }
+  _migrateStyles(node) {
+    if (!this._stylesMigration) {
+      this._stylesMigration = new ThemingStylesMigration(this.program, this.typeChecker, this.targetVersion, this.context, this.upgradeData, this.fileSystem, this.logger);
+    }
+    node.forEachChild((childNode) => {
+      if (childNode.kind === ts2.SyntaxKind.ArrayLiteralExpression) {
+        childNode.forEachChild((stringLiteralNode) => {
+          if (stringLiteralNode.kind === ts2.SyntaxKind.StringLiteral) {
+            let nodeText = stringLiteralNode.getText();
+            const trimmedNodeText = nodeText.trimStart().trimEnd();
+            const nodeTextWithoutQuotes = trimmedNodeText.substring(1, trimmedNodeText.length - 1);
+            let migratedStyles = this._stylesMigration.migrateStyles(nodeTextWithoutQuotes);
+            const migratedStylesLines = migratedStyles.split("\n");
+            const isMultiline = migratedStylesLines.length > 1;
+            if (isMultiline) {
+              nodeText = nodeText.replace(trimmedNodeText, "`" + nodeTextWithoutQuotes + "`");
+            }
+            this._printAndUpdateNode(stringLiteralNode.getSourceFile(), stringLiteralNode, ts2.factory.createRegularExpressionLiteral(nodeText.replace(nodeTextWithoutQuotes, migratedStylesLines.map((line, index2) => {
+              if (isMultiline && index2 !== 0 && line != "\n") {
+                const leadingWidth = stringLiteralNode.getLeadingTriviaWidth();
+                if (leadingWidth > 0) {
+                  line = " ".repeat(leadingWidth - 1) + line;
+                }
+              }
+              return line;
+            }).join("\n"))));
+          }
+        });
+      }
+    });
+  }
+  _migrateModuleSpecifier(specifierLiteral) {
+    var _a, _b;
+    const sourceFile = specifierLiteral.getSourceFile();
+    for (const migrator of this.upgradeData) {
+      const newModuleSpecifier = (_b = (_a = migrator.runtime) == null ? void 0 : _a.updateModuleSpecifier(specifierLiteral)) != null ? _b : null;
+      if (newModuleSpecifier !== null) {
+        this._printAndUpdateNode(sourceFile, specifierLiteral, newModuleSpecifier);
+        break;
+      }
+    }
+  }
+  _isComponentDecorator(node) {
+    return node.kind === ts2.SyntaxKind.Decorator && node.getText().startsWith("@Component");
+  }
+  _isImportExpression(node) {
+    return ts2.isCallExpression(node) && node.expression.kind === ts2.SyntaxKind.ImportKeyword && node.arguments.length === 1 && ts2.isStringLiteralLike(node.arguments[0]);
+  }
+  _isTypeImportExpression(node) {
+    return ts2.isImportTypeNode(node) && ts2.isLiteralTypeNode(node.argument) && ts2.isStringLiteralLike(node.argument.literal);
+  }
+  _printAndUpdateNode(sourceFile, oldNode, newNode) {
+    const filePath = this.fileSystem.resolve(sourceFile.fileName);
+    const newNodeText = this._printer.printNode(ts2.EmitHint.Unspecified, newNode, sourceFile);
+    const start = oldNode.getStart();
+    const width = oldNode.getWidth();
+    this.fileSystem.edit(filePath).remove(start, width).insertRight(start, newNodeText);
+  }
+};
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/template-migration.js
+var import_schematics3 = require("@angular/cdk/schematics");
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/migration-utilities/update.js
+function writeUpdates(content, updates) {
+  updates.sort((a, b) => b.offset - a.offset);
+  updates.forEach((update) => content = update.updateFn(content));
+  return content;
+}
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/template-migration.js
+var TemplateMigration = class extends import_schematics3.Migration {
+  constructor() {
+    super(...arguments);
+    this.enabled = true;
+  }
+  visitTemplate(template) {
+    const ast = parseTemplate2(template.content, template.filePath);
+    const migrators = this.upgradeData.filter((m) => m.template).map((m) => m.template);
+    const updates = [];
+    migrators.forEach((m) => updates.push(...m.getUpdates(ast)));
+    const content = writeUpdates(template.content, updates);
+    this.fileSystem.overwrite(template.filePath, content);
+  }
+};
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/index.mjs
 var import_path = require("path");
