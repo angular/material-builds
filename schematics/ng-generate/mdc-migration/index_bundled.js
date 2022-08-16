@@ -21667,8 +21667,8 @@ var IMPORT_REPLACEMENTS = {
     new: "@angular/material-experimental/mdc-slider"
   },
   "snack-bar": {
-    old: "@angular/material/snack-bar",
-    new: "@angular/material-experimental/mdc-snack-bar"
+    old: "@angular/material/legacy-snack-bar",
+    new: "@angular/material/snack-bar"
   },
   "table": {
     old: "@angular/material/table",
@@ -21766,13 +21766,8 @@ var SnackBarMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = [];
     this.mixinChanges = [
       {
-        old: "snack-bar-theme",
-        new: [
-          "mdc-snack-bar-theme",
-          "mdc-snack-bar-typography",
-          "mdc-button-theme",
-          "mdc-button-typography"
-        ],
+        old: "legacy-snack-bar-theme",
+        new: ["snack-bar-theme", "snack-bar-typography", "button-theme", "button-typography"],
         checkForDuplicates: true
       }
     ];

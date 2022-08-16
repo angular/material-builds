@@ -1,22 +1,10 @@
 import { __awaiter } from 'tslib';
-import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, parallel, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with a standard mat-snack-bar in tests. */
-class MatSnackBarHarness extends ContentContainerComponentHarness {
+class _MatSnackBarHarnessBase extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._messageSelector = '.mat-simple-snackbar > span';
-        this._actionButtonSelector = '.mat-simple-snackbar-action > button';
         this._snackBarLiveRegion = this.locatorFor('[aria-live]');
-    }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which snack bar instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatSnackBarHarness, options);
     }
     /**
      * Gets the role of the snack-bar. The role of a snack-bar is determined based
@@ -92,17 +80,6 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
         });
     }
     /**
-     * Asserts that the current snack-bar has annotated content. Promise reject
-     * if content is not annotated.
-     */
-    _assertContentAnnotated() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!(yield this._isSimpleSnackBar())) {
-                throw Error('Method cannot be used for snack-bar with custom content.');
-            }
-        });
-    }
-    /**
      * Asserts that the current snack-bar has an action defined. Otherwise the
      * promise will reject.
      */
@@ -114,12 +91,6 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
             }
         });
     }
-    /** Whether the snack-bar is using the default content template. */
-    _isSimpleSnackBar() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (yield this.locatorForOptional('.mat-simple-snackbar')()) !== null;
-        });
-    }
     /** Gets the simple snack bar action button. */
     _getActionButton() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -127,10 +98,34 @@ class MatSnackBarHarness extends ContentContainerComponentHarness {
         });
     }
 }
+/** Harness for interacting with an MDC-based mat-snack-bar in tests. */
+class MatSnackBarHarness extends _MatSnackBarHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._messageSelector = '.mdc-snackbar__label';
+        this._actionButtonSelector = '.mat-mdc-snack-bar-action';
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which snack bar instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatSnackBarHarness, options);
+    }
+    /**
+     * Asserts that the current snack-bar has annotated content. Promise reject
+     * if content is not annotated.
+     */
+    _assertContentAnnotated() {
+        return __awaiter(this, void 0, void 0, function* () { });
+    }
+}
 // Developers can provide a custom component or template for the
 // snackbar. The canonical snack-bar parent is the "MatSnackBarContainer".
 /** The selector for the host element of a `MatSnackBar` instance. */
-MatSnackBarHarness.hostSelector = '.mat-snack-bar-container';
+MatSnackBarHarness.hostSelector = '.mat-mdc-snack-bar-container:not([mat-exit])';
 
 /**
  * @license
@@ -148,5 +143,5 @@ MatSnackBarHarness.hostSelector = '.mat-snack-bar-container';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatSnackBarHarness };
+export { MatSnackBarHarness, _MatSnackBarHarnessBase };
 //# sourceMappingURL=testing.mjs.map

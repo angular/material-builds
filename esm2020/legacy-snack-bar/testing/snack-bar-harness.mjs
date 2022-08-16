@@ -1,0 +1,42 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { HarnessPredicate } from '@angular/cdk/testing';
+import { _MatSnackBarHarnessBase } from '@angular/material/snack-bar/testing';
+/** Harness for interacting with a standard mat-snack-bar in tests. */
+export class MatLegacySnackBarHarness extends _MatSnackBarHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._messageSelector = '.mat-simple-snackbar > span';
+        this._actionButtonSelector = '.mat-simple-snackbar-action > button';
+    }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a snack bar with specific attributes.
+     * @param options Options for filtering which snack bar instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatLegacySnackBarHarness, options);
+    }
+    async _assertContentAnnotated() {
+        if (!(await this._isSimpleSnackBar())) {
+            throw Error('Method cannot be used for snack-bar with custom content.');
+        }
+    }
+    /** Whether the snack-bar is using the default content template. */
+    async _isSimpleSnackBar() {
+        return (await this.locatorForOptional('.mat-simple-snackbar')()) !== null;
+    }
+}
+// Developers can provide a custom component or template for the snackbar. The canonical snack-bar
+// parent is the "MatSnackBarContainer". We use `:not([mat-exit])` to exclude snack bars that
+// are in the process of being dismissed, because the element only gets removed after the
+// animation is finished and since it runs outside of Angular, we don't have a way of being
+// notified when it's done.
+/** The selector for the host element of a `MatSnackBar` instance. */
+MatLegacySnackBarHarness.hostSelector = '.mat-snack-bar-container';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic25hY2stYmFyLWhhcm5lc3MuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi9zcmMvbWF0ZXJpYWwvbGVnYWN5LXNuYWNrLWJhci90ZXN0aW5nL3NuYWNrLWJhci1oYXJuZXNzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUNILE9BQU8sRUFBQyxnQkFBZ0IsRUFBQyxNQUFNLHNCQUFzQixDQUFDO0FBQ3RELE9BQU8sRUFBQyx1QkFBdUIsRUFBeUIsTUFBTSxxQ0FBcUMsQ0FBQztBQUVwRyxzRUFBc0U7QUFDdEUsTUFBTSxPQUFPLHdCQUF5QixTQUFRLHVCQUF1QjtJQUFyRTs7UUFRcUIscUJBQWdCLEdBQUcsNkJBQTZCLENBQUM7UUFDakQsMEJBQXFCLEdBQUcsc0NBQXNDLENBQUM7SUFxQnBGLENBQUM7SUFuQkM7Ozs7T0FJRztJQUNILE1BQU0sQ0FBQyxJQUFJLENBQUMsVUFBa0MsRUFBRTtRQUM5QyxPQUFPLElBQUksZ0JBQWdCLENBQUMsd0JBQXdCLEVBQUUsT0FBTyxDQUFDLENBQUM7SUFDakUsQ0FBQztJQUVrQixLQUFLLENBQUMsdUJBQXVCO1FBQzlDLElBQUksQ0FBQyxDQUFDLE1BQU0sSUFBSSxDQUFDLGlCQUFpQixFQUFFLENBQUMsRUFBRTtZQUNyQyxNQUFNLEtBQUssQ0FBQywwREFBMEQsQ0FBQyxDQUFDO1NBQ3pFO0lBQ0gsQ0FBQztJQUVELG1FQUFtRTtJQUMzRCxLQUFLLENBQUMsaUJBQWlCO1FBQzdCLE9BQU8sQ0FBQyxNQUFNLElBQUksQ0FBQyxrQkFBa0IsQ0FBQyxzQkFBc0IsQ0FBQyxFQUFFLENBQUMsS0FBSyxJQUFJLENBQUM7SUFDNUUsQ0FBQzs7QUE1QkQsa0dBQWtHO0FBQ2xHLDZGQUE2RjtBQUM3Rix5RkFBeUY7QUFDekYsMkZBQTJGO0FBQzNGLDJCQUEyQjtBQUMzQixxRUFBcUU7QUFDOUQscUNBQVksR0FBRywwQkFBMEIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuaW1wb3J0IHtIYXJuZXNzUHJlZGljYXRlfSBmcm9tICdAYW5ndWxhci9jZGsvdGVzdGluZyc7XG5pbXBvcnQge19NYXRTbmFja0Jhckhhcm5lc3NCYXNlLCBTbmFja0Jhckhhcm5lc3NGaWx0ZXJzfSBmcm9tICdAYW5ndWxhci9tYXRlcmlhbC9zbmFjay1iYXIvdGVzdGluZyc7XG5cbi8qKiBIYXJuZXNzIGZvciBpbnRlcmFjdGluZyB3aXRoIGEgc3RhbmRhcmQgbWF0LXNuYWNrLWJhciBpbiB0ZXN0cy4gKi9cbmV4cG9ydCBjbGFzcyBNYXRMZWdhY3lTbmFja0Jhckhhcm5lc3MgZXh0ZW5kcyBfTWF0U25hY2tCYXJIYXJuZXNzQmFzZSB7XG4gIC8vIERldmVsb3BlcnMgY2FuIHByb3ZpZGUgYSBjdXN0b20gY29tcG9uZW50IG9yIHRlbXBsYXRlIGZvciB0aGUgc25hY2tiYXIuIFRoZSBjYW5vbmljYWwgc25hY2stYmFyXG4gIC8vIHBhcmVudCBpcyB0aGUgXCJNYXRTbmFja0JhckNvbnRhaW5lclwiLiBXZSB1c2UgYDpub3QoW21hdC1leGl0XSlgIHRvIGV4Y2x1ZGUgc25hY2sgYmFycyB0aGF0XG4gIC8vIGFyZSBpbiB0aGUgcHJvY2VzcyBvZiBiZWluZyBkaXNtaXNzZWQsIGJlY2F1c2UgdGhlIGVsZW1lbnQgb25seSBnZXRzIHJlbW92ZWQgYWZ0ZXIgdGhlXG4gIC8vIGFuaW1hdGlvbiBpcyBmaW5pc2hlZCBhbmQgc2luY2UgaXQgcnVucyBvdXRzaWRlIG9mIEFuZ3VsYXIsIHdlIGRvbid0IGhhdmUgYSB3YXkgb2YgYmVpbmdcbiAgLy8gbm90aWZpZWQgd2hlbiBpdCdzIGRvbmUuXG4gIC8qKiBUaGUgc2VsZWN0b3IgZm9yIHRoZSBob3N0IGVsZW1lbnQgb2YgYSBgTWF0U25hY2tCYXJgIGluc3RhbmNlLiAqL1xuICBzdGF0aWMgaG9zdFNlbGVjdG9yID0gJy5tYXQtc25hY2stYmFyLWNvbnRhaW5lcic7XG4gIHByb3RlY3RlZCBvdmVycmlkZSBfbWVzc2FnZVNlbGVjdG9yID0gJy5tYXQtc2ltcGxlLXNuYWNrYmFyID4gc3Bhbic7XG4gIHByb3RlY3RlZCBvdmVycmlkZSBfYWN0aW9uQnV0dG9uU2VsZWN0b3IgPSAnLm1hdC1zaW1wbGUtc25hY2tiYXItYWN0aW9uID4gYnV0dG9uJztcblxuICAvKipcbiAgICogR2V0cyBhIGBIYXJuZXNzUHJlZGljYXRlYCB0aGF0IGNhbiBiZSB1c2VkIHRvIHNlYXJjaCBmb3IgYSBzbmFjayBiYXIgd2l0aCBzcGVjaWZpYyBhdHRyaWJ1dGVzLlxuICAgKiBAcGFyYW0gb3B0aW9ucyBPcHRpb25zIGZvciBmaWx0ZXJpbmcgd2hpY2ggc25hY2sgYmFyIGluc3RhbmNlcyBhcmUgY29uc2lkZXJlZCBhIG1hdGNoLlxuICAgKiBAcmV0dXJuIGEgYEhhcm5lc3NQcmVkaWNhdGVgIGNvbmZpZ3VyZWQgd2l0aCB0aGUgZ2l2ZW4gb3B0aW9ucy5cbiAgICovXG4gIHN0YXRpYyB3aXRoKG9wdGlvbnM6IFNuYWNrQmFySGFybmVzc0ZpbHRlcnMgPSB7fSk6IEhhcm5lc3NQcmVkaWNhdGU8TWF0TGVnYWN5U25hY2tCYXJIYXJuZXNzPiB7XG4gICAgcmV0dXJuIG5ldyBIYXJuZXNzUHJlZGljYXRlKE1hdExlZ2FjeVNuYWNrQmFySGFybmVzcywgb3B0aW9ucyk7XG4gIH1cblxuICBwcm90ZWN0ZWQgb3ZlcnJpZGUgYXN5bmMgX2Fzc2VydENvbnRlbnRBbm5vdGF0ZWQoKSB7XG4gICAgaWYgKCEoYXdhaXQgdGhpcy5faXNTaW1wbGVTbmFja0JhcigpKSkge1xuICAgICAgdGhyb3cgRXJyb3IoJ01ldGhvZCBjYW5ub3QgYmUgdXNlZCBmb3Igc25hY2stYmFyIHdpdGggY3VzdG9tIGNvbnRlbnQuJyk7XG4gICAgfVxuICB9XG5cbiAgLyoqIFdoZXRoZXIgdGhlIHNuYWNrLWJhciBpcyB1c2luZyB0aGUgZGVmYXVsdCBjb250ZW50IHRlbXBsYXRlLiAqL1xuICBwcml2YXRlIGFzeW5jIF9pc1NpbXBsZVNuYWNrQmFyKCk6IFByb21pc2U8Ym9vbGVhbj4ge1xuICAgIHJldHVybiAoYXdhaXQgdGhpcy5sb2NhdG9yRm9yT3B0aW9uYWwoJy5tYXQtc2ltcGxlLXNuYWNrYmFyJykoKSkgIT09IG51bGw7XG4gIH1cbn1cbiJdfQ==
