@@ -7,16 +7,7 @@ import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, p
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Angular Material table cell. */
-class MatCellHarness extends ContentContainerComponentHarness {
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a table cell with specific attributes.
-     * @param options Options for narrowing the search
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return MatCellHarness._getCellPredicate(MatCellHarness, options);
-    }
+class _MatCellHarnessBase extends ContentContainerComponentHarness {
     /** Gets the cell's text. */
     async getText() {
         return (await this.host()).text();
@@ -43,36 +34,47 @@ class MatCellHarness extends ContentContainerComponentHarness {
             .addOption('columnName', options.columnName, (harness, name) => HarnessPredicate.stringMatches(harness.getColumnName(), name));
     }
 }
-/** The selector for the host element of a `MatCellHarness` instance. */
-MatCellHarness.hostSelector = '.mat-cell';
-/** Harness for interacting with a standard Angular Material table header cell. */
-class MatHeaderCellHarness extends MatCellHarness {
+/** Harness for interacting with an MDC-based Angular Material table cell. */
+class MatCellHarness extends _MatCellHarnessBase {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for
-     * a table header cell with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a table cell with specific attributes.
      * @param options Options for narrowing the search
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return MatHeaderCellHarness._getCellPredicate(MatHeaderCellHarness, options);
+        return _MatCellHarnessBase._getCellPredicate(MatCellHarness, options);
+    }
+}
+/** The selector for the host element of a `MatCellHarness` instance. */
+MatCellHarness.hostSelector = '.mat-mdc-cell';
+/** Harness for interacting with an MDC-based Angular Material table header cell. */
+class MatHeaderCellHarness extends _MatCellHarnessBase {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table header cell with specific
+     * attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return _MatCellHarnessBase._getCellPredicate(MatHeaderCellHarness, options);
     }
 }
 /** The selector for the host element of a `MatHeaderCellHarness` instance. */
-MatHeaderCellHarness.hostSelector = '.mat-header-cell';
-/** Harness for interacting with a standard Angular Material table footer cell. */
-class MatFooterCellHarness extends MatCellHarness {
+MatHeaderCellHarness.hostSelector = '.mat-mdc-header-cell';
+/** Harness for interacting with an MDC-based Angular Material table footer cell. */
+class MatFooterCellHarness extends _MatCellHarnessBase {
     /**
-     * Gets a `HarnessPredicate` that can be used to search for
-     * a table footer cell with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a table footer cell with specific
+     * attributes.
      * @param options Options for narrowing the search
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return MatFooterCellHarness._getCellPredicate(MatFooterCellHarness, options);
+        return _MatCellHarnessBase._getCellPredicate(MatFooterCellHarness, options);
     }
 }
 /** The selector for the host element of a `MatFooterCellHarness` instance. */
-MatFooterCellHarness.hostSelector = '.mat-footer-cell';
+MatFooterCellHarness.hostSelector = '.mat-mdc-footer-cell';
 
 /**
  * @license
@@ -102,7 +104,7 @@ class _MatRowHarnessBase extends ComponentHarness {
         return output;
     }
 }
-/** Harness for interacting with a standard Angular Material table row. */
+/** Harness for interacting with an MDC-based Angular Material table row. */
 class MatRowHarness extends _MatRowHarnessBase {
     constructor() {
         super(...arguments);
@@ -114,47 +116,47 @@ class MatRowHarness extends _MatRowHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatRowHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatRowHarness` instance. */
-MatRowHarness.hostSelector = '.mat-row';
-/** Harness for interacting with a standard Angular Material table header row. */
+MatRowHarness.hostSelector = '.mat-mdc-row';
+/** Harness for interacting with an MDC-based Angular Material table header row. */
 class MatHeaderRowHarness extends _MatRowHarnessBase {
     constructor() {
         super(...arguments);
         this._cellHarness = MatHeaderCellHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for
-     * a table header row with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a table header row with specific
+     * attributes.
      * @param options Options for narrowing the search
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatHeaderRowHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatHeaderRowHarness` instance. */
-MatHeaderRowHarness.hostSelector = '.mat-header-row';
-/** Harness for interacting with a standard Angular Material table footer row. */
+MatHeaderRowHarness.hostSelector = '.mat-mdc-header-row';
+/** Harness for interacting with an MDC-based Angular Material table footer row. */
 class MatFooterRowHarness extends _MatRowHarnessBase {
     constructor() {
         super(...arguments);
         this._cellHarness = MatFooterCellHarness;
     }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for
-     * a table footer row cell with specific attributes.
+     * Gets a `HarnessPredicate` that can be used to search for a table footer row cell with specific
+     * attributes.
      * @param options Options for narrowing the search
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatFooterRowHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatFooterRowHarness` instance. */
-MatFooterRowHarness.hostSelector = '.mat-footer-row';
+MatFooterRowHarness.hostSelector = '.mat-mdc-footer-row';
 
 /**
  * @license
@@ -210,7 +212,7 @@ class _MatTableHarnessBase extends ContentContainerComponentHarness {
         return text;
     }
 }
-/** Harness for interacting with a standard mat-table in tests. */
+/** Harness for interacting with an MDC-based mat-table in tests. */
 class MatTableHarness extends _MatTableHarnessBase {
     constructor() {
         super(...arguments);
@@ -224,11 +226,11 @@ class MatTableHarness extends _MatTableHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatTableHarness, options);
+        return new HarnessPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatTableHarness` instance. */
-MatTableHarness.hostSelector = '.mat-table';
+MatTableHarness.hostSelector = '.mat-mdc-table';
 /** Extracts the text of cells only under a particular column. */
 function getCellTextsByColumn(rowsData, column) {
     const columnTexts = [];
@@ -258,5 +260,5 @@ function getCellTextsByColumn(rowsData, column) {
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, MatTableHarness, _MatRowHarnessBase, _MatTableHarnessBase };
+export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, MatTableHarness, _MatCellHarnessBase, _MatRowHarnessBase, _MatTableHarnessBase };
 //# sourceMappingURL=testing.mjs.map

@@ -21671,8 +21671,8 @@ var IMPORT_REPLACEMENTS = {
     new: "@angular/material/snack-bar"
   },
   "table": {
-    old: "@angular/material/table",
-    new: "@angular/material-experimental/mdc-table"
+    old: "@angular/material/legacy-table",
+    new: "@angular/material/table"
   },
   "tabs": {
     old: "@angular/material/legacy-tabs",
@@ -21787,8 +21787,8 @@ var TableStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = [];
     this.mixinChanges = [
       {
-        old: "table-theme",
-        new: ["mdc-table-theme", "mdc-table-typography"]
+        old: "legacy-table-theme",
+        new: ["table-theme", "table-typography"]
       }
     ];
     this.classChanges = [

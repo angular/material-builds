@@ -15,13 +15,13 @@ import { CdkRow } from '@angular/cdk/table';
 import { CdkRowDef } from '@angular/cdk/table';
 import { CdkTable } from '@angular/cdk/table';
 import { CdkTextColumn } from '@angular/cdk/table';
-import { DataSource } from '@angular/cdk/table';
+import { DataSource } from '@angular/cdk/collections';
 import * as i0 from '@angular/core';
-import * as i5 from '@angular/cdk/table';
-import * as i6 from '@angular/material/core';
-import { MatLegacyPaginator } from '@angular/material/legacy-paginator';
+import * as i5 from '@angular/material/core';
+import * as i6 from '@angular/cdk/table';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
+import { OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
 
@@ -141,7 +141,7 @@ export declare class MatHeaderCellDef extends CdkHeaderCellDef {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, false>;
 }
 
-/** Header template container that contains the cell outlet. Adds the right class and role. */
+/** Footer template container that contains the cell outlet. Adds the right class and role. */
 export declare class MatHeaderRow extends CdkHeaderRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRow, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatHeaderRow, "mat-header-row, tr[mat-header-row]", ["matHeaderRow"], {}, {}, never, never, false>;
@@ -188,21 +188,19 @@ export declare class MatRowDef<T> extends CdkRowDef<T> {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatRowDef<any>, "[matRowDef]", never, { "columns": "matRowDefColumns"; "when": "matRowDefWhen"; }, {}, never, never, false>;
 }
 
-/**
- * Wrapper for the CdkTable with Material design styles.
- */
-export declare class MatTable<T> extends CdkTable<T> {
+export declare class MatTable<T> extends CdkTable<T> implements OnInit {
     /** Overrides the sticky CSS class set by the `CdkTable`. */
     protected stickyCssClass: string;
     /** Overrides the need to add position: sticky on every sticky cell element in `CdkTable`. */
     protected needsPositionStickyOnElement: boolean;
+    ngOnInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTable<any>, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col"], false>;
 }
 
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
- * sorting (using MatSort), and pagination (using paginator).
+ * sorting (using MatSort), and pagination (using MatPaginator).
  *
  * Allows for sort customization by overriding sortingDataAccessor, which defines how data
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
@@ -213,7 +211,7 @@ export declare class MatTable<T> extends CdkTable<T> {
  * interactions. If your app needs to support more advanced use cases, consider implementing your
  * own `DataSource`.
  */
-export declare class MatTableDataSource<T> extends _MatTableDataSource<T, MatLegacyPaginator> {
+export declare class MatTableDataSource<T, P extends MatTableDataSourcePaginator = MatTableDataSourcePaginator> extends _MatTableDataSource<T, P> {
 }
 
 /** Shared base class with MDC-based implementation. */
@@ -364,7 +362,7 @@ export declare interface MatTableDataSourcePaginator {
 
 export declare class MatTableModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTableModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTableModule, [typeof i1.MatTable, typeof i1.MatRecycleRows, typeof i2.MatHeaderCellDef, typeof i3.MatHeaderRowDef, typeof i2.MatColumnDef, typeof i2.MatCellDef, typeof i3.MatRowDef, typeof i2.MatFooterCellDef, typeof i3.MatFooterRowDef, typeof i2.MatHeaderCell, typeof i2.MatCell, typeof i2.MatFooterCell, typeof i3.MatHeaderRow, typeof i3.MatRow, typeof i3.MatFooterRow, typeof i3.MatNoDataRow, typeof i4.MatTextColumn], [typeof i5.CdkTableModule, typeof i6.MatCommonModule], [typeof i6.MatCommonModule, typeof i1.MatTable, typeof i1.MatRecycleRows, typeof i2.MatHeaderCellDef, typeof i3.MatHeaderRowDef, typeof i2.MatColumnDef, typeof i2.MatCellDef, typeof i3.MatRowDef, typeof i2.MatFooterCellDef, typeof i3.MatFooterRowDef, typeof i2.MatHeaderCell, typeof i2.MatCell, typeof i2.MatFooterCell, typeof i3.MatHeaderRow, typeof i3.MatRow, typeof i3.MatFooterRow, typeof i3.MatNoDataRow, typeof i4.MatTextColumn]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTableModule, [typeof i1.MatTable, typeof i1.MatRecycleRows, typeof i2.MatHeaderCellDef, typeof i3.MatHeaderRowDef, typeof i2.MatColumnDef, typeof i2.MatCellDef, typeof i3.MatRowDef, typeof i2.MatFooterCellDef, typeof i3.MatFooterRowDef, typeof i2.MatHeaderCell, typeof i2.MatCell, typeof i2.MatFooterCell, typeof i3.MatHeaderRow, typeof i3.MatRow, typeof i3.MatFooterRow, typeof i3.MatNoDataRow, typeof i4.MatTextColumn], [typeof i5.MatCommonModule, typeof i6.CdkTableModule], [typeof i5.MatCommonModule, typeof i1.MatTable, typeof i1.MatRecycleRows, typeof i2.MatHeaderCellDef, typeof i3.MatHeaderRowDef, typeof i2.MatColumnDef, typeof i2.MatCellDef, typeof i3.MatRowDef, typeof i2.MatFooterCellDef, typeof i3.MatFooterRowDef, typeof i2.MatHeaderCell, typeof i2.MatCell, typeof i2.MatFooterCell, typeof i3.MatHeaderRow, typeof i3.MatRow, typeof i3.MatFooterRow, typeof i3.MatNoDataRow, typeof i4.MatTextColumn]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTableModule>;
 }
 
