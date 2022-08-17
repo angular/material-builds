@@ -42,7 +42,7 @@ class MatCellHarness extends _MatCellHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return _MatCellHarnessBase._getCellPredicate(MatCellHarness, options);
+        return _MatCellHarnessBase._getCellPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatCellHarness` instance. */
@@ -56,7 +56,7 @@ class MatHeaderCellHarness extends _MatCellHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return _MatCellHarnessBase._getCellPredicate(MatHeaderCellHarness, options);
+        return _MatCellHarnessBase._getCellPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatHeaderCellHarness` instance. */
@@ -70,7 +70,7 @@ class MatFooterCellHarness extends _MatCellHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return _MatCellHarnessBase._getCellPredicate(MatFooterCellHarness, options);
+        return _MatCellHarnessBase._getCellPredicate(this, options);
     }
 }
 /** The selector for the host element of a `MatFooterCellHarness` instance. */
