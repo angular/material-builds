@@ -358,6 +358,8 @@ export declare interface MatTableDataSourcePaginator {
     initialized: Observable<void>;
     pageSize: number;
     length: number;
+    firstPage: () => void;
+    lastPage: () => void;
 }
 
 export declare class MatTableModule {
