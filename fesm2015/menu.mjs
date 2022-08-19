@@ -741,7 +741,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.0.1", ngImpor
 class MatMenu extends _MatMenuBase {
     constructor(_elementRef, _ngZone, _defaultOptions, changeDetectorRef) {
         super(_elementRef, _ngZone, _defaultOptions, changeDetectorRef);
-        this._elevationPrefix = 'mat-mdc-elevation-z';
+        this._elevationPrefix = 'mat-elevation-z';
         this._baseElevation = 8;
     }
 }
