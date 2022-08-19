@@ -554,6 +554,22 @@
       "node": "./fesm2015/legacy-progress-bar/testing.mjs",
       "default": "./fesm2020/legacy-progress-bar/testing.mjs"
     },
+    "./legacy-progress-spinner": {
+      "types": "./legacy-progress-spinner/index.d.ts",
+      "esm2020": "./esm2020/legacy-progress-spinner/legacy-progress-spinner_public_index.mjs",
+      "es2020": "./fesm2020/legacy-progress-spinner.mjs",
+      "es2015": "./fesm2015/legacy-progress-spinner.mjs",
+      "node": "./fesm2015/legacy-progress-spinner.mjs",
+      "default": "./fesm2020/legacy-progress-spinner.mjs"
+    },
+    "./legacy-progress-spinner/testing": {
+      "types": "./legacy-progress-spinner/testing/index.d.ts",
+      "esm2020": "./esm2020/legacy-progress-spinner/testing/index.mjs",
+      "es2020": "./fesm2020/legacy-progress-spinner/testing.mjs",
+      "es2015": "./fesm2015/legacy-progress-spinner/testing.mjs",
+      "node": "./fesm2015/legacy-progress-spinner/testing.mjs",
+      "default": "./fesm2020/legacy-progress-spinner/testing.mjs"
+    },
     "./legacy-radio": {
       "types": "./legacy-radio/index.d.ts",
       "esm2020": "./esm2020/legacy-radio/legacy-radio_public_index.mjs",
@@ -756,7 +772,7 @@
     },
     "./progress-spinner/testing": {
       "types": "./progress-spinner/testing/index.d.ts",
-      "esm2020": "./esm2020/progress-spinner/testing/index.mjs",
+      "esm2020": "./esm2020/progress-spinner/testing/testing_public_index.mjs",
       "es2020": "./fesm2020/progress-spinner/testing.mjs",
       "es2015": "./fesm2015/progress-spinner/testing.mjs",
       "node": "./fesm2015/progress-spinner/testing.mjs",

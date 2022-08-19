@@ -1,136 +1,86 @@
 import { _AbstractConstructor } from '@angular/material/core';
 import { CanColor } from '@angular/material/core';
-import { ChangeDetectorRef } from '@angular/core';
 import { _Constructor } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/material/core';
-import * as i3 from '@angular/common';
-import { InjectionToken } from '@angular/core';
-import { NgZone } from '@angular/core';
+import * as i2 from '@angular/common';
+import * as i3 from '@angular/material/core';
+import { MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS as MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS } from '@angular/material/legacy-progress-spinner';
+import { MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY as MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY } from '@angular/material/legacy-progress-spinner';
+import { MatLegacyProgressSpinnerDefaultOptions as MatProgressSpinnerDefaultOptions } from '@angular/material/legacy-progress-spinner';
 import { NumberInput } from '@angular/cdk/coercion';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
-import { ThemePalette } from '@angular/material/core';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 
 declare namespace i1 {
     export {
-        MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
         ProgressSpinnerMode,
-        MatProgressSpinnerDefaultOptions,
-        MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,
-        MatProgressSpinner
+        MatProgressSpinner,
+        MatSpinner
     }
 }
 
-/** Injection token to be used to override the default options for `mat-progress-spinner`. */
-export declare const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatProgressSpinnerDefaultOptions>;
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS }
 
-/** @docs-private */
-export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgressSpinnerDefaultOptions;
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY }
 
-/**
- * `<mat-progress-spinner>` component.
- */
-export declare class MatProgressSpinner extends _MatProgressSpinnerBase implements OnInit, OnDestroy, CanColor {
-    private _document;
-    private _diameter;
-    private _value;
-    private _strokeWidth;
-    private _resizeSubscription;
-    /**
-     * Element to which we should add the generated style tags for the indeterminate animation.
-     * For most elements this is the document, but for the ones in the Shadow DOM we need to
-     * use the shadow root.
-     */
-    private _styleRoot;
-    /**
-     * Tracks diameters of existing instances to de-dupe generated styles (default d = 100).
-     * We need to keep track of which elements the diameters were attached to, because for
-     * elements in the Shadow DOM the style tags are attached to the shadow root, rather
-     * than the document head.
-     */
-    private static _diameters;
+export declare class MatProgressSpinner extends _MatProgressSpinnerBase implements CanColor {
     /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
     _noopAnimations: boolean;
-    /** A string that is used for setting the spinner animation-name CSS property */
-    _spinnerAnimationLabel: string;
+    /** The element of the determinate spinner. */
+    _determinateCircle: ElementRef<HTMLElement>;
+    constructor(elementRef: ElementRef<HTMLElement>, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
+    /**
+     * Mode of the progress bar.
+     *
+     * Input must be one of these values: determinate, indeterminate, buffer, query, defaults to
+     * 'determinate'.
+     * Mirrored to mode attribute.
+     */
+    mode: ProgressSpinnerMode;
+    /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
+    get value(): number;
+    set value(v: NumberInput);
+    private _value;
     /** The diameter of the progress spinner (will set width and height of svg). */
     get diameter(): number;
     set diameter(size: NumberInput);
+    private _diameter;
     /** Stroke width of the progress spinner. */
     get strokeWidth(): number;
     set strokeWidth(value: NumberInput);
-    /** Mode of the progress circle */
-    mode: ProgressSpinnerMode;
-    /** Value of the progress circle. */
-    get value(): number;
-    set value(newValue: NumberInput);
-    constructor(elementRef: ElementRef<HTMLElement>, _platform: Platform, _document: any, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions, 
-    /**
-     * @deprecated `changeDetectorRef`, `viewportRuler` and `ngZone`
-     * parameters to become required.
-     * @breaking-change 14.0.0
-     */
-    changeDetectorRef?: ChangeDetectorRef, viewportRuler?: ViewportRuler, ngZone?: NgZone);
-    ngOnInit(): void;
-    ngOnDestroy(): void;
+    private _strokeWidth;
     /** The radius of the spinner, adjusted for stroke width. */
-    _getCircleRadius(): number;
+    _circleRadius(): number;
     /** The view box of the spinner's svg element. */
-    _getViewBox(): string;
+    _viewBox(): string;
     /** The stroke circumference of the svg circle. */
-    _getStrokeCircumference(): number;
+    _strokeCircumference(): number;
     /** The dash offset of the svg circle. */
-    _getStrokeDashOffset(): number | null;
+    _strokeDashOffset(): number | null;
     /** Stroke width of the circle in percent. */
-    _getCircleStrokeWidth(): number;
-    /** Gets the `transform-origin` for the inner circle element. */
-    _getCircleTransformOrigin(svg: HTMLElement): string;
-    /** Dynamically generates a style tag containing the correct animation for this diameter. */
-    private _attachStyleNode;
-    /** Generates animation styles adjusted for the spinner's diameter. */
-    private _getAnimationText;
-    /** Returns the circle diameter formatted for use with the animation-name CSS property. */
-    private _getSpinnerAnimationLabel;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null, null, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never, false>;
+    _circleStrokeWidth(): number;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, { optional: true; }, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "mode": "mode"; "value": "value"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; }, {}, never, never, false>;
 }
 
-/** @docs-private */
 declare const _MatProgressSpinnerBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {
     new (_elementRef: ElementRef): {
         _elementRef: ElementRef;
     };
 };
 
-/** Default `mat-progress-spinner` options that can be overridden. */
-export declare interface MatProgressSpinnerDefaultOptions {
-    /** Default color of the spinner. */
-    color?: ThemePalette;
-    /** Diameter of the spinner. */
-    diameter?: number;
-    /** Width of the spinner's stroke. */
-    strokeWidth?: number;
-    /**
-     * Whether the animations should be force to be enabled, ignoring if the current environment is
-     * using NoopAnimationsModule.
-     */
-    _forceAnimations?: boolean;
-}
+export { MatProgressSpinnerDefaultOptions }
 
 export declare class MatProgressSpinnerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinnerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressSpinnerModule, [typeof i1.MatProgressSpinner], [typeof i2.MatCommonModule, typeof i3.CommonModule], [typeof i1.MatProgressSpinner, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressSpinnerModule, [typeof i1.MatProgressSpinner, typeof i1.MatProgressSpinner], [typeof i2.CommonModule], [typeof i1.MatProgressSpinner, typeof i1.MatProgressSpinner, typeof i3.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressSpinnerModule>;
 }
 
 /**
- * @deprecated Import `MatProgressSpinner` instead. Note that the
- *    `mat-spinner` selector isn't deprecated.
- * @breaking-change 8.0.0
+ * `<mat-spinner>` component.
+ *
+ * This is a component definition to be used as a convenience reference to create an
+ * indeterminate `<mat-progress-spinner>` instance.
  */
 export declare const MatSpinner: typeof MatProgressSpinner;
 
