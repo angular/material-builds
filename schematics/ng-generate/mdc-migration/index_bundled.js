@@ -9703,9 +9703,9 @@ function mapToExpression(map, keepDeclared) {
       minifiedName = key;
       needsDeclaredName = publicName !== declaredName;
     } else {
-      [declaredName, publicName] = splitAtColon(key, [key, value]);
-      minifiedName = declaredName;
-      needsDeclaredName = publicName !== declaredName && key.includes(":");
+      minifiedName = declaredName = key;
+      publicName = value;
+      needsDeclaredName = false;
     }
     return {
       key: minifiedName,
@@ -10405,11 +10405,11 @@ function compileNgModuleDeclarationExpression(meta) {
   }
   return importExpr(Identifiers.defineNgModule).callFn([definitionMap.toLiteralMap()]);
 }
-function createNgModuleType({ type: moduleType, declarations, imports, exports }) {
+function createNgModuleType({ type: moduleType, declarations, exports, imports, includeImportTypes, publicDeclarationTypes }) {
   return new ExpressionType(importExpr(Identifiers.NgModuleDeclaration, [
     new ExpressionType(moduleType.type),
-    tupleTypeOf(declarations),
-    tupleTypeOf(imports),
+    publicDeclarationTypes === null ? tupleTypeOf(declarations) : tupleOfTypes(publicDeclarationTypes),
+    includeImportTypes ? tupleTypeOf(imports) : NONE_TYPE,
     tupleTypeOf(exports)
   ]));
 }
@@ -10437,6 +10437,10 @@ function generateSetNgModuleScopeCall(meta) {
 function tupleTypeOf(exp) {
   const types = exp.map((ref) => typeofExpr(ref.type));
   return exp.length > 0 ? expressionType(literalArr(types)) : NONE_TYPE;
+}
+function tupleOfTypes(types) {
+  const typeofTypes = types.map((type) => typeofExpr(type));
+  return types.length > 0 ? expressionType(literalArr(typeofTypes)) : NONE_TYPE;
 }
 function compilePipeFromMetadata(metadata) {
   const definitionMapValues = [];
@@ -13221,10 +13225,14 @@ var _ParseAST = class {
         while (this.consumeOptionalCharacter($SEMICOLON)) {
         }
       } else if (this.index < this.tokens.length) {
+        const errorIndex = this.index;
         this.error(`Unexpected token '${this.next}'`);
+        if (this.index === errorIndex) {
+          break;
+        }
       }
     }
-    if (exprs.length == 0) {
+    if (exprs.length === 0) {
       const artificialStart = this.offset;
       const artificialEnd = this.offset + this.input.length;
       return new EmptyExpr(this.span(artificialStart, artificialEnd), this.sourceSpan(artificialStart, artificialEnd));
@@ -20809,7 +20817,7 @@ var CompilerFacadeImpl = class {
       name: facade.name,
       type: wrapReference(facade.type),
       internalType: new WrappedNodeExpr(facade.type),
-      providers: new WrappedNodeExpr(facade.providers),
+      providers: facade.providers && facade.providers.length > 0 ? new WrappedNodeExpr(facade.providers) : null,
       imports: facade.imports.map((i) => new WrappedNodeExpr(i))
     };
     const res = compileInjector(meta);
@@ -20827,7 +20835,9 @@ var CompilerFacadeImpl = class {
       adjacentType: new WrappedNodeExpr(facade.type),
       bootstrap: facade.bootstrap.map(wrapReference),
       declarations: facade.declarations.map(wrapReference),
+      publicDeclarationTypes: null,
       imports: facade.imports.map(wrapReference),
+      includeImportTypes: true,
       exports: facade.exports.map(wrapReference),
       selectorScopeMode: R3SelectorScopeMode.Inline,
       containsForwardDecls: false,
@@ -21121,10 +21131,10 @@ function isOutput(value) {
   return value.ngMetadataName === "Output";
 }
 function parseInputOutputs(values) {
-  return values.reduce((map, value) => {
-    const [field, property] = value.split(",").map((piece) => piece.trim());
-    map[field] = property || field;
-    return map;
+  return values.reduce((results, value) => {
+    const [field, property] = value.split(":", 2).map((str) => str.trim());
+    results[field] = property || field;
+    return results;
   }, {});
 }
 function convertDeclarePipeFacadeToMetadata(declaration) {
@@ -21145,7 +21155,7 @@ function convertDeclareInjectorFacadeToMetadata(declaration) {
     name: declaration.type.name,
     type: wrapReference(declaration.type),
     internalType: new WrappedNodeExpr(declaration.type),
-    providers: declaration.providers !== void 0 ? new WrappedNodeExpr(declaration.providers) : null,
+    providers: declaration.providers !== void 0 && declaration.providers.length > 0 ? new WrappedNodeExpr(declaration.providers) : null,
     imports: declaration.imports !== void 0 ? declaration.imports.map((i) => new WrappedNodeExpr(i)) : []
   };
 }
@@ -21153,7 +21163,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("14.0.1");
+var VERSION = new Version("14.2.0-rc.0");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -22267,7 +22277,7 @@ function mdc_migration_default(options) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v14.0.1
+ * @license Angular v14.2.0-rc.0
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
