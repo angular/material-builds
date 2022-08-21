@@ -599,7 +599,7 @@ export declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
     private _viewContainerRef;
     _template: TemplateRef<unknown>;
     private _portal;
-    constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<unknown>, unknown>, _viewContainerRef: ViewContainerRef);
+    constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown>, _viewContainerRef: ViewContainerRef);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerActions, never>;
@@ -618,7 +618,7 @@ export declare const matDatepickerAnimations: {
 /** Button that will close the datepicker and assign the current selection to the data model. */
 export declare class MatDatepickerApply {
     private _datepicker;
-    constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<unknown>, unknown>);
+    constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown>);
     _applySelection(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerApply, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerApply, "[matDatepickerApply], [matDateRangePickerApply]", never, {}, {}, never, never, false>;
@@ -774,8 +774,8 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
 
 /** Button that will close the datepicker and discard the current selection. */
 export declare class MatDatepickerCancel {
-    _datepicker: MatDatepickerBase<MatDatepickerControl<unknown>, unknown>;
-    constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<unknown>, unknown>);
+    _datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown>;
+    constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerCancel, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerCancel, "[matDatepickerCancel], [matDateRangePickerCancel]", never, {}, {}, never, never, false>;
 }
