@@ -9102,19 +9102,19 @@ var require_constants = __commonJS({
   "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/legacy-components-v15/constants.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.MAT_MDC_IMPORT_CHANGE = exports.MAT_IMPORT_CHANGE = exports.MIXINS = exports.COMPONENTS = void 0;
+    exports.MIXINS = exports.MDC_IMPORT_CHANGES = exports.MAT_IMPORT_CHANGES = exports.COMPONENTS = void 0;
     exports.COMPONENTS = [
       "autocomplete",
       "button",
+      "core",
       "card",
       "checkbox",
       "chips",
       "dialog",
       "form-field",
       "input",
+      "list",
       "menu",
-      "option",
-      "optgroup",
       "paginator",
       "progress-bar",
       "progress-spinner",
@@ -9127,20 +9127,20 @@ var require_constants = __commonJS({
       "tabs",
       "tooltip"
     ];
-    exports.MIXINS = exports.COMPONENTS.flatMap((component) => [
+    exports.MAT_IMPORT_CHANGES = exports.COMPONENTS.map((component) => ({
+      old: `@angular/material/${component}`,
+      new: `@angular/material/legacy-${component}`
+    }));
+    exports.MDC_IMPORT_CHANGES = exports.COMPONENTS.map((component) => ({
+      old: `@angular/material-experimental/mdc-${component}`,
+      new: `@angular/material/${component}`
+    }));
+    exports.MIXINS = exports.COMPONENTS.concat(["option", "optgroup"]).flatMap((component) => [
       `${component}-theme`,
       `${component}-color`,
       `${component}-density`,
       `${component}-typography`
     ]);
-    exports.MAT_IMPORT_CHANGE = {
-      old: "@angular/material/",
-      new: "@angular/material/legacy-"
-    };
-    exports.MAT_MDC_IMPORT_CHANGE = {
-      old: "@angular/material-experimental/mdc-",
-      new: "@angular/material/"
-    };
   }
 });
 
@@ -9231,23 +9231,28 @@ var require_legacy_components_v15 = __commonJS({
       _handleImportDeclaration(node) {
         var _a;
         const moduleSpecifier = node.moduleSpecifier;
-        if (moduleSpecifier.text.startsWith(constants_1.MAT_IMPORT_CHANGE.old)) {
-          this._tsReplaceAt(node, constants_1.MAT_IMPORT_CHANGE);
+        const matImportChange = this._findMatImportChange(moduleSpecifier);
+        if (matImportChange) {
+          this._tsReplaceAt(node, matImportChange);
           if (((_a = node.importClause) == null ? void 0 : _a.namedBindings) && ts.isNamedImports(node.importClause.namedBindings)) {
             this._handleNamedImportBindings(node.importClause.namedBindings);
           }
         }
-        if (moduleSpecifier.text.startsWith(constants_1.MAT_MDC_IMPORT_CHANGE.old)) {
-          this._tsReplaceAt(node, constants_1.MAT_MDC_IMPORT_CHANGE);
+        const mdcImportChange = this._findMdcImportChange(moduleSpecifier);
+        if (mdcImportChange) {
+          this._tsReplaceAt(node, mdcImportChange);
         }
       }
       _handleImportExpression(node) {
         const moduleSpecifier = node.arguments[0];
-        if (moduleSpecifier.text.startsWith(constants_1.MAT_IMPORT_CHANGE.old)) {
-          this._tsReplaceAt(node, constants_1.MAT_IMPORT_CHANGE);
+        const matImportChange = this._findMatImportChange(moduleSpecifier);
+        if (matImportChange) {
+          this._tsReplaceAt(node, matImportChange);
+          return;
         }
-        if (moduleSpecifier.text.startsWith(constants_1.MAT_MDC_IMPORT_CHANGE.old)) {
-          this._tsReplaceAt(node, constants_1.MAT_MDC_IMPORT_CHANGE);
+        const mdcImportChange = this._findMdcImportChange(moduleSpecifier);
+        if (mdcImportChange) {
+          this._tsReplaceAt(node, mdcImportChange);
         }
       }
       _handleNamedImportBindings(node) {
@@ -9261,10 +9266,16 @@ var require_legacy_components_v15 = __commonJS({
         }
       }
       _isDestructuredAsyncLegacyImport(node) {
-        return ts.isVariableDeclaration(node) && !!node.initializer && ts.isAwaitExpression(node.initializer) && this._isImportCallExpression(node.initializer.expression) && node.initializer.expression.arguments[0].text.startsWith(constants_1.MAT_IMPORT_CHANGE.old) && ts.isObjectBindingPattern(node.name);
+        return ts.isVariableDeclaration(node) && !!node.initializer && ts.isAwaitExpression(node.initializer) && this._isImportCallExpression(node.initializer.expression) && ts.isStringLiteral(node.initializer.expression.arguments[0]) && !!this._findMatImportChange(node.initializer.expression.arguments[0]) && ts.isObjectBindingPattern(node.name);
       }
       _isImportCallExpression(node) {
         return ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments.length === 1 && ts.isStringLiteralLike(node.arguments[0]);
+      }
+      _findMatImportChange(moduleSpecifier) {
+        return constants_1.MAT_IMPORT_CHANGES.find((change) => change.old === moduleSpecifier.text);
+      }
+      _findMdcImportChange(moduleSpecifier) {
+        return constants_1.MDC_IMPORT_CHANGES.find((change) => change.old === moduleSpecifier.text);
       }
       _tsReplaceAt(node, str) {
         const filePath = this.fileSystem.resolve(node.getSourceFile().fileName);
