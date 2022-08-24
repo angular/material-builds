@@ -9216,18 +9216,6 @@ var require_legacy_components_v15 = __commonJS({
           return;
         }
       }
-      _handleDestructuredAsyncImport(node) {
-        for (let i = 0; i < node.name.elements.length; i++) {
-          const n = node.name.elements[i];
-          const name = n.propertyName ? n.propertyName : n.name;
-          if (ts.isIdentifier(name)) {
-            const oldExport = name.escapedText.toString();
-            const suffix = oldExport.slice("Mat".length);
-            const newExport = n.propertyName ? `MatLegacy${suffix}` : `MatLegacy${suffix}: Mat${suffix}`;
-            this._tsReplaceAt(name, { old: oldExport, new: newExport });
-          }
-        }
-      }
       _handleImportDeclaration(node) {
         var _a;
         const moduleSpecifier = node.moduleSpecifier;
@@ -9255,15 +9243,47 @@ var require_legacy_components_v15 = __commonJS({
           this._tsReplaceAt(node, mdcImportChange);
         }
       }
+      _handleDestructuredAsyncImport(node) {
+        for (let i = 0; i < node.name.elements.length; i++) {
+          this._handleNamedBindings(node.name.elements[i]);
+        }
+      }
       _handleNamedImportBindings(node) {
         for (let i = 0; i < node.elements.length; i++) {
-          const n = node.elements[i];
-          const name = n.propertyName ? n.propertyName : n.name;
-          const oldExport = name.escapedText.toString();
-          const suffix = oldExport.slice("Mat".length);
-          const newExport = n.propertyName ? `MatLegacy${suffix}` : `MatLegacy${suffix} as Mat${suffix}`;
-          this._tsReplaceAt(name, { old: oldExport, new: newExport });
+          this._handleNamedBindings(node.elements[i]);
         }
+      }
+      _handleNamedBindings(node) {
+        const name = node.propertyName ? node.propertyName : node.name;
+        if (!ts.isIdentifier(name)) {
+          return;
+        }
+        const separator = ts.isImportSpecifier(node) ? " as " : ": ";
+        const oldExport = name.escapedText.toString();
+        const newExport = this._parseMatSymbol(oldExport);
+        if (newExport) {
+          const replacement = node.propertyName ? newExport : `${newExport}${separator}${oldExport}`;
+          this._tsReplaceAt(name, { old: oldExport, new: replacement });
+          return;
+        }
+      }
+      _parseMatSymbol(symbol) {
+        if (symbol.startsWith("Mat")) {
+          return `MatLegacy${symbol.slice("Mat".length)}`;
+        }
+        if (symbol.startsWith("mat")) {
+          return `matLegacy${symbol.slice("mat".length)}`;
+        }
+        if (symbol.startsWith("_Mat")) {
+          return `_MatLegacy${symbol.slice("_Mat".length)}`;
+        }
+        if (symbol.startsWith("MAT_")) {
+          return `MAT_LEGACY_${symbol.slice("MAT_".length)}`;
+        }
+        if (symbol.startsWith("_MAT_")) {
+          return `_MAT_LEGACY_${symbol.slice("_MAT_".length)}`;
+        }
+        return;
       }
       _isDestructuredAsyncLegacyImport(node) {
         return ts.isVariableDeclaration(node) && !!node.initializer && ts.isAwaitExpression(node.initializer) && this._isImportCallExpression(node.initializer.expression) && ts.isStringLiteral(node.initializer.expression.arguments[0]) && !!this._findMatImportChange(node.initializer.expression.arguments[0]) && ts.isObjectBindingPattern(node.name);
