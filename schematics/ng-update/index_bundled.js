@@ -9199,7 +9199,12 @@ var require_legacy_components_v15 = __commonJS({
         if (!namespace || !((_a = node.source) == null ? void 0 : _a.start)) {
           return;
         }
-        if (this._isLegacyMixin(node, namespace)) {
+        if (node.params.startsWith(`${namespace}.all-component-`)) {
+          this._replaceAt(filePath, node.source.start.offset, {
+            old: `${namespace}.all-`,
+            new: `${namespace}.all-legacy-`
+          });
+        } else if (this._isLegacyMixin(node, namespace)) {
           this._replaceAt(filePath, node.source.start.offset, {
             old: `${namespace}.`,
             new: `${namespace}.legacy-`
@@ -9207,6 +9212,9 @@ var require_legacy_components_v15 = __commonJS({
         }
       }
       _isLegacyMixin(node, namespace) {
+        if (!node.params.startsWith(`${namespace}.`)) {
+          return false;
+        }
         for (let i = 0; i < constants_1.MIXINS.length; i++) {
           if (node.params.startsWith(`${namespace}.${constants_1.MIXINS[i]}`)) {
             return true;
