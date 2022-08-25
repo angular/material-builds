@@ -9102,7 +9102,7 @@ var require_constants = __commonJS({
   "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/legacy-components-v15/constants.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.MIXINS = exports.MDC_IMPORT_CHANGES = exports.MAT_IMPORT_CHANGES = exports.COMPONENTS = void 0;
+    exports.MIXINS = exports.CUSTOM_TS_SYMBOL_RENAMINGS = exports.MDC_IMPORT_CHANGES = exports.MAT_IMPORT_CHANGES = exports.COMPONENTS = void 0;
     exports.COMPONENTS = [
       "autocomplete",
       "button",
@@ -9135,6 +9135,18 @@ var require_constants = __commonJS({
       old: `@angular/material-experimental/mdc-${component}`,
       new: `@angular/material/${component}`
     }));
+    exports.CUSTOM_TS_SYMBOL_RENAMINGS = [
+      { old: "ProgressAnimationEnd", new: "LegacyProgressAnimationEnd" },
+      { old: "ProgressBarMode", new: "LegacyProgressBarMode" },
+      { old: "ProgressSpinnerMode", new: "LegacyProgressSpinnerMode" },
+      { old: "AutoFocusTarget", new: "LegacyAutoFocusTarget" },
+      { old: "DialogRole", new: "LegacyDialogRole" },
+      { old: "DialogPosition", new: "LegacyDialogPosition" },
+      { old: "_closeDialogVia", new: "_closeLegacyDialogVia" },
+      { old: "MatTestDialogOpener", new: "MatTestLegacyDialogOpener" },
+      { old: "SimpleSnackBar", new: "LegacySimpleSnackBar" },
+      { old: "TextOnlySnackBar", new: "LegacyTextOnlySnackBar" }
+    ];
     exports.MIXINS = exports.COMPONENTS.concat(["option", "optgroup"]).flatMap((component) => [
       `${component}-theme`,
       `${component}-color`,
@@ -9260,6 +9272,12 @@ var require_legacy_components_v15 = __commonJS({
         }
         const separator = ts.isImportSpecifier(node) ? " as " : ": ";
         const oldExport = name.escapedText.toString();
+        const customMapping = constants_1.CUSTOM_TS_SYMBOL_RENAMINGS.find((v) => v.old === oldExport);
+        if (customMapping) {
+          const replacement = node.propertyName ? customMapping.new : `${customMapping.new}${separator}${customMapping.old}`;
+          this._tsReplaceAt(name, { old: oldExport, new: replacement });
+          return;
+        }
         const newExport = this._parseMatSymbol(oldExport);
         if (newExport) {
           const replacement = node.propertyName ? newExport : `${newExport}${separator}${oldExport}`;
