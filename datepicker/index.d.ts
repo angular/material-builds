@@ -313,6 +313,10 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     comparisonStart: D | null;
     /** End of the comparison range. */
     comparisonEnd: D | null;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName: string | null;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName: string | null;
     /** Emits when the currently selected date changes. */
     readonly selectedChange: EventEmitter<D | null>;
     /**
@@ -372,7 +376,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     /** Returns the component instance that corresponds to the current calendar view. */
     private _getCurrentViewComponent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendar<any>, [null, { optional: true; }, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": "headerComponent"; "startAt": "startAt"; "startView": "startView"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; }, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": "headerComponent"; "startAt": "startAt"; "startView": "startView"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; }, never, never, false>;
 }
 
 /**
@@ -423,6 +427,10 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
     previewStart: number | null;
     /** End of the preview range. */
     previewEnd: number | null;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName: string | null;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName: string | null;
     /** Emits when a new value is selected. */
     readonly selectedValueChange: EventEmitter<MatCalendarUserEvent<number>>;
     /** Emits when the preview has changed as a result of a user action. */
@@ -502,6 +510,8 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
     _isPreviewEnd(value: number): boolean;
     /** Gets whether a value is inside the preview range. */
     _isInPreview(value: number): boolean;
+    /** Gets ids of aria descriptions for the start and end of a date range. */
+    _getDescribedby(value: number): string | null;
     /**
      * Event handler for when the user enters an element
      * inside the calendar body (e.g. by hovering in or focus).
@@ -514,8 +524,11 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
     private _leaveHandler;
     /** Finds the MatCalendarCell that corresponds to a DOM node. */
     private _getCellFromElement;
+    private _id;
+    _startDateLabelId: string;
+    _endDateLabelId: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarBody, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody, "[mat-calendar-body]", ["matCalendarBody"], { "label": "label"; "rows": "rows"; "todayValue": "todayValue"; "startValue": "startValue"; "endValue": "endValue"; "labelMinRequiredCells": "labelMinRequiredCells"; "numCols": "numCols"; "activeCell": "activeCell"; "isRange": "isRange"; "cellAspectRatio": "cellAspectRatio"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "previewStart": "previewStart"; "previewEnd": "previewEnd"; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; }, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody, "[mat-calendar-body]", ["matCalendarBody"], { "label": "label"; "rows": "rows"; "todayValue": "todayValue"; "startValue": "startValue"; "endValue": "endValue"; "labelMinRequiredCells": "labelMinRequiredCells"; "numCols": "numCols"; "activeCell": "activeCell"; "isRange": "isRange"; "cellAspectRatio": "cellAspectRatio"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "previewStart": "previewStart"; "previewEnd": "previewEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; }, never, never, false>;
 }
 
 /**
@@ -802,6 +815,10 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     comparisonStart: D | null;
     /** End of the comparison range. */
     comparisonEnd: D | null;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName: string | null;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName: string | null;
     /** Whether the datepicker is above or below the input. */
     _isAbove: boolean;
     /** Current state of the animation. */
@@ -1138,7 +1155,7 @@ export declare class MatDateRangeInput<D> implements MatLegacyFormFieldControl<D
     private _closedSubscription;
     /** Current value of the range input. */
     get value(): DateRange<D> | null;
-    /** Unique ID for the input. */
+    /** Unique ID for the group. */
     id: string;
     /** Whether the control is focused. */
     focused: boolean;
@@ -1234,6 +1251,8 @@ export declare class MatDateRangeInput<D> implements MatLegacyFormFieldControl<D
     _shouldHideSeparator(): boolean | "" | null;
     /** Gets the value for the `aria-labelledby` attribute of the inputs. */
     _getAriaLabelledby(): string | null;
+    _getStartDateAccessibleName(): string;
+    _getEndDateAccessibleName(): string;
     /** Updates the focused state of the range input. */
     _updateFocus(origin: FocusOrigin): void;
     /** Re-runs the validators on the start/end inputs. */
@@ -1306,6 +1325,8 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected _parentDisabled(): boolean;
     protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueProgrammatically(value: D | null): void;
+    /** return the ARIA accessible name of the input element */
+    _getAccessibleName(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInputPartBase<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, {}, {}, never, never, false>;
 }
@@ -1322,6 +1343,8 @@ export declare class MatDateRangePicker<D> extends MatDatepickerBase<MatDateRang
  * @docs-private
  */
 declare interface MatDateRangePickerInput<D> extends MatDatepickerControl<D> {
+    _getEndDateAccessibleName(): string | null;
+    _getStartDateAccessibleName(): string | null;
     comparisonStart: D | null;
     comparisonEnd: D | null;
 }
@@ -1436,6 +1459,10 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     comparisonStart: D | null;
     /** End of the comparison range. */
     comparisonEnd: D | null;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName: string | null;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName: string | null;
     /** Emits when a new date is selected. */
     readonly selectedChange: EventEmitter<D | null>;
     /** Emits when any date is selected. */
@@ -1527,7 +1554,7 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     /** Gets whether a date can be selected in the month view. */
     private _canSelect;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMonthView<any>, [null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": "activeDate"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "activeDateChange": "activeDateChange"; }, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": "activeDate"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "activeDateChange": "activeDateChange"; }, never, never, false>;
 }
 
 /**
