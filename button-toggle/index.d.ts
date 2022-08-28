@@ -210,7 +210,7 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     registerOnTouched(fn: any): void;
     setDisabledState(isDisabled: boolean): void;
     /** Dispatch change event with current selection and group value. */
-    _emitChangeEvent(): void;
+    _emitChangeEvent(toggle: MatButtonToggle): void;
     /**
      * Syncs a button toggle's selected state with the model value.
      * @param toggle Toggle to be synced.

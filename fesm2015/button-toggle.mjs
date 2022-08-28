@@ -142,10 +142,8 @@ class MatButtonToggleGroup {
         this.disabled = isDisabled;
     }
     /** Dispatch change event with current selection and group value. */
-    _emitChangeEvent() {
-        const selected = this.selected;
-        const source = Array.isArray(selected) ? selected[selected.length - 1] : selected;
-        const event = new MatButtonToggleChange(source, this.value);
+    _emitChangeEvent(toggle) {
+        const event = new MatButtonToggleChange(toggle, this.value);
         this._controlValueAccessorChangeFn(event.value);
         this.change.emit(event);
     }
@@ -177,10 +175,10 @@ class MatButtonToggleGroup {
         // the side-effect is that we may end up updating the model value out of sequence in others
         // The `deferEvents` flag allows us to decide whether to do it on a case-by-case basis.
         if (deferEvents) {
-            Promise.resolve().then(() => this._updateModelValue(isUserInput));
+            Promise.resolve().then(() => this._updateModelValue(toggle, isUserInput));
         }
         else {
-            this._updateModelValue(isUserInput);
+            this._updateModelValue(toggle, isUserInput);
         }
     }
     /** Checks whether a button toggle is selected. */
@@ -231,10 +229,10 @@ class MatButtonToggleGroup {
         }
     }
     /** Syncs up the group's value with the model and emits the change event. */
-    _updateModelValue(isUserInput) {
+    _updateModelValue(toggle, isUserInput) {
         // Only emit the change event for user input.
         if (isUserInput) {
-            this._emitChangeEvent();
+            this._emitChangeEvent(toggle);
         }
         // Note: we emit this one no matter whether it was a user interaction, because
         // it is used by Angular to sync up the two-way data binding.
