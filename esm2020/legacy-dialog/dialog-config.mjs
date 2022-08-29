@@ -1,0 +1,18 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { MatDialogConfig as DialogConfigBase, _defaultParams } from '@angular/material/dialog';
+export class MatLegacyDialogConfig extends DialogConfigBase {
+    constructor() {
+        super(...arguments);
+        /** Duration of the enter animation. Has to be a valid CSS value (e.g. 100ms). */
+        this.enterAnimationDuration = _defaultParams.params.enterAnimationDuration;
+        /** Duration of the exit animation. Has to be a valid CSS value (e.g. 50ms). */
+        this.exitAnimationDuration = _defaultParams.params.exitAnimationDuration;
+    }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGlhbG9nLWNvbmZpZy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9sZWdhY3ktZGlhbG9nL2RpYWxvZy1jb25maWcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFDLGVBQWUsSUFBSSxnQkFBZ0IsRUFBRSxjQUFjLEVBQUMsTUFBTSwwQkFBMEIsQ0FBQztBQUU3RixNQUFNLE9BQU8scUJBQStCLFNBQVEsZ0JBQW1CO0lBQXZFOztRQUNFLGlGQUFpRjtRQUN4RSwyQkFBc0IsR0FBWSxjQUFjLENBQUMsTUFBTSxDQUFDLHNCQUFzQixDQUFDO1FBRXhGLCtFQUErRTtRQUN0RSwwQkFBcUIsR0FBWSxjQUFjLENBQUMsTUFBTSxDQUFDLHFCQUFxQixDQUFDO0lBQ3hGLENBQUM7Q0FBQSIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge01hdERpYWxvZ0NvbmZpZyBhcyBEaWFsb2dDb25maWdCYXNlLCBfZGVmYXVsdFBhcmFtc30gZnJvbSAnQGFuZ3VsYXIvbWF0ZXJpYWwvZGlhbG9nJztcblxuZXhwb3J0IGNsYXNzIE1hdExlZ2FjeURpYWxvZ0NvbmZpZzxEID0gYW55PiBleHRlbmRzIERpYWxvZ0NvbmZpZ0Jhc2U8RD4ge1xuICAvKiogRHVyYXRpb24gb2YgdGhlIGVudGVyIGFuaW1hdGlvbi4gSGFzIHRvIGJlIGEgdmFsaWQgQ1NTIHZhbHVlIChlLmcuIDEwMG1zKS4gKi9cbiAgb3ZlcnJpZGUgZW50ZXJBbmltYXRpb25EdXJhdGlvbj86IHN0cmluZyA9IF9kZWZhdWx0UGFyYW1zLnBhcmFtcy5lbnRlckFuaW1hdGlvbkR1cmF0aW9uO1xuXG4gIC8qKiBEdXJhdGlvbiBvZiB0aGUgZXhpdCBhbmltYXRpb24uIEhhcyB0byBiZSBhIHZhbGlkIENTUyB2YWx1ZSAoZS5nLiA1MG1zKS4gKi9cbiAgb3ZlcnJpZGUgZXhpdEFuaW1hdGlvbkR1cmF0aW9uPzogc3RyaW5nID0gX2RlZmF1bHRQYXJhbXMucGFyYW1zLmV4aXRBbmltYXRpb25EdXJhdGlvbjtcbn1cbiJdfQ==

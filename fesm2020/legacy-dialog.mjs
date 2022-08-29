@@ -6,12 +6,11 @@ import { PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, InjectionToken, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
-import * as i2$1 from '@angular/common';
+import * as i2 from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import * as i1 from '@angular/cdk/a11y';
-import * as i2 from '@angular/material/dialog';
-import { _MatDialogContainerBase, matDialogAnimations, MatDialogRef, _MatDialogBase, _closeDialogVia } from '@angular/material/dialog';
-export { MAT_DIALOG_SCROLL_STRATEGY_FACTORY as MAT_LEGACY_DIALOG_SCROLL_STRATEGY_FACTORY, MatDialogConfig as MatLegacyDialogConfig, _MatDialogBase as _MatLegacyDialogBase, _MatDialogContainerBase as _MatLegacyDialogContainerBase, _closeDialogVia as _closeLegacyDialogVia, matDialogAnimations as matLegacyDialogAnimations } from '@angular/material/dialog';
+import { MatDialogConfig, _defaultParams, _MatDialogContainerBase, matDialogAnimations, MatDialogRef, _MatDialogBase, _closeDialogVia } from '@angular/material/dialog';
+export { MAT_DIALOG_SCROLL_STRATEGY_FACTORY as MAT_LEGACY_DIALOG_SCROLL_STRATEGY_FACTORY, _MatDialogBase as _MatLegacyDialogBase, _MatDialogContainerBase as _MatLegacyDialogContainerBase, _closeDialogVia as _closeLegacyDialogVia, matDialogAnimations as matLegacyDialogAnimations } from '@angular/material/dialog';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
@@ -28,6 +27,23 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 const defaultParams = {
     params: { enterAnimationDuration: '150ms', exitAnimationDuration: '75ms' },
 };
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+class MatLegacyDialogConfig extends MatDialogConfig {
+    constructor() {
+        super(...arguments);
+        /** Duration of the enter animation. Has to be a valid CSS value (e.g. 100ms). */
+        this.enterAnimationDuration = _defaultParams.params.enterAnimationDuration;
+        /** Duration of the exit animation. Has to be a valid CSS value (e.g. 50ms). */
+        this.exitAnimationDuration = _defaultParams.params.exitAnimationDuration;
+    }
+}
 
 /**
  * Internal component that wraps user-provided dialog content.
@@ -76,7 +92,7 @@ class MatLegacyDialogContainer extends _MatDialogContainerBase {
         };
     }
 }
-MatLegacyDialogContainer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyDialogContainer, deps: [{ token: i0.ElementRef }, { token: i1.FocusTrapFactory }, { token: DOCUMENT, optional: true }, { token: i2.MatDialogConfig }, { token: i1.InteractivityChecker }, { token: i0.NgZone }, { token: i1$1.OverlayRef }, { token: i0.ChangeDetectorRef }, { token: i1.FocusMonitor }], target: i0.ɵɵFactoryTarget.Component });
+MatLegacyDialogContainer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyDialogContainer, deps: [{ token: i0.ElementRef }, { token: i1.FocusTrapFactory }, { token: DOCUMENT, optional: true }, { token: MatLegacyDialogConfig }, { token: i1.InteractivityChecker }, { token: i0.NgZone }, { token: i1$1.OverlayRef }, { token: i0.ChangeDetectorRef }, { token: i1.FocusMonitor }], target: i0.ɵɵFactoryTarget.Component });
 MatLegacyDialogContainer.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyDialogContainer, selector: "mat-dialog-container", host: { attributes: { "tabindex": "-1" }, listeners: { "@dialogContainer.start": "_onAnimationStart($event)", "@dialogContainer.done": "_onAnimationDone($event)" }, properties: { "attr.aria-modal": "_config.ariaModal", "id": "_config.id", "attr.role": "_config.role", "attr.aria-labelledby": "_config.ariaLabel ? null : _ariaLabelledBy", "attr.aria-label": "_config.ariaLabel", "attr.aria-describedby": "_config.ariaDescribedBy || null", "@dialogContainer": "_getAnimationState()" }, classAttribute: "mat-dialog-container" }, usesInheritance: true, ngImport: i0, template: "<ng-template cdkPortalOutlet></ng-template>\n", styles: [".mat-dialog-container{display:block;padding:24px;border-radius:4px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}.cdk-high-contrast-active .mat-dialog-container{outline:solid 1px}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:8px 0;display:flex;flex-wrap:wrap;min-height:52px;align-items:center;box-sizing:content-box;margin-bottom:-24px}.mat-dialog-actions.mat-dialog-actions-align-center,.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions.mat-dialog-actions-align-end,.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions .mat-button-base+.mat-button-base,.mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}"], dependencies: [{ kind: "directive", type: i4.CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], animations: [matDialogAnimations.dialogContainer], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyDialogContainer, decorators: [{
             type: Component,
@@ -98,7 +114,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                 }, {
                     type: Inject,
                     args: [DOCUMENT]
-                }] }, { type: i2.MatDialogConfig }, { type: i1.InteractivityChecker }, { type: i0.NgZone }, { type: i1$1.OverlayRef }, { type: i0.ChangeDetectorRef }, { type: i1.FocusMonitor }]; } });
+                }] }, { type: MatLegacyDialogConfig }, { type: i1.InteractivityChecker }, { type: i0.NgZone }, { type: i1$1.OverlayRef }, { type: i0.ChangeDetectorRef }, { type: i1.FocusMonitor }]; } });
 
 /**
  * @license
@@ -157,15 +173,16 @@ class MatLegacyDialog extends _MatDialogBase {
      */
     animationMode) {
         super(overlay, injector, defaultOptions, parentDialog, overlayContainer, scrollStrategy, MatLegacyDialogRef, MatLegacyDialogContainer, MAT_LEGACY_DIALOG_DATA, animationMode);
+        this.dialogConfigClass = MatLegacyDialogConfig;
     }
 }
-MatLegacyDialog.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyDialog, deps: [{ token: i1$1.Overlay }, { token: i0.Injector }, { token: i2$1.Location, optional: true }, { token: MAT_LEGACY_DIALOG_DEFAULT_OPTIONS, optional: true }, { token: MAT_LEGACY_DIALOG_SCROLL_STRATEGY }, { token: MatLegacyDialog, optional: true, skipSelf: true }, { token: i1$1.OverlayContainer }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
+MatLegacyDialog.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyDialog, deps: [{ token: i1$1.Overlay }, { token: i0.Injector }, { token: i2.Location, optional: true }, { token: MAT_LEGACY_DIALOG_DEFAULT_OPTIONS, optional: true }, { token: MAT_LEGACY_DIALOG_SCROLL_STRATEGY }, { token: MatLegacyDialog, optional: true, skipSelf: true }, { token: i1$1.OverlayContainer }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Injectable });
 MatLegacyDialog.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyDialog });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyDialog, decorators: [{
             type: Injectable
-        }], ctorParameters: function () { return [{ type: i1$1.Overlay }, { type: i0.Injector }, { type: i2$1.Location, decorators: [{
+        }], ctorParameters: function () { return [{ type: i1$1.Overlay }, { type: i0.Injector }, { type: i2.Location, decorators: [{
                     type: Optional
-                }] }, { type: i2.MatDialogConfig, decorators: [{
+                }] }, { type: MatLegacyDialogConfig, decorators: [{
                     type: Optional
                 }, {
                     type: Inject,
@@ -430,5 +447,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_LEGACY_DIALOG_DATA, MAT_LEGACY_DIALOG_DEFAULT_OPTIONS, MAT_LEGACY_DIALOG_SCROLL_STRATEGY, MAT_LEGACY_DIALOG_SCROLL_STRATEGY_PROVIDER, MAT_LEGACY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MatLegacyDialog, MatLegacyDialogActions, MatLegacyDialogClose, MatLegacyDialogContainer, MatLegacyDialogContent, MatLegacyDialogModule, MatLegacyDialogRef, MatLegacyDialogTitle };
+export { MAT_LEGACY_DIALOG_DATA, MAT_LEGACY_DIALOG_DEFAULT_OPTIONS, MAT_LEGACY_DIALOG_SCROLL_STRATEGY, MAT_LEGACY_DIALOG_SCROLL_STRATEGY_PROVIDER, MAT_LEGACY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MatLegacyDialog, MatLegacyDialogActions, MatLegacyDialogClose, MatLegacyDialogConfig, MatLegacyDialogContainer, MatLegacyDialogContent, MatLegacyDialogModule, MatLegacyDialogRef, MatLegacyDialogTitle };
 //# sourceMappingURL=legacy-dialog.mjs.map

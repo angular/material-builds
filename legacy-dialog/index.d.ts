@@ -17,10 +17,10 @@ import { DialogPosition as LegacyDialogPosition } from '@angular/material/dialog
 import { DialogRole as LegacyDialogRole } from '@angular/material/dialog';
 import { Location as Location_2 } from '@angular/common';
 import { MAT_DIALOG_SCROLL_STRATEGY_FACTORY as MAT_LEGACY_DIALOG_SCROLL_STRATEGY_FACTORY } from '@angular/material/dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { matDialogAnimations as matLegacyDialogAnimations } from '@angular/material/dialog';
 import { _MatDialogBase as _MatLegacyDialogBase } from '@angular/material/dialog';
-import { MatDialogConfig as MatLegacyDialogConfig } from '@angular/material/dialog';
 import { _MatDialogContainerBase as _MatLegacyDialogContainerBase } from '@angular/material/dialog';
 import { MatDialogState as MatLegacyDialogState } from '@angular/material/dialog';
 import { NgZone } from '@angular/core';
@@ -80,6 +80,7 @@ export declare function MAT_LEGACY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overl
  * Service to open Material Design modal dialogs.
  */
 export declare class MatLegacyDialog extends _MatLegacyDialogBase<MatLegacyDialogContainer> {
+    protected dialogConfigClass: typeof MatLegacyDialogConfig;
     constructor(overlay: Overlay, injector: Injector, 
     /**
      * @deprecated `_location` parameter to be removed.
@@ -150,7 +151,12 @@ export declare class MatLegacyDialogClose implements OnInit, OnChanges {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyDialogClose, "[mat-dialog-close], [matDialogClose]", ["matDialogClose"], { "ariaLabel": "aria-label"; "type": "type"; "dialogResult": "mat-dialog-close"; "_matDialogClose": "matDialogClose"; }, {}, never, never, false>;
 }
 
-export { MatLegacyDialogConfig }
+export declare class MatLegacyDialogConfig<D = any> extends MatDialogConfig<D> {
+    /** Duration of the enter animation. Has to be a valid CSS value (e.g. 100ms). */
+    enterAnimationDuration?: string;
+    /** Duration of the exit animation. Has to be a valid CSS value (e.g. 50ms). */
+    exitAnimationDuration?: string;
+}
 
 /**
  * Internal component that wraps user-provided dialog content.
@@ -171,8 +177,8 @@ export declare class MatLegacyDialogContainer extends _MatLegacyDialogContainerB
     _getAnimationState(): {
         value: "void" | "enter" | "exit";
         params: {
-            enterAnimationDuration: string;
-            exitAnimationDuration: string;
+            enterAnimationDuration: string | number;
+            exitAnimationDuration: string | number;
         };
     };
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyDialogContainer, [null, null, { optional: true; }, null, null, null, null, null, null]>;

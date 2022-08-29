@@ -43,6 +43,17 @@ export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-headi
  */
 export declare function _closeDialogVia<R>(ref: MatDialogRef<R>, interactionType: FocusOrigin, result?: R): void;
 
+/**
+ * Default parameters for the animation for backwards compatibility.
+ * @docs-private
+ */
+export declare const _defaultParams: {
+    params: {
+        enterAnimationDuration: string;
+        exitAnimationDuration: string;
+    };
+};
+
 /** Possible overrides for a dialog's position. */
 export declare interface DialogPosition {
     /** Override for the dialog's top position. */
@@ -164,6 +175,7 @@ export declare abstract class _MatDialogBase<C extends _MatDialogContainerBase> 
     private _scrollStrategy;
     protected _idPrefix: string;
     private _dialog;
+    protected dialogConfigClass: typeof MatDialogConfig;
     /** Keeps track of the currently-open dialogs. */
     get openDialogs(): MatDialogRef<any>[];
     /** Stream that emits when a dialog has been opened. */
@@ -312,10 +324,18 @@ export declare class MatDialogConfig<D = any> {
     closeOnNavigation?: boolean;
     /** Alternate `ComponentFactoryResolver` to use when resolving the associated component. */
     componentFactoryResolver?: ComponentFactoryResolver;
-    /** Duration of the enter animation. Has to be a valid CSS value (e.g. 100ms). */
-    enterAnimationDuration?: string;
-    /** Duration of the exit animation. Has to be a valid CSS value (e.g. 50ms). */
-    exitAnimationDuration?: string;
+    /**
+     * Duration of the enter animation in ms.
+     * Should be a number, string type is deprecated.
+     * @breaking-change 17.0.0 Remove string signature.
+     */
+    enterAnimationDuration?: string | number;
+    /**
+     * Duration of the exit animation in ms.
+     * Should be a number, string type is deprecated.
+     * @breaking-change 17.0.0 Remove string signature.
+     */
+    exitAnimationDuration?: string | number;
 }
 
 /**
