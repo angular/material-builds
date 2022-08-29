@@ -53,7 +53,7 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     /** The scroll position of the overlay panel, calculated to center the selected option. */
     private _scrollTop;
     /** The last measured value for the trigger's client bounding rect. */
-    _triggerRect: ClientRect;
+    private _triggerRect;
     /** The cached font-size of the trigger element. */
     _triggerFontSize: number;
     /** The value of the select panel's transform-origin property. */
@@ -83,6 +83,7 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     protected _positioningSettled(): void;
     protected _panelDoneAnimating(isOpen: boolean): void;
     protected _getChangeEvent(value: any): MatSelectChange;
+    protected _getOverlayMinWidth(): number;
     /**
      * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text when
