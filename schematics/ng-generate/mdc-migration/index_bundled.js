@@ -6299,7 +6299,7 @@ var StyleMigrator = class {
       atRule2.root().walkAtRules((rule2) => {
         for (const index2 in replacements) {
           const mixinName = replacements[index2] + (mixinArgumentMatches ? mixinArgumentMatches[0] : "");
-          if (rule2.params.includes(mixinName)) {
+          if (rule2.params.includes("." + mixinName)) {
             replacements.splice(Number(index2), 1);
           }
         }
@@ -6322,7 +6322,7 @@ var StyleMigrator = class {
   }
   replaceAllComponentThemeMixin(allComponentThemesNode) {
     allComponentThemesNode.cloneBefore({
-      params: allComponentThemesNode.params.replace("all-component-themes", "all-mdc-component-themes")
+      params: allComponentThemesNode.params.replace("all-legacy-component-themes", "all-component-themes")
     });
     allComponentThemesNode.remove();
   }
@@ -6360,8 +6360,8 @@ var AutocompleteStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-autocomplete"];
     this.mixinChanges = [
       {
-        old: "autocomplete-theme",
-        new: ["mdc-autocomplete-theme", "mdc-autocomplete-typography"]
+        old: "legacy-autocomplete-theme",
+        new: ["autocomplete-theme", "autocomplete-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-autocomplete", new: ".mat-mdc-autocomplete" }];
@@ -6376,14 +6376,14 @@ var ButtonStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-button"];
     this.mixinChanges = [
       {
-        old: "button-theme",
+        old: "legacy-button-theme",
         new: [
-          "mdc-button-theme",
-          "mdc-button-typography",
-          "mdc-fab-theme",
-          "mdc-fab-typography",
-          "mdc-icon-button-theme",
-          "mdc-icon-button-typography"
+          "button-theme",
+          "button-typography",
+          "fab-theme",
+          "fab-typography",
+          "icon-button-theme",
+          "icon-button-typography"
         ],
         checkForDuplicates: true
       }
@@ -6409,8 +6409,8 @@ var CardStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-card"];
     this.mixinChanges = [
       {
-        old: "card-theme",
-        new: ["mdc-card-theme", "mdc-card-typography"]
+        old: "legacy-card-theme",
+        new: ["card-theme", "card-typography"]
       }
     ];
     this.classChanges = [
@@ -21272,8 +21272,8 @@ var CheckboxStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-checkbox"];
     this.mixinChanges = [
       {
-        old: "checkbox-theme",
-        new: ["mdc-checkbox-theme", "mdc-checkbox-typography"]
+        old: "legacy-checkbox-theme",
+        new: ["checkbox-theme", "checkbox-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-checkbox", new: ".mat-mdc-checkbox" }];
@@ -21288,8 +21288,8 @@ var ChipsStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-chip"];
     this.mixinChanges = [
       {
-        old: "chips-theme",
-        new: ["mdc-chips-theme", "mdc-chips-typography"]
+        old: "legacy-chips-theme",
+        new: ["chips-theme", "chips-typography"]
       }
     ];
     this.classChanges = [
@@ -21391,8 +21391,8 @@ var DialogStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-dialog"];
     this.mixinChanges = [
       {
-        old: "dialog-theme",
-        new: ["mdc-dialog-theme", "mdc-dialog-typography"]
+        old: "legacy-dialog-theme",
+        new: ["dialog-theme", "dialog-typography"]
       }
     ];
     this.classChanges = [
@@ -21430,8 +21430,8 @@ var FormFieldStylesMigrator = class extends StyleMigrator {
     ];
     this.mixinChanges = [
       {
-        old: "form-field-theme",
-        new: ["mdc-form-field-theme", "mdc-form-field-typography"]
+        old: "legacy-form-field-theme",
+        new: ["form-field-theme", "form-field-typography"]
       }
     ];
     this.classChanges = [
@@ -21459,8 +21459,8 @@ var InputStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-input"];
     this.mixinChanges = [
       {
-        old: "input-theme",
-        new: ["mdc-input-theme", "mdc-input-typography"]
+        old: "legacy-input-theme",
+        new: ["input-theme", "input-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-input-element", new: ".mat-mdc-input-element" }];
@@ -21475,8 +21475,8 @@ var ListStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-list"];
     this.mixinChanges = [
       {
-        old: "list-theme",
-        new: ["mdc-list-theme", "mdc-list-typography"]
+        old: "legacy-list-theme",
+        new: ["list-theme", "list-typography"]
       }
     ];
     this.classChanges = [
@@ -21498,8 +21498,8 @@ var MenuStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-menu"];
     this.mixinChanges = [
       {
-        old: "menu-theme",
-        new: ["mdc-menu-theme", "mdc-menu-typography"]
+        old: "legacy-menu-theme",
+        new: ["menu-theme", "menu-typography"]
       }
     ];
     this.classChanges = [
@@ -21523,8 +21523,8 @@ var PaginatorStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-paginator"];
     this.mixinChanges = [
       {
-        old: "paginator-theme",
-        new: ["mdc-paginator-theme", "mdc-paginator-typography"]
+        old: "legacy-paginator-theme",
+        new: ["paginator-theme", "paginator-typography"]
       }
     ];
     this.classChanges = [
@@ -21553,8 +21553,8 @@ var ProgressBarStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-progress-bar"];
     this.mixinChanges = [
       {
-        old: "progress-bar-theme",
-        new: ["mdc-progress-bar-theme", "mdc-progress-bar-typography"]
+        old: "legacy-progress-bar-theme",
+        new: ["progress-bar-theme", "progress-bar-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-progress-bar", new: ".mat-mdc-progress-bar" }];
@@ -21569,8 +21569,8 @@ var ProgressSpinnerStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = [];
     this.mixinChanges = [
       {
-        old: "progress-spinner-theme",
-        new: ["mdc-progress-spinner-theme", "mdc-progress-spinner-typography"]
+        old: "legacy-progress-spinner-theme",
+        new: ["progress-spinner-theme", "progress-spinner-typography"]
       }
     ];
     this.classChanges = [
@@ -21588,8 +21588,8 @@ var RadioStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-radio"];
     this.mixinChanges = [
       {
-        old: "radio-theme",
-        new: ["mdc-radio-theme", "mdc-radio-typography"]
+        old: "legacy-radio-theme",
+        new: ["radio-theme", "radio-typography"]
       }
     ];
     this.classChanges = [
@@ -21724,8 +21724,8 @@ var SelectStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-select", "mat-option"];
     this.mixinChanges = [
       {
-        old: "select-theme",
-        new: ["mdc-select-theme", "mdc-select-typography", "mdc-core-theme", "mdc-core-typography"]
+        old: "legacy-select-theme",
+        new: ["select-theme", "select-typography", "core-theme", "core-typography"]
       }
     ];
     this.classChanges = [
@@ -21760,8 +21760,8 @@ var SliderStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-slider"];
     this.mixinChanges = [
       {
-        old: "slider-theme",
-        new: ["mdc-slider-theme", "mdc-slider-typography"]
+        old: "legacy-slider-theme",
+        new: ["slider-theme", "slider-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-slider", new: ".mat-mdc-slider" }];
@@ -21853,8 +21853,8 @@ var TooltipStylesMigrator = class extends StyleMigrator {
     this.deprecatedPrefixes = ["mat-tooltip"];
     this.mixinChanges = [
       {
-        old: "tooltip-theme",
-        new: ["mdc-tooltip-theme", "mdc-tooltip-typography"]
+        old: "legacy-tooltip-theme",
+        new: ["tooltip-theme", "tooltip-typography"]
       }
     ];
     this.classChanges = [
@@ -22037,7 +22037,7 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
     });
     if (migrator) {
       migrator.styles.replaceMixin(this.namespace, atRule2);
-    } else if (atRule2.params.includes("all-component-themes") && atRule2.parent) {
+    } else if (atRule2.params.includes("all-legacy-component-themes") && atRule2.parent) {
       (_a = this.upgradeData[0]) == null ? void 0 : _a.styles.replaceAllComponentThemeMixin(atRule2);
     }
   }
