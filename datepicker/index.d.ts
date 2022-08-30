@@ -862,7 +862,7 @@ declare const _MatDatepickerContentBase: _Constructor<CanColor> & _AbstractConst
 };
 
 /** Form control that can be associated with a datepicker. */
-declare interface MatDatepickerControl<D> {
+export declare interface MatDatepickerControl<D> {
     getStartValue(): D | null;
     getThemePalette(): ThemePalette;
     min: D | null;
@@ -1088,7 +1088,7 @@ export declare class MatDatepickerModule {
 }
 
 /** A datepicker that can be attached to a {@link MatDatepickerControl}. */
-declare interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> {
+export declare interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> {
     /** Stream that emits whenever the date picker is closed. */
     closedStream: EventEmitter<void>;
     /** Color palette to use on the datepicker's calendar. */
