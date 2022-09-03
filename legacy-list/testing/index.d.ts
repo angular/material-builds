@@ -7,24 +7,38 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatDividerHarness } from '@angular/material/divider/testing';
 import { MatLegacyListOptionCheckboxPosition } from '@angular/material/legacy-list';
 
-export declare interface ActionListHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyActionListHarnessFilters extends BaseHarnessFilters {
 }
 
-export declare interface ActionListItemHarnessFilters extends BaseListItemHarnessFilters {
+export declare interface LegacyActionListItemHarnessFilters extends LegacyBaseListItemHarnessFilters {
 }
 
-export declare interface BaseListItemHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyBaseListItemHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;
 }
 
-export declare interface ListHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyListHarnessFilters extends BaseHarnessFilters {
 }
 
-export declare interface ListItemHarnessFilters extends BaseListItemHarnessFilters {
+export declare interface LegacyListItemHarnessFilters extends LegacyBaseListItemHarnessFilters {
 }
 
-export declare interface ListOptionHarnessFilters extends BaseListItemHarnessFilters {
+export declare interface LegacyListOptionHarnessFilters extends LegacyBaseListItemHarnessFilters {
     selected?: boolean;
+}
+
+export declare interface LegacyNavListHarnessFilters extends BaseHarnessFilters {
+}
+
+export declare interface LegacyNavListItemHarnessFilters extends LegacyBaseListItemHarnessFilters {
+    href?: string | RegExp | null;
+}
+
+export declare interface LegacySelectionListHarnessFilters extends BaseHarnessFilters {
+}
+
+export declare interface LegacySubheaderHarnessFilters extends BaseHarnessFilters {
+    text?: string | RegExp;
 }
 
 /** Represents a section of a list falling under a specific header. */
@@ -36,7 +50,7 @@ declare interface ListSection<I> {
 }
 
 /** Harness for interacting with a standard mat-action-list in tests. */
-export declare class MatLegacyActionListHarness extends MatLegacyListHarnessBase<typeof MatLegacyActionListItemHarness, MatLegacyActionListItemHarness, ActionListItemHarnessFilters> {
+export declare class MatLegacyActionListHarness extends MatLegacyListHarnessBase<typeof MatLegacyActionListItemHarness, MatLegacyActionListItemHarness, LegacyActionListItemHarnessFilters> {
     /** The selector for the host element of a `MatActionList` instance. */
     static hostSelector: string;
     /**
@@ -45,7 +59,7 @@ export declare class MatLegacyActionListHarness extends MatLegacyListHarnessBase
      * @param options Options for filtering which action list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ActionListHarnessFilters): HarnessPredicate<MatLegacyActionListHarness>;
+    static with(options?: LegacyActionListHarnessFilters): HarnessPredicate<MatLegacyActionListHarness>;
     _itemHarness: typeof MatLegacyActionListItemHarness;
 }
 
@@ -59,7 +73,7 @@ export declare class MatLegacyActionListItemHarness extends MatLegacyListItemHar
      * @param options Options for filtering which action list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ActionListItemHarnessFilters): HarnessPredicate<MatLegacyActionListItemHarness>;
+    static with(options?: LegacyActionListItemHarnessFilters): HarnessPredicate<MatLegacyActionListItemHarness>;
     /** Clicks on the action list item. */
     click(): Promise<void>;
     /** Focuses the action list item. */
@@ -71,7 +85,7 @@ export declare class MatLegacyActionListItemHarness extends MatLegacyListItemHar
 }
 
 /** Harness for interacting with a standard mat-list in tests. */
-export declare class MatLegacyListHarness extends MatLegacyListHarnessBase<typeof MatLegacyListItemHarness, MatLegacyListItemHarness, ListItemHarnessFilters> {
+export declare class MatLegacyListHarness extends MatLegacyListHarnessBase<typeof MatLegacyListItemHarness, MatLegacyListItemHarness, LegacyListItemHarnessFilters> {
     /** The selector for the host element of a `MatList` instance. */
     static hostSelector: string;
     /**
@@ -80,7 +94,7 @@ export declare class MatLegacyListHarness extends MatLegacyListHarnessBase<typeo
      * @param options Options for filtering which list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ListHarnessFilters): HarnessPredicate<MatLegacyListHarness>;
+    static with(options?: LegacyListHarnessFilters): HarnessPredicate<MatLegacyListHarness>;
     _itemHarness: typeof MatLegacyListItemHarness;
 }
 
@@ -93,7 +107,7 @@ export declare class MatLegacyListHarness extends MatLegacyListHarnessBase<typeo
  */
 declare abstract class MatLegacyListHarnessBase<T extends ComponentHarnessConstructor<C> & {
     with: (options?: F) => HarnessPredicate<C>;
-}, C extends ComponentHarness, F extends BaseListItemHarnessFilters> extends ComponentHarness {
+}, C extends ComponentHarness, F extends LegacyBaseListItemHarnessFilters> extends ComponentHarness {
     protected _itemHarness: T;
     /**
      * Gets a list of harnesses representing the items in this list.
@@ -137,7 +151,7 @@ declare abstract class MatLegacyListHarnessBase<T extends ComponentHarnessConstr
     }): Promise<C[]>;
     getItemsWithSubheadersAndDividers(filters: {
         item: false;
-        subheader?: SubheaderHarnessFilters | false;
+        subheader?: LegacySubheaderHarnessFilters | false;
         divider: false;
     }): Promise<MatLegacySubheaderHarness[]>;
     getItemsWithSubheadersAndDividers(filters: {
@@ -147,7 +161,7 @@ declare abstract class MatLegacyListHarnessBase<T extends ComponentHarnessConstr
     }): Promise<MatDividerHarness[]>;
     getItemsWithSubheadersAndDividers(filters: {
         item?: F | false;
-        subheader?: SubheaderHarnessFilters | false;
+        subheader?: LegacySubheaderHarnessFilters | false;
         divider: false;
     }): Promise<(C | MatLegacySubheaderHarness)[]>;
     getItemsWithSubheadersAndDividers(filters: {
@@ -157,12 +171,12 @@ declare abstract class MatLegacyListHarnessBase<T extends ComponentHarnessConstr
     }): Promise<(C | MatDividerHarness)[]>;
     getItemsWithSubheadersAndDividers(filters: {
         item: false;
-        subheader?: false | SubheaderHarnessFilters;
+        subheader?: false | LegacySubheaderHarnessFilters;
         divider?: false | DividerHarnessFilters;
     }): Promise<(MatLegacySubheaderHarness | MatDividerHarness)[]>;
     getItemsWithSubheadersAndDividers(filters?: {
         item?: F | false;
-        subheader?: SubheaderHarnessFilters | false;
+        subheader?: LegacySubheaderHarnessFilters | false;
         divider?: DividerHarnessFilters | false;
     }): Promise<(C | MatLegacySubheaderHarness | MatDividerHarness)[]>;
 }
@@ -177,7 +191,7 @@ export declare class MatLegacyListItemHarness extends MatLegacyListItemHarnessBa
      * @param options Options for filtering which list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ListItemHarnessFilters): HarnessPredicate<MatLegacyListItemHarness>;
+    static with(options?: LegacyListItemHarnessFilters): HarnessPredicate<MatLegacyListItemHarness>;
 }
 
 /**
@@ -215,7 +229,7 @@ export declare class MatLegacyListOptionHarness extends MatLegacyListItemHarness
      * @param options Options for filtering which list option instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ListOptionHarnessFilters): HarnessPredicate<MatLegacyListOptionHarness>;
+    static with(options?: LegacyListOptionHarnessFilters): HarnessPredicate<MatLegacyListOptionHarness>;
     private _itemContent;
     /** Gets the position of the checkbox relative to the list option content. */
     getCheckboxPosition(): Promise<MatLegacyListOptionCheckboxPosition>;
@@ -242,7 +256,7 @@ export declare class MatLegacyListOptionHarness extends MatLegacyListItemHarness
 }
 
 /** Harness for interacting with a standard mat-nav-list in tests. */
-export declare class MatLegacyNavListHarness extends MatLegacyListHarnessBase<typeof MatLegacyNavListItemHarness, MatLegacyNavListItemHarness, NavListItemHarnessFilters> {
+export declare class MatLegacyNavListHarness extends MatLegacyListHarnessBase<typeof MatLegacyNavListItemHarness, MatLegacyNavListItemHarness, LegacyNavListItemHarnessFilters> {
     /** The selector for the host element of a `MatNavList` instance. */
     static hostSelector: string;
     /**
@@ -251,7 +265,7 @@ export declare class MatLegacyNavListHarness extends MatLegacyListHarnessBase<ty
      * @param options Options for filtering which nav list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: NavListHarnessFilters): HarnessPredicate<MatLegacyNavListHarness>;
+    static with(options?: LegacyNavListHarnessFilters): HarnessPredicate<MatLegacyNavListHarness>;
     _itemHarness: typeof MatLegacyNavListItemHarness;
 }
 
@@ -265,7 +279,7 @@ export declare class MatLegacyNavListItemHarness extends MatLegacyListItemHarnes
      * @param options Options for filtering which nav list item instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: NavListItemHarnessFilters): HarnessPredicate<MatLegacyNavListItemHarness>;
+    static with(options?: LegacyNavListItemHarnessFilters): HarnessPredicate<MatLegacyNavListItemHarness>;
     /** Gets the href for this nav list item. */
     getHref(): Promise<string | null>;
     /** Clicks on the nav list item. */
@@ -279,7 +293,7 @@ export declare class MatLegacyNavListItemHarness extends MatLegacyListItemHarnes
 }
 
 /** Harness for interacting with a standard mat-selection-list in tests. */
-export declare class MatLegacySelectionListHarness extends MatLegacyListHarnessBase<typeof MatLegacyListOptionHarness, MatLegacyListOptionHarness, ListOptionHarnessFilters> {
+export declare class MatLegacySelectionListHarness extends MatLegacyListHarnessBase<typeof MatLegacyListOptionHarness, MatLegacyListOptionHarness, LegacyListOptionHarnessFilters> {
     /** The selector for the host element of a `MatSelectionList` instance. */
     static hostSelector: string;
     /**
@@ -288,7 +302,7 @@ export declare class MatLegacySelectionListHarness extends MatLegacyListHarnessB
      * @param options Options for filtering which selection list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: SelectionListHarnessFilters): HarnessPredicate<MatLegacySelectionListHarness>;
+    static with(options?: LegacySelectionListHarnessFilters): HarnessPredicate<MatLegacySelectionListHarness>;
     _itemHarness: typeof MatLegacyListOptionHarness;
     /** Whether the selection list is disabled. */
     isDisabled(): Promise<boolean>;
@@ -296,12 +310,12 @@ export declare class MatLegacySelectionListHarness extends MatLegacyListHarnessB
      * Selects all items matching any of the given filters.
      * @param filters Filters that specify which items should be selected.
      */
-    selectItems(...filters: ListOptionHarnessFilters[]): Promise<void>;
+    selectItems(...filters: LegacyListOptionHarnessFilters[]): Promise<void>;
     /**
      * Deselects all items matching any of the given filters.
      * @param filters Filters that specify which items should be deselected.
      */
-    deselectItems(...filters: ListItemHarnessFilters[]): Promise<void>;
+    deselectItems(...filters: LegacyListItemHarnessFilters[]): Promise<void>;
     /** Gets all items matching the given list of filters. */
     private _getItems;
 }
@@ -309,23 +323,9 @@ export declare class MatLegacySelectionListHarness extends MatLegacyListHarnessB
 /** Harness for interacting with a list subheader. */
 declare class MatLegacySubheaderHarness extends ComponentHarness {
     static hostSelector: string;
-    static with(options?: SubheaderHarnessFilters): HarnessPredicate<MatLegacySubheaderHarness>;
+    static with(options?: LegacySubheaderHarnessFilters): HarnessPredicate<MatLegacySubheaderHarness>;
     /** Gets the full text content of the list item (including text from any font icons). */
     getText(): Promise<string>;
-}
-
-export declare interface NavListHarnessFilters extends BaseHarnessFilters {
-}
-
-export declare interface NavListItemHarnessFilters extends BaseListItemHarnessFilters {
-    href?: string | RegExp | null;
-}
-
-export declare interface SelectionListHarnessFilters extends BaseHarnessFilters {
-}
-
-export declare interface SubheaderHarnessFilters extends BaseHarnessFilters {
-    text?: string | RegExp;
 }
 
 export { }

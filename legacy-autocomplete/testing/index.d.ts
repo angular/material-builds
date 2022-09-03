@@ -7,7 +7,7 @@ import { OptgroupHarnessFilters } from '@angular/material/legacy-core/testing';
 import { OptionHarnessFilters } from '@angular/material/legacy-core/testing';
 
 /** A set of criteria that can be used to filter a list of `MatAutocompleteHarness` instances. */
-export declare interface AutocompleteHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyAutocompleteHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose associated input element matches the given value. */
     value?: string | RegExp;
 }
@@ -25,7 +25,7 @@ export declare class MatLegacyAutocompleteHarness extends _MatAutocompleteHarnes
      * @param options Options for filtering which autocomplete instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: AutocompleteHarnessFilters): HarnessPredicate<MatLegacyAutocompleteHarness>;
+    static with(options?: LegacyAutocompleteHarnessFilters): HarnessPredicate<MatLegacyAutocompleteHarness>;
 }
 
 export { }

@@ -1,12 +1,14 @@
 import { AsyncFactoryFn } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { PaginatorHarnessFilters as LegacyPaginatorHarnessFilters } from '@angular/material/paginator/testing';
+import { _MatPaginatorHarnessBase as _MatLegacyPaginatorHarnessBase } from '@angular/material/paginator/testing';
 import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing';
-import { _MatPaginatorHarnessBase } from '@angular/material/paginator/testing';
-import { PaginatorHarnessFilters } from '@angular/material/paginator/testing';
 import { TestElement } from '@angular/cdk/testing';
 
+export { LegacyPaginatorHarnessFilters }
+
 /** Harness for interacting with a standard mat-paginator in tests. */
-export declare class MatLegacyPaginatorHarness extends _MatPaginatorHarnessBase {
+export declare class MatLegacyPaginatorHarness extends _MatLegacyPaginatorHarnessBase {
     /** Selector used to find paginator instances. */
     static hostSelector: string;
     protected _nextButton: AsyncFactoryFn<TestElement>;
@@ -22,11 +24,9 @@ export declare class MatLegacyPaginatorHarness extends _MatPaginatorHarnessBase 
      * @param options Options for filtering which paginator instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: PaginatorHarnessFilters): HarnessPredicate<MatLegacyPaginatorHarness>;
+    static with(options?: LegacyPaginatorHarnessFilters): HarnessPredicate<MatLegacyPaginatorHarness>;
 }
 
-export { _MatPaginatorHarnessBase }
-
-export { PaginatorHarnessFilters }
+export { _MatLegacyPaginatorHarnessBase }
 
 export { }

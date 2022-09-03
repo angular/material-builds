@@ -1,7 +1,7 @@
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing';
 import { _MatPaginatorHarnessBase } from '@angular/material/paginator/testing';
-export { _MatPaginatorHarnessBase } from '@angular/material/paginator/testing';
+export { _MatPaginatorHarnessBase as _MatLegacyPaginatorHarnessBase } from '@angular/material/paginator/testing';
 
 /**
  * @license

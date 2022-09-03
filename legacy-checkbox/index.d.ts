@@ -7,46 +7,40 @@ import * as i0 from '@angular/core';
 import * as i2 from '@angular/material/core';
 import * as i3 from '@angular/cdk/observers';
 import * as i4 from '@angular/material/checkbox';
-import { MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
-import { MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY } from '@angular/material/checkbox';
-import { MAT_CHECKBOX_REQUIRED_VALIDATOR } from '@angular/material/checkbox';
+import { TransitionCheckState as LegacyTransitionCheckState } from '@angular/material/checkbox';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS as MAT_LEGACY_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
+import { MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY as MAT_LEGACY_CHECKBOX_DEFAULT_OPTIONS_FACTORY } from '@angular/material/checkbox';
+import { MAT_CHECKBOX_REQUIRED_VALIDATOR as MAT_LEGACY_CHECKBOX_REQUIRED_VALIDATOR } from '@angular/material/checkbox';
 import { _MatCheckboxBase } from '@angular/material/checkbox';
-import { MatCheckboxClickAction } from '@angular/material/checkbox';
-import { MatCheckboxDefaultOptions } from '@angular/material/checkbox';
-import { MatCheckboxRequiredValidator } from '@angular/material/checkbox';
-import { _MatCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
+import { MatCheckboxClickAction as MatLegacyCheckboxClickAction } from '@angular/material/checkbox';
+import { MatCheckboxDefaultOptions as MatLegacyCheckboxDefaultOptions } from '@angular/material/checkbox';
+import { MatCheckboxRequiredValidator as MatLegacyCheckboxRequiredValidator } from '@angular/material/checkbox';
+import { _MatCheckboxRequiredValidatorModule as _MatLegacyCheckboxRequiredValidatorModule } from '@angular/material/checkbox';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { TransitionCheckState } from '@angular/material/checkbox';
 
 declare namespace i1 {
     export {
         MatLegacyCheckboxChange,
-        MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
+        MAT_LEGACY_CHECKBOX_CONTROL_VALUE_ACCESSOR,
         MatLegacyCheckbox
     }
 }
+
+export { LegacyTransitionCheckState }
 
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * @docs-private
  */
-export declare const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR: any;
+export declare const MAT_LEGACY_CHECKBOX_CONTROL_VALUE_ACCESSOR: any;
 
-export { MAT_CHECKBOX_DEFAULT_OPTIONS }
+export { MAT_LEGACY_CHECKBOX_DEFAULT_OPTIONS }
 
-export { MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY }
+export { MAT_LEGACY_CHECKBOX_DEFAULT_OPTIONS_FACTORY }
 
-export { MAT_CHECKBOX_REQUIRED_VALIDATOR }
-
-export { MatCheckboxClickAction }
-
-export { MatCheckboxDefaultOptions }
-
-export { MatCheckboxRequiredValidator }
-
-export { _MatCheckboxRequiredValidatorModule }
+export { MAT_LEGACY_CHECKBOX_REQUIRED_VALIDATOR }
 
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
@@ -66,7 +60,7 @@ export declare class MatLegacyCheckbox extends _MatCheckboxBase<MatLegacyCheckbo
         indeterminateToChecked: string;
         indeterminateToUnchecked: string;
     };
-    constructor(elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, ngZone: NgZone, tabIndex: string, animationMode?: string, options?: MatCheckboxDefaultOptions);
+    constructor(elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, ngZone: NgZone, tabIndex: string, animationMode?: string, options?: MatLegacyCheckboxDefaultOptions);
     protected _createChangeEvent(isChecked: boolean): MatLegacyCheckboxChange;
     protected _getAnimationTargetElement(): any;
     ngAfterViewInit(): void;
@@ -93,12 +87,18 @@ export declare class MatLegacyCheckboxChange {
     checked: boolean;
 }
 
+export { MatLegacyCheckboxClickAction }
+
+export { MatLegacyCheckboxDefaultOptions }
+
 export declare class MatLegacyCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCheckboxModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyCheckboxModule, [typeof i1.MatLegacyCheckbox], [typeof i2.MatRippleModule, typeof i2.MatCommonModule, typeof i3.ObserversModule, typeof i4._MatCheckboxRequiredValidatorModule], [typeof i1.MatLegacyCheckbox, typeof i2.MatCommonModule, typeof i4._MatCheckboxRequiredValidatorModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatLegacyCheckboxModule>;
 }
 
-export { TransitionCheckState }
+export { MatLegacyCheckboxRequiredValidator }
+
+export { _MatLegacyCheckboxRequiredValidatorModule }
 
 export { }

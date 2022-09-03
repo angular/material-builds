@@ -13,7 +13,7 @@ import * as i6 from '@angular/cdk/layout';
 import { Breakpoints } from '@angular/cdk/layout';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { _MatTooltipBase, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_DEFAULT_OPTIONS, _TooltipComponentBase, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER } from '@angular/material/tooltip';
-export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, SCROLL_THROTTLE_MS, getMatTooltipInvalidPositionError } from '@angular/material/tooltip';
+export { SCROLL_THROTTLE_MS as LEGACY_SCROLL_THROTTLE_MS, MAT_TOOLTIP_DEFAULT_OPTIONS as MAT_LEGACY_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY as MAT_LEGACY_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY as MAT_LEGACY_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY as MAT_LEGACY_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER as MAT_LEGACY_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, getMatTooltipInvalidPositionError as getMatLegacyTooltipInvalidPositionError } from '@angular/material/tooltip';
 import * as i3 from '@angular/cdk/platform';
 import * as i5 from '@angular/cdk/bidi';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
@@ -131,7 +131,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Animations used by MatTooltip.
  * @docs-private
  */
-const matTooltipAnimations = {
+const matLegacyTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
     tooltipState: trigger('state', [
         state('initial, void, hidden', style({ opacity: 0, transform: 'scale(0)' })),
@@ -165,5 +165,5 @@ const matTooltipAnimations = {
  * Generated bundle index. Do not edit.
  */
 
-export { LegacyTooltipComponent, MatLegacyTooltip, MatLegacyTooltipModule, matTooltipAnimations };
+export { LegacyTooltipComponent, MatLegacyTooltip, MatLegacyTooltipModule, matLegacyTooltipAnimations };
 //# sourceMappingURL=legacy-tooltip.mjs.map

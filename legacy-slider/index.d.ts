@@ -20,7 +20,7 @@ import { OnDestroy } from '@angular/core';
 
 declare namespace i1 {
     export {
-        MAT_SLIDER_VALUE_ACCESSOR,
+        MAT_LEGACY_SLIDER_VALUE_ACCESSOR,
         MatLegacySliderChange,
         MatLegacySlider
     }
@@ -31,7 +31,7 @@ declare namespace i1 {
  * This allows it to support [(ngModel)] and [formControl].
  * @docs-private
  */
-export declare const MAT_SLIDER_VALUE_ACCESSOR: any;
+export declare const MAT_LEGACY_SLIDER_VALUE_ACCESSOR: any;
 
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in

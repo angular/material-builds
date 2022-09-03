@@ -1,10 +1,10 @@
 import { AsyncFactoryFn } from '@angular/cdk/testing';
-import { CheckboxHarnessFilters } from '@angular/material/checkbox/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { CheckboxHarnessFilters as LegacyCheckboxHarnessFilters } from '@angular/material/checkbox/testing';
 import { _MatCheckboxHarnessBase } from '@angular/material/checkbox/testing';
 import { TestElement } from '@angular/cdk/testing';
 
-export { CheckboxHarnessFilters }
+export { LegacyCheckboxHarnessFilters }
 
 /** Harness for interacting with a standard mat-checkbox in tests. */
 export declare class MatLegacyCheckboxHarness extends _MatCheckboxHarnessBase {
@@ -16,7 +16,7 @@ export declare class MatLegacyCheckboxHarness extends _MatCheckboxHarnessBase {
      * @param options Options for filtering which checkbox instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: CheckboxHarnessFilters): HarnessPredicate<MatLegacyCheckboxHarness>;
+    static with(options?: LegacyCheckboxHarnessFilters): HarnessPredicate<MatLegacyCheckboxHarness>;
     protected _input: AsyncFactoryFn<TestElement>;
     protected _label: AsyncFactoryFn<TestElement>;
     private _inputContainer;

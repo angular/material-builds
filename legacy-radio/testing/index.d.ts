@@ -1,10 +1,14 @@
 import { AsyncFactoryFn } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { RadioButtonHarnessFilters as LegacyRadioButtonHarnessFilters } from '@angular/material/radio/testing';
+import { RadioGroupHarnessFilters as LegacyRadioGroupHarnessFilters } from '@angular/material/radio/testing';
 import { _MatRadioButtonHarnessBase } from '@angular/material/radio/testing';
 import { _MatRadioGroupHarnessBase } from '@angular/material/radio/testing';
-import { RadioButtonHarnessFilters } from '@angular/material/radio/testing';
-import { RadioGroupHarnessFilters } from '@angular/material/radio/testing';
 import { TestElement } from '@angular/cdk/testing';
+
+export { LegacyRadioButtonHarnessFilters }
+
+export { LegacyRadioGroupHarnessFilters }
 
 /** Harness for interacting with a standard mat-radio-button in tests. */
 export declare class MatLegacyRadioButtonHarness extends _MatRadioButtonHarnessBase {
@@ -16,13 +20,13 @@ export declare class MatLegacyRadioButtonHarness extends _MatRadioButtonHarnessB
      * @param options Options for filtering which radio button instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: RadioButtonHarnessFilters): HarnessPredicate<MatLegacyRadioButtonHarness>;
+    static with(options?: LegacyRadioButtonHarnessFilters): HarnessPredicate<MatLegacyRadioButtonHarness>;
     protected _textLabel: AsyncFactoryFn<TestElement>;
     protected _clickLabel: AsyncFactoryFn<TestElement>;
 }
 
 /** Harness for interacting with a standard mat-radio-group in tests. */
-export declare class MatLegacyRadioGroupHarness extends _MatRadioGroupHarnessBase<typeof MatLegacyRadioButtonHarness, MatLegacyRadioButtonHarness, RadioButtonHarnessFilters> {
+export declare class MatLegacyRadioGroupHarness extends _MatRadioGroupHarnessBase<typeof MatLegacyRadioButtonHarness, MatLegacyRadioButtonHarness, LegacyRadioButtonHarnessFilters> {
     /** The selector for the host element of a `MatRadioGroup` instance. */
     static hostSelector: string;
     protected _buttonClass: typeof MatLegacyRadioButtonHarness;
@@ -32,11 +36,7 @@ export declare class MatLegacyRadioGroupHarness extends _MatRadioGroupHarnessBas
      * @param options Options for filtering which radio group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: RadioGroupHarnessFilters): HarnessPredicate<MatLegacyRadioGroupHarness>;
+    static with(options?: LegacyRadioGroupHarnessFilters): HarnessPredicate<MatLegacyRadioGroupHarness>;
 }
-
-export { RadioButtonHarnessFilters }
-
-export { RadioGroupHarnessFilters }
 
 export { }

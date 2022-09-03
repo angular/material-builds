@@ -47,9 +47,9 @@ declare namespace i2 {
     export {
         MatLegacyChipEvent,
         MatLegacyChipSelectionChange,
-        MAT_CHIP_REMOVE,
-        MAT_CHIP_AVATAR,
-        MAT_CHIP_TRAILING_ICON,
+        MAT_LEGACY_CHIP_REMOVE,
+        MAT_LEGACY_CHIP_AVATAR,
+        MAT_LEGACY_CHIP_TRAILING_ICON,
         MatLegacyChipAvatar,
         MatLegacyChipTrailingIcon,
         MatLegacyChip,
@@ -69,24 +69,24 @@ declare namespace i3 {
  * alternative token to the actual `MatChipAvatar` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-export declare const MAT_CHIP_AVATAR: InjectionToken<MatLegacyChipAvatar>;
+export declare const MAT_LEGACY_CHIP_AVATAR: InjectionToken<MatLegacyChipAvatar>;
 
 /**
  * Injection token that can be used to reference instances of `MatChipRemove`. It serves as
  * alternative token to the actual `MatChipRemove` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-export declare const MAT_CHIP_REMOVE: InjectionToken<MatLegacyChipRemove>;
+export declare const MAT_LEGACY_CHIP_REMOVE: InjectionToken<MatLegacyChipRemove>;
 
 /**
  * Injection token that can be used to reference instances of `MatChipTrailingIcon`. It serves as
  * alternative token to the actual `MatChipTrailingIcon` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-export declare const MAT_CHIP_TRAILING_ICON: InjectionToken<MatLegacyChipTrailingIcon>;
+export declare const MAT_LEGACY_CHIP_TRAILING_ICON: InjectionToken<MatLegacyChipTrailingIcon>;
 
 /** Injection token to be used to override the default options for the chips module. */
-export declare const MAT_CHIPS_DEFAULT_OPTIONS: InjectionToken<MatLegacyChipsDefaultOptions>;
+export declare const MAT_LEGACY_CHIPS_DEFAULT_OPTIONS: InjectionToken<MatLegacyChipsDefaultOptions>;
 
 /** @docs-private */
 declare abstract class MatChipBase {

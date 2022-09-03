@@ -2,6 +2,10 @@ import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
+/** A set of criteria that can be used to filter a list of `MatSliderHarness` instances. */
+export declare interface LegacySliderHarnessFilters extends BaseHarnessFilters {
+}
+
 /** Harness for interacting with a standard mat-slider in tests. */
 export declare class MatLegacySliderHarness extends ComponentHarness {
     /** The selector for the host element of a `MatSlider` instance. */
@@ -12,7 +16,7 @@ export declare class MatLegacySliderHarness extends ComponentHarness {
      * @param options Options for filtering which slider instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: SliderHarnessFilters): HarnessPredicate<MatLegacySliderHarness>;
+    static with(options?: LegacySliderHarnessFilters): HarnessPredicate<MatLegacySliderHarness>;
     private _textLabel;
     private _wrapper;
     /** Gets the slider's id. */
@@ -51,10 +55,6 @@ export declare class MatLegacySliderHarness extends ComponentHarness {
     isFocused(): Promise<boolean>;
     /** Calculates the percentage of the given value. */
     private _calculatePercentage;
-}
-
-/** A set of criteria that can be used to filter a list of `MatSliderHarness` instances. */
-export declare interface SliderHarnessFilters extends BaseHarnessFilters {
 }
 
 export { }

@@ -9,19 +9,19 @@ import { ChangeDetectorRef } from '@angular/core';
 import { _Constructor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
-import { getMatFormFieldDuplicatedHintError } from '@angular/material/form-field';
-import { getMatFormFieldMissingControlError } from '@angular/material/form-field';
-import { getMatFormFieldPlaceholderConflictError } from '@angular/material/form-field';
+import { getMatFormFieldDuplicatedHintError as getMatLegacyFormFieldDuplicatedHintError } from '@angular/material/form-field';
+import { getMatFormFieldMissingControlError as getMatLegacyFormFieldMissingControlError } from '@angular/material/form-field';
+import { getMatFormFieldPlaceholderConflictError as getMatLegacyFormFieldPlaceholderConflictError } from '@angular/material/form-field';
 import * as i0 from '@angular/core';
 import * as i10 from '@angular/cdk/observers';
 import * as i8 from '@angular/common';
 import * as i9 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
-import { MAT_ERROR } from '@angular/material/form-field';
-import { MAT_FORM_FIELD } from '@angular/material/form-field';
-import { MAT_PREFIX } from '@angular/material/form-field';
-import { MAT_SUFFIX } from '@angular/material/form-field';
-import { matFormFieldAnimations } from '@angular/material/form-field';
+import { MAT_ERROR as MAT_LEGACY_ERROR } from '@angular/material/form-field';
+import { MAT_FORM_FIELD as MAT_LEGACY_FORM_FIELD } from '@angular/material/form-field';
+import { MAT_PREFIX as MAT_LEGACY_PREFIX } from '@angular/material/form-field';
+import { MAT_SUFFIX as MAT_LEGACY_SUFFIX } from '@angular/material/form-field';
+import { matFormFieldAnimations as matLegacyFormFieldAnimations } from '@angular/material/form-field';
 import { MatFormFieldControl as MatLegacyFormFieldControl } from '@angular/material/form-field';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -29,14 +29,11 @@ import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-/** Possible values for the "floatLabel" form field input. */
-export declare type FloatLabelType = 'always' | 'never' | 'auto';
+export { getMatLegacyFormFieldDuplicatedHintError }
 
-export { getMatFormFieldDuplicatedHintError }
+export { getMatLegacyFormFieldMissingControlError }
 
-export { getMatFormFieldMissingControlError }
-
-export { getMatFormFieldPlaceholderConflictError }
+export { getMatLegacyFormFieldPlaceholderConflictError }
 
 declare namespace i1 {
     export {
@@ -47,16 +44,16 @@ declare namespace i1 {
 declare namespace i2 {
     export {
         MatLegacyFormFieldAppearance,
-        FloatLabelType,
+        LegacyFloatLabelType,
         MatLegacyFormFieldDefaultOptions,
-        MAT_FORM_FIELD_DEFAULT_OPTIONS,
+        MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS,
         MatLegacyFormField
     }
 }
 
 declare namespace i3 {
     export {
-        _MAT_HINT,
+        _MAT_LEGACY_HINT,
         MatLegacyHint
     }
 }
@@ -85,15 +82,18 @@ declare namespace i7 {
     }
 }
 
-export { MAT_ERROR }
+/** Possible values for the "floatLabel" form field input. */
+export declare type LegacyFloatLabelType = 'always' | 'never' | 'auto';
 
-export { MAT_FORM_FIELD }
+export { MAT_LEGACY_ERROR }
+
+export { MAT_LEGACY_FORM_FIELD }
 
 /**
  * Injection token that can be used to configure the
  * default options for all form field within an app.
  */
-export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatLegacyFormFieldDefaultOptions>;
+export declare const MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatLegacyFormFieldDefaultOptions>;
 
 /**
  * Injection token that can be used to reference instances of `MatHint`. It serves as
@@ -103,13 +103,11 @@ export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatLegacyFor
  * *Note*: This is not part of the public API as the MDC-based form-field will not
  * need a lightweight token for `MatHint` and we want to reduce breaking changes.
  */
-export declare const _MAT_HINT: InjectionToken<MatLegacyHint>;
+export declare const _MAT_LEGACY_HINT: InjectionToken<MatLegacyHint>;
 
-export { MAT_PREFIX }
+export { MAT_LEGACY_PREFIX }
 
-export { MAT_SUFFIX }
-
-export { matFormFieldAnimations }
+export { MAT_LEGACY_SUFFIX }
 
 /**
  * Boilerplate for applying mixins to MatFormField.
@@ -174,8 +172,8 @@ export declare class MatLegacyFormField extends _MatFormFieldBase implements Aft
      * the form field now supports both floating labels and placeholders. Therefore in the non-legacy
      * appearances the `never` option has been disabled in favor of just using the placeholder.
      */
-    get floatLabel(): FloatLabelType;
-    set floatLabel(value: FloatLabelType);
+    get floatLabel(): LegacyFloatLabelType;
+    set floatLabel(value: LegacyFloatLabelType);
     private _floatLabel;
     /** Whether the Angular animations are enabled. */
     _animationsEnabled: boolean;
@@ -256,6 +254,8 @@ export declare class MatLegacyFormField extends _MatFormFieldBase implements Aft
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyFormField, "mat-form-field", ["matFormField"], { "color": "color"; "appearance": "appearance"; "hideRequiredMarker": "hideRequiredMarker"; "hintLabel": "hintLabel"; "floatLabel": "floatLabel"; }, {}, ["_controlNonStatic", "_controlStatic", "_labelChildNonStatic", "_labelChildStatic", "_placeholderChild", "_errorChildren", "_hintChildren", "_prefixChildren", "_suffixChildren"], ["[matPrefix]", "*", "mat-placeholder", "mat-label", "[matSuffix]", "mat-error", "mat-hint:not([align='end'])", "mat-hint[align='end']"], false>;
 }
 
+export { matLegacyFormFieldAnimations }
+
 /** Possible appearance styles for the form field. */
 export declare type MatLegacyFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
 
@@ -276,7 +276,7 @@ export declare interface MatLegacyFormFieldDefaultOptions {
      * Whether the label for form fields should by default float `always`,
      * `never`, or `auto` (only when necessary).
      */
-    floatLabel?: FloatLabelType;
+    floatLabel?: LegacyFloatLabelType;
 }
 
 export declare class MatLegacyFormFieldModule {

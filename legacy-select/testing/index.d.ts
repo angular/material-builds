@@ -6,6 +6,10 @@ import { _MatSelectHarnessBase } from '@angular/material/select/testing';
 import { OptgroupHarnessFilters } from '@angular/material/legacy-core/testing';
 import { OptionHarnessFilters } from '@angular/material/legacy-core/testing';
 
+/** A set of criteria that can be used to filter a list of `MatSelectHarness` instances. */
+export declare interface LegacySelectHarnessFilters extends BaseHarnessFilters {
+}
+
 /** Harness for interacting with a standard mat-select in tests. */
 export declare class MatLegacySelectHarness extends _MatSelectHarnessBase<typeof MatLegacyOptionHarness, MatLegacyOptionHarness, OptionHarnessFilters, typeof MatLegacyOptgroupHarness, MatLegacyOptgroupHarness, OptgroupHarnessFilters> {
     static hostSelector: string;
@@ -18,11 +22,7 @@ export declare class MatLegacySelectHarness extends _MatSelectHarnessBase<typeof
      * @param options Options for filtering which select instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: SelectHarnessFilters): HarnessPredicate<MatLegacySelectHarness>;
-}
-
-/** A set of criteria that can be used to filter a list of `MatSelectHarness` instances. */
-export declare interface SelectHarnessFilters extends BaseHarnessFilters {
+    static with(options?: LegacySelectHarnessFilters): HarnessPredicate<MatLegacySelectHarness>;
 }
 
 export { }

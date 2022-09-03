@@ -5,23 +5,23 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 import { TestKey } from '@angular/cdk/testing';
 
 /** A set of criteria that can be used to filter a list of `MatChipAvatarHarness` instances. */
-export declare interface ChipAvatarHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyChipAvatarHarnessFilters extends BaseHarnessFilters {
 }
 
 /** A set of criteria that can be used to filter a list of chip instances. */
-export declare interface ChipHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyChipHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
     /**
      * Only find chip instances whose selected state matches the given value.
-     * @deprecated Use `MatChipOptionHarness` together with `ChipOptionHarnessFilters`.
+     * @deprecated Use Legacy Chip Option Harness together with Legacy Chip Option Harness Filters.
      * @breaking-change 12.0.0
      */
     selected?: boolean;
 }
 
 /** A set of criteria that can be used to filter a list of `MatChipListInputHarness` instances. */
-export declare interface ChipInputHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyChipInputHarnessFilters extends BaseHarnessFilters {
     /** Filters based on the value of the input. */
     value?: string | RegExp;
     /** Filters based on the placeholder text of the input. */
@@ -29,21 +29,21 @@ export declare interface ChipInputHarnessFilters extends BaseHarnessFilters {
 }
 
 /** A set of criteria that can be used to filter selectable chip list instances. */
-export declare interface ChipListboxHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyChipListboxHarnessFilters extends BaseHarnessFilters {
 }
 
 /** A set of criteria that can be used to filter chip list instances. */
-export declare interface ChipListHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyChipListHarnessFilters extends BaseHarnessFilters {
 }
 
 /** A set of criteria that can be used to filter a list of selectable chip instances. */
-export declare interface ChipOptionHarnessFilters extends ChipHarnessFilters {
+export declare interface LegacyChipOptionHarnessFilters extends LegacyChipHarnessFilters {
     /** Only find chip instances whose selected state matches the given value. */
     selected?: boolean;
 }
 
 /** A set of criteria that can be used to filter a list of `MatChipRemoveHarness` instances. */
-export declare interface ChipRemoveHarnessFilters extends BaseHarnessFilters {
+export declare interface LegacyChipRemoveHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Base class for chip list harnesses. */
@@ -69,7 +69,7 @@ declare class MatLegacyChipAvatarHarness extends ComponentHarness {
      * @param options Options for filtering which input instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ChipAvatarHarnessFilters): HarnessPredicate<MatLegacyChipAvatarHarness>;
+    static with(options?: LegacyChipAvatarHarnessFilters): HarnessPredicate<MatLegacyChipAvatarHarness>;
 }
 
 /** Harness for interacting with a standard selectable Angular Material chip in tests. */
@@ -82,7 +82,7 @@ export declare class MatLegacyChipHarness extends ContentContainerComponentHarne
      * @param options Options for filtering which chip instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ChipHarnessFilters): HarnessPredicate<MatLegacyChipHarness>;
+    static with(options?: LegacyChipHarnessFilters): HarnessPredicate<MatLegacyChipHarness>;
     /** Gets the text of the chip. */
     getText(): Promise<string>;
     /**
@@ -117,12 +117,12 @@ export declare class MatLegacyChipHarness extends ContentContainerComponentHarne
      * Gets the remove button inside of a chip.
      * @param filter Optionally filters which remove buttons are included.
      */
-    getRemoveButton(filter?: ChipRemoveHarnessFilters): Promise<MatLegacyChipRemoveHarness>;
+    getRemoveButton(filter?: LegacyChipRemoveHarnessFilters): Promise<MatLegacyChipRemoveHarness>;
     /**
      * Gets the avatar inside a chip.
      * @param filter Optionally filters which avatars are included.
      */
-    getAvatar(filter?: ChipAvatarHarnessFilters): Promise<MatLegacyChipAvatarHarness | null>;
+    getAvatar(filter?: LegacyChipAvatarHarnessFilters): Promise<MatLegacyChipAvatarHarness | null>;
 }
 
 /** Harness for interacting with a standard Material chip inputs in tests. */
@@ -134,7 +134,7 @@ export declare class MatLegacyChipInputHarness extends ComponentHarness {
      * @param options Options for filtering which input instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ChipInputHarnessFilters): HarnessPredicate<MatLegacyChipInputHarness>;
+    static with(options?: LegacyChipInputHarnessFilters): HarnessPredicate<MatLegacyChipInputHarness>;
     /** Whether the input is disabled. */
     isDisabled(): Promise<boolean>;
     /** Whether the input is required. */
@@ -174,18 +174,18 @@ export declare class MatLegacyChipListboxHarness extends _MatChipListHarnessBase
      * @param options Options for filtering which chip list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ChipListboxHarnessFilters): HarnessPredicate<MatLegacyChipListboxHarness>;
+    static with(options?: LegacyChipListboxHarnessFilters): HarnessPredicate<MatLegacyChipListboxHarness>;
     /**
      * Gets the list of chips inside the chip list.
      * @param filter Optionally filters which chips are included.
      */
-    getChips(filter?: ChipOptionHarnessFilters): Promise<MatLegacyChipOptionHarness[]>;
+    getChips(filter?: LegacyChipOptionHarnessFilters): Promise<MatLegacyChipOptionHarness[]>;
     /**
      * Selects a chip inside the chip list.
      * @param filter An optional filter to apply to the child chips.
      *    All the chips matching the filter will be selected.
      */
-    selectChips(filter?: ChipOptionHarnessFilters): Promise<void>;
+    selectChips(filter?: LegacyChipOptionHarnessFilters): Promise<void>;
 }
 
 /** Harness for interacting with a standard chip list in tests. */
@@ -198,12 +198,12 @@ export declare class MatLegacyChipListHarness extends _MatChipListHarnessBase {
      * @param options Options for filtering which chip list instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ChipListHarnessFilters): HarnessPredicate<MatLegacyChipListHarness>;
+    static with(options?: LegacyChipListHarnessFilters): HarnessPredicate<MatLegacyChipListHarness>;
     /**
      * Gets the list of chips inside the chip list.
      * @param filter Optionally filters which chips are included.
      */
-    getChips(filter?: ChipHarnessFilters): Promise<MatLegacyChipHarness[]>;
+    getChips(filter?: LegacyChipHarnessFilters): Promise<MatLegacyChipHarness[]>;
     /**
      * Selects a chip inside the chip list.
      * @param filter An optional filter to apply to the child chips.
@@ -211,12 +211,12 @@ export declare class MatLegacyChipListHarness extends _MatChipListHarnessBase {
      * @deprecated Use `MatChipListboxHarness.selectChips` instead.
      * @breaking-change 12.0.0
      */
-    selectChips(filter?: ChipHarnessFilters): Promise<void>;
+    selectChips(filter?: LegacyChipHarnessFilters): Promise<void>;
     /**
      * Gets the `MatChipInput` inside the chip list.
      * @param filter Optionally filters which chip input is included.
      */
-    getInput(filter?: ChipInputHarnessFilters): Promise<MatLegacyChipInputHarness>;
+    getInput(filter?: LegacyChipInputHarnessFilters): Promise<MatLegacyChipInputHarness>;
 }
 
 export declare class MatLegacyChipOptionHarness extends MatLegacyChipHarness {
@@ -228,7 +228,7 @@ export declare class MatLegacyChipOptionHarness extends MatLegacyChipHarness {
      * @param options Options for filtering which chip instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ChipOptionHarnessFilters): HarnessPredicate<MatLegacyChipOptionHarness>;
+    static with(options?: LegacyChipOptionHarnessFilters): HarnessPredicate<MatLegacyChipOptionHarness>;
     /** Whether the chip is selected. */
     isSelected(): Promise<boolean>;
     /** Selects the given chip. Only applies if it's selectable. */
@@ -248,7 +248,7 @@ export declare class MatLegacyChipRemoveHarness extends ComponentHarness {
      * @param options Options for filtering which input instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: ChipRemoveHarnessFilters): HarnessPredicate<MatLegacyChipRemoveHarness>;
+    static with(options?: LegacyChipRemoveHarnessFilters): HarnessPredicate<MatLegacyChipRemoveHarness>;
     /** Clicks the remove button. */
     click(): Promise<void>;
 }

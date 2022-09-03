@@ -1,8 +1,10 @@
 import { AsyncFactoryFn } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { TooltipHarnessFilters as LegacyTooltipHarnessFilters } from '@angular/material/tooltip/testing';
 import { _MatTooltipHarnessBase } from '@angular/material/tooltip/testing';
 import { TestElement } from '@angular/cdk/testing';
-import { TooltipHarnessFilters } from '@angular/material/tooltip/testing';
+
+export { LegacyTooltipHarnessFilters }
 
 /** Harness for interacting with a standard mat-tooltip in tests. */
 export declare class MatLegacyTooltipHarness extends _MatTooltipHarnessBase {
@@ -17,9 +19,7 @@ export declare class MatLegacyTooltipHarness extends _MatTooltipHarnessBase {
      * @param options Options for narrowing the search.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: TooltipHarnessFilters): HarnessPredicate<MatLegacyTooltipHarness>;
+    static with(options?: LegacyTooltipHarnessFilters): HarnessPredicate<MatLegacyTooltipHarness>;
 }
-
-export { TooltipHarnessFilters }
 
 export { }

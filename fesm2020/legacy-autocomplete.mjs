@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, forwardRef, Directive, NgModule } from '@angular/core';
 import { MAT_OPTION_PARENT_COMPONENT, MAT_OPTGROUP, MatLegacyOption, MatLegacyOptionModule } from '@angular/material/legacy-core';
 import { _MatAutocompleteBase, _MatAutocompleteTriggerBase, _MatAutocompleteOriginBase, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER } from '@angular/material/autocomplete';
-export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MatAutocompleteSelectedEvent, getMatAutocompleteMissingPanelError } from '@angular/material/autocomplete';
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS as MAT_LEGACY_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY as MAT_LEGACY_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY as MAT_LEGACY_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY as MAT_LEGACY_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER as MAT_LEGACY_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MatAutocompleteSelectedEvent as MatLegacyAutocompleteSelectedEvent, getMatAutocompleteMissingPanelError as getMatLegacyAutocompleteMissingPanelError } from '@angular/material/autocomplete';
 import * as i1 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -50,7 +50,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * @docs-private
  */
-const MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
+const MAT_LEGACY_AUTOCOMPLETE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatLegacyAutocompleteTrigger),
     multi: true,
@@ -62,7 +62,7 @@ class MatLegacyAutocompleteTrigger extends _MatAutocompleteTriggerBase {
     }
 }
 MatLegacyAutocompleteTrigger.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyAutocompleteTrigger, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyAutocompleteTrigger.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyAutocompleteTrigger, selector: "input[matAutocomplete], textarea[matAutocomplete]", host: { listeners: { "focusin": "_handleFocus()", "blur": "_onTouched()", "input": "_handleInput($event)", "keydown": "_handleKeydown($event)", "click": "_handleClick()" }, properties: { "attr.autocomplete": "autocompleteAttribute", "attr.role": "autocompleteDisabled ? null : \"combobox\"", "attr.aria-autocomplete": "autocompleteDisabled ? null : \"list\"", "attr.aria-activedescendant": "(panelOpen && activeOption) ? activeOption.id : null", "attr.aria-expanded": "autocompleteDisabled ? null : panelOpen.toString()", "attr.aria-owns": "(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id", "attr.aria-haspopup": "autocompleteDisabled ? null : \"listbox\"" }, classAttribute: "mat-autocomplete-trigger" }, providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR], exportAs: ["matAutocompleteTrigger"], usesInheritance: true, ngImport: i0 });
+MatLegacyAutocompleteTrigger.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyAutocompleteTrigger, selector: "input[matAutocomplete], textarea[matAutocomplete]", host: { listeners: { "focusin": "_handleFocus()", "blur": "_onTouched()", "input": "_handleInput($event)", "keydown": "_handleKeydown($event)", "click": "_handleClick()" }, properties: { "attr.autocomplete": "autocompleteAttribute", "attr.role": "autocompleteDisabled ? null : \"combobox\"", "attr.aria-autocomplete": "autocompleteDisabled ? null : \"list\"", "attr.aria-activedescendant": "(panelOpen && activeOption) ? activeOption.id : null", "attr.aria-expanded": "autocompleteDisabled ? null : panelOpen.toString()", "attr.aria-owns": "(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id", "attr.aria-haspopup": "autocompleteDisabled ? null : \"listbox\"" }, classAttribute: "mat-autocomplete-trigger" }, providers: [MAT_LEGACY_AUTOCOMPLETE_VALUE_ACCESSOR], exportAs: ["matAutocompleteTrigger"], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyAutocompleteTrigger, decorators: [{
             type: Directive,
             args: [{
@@ -85,7 +85,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                         '(click)': '_handleClick()',
                     },
                     exportAs: 'matAutocompleteTrigger',
-                    providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR],
+                    providers: [MAT_LEGACY_AUTOCOMPLETE_VALUE_ACCESSOR],
                 }]
         }] });
 
@@ -168,5 +168,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatLegacyAutocomplete, MatLegacyAutocompleteModule, MatLegacyAutocompleteOrigin, MatLegacyAutocompleteTrigger };
+export { MAT_LEGACY_AUTOCOMPLETE_VALUE_ACCESSOR, MatLegacyAutocomplete, MatLegacyAutocompleteModule, MatLegacyAutocompleteOrigin, MatLegacyAutocompleteTrigger };
 //# sourceMappingURL=legacy-autocomplete.mjs.map

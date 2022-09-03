@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Directive, NgModule } from '@angular/core';
 import { _MatMenuBase, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, matMenuAnimations, MatMenuItem, _MatMenuTriggerBase, _MatMenuContentBase, MAT_MENU_CONTENT, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER } from '@angular/material/menu';
-export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, fadeInItems, matMenuAnimations, transformMenu } from '@angular/material/menu';
+export { MAT_MENU_CONTENT as MAT_LEGACY_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS as MAT_LEGACY_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL as MAT_LEGACY_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY as MAT_LEGACY_MENU_SCROLL_STRATEGY, fadeInItems as fadeInLegacyItems, matMenuAnimations as matLegacyMenuAnimations, transformMenu as transformLegacyMenu } from '@angular/material/menu';
 import * as i1 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import * as i2 from '@angular/material/core';

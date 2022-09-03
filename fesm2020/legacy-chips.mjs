@@ -35,19 +35,19 @@ class MatLegacyChipSelectionChange {
  * alternative token to the actual `MatChipRemove` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-const MAT_CHIP_REMOVE = new InjectionToken('MatChipRemove');
+const MAT_LEGACY_CHIP_REMOVE = new InjectionToken('MatChipRemove');
 /**
  * Injection token that can be used to reference instances of `MatChipAvatar`. It serves as
  * alternative token to the actual `MatChipAvatar` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-const MAT_CHIP_AVATAR = new InjectionToken('MatChipAvatar');
+const MAT_LEGACY_CHIP_AVATAR = new InjectionToken('MatChipAvatar');
 /**
  * Injection token that can be used to reference instances of `MatChipTrailingIcon`. It serves as
  * alternative token to the actual `MatChipTrailingIcon` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-const MAT_CHIP_TRAILING_ICON = new InjectionToken('MatChipTrailingIcon');
+const MAT_LEGACY_CHIP_TRAILING_ICON = new InjectionToken('MatChipTrailingIcon');
 // Boilerplate for applying mixins to MatChip.
 /** @docs-private */
 class MatChipBase {
@@ -63,13 +63,13 @@ const _MatChipMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(MatChipBas
 class MatLegacyChipAvatar {
 }
 MatLegacyChipAvatar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipAvatar, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyChipAvatar.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChipAvatar, selector: "mat-chip-avatar, [matChipAvatar]", host: { classAttribute: "mat-chip-avatar" }, providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatLegacyChipAvatar }], ngImport: i0 });
+MatLegacyChipAvatar.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChipAvatar, selector: "mat-chip-avatar, [matChipAvatar]", host: { classAttribute: "mat-chip-avatar" }, providers: [{ provide: MAT_LEGACY_CHIP_AVATAR, useExisting: MatLegacyChipAvatar }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipAvatar, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-chip-avatar, [matChipAvatar]',
                     host: { 'class': 'mat-chip-avatar' },
-                    providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatLegacyChipAvatar }],
+                    providers: [{ provide: MAT_LEGACY_CHIP_AVATAR, useExisting: MatLegacyChipAvatar }],
                 }]
         }] });
 /**
@@ -79,13 +79,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 class MatLegacyChipTrailingIcon {
 }
 MatLegacyChipTrailingIcon.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipTrailingIcon, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyChipTrailingIcon.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChipTrailingIcon, selector: "mat-chip-trailing-icon, [matChipTrailingIcon]", host: { classAttribute: "mat-chip-trailing-icon" }, providers: [{ provide: MAT_CHIP_TRAILING_ICON, useExisting: MatLegacyChipTrailingIcon }], ngImport: i0 });
+MatLegacyChipTrailingIcon.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChipTrailingIcon, selector: "mat-chip-trailing-icon, [matChipTrailingIcon]", host: { classAttribute: "mat-chip-trailing-icon" }, providers: [{ provide: MAT_LEGACY_CHIP_TRAILING_ICON, useExisting: MatLegacyChipTrailingIcon }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipTrailingIcon, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
                     host: { 'class': 'mat-chip-trailing-icon' },
-                    providers: [{ provide: MAT_CHIP_TRAILING_ICON, useExisting: MatLegacyChipTrailingIcon }],
+                    providers: [{ provide: MAT_LEGACY_CHIP_TRAILING_ICON, useExisting: MatLegacyChipTrailingIcon }],
                 }]
         }] });
 /** Material Design styled chip directive. Used inside the MatChipList component. */
@@ -311,7 +311,7 @@ class MatLegacyChip extends _MatChipMixinBase {
     }
 }
 MatLegacyChip.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChip, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: i1.Platform }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: i0.ChangeDetectorRef }, { token: DOCUMENT }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyChip.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChip, selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", inputs: { color: "color", disableRipple: "disableRipple", tabIndex: "tabIndex", role: "role", selected: "selected", value: "value", selectable: "selectable", disabled: "disabled", removable: "removable" }, outputs: { selectionChange: "selectionChange", destroyed: "destroyed", removed: "removed" }, host: { listeners: { "click": "_handleClick($event)", "keydown": "_handleKeydown($event)", "focus": "focus()", "blur": "_blur()" }, properties: { "attr.tabindex": "disabled ? null : tabIndex", "attr.role": "role", "class.mat-chip-selected": "selected", "class.mat-chip-with-avatar": "avatar", "class.mat-chip-with-trailing-icon": "trailingIcon || removeIcon", "class.mat-chip-disabled": "disabled", "class._mat-animation-noopable": "_animationsDisabled", "attr.disabled": "disabled || null", "attr.aria-disabled": "disabled.toString()", "attr.aria-selected": "ariaSelected" }, classAttribute: "mat-chip mat-focus-indicator" }, queries: [{ propertyName: "avatar", first: true, predicate: MAT_CHIP_AVATAR, descendants: true }, { propertyName: "trailingIcon", first: true, predicate: MAT_CHIP_TRAILING_ICON, descendants: true }, { propertyName: "removeIcon", first: true, predicate: MAT_CHIP_REMOVE, descendants: true }], exportAs: ["matChip"], usesInheritance: true, ngImport: i0 });
+MatLegacyChip.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChip, selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", inputs: { color: "color", disableRipple: "disableRipple", tabIndex: "tabIndex", role: "role", selected: "selected", value: "value", selectable: "selectable", disabled: "disabled", removable: "removable" }, outputs: { selectionChange: "selectionChange", destroyed: "destroyed", removed: "removed" }, host: { listeners: { "click": "_handleClick($event)", "keydown": "_handleKeydown($event)", "focus": "focus()", "blur": "_blur()" }, properties: { "attr.tabindex": "disabled ? null : tabIndex", "attr.role": "role", "class.mat-chip-selected": "selected", "class.mat-chip-with-avatar": "avatar", "class.mat-chip-with-trailing-icon": "trailingIcon || removeIcon", "class.mat-chip-disabled": "disabled", "class._mat-animation-noopable": "_animationsDisabled", "attr.disabled": "disabled || null", "attr.aria-disabled": "disabled.toString()", "attr.aria-selected": "ariaSelected" }, classAttribute: "mat-chip mat-focus-indicator" }, queries: [{ propertyName: "avatar", first: true, predicate: MAT_LEGACY_CHIP_AVATAR, descendants: true }, { propertyName: "trailingIcon", first: true, predicate: MAT_LEGACY_CHIP_TRAILING_ICON, descendants: true }, { propertyName: "removeIcon", first: true, predicate: MAT_LEGACY_CHIP_REMOVE, descendants: true }], exportAs: ["matChip"], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChip, decorators: [{
             type: Directive,
             args: [{
@@ -354,13 +354,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     args: ['tabindex']
                 }] }]; }, propDecorators: { avatar: [{
                 type: ContentChild,
-                args: [MAT_CHIP_AVATAR]
+                args: [MAT_LEGACY_CHIP_AVATAR]
             }], trailingIcon: [{
                 type: ContentChild,
-                args: [MAT_CHIP_TRAILING_ICON]
+                args: [MAT_LEGACY_CHIP_TRAILING_ICON]
             }], removeIcon: [{
                 type: ContentChild,
-                args: [MAT_CHIP_REMOVE]
+                args: [MAT_LEGACY_CHIP_REMOVE]
             }], role: [{
                 type: Input
             }], selected: [{
@@ -416,7 +416,7 @@ class MatLegacyChipRemove {
     }
 }
 MatLegacyChipRemove.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipRemove, deps: [{ token: MatLegacyChip }, { token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyChipRemove.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChipRemove, selector: "[matChipRemove]", host: { listeners: { "click": "_handleClick($event)" }, classAttribute: "mat-chip-remove mat-chip-trailing-icon" }, providers: [{ provide: MAT_CHIP_REMOVE, useExisting: MatLegacyChipRemove }], ngImport: i0 });
+MatLegacyChipRemove.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChipRemove, selector: "[matChipRemove]", host: { listeners: { "click": "_handleClick($event)" }, classAttribute: "mat-chip-remove mat-chip-trailing-icon" }, providers: [{ provide: MAT_LEGACY_CHIP_REMOVE, useExisting: MatLegacyChipRemove }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipRemove, decorators: [{
             type: Directive,
             args: [{
@@ -425,7 +425,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                         'class': 'mat-chip-remove mat-chip-trailing-icon',
                         '(click)': '_handleClick($event)',
                     },
-                    providers: [{ provide: MAT_CHIP_REMOVE, useExisting: MatLegacyChipRemove }],
+                    providers: [{ provide: MAT_LEGACY_CHIP_REMOVE, useExisting: MatLegacyChipRemove }],
                 }]
         }], ctorParameters: function () { return [{ type: MatLegacyChip }, { type: i0.ElementRef }]; } });
 
@@ -437,7 +437,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * found in the LICENSE file at https://angular.io/license
  */
 /** Injection token to be used to override the default options for the chips module. */
-const MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
+const MAT_LEGACY_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
 
 /**
  * @license
@@ -1288,7 +1288,7 @@ class MatLegacyChipInput {
         return !hasModifierKey(event) && new Set(this.separatorKeyCodes).has(event.keyCode);
     }
 }
-MatLegacyChipInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipInput, deps: [{ token: i0.ElementRef }, { token: MAT_CHIPS_DEFAULT_OPTIONS }], target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyChipInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipInput, deps: [{ token: i0.ElementRef }, { token: MAT_LEGACY_CHIPS_DEFAULT_OPTIONS }], target: i0.ɵɵFactoryTarget.Directive });
 MatLegacyChipInput.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyChipInput, selector: "input[matChipInputFor]", inputs: { chipList: ["matChipInputFor", "chipList"], addOnBlur: ["matChipInputAddOnBlur", "addOnBlur"], separatorKeyCodes: ["matChipInputSeparatorKeyCodes", "separatorKeyCodes"], placeholder: "placeholder", id: "id", disabled: "disabled" }, outputs: { chipEnd: "matChipInputTokenEnd" }, host: { listeners: { "keydown": "_keydown($event)", "keyup": "_keyup($event)", "blur": "_blur()", "focus": "_focus()", "input": "_onInput()" }, properties: { "id": "id", "attr.disabled": "disabled || null", "attr.placeholder": "placeholder || null", "attr.aria-invalid": "_chipList && _chipList.ngControl ? _chipList.ngControl.invalid : null", "attr.aria-required": "_chipList && _chipList.required || null" }, classAttribute: "mat-chip-input mat-input-element" }, exportAs: ["matChipInput", "matChipInputFor"], usesOnChanges: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipInput, decorators: [{
             type: Directive,
@@ -1311,7 +1311,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                 }]
         }], ctorParameters: function () { return [{ type: i0.ElementRef }, { type: undefined, decorators: [{
                     type: Inject,
-                    args: [MAT_CHIPS_DEFAULT_OPTIONS]
+                    args: [MAT_LEGACY_CHIPS_DEFAULT_OPTIONS]
                 }] }]; }, propDecorators: { chipList: [{
                 type: Input,
                 args: ['matChipInputFor']
@@ -1364,7 +1364,7 @@ MatLegacyChipsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", ve
 MatLegacyChipsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipsModule, providers: [
         ErrorStateMatcher,
         {
-            provide: MAT_CHIPS_DEFAULT_OPTIONS,
+            provide: MAT_LEGACY_CHIPS_DEFAULT_OPTIONS,
             useValue: {
                 separatorKeyCodes: [ENTER],
             },
@@ -1379,7 +1379,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     providers: [
                         ErrorStateMatcher,
                         {
-                            provide: MAT_CHIPS_DEFAULT_OPTIONS,
+                            provide: MAT_LEGACY_CHIPS_DEFAULT_OPTIONS,
                             useValue: {
                                 separatorKeyCodes: [ENTER],
                             },
@@ -1408,5 +1408,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatLegacyChip, MatLegacyChipAvatar, MatLegacyChipInput, MatLegacyChipList, MatLegacyChipListChange, MatLegacyChipRemove, MatLegacyChipSelectionChange, MatLegacyChipTrailingIcon, MatLegacyChipsModule };
+export { MAT_LEGACY_CHIPS_DEFAULT_OPTIONS, MAT_LEGACY_CHIP_AVATAR, MAT_LEGACY_CHIP_REMOVE, MAT_LEGACY_CHIP_TRAILING_ICON, MatLegacyChip, MatLegacyChipAvatar, MatLegacyChipInput, MatLegacyChipList, MatLegacyChipListChange, MatLegacyChipRemove, MatLegacyChipSelectionChange, MatLegacyChipTrailingIcon, MatLegacyChipsModule };
 //# sourceMappingURL=legacy-chips.mjs.map

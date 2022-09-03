@@ -5,7 +5,7 @@ import { MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { _MatRadioGroupBase, MAT_RADIO_GROUP, _MatRadioButtonBase, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
-export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP, MatRadioChange as MatLegacyRadioChange } from '@angular/material/radio';
+export { MAT_RADIO_DEFAULT_OPTIONS as MAT_LEGACY_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY as MAT_LEGACY_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP as MAT_LEGACY_RADIO_GROUP, MatRadioChange as MatLegacyRadioChange } from '@angular/material/radio';
 import * as i1 from '@angular/cdk/a11y';
 import * as i2 from '@angular/cdk/collections';
 
@@ -14,7 +14,7 @@ import * as i2 from '@angular/cdk/collections';
  * allows it to support [(ngModel)] and ngControl.
  * @docs-private
  */
-const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
+const MAT_LEGACY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatLegacyRadioGroup),
     multi: true,
@@ -26,7 +26,7 @@ class MatLegacyRadioGroup extends _MatRadioGroupBase {
 }
 MatLegacyRadioGroup.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyRadioGroup, deps: null, target: i0.ɵɵFactoryTarget.Directive });
 MatLegacyRadioGroup.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatLegacyRadioGroup, selector: "mat-radio-group", host: { attributes: { "role": "radiogroup" }, classAttribute: "mat-radio-group" }, providers: [
-        MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
+        MAT_LEGACY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
         { provide: MAT_RADIO_GROUP, useExisting: MatLegacyRadioGroup },
     ], queries: [{ propertyName: "_radios", predicate: i0.forwardRef(function () { return MatLegacyRadioButton; }), descendants: true }], exportAs: ["matRadioGroup"], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyRadioGroup, decorators: [{
@@ -35,7 +35,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     selector: 'mat-radio-group',
                     exportAs: 'matRadioGroup',
                     providers: [
-                        MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
+                        MAT_LEGACY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR,
                         { provide: MAT_RADIO_GROUP, useExisting: MatLegacyRadioGroup },
                     ],
                     host: {
@@ -141,5 +141,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatLegacyRadioButton, MatLegacyRadioGroup, MatLegacyRadioModule };
+export { MAT_LEGACY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatLegacyRadioButton, MatLegacyRadioGroup, MatLegacyRadioModule };
 //# sourceMappingURL=legacy-radio.mjs.map

@@ -261,14 +261,6 @@ MatLegacyListItemHarness.hostSelector = `${MatLegacyListHarness.hostSelector} .m
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-nav-list in tests. */
 class MatLegacyNavListHarness extends MatLegacyListHarnessBase {
     constructor() {

@@ -7,15 +7,15 @@ import * as i4 from '@angular/material/legacy-core';
 import * as i5 from '@angular/material/core';
 import * as i6 from '@angular/cdk/scrolling';
 import * as i7 from '@angular/material/legacy-form-field';
-import { MAT_SELECT_CONFIG } from '@angular/material/select';
-import { MAT_SELECT_SCROLL_STRATEGY } from '@angular/material/select';
-import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER } from '@angular/material/select';
-import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/material/select';
-import { MAT_SELECT_TRIGGER } from '@angular/material/select';
+import { MAT_SELECT_CONFIG as MAT_LEGACY_SELECT_CONFIG } from '@angular/material/select';
+import { MAT_SELECT_SCROLL_STRATEGY as MAT_LEGACY_SELECT_SCROLL_STRATEGY } from '@angular/material/select';
+import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER as MAT_LEGACY_SELECT_SCROLL_STRATEGY_PROVIDER } from '@angular/material/select';
+import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_LEGACY_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular/material/select';
+import { MAT_SELECT_TRIGGER as MAT_LEGACY_SELECT_TRIGGER } from '@angular/material/select';
 import { MatLegacyOptgroup } from '@angular/material/legacy-core';
 import { MatLegacyOption } from '@angular/material/legacy-core';
+import { MatSelectConfig as MatLegacySelectConfig } from '@angular/material/select';
 import { _MatSelectBase } from '@angular/material/select';
-import { MatSelectConfig } from '@angular/material/select';
 import { OnInit } from '@angular/core';
 import { QueryList } from '@angular/core';
 
@@ -33,15 +33,29 @@ declare namespace i1 {
     }
 }
 
-export { MAT_SELECT_CONFIG }
+export { MAT_LEGACY_SELECT_CONFIG }
 
-export { MAT_SELECT_SCROLL_STRATEGY }
+export { MAT_LEGACY_SELECT_SCROLL_STRATEGY }
 
-export { MAT_SELECT_SCROLL_STRATEGY_PROVIDER }
+export { MAT_LEGACY_SELECT_SCROLL_STRATEGY_PROVIDER }
 
-export { MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY }
+export { MAT_LEGACY_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY }
 
-export { MAT_SELECT_TRIGGER }
+export { MAT_LEGACY_SELECT_TRIGGER }
+
+/**
+ * The following are all the animations for the mat-select component, with each
+ * const containing the metadata for one animation.
+ *
+ * The values below match the implementation of the AngularJS Material mat-select animation.
+ * @docs-private
+ */
+export declare const matLegacySelectAnimations: {
+    readonly transformPanelWrap: AnimationTriggerMetadata;
+    readonly transformPanel: AnimationTriggerMetadata;
+};
+
+export { MatLegacySelectConfig }
 
 export declare class MatLegacySelectModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelectModule, never>;
@@ -121,18 +135,6 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false>;
 }
 
-/**
- * The following are all the animations for the mat-select component, with each
- * const containing the metadata for one animation.
- *
- * The values below match the implementation of the AngularJS Material mat-select animation.
- * @docs-private
- */
-export declare const matSelectAnimations: {
-    readonly transformPanelWrap: AnimationTriggerMetadata;
-    readonly transformPanel: AnimationTriggerMetadata;
-};
-
 /** Change event object that is emitted when the select value has changed. */
 export declare class MatSelectChange {
     /** Reference to the select that emitted the change event. */
@@ -145,8 +147,6 @@ export declare class MatSelectChange {
     /** Current value of the select that emitted the event. */
     value: any);
 }
-
-export { MatSelectConfig }
 
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.

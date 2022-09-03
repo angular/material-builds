@@ -24,8 +24,8 @@ import { trigger, transition, animate, keyframes, style, state } from '@angular/
 import * as i2$2 from '@angular/forms';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, NgControl } from '@angular/forms';
 import * as i2$1 from '@angular/material/legacy-form-field';
-import { MAT_FORM_FIELD, MatLegacyFormFieldControl } from '@angular/material/legacy-form-field';
-import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/legacy-input';
+import { MAT_LEGACY_FORM_FIELD, MatLegacyFormFieldControl } from '@angular/material/legacy-form-field';
+import { MAT_LEGACY_INPUT_VALUE_ACCESSOR } from '@angular/material/legacy-input';
 
 /**
  * @license
@@ -3139,11 +3139,11 @@ class MatDatepickerInput extends MatDatepickerInputBase {
         return event.source !== this;
     }
 }
-MatDatepickerInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatDatepickerInput, deps: [{ token: i0.ElementRef }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_DATE_FORMATS, optional: true }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
+MatDatepickerInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatDatepickerInput, deps: [{ token: i0.ElementRef }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_DATE_FORMATS, optional: true }, { token: MAT_LEGACY_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
 MatDatepickerInput.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "14.2.0", type: MatDatepickerInput, selector: "input[matDatepicker]", inputs: { matDatepicker: "matDatepicker", min: "min", max: "max", dateFilter: ["matDatepickerFilter", "dateFilter"] }, host: { listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "blur": "_onBlur()", "keydown": "_onKeydown($event)" }, properties: { "attr.aria-haspopup": "_datepicker ? \"dialog\" : null", "attr.aria-owns": "(_datepicker?.opened && _datepicker.id) || null", "attr.min": "min ? _dateAdapter.toIso8601(min) : null", "attr.max": "max ? _dateAdapter.toIso8601(max) : null", "attr.data-mat-calendar": "_datepicker ? _datepicker.id : null", "disabled": "disabled" }, classAttribute: "mat-datepicker-input" }, providers: [
         MAT_DATEPICKER_VALUE_ACCESSOR,
         MAT_DATEPICKER_VALIDATORS,
-        { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
+        { provide: MAT_LEGACY_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
     ], exportAs: ["matDatepickerInput"], usesInheritance: true, ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatDatepickerInput, decorators: [{
             type: Directive,
@@ -3152,7 +3152,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     providers: [
                         MAT_DATEPICKER_VALUE_ACCESSOR,
                         MAT_DATEPICKER_VALIDATORS,
-                        { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
+                        { provide: MAT_LEGACY_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
                     ],
                     host: {
                         'class': 'mat-datepicker-input',
@@ -3183,7 +3183,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                         type: Optional
                     }, {
                         type: Inject,
-                        args: [MAT_FORM_FIELD]
+                        args: [MAT_LEGACY_FORM_FIELD]
                     }] }];
     }, propDecorators: { matDatepicker: [{
                 type: Input
@@ -4081,7 +4081,7 @@ class MatDateRangeInput {
         }
     }
 }
-MatDateRangeInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatDateRangeInput, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: i2$2.ControlContainer, optional: true, self: true }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+MatDateRangeInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatDateRangeInput, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: i2$2.ControlContainer, optional: true, self: true }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_LEGACY_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Component });
 MatDateRangeInput.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "14.2.0", type: MatDateRangeInput, selector: "mat-date-range-input", inputs: { rangePicker: "rangePicker", required: "required", dateFilter: "dateFilter", min: "min", max: "max", disabled: "disabled", separator: "separator", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd" }, host: { attributes: { "role": "group" }, properties: { "class.mat-date-range-input-hide-placeholders": "_shouldHidePlaceholders()", "class.mat-date-range-input-required": "required", "attr.id": "id", "attr.aria-labelledby": "_getAriaLabelledby()", "attr.aria-describedby": "_ariaDescribedBy", "attr.data-mat-calendar": "rangePicker ? rangePicker.id : null" }, classAttribute: "mat-date-range-input" }, providers: [
         { provide: MatLegacyFormFieldControl, useExisting: MatDateRangeInput },
         { provide: MAT_DATE_RANGE_INPUT_PARENT, useExisting: MatDateRangeInput },
@@ -4114,7 +4114,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                         type: Optional
                     }, {
                         type: Inject,
-                        args: [MAT_FORM_FIELD]
+                        args: [MAT_LEGACY_FORM_FIELD]
                     }] }];
     }, propDecorators: { rangePicker: [{
                 type: Input

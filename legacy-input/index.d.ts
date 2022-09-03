@@ -1,12 +1,12 @@
-import { getMatInputUnsupportedTypeError } from '@angular/material/input';
+import { getMatInputUnsupportedTypeError as getMatLegacyInputUnsupportedTypeError } from '@angular/material/input';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/cdk/text-field';
 import * as i3 from '@angular/material/legacy-form-field';
 import * as i4 from '@angular/material/core';
-import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
+import { MAT_INPUT_VALUE_ACCESSOR as MAT_LEGACY_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 import { MatInput } from '@angular/material/input';
 
-export { getMatInputUnsupportedTypeError }
+export { getMatLegacyInputUnsupportedTypeError }
 
 declare namespace i1 {
     export {
@@ -14,7 +14,7 @@ declare namespace i1 {
     }
 }
 
-export { MAT_INPUT_VALUE_ACCESSOR }
+export { MAT_LEGACY_INPUT_VALUE_ACCESSOR }
 
 /** Directive that allows a native input to work inside a `MatFormField`. */
 export declare class MatLegacyInput extends MatInput {
