@@ -12,7 +12,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard `MatDialog` in tests. */
+/**
+ * Harness for interacting with a standard `MatDialog` in tests.
+ * @deprecated Use `MatDialogHarness` from `@angular/material/dialog/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyDialogHarness extends _MatDialogHarnessBase {
     constructor() {
         super(...arguments);
@@ -43,7 +47,11 @@ MatLegacyDialogHarness.hostSelector = '.mat-dialog-container';
  * found in the LICENSE file at https://angular.io/license
  */
 var MatTestLegacyDialogOpener_1;
-/** Test component that immediately opens a dialog when created. */
+/**
+ * Test component that immediately opens a dialog when created.
+ * @deprecated Use `MatTestDialogOpener` from `@angular/material/dialog/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 let MatTestLegacyDialogOpener = MatTestLegacyDialogOpener_1 = class MatTestLegacyDialogOpener extends _MatTestDialogOpenerBase {
     constructor(dialog) {
         super(dialog);
@@ -64,6 +72,10 @@ MatTestLegacyDialogOpener = MatTestLegacyDialogOpener_1 = __decorate([
     }),
     __metadata("design:paramtypes", [MatLegacyDialog])
 ], MatTestLegacyDialogOpener);
+/**
+ * @deprecated Use `MatTestDialogOpenerModule` from `@angular/material/dialog/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 let MatTestLegacyDialogOpenerModule = class MatTestLegacyDialogOpenerModule {
 };
 MatTestLegacyDialogOpenerModule = __decorate([

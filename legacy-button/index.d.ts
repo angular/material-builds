@@ -29,6 +29,8 @@ declare const _MatButtonBase: _Constructor<CanColor> & _AbstractConstructor<CanC
 
 /**
  * Material design anchor button.
+ * @deprecated Use `MatAnchor` from `@angular/material/button` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyAnchor extends MatLegacyButton implements AfterViewInit, OnDestroy {
     /** @breaking-change 14.0.0 _ngZone will be required. */
@@ -47,6 +49,8 @@ export declare class MatLegacyAnchor extends MatLegacyButton implements AfterVie
 
 /**
  * Material design button.
+ * @deprecated Use `MatButton` from `@angular/material/button` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyButton extends _MatButtonBase implements AfterViewInit, OnDestroy, CanDisable, CanColor, CanDisableRipple, FocusableOption {
     private _focusMonitor;
@@ -70,6 +74,10 @@ export declare class MatLegacyButton extends _MatButtonBase implements AfterView
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyButton, "button[mat-button], button[mat-raised-button], button[mat-icon-button],             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],             button[mat-flat-button]", ["matButton"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "color": "color"; }, {}, never, ["*"], false>;
 }
 
+/**
+ * @deprecated Use `MatButtonModule` from `@angular/material/button` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyButtonModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyButtonModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyButtonModule, [typeof i1.MatLegacyButton, typeof i1.MatLegacyAnchor], [typeof i2.MatRippleModule, typeof i2.MatCommonModule], [typeof i1.MatLegacyButton, typeof i1.MatLegacyAnchor, typeof i2.MatCommonModule]>;

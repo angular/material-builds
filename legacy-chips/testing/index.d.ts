@@ -4,11 +4,19 @@ import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { TestKey } from '@angular/cdk/testing';
 
-/** A set of criteria that can be used to filter a list of `MatChipAvatarHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatChipAvatarHarness` instances.
+ * @deprecated Use `ChipAvatarHarnessFilters` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyChipAvatarHarnessFilters extends BaseHarnessFilters {
 }
 
-/** A set of criteria that can be used to filter a list of chip instances. */
+/**
+ * A set of criteria that can be used to filter a list of chip instances.
+ * @deprecated Use `ChipHarnessFilters` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyChipHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
@@ -20,7 +28,11 @@ export declare interface LegacyChipHarnessFilters extends BaseHarnessFilters {
     selected?: boolean;
 }
 
-/** A set of criteria that can be used to filter a list of `MatChipListInputHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatChipListInputHarness` instances.
+ * @deprecated Use `ChipInputHarnessFilters` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyChipInputHarnessFilters extends BaseHarnessFilters {
     /** Filters based on the value of the input. */
     value?: string | RegExp;
@@ -28,25 +40,45 @@ export declare interface LegacyChipInputHarnessFilters extends BaseHarnessFilter
     placeholder?: string | RegExp;
 }
 
-/** A set of criteria that can be used to filter selectable chip list instances. */
+/**
+ * A set of criteria that can be used to filter selectable chip list instances.
+ * @deprecated Use `ChipListboxHarnessFilters` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyChipListboxHarnessFilters extends BaseHarnessFilters {
 }
 
-/** A set of criteria that can be used to filter chip list instances. */
+/**
+ * A set of criteria that can be used to filter chip list instances.
+ * @deprecated Use `ChipListHarnessFilters` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyChipListHarnessFilters extends BaseHarnessFilters {
 }
 
-/** A set of criteria that can be used to filter a list of selectable chip instances. */
+/**
+ * A set of criteria that can be used to filter a list of selectable chip instances.
+ * @deprecated Use `ChipOptionHarnessFilters` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyChipOptionHarnessFilters extends LegacyChipHarnessFilters {
     /** Only find chip instances whose selected state matches the given value. */
     selected?: boolean;
 }
 
-/** A set of criteria that can be used to filter a list of `MatChipRemoveHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatChipRemoveHarness` instances.
+ * @deprecated Use `ChipRemoveHarnessFilters` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyChipRemoveHarnessFilters extends BaseHarnessFilters {
 }
 
-/** Base class for chip list harnesses. */
+/**
+ * Base class for chip list harnesses.
+ * @deprecated Use `class` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare abstract class _MatChipListHarnessBase extends ComponentHarness {
     /** Gets whether the chip list is disabled. */
     isDisabled(): Promise<boolean>;
@@ -60,7 +92,11 @@ declare abstract class _MatChipListHarnessBase extends ComponentHarness {
     getOrientation(): Promise<'horizontal' | 'vertical'>;
 }
 
-/** Harness for interacting with a standard Material chip avatar in tests. */
+/**
+ * Harness for interacting with a standard Material chip avatar in tests.
+ * @deprecated Use `MatChipAvatarHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare class MatLegacyChipAvatarHarness extends ComponentHarness {
     static hostSelector: string;
     /**
@@ -72,7 +108,11 @@ declare class MatLegacyChipAvatarHarness extends ComponentHarness {
     static with(options?: LegacyChipAvatarHarnessFilters): HarnessPredicate<MatLegacyChipAvatarHarness>;
 }
 
-/** Harness for interacting with a standard selectable Angular Material chip in tests. */
+/**
+ * Harness for interacting with a standard selectable Angular Material chip in tests.
+ * @deprecated Use `MatChipHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyChipHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatChip` instance. */
     static hostSelector: string;
@@ -125,7 +165,11 @@ export declare class MatLegacyChipHarness extends ContentContainerComponentHarne
     getAvatar(filter?: LegacyChipAvatarHarnessFilters): Promise<MatLegacyChipAvatarHarness | null>;
 }
 
-/** Harness for interacting with a standard Material chip inputs in tests. */
+/**
+ * Harness for interacting with a standard Material chip inputs in tests.
+ * @deprecated Use `MatChipInputHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyChipInputHarness extends ComponentHarness {
     static hostSelector: string;
     /**
@@ -164,7 +208,11 @@ export declare class MatLegacyChipInputHarness extends ComponentHarness {
     sendSeparatorKey(key: TestKey | string): Promise<void>;
 }
 
-/** Harness for interacting with a standard selectable chip list in tests. */
+/**
+ * Harness for interacting with a standard selectable chip list in tests.
+ * @deprecated Use `MatChipListboxHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyChipListboxHarness extends _MatChipListHarnessBase {
     /** The selector for the host element of a `MatChipList` instance. */
     static hostSelector: string;
@@ -188,7 +236,11 @@ export declare class MatLegacyChipListboxHarness extends _MatChipListHarnessBase
     selectChips(filter?: LegacyChipOptionHarnessFilters): Promise<void>;
 }
 
-/** Harness for interacting with a standard chip list in tests. */
+/**
+ * Harness for interacting with a standard chip list in tests.
+ * @deprecated Use `MatChipListHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyChipListHarness extends _MatChipListHarnessBase {
     /** The selector for the host element of a `MatChipList` instance. */
     static hostSelector: string;
@@ -219,6 +271,10 @@ export declare class MatLegacyChipListHarness extends _MatChipListHarnessBase {
     getInput(filter?: LegacyChipInputHarnessFilters): Promise<MatLegacyChipInputHarness>;
 }
 
+/**
+ * @deprecated Use `MatChipOptionHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyChipOptionHarness extends MatLegacyChipHarness {
     /** The selector for the host element of a selectable chip instance. */
     static hostSelector: string;
@@ -239,7 +295,11 @@ export declare class MatLegacyChipOptionHarness extends MatLegacyChipHarness {
     toggle(): Promise<void>;
 }
 
-/** Harness for interacting with a standard Material chip remove button in tests. */
+/**
+ * Harness for interacting with a standard Material chip remove button in tests.
+ * @deprecated Use `MatChipRemoveHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyChipRemoveHarness extends ComponentHarness {
     static hostSelector: string;
     /**

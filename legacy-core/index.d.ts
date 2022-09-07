@@ -126,6 +126,8 @@ export { MatLegacyNativeDateModule }
 
 /**
  * Component that is used to group instances of `mat-option`.
+ * @deprecated Use `MatOptgroup` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyOptgroup extends _MatOptgroupBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyOptgroup, never>;
@@ -134,6 +136,8 @@ export declare class MatLegacyOptgroup extends _MatOptgroupBase {
 
 /**
  * Single option inside of a `<mat-select>` element.
+ * @deprecated Use `MatOption` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyOption<T = any> extends _MatOptionBase<T> {
     constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatOptionParentComponent, group: MatLegacyOptgroup);
@@ -141,6 +145,10 @@ export declare class MatLegacyOption<T = any> extends _MatOptionBase<T> {
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"], false>;
 }
 
+/**
+ * @deprecated Use `MatOptionModule` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyOptionModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyOptionModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyOptionModule, [typeof i1.MatLegacyOption, typeof i2.MatLegacyOptgroup], [typeof i3.MatRippleModule, typeof i4.CommonModule, typeof i3.MatCommonModule, typeof i3.MatPseudoCheckboxModule], [typeof i1.MatLegacyOption, typeof i2.MatLegacyOptgroup]>;

@@ -2,7 +2,11 @@ import { __awaiter } from 'tslib';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with a standard mat-progress-bar in tests. */
+/**
+ * Harness for interacting with a standard mat-progress-bar in tests.
+ * @deprecated Use `MatProgressBarHarness` from `@angular/material/progress-bar/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyProgressBarHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatProgressBarHarness` that meets

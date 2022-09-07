@@ -31,11 +31,15 @@ export { MAT_LEGACY_RADIO_GROUP }
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * @docs-private
+ * @deprecated Use `MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR` from `@angular/material/radio` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare const MAT_LEGACY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any;
 
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
+ * @deprecated Use `MatRadioButton` from `@angular/material/radio` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyRadioButton extends _MatRadioButtonBase {
     constructor(radioGroup: MatLegacyRadioGroup, elementRef: ElementRef, changeDetector: ChangeDetectorRef, focusMonitor: FocusMonitor, radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, providerOverride?: MatLegacyRadioDefaultOptions, tabIndex?: string);
@@ -49,6 +53,8 @@ export { MatLegacyRadioDefaultOptions }
 
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
+ * @deprecated Use `MatRadioGroup` from `@angular/material/radio` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyRadioGroup extends _MatRadioGroupBase<MatLegacyRadioButton> {
     _radios: QueryList<MatLegacyRadioButton>;
@@ -56,6 +62,10 @@ export declare class MatLegacyRadioGroup extends _MatRadioGroupBase<MatLegacyRad
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyRadioGroup, "mat-radio-group", ["matRadioGroup"], {}, {}, ["_radios"], never, false>;
 }
 
+/**
+ * @deprecated Use `MatRadioModule` from `@angular/material/radio` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyRadioModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyRadioModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyRadioModule, [typeof i1.MatLegacyRadioGroup, typeof i1.MatLegacyRadioButton], [typeof i2.MatRippleModule, typeof i2.MatCommonModule], [typeof i1.MatLegacyRadioGroup, typeof i1.MatLegacyRadioButton, typeof i2.MatCommonModule]>;

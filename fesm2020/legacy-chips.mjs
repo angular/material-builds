@@ -16,7 +16,11 @@ import * as i2 from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MatLegacyFormFieldControl } from '@angular/material/legacy-form-field';
 
-/** Event object emitted by MatChip when selected or deselected. */
+/**
+ * Event object emitted by MatChip when selected or deselected.
+ * @deprecated Use `MatChipSelectionChange` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipSelectionChange {
     constructor(
     /** Reference to the chip that emitted the event. */
@@ -34,18 +38,24 @@ class MatLegacyChipSelectionChange {
  * Injection token that can be used to reference instances of `MatChipRemove`. It serves as
  * alternative token to the actual `MatChipRemove` class which could cause unnecessary
  * retention of the class and its directive metadata.
+ * @deprecated Use `MAT_CHIP_REMOVE` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_CHIP_REMOVE = new InjectionToken('MatChipRemove');
 /**
  * Injection token that can be used to reference instances of `MatChipAvatar`. It serves as
  * alternative token to the actual `MatChipAvatar` class which could cause unnecessary
  * retention of the class and its directive metadata.
+ * @deprecated Use `MAT_CHIP_AVATAR` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_CHIP_AVATAR = new InjectionToken('MatChipAvatar');
 /**
  * Injection token that can be used to reference instances of `MatChipTrailingIcon`. It serves as
  * alternative token to the actual `MatChipTrailingIcon` class which could cause unnecessary
  * retention of the class and its directive metadata.
+ * @deprecated Use `MAT_CHIP_TRAILING_ICON` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_CHIP_TRAILING_ICON = new InjectionToken('MatChipTrailingIcon');
 // Boilerplate for applying mixins to MatChip.
@@ -59,6 +69,8 @@ const _MatChipMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(MatChipBas
 /**
  * Dummy directive to add CSS class to chip avatar.
  * @docs-private
+ * @deprecated Use `MatChipAvatar` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyChipAvatar {
 }
@@ -75,6 +87,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Dummy directive to add CSS class to chip trailing icon.
  * @docs-private
+ * @deprecated Use `MatChipTrailingIcon` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyChipTrailingIcon {
 }
@@ -88,7 +102,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     providers: [{ provide: MAT_LEGACY_CHIP_TRAILING_ICON, useExisting: MatLegacyChipTrailingIcon }],
                 }]
         }] });
-/** Material Design styled chip directive. Used inside the MatChipList component. */
+/**
+ * Material Design styled chip directive. Used inside the MatChipList component.
+ * @deprecated Use `MatChip` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChip extends _MatChipMixinBase {
     constructor(elementRef, _ngZone, platform, globalRippleOptions, _changeDetectorRef, _document, animationMode, tabIndex) {
         super(elementRef);
@@ -392,6 +410,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
  * styles to properly center the icon within the chip.
+ *
+ * @deprecated Use `MatChipRemove` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyChipRemove {
     constructor(_parentChip, elementRef) {
@@ -436,7 +457,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Injection token to be used to override the default options for the chips module. */
+/**
+ * Injection token to be used to override the default options for the chips module.
+ * @deprecated Use `MAT_CHIPS_DEFAULT_OPTIONS` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
 
 /**
@@ -470,7 +495,11 @@ const _MatChipListBase = mixinErrorState(class {
 });
 // Increasing integer for generating unique ids for chip-list components.
 let nextUniqueId$1 = 0;
-/** Change event object that is emitted when the chip list value has changed. */
+/**
+ * Change event object that is emitted when the chip list value has changed.
+ * @deprecated Use `MatChipListChange` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipListChange {
     constructor(
     /** Chip list that emitted the event. */
@@ -483,6 +512,8 @@ class MatLegacyChipListChange {
 }
 /**
  * A material design chips component (named ChipList for its similarity to the List component).
+ * @deprecated Use `MatChipList` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyChipList extends _MatChipListBase {
     constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
@@ -1148,6 +1179,8 @@ let nextUniqueId = 0;
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
+ * @deprecated Use `MatChipInput` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyChipInput {
     constructor(_elementRef, _defaultOptions) {
@@ -1347,6 +1380,10 @@ const CHIP_DECLARATIONS = [
     MatLegacyChipAvatar,
     MatLegacyChipTrailingIcon,
 ];
+/**
+ * @deprecated Use `MatChipsModule` from `@angular/material/chips` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipsModule {
 }
 MatLegacyChipsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyChipsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });

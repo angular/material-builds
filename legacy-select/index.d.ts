@@ -43,6 +43,10 @@ export { MAT_LEGACY_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY }
 
 export { MAT_LEGACY_SELECT_TRIGGER }
 
+/**
+ * @deprecated Use `MatSelect` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySelect extends _MatSelectBase<MatLegacySelectChange> implements OnInit {
     /** The scroll position of the overlay panel, calculated to center the selected option. */
     private _scrollTop;
@@ -121,13 +125,19 @@ export declare class MatLegacySelect extends _MatSelectBase<MatLegacySelectChang
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
  * @docs-private
+ * @deprecated Use `matSelectAnimations` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare const matLegacySelectAnimations: {
     readonly transformPanelWrap: AnimationTriggerMetadata;
     readonly transformPanel: AnimationTriggerMetadata;
 };
 
-/** Change event object that is emitted when the select value has changed. */
+/**
+ * Change event object that is emitted when the select value has changed.
+ * @deprecated Use `MatSelectChange` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySelectChange {
     /** Reference to the select that emitted the change event. */
     source: MatLegacySelect;
@@ -142,6 +152,10 @@ export declare class MatLegacySelectChange {
 
 export { MatLegacySelectConfig }
 
+/**
+ * @deprecated Use `MatSelectModule` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySelectModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelectModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacySelectModule, [typeof i1.MatLegacySelect, typeof i1.MatLegacySelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule], [typeof i6.CdkScrollableModule, typeof i7.MatLegacyFormFieldModule, typeof i1.MatLegacySelect, typeof i1.MatLegacySelectTrigger, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule]>;
@@ -150,13 +164,19 @@ export declare class MatLegacySelectModule {
 
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
+ * @deprecated Use `MatSelectTrigger` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacySelectTrigger {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelectTrigger, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacySelectTrigger, "mat-select-trigger", never, {}, {}, never, never, false>;
 }
 
-/** The height of the select items in `em` units. */
+/**
+ * The height of the select items in `em` units.
+ * @deprecated Use `SELECT_ITEM_HEIGHT_EM` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare const SELECT_ITEM_HEIGHT_EM = 3;
 
 /**
@@ -167,21 +187,38 @@ declare const SELECT_ITEM_HEIGHT_EM = 3;
  * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
+ *
+ * @deprecated Use `SELECT_MULTIPLE_PANEL_PADDING_X` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 declare const SELECT_MULTIPLE_PANEL_PADDING_X: number;
 
-/** The panel's x axis padding if it is indented (e.g. there is an option group). */
+/**
+ * The panel's x axis padding if it is indented (e.g. there is an option group).
+ * @deprecated Use `SELECT_PANEL_INDENT_PADDING_X` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare const SELECT_PANEL_INDENT_PADDING_X: number;
 
-/** The max height of the select's overlay panel. */
+/**
+ * The max height of the select's overlay panel.
+ * @deprecated Use `SELECT_PANEL_MAX_HEIGHT` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare const SELECT_PANEL_MAX_HEIGHT = 256;
 
-/** The panel's padding on the x-axis. */
+/**
+ * The panel's padding on the x-axis.
+ * @deprecated Use `SELECT_PANEL_PADDING_X` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare const SELECT_PANEL_PADDING_X = 16;
 
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
+ * @deprecated Use `SELECT_PANEL_VIEWPORT_PADDING` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 declare const SELECT_PANEL_VIEWPORT_PADDING = 8;
 

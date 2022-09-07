@@ -119,6 +119,8 @@ export { MAT_LEGACY_TABS_CONFIG }
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * @docs-private
+ * @deprecated Use `MatInkBar` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyInkBar {
     private _elementRef;
@@ -144,6 +146,10 @@ export { _MatLegacyInkBarPositioner }
 
 export { MatLegacyPaginatedTabHeader }
 
+/**
+ * @deprecated Use `MatTab` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTab extends _MatLegacyTabBase {
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     get templateLabel(): MatTabLabel;
@@ -161,6 +167,8 @@ export { _MatLegacyTabBase }
 /**
  * Wrapper for the contents of a tab.
  * @docs-private
+ * @deprecated Use `MatTabBody` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyTabBody extends _MatLegacyTabBodyBase {
     _portalHost: CdkPortalOutlet;
@@ -176,6 +184,8 @@ export { MatLegacyTabBodyOriginState }
 /**
  * The portal host directive for the contents of the tab.
  * @docs-private
+ * @deprecated Use `MatTabBodyPortal` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyTabBodyPortal extends MatTabBodyPortal {
     constructor(componentFactoryResolver: ComponentFactoryResolver, viewContainerRef: ViewContainerRef, host: MatLegacyTabBody, _document: any);
@@ -187,7 +197,11 @@ export { MatLegacyTabBodyPositionState }
 
 export { MatLegacyTabChangeEvent }
 
-/** Decorates the `ng-template` tags and reads out the template from it. */
+/**
+ * Decorates the `ng-template` tags and reads out the template from it.
+ * @deprecated Use `MatTabContent` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTabContent extends MatTabContent {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyTabContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyTabContent, "[matTabContent]", never, {}, {}, never, never, false>;
@@ -197,6 +211,8 @@ export declare class MatLegacyTabContent extends MatTabContent {
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://material.io/design/components/tabs.html
+ * @deprecated Use `MatTabGroup` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyTabGroup extends _MatLegacyTabGroupBase {
     _allTabs: QueryList<MatLegacyTab>;
@@ -215,6 +231,8 @@ export { _MatLegacyTabGroupBase }
  * width of the header container, then arrows will be displayed to allow the user to scroll
  * left and right across the header.
  * @docs-private
+ * @deprecated Use `MatTabHeader` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyTabHeader extends _MatLegacyTabHeaderBase {
     _items: QueryList<MatLegacyTabLabelWrapper>;
@@ -233,12 +251,20 @@ export { _MatLegacyTabHeaderBase }
 
 export { MatLegacyTabHeaderPosition }
 
-/** Used to flag tab labels for use with the portal directive */
+/**
+ * Used to flag tab labels for use with the portal directive
+ * @deprecated Use `MatTabLabel` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTabLabel extends MatTabLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyTabLabel, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyTabLabel, "[mat-tab-label], [matTabLabel]", never, {}, {}, never, never, false>;
 }
 
+/**
+ * @deprecated Use `MatTabLabelWrapper` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTabLabelWrapper extends _MatTabLabelWrapperBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyTabLabelWrapper, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; }, {}, never, never, false>;
@@ -246,6 +272,8 @@ export declare class MatLegacyTabLabelWrapper extends _MatTabLabelWrapperBase {
 
 /**
  * Link inside of a `mat-tab-nav-bar`.
+ * @deprecated Use `MatTabLink` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyTabLink extends _MatLegacyTabLinkBase implements OnDestroy {
     /** Reference to the RippleRenderer for the tab-link. */
@@ -261,6 +289,8 @@ export { _MatLegacyTabLinkBase }
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
+ * @deprecated Use `MatTabNav` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyTabNav extends _MatLegacyTabNavBase {
     _items: QueryList<MatLegacyTabLink>;
@@ -279,6 +309,8 @@ export { _MatLegacyTabNavBase }
 
 /**
  * Tab panel component associated with MatTabNav.
+ * @deprecated Use `MatTabNavPanel` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyTabNavPanel {
     /** Unique id for the tab panel. */
@@ -293,6 +325,10 @@ export { matLegacyTabsAnimations }
 
 export { MatLegacyTabsConfig }
 
+/**
+ * @deprecated Use `MatTabsModule` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTabsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyTabsModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyTabsModule, [typeof i1.MatLegacyTabGroup, typeof i2.MatLegacyTabLabel, typeof i3.MatLegacyTab, typeof i4.MatLegacyInkBar, typeof i5.MatLegacyTabLabelWrapper, typeof i6.MatLegacyTabNav, typeof i6.MatLegacyTabNavPanel, typeof i6.MatLegacyTabLink, typeof i7.MatLegacyTabBody, typeof i7.MatLegacyTabBodyPortal, typeof i8.MatLegacyTabHeader, typeof i9.MatLegacyTabContent], [typeof i10.CommonModule, typeof i11.MatCommonModule, typeof i12.PortalModule, typeof i11.MatRippleModule, typeof i13.ObserversModule, typeof i14.A11yModule], [typeof i11.MatCommonModule, typeof i1.MatLegacyTabGroup, typeof i2.MatLegacyTabLabel, typeof i3.MatLegacyTab, typeof i6.MatLegacyTabNav, typeof i6.MatLegacyTabNavPanel, typeof i6.MatLegacyTabLink, typeof i9.MatLegacyTabContent]>;

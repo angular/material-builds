@@ -36,6 +36,8 @@ declare namespace i2 {
 /**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
+ * @deprecated Use `SimpleSnackBar` from `@angular/material/snack-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class LegacySimpleSnackBar implements LegacyTextOnlySnackBar {
     snackBarRef: MatLegacySnackBarRef<LegacySimpleSnackBar>;
@@ -63,6 +65,8 @@ export { MAT_LEGACY_SNACK_BAR_DEFAULT_OPTIONS_FACTORY }
 
 /**
  * Service to dispatch Material Design snack bar messages.
+ * @deprecated Use `MatSnackBar` from `@angular/material/snack-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacySnackBar extends _MatLegacySnackBarBase {
     protected simpleSnackBarComponent: typeof LegacySimpleSnackBar;
@@ -82,6 +86,8 @@ export { MatLegacySnackBarConfig }
 /**
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
+ * @deprecated Use `MatSnackBarContainer` from `@angular/material/snack-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacySnackBarContainer extends _MatLegacySnackBarContainerBase {
     protected _afterPortalAttached(): void;
@@ -95,6 +101,10 @@ export { MatLegacySnackBarDismiss }
 
 export { MatLegacySnackBarHorizontalPosition }
 
+/**
+ * @deprecated Use `MatSnackBarModule` from `@angular/material/snack-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySnackBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySnackBarModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacySnackBarModule, [typeof i1.MatLegacySnackBarContainer, typeof i2.LegacySimpleSnackBar], [typeof i3.OverlayModule, typeof i4.PortalModule, typeof i5.CommonModule, typeof i6.MatLegacyButtonModule, typeof i7.MatCommonModule], [typeof i1.MatLegacySnackBarContainer, typeof i7.MatCommonModule]>;

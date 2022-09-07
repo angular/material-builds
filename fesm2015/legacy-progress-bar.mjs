@@ -26,9 +26,15 @@ const _MatProgressBarBase = mixinColor(class {
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * @docs-private
+ * @deprecated Use `MAT_PROGRESS_BAR_LOCATION` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_PROGRESS_BAR_LOCATION_FACTORY` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 function MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY() {
     const _document = inject(DOCUMENT);
     const _location = _document ? _document.location : null;
@@ -38,12 +44,18 @@ function MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY() {
         getPathname: () => (_location ? _location.pathname + _location.search : ''),
     };
 }
-/** Injection token to be used to override the default options for `mat-progress-bar`. */
+/**
+ * Injection token to be used to override the default options for `mat-progress-bar`.
+ * @deprecated Use `MAT_PROGRESS_BAR_DEFAULT_OPTIONS` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS = new InjectionToken('MAT_PROGRESS_BAR_DEFAULT_OPTIONS');
 /** Counter used to generate unique IDs for progress bars. */
 let progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
+ * @deprecated Use `MatProgressBar` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyProgressBar extends _MatProgressBarBase {
     constructor(elementRef, _ngZone, _animationMode, 
@@ -214,6 +226,10 @@ function clamp(v, min = 0, max = 100) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatProgressBarModule` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyProgressBarModule {
 }

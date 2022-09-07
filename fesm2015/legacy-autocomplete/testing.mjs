@@ -9,7 +9,11 @@ import { _MatAutocompleteHarnessBase } from '@angular/material/autocomplete/test
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-autocomplete in tests. */
+/**
+ * Harness for interacting with a standard mat-autocomplete in tests.
+ * @deprecated Use `MatAutocompleteHarness` from `@angular/material/autocomplete/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyAutocompleteHarness extends _MatAutocompleteHarnessBase {
     constructor() {
         super(...arguments);

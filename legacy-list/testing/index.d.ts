@@ -7,41 +7,85 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatDividerHarness } from '@angular/material/divider/testing';
 import { MatLegacyListOptionCheckboxPosition } from '@angular/material/legacy-list';
 
+/**
+ * @deprecated Use `ActionListHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyActionListHarnessFilters extends BaseHarnessFilters {
 }
 
+/**
+ * @deprecated Use `ActionListItemHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyActionListItemHarnessFilters extends LegacyBaseListItemHarnessFilters {
 }
 
+/**
+ * @deprecated Use `BaseListItemHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyBaseListItemHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;
 }
 
+/**
+ * @deprecated Use `ListHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyListHarnessFilters extends BaseHarnessFilters {
 }
 
+/**
+ * @deprecated Use `ListItemHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyListItemHarnessFilters extends LegacyBaseListItemHarnessFilters {
 }
 
+/**
+ * @deprecated Use `ListOptionHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyListOptionHarnessFilters extends LegacyBaseListItemHarnessFilters {
     selected?: boolean;
 }
 
+/**
+ * @deprecated Use `NavListHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyNavListHarnessFilters extends BaseHarnessFilters {
 }
 
+/**
+ * @deprecated Use `NavListItemHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyNavListItemHarnessFilters extends LegacyBaseListItemHarnessFilters {
     href?: string | RegExp | null;
 }
 
+/**
+ * @deprecated Use `SelectionListHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacySelectionListHarnessFilters extends BaseHarnessFilters {
 }
 
+/**
+ * @deprecated Use `SubheaderHarnessFilters` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacySubheaderHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;
 }
 
-/** Represents a section of a list falling under a specific header. */
+/**
+ * Represents a section of a list falling under a specific header.
+ * @deprecated Use `ListSection` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare interface ListSection<I> {
     /** The heading for this list section. `undefined` if there is no heading. */
     heading?: string;
@@ -49,7 +93,11 @@ declare interface ListSection<I> {
     items: I[];
 }
 
-/** Harness for interacting with a standard mat-action-list in tests. */
+/**
+ * Harness for interacting with a standard mat-action-list in tests.
+ * @deprecated Use `MatActionListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyActionListHarness extends MatLegacyListHarnessBase<typeof MatLegacyActionListItemHarness, MatLegacyActionListItemHarness, LegacyActionListItemHarnessFilters> {
     /** The selector for the host element of a `MatActionList` instance. */
     static hostSelector: string;
@@ -63,7 +111,11 @@ export declare class MatLegacyActionListHarness extends MatLegacyListHarnessBase
     _itemHarness: typeof MatLegacyActionListItemHarness;
 }
 
-/** Harness for interacting with an action list item. */
+/**
+ * Harness for interacting with an action list item.
+ * @deprecated Use `MatActionListItemHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyActionListItemHarness extends MatLegacyListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
     static hostSelector: string;
@@ -84,7 +136,11 @@ export declare class MatLegacyActionListItemHarness extends MatLegacyListItemHar
     isFocused(): Promise<boolean>;
 }
 
-/** Harness for interacting with a standard mat-list in tests. */
+/**
+ * Harness for interacting with a standard mat-list in tests.
+ * @deprecated Use `MatListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyListHarness extends MatLegacyListHarnessBase<typeof MatLegacyListItemHarness, MatLegacyListItemHarness, LegacyListItemHarnessFilters> {
     /** The selector for the host element of a `MatList` instance. */
     static hostSelector: string;
@@ -104,6 +160,8 @@ export declare class MatLegacyListHarness extends MatLegacyListHarnessBase<typeo
  * @template C The list item harness type that `T` constructs.
  * @template F The filter type used filter list item harness of type `C`.
  * @docs-private
+ * @deprecated Use `class` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 declare abstract class MatLegacyListHarnessBase<T extends ComponentHarnessConstructor<C> & {
     with: (options?: F) => HarnessPredicate<C>;
@@ -181,7 +239,11 @@ declare abstract class MatLegacyListHarnessBase<T extends ComponentHarnessConstr
     }): Promise<(C | MatLegacySubheaderHarness | MatDividerHarness)[]>;
 }
 
-/** Harness for interacting with a list item. */
+/**
+ * Harness for interacting with a list item.
+ * @deprecated Use `MatListItemHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyListItemHarness extends MatLegacyListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
     static hostSelector: string;
@@ -197,6 +259,8 @@ export declare class MatLegacyListItemHarness extends MatLegacyListItemHarnessBa
 /**
  * Shared behavior among the harnesses for the various `MatListItem` flavors.
  * @docs-private
+ * @deprecated Use `class` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 declare abstract class MatLegacyListItemHarnessBase extends ContentContainerComponentHarness<MatLegacyListItemSection> {
     private _lines;
@@ -214,12 +278,20 @@ declare abstract class MatLegacyListItemHarnessBase extends ContentContainerComp
     isDisabled(): Promise<boolean>;
 }
 
-/** Selectors for the various list item sections that may contain user content. */
+/**
+ * Selectors for the various list item sections that may contain user content.
+ * @deprecated Use `enum` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare const enum MatLegacyListItemSection {
     CONTENT = ".mat-list-item-content"
 }
 
-/** Harness for interacting with a list option. */
+/**
+ * Harness for interacting with a list option.
+ * @deprecated Use `MatListOptionHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyListOptionHarness extends MatLegacyListItemHarnessBase {
     /** The selector for the host element of a `MatListOption` instance. */
     static hostSelector: string;
@@ -255,7 +327,11 @@ export declare class MatLegacyListOptionHarness extends MatLegacyListItemHarness
     deselect(): Promise<void>;
 }
 
-/** Harness for interacting with a standard mat-nav-list in tests. */
+/**
+ * Harness for interacting with a standard mat-nav-list in tests.
+ * @deprecated Use `MatNavListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyNavListHarness extends MatLegacyListHarnessBase<typeof MatLegacyNavListItemHarness, MatLegacyNavListItemHarness, LegacyNavListItemHarnessFilters> {
     /** The selector for the host element of a `MatNavList` instance. */
     static hostSelector: string;
@@ -269,7 +345,11 @@ export declare class MatLegacyNavListHarness extends MatLegacyListHarnessBase<ty
     _itemHarness: typeof MatLegacyNavListItemHarness;
 }
 
-/** Harness for interacting with a nav list item. */
+/**
+ * Harness for interacting with a nav list item.
+ * @deprecated Use `MatNavListItemHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyNavListItemHarness extends MatLegacyListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
     static hostSelector: string;
@@ -292,7 +372,11 @@ export declare class MatLegacyNavListItemHarness extends MatLegacyListItemHarnes
     isFocused(): Promise<boolean>;
 }
 
-/** Harness for interacting with a standard mat-selection-list in tests. */
+/**
+ * Harness for interacting with a standard mat-selection-list in tests.
+ * @deprecated Use `MatSelectionListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySelectionListHarness extends MatLegacyListHarnessBase<typeof MatLegacyListOptionHarness, MatLegacyListOptionHarness, LegacyListOptionHarnessFilters> {
     /** The selector for the host element of a `MatSelectionList` instance. */
     static hostSelector: string;
@@ -320,7 +404,11 @@ export declare class MatLegacySelectionListHarness extends MatLegacyListHarnessB
     private _getItems;
 }
 
-/** Harness for interacting with a list subheader. */
+/**
+ * Harness for interacting with a list subheader.
+ * @deprecated Use `MatSubheaderHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare class MatLegacySubheaderHarness extends ComponentHarness {
     static hostSelector: string;
     static with(options?: LegacySubheaderHarnessFilters): HarnessPredicate<MatLegacySubheaderHarness>;

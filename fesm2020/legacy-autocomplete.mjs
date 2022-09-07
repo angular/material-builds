@@ -17,6 +17,10 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @deprecated Use `MatAutocomplete` from `@angular/material/autocomplete` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyAutocomplete extends _MatAutocompleteBase {
     constructor() {
         super(...arguments);
@@ -49,12 +53,18 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * @docs-private
+ * @deprecated Use `MAT_AUTOCOMPLETE_VALUE_ACCESSOR` from `@angular/material/autocomplete` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_AUTOCOMPLETE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatLegacyAutocompleteTrigger),
     multi: true,
 };
+/**
+ * @deprecated Use `MatAutocompleteTrigger` from `@angular/material/autocomplete` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyAutocompleteTrigger extends _MatAutocompleteTriggerBase {
     constructor() {
         super(...arguments);
@@ -99,6 +109,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Directive applied to an element to make it usable
  * as a connection point for an autocomplete panel.
+ * @deprecated Use `MatAutocompleteOrigin` from `@angular/material/autocomplete` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyAutocompleteOrigin extends _MatAutocompleteOriginBase {
 }
@@ -118,6 +130,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatAutocompleteModule` from `@angular/material/autocomplete` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyAutocompleteModule {
 }

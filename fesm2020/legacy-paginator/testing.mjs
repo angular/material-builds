@@ -10,7 +10,11 @@ export { _MatPaginatorHarnessBase as _MatLegacyPaginatorHarnessBase } from '@ang
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-paginator in tests. */
+/**
+ * Harness for interacting with a standard mat-paginator in tests.
+ * @deprecated Use `MatPaginatorHarness` from `@angular/material/paginator/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyPaginatorHarness extends _MatPaginatorHarnessBase {
     constructor() {
         super(...arguments);

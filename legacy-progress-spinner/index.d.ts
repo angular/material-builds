@@ -25,17 +25,31 @@ declare namespace i1 {
     }
 }
 
-/** Possible mode for a progress spinner. */
+/**
+ * Possible mode for a progress spinner.
+ * @deprecated Use `ProgressSpinnerMode` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare type LegacyProgressSpinnerMode = 'determinate' | 'indeterminate';
 
-/** Injection token to be used to override the default options for `mat-progress-spinner`. */
+/**
+ * Injection token to be used to override the default options for `mat-progress-spinner`.
+ * @deprecated Use `MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare const MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatLegacyProgressSpinnerDefaultOptions>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare function MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatLegacyProgressSpinnerDefaultOptions;
 
 /**
  * `<mat-progress-spinner>` component.
+ * @deprecated Use `MatProgressSpinner` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyProgressSpinner extends _MatProgressSpinnerBase implements OnInit, OnDestroy, CanColor {
     private _document;
@@ -102,7 +116,11 @@ export declare class MatLegacyProgressSpinner extends _MatProgressSpinnerBase im
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never, false>;
 }
 
-/** Default `mat-progress-spinner` options that can be overridden. */
+/**
+ * Default `mat-progress-spinner` options that can be overridden.
+ * @deprecated Use `MatProgressSpinnerDefaultOptions` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface MatLegacyProgressSpinnerDefaultOptions {
     /** Default color of the spinner. */
     color?: ThemePalette;
@@ -117,6 +135,10 @@ export declare interface MatLegacyProgressSpinnerDefaultOptions {
     _forceAnimations?: boolean;
 }
 
+/**
+ * @deprecated Use `MatProgressSpinnerModule` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyProgressSpinnerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyProgressSpinnerModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyProgressSpinnerModule, [typeof i1.MatLegacyProgressSpinner], [typeof i2.MatCommonModule, typeof i3.CommonModule], [typeof i1.MatLegacyProgressSpinner, typeof i2.MatCommonModule]>;

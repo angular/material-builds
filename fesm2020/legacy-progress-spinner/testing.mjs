@@ -8,7 +8,11 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-progress-spinner in tests. */
+/**
+ * Harness for interacting with a standard mat-progress-spinner in tests.
+ * @deprecated Use `MatProgressSpinnerHarness` from `@angular/material/progress-spinner/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyProgressSpinnerHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatProgressSpinnerHarness` that

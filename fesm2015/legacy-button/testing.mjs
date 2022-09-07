@@ -2,7 +2,11 @@ import { __awaiter } from 'tslib';
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-/** Harness for interacting with a standard mat-button in tests. */
+/**
+ * Harness for interacting with a standard mat-button in tests.
+ * @deprecated Use `MatButtonHarness` from `@angular/material/button/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyButtonHarness extends ContentContainerComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a button harness that meets

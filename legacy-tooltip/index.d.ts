@@ -46,6 +46,8 @@ export { LEGACY_SCROLL_THROTTLE_MS }
 /**
  * Internal component that wraps the tooltip's content.
  * @docs-private
+ * @deprecated Use `TooltipComponent` from `@angular/material/tooltip` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class LegacyTooltipComponent extends _TooltipComponentBase {
     private _breakpointObserver;
@@ -80,6 +82,9 @@ export { MAT_LEGACY_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER }
  * hiding of a tooltip provided position (defaults to below the element).
  *
  * https://material.io/design/components/tooltips.html
+ *
+ * @deprecated Use `MatTooltip` from `@angular/material/tooltip` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyTooltip extends _MatTooltipBase<LegacyTooltipComponent> {
     protected readonly _tooltipComponent: typeof LegacyTooltipComponent;
@@ -91,6 +96,8 @@ export declare class MatLegacyTooltip extends _MatTooltipBase<LegacyTooltipCompo
 /**
  * Animations used by MatTooltip.
  * @docs-private
+ * @deprecated Use `matTooltipAnimations` from `@angular/material/tooltip` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare const matLegacyTooltipAnimations: {
     readonly tooltipState: AnimationTriggerMetadata;
@@ -98,6 +105,10 @@ export declare const matLegacyTooltipAnimations: {
 
 export { MatLegacyTooltipDefaultOptions }
 
+/**
+ * @deprecated Use `MatTooltipModule` from `@angular/material/tooltip` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTooltipModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyTooltipModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyTooltipModule, [typeof i1.MatLegacyTooltip, typeof i1.LegacyTooltipComponent], [typeof i2.A11yModule, typeof i3.CommonModule, typeof i4.OverlayModule, typeof i5.MatCommonModule], [typeof i1.MatLegacyTooltip, typeof i1.LegacyTooltipComponent, typeof i5.MatCommonModule, typeof i6.CdkScrollableModule]>;

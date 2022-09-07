@@ -10,7 +10,11 @@ export { LegacyRadioButtonHarnessFilters }
 
 export { LegacyRadioGroupHarnessFilters }
 
-/** Harness for interacting with a standard mat-radio-button in tests. */
+/**
+ * Harness for interacting with a standard mat-radio-button in tests.
+ * @deprecated Use `MatRadioButtonHarness` from `@angular/material/radio/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyRadioButtonHarness extends _MatRadioButtonHarnessBase {
     /** The selector for the host element of a `MatRadioButton` instance. */
     static hostSelector: string;
@@ -25,7 +29,11 @@ export declare class MatLegacyRadioButtonHarness extends _MatRadioButtonHarnessB
     protected _clickLabel: AsyncFactoryFn<TestElement>;
 }
 
-/** Harness for interacting with a standard mat-radio-group in tests. */
+/**
+ * Harness for interacting with a standard mat-radio-group in tests
+ * @deprecated Use `MatRadioGroupHarness` from `@angular/material/radio/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyRadioGroupHarness extends _MatRadioGroupHarnessBase<typeof MatLegacyRadioButtonHarness, MatLegacyRadioButtonHarness, LegacyRadioButtonHarnessFilters> {
     /** The selector for the host element of a `MatRadioGroup` instance. */
     static hostSelector: string;

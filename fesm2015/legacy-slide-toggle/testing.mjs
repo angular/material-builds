@@ -4,7 +4,11 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { _MatSlideToggleHarnessBase } from '@angular/material/slide-toggle/testing';
 export { _MatSlideToggleHarnessBase as _MatLegacySlideToggleHarnessBase } from '@angular/material/slide-toggle/testing';
 
-/** Harness for interacting with a standard mat-slide-toggle in tests. */
+/**
+ * Harness for interacting with a standard mat-slide-toggle in tests.
+ * @deprecated Use `MatSlideToggleHarness` from `@angular/material/slide-toggle/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySlideToggleHarness extends _MatSlideToggleHarnessBase {
     constructor() {
         super(...arguments);

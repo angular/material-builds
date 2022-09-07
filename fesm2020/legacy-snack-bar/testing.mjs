@@ -8,7 +8,11 @@ import { _MatSnackBarHarnessBase } from '@angular/material/snack-bar/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-snack-bar in tests. */
+/**
+ * Harness for interacting with a standard mat-snack-bar in tests.
+ * @deprecated Use `MatSnackBarHarness` from `@angular/material/snack-bar/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySnackBarHarness extends _MatSnackBarHarnessBase {
     constructor() {
         super(...arguments);

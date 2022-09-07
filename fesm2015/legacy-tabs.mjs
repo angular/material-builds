@@ -28,6 +28,8 @@ import * as i3 from '@angular/cdk/platform';
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * @docs-private
+ * @deprecated Use `MatInkBar` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyInkBar {
     constructor(_elementRef, _ngZone, _inkBarPositioner, _animationMode) {
@@ -93,6 +95,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @deprecated Use `MatTab` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTab extends _MatTabBase {
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */
     get templateLabel() {
@@ -125,6 +131,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * The portal host directive for the contents of the tab.
  * @docs-private
+ * @deprecated Use `MatTabBodyPortal` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTabBodyPortal extends MatTabBodyPortal {
     constructor(componentFactoryResolver, viewContainerRef, host, _document) {
@@ -150,6 +158,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Wrapper for the contents of a tab.
  * @docs-private
+ * @deprecated Use `MatTabBody` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTabBody extends _MatTabBodyBase {
     constructor(elementRef, dir, changeDetectorRef) {
@@ -179,6 +189,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @deprecated Use `MatTabLabelWrapper` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTabLabelWrapper extends _MatTabLabelWrapperBase {
 }
 MatLegacyTabLabelWrapper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyTabLabelWrapper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
@@ -201,6 +215,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * width of the header container, then arrows will be displayed to allow the user to scroll
  * left and right across the header.
  * @docs-private
+ * @deprecated Use `MatTabHeader` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTabHeader extends _MatTabHeaderBase {
     constructor(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode) {
@@ -259,6 +275,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://material.io/design/components/tabs.html
+ * @deprecated Use `MatTabGroup` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTabGroup extends _MatTabGroupBase {
     constructor(elementRef, changeDetectorRef, defaultConfig, animationMode) {
@@ -312,6 +330,8 @@ let nextUniqueId = 0;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
+ * @deprecated Use `MatTabNav` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTabNav extends _MatTabNavBase {
     constructor(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode) {
@@ -364,6 +384,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
             }] } });
 /**
  * Link inside of a `mat-tab-nav-bar`.
+ * @deprecated Use `MatTabLink` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTabLink extends _MatTabLinkBase {
     constructor(tabNavBar, elementRef, ngZone, platform, globalRippleOptions, tabIndex, focusMonitor, animationMode) {
@@ -417,6 +439,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
     } });
 /**
  * Tab panel component associated with MatTabNav.
+ * @deprecated Use `MatTabNavPanel` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTabNavPanel {
     constructor() {
@@ -452,7 +476,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Used to flag tab labels for use with the portal directive */
+/**
+ * Used to flag tab labels for use with the portal directive
+ * @deprecated Use `MatTabLabel` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTabLabel extends MatTabLabel {
 }
 MatLegacyTabLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyTabLabel, deps: null, target: i0.ɵɵFactoryTarget.Directive });
@@ -472,7 +500,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Decorates the `ng-template` tags and reads out the template from it. */
+/**
+ * Decorates the `ng-template` tags and reads out the template from it.
+ * @deprecated Use `MatTabContent` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTabContent extends MatTabContent {
 }
 MatLegacyTabContent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyTabContent, deps: null, target: i0.ɵɵFactoryTarget.Directive });
@@ -491,6 +523,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatTabsModule` from `@angular/material/tabs` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTabsModule {
 }

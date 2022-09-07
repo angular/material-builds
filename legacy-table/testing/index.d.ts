@@ -14,7 +14,11 @@ export { LegacyRowHarnessFilters }
 
 export { LegacyTableHarnessFilters }
 
-/** Harness for interacting with a standard Angular Material table cell. */
+/**
+ * Harness for interacting with a standard Angular Material table cell.
+ * @deprecated Use `MatCellHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyCellHarness extends _MatLegacyCellHarnessBase {
     /** The selector for the host element of a `MatCellHarness` instance. */
     static hostSelector: string;
@@ -28,7 +32,11 @@ export declare class MatLegacyCellHarness extends _MatLegacyCellHarnessBase {
 
 export { _MatLegacyCellHarnessBase }
 
-/** Harness for interacting with a standard Angular Material table footer cell. */
+/**
+ * Harness for interacting with a standard Angular Material table footer cell.
+ * @deprecated Use `MatFooterCellHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyFooterCellHarness extends _MatLegacyCellHarnessBase {
     /** The selector for the host element of a `MatFooterCellHarness` instance. */
     static hostSelector: string;
@@ -41,7 +49,11 @@ export declare class MatLegacyFooterCellHarness extends _MatLegacyCellHarnessBas
     static with(options?: LegacyCellHarnessFilters): HarnessPredicate<MatLegacyFooterCellHarness>;
 }
 
-/** Harness for interacting with a standard Angular Material table footer row. */
+/**
+ * Harness for interacting with a standard Angular Material table footer row.
+ * @deprecated Use `MatFooterRowHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyFooterRowHarness extends _MatLegacyRowHarnessBase<typeof MatLegacyFooterCellHarness, MatLegacyFooterCellHarness> {
     /** The selector for the host element of a `MatFooterRowHarness` instance. */
     static hostSelector: string;
@@ -55,7 +67,11 @@ export declare class MatLegacyFooterRowHarness extends _MatLegacyRowHarnessBase<
     static with(options?: LegacyRowHarnessFilters): HarnessPredicate<MatLegacyFooterRowHarness>;
 }
 
-/** Harness for interacting with a standard Angular Material table header cell. */
+/**
+ * Harness for interacting with a standard Angular Material table header cell.
+ * @deprecated Use `MatHeaderCellHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyHeaderCellHarness extends _MatLegacyCellHarnessBase {
     /** The selector for the host element of a `MatHeaderCellHarness` instance. */
     static hostSelector: string;
@@ -68,7 +84,11 @@ export declare class MatLegacyHeaderCellHarness extends _MatLegacyCellHarnessBas
     static with(options?: LegacyCellHarnessFilters): HarnessPredicate<MatLegacyHeaderCellHarness>;
 }
 
-/** Harness for interacting with a standard Angular Material table header row. */
+/**
+ * Harness for interacting with a standard Angular Material table header row.
+ * @deprecated Use `MatHeaderRowHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyHeaderRowHarness extends _MatLegacyRowHarnessBase<typeof MatLegacyHeaderCellHarness, MatLegacyHeaderCellHarness> {
     /** The selector for the host element of a `MatHeaderRowHarness` instance. */
     static hostSelector: string;
@@ -82,7 +102,11 @@ export declare class MatLegacyHeaderRowHarness extends _MatLegacyRowHarnessBase<
     static with(options?: LegacyRowHarnessFilters): HarnessPredicate<MatLegacyHeaderRowHarness>;
 }
 
-/** Harness for interacting with a standard Angular Material table row. */
+/**
+ * Harness for interacting with a standard Angular Material table row.
+ * @deprecated Use `MatRowHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyRowHarness extends _MatLegacyRowHarnessBase<typeof MatLegacyCellHarness, MatLegacyCellHarness> {
     /** The selector for the host element of a `MatRowHarness` instance. */
     static hostSelector: string;
@@ -99,7 +123,11 @@ export { _MatLegacyRowHarnessBase }
 
 export { MatLegacyRowHarnessColumnsText }
 
-/** Harness for interacting with a standard mat-table in tests. */
+/**
+ * Harness for interacting with a standard mat-table in tests.
+ * @deprecated Use `MatTableHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTableHarness extends _MatLegacyTableHarnessBase<typeof MatLegacyHeaderRowHarness, MatLegacyHeaderRowHarness, typeof MatLegacyRowHarness, MatLegacyRowHarness, typeof MatLegacyFooterRowHarness, MatLegacyFooterRowHarness> {
     /** The selector for the host element of a `MatTableHarness` instance. */
     static hostSelector: string;

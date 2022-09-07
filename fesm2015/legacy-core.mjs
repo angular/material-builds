@@ -15,6 +15,8 @@ export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MA
  */
 /**
  * Component that is used to group instances of `mat-option`.
+ * @deprecated Use `MatOptgroup` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyOptgroup extends _MatOptgroupBase {
 }
@@ -40,6 +42,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  */
 /**
  * Single option inside of a `<mat-select>` element.
+ * @deprecated Use `MatOption` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyOption extends _MatOptionBase {
     constructor(element, changeDetectorRef, parent, group) {
@@ -84,6 +88,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatOptionModule` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyOptionModule {
 }

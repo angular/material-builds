@@ -2,7 +2,11 @@ import { __awaiter } from 'tslib';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { _MatRadioGroupHarnessBase, _MatRadioButtonHarnessBase } from '@angular/material/radio/testing';
 
-/** Harness for interacting with a standard mat-radio-group in tests. */
+/**
+ * Harness for interacting with a standard mat-radio-group in tests
+ * @deprecated Use `MatRadioGroupHarness` from `@angular/material/radio/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyRadioGroupHarness extends _MatRadioGroupHarnessBase {
     constructor() {
         super(...arguments);
@@ -20,7 +24,11 @@ class MatLegacyRadioGroupHarness extends _MatRadioGroupHarnessBase {
 }
 /** The selector for the host element of a `MatRadioGroup` instance. */
 MatLegacyRadioGroupHarness.hostSelector = '.mat-radio-group';
-/** Harness for interacting with a standard mat-radio-button in tests. */
+/**
+ * Harness for interacting with a standard mat-radio-button in tests.
+ * @deprecated Use `MatRadioButtonHarness` from `@angular/material/radio/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyRadioButtonHarness extends _MatRadioButtonHarnessBase {
     constructor() {
         super(...arguments);

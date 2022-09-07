@@ -30,6 +30,9 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
  * hiding of a tooltip provided position (defaults to below the element).
  *
  * https://material.io/design/components/tooltips.html
+ *
+ * @deprecated Use `MatTooltip` from `@angular/material/tooltip` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTooltip extends _MatTooltipBase {
     constructor(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document) {
@@ -65,6 +68,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Internal component that wraps the tooltip's content.
  * @docs-private
+ * @deprecated Use `TooltipComponent` from `@angular/material/tooltip` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class LegacyTooltipComponent extends _TooltipComponentBase {
     constructor(changeDetectorRef, _breakpointObserver, animationMode) {
@@ -108,6 +113,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @deprecated Use `MatTooltipModule` from `@angular/material/tooltip` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTooltipModule {
 }
 MatLegacyTooltipModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyTooltipModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
@@ -133,6 +142,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Animations used by MatTooltip.
  * @docs-private
+ * @deprecated Use `matTooltipAnimations` from `@angular/material/tooltip` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const matLegacyTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */

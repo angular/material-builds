@@ -1,7 +1,11 @@
 import { __awaiter } from 'tslib';
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 
-/** Harness for interacting with a standard Angular Material tab-label in tests. */
+/**
+ * Harness for interacting with a standard Angular Material tab-label in tests.
+ * @deprecated Use `MatTabHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTabHarness extends ContentContainerComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatTabHarness` that meets
@@ -76,7 +80,11 @@ class MatLegacyTabHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a `MatTab` instance. */
 MatLegacyTabHarness.hostSelector = '.mat-tab-label';
 
-/** Harness for interacting with a standard mat-tab-group in tests. */
+/**
+ * Harness for interacting with a standard mat-tab-group in tests.
+ * @deprecated Use `MatTabGroupHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTabGroupHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatTabGroupHarness` that meets
@@ -130,7 +138,11 @@ class MatLegacyTabGroupHarness extends ComponentHarness {
 /** The selector for the host element of a `MatTabGroup` instance. */
 MatLegacyTabGroupHarness.hostSelector = '.mat-tab-group';
 
-/** Harness for interacting with a standard Angular Material tab link in tests. */
+/**
+ * Harness for interacting with a standard Angular Material tab link in tests.
+ * @deprecated Use `MatTabLinkHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTabLinkHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatTabLinkHarness` that meets
@@ -171,7 +183,11 @@ class MatLegacyTabLinkHarness extends ComponentHarness {
 /** The selector for the host element of a `MatTabLink` instance. */
 MatLegacyTabLinkHarness.hostSelector = '.mat-tab-link';
 
-/** Harness for interacting with a standard mat-tab-nav-panel in tests. */
+/**
+ * Harness for interacting with a standard mat-tab-nav-panel in tests.
+ * @deprecated Use `MatTabNavPanelHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTabNavPanelHarness extends ContentContainerComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatTabNavPanel` that meets
@@ -192,7 +208,11 @@ class MatLegacyTabNavPanelHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a `MatTabNavPanel` instance. */
 MatLegacyTabNavPanelHarness.hostSelector = '.mat-tab-nav-panel';
 
-/** Harness for interacting with a standard mat-tab-nav-bar in tests. */
+/**
+ * Harness for interacting with a standard mat-tab-nav-bar in tests.
+ * @deprecated Use `MatTabNavBarHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTabNavBarHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatTabNavBar` that meets

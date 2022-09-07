@@ -16,7 +16,11 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** @docs-public MatMenu */
+/**
+ * @docs-public MatMenu
+ * @deprecated Use `MatMenu` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyMenu extends _MatMenuBase {
     constructor(elementRef, ngZone, defaultOptions, changeDetectorRef) {
         super(elementRef, ngZone, defaultOptions, changeDetectorRef);
@@ -49,6 +53,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  */
 /**
  * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
+ * @deprecated Use `MatMenuItem` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyMenuItem extends MatMenuItem {
 }
@@ -82,7 +88,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * found in the LICENSE file at https://angular.io/license
  */
 // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
-/** Directive applied to an element that should trigger a `mat-menu`. */
+/**
+ * Directive applied to an element that should trigger a `mat-menu`.
+ * @deprecated Use `MatMenuTrigger` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyMenuTrigger extends _MatMenuTriggerBase {
 }
 MatLegacyMenuTrigger.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyMenuTrigger, deps: null, target: i0.ɵɵFactoryTarget.Directive });
@@ -107,6 +117,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  */
 /**
  * Menu content that will be rendered lazily once the menu is opened.
+ * @deprecated Use `MatMenuContent` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyMenuContent extends _MatMenuContentBase {
 }
@@ -126,6 +138,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatMenuModule` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyMenuModule {
 }

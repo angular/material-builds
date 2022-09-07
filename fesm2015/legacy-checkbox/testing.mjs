@@ -2,7 +2,11 @@ import { __awaiter } from 'tslib';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { _MatCheckboxHarnessBase } from '@angular/material/checkbox/testing';
 
-/** Harness for interacting with a standard mat-checkbox in tests. */
+/**
+ * Harness for interacting with a standard mat-checkbox in tests.
+ * @deprecated Use `MatCheckboxHarness` from `@angular/material/checkbox/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyCheckboxHarness extends _MatCheckboxHarnessBase {
     constructor() {
         super(...arguments);

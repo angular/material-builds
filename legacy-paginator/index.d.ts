@@ -24,7 +24,11 @@ declare namespace i1 {
 
 export { LegacyPageEvent }
 
-/** Injection token that can be used to provide the default options for the paginator module. */
+/**
+ * Injection token that can be used to provide the default options for the paginator module.
+ * @deprecated Use `MAT_PAGINATOR_DEFAULT_OPTIONS` from `@angular/material/paginator` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare const MAT_LEGACY_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatLegacyPaginatorDefaultOptions>;
 
 export { MAT_LEGACY_PAGINATOR_INTL_PROVIDER }
@@ -35,6 +39,8 @@ export { MAT_LEGACY_PAGINATOR_INTL_PROVIDER_FACTORY }
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
+ * @deprecated Use `MatPaginator` from `@angular/material/paginator` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyPaginator extends _MatLegacyPaginatorBase<MatLegacyPaginatorDefaultOptions> {
     /** If set, styles the "page size" form field with the designated style. */
@@ -46,7 +52,11 @@ export declare class MatLegacyPaginator extends _MatLegacyPaginatorBase<MatLegac
 
 export { _MatLegacyPaginatorBase }
 
-/** Object that can be used to configure the default options for the paginator module. */
+/**
+ * Object that can be used to configure the default options for the paginator module.
+ * @deprecated Use `MatPaginatorDefaultOptions` from `@angular/material/paginator` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface MatLegacyPaginatorDefaultOptions {
     /** Number of items to display on a page. By default set to 50. */
     pageSize?: number;
@@ -62,6 +72,10 @@ export declare interface MatLegacyPaginatorDefaultOptions {
 
 export { MatLegacyPaginatorIntl }
 
+/**
+ * @deprecated Use `MatPaginatorModule` from `@angular/material/paginator` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyPaginatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyPaginatorModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyPaginatorModule, [typeof i1.MatLegacyPaginator], [typeof i2.CommonModule, typeof i3.MatLegacyButtonModule, typeof i4.MatLegacySelectModule, typeof i5.MatLegacyTooltipModule, typeof i6.MatCommonModule], [typeof i1.MatLegacyPaginator]>;

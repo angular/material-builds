@@ -7,7 +7,11 @@ import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness, T
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Material chip avatar in tests. */
+/**
+ * Harness for interacting with a standard Material chip avatar in tests.
+ * @deprecated Use `MatChipAvatarHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipAvatarHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipAvatarHarness` that meets
@@ -28,7 +32,11 @@ MatLegacyChipAvatarHarness.hostSelector = '.mat-chip-avatar';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Material chip remove button in tests. */
+/**
+ * Harness for interacting with a standard Material chip remove button in tests.
+ * @deprecated Use `MatChipRemoveHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipRemoveHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipRemoveHarness` that meets
@@ -53,7 +61,11 @@ MatLegacyChipRemoveHarness.hostSelector = '.mat-chip-remove';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard selectable Angular Material chip in tests. */
+/**
+ * Harness for interacting with a standard selectable Angular Material chip in tests.
+ * @deprecated Use `MatChipHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipHarness extends ContentContainerComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipHarness` that meets
@@ -141,7 +153,11 @@ MatLegacyChipHarness.hostSelector = '.mat-chip';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Material chip inputs in tests. */
+/**
+ * Harness for interacting with a standard Material chip inputs in tests.
+ * @deprecated Use `MatChipInputHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipInputHarness extends ComponentHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipInputHarness` that meets
@@ -222,7 +238,11 @@ MatLegacyChipInputHarness.hostSelector = '.mat-chip-input';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Base class for chip list harnesses. */
+/**
+ * Base class for chip list harnesses.
+ * @deprecated Use `class` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class _MatChipListHarnessBase extends ComponentHarness {
     /** Gets whether the chip list is disabled. */
     async isDisabled() {
@@ -246,7 +266,11 @@ class _MatChipListHarnessBase extends ComponentHarness {
         return orientation === 'vertical' ? 'vertical' : 'horizontal';
     }
 }
-/** Harness for interacting with a standard chip list in tests. */
+/**
+ * Harness for interacting with a standard chip list in tests.
+ * @deprecated Use `MatChipListHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipListHarness extends _MatChipListHarnessBase {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipListHarness` that meets
@@ -301,6 +325,10 @@ MatLegacyChipListHarness.hostSelector = '.mat-chip-list';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @deprecated Use `MatChipOptionHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipOptionHarness extends MatLegacyChipHarness {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipOptionHarness`
@@ -344,7 +372,11 @@ MatLegacyChipOptionHarness.hostSelector = '.mat-chip';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard selectable chip list in tests. */
+/**
+ * Harness for interacting with a standard selectable chip list in tests.
+ * @deprecated Use `MatChipListboxHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyChipListboxHarness extends _MatChipListHarnessBase {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatChipListHarness` that meets

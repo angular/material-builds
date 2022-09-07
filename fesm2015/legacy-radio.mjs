@@ -13,6 +13,8 @@ import * as i2 from '@angular/cdk/collections';
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * @docs-private
+ * @deprecated Use `MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR` from `@angular/material/radio` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,6 +23,8 @@ const MAT_LEGACY_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 };
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
+ * @deprecated Use `MatRadioGroup` from `@angular/material/radio` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyRadioGroup extends _MatRadioGroupBase {
 }
@@ -49,6 +53,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
             }] } });
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
+ * @deprecated Use `MatRadioButton` from `@angular/material/radio` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyRadioButton extends _MatRadioButtonBase {
     constructor(radioGroup, elementRef, changeDetector, focusMonitor, radioDispatcher, animationMode, providerOverride, tabIndex) {
@@ -106,6 +112,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatRadioModule` from `@angular/material/radio` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyRadioModule {
 }

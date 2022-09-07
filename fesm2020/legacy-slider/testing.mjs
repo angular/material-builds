@@ -8,7 +8,11 @@ import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coerci
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-slider in tests. */
+/**
+ * Harness for interacting with a standard mat-slider in tests.
+ * @deprecated Use `MatSliderHarness` from `@angular/material/slider/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySliderHarness extends ComponentHarness {
     constructor() {
         super(...arguments);

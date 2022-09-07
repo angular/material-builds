@@ -6,7 +6,11 @@ import { TestElement } from '@angular/cdk/testing';
 
 export { LegacyTooltipHarnessFilters }
 
-/** Harness for interacting with a standard mat-tooltip in tests. */
+/**
+ * Harness for interacting with a standard mat-tooltip in tests.
+ * @deprecated Use `MatTooltipHarness` from `@angular/material/tooltip/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTooltipHarness extends _MatTooltipHarnessBase {
     protected _optionalPanel: AsyncFactoryFn<TestElement | null>;
     protected _hiddenClass: string;

@@ -27,28 +27,48 @@ declare namespace i1 {
     }
 }
 
-/** Last animation end data. */
+/**
+ * Last animation end data.
+ * @deprecated Use `ProgressAnimationEnd` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyProgressAnimationEnd {
     value: number;
 }
 
+/**
+ * @deprecated Use `ProgressBarMode` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare type LegacyProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
 
-/** Injection token to be used to override the default options for `mat-progress-bar`. */
+/**
+ * Injection token to be used to override the default options for `mat-progress-bar`.
+ * @deprecated Use `MAT_PROGRESS_BAR_DEFAULT_OPTIONS` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare const MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS: InjectionToken<MatLegacyProgressBarDefaultOptions>;
 
 /**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * @docs-private
+ * @deprecated Use `MAT_PROGRESS_BAR_LOCATION` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare const MAT_LEGACY_PROGRESS_BAR_LOCATION: InjectionToken<MatLegacyProgressBarLocation>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_PROGRESS_BAR_LOCATION_FACTORY` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare function MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY(): MatLegacyProgressBarLocation;
 
 /**
  * `<mat-progress-bar>` component.
+ * @deprecated Use `MatProgressBar` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyProgressBar extends _MatProgressBarBase implements CanColor, AfterViewInit, OnDestroy {
     private _ngZone;
@@ -117,7 +137,11 @@ export declare class MatLegacyProgressBar extends _MatProgressBarBase implements
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": "color"; "value": "value"; "bufferValue": "bufferValue"; "mode": "mode"; }, { "animationEnd": "animationEnd"; }, never, never, false>;
 }
 
-/** Default `mat-progress-bar` options that can be overridden. */
+/**
+ * Default `mat-progress-bar` options that can be overridden.
+ * @deprecated Use `MatProgressBarDefaultOptions` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface MatLegacyProgressBarDefaultOptions {
     /** Default color of the progress bar. */
     color?: ThemePalette;
@@ -128,11 +152,17 @@ export declare interface MatLegacyProgressBarDefaultOptions {
 /**
  * Stubbed out location for `MatProgressBar`.
  * @docs-private
+ * @deprecated Use `MatProgressBarLocation` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare interface MatLegacyProgressBarLocation {
     getPathname: () => string;
 }
 
+/**
+ * @deprecated Use `MatProgressBarModule` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyProgressBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyProgressBarModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyProgressBarModule, [typeof i1.MatLegacyProgressBar], [typeof i2.CommonModule, typeof i3.MatCommonModule], [typeof i1.MatLegacyProgressBar, typeof i3.MatCommonModule]>;

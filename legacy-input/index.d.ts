@@ -16,7 +16,11 @@ declare namespace i1 {
 
 export { MAT_LEGACY_INPUT_VALUE_ACCESSOR }
 
-/** Directive that allows a native input to work inside a `MatFormField`. */
+/**
+ * Directive that allows a native input to work inside a `MatFormField`.
+ * @deprecated Use `MatInput` from `@angular/material/input` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyInput extends MatInput {
     private _legacyFormField;
     protected _getPlaceholder(): string | null;
@@ -24,6 +28,10 @@ export declare class MatLegacyInput extends MatInput {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], {}, {}, never, never, false>;
 }
 
+/**
+ * @deprecated Use `MatInputModule` from `@angular/material/input` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyInputModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyInputModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyInputModule, [typeof i1.MatLegacyInput], [typeof i2.TextFieldModule, typeof i3.MatLegacyFormFieldModule, typeof i4.MatCommonModule], [typeof i2.TextFieldModule, typeof i3.MatLegacyFormFieldModule, typeof i1.MatLegacyInput]>;

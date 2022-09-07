@@ -11,11 +11,17 @@ const avatarSelector = '.mat-list-avatar';
  * @param harnessType A constructor for a list item harness.
  * @param options An instance of `BaseListItemHarnessFilters` to apply.
  * @return A `HarnessPredicate` for the given harness type with the given options applied.
+ * @deprecated Use `getListItemPredicate` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 function getListItemPredicate(harnessType, options) {
     return new HarnessPredicate(harnessType, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
 }
-/** Harness for interacting with a list subheader. */
+/**
+ * Harness for interacting with a list subheader.
+ * @deprecated Use `MatSubheaderHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySubheaderHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatLegacySubheaderHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
@@ -31,6 +37,8 @@ MatLegacySubheaderHarness.hostSelector = '.mat-subheader';
 /**
  * Shared behavior among the harnesses for the various `MatListItem` flavors.
  * @docs-private
+ * @deprecated Use `class` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyListItemHarnessBase extends ContentContainerComponentHarness {
     constructor() {
@@ -78,6 +86,8 @@ class MatLegacyListItemHarnessBase extends ContentContainerComponentHarness {
  * @template C The list item harness type that `T` constructs.
  * @template F The filter type used filter list item harness of type `C`.
  * @docs-private
+ * @deprecated Use `class` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyListHarnessBase extends ComponentHarness {
     /**
@@ -165,7 +175,11 @@ class MatLegacyListHarnessBase extends ComponentHarness {
     }
 }
 
-/** Harness for interacting with a standard mat-action-list in tests. */
+/**
+ * Harness for interacting with a standard mat-action-list in tests.
+ * @deprecated Use `MatActionListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyActionListHarness extends MatLegacyListHarnessBase {
     constructor() {
         super(...arguments);
@@ -183,7 +197,11 @@ class MatLegacyActionListHarness extends MatLegacyListHarnessBase {
 }
 /** The selector for the host element of a `MatActionList` instance. */
 MatLegacyActionListHarness.hostSelector = 'mat-action-list.mat-list';
-/** Harness for interacting with an action list item. */
+/**
+ * Harness for interacting with an action list item.
+ * @deprecated Use `MatActionListItemHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyActionListItemHarness extends MatLegacyListItemHarnessBase {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatActionListItemHarness` that
@@ -229,7 +247,11 @@ MatLegacyActionListItemHarness.hostSelector = `${MatLegacyActionListHarness.host
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-list in tests. */
+/**
+ * Harness for interacting with a standard mat-list in tests.
+ * @deprecated Use `MatListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyListHarness extends MatLegacyListHarnessBase {
     constructor() {
         super(...arguments);
@@ -247,7 +269,11 @@ class MatLegacyListHarness extends MatLegacyListHarnessBase {
 }
 /** The selector for the host element of a `MatList` instance. */
 MatLegacyListHarness.hostSelector = '.mat-list:not(mat-action-list)';
-/** Harness for interacting with a list item. */
+/**
+ * Harness for interacting with a list item.
+ * @deprecated Use `MatListItemHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyListItemHarness extends MatLegacyListItemHarnessBase {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatListItemHarness` that meets
@@ -262,7 +288,11 @@ class MatLegacyListItemHarness extends MatLegacyListItemHarnessBase {
 /** The selector for the host element of a `MatListItem` instance. */
 MatLegacyListItemHarness.hostSelector = `${MatLegacyListHarness.hostSelector} .mat-list-item`;
 
-/** Harness for interacting with a standard mat-nav-list in tests. */
+/**
+ * Harness for interacting with a standard mat-nav-list in tests.
+ * @deprecated Use `MatNavListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyNavListHarness extends MatLegacyListHarnessBase {
     constructor() {
         super(...arguments);
@@ -280,7 +310,11 @@ class MatLegacyNavListHarness extends MatLegacyListHarnessBase {
 }
 /** The selector for the host element of a `MatNavList` instance. */
 MatLegacyNavListHarness.hostSelector = '.mat-nav-list';
-/** Harness for interacting with a nav list item. */
+/**
+ * Harness for interacting with a nav list item.
+ * @deprecated Use `MatNavListItemHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyNavListItemHarness extends MatLegacyListItemHarnessBase {
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatNavListItemHarness` that
@@ -325,7 +359,11 @@ class MatLegacyNavListItemHarness extends MatLegacyListItemHarnessBase {
 /** The selector for the host element of a `MatListItem` instance. */
 MatLegacyNavListItemHarness.hostSelector = `${MatLegacyNavListHarness.hostSelector} .mat-list-item`;
 
-/** Harness for interacting with a standard mat-selection-list in tests. */
+/**
+ * Harness for interacting with a standard mat-selection-list in tests.
+ * @deprecated Use `MatSelectionListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySelectionListHarness extends MatLegacyListHarnessBase {
     constructor() {
         super(...arguments);
@@ -381,7 +419,11 @@ class MatLegacySelectionListHarness extends MatLegacyListHarnessBase {
 }
 /** The selector for the host element of a `MatSelectionList` instance. */
 MatLegacySelectionListHarness.hostSelector = '.mat-selection-list';
-/** Harness for interacting with a list option. */
+/**
+ * Harness for interacting with a list option.
+ * @deprecated Use `MatListOptionHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyListOptionHarness extends MatLegacyListItemHarnessBase {
     constructor() {
         super(...arguments);

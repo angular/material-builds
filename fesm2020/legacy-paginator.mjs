@@ -22,12 +22,18 @@ import * as i6 from '@angular/material/legacy-core';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Injection token that can be used to provide the default options for the paginator module. */
+/**
+ * Injection token that can be used to provide the default options for the paginator module.
+ * @deprecated Use `MAT_PAGINATOR_DEFAULT_OPTIONS` from `@angular/material/paginator` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_PAGINATOR_DEFAULT_OPTIONS = new InjectionToken('MAT_LEGACY_PAGINATOR_DEFAULT_OPTIONS');
 /**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
+ * @deprecated Use `MatPaginator` from `@angular/material/paginator` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyPaginator extends _MatPaginatorBase {
     constructor(intl, changeDetectorRef, defaults) {
@@ -58,6 +64,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatPaginatorModule` from `@angular/material/paginator` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyPaginatorModule {
 }

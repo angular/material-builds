@@ -2,7 +2,11 @@ import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with a `mat-optgroup` in tests. */
+/**
+ * Harness for interacting with a `mat-optgroup` in tests.
+ * @deprecated Use `MatOptgroupHarness` from `@angular/material/core/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyOptgroupHarness extends ComponentHarness {
     /** Selector used to locate option group instances. */
     static hostSelector: string;
@@ -25,7 +29,11 @@ export declare class MatLegacyOptgroupHarness extends ComponentHarness {
     getOptions(filter?: OptionHarnessFilters): Promise<MatLegacyOptionHarness[]>;
 }
 
-/** Harness for interacting with a `mat-option` in tests. */
+/**
+ * Harness for interacting with a `mat-option` in tests.
+ * @deprecated Use `MatOptionHarness` from `@angular/material/core/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyOptionHarness extends ComponentHarness {
     /** Selector used to locate option instances. */
     static hostSelector: string;
@@ -52,10 +60,18 @@ export declare class MatLegacyOptionHarness extends ComponentHarness {
     isMultiple(): Promise<boolean>;
 }
 
+/**
+ * @deprecated Use `OptgroupHarnessFilters` from `@angular/material/core/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface OptgroupHarnessFilters extends BaseHarnessFilters {
     labelText?: string | RegExp;
 }
 
+/**
+ * @deprecated Use `OptionHarnessFilters` from `@angular/material/core/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface OptionHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;
     isSelected?: boolean;

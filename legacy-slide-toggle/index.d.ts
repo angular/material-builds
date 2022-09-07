@@ -23,19 +23,31 @@ declare namespace i1 {
     }
 }
 
-/** Injection token to be used to override the default options for `mat-slide-toggle`. */
+/**
+ * Injection token to be used to override the default options for `mat-slide-toggle`
+ * @deprecated Use `MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare const MAT_LEGACY_SLIDE_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatLegacySlideToggleDefaultOptions>;
 
 export { MAT_LEGACY_SLIDE_TOGGLE_REQUIRED_VALIDATOR }
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_SLIDE_TOGGLE_VALUE_ACCESSOR` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare const MAT_LEGACY_SLIDE_TOGGLE_VALUE_ACCESSOR: {
     provide: InjectionToken<readonly ControlValueAccessor[]>;
     useExisting: Type<any>;
     multi: boolean;
 };
 
-/** Represents a slidable "switch" toggle that can be moved between on and off. */
+/**
+ * Represents a slidable "switch" toggle that can be moved between on and off.
+ * @deprecated Use `MatSlideToggle` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySlideToggle extends _MatLegacySlideToggleBase<MatLegacySlideToggleChange> {
     /** Reference to the underlying input element. */
     _inputElement: ElementRef<HTMLInputElement>;
@@ -55,7 +67,11 @@ export declare class MatLegacySlideToggle extends _MatLegacySlideToggleBase<MatL
 
 export { _MatLegacySlideToggleBase }
 
-/** Change event object emitted by a slide toggle. */
+/**
+ * Change event object emitted by a slide toggle.
+ * @deprecated Use `MatSlideToggleChange` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySlideToggleChange {
     /** The source slide toggle of the event. */
     source: MatLegacySlideToggle;
@@ -68,7 +84,11 @@ export declare class MatLegacySlideToggleChange {
     checked: boolean);
 }
 
-/** Default `mat-slide-toggle` options that can be overridden. */
+/**
+ * Default `mat-slide-toggle` options that can be overridden.
+ * @deprecated Use `MatSlideToggleDefaultOptions` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface MatLegacySlideToggleDefaultOptions {
     /** Whether toggle action triggers value changes in slide toggle. */
     disableToggleValue?: boolean;
@@ -76,6 +96,10 @@ export declare interface MatLegacySlideToggleDefaultOptions {
     color?: ThemePalette;
 }
 
+/**
+ * @deprecated Use `MatSlideToggleModule` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySlideToggleModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacySlideToggleModule, [typeof i1.MatLegacySlideToggle], [typeof i2._MatSlideToggleRequiredValidatorModule, typeof i3.MatRippleModule, typeof i3.MatCommonModule, typeof i4.ObserversModule], [typeof i2._MatSlideToggleRequiredValidatorModule, typeof i1.MatLegacySlideToggle, typeof i3.MatCommonModule]>;

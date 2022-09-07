@@ -30,6 +30,9 @@ declare namespace i1 {
  * - mat-card-content
  * - mat-card-actions
  * - mat-card-footer
+ *
+ * @deprecated Use `MatCard` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCard {
     _animationMode?: string | undefined;
@@ -41,6 +44,8 @@ export declare class MatLegacyCard {
 /**
  * Action section of a card, needed as it's used as a selector in the API.
  * @docs-private
+ * @deprecated Use `MatCardActions` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardActions {
     /** Position of the actions inside the card. */
@@ -52,6 +57,8 @@ export declare class MatLegacyCardActions {
 /**
  * Avatar image used in a card, needed to add the mat- CSS styling.
  * @docs-private
+ * @deprecated Use `MatCardAvatar` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardAvatar {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardAvatar, never>;
@@ -61,6 +68,8 @@ export declare class MatLegacyCardAvatar {
 /**
  * Content of a card, needed as it's used as a selector in the API.
  * @docs-private
+ * @deprecated Use `MatCardContent` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardContent {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardContent, never>;
@@ -70,6 +79,8 @@ export declare class MatLegacyCardContent {
 /**
  * Footer of a card, needed as it's used as a selector in the API.
  * @docs-private
+ * @deprecated Use `MatCardFooter` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardFooter {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardFooter, never>;
@@ -80,6 +91,8 @@ export declare class MatLegacyCardFooter {
  * Component intended to be used within the `<mat-card>` component. It adds styles for a
  * preset header section (i.e. a title, subtitle, and avatar layout).
  * @docs-private
+ * @deprecated Use `MatCardHeader` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardHeader {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardHeader, never>;
@@ -89,6 +102,8 @@ export declare class MatLegacyCardHeader {
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * @docs-private
+ * @deprecated Use `MatCardImage` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardImage {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardImage, never>;
@@ -98,6 +113,8 @@ export declare class MatLegacyCardImage {
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * @docs-private
+ * @deprecated Use `MatCardLgImage` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardLgImage {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardLgImage, never>;
@@ -107,12 +124,18 @@ export declare class MatLegacyCardLgImage {
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * @docs-private
+ * @deprecated Use `MatCardMdImage` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardMdImage {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardMdImage, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyCardMdImage, "[mat-card-md-image], [matCardImageMedium]", never, {}, {}, never, never, false>;
 }
 
+/**
+ * @deprecated Use `MatCardModule` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyCardModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyCardModule, [typeof i1.MatLegacyCard, typeof i1.MatLegacyCardHeader, typeof i1.MatLegacyCardTitleGroup, typeof i1.MatLegacyCardContent, typeof i1.MatLegacyCardTitle, typeof i1.MatLegacyCardSubtitle, typeof i1.MatLegacyCardActions, typeof i1.MatLegacyCardFooter, typeof i1.MatLegacyCardSmImage, typeof i1.MatLegacyCardMdImage, typeof i1.MatLegacyCardLgImage, typeof i1.MatLegacyCardImage, typeof i1.MatLegacyCardXlImage, typeof i1.MatLegacyCardAvatar], [typeof i2.MatCommonModule], [typeof i1.MatLegacyCard, typeof i1.MatLegacyCardHeader, typeof i1.MatLegacyCardTitleGroup, typeof i1.MatLegacyCardContent, typeof i1.MatLegacyCardTitle, typeof i1.MatLegacyCardSubtitle, typeof i1.MatLegacyCardActions, typeof i1.MatLegacyCardFooter, typeof i1.MatLegacyCardSmImage, typeof i1.MatLegacyCardMdImage, typeof i1.MatLegacyCardLgImage, typeof i1.MatLegacyCardImage, typeof i1.MatLegacyCardXlImage, typeof i1.MatLegacyCardAvatar, typeof i2.MatCommonModule]>;
@@ -122,6 +145,8 @@ export declare class MatLegacyCardModule {
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * @docs-private
+ * @deprecated Use `MatCardSmImage` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardSmImage {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardSmImage, never>;
@@ -131,6 +156,8 @@ export declare class MatLegacyCardSmImage {
 /**
  * Sub-title of a card, needed as it's used as a selector in the API.
  * @docs-private
+ * @deprecated Use `MatCardSubtitle` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardSubtitle {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardSubtitle, never>;
@@ -140,6 +167,8 @@ export declare class MatLegacyCardSubtitle {
 /**
  * Title of a card, needed as it's used as a selector in the API.
  * @docs-private
+ * @deprecated Use `MatCardTitle` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardTitle {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardTitle, never>;
@@ -150,6 +179,8 @@ export declare class MatLegacyCardTitle {
  * Component intended to be used within the `<mat-card>` component. It adds styles for a preset
  * layout that groups an image with a title section.
  * @docs-private
+ * @deprecated Use `MatCardTitleGroup` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardTitleGroup {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardTitleGroup, never>;
@@ -159,6 +190,8 @@ export declare class MatLegacyCardTitleGroup {
 /**
  * Large image used in a card, needed to add the mat- CSS styling.
  * @docs-private
+ * @deprecated Use `MatCardXlImage` from `@angular/material/card` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCardXlImage {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardXlImage, never>;

@@ -28,13 +28,19 @@ const MIN_VALUE_ACTIVE_THUMB_GAP = 10;
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
  * @docs-private
+ * @deprecated Use `MAT_SLIDER_VALUE_ACCESSOR` from `@angular/material/slider` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_SLIDER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatLegacySlider),
     multi: true,
 };
-/** A simple change event emitted by the MatSlider component. */
+/**
+ * A simple change event emitted by the MatSlider component.
+ * @deprecated Use `MatSliderChange` from `@angular/material/slider` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySliderChange {
 }
 // Boilerplate for applying mixins to MatSlider.
@@ -47,6 +53,8 @@ const _MatSliderBase = mixinTabIndex(mixinColor(mixinDisabled(class {
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
+ * @deprecated Use `MatSlider` from `@angular/material/slider` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacySlider extends _MatSliderBase {
     constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _ngZone, _document, _animationMode) {
@@ -837,6 +845,10 @@ function getTouchIdForSlider(event, sliderHost) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatSliderModule` from `@angular/material/slider` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacySliderModule {
 }

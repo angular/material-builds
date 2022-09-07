@@ -22,7 +22,11 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
  * found in the LICENSE file at https://angular.io/license
  */
 let nextUniqueId$2 = 0;
-/** Single error message to be shown underneath the form field. */
+/**
+ * Single error message to be shown underneath the form field.
+ * @deprecated Use `MatError` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyError {
     constructor(ariaLive, elementRef) {
         this.id = `mat-error-${nextUniqueId$2++}`;
@@ -68,9 +72,16 @@ let nextUniqueId$1 = 0;
  *
  * *Note*: This is not part of the public API as the MDC-based form-field will not
  * need a lightweight token for `MatHint` and we want to reduce breaking changes.
+ *
+ * @deprecated Use `_MAT_HINT` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const _MAT_LEGACY_HINT = new InjectionToken('MatHint');
-/** Hint text to be shown underneath the form field control. */
+/**
+ * Hint text to be shown underneath the form field control.
+ * @deprecated Use `MatHint` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyHint {
     constructor() {
         /** Whether to align the hint label at the start or end of the line. */
@@ -107,7 +118,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** The floating label for a `mat-form-field`. */
+/**
+ * The floating label for a `mat-form-field`.
+ * @deprecated Use `MatLabel` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyLabel {
 }
 MatLegacyLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyLabel, deps: [], target: i0.ɵɵFactoryTarget.Directive });
@@ -165,9 +180,15 @@ const _MatFormFieldBase = mixinColor(class {
 /**
  * Injection token that can be used to configure the
  * default options for all form field within an app.
+ * @deprecated Use `MAT_FORM_FIELD_DEFAULT_OPTIONS` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
-/** Container for form controls that applies Material Design styling and behavior. */
+/**
+ * Container for form controls that applies Material Design styling and behavior.
+ * @deprecated Use `MatFormField` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyFormField extends _MatFormFieldBase {
     constructor(elementRef, _changeDetectorRef, _dir, _defaults, _platform, _ngZone, _animationMode) {
         super(elementRef);
@@ -656,7 +677,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Prefix to be placed in front of the form field. */
+/**
+ * Prefix to be placed in front of the form field.
+ * @deprecated Use `MatPrefix` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyPrefix {
 }
 MatLegacyPrefix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyPrefix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
@@ -676,7 +701,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Suffix to be placed at the end of the form field. */
+/**
+ * Suffix to be placed at the end of the form field.
+ * @deprecated Use `MatSuffix` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySuffix {
 }
 MatLegacySuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacySuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
@@ -695,6 +724,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatFormFieldModule` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyFormFieldModule {
 }

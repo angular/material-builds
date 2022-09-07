@@ -10,13 +10,19 @@ import { MatRippleModule, MatCommonModule } from '@angular/material/core';
 import * as i3 from '@angular/cdk/observers';
 import { ObserversModule } from '@angular/cdk/observers';
 
-/** Change event object emitted by a checkbox. */
+/**
+ * Change event object emitted by a checkbox.
+ * @deprecated Use `MatCheckboxChange` from `@angular/material/checkbox` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyCheckboxChange {
 }
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * @docs-private
+ * @deprecated Use `MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR` from `@angular/material/checkbox` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const MAT_LEGACY_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -30,6 +36,8 @@ const MAT_LEGACY_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
  * so there is no need to provide them yourself. However, if you want to omit a label and still
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://material.io/design/components/selection-controls.html
+ * @deprecated Use `MatCheckbox` from `@angular/material/checkbox` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyCheckbox extends _MatCheckboxBase {
     constructor(elementRef, changeDetectorRef, _focusMonitor, ngZone, tabIndex, animationMode, options) {
@@ -131,6 +139,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatCheckboxModule` from `@angular/material/checkbox` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyCheckboxModule {
 }

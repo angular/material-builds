@@ -26,6 +26,8 @@ import { trigger, transition, query, animateChild, state, style, animate } from 
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
  * @docs-private
+ * @deprecated Use `matSelectAnimations` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const matLegacySelectAnimations = {
     /**
@@ -71,13 +73,29 @@ const matLegacySelectAnimations = {
  * to properly calculate the alignment of the selected option over
  * the trigger element.
  */
-/** The max height of the select's overlay panel. */
+/**
+ * The max height of the select's overlay panel.
+ * @deprecated Use `SELECT_PANEL_MAX_HEIGHT` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const SELECT_PANEL_MAX_HEIGHT = 256;
-/** The panel's padding on the x-axis. */
+/**
+ * The panel's padding on the x-axis.
+ * @deprecated Use `SELECT_PANEL_PADDING_X` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const SELECT_PANEL_PADDING_X = 16;
-/** The panel's x axis padding if it is indented (e.g. there is an option group). */
+/**
+ * The panel's x axis padding if it is indented (e.g. there is an option group).
+ * @deprecated Use `SELECT_PANEL_INDENT_PADDING_X` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
-/** The height of the select items in `em` units. */
+/**
+ * The height of the select items in `em` units.
+ * @deprecated Use `SELECT_ITEM_HEIGHT_EM` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const SELECT_ITEM_HEIGHT_EM = 3;
 // TODO(josephperrott): Revert to a constant after 2018 spec updates are fully merged.
 /**
@@ -88,14 +106,23 @@ const SELECT_ITEM_HEIGHT_EM = 3;
  * (SELECT_PANEL_PADDING_X * 1.5) + 16 = 40
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 16px.
+ *
+ * @deprecated Use `SELECT_MULTIPLE_PANEL_PADDING_X` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 16;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
+ * @deprecated Use `SELECT_PANEL_VIEWPORT_PADDING` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const SELECT_PANEL_VIEWPORT_PADDING = 8;
-/** Change event object that is emitted when the select value has changed. */
+/**
+ * Change event object that is emitted when the select value has changed.
+ * @deprecated Use `MatSelectChange` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySelectChange {
     constructor(
     /** Reference to the select that emitted the change event. */
@@ -108,6 +135,8 @@ class MatLegacySelectChange {
 }
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
+ * @deprecated Use `MatSelectTrigger` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacySelectTrigger {
 }
@@ -120,6 +149,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     providers: [{ provide: MAT_SELECT_TRIGGER, useExisting: MatLegacySelectTrigger }],
                 }]
         }] });
+/**
+ * @deprecated Use `MatSelect` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySelect extends _MatSelectBase {
     constructor() {
         super(...arguments);
@@ -479,6 +512,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatSelectModule` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacySelectModule {
 }

@@ -59,7 +59,11 @@ export { MAT_LEGACY_MENU_PANEL }
 
 export { MAT_LEGACY_MENU_SCROLL_STRATEGY }
 
-/** @docs-public MatMenu */
+/**
+ * @docs-public MatMenu
+ * @deprecated Use `MatMenu` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyMenu extends _MatMenuBase {
     protected _elevationPrefix: string;
     protected _baseElevation: number;
@@ -76,6 +80,8 @@ export { matLegacyMenuAnimations }
 
 /**
  * Menu content that will be rendered lazily once the menu is opened.
+ * @deprecated Use `MatMenuContent` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyMenuContent extends _MatMenuContentBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyMenuContent, never>;
@@ -86,12 +92,18 @@ export { MatLegacyMenuDefaultOptions }
 
 /**
  * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
+ * @deprecated Use `MatMenuItem` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyMenuItem extends MatMenuItem {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyMenuItem, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": "disabled"; "disableRipple": "disableRipple"; }, {}, never, ["*"], false>;
 }
 
+/**
+ * @deprecated Use `MatMenuModule` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyMenuModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyMenuModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyMenuModule, [typeof i1.MatLegacyMenu, typeof i2.MatLegacyMenuItem, typeof i3.MatLegacyMenuTrigger, typeof i4.MatLegacyMenuContent], [typeof i5.CommonModule, typeof i6.MatCommonModule, typeof i6.MatRippleModule, typeof i7.OverlayModule], [typeof i8.CdkScrollableModule, typeof i6.MatCommonModule, typeof i1.MatLegacyMenu, typeof i2.MatLegacyMenuItem, typeof i3.MatLegacyMenuTrigger, typeof i4.MatLegacyMenuContent]>;
@@ -100,7 +112,11 @@ export declare class MatLegacyMenuModule {
 
 export { MatLegacyMenuPanel }
 
-/** Directive applied to an element that should trigger a `mat-menu`. */
+/**
+ * Directive applied to an element that should trigger a `mat-menu`.
+ * @deprecated Use `MatMenuTrigger` from `@angular/material/menu` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyMenuTrigger extends _MatMenuTriggerBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyMenuTrigger, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], {}, {}, never, never, false>;

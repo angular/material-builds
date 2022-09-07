@@ -2,7 +2,11 @@ import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** A set of criteria that can be used to filter a list of `MatCardHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatCardHarness` instances.
+ * @deprecated Use `CardHarnessFilters` from `@angular/material/card/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyCardHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
@@ -12,7 +16,11 @@ export declare interface LegacyCardHarnessFilters extends BaseHarnessFilters {
     subtitle?: string | RegExp;
 }
 
-/** Harness for interacting with a standard mat-card in tests. */
+/**
+ * Harness for interacting with a standard mat-card in tests.
+ * @deprecated Use `MatCardHarness` from `@angular/material/card/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyCardHarness extends ContentContainerComponentHarness<MatLegacyCardSection> {
     /** The selector for the host element of a `MatCard` instance. */
     static hostSelector: string;
@@ -33,7 +41,11 @@ export declare class MatLegacyCardHarness extends ContentContainerComponentHarne
     getSubtitleText(): Promise<string>;
 }
 
-/** Selectors for different sections of the mat-card that can container user content. */
+/**
+ * Selectors for different sections of the mat-card that can container user content.
+ * @deprecated Use `MatCardSection` from `@angular/material/card/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare const enum MatLegacyCardSection {
     HEADER = ".mat-card-header",
     CONTENT = ".mat-card-content",

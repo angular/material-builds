@@ -8,7 +8,11 @@ import { _MatTooltipHarnessBase } from '@angular/material/tooltip/testing';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard mat-tooltip in tests. */
+/**
+ * Harness for interacting with a standard mat-tooltip in tests.
+ * @deprecated Use `MatTooltipHarness` from `@angular/material/tooltip/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTooltipHarness extends _MatTooltipHarnessBase {
     constructor() {
         super(...arguments);

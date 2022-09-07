@@ -30,12 +30,16 @@ declare namespace i1 {
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
  * @docs-private
+ * @deprecated Use `MAT_SLIDER_VALUE_ACCESSOR` from `@angular/material/slider` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare const MAT_LEGACY_SLIDER_VALUE_ACCESSOR: any;
 
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
+ * @deprecated Use `MatSlider` from `@angular/material/slider` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacySlider extends _MatSliderBase implements ControlValueAccessor, OnDestroy, CanDisable, CanColor, AfterViewInit, HasTabIndex {
     private _focusMonitor;
@@ -267,7 +271,11 @@ export declare class MatLegacySlider extends _MatSliderBase implements ControlVa
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySlider, "mat-slider", ["matSlider"], { "disabled": "disabled"; "color": "color"; "tabIndex": "tabIndex"; "invert": "invert"; "max": "max"; "min": "min"; "step": "step"; "thumbLabel": "thumbLabel"; "tickInterval": "tickInterval"; "value": "value"; "displayWith": "displayWith"; "valueText": "valueText"; "vertical": "vertical"; }, { "change": "change"; "input": "input"; "valueChange": "valueChange"; }, never, never, false>;
 }
 
-/** A simple change event emitted by the MatSlider component. */
+/**
+ * A simple change event emitted by the MatSlider component.
+ * @deprecated Use `MatSliderChange` from `@angular/material/slider` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySliderChange {
     /** The MatSlider that changed. */
     source: MatLegacySlider;
@@ -275,6 +283,10 @@ export declare class MatLegacySliderChange {
     value: number | null;
 }
 
+/**
+ * @deprecated Use `MatSliderModule` from `@angular/material/slider` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySliderModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySliderModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacySliderModule, [typeof i1.MatLegacySlider], [typeof i2.CommonModule, typeof i3.MatCommonModule], [typeof i1.MatLegacySlider, typeof i3.MatCommonModule]>;

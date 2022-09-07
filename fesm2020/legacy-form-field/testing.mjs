@@ -1,9 +1,9 @@
-export { MatFormFieldControlHarness as MatLegacyFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 import { _MatFormFieldHarnessBase } from '@angular/material/form-field/testing';
 import { MatLegacyInputHarness } from '@angular/material/legacy-input/testing';
 import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing';
+export { MatFormFieldControlHarness as MatLegacyFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
 /**
  * @license
@@ -12,7 +12,11 @@ import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing'
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Harness for interacting with a standard Material form-field's in tests. */
+/**
+ * Harness for interacting with a standard Material form-field's in tests.
+ * @deprecated Use `MatFormFieldHarness` from `@angular/material/form-field/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyFormFieldHarness extends _MatFormFieldHarnessBase {
     constructor() {
         super(...arguments);

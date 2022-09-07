@@ -17,6 +17,8 @@ export { _MatTableDataSource as _MatLegacyTableDataSource } from '@angular/mater
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
  * tables that animate rows.
+ * @deprecated Use `MatRecycleRows` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyRecycleRows {
 }
@@ -31,6 +33,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
         }] });
 /**
  * Wrapper for the CdkTable with Material design styles.
+ * @deprecated Use `MatTable` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTable extends CdkTable {
     constructor() {
@@ -79,6 +83,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
+ * @deprecated Use `MatCellDef` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyCellDef extends CdkCellDef {
 }
@@ -94,6 +100,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
+ * @deprecated Use `MatHeaderCellDef` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyHeaderCellDef extends CdkHeaderCellDef {
 }
@@ -109,6 +117,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
+ * @deprecated Use `MatFooterCellDef` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyFooterCellDef extends CdkFooterCellDef {
 }
@@ -124,6 +134,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
+ * @deprecated Use `MatColumnDef` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyColumnDef extends CdkColumnDef {
     /** Unique name for this column. */
@@ -163,7 +175,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                 type: Input,
                 args: ['matColumnDef']
             }] } });
-/** Header cell template container that adds the right classes and role. */
+/**
+ * Header cell template container that adds the right classes and role.
+ * @deprecated Use `MatHeaderCell` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyHeaderCell extends CdkHeaderCell {
 }
 MatLegacyHeaderCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyHeaderCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
@@ -178,7 +194,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     },
                 }]
         }] });
-/** Footer cell template container that adds the right classes and role. */
+/**
+ * Footer cell template container that adds the right classes and role.
+ * @deprecated Use `MatFooterCell` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyFooterCell extends CdkFooterCell {
 }
 MatLegacyFooterCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyFooterCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
@@ -193,7 +213,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     },
                 }]
         }] });
-/** Cell template container that adds the right classes and role. */
+/**
+ * Cell template container that adds the right classes and role.
+ * @deprecated Use `MatCell` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyCell extends CdkCell {
 }
 MatLegacyCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
@@ -219,6 +243,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
+ * @deprecated Use `MatHeaderRowDef` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyHeaderRowDef extends CdkHeaderRowDef {
 }
@@ -235,6 +261,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
+ * @deprecated Use `MatFooterRowDef` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyFooterRowDef extends CdkFooterRowDef {
 }
@@ -252,6 +280,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Data row definition for the mat-table.
  * Captures the data row's template and other properties such as the columns to display and
  * a when predicate that describes when this row should be used.
+ * @deprecated Use `MatRowDef` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyRowDef extends CdkRowDef {
 }
@@ -265,7 +295,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
                 }]
         }] });
-/** Header template container that contains the cell outlet. Adds the right class and role. */
+/**
+ * Header template container that contains the cell outlet. Adds the right class and role.
+ * @deprecated Use `MatHeaderRow` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyHeaderRow extends CdkHeaderRow {
 }
 MatLegacyHeaderRow.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyHeaderRow, deps: null, target: i0.ɵɵFactoryTarget.Component });
@@ -287,7 +321,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     providers: [{ provide: CdkHeaderRow, useExisting: MatLegacyHeaderRow }],
                 }]
         }] });
-/** Footer template container that contains the cell outlet. Adds the right class and role. */
+/**
+ * Footer template container that contains the cell outlet. Adds the right class and role.
+ * @deprecated Use `MatFooterRow` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyFooterRow extends CdkFooterRow {
 }
 MatLegacyFooterRow.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyFooterRow, deps: null, target: i0.ɵɵFactoryTarget.Component });
@@ -309,7 +347,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     providers: [{ provide: CdkFooterRow, useExisting: MatLegacyFooterRow }],
                 }]
         }] });
-/** Data row template container that contains the cell outlet. Adds the right class and role. */
+/**
+ * Data row template container that contains the cell outlet. Adds the right class and role.
+ * @deprecated Use `MatRow` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyRow extends CdkRow {
 }
 MatLegacyRow.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyRow, deps: null, target: i0.ɵɵFactoryTarget.Component });
@@ -331,7 +373,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
                     providers: [{ provide: CdkRow, useExisting: MatLegacyRow }],
                 }]
         }] });
-/** Row that can be used to display a message when no data is shown in the table. */
+/**
+ * Row that can be used to display a message when no data is shown in the table.
+ * @deprecated Use `MatNoDataRow` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyNoDataRow extends CdkNoDataRow {
     constructor() {
         super(...arguments);
@@ -363,6 +409,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * The header text can be overridden with the `headerText` input. Cell values can be overridden with
  * the `dataAccessor` input. Change the text justification to the start or end using the `justify`
  * input.
+ *
+ * @deprecated Use `MatTextColumn` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTextColumn extends CdkTextColumn {
 }
@@ -432,6 +481,10 @@ const EXPORTED_DECLARATIONS = [
     MatLegacyNoDataRow,
     MatLegacyTextColumn,
 ];
+/**
+ * @deprecated Use `MatTableModule` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyTableModule {
 }
 MatLegacyTableModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacyTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
@@ -508,6 +561,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * it isn't equipped to handle some more advanced cases like robust i18n support or server-side
  * interactions. If your app needs to support more advanced use cases, consider implementing your
  * own `DataSource`.
+ *
+ * @deprecated Use `MatTableDataSource` from `@angular/material/table` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyTableDataSource extends _MatTableDataSource {
 }

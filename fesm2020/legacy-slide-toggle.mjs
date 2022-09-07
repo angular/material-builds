@@ -17,7 +17,11 @@ export { MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR as MAT_LEGACY_SLIDE_TOGGLE_REQUIRED
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Injection token to be used to override the default options for `mat-slide-toggle`. */
+/**
+ * Injection token to be used to override the default options for `mat-slide-toggle`
+ * @deprecated Use `MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
     factory: () => ({ disableToggleValue: false }),
@@ -30,13 +34,21 @@ const MAT_LEGACY_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-to
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_SLIDE_TOGGLE_VALUE_ACCESSOR` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatLegacySlideToggle),
     multi: true,
 };
-/** Change event object emitted by a slide toggle. */
+/**
+ * Change event object emitted by a slide toggle.
+ * @deprecated Use `MatSlideToggleChange` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySlideToggleChange {
     constructor(
     /** The source slide toggle of the event. */
@@ -47,7 +59,11 @@ class MatLegacySlideToggleChange {
         this.checked = checked;
     }
 }
-/** Represents a slidable "switch" toggle that can be moved between on and off. */
+/**
+ * Represents a slidable "switch" toggle that can be moved between on and off.
+ * @deprecated Use `MatSlideToggle` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySlideToggle extends _MatSlideToggleBase {
     constructor(elementRef, focusMonitor, changeDetectorRef, tabIndex, defaults, animationMode) {
         super(elementRef, focusMonitor, changeDetectorRef, tabIndex, defaults, animationMode, 'mat-slide-toggle-');
@@ -144,6 +160,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatSlideToggleModule` from `@angular/material/slide-toggle` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacySlideToggleModule {
 }

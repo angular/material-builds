@@ -52,9 +52,17 @@ export { MAT_LEGACY_LIST }
 
 export { MAT_LEGACY_NAV_LIST }
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_SELECTION_LIST_VALUE_ACCESSOR` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare const MAT_LEGACY_SELECTION_LIST_VALUE_ACCESSOR: any;
 
+/**
+ * @deprecated Use `MatList` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyList extends _MatListBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     private _elementRef;
     /** Emits when the state of the list changes. */
@@ -70,6 +78,8 @@ export declare class MatLegacyList extends _MatListBase implements CanDisable, C
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
+ * @deprecated Use `MatListAvatarCssMatStyler` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyListAvatarCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyListAvatarCssMatStyler, never>;
@@ -79,13 +89,19 @@ export declare class MatLegacyListAvatarCssMatStyler {
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
+ * @deprecated Use `MatListIconCssMatStyler` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyListIconCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyListIconCssMatStyler, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyListIconCssMatStyler, "[mat-list-icon], [matListIcon]", never, {}, {}, never, never, false>;
 }
 
-/** An item within a Material Design list. */
+/**
+ * An item within a Material Design list.
+ * @deprecated Use `MatListItem` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyListItem extends _MatListItemMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
     private _element;
     private _isInteractiveList;
@@ -109,6 +125,10 @@ export declare class MatLegacyListItem extends _MatListItemMixinBase implements 
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatar", "_icon", "_lines"], ["[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]", "[mat-line], [matLine]", "*"], false>;
 }
 
+/**
+ * @deprecated Use `MatListModule` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyListModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyListModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyListModule, [typeof i1.MatLegacyList, typeof i1.MatLegacyNavList, typeof i1.MatLegacyListItem, typeof i1.MatLegacyListAvatarCssMatStyler, typeof i1.MatLegacyListIconCssMatStyler, typeof i1.MatLegacyListSubheaderCssMatStyler, typeof i2.MatLegacySelectionList, typeof i2.MatLegacyListOption], [typeof i3.MatLineModule, typeof i3.MatRippleModule, typeof i3.MatCommonModule, typeof i3.MatPseudoCheckboxModule, typeof i4.CommonModule], [typeof i1.MatLegacyList, typeof i1.MatLegacyNavList, typeof i1.MatLegacyListItem, typeof i1.MatLegacyListAvatarCssMatStyler, typeof i3.MatLineModule, typeof i3.MatCommonModule, typeof i1.MatLegacyListIconCssMatStyler, typeof i1.MatLegacyListSubheaderCssMatStyler, typeof i3.MatPseudoCheckboxModule, typeof i2.MatLegacySelectionList, typeof i2.MatLegacyListOption, typeof i5.MatDividerModule]>;
@@ -119,6 +139,8 @@ export declare class MatLegacyListModule {
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is selected.
+ * @deprecated Use `MatListOption` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyListOption extends _MatListOptionBase implements AfterContentInit, OnDestroy, OnInit, FocusableOption, CanDisableRipple {
     private _element;
@@ -197,18 +219,26 @@ export declare class MatLegacyListOption extends _MatListOptionBase implements A
 /**
  * Type describing possible positions of a checkbox in a list option
  * with respect to the list item's text.
+ * @deprecated Use `MatListOptionCheckboxPosition` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare type MatLegacyListOptionCheckboxPosition = 'before' | 'after';
 
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
+ * @deprecated Use `MatListSubheaderCssMatStyler` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyListSubheaderCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyListSubheaderCssMatStyler, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, false>;
 }
 
+/**
+ * @deprecated Use `MatNavList` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyNavList extends _MatListBase implements CanDisable, CanDisableRipple, OnChanges, OnDestroy {
     /** Emits when the state of the list changes. */
     readonly _stateChanges: Subject<void>;
@@ -220,6 +250,8 @@ export declare class MatLegacyNavList extends _MatListBase implements CanDisable
 
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
+ * @deprecated Use `MatSelectionList` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacySelectionList extends _MatSelectionListBase implements CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy, OnChanges {
     private _element;
@@ -326,7 +358,11 @@ export declare class MatLegacySelectionList extends _MatSelectionListBase implem
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySelectionList, "mat-selection-list", ["matSelectionList"], { "disableRipple": "disableRipple"; "color": "color"; "compareWith": "compareWith"; "disabled": "disabled"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["options"], ["*"], false>;
 }
 
-/** Change event that is being fired whenever the selected state of an option changes. */
+/**
+ * Change event that is being fired whenever the selected state of an option changes.
+ * @deprecated Use `MatSelectionListChange` from `@angular/material/list` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySelectionListChange {
     /** Reference to the selection list that emitted the event. */
     source: MatLegacySelectionList;

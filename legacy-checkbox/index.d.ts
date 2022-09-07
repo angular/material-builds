@@ -33,6 +33,8 @@ export { LegacyTransitionCheckState }
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * @docs-private
+ * @deprecated Use `MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR` from `@angular/material/checkbox` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare const MAT_LEGACY_CHECKBOX_CONTROL_VALUE_ACCESSOR: any;
 
@@ -49,6 +51,8 @@ export { MAT_LEGACY_CHECKBOX_REQUIRED_VALIDATOR }
  * so there is no need to provide them yourself. However, if you want to omit a label and still
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://material.io/design/components/selection-controls.html
+ * @deprecated Use `MatCheckbox` from `@angular/material/checkbox` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare class MatLegacyCheckbox extends _MatCheckboxBase<MatLegacyCheckboxChange> implements AfterViewInit, OnDestroy {
     private _focusMonitor;
@@ -79,7 +83,11 @@ export declare class MatLegacyCheckbox extends _MatCheckboxBase<MatLegacyCheckbo
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false>;
 }
 
-/** Change event object emitted by a checkbox. */
+/**
+ * Change event object emitted by a checkbox.
+ * @deprecated Use `MatCheckboxChange` from `@angular/material/checkbox` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyCheckboxChange {
     /** The source checkbox of the event. */
     source: MatLegacyCheckbox;
@@ -91,6 +99,10 @@ export { MatLegacyCheckboxClickAction }
 
 export { MatLegacyCheckboxDefaultOptions }
 
+/**
+ * @deprecated Use `MatCheckboxModule` from `@angular/material/checkbox` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCheckboxModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyCheckboxModule, [typeof i1.MatLegacyCheckbox], [typeof i2.MatRippleModule, typeof i2.MatCommonModule, typeof i3.ObserversModule, typeof i4._MatCheckboxRequiredValidatorModule], [typeof i1.MatLegacyCheckbox, typeof i2.MatCommonModule, typeof i4._MatCheckboxRequiredValidatorModule]>;

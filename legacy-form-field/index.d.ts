@@ -82,7 +82,11 @@ declare namespace i7 {
     }
 }
 
-/** Possible values for the "floatLabel" form field input. */
+/**
+ * Possible values for the "floatLabel" form field input.
+ * @deprecated Use `FloatLabelType` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare type LegacyFloatLabelType = 'always' | 'never' | 'auto';
 
 export { MAT_LEGACY_ERROR }
@@ -92,6 +96,8 @@ export { MAT_LEGACY_FORM_FIELD }
 /**
  * Injection token that can be used to configure the
  * default options for all form field within an app.
+ * @deprecated Use `MAT_FORM_FIELD_DEFAULT_OPTIONS` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare const MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatLegacyFormFieldDefaultOptions>;
 
@@ -102,6 +108,9 @@ export declare const MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatLe
  *
  * *Note*: This is not part of the public API as the MDC-based form-field will not
  * need a lightweight token for `MatHint` and we want to reduce breaking changes.
+ *
+ * @deprecated Use `_MAT_HINT` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare const _MAT_LEGACY_HINT: InjectionToken<MatLegacyHint>;
 
@@ -119,7 +128,11 @@ declare const _MatFormFieldBase: _Constructor<CanColor> & _AbstractConstructor<C
     };
 };
 
-/** Single error message to be shown underneath the form field. */
+/**
+ * Single error message to be shown underneath the form field.
+ * @deprecated Use `MatError` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyError {
     id: string;
     constructor(ariaLive: string, elementRef: ElementRef);
@@ -127,7 +140,11 @@ export declare class MatLegacyError {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyError, "mat-error", never, { "id": "id"; }, {}, never, never, false>;
 }
 
-/** Container for form controls that applies Material Design styling and behavior. */
+/**
+ * Container for form controls that applies Material Design styling and behavior.
+ * @deprecated Use `MatFormField` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyFormField extends _MatFormFieldBase implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy, CanColor {
     private _changeDetectorRef;
     private _dir;
@@ -256,7 +273,11 @@ export declare class MatLegacyFormField extends _MatFormFieldBase implements Aft
 
 export { matLegacyFormFieldAnimations }
 
-/** Possible appearance styles for the form field. */
+/**
+ * Possible appearance styles for the form field.
+ * @deprecated Use `MatFormFieldAppearance` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare type MatLegacyFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
 
 export { MatLegacyFormFieldControl }
@@ -264,6 +285,8 @@ export { MatLegacyFormFieldControl }
 /**
  * Represents the default options for the form field that can be configured
  * using the `MAT_FORM_FIELD_DEFAULT_OPTIONS` injection token.
+ * @deprecated Use `MatFormFieldDefaultOptions` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 export declare interface MatLegacyFormFieldDefaultOptions {
     /** Default form field appearance style. */
@@ -279,13 +302,21 @@ export declare interface MatLegacyFormFieldDefaultOptions {
     floatLabel?: LegacyFloatLabelType;
 }
 
+/**
+ * @deprecated Use `MatFormFieldModule` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyFormFieldModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyFormFieldModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacyFormFieldModule, [typeof i1.MatLegacyError, typeof i2.MatLegacyFormField, typeof i3.MatLegacyHint, typeof i4.MatLegacyLabel, typeof i5.MatLegacyPlaceholder, typeof i6.MatLegacyPrefix, typeof i7.MatLegacySuffix], [typeof i8.CommonModule, typeof i9.MatCommonModule, typeof i10.ObserversModule], [typeof i9.MatCommonModule, typeof i1.MatLegacyError, typeof i2.MatLegacyFormField, typeof i3.MatLegacyHint, typeof i4.MatLegacyLabel, typeof i5.MatLegacyPlaceholder, typeof i6.MatLegacyPrefix, typeof i7.MatLegacySuffix]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatLegacyFormFieldModule>;
 }
 
-/** Hint text to be shown underneath the form field control. */
+/**
+ * Hint text to be shown underneath the form field control.
+ * @deprecated Use `MatHint` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyHint {
     /** Whether to align the hint label at the start or end of the line. */
     align: 'start' | 'end';
@@ -295,7 +326,11 @@ export declare class MatLegacyHint {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHint, "mat-hint", never, { "align": "align"; "id": "id"; }, {}, never, never, false>;
 }
 
-/** The floating label for a `mat-form-field`. */
+/**
+ * The floating label for a `mat-form-field`.
+ * @deprecated Use `MatLabel` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyLabel, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyLabel, "mat-label", never, {}, {}, never, never, false>;
@@ -312,13 +347,21 @@ export declare class MatLegacyPlaceholder {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyPlaceholder, "mat-placeholder", never, {}, {}, never, never, false>;
 }
 
-/** Prefix to be placed in front of the form field. */
+/**
+ * Prefix to be placed in front of the form field.
+ * @deprecated Use `MatPrefix` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyPrefix {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyPrefix, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyPrefix, "[matPrefix]", never, {}, {}, never, never, false>;
 }
 
-/** Suffix to be placed at the end of the form field. */
+/**
+ * Suffix to be placed at the end of the form field.
+ * @deprecated Use `MatSuffix` from `@angular/material/form-field` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySuffix {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySuffix, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacySuffix, "[matSuffix]", never, {}, {}, never, never, false>;

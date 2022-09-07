@@ -4,33 +4,57 @@ import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** A set of criteria that can be used to filter a list of `MatTabGroupHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatTabGroupHarness` instances.
+ * @deprecated Use `TabGroupHarnessFilters` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyTabGroupHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose selected tab label matches the given value. */
     selectedTabLabel?: string | RegExp;
 }
 
-/** A set of criteria that can be used to filter a list of `MatTabHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatTabHarness` instances.
+ * @deprecated Use `TabHarnessFilters` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyTabHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose label matches the given value. */
     label?: string | RegExp;
 }
 
-/** A set of criteria that can be used to filter a list of `MatTabLinkHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatTabLinkHarness` instances.
+ * @deprecated Use `TabLinkHarnessFilters` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyTabLinkHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose label matches the given value. */
     label?: string | RegExp;
 }
 
-/** A set of criteria that can be used to filter a list of `MatTabNavBarHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatTabNavBarHarness` instances.
+ * @deprecated Use `TabNavBarHarnessFilters` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyTabNavBarHarnessFilters extends BaseHarnessFilters {
 }
 
-/** A set of criteria that can be used to filter a list of `MatTabNavBarHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatTabNavBarHarness` instances.
+ * @deprecated Use `TabNavPanelHarnessFilters` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacyTabNavPanelHarnessFilters extends BaseHarnessFilters {
 }
 
-/** Harness for interacting with a standard mat-tab-group in tests. */
+/**
+ * Harness for interacting with a standard mat-tab-group in tests.
+ * @deprecated Use `MatTabGroupHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTabGroupHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabGroup` instance. */
     static hostSelector: string;
@@ -56,7 +80,11 @@ export declare class MatLegacyTabGroupHarness extends ComponentHarness {
     selectTab(filter?: LegacyTabHarnessFilters): Promise<void>;
 }
 
-/** Harness for interacting with a standard Angular Material tab-label in tests. */
+/**
+ * Harness for interacting with a standard Angular Material tab-label in tests.
+ * @deprecated Use `MatTabHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTabHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatTab` instance. */
     static hostSelector: string;
@@ -86,7 +114,11 @@ export declare class MatLegacyTabHarness extends ContentContainerComponentHarnes
     private _getContentId;
 }
 
-/** Harness for interacting with a standard Angular Material tab link in tests. */
+/**
+ * Harness for interacting with a standard Angular Material tab link in tests.
+ * @deprecated Use `MatTabLinkHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTabLinkHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabLink` instance. */
     static hostSelector: string;
@@ -107,7 +139,11 @@ export declare class MatLegacyTabLinkHarness extends ComponentHarness {
     click(): Promise<void>;
 }
 
-/** Harness for interacting with a standard mat-tab-nav-bar in tests. */
+/**
+ * Harness for interacting with a standard mat-tab-nav-bar in tests.
+ * @deprecated Use `MatTabNavBarHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyTabNavBarHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabNavBar` instance. */
     static hostSelector: string;
@@ -135,7 +171,11 @@ export declare class MatLegacyTabNavBarHarness extends ComponentHarness {
     getPanel(): Promise<MatLegacyTabNavPanelHarness>;
 }
 
-/** Harness for interacting with a standard mat-tab-nav-panel in tests. */
+/**
+ * Harness for interacting with a standard mat-tab-nav-panel in tests.
+ * @deprecated Use `MatTabNavPanelHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 declare class MatLegacyTabNavPanelHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatTabNavPanel` instance. */
     static hostSelector: string;

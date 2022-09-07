@@ -1,7 +1,11 @@
 import { __awaiter } from 'tslib';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with a `mat-option` in tests. */
+/**
+ * Harness for interacting with a `mat-option` in tests.
+ * @deprecated Use `MatOptionHarness` from `@angular/material/core/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyOptionHarness extends ComponentHarness {
     constructor() {
         super(...arguments);
@@ -59,7 +63,11 @@ class MatLegacyOptionHarness extends ComponentHarness {
 /** Selector used to locate option instances. */
 MatLegacyOptionHarness.hostSelector = '.mat-option';
 
-/** Harness for interacting with a `mat-optgroup` in tests. */
+/**
+ * Harness for interacting with a `mat-optgroup` in tests.
+ * @deprecated Use `MatOptgroupHarness` from `@angular/material/core/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyOptgroupHarness extends ComponentHarness {
     constructor() {
         super(...arguments);

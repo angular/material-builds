@@ -34,12 +34,20 @@ const _MatProgressSpinnerBase = mixinColor(class {
         this._elementRef = _elementRef;
     }
 }, 'primary');
-/** Injection token to be used to override the default options for `mat-progress-spinner`. */
+/**
+ * Injection token to be used to override the default options for `mat-progress-spinner`.
+ * @deprecated Use `MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {
     providedIn: 'root',
     factory: MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 function MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
     return { diameter: BASE_SIZE };
 }
@@ -72,6 +80,8 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
 `;
 /**
  * `<mat-progress-spinner>` component.
+ * @deprecated Use `MatProgressSpinner` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyProgressSpinner extends _MatProgressSpinnerBase {
     constructor(elementRef, _platform, _document, animationMode, defaults, 
@@ -290,6 +300,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatProgressSpinnerModule` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyProgressSpinnerModule {
 }

@@ -2,11 +2,19 @@ import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** A set of criteria that can be used to filter a list of `MatSliderHarness` instances. */
+/**
+ * A set of criteria that can be used to filter a list of `MatSliderHarness` instances.
+ * @deprecated Use `SliderHarnessFilters` from `@angular/material/slider/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare interface LegacySliderHarnessFilters extends BaseHarnessFilters {
 }
 
-/** Harness for interacting with a standard mat-slider in tests. */
+/**
+ * Harness for interacting with a standard mat-slider in tests.
+ * @deprecated Use `MatSliderHarness` from `@angular/material/slider/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySliderHarness extends ComponentHarness {
     /** The selector for the host element of a `MatSlider` instance. */
     static hostSelector: string;

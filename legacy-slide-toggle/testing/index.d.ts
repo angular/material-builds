@@ -6,7 +6,11 @@ import { TestElement } from '@angular/cdk/testing';
 
 export { LegacySlideToggleHarnessFilters }
 
-/** Harness for interacting with a standard mat-slide-toggle in tests. */
+/**
+ * Harness for interacting with a standard mat-slide-toggle in tests.
+ * @deprecated Use `MatSlideToggleHarness` from `@angular/material/slide-toggle/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacySlideToggleHarness extends _MatLegacySlideToggleHarnessBase {
     private _inputContainer;
     protected _nativeElement: AsyncFactoryFn<TestElement>;

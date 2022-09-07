@@ -8,7 +8,11 @@ export { LegacyMenuHarnessFilters }
 
 export { LegacyMenuItemHarnessFilters }
 
-/** Harness for interacting with a standard mat-menu in tests. */
+/**
+ * Harness for interacting with a standard mat-menu in tests.
+ * @deprecated Use `MatMenuHarness` from `@angular/material/menu/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyMenuHarness extends _MatMenuHarnessBase<typeof MatLegacyMenuItemHarness, MatLegacyMenuItemHarness, LegacyMenuItemHarnessFilters> {
     /** The selector for the host element of a `MatMenu` instance. */
     static hostSelector: string;
@@ -22,7 +26,11 @@ export declare class MatLegacyMenuHarness extends _MatMenuHarnessBase<typeof Mat
     static with(options?: LegacyMenuHarnessFilters): HarnessPredicate<MatLegacyMenuHarness>;
 }
 
-/** Harness for interacting with a standard mat-menu-item in tests. */
+/**
+ * Harness for interacting with a standard mat-menu-item in tests.
+ * @deprecated Use `MatMenuItemHarness` from `@angular/material/menu/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 export declare class MatLegacyMenuItemHarness extends _MatMenuItemHarnessBase<typeof MatLegacyMenuHarness, MatLegacyMenuHarness> {
     /** The selector for the host element of a `MatMenuItem` instance. */
     static hostSelector: string;

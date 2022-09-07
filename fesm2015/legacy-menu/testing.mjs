@@ -2,7 +2,11 @@ import { __awaiter } from 'tslib';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { _MatMenuHarnessBase, _MatMenuItemHarnessBase } from '@angular/material/menu/testing';
 
-/** Harness for interacting with a standard mat-menu in tests. */
+/**
+ * Harness for interacting with a standard mat-menu in tests.
+ * @deprecated Use `MatMenuHarness` from `@angular/material/menu/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyMenuHarness extends _MatMenuHarnessBase {
     constructor() {
         super(...arguments);
@@ -20,7 +24,11 @@ class MatLegacyMenuHarness extends _MatMenuHarnessBase {
 }
 /** The selector for the host element of a `MatMenu` instance. */
 MatLegacyMenuHarness.hostSelector = '.mat-menu-trigger';
-/** Harness for interacting with a standard mat-menu-item in tests. */
+/**
+ * Harness for interacting with a standard mat-menu-item in tests.
+ * @deprecated Use `MatMenuItemHarness` from `@angular/material/menu/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacyMenuItemHarness extends _MatMenuItemHarnessBase {
     constructor() {
         super(...arguments);

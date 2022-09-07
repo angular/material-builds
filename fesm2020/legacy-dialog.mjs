@@ -23,6 +23,8 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 /**
  * Default parameters for the animation for backwards compatibility.
  * @docs-private
+ * @deprecated Use `defaultParams` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 const defaultParams = {
     params: { enterAnimationDuration: '150ms', exitAnimationDuration: '75ms' },
@@ -34,6 +36,10 @@ const defaultParams = {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatDialogConfig` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialogConfig extends MatDialogConfig {
     constructor() {
@@ -49,6 +55,8 @@ class MatLegacyDialogConfig extends MatDialogConfig {
  * Internal component that wraps user-provided dialog content.
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * @docs-private
+ * @deprecated Use `MatDialogContainer` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialogContainer extends _MatDialogContainerBase {
     constructor(elementRef, focusTrapFactory, document, dialogConfig, checker, ngZone, overlayRef, _changeDetectorRef, focusMonitor) {
@@ -125,6 +133,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  */
 /**
  * Reference to a dialog opened via the MatDialog service.
+ * @deprecated Use `MatDialogRef` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialogRef extends MatDialogRef {
 }
@@ -136,17 +146,37 @@ class MatLegacyDialogRef extends MatDialogRef {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Injection token that can be used to access the data that was passed in to a dialog. */
+/**
+ * Injection token that can be used to access the data that was passed in to a dialog.
+ * @deprecated Use `MAT_DIALOG_DATA` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_DIALOG_DATA = new InjectionToken('MatDialogData');
-/** Injection token that can be used to specify default dialog options. */
+/**
+ * Injection token that can be used to specify default dialog options.
+ * @deprecated Use `MAT_DIALOG_DEFAULT_OPTIONS` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog-default-options');
-/** Injection token that determines the scroll handling while the dialog is open. */
+/**
+ * Injection token that determines the scroll handling while the dialog is open.
+ * @deprecated Use `MAT_DIALOG_SCROLL_STRATEGY` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 function MAT_LEGACY_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return () => overlay.scrollStrategies.block();
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Use `MAT_DIALOG_SCROLL_STRATEGY_PROVIDER` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 const MAT_LEGACY_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_LEGACY_DIALOG_SCROLL_STRATEGY,
     deps: [Overlay],
@@ -154,6 +184,8 @@ const MAT_LEGACY_DIALOG_SCROLL_STRATEGY_PROVIDER = {
 };
 /**
  * Service to open Material Design modal dialogs.
+ * @deprecated Use `MatDialog` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialog extends _MatDialogBase {
     constructor(overlay, injector, 
@@ -212,6 +244,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 let dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
+ * @deprecated Use `MatDialogClose` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialogClose {
     constructor(
@@ -282,6 +316,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
             }] } });
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
+ * @deprecated Use `MatDialogTitle` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialogTitle {
     constructor(
@@ -327,6 +363,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
             }] } });
 /**
  * Scrollable content container of a dialog.
+ * @deprecated Use `MatDialogContent` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialogContent {
 }
@@ -342,6 +380,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
+ * @deprecated Use `MatDialogActions` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialogActions {
     constructor() {
@@ -389,6 +429,10 @@ function getClosestDialog(element, openDialogs) {
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatDialogModule` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyDialogModule {
 }

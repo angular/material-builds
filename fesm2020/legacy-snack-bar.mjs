@@ -25,6 +25,8 @@ import * as i3$1 from '@angular/cdk/layout';
 /**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
+ * @deprecated Use `SimpleSnackBar` from `@angular/material/snack-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class LegacySimpleSnackBar {
     constructor(snackBarRef, data) {
@@ -62,6 +64,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
 /**
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
+ * @deprecated Use `MatSnackBarContainer` from `@angular/material/snack-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacySnackBarContainer extends _MatSnackBarContainerBase {
     _afterPortalAttached() {
@@ -92,6 +96,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * @deprecated Use `MatSnackBarModule` from `@angular/material/snack-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
 class MatLegacySnackBarModule {
 }
 MatLegacySnackBarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "14.2.0", ngImport: i0, type: MatLegacySnackBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
@@ -115,6 +123,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  */
 /**
  * Service to dispatch Material Design snack bar messages.
+ * @deprecated Use `MatSnackBar` from `@angular/material/snack-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacySnackBar extends _MatSnackBarBase {
     constructor(overlay, live, injector, breakpointObserver, parentSnackBar, defaultConfig) {

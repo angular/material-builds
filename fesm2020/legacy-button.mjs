@@ -35,6 +35,8 @@ const _MatButtonBase = mixinColor(mixinDisabled(mixinDisableRipple(class {
 })));
 /**
  * Material design button.
+ * @deprecated Use `MatButton` from `@angular/material/button` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyButton extends _MatButtonBase {
     constructor(elementRef, _focusMonitor, _animationMode) {
@@ -112,6 +114,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
             }] } });
 /**
  * Material design anchor button.
+ * @deprecated Use `MatAnchor` from `@angular/material/button` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyAnchor extends MatLegacyButton {
     constructor(focusMonitor, elementRef, animationMode, 
@@ -177,6 +181,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @deprecated Use `MatButtonModule` from `@angular/material/button` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
  */
 class MatLegacyButtonModule {
 }
