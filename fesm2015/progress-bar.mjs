@@ -4,6 +4,7 @@ import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS } from '@angular/material/legacy-progress-bar';
 export { MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS as MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_LEGACY_PROGRESS_BAR_LOCATION as MAT_PROGRESS_BAR_LOCATION, MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY as MAT_PROGRESS_BAR_LOCATION_FACTORY } from '@angular/material/legacy-progress-bar';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 /**
  * @license
@@ -60,7 +61,7 @@ class MatProgressBar extends _MatProgressBarBase {
         return this._value;
     }
     set value(v) {
-        this._value = clamp(v || 0);
+        this._value = clamp(coerceNumberProperty(v));
         this._changeDetectorRef.markForCheck();
     }
     /** Buffer value of the progress bar. Defaults to zero. */
@@ -68,7 +69,7 @@ class MatProgressBar extends _MatProgressBarBase {
         return this._bufferValue || 0;
     }
     set bufferValue(v) {
-        this._bufferValue = clamp(v || 0);
+        this._bufferValue = clamp(coerceNumberProperty(v));
         this._changeDetectorRef.markForCheck();
     }
     /**

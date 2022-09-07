@@ -13,6 +13,7 @@ import { MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY as MAT_PROGRESS_BAR_LOCATION_F
 import { MatLegacyProgressBarDefaultOptions as MatProgressBarDefaultOptions } from '@angular/material/legacy-progress-bar';
 import { MatLegacyProgressBarLocation as MatProgressBarLocation } from '@angular/material/legacy-progress-bar';
 import { NgZone } from '@angular/core';
+import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
 import { LegacyProgressAnimationEnd as ProgressAnimationEnd } from '@angular/material/legacy-progress-bar';
 
@@ -38,11 +39,11 @@ export declare class MatProgressBar extends _MatProgressBarBase implements After
     _isNoopAnimation: boolean;
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
     get value(): number;
-    set value(v: number);
+    set value(v: NumberInput);
     private _value;
     /** Buffer value of the progress bar. Defaults to zero. */
     get bufferValue(): number;
-    set bufferValue(v: number);
+    set bufferValue(v: NumberInput);
     private _bufferValue;
     /**
      * Event emitted when animation of the primary progress bar completes. This event will not
