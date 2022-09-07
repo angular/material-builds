@@ -529,5 +529,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "14.2.0", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { MatLegacySelectModule, MatLegacySelect as MatSelect, MatLegacySelectChange as MatSelectChange, MatLegacySelectTrigger as MatSelectTrigger, matLegacySelectAnimations };
+export { MatLegacySelect, MatLegacySelectChange, MatLegacySelectModule, MatLegacySelectTrigger, matLegacySelectAnimations };
 //# sourceMappingURL=legacy-select.mjs.map

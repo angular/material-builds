@@ -27,9 +27,9 @@ declare namespace i1 {
         SELECT_ITEM_HEIGHT_EM,
         SELECT_MULTIPLE_PANEL_PADDING_X,
         SELECT_PANEL_VIEWPORT_PADDING,
-        MatSelectChange as MatLegacySelectChange,
-        MatSelectTrigger as MatLegacySelectTrigger,
-        MatSelect as MatLegacySelect
+        MatLegacySelectChange,
+        MatLegacySelectTrigger,
+        MatLegacySelect
     }
 }
 
@@ -43,27 +43,7 @@ export { MAT_LEGACY_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY }
 
 export { MAT_LEGACY_SELECT_TRIGGER }
 
-/**
- * The following are all the animations for the mat-select component, with each
- * const containing the metadata for one animation.
- *
- * The values below match the implementation of the AngularJS Material mat-select animation.
- * @docs-private
- */
-export declare const matLegacySelectAnimations: {
-    readonly transformPanelWrap: AnimationTriggerMetadata;
-    readonly transformPanel: AnimationTriggerMetadata;
-};
-
-export { MatLegacySelectConfig }
-
-export declare class MatLegacySelectModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelectModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacySelectModule, [typeof i1.MatLegacySelect, typeof i1.MatLegacySelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule], [typeof i6.CdkScrollableModule, typeof i7.MatLegacyFormFieldModule, typeof i1.MatLegacySelect, typeof i1.MatLegacySelectTrigger, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatLegacySelectModule>;
-}
-
-export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit {
+export declare class MatLegacySelect extends _MatSelectBase<MatLegacySelectChange> implements OnInit {
     /** The scroll position of the overlay panel, calculated to center the selected option. */
     private _scrollTop;
     /** The last measured value for the trigger's client bounding rect. */
@@ -80,7 +60,7 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     _offsetY: number;
     options: QueryList<MatLegacyOption>;
     optionGroups: QueryList<MatLegacyOptgroup>;
-    customTrigger: MatSelectTrigger;
+    customTrigger: MatLegacySelectTrigger;
     _positions: ConnectedPosition[];
     /**
      * Calculates the scroll position of the select's overlay panel.
@@ -96,7 +76,7 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     protected _scrollOptionIntoView(index: number): void;
     protected _positioningSettled(): void;
     protected _panelDoneAnimating(isOpen: boolean): void;
-    protected _getChangeEvent(value: any): MatSelectChange;
+    protected _getChangeEvent(value: any): MatLegacySelectChange;
     protected _getOverlayMinWidth(): number;
     /**
      * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
@@ -131,29 +111,49 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     private _getItemHeight;
     /** Calculates the amount of items in the select. This includes options and group labels. */
     private _getItemCount;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelect, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false>;
 }
 
+/**
+ * The following are all the animations for the mat-select component, with each
+ * const containing the metadata for one animation.
+ *
+ * The values below match the implementation of the AngularJS Material mat-select animation.
+ * @docs-private
+ */
+export declare const matLegacySelectAnimations: {
+    readonly transformPanelWrap: AnimationTriggerMetadata;
+    readonly transformPanel: AnimationTriggerMetadata;
+};
+
 /** Change event object that is emitted when the select value has changed. */
-export declare class MatSelectChange {
+export declare class MatLegacySelectChange {
     /** Reference to the select that emitted the change event. */
-    source: MatSelect;
+    source: MatLegacySelect;
     /** Current value of the select that emitted the event. */
     value: any;
     constructor(
     /** Reference to the select that emitted the change event. */
-    source: MatSelect, 
+    source: MatLegacySelect, 
     /** Current value of the select that emitted the event. */
     value: any);
+}
+
+export { MatLegacySelectConfig }
+
+export declare class MatLegacySelectModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelectModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatLegacySelectModule, [typeof i1.MatLegacySelect, typeof i1.MatLegacySelectTrigger], [typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule], [typeof i6.CdkScrollableModule, typeof i7.MatLegacyFormFieldModule, typeof i1.MatLegacySelect, typeof i1.MatLegacySelectTrigger, typeof i4.MatLegacyOptionModule, typeof i5.MatCommonModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatLegacySelectModule>;
 }
 
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
-export declare class MatSelectTrigger {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSelectTrigger, "mat-select-trigger", never, {}, {}, never, never, false>;
+export declare class MatLegacySelectTrigger {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelectTrigger, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacySelectTrigger, "mat-select-trigger", never, {}, {}, never, never, false>;
 }
 
 /** The height of the select items in `em` units. */
