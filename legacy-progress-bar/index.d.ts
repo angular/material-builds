@@ -8,62 +8,32 @@ import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/common';
 import * as i3 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
+import { ProgressAnimationEnd as LegacyProgressAnimationEnd } from '@angular/material/progress-bar';
+import { ProgressBarMode as LegacyProgressBarMode } from '@angular/material/progress-bar';
+import { MAT_PROGRESS_BAR_DEFAULT_OPTIONS as MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS } from '@angular/material/progress-bar';
+import { MAT_PROGRESS_BAR_LOCATION as MAT_LEGACY_PROGRESS_BAR_LOCATION } from '@angular/material/progress-bar';
+import { MAT_PROGRESS_BAR_LOCATION_FACTORY as MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY } from '@angular/material/progress-bar';
+import { MatProgressBarDefaultOptions as MatLegacyProgressBarDefaultOptions } from '@angular/material/progress-bar';
+import { MatProgressBarLocation as MatLegacyProgressBarLocation } from '@angular/material/progress-bar';
 import { NgZone } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
 
 declare namespace i1 {
     export {
-        MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY,
-        LegacyProgressAnimationEnd,
-        MAT_LEGACY_PROGRESS_BAR_LOCATION,
-        MatLegacyProgressBarLocation,
-        LegacyProgressBarMode,
-        MatLegacyProgressBarDefaultOptions,
-        MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS,
         MatLegacyProgressBar
     }
 }
 
-/**
- * Last animation end data.
- * @deprecated Use `ProgressAnimationEnd` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare interface LegacyProgressAnimationEnd {
-    value: number;
-}
+export { LegacyProgressAnimationEnd }
 
-/**
- * @deprecated Use `ProgressBarMode` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare type LegacyProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
+export { LegacyProgressBarMode }
 
-/**
- * Injection token to be used to override the default options for `mat-progress-bar`.
- * @deprecated Use `MAT_PROGRESS_BAR_DEFAULT_OPTIONS` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare const MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS: InjectionToken<MatLegacyProgressBarDefaultOptions>;
+export { MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS }
 
-/**
- * Injection token used to provide the current location to `MatProgressBar`.
- * Used to handle server-side rendering and to stub out during unit tests.
- * @docs-private
- * @deprecated Use `MAT_PROGRESS_BAR_LOCATION` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare const MAT_LEGACY_PROGRESS_BAR_LOCATION: InjectionToken<MatLegacyProgressBarLocation>;
+export { MAT_LEGACY_PROGRESS_BAR_LOCATION }
 
-/**
- * @docs-private
- * @deprecated Use `MAT_PROGRESS_BAR_LOCATION_FACTORY` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare function MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY(): MatLegacyProgressBarLocation;
+export { MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY }
 
 /**
  * `<mat-progress-bar>` component.
@@ -137,27 +107,9 @@ export declare class MatLegacyProgressBar extends _MatProgressBarBase implements
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": "color"; "value": "value"; "bufferValue": "bufferValue"; "mode": "mode"; }, { "animationEnd": "animationEnd"; }, never, never, false>;
 }
 
-/**
- * Default `mat-progress-bar` options that can be overridden.
- * @deprecated Use `MatProgressBarDefaultOptions` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare interface MatLegacyProgressBarDefaultOptions {
-    /** Default color of the progress bar. */
-    color?: ThemePalette;
-    /** Default mode of the progress bar. */
-    mode?: LegacyProgressBarMode;
-}
+export { MatLegacyProgressBarDefaultOptions }
 
-/**
- * Stubbed out location for `MatProgressBar`.
- * @docs-private
- * @deprecated Use `MatProgressBarLocation` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare interface MatLegacyProgressBarLocation {
-    getPathname: () => string;
-}
+export { MatLegacyProgressBarLocation }
 
 /**
  * @deprecated Use `MatProgressBarModule` from `@angular/material/progress-bar` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.

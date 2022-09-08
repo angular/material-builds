@@ -1,7 +1,7 @@
+import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarness } from '@angular/cdk/testing';
 import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
-import { LegacyProgressBarHarnessFilters as ProgressBarHarnessFilters } from '@angular/material/legacy-progress-bar/testing';
 
 /** Harness for interacting with an MDC-based `mat-progress-bar` in tests. */
 export declare class MatProgressBarHarness extends ComponentHarness {
@@ -19,6 +19,8 @@ export declare class MatProgressBarHarness extends ComponentHarness {
     getMode(): Promise<string | null>;
 }
 
-export { ProgressBarHarnessFilters }
+/** A set of criteria that can be used to filter a list of `MatProgressBarHarness` instances. */
+export declare interface ProgressBarHarnessFilters extends BaseHarnessFilters {
+}
 
 export { }

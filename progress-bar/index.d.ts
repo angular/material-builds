@@ -7,28 +7,37 @@ import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/material/core';
-import { MAT_LEGACY_PROGRESS_BAR_DEFAULT_OPTIONS as MAT_PROGRESS_BAR_DEFAULT_OPTIONS } from '@angular/material/legacy-progress-bar';
-import { MAT_LEGACY_PROGRESS_BAR_LOCATION as MAT_PROGRESS_BAR_LOCATION } from '@angular/material/legacy-progress-bar';
-import { MAT_LEGACY_PROGRESS_BAR_LOCATION_FACTORY as MAT_PROGRESS_BAR_LOCATION_FACTORY } from '@angular/material/legacy-progress-bar';
-import { MatLegacyProgressBarDefaultOptions as MatProgressBarDefaultOptions } from '@angular/material/legacy-progress-bar';
-import { MatLegacyProgressBarLocation as MatProgressBarLocation } from '@angular/material/legacy-progress-bar';
+import { InjectionToken } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
-import { LegacyProgressAnimationEnd as ProgressAnimationEnd } from '@angular/material/legacy-progress-bar';
+import { ThemePalette } from '@angular/material/core';
 
 declare namespace i1 {
     export {
+        MAT_PROGRESS_BAR_LOCATION_FACTORY,
+        ProgressAnimationEnd,
+        MatProgressBarDefaultOptions,
+        MAT_PROGRESS_BAR_DEFAULT_OPTIONS,
+        MAT_PROGRESS_BAR_LOCATION,
+        MatProgressBarLocation,
         ProgressBarMode,
         MatProgressBar
     }
 }
 
-export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS }
+/** Injection token to be used to override the default options for `mat-progress-bar`. */
+export declare const MAT_PROGRESS_BAR_DEFAULT_OPTIONS: InjectionToken<MatProgressBarDefaultOptions>;
 
-export { MAT_PROGRESS_BAR_LOCATION }
+/**
+ * Injection token used to provide the current location to `MatProgressBar`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * @docs-private
+ */
+export declare const MAT_PROGRESS_BAR_LOCATION: InjectionToken<MatProgressBarLocation>;
 
-export { MAT_PROGRESS_BAR_LOCATION_FACTORY }
+/** @docs-private */
+export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
 
 export declare class MatProgressBar extends _MatProgressBarBase implements AfterViewInit, OnDestroy, CanColor {
     private _ngZone;
@@ -82,9 +91,21 @@ declare const _MatProgressBarBase: _Constructor<CanColor> & _AbstractConstructor
     };
 };
 
-export { MatProgressBarDefaultOptions }
+/** Default `mat-progress-bar` options that can be overridden. */
+export declare interface MatProgressBarDefaultOptions {
+    /** Default color of the progress bar. */
+    color?: ThemePalette;
+    /** Default mode of the progress bar. */
+    mode?: ProgressBarMode;
+}
 
-export { MatProgressBarLocation }
+/**
+ * Stubbed out location for `MatProgressBar`.
+ * @docs-private
+ */
+export declare interface MatProgressBarLocation {
+    getPathname: () => string;
+}
 
 export declare class MatProgressBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBarModule, never>;
@@ -92,7 +113,10 @@ export declare class MatProgressBarModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressBarModule>;
 }
 
-export { ProgressAnimationEnd }
+/** Last animation end data. */
+export declare interface ProgressAnimationEnd {
+    value: number;
+}
 
 export declare type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
 
