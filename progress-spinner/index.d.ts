@@ -5,22 +5,26 @@ import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/common';
 import * as i3 from '@angular/material/core';
-import { MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS as MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS } from '@angular/material/legacy-progress-spinner';
-import { MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY as MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY } from '@angular/material/legacy-progress-spinner';
-import { MatLegacyProgressSpinnerDefaultOptions as MatProgressSpinnerDefaultOptions } from '@angular/material/legacy-progress-spinner';
+import { InjectionToken } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
+import { ThemePalette } from '@angular/material/core';
 
 declare namespace i1 {
     export {
+        MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
         ProgressSpinnerMode,
+        MatProgressSpinnerDefaultOptions,
+        MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,
         MatProgressSpinner,
         MatSpinner
     }
 }
 
-export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS }
+/** Injection token to be used to override the default options for `mat-progress-spinner`. */
+export declare const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatProgressSpinnerDefaultOptions>;
 
-export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY }
+/** @docs-private */
+export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgressSpinnerDefaultOptions;
 
 export declare class MatProgressSpinner extends _MatProgressSpinnerBase implements CanColor {
     /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
@@ -68,7 +72,20 @@ declare const _MatProgressSpinnerBase: _Constructor<CanColor> & _AbstractConstru
     };
 };
 
-export { MatProgressSpinnerDefaultOptions }
+/** Default `mat-progress-spinner` options that can be overridden. */
+export declare interface MatProgressSpinnerDefaultOptions {
+    /** Default color of the spinner. */
+    color?: ThemePalette;
+    /** Diameter of the spinner. */
+    diameter?: number;
+    /** Width of the spinner's stroke. */
+    strokeWidth?: number;
+    /**
+     * Whether the animations should be force to be enabled, ignoring if the current environment is
+     * using NoopAnimationsModule.
+     */
+    _forceAnimations?: boolean;
+}
 
 export declare class MatProgressSpinnerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinnerModule, never>;

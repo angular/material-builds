@@ -6,45 +6,28 @@ import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/material/core';
 import * as i3 from '@angular/common';
-import { InjectionToken } from '@angular/core';
+import { ProgressSpinnerMode as LegacyProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS as MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS } from '@angular/material/progress-spinner';
+import { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY as MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY } from '@angular/material/progress-spinner';
+import { MatProgressSpinnerDefaultOptions as MatLegacyProgressSpinnerDefaultOptions } from '@angular/material/progress-spinner';
 import { NgZone } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { ThemePalette } from '@angular/material/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 
 declare namespace i1 {
     export {
-        MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
-        LegacyProgressSpinnerMode,
-        MatLegacyProgressSpinnerDefaultOptions,
-        MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS,
         MatLegacyProgressSpinner
     }
 }
 
-/**
- * Possible mode for a progress spinner.
- * @deprecated Use `ProgressSpinnerMode` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare type LegacyProgressSpinnerMode = 'determinate' | 'indeterminate';
+export { LegacyProgressSpinnerMode }
 
-/**
- * Injection token to be used to override the default options for `mat-progress-spinner`.
- * @deprecated Use `MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare const MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatLegacyProgressSpinnerDefaultOptions>;
+export { MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS }
 
-/**
- * @docs-private
- * @deprecated Use `MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare function MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatLegacyProgressSpinnerDefaultOptions;
+export { MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY }
 
 /**
  * `<mat-progress-spinner>` component.
@@ -116,24 +99,7 @@ export declare class MatLegacyProgressSpinner extends _MatProgressSpinnerBase im
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never, false>;
 }
 
-/**
- * Default `mat-progress-spinner` options that can be overridden.
- * @deprecated Use `MatProgressSpinnerDefaultOptions` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare interface MatLegacyProgressSpinnerDefaultOptions {
-    /** Default color of the spinner. */
-    color?: ThemePalette;
-    /** Diameter of the spinner. */
-    diameter?: number;
-    /** Width of the spinner's stroke. */
-    strokeWidth?: number;
-    /**
-     * Whether the animations should be force to be enabled, ignoring if the current environment is
-     * using NoopAnimationsModule.
-     */
-    _forceAnimations?: boolean;
-}
+export { MatLegacyProgressSpinnerDefaultOptions }
 
 /**
  * @deprecated Use `MatProgressSpinnerModule` from `@angular/material/progress-spinner` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.

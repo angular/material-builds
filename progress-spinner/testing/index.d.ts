@@ -1,8 +1,8 @@
+import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarness } from '@angular/cdk/testing';
 import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
-import { LegacyProgressSpinnerMode } from '@angular/material/legacy-progress-spinner';
-import { LegacyProgressSpinnerHarnessFilters as ProgressSpinnerHarnessFilters } from '@angular/material/legacy-progress-spinner/testing';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 
 /** Harness for interacting with a MDC based mat-progress-spinner in tests. */
 export declare class MatProgressSpinnerHarness extends ComponentHarness {
@@ -18,9 +18,11 @@ export declare class MatProgressSpinnerHarness extends ComponentHarness {
     /** Gets the progress spinner's value. */
     getValue(): Promise<number | null>;
     /** Gets the progress spinner's mode. */
-    getMode(): Promise<LegacyProgressSpinnerMode>;
+    getMode(): Promise<ProgressSpinnerMode>;
 }
 
-export { ProgressSpinnerHarnessFilters }
+/** A set of criteria that can be used to filter a list of `MatProgressSpinnerHarness` instances. */
+export declare interface ProgressSpinnerHarnessFilters extends BaseHarnessFilters {
+}
 
 export { }

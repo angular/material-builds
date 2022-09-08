@@ -1,15 +1,9 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { ProgressSpinnerHarnessFilters as LegacyProgressSpinnerHarnessFilters } from '@angular/material/progress-spinner/testing';
 import { LegacyProgressSpinnerMode } from '@angular/material/legacy-progress-spinner';
 
-/**
- * A set of criteria that can be used to filter a list of `MatProgressSpinnerHarness` instances.
- * @deprecated Use `ProgressSpinnerHarnessFilters` from `@angular/material/progress-spinner/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
- * @breaking-change 17.0.0
- */
-export declare interface LegacyProgressSpinnerHarnessFilters extends BaseHarnessFilters {
-}
+export { LegacyProgressSpinnerHarnessFilters }
 
 /**
  * Harness for interacting with a standard mat-progress-spinner in tests.
