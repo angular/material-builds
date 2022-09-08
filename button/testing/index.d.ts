@@ -1,9 +1,13 @@
+import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
-import { LegacyButtonHarnessFilters } from '@angular/material/legacy-button/testing';
 
-export { LegacyButtonHarnessFilters }
+/** A set of criteria that can be used to filter a list of button harness instances. */
+export declare interface ButtonHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose text matches the given value. */
+    text?: string | RegExp;
+}
 
 /** Harness for interacting with a MDC-based mat-button in tests. */
 export declare class MatButtonHarness extends ContentContainerComponentHarness {
@@ -15,7 +19,7 @@ export declare class MatButtonHarness extends ContentContainerComponentHarness {
      *   - `text` finds a button with specific text content.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with<T extends MatButtonHarness>(this: ComponentHarnessConstructor<T>, options?: LegacyButtonHarnessFilters): HarnessPredicate<T>;
+    static with<T extends MatButtonHarness>(this: ComponentHarnessConstructor<T>, options?: ButtonHarnessFilters): HarnessPredicate<T>;
     /**
      * Clicks the button at the given position relative to its top-left.
      * @param relativeX The relative x position of the click.
