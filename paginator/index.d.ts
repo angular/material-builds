@@ -218,9 +218,9 @@ export declare class PageEvent {
      * @breaking-change 8.0.0 To be made into a required property.
      */
     previousPageIndex?: number;
-    /** The current page size */
+    /** The current page size. */
     pageSize: number;
-    /** The current total number of items being paged */
+    /** The current total number of items being paged. */
     length: number;
 }
 
