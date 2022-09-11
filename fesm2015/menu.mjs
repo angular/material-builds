@@ -133,6 +133,12 @@ class MatMenuItem extends _MatMenuItemBase {
         this._highlighted = isHighlighted;
         (_a = this._changeDetectorRef) === null || _a === void 0 ? void 0 : _a.markForCheck();
     }
+    _setTriggersSubmenu(triggersSubmenu) {
+        var _a;
+        // @breaking-change 12.0.0 Remove null check for `_changeDetectorRef`.
+        this._triggersSubmenu = triggersSubmenu;
+        (_a = this._changeDetectorRef) === null || _a === void 0 ? void 0 : _a.markForCheck();
+    }
     _hasFocus() {
         return this._document && this._document.activeElement === this._getHostElement();
     }
@@ -844,9 +850,6 @@ class _MatMenuTriggerBase {
         this._scrollStrategy = scrollStrategy;
         this._parentMaterialMenu = parentMenu instanceof _MatMenuBase ? parentMenu : undefined;
         _element.nativeElement.addEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
-        if (_menuItemInstance) {
-            _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
-        }
     }
     /**
      * @deprecated
@@ -863,6 +866,7 @@ class _MatMenuTriggerBase {
         return this._menu;
     }
     set menu(menu) {
+        var _a;
         if (menu === this._menu) {
             return;
         }
@@ -880,6 +884,7 @@ class _MatMenuTriggerBase {
                 }
             });
         }
+        (_a = this._menuItemInstance) === null || _a === void 0 ? void 0 : _a._setTriggersSubmenu(this.triggersSubmenu());
     }
     ngAfterContentInit() {
         this._handleHover();
@@ -904,7 +909,7 @@ class _MatMenuTriggerBase {
     }
     /** Whether the menu triggers a sub-menu or a top-level one. */
     triggersSubmenu() {
-        return !!(this._menuItemInstance && this._parentMaterialMenu);
+        return !!(this._menuItemInstance && this._parentMaterialMenu && this.menu);
     }
     /** Toggles the menu between the open and closed states. */
     toggleMenu() {
