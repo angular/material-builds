@@ -5,9 +5,9 @@ import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModul
 import * as i6 from '@angular/cdk/portal';
 import { ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import * as i1 from '@angular/common';
-import { CommonModule } from '@angular/common';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, Directive, Attribute, ContentChild, inject, InjectFlags, Self, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, inject, Directive, Attribute, ContentChild, InjectFlags, Self, TemplateRef, NgModule } from '@angular/core';
 import * as i3 from '@angular/material/legacy-button';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -2268,6 +2268,7 @@ class MatDatepickerBase {
         this._dir = _dir;
         this._model = _model;
         this._inputStateChanges = Subscription.EMPTY;
+        this._document = inject(DOCUMENT);
         /** The view that the calendar should start in. */
         this.startView = 'month';
         this._touchUi = false;
@@ -2474,29 +2475,40 @@ class MatDatepickerBase {
         if (!this._opened) {
             return;
         }
-        if (this._componentRef) {
-            const instance = this._componentRef.instance;
-            instance._startExitAnimation();
-            instance._animationDone.pipe(take(1)).subscribe(() => this._destroyOverlay());
-        }
+        const canRestoreFocus = this._restoreFocus &&
+            this._focusedElementBeforeOpen &&
+            typeof this._focusedElementBeforeOpen.focus === 'function';
         const completeClose = () => {
             // The `_opened` could've been reset already if
             // we got two events in quick succession.
             if (this._opened) {
                 this._opened = false;
                 this.closedStream.emit();
-                this._focusedElementBeforeOpen = null;
             }
         };
-        if (this._restoreFocus &&
-            this._focusedElementBeforeOpen &&
-            typeof this._focusedElementBeforeOpen.focus === 'function') {
+        if (this._componentRef) {
+            const { instance, location } = this._componentRef;
+            instance._startExitAnimation();
+            instance._animationDone.pipe(take(1)).subscribe(() => {
+                const activeElement = this._document.activeElement;
+                // Since we restore focus after the exit animation, we have to check that
+                // the user didn't move focus themselves inside the `close` handler.
+                if (canRestoreFocus &&
+                    (!activeElement ||
+                        activeElement === this._document.activeElement ||
+                        location.nativeElement.contains(activeElement))) {
+                    this._focusedElementBeforeOpen.focus();
+                }
+                this._focusedElementBeforeOpen = null;
+                this._destroyOverlay();
+            });
+        }
+        if (canRestoreFocus) {
             // Because IE moves focus asynchronously, we can't count on it being restored before we've
             // marked the datepicker as closed. If the event fires out of sequence and the element that
             // we're refocusing opens the datepicker on focus, the user could be stuck with not being
             // able to close the calendar at all. We work around it by making the logic, that marks
             // the datepicker as closed, async as well.
-            this._focusedElementBeforeOpen.focus();
             setTimeout(completeClose);
         }
         else {
