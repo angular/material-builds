@@ -20,9 +20,8 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
-import * as i10 from '@angular/material/legacy-button';
-import * as i11 from '@angular/cdk/stepper';
-import * as i12 from '@angular/material/icon';
+import * as i10 from '@angular/cdk/stepper';
+import * as i11 from '@angular/material/icon';
 import * as i7 from '@angular/material/core';
 import * as i8 from '@angular/common';
 import * as i9 from '@angular/cdk/portal';
@@ -267,7 +266,7 @@ export declare class MatStepperIntl {
 
 export declare class MatStepperModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatStepperModule, [typeof i1.MatStep, typeof i2.MatStepLabel, typeof i1.MatStepper, typeof i3.MatStepperNext, typeof i3.MatStepperPrevious, typeof i4.MatStepHeader, typeof i5.MatStepperIcon, typeof i6.MatStepContent], [typeof i7.MatCommonModule, typeof i8.CommonModule, typeof i9.PortalModule, typeof i10.MatLegacyButtonModule, typeof i11.CdkStepperModule, typeof i12.MatIconModule, typeof i7.MatRippleModule], [typeof i7.MatCommonModule, typeof i1.MatStep, typeof i2.MatStepLabel, typeof i1.MatStepper, typeof i3.MatStepperNext, typeof i3.MatStepperPrevious, typeof i4.MatStepHeader, typeof i5.MatStepperIcon, typeof i6.MatStepContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatStepperModule, [typeof i1.MatStep, typeof i2.MatStepLabel, typeof i1.MatStepper, typeof i3.MatStepperNext, typeof i3.MatStepperPrevious, typeof i4.MatStepHeader, typeof i5.MatStepperIcon, typeof i6.MatStepContent], [typeof i7.MatCommonModule, typeof i8.CommonModule, typeof i9.PortalModule, typeof i10.CdkStepperModule, typeof i11.MatIconModule, typeof i7.MatRippleModule], [typeof i7.MatCommonModule, typeof i1.MatStep, typeof i2.MatStepLabel, typeof i1.MatStepper, typeof i3.MatStepperNext, typeof i3.MatStepperPrevious, typeof i4.MatStepHeader, typeof i5.MatStepperIcon, typeof i6.MatStepContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatStepperModule>;
 }
 
