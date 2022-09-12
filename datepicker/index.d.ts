@@ -634,6 +634,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     private _model;
     private _scrollStrategy;
     private _inputStateChanges;
+    private _document;
     /** An input indicating the type of the custom header component for the calendar, if set. */
     calendarHeaderComponent: ComponentType<any>;
     /** The date to open the calendar to initially. */
