@@ -52,7 +52,7 @@ export declare class LegacySimpleSnackBar implements LegacyTextOnlySnackBar {
     /** If the action button should be shown. */
     get hasAction(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<LegacySimpleSnackBar, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<LegacySimpleSnackBar, "simple-snack-bar", never, {}, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<LegacySimpleSnackBar, "simple-snack-bar", never, {}, {}, never, never, false, never>;
 }
 
 export { LegacyTextOnlySnackBar }
@@ -92,7 +92,7 @@ export { MatLegacySnackBarConfig }
 export declare class MatLegacySnackBarContainer extends _MatLegacySnackBarContainerBase {
     protected _afterPortalAttached(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySnackBarContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySnackBarContainer, "snack-bar-container", never, {}, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySnackBarContainer, "snack-bar-container", never, {}, {}, never, never, false, never>;
 }
 
 export { _MatLegacySnackBarContainerBase }

@@ -63,7 +63,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerBase implemen
     /** Stroke width of the circle in percent. */
     _circleStrokeWidth(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "mode": "mode"; "value": "value"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; }, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "mode": "mode"; "value": "value"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; }, {}, never, never, false, never>;
 }
 
 declare const _MatProgressSpinnerBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {

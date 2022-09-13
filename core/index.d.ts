@@ -513,7 +513,7 @@ declare function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks;
  */
 export declare class MatLine {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLine, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLine, "[mat-line], [matLine]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLine, "[mat-line], [matLine]", never, {}, {}, never, never, false, never>;
 }
 
 export declare class MatLineModule {
@@ -533,7 +533,7 @@ export declare class MatNativeDateModule {
  */
 export declare class MatOptgroup extends _MatOptgroupBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": "disabled"; }, {}, never, ["*", "mat-option, ng-container"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": "disabled"; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
 }
 
 export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements CanDisable {
@@ -545,7 +545,7 @@ export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements C
     _inert: boolean;
     constructor(parent?: MatOptionParentComponent);
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptgroupBase, [{ optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptgroupBase, never, never, { "label": "label"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptgroupBase, never, never, { "label": "label"; }, {}, never, never, false, never>;
 }
 
 /** @docs-private */
@@ -559,7 +559,7 @@ declare const _MatOptgroupMixinBase: _Constructor_2<CanDisable> & _AbstractConst
 export declare class MatOption<T = any> extends _MatOptionBase<T> {
     constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatOptionParentComponent, group: MatOptgroup);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"], false, never>;
 }
 
 export declare class _MatOptionBase<T = any> implements FocusableOption, AfterViewChecked, OnDestroy {
@@ -644,7 +644,7 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptionBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase<any>, never, never, { "value": "value"; "id": "id"; "disabled": "disabled"; }, { "onSelectionChange": "onSelectionChange"; }, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase<any>, never, never, { "value": "value"; "id": "id"; "disabled": "disabled"; }, { "onSelectionChange": "onSelectionChange"; }, never, never, false, never>;
 }
 
 export declare class MatOptionModule {
@@ -698,7 +698,7 @@ export declare class MatPseudoCheckbox {
     disabled: boolean;
     constructor(_animationMode?: string | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, [{ optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": "state"; "disabled": "disabled"; }, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": "state"; "disabled": "disabled"; }, {}, never, never, false, never>;
 }
 
 export declare class MatPseudoCheckboxModule {
@@ -791,7 +791,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      */
     launch(x: number, y: number, config?: RippleConfig): RippleRef;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": "matRippleColor"; "unbounded": "matRippleUnbounded"; "centered": "matRippleCentered"; "radius": "matRippleRadius"; "animation": "matRippleAnimation"; "disabled": "matRippleDisabled"; "trigger": "matRippleTrigger"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": "matRippleColor"; "unbounded": "matRippleUnbounded"; "centered": "matRippleCentered"; "radius": "matRippleRadius"; "animation": "matRippleAnimation"; "disabled": "matRippleDisabled"; "trigger": "matRippleTrigger"; }, {}, never, never, false, never>;
 }
 
 export declare class MatRippleModule {

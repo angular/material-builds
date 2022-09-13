@@ -80,7 +80,7 @@ export declare class MatLegacyCheckbox extends _MatCheckboxBase<MatLegacyCheckbo
     /** Focuses the checkbox. */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCheckbox, [null, null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": "disableRipple"; "color": "color"; "tabIndex": "tabIndex"; }, {}, never, ["*"], false, never>;
 }
 
 /**

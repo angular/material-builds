@@ -105,7 +105,7 @@ export declare class MatAutocomplete extends _MatAutocompleteBase {
     protected _visibleClass: string;
     protected _hiddenClass: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocomplete, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": "disableRipple"; }, {}, ["optionGroups", "options"], ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": "disableRipple"; }, {}, ["optionGroups", "options"], ["*"], false, never>;
 }
 
 /** Event object that is emitted when an autocomplete option is activated. */
@@ -204,7 +204,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "autoSelectActiveOption": "autoSelectActiveOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "autoSelectActiveOption": "autoSelectActiveOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false, never>;
 }
 
 /** Default `mat-autocomplete` options that can be overridden. */
@@ -234,7 +234,7 @@ export declare class MatAutocompleteModule {
  */
 export declare class MatAutocompleteOrigin extends _MatAutocompleteOriginBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteOrigin, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, false, never>;
 }
 
 /** Base class containing all of the functionality for `MatAutocompleteOrigin`. */
@@ -245,7 +245,7 @@ export declare abstract class _MatAutocompleteOriginBase {
     /** Reference to the element on which the directive is applied. */
     elementRef: ElementRef<HTMLElement>);
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteOriginBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteOriginBase, never, never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteOriginBase, never, never, {}, {}, never, never, false, never>;
 }
 
 /** Event object that is emitted when an autocomplete option is selected. */
@@ -264,7 +264,7 @@ export declare class MatAutocompleteSelectedEvent {
 export declare class MatAutocompleteTrigger extends _MatAutocompleteTriggerBase {
     protected _aboveClass: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], {}, {}, never, never, false, never>;
 }
 
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
@@ -432,7 +432,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     /** Handles keyboard events coming from the overlay panel. */
     private _handleOverlayEvents;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteTriggerBase, [null, null, null, null, null, null, { optional: true; }, { optional: true; host: true; }, { optional: true; }, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteTriggerBase, never, never, { "autocomplete": "matAutocomplete"; "position": "matAutocompletePosition"; "connectedTo": "matAutocompleteConnectedTo"; "autocompleteAttribute": "autocomplete"; "autocompleteDisabled": "matAutocompleteDisabled"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteTriggerBase, never, never, { "autocomplete": "matAutocomplete"; "position": "matAutocompletePosition"; "connectedTo": "matAutocompleteConnectedTo"; "autocompleteAttribute": "autocomplete"; "autocompleteDisabled": "matAutocompleteDisabled"; }, {}, never, never, false, never>;
 }
 
 export { }

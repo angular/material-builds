@@ -118,7 +118,7 @@ export declare class MatSort extends _MatSortBase implements CanDisable, HasInit
     ngOnChanges(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSort, [{ optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSort, "[matSort]", ["matSort"], { "disabled": "matSortDisabled"; "active": "matSortActive"; "start": "matSortStart"; "direction": "matSortDirection"; "disableClear": "matSortDisableClear"; }, { "sortChange": "matSortChange"; }, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSort, "[matSort]", ["matSort"], { "disabled": "matSortDisabled"; "active": "matSortActive"; "start": "matSortStart"; "direction": "matSortDirection"; "disableClear": "matSortDisableClear"; }, { "sortChange": "matSortChange"; }, never, never, false, never>;
 }
 
 /** Interface for a directive that holds sorting state consumed by `MatSortHeader`. */
@@ -279,7 +279,7 @@ export declare class MatSortHeader extends _MatSortHeaderBase implements CanDisa
     /** Handles changes in the sorting state. */
     private _handleStateChanges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "disabled": "disabled"; "id": "mat-sort-header"; "arrowPosition": "arrowPosition"; "start": "start"; "sortActionDescription": "sortActionDescription"; "disableClear": "disableClear"; }, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "disabled": "disabled"; "id": "mat-sort-header"; "arrowPosition": "arrowPosition"; "start": "start"; "sortActionDescription": "sortActionDescription"; "disableClear": "disableClear"; }, {}, never, ["*"], false, never>;
 }
 
 /** @docs-private */

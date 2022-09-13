@@ -28,7 +28,7 @@ export declare class MatToolbar extends _MatToolbarBase implements CanColor, Aft
      */
     private _checkToolbarMixedModes;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbar, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatToolbar, "mat-toolbar", ["matToolbar"], { "color": "color"; }, {}, ["_toolbarRows"], ["*", "mat-toolbar-row"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatToolbar, "mat-toolbar", ["matToolbar"], { "color": "color"; }, {}, ["_toolbarRows"], ["*", "mat-toolbar-row"], false, never>;
 }
 
 /** @docs-private */
@@ -46,7 +46,7 @@ export declare class MatToolbarModule {
 
 export declare class MatToolbarRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbarRow, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatToolbarRow, "mat-toolbar-row", ["matToolbarRow"], {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatToolbarRow, "mat-toolbar-row", ["matToolbarRow"], {}, {}, never, never, false, never>;
 }
 
 /**

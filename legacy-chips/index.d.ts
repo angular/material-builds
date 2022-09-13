@@ -240,7 +240,7 @@ export declare class MatLegacyChip extends _MatChipMixinBase implements Focusabl
     _blur(): void;
     private _dispatchSelectionChange;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChip, [null, null, null, { optional: true; }, null, null, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"], never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"], never, false, never>;
 }
 
 /**
@@ -251,7 +251,7 @@ export declare class MatLegacyChip extends _MatChipMixinBase implements Focusabl
  */
 export declare class MatLegacyChipAvatar {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChipAvatar, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -329,7 +329,7 @@ export declare class MatLegacyChipInput implements MatLegacyChipTextControl, OnC
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChipInput, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipList": "matChipInputFor"; "addOnBlur": "matChipInputAddOnBlur"; "separatorKeyCodes": "matChipInputSeparatorKeyCodes"; "placeholder": "placeholder"; "id": "id"; "disabled": "disabled"; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipList": "matChipInputFor"; "addOnBlur": "matChipInputAddOnBlur"; "separatorKeyCodes": "matChipInputSeparatorKeyCodes"; "placeholder": "placeholder"; "id": "id"; "disabled": "disabled"; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, false, never>;
 }
 
 /**
@@ -587,7 +587,7 @@ export declare class MatLegacyChipList extends _MatChipListBase implements MatLe
     /** Syncs the list's state with the individual chips. */
     private _syncChipsState;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChipList, [null, null, { optional: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyChipList, "mat-chip-list", ["matChipList"], { "role": "role"; "userAriaDescribedBy": "aria-describedby"; "errorStateMatcher": "errorStateMatcher"; "multiple": "multiple"; "compareWith": "compareWith"; "value": "value"; "required": "required"; "placeholder": "placeholder"; "disabled": "disabled"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "tabIndex": "tabIndex"; }, { "change": "change"; "valueChange": "valueChange"; }, ["chips"], ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyChipList, "mat-chip-list", ["matChipList"], { "role": "role"; "userAriaDescribedBy": "aria-describedby"; "errorStateMatcher": "errorStateMatcher"; "multiple": "multiple"; "compareWith": "compareWith"; "value": "value"; "required": "required"; "placeholder": "placeholder"; "disabled": "disabled"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "tabIndex": "tabIndex"; }, { "change": "change"; "valueChange": "valueChange"; }, ["chips"], ["*"], false, never>;
 }
 
 /**
@@ -629,7 +629,7 @@ export declare class MatLegacyChipRemove {
     /** Calls the parent chip's public `remove()` method if applicable. */
     _handleClick(event: Event): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChipRemove, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipRemove, "[matChipRemove]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipRemove, "[matChipRemove]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -700,7 +700,7 @@ declare interface MatLegacyChipTextControl {
  */
 export declare class MatLegacyChipTrailingIcon {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChipTrailingIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never, never, false, never>;
 }
 
 export { }

@@ -96,7 +96,7 @@ export declare class MatLegacyProgressSpinner extends _MatProgressSpinnerBase im
     /** Returns the circle diameter formatted for use with the animation-name CSS property. */
     private _getSpinnerAnimationLabel;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null, null, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": "color"; "diameter": "diameter"; "strokeWidth": "strokeWidth"; "mode": "mode"; "value": "value"; }, {}, never, never, false, never>;
 }
 
 export { MatLegacyProgressSpinnerDefaultOptions }

@@ -105,12 +105,12 @@ export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 export declare class MatActionList extends MatListBase {
     _isNonInteractive: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatActionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatActionList, "mat-action-list", ["matActionList"], {}, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatActionList, "mat-action-list", ["matActionList"], {}, {}, never, ["*"], false, never>;
 }
 
 export declare class MatList extends MatListBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list", ["matList"], {}, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list", ["matList"], {}, {}, never, ["*"], false, never>;
 }
 
 declare abstract class MatListBase {
@@ -124,7 +124,7 @@ declare abstract class MatListBase {
     set disabled(value: BooleanInput);
     private _disabled;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, never, false, never>;
 }
 
 export declare class MatListItem extends MatListItemBase {
@@ -139,7 +139,7 @@ export declare class MatListItem extends MatListItemBase {
     _activated: boolean;
     constructor(element: ElementRef, ngZone: NgZone, listBase: MatListBase, platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": "activated"; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": "activated"; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], false, never>;
 }
 
 /**
@@ -149,7 +149,7 @@ export declare class MatListItem extends MatListItemBase {
  */
 export declare class MatListItemAvatar extends _MatListItemGraphicBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemAvatar, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemAvatar, "[matListItemAvatar]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemAvatar, "[matListItemAvatar]", never, {}, {}, never, never, false, never>;
 }
 
 declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, RippleTarget {
@@ -242,7 +242,7 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
     /** Checks whether the list item has unscoped text content. */
     private _checkDomForUnscopedTextContent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemBase, [null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": "lines"; "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatars", "_icons"], never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": "lines"; "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatars", "_icons"], never, false, never>;
 }
 
 /**
@@ -258,7 +258,7 @@ export declare class _MatListItemGraphicBase {
     constructor(_listOption: ListOption);
     _isAlignedAtStart(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatListItemGraphicBase, [{ optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -268,7 +268,7 @@ export declare class _MatListItemGraphicBase {
  */
 export declare class MatListItemIcon extends _MatListItemGraphicBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemIcon, "[matListItemIcon]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemIcon, "[matListItemIcon]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -281,7 +281,7 @@ export declare class MatListItemLine {
     _elementRef: ElementRef<HTMLElement>;
     constructor(_elementRef: ElementRef<HTMLElement>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemLine, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -292,7 +292,7 @@ export declare class MatListItemLine {
  */
 export declare class MatListItemMeta {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemMeta, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemMeta, "[matListItemMeta]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemMeta, "[matListItemMeta]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -305,7 +305,7 @@ export declare class MatListItemTitle {
     _elementRef: ElementRef<HTMLElement>;
     constructor(_elementRef: ElementRef<HTMLElement>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemTitle, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, false, never>;
 }
 
 export declare class MatListModule {
@@ -379,7 +379,7 @@ export declare class MatListOption extends MatListItemBase implements ListOption
     /** Sets the tabindex of the list option. */
     _setTabindex(value: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, [null, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], false, never>;
 }
 
 /**
@@ -394,13 +394,13 @@ export declare type MatListOptionCheckboxPosition = 'before' | 'after';
  */
 export declare class MatListSubheaderCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListSubheaderCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, false, never>;
 }
 
 export declare class MatNavList extends MatListBase {
     _isNonInteractive: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNavList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], {}, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], {}, {}, never, ["*"], false, never>;
 }
 
 export declare class MatSelectionList extends MatListBase implements SelectionList, ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
@@ -490,7 +490,7 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     /** Returns whether the focus is currently within the list. */
     private _containsFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": "color"; "compareWith": "compareWith"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": "color"; "compareWith": "compareWith"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false, never>;
 }
 
 /** Change event that is being fired whenever the selected state of an option changes. */

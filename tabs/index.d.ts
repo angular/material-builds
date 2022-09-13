@@ -360,7 +360,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      */
     private _scrollTo;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatedTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": "disablePagination"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": "disablePagination"; }, {}, never, never, false, never>;
 }
 
 /** Item inside a paginated tab header. */
@@ -377,7 +377,7 @@ export declare class MatTab extends _MatTabBase {
     get templateLabel(): MatTabLabel;
     set templateLabel(value: MatTabLabel);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTab, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTab, "mat-tab", ["matTab"], { "disabled": "disabled"; }, {}, ["_explicitContent", "templateLabel"], ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTab, "mat-tab", ["matTab"], { "disabled": "disabled"; }, {}, ["_explicitContent", "templateLabel"], ["*"], false, never>;
 }
 
 /** @docs-private */
@@ -443,7 +443,7 @@ export declare class _MatTabBase extends _MatTabMixinBase implements CanDisable,
      */
     protected _setTemplateLabelInput(value: MatTabLabel | undefined): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabBase, [null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBase, never, never, { "textLabel": "label"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "labelClass": "labelClass"; "bodyClass": "bodyClass"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBase, never, never, { "textLabel": "label"; "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "labelClass": "labelClass"; "bodyClass": "bodyClass"; }, {}, never, never, false, never>;
 }
 
 /**
@@ -454,7 +454,7 @@ export declare class MatTabBody extends _MatTabBodyBase {
     _portalHost: CdkPortalOutlet;
     constructor(elementRef: ElementRef<HTMLElement>, dir: Directionality, changeDetectorRef: ChangeDetectorRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabBody, [null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabBody, "mat-tab-body", never, {}, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabBody, "mat-tab-body", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -512,7 +512,7 @@ export declare abstract class _MatTabBodyBase implements OnInit, OnDestroy {
      */
     private _computePositionFromOrigin;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabBodyBase, [null, { optional: true; }, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBodyBase, never, never, { "_content": "content"; "origin": "origin"; "animationDuration": "animationDuration"; "preserveContent": "preserveContent"; "position": "position"; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_afterLeavingCenter": "_afterLeavingCenter"; "_onCentered": "_onCentered"; }, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabBodyBase, never, never, { "_content": "content"; "origin": "origin"; "animationDuration": "animationDuration"; "preserveContent": "preserveContent"; "position": "position"; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_afterLeavingCenter": "_afterLeavingCenter"; "_onCentered": "_onCentered"; }, never, never, false, never>;
 }
 
 /**
@@ -539,7 +539,7 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
     /** Clean up centering subscription. */
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabBodyPortal, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabBodyPortal, "[matTabBodyHost]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabBodyPortal, "[matTabBodyHost]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -567,7 +567,7 @@ export declare class MatTabContent {
     template: TemplateRef<any>;
     constructor(/** Content for the tab. */ template: TemplateRef<any>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabContent, "[matTabContent]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabContent, "[matTabContent]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -589,7 +589,7 @@ export declare class MatTabGroup extends _MatTabGroupBase {
     private _stretchTabs;
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, defaultConfig?: MatTabsConfig, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabGroup, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabGroup, "mat-tab-group", ["matTabGroup"], { "color": "color"; "disableRipple": "disableRipple"; "fitInkBarToContent": "fitInkBarToContent"; "stretchTabs": "mat-stretch-tabs"; }, {}, ["_allTabs"], never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabGroup, "mat-tab-group", ["matTabGroup"], { "color": "color"; "disableRipple": "disableRipple"; "fitInkBarToContent": "fitInkBarToContent"; "stretchTabs": "mat-stretch-tabs"; }, {}, ["_allTabs"], never, false, never>;
 }
 
 /**
@@ -725,7 +725,7 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     /** Callback for when the focused state of a tab has changed. */
     _tabFocusChanged(focusOrigin: FocusOrigin, index: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabGroupBase, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabGroupBase, never, never, { "dynamicHeight": "dynamicHeight"; "selectedIndex": "selectedIndex"; "headerPosition": "headerPosition"; "animationDuration": "animationDuration"; "contentTabIndex": "contentTabIndex"; "disablePagination": "disablePagination"; "preserveContent": "preserveContent"; "backgroundColor": "backgroundColor"; }, { "selectedIndexChange": "selectedIndexChange"; "focusChange": "focusChange"; "animationDone": "animationDone"; "selectedTabChange": "selectedTabChange"; }, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabGroupBase, never, never, { "dynamicHeight": "dynamicHeight"; "selectedIndex": "selectedIndex"; "headerPosition": "headerPosition"; "animationDuration": "animationDuration"; "contentTabIndex": "contentTabIndex"; "disablePagination": "disablePagination"; "preserveContent": "preserveContent"; "backgroundColor": "backgroundColor"; }, { "selectedIndexChange": "selectedIndexChange"; "focusChange": "focusChange"; "animationDone": "animationDone"; "selectedTabChange": "selectedTabChange"; }, never, never, false, never>;
 }
 
 /** @docs-private */
@@ -760,7 +760,7 @@ export declare class MatTabHeader extends _MatTabHeaderBase implements AfterCont
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
     ngAfterContentInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabHeader, "mat-tab-header", never, { "selectedIndex": "selectedIndex"; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, ["_items"], ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabHeader, "mat-tab-header", never, { "selectedIndex": "selectedIndex"; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, ["_items"], ["*"], false, never>;
 }
 
 /**
@@ -775,7 +775,7 @@ export declare abstract class _MatTabHeaderBase extends MatPaginatedTabHeader im
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, dir: Directionality, ngZone: NgZone, platform: Platform, animationMode?: string);
     protected _itemSelected(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabHeaderBase, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabHeaderBase, never, never, { "disableRipple": "disableRipple"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabHeaderBase, never, never, { "disableRipple": "disableRipple"; }, {}, never, never, false, never>;
 }
 
 /** Possible positions for the tab header. */
@@ -786,7 +786,7 @@ export declare class MatTabLabel extends CdkPortal {
     _closestTab: any;
     constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _closestTab: any);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabel, [null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabel, "[mat-tab-label], [matTabLabel]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabel, "[mat-tab-label], [matTabLabel]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -795,7 +795,7 @@ export declare class MatTabLabel extends CdkPortal {
  */
 export declare class MatTabLabelWrapper extends _MatTabLabelWrapperBaseWithInkBarItem implements MatInkBarItem {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabelWrapper, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; "fitInkBarToContent": "fitInkBarToContent"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": "disabled"; "fitInkBarToContent": "fitInkBarToContent"; }, {}, never, never, false, never>;
 }
 
 /**
@@ -810,7 +810,7 @@ export declare class _MatTabLabelWrapperBase extends _MatTabLabelWrapperMixinBas
     getOffsetLeft(): number;
     getOffsetWidth(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabLabelWrapperBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLabelWrapperBase, never, never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLabelWrapperBase, never, never, {}, {}, never, never, false, never>;
 }
 
 declare const _MatTabLabelWrapperBaseWithInkBarItem: typeof _MatTabLabelWrapperBase & (new (...args: any[]) => MatInkBarItem);
@@ -828,7 +828,7 @@ export declare class MatTabLink extends _MatTabLinkBaseWithInkBarItem implements
     constructor(tabNavBar: MatTabNav, elementRef: ElementRef, globalRippleOptions: RippleGlobalOptions | null, tabIndex: string, focusMonitor: FocusMonitor, animationMode?: string);
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLink, [null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "active": "active"; "id": "id"; }, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "active": "active"; "id": "id"; }, {}, never, ["*"], false, never>;
 }
 
 /** Base class with all of the `MatTabLink` functionality. */
@@ -869,7 +869,7 @@ export declare class _MatTabLinkBase extends _MatTabLinkMixinBase implements Aft
     _getRole(): string | null;
     _getTabIndex(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabLinkBase, [null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; "id": "id"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabLinkBase, never, never, { "active": "active"; "id": "id"; }, {}, never, never, false, never>;
 }
 
 declare const _MatTabLinkBaseWithInkBarItem: typeof _MatTabLinkBase & (new (...args: any[]) => MatInkBarItem);
@@ -907,7 +907,7 @@ export declare class MatTabNav extends _MatTabNavBase implements AfterContentIni
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNav, [null, { optional: true; }, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": "color"; "fitInkBarToContent": "fitInkBarToContent"; "stretchTabs": "mat-stretch-tabs"; }, {}, ["_items"], ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": "color"; "fitInkBarToContent": "fitInkBarToContent"; "stretchTabs": "mat-stretch-tabs"; }, {}, ["_items"], ["*"], false, never>;
 }
 
 /**
@@ -943,7 +943,7 @@ export declare abstract class _MatTabNavBase extends MatPaginatedTabHeader imple
     updateActiveLink(): void;
     _getRole(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabNavBase, [null, { optional: true; }, null, null, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabNavBase, never, never, { "backgroundColor": "backgroundColor"; "disableRipple": "disableRipple"; "color": "color"; "tabPanel": "tabPanel"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatTabNavBase, never, never, { "backgroundColor": "backgroundColor"; "disableRipple": "disableRipple"; "color": "color"; "tabPanel": "tabPanel"; }, {}, never, never, false, never>;
 }
 
 /**
@@ -955,7 +955,7 @@ export declare class MatTabNavPanel {
     /** Id of the active tab in the nav bar. */
     _activeTabId?: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNavPanel, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNavPanel, "mat-tab-nav-panel", ["matTabNavPanel"], { "id": "id"; }, {}, never, ["*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNavPanel, "mat-tab-nav-panel", ["matTabNavPanel"], { "id": "id"; }, {}, never, ["*"], false, never>;
 }
 
 /**

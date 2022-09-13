@@ -8358,6 +8358,7 @@ Identifiers.InheritDefinitionFeature = { name: "\u0275\u0275InheritDefinitionFea
 Identifiers.CopyDefinitionFeature = { name: "\u0275\u0275CopyDefinitionFeature", moduleName: CORE };
 Identifiers.StandaloneFeature = { name: "\u0275\u0275StandaloneFeature", moduleName: CORE };
 Identifiers.ProvidersFeature = { name: "\u0275\u0275ProvidersFeature", moduleName: CORE };
+Identifiers.HostDirectivesFeature = { name: "\u0275\u0275HostDirectivesFeature", moduleName: CORE };
 Identifiers.listener = { name: "\u0275\u0275listener", moduleName: CORE };
 Identifiers.getInheritedFactory = {
   name: "\u0275\u0275getInheritedFactory",
@@ -17417,39 +17418,39 @@ var SCHEMA = [
   "time^[HTMLElement]|dateTime",
   ":svg:cursor^:svg:|"
 ];
-var _ATTR_TO_PROP = {
+var _ATTR_TO_PROP = new Map(Object.entries({
   "class": "className",
   "for": "htmlFor",
   "formaction": "formAction",
   "innerHtml": "innerHTML",
   "readonly": "readOnly",
   "tabindex": "tabIndex"
-};
-var _PROP_TO_ATTR = Object.keys(_ATTR_TO_PROP).reduce((inverted, attr) => {
-  inverted[_ATTR_TO_PROP[attr]] = attr;
+}));
+var _PROP_TO_ATTR = Array.from(_ATTR_TO_PROP).reduce((inverted, [propertyName, attributeName]) => {
+  inverted.set(propertyName, attributeName);
   return inverted;
-}, {});
+}, /* @__PURE__ */ new Map());
 var DomElementSchemaRegistry = class extends ElementSchemaRegistry {
   constructor() {
     super();
-    this._schema = {};
-    this._eventSchema = {};
+    this._schema = /* @__PURE__ */ new Map();
+    this._eventSchema = /* @__PURE__ */ new Map();
     SCHEMA.forEach((encodedType) => {
-      const type = {};
+      const type = /* @__PURE__ */ new Map();
       const events = /* @__PURE__ */ new Set();
       const [strType, strProperties] = encodedType.split("|");
       const properties = strProperties.split(",");
       const [typeNames, superName] = strType.split("^");
       typeNames.split(",").forEach((tag) => {
-        this._schema[tag.toLowerCase()] = type;
-        this._eventSchema[tag.toLowerCase()] = events;
+        this._schema.set(tag.toLowerCase(), type);
+        this._eventSchema.set(tag.toLowerCase(), events);
       });
-      const superType = superName && this._schema[superName.toLowerCase()];
+      const superType = superName && this._schema.get(superName.toLowerCase());
       if (superType) {
-        Object.keys(superType).forEach((prop) => {
-          type[prop] = superType[prop];
-        });
-        for (const superEvent of this._eventSchema[superName.toLowerCase()]) {
+        for (const [prop, value] of superType) {
+          type.set(prop, value);
+        }
+        for (const superEvent of this._eventSchema.get(superName.toLowerCase())) {
           events.add(superEvent);
         }
       }
@@ -17460,16 +17461,16 @@ var DomElementSchemaRegistry = class extends ElementSchemaRegistry {
               events.add(property.substring(1));
               break;
             case "!":
-              type[property.substring(1)] = BOOLEAN;
+              type.set(property.substring(1), BOOLEAN);
               break;
             case "#":
-              type[property.substring(1)] = NUMBER;
+              type.set(property.substring(1), NUMBER);
               break;
             case "%":
-              type[property.substring(1)] = OBJECT;
+              type.set(property.substring(1), OBJECT);
               break;
             default:
-              type[property] = STRING;
+              type.set(property, STRING);
           }
         }
       });
@@ -17487,8 +17488,8 @@ var DomElementSchemaRegistry = class extends ElementSchemaRegistry {
         return true;
       }
     }
-    const elementProperties = this._schema[tagName.toLowerCase()] || this._schema["unknown"];
-    return !!elementProperties[propName];
+    const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get("unknown");
+    return elementProperties.has(propName);
   }
   hasElement(tagName, schemaMetas) {
     if (schemaMetas.some((schema) => schema.name === NO_ERRORS_SCHEMA.name)) {
@@ -17502,7 +17503,7 @@ var DomElementSchemaRegistry = class extends ElementSchemaRegistry {
         return true;
       }
     }
-    return !!this._schema[tagName.toLowerCase()];
+    return this._schema.has(tagName.toLowerCase());
   }
   securityContext(tagName, propName, isAttribute) {
     if (isAttribute) {
@@ -17518,7 +17519,8 @@ var DomElementSchemaRegistry = class extends ElementSchemaRegistry {
     return ctx ? ctx : SecurityContext.NONE;
   }
   getMappedPropName(propName) {
-    return _ATTR_TO_PROP[propName] || propName;
+    var _a;
+    return (_a = _ATTR_TO_PROP.get(propName)) !== null && _a !== void 0 ? _a : propName;
   }
   getDefaultComponentElementName() {
     return "ng-component";
@@ -17541,18 +17543,18 @@ If '${name}' is a directive input, make sure the directive is imported by the cu
     }
   }
   allKnownElementNames() {
-    return Object.keys(this._schema);
+    return Array.from(this._schema.keys());
   }
   allKnownAttributesOfElement(tagName) {
-    const elementProperties = this._schema[tagName.toLowerCase()] || this._schema["unknown"];
-    return Object.keys(elementProperties).map((prop) => {
+    const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get("unknown");
+    return Array.from(elementProperties.keys()).map((prop) => {
       var _a;
-      return (_a = _PROP_TO_ATTR[prop]) !== null && _a !== void 0 ? _a : prop;
+      return (_a = _PROP_TO_ATTR.get(prop)) !== null && _a !== void 0 ? _a : prop;
     });
   }
   allKnownEventsOfElement(tagName) {
     var _a;
-    return Array.from((_a = this._eventSchema[tagName.toLowerCase()]) !== null && _a !== void 0 ? _a : []);
+    return Array.from((_a = this._eventSchema.get(tagName.toLowerCase())) !== null && _a !== void 0 ? _a : []);
   }
   normalizeAnimationStyleProperty(propName) {
     return dashCaseToCamelCase(propName);
@@ -20330,6 +20332,7 @@ function baseDirectiveFields(meta, constantPool, bindingParser) {
   return definitionMap;
 }
 function addFeatures(definitionMap, meta) {
+  var _a;
   const features = [];
   const providers = meta.providers;
   const viewProviders = meta.viewProviders;
@@ -20351,6 +20354,9 @@ function addFeatures(definitionMap, meta) {
   }
   if (meta.hasOwnProperty("template") && meta.isStandalone) {
     features.push(importExpr(Identifiers.StandaloneFeature));
+  }
+  if ((_a = meta.hostDirectives) === null || _a === void 0 ? void 0 : _a.length) {
+    features.push(importExpr(Identifiers.HostDirectivesFeature).callFn([createHostDirectivesFeatureArg(meta.hostDirectives)]));
   }
   if (features.length) {
     definitionMap.set("features", literalArr(features));
@@ -20432,6 +20438,7 @@ function createComponentType(meta) {
   const typeParams = createBaseDirectiveTypeParams(meta);
   typeParams.push(stringArrayAsType(meta.template.ngContentSelectors));
   typeParams.push(expressionType(literal(meta.isStandalone)));
+  typeParams.push(createHostDirectivesType(meta));
   return expressionType(importExpr(Identifiers.ComponentDeclaration, typeParams));
 }
 function compileDeclarationList(list2, mode) {
@@ -20488,7 +20495,7 @@ function createContentQueriesFunction(queries, constantPool, name) {
 function stringAsType(str) {
   return expressionType(literal(str));
 }
-function stringMapAsType(map) {
+function stringMapAsLiteralExpression(map) {
   const mapValues = Object.keys(map).map((key) => {
     const value = Array.isArray(map[key]) ? map[key][0] : map[key];
     return {
@@ -20497,7 +20504,7 @@ function stringMapAsType(map) {
       quoted: true
     };
   });
-  return expressionType(literalMap(mapValues));
+  return literalMap(mapValues);
 }
 function stringArrayAsType(arr) {
   return arr.length > 0 ? expressionType(literalArr(arr.map((value) => literal(value)))) : NONE_TYPE;
@@ -20508,8 +20515,8 @@ function createBaseDirectiveTypeParams(meta) {
     typeWithParameters(meta.type.type, meta.typeArgumentCount),
     selectorForType !== null ? stringAsType(selectorForType) : NONE_TYPE,
     meta.exportAs !== null ? stringArrayAsType(meta.exportAs) : NONE_TYPE,
-    stringMapAsType(meta.inputs),
-    stringMapAsType(meta.outputs),
+    expressionType(stringMapAsLiteralExpression(meta.inputs)),
+    expressionType(stringMapAsLiteralExpression(meta.outputs)),
     stringArrayAsType(meta.queries.map((q) => q.propertyName))
   ];
 }
@@ -20517,6 +20524,7 @@ function createDirectiveType(meta) {
   const typeParams = createBaseDirectiveTypeParams(meta);
   typeParams.push(NONE_TYPE);
   typeParams.push(expressionType(literal(meta.isStandalone)));
+  typeParams.push(createHostDirectivesType(meta));
   return expressionType(importExpr(Identifiers.DirectiveDeclaration, typeParams));
 }
 function createViewQueriesFunction(viewQueries, constantPool, name) {
@@ -20752,6 +20760,54 @@ function compileStyles(styles, selector, hostSelector) {
     return shadowCss.shimCssText(style, selector, hostSelector);
   });
 }
+function createHostDirectivesType(meta) {
+  var _a;
+  if (!((_a = meta.hostDirectives) === null || _a === void 0 ? void 0 : _a.length)) {
+    return NONE_TYPE;
+  }
+  return expressionType(literalArr(meta.hostDirectives.map((hostMeta) => literalMap([
+    { key: "directive", value: typeofExpr(hostMeta.directive.type), quoted: false },
+    { key: "inputs", value: stringMapAsLiteralExpression(hostMeta.inputs || {}), quoted: false },
+    { key: "outputs", value: stringMapAsLiteralExpression(hostMeta.outputs || {}), quoted: false }
+  ]))));
+}
+function createHostDirectivesFeatureArg(hostDirectives) {
+  const expressions = [];
+  let hasForwardRef = false;
+  for (const current of hostDirectives) {
+    if (!current.inputs && !current.outputs) {
+      expressions.push(current.directive.type);
+    } else {
+      const keys = [{ key: "directive", value: current.directive.type, quoted: false }];
+      if (current.inputs) {
+        const inputsLiteral = createHostDirectivesMappingArray(current.inputs);
+        if (inputsLiteral) {
+          keys.push({ key: "inputs", value: inputsLiteral, quoted: false });
+        }
+      }
+      if (current.outputs) {
+        const outputsLiteral = createHostDirectivesMappingArray(current.outputs);
+        if (outputsLiteral) {
+          keys.push({ key: "outputs", value: outputsLiteral, quoted: false });
+        }
+      }
+      expressions.push(literalMap(keys));
+    }
+    if (current.isForwardReference) {
+      hasForwardRef = true;
+    }
+  }
+  return hasForwardRef ? new FunctionExpr([], [new ReturnStatement(literalArr(expressions))]) : literalArr(expressions);
+}
+function createHostDirectivesMappingArray(mapping) {
+  const elements = [];
+  for (const publicName in mapping) {
+    if (mapping.hasOwnProperty(publicName)) {
+      elements.push(literal(publicName), literal(mapping[publicName]));
+    }
+  }
+  return elements.length > 0 ? literalArr(elements) : null;
+}
 var ResourceLoader = class {
 };
 var CompilerFacadeImpl = class {
@@ -20952,7 +21008,7 @@ function convertDirectiveFacadeToMetadata(facade) {
       });
     }
   }
-  return Object.assign(Object.assign({}, facade), { typeArgumentCount: 0, typeSourceSpan: facade.typeSourceSpan, type: wrapReference(facade.type), internalType: new WrappedNodeExpr(facade.type), deps: null, host: extractHostBindings(facade.propMetadata, facade.typeSourceSpan, facade.host), inputs: Object.assign(Object.assign({}, inputsFromMetadata), inputsFromType), outputs: Object.assign(Object.assign({}, outputsFromMetadata), outputsFromType), queries: facade.queries.map(convertToR3QueryMetadata), providers: facade.providers != null ? new WrappedNodeExpr(facade.providers) : null, viewQueries: facade.viewQueries.map(convertToR3QueryMetadata), fullInheritance: false });
+  return Object.assign(Object.assign({}, facade), { typeArgumentCount: 0, typeSourceSpan: facade.typeSourceSpan, type: wrapReference(facade.type), internalType: new WrappedNodeExpr(facade.type), deps: null, host: extractHostBindings(facade.propMetadata, facade.typeSourceSpan, facade.host), inputs: Object.assign(Object.assign({}, inputsFromMetadata), inputsFromType), outputs: Object.assign(Object.assign({}, outputsFromMetadata), outputsFromType), queries: facade.queries.map(convertToR3QueryMetadata), providers: facade.providers != null ? new WrappedNodeExpr(facade.providers) : null, viewQueries: facade.viewQueries.map(convertToR3QueryMetadata), fullInheritance: false, hostDirectives: convertHostDirectivesToMetadata(facade) });
 }
 function convertDeclareDirectiveFacadeToMetadata(declaration, typeSourceSpan) {
   var _a, _b, _c, _d, _e, _f, _g, _h, _j;
@@ -20974,7 +21030,8 @@ function convertDeclareDirectiveFacadeToMetadata(declaration, typeSourceSpan) {
     deps: null,
     typeArgumentCount: 0,
     fullInheritance: false,
-    isStandalone: (_j = declaration.isStandalone) !== null && _j !== void 0 ? _j : false
+    isStandalone: (_j = declaration.isStandalone) !== null && _j !== void 0 ? _j : false,
+    hostDirectives: convertHostDirectivesToMetadata(declaration)
   };
 }
 function convertHostDeclarationToMetadata(host = {}) {
@@ -20988,6 +21045,25 @@ function convertHostDeclarationToMetadata(host = {}) {
       styleAttr: host.styleAttribute
     }
   };
+}
+function convertHostDirectivesToMetadata(metadata) {
+  var _a;
+  if ((_a = metadata.hostDirectives) === null || _a === void 0 ? void 0 : _a.length) {
+    return metadata.hostDirectives.map((hostDirective) => {
+      return typeof hostDirective === "function" ? {
+        directive: wrapReference(hostDirective),
+        inputs: null,
+        outputs: null,
+        isForwardReference: false
+      } : {
+        directive: wrapReference(hostDirective.directive),
+        isForwardReference: false,
+        inputs: hostDirective.inputs ? parseInputOutputs(hostDirective.inputs) : null,
+        outputs: hostDirective.outputs ? parseInputOutputs(hostDirective.outputs) : null
+      };
+    });
+  }
+  return null;
 }
 function convertOpaqueValuesToExpressions(obj) {
   const result = {};
@@ -21163,7 +21239,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("14.2.0");
+var VERSION = new Version("15.0.0-next.1");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -22277,7 +22353,7 @@ function mdc_migration_default(options) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v14.2.0
+ * @license Angular v15.0.0-next.1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */

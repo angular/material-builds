@@ -111,7 +111,7 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     _handleHeaderFocus(header: MatExpansionPanelHeader): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAccordion, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "multi": "multi"; "hideToggle": "hideToggle"; "displayMode": "displayMode"; "togglePosition": "togglePosition"; }, {}, ["_headers"], never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "multi": "multi"; "hideToggle": "hideToggle"; "displayMode": "displayMode"; "togglePosition": "togglePosition"; }, {}, ["_headers"], never, false, never>;
 }
 
 /**
@@ -221,7 +221,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     _containsFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanel, [{ optional: true; skipSelf: true; }, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "disabled": "disabled"; "expanded": "expanded"; "hideToggle": "hideToggle"; "togglePosition": "togglePosition"; }, { "opened": "opened"; "closed": "closed"; "expandedChange": "expandedChange"; "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "disabled": "disabled"; "expanded": "expanded"; "hideToggle": "hideToggle"; "togglePosition": "togglePosition"; }, { "opened": "opened"; "closed": "closed"; "expandedChange": "expandedChange"; "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], false, never>;
 }
 
 /**
@@ -229,7 +229,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
  */
 export declare class MatExpansionPanelActionRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelActionRow, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelActionRow, "mat-action-row", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelActionRow, "mat-action-row", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -250,7 +250,7 @@ export declare class MatExpansionPanelContent {
     _expansionPanel?: MatExpansionPanelBase | undefined;
     constructor(_template: TemplateRef<any>, _expansionPanel?: MatExpansionPanelBase | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, [null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -271,7 +271,7 @@ export declare interface MatExpansionPanelDefaultOptions {
  */
 export declare class MatExpansionPanelDescription {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelDescription, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -322,7 +322,7 @@ export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMix
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelHeader, [{ host: true; }, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "tabIndex": "tabIndex"; "expandedHeight": "expandedHeight"; "collapsedHeight": "collapsedHeight"; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "tabIndex": "tabIndex"; "expandedHeight": "expandedHeight"; "collapsedHeight": "collapsedHeight"; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], false, never>;
 }
 
 /** @docs-private */
@@ -340,7 +340,7 @@ export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
  */
 export declare class MatExpansionPanelTitle {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelTitle, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelTitle, "mat-panel-title", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelTitle, "mat-panel-title", never, {}, {}, never, never, false, never>;
 }
 
 export { }

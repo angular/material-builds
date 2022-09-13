@@ -66,7 +66,7 @@ declare namespace i4 {
  */
 export declare class MatLegacyCell extends CdkCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyCell, "mat-cell, td[mat-cell]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyCell, "mat-cell, td[mat-cell]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -77,7 +77,7 @@ export declare class MatLegacyCell extends CdkCell {
  */
 export declare class MatLegacyCellDef extends CdkCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyCellDef, "[matCellDef]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyCellDef, "[matCellDef]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -98,7 +98,7 @@ export declare class MatLegacyColumnDef extends CdkColumnDef {
      */
     protected _updateColumnCssClassName(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyColumnDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyColumnDef, "[matColumnDef]", never, { "sticky": "sticky"; "name": "matColumnDef"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyColumnDef, "[matColumnDef]", never, { "sticky": "sticky"; "name": "matColumnDef"; }, {}, never, never, false, never>;
 }
 
 /**
@@ -108,7 +108,7 @@ export declare class MatLegacyColumnDef extends CdkColumnDef {
  */
 export declare class MatLegacyFooterCell extends CdkFooterCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyFooterCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyFooterCell, "mat-footer-cell, td[mat-footer-cell]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyFooterCell, "mat-footer-cell, td[mat-footer-cell]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -119,7 +119,7 @@ export declare class MatLegacyFooterCell extends CdkFooterCell {
  */
 export declare class MatLegacyFooterCellDef extends CdkFooterCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyFooterCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyFooterCellDef, "[matFooterCellDef]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyFooterCellDef, "[matFooterCellDef]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -129,7 +129,7 @@ export declare class MatLegacyFooterCellDef extends CdkFooterCellDef {
  */
 export declare class MatLegacyFooterRow extends CdkFooterRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyFooterRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyFooterRow, "mat-footer-row, tr[mat-footer-row]", ["matFooterRow"], {}, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyFooterRow, "mat-footer-row, tr[mat-footer-row]", ["matFooterRow"], {}, {}, never, never, false, never>;
 }
 
 /**
@@ -140,7 +140,7 @@ export declare class MatLegacyFooterRow extends CdkFooterRow {
  */
 export declare class MatLegacyFooterRowDef extends CdkFooterRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyFooterRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyFooterRowDef, "[matFooterRowDef]", never, { "columns": "matFooterRowDef"; "sticky": "matFooterRowDefSticky"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyFooterRowDef, "[matFooterRowDef]", never, { "columns": "matFooterRowDef"; "sticky": "matFooterRowDefSticky"; }, {}, never, never, false, never>;
 }
 
 /**
@@ -150,7 +150,7 @@ export declare class MatLegacyFooterRowDef extends CdkFooterRowDef {
  */
 export declare class MatLegacyHeaderCell extends CdkHeaderCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyHeaderCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHeaderCell, "mat-header-cell, th[mat-header-cell]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHeaderCell, "mat-header-cell, th[mat-header-cell]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -161,7 +161,7 @@ export declare class MatLegacyHeaderCell extends CdkHeaderCell {
  */
 export declare class MatLegacyHeaderCellDef extends CdkHeaderCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyHeaderCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -171,7 +171,7 @@ export declare class MatLegacyHeaderCellDef extends CdkHeaderCellDef {
  */
 export declare class MatLegacyHeaderRow extends CdkHeaderRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyHeaderRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyHeaderRow, "mat-header-row, tr[mat-header-row]", ["matHeaderRow"], {}, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyHeaderRow, "mat-header-row, tr[mat-header-row]", ["matHeaderRow"], {}, {}, never, never, false, never>;
 }
 
 /**
@@ -182,7 +182,7 @@ export declare class MatLegacyHeaderRow extends CdkHeaderRow {
  */
 export declare class MatLegacyHeaderRowDef extends CdkHeaderRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyHeaderRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHeaderRowDef, "[matHeaderRowDef]", never, { "columns": "matHeaderRowDef"; "sticky": "matHeaderRowDefSticky"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHeaderRowDef, "[matHeaderRowDef]", never, { "columns": "matHeaderRowDef"; "sticky": "matHeaderRowDefSticky"; }, {}, never, never, false, never>;
 }
 
 /**
@@ -193,7 +193,7 @@ export declare class MatLegacyHeaderRowDef extends CdkHeaderRowDef {
 export declare class MatLegacyNoDataRow extends CdkNoDataRow {
     _contentClassName: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyNoDataRow, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyNoDataRow, "ng-template[matNoDataRow]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyNoDataRow, "ng-template[matNoDataRow]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -204,7 +204,7 @@ export declare class MatLegacyNoDataRow extends CdkNoDataRow {
  */
 export declare class MatLegacyRecycleRows {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyRecycleRows, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyRecycleRows, "mat-table[recycleRows], table[mat-table][recycleRows]", never, {}, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyRecycleRows, "mat-table[recycleRows], table[mat-table][recycleRows]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -214,7 +214,7 @@ export declare class MatLegacyRecycleRows {
  */
 export declare class MatLegacyRow extends CdkRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyRow, "mat-row, tr[mat-row]", ["matRow"], {}, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyRow, "mat-row, tr[mat-row]", ["matRow"], {}, {}, never, never, false, never>;
 }
 
 /**
@@ -226,7 +226,7 @@ export declare class MatLegacyRow extends CdkRow {
  */
 export declare class MatLegacyRowDef<T> extends CdkRowDef<T> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyRowDef<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyRowDef<any>, "[matRowDef]", never, { "columns": "matRowDefColumns"; "when": "matRowDefWhen"; }, {}, never, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyRowDef<any>, "[matRowDef]", never, { "columns": "matRowDefColumns"; "when": "matRowDefWhen"; }, {}, never, never, false, never>;
 }
 
 /**
@@ -240,7 +240,7 @@ export declare class MatLegacyTable<T> extends CdkTable<T> {
     /** Overrides the need to add position: sticky on every sticky cell element in `CdkTable`. */
     protected needsPositionStickyOnElement: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyTable<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col"], false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col"], false, never>;
 }
 
 /**
@@ -292,7 +292,7 @@ export declare class MatLegacyTableModule {
  */
 export declare class MatLegacyTextColumn<T> extends CdkTextColumn<T> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyTextColumn<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyTextColumn<any>, "mat-text-column", never, {}, {}, never, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyTextColumn<any>, "mat-text-column", never, {}, {}, never, never, false, never>;
 }
 
 export { }
