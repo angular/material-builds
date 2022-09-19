@@ -560,10 +560,12 @@ export declare class MatCalendarHeader<D> {
     calendar: MatCalendar<D>;
     private _dateAdapter;
     private _dateFormats;
-    _buttonDescriptionId: string;
     constructor(_intl: MatDatepickerIntl, calendar: MatCalendar<D>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
-    /** The label for the current calendar view. */
+    /** The display text for the current calendar view. */
     get periodButtonText(): string;
+    /** The aria description for the current calendar view. */
+    get periodButtonDescription(): string;
+    /** The `aria-label` for changing the calendar view. */
     get periodButtonLabel(): string;
     /** The label for the previous button. */
     get prevButtonLabel(): string;
@@ -581,6 +583,14 @@ export declare class MatCalendarHeader<D> {
     nextEnabled(): boolean;
     /** Whether the two dates represent the same view in the current view mode (month or year). */
     private _isSameView;
+    /**
+     * Format two individual labels for the minimum year and maximum year available in the multi-year
+     * calendar view. Returns an array of two strings where the first string is the formatted label
+     * for the minimum year, and the second string is the formatted label for the maximum year.
+     */
+    private _formatMinAndMaxYearLabels;
+    private _id;
+    _periodButtonLabelId: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarHeader<any>, [null, null, { optional: true; }, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarHeader<any>, "mat-calendar-header", ["matCalendarHeader"], {}, {}, never, ["*"], false, never>;
 }
