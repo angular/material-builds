@@ -9102,7 +9102,7 @@ var require_constants = __commonJS({
   "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/legacy-components-v15/constants.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.MIXINS = exports.CUSTOM_TS_SYMBOL_RENAMINGS = exports.MDC_IMPORT_CHANGES = exports.MAT_IMPORT_CHANGES = exports.COMPONENTS = void 0;
+    exports.CUSTOM_SASS_FUNCTION_RENAMINGS = exports.CUSTOM_SASS_MIXIN_RENAMINGS = exports.COMPONENT_THEME_MIXINS = exports.CUSTOM_TS_SYMBOL_RENAMINGS = exports.MDC_IMPORT_CHANGES = exports.MAT_IMPORT_CHANGES = exports.COMPONENTS = void 0;
     exports.COMPONENTS = [
       "autocomplete",
       "button",
@@ -9127,32 +9127,77 @@ var require_constants = __commonJS({
       "tabs",
       "tooltip"
     ];
-    exports.MAT_IMPORT_CHANGES = exports.COMPONENTS.map((component) => ({
-      old: `@angular/material/${component}`,
-      new: `@angular/material/legacy-${component}`
-    }));
-    exports.MDC_IMPORT_CHANGES = exports.COMPONENTS.map((component) => ({
-      old: `@angular/material-experimental/mdc-${component}`,
-      new: `@angular/material/${component}`
-    }));
+    exports.MAT_IMPORT_CHANGES = exports.COMPONENTS.flatMap((component) => [
+      {
+        old: `@angular/material/${component}`,
+        new: `@angular/material/legacy-${component}`
+      },
+      {
+        old: `@angular/material/${component}/testing`,
+        new: `@angular/material/legacy-${component}/testing`
+      }
+    ]);
+    exports.MDC_IMPORT_CHANGES = exports.COMPONENTS.flatMap((component) => [
+      {
+        old: `@angular/material-experimental/mdc-${component}`,
+        new: `@angular/material/${component}`
+      },
+      {
+        old: `@angular/material-experimental/mdc-${component}/testing`,
+        new: `@angular/material/${component}/testing`
+      }
+    ]);
     exports.CUSTOM_TS_SYMBOL_RENAMINGS = [
-      { old: "ProgressAnimationEnd", new: "LegacyProgressAnimationEnd" },
-      { old: "ProgressBarMode", new: "LegacyProgressBarMode" },
-      { old: "ProgressSpinnerMode", new: "LegacyProgressSpinnerMode" },
+      { old: "getMatAutocompleteMissingPanelError", new: "getMatLegacyAutocompleteMissingPanelError" },
+      { old: "TransitionCheckState", new: "LegacyTransitionCheckState" },
+      { old: "MatTestDialogOpener", new: "MatTestLegacyDialogOpener" },
       { old: "AutoFocusTarget", new: "LegacyAutoFocusTarget" },
       { old: "DialogRole", new: "LegacyDialogRole" },
       { old: "DialogPosition", new: "LegacyDialogPosition" },
       { old: "_closeDialogVia", new: "_closeLegacyDialogVia" },
-      { old: "MatTestDialogOpener", new: "MatTestLegacyDialogOpener" },
+      { old: "FormFieldControlHarness", new: "LegacyFormFieldControlHarness" },
+      { old: "LegacyFloatLabelType", new: "LegacyFloatLabelType" },
+      { old: "getMatFormFieldDuplicatedHintError", new: "getMatLegacyFormFieldDuplicatedHintError" },
+      { old: "getMatFormFieldMissingControlError", new: "getMatLegacyFormFieldMissingControlError" },
+      {
+        old: "getMatFormFieldPlaceholderConflictError",
+        new: "getMatLegacyFormFieldPlaceholderConflictError"
+      },
+      { old: "getMatInputUnsupportedTypeError", new: "getMatLegacyInputUnsupportedTypeError" },
+      { old: "fadeInItems", new: "fadeInLegacyItems" },
+      { old: "MenuPositionX", new: "LegacyMenuPositionX" },
+      { old: "MenuPositionY", new: "LegacyMenuPositionY" },
+      { old: "transformMenu", new: "transformLegacyMenu" },
+      { old: "PageEvent", new: "LegacyPageEvent" },
+      { old: "ProgressAnimationEnd", new: "LegacyProgressAnimationEnd" },
+      { old: "ProgressBarMode", new: "LegacyProgressBarMode" },
+      { old: "ProgressSpinnerMode", new: "LegacyProgressSpinnerMode" },
       { old: "SimpleSnackBar", new: "LegacySimpleSnackBar" },
-      { old: "TextOnlySnackBar", new: "LegacyTextOnlySnackBar" }
+      { old: "TextOnlySnackBar", new: "LegacyTextOnlySnackBar" },
+      { old: "ScrollDirection", new: "LegacyScrollDirection" },
+      { old: "TooltipComponent", new: "LegacyTooltipComponent" },
+      { old: "getMatTooltipInvalidPositionError", new: "getMatLegacyTooltipInvalidPositionError" },
+      { old: "TooltipPosition", new: "LegacyTooltipPosition" },
+      { old: "TooltipTouchGestures", new: "LegacyTooltipTouchGestures" },
+      { old: "TooltipVisibility", new: "LegacyTooltipVisibility" },
+      { old: "SCROLL_THROTTLE_MS", new: "LEGACY_SCROLL_THROTTLE_MS" }
     ];
-    exports.MIXINS = exports.COMPONENTS.concat(["option", "optgroup"]).flatMap((component) => [
+    exports.COMPONENT_THEME_MIXINS = exports.COMPONENTS.concat(["option", "optgroup"]).flatMap((component) => [
       `${component}-theme`,
       `${component}-color`,
       `${component}-density`,
       `${component}-typography`
     ]);
+    exports.CUSTOM_SASS_MIXIN_RENAMINGS = {
+      "all-component-themes": "all-legacy-component-themes",
+      "all-component-colors": "all-legacy-component-colors",
+      "all-component-typographies": "all-legacy-component-typographies",
+      "private-all-component-densities": "private-all-legacy-component-densities",
+      "core": "legacy-core"
+    };
+    exports.CUSTOM_SASS_FUNCTION_RENAMINGS = {
+      "define-typography-config": "define-legacy-typography-config"
+    };
   }
 });
 
@@ -9183,7 +9228,8 @@ var require_legacy_components_v15 = __commonJS({
                 namespace = namespace != null ? namespace : this._parseSassNamespace(node);
               },
               include: (node) => this._handleAtInclude(node, stylesheet.filePath, namespace)
-            }
+            },
+            RootExit: (root) => this._handleRootNode(root, stylesheet.filePath, namespace)
           }
         ]);
         processor.process(stylesheet.content, { syntax: scss }).sync();
@@ -9199,10 +9245,11 @@ var require_legacy_components_v15 = __commonJS({
         if (!namespace || !((_a = node.source) == null ? void 0 : _a.start)) {
           return;
         }
-        if (node.params.startsWith(`${namespace}.all-component-`)) {
+        const mixinName = node.params.split(/[.(;]/)[1];
+        if (constants_1.CUSTOM_SASS_MIXIN_RENAMINGS[mixinName]) {
           this._replaceAt(filePath, node.source.start.offset, {
-            old: `${namespace}.all-`,
-            new: `${namespace}.all-legacy-`
+            old: `${namespace}.${mixinName}`,
+            new: `${namespace}.${constants_1.CUSTOM_SASS_MIXIN_RENAMINGS[mixinName]}`
           });
         } else if (this._isLegacyMixin(node, namespace)) {
           this._replaceAt(filePath, node.source.start.offset, {
@@ -9211,12 +9258,31 @@ var require_legacy_components_v15 = __commonJS({
           });
         }
       }
+      _handleRootNode(root, file, namespace) {
+        if (!namespace) {
+          return;
+        }
+        root.walk((node) => {
+          var _a;
+          if (((_a = node.source) == null ? void 0 : _a.start) != null && node.type !== "comment") {
+            const srcString = node.toString();
+            for (const old in constants_1.CUSTOM_SASS_FUNCTION_RENAMINGS) {
+              if (srcString.includes(`${namespace}.${old}`)) {
+                this._replaceAt(file, node.source.start.offset, {
+                  old: `${namespace}.${old}`,
+                  new: `${namespace}.${constants_1.CUSTOM_SASS_FUNCTION_RENAMINGS[old]}`
+                });
+              }
+            }
+          }
+        });
+      }
       _isLegacyMixin(node, namespace) {
         if (!node.params.startsWith(`${namespace}.`)) {
           return false;
         }
-        for (let i = 0; i < constants_1.MIXINS.length; i++) {
-          if (node.params.startsWith(`${namespace}.${constants_1.MIXINS[i]}`)) {
+        for (let i = 0; i < constants_1.COMPONENT_THEME_MIXINS.length; i++) {
+          if (node.params.startsWith(`${namespace}.${constants_1.COMPONENT_THEME_MIXINS[i]}`)) {
             return true;
           }
         }
@@ -9308,6 +9374,9 @@ var require_legacy_components_v15 = __commonJS({
         }
         if (symbol.startsWith("_MAT_")) {
           return `_MAT_LEGACY_${symbol.slice("_MAT_".length)}`;
+        }
+        if (symbol.endsWith("HarnessFilters")) {
+          return `Legacy${symbol}`;
         }
         return;
       }
