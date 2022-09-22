@@ -21681,76 +21681,76 @@ var ts = __toESM(require("typescript"));
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/import-replacements.js
 var IMPORT_REPLACEMENTS = {
   "button": {
-    old: "@angular/material/button",
-    new: "@angular/material-experimental/mdc-button"
+    old: "@angular/material/legacy-button",
+    new: "@angular/material/button"
   },
   "card": {
-    old: "@angular/material/card",
-    new: "@angular/material-experimental/mdc-card"
+    old: "@angular/material/legacy-card",
+    new: "@angular/material/card"
   },
   "checkbox": {
     old: "@angular/material/legacy-checkbox",
     new: "@angular/material/checkbox"
   },
   "chips": {
-    old: "@angular/material/chips",
-    new: "@angular/material-experimental/mdc-chips"
+    old: "@angular/material/legacy-chips",
+    new: "@angular/material/chips"
   },
   "dialog": {
     old: "@angular/material/legacy-dialog",
     new: "@angular/material/dialog"
   },
   "autocomplete": {
-    old: "@angular/material/autocomplete",
-    new: "@angular/material-experimental/mdc-autocomplete"
+    old: "@angular/material/legacy-autocomplete",
+    new: "@angular/material/autocomplete"
   },
   "form-field": {
-    old: "@angular/material/form-field",
-    new: "@angular/material-experimental/mdc-form-field"
+    old: "@angular/material/legacy-form-field",
+    new: "@angular/material/form-field"
   },
   "input": {
-    old: "@angular/material/input",
-    new: "@angular/material-experimental/mdc-input"
+    old: "@angular/material/legacy-input",
+    new: "@angular/material/input"
   },
   "select": {
-    old: "@angular/material/select",
-    new: "@angular/material-experimental/mdc-select"
+    old: "@angular/material/legacy-select",
+    new: "@angular/material/select"
   },
   "core": {
-    old: "@angular/material/core",
+    old: "@angular/material/legacy-core",
     new: "@angular/material/core"
   },
   "list": {
-    old: "@angular/material/list",
-    new: "@angular/material-experimental/mdc-list"
+    old: "@angular/material/legacy-list",
+    new: "@angular/material/list"
   },
   "menu": {
-    old: "@angular/material/menu",
-    new: "@angular/material-experimental/mdc-menu"
+    old: "@angular/material/legacy-menu",
+    new: "@angular/material/menu"
   },
   "progress-bar": {
-    old: "@angular/material/progress-bar",
-    new: "@angular/material-experimental/mdc-progress-bar"
+    old: "@angular/material/legacy-progress-bar",
+    new: "@angular/material/progress-bar"
   },
   "progress-spinner": {
     old: "@angular/material/legacy-progress-spinner",
     new: "@angular/material/progress-spinner"
   },
   "radio": {
-    old: "@angular/material/radio",
-    new: "@angular/material-experimental/mdc-radio"
+    old: "@angular/material/legacy-radio",
+    new: "@angular/material/radio"
   },
   "sidenav": {
-    old: "@angular/material/sidenav",
-    new: "@angular/material-experimental/mdc-sidenav"
+    old: "@angular/material/legacy-sidenav",
+    new: "@angular/material-experimental/legacy-sidenav"
   },
   "slide-toggle": {
     old: "@angular/material/legacy-slide-toggle",
     new: "@angular/material/slide-toggle"
   },
   "slider": {
-    old: "@angular/material/slider",
-    new: "@angular/material-experimental/mdc-slider"
+    old: "@angular/material/legacy-slider",
+    new: "@angular/material/slider"
   },
   "snack-bar": {
     old: "@angular/material/legacy-snack-bar",
@@ -21769,8 +21769,8 @@ var IMPORT_REPLACEMENTS = {
     new: "@angular/material/paginator"
   },
   "tooltip": {
-    old: "@angular/material/tooltip",
-    new: "@angular/material-experimental/mdc-tooltip"
+    old: "@angular/material/legacy-tooltip",
+    new: "@angular/material/tooltip"
   }
 };
 
@@ -21780,12 +21780,57 @@ var RuntimeMigrator = class {
     const replacements = IMPORT_REPLACEMENTS[component];
     this.oldImportModule = replacements.old;
     this.newImportModule = replacements.new;
+    const firstLetterCapitalizedComponent = component[0].toUpperCase() + component.slice(1);
+    const capitalizedComponent = component.toUpperCase();
+    this.importSpecifierReplacements = [
+      {
+        old: "MatLegacy" + firstLetterCapitalizedComponent,
+        new: "Mat" + firstLetterCapitalizedComponent
+      },
+      {
+        old: "MAT_LEGACY_" + capitalizedComponent,
+        new: "MAT_" + capitalizedComponent
+      }
+    ];
+  }
+  updateImportOrExportSpecifier(specifier) {
+    const newSpecifier = this._getNewSpecifier(specifier);
+    if (!newSpecifier) {
+      return null;
+    }
+    return ts.factory.createIdentifier(newSpecifier);
+  }
+  updateImportSpecifierWithPossibleAlias(importSpecifier) {
+    var _a;
+    const newImport = this._getNewSpecifier((_a = importSpecifier.propertyName) != null ? _a : importSpecifier.name);
+    if (!newImport) {
+      return null;
+    }
+    let newPropertyName;
+    let newName;
+    if (importSpecifier.propertyName && importSpecifier.name.text !== newImport) {
+      newPropertyName = ts.factory.createIdentifier(newImport);
+      newName = importSpecifier.name;
+    } else {
+      newPropertyName = void 0;
+      newName = ts.factory.createIdentifier(newImport);
+    }
+    return ts.factory.createImportSpecifier(false, newPropertyName, newName);
   }
   updateModuleSpecifier(specifier) {
     if (specifier.text !== this.oldImportModule) {
       return null;
     }
     return ts.factory.createStringLiteral(this.newImportModule, this._isSingleQuoteLiteral(specifier));
+  }
+  _getNewSpecifier(node) {
+    let newImport = null;
+    this.importSpecifierReplacements.forEach((replacement) => {
+      if (node.text.match(replacement.old)) {
+        newImport = node.text.replace(replacement.old, replacement.new);
+      }
+    });
+    return newImport;
   }
   _isSingleQuoteLiteral(literal2) {
     return literal2.getText()[0] !== `"`;
@@ -22183,35 +22228,58 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
     } else if (this._isTypeImportExpression(node)) {
       this._migrateModuleSpecifier(node.argument.literal);
     } else if (ts2.isImportDeclaration(node)) {
-      this._migrateModuleSpecifier(node.moduleSpecifier);
-    } else if (this._isComponentDecorator(node)) {
-      this._migrateTemplatesAndStyles(node);
+      this._migrateModuleSpecifier(node.moduleSpecifier, node.importClause);
+    } else if (ts2.isDecorator(node) && (this._isNgModuleDecorator(node) || this._isComponentDecorator(node))) {
+      this._migrateDecoratorProperties(node);
     }
   }
-  _migrateTemplatesAndStyles(node) {
-    if (node.getChildCount() > 0) {
-      if (node.kind === ts2.SyntaxKind.PropertyAssignment) {
-        const identifier = node.getChildAt(0);
-        if (identifier.getText() === "styles") {
-          this._migrateStyles(node);
-        } else if (this._hasPossibleTemplateMigrations && identifier.getText() === "template") {
-          this._migrateTemplate(node);
+  _migrateDecoratorProperties(node) {
+    if (!ts2.isCallExpression(node.expression)) {
+      return;
+    }
+    const metadata = node.expression.arguments[0];
+    if (!ts2.isObjectLiteralExpression(metadata)) {
+      return;
+    }
+    for (const prop of metadata.properties) {
+      if (prop.name) {
+        switch ((0, import_schematics3.getPropertyNameText)(prop.name)) {
+          case "imports":
+            this._migrateImportsAndExports(prop);
+            break;
+          case "exports":
+            this._migrateImportsAndExports(prop);
+            break;
+          case "styles":
+            this._migrateStyles(prop);
+            break;
+          case "template":
+            if (this._hasPossibleTemplateMigrations) {
+              this._migrateTemplate(prop);
+            }
+            break;
         }
-      } else {
-        node.forEachChild((child) => this._migrateTemplatesAndStyles(child));
       }
     }
+  }
+  _migrateImportsAndExports(node) {
+    node.initializer.forEachChild((specifier) => {
+      var _a;
+      for (const migrator of this.upgradeData) {
+        const newSpecifier = (_a = migrator.runtime) == null ? void 0 : _a.updateImportOrExportSpecifier(specifier);
+        if (newSpecifier) {
+          this._printAndUpdateNode(specifier.getSourceFile(), specifier, newSpecifier);
+          break;
+        }
+      }
+    });
   }
   _migrateStyles(node) {
     if (!this._stylesMigration) {
       this._stylesMigration = new ThemingStylesMigration(this.program, this.typeChecker, this.targetVersion, this.context, this.upgradeData, this.fileSystem, this.logger);
     }
-    node.forEachChild((childNode) => {
-      if (childNode.kind === ts2.SyntaxKind.ArrayLiteralExpression) {
-        childNode.forEachChild((stringLiteralNode) => {
-          this._migratePropertyAssignment(stringLiteralNode, this._stylesMigration);
-        });
-      }
+    node.initializer.forEachChild((stringLiteralNode) => {
+      this._migratePropertyAssignment(stringLiteralNode, this._stylesMigration);
     });
   }
   _migrateTemplate(node) {
@@ -22224,36 +22292,42 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
         this._templateMigration = new TemplateMigration(this.program, this.typeChecker, this.targetVersion, this.context, templateUpgradeData, this.fileSystem, this.logger);
       }
     }
-    node.forEachChild((childNode) => {
-      this._migratePropertyAssignment(childNode, this._templateMigration);
-    });
+    this._migratePropertyAssignment(node.initializer, this._templateMigration);
   }
   _migratePropertyAssignment(node, migration) {
-    if (node.kind === ts2.SyntaxKind.StringLiteral || node.kind === ts2.SyntaxKind.NoSubstitutionTemplateLiteral) {
-      let nodeText = node.getText();
-      const trimmedNodeText = nodeText.trimStart().trimEnd();
-      const nodeTextWithoutQuotes = trimmedNodeText.substring(1, trimmedNodeText.length - 1);
-      const migratedText = migration.migrate(nodeTextWithoutQuotes);
-      const migratedTextLines = migratedText.split("\n");
-      const isMultiline = migratedTextLines.length > 1;
-      if (isMultiline) {
-        nodeText = nodeText.replace(trimmedNodeText, "`" + nodeTextWithoutQuotes + "`");
-      }
-      this._printAndUpdateNode(node.getSourceFile(), node, ts2.factory.createRegularExpressionLiteral(nodeText.replace(nodeTextWithoutQuotes, migratedTextLines.map((line, index2) => {
-        if (isMultiline && index2 !== 0 && line != "\n") {
+    let migratedText = migration.migrate(node.text);
+    let migratedTextLines = migratedText.split("\n");
+    if (migratedTextLines.length > 1) {
+      migratedText = migratedTextLines.map((line, index2) => {
+        if (index2 !== 0 && line != "\n") {
           const leadingWidth = node.getLeadingTriviaWidth();
           if (leadingWidth > 0) {
             line = " ".repeat(leadingWidth - 1) + line;
           }
         }
         return line;
-      }).join("\n"))));
+      }).join("\n");
+      migratedText = "`" + migratedText + "`";
+    } else {
+      const quotation = node.getText().trimStart()[0];
+      migratedText = quotation + migratedText + quotation;
     }
+    this._printAndUpdateNode(node.getSourceFile(), node, ts2.factory.createRegularExpressionLiteral(migratedText));
   }
-  _migrateModuleSpecifier(specifierLiteral) {
+  _migrateModuleSpecifier(specifierLiteral, importClause) {
     var _a, _b;
     const sourceFile = specifierLiteral.getSourceFile();
     for (const migrator of this.upgradeData) {
+      if (importClause && importClause.namedBindings) {
+        const importSpecifiers = importClause.namedBindings.elements;
+        importSpecifiers.forEach((importSpecifer) => {
+          var _a2;
+          const newImportSpecifier = (_a2 = migrator.runtime) == null ? void 0 : _a2.updateImportSpecifierWithPossibleAlias(importSpecifer);
+          if (newImportSpecifier) {
+            this._printAndUpdateNode(sourceFile, importSpecifer, newImportSpecifier);
+          }
+        });
+      }
       const newModuleSpecifier = (_b = (_a = migrator.runtime) == null ? void 0 : _a.updateModuleSpecifier(specifierLiteral)) != null ? _b : null;
       if (newModuleSpecifier !== null) {
         this._printAndUpdateNode(sourceFile, specifierLiteral, newModuleSpecifier);
@@ -22261,8 +22335,19 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
       }
     }
   }
+  _isNgModuleDecorator(node) {
+    const call = node.expression;
+    if (!ts2.isCallExpression(call) || !ts2.isIdentifier(call.expression)) {
+      return false;
+    }
+    return call.expression.text === "NgModule";
+  }
   _isComponentDecorator(node) {
-    return node.kind === ts2.SyntaxKind.Decorator && node.getText().startsWith("@Component");
+    const call = node.expression;
+    if (!ts2.isCallExpression(call) || !ts2.isIdentifier(call.expression)) {
+      return false;
+    }
+    return call.expression.text === "Component";
   }
   _isImportExpression(node) {
     return ts2.isCallExpression(node) && node.expression.kind === ts2.SyntaxKind.ImportKeyword && node.arguments.length === 1 && ts2.isStringLiteralLike(node.arguments[0]);
