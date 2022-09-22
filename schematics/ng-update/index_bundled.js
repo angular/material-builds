@@ -9102,7 +9102,7 @@ var require_constants = __commonJS({
   "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/legacy-components-v15/constants.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.CUSTOM_SASS_FUNCTION_RENAMINGS = exports.CUSTOM_SASS_MIXIN_RENAMINGS = exports.COMPONENT_THEME_MIXINS = exports.CUSTOM_TS_SYMBOL_RENAMINGS = exports.MDC_IMPORT_CHANGES = exports.MAT_IMPORT_CHANGES = exports.COMPONENTS = void 0;
+    exports.MIGRATED_CORE_SYMBOLS = exports.CUSTOM_SASS_FUNCTION_RENAMINGS = exports.CUSTOM_SASS_MIXIN_RENAMINGS = exports.COMPONENT_THEME_MIXINS = exports.CUSTOM_TS_SYMBOL_RENAMINGS = exports.MDC_IMPORT_CHANGES = exports.MAT_IMPORT_CHANGES = exports.COMPONENTS = void 0;
     exports.COMPONENTS = [
       "autocomplete",
       "button",
@@ -9197,6 +9197,23 @@ var require_constants = __commonJS({
     };
     exports.CUSTOM_SASS_FUNCTION_RENAMINGS = {
       "define-typography-config": "define-legacy-typography-config"
+    };
+    exports.MIGRATED_CORE_SYMBOLS = {
+      "MAT_OPTGROUP": "MAT_LEGACY_OPTGROUP",
+      "MatOptionSelectionChange": "MatLegacyOptionSelectionChange",
+      "MatOptionParentComponent": "MatLegacyOptionParentComponent",
+      "MAT_OPTION_PARENT_COMPONENT": "MAT_LEGACY_OPTION_PARENT_COMPONENT",
+      "_countGroupLabelsBeforeOption": "_countGroupLabelsBeforeLegacyOption",
+      "_getOptionScrollPosition": "_getLegacyOptionScrollPosition",
+      "_MatOptionBase": "_MatLegacyOptionBase",
+      "_MatOptgroupBase": "_MatLegacyOptgroupBase",
+      "MatOptionModule": "MatLegacyOptionModule",
+      "MatOption": "MatLegacyOption",
+      "MatOptgroup": "MatLegacyOptgroup",
+      "MatOptionHarness": "MatLegacyOptionHarness",
+      "OptionHarnessFilters": "LegacyOptionHarnessFilters",
+      "MatOptgroupHarness": "MatLegacyOptgroupHarness",
+      "OptgroupHarnessFilters": "LegacyOptgroupHarnessFilters"
     };
   }
 });
@@ -9306,16 +9323,73 @@ var require_legacy_components_v15 = __commonJS({
         var _a;
         const moduleSpecifier = node.moduleSpecifier;
         const matImportChange = this._findMatImportChange(moduleSpecifier);
-        if (matImportChange) {
+        const mdcImportChange = this._findMdcImportChange(moduleSpecifier);
+        if (this._isCoreImport(moduleSpecifier.text)) {
+          this._handleCoreImportDeclaration(node);
+        } else if (matImportChange) {
           this._tsReplaceAt(node, matImportChange);
           if (((_a = node.importClause) == null ? void 0 : _a.namedBindings) && ts.isNamedImports(node.importClause.namedBindings)) {
             this._handleNamedImportBindings(node.importClause.namedBindings);
           }
-        }
-        const mdcImportChange = this._findMdcImportChange(moduleSpecifier);
-        if (mdcImportChange) {
+        } else if (mdcImportChange) {
           this._tsReplaceAt(node, mdcImportChange);
         }
+      }
+      _isCoreImport(importPath) {
+        return ["@angular/material/core", "@angular/material/core/testing"].includes(importPath);
+      }
+      _handleCoreImportDeclaration(node) {
+        var _a;
+        const moduleSpecifier = node.moduleSpecifier;
+        if (((_a = node.importClause) == null ? void 0 : _a.namedBindings) && ts.isNamedImports(node.importClause.namedBindings)) {
+          this._splitCoreImport(node, node.importClause.namedBindings);
+        } else {
+          this._tsReplaceAt(node, {
+            old: moduleSpecifier.text,
+            new: moduleSpecifier.text.replace("@angular/material/core", "@angular/material/legacy-core")
+          });
+        }
+      }
+      _splitCoreImport(node, namedBindings) {
+        const migratedSymbols = [];
+        const unmigratedSymbols = [];
+        for (const element of namedBindings.elements) {
+          if (this._isMigratedCoreSymbol(element)) {
+            migratedSymbols.push(element);
+          } else {
+            unmigratedSymbols.push(element);
+          }
+        }
+        const unmigratedImportDeclaration = unmigratedSymbols.length ? [this._stripImports(node.getText(), migratedSymbols)] : [];
+        const migratedImportDeclaration = migratedSymbols.length ? [
+          this._updateImportedCoreSymbols(this._stripImports(node.getText(), unmigratedSymbols).replace("@angular/material/core", "@angular/material/legacy-core"), migratedSymbols)
+        ] : [];
+        this._tsReplaceAt(node, {
+          old: node.getText(),
+          new: [...unmigratedImportDeclaration, ...migratedImportDeclaration].join("\n")
+        });
+      }
+      _isMigratedCoreSymbol(node) {
+        const name = node.propertyName ? node.propertyName : node.name;
+        if (!ts.isIdentifier(name)) {
+          return false;
+        }
+        return !!constants_1.MIGRATED_CORE_SYMBOLS[name.escapedText.toString()];
+      }
+      _stripImports(importString, remove) {
+        for (const symbol of remove) {
+          importString = importString.replace(new RegExp(`,\\s*${symbol.getText()}`), "").replace(new RegExp(`${symbol.getText()},\\s*`), "").replace(symbol.getText(), "");
+        }
+        return importString;
+      }
+      _updateImportedCoreSymbols(importString, rename) {
+        return rename.reduce((result, symbol) => {
+          const oldName = symbol.propertyName ? symbol.propertyName.getText() : symbol.name.getText();
+          const newName = constants_1.MIGRATED_CORE_SYMBOLS[oldName];
+          const aliasedName = symbol.propertyName ? symbol.name.getText() : oldName;
+          const separator = ts.isImportSpecifier(symbol) ? " as " : ": ";
+          return result.replace(symbol.getText(), `${newName}${separator}${aliasedName}`);
+        }, importString);
       }
       _handleImportExpression(node) {
         const moduleSpecifier = node.arguments[0];
@@ -9330,8 +9404,13 @@ var require_legacy_components_v15 = __commonJS({
         }
       }
       _handleDestructuredAsyncImport(node) {
-        for (let i = 0; i < node.name.elements.length; i++) {
-          this._handleNamedBindings(node.name.elements[i]);
+        const importPath = node.initializer.expression.arguments[0].text;
+        if (ts.isVariableStatement(node.parent.parent) && this._isCoreImport(importPath)) {
+          this._splitCoreImport(node.parent.parent, node.name);
+        } else {
+          for (let i = 0; i < node.name.elements.length; i++) {
+            this._handleNamedBindings(node.name.elements[i]);
+          }
         }
       }
       _handleNamedImportBindings(node) {
