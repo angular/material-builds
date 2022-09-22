@@ -661,6 +661,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withHomeAndEnd()
+            .withPageUpDown()
             .withAllowedModifierKeys(['shiftKey']);
         this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => {
             if (this.panelOpen) {
