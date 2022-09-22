@@ -1,10 +1,10 @@
 import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { LegacyOptgroupHarnessFilters } from '@angular/material/legacy-core/testing';
+import { LegacyOptionHarnessFilters } from '@angular/material/legacy-core/testing';
 import { MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
 import { MatLegacyOptionHarness } from '@angular/material/legacy-core/testing';
 import { _MatSelectHarnessBase } from '@angular/material/select/testing';
-import { OptgroupHarnessFilters } from '@angular/material/legacy-core/testing';
-import { OptionHarnessFilters } from '@angular/material/legacy-core/testing';
 
 /**
  * A set of criteria that can be used to filter a list of `MatSelectHarness` instances.
@@ -19,7 +19,7 @@ export declare interface LegacySelectHarnessFilters extends BaseHarnessFilters {
  * @deprecated Use `MatSelectHarness` from `@angular/material/select/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
  */
-export declare class MatLegacySelectHarness extends _MatSelectHarnessBase<typeof MatLegacyOptionHarness, MatLegacyOptionHarness, OptionHarnessFilters, typeof MatLegacyOptgroupHarness, MatLegacyOptgroupHarness, OptgroupHarnessFilters> {
+export declare class MatLegacySelectHarness extends _MatSelectHarnessBase<typeof MatLegacyOptionHarness, MatLegacyOptionHarness, LegacyOptionHarnessFilters, typeof MatLegacyOptgroupHarness, MatLegacyOptgroupHarness, LegacyOptgroupHarnessFilters> {
     static hostSelector: string;
     protected _prefix: string;
     protected _optionClass: typeof MatLegacyOptionHarness;

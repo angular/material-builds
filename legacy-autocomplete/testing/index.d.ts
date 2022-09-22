@@ -1,10 +1,10 @@
 import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
+import { LegacyOptgroupHarnessFilters } from '@angular/material/legacy-core/testing';
+import { LegacyOptionHarnessFilters } from '@angular/material/legacy-core/testing';
 import { _MatAutocompleteHarnessBase } from '@angular/material/autocomplete/testing';
 import { MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
 import { MatLegacyOptionHarness } from '@angular/material/legacy-core/testing';
-import { OptgroupHarnessFilters } from '@angular/material/legacy-core/testing';
-import { OptionHarnessFilters } from '@angular/material/legacy-core/testing';
 
 /**
  * A set of criteria that can be used to filter a list of `MatAutocompleteHarness` instances.
@@ -21,7 +21,7 @@ export declare interface LegacyAutocompleteHarnessFilters extends BaseHarnessFil
  * @deprecated Use `MatAutocompleteHarness` from `@angular/material/autocomplete/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
  */
-export declare class MatLegacyAutocompleteHarness extends _MatAutocompleteHarnessBase<typeof MatLegacyOptionHarness, MatLegacyOptionHarness, OptionHarnessFilters, typeof MatLegacyOptgroupHarness, MatLegacyOptgroupHarness, OptgroupHarnessFilters> {
+export declare class MatLegacyAutocompleteHarness extends _MatAutocompleteHarnessBase<typeof MatLegacyOptionHarness, MatLegacyOptionHarness, LegacyOptionHarnessFilters, typeof MatLegacyOptgroupHarness, MatLegacyOptgroupHarness, LegacyOptgroupHarnessFilters> {
     protected _prefix: string;
     protected _optionClass: typeof MatLegacyOptionHarness;
     protected _optionGroupClass: typeof MatLegacyOptgroupHarness;
