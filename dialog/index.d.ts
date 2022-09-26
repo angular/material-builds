@@ -302,6 +302,8 @@ export declare class MatDialogConfig<D = any> {
     ariaLabelledBy?: string | null;
     /** Aria label to assign to the dialog element. */
     ariaLabel?: string | null;
+    /** Whether this is a modal dialog. Used to set the `aria-modal` attribute. */
+    ariaModal?: boolean;
     /**
      * Where the dialog should focus on open.
      * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
