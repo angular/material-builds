@@ -282,11 +282,9 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
         [key: string]: any;
     };
     /** The timeout ID of any current timer set to show the tooltip */
-    _showTimeoutId: number | undefined;
+    private _showTimeoutId;
     /** The timeout ID of any current timer set to hide the tooltip */
-    _hideTimeoutId: number | undefined;
-    /** Property watched by the animation framework to show or hide the tooltip */
-    _visibility: TooltipVisibility;
+    private _hideTimeoutId;
     /** Element that caused the tooltip to open. */
     _triggerElement: HTMLElement;
     /** Amount of milliseconds to delay the closing sequence. */
@@ -342,6 +340,8 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
     protected _onShow(): void;
     /** Event listener dispatched when an animation on the tooltip finishes. */
     _handleAnimationEnd({ animationName }: AnimationEvent): void;
+    /** Cancels any pending hiding sequences. */
+    _cancelPendingHide(): void;
     /** Handles the cleanup after an animation has finished. */
     private _finalizeAnimation;
     /** Toggles the visibility of the tooltip element. */
