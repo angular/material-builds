@@ -1,5 +1,5 @@
 export { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
-import { ComponentHarness, parallel, HarnessPredicate } from '@angular/cdk/testing';
+import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
@@ -11,6 +11,36 @@ import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/ma
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+class _MatErrorHarnessBase extends ComponentHarness {
+    /** Gets a promise for the error's label text. */
+    async getText() {
+        return (await this.host()).text();
+    }
+    static _getErrorPredicate(type, options) {
+        return new HarnessPredicate(type, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+    }
+}
+/** Harness for interacting with an MDC-based `mat-error` in tests. */
+class MatErrorHarness extends _MatErrorHarnessBase {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for an error with specific
+     * attributes.
+     * @param options Options for filtering which error instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return _MatErrorHarnessBase._getErrorPredicate(this, options);
+    }
+}
+MatErrorHarness.hostSelector = '.mat-mdc-form-field-error';
 
 /**
  * @license
@@ -67,8 +97,12 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
     }
     /** Gets error messages which are currently displayed in the form-field. */
     async getTextErrors() {
-        const errors = await this._errors();
-        return parallel(() => errors.map(e => e.text()));
+        const errors = await this.getErrors();
+        return parallel(() => errors.map(e => e.getText()));
+    }
+    /** Gets all of the error harnesses in the form field. */
+    async getErrors(filter = {}) {
+        return this.locatorForAll(this._errorHarness.with(filter))();
     }
     /** Gets hint messages which are currently displayed in the form-field. */
     async getTextHints() {
@@ -145,12 +179,12 @@ class MatFormFieldHarness extends _MatFormFieldHarnessBase {
         this._prefixContainer = this.locatorForOptional('.mat-mdc-form-field-text-prefix');
         this._suffixContainer = this.locatorForOptional('.mat-mdc-form-field-text-suffix');
         this._label = this.locatorForOptional('.mdc-floating-label');
-        this._errors = this.locatorForAll('.mat-mdc-form-field-error');
         this._hints = this.locatorForAll('.mat-mdc-form-field-hint');
         this._inputControl = this.locatorForOptional(MatInputHarness);
         this._selectControl = this.locatorForOptional(MatSelectHarness);
         this._datepickerInputControl = this.locatorForOptional(MatDatepickerInputHarness);
         this._dateRangeInputControl = this.locatorForOptional(MatDateRangeInputHarness);
+        this._errorHarness = MatErrorHarness;
         this._mdcTextField = this.locatorFor('.mat-mdc-text-field-wrapper');
     }
     /**
@@ -200,5 +234,5 @@ MatFormFieldHarness.hostSelector = '.mat-mdc-form-field';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatFormFieldHarness, _MatFormFieldHarnessBase };
+export { MatErrorHarness, MatFormFieldHarness, _MatErrorHarnessBase, _MatFormFieldHarnessBase };
 //# sourceMappingURL=testing.mjs.map

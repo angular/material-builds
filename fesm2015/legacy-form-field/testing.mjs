@@ -1,10 +1,35 @@
 import { __awaiter } from 'tslib';
 import { HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
-import { _MatFormFieldHarnessBase } from '@angular/material/form-field/testing';
+import { _MatErrorHarnessBase, _MatFormFieldHarnessBase } from '@angular/material/form-field/testing';
 import { MatLegacyInputHarness } from '@angular/material/legacy-input/testing';
 import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing';
 export { MatFormFieldControlHarness as MatLegacyFormFieldControlHarness } from '@angular/material/form-field/testing/control';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Harness for interacting with a `mat-error` in tests.
+ * @deprecated Use `MatErrorHarness` from `@angular/material/form-field/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+class MatLegacyErrorHarness extends _MatErrorHarnessBase {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for an error with specific
+     * attributes.
+     * @param options Options for filtering which error instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return _MatErrorHarnessBase._getErrorPredicate(this, options);
+    }
+}
+MatLegacyErrorHarness.hostSelector = '.mat-error';
 
 /**
  * Harness for interacting with a standard Material form-field's in tests.
@@ -23,6 +48,7 @@ class MatLegacyFormFieldHarness extends _MatFormFieldHarnessBase {
         this._selectControl = this.locatorForOptional(MatLegacySelectHarness);
         this._datepickerInputControl = this.locatorForOptional(MatDatepickerInputHarness);
         this._dateRangeInputControl = this.locatorForOptional(MatDateRangeInputHarness);
+        this._errorHarness = MatLegacyErrorHarness;
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatFormFieldHarness` that meets
@@ -86,5 +112,5 @@ MatLegacyFormFieldHarness.hostSelector = '.mat-form-field';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatLegacyFormFieldHarness };
+export { MatLegacyErrorHarness, MatLegacyFormFieldHarness };
 //# sourceMappingURL=testing.mjs.map

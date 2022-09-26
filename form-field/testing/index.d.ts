@@ -10,6 +10,16 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { TestElement } from '@angular/cdk/testing';
 
+declare interface ErrorBase extends ComponentHarness {
+    getText(): Promise<string>;
+}
+
+/** A set of criteria that can be used to filter a list of error harness instances. */
+export declare interface ErrorHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose text matches the given value. */
+    text?: string | RegExp;
+}
+
 /** Possible harnesses of controls which can be bound to a form-field. */
 export declare type FormFieldControlHarness = MatInputHarness | MatSelectHarness | MatDatepickerInputHarness | MatDateRangeInputHarness;
 
@@ -21,10 +31,28 @@ export declare interface FormFieldHarnessFilters extends BaseHarnessFilters {
     hasErrors?: boolean;
 }
 
+/** Harness for interacting with an MDC-based `mat-error` in tests. */
+export declare class MatErrorHarness extends _MatErrorHarnessBase {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for an error with specific
+     * attributes.
+     * @param options Options for filtering which error instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatErrorHarness>(this: ComponentHarnessConstructor<T>, options?: ErrorHarnessFilters): HarnessPredicate<T>;
+}
+
+export declare abstract class _MatErrorHarnessBase extends ComponentHarness {
+    /** Gets a promise for the error's label text. */
+    getText(): Promise<string>;
+    protected static _getErrorPredicate<T extends MatErrorHarness>(type: ComponentHarnessConstructor<T>, options: ErrorHarnessFilters): HarnessPredicate<T>;
+}
+
 export { MatFormFieldControlHarness }
 
 /** Harness for interacting with a MDC-based form-field's in tests. */
-export declare class MatFormFieldHarness extends _MatFormFieldHarnessBase<FormFieldControlHarness> {
+export declare class MatFormFieldHarness extends _MatFormFieldHarnessBase<FormFieldControlHarness, typeof MatErrorHarness> {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a form field with specific
@@ -36,12 +64,12 @@ export declare class MatFormFieldHarness extends _MatFormFieldHarnessBase<FormFi
     protected _prefixContainer: AsyncFactoryFn<TestElement | null>;
     protected _suffixContainer: AsyncFactoryFn<TestElement | null>;
     protected _label: AsyncFactoryFn<TestElement | null>;
-    protected _errors: AsyncFactoryFn<TestElement[]>;
     protected _hints: AsyncFactoryFn<TestElement[]>;
     protected _inputControl: AsyncFactoryFn<MatInputHarness | null>;
     protected _selectControl: AsyncFactoryFn<MatSelectHarness | null>;
     protected _datepickerInputControl: AsyncFactoryFn<MatDatepickerInputHarness | null>;
     protected _dateRangeInputControl: AsyncFactoryFn<MatDateRangeInputHarness | null>;
+    protected _errorHarness: typeof MatErrorHarness;
     private _mdcTextField;
     /** Gets the appearance of the form-field. */
     getAppearance(): Promise<'fill' | 'outline'>;
@@ -51,16 +79,18 @@ export declare class MatFormFieldHarness extends _MatFormFieldHarnessBase<FormFi
     isLabelFloating(): Promise<boolean>;
 }
 
-export declare abstract class _MatFormFieldHarnessBase<ControlHarness extends MatFormFieldControlHarness> extends ComponentHarness {
+export declare abstract class _MatFormFieldHarnessBase<ControlHarness extends MatFormFieldControlHarness, ErrorType extends ComponentHarnessConstructor<ErrorBase> & {
+    with: (options?: ErrorHarnessFilters) => HarnessPredicate<ErrorBase>;
+}> extends ComponentHarness {
     protected abstract _prefixContainer: AsyncFactoryFn<TestElement | null>;
     protected abstract _suffixContainer: AsyncFactoryFn<TestElement | null>;
     protected abstract _label: AsyncFactoryFn<TestElement | null>;
-    protected abstract _errors: AsyncFactoryFn<TestElement[]>;
     protected abstract _hints: AsyncFactoryFn<TestElement[]>;
     protected abstract _inputControl: AsyncFactoryFn<ControlHarness | null>;
     protected abstract _selectControl: AsyncFactoryFn<ControlHarness | null>;
     protected abstract _datepickerInputControl: AsyncFactoryFn<ControlHarness | null>;
     protected abstract _dateRangeInputControl: AsyncFactoryFn<ControlHarness | null>;
+    protected abstract _errorHarness: ErrorType;
     /** Gets the appearance of the form-field. */
     abstract getAppearance(): Promise<string>;
     /** Whether the label is currently floating. */
@@ -95,6 +125,8 @@ export declare abstract class _MatFormFieldHarnessBase<ControlHarness extends Ma
     getThemeColor(): Promise<'primary' | 'accent' | 'warn'>;
     /** Gets error messages which are currently displayed in the form-field. */
     getTextErrors(): Promise<string[]>;
+    /** Gets all of the error harnesses in the form field. */
+    getErrors(filter?: ErrorHarnessFilters): Promise<MatErrorHarness[]>;
     /** Gets hint messages which are currently displayed in the form-field. */
     getTextHints(): Promise<string[]>;
     /** Gets the text inside the prefix element. */
