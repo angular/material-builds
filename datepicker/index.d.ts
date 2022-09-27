@@ -23,7 +23,7 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
 import * as i14 from '@angular/common';
-import * as i15 from '@angular/material/legacy-button';
+import * as i15 from '@angular/material/button';
 import * as i16 from '@angular/cdk/overlay';
 import * as i17 from '@angular/cdk/a11y';
 import * as i18 from '@angular/cdk/portal';
@@ -31,10 +31,10 @@ import * as i19 from '@angular/material/core';
 import * as i20 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatDateFormats } from '@angular/material/core';
-import { MatLegacyButton } from '@angular/material/legacy-button';
-import { MatLegacyFormField } from '@angular/material/legacy-form-field';
-import { MatLegacyFormFieldControl } from '@angular/material/legacy-form-field';
+import { MatFormField } from '@angular/material/form-field';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -906,7 +906,7 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     private _dateFilter;
     /** The combined form control validator for this input. */
     protected _validator: ValidatorFn | null;
-    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField?: MatLegacyFormField | undefined);
+    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField?: MatFormField | undefined);
     /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
@@ -1094,7 +1094,7 @@ export declare class MatDatepickerIntl {
 
 export declare class MatDatepickerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, [typeof i1.MatCalendar, typeof i2.MatCalendarBody, typeof i3.MatDatepicker, typeof i4.MatDatepickerContent, typeof i5.MatDatepickerInput, typeof i6.MatDatepickerToggle, typeof i6.MatDatepickerToggleIcon, typeof i7.MatMonthView, typeof i8.MatYearView, typeof i9.MatMultiYearView, typeof i1.MatCalendarHeader, typeof i10.MatDateRangeInput, typeof i11.MatStartDate, typeof i11.MatEndDate, typeof i12.MatDateRangePicker, typeof i13.MatDatepickerActions, typeof i13.MatDatepickerCancel, typeof i13.MatDatepickerApply], [typeof i14.CommonModule, typeof i15.MatLegacyButtonModule, typeof i16.OverlayModule, typeof i17.A11yModule, typeof i18.PortalModule, typeof i19.MatCommonModule], [typeof i20.CdkScrollableModule, typeof i1.MatCalendar, typeof i2.MatCalendarBody, typeof i3.MatDatepicker, typeof i4.MatDatepickerContent, typeof i5.MatDatepickerInput, typeof i6.MatDatepickerToggle, typeof i6.MatDatepickerToggleIcon, typeof i7.MatMonthView, typeof i8.MatYearView, typeof i9.MatMultiYearView, typeof i1.MatCalendarHeader, typeof i10.MatDateRangeInput, typeof i11.MatStartDate, typeof i11.MatEndDate, typeof i12.MatDateRangePicker, typeof i13.MatDatepickerActions, typeof i13.MatDatepickerCancel, typeof i13.MatDatepickerApply]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, [typeof i1.MatCalendar, typeof i2.MatCalendarBody, typeof i3.MatDatepicker, typeof i4.MatDatepickerContent, typeof i5.MatDatepickerInput, typeof i6.MatDatepickerToggle, typeof i6.MatDatepickerToggleIcon, typeof i7.MatMonthView, typeof i8.MatYearView, typeof i9.MatMultiYearView, typeof i1.MatCalendarHeader, typeof i10.MatDateRangeInput, typeof i11.MatStartDate, typeof i11.MatEndDate, typeof i12.MatDateRangePicker, typeof i13.MatDatepickerActions, typeof i13.MatDatepickerCancel, typeof i13.MatDatepickerApply], [typeof i14.CommonModule, typeof i15.MatButtonModule, typeof i16.OverlayModule, typeof i17.A11yModule, typeof i18.PortalModule, typeof i19.MatCommonModule], [typeof i20.CdkScrollableModule, typeof i1.MatCalendar, typeof i2.MatCalendarBody, typeof i3.MatDatepicker, typeof i4.MatDatepickerContent, typeof i5.MatDatepickerInput, typeof i6.MatDatepickerToggle, typeof i6.MatDatepickerToggleIcon, typeof i7.MatMonthView, typeof i8.MatYearView, typeof i9.MatMultiYearView, typeof i1.MatCalendarHeader, typeof i10.MatDateRangeInput, typeof i11.MatStartDate, typeof i11.MatEndDate, typeof i12.MatDateRangePicker, typeof i13.MatDatepickerActions, typeof i13.MatDatepickerCancel, typeof i13.MatDatepickerApply]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDatepickerModule>;
 }
 
@@ -1141,7 +1141,7 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     /** Custom icon set by the consumer. */
     _customIcon: MatDatepickerToggleIcon;
     /** Underlying button element. */
-    _button: MatLegacyButton;
+    _button: MatButton;
     constructor(_intl: MatDatepickerIntl, _changeDetectorRef: ChangeDetectorRef, defaultTabIndex: string);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
@@ -1158,7 +1158,7 @@ export declare class MatDatepickerToggleIcon {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never, never, false, never>;
 }
 
-export declare class MatDateRangeInput<D> implements MatLegacyFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
+export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _dateAdapter;
@@ -1228,7 +1228,7 @@ export declare class MatDateRangeInput<D> implements MatLegacyFormFieldControl<D
     ngControl: NgControl | null;
     /** Emits when the input's state has changed. */
     readonly stateChanges: Subject<void>;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: MatLegacyFormField | undefined);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: MatFormField | undefined);
     /**
      * Implemented as a part of `MatFormFieldControl`.
      * @docs-private
