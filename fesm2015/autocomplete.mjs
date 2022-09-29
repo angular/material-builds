@@ -161,6 +161,8 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
         this._setVisibility();
     }
     ngOnDestroy() {
+        var _a;
+        (_a = this._keyManager) === null || _a === void 0 ? void 0 : _a.destroy();
         this._activeOptionChanges.unsubscribe();
     }
     /**

@@ -570,9 +570,7 @@ class MatLegacySelectionList extends _MatSelectionListBase {
             this._setOptionsFromValues(this._value);
         }
         // If the user attempts to tab out of the selection list, allow focus to escape.
-        this._keyManager.tabOut.pipe(takeUntil(this._destroyed)).subscribe(() => {
-            this._allowFocusEscape();
-        });
+        this._keyManager.tabOut.subscribe(() => this._allowFocusEscape());
         // When the number of options change, update the tabindex of the selection list.
         this.options.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
             this._updateTabIndex();
@@ -615,6 +613,7 @@ class MatLegacySelectionList extends _MatSelectionListBase {
         }
     }
     ngOnDestroy() {
+        this._keyManager?.destroy();
         this._focusMonitor.stopMonitoring(this._element);
         this._destroyed.next();
         this._destroyed.complete();

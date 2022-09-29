@@ -954,6 +954,7 @@ class MatChipSet extends _MatChipSetMixinBase {
         this._trackDestroyedFocusedChip();
     }
     ngOnDestroy() {
+        this._keyManager?.destroy();
         this._chipActions.destroy();
         this._destroyed.next();
         this._destroyed.complete();

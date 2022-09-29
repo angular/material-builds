@@ -562,7 +562,9 @@ class MatAccordion extends CdkAccordion {
         this._keyManager.updateActiveItem(header);
     }
     ngOnDestroy() {
+        var _a;
         super.ngOnDestroy();
+        (_a = this._keyManager) === null || _a === void 0 ? void 0 : _a.destroy();
         this._ownHeaders.destroy();
     }
 }

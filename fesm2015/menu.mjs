@@ -4,7 +4,7 @@ import * as i1 from '@angular/cdk/a11y';
 import { FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
-import { Subject, Subscription, merge, of, asapScheduler } from 'rxjs';
+import { Subject, merge, Subscription, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, take, takeUntil, filter, delay } from 'rxjs/operators';
 import * as i3 from '@angular/material/core';
 import { mixinDisableRipple, mixinDisabled, MatRippleModule, MatCommonModule } from '@angular/material/core';
@@ -393,8 +393,6 @@ class _MatMenuBase {
         this._yPosition = this._defaultOptions.yPosition;
         /** Only the direct descendant menu items. */
         this._directDescendantItems = new QueryList();
-        /** Subscription to tab events on the menu panel */
-        this._tabSubscription = Subscription.EMPTY;
         /** Config object to be passed into the menu's ngClass */
         this._classList = {};
         /** Current state of the panel animation. */
@@ -498,7 +496,7 @@ class _MatMenuBase {
             .withWrap()
             .withTypeAhead()
             .withHomeAndEnd();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(() => this.closed.emit('tab'));
+        this._keyManager.tabOut.subscribe(() => this.closed.emit('tab'));
         // If a user manually (programmatically) focuses a menu item, we need to reflect that focus
         // change back to the key manager. Note that we don't need to unsubscribe here because _focused
         // is internal and we know that it gets completed on destroy.
@@ -524,8 +522,9 @@ class _MatMenuBase {
         });
     }
     ngOnDestroy() {
+        var _a;
+        (_a = this._keyManager) === null || _a === void 0 ? void 0 : _a.destroy();
         this._directDescendantItems.destroy();
-        this._tabSubscription.unsubscribe();
         this.closed.complete();
     }
     /** Stream that emits whenever the hovered menu item changes. */

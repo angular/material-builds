@@ -145,8 +145,6 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     _allItems: QueryList<MatMenuItem>;
     /** Only the direct descendant menu items. */
     _directDescendantItems: QueryList<MatMenuItem>;
-    /** Subscription to tab events on the menu panel */
-    private _tabSubscription;
     /** Config object to be passed into the menu's ngClass */
     _classList: {
         [key: string]: boolean;

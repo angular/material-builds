@@ -953,6 +953,7 @@ class MatSelectionList extends MatListBase {
         }
     }
     ngOnDestroy() {
+        this._keyManager?.destroy();
         this._element.nativeElement.removeEventListener('focusin', this._handleFocusin);
         this._element.nativeElement.removeEventListener('focusout', this._handleFocusout);
         this._destroyed.next();
@@ -1101,9 +1102,7 @@ class MatSelectionList extends MatListBase {
         // Set the initial focus.
         this._resetActiveOption();
         // Move the tabindex to the currently-focused list item.
-        this._keyManager.change
-            .pipe(takeUntil(this._destroyed))
-            .subscribe(activeItemIndex => this._setActiveOption(activeItemIndex));
+        this._keyManager.change.subscribe(activeItemIndex => this._setActiveOption(activeItemIndex));
         // If the active item is removed from the list, reset back to the first one.
         this._items.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
             const activeItem = this._keyManager.activeItem;
