@@ -9192,8 +9192,7 @@ var require_constants = __commonJS({
       "all-component-themes": "all-legacy-component-themes",
       "all-component-colors": "all-legacy-component-colors",
       "all-component-typographies": "all-legacy-component-typographies",
-      "private-all-component-densities": "private-all-legacy-component-densities",
-      "core": "legacy-core"
+      "private-all-component-densities": "private-all-legacy-component-densities"
     };
     exports.CUSTOM_SASS_FUNCTION_RENAMINGS = {
       "define-typography-config": "define-legacy-typography-config"
@@ -9258,12 +9257,27 @@ var require_legacy_components_v15 = __commonJS({
         return;
       }
       _handleAtInclude(node, filePath, namespace) {
-        var _a;
+        var _a, _b;
         if (!namespace || !((_a = node.source) == null ? void 0 : _a.start)) {
           return;
         }
-        const mixinName = node.params.split(/[.(;]/)[1];
-        if (constants_1.CUSTOM_SASS_MIXIN_RENAMINGS[mixinName]) {
+        const original = node.toString();
+        const [atInclude, delim, mixinName, ...rest] = original.split(/([.(;])/);
+        if (mixinName === "core") {
+          const updatedFunctionsRest = Object.keys(constants_1.CUSTOM_SASS_FUNCTION_RENAMINGS).reduce((s, r) => s.replace(new RegExp(r, "g"), constants_1.CUSTOM_SASS_FUNCTION_RENAMINGS[r]), rest.join(""));
+          const includeTypography = [atInclude, delim, mixinName, updatedFunctionsRest].join("").replace(`${namespace}.core`, `${namespace}.all-legacy-component-typographies`);
+          const indent = ((_b = original.match(/^\s*/)) == null ? void 0 : _b[0]) || "";
+          this._replaceAt(filePath, node.source.start.offset, {
+            old: original,
+            new: [
+              `${indent}// TODO(v15): As of v15 ${namespace}.legacy-core no longer includes default typography styles.`,
+              `${indent}//  Instead an explicit typography include has been automatically added here.`,
+              `${indent}//  If you add typography styles elsewhere, you may want to remove this.`,
+              `${includeTypography};`,
+              `${indent}@include ${namespace}.legacy-core()`
+            ].join("\n")
+          });
+        } else if (constants_1.CUSTOM_SASS_MIXIN_RENAMINGS[mixinName]) {
           this._replaceAt(filePath, node.source.start.offset, {
             old: `${namespace}.${mixinName}`,
             new: `${namespace}.${constants_1.CUSTOM_SASS_MIXIN_RENAMINGS[mixinName]}`
