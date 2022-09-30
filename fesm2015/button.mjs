@@ -1,11 +1,19 @@
 import * as i0 from '@angular/core';
-import { Directive, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, InjectionToken, NgModule } from '@angular/core';
+import { inject, Directive, ViewChild, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, InjectionToken, NgModule } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i2 from '@angular/material/core';
 import { mixinColor, mixinDisabled, mixinDisableRipple, MatRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import * as i1 from '@angular/cdk/platform';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** Inputs common to all buttons. */
 const MAT_BUTTON_INPUTS = ['disabled', 'disableRipple', 'color'];
 /** Shared host configuration for all buttons */
@@ -65,6 +73,7 @@ class MatButtonBase extends _MatButtonMixin {
         this._platform = _platform;
         this._ngZone = _ngZone;
         this._animationMode = _animationMode;
+        this._focusMonitor = inject(FocusMonitor);
         /** Whether this button is a FAB. Used to apply the correct class on the ripple. */
         this._isFab = false;
         const classList = elementRef.nativeElement.classList;
@@ -78,9 +87,20 @@ class MatButtonBase extends _MatButtonMixin {
             }
         }
     }
+    ngAfterViewInit() {
+        this._focusMonitor.monitor(this._elementRef, true);
+    }
+    ngOnDestroy() {
+        this._focusMonitor.stopMonitoring(this._elementRef);
+    }
     /** Focuses the button. */
     focus(_origin = 'program', options) {
-        this._elementRef.nativeElement.focus(options);
+        if (_origin) {
+            this._focusMonitor.focusVia(this._elementRef.nativeElement, _origin, options);
+        }
+        else {
+            this._elementRef.nativeElement.focus(options);
+        }
     }
     /** Gets whether the button has one of the given attributes. */
     _hasHostAttributes(...attributes) {
@@ -137,6 +157,7 @@ class MatAnchorBase extends MatButtonBase {
         });
     }
     ngOnDestroy() {
+        super.ngOnDestroy();
         this._elementRef.nativeElement.removeEventListener('click', this._haltDisabledEvents);
     }
 }

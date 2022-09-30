@@ -1,4 +1,5 @@
 import { _AbstractConstructor } from '@angular/material/core';
+import { AfterViewInit } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CanColor } from '@angular/material/core';
 import { CanDisable } from '@angular/material/core';
@@ -93,15 +94,18 @@ export declare class MatButton extends MatButtonBase {
 }
 
 /** Base class for all buttons.  */
-declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanColor, CanDisableRipple {
+declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanColor, CanDisableRipple, AfterViewInit, OnDestroy {
     _platform: Platform;
     _ngZone: NgZone;
     _animationMode?: string | undefined;
+    private readonly _focusMonitor;
     /** Whether this button is a FAB. Used to apply the correct class on the ripple. */
     _isFab: boolean;
     /** Reference to the MatRipple instance of the button. */
     ripple: MatRipple;
     constructor(elementRef: ElementRef, _platform: Platform, _ngZone: NgZone, _animationMode?: string | undefined);
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
     /** Focuses the button. */
     focus(_origin?: FocusOrigin, options?: FocusOptions): void;
     /** Gets whether the button has one of the given attributes. */
