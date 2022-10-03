@@ -13,7 +13,6 @@ import { A11yModule } from '@angular/cdk/a11y';
 import * as i4 from '@angular/cdk/bidi';
 import * as i1 from '@angular/cdk/overlay';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
-import { numbers } from '@material/tooltip';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -75,6 +74,12 @@ const passiveListenerOptions = normalizePassiveListenerOptions({ passive: true }
  * trigger and the long press event being fired.
  */
 const LONGPRESS_DELAY = 500;
+// These constants were taken from MDC's `numbers` object. We can't import them from MDC,
+// because they have some top-level references to `window` which break during SSR.
+const MIN_VIEWPORT_TOOLTIP_THRESHOLD = 8;
+const UNBOUNDED_ANCHOR_GAP = 8;
+const MIN_HEIGHT = 24;
+const MAX_WIDTH = 200;
 class _MatTooltipBase {
     constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, scrollStrategy, _dir, _defaultOptions, _document) {
         this._overlay = _overlay;
@@ -674,10 +679,10 @@ class MatTooltip extends _MatTooltipBase {
         super(overlay, elementRef, scrollDispatcher, viewContainerRef, ngZone, platform, ariaDescriber, focusMonitor, scrollStrategy, dir, defaultOptions, _document);
         this._tooltipComponent = TooltipComponent;
         this._cssClassPrefix = 'mat-mdc';
-        this._viewportMargin = numbers.MIN_VIEWPORT_TOOLTIP_THRESHOLD;
+        this._viewportMargin = MIN_VIEWPORT_TOOLTIP_THRESHOLD;
     }
     _addOffset(position) {
-        const offset = numbers.UNBOUNDED_ANCHOR_GAP;
+        const offset = UNBOUNDED_ANCHOR_GAP;
         const isLtr = !this._dir || this._dir.value == 'ltr';
         if (position.originY === 'top') {
             position.offsetY = -offset;
@@ -882,7 +887,7 @@ class TooltipComponent extends _TooltipComponentBase {
     /** Whether the tooltip text has overflown to the next line */
     _isTooltipMultiline() {
         const rect = this._elementRef.nativeElement.getBoundingClientRect();
-        return rect.height > numbers.MIN_HEIGHT && rect.width >= numbers.MAX_WIDTH;
+        return rect.height > MIN_HEIGHT && rect.width >= MAX_WIDTH;
     }
 }
 TooltipComponent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-next.1", ngImport: i0, type: TooltipComponent, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
