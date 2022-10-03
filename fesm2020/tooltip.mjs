@@ -265,7 +265,7 @@ class _MatTooltipBase {
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
     show(delay = this.showDelay, origin) {
         if (this.disabled || !this.message || this._isTooltipVisible()) {
-            this._tooltipInstance?._cancelPendingHide();
+            this._tooltipInstance?._cancelPendingAnimations();
             return;
         }
         const overlayRef = this._createOverlay(origin);
@@ -291,6 +291,7 @@ class _MatTooltipBase {
                 instance.hide(delay);
             }
             else {
+                instance._cancelPendingAnimations();
                 this._detach();
             }
         }
@@ -762,8 +763,7 @@ class _TooltipComponentBase {
         return this._isVisible;
     }
     ngOnDestroy() {
-        clearTimeout(this._showTimeoutId);
-        clearTimeout(this._hideTimeoutId);
+        this._cancelPendingAnimations();
         this._onHide.complete();
         this._triggerElement = null;
     }
@@ -787,7 +787,12 @@ class _TooltipComponentBase {
     }
     _handleMouseLeave({ relatedTarget }) {
         if (!relatedTarget || !this._triggerElement.contains(relatedTarget)) {
-            this.hide(this._mouseLeaveHideDelay);
+            if (this.isVisible()) {
+                this.hide(this._mouseLeaveHideDelay);
+            }
+            else {
+                this._finalizeAnimation(false);
+            }
         }
     }
     /**
@@ -802,10 +807,11 @@ class _TooltipComponentBase {
             this._finalizeAnimation(animationName === this._showAnimation);
         }
     }
-    /** Cancels any pending hiding sequences. */
-    _cancelPendingHide() {
+    /** Cancels any pending animation sequences. */
+    _cancelPendingAnimations() {
+        clearTimeout(this._showTimeoutId);
         clearTimeout(this._hideTimeoutId);
-        this._hideTimeoutId = undefined;
+        this._showTimeoutId = this._hideTimeoutId = undefined;
     }
     /** Handles the cleanup after an animation has finished. */
     _finalizeAnimation(toVisible) {
