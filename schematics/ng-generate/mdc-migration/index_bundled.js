@@ -6251,33 +6251,6 @@ __export(mdc_migration_exports, {
 });
 module.exports = __toCommonJS(mdc_migration_exports);
 
-// node_modules/postcss/lib/postcss.mjs
-var import_postcss = __toESM(require_postcss(), 1);
-var stringify = import_postcss.default.stringify;
-var fromJSON = import_postcss.default.fromJSON;
-var plugin = import_postcss.default.plugin;
-var parse = import_postcss.default.parse;
-var list = import_postcss.default.list;
-var document = import_postcss.default.document;
-var comment = import_postcss.default.comment;
-var atRule = import_postcss.default.atRule;
-var rule = import_postcss.default.rule;
-var decl = import_postcss.default.decl;
-var root = import_postcss.default.root;
-var CssSyntaxError = import_postcss.default.CssSyntaxError;
-var Declaration = import_postcss.default.Declaration;
-var Container = import_postcss.default.Container;
-var Processor = import_postcss.default.Processor;
-var Document = import_postcss.default.Document;
-var Comment = import_postcss.default.Comment;
-var Warning = import_postcss.default.Warning;
-var AtRule = import_postcss.default.AtRule;
-var Result = import_postcss.default.Result;
-var Input = import_postcss.default.Input;
-var Rule = import_postcss.default.Rule;
-var Root = import_postcss.default.Root;
-var Node = import_postcss.default.Node;
-
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/style-migrator.js
 var END_OF_SELECTOR_REGEX = "(?!-)";
 var MIXIN_ARGUMENTS_REGEX = "\\(((\\s|.)*)\\)";
@@ -6285,17 +6258,17 @@ var StyleMigrator = class {
   isLegacyMixin(namespace, atRule2) {
     return this.mixinChanges.some((change) => atRule2.params.includes(`${namespace}.${change.old}`));
   }
-  replaceMixin(namespace, atRule2) {
+  getMixinChange(namespace, atRule2) {
     var _a;
     const change = this.mixinChanges.find((c) => {
       return atRule2.params.includes(`${namespace}.${c.old}`);
     });
     if (!change) {
-      return;
+      return null;
     }
     const replacements = [...change.new];
     if (change.checkForDuplicates) {
-      const mixinArgumentMatches = atRule2.params.match(MIXIN_ARGUMENTS_REGEX);
+      const mixinArgumentMatches = (_a = atRule2.params) == null ? void 0 : _a.match(MIXIN_ARGUMENTS_REGEX);
       atRule2.root().walkAtRules((rule2) => {
         for (const index2 in replacements) {
           const mixinName = replacements[index2] + (mixinArgumentMatches ? mixinArgumentMatches[0] : "");
@@ -6306,49 +6279,27 @@ var StyleMigrator = class {
       });
     }
     if (replacements.length < 1) {
-      return;
+      return null;
     }
-    atRule2.cloneBefore({
-      params: atRule2.params.replace(change.old, replacements[0])
-    });
-    const indentation = (_a = atRule2.raws.before) == null ? void 0 : _a.split("\n").pop();
-    atRule2.raws.before = "\n" + indentation;
-    for (let i = 1; i < replacements.length; i++) {
-      atRule2.cloneBefore({
-        params: atRule2.params.replace(change.old, replacements[i])
-      });
-    }
-    atRule2.remove();
-  }
-  replaceAllComponentThemeMixin(allComponentThemesNode) {
-    allComponentThemesNode.cloneBefore({
-      params: allComponentThemesNode.params.replace("all-legacy-component-themes", "all-component-themes")
-    });
-    allComponentThemesNode.remove();
+    return { old: change.old, new: replacements };
   }
   isLegacySelector(rule2) {
-    return this.classChanges.some((change) => rule2.selector.match(change.old + END_OF_SELECTOR_REGEX) !== null);
+    return this.classChanges.some((change) => {
+      var _a;
+      return ((_a = rule2.selector) == null ? void 0 : _a.match(change.old + END_OF_SELECTOR_REGEX)) !== null;
+    });
   }
   replaceLegacySelector(rule2) {
+    var _a;
     for (let i = 0; i < this.classChanges.length; i++) {
       const change = this.classChanges[i];
-      if (rule2.selector.match(change.old + END_OF_SELECTOR_REGEX)) {
+      if ((_a = rule2.selector) == null ? void 0 : _a.match(change.old + END_OF_SELECTOR_REGEX)) {
         rule2.selector = rule2.selector.replace(change.old, change.new);
       }
     }
   }
   isDeprecatedSelector(rule2) {
     return this.deprecatedPrefixes.some((deprecatedPrefix) => rule2.selector.includes(deprecatedPrefix));
-  }
-  addDeprecatedSelectorComment(rule2) {
-    var _a;
-    let comment2 = comment({
-      text: "TODO: The following rule targets internal classes of " + this.component + " that may no longer apply for the MDC version."
-    });
-    const indentation = (_a = rule2.raws.before) == null ? void 0 : _a.split("\n").pop();
-    comment2.raws.before = "\n" + indentation;
-    rule2.parent.insertBefore(rule2, comment2);
-    rule2.raws.before = "\n\n" + indentation;
   }
 };
 
@@ -6361,7 +6312,15 @@ var AutocompleteStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-autocomplete-theme",
-        new: ["autocomplete-theme", "autocomplete-typography"]
+        new: ["autocomplete-theme"]
+      },
+      {
+        old: "legacy-autocomplete-color",
+        new: ["autocomplete-color"]
+      },
+      {
+        old: "legacy-autocomplete-typography",
+        new: ["autocomplete-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-autocomplete", new: ".mat-mdc-autocomplete" }];
@@ -6377,14 +6336,17 @@ var ButtonStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-button-theme",
-        new: [
-          "button-theme",
-          "button-typography",
-          "fab-theme",
-          "fab-typography",
-          "icon-button-theme",
-          "icon-button-typography"
-        ],
+        new: ["button-theme", "fab-theme", "icon-button-theme"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-button-color",
+        new: ["button-color", "fab-color", "icon-button-color"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-button-typography",
+        new: ["button-typography", "fab-typography", "icon-button-typography"],
         checkForDuplicates: true
       }
     ];
@@ -6410,7 +6372,15 @@ var CardStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-card-theme",
-        new: ["card-theme", "card-typography"]
+        new: ["card-theme"]
+      },
+      {
+        old: "legacy-card-color",
+        new: ["card-color"]
+      },
+      {
+        old: "legacy-card-typography",
+        new: ["card-typography"]
       }
     ];
     this.classChanges = [
@@ -6810,12 +6780,12 @@ function utf8Encode(str) {
   }
   return encoded;
 }
-function stringify2(token) {
+function stringify(token) {
   if (typeof token === "string") {
     return token;
   }
   if (Array.isArray(token)) {
-    return "[" + token.map(stringify2).join(", ") + "]";
+    return "[" + token.map(stringify).join(", ") + "]";
   }
   if (token == null) {
     return "" + token;
@@ -9389,7 +9359,7 @@ var Text$2 = class {
     return visitor.visitText(this, context);
   }
 };
-var Container2 = class {
+var Container = class {
   constructor(children, sourceSpan) {
     this.children = children;
     this.sourceSpan = sourceSpan;
@@ -9560,7 +9530,7 @@ function updatePlaceholderMap(map, name, ...values) {
 function assembleBoundTextPlaceholders(meta, bindingStartIndex = 0, contextId = 0) {
   const startIdx = bindingStartIndex;
   const placeholders = /* @__PURE__ */ new Map();
-  const node = meta instanceof Message ? meta.nodes.find((node2) => node2 instanceof Container2) : meta;
+  const node = meta instanceof Message ? meta.nodes.find((node2) => node2 instanceof Container) : meta;
   if (node) {
     node.children.filter((child) => child instanceof Placeholder).forEach((child, idx) => {
       const content = wrapI18nPlaceholder(startIdx + idx, contextId);
@@ -10107,7 +10077,7 @@ function identifierName(compileIdentifier) {
   if (ref["__forward_ref__"]) {
     return "__forward_ref__";
   }
-  let identifier = stringify2(ref);
+  let identifier = stringify(ref);
   if (identifier.indexOf("(") >= 0) {
     identifier = `anonymous_${_anonymousTypeIndex++}`;
     ref["__anonymousType"] = identifier;
@@ -12102,7 +12072,7 @@ function repeatGroups(groups, multiples) {
     }
   }
 }
-function parse2(value) {
+function parse(value) {
   const styles = [];
   let i = 0;
   let parenDepth = 0;
@@ -12273,7 +12243,7 @@ var StylingBuilder = class {
     }
   }
   registerStyleAttr(value) {
-    this._initialStyleValues = parse2(value);
+    this._initialStyleValues = parse(value);
     this._hasInitialValues = true;
   }
   registerClassAttr(value) {
@@ -13825,7 +13795,7 @@ var Element = class extends NodeWithI18n {
     return visitor.visitElement(this, context);
   }
 };
-var Comment2 = class {
+var Comment = class {
   constructor(value, sourceSpan) {
     this.value = value;
     this.sourceSpan = sourceSpan;
@@ -16887,7 +16857,7 @@ var _TreeBuilder = class {
     const text = this._advanceIf(7);
     this._advanceIf(11);
     const value = text != null ? text.parts[0].trim() : null;
-    this._addToParent(new Comment2(value, token.sourceSpan));
+    this._addToParent(new Comment(value, token.sourceSpan));
   }
   _consumeExpansion(token) {
     const switchValue = this._advance();
@@ -18334,7 +18304,7 @@ function isEmptyTextNode(node) {
   return node instanceof Text && node.value.trim().length == 0;
 }
 function isCommentNode(node) {
-  return node instanceof Comment2;
+  return node instanceof Comment;
 }
 function textContents(node) {
   if (node.children.length !== 1 || !(node.children[0] instanceof Text)) {
@@ -18663,7 +18633,7 @@ var _I18nVisitor = class {
     const i18nIcuCases = {};
     const i18nIcu = new Icu(icu.switchValue, icu.type, i18nIcuCases, icu.sourceSpan);
     icu.cases.forEach((caze) => {
-      i18nIcuCases[caze.value] = new Container2(caze.expression.map((node2) => node2.visit(this, context)), caze.expSourceSpan);
+      i18nIcuCases[caze.value] = new Container(caze.expression.map((node2) => node2.visit(this, context)), caze.expSourceSpan);
     });
     context.icuDepth--;
     if (context.isIcu || context.icuDepth > 0) {
@@ -18715,7 +18685,7 @@ var _I18nVisitor = class {
     }
     if (hasInterpolation) {
       reusePreviousSourceSpans(nodes, previousI18n);
-      return new Container2(nodes, sourceSpan);
+      return new Container(nodes, sourceSpan);
     } else {
       return nodes[0];
     }
@@ -18726,7 +18696,7 @@ function reusePreviousSourceSpans(nodes, previousI18n) {
     assertSingleContainerMessage(previousI18n);
     previousI18n = previousI18n.nodes[0];
   }
-  if (previousI18n instanceof Container2) {
+  if (previousI18n instanceof Container) {
     assertEquivalentNodes(previousI18n.children, nodes);
     for (let i = 0; i < nodes.length; i++) {
       nodes[i].sourceSpan = previousI18n.children[i].sourceSpan;
@@ -18735,7 +18705,7 @@ function reusePreviousSourceSpans(nodes, previousI18n) {
 }
 function assertSingleContainerMessage(message) {
   const nodes = message.nodes;
-  if (nodes.length !== 1 || !(nodes[0] instanceof Container2)) {
+  if (nodes.length !== 1 || !(nodes[0] instanceof Container)) {
     throw new Error("Unexpected previous i18n message - expected it to consist of only a single `Container` node.");
   }
 }
@@ -21349,7 +21319,15 @@ var CheckboxStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-checkbox-theme",
-        new: ["checkbox-theme", "checkbox-typography"]
+        new: ["checkbox-theme"]
+      },
+      {
+        old: "legacy-checkbox-color",
+        new: ["checkbox-color"]
+      },
+      {
+        old: "legacy-checkbox-typography",
+        new: ["checkbox-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-checkbox", new: ".mat-mdc-checkbox" }];
@@ -21365,7 +21343,15 @@ var ChipsStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-chips-theme",
-        new: ["chips-theme", "chips-typography"]
+        new: ["chips-theme"]
+      },
+      {
+        old: "legacy-chips-color",
+        new: ["chips-color"]
+      },
+      {
+        old: "legacy-chips-typography",
+        new: ["chips-typography"]
       }
     ];
     this.classChanges = [
@@ -21468,7 +21454,15 @@ var DialogStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-dialog-theme",
-        new: ["dialog-theme", "dialog-typography"]
+        new: ["dialog-theme"]
+      },
+      {
+        old: "legacy-dialog-color",
+        new: ["dialog-color"]
+      },
+      {
+        old: "legacy-dialog-typography",
+        new: ["dialog-typography"]
       }
     ];
     this.classChanges = [
@@ -21507,7 +21501,18 @@ var FormFieldStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-form-field-theme",
-        new: ["form-field-theme", "form-field-typography"]
+        new: ["form-field-theme"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-form-field-color",
+        new: ["form-field-color"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-form-field-typography",
+        new: ["form-field-typography"],
+        checkForDuplicates: true
       }
     ];
     this.classChanges = [
@@ -21536,7 +21541,15 @@ var InputStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-input-theme",
-        new: ["input-theme", "input-typography"]
+        new: ["input-theme"]
+      },
+      {
+        old: "legacy-input-color",
+        new: ["input-color"]
+      },
+      {
+        old: "legacy-input-typography",
+        new: ["input-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-input-element", new: ".mat-mdc-input-element" }];
@@ -21552,7 +21565,15 @@ var ListStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-list-theme",
-        new: ["list-theme", "list-typography"]
+        new: ["list-theme"]
+      },
+      {
+        old: "legacy-list-color",
+        new: ["list-color"]
+      },
+      {
+        old: "legacy-list-typography",
+        new: ["list-typography"]
       }
     ];
     this.classChanges = [
@@ -21575,7 +21596,15 @@ var MenuStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-menu-theme",
-        new: ["menu-theme", "menu-typography"]
+        new: ["menu-theme"]
+      },
+      {
+        old: "legacy-menu-color",
+        new: ["menu-color"]
+      },
+      {
+        old: "legacy-menu-typography",
+        new: ["menu-typography"]
       }
     ];
     this.classChanges = [
@@ -21600,7 +21629,23 @@ var PaginatorStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-paginator-theme",
-        new: ["paginator-theme", "paginator-typography"]
+        new: ["paginator-theme", "icon-button-theme", "form-field-theme", "select-theme"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-paginator-color",
+        new: ["paginator-color", "icon-button-color", "form-field-color", "select-color"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-paginator-typography",
+        new: [
+          "paginator-typography",
+          "icon-button-typography",
+          "form-field-typography",
+          "select-typography"
+        ],
+        checkForDuplicates: true
       }
     ];
     this.classChanges = [
@@ -21630,7 +21675,15 @@ var ProgressBarStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-progress-bar-theme",
-        new: ["progress-bar-theme", "progress-bar-typography"]
+        new: ["progress-bar-theme"]
+      },
+      {
+        old: "legacy-progress-bar-color",
+        new: ["progress-bar-color"]
+      },
+      {
+        old: "legacy-progress-bar-typography",
+        new: ["progress-bar-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-progress-bar", new: ".mat-mdc-progress-bar" }];
@@ -21646,7 +21699,15 @@ var ProgressSpinnerStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-progress-spinner-theme",
-        new: ["progress-spinner-theme", "progress-spinner-typography"]
+        new: ["progress-spinner-theme"]
+      },
+      {
+        old: "legacy-progress-spinner-color",
+        new: ["progress-spinner-color"]
+      },
+      {
+        old: "legacy-progress-spinner-typography",
+        new: ["progress-spinner-typography"]
       }
     ];
     this.classChanges = [
@@ -21665,7 +21726,15 @@ var RadioStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-radio-theme",
-        new: ["radio-theme", "radio-typography"]
+        new: ["radio-theme"]
+      },
+      {
+        old: "legacy-radio-color",
+        new: ["radio-color"]
+      },
+      {
+        old: "legacy-radio-typography",
+        new: ["radio-typography"]
       }
     ];
     this.classChanges = [
@@ -21679,7 +21748,7 @@ var RadioStylesMigrator = class extends StyleMigrator {
 var ts = __toESM(require("typescript"));
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/import-replacements.js
-var IMPORT_REPLACEMENTS = {
+var REPLACEMENTS = {
   "button": {
     old: "@angular/material/legacy-button",
     new: "@angular/material/button"
@@ -21694,11 +21763,13 @@ var IMPORT_REPLACEMENTS = {
   },
   "chips": {
     old: "@angular/material/legacy-chips",
-    new: "@angular/material/chips"
+    new: "@angular/material/chips",
+    additionalMatModuleNamePrefixes: ["chip"]
   },
   "dialog": {
     old: "@angular/material/legacy-dialog",
-    new: "@angular/material/dialog"
+    new: "@angular/material/dialog",
+    customReplacements: [{ old: "LegacyDialogRole", new: "DialogRole" }]
   },
   "autocomplete": {
     old: "@angular/material/legacy-autocomplete",
@@ -21712,13 +21783,17 @@ var IMPORT_REPLACEMENTS = {
     old: "@angular/material/legacy-input",
     new: "@angular/material/input"
   },
+  "optgroup": {
+    old: "@angular/material/legacy-core",
+    new: "@angular/material/core"
+  },
+  "option": {
+    old: "@angular/material/legacy-core",
+    new: "@angular/material/core"
+  },
   "select": {
     old: "@angular/material/legacy-select",
     new: "@angular/material/select"
-  },
-  "core": {
-    old: "@angular/material/legacy-core",
-    new: "@angular/material/core"
   },
   "list": {
     old: "@angular/material/legacy-list",
@@ -21777,12 +21852,29 @@ var IMPORT_REPLACEMENTS = {
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/runtime-migrator.js
 var RuntimeMigrator = class {
   constructor(component) {
-    const replacements = IMPORT_REPLACEMENTS[component];
+    var _a, _b;
+    const replacements = REPLACEMENTS[component];
     this.oldImportModule = replacements.old;
     this.newImportModule = replacements.new;
-    const firstLetterCapitalizedComponent = component[0].toUpperCase() + component.slice(1);
-    const capitalizedComponent = component.toUpperCase();
-    this.importSpecifierReplacements = [
+    this.importSpecifierReplacements = this.getReplacementsFromComponentName(component);
+    (_a = replacements.additionalMatModuleNamePrefixes) == null ? void 0 : _a.forEach((prefix) => {
+      this.importSpecifierReplacements = this.importSpecifierReplacements.concat(this.getReplacementsFromComponentName(prefix));
+    });
+    (_b = replacements.customReplacements) == null ? void 0 : _b.forEach((replacement) => {
+      this.importSpecifierReplacements = this.importSpecifierReplacements.concat(replacement);
+    });
+    console.log(this.importSpecifierReplacements);
+  }
+  getReplacementsFromComponentName(componentName) {
+    const words = componentName.split("-");
+    let firstLetterCapitalizedComponent = "";
+    let capitalizedComponent = "";
+    words.forEach((word) => {
+      firstLetterCapitalizedComponent += word[0].toUpperCase() + word.slice(1);
+      capitalizedComponent += word.toUpperCase() + "_";
+    });
+    capitalizedComponent = capitalizedComponent.slice(0, -1);
+    const specifierReplacements = [
       {
         old: "MatLegacy" + firstLetterCapitalizedComponent,
         new: "Mat" + firstLetterCapitalizedComponent
@@ -21792,6 +21884,7 @@ var RuntimeMigrator = class {
         new: "MAT_" + capitalizedComponent
       }
     ];
+    return specifierReplacements;
   }
   updateImportOrExportSpecifier(specifier) {
     const newSpecifier = this._getNewSpecifier(specifier);
@@ -21826,7 +21919,8 @@ var RuntimeMigrator = class {
   _getNewSpecifier(node) {
     let newImport = null;
     this.importSpecifierReplacements.forEach((replacement) => {
-      if (node.text.match(replacement.old)) {
+      var _a;
+      if ((_a = node.text) == null ? void 0 : _a.match(replacement.old)) {
         newImport = node.text.replace(replacement.old, replacement.new);
       }
     });
@@ -21846,7 +21940,18 @@ var SelectStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-select-theme",
-        new: ["select-theme", "select-typography", "core-theme", "core-typography"]
+        new: ["select-theme"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-select-color",
+        new: ["select-color"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-select-typography",
+        new: ["select-typography"],
+        checkForDuplicates: true
       }
     ];
     this.classChanges = [
@@ -21866,7 +21971,15 @@ var SlideToggleStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-slide-toggle-theme",
-        new: ["slide-toggle-theme", "slide-toggle-typography"]
+        new: ["slide-toggle-theme"]
+      },
+      {
+        old: "legacy-slide-toggle-color",
+        new: ["slide-toggle-color"]
+      },
+      {
+        old: "legacy-slide-toggle-typography",
+        new: ["slide-toggle-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-slide-toggle", new: ".mat-mdc-slide-toggle" }];
@@ -21882,7 +21995,15 @@ var SliderStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-slider-theme",
-        new: ["slider-theme", "slider-typography"]
+        new: ["slider-theme"]
+      },
+      {
+        old: "legacy-slider-color",
+        new: ["slider-color"]
+      },
+      {
+        old: "legacy-slider-typography",
+        new: ["slider-typography"]
       }
     ];
     this.classChanges = [{ old: ".mat-slider", new: ".mat-mdc-slider" }];
@@ -21898,7 +22019,17 @@ var SnackBarMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-snack-bar-theme",
-        new: ["snack-bar-theme", "snack-bar-typography", "button-theme", "button-typography"],
+        new: ["snack-bar-theme", "button-theme"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-snack-bar-color",
+        new: ["snack-bar-color", "button-color"],
+        checkForDuplicates: true
+      },
+      {
+        old: "legacy-snack-bar-typography",
+        new: ["snack-bar-typography", "button-typography"],
         checkForDuplicates: true
       }
     ];
@@ -21919,7 +22050,15 @@ var TableStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-table-theme",
-        new: ["table-theme", "table-typography"]
+        new: ["table-theme"]
+      },
+      {
+        old: "legacy-table-color",
+        new: ["table-color"]
+      },
+      {
+        old: "legacy-table-typography",
+        new: ["table-typography"]
       }
     ];
     this.classChanges = [
@@ -21952,7 +22091,15 @@ var TabsStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-tabs-theme",
-        new: ["tabs-theme", "tabs-typography"]
+        new: ["tabs-theme"]
+      },
+      {
+        old: "legacy-tabs-color",
+        new: ["tabs-color"]
+      },
+      {
+        old: "legacy-tabs-typography",
+        new: ["tabs-typography"]
       }
     ];
     this.classChanges = [
@@ -21975,7 +22122,15 @@ var TooltipStylesMigrator = class extends StyleMigrator {
     this.mixinChanges = [
       {
         old: "legacy-tooltip-theme",
-        new: ["tooltip-theme", "tooltip-typography"]
+        new: ["tooltip-theme"]
+      },
+      {
+        old: "legacy-tooltip-color",
+        new: ["tooltip-color"]
+      },
+      {
+        old: "legacy-tooltip-typography",
+        new: ["tooltip-typography"]
       }
     ];
     this.classChanges = [
@@ -21988,6 +22143,80 @@ var TooltipStylesMigrator = class extends StyleMigrator {
       { old: ".mat-tooltip-panel-right", new: ".mat-mdc-tooltip-panel-right" },
       { old: ".mat-tooltip-panel-before", new: ".mat-mdc-tooltip-panel-before" },
       { old: ".mat-tooltip-panel-after", new: ".mat-mdc-tooltip-panel-after" }
+    ];
+  }
+};
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/optgroup/optgroup-styles.js
+var OptgroupStylesMigrator = class extends StyleMigrator {
+  constructor() {
+    super(...arguments);
+    this.component = "optgroup";
+    this.deprecatedPrefixes = ["mat-optgroup"];
+    this.mixinChanges = [
+      {
+        old: "legacy-optgroup-theme",
+        new: ["optgroup-theme"]
+      },
+      {
+        old: "legacy-optgroup-color",
+        new: ["optgroup-color"]
+      },
+      {
+        old: "legacy-optgroup-typography",
+        new: ["optgroup-typography"]
+      }
+    ];
+    this.classChanges = [
+      {
+        old: ".mat-optgroup",
+        new: ".mat-mdc-optgroup"
+      },
+      {
+        old: ".mat-optgroup-label",
+        new: ".mat-mdc-optgroup-label"
+      }
+    ];
+  }
+};
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/option/option-styles.js
+var OptionStylesMigrator = class extends StyleMigrator {
+  constructor() {
+    super(...arguments);
+    this.component = "option";
+    this.deprecatedPrefixes = ["mat-option"];
+    this.mixinChanges = [
+      {
+        old: "legacy-option-theme",
+        new: ["option-theme"]
+      },
+      {
+        old: "legacy-option-color",
+        new: ["option-color"]
+      },
+      {
+        old: "legacy-option-typography",
+        new: ["option-typography"]
+      }
+    ];
+    this.classChanges = [
+      {
+        old: ".mat-option",
+        new: ".mat-mdc-option"
+      },
+      {
+        old: ".mat-option-multiple",
+        new: ".mat-mdc-option-multiple"
+      },
+      {
+        old: ".mat-option-pseudo-checkbox",
+        new: ".mat-mdc-option-pseudo-checkbox"
+      },
+      {
+        old: ".mat-option-ripple",
+        new: ".mat-mdc-option-ripple"
+      }
     ];
   }
 };
@@ -22045,6 +22274,16 @@ var MIGRATORS = [
     component: "menu",
     styles: new MenuStylesMigrator(),
     runtime: new RuntimeMigrator("menu")
+  },
+  {
+    component: "optgroup",
+    styles: new OptgroupStylesMigrator(),
+    runtime: new RuntimeMigrator("optgroup")
+  },
+  {
+    component: "option",
+    styles: new OptionStylesMigrator(),
+    runtime: new RuntimeMigrator("option")
   },
   {
     component: "paginator",
@@ -22112,6 +22351,33 @@ var ts2 = __toESM(require("typescript"));
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
 var import_schematics = require("@angular/cdk/schematics");
 
+// node_modules/postcss/lib/postcss.mjs
+var import_postcss = __toESM(require_postcss(), 1);
+var stringify2 = import_postcss.default.stringify;
+var fromJSON = import_postcss.default.fromJSON;
+var plugin = import_postcss.default.plugin;
+var parse2 = import_postcss.default.parse;
+var list = import_postcss.default.list;
+var document = import_postcss.default.document;
+var comment = import_postcss.default.comment;
+var atRule = import_postcss.default.atRule;
+var rule = import_postcss.default.rule;
+var decl = import_postcss.default.decl;
+var root = import_postcss.default.root;
+var CssSyntaxError = import_postcss.default.CssSyntaxError;
+var Declaration = import_postcss.default.Declaration;
+var Container2 = import_postcss.default.Container;
+var Processor = import_postcss.default.Processor;
+var Document = import_postcss.default.Document;
+var Comment2 = import_postcss.default.Comment;
+var Warning = import_postcss.default.Warning;
+var AtRule = import_postcss.default.AtRule;
+var Result = import_postcss.default.Result;
+var Input = import_postcss.default.Input;
+var Rule = import_postcss.default.Rule;
+var Root = import_postcss.default.Root;
+var Node = import_postcss.default.Node;
+
 // node_modules/postcss-scss/lib/scss-syntax.mjs
 var scss_syntax_exports = {};
 __export(scss_syntax_exports, {
@@ -22125,6 +22391,7 @@ var stringify3 = import_scss_syntax.default.stringify;
 var parse3 = import_scss_syntax.default.parse;
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
+var ALL_LEGACY_COMPONENTS_MIXIN_NAME = "(?:\\.)(.*)(?:\\()";
 var ThemingStylesMigration = class extends import_schematics.Migration {
   constructor() {
     super(...arguments);
@@ -22152,15 +22419,27 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
     }
   }
   atIncludeHandler(atRule2) {
-    var _a;
     const migrator = this.upgradeData.find((m) => {
       return m.styles.isLegacyMixin(this.namespace, atRule2);
     });
     if (migrator) {
-      migrator.styles.replaceMixin(this.namespace, atRule2);
-    } else if (atRule2.params.includes("all-legacy-component-themes") && atRule2.parent) {
-      (_a = this.upgradeData[0]) == null ? void 0 : _a.styles.replaceAllComponentThemeMixin(atRule2);
+      const mixinChange = migrator.styles.getMixinChange(this.namespace, atRule2);
+      if (mixinChange) {
+        replaceAtRuleWithMultiple(atRule2, mixinChange.old, mixinChange.new);
+      }
+    } else if (atRule2.params.includes("all-legacy-component") && atRule2.parent) {
+      if (this.isPartialMigration()) {
+        const mixinName = atRule2.params.match(ALL_LEGACY_COMPONENTS_MIXIN_NAME)[1];
+        const comment2 = "TODO(mdc-migration): Remove " + mixinName + " once all legacy components are migrated";
+        if (!addLegacyCommentForPartialMigrations(atRule2, comment2)) {
+          return;
+        }
+      }
+      replaceAllComponentsMixin(atRule2);
     }
+  }
+  isPartialMigration() {
+    return this.upgradeData.length !== MIGRATORS.length;
   }
   ruleHandler(rule2) {
     let isLegacySelector;
@@ -22173,7 +22452,7 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
     if (isLegacySelector) {
       migrator == null ? void 0 : migrator.styles.replaceLegacySelector(rule2);
     } else if (isDeprecatedSelector) {
-      migrator == null ? void 0 : migrator.styles.addDeprecatedSelectorComment(rule2);
+      addCommentBeforeNode(rule2, "TODO(mdc-migration): The following rule targets internal classes of " + (migrator == null ? void 0 : migrator.component) + " that may no longer apply for the MDC version.");
     }
   }
 };
@@ -22184,6 +22463,50 @@ function isAngularMaterialImport(atRule2) {
 function parseNamespace(atRule2) {
   const params = list.space(atRule2.params);
   return params[params.length - 1];
+}
+function addLegacyCommentForPartialMigrations(atRule2, legacyComment) {
+  var _a;
+  let hasAddedComment = false;
+  (_a = atRule2.parent) == null ? void 0 : _a.walkComments((comment2) => {
+    if (comment2.text.includes(legacyComment)) {
+      hasAddedComment = true;
+    }
+  });
+  if (hasAddedComment) {
+    return false;
+  }
+  addCommentBeforeNode(atRule2.cloneBefore(), legacyComment);
+  return true;
+}
+function addCommentBeforeNode(node, comment2) {
+  var _a;
+  let commentNode = comment({
+    text: comment2
+  });
+  const indentation = (_a = node.raws.before) == null ? void 0 : _a.split("\n").pop();
+  commentNode.raws.before = "\n" + indentation;
+  node.parent.insertBefore(node, commentNode);
+  node.raws.before = "\n" + indentation;
+}
+function replaceAllComponentsMixin(allComponentNode) {
+  allComponentNode.cloneBefore({
+    params: allComponentNode.params.replace("all-legacy-component", "all-component")
+  });
+  allComponentNode.remove();
+}
+function replaceAtRuleWithMultiple(atRule2, textToReplace, replacements) {
+  var _a;
+  atRule2.cloneBefore({
+    params: atRule2.params.replace(textToReplace, replacements[0])
+  });
+  const indentation = (_a = atRule2.raws.before) == null ? void 0 : _a.split("\n").pop();
+  atRule2.raws.before = "\n" + indentation;
+  for (let i = 1; i < replacements.length; i++) {
+    atRule2.cloneBefore({
+      params: atRule2.params.replace(textToReplace, replacements[i])
+    });
+  }
+  atRule2.remove();
 }
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/template-migration.js
@@ -22367,7 +22690,7 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/index.mjs
 var import_path = require("path");
 var migrationGroups = [
-  ["autocomplete", "form-field", "input", "select"],
+  ["autocomplete", "form-field", "input", "option", "optgroup", "select"],
   ["button"],
   ["card"],
   ["checkbox"],
