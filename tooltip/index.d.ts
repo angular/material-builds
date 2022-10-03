@@ -340,8 +340,8 @@ export declare abstract class _TooltipComponentBase implements OnDestroy {
     protected _onShow(): void;
     /** Event listener dispatched when an animation on the tooltip finishes. */
     _handleAnimationEnd({ animationName }: AnimationEvent): void;
-    /** Cancels any pending hiding sequences. */
-    _cancelPendingHide(): void;
+    /** Cancels any pending animation sequences. */
+    _cancelPendingAnimations(): void;
     /** Handles the cleanup after an animation has finished. */
     private _finalizeAnimation;
     /** Toggles the visibility of the tooltip element. */
