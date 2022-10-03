@@ -138,6 +138,11 @@ export declare class MatListItem extends MatListItemBase {
     set activated(activated: boolean);
     _activated: boolean;
     constructor(element: ElementRef, ngZone: NgZone, listBase: MatListBase, platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
+    /**
+     * Determine the value of `aria-current`. Return 'page' if this item is an activated anchor tag.
+     * Otherwise, return `null`. This method is safe to use with server-side rendering.
+     */
+    _getAriaCurrent(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, null, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": "activated"; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], false, never>;
 }
