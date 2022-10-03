@@ -559,6 +559,7 @@ class MatChipOption extends MatChip {
     }
     set selectable(value) {
         this._selectable = coerceBooleanProperty(value);
+        this._changeDetectorRef.markForCheck();
     }
     /** Whether the chip is selected. */
     get selected() {
@@ -614,6 +615,7 @@ class MatChipOption extends MatChip {
                     selected: this.selected,
                 });
             }
+            this._changeDetectorRef.markForCheck();
         }
     }
 }
