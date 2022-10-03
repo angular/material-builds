@@ -22131,7 +22131,7 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
     this.enabled = true;
   }
   visitStylesheet(stylesheet) {
-    this.fileSystem.overwrite(stylesheet.filePath, this.migrate(stylesheet.content));
+    this.fileSystem.edit(stylesheet.filePath).remove(stylesheet.start, stylesheet.content.length).insertRight(stylesheet.start, this.migrate(stylesheet.content));
   }
   migrate(styles) {
     const processor = new Processor([
@@ -22203,7 +22203,7 @@ var TemplateMigration = class extends import_schematics2.Migration {
     this.enabled = true;
   }
   visitTemplate(template) {
-    this.fileSystem.overwrite(template.filePath, this.migrate(template.content, template.filePath));
+    this.fileSystem.edit(template.filePath).remove(template.start, template.content.length).insertRight(template.start, this.migrate(template.content, template.filePath));
   }
   migrate(template, templateUrl) {
     const ast = parseTemplate2(template, templateUrl);
