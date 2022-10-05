@@ -3045,7 +3045,7 @@ var require_previous_map = __commonJS({
     "use strict";
     var { SourceMapConsumer, SourceMapGenerator: SourceMapGenerator2 } = require_source_map();
     var { existsSync, readFileSync } = require("fs");
-    var { dirname: dirname2, join } = require("path");
+    var { dirname, join } = require("path");
     function fromBase64(str) {
       if (Buffer) {
         return Buffer.from(str, "base64").toString();
@@ -3065,7 +3065,7 @@ var require_previous_map = __commonJS({
           this.mapFile = opts.from;
         }
         if (this.mapFile)
-          this.root = dirname2(this.mapFile);
+          this.root = dirname(this.mapFile);
         if (text)
           this.text = text;
       }
@@ -3111,7 +3111,7 @@ var require_previous_map = __commonJS({
         throw new Error("Unsupported source map encoding " + encoding);
       }
       loadFile(path) {
-        this.root = dirname2(path);
+        this.root = dirname(path);
         if (existsSync(path)) {
           this.mapFile = path;
           return readFileSync(path, "utf-8").toString().trim();
@@ -3146,7 +3146,7 @@ var require_previous_map = __commonJS({
         } else if (this.annotation) {
           let map = this.annotation;
           if (file)
-            map = join(dirname2(file), map);
+            map = join(dirname(file), map);
           return this.loadFile(map);
         }
       }
@@ -3362,11 +3362,11 @@ var require_map_generator = __commonJS({
   "node_modules/postcss/lib/map-generator.js"(exports, module2) {
     "use strict";
     var { SourceMapConsumer, SourceMapGenerator: SourceMapGenerator2 } = require_source_map();
-    var { dirname: dirname2, resolve, relative, sep } = require("path");
+    var { dirname, resolve, relative, sep } = require("path");
     var { pathToFileURL } = require("url");
     var Input2 = require_input();
     var sourceMapAvailable = Boolean(SourceMapConsumer && SourceMapGenerator2);
-    var pathAvailable = Boolean(dirname2 && resolve && relative && sep);
+    var pathAvailable = Boolean(dirname && resolve && relative && sep);
     var MapGenerator = class {
       constructor(stringify4, root2, opts, cssString) {
         this.stringify = stringify4;
@@ -3460,7 +3460,7 @@ var require_map_generator = __commonJS({
       applyPrevMaps() {
         for (let prev of this.previous()) {
           let from = this.toUrl(this.path(prev.file));
-          let root2 = prev.root || dirname2(prev.file);
+          let root2 = prev.root || dirname(prev.file);
           let map;
           if (this.mapOpts.sourcesContent === false) {
             map = new SourceMapConsumer(prev.text);
@@ -3551,9 +3551,9 @@ var require_map_generator = __commonJS({
           return file;
         if (this.mapOpts.absolute)
           return file;
-        let from = this.opts.to ? dirname2(this.opts.to) : ".";
+        let from = this.opts.to ? dirname(this.opts.to) : ".";
         if (typeof this.mapOpts.annotation === "string") {
-          from = dirname2(resolve(from, this.mapOpts.annotation));
+          from = dirname(resolve(from, this.mapOpts.annotation));
         }
         file = relative(from, file);
         return file;
@@ -22696,7 +22696,6 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
 };
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/index.mjs
-var import_path = require("path");
 var migrationGroups = [
   ["autocomplete", "form-field", "input", "option", "optgroup", "select"],
   ["button"],
@@ -22731,33 +22730,53 @@ function getComponentsToMigrate(requested) {
   }
   return componentsToMigrate;
 }
+function runMigrations(context, fileSystem, tsconfigPath, migrators, analyzedFiles, additionalStylesheetPaths) {
+  const program = import_schematics4.UpdateProject.createProgramFromTsconfig(tsconfigPath, fileSystem);
+  const project = new import_schematics4.UpdateProject(context, program, fileSystem, analyzedFiles, context.logger);
+  return !project.migrate([ThemingStylesMigration, TemplateMigration, RuntimeCodeMigration], null, migrators, additionalStylesheetPaths).hasFailures;
+}
 function mdc_migration_default(options) {
-  var _a;
-  const componentsToMigrate = getComponentsToMigrate(options.components);
-  const tsconfigPath = options.tsconfig;
-  const migrationDir = (_a = options.directory) != null ? _a : (0, import_path.dirname)(tsconfigPath);
-  console.log("Migrating:", [...componentsToMigrate]);
-  console.log("Directory:", migrationDir);
-  const migrators = [];
-  for (let i = 0; i < MIGRATORS.length; i++) {
-    if (componentsToMigrate.has(MIGRATORS[i].component)) {
-      migrators.push(MIGRATORS[i]);
+  return (tree, context) => __async(this, null, function* () {
+    const logger = context.logger;
+    const workspace = yield (0, import_schematics4.getWorkspaceConfigGracefully)(tree);
+    if (workspace === null) {
+      logger.error("Could not find workspace configuration file.");
+      return;
     }
-  }
-  return (tree, context) => {
+    const projectNames = workspace.projects.keys();
     const fileSystem = new import_schematics4.DevkitFileSystem(tree);
-    const program = import_schematics4.UpdateProject.createProgramFromTsconfig(fileSystem.resolve(tsconfigPath), fileSystem);
-    const additionalStylesheetPaths = (0, import_schematics4.findStylesheetFiles)(tree, migrationDir);
-    const project = new import_schematics4.UpdateProject(context, program, fileSystem, /* @__PURE__ */ new Set(), context.logger);
-    const { hasFailures } = project.migrate([ThemingStylesMigration, TemplateMigration, RuntimeCodeMigration], null, migrators, additionalStylesheetPaths);
-    fileSystem.commitEdits();
-    if (hasFailures) {
-      context.logger.error("Unable to migrate project. See errors above.");
-    } else {
-      context.logger.info("Successfully migrated the project.");
+    const analyzedFiles = /* @__PURE__ */ new Set();
+    const componentsToMigrate = getComponentsToMigrate(options.components);
+    const migrators = MIGRATORS.filter((m) => componentsToMigrate.has(m.component));
+    let additionalStylesheetPaths = options.directory ? (0, import_schematics4.findStylesheetFiles)(tree, options.directory) : [];
+    let success = true;
+    logger.info(`Migrating components:
+${[...componentsToMigrate].join("\n")}`);
+    for (const projectName of projectNames) {
+      const project = workspace.projects.get(projectName);
+      const tsconfigPaths = [
+        (0, import_schematics4.getTargetTsconfigPath)(project, "build"),
+        (0, import_schematics4.getTargetTsconfigPath)(project, "test")
+      ].filter((p) => !!p);
+      if (!tsconfigPaths.length) {
+        logger.warn(`Skipping migration for project ${projectName}. Unable to determine 'tsconfig.json' file in workspace config.`);
+        continue;
+      }
+      if (!options.directory) {
+        additionalStylesheetPaths = (0, import_schematics4.findStylesheetFiles)(tree, project.root);
+      }
+      logger.info(`Migrating project: ${projectName}`);
+      for (const tsconfigPath of tsconfigPaths) {
+        success && (success = runMigrations(context, fileSystem, tsconfigPath, migrators, analyzedFiles, additionalStylesheetPaths));
+      }
     }
-    return tree;
-  };
+    fileSystem.commitEdits();
+    if (!success) {
+      logger.error("Unable to migrate project. See errors above.");
+    } else {
+      logger.info("Successfully migrated the project.");
+    }
+  });
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {});
