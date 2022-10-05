@@ -22406,9 +22406,9 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
     this.enabled = true;
   }
   visitStylesheet(stylesheet) {
-    this.fileSystem.edit(stylesheet.filePath).remove(stylesheet.start, stylesheet.content.length).insertRight(stylesheet.start, this.migrate(stylesheet.content));
+    this.fileSystem.edit(stylesheet.filePath).remove(stylesheet.start, stylesheet.content.length).insertRight(stylesheet.start, this.migrate(stylesheet.content, stylesheet.filePath));
   }
-  migrate(styles) {
+  migrate(styles, filename) {
     const processor = new Processor([
       {
         postcssPlugin: "theming-styles-migration-plugin",
@@ -22419,7 +22419,13 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
         Rule: this.ruleHandler.bind(this)
       }
     ]);
-    return processor.process(styles, { syntax: scss_syntax_exports }).toString();
+    try {
+      return processor.process(styles, { syntax: scss_syntax_exports }).toString();
+    } catch (e) {
+      this.context.logger.error(`${e}`);
+      this.context.logger.warn(`Failed to process stylesheet: ${filename} (see error above).`);
+      return styles;
+    }
   }
   atUseHandler(atRule2) {
     if (isAngularMaterialImport(atRule2)) {
@@ -22626,7 +22632,7 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
     this._migratePropertyAssignment(node.initializer, this._templateMigration);
   }
   _migratePropertyAssignment(node, migration) {
-    let migratedText = migration.migrate(node.text);
+    let migratedText = migration.migrate(node.text, node.getSourceFile().fileName);
     let migratedTextLines = migratedText.split("\n");
     if (migratedTextLines.length > 1) {
       migratedText = migratedTextLines.map((line, index2) => {

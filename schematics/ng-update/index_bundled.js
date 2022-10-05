@@ -9248,7 +9248,12 @@ var require_legacy_components_v15 = __commonJS({
             RootExit: (root) => this._handleRootNode(root, stylesheet.filePath, namespace)
           }
         ]);
-        processor.process(stylesheet.content, { syntax: scss }).sync();
+        try {
+          processor.process(stylesheet.content, { syntax: scss }).sync();
+        } catch (e) {
+          this.logger.error(`${e}`);
+          this.logger.warn(`Failed to process stylesheet: ${stylesheet.filePath} (see error above).`);
+        }
       }
       _parseSassNamespace(node) {
         if (node.params.startsWith("@angular/material", 1)) {
