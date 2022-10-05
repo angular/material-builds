@@ -21275,6 +21275,14 @@ function replaceEndTag(html, node, tag) {
   return replaceAt(html, node.endSourceSpan.start.offset + 2, node.name, tag);
 }
 function addAttribute(html, node, name, value) {
+  const existingAttr = node.attributes.find((currentAttr) => currentAttr.name === name);
+  if (existingAttr) {
+    if (existingAttr.valueSpan) {
+      return html.slice(0, existingAttr.valueSpan.start.offset) + value + html.slice(existingAttr.valueSpan.end.offset);
+    } else if (existingAttr.keySpan) {
+      return html.slice(0, existingAttr.keySpan.end.offset) + `="${value}"` + html.slice(existingAttr.keySpan.end.offset);
+    }
+  }
   const index2 = node.startSourceSpan.start.offset + node.name.length + 1;
   const prefix = html.slice(0, index2);
   const suffix = html.slice(index2);
