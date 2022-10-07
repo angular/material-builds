@@ -7,7 +7,12 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 export declare interface ButtonHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
+    /** Only find instances with a variant. */
+    variant?: ButtonVariant;
 }
+
+/** Possible button appearances. */
+export declare type ButtonVariant = 'basic' | 'raised' | 'flat' | 'icon' | 'stroked' | 'fab' | 'mini-fab';
 
 /** Harness for interacting with a MDC-based mat-button in tests. */
 export declare class MatButtonHarness extends ContentContainerComponentHarness {
@@ -17,6 +22,7 @@ export declare class MatButtonHarness extends ContentContainerComponentHarness {
      * @param options Options for narrowing the search:
      *   - `selector` finds a button whose host element matches the given selector.
      *   - `text` finds a button with specific text content.
+     *   - `variant` finds buttons matching a specific variant.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatButtonHarness>(this: ComponentHarnessConstructor<T>, options?: ButtonHarnessFilters): HarnessPredicate<T>;
@@ -40,6 +46,8 @@ export declare class MatButtonHarness extends ContentContainerComponentHarness {
     blur(): Promise<void>;
     /** Whether the button is focused. */
     isFocused(): Promise<boolean>;
+    /** Gets the variant of the button. */
+    getVariant(): Promise<ButtonVariant>;
 }
 
 export { }

@@ -21,7 +21,9 @@ class MatLegacyButtonHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatLegacyButtonHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+        return new HarnessPredicate(MatLegacyButtonHarness, options)
+            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
+            .addOption('variant', options.variant, (harness, variant) => HarnessPredicate.stringMatches(harness.getVariant(), variant));
     }
     async click(...args) {
         return (await this.host()).click(...args);
@@ -46,6 +48,29 @@ class MatLegacyButtonHarness extends ContentContainerComponentHarness {
     /** Whether the button is focused. */
     async isFocused() {
         return (await this.host()).isFocused();
+    }
+    /** Gets the variant of the button. */
+    async getVariant() {
+        const host = await this.host();
+        if ((await host.getAttribute('mat-raised-button')) != null) {
+            return 'raised';
+        }
+        else if ((await host.getAttribute('mat-flat-button')) != null) {
+            return 'flat';
+        }
+        else if ((await host.getAttribute('mat-icon-button')) != null) {
+            return 'icon';
+        }
+        else if ((await host.getAttribute('mat-stroked-button')) != null) {
+            return 'stroked';
+        }
+        else if ((await host.getAttribute('mat-fab')) != null) {
+            return 'fab';
+        }
+        else if ((await host.getAttribute('mat-mini-fab')) != null) {
+            return 'mini-fab';
+        }
+        return 'basic';
     }
 }
 // TODO(jelbourn) use a single class, like `.mat-button-base`

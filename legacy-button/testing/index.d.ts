@@ -1,8 +1,11 @@
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { ButtonHarnessFilters as LegacyButtonHarnessFilters } from '@angular/material/button/testing';
+import { ButtonVariant as LegacyButtonVariant } from '@angular/material/button/testing';
 
 export { LegacyButtonHarnessFilters }
+
+export { LegacyButtonVariant }
 
 /**
  * Harness for interacting with a standard mat-button in tests.
@@ -39,6 +42,8 @@ export declare class MatLegacyButtonHarness extends ContentContainerComponentHar
     blur(): Promise<void>;
     /** Whether the button is focused. */
     isFocused(): Promise<boolean>;
+    /** Gets the variant of the button. */
+    getVariant(): Promise<LegacyButtonVariant>;
 }
 
 export { }

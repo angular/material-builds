@@ -9,10 +9,13 @@ class MatButtonHarness extends ContentContainerComponentHarness {
      * @param options Options for narrowing the search:
      *   - `selector` finds a button whose host element matches the given selector.
      *   - `text` finds a button with specific text content.
+     *   - `variant` finds buttons matching a specific variant.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+        return new HarnessPredicate(this, options)
+            .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
+            .addOption('variant', options.variant, (harness, variant) => HarnessPredicate.stringMatches(harness.getVariant(), variant));
     }
     click(...args) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -48,6 +51,31 @@ class MatButtonHarness extends ContentContainerComponentHarness {
     isFocused() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this.host()).isFocused();
+        });
+    }
+    /** Gets the variant of the button. */
+    getVariant() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const host = yield this.host();
+            if ((yield host.getAttribute('mat-raised-button')) != null) {
+                return 'raised';
+            }
+            else if ((yield host.getAttribute('mat-flat-button')) != null) {
+                return 'flat';
+            }
+            else if ((yield host.getAttribute('mat-icon-button')) != null) {
+                return 'icon';
+            }
+            else if ((yield host.getAttribute('mat-stroked-button')) != null) {
+                return 'stroked';
+            }
+            else if ((yield host.getAttribute('mat-fab')) != null) {
+                return 'fab';
+            }
+            else if ((yield host.getAttribute('mat-mini-fab')) != null) {
+                return 'mini-fab';
+            }
+            return 'basic';
         });
     }
 }
