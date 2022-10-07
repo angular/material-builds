@@ -739,7 +739,19 @@ export declare class MatChipOption extends MatChip implements OnInit {
     get selected(): boolean;
     set selected(value: BooleanInput);
     private _selected;
-    /** The ARIA selected applied to the chip. */
+    /**
+     * The ARIA selected applied to the chip. Conforms to WAI ARIA best practices for listbox
+     * interaction patterns.
+     *
+     * From [WAI ARIA Listbox authoring practices guide](
+     * https://www.w3.org/WAI/ARIA/apg/patterns/listbox/):
+     *  "If any options are selected, each selected option has either aria-selected or aria-checked
+     *  set to true. All options that are selectable but not selected have either aria-selected or
+     *  aria-checked set to false."
+     *
+     * Set `aria-selected="false"` on not-selected listbox options that are selectable to fix
+     * VoiceOver reading every option as "selected" (#25736).
+     */
     get ariaSelected(): string | null;
     /** The unstyled chip selector for this component. */
     protected basicChipAttrName: string;
