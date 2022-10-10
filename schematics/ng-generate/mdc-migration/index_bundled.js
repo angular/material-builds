@@ -6259,16 +6259,16 @@ var StyleMigrator = class {
     return this.mixinChanges.some((change) => atRule2.params.includes(`${namespace}.${change.old}`));
   }
   getMixinChange(namespace, atRule2) {
-    var _a;
+    var _a, _b;
     const change = this.mixinChanges.find((c) => {
       return atRule2.params.includes(`${namespace}.${c.old}`);
     });
     if (!change) {
       return null;
     }
-    const replacements = [...change.new];
+    const replacements = [...(_a = change.new) != null ? _a : []];
     if (change.checkForDuplicates) {
-      const mixinArgumentMatches = (_a = atRule2.params) == null ? void 0 : _a.match(MIXIN_ARGUMENTS_REGEX);
+      const mixinArgumentMatches = (_b = atRule2.params) == null ? void 0 : _b.match(MIXIN_ARGUMENTS_REGEX);
       atRule2.root().walkAtRules((rule2) => {
         for (const index2 in replacements) {
           const mixinName = replacements[index2] + (mixinArgumentMatches ? mixinArgumentMatches[0] : "");
@@ -6278,10 +6278,7 @@ var StyleMigrator = class {
         }
       });
     }
-    if (replacements.length < 1) {
-      return null;
-    }
-    return { old: change.old, new: replacements };
+    return { old: change.old, new: replacements.length ? replacements : null };
   }
   isLegacySelector(rule2) {
     return this.classChanges.some((change) => {
@@ -21274,25 +21271,38 @@ function replaceEndTag(html, node, tag) {
   }
   return replaceAt(html, node.endSourceSpan.start.offset + 2, node.name, tag);
 }
-function addAttribute(html, node, name, value) {
+function updateAttribute(html, node, name, update) {
+  var _a;
   const existingAttr = node.attributes.find((currentAttr) => currentAttr.name === name);
-  if (existingAttr) {
-    if (existingAttr.valueSpan) {
-      return html.slice(0, existingAttr.valueSpan.start.offset) + value + html.slice(existingAttr.valueSpan.end.offset);
-    } else if (existingAttr.keySpan) {
-      return html.slice(0, existingAttr.keySpan.end.offset) + `="${value}"` + html.slice(existingAttr.keySpan.end.offset);
+  if (existingAttr && existingAttr.keySpan) {
+    const updatedValue = update(((_a = existingAttr.valueSpan) == null ? void 0 : _a.toString()) || "");
+    if (updatedValue == null) {
+      return html.slice(0, existingAttr.sourceSpan.start.offset).trimEnd() + html.slice(existingAttr.sourceSpan.end.offset);
+    } else if (updatedValue == "") {
+      return html.slice(0, existingAttr.keySpan.end.offset) + html.slice(existingAttr.sourceSpan.end.offset);
+    } else {
+      if (existingAttr.valueSpan) {
+        return html.slice(0, existingAttr.valueSpan.start.offset) + updatedValue + html.slice(existingAttr.valueSpan.end.offset);
+      } else {
+        return html.slice(0, existingAttr.keySpan.end.offset) + `="${updatedValue}"` + html.slice(existingAttr.keySpan.end.offset);
+      }
     }
+  }
+  const newValue = update(null);
+  if (newValue == null) {
+    return html;
   }
   const index2 = node.startSourceSpan.start.offset + node.name.length + 1;
   const prefix = html.slice(0, index2);
   const suffix = html.slice(index2);
+  const attrText = newValue ? `${name}="${newValue}"` : `${name}`;
   if (node.startSourceSpan.start.line === node.startSourceSpan.end.line) {
-    return prefix + ` ${name}="${value}"` + suffix;
+    return `${prefix} ${attrText}${suffix}`;
   }
   const attr = node.attributes[0];
   const ctx = attr.sourceSpan.start.getContext(attr.sourceSpan.start.col + 1, 1);
   const indentation = ctx.before;
-  return prefix + indentation + `${name}="${value}"` + suffix;
+  return prefix + indentation + attrText + suffix;
 }
 function replaceAt(str, offset, oldSubstr, newSubstr) {
   const index2 = offset;
@@ -21311,7 +21321,7 @@ var CardTemplateMigrator = class extends TemplateMigrator {
       }
       updates.push({
         offset: node.startSourceSpan.start.offset,
-        updateFn: (html) => addAttribute(html, node, "appearance", "outlined")
+        updateFn: (html) => updateAttribute(html, node, "appearance", () => "outlined")
       });
     });
     return updates;
@@ -22019,6 +22029,18 @@ var OptionStylesMigrator = class extends StyleMigrator {
       {
         old: "legacy-option-typography",
         new: ["option-typography"]
+      },
+      {
+        old: "legacy-core-theme",
+        new: ["core-theme"]
+      },
+      {
+        old: "legacy-core-color",
+        new: ["core-color"]
+      },
+      {
+        old: "legacy-core-typography",
+        new: ["core-typography"]
       }
     ];
     this.classChanges = [
@@ -22039,6 +22061,23 @@ var OptionStylesMigrator = class extends StyleMigrator {
         new: ".mat-mdc-option-ripple"
       }
     ];
+  }
+};
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/form-field/form-field-template.js
+var FormFieldTemplateMigrator = class extends TemplateMigrator {
+  getUpdates(ast) {
+    const updates = [];
+    visitElements(ast.nodes, (node) => {
+      if (node.name !== "mat-form-field") {
+        return;
+      }
+      updates.push({
+        offset: node.startSourceSpan.start.offset,
+        updateFn: (html) => updateAttribute(html, node, "appearance", (old) => ["legacy", "standard"].includes(old || "") ? null : old)
+      });
+    });
+    return updates;
   }
 };
 
@@ -22118,7 +22157,8 @@ var MIGRATORS = [
   },
   {
     component: "form-field",
-    styles: new FormFieldStylesMigrator()
+    styles: new FormFieldStylesMigrator(),
+    template: new FormFieldTemplateMigrator()
   },
   {
     component: "input",
@@ -22236,14 +22276,15 @@ var stringify3 = import_scss_syntax.default.stringify;
 var parse3 = import_scss_syntax.default.parse;
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
-var ALL_LEGACY_COMPONENTS_MIXIN_NAME = "(?:\\.)(.*)(?:\\()";
+var COMPONENTS_MIXIN_NAME = /\.([^(;]*)/;
 var ThemingStylesMigration = class extends import_schematics.Migration {
   constructor() {
     super(...arguments);
     this.enabled = true;
   }
   visitStylesheet(stylesheet) {
-    this.fileSystem.edit(stylesheet.filePath).remove(stylesheet.start, stylesheet.content.length).insertRight(stylesheet.start, this.migrate(stylesheet.content, stylesheet.filePath));
+    const migratedContent = this.migrate(stylesheet.content, stylesheet.filePath).replace(new RegExp(`${this.namespace}.define-legacy-typography-config\\(`, "g"), `${this.namespace}.define-typography-config(`);
+    this.fileSystem.edit(stylesheet.filePath).remove(stylesheet.start, stylesheet.content.length).insertRight(stylesheet.start, migratedContent);
   }
   migrate(styles, filename) {
     const processor = new Processor([
@@ -22276,18 +22317,28 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
     if (migrator) {
       const mixinChange = migrator.styles.getMixinChange(this.namespace, atRule2);
       if (mixinChange) {
-        replaceAtRuleWithMultiple(atRule2, mixinChange.old, mixinChange.new);
+        if (mixinChange.new) {
+          replaceAtRuleWithMultiple(atRule2, mixinChange.old, mixinChange.new);
+        } else {
+          atRule2.remove();
+        }
       }
-    } else if (atRule2.params.includes("all-legacy-component") && atRule2.parent) {
+    } else if (atRule2.parent && this.isCrossCuttingMixin(atRule2.params)) {
       if (this.isPartialMigration()) {
-        const mixinName = atRule2.params.match(ALL_LEGACY_COMPONENTS_MIXIN_NAME)[1];
-        const comment2 = "TODO(mdc-migration): Remove " + mixinName + " once all legacy components are migrated";
+        const mixinName = atRule2.params.match(COMPONENTS_MIXIN_NAME)[1];
+        const comment2 = `TODO(mdc-migration): Remove ${mixinName} once all legacy components are migrated`;
         if (!addLegacyCommentForPartialMigrations(atRule2, comment2)) {
           return;
         }
       }
-      replaceAllComponentsMixin(atRule2);
+      replaceCrossCuttingMixin(atRule2, this.namespace);
     }
+  }
+  isCrossCuttingMixin(mixinText) {
+    return [
+      `${this.namespace}\\.all-legacy-component-`,
+      `${this.namespace}\\.legacy-core([^-]|$)`
+    ].some((r) => new RegExp(r).test(mixinText));
   }
   isPartialMigration() {
     return this.upgradeData.length !== MIGRATORS.length;
@@ -22339,11 +22390,11 @@ function addCommentBeforeNode(node, comment2) {
   node.parent.insertBefore(node, commentNode);
   node.raws.before = "\n" + indentation;
 }
-function replaceAllComponentsMixin(allComponentNode) {
-  allComponentNode.cloneBefore({
-    params: allComponentNode.params.replace("all-legacy-component", "all-component")
+function replaceCrossCuttingMixin(atRule2, namespace) {
+  atRule2.cloneBefore({
+    params: atRule2.params.replace(`${namespace}.all-legacy-component`, `${namespace}.all-component`).replace(`${namespace}.legacy-core`, `${namespace}.core`)
   });
-  allComponentNode.remove();
+  atRule2.remove();
 }
 function replaceAtRuleWithMultiple(atRule2, textToReplace, replacements) {
   var _a;
