@@ -21752,193 +21752,6 @@ var RadioStylesMigrator = class extends StyleMigrator {
   }
 };
 
-// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/runtime-migrator.js
-var ts = __toESM(require("typescript"));
-
-// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/import-replacements.js
-var REPLACEMENTS = {
-  "button": {
-    old: "@angular/material/legacy-button",
-    new: "@angular/material/button"
-  },
-  "card": {
-    old: "@angular/material/legacy-card",
-    new: "@angular/material/card"
-  },
-  "checkbox": {
-    old: "@angular/material/legacy-checkbox",
-    new: "@angular/material/checkbox"
-  },
-  "chips": {
-    old: "@angular/material/legacy-chips",
-    new: "@angular/material/chips",
-    additionalMatModuleNamePrefixes: ["chip"]
-  },
-  "dialog": {
-    old: "@angular/material/legacy-dialog",
-    new: "@angular/material/dialog",
-    customReplacements: [{ old: "LegacyDialogRole", new: "DialogRole" }]
-  },
-  "autocomplete": {
-    old: "@angular/material/legacy-autocomplete",
-    new: "@angular/material/autocomplete"
-  },
-  "form-field": {
-    old: "@angular/material/legacy-form-field",
-    new: "@angular/material/form-field"
-  },
-  "input": {
-    old: "@angular/material/legacy-input",
-    new: "@angular/material/input"
-  },
-  "optgroup": {
-    old: "@angular/material/legacy-core",
-    new: "@angular/material/core"
-  },
-  "option": {
-    old: "@angular/material/legacy-core",
-    new: "@angular/material/core"
-  },
-  "select": {
-    old: "@angular/material/legacy-select",
-    new: "@angular/material/select"
-  },
-  "list": {
-    old: "@angular/material/legacy-list",
-    new: "@angular/material/list"
-  },
-  "menu": {
-    old: "@angular/material/legacy-menu",
-    new: "@angular/material/menu"
-  },
-  "progress-bar": {
-    old: "@angular/material/legacy-progress-bar",
-    new: "@angular/material/progress-bar"
-  },
-  "progress-spinner": {
-    old: "@angular/material/legacy-progress-spinner",
-    new: "@angular/material/progress-spinner"
-  },
-  "radio": {
-    old: "@angular/material/legacy-radio",
-    new: "@angular/material/radio"
-  },
-  "sidenav": {
-    old: "@angular/material/legacy-sidenav",
-    new: "@angular/material-experimental/legacy-sidenav"
-  },
-  "slide-toggle": {
-    old: "@angular/material/legacy-slide-toggle",
-    new: "@angular/material/slide-toggle"
-  },
-  "slider": {
-    old: "@angular/material/legacy-slider",
-    new: "@angular/material/slider"
-  },
-  "snack-bar": {
-    old: "@angular/material/legacy-snack-bar",
-    new: "@angular/material/snack-bar"
-  },
-  "table": {
-    old: "@angular/material/legacy-table",
-    new: "@angular/material/table"
-  },
-  "tabs": {
-    old: "@angular/material/legacy-tabs",
-    new: "@angular/material/tabs"
-  },
-  "paginator": {
-    old: "@angular/material/legacy-paginator",
-    new: "@angular/material/paginator"
-  },
-  "tooltip": {
-    old: "@angular/material/legacy-tooltip",
-    new: "@angular/material/tooltip"
-  }
-};
-
-// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/runtime-migrator.js
-var RuntimeMigrator = class {
-  constructor(component) {
-    var _a, _b;
-    const replacements = REPLACEMENTS[component];
-    this.oldImportModule = replacements.old;
-    this.newImportModule = replacements.new;
-    this.importSpecifierReplacements = this.getReplacementsFromComponentName(component);
-    (_a = replacements.additionalMatModuleNamePrefixes) == null ? void 0 : _a.forEach((prefix) => {
-      this.importSpecifierReplacements = this.importSpecifierReplacements.concat(this.getReplacementsFromComponentName(prefix));
-    });
-    (_b = replacements.customReplacements) == null ? void 0 : _b.forEach((replacement) => {
-      this.importSpecifierReplacements = this.importSpecifierReplacements.concat(replacement);
-    });
-    console.log(this.importSpecifierReplacements);
-  }
-  getReplacementsFromComponentName(componentName) {
-    const words = componentName.split("-");
-    let firstLetterCapitalizedComponent = "";
-    let capitalizedComponent = "";
-    words.forEach((word) => {
-      firstLetterCapitalizedComponent += word[0].toUpperCase() + word.slice(1);
-      capitalizedComponent += word.toUpperCase() + "_";
-    });
-    capitalizedComponent = capitalizedComponent.slice(0, -1);
-    const specifierReplacements = [
-      {
-        old: "MatLegacy" + firstLetterCapitalizedComponent,
-        new: "Mat" + firstLetterCapitalizedComponent
-      },
-      {
-        old: "MAT_LEGACY_" + capitalizedComponent,
-        new: "MAT_" + capitalizedComponent
-      }
-    ];
-    return specifierReplacements;
-  }
-  updateImportOrExportSpecifier(specifier) {
-    const newSpecifier = this._getNewSpecifier(specifier);
-    if (!newSpecifier) {
-      return null;
-    }
-    return ts.factory.createIdentifier(newSpecifier);
-  }
-  updateImportSpecifierWithPossibleAlias(importSpecifier) {
-    var _a;
-    const newImport = this._getNewSpecifier((_a = importSpecifier.propertyName) != null ? _a : importSpecifier.name);
-    if (!newImport) {
-      return null;
-    }
-    let newPropertyName;
-    let newName;
-    if (importSpecifier.propertyName && importSpecifier.name.text !== newImport) {
-      newPropertyName = ts.factory.createIdentifier(newImport);
-      newName = importSpecifier.name;
-    } else {
-      newPropertyName = void 0;
-      newName = ts.factory.createIdentifier(newImport);
-    }
-    return ts.factory.createImportSpecifier(false, newPropertyName, newName);
-  }
-  updateModuleSpecifier(specifier) {
-    if (specifier.text !== this.oldImportModule) {
-      return null;
-    }
-    return ts.factory.createStringLiteral(this.newImportModule, this._isSingleQuoteLiteral(specifier));
-  }
-  _getNewSpecifier(node) {
-    let newImport = null;
-    this.importSpecifierReplacements.forEach((replacement) => {
-      var _a;
-      if ((_a = node.text) == null ? void 0 : _a.match(replacement.old)) {
-        newImport = node.text.replace(replacement.old, replacement.new);
-      }
-    });
-    return newImport;
-  }
-  _isSingleQuoteLiteral(literal2) {
-    return literal2.getText()[0] !== `"`;
-  }
-};
-
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/select/select-styles.js
 var SelectStylesMigrator = class extends StyleMigrator {
   constructor() {
@@ -22230,103 +22043,130 @@ var OptionStylesMigrator = class extends StyleMigrator {
 };
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/index.js
+var LEGACY_MODULES = new Set([
+  "legacy-autocomplete",
+  "legacy-autocomplete/testing",
+  "legacy-button",
+  "legacy-button/testing",
+  "legacy-card",
+  "legacy-card/testing",
+  "legacy-checkbox",
+  "legacy-checkbox/testing",
+  "legacy-chips",
+  "legacy-chips/testing",
+  "legacy-core",
+  "legacy-core/testing",
+  "legacy-dialog",
+  "legacy-dialog/testing",
+  "legacy-form-field",
+  "legacy-form-field/testing",
+  "legacy-input",
+  "legacy-input/testing",
+  "legacy-list",
+  "legacy-list/testing",
+  "legacy-menu",
+  "legacy-menu/testing",
+  "legacy-paginator",
+  "legacy-paginator/testing",
+  "legacy-progress-bar",
+  "legacy-progress-bar/testing",
+  "legacy-progress-spinner",
+  "legacy-progress-spinner/testing",
+  "legacy-radio",
+  "legacy-radio/testing",
+  "legacy-select",
+  "legacy-select/testing",
+  "legacy-slide-toggle",
+  "legacy-slide-toggle/testing",
+  "legacy-slider",
+  "legacy-slider/testing",
+  "legacy-snack-bar",
+  "legacy-snack-bar/testing",
+  "legacy-table",
+  "legacy-table/testing",
+  "legacy-tabs",
+  "legacy-tabs/testing",
+  "legacy-tooltip",
+  "legacy-tooltip/testing"
+].map((name) => `@angular/material/${name}`));
 var MIGRATORS = [
   {
     component: "autocomplete",
-    styles: new AutocompleteStylesMigrator(),
-    runtime: new RuntimeMigrator("autocomplete")
+    styles: new AutocompleteStylesMigrator()
   },
   {
     component: "button",
-    styles: new ButtonStylesMigrator(),
-    runtime: new RuntimeMigrator("button")
+    styles: new ButtonStylesMigrator()
   },
   {
     component: "card",
     styles: new CardStylesMigrator(),
-    runtime: new RuntimeMigrator("card"),
     template: new CardTemplateMigrator()
   },
   {
     component: "checkbox",
-    styles: new CheckboxStylesMigrator(),
-    runtime: new RuntimeMigrator("checkbox")
+    styles: new CheckboxStylesMigrator()
   },
   {
     component: "chips",
     styles: new ChipsStylesMigrator(),
-    runtime: new RuntimeMigrator("chips"),
     template: new ChipsTemplateMigrator()
   },
   {
     component: "dialog",
-    styles: new DialogStylesMigrator(),
-    runtime: new RuntimeMigrator("dialog")
+    styles: new DialogStylesMigrator()
   },
   {
     component: "form-field",
-    styles: new FormFieldStylesMigrator(),
-    runtime: new RuntimeMigrator("form-field")
+    styles: new FormFieldStylesMigrator()
   },
   {
     component: "input",
-    styles: new InputStylesMigrator(),
-    runtime: new RuntimeMigrator("input")
+    styles: new InputStylesMigrator()
   },
   {
     component: "list",
-    styles: new ListStylesMigrator(),
-    runtime: new RuntimeMigrator("list")
+    styles: new ListStylesMigrator()
   },
   {
     component: "menu",
-    styles: new MenuStylesMigrator(),
-    runtime: new RuntimeMigrator("menu")
+    styles: new MenuStylesMigrator()
   },
   {
     component: "optgroup",
-    styles: new OptgroupStylesMigrator(),
-    runtime: new RuntimeMigrator("optgroup")
+    styles: new OptgroupStylesMigrator()
   },
   {
     component: "option",
-    styles: new OptionStylesMigrator(),
-    runtime: new RuntimeMigrator("option")
+    styles: new OptionStylesMigrator()
   },
   {
     component: "paginator",
-    styles: new PaginatorStylesMigrator(),
-    runtime: new RuntimeMigrator("paginator")
+    styles: new PaginatorStylesMigrator()
   },
   {
     component: "progress-bar",
-    styles: new ProgressBarStylesMigrator(),
-    runtime: new RuntimeMigrator("progress-bar")
+    styles: new ProgressBarStylesMigrator()
   },
   {
     component: "progress-spinner",
-    styles: new ProgressSpinnerStylesMigrator(),
-    runtime: new RuntimeMigrator("progress-spinner")
+    styles: new ProgressSpinnerStylesMigrator()
   },
   {
     component: "radio",
-    styles: new RadioStylesMigrator(),
-    runtime: new RuntimeMigrator("radio")
+    styles: new RadioStylesMigrator()
   },
   {
     component: "select",
-    styles: new SelectStylesMigrator(),
-    runtime: new RuntimeMigrator("select")
+    styles: new SelectStylesMigrator()
   },
   {
     component: "slide-toggle",
-    styles: new SlideToggleStylesMigrator(),
-    runtime: new RuntimeMigrator("slide-toggle")
+    styles: new SlideToggleStylesMigrator()
   },
   {
     component: "slider",
-    styles: new SliderStylesMigrator(),
-    runtime: new RuntimeMigrator("slider")
+    styles: new SliderStylesMigrator()
   },
   {
     component: "snack-bar",
@@ -22334,18 +22174,15 @@ var MIGRATORS = [
   },
   {
     component: "table",
-    styles: new TableStylesMigrator(),
-    runtime: new RuntimeMigrator("table")
+    styles: new TableStylesMigrator()
   },
   {
     component: "tabs",
-    styles: new TabsStylesMigrator(),
-    runtime: new RuntimeMigrator("tabs")
+    styles: new TabsStylesMigrator()
   },
   {
     component: "tooltip",
-    styles: new TooltipStylesMigrator(),
-    runtime: new RuntimeMigrator("tooltip")
+    styles: new TooltipStylesMigrator()
   }
 ];
 
@@ -22354,7 +22191,7 @@ var import_schematics4 = require("@angular/cdk/schematics");
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/ts-migration/runtime-migration.js
 var import_schematics3 = require("@angular/cdk/schematics");
-var ts2 = __toESM(require("typescript"));
+var ts = __toESM(require("typescript"));
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
 var import_schematics = require("@angular/cdk/schematics");
@@ -22556,37 +22393,103 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
   constructor() {
     super(...arguments);
     this.enabled = true;
-    this._printer = ts2.createPrinter({ newLine: ts2.NewLineKind.LineFeed });
+    this._printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
     this._hasPossibleTemplateMigrations = true;
   }
   visitNode(node) {
-    if (this._isImportExpression(node)) {
+    if (ts.isSourceFile(node)) {
+      this._migrateSourceFileReferences(node);
+    } else if (this._isComponentDecorator(node)) {
+      this._migrateComponentDecorator(node);
+    } else if (this._isImportExpression(node)) {
       this._migrateModuleSpecifier(node.arguments[0]);
     } else if (this._isTypeImportExpression(node)) {
       this._migrateModuleSpecifier(node.argument.literal);
-    } else if (ts2.isImportDeclaration(node)) {
-      this._migrateModuleSpecifier(node.moduleSpecifier, node.importClause);
-    } else if (ts2.isDecorator(node) && (this._isNgModuleDecorator(node) || this._isComponentDecorator(node))) {
-      this._migrateDecoratorProperties(node);
     }
   }
-  _migrateDecoratorProperties(node) {
-    if (!ts2.isCallExpression(node.expression)) {
+  _migrateSourceFileReferences(sourceFile) {
+    const { importSpecifiersToNewNames, identifiersToImportSpecifiers, moduleSpecifiers } = this._findImportsToMigrate(sourceFile);
+    [
+      ...this._renameModuleSpecifiers(moduleSpecifiers),
+      ...this._renameReferences(sourceFile, identifiersToImportSpecifiers, importSpecifiersToNewNames)
+    ].sort(([a], [b]) => b.getStart() - a.getStart()).forEach(([currentNode, newName]) => {
+      this._printAndUpdateNode(sourceFile, currentNode, newName);
+    });
+  }
+  _findImportsToMigrate(sourceFile) {
+    var _a;
+    const importSpecifiersToNewNames = /* @__PURE__ */ new Map();
+    const moduleSpecifiers = /* @__PURE__ */ new Map();
+    const identifiersToImportSpecifiers = /* @__PURE__ */ new Map();
+    for (const statement of sourceFile.statements) {
+      if (ts.isImportDeclaration(statement) && ts.isStringLiteral(statement.moduleSpecifier) && ((_a = statement.importClause) == null ? void 0 : _a.namedBindings) && ts.isNamedImports(statement.importClause.namedBindings) && LEGACY_MODULES.has(statement.moduleSpecifier.text)) {
+        statement.importClause.namedBindings.elements.forEach((element) => {
+          const oldName = (element.propertyName || element.name).text;
+          const newName = this._removeLegacy(oldName);
+          if (newName) {
+            importSpecifiersToNewNames.set(element, newName);
+            if (!element.propertyName) {
+              identifiersToImportSpecifiers.set(oldName, element);
+            }
+          }
+        });
+        const newModuleSpecifier = this._removeLegacy(statement.moduleSpecifier.text);
+        if (newModuleSpecifier) {
+          moduleSpecifiers.set(statement.moduleSpecifier, newModuleSpecifier);
+        }
+      }
+    }
+    return { importSpecifiersToNewNames, identifiersToImportSpecifiers, moduleSpecifiers };
+  }
+  _renameReferences(sourceFile, identifiersToImportSpecifiers, importSpecifiersToNewNames) {
+    if (importSpecifiersToNewNames.size === 0) {
+      return [];
+    }
+    const replacements = [];
+    const walk = (node) => {
+      if (ts.isImportDeclaration(node)) {
+        return;
+      }
+      if (ts.isIdentifier(node)) {
+        const specifier = identifiersToImportSpecifiers.get(node.text);
+        if (specifier && this._isReferenceToImport(node, specifier)) {
+          replacements.push([node, importSpecifiersToNewNames.get(specifier)]);
+        }
+      }
+      node.forEachChild(walk);
+    };
+    sourceFile.forEachChild(walk);
+    importSpecifiersToNewNames.forEach((newName, specifier) => {
+      if (specifier.propertyName) {
+        replacements.push([
+          specifier.name.text === newName ? specifier : specifier.propertyName,
+          newName
+        ]);
+      } else {
+        replacements.push([specifier.name, newName]);
+      }
+    });
+    return replacements;
+  }
+  _renameModuleSpecifiers(moduleSpecifiers) {
+    const replacements = [];
+    for (const [specifier, newName] of moduleSpecifiers.entries()) {
+      const quoteStyle = specifier.getText()[0];
+      replacements.push([specifier, quoteStyle + newName + quoteStyle]);
+    }
+    return replacements;
+  }
+  _migrateComponentDecorator(node) {
+    if (!ts.isCallExpression(node.expression)) {
       return;
     }
     const metadata = node.expression.arguments[0];
-    if (!ts2.isObjectLiteralExpression(metadata)) {
+    if (!ts.isObjectLiteralExpression(metadata)) {
       return;
     }
     for (const prop of metadata.properties) {
       if (prop.name) {
         switch ((0, import_schematics3.getPropertyNameText)(prop.name)) {
-          case "imports":
-            this._migrateImportsAndExports(prop);
-            break;
-          case "exports":
-            this._migrateImportsAndExports(prop);
-            break;
           case "styles":
             this._migrateStyles(prop);
             break;
@@ -22598,18 +22501,6 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
         }
       }
     }
-  }
-  _migrateImportsAndExports(node) {
-    node.initializer.forEachChild((specifier) => {
-      var _a;
-      for (const migrator of this.upgradeData) {
-        const newSpecifier = (_a = migrator.runtime) == null ? void 0 : _a.updateImportOrExportSpecifier(specifier);
-        if (newSpecifier) {
-          this._printAndUpdateNode(specifier.getSourceFile(), specifier, newSpecifier);
-          break;
-        }
-      }
-    });
   }
   _migrateStyles(node) {
     if (!this._stylesMigration) {
@@ -22649,55 +22540,53 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
       const quotation = node.getText().trimStart()[0];
       migratedText = quotation + migratedText + quotation;
     }
-    this._printAndUpdateNode(node.getSourceFile(), node, ts2.factory.createRegularExpressionLiteral(migratedText));
+    this._printAndUpdateNode(node.getSourceFile(), node, ts.factory.createRegularExpressionLiteral(migratedText));
   }
-  _migrateModuleSpecifier(specifierLiteral, importClause) {
-    var _a, _b;
-    const sourceFile = specifierLiteral.getSourceFile();
-    for (const migrator of this.upgradeData) {
-      if (importClause && importClause.namedBindings) {
-        const importSpecifiers = importClause.namedBindings.elements;
-        importSpecifiers.forEach((importSpecifer) => {
-          var _a2;
-          const newImportSpecifier = (_a2 = migrator.runtime) == null ? void 0 : _a2.updateImportSpecifierWithPossibleAlias(importSpecifer);
-          if (newImportSpecifier) {
-            this._printAndUpdateNode(sourceFile, importSpecifer, newImportSpecifier);
-          }
-        });
-      }
-      const newModuleSpecifier = (_b = (_a = migrator.runtime) == null ? void 0 : _a.updateModuleSpecifier(specifierLiteral)) != null ? _b : null;
-      if (newModuleSpecifier !== null) {
-        this._printAndUpdateNode(sourceFile, specifierLiteral, newModuleSpecifier);
-        break;
-      }
+  _migrateModuleSpecifier(specifier) {
+    const newName = this._removeLegacy(specifier.text);
+    if (newName) {
+      const quoteStyle = specifier.getText()[0];
+      this._printAndUpdateNode(specifier.getSourceFile(), specifier, quoteStyle + newName + quoteStyle);
     }
-  }
-  _isNgModuleDecorator(node) {
-    const call = node.expression;
-    if (!ts2.isCallExpression(call) || !ts2.isIdentifier(call.expression)) {
-      return false;
-    }
-    return call.expression.text === "NgModule";
   }
   _isComponentDecorator(node) {
+    if (!ts.isDecorator(node)) {
+      return false;
+    }
     const call = node.expression;
-    if (!ts2.isCallExpression(call) || !ts2.isIdentifier(call.expression)) {
+    if (!ts.isCallExpression(call) || !ts.isIdentifier(call.expression)) {
       return false;
     }
     return call.expression.text === "Component";
   }
   _isImportExpression(node) {
-    return ts2.isCallExpression(node) && node.expression.kind === ts2.SyntaxKind.ImportKeyword && node.arguments.length === 1 && ts2.isStringLiteralLike(node.arguments[0]);
+    return ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments.length === 1 && ts.isStringLiteralLike(node.arguments[0]);
   }
   _isTypeImportExpression(node) {
-    return ts2.isImportTypeNode(node) && ts2.isLiteralTypeNode(node.argument) && ts2.isStringLiteralLike(node.argument.literal);
+    return ts.isImportTypeNode(node) && ts.isLiteralTypeNode(node.argument) && ts.isStringLiteralLike(node.argument.literal);
   }
   _printAndUpdateNode(sourceFile, oldNode, newNode) {
     const filePath = this.fileSystem.resolve(sourceFile.fileName);
-    const newNodeText = this._printer.printNode(ts2.EmitHint.Unspecified, newNode, sourceFile);
+    const newNodeText = typeof newNode === "string" ? newNode : this._printer.printNode(ts.EmitHint.Unspecified, newNode, sourceFile);
     const start = oldNode.getStart();
     const width = oldNode.getWidth();
     this.fileSystem.edit(filePath).remove(start, width).insertRight(start, newNodeText);
+  }
+  _isReferenceToImport(node, importSpecifier) {
+    var _a, _b, _c, _d;
+    if ((importSpecifier.propertyName || importSpecifier.name).text !== node.text) {
+      return false;
+    }
+    const nodeSymbol = this.typeChecker.getTypeAtLocation(node).getSymbol();
+    const importSymbol = this.typeChecker.getTypeAtLocation(importSpecifier).getSymbol();
+    if (!nodeSymbol && !importSymbol) {
+      return ((_b = (_a = this.typeChecker.getSymbolAtLocation(node)) == null ? void 0 : _a.declarations) == null ? void 0 : _b[0]) === importSpecifier;
+    }
+    return !!(((_c = nodeSymbol == null ? void 0 : nodeSymbol.declarations) == null ? void 0 : _c[0]) && ((_d = importSymbol == null ? void 0 : importSymbol.declarations) == null ? void 0 : _d[0])) && nodeSymbol.declarations[0] === importSymbol.declarations[0];
+  }
+  _removeLegacy(name) {
+    const legacyRegex = /legacy[_-]?/i;
+    return legacyRegex.test(name) ? name.replace(legacyRegex, "") : null;
   }
 };
 
