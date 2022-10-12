@@ -188,7 +188,10 @@ class MatListBase {
     set disableRipple(value) {
         this._disableRipple = coerceBooleanProperty(value);
     }
-    /** Whether all list items are disabled. */
+    /**
+     * Whether the entire list is disabled. When disabled, the list itself and each of its list items
+     * are disabled.
+     */
     get disabled() {
         return this._disabled;
     }
@@ -899,6 +902,7 @@ class MatSelectionList extends MatListBase {
         this.selectedOptions = new SelectionModel(this._multiple);
         /** View to model callback that should be called if the list or its options lost focus. */
         this._onTouched = () => { };
+        this._selectionListDisabled = false;
         /** Handles focusout events within the list. */
         this._handleFocusout = () => {
             // Focus takes a while to update so we have to wrap our call in a timeout.
@@ -1006,6 +1010,22 @@ class MatSelectionList extends MatListBase {
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
     }
+    /**
+     * Whether the *entire* selection list is disabled. When true, each list item is also disabled
+     * and each list item is removed from the tab order (has tabindex="-1").
+     */
+    get disabled() {
+        return this._selectionListDisabled;
+    }
+    set disabled(value) {
+        // Update the disabled state of this list. Write to `this._selectionListDisabled` instead of
+        // `super.disabled`. That is to avoid closure compiler compatibility issues with assigning to
+        // a super property.
+        this._selectionListDisabled = coerceBooleanProperty(value);
+        if (this._selectionListDisabled) {
+            this._keyManager?.setActiveItem(-1);
+        }
+    }
     /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn) {
         this._onChange = fn;
@@ -1099,13 +1119,24 @@ class MatSelectionList extends MatListBase {
             this._keyManager.onKeydown(event);
         }
     }
-    /** Sets up the logic for maintaining the roving tabindex. */
+    /**
+     * Sets up the logic for maintaining the roving tabindex.
+     *
+     * `skipPredicate` determines if key manager should avoid putting a given list item in the tab
+     * index. Allow disabled list items to receive focus to align with WAI ARIA recommendation.
+     * Normally WAI ARIA's instructions are to exclude disabled items from the tab order, but it
+     * makes a few exceptions for compound widgets.
+     *
+     * From [Developing a Keyboard Interface](
+     * https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/):
+     *   "For the following composite widget elements, keep them focusable when disabled: Options in a
+     *   Listbox..."
+     */
     _setupRovingTabindex() {
         this._keyManager = new FocusKeyManager(this._items)
             .withHomeAndEnd()
             .withTypeAhead()
             .withWrap()
-            // Allow navigation to disabled items.
             .skipPredicate(() => false);
         // Set the initial focus.
         this._resetActiveOption();
@@ -1139,7 +1170,7 @@ class MatSelectionList extends MatListBase {
     }
 }
 MatSelectionList.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-next.1", ngImport: i0, type: MatSelectionList, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }], target: i0.ɵɵFactoryTarget.Component });
-MatSelectionList.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "15.0.0-next.1", type: MatSelectionList, selector: "mat-selection-list", inputs: { color: "color", compareWith: "compareWith", multiple: "multiple" }, outputs: { selectionChange: "selectionChange" }, host: { attributes: { "role": "listbox" }, listeners: { "keydown": "_handleKeydown($event)" }, properties: { "attr.aria-multiselectable": "multiple" }, classAttribute: "mat-mdc-selection-list mat-mdc-list-base mdc-list" }, providers: [
+MatSelectionList.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "15.0.0-next.1", type: MatSelectionList, selector: "mat-selection-list", inputs: { color: "color", compareWith: "compareWith", multiple: "multiple", disabled: "disabled" }, outputs: { selectionChange: "selectionChange" }, host: { attributes: { "role": "listbox" }, listeners: { "keydown": "_handleKeydown($event)" }, properties: { "attr.aria-multiselectable": "multiple" }, classAttribute: "mat-mdc-selection-list mat-mdc-list-base mdc-list" }, providers: [
         MAT_SELECTION_LIST_VALUE_ACCESSOR,
         { provide: MatListBase, useExisting: MatSelectionList },
         { provide: SELECTION_LIST, useExisting: MatSelectionList },
@@ -1166,6 +1197,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-next.1", 
             }], compareWith: [{
                 type: Input
             }], multiple: [{
+                type: Input
+            }], disabled: [{
                 type: Input
             }] } });
 

@@ -119,7 +119,10 @@ declare abstract class MatListBase {
     get disableRipple(): boolean;
     set disableRipple(value: BooleanInput);
     private _disableRipple;
-    /** Whether all list items are disabled. */
+    /**
+     * Whether the entire list is disabled. When disabled, the list itself and each of its list items
+     * are disabled.
+     */
     get disabled(): boolean;
     set disabled(value: BooleanInput);
     private _disabled;
@@ -458,6 +461,13 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     writeValue(values: string[]): void;
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
+    /**
+     * Whether the *entire* selection list is disabled. When true, each list item is also disabled
+     * and each list item is removed from the tab order (has tabindex="-1").
+     */
+    get disabled(): boolean;
+    set disabled(value: BooleanInput);
+    private _selectionListDisabled;
     /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn: (value: any) => void): void;
     /** Implemented as part of ControlValueAccessor. */
@@ -483,7 +493,19 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     private _handleFocusout;
     /** Handles focusin events within the list. */
     private _handleFocusin;
-    /** Sets up the logic for maintaining the roving tabindex. */
+    /**
+     * Sets up the logic for maintaining the roving tabindex.
+     *
+     * `skipPredicate` determines if key manager should avoid putting a given list item in the tab
+     * index. Allow disabled list items to receive focus to align with WAI ARIA recommendation.
+     * Normally WAI ARIA's instructions are to exclude disabled items from the tab order, but it
+     * makes a few exceptions for compound widgets.
+     *
+     * From [Developing a Keyboard Interface](
+     * https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/):
+     *   "For the following composite widget elements, keep them focusable when disabled: Options in a
+     *   Listbox..."
+     */
     private _setupRovingTabindex;
     /**
      * Sets an option as active.
@@ -495,7 +517,7 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     /** Returns whether the focus is currently within the list. */
     private _containsFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": "color"; "compareWith": "compareWith"; "multiple": "multiple"; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": "color"; "compareWith": "compareWith"; "multiple": "multiple"; "disabled": "disabled"; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false, never>;
 }
 
 /** Change event that is being fired whenever the selected state of an option changes. */
