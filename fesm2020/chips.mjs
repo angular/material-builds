@@ -140,10 +140,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-next.1", 
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * Directive to add CSS classes to chip leading icon.
- * @docs-private
- */
+/** Avatar image within a chip. */
 class MatChipAvatar {
 }
 MatChipAvatar.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-next.1", ngImport: i0, type: MatChipAvatar, deps: [], target: i0.ɵɵFactoryTarget.Directive });
@@ -159,10 +156,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-next.1", 
                     providers: [{ provide: MAT_CHIP_AVATAR, useExisting: MatChipAvatar }],
                 }]
         }] });
-/**
- * Directive to add CSS classes to and configure attributes for chip trailing icon.
- * @docs-private
- */
+/** Non-interactive trailing icon in a chip. */
 class MatChipTrailingIcon extends MatChipAction {
     constructor() {
         super(...arguments);
