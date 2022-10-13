@@ -258,6 +258,18 @@ declare class MatChipAction extends _MatChipActionMixinBase implements HasTabInd
     get disabled(): boolean;
     set disabled(value: BooleanInput);
     private _disabled;
+    /**
+     * Private API to allow focusing this chip when it is disabled.
+     */
+    private _allowFocusWhenDisabled;
+    /**
+     * Determine the value of the disabled attribute for this chip action.
+     */
+    protected _getDisabledAttribute(): string | null;
+    /**
+     * Determine the value of the tabindex attribute for this chip action.
+     */
+    protected _getTabindex(): string | null;
     constructor(_elementRef: ElementRef<HTMLElement>, _parentChip: {
         _handlePrimaryActionInteraction(): void;
         remove(): void;
@@ -267,7 +279,7 @@ declare class MatChipAction extends _MatChipActionMixinBase implements HasTabInd
     _handleClick(event: MouseEvent): void;
     _handleKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipAction, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAction, "[matChipAction]", never, { "disabled": "disabled"; "tabIndex": "tabIndex"; "isInteractive": "isInteractive"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAction, "[matChipAction]", never, { "disabled": "disabled"; "tabIndex": "tabIndex"; "isInteractive": "isInteractive"; "_allowFocusWhenDisabled": "_allowFocusWhenDisabled"; }, {}, never, never, false, never>;
 }
 
 declare abstract class _MatChipActionBase {
@@ -686,6 +698,11 @@ export declare class MatChipListbox extends MatChipSet implements AfterContentIn
     private _syncListboxProperties;
     /** Returns the first selected chip in this listbox, or undefined if no chips are selected. */
     private _getFirstSelectedChip;
+    /**
+     * Determines if key manager should avoid putting a given chip action in the tab index. Skip
+     * non-interactive actions since the user can't do anything with them.
+     */
+    protected _skipPredicate(action: MatChipAction): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipListbox, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChipListbox, "mat-chip-listbox", never, { "tabIndex": "tabIndex"; "multiple": "multiple"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "compareWith": "compareWith"; "required": "required"; "value": "value"; }, { "change": "change"; }, ["_chips"], ["*"], false, never>;
 }
@@ -714,8 +731,10 @@ declare const _MatChipMixinBase: _Constructor<HasTabIndex> & _AbstractConstructo
 };
 
 /**
- * An extension of the MatChip component that supports chip selection.
- * Used with MatChipListbox.
+ * An extension of the MatChip component that supports chip selection. Used with MatChipListbox.
+ *
+ * Unlike other chips, the user can focus on disabled chip options inside a MatChipListbox. The
+ * user cannot click disabled chips.
  */
 export declare class MatChipOption extends MatChip implements OnInit {
     /** Whether the chip list is selectable. */
@@ -923,6 +942,11 @@ export declare class MatChipSet extends _MatChipSetMixinBase implements AfterVie
     protected _originatesFromChip(event: Event): boolean;
     /** Sets up the chip set's focus management logic. */
     private _setUpFocusManagement;
+    /**
+     * Determines if key manager should avoid putting a given chip action in the tab index. Skip
+     * non-interactive and disabled actions since the user can't do anything with them.
+     */
+    protected _skipPredicate(action: MatChipAction): boolean;
     /** Listens to changes in the chip set and syncs up the state of the individual chips. */
     private _trackChipSetChanges;
     /** Starts tracking the destroyed chips in order to capture the focused one. */
