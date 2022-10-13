@@ -276,10 +276,7 @@ declare abstract class _MatChipActionBase {
 
 declare const _MatChipActionMixinBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & typeof _MatChipActionBase;
 
-/**
- * Directive to add CSS classes to chip leading icon.
- * @docs-private
- */
+/** Avatar image within a chip. */
 export declare class MatChipAvatar {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipAvatar, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never, never, false, never>;
@@ -973,10 +970,7 @@ export declare interface MatChipTextControl {
     setDescribedByIds(ids: string[]): void;
 }
 
-/**
- * Directive to add CSS classes to and configure attributes for chip trailing icon.
- * @docs-private
- */
+/** Non-interactive trailing icon in a chip. */
 export declare class MatChipTrailingIcon extends MatChipAction {
     /**
      * MDC considers all trailing actions as a remove icon,
