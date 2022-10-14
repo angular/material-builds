@@ -122,16 +122,18 @@ declare class MatTabNavPanelHarness extends ContentContainerComponentHarness {
     getTextContent(): Promise<string>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatRadioButtonHarness` instances. */
+/** A set of criteria that can be used to filter a list of `MatTabGroupHarness` instances. */
 export declare interface TabGroupHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose selected tab label matches the given value. */
     selectedTabLabel?: string | RegExp;
 }
 
-/** A set of criteria that can be used to filter a list of `MatRadioButtonHarness` instances. */
+/** A set of criteria that can be used to filter a list of `MatTabHarness` instances. */
 export declare interface TabHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose label matches the given value. */
     label?: string | RegExp;
+    /** Only find instances whose selected state matches the given value. */
+    selected?: boolean;
 }
 
 /** A set of criteria that can be used to filter a list of `MatTabLinkHarness` instances. */
@@ -144,7 +146,7 @@ export declare interface TabLinkHarnessFilters extends BaseHarnessFilters {
 export declare interface TabNavBarHarnessFilters extends BaseHarnessFilters {
 }
 
-/** A set of criteria that can be used to filter a list of `MatTabNavBarHarness` instances. */
+/** A set of criteria that can be used to filter a list of `MatTabNavPanelHarness` instances. */
 export declare interface TabNavPanelHarnessFilters extends BaseHarnessFilters {
 }
 

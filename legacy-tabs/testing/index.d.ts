@@ -22,6 +22,8 @@ export declare interface LegacyTabGroupHarnessFilters extends BaseHarnessFilters
 export declare interface LegacyTabHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose label matches the given value. */
     label?: string | RegExp;
+    /** Only find instances whose selected state matches the given value. */
+    selected?: boolean;
 }
 
 /**
