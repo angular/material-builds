@@ -22676,10 +22676,10 @@ function getComponentsToMigrate(requested) {
   }
   return componentsToMigrate;
 }
-function runMigrations(context, fileSystem, tsconfigPath, migrators, analyzedFiles, additionalStylesheetPaths) {
+function runMigrations(context, fileSystem, tsconfigPath, migrators, analyzedFiles, additionalStylesheetPaths, limitToDirectory) {
   const program = import_schematics4.UpdateProject.createProgramFromTsconfig(tsconfigPath, fileSystem);
   const project = new import_schematics4.UpdateProject(context, program, fileSystem, analyzedFiles, context.logger);
-  return !project.migrate([ThemingStylesMigration, TemplateMigration, RuntimeCodeMigration], null, migrators, additionalStylesheetPaths).hasFailures;
+  return !project.migrate([ThemingStylesMigration, TemplateMigration, RuntimeCodeMigration], null, migrators, additionalStylesheetPaths, limitToDirectory).hasFailures;
 }
 function mdc_migration_default(options) {
   return (tree, context) => __async(this, null, function* () {
@@ -22694,8 +22694,10 @@ function mdc_migration_default(options) {
     const analyzedFiles = /* @__PURE__ */ new Set();
     const componentsToMigrate = getComponentsToMigrate(options.components);
     const migrators = MIGRATORS.filter((m) => componentsToMigrate.has(m.component));
-    let additionalStylesheetPaths = options.directory ? (0, import_schematics4.findStylesheetFiles)(tree, options.directory) : [];
     let success = true;
+    if (options.directory) {
+      logger.info(`Limiting migration to: ${options.directory}`);
+    }
     logger.info(`Migrating components:
 ${[...componentsToMigrate].join("\n")}`);
     for (const projectName of projectNames) {
@@ -22708,12 +22710,10 @@ ${[...componentsToMigrate].join("\n")}`);
         logger.warn(`Skipping migration for project ${projectName}. Unable to determine 'tsconfig.json' file in workspace config.`);
         continue;
       }
-      if (!options.directory) {
-        additionalStylesheetPaths = (0, import_schematics4.findStylesheetFiles)(tree, project.root);
-      }
+      const additionalStylesheetPaths = (0, import_schematics4.findStylesheetFiles)(tree, project.root);
       logger.info(`Migrating project: ${projectName}`);
       for (const tsconfigPath of tsconfigPaths) {
-        success && (success = runMigrations(context, fileSystem, tsconfigPath, migrators, analyzedFiles, additionalStylesheetPaths));
+        success && (success = runMigrations(context, fileSystem, tsconfigPath, migrators, analyzedFiles, additionalStylesheetPaths, options.directory || void 0));
       }
     }
     fileSystem.commitEdits();
