@@ -522,10 +522,11 @@ class _MatMenuBase {
         });
     }
     ngOnDestroy() {
-        var _a;
+        var _a, _b;
         (_a = this._keyManager) === null || _a === void 0 ? void 0 : _a.destroy();
         this._directDescendantItems.destroy();
         this.closed.complete();
+        (_b = this._firstItemFocusSubscription) === null || _b === void 0 ? void 0 : _b.unsubscribe();
     }
     /** Stream that emits whenever the hovered menu item changes. */
     _hovered() {
@@ -584,8 +585,10 @@ class _MatMenuBase {
      * @param origin Action from which the focus originated. Used to set the correct styling.
      */
     focusFirstItem(origin = 'program') {
+        var _a;
         // Wait for `onStable` to ensure iOS VoiceOver screen reader focuses the first item (#24735).
-        this._ngZone.onStable.pipe(take(1)).subscribe(() => {
+        (_a = this._firstItemFocusSubscription) === null || _a === void 0 ? void 0 : _a.unsubscribe();
+        this._firstItemFocusSubscription = this._ngZone.onStable.pipe(take(1)).subscribe(() => {
             let menuPanel = null;
             if (this._directDescendantItems.length) {
                 // Because the `mat-menuPanel` is at the DOM insertion point, not inside the overlay, we don't

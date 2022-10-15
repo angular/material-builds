@@ -138,6 +138,7 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     private _keyManager;
     private _xPosition;
     private _yPosition;
+    private _firstItemFocusSubscription?;
     private _previousElevation;
     protected _elevationPrefix: string;
     protected _baseElevation: number;
