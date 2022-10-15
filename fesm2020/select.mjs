@@ -552,6 +552,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
      */
     _onBlur() {
         this._focused = false;
+        this._keyManager?.cancelTypeahead();
         if (!this.disabled && !this.panelOpen) {
             this._onTouched();
             this._changeDetectorRef.markForCheck();
