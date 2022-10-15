@@ -515,6 +515,7 @@ class _MatMenuBase {
         this._keyManager?.destroy();
         this._directDescendantItems.destroy();
         this.closed.complete();
+        this._firstItemFocusSubscription?.unsubscribe();
     }
     /** Stream that emits whenever the hovered menu item changes. */
     _hovered() {
@@ -574,7 +575,8 @@ class _MatMenuBase {
      */
     focusFirstItem(origin = 'program') {
         // Wait for `onStable` to ensure iOS VoiceOver screen reader focuses the first item (#24735).
-        this._ngZone.onStable.pipe(take(1)).subscribe(() => {
+        this._firstItemFocusSubscription?.unsubscribe();
+        this._firstItemFocusSubscription = this._ngZone.onStable.pipe(take(1)).subscribe(() => {
             let menuPanel = null;
             if (this._directDescendantItems.length) {
                 // Because the `mat-menuPanel` is at the DOM insertion point, not inside the overlay, we don't

@@ -555,7 +555,9 @@ class _MatSelectBase extends _MatSelectMixinBase {
      * "blur" to the panel when it opens, causing a false positive.
      */
     _onBlur() {
+        var _a;
         this._focused = false;
+        (_a = this._keyManager) === null || _a === void 0 ? void 0 : _a.cancelTypeahead();
         if (!this.disabled && !this.panelOpen) {
             this._onTouched();
             this._changeDetectorRef.markForCheck();
