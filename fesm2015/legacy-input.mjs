@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { inject, InjectFlags, Directive, NgModule } from '@angular/core';
+import { inject, Directive, NgModule } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 export { MAT_INPUT_VALUE_ACCESSOR as MAT_LEGACY_INPUT_VALUE_ACCESSOR, getMatInputUnsupportedTypeError as getMatLegacyInputUnsupportedTypeError } from '@angular/material/input';
 import { MAT_LEGACY_FORM_FIELD, MatLegacyFormFieldControl, MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
@@ -21,7 +21,7 @@ import { MatCommonModule, ErrorStateMatcher } from '@angular/material/core';
 class MatLegacyInput extends MatInput {
     constructor() {
         super(...arguments);
-        this._legacyFormField = inject(MAT_LEGACY_FORM_FIELD, InjectFlags.Optional);
+        this._legacyFormField = inject(MAT_LEGACY_FORM_FIELD, { optional: true });
     }
     _getPlaceholder() {
         var _a;

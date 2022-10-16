@@ -3513,7 +3513,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
         this._injector = _injector;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
-        this._dir = inject(Directionality, InjectFlags.Optional);
+        this._dir = inject(Directionality, { optional: true });
     }
     ngOnInit() {
         // We need the date input to provide itself as a `ControlValueAccessor` and a `Validator`, while
