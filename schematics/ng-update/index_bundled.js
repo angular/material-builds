@@ -6227,6 +6227,7 @@ var require_map_generator = __commonJS({
         this.root = root;
         this.opts = opts;
         this.css = cssString;
+        this.usesFileUrls = !this.mapOpts.from && this.mapOpts.absolute;
       }
       isMap() {
         if (typeof this.opts.map !== "undefined") {
@@ -6301,7 +6302,8 @@ var require_map_generator = __commonJS({
               let from = node.source.input.from;
               if (from && !already[from]) {
                 already[from] = true;
-                this.map.setSourceContent(this.toUrl(this.path(from)), node.source.input.css);
+                let fromUrl = this.usesFileUrls ? this.toFileUrl(from) : this.toUrl(this.path(from));
+                this.map.setSourceContent(fromUrl, node.source.input.css);
               }
             }
           });
@@ -6417,15 +6419,18 @@ var require_map_generator = __commonJS({
         }
         return encodeURI(path).replace(/[#?]/g, encodeURIComponent);
       }
+      toFileUrl(path) {
+        if (pathToFileURL) {
+          return pathToFileURL(path).toString();
+        } else {
+          throw new Error("`map.absolute` option is not available in this PostCSS build");
+        }
+      }
       sourcePath(node) {
         if (this.mapOpts.from) {
           return this.toUrl(this.mapOpts.from);
-        } else if (this.mapOpts.absolute) {
-          if (pathToFileURL) {
-            return pathToFileURL(node.source.input.from).toString();
-          } else {
-            throw new Error("`map.absolute` option is not available in this PostCSS build");
-          }
+        } else if (this.usesFileUrls) {
+          return this.toFileUrl(node.source.input.from);
         } else {
           return this.toUrl(this.path(node.source.input.from));
         }
@@ -6533,6 +6538,7 @@ var require_container = __commonJS({
     var parse;
     var Rule;
     var AtRule;
+    var Root;
     function cleanSource(nodes) {
       return nodes.map((i) => {
         if (i.nodes)
@@ -6687,15 +6693,16 @@ var require_container = __commonJS({
         }
       }
       insertBefore(exist, add) {
-        exist = this.index(exist);
+        let existIndex = this.index(exist);
         let type = exist === 0 ? "prepend" : false;
-        let nodes = this.normalize(add, this.proxyOf.nodes[exist], type).reverse();
+        let nodes = this.normalize(add, this.proxyOf.nodes[existIndex], type).reverse();
+        existIndex = this.index(exist);
         for (let node of nodes)
-          this.proxyOf.nodes.splice(exist, 0, node);
+          this.proxyOf.nodes.splice(existIndex, 0, node);
         let index;
         for (let id in this.indexes) {
           index = this.indexes[id];
-          if (exist <= index) {
+          if (existIndex <= index) {
             this.indexes[id] = index + nodes.length;
           }
         }
@@ -6703,14 +6710,15 @@ var require_container = __commonJS({
         return this;
       }
       insertAfter(exist, add) {
-        exist = this.index(exist);
-        let nodes = this.normalize(add, this.proxyOf.nodes[exist]).reverse();
+        let existIndex = this.index(exist);
+        let nodes = this.normalize(add, this.proxyOf.nodes[existIndex]).reverse();
+        existIndex = this.index(exist);
         for (let node of nodes)
-          this.proxyOf.nodes.splice(exist + 1, 0, node);
+          this.proxyOf.nodes.splice(existIndex + 1, 0, node);
         let index;
         for (let id in this.indexes) {
           index = this.indexes[id];
-          if (exist < index) {
+          if (existIndex < index) {
             this.indexes[id] = index + nodes.length;
           }
         }
@@ -6889,6 +6897,9 @@ var require_container = __commonJS({
     Container.registerAtRule = (dependant) => {
       AtRule = dependant;
     };
+    Container.registerRoot = (dependant) => {
+      Root = dependant;
+    };
     module2.exports = Container;
     Container.default = Container;
     Container.rebuild = (node) => {
@@ -6900,6 +6911,8 @@ var require_container = __commonJS({
         Object.setPrototypeOf(node, Declaration.prototype);
       } else if (node.type === "comment") {
         Object.setPrototypeOf(node, Comment.prototype);
+      } else if (node.type === "root") {
+        Object.setPrototypeOf(node, Root.prototype);
       }
       node[my] = true;
       if (node.nodes) {
@@ -7111,6 +7124,7 @@ var require_root = __commonJS({
     };
     module2.exports = Root;
     Root.default = Root;
+    Container.registerRoot(Root);
   }
 });
 
@@ -7124,19 +7138,21 @@ var require_list = __commonJS({
         let current = "";
         let split = false;
         let func = 0;
-        let quote = false;
+        let inQuote = false;
+        let prevQuote = "";
         let escape = false;
         for (let letter of string) {
           if (escape) {
             escape = false;
           } else if (letter === "\\") {
             escape = true;
-          } else if (quote) {
-            if (letter === quote) {
-              quote = false;
+          } else if (inQuote) {
+            if (letter === prevQuote) {
+              inQuote = false;
             }
           } else if (letter === '"' || letter === "'") {
-            quote = letter;
+            inQuote = true;
+            prevQuote = letter;
           } else if (letter === "(") {
             func += 1;
           } else if (letter === ")") {
@@ -8355,7 +8371,7 @@ var require_processor = __commonJS({
     var Root = require_root();
     var Processor = class {
       constructor(plugins = []) {
-        this.version = "8.4.14";
+        this.version = "8.4.18";
         this.plugins = this.normalize(plugins);
       }
       use(plugin) {
