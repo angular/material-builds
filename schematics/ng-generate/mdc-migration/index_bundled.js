@@ -11731,9 +11731,39 @@ var BuiltinFunctionCall = class extends Call {
     this.converter = converter;
   }
 };
+var animationKeywords = /* @__PURE__ */ new Set([
+  "inherit",
+  "initial",
+  "revert",
+  "unset",
+  "alternate",
+  "alternate-reverse",
+  "normal",
+  "reverse",
+  "backwards",
+  "both",
+  "forwards",
+  "none",
+  "paused",
+  "running",
+  "ease",
+  "ease-in",
+  "ease-in-out",
+  "ease-out",
+  "linear",
+  "step-start",
+  "step-end",
+  "end",
+  "jump-both",
+  "jump-end",
+  "jump-none",
+  "jump-start",
+  "start"
+]);
 var ShadowCss = class {
   constructor() {
     this.strictStyling = true;
+    this._animationDeclarationKeyframesRe = /(^|\s+)(?:(?:(['"])((?:\\\\|\\\2|(?!\2).)+)\2)|(-?[A-Za-z][\w\-]*))(?=[,\s]|$)/g;
   }
   shimCssText(cssText, selector, hostSelector = "") {
     const commentsWithHash = extractCommentsWithHash(cssText);
@@ -11745,6 +11775,34 @@ var ShadowCss = class {
   _insertDirectives(cssText) {
     cssText = this._insertPolyfillDirectivesInCssText(cssText);
     return this._insertPolyfillRulesInCssText(cssText);
+  }
+  _scopeKeyframesRelatedCss(cssText, scopeSelector) {
+    const unscopedKeyframesSet = /* @__PURE__ */ new Set();
+    const scopedKeyframesCssText = processRules(cssText, (rule2) => this._scopeLocalKeyframeDeclarations(rule2, scopeSelector, unscopedKeyframesSet));
+    return processRules(scopedKeyframesCssText, (rule2) => this._scopeAnimationRule(rule2, scopeSelector, unscopedKeyframesSet));
+  }
+  _scopeLocalKeyframeDeclarations(rule2, scopeSelector, unscopedKeyframesSet) {
+    return Object.assign(Object.assign({}, rule2), { selector: rule2.selector.replace(/(^@(?:-webkit-)?keyframes(?:\s+))(['"]?)(.+)\2(\s*)$/, (_, start, quote, keyframeName, endSpaces) => {
+      unscopedKeyframesSet.add(unescapeQuotes(keyframeName, quote));
+      return `${start}${quote}${scopeSelector}_${keyframeName}${quote}${endSpaces}`;
+    }) });
+  }
+  _scopeAnimationKeyframe(keyframe, scopeSelector, unscopedKeyframesSet) {
+    return keyframe.replace(/^(\s*)(['"]?)(.+?)\2(\s*)$/, (_, spaces1, quote, name, spaces2) => {
+      name = `${unscopedKeyframesSet.has(unescapeQuotes(name, quote)) ? scopeSelector + "_" : ""}${name}`;
+      return `${spaces1}${quote}${name}${quote}${spaces2}`;
+    });
+  }
+  _scopeAnimationRule(rule2, scopeSelector, unscopedKeyframesSet) {
+    let content = rule2.content.replace(/((?:^|\s+|;)(?:-webkit-)?animation(?:\s*):(?:\s*))([^;]+)/g, (_, start, animationDeclarations) => start + animationDeclarations.replace(this._animationDeclarationKeyframesRe, (original, leadingSpaces, quote = "", quotedName, nonQuotedName) => {
+      if (quotedName) {
+        return `${leadingSpaces}${this._scopeAnimationKeyframe(`${quote}${quotedName}${quote}`, scopeSelector, unscopedKeyframesSet)}`;
+      } else {
+        return animationKeywords.has(nonQuotedName) ? original : `${leadingSpaces}${this._scopeAnimationKeyframe(nonQuotedName, scopeSelector, unscopedKeyframesSet)}`;
+      }
+    }));
+    content = content.replace(/((?:^|\s+|;)(?:-webkit-)?animation-name(?:\s*):(?:\s*))([^;]+)/g, (_match, start, commaSeparatedKeyframes) => `${start}${commaSeparatedKeyframes.split(",").map((keyframe) => this._scopeAnimationKeyframe(keyframe, scopeSelector, unscopedKeyframesSet)).join(",")}`);
+    return Object.assign(Object.assign({}, rule2), { content });
   }
   _insertPolyfillDirectivesInCssText(cssText) {
     return cssText.replace(_cssContentNextSelectorRe, function(...m) {
@@ -11764,6 +11822,7 @@ var ShadowCss = class {
     cssText = this._convertColonHostContext(cssText);
     cssText = this._convertShadowDOMSelectors(cssText);
     if (scopeSelector) {
+      cssText = this._scopeKeyframesRelatedCss(cssText, scopeSelector);
       cssText = this._scopeSelectors(cssText, scopeSelector, hostSelector);
     }
     cssText = cssText + "\n" + unscopedRules;
@@ -11982,11 +12041,14 @@ function extractCommentsWithHash(input) {
   return input.match(_commentWithHashRe) || [];
 }
 var BLOCK_PLACEHOLDER = "%BLOCK%";
-var QUOTE_PLACEHOLDER = "%QUOTED%";
 var _ruleRe = /(\s*)([^;\{\}]+?)(\s*)((?:{%BLOCK%}?\s*;?)|(?:\s*;))/g;
-var _quotedRe = /%QUOTED%/g;
 var CONTENT_PAIRS = /* @__PURE__ */ new Map([["{", "}"]]);
-var QUOTE_PAIRS = /* @__PURE__ */ new Map([[`"`, `"`], [`'`, `'`]]);
+var COMMA_IN_PLACEHOLDER = "%COMMA_IN_PLACEHOLDER%";
+var SEMI_IN_PLACEHOLDER = "%SEMI_IN_PLACEHOLDER%";
+var COLON_IN_PLACEHOLDER = "%COLON_IN_PLACEHOLDER%";
+var _cssCommaInPlaceholderReGlobal = new RegExp(COMMA_IN_PLACEHOLDER, "g");
+var _cssSemiInPlaceholderReGlobal = new RegExp(SEMI_IN_PLACEHOLDER, "g");
+var _cssColonInPlaceholderReGlobal = new RegExp(COLON_IN_PLACEHOLDER, "g");
 var CssRule = class {
   constructor(selector, content) {
     this.selector = selector;
@@ -11994,11 +12056,10 @@ var CssRule = class {
   }
 };
 function processRules(input, ruleCallback) {
-  const inputWithEscapedQuotes = escapeBlocks(input, QUOTE_PAIRS, QUOTE_PLACEHOLDER);
-  const inputWithEscapedBlocks = escapeBlocks(inputWithEscapedQuotes.escapedString, CONTENT_PAIRS, BLOCK_PLACEHOLDER);
+  const escaped = escapeInStrings(input);
+  const inputWithEscapedBlocks = escapeBlocks(escaped, CONTENT_PAIRS, BLOCK_PLACEHOLDER);
   let nextBlockIndex = 0;
-  let nextQuoteIndex = 0;
-  return inputWithEscapedBlocks.escapedString.replace(_ruleRe, (...m) => {
+  const escapedResult = inputWithEscapedBlocks.escapedString.replace(_ruleRe, (...m) => {
     const selector = m[2];
     let content = "";
     let suffix = m[4];
@@ -12010,7 +12071,8 @@ function processRules(input, ruleCallback) {
     }
     const rule2 = ruleCallback(new CssRule(selector, content));
     return `${m[1]}${rule2.selector}${m[3]}${contentPrefix}${rule2.content}${suffix}`;
-  }).replace(_quotedRe, () => inputWithEscapedQuotes.blocks[nextQuoteIndex++]);
+  });
+  return unescapeInStrings(escapedResult);
 }
 var StringWithEscapedBlocks = class {
   constructor(escapedString, blocks) {
@@ -12056,6 +12118,45 @@ function escapeBlocks(input, charPairs, placeholder) {
     resultParts.push(input.substring(nonBlockStartIndex));
   }
   return new StringWithEscapedBlocks(resultParts.join(""), escapedBlocks);
+}
+var ESCAPE_IN_STRING_MAP = {
+  ";": SEMI_IN_PLACEHOLDER,
+  ",": COMMA_IN_PLACEHOLDER,
+  ":": COLON_IN_PLACEHOLDER
+};
+function escapeInStrings(input) {
+  let result = input;
+  let currentQuoteChar = null;
+  for (let i = 0; i < result.length; i++) {
+    const char = result[i];
+    if (char === "\\") {
+      i++;
+    } else {
+      if (currentQuoteChar !== null) {
+        if (char === currentQuoteChar) {
+          currentQuoteChar = null;
+        } else {
+          const placeholder = ESCAPE_IN_STRING_MAP[char];
+          if (placeholder) {
+            result = `${result.substr(0, i)}${placeholder}${result.substr(i + 1)}`;
+            i += placeholder.length - 1;
+          }
+        }
+      } else if (char === "'" || char === '"') {
+        currentQuoteChar = char;
+      }
+    }
+  }
+  return result;
+}
+function unescapeInStrings(input) {
+  let result = input.replace(_cssCommaInPlaceholderReGlobal, ",");
+  result = result.replace(_cssSemiInPlaceholderReGlobal, ";");
+  result = result.replace(_cssColonInPlaceholderReGlobal, ":");
+  return result;
+}
+function unescapeQuotes(str, isQuoted) {
+  return !isQuoted ? str : str.replace(/((?:^|[^\\])(?:\\\\)*)\\(?=['"])/g, "$1");
 }
 function combineHostContextSelectors(contextSelectors, otherSelectors) {
   const hostMarker = _polyfillHostNoCombinator;
@@ -17210,12 +17311,10 @@ function SECURITY_SCHEMA() {
       "del|cite",
       "form|action",
       "img|src",
-      "img|srcset",
       "input|src",
       "ins|cite",
       "q|cite",
       "source|src",
-      "source|srcset",
       "track|src",
       "video|poster",
       "video|src"
@@ -17249,11 +17348,11 @@ var NUMBER = "number";
 var STRING = "string";
 var OBJECT = "object";
 var SCHEMA = [
-  "[Element]|textContent,%classList,className,id,innerHTML,*beforecopy,*beforecut,*beforepaste,*copy,*cut,*paste,*search,*selectstart,*webkitfullscreenchange,*webkitfullscreenerror,*wheel,outerHTML,#scrollLeft,#scrollTop,slot,*message,*mozfullscreenchange,*mozfullscreenerror,*mozpointerlockchange,*mozpointerlockerror,*webglcontextcreationerror,*webglcontextlost,*webglcontextrestored",
-  "[HTMLElement]^[Element]|accessKey,contentEditable,dir,!draggable,!hidden,innerText,lang,*abort,*auxclick,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*cuechange,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*seeked,*seeking,*select,*show,*stalled,*submit,*suspend,*timeupdate,*toggle,*volumechange,*waiting,outerText,!spellcheck,%style,#tabIndex,title,!translate",
-  "abbr,address,article,aside,b,bdi,bdo,cite,code,dd,dfn,dt,em,figcaption,figure,footer,header,i,kbd,main,mark,nav,noscript,rb,rp,rt,rtc,ruby,s,samp,section,small,strong,sub,sup,u,var,wbr^[HTMLElement]|accessKey,contentEditable,dir,!draggable,!hidden,innerText,lang,*abort,*auxclick,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*cuechange,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*seeked,*seeking,*select,*show,*stalled,*submit,*suspend,*timeupdate,*toggle,*volumechange,*waiting,outerText,!spellcheck,%style,#tabIndex,title,!translate",
-  "media^[HTMLElement]|!autoplay,!controls,%controlsList,%crossOrigin,#currentTime,!defaultMuted,#defaultPlaybackRate,!disableRemotePlayback,!loop,!muted,*encrypted,*waitingforkey,#playbackRate,preload,src,%srcObject,#volume",
-  ":svg:^[HTMLElement]|*abort,*auxclick,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*cuechange,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*seeked,*seeking,*select,*show,*stalled,*submit,*suspend,*timeupdate,*toggle,*volumechange,*waiting,%style,#tabIndex",
+  "[Element]|textContent,%ariaAtomic,%ariaAutoComplete,%ariaBusy,%ariaChecked,%ariaColCount,%ariaColIndex,%ariaColSpan,%ariaCurrent,%ariaDescription,%ariaDisabled,%ariaExpanded,%ariaHasPopup,%ariaHidden,%ariaKeyShortcuts,%ariaLabel,%ariaLevel,%ariaLive,%ariaModal,%ariaMultiLine,%ariaMultiSelectable,%ariaOrientation,%ariaPlaceholder,%ariaPosInSet,%ariaPressed,%ariaReadOnly,%ariaRelevant,%ariaRequired,%ariaRoleDescription,%ariaRowCount,%ariaRowIndex,%ariaRowSpan,%ariaSelected,%ariaSetSize,%ariaSort,%ariaValueMax,%ariaValueMin,%ariaValueNow,%ariaValueText,%classList,className,elementTiming,id,innerHTML,*beforecopy,*beforecut,*beforepaste,*fullscreenchange,*fullscreenerror,*search,*webkitfullscreenchange,*webkitfullscreenerror,outerHTML,%part,#scrollLeft,#scrollTop,slot,*message,*mozfullscreenchange,*mozfullscreenerror,*mozpointerlockchange,*mozpointerlockerror,*webglcontextcreationerror,*webglcontextlost,*webglcontextrestored",
+  "[HTMLElement]^[Element]|accessKey,autocapitalize,!autofocus,contentEditable,dir,!draggable,enterKeyHint,!hidden,innerText,inputMode,lang,nonce,*abort,*animationend,*animationiteration,*animationstart,*auxclick,*beforexrselect,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*copy,*cuechange,*cut,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*formdata,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*paste,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerrawupdate,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*securitypolicyviolation,*seeked,*seeking,*select,*selectionchange,*selectstart,*slotchange,*stalled,*submit,*suspend,*timeupdate,*toggle,*transitioncancel,*transitionend,*transitionrun,*transitionstart,*volumechange,*waiting,*webkitanimationend,*webkitanimationiteration,*webkitanimationstart,*webkittransitionend,*wheel,outerText,!spellcheck,%style,#tabIndex,title,!translate,virtualKeyboardPolicy",
+  "abbr,address,article,aside,b,bdi,bdo,cite,content,code,dd,dfn,dt,em,figcaption,figure,footer,header,hgroup,i,kbd,main,mark,nav,noscript,rb,rp,rt,rtc,ruby,s,samp,section,small,strong,sub,sup,u,var,wbr^[HTMLElement]|accessKey,autocapitalize,!autofocus,contentEditable,dir,!draggable,enterKeyHint,!hidden,innerText,inputMode,lang,nonce,*abort,*animationend,*animationiteration,*animationstart,*auxclick,*beforexrselect,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*copy,*cuechange,*cut,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*formdata,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*paste,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerrawupdate,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*securitypolicyviolation,*seeked,*seeking,*select,*selectionchange,*selectstart,*slotchange,*stalled,*submit,*suspend,*timeupdate,*toggle,*transitioncancel,*transitionend,*transitionrun,*transitionstart,*volumechange,*waiting,*webkitanimationend,*webkitanimationiteration,*webkitanimationstart,*webkittransitionend,*wheel,outerText,!spellcheck,%style,#tabIndex,title,!translate,virtualKeyboardPolicy",
+  "media^[HTMLElement]|!autoplay,!controls,%controlsList,%crossOrigin,#currentTime,!defaultMuted,#defaultPlaybackRate,!disableRemotePlayback,!loop,!muted,*encrypted,*waitingforkey,#playbackRate,preload,!preservesPitch,src,%srcObject,#volume",
+  ":svg:^[HTMLElement]|!autofocus,nonce,*abort,*animationend,*animationiteration,*animationstart,*auxclick,*beforexrselect,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*copy,*cuechange,*cut,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*formdata,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*paste,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerrawupdate,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*securitypolicyviolation,*seeked,*seeking,*select,*selectionchange,*selectstart,*slotchange,*stalled,*submit,*suspend,*timeupdate,*toggle,*transitioncancel,*transitionend,*transitionrun,*transitionstart,*volumechange,*waiting,*webkitanimationend,*webkitanimationiteration,*webkitanimationstart,*webkittransitionend,*wheel,%style,#tabIndex",
   ":svg:graphics^:svg:|",
   ":svg:animation^:svg:|*begin,*end,*repeat",
   ":svg:geometry^:svg:|",
@@ -17261,16 +17360,17 @@ var SCHEMA = [
   ":svg:gradient^:svg:|",
   ":svg:textContent^:svg:graphics|",
   ":svg:textPositioning^:svg:textContent|",
-  "a^[HTMLElement]|charset,coords,download,hash,host,hostname,href,hreflang,name,password,pathname,ping,port,protocol,referrerPolicy,rel,rev,search,shape,target,text,type,username",
-  "area^[HTMLElement]|alt,coords,download,hash,host,hostname,href,!noHref,password,pathname,ping,port,protocol,referrerPolicy,rel,search,shape,target,username",
+  "a^[HTMLElement]|charset,coords,download,hash,host,hostname,href,hreflang,name,password,pathname,ping,port,protocol,referrerPolicy,rel,%relList,rev,search,shape,target,text,type,username",
+  "area^[HTMLElement]|alt,coords,download,hash,host,hostname,href,!noHref,password,pathname,ping,port,protocol,referrerPolicy,rel,%relList,search,shape,target,username",
   "audio^media|",
   "br^[HTMLElement]|clear",
   "base^[HTMLElement]|href,target",
-  "body^[HTMLElement]|aLink,background,bgColor,link,*beforeunload,*blur,*error,*focus,*hashchange,*languagechange,*load,*message,*offline,*online,*pagehide,*pageshow,*popstate,*rejectionhandled,*resize,*scroll,*storage,*unhandledrejection,*unload,text,vLink",
-  "button^[HTMLElement]|!autofocus,!disabled,formAction,formEnctype,formMethod,!formNoValidate,formTarget,name,type,value",
+  "body^[HTMLElement]|aLink,background,bgColor,link,*afterprint,*beforeprint,*beforeunload,*blur,*error,*focus,*hashchange,*languagechange,*load,*message,*messageerror,*offline,*online,*pagehide,*pageshow,*popstate,*rejectionhandled,*resize,*scroll,*storage,*unhandledrejection,*unload,text,vLink",
+  "button^[HTMLElement]|!disabled,formAction,formEnctype,formMethod,!formNoValidate,formTarget,name,type,value",
   "canvas^[HTMLElement]|#height,#width",
   "content^[HTMLElement]|select",
   "dl^[HTMLElement]|!compact",
+  "data^[HTMLElement]|value",
   "datalist^[HTMLElement]|",
   "details^[HTMLElement]|!open",
   "dialog^[HTMLElement]|!open,returnValue",
@@ -17281,22 +17381,22 @@ var SCHEMA = [
   "font^[HTMLElement]|color,face,size",
   "form^[HTMLElement]|acceptCharset,action,autocomplete,encoding,enctype,method,name,!noValidate,target",
   "frame^[HTMLElement]|frameBorder,longDesc,marginHeight,marginWidth,name,!noResize,scrolling,src",
-  "frameset^[HTMLElement]|cols,*beforeunload,*blur,*error,*focus,*hashchange,*languagechange,*load,*message,*offline,*online,*pagehide,*pageshow,*popstate,*rejectionhandled,*resize,*scroll,*storage,*unhandledrejection,*unload,rows",
+  "frameset^[HTMLElement]|cols,*afterprint,*beforeprint,*beforeunload,*blur,*error,*focus,*hashchange,*languagechange,*load,*message,*messageerror,*offline,*online,*pagehide,*pageshow,*popstate,*rejectionhandled,*resize,*scroll,*storage,*unhandledrejection,*unload,rows",
   "hr^[HTMLElement]|align,color,!noShade,size,width",
   "head^[HTMLElement]|",
   "h1,h2,h3,h4,h5,h6^[HTMLElement]|align",
   "html^[HTMLElement]|version",
-  "iframe^[HTMLElement]|align,!allowFullscreen,frameBorder,height,longDesc,marginHeight,marginWidth,name,referrerPolicy,%sandbox,scrolling,src,srcdoc,width",
-  "img^[HTMLElement]|align,alt,border,%crossOrigin,#height,#hspace,!isMap,longDesc,lowsrc,name,referrerPolicy,sizes,src,srcset,useMap,#vspace,#width",
-  "input^[HTMLElement]|accept,align,alt,autocapitalize,autocomplete,!autofocus,!checked,!defaultChecked,defaultValue,dirName,!disabled,%files,formAction,formEnctype,formMethod,!formNoValidate,formTarget,#height,!incremental,!indeterminate,max,#maxLength,min,#minLength,!multiple,name,pattern,placeholder,!readOnly,!required,selectionDirection,#selectionEnd,#selectionStart,#size,src,step,type,useMap,value,%valueAsDate,#valueAsNumber,#width",
+  "iframe^[HTMLElement]|align,allow,!allowFullscreen,!allowPaymentRequest,csp,frameBorder,height,loading,longDesc,marginHeight,marginWidth,name,referrerPolicy,%sandbox,scrolling,src,srcdoc,width",
+  "img^[HTMLElement]|align,alt,border,%crossOrigin,decoding,#height,#hspace,!isMap,loading,longDesc,lowsrc,name,referrerPolicy,sizes,src,srcset,useMap,#vspace,#width",
+  "input^[HTMLElement]|accept,align,alt,autocomplete,!checked,!defaultChecked,defaultValue,dirName,!disabled,%files,formAction,formEnctype,formMethod,!formNoValidate,formTarget,#height,!incremental,!indeterminate,max,#maxLength,min,#minLength,!multiple,name,pattern,placeholder,!readOnly,!required,selectionDirection,#selectionEnd,#selectionStart,#size,src,step,type,useMap,value,%valueAsDate,#valueAsNumber,#width",
   "li^[HTMLElement]|type,#value",
   "label^[HTMLElement]|htmlFor",
   "legend^[HTMLElement]|align",
-  "link^[HTMLElement]|as,charset,%crossOrigin,!disabled,href,hreflang,integrity,media,referrerPolicy,rel,%relList,rev,%sizes,target,type",
+  "link^[HTMLElement]|as,charset,%crossOrigin,!disabled,href,hreflang,imageSizes,imageSrcset,integrity,media,referrerPolicy,rel,%relList,rev,%sizes,target,type",
   "map^[HTMLElement]|name",
   "marquee^[HTMLElement]|behavior,bgColor,direction,height,#hspace,#loop,#scrollAmount,#scrollDelay,!trueSpeed,#vspace,width",
   "menu^[HTMLElement]|!compact",
-  "meta^[HTMLElement]|content,httpEquiv,name,scheme",
+  "meta^[HTMLElement]|content,httpEquiv,media,name,scheme",
   "meter^[HTMLElement]|#high,#low,#max,#min,#optimum,#value",
   "ins,del^[HTMLElement]|cite,dateTime",
   "ol^[HTMLElement]|!compact,!reversed,#start,type",
@@ -17310,11 +17410,10 @@ var SCHEMA = [
   "pre^[HTMLElement]|#width",
   "progress^[HTMLElement]|#max,#value",
   "q,blockquote,cite^[HTMLElement]|",
-  "script^[HTMLElement]|!async,charset,%crossOrigin,!defer,event,htmlFor,integrity,src,text,type",
-  "select^[HTMLElement]|autocomplete,!autofocus,!disabled,#length,!multiple,name,!required,#selectedIndex,#size,value",
-  "shadow^[HTMLElement]|",
+  "script^[HTMLElement]|!async,charset,%crossOrigin,!defer,event,htmlFor,integrity,!noModule,%referrerPolicy,src,text,type",
+  "select^[HTMLElement]|autocomplete,!disabled,#length,!multiple,name,!required,#selectedIndex,#size,value",
   "slot^[HTMLElement]|name",
-  "source^[HTMLElement]|media,sizes,src,srcset,type",
+  "source^[HTMLElement]|#height,media,sizes,src,srcset,type,#width",
   "span^[HTMLElement]|",
   "style^[HTMLElement]|!disabled,media,type",
   "caption^[HTMLElement]|align",
@@ -17324,12 +17423,13 @@ var SCHEMA = [
   "tr^[HTMLElement]|align,bgColor,ch,chOff,vAlign",
   "tfoot,thead,tbody^[HTMLElement]|align,ch,chOff,vAlign",
   "template^[HTMLElement]|",
-  "textarea^[HTMLElement]|autocapitalize,autocomplete,!autofocus,#cols,defaultValue,dirName,!disabled,#maxLength,#minLength,name,placeholder,!readOnly,!required,#rows,selectionDirection,#selectionEnd,#selectionStart,value,wrap",
+  "textarea^[HTMLElement]|autocomplete,#cols,defaultValue,dirName,!disabled,#maxLength,#minLength,name,placeholder,!readOnly,!required,#rows,selectionDirection,#selectionEnd,#selectionStart,value,wrap",
+  "time^[HTMLElement]|dateTime",
   "title^[HTMLElement]|text",
   "track^[HTMLElement]|!default,kind,label,src,srclang",
   "ul^[HTMLElement]|!compact,type",
   "unknown^[HTMLElement]|",
-  "video^media|#height,poster,#width",
+  "video^media|!disablePictureInPicture,#height,*enterpictureinpicture,*leavepictureinpicture,!playsInline,poster,#width",
   ":svg:a^:svg:graphics|",
   ":svg:animate^:svg:animation|",
   ":svg:animateMotion^:svg:animation|",
@@ -17368,7 +17468,7 @@ var SCHEMA = [
   ":svg:filter^:svg:|",
   ":svg:foreignObject^:svg:graphics|",
   ":svg:g^:svg:graphics|",
-  ":svg:image^:svg:graphics|",
+  ":svg:image^:svg:graphics|decoding",
   ":svg:line^:svg:geometry|",
   ":svg:linearGradient^:svg:gradient|",
   ":svg:mpath^:svg:|",
@@ -21222,7 +21322,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("15.0.0-next.1");
+var VERSION = new Version("15.0.0-rc.0");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -22750,7 +22850,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v15.0.0-next.1
+ * @license Angular v15.0.0-rc.0
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
