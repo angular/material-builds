@@ -3,6 +3,7 @@ import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewChecked } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
+import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CanColor } from '@angular/material/core';
@@ -836,6 +837,8 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _animationState: 'enter-dropdown' | 'enter-dialog' | 'void';
     /** Emits when an animation has finished. */
     readonly _animationDone: Subject<void>;
+    /** Whether there is an in-progress animation. */
+    _isAnimating: boolean;
     /** Text for the close button. */
     _closeButtonText: string;
     /** Whether the close button currently has focus. */
@@ -850,6 +853,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     ngOnDestroy(): void;
     _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;
     _startExitAnimation(): void;
+    _handleAnimationEvent(event: AnimationEvent_2): void;
     _getSelected(): D | DateRange<D> | null;
     /** Applies the current pending selection to the global model. */
     _applyPendingSelection(): void;
