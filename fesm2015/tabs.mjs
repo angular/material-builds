@@ -11,7 +11,7 @@ import { InjectionToken, Directive, Inject, Optional, TemplateRef, Component, Ch
 import * as i4 from '@angular/material/core';
 import { mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
-import { take, startWith, distinctUntilChanged, takeUntil, switchMap, skip } from 'rxjs/operators';
+import { take, startWith, distinctUntilChanged, takeUntil, switchMap, skip, filter } from 'rxjs/operators';
 import { Subject, Subscription, fromEvent, of, merge, EMPTY, Observable, timer } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import * as i1 from '@angular/cdk/bidi';
@@ -761,19 +761,18 @@ class MatPaginatedTabHeader {
             return EMPTY;
         }
         return this._items.changes.pipe(startWith(this._items), switchMap((tabItems) => new Observable((observer) => this._ngZone.runOutsideAngular(() => {
-            const resizeObserver = new ResizeObserver(() => {
-                observer.next();
-            });
-            tabItems.forEach(item => {
-                resizeObserver.observe(item.elementRef.nativeElement);
-            });
+            const resizeObserver = new ResizeObserver(entries => observer.next(entries));
+            tabItems.forEach(item => resizeObserver.observe(item.elementRef.nativeElement));
             return () => {
                 resizeObserver.disconnect();
             };
         }))), 
         // Skip the first emit since the resize observer emits when an item
         // is observed for new items when the tab is already inserted
-        skip(1));
+        skip(1), 
+        // Skip emissions where all the elements are invisible since we don't want
+        // the header to try and re-render with invalid measurements. See #25574.
+        filter(entries => entries.some(e => e.contentRect.width > 0 && e.contentRect.height > 0)));
     }
     ngAfterContentChecked() {
         // If the number of tab labels have changed, check if scrolling should be enabled
