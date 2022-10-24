@@ -12,7 +12,7 @@ import * as i1$2 from '@angular/cdk/a11y';
 import { FocusKeyManager, A11yModule } from '@angular/cdk/a11y';
 import * as i2 from '@angular/cdk/bidi';
 import { Subscription, Subject, fromEvent, of, merge, EMPTY, Observable, timer, BehaviorSubject } from 'rxjs';
-import { startWith, distinctUntilChanged, takeUntil, take, switchMap, skip } from 'rxjs/operators';
+import { startWith, distinctUntilChanged, takeUntil, take, switchMap, skip, filter } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/scrolling';
@@ -822,19 +822,18 @@ class MatPaginatedTabHeader {
             return EMPTY;
         }
         return this._items.changes.pipe(startWith(this._items), switchMap((tabItems) => new Observable((observer) => this._ngZone.runOutsideAngular(() => {
-            const resizeObserver = new ResizeObserver(() => {
-                observer.next();
-            });
-            tabItems.forEach(item => {
-                resizeObserver.observe(item.elementRef.nativeElement);
-            });
+            const resizeObserver = new ResizeObserver(entries => observer.next(entries));
+            tabItems.forEach(item => resizeObserver.observe(item.elementRef.nativeElement));
             return () => {
                 resizeObserver.disconnect();
             };
         }))), 
         // Skip the first emit since the resize observer emits when an item
         // is observed for new items when the tab is already inserted
-        skip(1));
+        skip(1), 
+        // Skip emissions where all the elements are invisible since we don't want
+        // the header to try and re-render with invalid measurements. See #25574.
+        filter(entries => entries.some(e => e.contentRect.width > 0 && e.contentRect.height > 0)));
     }
     ngAfterContentChecked() {
         // If the number of tab labels have changed, check if scrolling should be enabled
