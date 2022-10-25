@@ -302,11 +302,6 @@ class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
         if (tabIndex) {
             this.tabIndex = coerceNumberProperty(tabIndex, 0);
         }
-        this._removeUniqueSelectionListener = _radioDispatcher.listen((id, name) => {
-            if (id !== this.id && name === this.name) {
-                this.checked = false;
-            }
-        });
     }
     /** Whether this radio button is checked. */
     get checked() {
@@ -415,6 +410,11 @@ class _MatRadioButtonBase extends _MatRadioButtonMixinBase {
             // Copy name from parent radio group
             this.name = this.radioGroup.name;
         }
+        this._removeUniqueSelectionListener = this._radioDispatcher.listen((id, name) => {
+            if (id !== this.id && name === this.name) {
+                this.checked = false;
+            }
+        });
     }
     ngDoCheck() {
         this._updateTabIndex();
