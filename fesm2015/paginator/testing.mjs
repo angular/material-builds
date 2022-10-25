@@ -78,7 +78,7 @@ class _MatPaginatorHarnessBase extends ComponentHarness {
             return coerceNumberProperty(yield value);
         });
     }
-    /** Gets the text of the range labe of the paginator. */
+    /** Gets the text of the range label of the paginator. */
     getRangeLabel() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._rangeLabel()).text();
