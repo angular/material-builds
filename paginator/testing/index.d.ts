@@ -54,7 +54,7 @@ export declare abstract class _MatPaginatorHarnessBase extends ComponentHarness 
     setPageSize(size: number): Promise<void>;
     /** Gets the page size of the paginator. */
     getPageSize(): Promise<number>;
-    /** Gets the text of the range labe of the paginator. */
+    /** Gets the text of the range label of the paginator. */
     getRangeLabel(): Promise<string>;
 }
 

@@ -68,7 +68,7 @@ class _MatPaginatorHarnessBase extends ComponentHarness {
         const value = select ? select.getValueText() : (await this._pageSizeFallback()).text();
         return coerceNumberProperty(await value);
     }
-    /** Gets the text of the range labe of the paginator. */
+    /** Gets the text of the range label of the paginator. */
     async getRangeLabel() {
         return (await this._rangeLabel()).text();
     }
