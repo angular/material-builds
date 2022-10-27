@@ -15,9 +15,9 @@ import * as i0 from "@angular/core";
  */
 export class MatLegacySuffix {
 }
-MatLegacySuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacySuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacySuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0-rc.0", type: MatLegacySuffix, selector: "[matSuffix]", providers: [{ provide: MAT_SUFFIX, useExisting: MatLegacySuffix }], ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacySuffix, decorators: [{
+MatLegacySuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacySuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatLegacySuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0-rc.1", type: MatLegacySuffix, selector: "[matSuffix]", providers: [{ provide: MAT_SUFFIX, useExisting: MatLegacySuffix }], ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacySuffix, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matSuffix]',

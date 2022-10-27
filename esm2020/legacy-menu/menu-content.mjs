@@ -15,9 +15,9 @@ import * as i0 from "@angular/core";
  */
 export class MatLegacyMenuContent extends _MatMenuContentBase {
 }
-MatLegacyMenuContent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyMenuContent, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyMenuContent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0-rc.0", type: MatLegacyMenuContent, selector: "ng-template[matMenuContent]", providers: [{ provide: MAT_MENU_CONTENT, useExisting: MatLegacyMenuContent }], usesInheritance: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyMenuContent, decorators: [{
+MatLegacyMenuContent.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyMenuContent, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyMenuContent.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0-rc.1", type: MatLegacyMenuContent, selector: "ng-template[matMenuContent]", providers: [{ provide: MAT_MENU_CONTENT, useExisting: MatLegacyMenuContent }], usesInheritance: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyMenuContent, decorators: [{
             type: Directive,
             args: [{
                     selector: 'ng-template[matMenuContent]',

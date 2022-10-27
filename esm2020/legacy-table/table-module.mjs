@@ -42,8 +42,8 @@ const EXPORTED_DECLARATIONS = [
  */
 export class MatLegacyTableModule {
 }
-MatLegacyTableModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyTableModule, declarations: [
+MatLegacyTableModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyTableModule, declarations: [
         // Table
         MatLegacyTable,
         MatLegacyRecycleRows,
@@ -86,8 +86,8 @@ MatLegacyTableModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", ve
         MatLegacyFooterRow,
         MatLegacyNoDataRow,
         MatLegacyTextColumn] });
-MatLegacyTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyTableModule, imports: [CdkTableModule, MatCommonModule, MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyTableModule, decorators: [{
+MatLegacyTableModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyTableModule, imports: [CdkTableModule, MatCommonModule, MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyTableModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CdkTableModule, MatCommonModule],

@@ -22,8 +22,8 @@ import { MatTabNav, MatTabNavPanel, MatTabLink } from './tab-nav-bar/tab-nav-bar
 import * as i0 from "@angular/core";
 export class MatTabsModule {
 }
-MatTabsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatTabsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatTabsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatTabsModule, declarations: [MatTabContent,
+MatTabsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatTabsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatTabsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatTabsModule, declarations: [MatTabContent,
         MatTabLabel,
         MatTab,
         MatTabGroup,
@@ -47,13 +47,13 @@ MatTabsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: 
         MatTabNav,
         MatTabNavPanel,
         MatTabLink] });
-MatTabsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatTabsModule, imports: [CommonModule,
+MatTabsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatTabsModule, imports: [CommonModule,
         MatCommonModule,
         PortalModule,
         MatRippleModule,
         ObserversModule,
         A11yModule, MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatTabsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatTabsModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [

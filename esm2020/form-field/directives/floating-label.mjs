@@ -35,9 +35,9 @@ export class MatFormFieldFloatingLabel {
         return this._elementRef.nativeElement;
     }
 }
-MatFormFieldFloatingLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatFormFieldFloatingLabel, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-MatFormFieldFloatingLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0-rc.0", type: MatFormFieldFloatingLabel, selector: "label[matFormFieldFloatingLabel]", inputs: { floating: "floating" }, host: { properties: { "class.mdc-floating-label--float-above": "floating" }, classAttribute: "mdc-floating-label mat-mdc-floating-label" }, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatFormFieldFloatingLabel, decorators: [{
+MatFormFieldFloatingLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatFormFieldFloatingLabel, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+MatFormFieldFloatingLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0-rc.1", type: MatFormFieldFloatingLabel, selector: "label[matFormFieldFloatingLabel]", inputs: { floating: "floating" }, host: { properties: { "class.mdc-floating-label--float-above": "floating" }, classAttribute: "mdc-floating-label mat-mdc-floating-label" }, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatFormFieldFloatingLabel, decorators: [{
             type: Directive,
             args: [{
                     selector: 'label[matFormFieldFloatingLabel]',
