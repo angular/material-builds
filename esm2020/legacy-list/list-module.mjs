@@ -18,8 +18,8 @@ import * as i0 from "@angular/core";
  */
 export class MatLegacyListModule {
 }
-MatLegacyListModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyListModule, declarations: [MatLegacyList,
+MatLegacyListModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyListModule, declarations: [MatLegacyList,
         MatLegacyNavList,
         MatLegacyListItem,
         MatLegacyListAvatarCssMatStyler,
@@ -38,11 +38,11 @@ MatLegacyListModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", ver
         MatLegacySelectionList,
         MatLegacyListOption,
         MatDividerModule] });
-MatLegacyListModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyListModule, imports: [MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, CommonModule, MatLineModule,
+MatLegacyListModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyListModule, imports: [MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, CommonModule, MatLineModule,
         MatCommonModule,
         MatPseudoCheckboxModule,
         MatDividerModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyListModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyListModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, CommonModule],

@@ -15,10 +15,10 @@ import * as i0 from "@angular/core";
  */
 export class MatLegacyRadioModule {
 }
-MatLegacyRadioModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyRadioModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyRadioModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyRadioModule, declarations: [MatLegacyRadioGroup, MatLegacyRadioButton], imports: [MatRippleModule, MatCommonModule], exports: [MatLegacyRadioGroup, MatLegacyRadioButton, MatCommonModule] });
-MatLegacyRadioModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyRadioModule, imports: [MatRippleModule, MatCommonModule, MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyRadioModule, decorators: [{
+MatLegacyRadioModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyRadioModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyRadioModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyRadioModule, declarations: [MatLegacyRadioGroup, MatLegacyRadioButton], imports: [MatRippleModule, MatCommonModule], exports: [MatLegacyRadioGroup, MatLegacyRadioButton, MatCommonModule] });
+MatLegacyRadioModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyRadioModule, imports: [MatRippleModule, MatCommonModule, MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyRadioModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatRippleModule, MatCommonModule],

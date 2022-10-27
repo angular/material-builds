@@ -27,8 +27,8 @@ const CHIP_DECLARATIONS = [
  */
 export class MatLegacyChipsModule {
 }
-MatLegacyChipsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyChipsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyChipsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyChipsModule, declarations: [MatLegacyChipList,
+MatLegacyChipsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyChipsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyChipsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyChipsModule, declarations: [MatLegacyChipList,
         MatLegacyChip,
         MatLegacyChipInput,
         MatLegacyChipRemove,
@@ -39,7 +39,7 @@ MatLegacyChipsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", ve
         MatLegacyChipRemove,
         MatLegacyChipAvatar,
         MatLegacyChipTrailingIcon] });
-MatLegacyChipsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyChipsModule, providers: [
+MatLegacyChipsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyChipsModule, providers: [
         ErrorStateMatcher,
         {
             provide: MAT_LEGACY_CHIPS_DEFAULT_OPTIONS,
@@ -48,7 +48,7 @@ MatLegacyChipsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", ve
             },
         },
     ], imports: [MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyChipsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyChipsModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],

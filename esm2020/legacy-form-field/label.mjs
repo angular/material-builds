@@ -14,9 +14,9 @@ import * as i0 from "@angular/core";
  */
 export class MatLegacyLabel {
 }
-MatLegacyLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyLabel, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0-rc.0", type: MatLegacyLabel, selector: "mat-label", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyLabel, decorators: [{
+MatLegacyLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyLabel, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0-rc.1", type: MatLegacyLabel, selector: "mat-label", ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyLabel, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-label',

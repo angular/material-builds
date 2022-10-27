@@ -15,10 +15,10 @@ import * as i0 from "@angular/core";
  */
 export class MatLegacyButtonModule {
 }
-MatLegacyButtonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyButtonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyButtonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyButtonModule, declarations: [MatLegacyButton, MatLegacyAnchor], imports: [MatRippleModule, MatCommonModule], exports: [MatLegacyButton, MatLegacyAnchor, MatCommonModule] });
-MatLegacyButtonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyButtonModule, imports: [MatRippleModule, MatCommonModule, MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyButtonModule, decorators: [{
+MatLegacyButtonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyButtonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyButtonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyButtonModule, declarations: [MatLegacyButton, MatLegacyAnchor], imports: [MatRippleModule, MatCommonModule], exports: [MatLegacyButton, MatLegacyAnchor, MatCommonModule] });
+MatLegacyButtonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyButtonModule, imports: [MatRippleModule, MatCommonModule, MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyButtonModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatRippleModule, MatCommonModule],

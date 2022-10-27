@@ -27,8 +27,8 @@ import * as i0 from "@angular/core";
  */
 export class MatLegacyTabsModule {
 }
-MatLegacyTabsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyTabsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyTabsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyTabsModule, declarations: [MatLegacyTabGroup,
+MatLegacyTabsModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyTabsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyTabsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyTabsModule, declarations: [MatLegacyTabGroup,
         MatLegacyTabLabel,
         MatLegacyTab,
         MatLegacyInkBar,
@@ -52,13 +52,13 @@ MatLegacyTabsModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", ver
         MatLegacyTabNavPanel,
         MatLegacyTabLink,
         MatLegacyTabContent] });
-MatLegacyTabsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyTabsModule, imports: [CommonModule,
+MatLegacyTabsModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyTabsModule, imports: [CommonModule,
         MatCommonModule,
         PortalModule,
         MatRippleModule,
         ObserversModule,
         A11yModule, MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.0", ngImport: i0, type: MatLegacyTabsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: MatLegacyTabsModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
