@@ -512,7 +512,10 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
      * @param index Index of the active option. If set to -1, no option will be active.
      */
     private _setActiveOption;
-    /** Resets the active option to the first selected option. */
+    /**
+     * Resets the active option. When the list is disabled, remove all options from to the tab order.
+     * Otherwise, focus the first selected option.
+     */
     private _resetActiveOption;
     /** Returns whether the focus is currently within the list. */
     private _containsFocus;

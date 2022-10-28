@@ -914,6 +914,9 @@ class MatSelectionList extends MatListBase {
         };
         /** Handles focusin events within the list. */
         this._handleFocusin = (event) => {
+            if (this.disabled) {
+                return;
+            }
             const activeIndex = this._items
                 .toArray()
                 .findIndex(item => item._elementRef.nativeElement.contains(event.target));
@@ -1137,7 +1140,7 @@ class MatSelectionList extends MatListBase {
             .withHomeAndEnd()
             .withTypeAhead()
             .withWrap()
-            .skipPredicate(() => false);
+            .skipPredicate(() => this.disabled);
         // Set the initial focus.
         this._resetActiveOption();
         // Move the tabindex to the currently-focused list item.
@@ -1158,8 +1161,15 @@ class MatSelectionList extends MatListBase {
         this._items.forEach((item, itemIndex) => item._setTabindex(itemIndex === index ? 0 : -1));
         this._keyManager.updateActiveItem(index);
     }
-    /** Resets the active option to the first selected option. */
+    /**
+     * Resets the active option. When the list is disabled, remove all options from to the tab order.
+     * Otherwise, focus the first selected option.
+     */
     _resetActiveOption() {
+        if (this.disabled) {
+            this._setActiveOption(-1);
+            return;
+        }
         const activeItem = this._items.find(item => item.selected && !item.disabled) || this._items.first;
         this._setActiveOption(activeItem ? this._items.toArray().indexOf(activeItem) : -1);
     }
