@@ -7,7 +7,7 @@ import { ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/port
 import * as i1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Injectable, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, inject, Directive, Attribute, ContentChild, InjectFlags, Self, TemplateRef, NgModule } from '@angular/core';
+import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Injectable, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, inject, Directive, Attribute, ContentChild, Self, TemplateRef, NgModule } from '@angular/core';
 import * as i3 from '@angular/material/button';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -3555,7 +3555,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
         // validator. We work around it here by injecting the `NgControl` in `ngOnInit`, after
         // everything has been resolved.
         // tslint:disable-next-line:no-bitwise
-        const ngControl = this._injector.get(NgControl, null, InjectFlags.Self | InjectFlags.Optional);
+        const ngControl = this._injector.get(NgControl, null, { optional: true, self: true });
         if (ngControl) {
             this.ngControl = ngControl;
         }
