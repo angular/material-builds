@@ -22197,6 +22197,22 @@ var FormFieldTemplateMigrator = class extends TemplateMigrator {
   }
 };
 
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/slider/slider-template.js
+var SliderTemplateMigrator = class extends TemplateMigrator {
+  getUpdates(ast) {
+    const updates = [];
+    visitElements(ast.nodes, (node) => {
+      if (node.name === "mat-slider") {
+        updates.push({
+          offset: node.sourceSpan.start.offset,
+          updateFn: (html) => html
+        });
+      }
+    });
+    return updates;
+  }
+};
+
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/index.js
 var LEGACY_MODULES = new Set([
   "legacy-autocomplete",
@@ -22322,7 +22338,8 @@ var MIGRATORS = [
   },
   {
     component: "slider",
-    styles: new SliderStylesMigrator()
+    styles: new SliderStylesMigrator(),
+    template: new SliderTemplateMigrator()
   },
   {
     component: "snack-bar",
