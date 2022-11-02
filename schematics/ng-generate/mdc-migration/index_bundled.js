@@ -22410,13 +22410,28 @@ var parse3 = import_scss_syntax.default.parse;
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
 var COMPONENTS_MIXIN_NAME = /\.([^(;]*)/;
+var RENAMED_TYPOGRAPHY_LEVELS = /* @__PURE__ */ new Map([
+  ["display-4", "headline-1"],
+  ["display-3", "headline-2"],
+  ["display-2", "headline-3"],
+  ["display-1", "headline-4"],
+  ["headline", "headline-5"],
+  ["title", "headline-6"],
+  ["subheading-2", "subtitle-1"],
+  ["body-2", "subtitle-2"],
+  ["subheading-1", "body-1"],
+  ["body-1", "body-2"]
+]);
 var ThemingStylesMigration = class extends import_schematics.Migration {
   constructor() {
     super(...arguments);
     this.enabled = true;
   }
   visitStylesheet(stylesheet) {
-    const migratedContent = this.migrate(stylesheet.content, stylesheet.filePath).replace(new RegExp(`${this.namespace}.define-legacy-typography-config\\(`, "g"), `${this.namespace}.define-typography-config(`);
+    let migratedContent = this.migrate(stylesheet.content, stylesheet.filePath);
+    if (this._namespace) {
+      migratedContent = migrateTypographyConfigs(migratedContent, this._namespace);
+    }
     this.fileSystem.edit(stylesheet.filePath).remove(stylesheet.start, stylesheet.content.length).insertRight(stylesheet.start, migratedContent);
   }
   migrate(styles, filename) {
@@ -22440,15 +22455,15 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
   }
   atUseHandler(atRule2) {
     if (isAngularMaterialImport(atRule2)) {
-      this.namespace = parseNamespace(atRule2);
+      this._namespace = parseNamespace(atRule2);
     }
   }
   atIncludeHandler(atRule2) {
     const migrator = this.upgradeData.find((m) => {
-      return m.styles.isLegacyMixin(this.namespace, atRule2);
+      return m.styles.isLegacyMixin(this._namespace, atRule2);
     });
     if (migrator) {
-      const mixinChange = migrator.styles.getMixinChange(this.namespace, atRule2);
+      const mixinChange = migrator.styles.getMixinChange(this._namespace, atRule2);
       if (mixinChange) {
         if (mixinChange.new) {
           replaceAtRuleWithMultiple(atRule2, mixinChange.old, mixinChange.new);
@@ -22464,13 +22479,13 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
           return;
         }
       }
-      replaceCrossCuttingMixin(atRule2, this.namespace);
+      replaceCrossCuttingMixin(atRule2, this._namespace);
     }
   }
   isCrossCuttingMixin(mixinText) {
     return [
-      `${this.namespace}\\.all-legacy-component-`,
-      `${this.namespace}\\.legacy-core([^-]|$)`
+      `${this._namespace}\\.all-legacy-component-`,
+      `${this._namespace}\\.legacy-core([^-]|$)`
     ].some((r) => new RegExp(r).test(mixinText));
   }
   isPartialMigration() {
@@ -22542,6 +22557,58 @@ function replaceAtRuleWithMultiple(atRule2, textToReplace, replacements) {
     });
   }
   atRule2.remove();
+}
+function migrateTypographyConfigs(content, namespace) {
+  const calls = extractFunctionCalls(`${namespace}.define-legacy-typography-config`, content);
+  const newFunctionName = `${namespace}.define-typography-config`;
+  const replacements = [];
+  calls.forEach(({ name, args }) => {
+    const argContent = content.slice(args.start, args.end);
+    replacements.push({ start: name.start, end: name.end, text: newFunctionName });
+    RENAMED_TYPOGRAPHY_LEVELS.forEach((newName, oldName) => {
+      const pattern = new RegExp(`\\$(${oldName}) *:`, "g");
+      let match;
+      while (match = pattern.exec(argContent)) {
+        const start = args.start + match.index + 1;
+        replacements.push({
+          start,
+          end: start + match[1].length,
+          text: newName
+        });
+      }
+    });
+  });
+  replacements.sort((a, b) => b.start - a.start).forEach(({ start, end, text }) => content = content.slice(0, start) + text + content.slice(end));
+  return content;
+}
+function extractFunctionCalls(name, content) {
+  const results = [];
+  const callString = name + "(";
+  let index2 = content.indexOf(callString);
+  while (index2 > -1) {
+    let openParens = 0;
+    let endIndex = -1;
+    let nameEnd = index2 + callString.length - 1;
+    for (let i = nameEnd; i < content.length; i++) {
+      const char = content[i];
+      if (char === "(") {
+        openParens++;
+      } else if (char === ")") {
+        openParens--;
+        if (openParens === 0) {
+          endIndex = i;
+          break;
+        }
+      }
+    }
+    if (endIndex === -1) {
+      index2 = content.indexOf(callString, nameEnd + 1);
+    } else {
+      results.push({ name: { start: index2, end: nameEnd }, args: { start: nameEnd + 1, end: endIndex } });
+      index2 = content.indexOf(callString, endIndex);
+    }
+  }
+  return results;
 }
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/template-migration.js
