@@ -22203,14 +22203,35 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
     const updates = [];
     visitElements(ast.nodes, (node) => {
       if (node.name === "mat-slider") {
-        this._getBindings(node);
+        const originalHtml = node.sourceSpan.start.file.content;
+        const bindings = this._getBindings(node);
+        const inputBindings = [];
+        for (let i = 0; i < bindings.length; i++) {
+          const binding = bindings[i];
+          if (binding.name === "value") {
+            const sourceSpan = binding.node.sourceSpan;
+            inputBindings.push(originalHtml.slice(sourceSpan.start.offset, sourceSpan.end.offset));
+            updates.push(this._removeBinding(originalHtml, binding.node));
+          }
+        }
+        const matSliderThumb = inputBindings.length ? `<input matSliderThumb ${inputBindings.join(" ")} />` : "<input matSliderThumb />";
         updates.push({
-          offset: node.sourceSpan.start.offset,
-          updateFn: (html) => html
+          offset: node.startSourceSpan.end.offset,
+          updateFn: (html) => html.slice(0, node.startSourceSpan.end.offset) + matSliderThumb + html.slice(node.startSourceSpan.end.offset)
         });
       }
     });
     return updates;
+  }
+  _removeBinding(originalHtml, binding) {
+    let charIndex = binding.sourceSpan.start.offset - 1;
+    while (/\s/.test(originalHtml.charAt(charIndex)) && charIndex > -1) {
+      charIndex--;
+    }
+    return {
+      offset: charIndex + 1,
+      updateFn: (html) => html.slice(0, charIndex + 1) + html.slice(binding.sourceSpan.end.offset)
+    };
   }
   _getBindings(node) {
     const allInputs = this._getInputs(node);
