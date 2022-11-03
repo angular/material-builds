@@ -22203,6 +22203,7 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
     const updates = [];
     visitElements(ast.nodes, (node) => {
       if (node.name === "mat-slider") {
+        this._getBindings(node);
         updates.push({
           offset: node.sourceSpan.start.offset,
           updateFn: (html) => html
@@ -22210,6 +22211,42 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
       }
     });
     return updates;
+  }
+  _getBindings(node) {
+    const allInputs = this._getInputs(node);
+    const allOutputs = this._getOutputs(node);
+    const attributes = this._getAttributes(node);
+    const twoWayBindings = this._getTwoWayBindings(allInputs, allOutputs);
+    const inputs = allInputs.filter((input) => !twoWayBindings.some((binding) => binding.name === input.name));
+    const outputs = allOutputs.filter((output) => !twoWayBindings.some((binding) => binding.name === output.name));
+    return inputs.concat(outputs).concat(attributes).concat(twoWayBindings);
+  }
+  _getTwoWayBindings(inputs, outputs) {
+    return inputs.filter((input) => outputs.some((output) => output.name === input.name)).map((input) => __spreadProps(__spreadValues({}, input), { type: 3 }));
+  }
+  _getOutputs(node) {
+    return node.outputs.map((output) => ({
+      node: output,
+      type: 1,
+      name: node.sourceSpan.start.file.content.slice(output.keySpan.start.offset, output.keySpan.end.offset),
+      value: node.sourceSpan.start.file.content.slice(output.handlerSpan.start.offset, output.handlerSpan.end.offset)
+    }));
+  }
+  _getInputs(node) {
+    return node.inputs.map((input) => ({
+      node: input,
+      type: 0,
+      name: node.sourceSpan.start.file.content.slice(input.keySpan.start.offset, input.keySpan.end.offset),
+      value: node.sourceSpan.start.file.content.slice(input.value.sourceSpan.start, input.value.sourceSpan.end)
+    }));
+  }
+  _getAttributes(node) {
+    return node.attributes.map((attribute) => ({
+      node: attribute,
+      type: 2,
+      name: attribute.name,
+      value: attribute.value
+    }));
   }
 };
 
