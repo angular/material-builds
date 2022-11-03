@@ -535,8 +535,10 @@ class MatChipOption extends MatChip {
         }
     }
     _hasLeadingGraphic() {
-        // The checkmark graphic is built in for multi-select chip lists.
-        return this.leadingIcon || (this._chipListMultiple && this.selectable);
+        // The checkmark graphic communicates selected state for both single-select and multi-select.
+        // Include checkmark in single-select to fix a11y issue where selected state is communicated
+        // visually only using color (#25886).
+        return this.leadingIcon || this.selectable;
     }
     _setSelectedState(isSelected, isUserInput, emitEvent) {
         if (isSelected !== this.selected) {
