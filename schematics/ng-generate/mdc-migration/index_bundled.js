@@ -22206,6 +22206,7 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
         const originalHtml = node.sourceSpan.start.file.content;
         const bindings = this._getBindings(node);
         const inputBindings = [];
+        const comments = [];
         for (let i = 0; i < bindings.length; i++) {
           const binding = bindings[i];
           if (binding.name === "value") {
@@ -22213,6 +22214,13 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
             inputBindings.push(originalHtml.slice(sourceSpan.start.offset, sourceSpan.end.offset));
             updates.push(this._removeBinding(originalHtml, binding.node));
           }
+          if (binding.name === "invert" || binding.name === "vertical") {
+            comments.push(`<!-- TODO: The '${binding.name}' property no longer exists -->`);
+            updates.push(this._removeBinding(originalHtml, binding.node));
+          }
+        }
+        if (comments.length) {
+          updates.push(this._addComments(node, comments));
         }
         const matSliderThumb = inputBindings.length ? `<input matSliderThumb ${inputBindings.join(" ")} />` : "<input matSliderThumb />";
         updates.push({
@@ -22222,6 +22230,20 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
       }
     });
     return updates;
+  }
+  _addComments(node, comments) {
+    const whitespace = this._parseIndentation(node);
+    const indentation = "\n" + this._parseIndentation(node);
+    const commentStr = whitespace.length === node.sourceSpan.start.col ? comments.join(indentation) : indentation + comments.join(indentation);
+    return {
+      offset: node.sourceSpan.start.offset,
+      updateFn: (html) => html.slice(0, node.sourceSpan.start.offset) + commentStr + `${indentation}${html.slice(node.sourceSpan.start.offset)}`
+    };
+  }
+  _parseIndentation(node) {
+    const html = node.sourceSpan.start.file.content;
+    const before = html.slice(node.sourceSpan.start.offset - node.sourceSpan.start.col, node.sourceSpan.start.offset);
+    return before.slice(0, before.length - before.trimStart().length);
   }
   _removeBinding(originalHtml, binding) {
     let charIndex = binding.sourceSpan.start.offset - 1;
