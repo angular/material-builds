@@ -82,8 +82,8 @@ declare namespace i4 {
 
 declare namespace i5 {
     export {
-        _MatTabLinkBase,
         _MatTabNavBase,
+        _MatTabLinkBase,
         MatTabNav,
         MatTabLink,
         MatTabNavPanel
