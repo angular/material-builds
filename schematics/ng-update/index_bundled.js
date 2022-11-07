@@ -6784,7 +6784,8 @@ var require_constants = __commonJS({
       "all-component-themes": "all-legacy-component-themes",
       "all-component-colors": "all-legacy-component-colors",
       "all-component-typographies": "all-legacy-component-typographies",
-      "private-all-component-densities": "private-all-legacy-component-densities"
+      "private-all-component-densities": "private-all-legacy-component-densities",
+      "typography-hierarchy": "legacy-typography-hierarchy"
     };
     exports.CUSTOM_SASS_FUNCTION_RENAMINGS = {
       "define-typography-config": "define-legacy-typography-config"

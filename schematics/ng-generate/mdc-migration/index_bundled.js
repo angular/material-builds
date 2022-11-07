@@ -1962,9 +1962,9 @@ var require_source_map_generator = __commonJS({
       var mapping;
       var nameIdx;
       var sourceIdx;
-      var mappings = this._mappings.toArray();
-      for (var i = 0, len = mappings.length; i < len; i++) {
-        mapping = mappings[i];
+      var mappings2 = this._mappings.toArray();
+      for (var i = 0, len = mappings2.length; i < len; i++) {
+        mapping = mappings2[i];
         next = "";
         if (mapping.generatedLine !== previousGeneratedLine) {
           previousGeneratedColumn = 0;
@@ -1974,7 +1974,7 @@ var require_source_map_generator = __commonJS({
           }
         } else {
           if (i > 0) {
-            if (!util.compareByGeneratedPositionsInflated(mapping, mappings[i - 1])) {
+            if (!util.compareByGeneratedPositionsInflated(mapping, mappings2[i - 1])) {
               continue;
             }
             next += ",";
@@ -2190,13 +2190,13 @@ var require_source_map_consumer = __commonJS({
     SourceMapConsumer.prototype.eachMapping = function SourceMapConsumer_eachMapping(aCallback, aContext, aOrder) {
       var context = aContext || null;
       var order = aOrder || SourceMapConsumer.GENERATED_ORDER;
-      var mappings;
+      var mappings2;
       switch (order) {
         case SourceMapConsumer.GENERATED_ORDER:
-          mappings = this._generatedMappings;
+          mappings2 = this._generatedMappings;
           break;
         case SourceMapConsumer.ORIGINAL_ORDER:
-          mappings = this._originalMappings;
+          mappings2 = this._originalMappings;
           break;
         default:
           throw new Error("Unknown order of iteration.");
@@ -2206,8 +2206,8 @@ var require_source_map_consumer = __commonJS({
       var names = this._names;
       var sources = this._sources;
       var sourceMapURL = this._sourceMapURL;
-      for (var i = 0, n = mappings.length; i < n; i++) {
-        var mapping = mappings[i];
+      for (var i = 0, n = mappings2.length; i < n; i++) {
+        var mapping = mappings2[i];
         var source = mapping.source === null ? null : sources.at(mapping.source);
         source = util.computeSourceURL(sourceRoot, source, sourceMapURL);
         boundCallback({
@@ -2231,14 +2231,14 @@ var require_source_map_consumer = __commonJS({
       if (needle.source < 0) {
         return [];
       }
-      var mappings = [];
+      var mappings2 = [];
       var index2 = this._findMapping(needle, this._originalMappings, "originalLine", "originalColumn", util.compareByOriginalPositions, binarySearch.LEAST_UPPER_BOUND);
       if (index2 >= 0) {
         var mapping = this._originalMappings[index2];
         if (aArgs.column === void 0) {
           var originalLine = mapping.originalLine;
           while (mapping && mapping.originalLine === originalLine) {
-            mappings.push({
+            mappings2.push({
               line: util.getArg(mapping, "generatedLine", null),
               column: util.getArg(mapping, "generatedColumn", null),
               lastColumn: util.getArg(mapping, "lastGeneratedColumn", null)
@@ -2248,7 +2248,7 @@ var require_source_map_consumer = __commonJS({
         } else {
           var originalColumn = mapping.originalColumn;
           while (mapping && mapping.originalLine === line && mapping.originalColumn == originalColumn) {
-            mappings.push({
+            mappings2.push({
               line: util.getArg(mapping, "generatedLine", null),
               column: util.getArg(mapping, "generatedColumn", null),
               lastColumn: util.getArg(mapping, "lastGeneratedColumn", null)
@@ -2257,7 +2257,7 @@ var require_source_map_consumer = __commonJS({
           }
         }
       }
-      return mappings;
+      return mappings2;
     };
     exports.SourceMapConsumer = SourceMapConsumer;
     function BasicSourceMapConsumer(aSourceMap, aSourceMapURL) {
@@ -2270,7 +2270,7 @@ var require_source_map_consumer = __commonJS({
       var names = util.getArg(sourceMap, "names", []);
       var sourceRoot = util.getArg(sourceMap, "sourceRoot", null);
       var sourcesContent = util.getArg(sourceMap, "sourcesContent", null);
-      var mappings = util.getArg(sourceMap, "mappings");
+      var mappings2 = util.getArg(sourceMap, "mappings");
       var file = util.getArg(sourceMap, "file", null);
       if (version != this._version) {
         throw new Error("Unsupported version: " + version);
@@ -2288,7 +2288,7 @@ var require_source_map_consumer = __commonJS({
       });
       this.sourceRoot = sourceRoot;
       this.sourcesContent = sourcesContent;
-      this._mappings = mappings;
+      this._mappings = mappings2;
       this._sourceMapURL = aSourceMapURL;
       this.file = file;
     }
@@ -6271,11 +6271,25 @@ module.exports = __toCommonJS(mdc_migration_exports);
 var END_OF_SELECTOR_REGEX = "(?!-)";
 var MIXIN_ARGUMENTS_REGEX = "\\(((\\s|.)*)\\)";
 var StyleMigrator = class {
+  constructor() {
+    this._processedNodes = /* @__PURE__ */ new WeakMap();
+  }
+  static wrapValue(value) {
+    const escapeString = "__NG_MDC_MIGRATION_PLACEHOLDER__";
+    return `${escapeString}${value}${escapeString}`;
+  }
+  static unwrapAllValues(content) {
+    return content.replace(/__NG_MDC_MIGRATION_PLACEHOLDER__/g, "");
+  }
   isLegacyMixin(namespace, atRule2) {
     return this.mixinChanges.some((change) => atRule2.params.includes(`${namespace}.${change.old}`));
   }
   getMixinChange(namespace, atRule2) {
     var _a, _b;
+    const processedKey = `mixinChange-${namespace}`;
+    if (this._nodeIsProcessed(atRule2, processedKey)) {
+      return null;
+    }
     const change = this.mixinChanges.find((c) => {
       return atRule2.params.includes(`${namespace}.${c.old}`);
     });
@@ -6294,6 +6308,7 @@ var StyleMigrator = class {
         }
       });
     }
+    this._trackProcessedNode(atRule2, processedKey);
     return { old: change.old, new: replacements.length ? replacements : null };
   }
   isLegacySelector(rule2) {
@@ -6304,15 +6319,27 @@ var StyleMigrator = class {
   }
   replaceLegacySelector(rule2) {
     var _a;
-    for (let i = 0; i < this.classChanges.length; i++) {
-      const change = this.classChanges[i];
-      if ((_a = rule2.selector) == null ? void 0 : _a.match(change.old + END_OF_SELECTOR_REGEX)) {
-        rule2.selector = rule2.selector.replace(change.old, change.new);
+    if (!this._nodeIsProcessed(rule2, "replaceLegacySelector")) {
+      for (let i = 0; i < this.classChanges.length; i++) {
+        const change = this.classChanges[i];
+        if ((_a = rule2.selector) == null ? void 0 : _a.match(change.old + END_OF_SELECTOR_REGEX)) {
+          rule2.selector = rule2.selector.replace(change.old, change.new);
+        }
       }
+      this._trackProcessedNode(rule2, "replaceLegacySelector");
     }
   }
   isDeprecatedSelector(rule2) {
     return this.deprecatedPrefixes.some((deprecatedPrefix) => rule2.selector.includes(deprecatedPrefix));
+  }
+  _trackProcessedNode(node, action) {
+    const appliedActions = this._processedNodes.get(node) || /* @__PURE__ */ new Set();
+    appliedActions.add(action);
+    this._processedNodes.set(node, appliedActions);
+  }
+  _nodeIsProcessed(node, action) {
+    var _a;
+    return !!((_a = this._processedNodes.get(node)) == null ? void 0 : _a.has(action));
   }
 };
 
@@ -8412,14 +8439,14 @@ var SourceMapGenerator = class {
       sources.push(url);
       sourcesContent.push(this.sourcesContent.get(url) || null);
     });
-    let mappings = "";
+    let mappings2 = "";
     let lastCol0 = 0;
     let lastSourceIndex = 0;
     let lastSourceLine0 = 0;
     let lastSourceCol0 = 0;
     this.lines.forEach((segments) => {
       lastCol0 = 0;
-      mappings += segments.map((segment) => {
+      mappings2 += segments.map((segment) => {
         let segAsStr = toBase64VLQ(segment.col0 - lastCol0);
         lastCol0 = segment.col0;
         if (segment.sourceUrl != null) {
@@ -8432,16 +8459,16 @@ var SourceMapGenerator = class {
         }
         return segAsStr;
       }).join(",");
-      mappings += ";";
+      mappings2 += ";";
     });
-    mappings = mappings.slice(0, -1);
+    mappings2 = mappings2.slice(0, -1);
     return {
       "file": this.file || "",
       "version": VERSION$1,
       "sourceRoot": "",
       "sources": sources,
       "sourcesContent": sourcesContent,
-      "mappings": mappings
+      "mappings": mappings2
     };
   }
   toJsComment() {
@@ -22293,6 +22320,86 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
   }
 };
 
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/typography-hierarchy/constants.js
+var mappings = [
+  ["display-4", "headline-1"],
+  ["display-3", "headline-2"],
+  ["display-2", "headline-3"],
+  ["display-1", "headline-4"],
+  ["headline", "headline-5"],
+  ["title", "headline-6"],
+  ["subheading-2", "subtitle-1"],
+  ["body-2", "subtitle-2"],
+  ["subheading-1", "body-1"],
+  ["body-1", "body-2"]
+];
+var RENAMED_TYPOGRAPHY_LEVELS = new Map(mappings);
+var RENAMED_TYPOGRAPHY_CLASSES = new Map(mappings.map((m) => ["mat-" + m[0], "mat-" + m[1]]));
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/typography-hierarchy/typography-hierarchy-template.js
+var TypographyHierarchyTemplateMigrator = class extends TemplateMigrator {
+  getUpdates(ast) {
+    const updates = [];
+    visitElements(ast.nodes, (node) => {
+      this._addStaticClassUpdates(node, updates);
+      this._addClassBindingUpdates(node, updates);
+    });
+    return updates;
+  }
+  _addStaticClassUpdates(node, updates) {
+    const classAttr = node.attributes.find((attr) => attr.name === "class");
+    if (classAttr && classAttr.keySpan && classAttr.valueSpan && classAttr.value.includes("mat-")) {
+      const classes = classAttr.value.split(" ");
+      let hasChanged = false;
+      classes.forEach((current, index2) => {
+        if (RENAMED_TYPOGRAPHY_CLASSES.has(current)) {
+          hasChanged = true;
+          classes[index2] = RENAMED_TYPOGRAPHY_CLASSES.get(current);
+        }
+      });
+      if (hasChanged) {
+        updates.push({
+          offset: classAttr.keySpan.start.offset,
+          updateFn: (html) => html.slice(0, classAttr.valueSpan.start.offset) + classes.join(" ") + html.slice(classAttr.valueSpan.end.offset)
+        });
+      }
+    }
+  }
+  _addClassBindingUpdates(node, updates) {
+    node.inputs.forEach((input) => {
+      if (input.type === 2 && RENAMED_TYPOGRAPHY_CLASSES.has(input.name)) {
+        updates.push({
+          offset: input.keySpan.start.offset,
+          updateFn: (html) => {
+            return html.slice(0, input.keySpan.start.offset) + "class." + RENAMED_TYPOGRAPHY_CLASSES.get(input.name) + html.slice(input.keySpan.end.offset);
+          }
+        });
+      }
+    });
+  }
+};
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/typography-hierarchy/typography-hierarchy-styles.js
+var TypographyHierarchyStylesMigrator = class extends StyleMigrator {
+  constructor() {
+    super();
+    this.component = "typography-hierarchy";
+    this.deprecatedPrefixes = [];
+    this.classChanges = [];
+    this.mixinChanges = [
+      {
+        old: "legacy-typography-hierarchy",
+        new: ["typography-hierarchy"],
+        checkForDuplicates: false
+      }
+    ];
+    RENAMED_TYPOGRAPHY_CLASSES.forEach((newClass, oldClass) => {
+      const wrappedNewClass = RENAMED_TYPOGRAPHY_CLASSES.has(newClass) ? `.${StyleMigrator.wrapValue(newClass)}` : `.${newClass}`;
+      this.classChanges.push({ new: wrappedNewClass, old: "." + oldClass });
+    });
+  }
+};
+
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/index.js
 var LEGACY_MODULES = new Set([
   "legacy-autocomplete",
@@ -22438,6 +22545,13 @@ var MIGRATORS = [
     styles: new TooltipStylesMigrator()
   }
 ];
+var PERMANENT_MIGRATORS = [
+  {
+    component: "typography-hierarchy",
+    template: new TypographyHierarchyTemplateMigrator(),
+    styles: new TypographyHierarchyStylesMigrator()
+  }
+];
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/index.mjs
 var import_schematics4 = require("@angular/cdk/schematics");
@@ -22490,18 +22604,6 @@ var parse3 = import_scss_syntax.default.parse;
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
 var COMPONENTS_MIXIN_NAME = /\.([^(;]*)/;
-var RENAMED_TYPOGRAPHY_LEVELS = /* @__PURE__ */ new Map([
-  ["display-4", "headline-1"],
-  ["display-3", "headline-2"],
-  ["display-2", "headline-3"],
-  ["display-1", "headline-4"],
-  ["headline", "headline-5"],
-  ["title", "headline-6"],
-  ["subheading-2", "subtitle-1"],
-  ["body-2", "subtitle-2"],
-  ["subheading-1", "body-1"],
-  ["body-1", "body-2"]
-]);
 var ThemingStylesMigration = class extends import_schematics.Migration {
   constructor() {
     super(...arguments);
@@ -22519,26 +22621,27 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
       {
         postcssPlugin: "theming-styles-migration-plugin",
         AtRule: {
-          use: this.atUseHandler.bind(this),
-          include: this.atIncludeHandler.bind(this)
+          use: this._atUseHandler.bind(this),
+          include: (atRule2) => this._atIncludeHandler(atRule2)
         },
-        Rule: this.ruleHandler.bind(this)
+        Rule: (rule2) => this._ruleHandler(rule2)
       }
     ]);
     try {
-      return processor.process(styles, { syntax: scss_syntax_exports }).toString();
+      const result = processor.process(styles, { syntax: scss_syntax_exports }).toString();
+      return result === styles ? styles : StyleMigrator.unwrapAllValues(result);
     } catch (e) {
       this.context.logger.error(`${e}`);
       this.context.logger.warn(`Failed to process stylesheet: ${filename} (see error above).`);
       return styles;
     }
   }
-  atUseHandler(atRule2) {
+  _atUseHandler(atRule2) {
     if (isAngularMaterialImport(atRule2)) {
       this._namespace = parseNamespace(atRule2);
     }
   }
-  atIncludeHandler(atRule2) {
+  _atIncludeHandler(atRule2) {
     const migrator = this.upgradeData.find((m) => {
       return m.styles.isLegacyMixin(this._namespace, atRule2);
     });
@@ -22569,20 +22672,23 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
     ].some((r) => new RegExp(r).test(mixinText));
   }
   isPartialMigration() {
-    return this.upgradeData.length !== MIGRATORS.length;
+    return this.upgradeData.length !== MIGRATORS.length + PERMANENT_MIGRATORS.length;
   }
-  ruleHandler(rule2) {
-    let isLegacySelector;
-    let isDeprecatedSelector;
+  _ruleHandler(rule2) {
+    let isLegacySelector = false;
+    let isDeprecatedSelector = false;
     const migrator = this.upgradeData.find((m) => {
       isLegacySelector = m.styles.isLegacySelector(rule2);
       isDeprecatedSelector = m.styles.isDeprecatedSelector(rule2);
       return isLegacySelector || isDeprecatedSelector;
     });
+    if (!migrator) {
+      return;
+    }
     if (isLegacySelector) {
-      migrator == null ? void 0 : migrator.styles.replaceLegacySelector(rule2);
+      migrator.styles.replaceLegacySelector(rule2);
     } else if (isDeprecatedSelector) {
-      addCommentBeforeNode(rule2, "TODO(mdc-migration): The following rule targets internal classes of " + (migrator == null ? void 0 : migrator.component) + " that may no longer apply for the MDC version.");
+      addCommentBeforeNode(rule2, `TODO(mdc-migration): The following rule targets internal classes of ${migrator.component} that may no longer apply for the MDC version.`);
     }
   }
 };
@@ -22973,7 +23079,10 @@ function mdc_migration_default(options) {
     const fileSystem = new import_schematics4.DevkitFileSystem(tree);
     const analyzedFiles = /* @__PURE__ */ new Set();
     const componentsToMigrate = getComponentsToMigrate(options.components);
-    const migrators = MIGRATORS.filter((m) => componentsToMigrate.has(m.component));
+    const migrators = [
+      ...MIGRATORS.filter((m) => componentsToMigrate.has(m.component)),
+      ...PERMANENT_MIGRATORS
+    ];
     let success = true;
     if (options.directory) {
       logger.info(`Limiting migration to: ${options.directory}`);
