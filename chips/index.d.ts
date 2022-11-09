@@ -22,7 +22,6 @@ import * as i0 from '@angular/core';
 import * as i11 from '@angular/material/core';
 import * as i12 from '@angular/common';
 import { InjectionToken } from '@angular/core';
-import { MatChipAvatar as MatChipAvatar_2 } from '@angular/material/chips';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatRipple } from '@angular/material/core';
@@ -783,7 +782,6 @@ export declare class MatChipOption extends MatChip implements OnInit {
     /** Toggles the current selected state of this chip. */
     toggleSelected(isUserInput?: boolean): boolean;
     _handlePrimaryActionInteraction(): void;
-    _hasLeadingGraphic(): MatChipAvatar_2;
     _setSelectedState(isSelected: boolean, isUserInput: boolean, emitEvent: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipOption, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChipOption, "mat-basic-chip-option, mat-chip-option", never, { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "selectable": "selectable"; "selected": "selected"; }, { "selectionChange": "selectionChange"; }, never, ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
