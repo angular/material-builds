@@ -22241,8 +22241,12 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
             inputBindings.push(originalHtml.slice(sourceSpan.start.offset, sourceSpan.end.offset));
             updates.push(this._removeBinding(originalHtml, binding.node));
           }
-          if (binding.name === "invert" || binding.name === "vertical") {
+          if (binding.name === "invert" || binding.name === "vertical" || binding.name === "tickInterval" || binding.name === "valueText") {
             comments.push(`<!-- TODO: The '${binding.name}' property no longer exists -->`);
+            updates.push(this._removeBinding(originalHtml, binding.node));
+          }
+          if (binding.name === "displayValue") {
+            comments.push(`<!-- TODO: The '${binding.name}' property no longer exists. Use 'displayWith' instead. -->`);
             updates.push(this._removeBinding(originalHtml, binding.node));
           }
         }
@@ -22335,6 +22339,7 @@ var mappings = [
 ];
 var RENAMED_TYPOGRAPHY_LEVELS = new Map(mappings);
 var RENAMED_TYPOGRAPHY_CLASSES = new Map(mappings.map((m) => ["mat-" + m[0], "mat-" + m[1]]));
+var COMBINED_TYPOGRAPHY_LEVELS = /* @__PURE__ */ new Map([["input", "body-1"]]);
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/typography-hierarchy/typography-hierarchy-template.js
 var TypographyHierarchyTemplateMigrator = class extends TemplateMigrator {
@@ -22749,20 +22754,40 @@ function migrateTypographyConfigs(content, namespace) {
   const newFunctionName = `${namespace}.define-typography-config`;
   const replacements = [];
   calls.forEach(({ name, args }) => {
-    const argContent = content.slice(args.start, args.end);
-    replacements.push({ start: name.start, end: name.end, text: newFunctionName });
+    const parameters = extractNamedParameters(content, args);
+    const addedParameters = /* @__PURE__ */ new Set();
     RENAMED_TYPOGRAPHY_LEVELS.forEach((newName, oldName) => {
-      const pattern = new RegExp(`\\$(${oldName}) *:`, "g");
-      let match;
-      while (match = pattern.exec(argContent)) {
-        const start = args.start + match.index + 1;
+      const correspondingParam = parameters.get(oldName);
+      if (correspondingParam) {
+        addedParameters.add(newName);
         replacements.push({
-          start,
-          end: start + match[1].length,
+          start: correspondingParam.key.start + 1,
+          end: correspondingParam.key.end,
           text: newName
         });
       }
     });
+    COMBINED_TYPOGRAPHY_LEVELS.forEach((newName, oldName) => {
+      const correspondingParam = parameters.get(oldName);
+      if (correspondingParam) {
+        if (addedParameters.has(newName)) {
+          const fullContent = content.slice(correspondingParam.key.start, correspondingParam.value.fullEnd);
+          replacements.push({
+            start: correspondingParam.key.start,
+            end: correspondingParam.value.fullEnd,
+            text: `/* TODO(mdc-migration): No longer supported. Use \`${newName}\` instead. ${fullContent} */`
+          });
+        } else {
+          addedParameters.add(newName);
+          replacements.push({
+            start: correspondingParam.key.start + 1,
+            end: correspondingParam.key.end,
+            text: newName
+          });
+        }
+      }
+    });
+    replacements.push({ start: name.start, end: name.end, text: newFunctionName });
   });
   replacements.sort((a, b) => b.start - a.start).forEach(({ start, end, text }) => content = content.slice(0, start) + text + content.slice(end));
   return content;
@@ -22795,6 +22820,69 @@ function extractFunctionCalls(name, content) {
     }
   }
   return results;
+}
+function extractNamedParameters(content, argsRange) {
+  let escapeCount = 0;
+  const args = content.slice(argsRange.start, argsRange.end).replace(/\(.*\)/g, (current) => ++escapeCount + "\u25EC".repeat(current.length - 1));
+  let colonIndex = args.indexOf(":");
+  const params = /* @__PURE__ */ new Map();
+  while (colonIndex > -1) {
+    const keyRange = extractKeyRange(args, colonIndex);
+    const valueRange = extractValueRange(args, colonIndex);
+    if (keyRange && valueRange) {
+      params.set(args.slice(keyRange.start + 1, keyRange.end), {
+        key: { start: keyRange.start + argsRange.start, end: keyRange.end + argsRange.start },
+        value: {
+          start: valueRange.start + argsRange.start,
+          end: valueRange.end + argsRange.start,
+          fullEnd: valueRange.fullEnd + argsRange.start
+        }
+      });
+    }
+    colonIndex = args.indexOf(":", colonIndex + 1);
+  }
+  return params;
+}
+function extractKeyRange(content, colonIndex) {
+  let index2 = colonIndex - 1;
+  let start = -1;
+  let end = -1;
+  while (index2 > -1) {
+    const char = content[index2];
+    if (char !== " " && char !== "\n") {
+      if (end === -1) {
+        end = index2 + 1;
+      } else if (char === "$") {
+        start = index2;
+        break;
+      }
+    }
+    index2--;
+  }
+  return start > -1 && end > -1 ? { start, end } : null;
+}
+function extractValueRange(content, colonIndex) {
+  let index2 = colonIndex + 1;
+  let start = -1;
+  let end = -1;
+  let fullEnd = -1;
+  while (index2 < content.length) {
+    const char = content[index2];
+    const isWhitespace2 = char === " " || char === "\n";
+    if (!isWhitespace2 && start === -1) {
+      start = index2;
+    } else if (start > -1 && (isWhitespace2 || char === ",")) {
+      end = index2;
+      fullEnd = index2 + 1;
+      break;
+    }
+    if (start > -1 && index2 === content.length - 1) {
+      fullEnd = end = content.length;
+      break;
+    }
+    index2++;
+  }
+  return start > -1 && end > -1 ? { start, end, fullEnd } : null;
 }
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/template-migration.js
