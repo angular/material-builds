@@ -22241,8 +22241,12 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
             inputBindings.push(originalHtml.slice(sourceSpan.start.offset, sourceSpan.end.offset));
             updates.push(this._removeBinding(originalHtml, binding.node));
           }
-          if (binding.name === "invert" || binding.name === "vertical") {
+          if (binding.name === "invert" || binding.name === "vertical" || binding.name === "tickInterval" || binding.name === "valueText") {
             comments.push(`<!-- TODO: The '${binding.name}' property no longer exists -->`);
+            updates.push(this._removeBinding(originalHtml, binding.node));
+          }
+          if (binding.name === "displayValue") {
+            comments.push(`<!-- TODO: The '${binding.name}' property no longer exists. Use 'displayWith' instead. -->`);
             updates.push(this._removeBinding(originalHtml, binding.node));
           }
         }
