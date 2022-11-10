@@ -6864,13 +6864,20 @@ var require_legacy_components_v15 = __commonJS({
         if (mixinName === "core") {
           const updatedFunctionsRest = Object.keys(constants_1.CUSTOM_SASS_FUNCTION_RENAMINGS).reduce((s, r) => s.replace(new RegExp(r, "g"), constants_1.CUSTOM_SASS_FUNCTION_RENAMINGS[r]), rest.join(""));
           const includeTypography = [atInclude, delim, mixinName, updatedFunctionsRest].join("").replace(`${namespace}.core`, `${namespace}.all-legacy-component-typographies`);
+          const hierarchyParams = updatedFunctionsRest.replace(/[()\s]/g, "") === "" ? `(${namespace}.define-legacy-typography-config())` : updatedFunctionsRest;
+          const includeHierarchy = [atInclude, delim, mixinName, hierarchyParams].join("").replace(`${namespace}.core`, `${namespace}.legacy-typography-hierarchy`);
           const indent = ((_b = original.match(/^\s*/)) == null ? void 0 : _b[0]) || "";
           this._replaceAt(filePath, node.source.start.offset, {
             old: original,
             new: [
-              `${indent}// TODO(v15): As of v15 ${namespace}.legacy-core no longer includes default typography styles.`,
-              `${indent}//  Instead an explicit typography include has been automatically added here.`,
-              `${indent}//  If you add typography styles elsewhere, you may want to remove this.`,
+              `// TODO(v15): As of v15 ${namespace}.legacy-core no longer includes default typography styles.`,
+              `//  The following line adds:`,
+              `//    1. Default typography styles for all components`,
+              `//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)`,
+              `//  If you specify typography styles for the components you use elsewhere, you should delete this line.`,
+              `//  If you don't need the default component typographies but still want the hierarchy styles,`,
+              `//  you can delete this line and instead use:`,
+              `//    \`${includeHierarchy};\``,
               `${includeTypography};`,
               `${indent}@include ${namespace}.legacy-core()`
             ].join("\n")
