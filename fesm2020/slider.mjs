@@ -318,7 +318,9 @@ class MatSlider extends _MatSliderMixinBase {
         this.displayWith = (value) => `${value}`;
         this._rippleRadius = 24;
         // The value indicator tooltip text for the visual slider thumb(s).
+        /** @docs-private */
         this.startValueIndicatorText = '';
+        /** @docs-private */
         this.endValueIndicatorText = '';
         this._isRange = false;
         /** Whether the slider is rtl. */
@@ -1037,12 +1039,16 @@ class MatSliderThumb {
         this._elementRef = _elementRef;
         this._cdr = _cdr;
         this._slider = _slider;
+        /** Event emitted when the `value` is changed. */
         this.valueChange = new EventEmitter();
         /** Event emitted when the slider thumb starts being dragged. */
         this.dragStart = new EventEmitter();
         /** Event emitted when the slider thumb stops being dragged. */
         this.dragEnd = new EventEmitter();
-        /** Indicates whether this thumb is the start or end thumb. */
+        /**
+         * Indicates whether this thumb is the start or end thumb.
+         * @docs-private
+         */
         this.thumbPosition = 2 /* _MatThumb.END */;
         /** The radius of a native html slider's knob. */
         this._knobRadius = 8;
@@ -1094,7 +1100,10 @@ class MatSliderThumb {
         this._slider._onValueChange(this);
         this._cdr.detectChanges();
     }
-    /** The current translateX in px of the slider visual thumb. */
+    /**
+     * The current translateX in px of the slider visual thumb.
+     * @docs-private
+     */
     get translateX() {
         if (this._slider.min >= this._slider.max) {
             this._translateX = 0;
@@ -1108,6 +1117,7 @@ class MatSliderThumb {
     set translateX(v) {
         this._translateX = v;
     }
+    /** @docs-private */
     get min() {
         return coerceNumberProperty(this._hostElement.min);
     }
@@ -1115,6 +1125,7 @@ class MatSliderThumb {
         this._hostElement.min = coerceNumberProperty(v).toString();
         this._cdr.detectChanges();
     }
+    /** @docs-private */
     get max() {
         return coerceNumberProperty(this._hostElement.max);
     }
@@ -1129,6 +1140,7 @@ class MatSliderThumb {
         this._hostElement.step = coerceNumberProperty(v).toString();
         this._cdr.detectChanges();
     }
+    /** @docs-private */
     get disabled() {
         return coerceBooleanProperty(this._hostElement.disabled);
     }
@@ -1139,12 +1151,14 @@ class MatSliderThumb {
             this._slider.disabled = this.disabled;
         }
     }
+    /** The percentage of the slider that coincides with the value. */
     get percentage() {
         if (this._slider.min >= this._slider.max) {
             return this._slider._isRtl ? 1 : 0;
         }
         return (this.value - this._slider.min) / (this._slider.max - this._slider.min);
     }
+    /** @docs-private */
     get fillPercentage() {
         if (!this._slider._cachedWidth) {
             return this._slider._isRtl ? 1 : 0;
@@ -1167,6 +1181,7 @@ class MatSliderThumb {
         this.dragStart.complete();
         this.dragEnd.complete();
     }
+    /** @docs-private */
     initProps() {
         this._updateWidthInactive();
         this.disabled = this._slider.disabled;
@@ -1175,6 +1190,7 @@ class MatSliderThumb {
         this.max = this._slider.max;
         this._initValue();
     }
+    /** @docs-private */
     initUI() {
         this._updateThumbUIByValue();
     }
@@ -1437,13 +1453,17 @@ class MatSliderRangeThumb extends MatSliderThumb {
         this._setIsLeftThumb();
         this.thumbPosition = this._isEndThumb ? 2 /* _MatThumb.END */ : 1 /* _MatThumb.START */;
     }
+    /** @docs-private */
     getSibling() {
         if (!this._sibling) {
             this._sibling = this._slider._getInput(this._isEndThumb ? 1 /* _MatThumb.START */ : 2 /* _MatThumb.END */);
         }
         return this._sibling;
     }
-    /** Returns the minimum translateX position allowed for this slider input's visual thumb. */
+    /**
+     * Returns the minimum translateX position allowed for this slider input's visual thumb.
+     * @docs-private
+     */
     getMinPos() {
         const sibling = this.getSibling();
         if (!this._isLeftThumb && sibling) {
@@ -1451,7 +1471,10 @@ class MatSliderRangeThumb extends MatSliderThumb {
         }
         return 0;
     }
-    /** Returns the maximum translateX position allowed for this slider input's visual thumb. */
+    /**
+     * Returns the maximum translateX position allowed for this slider input's visual thumb.
+     * @docs-private
+     */
     getMaxPos() {
         const sibling = this.getSibling();
         if (this._isLeftThumb && sibling) {
