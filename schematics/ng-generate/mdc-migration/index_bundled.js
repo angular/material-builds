@@ -21391,9 +21391,14 @@ function visitElements(nodes, preorderCallback = () => {
   nodes.reverse();
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
-    if (node instanceof Element$1) {
+    const isElement = node instanceof Element$1;
+    if (isElement) {
       preorderCallback(node);
+    }
+    if (isElement || node instanceof Template) {
       visitElements(node.children, preorderCallback, postorderCallback);
+    }
+    if (isElement) {
       postorderCallback(node);
     }
   }
