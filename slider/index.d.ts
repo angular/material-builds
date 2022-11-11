@@ -129,6 +129,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements AfterViewI
     _isRange: boolean;
     /** Whether the slider is rtl. */
     _isRtl: boolean;
+    private _hasViewInitialized;
     /**
      * The width of the tick mark track.
      * The tick mark track width is different from full track width
@@ -142,6 +143,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements AfterViewI
     _inputPadding: number;
     _inputOffset: number;
     ngAfterViewInit(): void;
+    private _initUINonRange;
+    private _initUIRange;
     ngOnDestroy(): void;
     /** Handles updating the slider ui after a dir change. */
     private _onDirChange;
