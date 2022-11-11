@@ -22239,6 +22239,7 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
         const bindings = this._getBindings(node);
         const inputBindings = [];
         const comments = [];
+        let alreadyAppendedTemplateVars = false;
         for (let i = 0; i < bindings.length; i++) {
           const binding = bindings[i];
           if (binding.name === "value") {
@@ -22254,6 +22255,18 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
             comments.push(`<!-- TODO: The '${binding.name}' property no longer exists. Use 'displayWith' instead. -->`);
             updates.push(this._removeBinding(originalHtml, binding.node));
           }
+          if (binding.name === "input" || binding.name === "change") {
+            const sourceSpan = binding.node.sourceSpan;
+            const oldBindingStr = originalHtml.slice(sourceSpan.start.offset, sourceSpan.end.offset);
+            const newBindingStr = oldBindingStr.replace("$event", "{source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value}");
+            inputBindings.push(newBindingStr);
+            updates.push(this._removeBinding(originalHtml, binding.node));
+            if (!alreadyAppendedTemplateVars) {
+              inputBindings.push('#ngSliderThumb="matSliderThumb"');
+              updates.push(this._insertTemplateVar(node, "ngSlider"));
+              alreadyAppendedTemplateVars = true;
+            }
+          }
         }
         if (comments.length) {
           updates.push(this._addComments(node, comments));
@@ -22266,6 +22279,12 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
       }
     });
     return updates;
+  }
+  _insertTemplateVar(node, varName) {
+    return {
+      offset: node.startSourceSpan.end.offset - 1,
+      updateFn: (html) => html.slice(0, node.startSourceSpan.end.offset - 1) + ` #${varName}` + html.slice(node.startSourceSpan.end.offset - 1)
+    };
   }
   _addComments(node, comments) {
     const whitespace = this._parseIndentation(node);

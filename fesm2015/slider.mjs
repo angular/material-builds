@@ -44,6 +44,13 @@ const MAT_SLIDER_RANGE_THUMB = new InjectionToken('_MatSliderRangeThumb');
  * @docs-private
  */
 const MAT_SLIDER_VISUAL_THUMB = new InjectionToken('_MatSliderVisualThumb');
+/**
+ * A simple change event emitted by the MatSlider component.
+ * @deprecated Use event bindings directly on the MatSliderThumbs for `change` and `input` events. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+class MatSliderChange {
+}
 
 /**
  * @license
@@ -1649,5 +1656,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0-rc.1", ng
  * Generated bundle index. Do not edit.
  */
 
-export { MatSlider, MatSliderModule, MatSliderRangeThumb, MatSliderThumb, MatSliderVisualThumb };
+export { MatSlider, MatSliderChange, MatSliderModule, MatSliderRangeThumb, MatSliderThumb, MatSliderVisualThumb };
 //# sourceMappingURL=slider.mjs.map
