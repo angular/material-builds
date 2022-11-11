@@ -122,7 +122,9 @@ export declare class MatSlider extends _MatSliderMixinBase implements AfterViewI
     _cachedWidth: number;
     _cachedLeft: number;
     _rippleRadius: number;
+    /** @docs-private */
     protected startValueIndicatorText: string;
+    /** @docs-private */
     protected endValueIndicatorText: string;
     _endThumbTransform: string;
     _startThumbTransform: string;
@@ -299,11 +301,18 @@ export declare class MatSliderModule {
 
 export declare class MatSliderRangeThumb extends MatSliderThumb implements _MatSliderRangeThumb {
     readonly _cdr: ChangeDetectorRef;
+    /** @docs-private */
     getSibling(): _MatSliderRangeThumb | undefined;
     private _sibling;
-    /** Returns the minimum translateX position allowed for this slider input's visual thumb. */
+    /**
+     * Returns the minimum translateX position allowed for this slider input's visual thumb.
+     * @docs-private
+     */
     getMinPos(): number;
-    /** Returns the maximum translateX position allowed for this slider input's visual thumb. */
+    /**
+     * Returns the maximum translateX position allowed for this slider input's visual thumb.
+     * @docs-private
+     */
     getMaxPos(): number;
     _setIsLeftThumb(): void;
     /** Whether this slider corresponds to the input on the left hand side. */
@@ -365,26 +374,38 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     protected _slider: _MatSlider;
     get value(): number;
     set value(v: NumberInput);
+    /** Event emitted when the `value` is changed. */
     readonly valueChange: EventEmitter<number>;
     /** Event emitted when the slider thumb starts being dragged. */
     readonly dragStart: EventEmitter<MatSliderDragEvent>;
     /** Event emitted when the slider thumb stops being dragged. */
     readonly dragEnd: EventEmitter<MatSliderDragEvent>;
-    /** The current translateX in px of the slider visual thumb. */
+    /**
+     * The current translateX in px of the slider visual thumb.
+     * @docs-private
+     */
     get translateX(): number;
     set translateX(v: number);
     private _translateX;
-    /** Indicates whether this thumb is the start or end thumb. */
+    /**
+     * Indicates whether this thumb is the start or end thumb.
+     * @docs-private
+     */
     thumbPosition: _MatThumb;
+    /** @docs-private */
     get min(): number;
     set min(v: NumberInput);
+    /** @docs-private */
     get max(): number;
     set max(v: NumberInput);
     get step(): number;
     set step(v: NumberInput);
+    /** @docs-private */
     get disabled(): boolean;
     set disabled(v: BooleanInput);
+    /** The percentage of the slider that coincides with the value. */
     get percentage(): number;
+    /** @docs-private */
     get fillPercentage(): number;
     /** The host native HTML input element. */
     _hostElement: HTMLInputElement;
@@ -424,7 +445,9 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     private _onTouchedFn;
     constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLInputElement>, _cdr: ChangeDetectorRef, _slider: _MatSlider);
     ngOnDestroy(): void;
+    /** @docs-private */
     initProps(): void;
+    /** @docs-private */
     initUI(): void;
     _initValue(): void;
     _getDefaultValue(): number;
