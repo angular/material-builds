@@ -1291,7 +1291,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     /** Gets the ID of an element that should be used a description for the calendar overlay. */
     getOverlayLabelId(): string | null;
     /** Gets the value that is used to mirror the state input. */
-    _getInputMirrorValue(): string;
+    _getInputMirrorValue(part: 'start' | 'end'): string;
     /** Whether the input placeholders should be hidden. */
     _shouldHidePlaceholders(): boolean;
     /** Handles the value in one of the child inputs changing. */
@@ -1363,6 +1363,8 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     _getPlaceholder(): string;
     /** Focuses the input. */
     focus(): void;
+    /** Gets the value that should be used when mirroring the input's size. */
+    getMirrorValue(): string;
     /** Handles `input` events on the input element. */
     _onInput(value: string): void;
     /** Opens the datepicker associated with the input. */
@@ -1783,8 +1785,6 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
     protected _formatValue(value: D | null): void;
-    /** Gets the value that should be used when mirroring the input's size. */
-    getMirrorValue(): string;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
