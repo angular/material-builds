@@ -34,7 +34,6 @@ import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDateFormats } from '@angular/material/core';
-import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
@@ -938,7 +937,7 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     private _dateFilter;
     /** The combined form control validator for this input. */
     protected _validator: ValidatorFn | null;
-    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField?: MatFormField | undefined);
+    constructor(elementRef: ElementRef<HTMLInputElement>, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats, _formField?: _MatFormFieldPartial | undefined);
     /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
@@ -1268,7 +1267,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     ngControl: NgControl | null;
     /** Emits when the input's state has changed. */
     readonly stateChanges: Subject<void>;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: MatFormField | undefined);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: _MatFormFieldPartial | undefined);
     /**
      * Implemented as a part of `MatFormFieldControl`.
      * @docs-private
@@ -1291,7 +1290,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     /** Gets the ID of an element that should be used a description for the calendar overlay. */
     getOverlayLabelId(): string | null;
     /** Gets the value that is used to mirror the state input. */
-    _getInputMirrorValue(): string;
+    _getInputMirrorValue(part: 'start' | 'end'): string;
     /** Whether the input placeholders should be hidden. */
     _shouldHidePlaceholders(): boolean;
     /** Handles the value in one of the child inputs changing. */
@@ -1363,6 +1362,8 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     _getPlaceholder(): string;
     /** Focuses the input. */
     focus(): void;
+    /** Gets the value that should be used when mirroring the input's size. */
+    getMirrorValue(): string;
     /** Handles `input` events on the input element. */
     _onInput(value: string): void;
     /** Opens the datepicker associated with the input. */
@@ -1480,6 +1481,20 @@ export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements 
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatEndDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
+}
+
+/**
+ * Partial representation of `MatFormField` that is used for backwards-compatibility
+ * between the legacy and non-legacy variants.
+ */
+declare interface _MatFormFieldPartial {
+    getConnectedOverlayOrigin(): ElementRef;
+    getLabelId(): string | null;
+    color: ThemePalette;
+    _elementRef: ElementRef;
+    _shouldLabelFloat(): boolean;
+    _hasFloatingLabel(): boolean;
+    _labelId: string;
 }
 
 /**
@@ -1783,8 +1798,6 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
     protected _formatValue(value: D | null): void;
-    /** Gets the value that should be used when mirroring the input's size. */
-    getMirrorValue(): string;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": "errorStateMatcher"; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
