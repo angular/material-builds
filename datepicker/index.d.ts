@@ -102,6 +102,7 @@ export declare class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeS
     constructor(_dateAdapter: DateAdapter<D>);
     selectionFinished(date: D, currentRange: DateRange<D>): DateRange<D>;
     createPreview(activeDate: D | null, currentRange: DateRange<D>): DateRange<D>;
+    createDrag(dragOrigin: D, originalRange: DateRange<D>, newDate: D): DateRange<D> | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<DefaultMatCalendarRangeStrategy<any>, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<DefaultMatCalendarRangeStrategy<any>>;
 }
@@ -336,6 +337,8 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     readonly viewChanged: EventEmitter<MatCalendarView>;
     /** Emits when any date is selected. */
     readonly _userSelection: EventEmitter<MatCalendarUserEvent<D | null>>;
+    /** Emits a new date range value when the user completes a drag drop operation. */
+    readonly _userDragDrop: EventEmitter<MatCalendarUserEvent<DateRange<D>>>;
     /** Reference to the current month view component. */
     monthView: MatMonthView<D>;
     /** Reference to the current year view component. */
@@ -353,6 +356,8 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     get currentView(): MatCalendarView;
     set currentView(value: MatCalendarView);
     private _currentView;
+    /** Origin of active drag, or null when dragging is not active. */
+    protected _activeDrag: MatCalendarUserEvent<D> | null;
     /**
      * Emits whenever there is a state change that the header may need to respond to.
      */
@@ -374,17 +379,24 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     _monthSelectedInYearView(normalizedMonth: D): void;
     /** Handles year/month selection in the multi-year/year views. */
     _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;
+    /** Called when the user starts dragging to change a date range. */
+    _dragStarted(event: MatCalendarUserEvent<D>): void;
+    /**
+     * Called when a drag completes. It may end in cancelation or in the selection
+     * of a new range.
+     */
+    _dragEnded(event: MatCalendarUserEvent<DateRange<D> | null>): void;
     /** Returns the component instance that corresponds to the current calendar view. */
     private _getCurrentViewComponent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendar<any>, [null, { optional: true; }, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": "headerComponent"; "startAt": "startAt"; "startView": "startView"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": "headerComponent"; "startAt": "startAt"; "startView": "startView"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; "_userDragDrop": "_userDragDrop"; }, never, never, false, never>;
 }
 
 /**
  * An internal component used to display calendar data in a table.
  * @docs-private
  */
-export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewChecked {
+export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, AfterViewChecked {
     private _elementRef;
     private _ngZone;
     /**
@@ -437,12 +449,17 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
     /** Emits when the preview has changed as a result of a user action. */
     readonly previewChange: EventEmitter<MatCalendarUserEvent<MatCalendarCell<any> | null>>;
     readonly activeDateChange: EventEmitter<MatCalendarUserEvent<number>>;
+    /** Emits the date at the possible start of a drag event. */
+    readonly dragStarted: EventEmitter<MatCalendarUserEvent<D>>;
+    /** Emits the date at the conclusion of a drag, or null if mouse was not released on a date. */
+    readonly dragEnded: EventEmitter<MatCalendarUserEvent<D | null>>;
     /** The number of blank cells to put at the beginning for the first row. */
     _firstRowOffset: number;
     /** Padding for the individual date cells. */
     _cellPadding: string;
     /** Width of an individual cell. */
     _cellWidth: string;
+    private _didDragSinceMouseDown;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
     /** Called when a cell is clicked. */
     _cellClicked(cell: MatCalendarCell, event: MouseEvent): void;
@@ -518,18 +535,28 @@ export declare class MatCalendarBody implements OnChanges, OnDestroy, AfterViewC
      * inside the calendar body (e.g. by hovering in or focus).
      */
     private _enterHandler;
+    private _touchmoveHandler;
     /**
      * Event handler for when the user's pointer leaves an element
      * inside the calendar body (e.g. by hovering out or blurring).
      */
     private _leaveHandler;
+    /**
+     * Triggered on mousedown or touchstart on a date cell.
+     * Respsonsible for starting a drag sequence.
+     */
+    private _mousedownHandler;
+    /** Triggered on mouseup anywhere. Respsonsible for ending a drag sequence. */
+    private _mouseupHandler;
+    /** Triggered on touchend anywhere. Respsonsible for ending a drag sequence. */
+    private _touchendHandler;
     /** Finds the MatCalendarCell that corresponds to a DOM node. */
     private _getCellFromElement;
     private _id;
     _startDateLabelId: string;
     _endDateLabelId: string;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarBody, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody, "[mat-calendar-body]", ["matCalendarBody"], { "label": "label"; "rows": "rows"; "todayValue": "todayValue"; "startValue": "startValue"; "endValue": "endValue"; "labelMinRequiredCells": "labelMinRequiredCells"; "numCols": "numCols"; "activeCell": "activeCell"; "isRange": "isRange"; "cellAspectRatio": "cellAspectRatio"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "previewStart": "previewStart"; "previewEnd": "previewEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; }, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarBody<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody<any>, "[mat-calendar-body]", ["matCalendarBody"], { "label": "label"; "rows": "rows"; "todayValue": "todayValue"; "startValue": "startValue"; "endValue": "endValue"; "labelMinRequiredCells": "labelMinRequiredCells"; "numCols": "numCols"; "activeCell": "activeCell"; "isRange": "isRange"; "cellAspectRatio": "cellAspectRatio"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "previewStart": "previewStart"; "previewEnd": "previewEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; }, never, never, false, never>;
 }
 
 /**
@@ -852,6 +879,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;
+    _handleUserDragDrop(event: MatCalendarUserEvent<DateRange<D>>): void;
     _startExitAnimation(): void;
     _handleAnimationEvent(event: AnimationEvent_2): void;
     _getSelected(): D | DateRange<D> | null;
@@ -1393,6 +1421,17 @@ export declare interface MatDateRangeSelectionStrategy<D> {
      *    `mouseenter`/`mouseleave` or `focus`/`blur` depending on how the user is navigating.
      */
     createPreview(activeDate: D | null, currentRange: DateRange<D>, event: Event): DateRange<D>;
+    /**
+     * Called when the user has dragged a date in the currently selected range to another
+     * date. Returns the date updated range that should result from this interaction.
+     *
+     * @param dateOrigin The date the user started dragging from.
+     * @param originalRange The originally selected date range.
+     * @param newDate The currently targeted date in the drag operation.
+     * @param event DOM event that triggered the updated drag state. Will be
+     *     `mouseenter`/`mouseup` or `touchmove`/`touchend` depending on the device type.
+     */
+    createDrag?(dragOrigin: D, originalRange: DateRange<D>, newDate: D, event: Event): DateRange<D> | null;
 }
 
 /**
@@ -1486,10 +1525,19 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     startDateAccessibleName: string | null;
     /** ARIA Accessible name of the `<input matEndDate/>` */
     endDateAccessibleName: string | null;
+    /** Origin of active drag, or null when dragging is not active. */
+    activeDrag: MatCalendarUserEvent<D> | null;
     /** Emits when a new date is selected. */
     readonly selectedChange: EventEmitter<D | null>;
     /** Emits when any date is selected. */
     readonly _userSelection: EventEmitter<MatCalendarUserEvent<D | null>>;
+    /** Emits when the user initiates a date range drag via mouse or touch. */
+    readonly dragStarted: EventEmitter<MatCalendarUserEvent<D>>;
+    /**
+     * Emits when the user completes or cancels a date range drag.
+     * Emits null when the drag was canceled or the newly selected date range if completed.
+     */
+    readonly dragEnded: EventEmitter<MatCalendarUserEvent<DateRange<D> | null>>;
     /** Emits when any date is activated. */
     readonly activeDateChange: EventEmitter<D>;
     /** The body of calendar table */
@@ -1551,6 +1599,11 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     /** Called when the user has activated a new cell and the preview needs to be updated. */
     _previewChanged({ event, value: cell }: MatCalendarUserEvent<MatCalendarCell<D> | null>): void;
     /**
+     * Called when the user has ended a drag. If the drag/drop was successful,
+     * computes and emits the new range selection.
+     */
+    protected _dragEnded(event: MatCalendarUserEvent<D | null>): void;
+    /**
      * Takes a day of the month and returns a new date in the same month and year as the currently
      *  active date. The returned date will have the same day of the month as the argument date.
      */
@@ -1576,8 +1629,10 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     private _setRanges;
     /** Gets whether a date can be selected in the month view. */
     private _canSelect;
+    /** Clears out preview state. */
+    private _clearPreview;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMonthView<any>, [null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": "activeDate"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "activeDateChange": "activeDateChange"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": "activeDate"; "selected": "selected"; "minDate": "minDate"; "maxDate": "maxDate"; "dateFilter": "dateFilter"; "dateClass": "dateClass"; "comparisonStart": "comparisonStart"; "comparisonEnd": "comparisonEnd"; "startDateAccessibleName": "startDateAccessibleName"; "endDateAccessibleName": "endDateAccessibleName"; "activeDrag": "activeDrag"; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; "activeDateChange": "activeDateChange"; }, never, never, false, never>;
 }
 
 /**
