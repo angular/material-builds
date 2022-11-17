@@ -189,6 +189,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements AfterViewI
     _updateThumbUI(source: _MatSliderThumb): void;
     /** Updates the value indicator tooltip ui for the given thumb. */
     _updateValueIndicatorUI(source: _MatSliderThumb): void;
+    /** Updates all value indicator UIs in the slider. */
+    private _updateValueIndicatorUIs;
     /** Updates the width of the tick mark track. */
     private _updateTickMarkTrackUI;
     /** Updates the scale on the active portion of the track. */
