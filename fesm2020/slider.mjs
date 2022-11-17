@@ -362,6 +362,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     set discrete(v) {
         this._discrete = coerceBooleanProperty(v);
+        this._updateValueIndicatorUIs();
     }
     /** Whether the slider displays tick marks along the slider track. */
     get showTickMarks() {
@@ -563,8 +564,7 @@ class MatSlider extends _MatSliderMixinBase {
         sInput._updateMinMax();
         eInput._updateStaticStyles();
         sInput._updateStaticStyles();
-        this._updateValueIndicatorUI(eInput);
-        this._updateValueIndicatorUI(sInput);
+        this._updateValueIndicatorUIs();
         this._hasViewInitialized = true;
         eInput._updateThumbUIByValue();
         sInput._updateThumbUIByValue();
@@ -786,6 +786,17 @@ class MatSlider extends _MatSliderMixinBase {
             valuetext.length < 3
                 ? visualThumb._hostElement.classList.add('mdc-slider__thumb--short-value')
                 : visualThumb._hostElement.classList.remove('mdc-slider__thumb--short-value');
+        }
+    }
+    /** Updates all value indicator UIs in the slider. */
+    _updateValueIndicatorUIs() {
+        const eInput = this._getInput(2 /* _MatThumb.END */);
+        const sInput = this._getInput(1 /* _MatThumb.START */);
+        if (eInput) {
+            this._updateValueIndicatorUI(eInput);
+        }
+        if (sInput) {
+            this._updateValueIndicatorUI(sInput);
         }
     }
     // Update Tick Mark Track Width
