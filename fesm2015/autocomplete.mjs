@@ -116,6 +116,11 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
     get isOpen() {
         return this._isOpen && this.showPanel;
     }
+    /** @docs-private Sets the theme color of the panel. */
+    _setColor(value) {
+        this._color = value;
+        this._setThemeClasses(this._classList);
+    }
     /**
      * Whether the first option should be highlighted when the autocomplete panel is opened.
      * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
@@ -148,6 +153,7 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
             this._classList = {};
         }
         this._setVisibilityClasses(this._classList);
+        this._setThemeClasses(this._classList);
         this._elementRef.nativeElement.className = '';
     }
     ngAfterContentInit() {
@@ -201,6 +207,12 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
     _setVisibilityClasses(classList) {
         classList[this._visibleClass] = this.showPanel;
         classList[this._hiddenClass] = !this.showPanel;
+    }
+    /** Sets the theming classes on a classlist based on the theme of the panel. */
+    _setThemeClasses(classList) {
+        classList['mat-primary'] = this._color === 'primary';
+        classList['mat-warn'] = this._color === 'warn';
+        classList['mat-accent'] = this._color === 'accent';
     }
 }
 _MatAutocompleteBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0-rc.1", ngImport: i0, type: _MatAutocompleteBase, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS }, { token: i1.Platform }], target: i0.ɵɵFactoryTarget.Directive });
@@ -709,7 +721,7 @@ class _MatAutocompleteTriggerBase {
         });
     }
     _attachOverlay() {
-        var _a;
+        var _a, _b;
         if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getMatAutocompleteMissingPanelError();
         }
@@ -739,6 +751,7 @@ class _MatAutocompleteTriggerBase {
         const wasOpen = this.panelOpen;
         this.autocomplete._setVisibility();
         this.autocomplete._isOpen = this._overlayAttached = true;
+        this.autocomplete._setColor((_b = this._formField) === null || _b === void 0 ? void 0 : _b.color);
         // We need to do an extra `panelOpen` check in here, because the
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {

@@ -32,6 +32,7 @@ import { QueryList } from '@angular/core';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { SimpleChanges } from '@angular/core';
 import { TemplateRef } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 import { ViewContainerRef } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 
@@ -132,6 +133,10 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     /** Whether the autocomplete panel is open. */
     get isOpen(): boolean;
     _isOpen: boolean;
+    /** @docs-private Sets the theme color of the panel. */
+    _setColor(value: ThemePalette): void;
+    /** @docs-private theme color of the panel */
+    private _color;
     /** @docs-private */
     template: TemplateRef<any>;
     /** Element for the panel containing the autocomplete options. */
@@ -203,6 +208,8 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     _getPanelAriaLabelledby(labelId: string | null): string | null;
     /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
     private _setVisibilityClasses;
+    /** Sets the theming classes on a classlist based on the theme of the panel. */
+    private _setThemeClasses;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "autoSelectActiveOption": "autoSelectActiveOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false, never>;
 }
