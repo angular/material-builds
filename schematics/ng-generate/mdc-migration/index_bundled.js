@@ -8382,6 +8382,7 @@ Identifiers.sanitizeUrl = { name: "\u0275\u0275sanitizeUrl", moduleName: CORE };
 Identifiers.sanitizeUrlOrResourceUrl = { name: "\u0275\u0275sanitizeUrlOrResourceUrl", moduleName: CORE };
 Identifiers.trustConstantHtml = { name: "\u0275\u0275trustConstantHtml", moduleName: CORE };
 Identifiers.trustConstantResourceUrl = { name: "\u0275\u0275trustConstantResourceUrl", moduleName: CORE };
+Identifiers.validateIframeAttribute = { name: "\u0275\u0275validateIframeAttribute", moduleName: CORE };
 var VERSION$1 = 3;
 var JS_B64_PREFIX = "# sourceMappingURL=data:application/json;base64,";
 var SourceMapGenerator = class {
@@ -11758,6 +11759,62 @@ var BuiltinFunctionCall = class extends Call {
     this.converter = converter;
   }
 };
+var _SECURITY_SCHEMA;
+function SECURITY_SCHEMA() {
+  if (!_SECURITY_SCHEMA) {
+    _SECURITY_SCHEMA = {};
+    registerContext(SecurityContext.HTML, [
+      "iframe|srcdoc",
+      "*|innerHTML",
+      "*|outerHTML"
+    ]);
+    registerContext(SecurityContext.STYLE, ["*|style"]);
+    registerContext(SecurityContext.URL, [
+      "*|formAction",
+      "area|href",
+      "area|ping",
+      "audio|src",
+      "a|href",
+      "a|ping",
+      "blockquote|cite",
+      "body|background",
+      "del|cite",
+      "form|action",
+      "img|src",
+      "input|src",
+      "ins|cite",
+      "q|cite",
+      "source|src",
+      "track|src",
+      "video|poster",
+      "video|src"
+    ]);
+    registerContext(SecurityContext.RESOURCE_URL, [
+      "applet|code",
+      "applet|codebase",
+      "base|href",
+      "embed|src",
+      "frame|src",
+      "head|profile",
+      "html|manifest",
+      "iframe|src",
+      "link|href",
+      "media|src",
+      "object|codebase",
+      "object|data",
+      "script|src"
+    ]);
+  }
+  return _SECURITY_SCHEMA;
+}
+function registerContext(ctx, specs) {
+  for (const spec of specs)
+    _SECURITY_SCHEMA[spec.toLowerCase()] = ctx;
+}
+var IFRAME_SECURITY_SENSITIVE_ATTRS = /* @__PURE__ */ new Set(["sandbox", "allow", "allowfullscreen", "referrerpolicy", "csp", "fetchpriority"]);
+function isIframeSecuritySensitiveAttr(attrName) {
+  return IFRAME_SECURITY_SENSITIVE_ATTRS.has(attrName.toLowerCase());
+}
 var animationKeywords = /* @__PURE__ */ new Set([
   "inherit",
   "initial",
@@ -17316,58 +17373,6 @@ function mapLiteral(obj, quoted = false) {
     value: obj[key]
   })));
 }
-var _SECURITY_SCHEMA;
-function SECURITY_SCHEMA() {
-  if (!_SECURITY_SCHEMA) {
-    _SECURITY_SCHEMA = {};
-    registerContext(SecurityContext.HTML, [
-      "iframe|srcdoc",
-      "*|innerHTML",
-      "*|outerHTML"
-    ]);
-    registerContext(SecurityContext.STYLE, ["*|style"]);
-    registerContext(SecurityContext.URL, [
-      "*|formAction",
-      "area|href",
-      "area|ping",
-      "audio|src",
-      "a|href",
-      "a|ping",
-      "blockquote|cite",
-      "body|background",
-      "del|cite",
-      "form|action",
-      "img|src",
-      "input|src",
-      "ins|cite",
-      "q|cite",
-      "source|src",
-      "track|src",
-      "video|poster",
-      "video|src"
-    ]);
-    registerContext(SecurityContext.RESOURCE_URL, [
-      "applet|code",
-      "applet|codebase",
-      "base|href",
-      "embed|src",
-      "frame|src",
-      "head|profile",
-      "html|manifest",
-      "iframe|src",
-      "link|href",
-      "media|src",
-      "object|codebase",
-      "object|data",
-      "script|src"
-    ]);
-  }
-  return _SECURITY_SCHEMA;
-}
-function registerContext(ctx, specs) {
-  for (const spec of specs)
-    _SECURITY_SCHEMA[spec.toLowerCase()] = ctx;
-}
 var ElementSchemaRegistry = class {
 };
 var BOOLEAN = "boolean";
@@ -19568,9 +19573,15 @@ var TemplateDefinitionBuilder = class {
           const params = [];
           const [attrNamespace, attrName] = splitNsName(input.name);
           const isAttributeBinding = inputType === 1;
-          const sanitizationRef = resolveSanitizationFn(input.securityContext, isAttributeBinding);
-          if (sanitizationRef)
+          let sanitizationRef = resolveSanitizationFn(input.securityContext, isAttributeBinding);
+          if (!sanitizationRef) {
+            if (isIframeElement(element.name) && isIframeSecuritySensitiveAttr(input.name)) {
+              sanitizationRef = importExpr(Identifiers.validateIframeAttribute);
+            }
+          }
+          if (sanitizationRef) {
             params.push(sanitizationRef);
+          }
           if (attrNamespace) {
             const namespaceLiteral = literal(attrNamespace);
             if (sanitizationRef) {
@@ -20377,6 +20388,9 @@ function isSingleElementTemplate(children) {
 function isTextNode(node) {
   return node instanceof Text$3 || node instanceof BoundText || node instanceof Icu$1;
 }
+function isIframeElement(tagName) {
+  return tagName.toLowerCase() === "iframe";
+}
 function hasTextChildrenOnly(children) {
   return children.every(isTextNode);
 }
@@ -20717,6 +20731,10 @@ function createHostBindingsFunction(hostBindingsMetadata, typeSourceSpan, bindin
     const instructionParams = [literal(bindingName), bindingExpr.currValExpr];
     if (sanitizerFn) {
       instructionParams.push(sanitizerFn);
+    } else {
+      if (isIframeSecuritySensitiveAttr(bindingName)) {
+        instructionParams.push(importExpr(Identifiers.validateIframeAttribute));
+      }
     }
     updateVariables.push(...bindingExpr.stmts);
     if (instruction === Identifiers.hostProperty) {
@@ -21349,7 +21367,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("15.0.0-rc.1");
+var VERSION = new Version("15.0.0");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -23234,7 +23252,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v15.0.0-rc.1
+ * @license Angular v15.0.0
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
