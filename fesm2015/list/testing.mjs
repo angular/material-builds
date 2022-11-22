@@ -482,6 +482,7 @@ class MatListOptionHarness extends MatListItemHarnessBase {
     constructor() {
         super(...arguments);
         this._beforeCheckbox = this.locatorForOptional('.mdc-list-item__start .mdc-checkbox');
+        this._beforeRadio = this.locatorForOptional('.mdc-list-item__start .mdc-radio');
     }
     /**
      * Gets a `HarnessPredicate` that can be used to search for a list option with specific
@@ -496,6 +497,12 @@ class MatListOptionHarness extends MatListItemHarnessBase {
     getCheckboxPosition() {
         return __awaiter(this, void 0, void 0, function* () {
             return (yield this._beforeCheckbox()) !== null ? 'before' : 'after';
+        });
+    }
+    /** Gets the position of the radio relative to the list option content. */
+    getRadioPosition() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this._beforeRadio()) !== null ? 'before' : 'after';
         });
     }
     /** Whether the list option is selected. */

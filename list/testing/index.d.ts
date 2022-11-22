@@ -5,7 +5,7 @@ import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { DividerHarnessFilters } from '@angular/material/divider/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatDividerHarness } from '@angular/material/divider/testing';
-import { MatListOptionCheckboxPosition } from '@angular/material/list';
+import { MatListOptionTogglePosition } from '@angular/material/list';
 
 export declare interface ActionListHarnessFilters extends BaseHarnessFilters {
 }
@@ -255,8 +255,11 @@ export declare class MatListOptionHarness extends MatListItemHarnessBase {
      */
     static with<T extends MatListOptionHarness>(this: ComponentHarnessConstructor<T>, options?: ListOptionHarnessFilters): HarnessPredicate<T>;
     private _beforeCheckbox;
+    private _beforeRadio;
     /** Gets the position of the checkbox relative to the list option content. */
-    getCheckboxPosition(): Promise<MatListOptionCheckboxPosition>;
+    getCheckboxPosition(): Promise<MatListOptionTogglePosition>;
+    /** Gets the position of the radio relative to the list option content. */
+    getRadioPosition(): Promise<MatListOptionTogglePosition>;
     /** Whether the list option is selected. */
     isSelected(): Promise<boolean>;
     /** Focuses the list option. */

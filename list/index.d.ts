@@ -83,7 +83,7 @@ declare namespace i7 {
  * @docs-private
  */
 declare interface ListOption {
-    _getCheckboxPosition(): MatListOptionCheckboxPosition;
+    _getTogglePosition(): MatListOptionTogglePosition;
 }
 
 /**
@@ -256,9 +256,9 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
 /**
  * @docs-private
  *
- * MDC uses the very intuitively named classes `.mdc-list-item__start` and `.mat-list-item__end`
- * to position content such as icons or checkboxes that comes either before or after the text
- * content respectively. This directive detects the placement of the checkbox and applies the
+ * MDC uses the very intuitively named classes `.mdc-list-item__start` and `.mat-list-item__end` to
+ * position content such as icons or checkboxes/radios that comes either before or after the text
+ * content respectively. This directive detects the placement of the checkbox/radio and applies the
  * correct MDC class to position the icon/avatar on the opposite side.
  */
 export declare class _MatListItemGraphicBase {
@@ -334,9 +334,17 @@ export declare class MatListOption extends MatListItemBase implements ListOption
      * @docs-private
      */
     readonly selectedChange: EventEmitter<boolean>;
-    /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
-    checkboxPosition: MatListOptionCheckboxPosition;
-    /** Theme color of the list option. This sets the color of the checkbox. */
+    /** Whether the label should appear before or after the checkbox/radio. Defaults to 'after' */
+    togglePosition: MatListOptionTogglePosition;
+    /**
+     * Whether the label should appear before or after the checkbox/radio. Defaults to 'after'
+     *
+     * @deprecated Use `togglePosition` instead.
+     * @breaking-change 17.0.0
+     */
+    get checkboxPosition(): MatListOptionTogglePosition;
+    set checkboxPosition(value: MatListOptionTogglePosition);
+    /** Theme color of the list option. This sets the color of the checkbox/radio. */
     get color(): ThemePalette;
     set color(newValue: ThemePalette);
     private _color;
@@ -363,14 +371,16 @@ export declare class MatListOption extends MatListItemBase implements ListOption
     /** Gets the text label of the list option. Used for the typeahead functionality in the list. */
     getLabel(): string;
     /** Whether a checkbox is shown at the given position. */
-    _hasCheckboxAt(position: MatListOptionCheckboxPosition): boolean;
+    _hasCheckboxAt(position: MatListOptionTogglePosition): boolean;
+    /** Where a radio indicator is shown at the given position. */
+    _hasRadioAt(position: MatListOptionTogglePosition): boolean;
     /** Whether icons or avatars are shown at the given position. */
     _hasIconsOrAvatarsAt(position: 'before' | 'after'): boolean;
     /** Gets whether the given type of element is projected at the specified position. */
     _hasProjected(type: 'icons' | 'avatars', position: 'before' | 'after'): boolean;
     _handleBlur(): void;
-    /** Gets the current position of the checkbox. */
-    _getCheckboxPosition(): MatListOptionCheckboxPosition;
+    /** Gets the current position of the checkbox/radio. */
+    _getTogglePosition(): MatListOptionTogglePosition;
     /**
      * Sets the selected state of the option.
      * @returns Whether the value has changed.
@@ -387,14 +397,16 @@ export declare class MatListOption extends MatListItemBase implements ListOption
     /** Sets the tabindex of the list option. */
     _setTabindex(value: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, [null, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": "togglePosition"; "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], false, never>;
 }
 
 /**
- * Type describing possible positions of a checkbox in a list option
+ * Type describing possible positions of a checkbox or radio in a list option
  * with respect to the list item's text.
  */
-export declare type MatListOptionCheckboxPosition = 'before' | 'after';
+declare type MatListOptionTogglePosition = 'before' | 'after';
+export { MatListOptionTogglePosition as MatListOptionCheckboxPosition }
+export { MatListOptionTogglePosition }
 
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
