@@ -22949,7 +22949,17 @@ var TemplateMigration = class extends import_schematics2.Migration {
     const ast = parseTemplate2(template, templateUrl);
     const migrators = this.upgradeData.filter((m) => m.template).map((m) => m.template);
     const updates = [];
-    migrators.forEach((m) => updates.push(...m.getUpdates(ast)));
+    migrators.forEach((m) => {
+      try {
+        updates.push(...m.getUpdates(ast));
+      } catch (error2) {
+        this.logger.error(`${error2}`);
+        if (error2 instanceof Error) {
+          this.logger.error(`${error2.stack}`);
+        }
+        this.logger.warn(`Failed to process template: ${templateUrl} (see error above).`);
+      }
+    });
     return writeUpdates(template, updates);
   }
 };
