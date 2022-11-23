@@ -1287,6 +1287,12 @@ class MatChipListbox extends MatChipSet {
         this._value = value;
     }
     ngAfterContentInit() {
+        if (this._pendingInitialValue !== undefined) {
+            Promise.resolve().then(() => {
+                this._setSelectionByValue(this._pendingInitialValue, false);
+                this._pendingInitialValue = undefined;
+            });
+        }
         this._chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
             // Update listbox selectable/multiple properties on chips
             this._syncListboxProperties();
@@ -1331,6 +1337,9 @@ class MatChipListbox extends MatChipSet {
     writeValue(value) {
         if (this._chips) {
             this._setSelectionByValue(value, false);
+        }
+        else if (value != null) {
+            this._pendingInitialValue = value;
         }
     }
     /**

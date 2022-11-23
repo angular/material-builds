@@ -612,6 +612,8 @@ export declare class MatChipListbox extends MatChipSet implements AfterContentIn
      */
     _onChange: (value: any) => void;
     protected _defaultRole: string;
+    /** Value that was assigned before the listbox was initialized. */
+    private _pendingInitialValue;
     /** Whether the user should be allowed to select multiple chips. */
     get multiple(): boolean;
     set multiple(value: BooleanInput);
