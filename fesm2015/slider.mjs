@@ -634,9 +634,8 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /** Stores the slider dimensions. */
     _updateDimensions() {
-        const rect = this._elementRef.nativeElement.getBoundingClientRect();
-        this._cachedWidth = rect.width;
-        this._cachedLeft = rect.left;
+        this._cachedWidth = this._elementRef.nativeElement.offsetWidth;
+        this._cachedLeft = this._elementRef.nativeElement.getBoundingClientRect().left;
     }
     /** Sets the styles for the active portion of the track. */
     _setTrackActiveStyles(styles) {
