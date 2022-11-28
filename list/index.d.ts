@@ -140,13 +140,13 @@ export declare class MatListItem extends MatListItemBase {
     get activated(): boolean;
     set activated(activated: boolean);
     _activated: boolean;
-    constructor(element: ElementRef, ngZone: NgZone, listBase: MatListBase, platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
+    constructor(element: ElementRef, ngZone: NgZone, listBase: MatListBase | null, platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
     /**
      * Determine the value of `aria-current`. Return 'page' if this item is an activated anchor tag.
      * Otherwise, return `null`. This method is safe to use with server-side rendering.
      */
     _getAriaCurrent(): string | null;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, { optional: true; }, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": "activated"; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], false, never>;
 }
 
@@ -215,7 +215,7 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
      * @docs-private
      */
     get rippleDisabled(): boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _listBase: MatListBase, _platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _listBase: MatListBase | null, _platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Whether the list item has icons or avatars. */
@@ -249,7 +249,7 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
     private _inferLinesFromContent;
     /** Checks whether the list item has unscoped text content. */
     private _checkDomForUnscopedTextContent;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemBase, [null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemBase, [null, null, { optional: true; }, null, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": "lines"; "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatars", "_icons"], never, false, never>;
 }
 
