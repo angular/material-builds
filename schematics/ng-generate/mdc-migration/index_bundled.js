@@ -21465,9 +21465,12 @@ function updateAttribute(html, node, name, update) {
     return `${prefix} ${attrText}${suffix}`;
   }
   const attr = node.attributes[0];
-  const ctx = attr.sourceSpan.start.getContext(attr.sourceSpan.start.col + 1, 1);
-  const indentation = ctx.before;
-  return prefix + indentation + attrText + suffix;
+  if (attr) {
+    const ctx = attr.sourceSpan.start.getContext(attr.sourceSpan.start.col + 1, 1);
+    const indentation = ctx.before;
+    return prefix + indentation + attrText + suffix;
+  }
+  return prefix + attrText + suffix;
 }
 function replaceAt(str, offset, oldSubstr, newSubstr) {
   const index2 = offset;
