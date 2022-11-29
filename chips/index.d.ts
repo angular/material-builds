@@ -522,8 +522,6 @@ export declare class MatChipInput implements MatChipTextControl, AfterContentIni
     private _defaultOptions;
     /** Used to prevent focus moving to chips while user is holding backspace */
     private _focusLastChipOnBackspace;
-    /** Value for ariaDescribedby property */
-    _ariaDescribedby?: string;
     /** Whether the control is focused. */
     focused: boolean;
     _chipGrid: MatChipGrid;
