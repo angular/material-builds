@@ -2901,10 +2901,14 @@ class MatDatepickerBase {
     }
     /** Gets an observable that will emit when the overlay is supposed to be closed. */
     _getCloseStream(overlayRef) {
+        const ctrlShiftMetaModifiers = ['ctrlKey', 'shiftKey', 'metaKey'];
         return merge(overlayRef.backdropClick(), overlayRef.detachments(), overlayRef.keydownEvents().pipe(filter(event => {
             // Closing on alt + up is only valid when there's an input associated with the datepicker.
             return ((event.keyCode === ESCAPE && !hasModifierKey(event)) ||
-                (this.datepickerInput && hasModifierKey(event, 'altKey') && event.keyCode === UP_ARROW));
+                (this.datepickerInput &&
+                    hasModifierKey(event, 'altKey') &&
+                    event.keyCode === UP_ARROW &&
+                    ctrlShiftMetaModifiers.every((modifier) => !hasModifierKey(event, modifier))));
         })));
     }
 }
@@ -3166,7 +3170,10 @@ class MatDatepickerInputBase {
         this.disabled = isDisabled;
     }
     _onKeydown(event) {
-        const isAltDownArrow = event.altKey && event.keyCode === DOWN_ARROW;
+        const ctrlShiftMetaModifiers = ['ctrlKey', 'shiftKey', 'metaKey'];
+        const isAltDownArrow = hasModifierKey(event, 'altKey') &&
+            event.keyCode === DOWN_ARROW &&
+            ctrlShiftMetaModifiers.every((modifier) => !hasModifierKey(event, modifier));
         if (isAltDownArrow && !this._elementRef.nativeElement.readOnly) {
             this._openPopup();
             event.preventDefault();
