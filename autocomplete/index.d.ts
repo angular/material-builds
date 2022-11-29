@@ -351,7 +351,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      */
     get autocompleteDisabled(): boolean;
     set autocompleteDisabled(value: BooleanInput);
-    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | undefined);
+    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality | null, _formField: MatFormField | null, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | null | undefined);
     /** Class to apply to the panel when it's above the input. */
     protected abstract _aboveClass: string;
     ngAfterViewInit(): void;

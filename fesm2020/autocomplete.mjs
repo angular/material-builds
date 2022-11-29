@@ -13,13 +13,13 @@ import * as i1 from '@angular/cdk/platform';
 import { _getEventTarget } from '@angular/cdk/platform';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
 import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
-import * as i2$1 from '@angular/cdk/bidi';
 import { hasModifierKey, ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as i4 from '@angular/material/form-field';
 import { MAT_FORM_FIELD } from '@angular/material/form-field';
 import { startWith, switchMap, take, filter, map, tap, delay } from 'rxjs/operators';
+import * as i2$1 from '@angular/cdk/bidi';
 
 /**
  * @license
@@ -646,7 +646,9 @@ class _MatAutocompleteTriggerBase {
     /** If the label has been manually elevated, return it to its normal state. */
     _resetLabel() {
         if (this._manuallyFloatingLabel) {
-            this._formField.floatLabel = 'auto';
+            if (this._formField) {
+                this._formField.floatLabel = 'auto';
+            }
             this._manuallyFloatingLabel = false;
         }
     }
@@ -795,7 +797,7 @@ class _MatAutocompleteTriggerBase {
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getPanelWidth(),
-            direction: this._dir,
+            direction: this._dir ?? undefined,
             panelClass: this._defaults?.overlayPanelClass,
         });
     }

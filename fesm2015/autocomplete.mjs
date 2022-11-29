@@ -613,7 +613,9 @@ class _MatAutocompleteTriggerBase {
     /** If the label has been manually elevated, return it to its normal state. */
     _resetLabel() {
         if (this._manuallyFloatingLabel) {
-            this._formField.floatLabel = 'auto';
+            if (this._formField) {
+                this._formField.floatLabel = 'auto';
+            }
             this._manuallyFloatingLabel = false;
         }
     }
@@ -759,13 +761,13 @@ class _MatAutocompleteTriggerBase {
         }
     }
     _getOverlayConfig() {
-        var _a;
+        var _a, _b;
         return new OverlayConfig({
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getPanelWidth(),
-            direction: this._dir,
-            panelClass: (_a = this._defaults) === null || _a === void 0 ? void 0 : _a.overlayPanelClass,
+            direction: (_a = this._dir) !== null && _a !== void 0 ? _a : undefined,
+            panelClass: (_b = this._defaults) === null || _b === void 0 ? void 0 : _b.overlayPanelClass,
         });
     }
     _getOverlayPosition() {
