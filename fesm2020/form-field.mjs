@@ -129,20 +129,25 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImpor
 const MAT_PREFIX = new InjectionToken('MatPrefix');
 /** Prefix to be placed in front of the form field. */
 class MatPrefix {
-    constructor(elementRef) {
+    constructor() {
         this._isText = false;
-        this._isText = elementRef.nativeElement.hasAttribute('matTextPrefix');
+    }
+    set _isTextSelector(value) {
+        this._isText = true;
     }
 }
-MatPrefix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatPrefix, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-MatPrefix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0", type: MatPrefix, selector: "[matPrefix], [matIconPrefix], [matTextPrefix]", providers: [{ provide: MAT_PREFIX, useExisting: MatPrefix }], ngImport: i0 });
+MatPrefix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatPrefix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatPrefix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0", type: MatPrefix, selector: "[matPrefix], [matIconPrefix], [matTextPrefix]", inputs: { _isTextSelector: ["matTextPrefix", "_isTextSelector"] }, providers: [{ provide: MAT_PREFIX, useExisting: MatPrefix }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatPrefix, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matPrefix], [matIconPrefix], [matTextPrefix]',
                     providers: [{ provide: MAT_PREFIX, useExisting: MatPrefix }],
                 }]
-        }], ctorParameters: function () { return [{ type: i0.ElementRef }]; } });
+        }], propDecorators: { _isTextSelector: [{
+                type: Input,
+                args: ['matTextPrefix']
+            }] } });
 
 /**
  * @license
@@ -159,20 +164,25 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImpor
 const MAT_SUFFIX = new InjectionToken('MatSuffix');
 /** Suffix to be placed at the end of the form field. */
 class MatSuffix {
-    constructor(elementRef) {
+    constructor() {
         this._isText = false;
-        this._isText = elementRef.nativeElement.hasAttribute('matTextSuffix');
+    }
+    set _isTextSelector(value) {
+        this._isText = true;
     }
 }
-MatSuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatSuffix, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-MatSuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0", type: MatSuffix, selector: "[matSuffix], [matIconSuffix], [matTextSuffix]", providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }], ngImport: i0 });
+MatSuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatSuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatSuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0", type: MatSuffix, selector: "[matSuffix], [matIconSuffix], [matTextSuffix]", inputs: { _isTextSelector: ["matTextSuffix", "_isTextSelector"] }, providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatSuffix, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matSuffix], [matIconSuffix], [matTextSuffix]',
                     providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }],
                 }]
-        }], ctorParameters: function () { return [{ type: i0.ElementRef }]; } });
+        }], propDecorators: { _isTextSelector: [{
+                type: Input,
+                args: ['matTextSuffix']
+            }] } });
 
 /**
  * @license

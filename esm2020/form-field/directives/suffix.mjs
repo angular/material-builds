@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, ElementRef, InjectionToken } from '@angular/core';
+import { Directive, InjectionToken, Input } from '@angular/core';
 import * as i0 from "@angular/core";
 /**
  * Injection token that can be used to reference instances of `MatSuffix`. It serves as
@@ -15,18 +15,23 @@ import * as i0 from "@angular/core";
 export const MAT_SUFFIX = new InjectionToken('MatSuffix');
 /** Suffix to be placed at the end of the form field. */
 export class MatSuffix {
-    constructor(elementRef) {
+    constructor() {
         this._isText = false;
-        this._isText = elementRef.nativeElement.hasAttribute('matTextSuffix');
+    }
+    set _isTextSelector(value) {
+        this._isText = true;
     }
 }
-MatSuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatSuffix, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-MatSuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0", type: MatSuffix, selector: "[matSuffix], [matIconSuffix], [matTextSuffix]", providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }], ngImport: i0 });
+MatSuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatSuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatSuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0", type: MatSuffix, selector: "[matSuffix], [matIconSuffix], [matTextSuffix]", inputs: { _isTextSelector: ["matTextSuffix", "_isTextSelector"] }, providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatSuffix, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matSuffix], [matIconSuffix], [matTextSuffix]',
                     providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }],
                 }]
-        }], ctorParameters: function () { return [{ type: i0.ElementRef }]; } });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3VmZml4LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vLi4vc3JjL21hdGVyaWFsL2Zvcm0tZmllbGQvZGlyZWN0aXZlcy9zdWZmaXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFDLFNBQVMsRUFBRSxVQUFVLEVBQUUsY0FBYyxFQUFDLE1BQU0sZUFBZSxDQUFDOztBQUVwRTs7OztHQUlHO0FBQ0gsTUFBTSxDQUFDLE1BQU0sVUFBVSxHQUFHLElBQUksY0FBYyxDQUFZLFdBQVcsQ0FBQyxDQUFDO0FBRXJFLHdEQUF3RDtBQUt4RCxNQUFNLE9BQU8sU0FBUztJQUdwQixZQUFZLFVBQXNCO1FBRmxDLFlBQU8sR0FBRyxLQUFLLENBQUM7UUFHZCxJQUFJLENBQUMsT0FBTyxHQUFHLFVBQVUsQ0FBQyxhQUFhLENBQUMsWUFBWSxDQUFDLGVBQWUsQ0FBQyxDQUFDO0lBQ3hFLENBQUM7O3NHQUxVLFNBQVM7MEZBQVQsU0FBUyx3RUFGVCxDQUFDLEVBQUMsT0FBTyxFQUFFLFVBQVUsRUFBRSxXQUFXLEVBQUUsU0FBUyxFQUFDLENBQUM7MkZBRS9DLFNBQVM7a0JBSnJCLFNBQVM7bUJBQUM7b0JBQ1QsUUFBUSxFQUFFLCtDQUErQztvQkFDekQsU0FBUyxFQUFFLENBQUMsRUFBQyxPQUFPLEVBQUUsVUFBVSxFQUFFLFdBQVcsV0FBVyxFQUFDLENBQUM7aUJBQzNEIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7RGlyZWN0aXZlLCBFbGVtZW50UmVmLCBJbmplY3Rpb25Ub2tlbn0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbi8qKlxuICogSW5qZWN0aW9uIHRva2VuIHRoYXQgY2FuIGJlIHVzZWQgdG8gcmVmZXJlbmNlIGluc3RhbmNlcyBvZiBgTWF0U3VmZml4YC4gSXQgc2VydmVzIGFzXG4gKiBhbHRlcm5hdGl2ZSB0b2tlbiB0byB0aGUgYWN0dWFsIGBNYXRTdWZmaXhgIGNsYXNzIHdoaWNoIGNvdWxkIGNhdXNlIHVubmVjZXNzYXJ5XG4gKiByZXRlbnRpb24gb2YgdGhlIGNsYXNzIGFuZCBpdHMgZGlyZWN0aXZlIG1ldGFkYXRhLlxuICovXG5leHBvcnQgY29uc3QgTUFUX1NVRkZJWCA9IG5ldyBJbmplY3Rpb25Ub2tlbjxNYXRTdWZmaXg+KCdNYXRTdWZmaXgnKTtcblxuLyoqIFN1ZmZpeCB0byBiZSBwbGFjZWQgYXQgdGhlIGVuZCBvZiB0aGUgZm9ybSBmaWVsZC4gKi9cbkBEaXJlY3RpdmUoe1xuICBzZWxlY3RvcjogJ1ttYXRTdWZmaXhdLCBbbWF0SWNvblN1ZmZpeF0sIFttYXRUZXh0U3VmZml4XScsXG4gIHByb3ZpZGVyczogW3twcm92aWRlOiBNQVRfU1VGRklYLCB1c2VFeGlzdGluZzogTWF0U3VmZml4fV0sXG59KVxuZXhwb3J0IGNsYXNzIE1hdFN1ZmZpeCB7XG4gIF9pc1RleHQgPSBmYWxzZTtcblxuICBjb25zdHJ1Y3RvcihlbGVtZW50UmVmOiBFbGVtZW50UmVmKSB7XG4gICAgdGhpcy5faXNUZXh0ID0gZWxlbWVudFJlZi5uYXRpdmVFbGVtZW50Lmhhc0F0dHJpYnV0ZSgnbWF0VGV4dFN1ZmZpeCcpO1xuICB9XG59XG4iXX0=
+        }], propDecorators: { _isTextSelector: [{
+                type: Input,
+                args: ['matTextSuffix']
+            }] } });
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3VmZml4LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vLi4vc3JjL21hdGVyaWFsL2Zvcm0tZmllbGQvZGlyZWN0aXZlcy9zdWZmaXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFDLFNBQVMsRUFBRSxjQUFjLEVBQUUsS0FBSyxFQUFDLE1BQU0sZUFBZSxDQUFDOztBQUUvRDs7OztHQUlHO0FBQ0gsTUFBTSxDQUFDLE1BQU0sVUFBVSxHQUFHLElBQUksY0FBYyxDQUFZLFdBQVcsQ0FBQyxDQUFDO0FBRXJFLHdEQUF3RDtBQUt4RCxNQUFNLE9BQU8sU0FBUztJQUp0QjtRQVVFLFlBQU8sR0FBRyxLQUFLLENBQUM7S0FDakI7SUFOQyxJQUNJLGVBQWUsQ0FBQyxLQUFTO1FBQzNCLElBQUksQ0FBQyxPQUFPLEdBQUcsSUFBSSxDQUFDO0lBQ3RCLENBQUM7O3NHQUpVLFNBQVM7MEZBQVQsU0FBUywySUFGVCxDQUFDLEVBQUMsT0FBTyxFQUFFLFVBQVUsRUFBRSxXQUFXLEVBQUUsU0FBUyxFQUFDLENBQUM7MkZBRS9DLFNBQVM7a0JBSnJCLFNBQVM7bUJBQUM7b0JBQ1QsUUFBUSxFQUFFLCtDQUErQztvQkFDekQsU0FBUyxFQUFFLENBQUMsRUFBQyxPQUFPLEVBQUUsVUFBVSxFQUFFLFdBQVcsV0FBVyxFQUFDLENBQUM7aUJBQzNEOzhCQUdLLGVBQWU7c0JBRGxCLEtBQUs7dUJBQUMsZUFBZSIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge0RpcmVjdGl2ZSwgSW5qZWN0aW9uVG9rZW4sIElucHV0fSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuLyoqXG4gKiBJbmplY3Rpb24gdG9rZW4gdGhhdCBjYW4gYmUgdXNlZCB0byByZWZlcmVuY2UgaW5zdGFuY2VzIG9mIGBNYXRTdWZmaXhgLiBJdCBzZXJ2ZXMgYXNcbiAqIGFsdGVybmF0aXZlIHRva2VuIHRvIHRoZSBhY3R1YWwgYE1hdFN1ZmZpeGAgY2xhc3Mgd2hpY2ggY291bGQgY2F1c2UgdW5uZWNlc3NhcnlcbiAqIHJldGVudGlvbiBvZiB0aGUgY2xhc3MgYW5kIGl0cyBkaXJlY3RpdmUgbWV0YWRhdGEuXG4gKi9cbmV4cG9ydCBjb25zdCBNQVRfU1VGRklYID0gbmV3IEluamVjdGlvblRva2VuPE1hdFN1ZmZpeD4oJ01hdFN1ZmZpeCcpO1xuXG4vKiogU3VmZml4IHRvIGJlIHBsYWNlZCBhdCB0aGUgZW5kIG9mIHRoZSBmb3JtIGZpZWxkLiAqL1xuQERpcmVjdGl2ZSh7XG4gIHNlbGVjdG9yOiAnW21hdFN1ZmZpeF0sIFttYXRJY29uU3VmZml4XSwgW21hdFRleHRTdWZmaXhdJyxcbiAgcHJvdmlkZXJzOiBbe3Byb3ZpZGU6IE1BVF9TVUZGSVgsIHVzZUV4aXN0aW5nOiBNYXRTdWZmaXh9XSxcbn0pXG5leHBvcnQgY2xhc3MgTWF0U3VmZml4IHtcbiAgQElucHV0KCdtYXRUZXh0U3VmZml4JylcbiAgc2V0IF9pc1RleHRTZWxlY3Rvcih2YWx1ZTogJycpIHtcbiAgICB0aGlzLl9pc1RleHQgPSB0cnVlO1xuICB9XG5cbiAgX2lzVGV4dCA9IGZhbHNlO1xufVxuIl19
