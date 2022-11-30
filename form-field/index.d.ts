@@ -467,18 +467,18 @@ export declare class MatLabel {
 
 /** Prefix to be placed in front of the form field. */
 export declare class MatPrefix {
+    set _isTextSelector(value: '');
     _isText: boolean;
-    constructor(elementRef: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPrefix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPrefix, "[matPrefix], [matIconPrefix], [matTextPrefix]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPrefix, "[matPrefix], [matIconPrefix], [matTextPrefix]", never, { "_isTextSelector": "matTextPrefix"; }, {}, never, never, false, never>;
 }
 
 /** Suffix to be placed at the end of the form field. */
 export declare class MatSuffix {
+    set _isTextSelector(value: '');
     _isText: boolean;
-    constructor(elementRef: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSuffix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSuffix, "[matSuffix], [matIconSuffix], [matTextSuffix]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSuffix, "[matSuffix], [matIconSuffix], [matTextSuffix]", never, { "_isTextSelector": "matTextSuffix"; }, {}, never, never, false, never>;
 }
 
 /** Behaviors for how the subscript height is set. */
