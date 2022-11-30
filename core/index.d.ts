@@ -559,7 +559,7 @@ declare const _MatOptgroupMixinBase: _Constructor_2<CanDisable> & _AbstractConst
 export declare class MatOption<T = any> extends _MatOptionBase<T> {
     constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatOptionParentComponent, group: MatOptgroup);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], {}, {}, never, ["mat-icon", "*"], false, never>;
 }
 
 export declare class _MatOptionBase<T = any> implements FocusableOption, AfterViewChecked, OnDestroy {
@@ -586,6 +586,8 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
     get disableRipple(): boolean;
     /** Event emitted when the option is selected or deselected. */
     readonly onSelectionChange: EventEmitter<MatOptionSelectionChange<T>>;
+    /** Element containing the option's text. */
+    _text: ElementRef<HTMLElement> | undefined;
     /** Emits when the state of the option changes and any parents have to be notified. */
     readonly _stateChanges: Subject<void>;
     constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: _MatOptgroupBase);
