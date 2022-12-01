@@ -19,7 +19,10 @@ class MatButtonToggleHarness extends ComponentHarness {
         return new HarnessPredicate(MatButtonToggleHarness, options)
             .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
             .addOption('name', options.name, (harness, name) => HarnessPredicate.stringMatches(harness.getName(), name))
-            .addOption('checked', options.checked, (harness, checked) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isChecked()) === checked; }));
+            .addOption('checked', options.checked, (harness, checked) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isChecked()) === checked; }))
+            .addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
     /** Gets a boolean promise indicating if the button toggle is checked. */
     isChecked() {
@@ -126,7 +129,9 @@ class MatButtonToggleGroupHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatButtonToggleGroupHarness, options);
+        return new HarnessPredicate(MatButtonToggleGroupHarness, options).addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
     /**
      * Gets the button toggles that are inside the group.
