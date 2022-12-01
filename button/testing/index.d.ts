@@ -9,6 +9,8 @@ export declare interface ButtonHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;
     /** Only find instances with a variant. */
     variant?: ButtonVariant;
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 /** Possible button appearances. */
