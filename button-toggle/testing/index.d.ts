@@ -5,6 +5,8 @@ import { MatButtonToggleAppearance } from '@angular/material/button-toggle';
 
 /** Criteria that can be used to filter a list of `MatButtonToggleGroupHarness` instances. */
 export declare interface ButtonToggleGroupHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 /** Criteria that can be used to filter a list of `MatButtonToggleHarness` instances. */
@@ -15,6 +17,8 @@ export declare interface ButtonToggleHarnessFilters extends BaseHarnessFilters {
     name?: string | RegExp;
     /** Only find instances that are checked. */
     checked?: boolean;
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 /** Harness for interacting with a standard mat-button-toggle in tests. */

@@ -1,14 +1,8 @@
+import { __awaiter } from 'tslib';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatLegacyOptionHarness, MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
 import { _MatAutocompleteHarnessBase } from '@angular/material/autocomplete/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Harness for interacting with a standard mat-autocomplete in tests.
  * @deprecated Use `MatAutocompleteHarness` from `@angular/material/autocomplete/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -28,7 +22,11 @@ class MatLegacyAutocompleteHarness extends _MatAutocompleteHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatLegacyAutocompleteHarness, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
+        return new HarnessPredicate(MatLegacyAutocompleteHarness, options)
+            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value))
+            .addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
 }
 /** The selector for the host element of a `MatAutocomplete` instance. */

@@ -75,6 +75,8 @@ export declare class MatSliderThumbHarness extends ComponentHarness {
 export declare interface SliderHarnessFilters extends BaseHarnessFilters {
     /** Filters out only range/non-range sliders. */
     isRange?: boolean;
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 /** A set of criteria that can be used to filter a list of `MatSliderThumbHarness` instances. */

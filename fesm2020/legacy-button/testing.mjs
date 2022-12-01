@@ -23,7 +23,10 @@ class MatLegacyButtonHarness extends ContentContainerComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatLegacyButtonHarness, options)
             .addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text))
-            .addOption('variant', options.variant, (harness, variant) => HarnessPredicate.stringMatches(harness.getVariant(), variant));
+            .addOption('variant', options.variant, (harness, variant) => HarnessPredicate.stringMatches(harness.getVariant(), variant))
+            .addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
+        });
     }
     async click(...args) {
         return (await this.host()).click(...args);
