@@ -121,8 +121,12 @@ class MatSliderHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options).addOption('isRange', options.isRange, (harness, value) => __awaiter(this, void 0, void 0, function* () {
+        return new HarnessPredicate(this, options)
+            .addOption('isRange', options.isRange, (harness, value) => __awaiter(this, void 0, void 0, function* () {
             return (yield harness.isRange()) === value;
+        }))
+            .addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
         }));
     }
     /** Gets the start thumb of the slider (only applicable for range sliders). */
