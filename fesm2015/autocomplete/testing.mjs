@@ -117,7 +117,11 @@ class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
+        return new HarnessPredicate(this, options)
+            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value))
+            .addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
 }
 /** The selector for the host element of a `MatAutocomplete` instance. */

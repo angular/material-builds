@@ -11,6 +11,8 @@ import { OptionHarnessFilters } from '@angular/material/core/testing';
 export declare interface AutocompleteHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose associated input element matches the given value. */
     value?: string | RegExp;
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 /** Harness for interacting with an MDC-based mat-autocomplete in tests. */
