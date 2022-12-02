@@ -7,7 +7,7 @@ import { VERSION as VERSION$1 } from '@angular/cdk';
 import * as i3 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i1$1 from '@angular/cdk/platform';
-import { _isTestEnvironment, normalizePassiveListenerOptions } from '@angular/cdk/platform';
+import { _isTestEnvironment, normalizePassiveListenerOptions, _getEventTarget } from '@angular/cdk/platform';
 import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
 import { Observable, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -858,6 +858,74 @@ class RippleRef {
     }
 }
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** Options used to bind a passive capturing event. */
+const passiveCapturingEventOptions$1 = normalizePassiveListenerOptions({
+    passive: true,
+    capture: true,
+});
+/** Manages events through delegation so that as few event handlers as possible are bound. */
+class RippleEventManager {
+    constructor() {
+        this._events = new Map();
+        /** Event handler that is bound and which dispatches the events to the different targets. */
+        this._delegateEventHandler = (event) => {
+            const target = _getEventTarget(event);
+            if (target) {
+                this._events.get(event.type)?.forEach((handlers, element) => {
+                    if (element === target || element.contains(target)) {
+                        handlers.forEach(handler => handler.handleEvent(event));
+                    }
+                });
+            }
+        };
+    }
+    /** Adds an event handler. */
+    addHandler(ngZone, name, element, handler) {
+        const handlersForEvent = this._events.get(name);
+        if (handlersForEvent) {
+            const handlersForElement = handlersForEvent.get(element);
+            if (handlersForElement) {
+                handlersForElement.add(handler);
+            }
+            else {
+                handlersForEvent.set(element, new Set([handler]));
+            }
+        }
+        else {
+            this._events.set(name, new Map([[element, new Set([handler])]]));
+            ngZone.runOutsideAngular(() => {
+                document.addEventListener(name, this._delegateEventHandler, passiveCapturingEventOptions$1);
+            });
+        }
+    }
+    /** Removes an event handler. */
+    removeHandler(name, element, handler) {
+        const handlersForEvent = this._events.get(name);
+        if (!handlersForEvent) {
+            return;
+        }
+        const handlersForElement = handlersForEvent.get(element);
+        if (!handlersForElement) {
+            return;
+        }
+        handlersForElement.delete(handler);
+        if (handlersForElement.size === 0) {
+            handlersForEvent.delete(element);
+        }
+        if (handlersForEvent.size === 0) {
+            this._events.delete(name);
+            document.removeEventListener(name, this._delegateEventHandler, passiveCapturingEventOptions$1);
+        }
+    }
+}
+
 // TODO: import these values from `@material/ripple` eventually.
 /**
  * Default ripple animation configuration for ripples without an explicit
@@ -872,8 +940,11 @@ const defaultRippleAnimationConfig = {
  * events to avoid synthetic mouse events.
  */
 const ignoreMouseEventsTimeout = 800;
-/** Options that apply to all the event listeners that are bound by the ripple renderer. */
-const passiveEventOptions = normalizePassiveListenerOptions({ passive: true });
+/** Options used to bind a passive capturing event. */
+const passiveCapturingEventOptions = normalizePassiveListenerOptions({
+    passive: true,
+    capture: true,
+});
 /** Events that signal that the pointer is down. */
 const pointerDownEvents = ['mousedown', 'touchstart'];
 /** Events that signal that the pointer is up. */
@@ -886,9 +957,10 @@ const pointerUpEvents = ['mouseup', 'mouseleave', 'touchend', 'touchcancel'];
  * @docs-private
  */
 class RippleRenderer {
-    constructor(_target, _ngZone, elementOrElementRef, platform) {
+    constructor(_target, _ngZone, elementOrElementRef, _platform) {
         this._target = _target;
         this._ngZone = _ngZone;
+        this._platform = _platform;
         /** Whether the pointer is currently down or not. */
         this._isPointerDown = false;
         /**
@@ -901,7 +973,7 @@ class RippleRenderer {
         /** Whether pointer-up event listeners have been registered. */
         this._pointerUpEventsRegistered = false;
         // Only do anything if we're on the browser.
-        if (platform.isBrowser) {
+        if (_platform.isBrowser) {
             this._containerElement = coerceElement(elementOrElementRef);
         }
     }
@@ -1024,13 +1096,17 @@ class RippleRenderer {
     /** Sets up the trigger event listeners */
     setupTriggerEvents(elementOrElementRef) {
         const element = coerceElement(elementOrElementRef);
-        if (!element || element === this._triggerElement) {
+        if (!this._platform.isBrowser || !element || element === this._triggerElement) {
             return;
         }
         // Remove all previously registered event listeners from the trigger element.
         this._removeTriggerEvents();
         this._triggerElement = element;
-        this._registerEvents(pointerDownEvents);
+        // Use event delegation for the trigger events since they're
+        // set up during creation and are performance-sensitive.
+        pointerDownEvents.forEach(type => {
+            RippleRenderer._eventManager.addHandler(this._ngZone, type, element, this);
+        });
     }
     /**
      * Handles all registered events.
@@ -1050,7 +1126,16 @@ class RippleRenderer {
         // We do this on-demand in order to reduce the total number of event listeners
         // registered by the ripples, which speeds up the rendering time for large UIs.
         if (!this._pointerUpEventsRegistered) {
-            this._registerEvents(pointerUpEvents);
+            // The events for hiding the ripple are bound directly on the trigger, because:
+            // 1. Some of them occur frequently (e.g. `mouseleave`) and any advantage we get from
+            // delegation will be diminished by having to look through all the data structures often.
+            // 2. They aren't as performance-sensitive, because they're bound only after the user
+            // has interacted with an element.
+            this._ngZone.runOutsideAngular(() => {
+                pointerUpEvents.forEach(type => {
+                    this._triggerElement.addEventListener(type, this, passiveCapturingEventOptions);
+                });
+            });
             this._pointerUpEventsRegistered = true;
         }
     }
@@ -1144,31 +1229,21 @@ class RippleRenderer {
             }
         });
     }
-    /** Registers event listeners for a given list of events. */
-    _registerEvents(eventTypes) {
-        this._ngZone.runOutsideAngular(() => {
-            eventTypes.forEach(type => {
-                this._triggerElement.addEventListener(type, this, passiveEventOptions);
-            });
-        });
-    }
     _getActiveRipples() {
         return Array.from(this._activeRipples.keys());
     }
     /** Removes previously registered event listeners from the trigger element. */
     _removeTriggerEvents() {
-        if (this._triggerElement) {
-            pointerDownEvents.forEach(type => {
-                this._triggerElement.removeEventListener(type, this, passiveEventOptions);
-            });
+        const trigger = this._triggerElement;
+        if (trigger) {
+            pointerDownEvents.forEach(type => RippleRenderer._eventManager.removeHandler(type, trigger, this));
             if (this._pointerUpEventsRegistered) {
-                pointerUpEvents.forEach(type => {
-                    this._triggerElement.removeEventListener(type, this, passiveEventOptions);
-                });
+                pointerUpEvents.forEach(type => trigger.removeEventListener(type, this, passiveCapturingEventOptions));
             }
         }
     }
 }
+RippleRenderer._eventManager = new RippleEventManager();
 /**
  * Returns the distance from the point (x, y) to the furthest corner of a rectangle.
  */
