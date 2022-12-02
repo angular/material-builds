@@ -13,6 +13,8 @@ export declare interface CheckboxHarnessFilters extends BaseHarnessFilters {
     name?: string;
     /** Only find instances with the given checked value. */
     checked?: boolean;
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 /** Harness for interacting with a MDC-based mat-checkbox in tests. */
