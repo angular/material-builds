@@ -154,10 +154,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImpor
                 type: Input
             }] } });
 /**
- * `<mat-spinner>` component.
- *
- * This is a component definition to be used as a convenience reference to create an
- * indeterminate `<mat-progress-spinner>` instance.
+ * @deprecated Import Progress Spinner instead. Note that the
+ *    `mat-spinner` selector isn't deprecated.
+ * @breaking-change 16.0.0
  */
 // tslint:disable-next-line:variable-name
 const MatSpinner = MatProgressSpinner;
