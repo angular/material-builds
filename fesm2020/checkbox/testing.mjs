@@ -116,7 +116,10 @@ class MatCheckboxHarness extends _MatCheckboxHarnessBase {
             // only set on the underlying input. This means that it's not possible for developers
             // to retrieve the harness of a specific checkbox with name through a CSS selector.
             .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
-            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked));
+            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked)
+            .addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
+        }));
     }
     async toggle() {
         const elToClick = (await this.isDisabled()) ? this._inputContainer() : this._input();
