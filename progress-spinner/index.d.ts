@@ -94,10 +94,9 @@ export declare class MatProgressSpinnerModule {
 }
 
 /**
- * `<mat-spinner>` component.
- *
- * This is a component definition to be used as a convenience reference to create an
- * indeterminate `<mat-progress-spinner>` instance.
+ * @deprecated Import Progress Spinner instead. Note that the
+ *    `mat-spinner` selector isn't deprecated.
+ * @breaking-change 16.0.0
  */
 export declare const MatSpinner: typeof MatProgressSpinner;
 
