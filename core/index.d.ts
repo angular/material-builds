@@ -967,6 +967,7 @@ export declare class RippleRef {
 export declare class RippleRenderer implements EventListenerObject {
     private _target;
     private _ngZone;
+    private _platform;
     /** Element where the ripples are being added to. */
     private _containerElement;
     /** Element which triggers the ripple elements on mouse events. */
@@ -991,7 +992,8 @@ export declare class RippleRenderer implements EventListenerObject {
      * ripple is shown and cleared once no more ripples are visible.
      */
     private _containerRect;
-    constructor(_target: RippleTarget, _ngZone: NgZone, elementOrElementRef: HTMLElement | ElementRef<HTMLElement>, platform: Platform);
+    private static _eventManager;
+    constructor(_target: RippleTarget, _ngZone: NgZone, elementOrElementRef: HTMLElement | ElementRef<HTMLElement>, _platform: Platform);
     /**
      * Fades in a ripple at the given coordinates.
      * @param x Coordinate within the element, along the X axis at which to start the ripple.
@@ -1027,8 +1029,6 @@ export declare class RippleRenderer implements EventListenerObject {
     private _onTouchStart;
     /** Function being called whenever the trigger is being released. */
     private _onPointerUp;
-    /** Registers event listeners for a given list of events. */
-    private _registerEvents;
     private _getActiveRipples;
     /** Removes previously registered event listeners from the trigger element. */
     _removeTriggerEvents(): void;
