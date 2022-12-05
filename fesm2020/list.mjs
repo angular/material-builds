@@ -870,16 +870,9 @@ class MatSelectionListChange {
     constructor(
     /** Reference to the selection list that emitted the event. */
     source, 
-    /**
-     * Reference to the option that has been changed.
-     * @deprecated Use `options` instead, because some events may change more than one option.
-     * @breaking-change 12.0.0
-     */
-    option, 
     /** Reference to the options that have been changed. */
     options) {
         this.source = source;
-        this.option = option;
         this.options = options;
     }
 }
@@ -1006,7 +999,7 @@ class MatSelectionList extends MatListBase {
     }
     /** Emits a change event if the selected state of an option changed. */
     _emitChangeEvent(options) {
-        this.selectionChange.emit(new MatSelectionListChange(this, options[0], options));
+        this.selectionChange.emit(new MatSelectionListChange(this, options));
     }
     /** Implemented as part of ControlValueAccessor. */
     writeValue(values) {
