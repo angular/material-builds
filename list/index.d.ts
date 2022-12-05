@@ -539,23 +539,11 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
 export declare class MatSelectionListChange {
     /** Reference to the selection list that emitted the event. */
     source: MatSelectionList;
-    /**
-     * Reference to the option that has been changed.
-     * @deprecated Use `options` instead, because some events may change more than one option.
-     * @breaking-change 12.0.0
-     */
-    option: MatListOption;
     /** Reference to the options that have been changed. */
     options: MatListOption[];
     constructor(
     /** Reference to the selection list that emitted the event. */
     source: MatSelectionList, 
-    /**
-     * Reference to the option that has been changed.
-     * @deprecated Use `options` instead, because some events may change more than one option.
-     * @breaking-change 12.0.0
-     */
-    option: MatListOption, 
     /** Reference to the options that have been changed. */
     options: MatListOption[]);
 }
