@@ -175,6 +175,8 @@ export declare class MatChip extends _MatChipMixinBase implements AfterViewInit,
     ariaLabel: string | null;
     /** ARIA description for the content of the chip. */
     ariaDescription: string | null;
+    /** Id of a span that contains this chip's aria description. */
+    _ariaDescriptionId: string;
     private _textElement;
     /**
      * The value of the chip. Defaults to the content inside
