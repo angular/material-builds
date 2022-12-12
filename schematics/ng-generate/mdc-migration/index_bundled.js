@@ -21461,16 +21461,19 @@ function updateAttribute(html, node, name, update) {
   const prefix = html.slice(0, index2);
   const suffix = html.slice(index2);
   const attrText = newValue ? `${name}="${newValue}"` : `${name}`;
-  if (node.startSourceSpan.start.line === node.startSourceSpan.end.line) {
-    return `${prefix} ${attrText}${suffix}`;
+  const indentation = parseIndentation(html, node);
+  return prefix + indentation + attrText + suffix;
+}
+function parseIndentation(html, node) {
+  let whitespace = "";
+  let startOffset = node.startSourceSpan.start.offset + node.name.length + 1;
+  for (let i = startOffset; i < node.startSourceSpan.end.offset - 1; i++) {
+    if (!/\s/.test(html.charAt(i))) {
+      break;
+    }
+    whitespace += html.charAt(i);
   }
-  const attr = node.attributes[0];
-  if (attr) {
-    const ctx = attr.sourceSpan.start.getContext(attr.sourceSpan.start.col + 1, 1);
-    const indentation = ctx.before;
-    return prefix + indentation + attrText + suffix;
-  }
-  return prefix + attrText + suffix;
+  return whitespace || " ";
 }
 function replaceAt(str, offset, oldSubstr, newSubstr) {
   const index2 = offset;
