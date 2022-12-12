@@ -54,9 +54,13 @@ class MatChipHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options).addOption('text', options.text, (harness, label) => {
+        return new HarnessPredicate(this, options)
+            .addOption('text', options.text, (harness, label) => {
             return HarnessPredicate.stringMatches(harness.getText(), label);
-        });
+        })
+            .addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
     /** Gets a promise for the text content the option. */
     getText() {
@@ -115,6 +119,9 @@ class MatChipInputHarness extends ComponentHarness {
         }))
             .addOption('placeholder', options.placeholder, (harness, placeholder) => __awaiter(this, void 0, void 0, function* () {
             return (yield harness.getPlaceholder()) === placeholder;
+        }))
+            .addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
         }));
     }
     /** Whether the input is disabled. */
@@ -245,7 +252,9 @@ class MatChipListboxHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options);
+        return new HarnessPredicate(this, options).addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
     /** Gets whether the chip listbox is disabled. */
     isDisabled() {
@@ -324,7 +333,9 @@ class MatChipGridHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options);
+        return new HarnessPredicate(this, options).addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
     /** Gets whether the chip grid is disabled. */
     isDisabled() {

@@ -65,8 +65,12 @@ class MatChipHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options).addOption('text', options.text, (harness, label) => {
+        return new HarnessPredicate(this, options)
+            .addOption('text', options.text, (harness, label) => {
             return HarnessPredicate.stringMatches(harness.getText(), label);
+        })
+            .addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
         });
     }
     /** Gets a promise for the text content the option. */
@@ -131,6 +135,9 @@ class MatChipInputHarness extends ComponentHarness {
         })
             .addOption('placeholder', options.placeholder, async (harness, placeholder) => {
             return (await harness.getPlaceholder()) === placeholder;
+        })
+            .addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
         });
     }
     /** Whether the input is disabled. */
@@ -249,7 +256,9 @@ class MatChipListboxHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options);
+        return new HarnessPredicate(this, options).addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
+        });
     }
     /** Gets whether the chip listbox is disabled. */
     async isDisabled() {
@@ -326,7 +335,9 @@ class MatChipGridHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options);
+        return new HarnessPredicate(this, options).addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
+        });
     }
     /** Gets whether the chip grid is disabled. */
     async isDisabled() {
