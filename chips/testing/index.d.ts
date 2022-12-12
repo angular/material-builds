@@ -11,11 +11,15 @@ export declare interface ChipAvatarHarnessFilters extends BaseHarnessFilters {
 }
 
 export declare interface ChipGridHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 export declare interface ChipHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 export declare interface ChipInputHarnessFilters extends BaseHarnessFilters {
@@ -23,9 +27,13 @@ export declare interface ChipInputHarnessFilters extends BaseHarnessFilters {
     value?: string | RegExp;
     /** Filters based on the placeholder text of the input. */
     placeholder?: string | RegExp;
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 export declare interface ChipListboxHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 export declare interface ChipOptionHarnessFilters extends ChipHarnessFilters {
