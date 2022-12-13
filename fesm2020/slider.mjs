@@ -1334,12 +1334,11 @@ class MatSliderThumb {
             this._updateThumbUIByPointerEvent(event);
         }
     }
-    _onPointerUp(event) {
+    _onPointerUp() {
         this._isActive = false;
-        this._updateWidthInactive();
-        if (!this.disabled) {
-            this._handleValueCorrection(event);
-        }
+        setTimeout(() => {
+            this._updateWidthInactive();
+        });
     }
     _clamp(v) {
         return Math.max(Math.min(v, this._slider._cachedWidth), 0);
@@ -1524,11 +1523,13 @@ class MatSliderRangeThumb extends MatSliderThumb {
         }
         super._onPointerDown(event);
     }
-    _onPointerUp(event) {
-        super._onPointerUp(event);
+    _onPointerUp() {
+        super._onPointerUp();
         if (this._sibling) {
-            this._sibling._updateWidthInactive();
-            this._sibling._hostElement.classList.remove('mat-mdc-slider-input-no-pointer-events');
+            setTimeout(() => {
+                this._sibling._updateWidthInactive();
+                this._sibling._hostElement.classList.remove('mat-mdc-slider-input-no-pointer-events');
+            });
         }
     }
     _onPointerMove(event) {
