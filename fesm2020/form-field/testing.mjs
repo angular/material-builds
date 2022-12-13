@@ -196,7 +196,8 @@ class MatFormFieldHarness extends _MatFormFieldHarnessBase {
     static with(options = {}) {
         return new HarnessPredicate(this, options)
             .addOption('floatingLabelText', options.floatingLabelText, async (harness, text) => HarnessPredicate.stringMatches(await harness.getLabel(), text))
-            .addOption('hasErrors', options.hasErrors, async (harness, hasErrors) => (await harness.hasErrors()) === hasErrors);
+            .addOption('hasErrors', options.hasErrors, async (harness, hasErrors) => (await harness.hasErrors()) === hasErrors)
+            .addOption('isValid', options.isValid, async (harness, isValid) => (await harness.isControlValid()) === isValid);
     }
     /** Gets the appearance of the form-field. */
     async getAppearance() {
