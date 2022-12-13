@@ -326,7 +326,7 @@ export declare class MatSliderRangeThumb extends MatSliderThumb implements _MatS
     _onInput(): void;
     _onNgControlValueChange(): void;
     _onPointerDown(event: PointerEvent): void;
-    _onPointerUp(event: PointerEvent): void;
+    _onPointerUp(): void;
     _onPointerMove(event: PointerEvent): void;
     _fixValue(event: PointerEvent): void;
     _clamp(v: number): number;
@@ -469,7 +469,7 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     /** Corrects the value of the slider based on the pointer event's position. */
     _fixValue(event: PointerEvent): void;
     _onPointerMove(event: PointerEvent): void;
-    _onPointerUp(event: PointerEvent): void;
+    _onPointerUp(): void;
     _clamp(v: number): number;
     _calcTranslateXByValue(): number;
     _calcTranslateXByPointerEvent(event: PointerEvent): number;
