@@ -59,7 +59,8 @@ class MatLegacyFormFieldHarness extends _MatFormFieldHarnessBase {
     static with(options = {}) {
         return new HarnessPredicate(MatLegacyFormFieldHarness, options)
             .addOption('floatingLabelText', options.floatingLabelText, (harness, text) => __awaiter(this, void 0, void 0, function* () { return HarnessPredicate.stringMatches(yield harness.getLabel(), text); }))
-            .addOption('hasErrors', options.hasErrors, (harness, hasErrors) => __awaiter(this, void 0, void 0, function* () { return (yield harness.hasErrors()) === hasErrors; }));
+            .addOption('hasErrors', options.hasErrors, (harness, hasErrors) => __awaiter(this, void 0, void 0, function* () { return (yield harness.hasErrors()) === hasErrors; }))
+            .addOption('isValid', options.isValid, (harness, isValid) => __awaiter(this, void 0, void 0, function* () { return (yield harness.isControlValid()) === isValid; }));
     }
     /** Gets the appearance of the form-field. */
     getAppearance() {
