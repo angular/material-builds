@@ -383,7 +383,7 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     _setTriggersSubmenu(triggersSubmenu: boolean): void;
     _hasFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, [null, null, null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "role": "role"; }, {}, never, ["mat-icon", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "role": "role"; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], false, never>;
 }
 
 /** @docs-private */
