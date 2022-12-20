@@ -93,6 +93,9 @@ declare interface ListOption {
  */
 export declare const MAT_LIST: InjectionToken<MatList>;
 
+/** Injection token that can be used to provide the default options the list module. */
+export declare const MAT_LIST_CONFIG: InjectionToken<MatListConfig>;
+
 /**
  * Injection token that can be used to inject instances of `MatNavList`. It serves as
  * alternative token to the actual `MatNavList` class which could cause unnecessary
@@ -126,8 +129,15 @@ declare abstract class MatListBase {
     get disabled(): boolean;
     set disabled(value: BooleanInput);
     private _disabled;
+    protected _defaultOptions: MatListConfig | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, never, false, never>;
+}
+
+/** Object that can be used to configure the default options for the list module. */
+export declare interface MatListConfig {
+    /** Wheter icon indicators should be hidden for single-selection. */
+    hideSingleSelectionIndicator?: boolean;
 }
 
 export declare class MatListItem extends MatListItemBase {
@@ -449,6 +459,10 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     get multiple(): boolean;
     set multiple(value: BooleanInput);
     private _multiple;
+    /** Whether radio indicator for all list items is hidden. */
+    get hideSingleSelectionIndicator(): boolean;
+    set hideSingleSelectionIndicator(value: BooleanInput);
+    private _hideSingleSelectionIndicator;
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
     /** Keeps track of the currently-selected value. */
@@ -532,7 +546,7 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     /** Returns whether the focus is currently within the list. */
     private _containsFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": "color"; "compareWith": "compareWith"; "multiple": "multiple"; "disabled": "disabled"; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": "color"; "compareWith": "compareWith"; "multiple": "multiple"; "hideSingleSelectionIndicator": "hideSingleSelectionIndicator"; "disabled": "disabled"; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false, never>;
 }
 
 /** Change event that is being fired whenever the selected state of an option changes. */
@@ -564,6 +578,7 @@ export declare interface SelectionList extends MatListBase {
     multiple: boolean;
     color: ThemePalette;
     selectedOptions: SelectionModel<MatListOption>;
+    hideSingleSelectionIndicator: boolean;
     compareWith: (o1: any, o2: any) => boolean;
     _value: string[] | null;
     _reportValueChange(): void;
