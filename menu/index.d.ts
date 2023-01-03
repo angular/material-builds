@@ -451,6 +451,7 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
     private _hoverSubscription;
     private _menuCloseSubscription;
     private _scrollStrategy;
+    private _changeDetectorRef;
     /**
      * We're specifically looking for a `MatMenu` here since the generic `MatMenuPanel`
      * interface lacks some functionality around nested menus and animations.
