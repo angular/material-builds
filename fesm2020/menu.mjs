@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Optional, Input, Directive, QueryList, EventEmitter, TemplateRef, ContentChildren, ViewChild, ContentChild, Output, Self, NgModule } from '@angular/core';
+import { InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Optional, Input, Directive, QueryList, EventEmitter, TemplateRef, ContentChildren, ViewChild, ContentChild, Output, inject, ChangeDetectorRef, Self, NgModule } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -796,6 +796,7 @@ class _MatMenuTriggerBase {
         this._closingActionsSubscription = Subscription.EMPTY;
         this._hoverSubscription = Subscription.EMPTY;
         this._menuCloseSubscription = Subscription.EMPTY;
+        this._changeDetectorRef = inject(ChangeDetectorRef);
         /**
          * Handles touch start events on the trigger.
          * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
@@ -1013,10 +1014,13 @@ class _MatMenuTriggerBase {
     }
     // set state rather than toggle to support triggers sharing a menu
     _setIsMenuOpen(isOpen) {
-        this._menuOpen = isOpen;
-        this._menuOpen ? this.menuOpened.emit() : this.menuClosed.emit();
-        if (this.triggersSubmenu()) {
-            this._menuItemInstance._setHighlighted(isOpen);
+        if (isOpen !== this._menuOpen) {
+            this._menuOpen = isOpen;
+            this._menuOpen ? this.menuOpened.emit() : this.menuClosed.emit();
+            if (this.triggersSubmenu()) {
+                this._menuItemInstance._setHighlighted(isOpen);
+            }
+            this._changeDetectorRef.markForCheck();
         }
     }
     /**
