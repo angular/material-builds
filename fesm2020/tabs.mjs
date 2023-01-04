@@ -1991,6 +1991,7 @@ class MatTabNav extends _MatTabNavBase {
         if (!this.tabPanel && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw new Error('A mat-tab-nav-panel must be specified via [tabPanel].');
         }
+        super.ngAfterViewInit();
     }
 }
 MatTabNav.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatTabNav, deps: [{ token: i0.ElementRef }, { token: i1.Directionality, optional: true }, { token: i0.NgZone }, { token: i0.ChangeDetectorRef }, { token: i1$1.ViewportRuler }, { token: i3.Platform }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: MAT_TABS_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Component });
