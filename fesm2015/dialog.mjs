@@ -5,7 +5,6 @@ import { EventEmitter, Component, Optional, Inject, ViewEncapsulation, ChangeDet
 import * as i2 from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
-import { numbers, cssClasses } from '@material/dialog';
 import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular/cdk/dialog';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/a11y';
@@ -78,6 +77,16 @@ class MatDialogConfig {
     }
 }
 
+/** Class added when the dialog is open. */
+const OPEN_CLASS = 'mdc-dialog--open';
+/** Class added while the dialog is opening. */
+const OPENING_CLASS = 'mdc-dialog--opening';
+/** Class added while the dialog is closing. */
+const CLOSING_CLASS = 'mdc-dialog--closing';
+/** Duration of the opening animation in milliseconds. */
+const OPEN_ANIMATION_DURATION = 150;
+/** Duration of the closing animation in milliseconds. */
+const CLOSE_ANIMATION_DURATION = 75;
 /**
  * Base class for the `MatDialogContainer`. The base class does not implement
  * animations as these are left to implementers of the dialog container.
@@ -158,11 +167,11 @@ class MatDialogContainer extends _MatDialogContainerBase {
         this._hostElement = this._elementRef.nativeElement;
         /** Duration of the dialog open animation. */
         this._openAnimationDuration = this._animationsEnabled
-            ? (_a = parseCssTime(this._config.enterAnimationDuration)) !== null && _a !== void 0 ? _a : numbers.DIALOG_ANIMATION_OPEN_TIME_MS
+            ? (_a = parseCssTime(this._config.enterAnimationDuration)) !== null && _a !== void 0 ? _a : OPEN_ANIMATION_DURATION
             : 0;
         /** Duration of the dialog close animation. */
         this._closeAnimationDuration = this._animationsEnabled
-            ? (_b = parseCssTime(this._config.exitAnimationDuration)) !== null && _b !== void 0 ? _b : numbers.DIALOG_ANIMATION_CLOSE_TIME_MS
+            ? (_b = parseCssTime(this._config.exitAnimationDuration)) !== null && _b !== void 0 ? _b : CLOSE_ANIMATION_DURATION
             : 0;
         /** Current timer for dialog animations. */
         this._animationTimer = null;
@@ -211,12 +220,12 @@ class MatDialogContainer extends _MatDialogContainerBase {
             // One would expect that the open class is added once the animation finished, but MDC
             // uses the open class in combination with the opening class to start the animation.
             this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._openAnimationDuration}ms`);
-            this._hostElement.classList.add(cssClasses.OPENING);
-            this._hostElement.classList.add(cssClasses.OPEN);
+            this._hostElement.classList.add(OPENING_CLASS);
+            this._hostElement.classList.add(OPEN_CLASS);
             this._waitForAnimationToComplete(this._openAnimationDuration, this._finishDialogOpen);
         }
         else {
-            this._hostElement.classList.add(cssClasses.OPEN);
+            this._hostElement.classList.add(OPEN_CLASS);
             // Note: We could immediately finish the dialog opening here with noop animations,
             // but we defer until next tick so that consumers can subscribe to `afterOpened`.
             // Executing this immediately would mean that `afterOpened` emits synchronously
@@ -230,10 +239,10 @@ class MatDialogContainer extends _MatDialogContainerBase {
      */
     _startExitAnimation() {
         this._animationStateChanged.emit({ state: 'closing', totalTime: this._closeAnimationDuration });
-        this._hostElement.classList.remove(cssClasses.OPEN);
+        this._hostElement.classList.remove(OPEN_CLASS);
         if (this._animationsEnabled) {
             this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._openAnimationDuration}ms`);
-            this._hostElement.classList.add(cssClasses.CLOSING);
+            this._hostElement.classList.add(CLOSING_CLASS);
             this._waitForAnimationToComplete(this._closeAnimationDuration, this._finishDialogClose);
         }
         else {
@@ -259,8 +268,8 @@ class MatDialogContainer extends _MatDialogContainerBase {
     }
     /** Clears all dialog animation classes. */
     _clearAnimationClasses() {
-        this._hostElement.classList.remove(cssClasses.OPENING);
-        this._hostElement.classList.remove(cssClasses.CLOSING);
+        this._hostElement.classList.remove(OPENING_CLASS);
+        this._hostElement.classList.remove(CLOSING_CLASS);
     }
     _waitForAnimationToComplete(duration, callback) {
         if (this._animationTimer !== null) {
