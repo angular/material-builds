@@ -36,6 +36,9 @@ import { ViewContainerRef } from '@angular/core';
 /** Options for where to set focus to automatically on dialog open */
 export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
 
+/** Duration of the closing animation in milliseconds. */
+declare const CLOSE_ANIMATION_DURATION = 75;
+
 /**
  * Closes the dialog with the specified interaction type. This is currently not part of
  * `MatDialogRef` as that would conflict with custom dialog ref mocks provided in tests.
@@ -71,6 +74,8 @@ export declare type DialogRole = 'dialog' | 'alertdialog';
 
 declare namespace i1 {
     export {
+        OPEN_ANIMATION_DURATION,
+        CLOSE_ANIMATION_DURATION,
         _MatDialogContainerBase,
         MatDialogContainer
     }
@@ -510,5 +515,8 @@ export declare class MatDialogTitle implements OnInit {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogTitle, [{ optional: true; }, null, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": "id"; }, {}, never, never, false, never>;
 }
+
+/** Duration of the opening animation in milliseconds. */
+declare const OPEN_ANIMATION_DURATION = 150;
 
 export { }

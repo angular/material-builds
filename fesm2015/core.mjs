@@ -917,7 +917,6 @@ class RippleEventManager {
     }
 }
 
-// TODO: import these values from `@material/ripple` eventually.
 /**
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
