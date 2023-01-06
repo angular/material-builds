@@ -614,6 +614,8 @@ export declare class MatChipListbox extends MatChipSet implements AfterContentIn
     protected _defaultRole: string;
     /** Value that was assigned before the listbox was initialized. */
     private _pendingInitialValue;
+    /** Default chip options. */
+    private _defaultOptions;
     /** Whether the user should be allowed to select multiple chips. */
     get multiple(): boolean;
     set multiple(value: BooleanInput);
@@ -641,6 +643,10 @@ export declare class MatChipListbox extends MatChipSet implements AfterContentIn
     get required(): boolean;
     set required(value: BooleanInput);
     protected _required: boolean;
+    /** Whether checkmark indicator for single-selection options is hidden. */
+    get hideSingleSelectionIndicator(): boolean;
+    set hideSingleSelectionIndicator(value: BooleanInput);
+    private _hideSingleSelectionIndicator;
     /** Combined stream of all of the child chips' selection change events. */
     get chipSelectionChanges(): Observable<MatChipSelectionChange>;
     /** Combined stream of all of the child chips' blur events. */
@@ -707,7 +713,7 @@ export declare class MatChipListbox extends MatChipSet implements AfterContentIn
      */
     protected _skipPredicate(action: MatChipAction): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipListbox, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipListbox, "mat-chip-listbox", never, { "tabIndex": "tabIndex"; "multiple": "multiple"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "compareWith": "compareWith"; "required": "required"; "value": "value"; }, { "change": "change"; }, ["_chips"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipListbox, "mat-chip-listbox", never, { "tabIndex": "tabIndex"; "multiple": "multiple"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "compareWith": "compareWith"; "required": "required"; "hideSingleSelectionIndicator": "hideSingleSelectionIndicator"; "value": "value"; }, { "change": "change"; }, ["_chips"], ["*"], false, never>;
 }
 
 /** Change event object that is emitted when the chip listbox value has changed. */
@@ -740,10 +746,14 @@ declare const _MatChipMixinBase: _Constructor<HasTabIndex> & _AbstractConstructo
  * user cannot click disabled chips.
  */
 export declare class MatChipOption extends MatChip implements OnInit {
+    /** Default chip options. */
+    private _defaultOptions;
     /** Whether the chip list is selectable. */
     chipListSelectable: boolean;
     /** Whether the chip list is in multi-selection mode. */
     _chipListMultiple: boolean;
+    /** Whether the chip list hides single-selection indicator. */
+    _chipListHideSingleSelectionIndicator: boolean;
     /**
      * Whether or not the chip is selectable.
      *
@@ -786,6 +796,7 @@ export declare class MatChipOption extends MatChip implements OnInit {
     /** Toggles the current selected state of this chip. */
     toggleSelected(isUserInput?: boolean): boolean;
     _handlePrimaryActionInteraction(): void;
+    _hasLeadingGraphic(): boolean;
     _setSelectedState(isSelected: boolean, isUserInput: boolean, emitEvent: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipOption, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChipOption, "mat-basic-chip-option, mat-chip-option", never, { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "selectable": "selectable"; "selected": "selected"; }, { "selectionChange": "selectionChange"; }, never, ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
@@ -855,6 +866,8 @@ export declare class MatChipRow extends MatChip implements AfterViewInit {
 export declare interface MatChipsDefaultOptions {
     /** The list of key codes that will trigger a chipEnd event. */
     separatorKeyCodes: readonly number[] | ReadonlySet<number>;
+    /** Wheter icon indicators should be hidden for single-selection. */
+    hideSingleSelectionIndicator?: boolean;
 }
 
 /** Event object emitted by MatChipOption when selected or deselected. */
