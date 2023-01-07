@@ -57,145 +57,6 @@ const _MatSliderBase = mixinTabIndex(mixinColor(mixinDisabled(class {
  * @breaking-change 17.0.0
  */
 class MatLegacySlider extends _MatSliderBase {
-    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _ngZone, _document, _animationMode) {
-        super(elementRef);
-        this._focusMonitor = _focusMonitor;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._dir = _dir;
-        this._ngZone = _ngZone;
-        this._animationMode = _animationMode;
-        this._invert = false;
-        this._max = 100;
-        this._min = 0;
-        this._step = 1;
-        this._thumbLabel = false;
-        this._tickInterval = 0;
-        this._value = null;
-        this._vertical = false;
-        /** Event emitted when the slider value has changed. */
-        this.change = new EventEmitter();
-        /** Event emitted when the slider thumb moves. */
-        this.input = new EventEmitter();
-        /**
-         * Emits when the raw value of the slider changes. This is here primarily
-         * to facilitate the two-way binding for the `value` input.
-         * @docs-private
-         */
-        this.valueChange = new EventEmitter();
-        /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-        this.onTouched = () => { };
-        this._percent = 0;
-        /**
-         * Whether or not the thumb is sliding and what the user is using to slide it with.
-         * Used to determine if there should be a transition for the thumb and fill track.
-         */
-        this._isSliding = null;
-        /**
-         * Whether or not the slider is active (clicked or sliding).
-         * Used to shrink and grow the thumb as according to the Material Design spec.
-         */
-        this._isActive = false;
-        /** The size of a tick interval as a percentage of the size of the track. */
-        this._tickIntervalPercent = 0;
-        /** The dimensions of the slider. */
-        this._sliderDimensions = null;
-        this._controlValueAccessorChangeFn = () => { };
-        /** Subscription to the Directionality change EventEmitter. */
-        this._dirChangeSubscription = Subscription.EMPTY;
-        /** Called when the user has put their pointer down on the slider. */
-        this._pointerDown = (event) => {
-            // Don't do anything if the slider is disabled or the
-            // user is using anything other than the main mouse button.
-            if (this.disabled || this._isSliding || (!isTouchEvent(event) && event.button !== 0)) {
-                return;
-            }
-            this._ngZone.run(() => {
-                this._touchId = isTouchEvent(event)
-                    ? getTouchIdForSlider(event, this._elementRef.nativeElement)
-                    : undefined;
-                const pointerPosition = getPointerPositionOnPage(event, this._touchId);
-                if (pointerPosition) {
-                    const oldValue = this.value;
-                    this._isSliding = 'pointer';
-                    this._lastPointerEvent = event;
-                    this._focusHostElement();
-                    this._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
-                    this._bindGlobalEvents(event);
-                    this._focusHostElement();
-                    this._updateValueFromPosition(pointerPosition);
-                    this._valueOnSlideStart = oldValue;
-                    // Despite the fact that we explicitly bind active events, in some cases the browser
-                    // still dispatches non-cancelable events which cause this call to throw an error.
-                    // There doesn't appear to be a good way of avoiding them. See #23820.
-                    if (event.cancelable) {
-                        event.preventDefault();
-                    }
-                    // Emit a change and input event if the value changed.
-                    if (oldValue != this.value) {
-                        this._emitInputEvent();
-                    }
-                }
-            });
-        };
-        /**
-         * Called when the user has moved their pointer after
-         * starting to drag. Bound on the document level.
-         */
-        this._pointerMove = (event) => {
-            if (this._isSliding === 'pointer') {
-                const pointerPosition = getPointerPositionOnPage(event, this._touchId);
-                if (pointerPosition) {
-                    // Prevent the slide from selecting anything else.
-                    if (event.cancelable) {
-                        event.preventDefault();
-                    }
-                    const oldValue = this.value;
-                    this._lastPointerEvent = event;
-                    this._updateValueFromPosition(pointerPosition);
-                    // Native range elements always emit `input` events when the value changed while sliding.
-                    if (oldValue != this.value) {
-                        this._emitInputEvent();
-                    }
-                }
-            }
-        };
-        /** Called when the user has lifted their pointer. Bound on the document level. */
-        this._pointerUp = (event) => {
-            if (this._isSliding === 'pointer') {
-                if (!isTouchEvent(event) ||
-                    typeof this._touchId !== 'number' ||
-                    // Note that we use `changedTouches`, rather than `touches` because it
-                    // seems like in most cases `touches` is empty for `touchend` events.
-                    findMatchingTouch(event.changedTouches, this._touchId)) {
-                    if (event.cancelable) {
-                        event.preventDefault();
-                    }
-                    this._removeGlobalEvents();
-                    this._isSliding = null;
-                    this._touchId = undefined;
-                    if (this._valueOnSlideStart != this.value && !this.disabled) {
-                        this._emitChangeEvent();
-                    }
-                    this._valueOnSlideStart = this._lastPointerEvent = null;
-                }
-            }
-        };
-        /** Called when the window has lost focus. */
-        this._windowBlur = () => {
-            // If the window is blurred while dragging we need to stop dragging because the
-            // browser won't dispatch the `mouseup` and `touchend` events anymore.
-            if (this._lastPointerEvent) {
-                this._pointerUp(this._lastPointerEvent);
-            }
-        };
-        this._document = _document;
-        this.tabIndex = parseInt(tabIndex) || 0;
-        _ngZone.runOutsideAngular(() => {
-            const element = elementRef.nativeElement;
-            element.addEventListener('mousedown', this._pointerDown, activeEventOptions);
-            element.addEventListener('touchstart', this._pointerDown, activeEventOptions);
-        });
-    }
     /** Whether the slider is inverted. */
     get invert() {
         return this._invert;
@@ -429,6 +290,145 @@ class MatLegacySlider extends _MatSliderBase {
     /** The language direction for this slider element. */
     _getDirection() {
         return this._dir && this._dir.value == 'rtl' ? 'rtl' : 'ltr';
+    }
+    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, _ngZone, _document, _animationMode) {
+        super(elementRef);
+        this._focusMonitor = _focusMonitor;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._dir = _dir;
+        this._ngZone = _ngZone;
+        this._animationMode = _animationMode;
+        this._invert = false;
+        this._max = 100;
+        this._min = 0;
+        this._step = 1;
+        this._thumbLabel = false;
+        this._tickInterval = 0;
+        this._value = null;
+        this._vertical = false;
+        /** Event emitted when the slider value has changed. */
+        this.change = new EventEmitter();
+        /** Event emitted when the slider thumb moves. */
+        this.input = new EventEmitter();
+        /**
+         * Emits when the raw value of the slider changes. This is here primarily
+         * to facilitate the two-way binding for the `value` input.
+         * @docs-private
+         */
+        this.valueChange = new EventEmitter();
+        /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+        this.onTouched = () => { };
+        this._percent = 0;
+        /**
+         * Whether or not the thumb is sliding and what the user is using to slide it with.
+         * Used to determine if there should be a transition for the thumb and fill track.
+         */
+        this._isSliding = null;
+        /**
+         * Whether or not the slider is active (clicked or sliding).
+         * Used to shrink and grow the thumb as according to the Material Design spec.
+         */
+        this._isActive = false;
+        /** The size of a tick interval as a percentage of the size of the track. */
+        this._tickIntervalPercent = 0;
+        /** The dimensions of the slider. */
+        this._sliderDimensions = null;
+        this._controlValueAccessorChangeFn = () => { };
+        /** Subscription to the Directionality change EventEmitter. */
+        this._dirChangeSubscription = Subscription.EMPTY;
+        /** Called when the user has put their pointer down on the slider. */
+        this._pointerDown = (event) => {
+            // Don't do anything if the slider is disabled or the
+            // user is using anything other than the main mouse button.
+            if (this.disabled || this._isSliding || (!isTouchEvent(event) && event.button !== 0)) {
+                return;
+            }
+            this._ngZone.run(() => {
+                this._touchId = isTouchEvent(event)
+                    ? getTouchIdForSlider(event, this._elementRef.nativeElement)
+                    : undefined;
+                const pointerPosition = getPointerPositionOnPage(event, this._touchId);
+                if (pointerPosition) {
+                    const oldValue = this.value;
+                    this._isSliding = 'pointer';
+                    this._lastPointerEvent = event;
+                    this._focusHostElement();
+                    this._onMouseenter(); // Simulate mouseenter in case this is a mobile device.
+                    this._bindGlobalEvents(event);
+                    this._focusHostElement();
+                    this._updateValueFromPosition(pointerPosition);
+                    this._valueOnSlideStart = oldValue;
+                    // Despite the fact that we explicitly bind active events, in some cases the browser
+                    // still dispatches non-cancelable events which cause this call to throw an error.
+                    // There doesn't appear to be a good way of avoiding them. See #23820.
+                    if (event.cancelable) {
+                        event.preventDefault();
+                    }
+                    // Emit a change and input event if the value changed.
+                    if (oldValue != this.value) {
+                        this._emitInputEvent();
+                    }
+                }
+            });
+        };
+        /**
+         * Called when the user has moved their pointer after
+         * starting to drag. Bound on the document level.
+         */
+        this._pointerMove = (event) => {
+            if (this._isSliding === 'pointer') {
+                const pointerPosition = getPointerPositionOnPage(event, this._touchId);
+                if (pointerPosition) {
+                    // Prevent the slide from selecting anything else.
+                    if (event.cancelable) {
+                        event.preventDefault();
+                    }
+                    const oldValue = this.value;
+                    this._lastPointerEvent = event;
+                    this._updateValueFromPosition(pointerPosition);
+                    // Native range elements always emit `input` events when the value changed while sliding.
+                    if (oldValue != this.value) {
+                        this._emitInputEvent();
+                    }
+                }
+            }
+        };
+        /** Called when the user has lifted their pointer. Bound on the document level. */
+        this._pointerUp = (event) => {
+            if (this._isSliding === 'pointer') {
+                if (!isTouchEvent(event) ||
+                    typeof this._touchId !== 'number' ||
+                    // Note that we use `changedTouches`, rather than `touches` because it
+                    // seems like in most cases `touches` is empty for `touchend` events.
+                    findMatchingTouch(event.changedTouches, this._touchId)) {
+                    if (event.cancelable) {
+                        event.preventDefault();
+                    }
+                    this._removeGlobalEvents();
+                    this._isSliding = null;
+                    this._touchId = undefined;
+                    if (this._valueOnSlideStart != this.value && !this.disabled) {
+                        this._emitChangeEvent();
+                    }
+                    this._valueOnSlideStart = this._lastPointerEvent = null;
+                }
+            }
+        };
+        /** Called when the window has lost focus. */
+        this._windowBlur = () => {
+            // If the window is blurred while dragging we need to stop dragging because the
+            // browser won't dispatch the `mouseup` and `touchend` events anymore.
+            if (this._lastPointerEvent) {
+                this._pointerUp(this._lastPointerEvent);
+            }
+        };
+        this._document = _document;
+        this.tabIndex = parseInt(tabIndex) || 0;
+        _ngZone.runOutsideAngular(() => {
+            const element = elementRef.nativeElement;
+            element.addEventListener('mousedown', this._pointerDown, activeEventOptions);
+            element.addEventListener('touchstart', this._pointerDown, activeEventOptions);
+        });
     }
     ngAfterViewInit() {
         this._focusMonitor.monitor(this._elementRef, true).subscribe((origin) => {
@@ -702,9 +702,9 @@ class MatLegacySlider extends _MatSliderBase {
         this.disabled = isDisabled;
     }
 }
-MatLegacySlider.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatLegacySlider, deps: [{ token: i0.ElementRef }, { token: i1.FocusMonitor }, { token: i0.ChangeDetectorRef }, { token: i2.Directionality, optional: true }, { token: 'tabindex', attribute: true }, { token: i0.NgZone }, { token: DOCUMENT }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
-MatLegacySlider.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "15.0.0", type: MatLegacySlider, selector: "mat-slider", inputs: { disabled: "disabled", color: "color", tabIndex: "tabIndex", invert: "invert", max: "max", min: "min", step: "step", thumbLabel: "thumbLabel", tickInterval: "tickInterval", value: "value", displayWith: "displayWith", valueText: "valueText", vertical: "vertical" }, outputs: { change: "change", input: "input", valueChange: "valueChange" }, host: { attributes: { "role": "slider" }, listeners: { "focus": "_onFocus()", "blur": "_onBlur()", "keydown": "_onKeydown($event)", "keyup": "_onKeyup()", "mouseenter": "_onMouseenter()", "selectstart": "$event.preventDefault()" }, properties: { "tabIndex": "tabIndex", "attr.aria-disabled": "disabled", "attr.aria-valuemax": "max", "attr.aria-valuemin": "min", "attr.aria-valuenow": "value", "attr.aria-valuetext": "valueText == null ? displayValue : valueText", "attr.aria-orientation": "vertical ? \"vertical\" : \"horizontal\"", "class.mat-slider-disabled": "disabled", "class.mat-slider-has-ticks": "tickInterval", "class.mat-slider-horizontal": "!vertical", "class.mat-slider-axis-inverted": "_shouldInvertAxis()", "class.mat-slider-invert-mouse-coords": "_shouldInvertMouseCoords()", "class.mat-slider-sliding": "_isSliding", "class.mat-slider-thumb-label-showing": "thumbLabel", "class.mat-slider-vertical": "vertical", "class.mat-slider-min-value": "_isMinValue()", "class.mat-slider-hide-last-tick": "disabled || _isMinValue() && _getThumbGap() && _shouldInvertAxis()", "class._mat-animation-noopable": "_animationMode === \"NoopAnimations\"" }, classAttribute: "mat-slider mat-focus-indicator" }, providers: [MAT_LEGACY_SLIDER_VALUE_ACCESSOR], viewQueries: [{ propertyName: "_sliderWrapper", first: true, predicate: ["sliderWrapper"], descendants: true }], exportAs: ["matSlider"], usesInheritance: true, ngImport: i0, template: "<div class=\"mat-slider-wrapper\" #sliderWrapper>\n  <div class=\"mat-slider-track-wrapper\">\n    <div class=\"mat-slider-track-background\" [ngStyle]=\"_getTrackBackgroundStyles()\"></div>\n    <div class=\"mat-slider-track-fill\" [ngStyle]=\"_getTrackFillStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-ticks-container\" [ngStyle]=\"_getTicksContainerStyles()\">\n    <div class=\"mat-slider-ticks\" [ngStyle]=\"_getTicksStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-thumb-container\" [ngStyle]=\"_getThumbContainerStyles()\">\n    <div class=\"mat-slider-focus-ring\"></div>\n    <div class=\"mat-slider-thumb\"></div>\n    <div class=\"mat-slider-thumb-label\">\n      <span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span>\n    </div>\n  </div>\n</div>\n", styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:none;vertical-align:middle}.mat-slider:not(.mat-slider-disabled):active,.mat-slider.mat-slider-sliding:not(.mat-slider-disabled){cursor:grabbing}.mat-slider-wrapper{-webkit-print-color-adjust:exact;color-adjust:exact;position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{-webkit-background-clip:content-box;background-clip:content-box;background-repeat:repeat;box-sizing:border-box;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1),opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider.cdk-keyboard-focused .mat-slider-focus-ring,.mat-slider.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb{cursor:grab}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid rgba(0,0,0,0);border-radius:50%;transform:scale(0.7);transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1),border-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),border-radius 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.cdk-high-contrast-active .mat-slider-thumb-label{outline:solid 1px}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-sliding .mat-slider-track-fill,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-thumb-container{transition-duration:0ms}.mat-slider-has-ticks .mat-slider-wrapper::after{content:\"\";position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{display:none}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(0.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.cdk-high-contrast-active .mat-slider-horizontal .mat-slider-ticks-container{height:0;outline:solid 2px;top:1px}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(0.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.cdk-high-contrast-active .mat-slider-horizontal.cdk-focused .mat-slider-thumb-label,.cdk-high-contrast-active .mat-slider-horizontal.cdk-focused .mat-slider-thumb-label-text{transform:none}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.cdk-high-contrast-active .mat-slider-vertical .mat-slider-ticks-container{width:0;outline:solid 2px;left:1px}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb{-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(0.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}.mat-slider._mat-animation-noopable .mat-slider-track-fill,.mat-slider._mat-animation-noopable .mat-slider-track-background,.mat-slider._mat-animation-noopable .mat-slider-ticks,.mat-slider._mat-animation-noopable .mat-slider-thumb-container,.mat-slider._mat-animation-noopable .mat-slider-focus-ring,.mat-slider._mat-animation-noopable .mat-slider-thumb,.mat-slider._mat-animation-noopable .mat-slider-thumb-label,.mat-slider._mat-animation-noopable .mat-slider-thumb-label-text,.mat-slider._mat-animation-noopable .mat-slider-has-ticks .mat-slider-wrapper::after{transition:none}"], dependencies: [{ kind: "directive", type: i3.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatLegacySlider, decorators: [{
+MatLegacySlider.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatLegacySlider, deps: [{ token: i0.ElementRef }, { token: i1.FocusMonitor }, { token: i0.ChangeDetectorRef }, { token: i2.Directionality, optional: true }, { token: 'tabindex', attribute: true }, { token: i0.NgZone }, { token: DOCUMENT }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
+MatLegacySlider.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "15.1.0-rc.0", type: MatLegacySlider, selector: "mat-slider", inputs: { disabled: "disabled", color: "color", tabIndex: "tabIndex", invert: "invert", max: "max", min: "min", step: "step", thumbLabel: "thumbLabel", tickInterval: "tickInterval", value: "value", displayWith: "displayWith", valueText: "valueText", vertical: "vertical" }, outputs: { change: "change", input: "input", valueChange: "valueChange" }, host: { attributes: { "role": "slider" }, listeners: { "focus": "_onFocus()", "blur": "_onBlur()", "keydown": "_onKeydown($event)", "keyup": "_onKeyup()", "mouseenter": "_onMouseenter()", "selectstart": "$event.preventDefault()" }, properties: { "tabIndex": "tabIndex", "attr.aria-disabled": "disabled", "attr.aria-valuemax": "max", "attr.aria-valuemin": "min", "attr.aria-valuenow": "value", "attr.aria-valuetext": "valueText == null ? displayValue : valueText", "attr.aria-orientation": "vertical ? \"vertical\" : \"horizontal\"", "class.mat-slider-disabled": "disabled", "class.mat-slider-has-ticks": "tickInterval", "class.mat-slider-horizontal": "!vertical", "class.mat-slider-axis-inverted": "_shouldInvertAxis()", "class.mat-slider-invert-mouse-coords": "_shouldInvertMouseCoords()", "class.mat-slider-sliding": "_isSliding", "class.mat-slider-thumb-label-showing": "thumbLabel", "class.mat-slider-vertical": "vertical", "class.mat-slider-min-value": "_isMinValue()", "class.mat-slider-hide-last-tick": "disabled || _isMinValue() && _getThumbGap() && _shouldInvertAxis()", "class._mat-animation-noopable": "_animationMode === \"NoopAnimations\"" }, classAttribute: "mat-slider mat-focus-indicator" }, providers: [MAT_LEGACY_SLIDER_VALUE_ACCESSOR], viewQueries: [{ propertyName: "_sliderWrapper", first: true, predicate: ["sliderWrapper"], descendants: true }], exportAs: ["matSlider"], usesInheritance: true, ngImport: i0, template: "<div class=\"mat-slider-wrapper\" #sliderWrapper>\n  <div class=\"mat-slider-track-wrapper\">\n    <div class=\"mat-slider-track-background\" [ngStyle]=\"_getTrackBackgroundStyles()\"></div>\n    <div class=\"mat-slider-track-fill\" [ngStyle]=\"_getTrackFillStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-ticks-container\" [ngStyle]=\"_getTicksContainerStyles()\">\n    <div class=\"mat-slider-ticks\" [ngStyle]=\"_getTicksStyles()\"></div>\n  </div>\n  <div class=\"mat-slider-thumb-container\" [ngStyle]=\"_getThumbContainerStyles()\">\n    <div class=\"mat-slider-focus-ring\"></div>\n    <div class=\"mat-slider-thumb\"></div>\n    <div class=\"mat-slider-thumb-label\">\n      <span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span>\n    </div>\n  </div>\n</div>\n", styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:none;vertical-align:middle}.mat-slider:not(.mat-slider-disabled):active,.mat-slider.mat-slider-sliding:not(.mat-slider-disabled){cursor:grabbing}.mat-slider-wrapper{-webkit-print-color-adjust:exact;color-adjust:exact;position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{-webkit-background-clip:content-box;background-clip:content-box;background-repeat:repeat;box-sizing:border-box;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1),opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider.cdk-keyboard-focused .mat-slider-focus-ring,.mat-slider.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled):not(.mat-slider-sliding) .mat-slider-thumb{cursor:grab}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid rgba(0,0,0,0);border-radius:50%;transform:scale(0.7);transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1),border-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform 400ms cubic-bezier(0.25, 0.8, 0.25, 1),border-radius 400ms cubic-bezier(0.25, 0.8, 0.25, 1),background-color 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.cdk-high-contrast-active .mat-slider-thumb-label{outline:solid 1px}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-sliding .mat-slider-track-fill,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-thumb-container{transition-duration:0ms}.mat-slider-has-ticks .mat-slider-wrapper::after{content:\"\";position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{display:none}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(0.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.cdk-high-contrast-active .mat-slider-horizontal .mat-slider-ticks-container{height:0;outline:solid 2px;top:1px}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(0.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.cdk-high-contrast-active .mat-slider-horizontal.cdk-focused .mat-slider-thumb-label,.cdk-high-contrast-active .mat-slider-horizontal.cdk-focused .mat-slider-thumb-label-text{transform:none}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.cdk-high-contrast-active .mat-slider-vertical .mat-slider-ticks-container{width:0;outline:solid 2px;left:1px}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb{-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(0.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}.mat-slider._mat-animation-noopable .mat-slider-track-fill,.mat-slider._mat-animation-noopable .mat-slider-track-background,.mat-slider._mat-animation-noopable .mat-slider-ticks,.mat-slider._mat-animation-noopable .mat-slider-thumb-container,.mat-slider._mat-animation-noopable .mat-slider-focus-ring,.mat-slider._mat-animation-noopable .mat-slider-thumb,.mat-slider._mat-animation-noopable .mat-slider-thumb-label,.mat-slider._mat-animation-noopable .mat-slider-thumb-label-text,.mat-slider._mat-animation-noopable .mat-slider-has-ticks .mat-slider-wrapper::after{transition:none}"], dependencies: [{ kind: "directive", type: i3.NgStyle, selector: "[ngStyle]", inputs: ["ngStyle"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatLegacySlider, decorators: [{
             type: Component,
             args: [{ selector: 'mat-slider', exportAs: 'matSlider', providers: [MAT_LEGACY_SLIDER_VALUE_ACCESSOR], host: {
                         '(focus)': '_onFocus()',
@@ -852,10 +852,10 @@ function getTouchIdForSlider(event, sliderHost) {
  */
 class MatLegacySliderModule {
 }
-MatLegacySliderModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatLegacySliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacySliderModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0", ngImport: i0, type: MatLegacySliderModule, declarations: [MatLegacySlider], imports: [CommonModule, MatCommonModule], exports: [MatLegacySlider, MatCommonModule] });
-MatLegacySliderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatLegacySliderModule, imports: [CommonModule, MatCommonModule, MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatLegacySliderModule, decorators: [{
+MatLegacySliderModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatLegacySliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacySliderModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatLegacySliderModule, declarations: [MatLegacySlider], imports: [CommonModule, MatCommonModule], exports: [MatLegacySlider, MatCommonModule] });
+MatLegacySliderModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatLegacySliderModule, imports: [CommonModule, MatCommonModule, MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatLegacySliderModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, MatCommonModule],

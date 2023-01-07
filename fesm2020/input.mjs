@@ -83,6 +83,76 @@ const _MatInputBase = mixinErrorState(class {
     }
 });
 class MatInput extends _MatInputBase {
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get disabled() {
+        return this._disabled;
+    }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+        // Browsers may not fire the blur event if the input is disabled too quickly.
+        // Reset from here to ensure that the element doesn't become stuck.
+        if (this.focused) {
+            this.focused = false;
+            this.stateChanges.next();
+        }
+    }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get id() {
+        return this._id;
+    }
+    set id(value) {
+        this._id = value || this._uid;
+    }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get required() {
+        return this._required ?? this.ngControl?.control?.hasValidator(Validators.required) ?? false;
+    }
+    set required(value) {
+        this._required = coerceBooleanProperty(value);
+    }
+    /** Input type of the element. */
+    get type() {
+        return this._type;
+    }
+    set type(value) {
+        this._type = value || 'text';
+        this._validateType();
+        // When using Angular inputs, developers are no longer able to set the properties on the native
+        // input element. To ensure that bindings for `type` work, we need to sync the setter
+        // with the native property. Textarea elements don't support the type property or attribute.
+        if (!this._isTextarea && getSupportedInputTypes().has(this._type)) {
+            this._elementRef.nativeElement.type = this._type;
+        }
+    }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get value() {
+        return this._inputValueAccessor.value;
+    }
+    set value(value) {
+        if (value !== this.value) {
+            this._inputValueAccessor.value = value;
+            this.stateChanges.next();
+        }
+    }
+    /** Whether the element is readonly. */
+    get readonly() {
+        return this._readonly;
+    }
+    set readonly(value) {
+        this._readonly = coerceBooleanProperty(value);
+    }
     constructor(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
     // TODO: Remove this once the legacy appearance has been removed. We only need
     // to inject the form field for determining whether the placeholder has been promoted.
@@ -166,76 +236,6 @@ class MatInput extends _MatInputBase {
                 ? 'mat-native-select-multiple'
                 : 'mat-native-select';
         }
-    }
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * @docs-private
-     */
-    get disabled() {
-        return this._disabled;
-    }
-    set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
-        // Browsers may not fire the blur event if the input is disabled too quickly.
-        // Reset from here to ensure that the element doesn't become stuck.
-        if (this.focused) {
-            this.focused = false;
-            this.stateChanges.next();
-        }
-    }
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * @docs-private
-     */
-    get id() {
-        return this._id;
-    }
-    set id(value) {
-        this._id = value || this._uid;
-    }
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * @docs-private
-     */
-    get required() {
-        return this._required ?? this.ngControl?.control?.hasValidator(Validators.required) ?? false;
-    }
-    set required(value) {
-        this._required = coerceBooleanProperty(value);
-    }
-    /** Input type of the element. */
-    get type() {
-        return this._type;
-    }
-    set type(value) {
-        this._type = value || 'text';
-        this._validateType();
-        // When using Angular inputs, developers are no longer able to set the properties on the native
-        // input element. To ensure that bindings for `type` work, we need to sync the setter
-        // with the native property. Textarea elements don't support the type property or attribute.
-        if (!this._isTextarea && getSupportedInputTypes().has(this._type)) {
-            this._elementRef.nativeElement.type = this._type;
-        }
-    }
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * @docs-private
-     */
-    get value() {
-        return this._inputValueAccessor.value;
-    }
-    set value(value) {
-        if (value !== this.value) {
-            this._inputValueAccessor.value = value;
-            this.stateChanges.next();
-        }
-    }
-    /** Whether the element is readonly. */
-    get readonly() {
-        return this._readonly;
-    }
-    set readonly(value) {
-        this._readonly = coerceBooleanProperty(value);
     }
     ngAfterViewInit() {
         if (this._platform.isBrowser) {
@@ -402,9 +402,9 @@ class MatInput extends _MatInputBase {
         return this._isNativeSelect && (element.multiple || element.size > 1);
     }
 }
-MatInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatInput, deps: [{ token: i0.ElementRef }, { token: i1.Platform }, { token: i2.NgControl, optional: true, self: true }, { token: i2.NgForm, optional: true }, { token: i2.FormGroupDirective, optional: true }, { token: i3.ErrorStateMatcher }, { token: MAT_INPUT_VALUE_ACCESSOR, optional: true, self: true }, { token: i4.AutofillMonitor }, { token: i0.NgZone }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatInput.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.0.0", type: MatInput, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly" }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled", "required": "required", "attr.name": "name || null", "attr.readonly": "readonly && !_isNativeSelect || null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesInheritance: true, usesOnChanges: true, ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatInput, decorators: [{
+MatInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatInput, deps: [{ token: i0.ElementRef }, { token: i1.Platform }, { token: i2.NgControl, optional: true, self: true }, { token: i2.NgForm, optional: true }, { token: i2.FormGroupDirective, optional: true }, { token: i3.ErrorStateMatcher }, { token: MAT_INPUT_VALUE_ACCESSOR, optional: true, self: true }, { token: i4.AutofillMonitor }, { token: i0.NgZone }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
+MatInput.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "15.1.0-rc.0", type: MatInput, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly" }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled", "required": "required", "attr.name": "name || null", "attr.readonly": "readonly && !_isNativeSelect || null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesInheritance: true, usesOnChanges: true, ngImport: i0 });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatInput, decorators: [{
             type: Directive,
             args: [{
                     selector: `input[matInput], textarea[matInput], select[matNativeControl],
@@ -492,10 +492,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImpor
  */
 class MatInputModule {
 }
-MatInputModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.0.0", ngImport: i0, type: MatInputModule, declarations: [MatInput], imports: [MatCommonModule, MatFormFieldModule], exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule] });
-MatInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatFormFieldModule, TextFieldModule, MatCommonModule] });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.0.0", ngImport: i0, type: MatInputModule, decorators: [{
+MatInputModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatInputModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatInputModule, declarations: [MatInput], imports: [MatCommonModule, MatFormFieldModule], exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule] });
+MatInputModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatFormFieldModule, TextFieldModule, MatCommonModule] });
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ngImport: i0, type: MatInputModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, MatFormFieldModule],
