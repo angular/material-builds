@@ -721,7 +721,7 @@ export declare abstract class _MatTabGroupBase extends _MatTabGroupMixinBase imp
     /** Handle click events, setting new selected index if appropriate. */
     _handleClick(tab: MatTab, tabHeader: MatTabGroupBaseHeader, index: number): void;
     /** Retrieves the tabindex for the tab. */
-    _getTabIndex(tab: MatTab, index: number): number | null;
+    _getTabIndex(index: number): number;
     /** Callback for when the focused state of a tab has changed. */
     _tabFocusChanged(focusOrigin: FocusOrigin, index: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatTabGroupBase, [null, null, { optional: true; }, { optional: true; }]>;
