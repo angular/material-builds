@@ -592,7 +592,7 @@ class _MatSelectBase extends _MatSelectMixinBase {
      * found with the designated value, the select trigger is cleared.
      */
     _setSelectionByValue(value) {
-        this._selectionModel.selected.forEach(option => option.setInactiveStyles());
+        this.options.forEach(option => option.setInactiveStyles());
         this._selectionModel.clear();
         if (this.multiple && value) {
             if (!Array.isArray(value) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
