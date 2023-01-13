@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Optional, Inject, Input, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, EventEmitter, ANIMATION_MODULE_TYPE as ANIMATION_MODULE_TYPE$1, Output, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Optional, Inject, inject, Input, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, EventEmitter, ANIMATION_MODULE_TYPE as ANIMATION_MODULE_TYPE$1, Output, forwardRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
@@ -174,12 +174,23 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ng
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Injection token that can be used to provide the default options the list module. */
+const MAT_LIST_CONFIG = new InjectionToken('MAT_LIST_CONFIG');
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** @docs-private */
 class MatListBase {
     constructor() {
         this._isNonInteractive = true;
         this._disableRipple = false;
         this._disabled = false;
+        this._defaultOptions = inject(MAT_LIST_CONFIG, { optional: true });
     }
     /** Whether ripples for all list items is disabled. */
     get disableRipple() {
@@ -678,7 +689,9 @@ class MatListOption extends MatListItemBase {
     }
     /** Where a radio indicator is shown at the given position. */
     _hasRadioAt(position) {
-        return !this._selectionList.multiple && this._getTogglePosition() === position;
+        return (!this._selectionList.multiple &&
+            this._getTogglePosition() === position &&
+            !this._selectionList.hideSingleSelectionIndicator);
     }
     /** Whether icons or avatars are shown at the given position. */
     _hasIconsOrAvatarsAt(position) {
@@ -753,6 +766,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ng
             args: [{ selector: 'mat-list-option', exportAs: 'matListOption', host: {
                         'class': 'mat-mdc-list-item mat-mdc-list-option mdc-list-item',
                         'role': 'option',
+                        // As per MDC, only list items without checkbox or radio indicator should receive the
+                        // `--selected` class.
+                        '[class.mdc-list-item--selected]': 'selected && !_selectionList.multiple && _selectionList.hideSingleSelectionIndicator',
                         // Based on the checkbox/radio position and whether there are icons or avatars, we apply MDC's
                         // list-item `--leading` and `--trailing` classes.
                         '[class.mdc-list-item--with-leading-avatar]': '_hasProjected("avatars", "before")',
@@ -935,6 +951,7 @@ class MatSelectionList extends MatListBase {
          */
         this.compareWith = (a1, a2) => a1 === a2;
         this._multiple = true;
+        this._hideSingleSelectionIndicator = this._defaultOptions?.hideSingleSelectionIndicator ?? false;
         /** The currently selected options. */
         this.selectedOptions = new SelectionModel(this._multiple);
         /** View to model callback that should be called if the list or its options lost focus. */
@@ -985,8 +1002,10 @@ class MatSelectionList extends MatListBase {
     ngOnChanges(changes) {
         const disabledChanges = changes['disabled'];
         const disableRippleChanges = changes['disableRipple'];
+        const hideSingleSelectionIndicatorChanges = changes['hideSingleSelectionIndicator'];
         if ((disableRippleChanges && !disableRippleChanges.firstChange) ||
-            (disabledChanges && !disabledChanges.firstChange)) {
+            (disabledChanges && !disabledChanges.firstChange) ||
+            (hideSingleSelectionIndicatorChanges && !hideSingleSelectionIndicatorChanges.firstChange)) {
             this._markOptionsForCheck();
         }
     }
@@ -1231,6 +1250,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ng
                 type: Input
             }], multiple: [{
                 type: Input
+            }], hideSingleSelectionIndicator: [{
+                type: Input
             }], disabled: [{
                 type: Input
             }] } });
@@ -1340,5 +1361,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ng
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_LIST, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatActionList, MatList, MatListItem, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemMeta, MatListItemTitle, MatListModule, MatListOption, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange, SELECTION_LIST, _MatListItemGraphicBase };
+export { MAT_LIST, MAT_LIST_CONFIG, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatActionList, MatList, MatListItem, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemMeta, MatListItemTitle, MatListModule, MatListOption, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange, SELECTION_LIST, _MatListItemGraphicBase };
 //# sourceMappingURL=list.mjs.map

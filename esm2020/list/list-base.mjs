@@ -7,11 +7,12 @@
  */
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
-import { ContentChildren, Directive, ElementRef, Inject, Input, NgZone, Optional, QueryList, } from '@angular/core';
+import { ContentChildren, Directive, ElementRef, inject, Inject, Input, NgZone, Optional, QueryList, } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subscription, merge } from 'rxjs';
 import { MatListItemIcon, MatListItemAvatar, } from './list-item-sections';
+import { MAT_LIST_CONFIG } from './tokens';
 import * as i0 from "@angular/core";
 import * as i1 from "@angular/cdk/platform";
 /** @docs-private */
@@ -20,6 +21,7 @@ export class MatListBase {
         this._isNonInteractive = true;
         this._disableRipple = false;
         this._disabled = false;
+        this._defaultOptions = inject(MAT_LIST_CONFIG, { optional: true });
     }
     /** Whether ripples for all list items is disabled. */
     get disableRipple() {

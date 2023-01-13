@@ -545,7 +545,7 @@ export class MatSlider extends _MatSliderMixinBase {
     //    - Reason: The position for the maximum reachable value needs to be recalculated.
     /** Updates the width of the tick mark track. */
     _updateTickMarkTrackUI() {
-        if (this._skipUpdate()) {
+        if (!this.showTickMarks || this._skipUpdate()) {
             return;
         }
         const step = this._step && this._step > 0 ? this._step : 1;
@@ -622,7 +622,10 @@ export class MatSlider extends _MatSliderMixinBase {
     //    - Reason #2: The value may have silently changed.
     /** Updates the dots along the slider track. */
     _updateTickMarkUI() {
-        if (this.step === undefined || this.min === undefined || this.max === undefined) {
+        if (!this.showTickMarks ||
+            this.step === undefined ||
+            this.min === undefined ||
+            this.max === undefined) {
             return;
         }
         const step = this.step > 0 ? this.step : 1;

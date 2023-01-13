@@ -6625,108 +6625,15 @@ function parserSelectorToR3Selector(selector) {
 function parseSelectorToR3Selector(selector) {
   return selector ? CssSelector.parse(selector).map(parserSelectorToR3Selector) : [];
 }
-var DASH_CASE_REGEXP = /-+([a-z0-9])/g;
-function dashCaseToCamelCase(input) {
-  return input.replace(DASH_CASE_REGEXP, (...m) => m[1].toUpperCase());
-}
-function splitAtColon(input, defaultValues) {
-  return _splitAt(input, ":", defaultValues);
-}
-function splitAtPeriod(input, defaultValues) {
-  return _splitAt(input, ".", defaultValues);
-}
-function _splitAt(input, character, defaultValues) {
-  const characterIndex = input.indexOf(character);
-  if (characterIndex == -1)
-    return defaultValues;
-  return [input.slice(0, characterIndex).trim(), input.slice(characterIndex + 1).trim()];
-}
-function error(msg) {
-  throw new Error(`Internal Error: ${msg}`);
-}
-function utf8Encode(str) {
-  let encoded = [];
-  for (let index2 = 0; index2 < str.length; index2++) {
-    let codePoint = str.charCodeAt(index2);
-    if (codePoint >= 55296 && codePoint <= 56319 && str.length > index2 + 1) {
-      const low = str.charCodeAt(index2 + 1);
-      if (low >= 56320 && low <= 57343) {
-        index2++;
-        codePoint = (codePoint - 55296 << 10) + low - 56320 + 65536;
-      }
-    }
-    if (codePoint <= 127) {
-      encoded.push(codePoint);
-    } else if (codePoint <= 2047) {
-      encoded.push(codePoint >> 6 & 31 | 192, codePoint & 63 | 128);
-    } else if (codePoint <= 65535) {
-      encoded.push(codePoint >> 12 | 224, codePoint >> 6 & 63 | 128, codePoint & 63 | 128);
-    } else if (codePoint <= 2097151) {
-      encoded.push(codePoint >> 18 & 7 | 240, codePoint >> 12 & 63 | 128, codePoint >> 6 & 63 | 128, codePoint & 63 | 128);
-    }
-  }
-  return encoded;
-}
-function stringify(token) {
-  if (typeof token === "string") {
-    return token;
-  }
-  if (Array.isArray(token)) {
-    return "[" + token.map(stringify).join(", ") + "]";
-  }
-  if (token == null) {
-    return "" + token;
-  }
-  if (token.overriddenName) {
-    return `${token.overriddenName}`;
-  }
-  if (token.name) {
-    return `${token.name}`;
-  }
-  if (!token.toString) {
-    return "object";
-  }
-  const res = token.toString();
-  if (res == null) {
-    return "" + res;
-  }
-  const newLineIndex = res.indexOf("\n");
-  return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
-}
-var Version = class {
-  constructor(full) {
-    this.full = full;
-    const splits = full.split(".");
-    this.major = splits[0];
-    this.minor = splits[1];
-    this.patch = splits.slice(2).join(".");
-  }
-};
-var _global = /* @__PURE__ */ (() => typeof global !== "undefined" && global || typeof window !== "undefined" && window || typeof self !== "undefined" && typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope && self)();
-function newArray(size, value) {
-  const list2 = [];
-  for (let i = 0; i < size; i++) {
-    list2.push(value);
-  }
-  return list2;
-}
-function partitionArray(arr, conditionFn) {
-  const truthy = [];
-  const falsy = [];
-  for (const item of arr) {
-    (conditionFn(item) ? truthy : falsy).push(item);
-  }
-  return [truthy, falsy];
-}
 var BigInteger = class {
-  constructor(digits) {
-    this.digits = digits;
-  }
   static zero() {
     return new BigInteger([0]);
   }
   static one() {
     return new BigInteger([1]);
+  }
+  constructor(digits) {
+    this.digits = digits;
   }
   clone() {
     return new BigInteger(this.digits.slice());
@@ -6808,6 +6715,7 @@ var BigIntExponentiation = class {
     return this.exponents[exponent];
   }
 };
+var textEncoder;
 function computeDigest(message) {
   return sha1(serializeNodes(message.nodes).join("") + `[${message.meaning}]`);
 }
@@ -6851,10 +6759,11 @@ var _SerializerIgnoreIcuExpVisitor = class extends _SerializerVisitor {
   }
 };
 function sha1(str) {
-  const utf8 = utf8Encode(str);
+  textEncoder !== null && textEncoder !== void 0 ? textEncoder : textEncoder = new TextEncoder();
+  const utf8 = [...textEncoder.encode(str)];
   const words32 = bytesToWords32(utf8, Endian.Big);
   const len = utf8.length * 8;
-  const w = newArray(80);
+  const w = new Uint32Array(80);
   let a = 1732584193, b = 4023233417, c = 2562383102, d = 271733878, e = 3285377520;
   words32[len >> 5] |= 128 << 24 - len % 32;
   words32[(len + 64 >> 9 << 4) + 15] = len;
@@ -6882,7 +6791,10 @@ function sha1(str) {
     d = add32(d, h3);
     e = add32(e, h4);
   }
-  return bytesToHexString(words32ToByteString([a, b, c, d, e]));
+  return toHexU32(a) + toHexU32(b) + toHexU32(c) + toHexU32(d) + toHexU32(e);
+}
+function toHexU32(value) {
+  return (value >>> 0).toString(16).padStart(8, "0");
 }
 function fk(index2, b, c, d) {
   if (index2 < 20) {
@@ -6897,9 +6809,11 @@ function fk(index2, b, c, d) {
   return [b ^ c ^ d, 3395469782];
 }
 function fingerprint(str) {
-  const utf8 = utf8Encode(str);
-  let hi = hash32(utf8, 0);
-  let lo = hash32(utf8, 102072);
+  textEncoder !== null && textEncoder !== void 0 ? textEncoder : textEncoder = new TextEncoder();
+  const utf8 = textEncoder.encode(str);
+  const view = new DataView(utf8.buffer, utf8.byteOffset, utf8.byteLength);
+  let hi = hash32(view, utf8.length, 0);
+  let lo = hash32(view, utf8.length, 102072);
   if (hi == 0 && (lo == 0 || lo == 1)) {
     hi = hi ^ 319790063;
     lo = lo ^ -1801410264;
@@ -6916,50 +6830,85 @@ function computeMsgId(msg, meaning = "") {
   const lo = msgFingerprint[1];
   return wordsToDecimalString(hi & 2147483647, lo);
 }
-function hash32(bytes, c) {
+function hash32(view, length, c) {
   let a = 2654435769, b = 2654435769;
-  let i;
-  const len = bytes.length;
-  for (i = 0; i + 12 <= len; i += 12) {
-    a = add32(a, wordAt(bytes, i, Endian.Little));
-    b = add32(b, wordAt(bytes, i + 4, Endian.Little));
-    c = add32(c, wordAt(bytes, i + 8, Endian.Little));
+  let index2 = 0;
+  const end = length - 12;
+  for (; index2 <= end; index2 += 12) {
+    a += view.getUint32(index2, true);
+    b += view.getUint32(index2 + 4, true);
+    c += view.getUint32(index2 + 8, true);
     const res = mix(a, b, c);
     a = res[0], b = res[1], c = res[2];
   }
-  a = add32(a, wordAt(bytes, i, Endian.Little));
-  b = add32(b, wordAt(bytes, i + 4, Endian.Little));
-  c = add32(c, len);
-  c = add32(c, wordAt(bytes, i + 8, Endian.Little) << 8);
+  const remainder = length - index2;
+  c += length;
+  if (remainder >= 4) {
+    a += view.getUint32(index2, true);
+    index2 += 4;
+    if (remainder >= 8) {
+      b += view.getUint32(index2, true);
+      index2 += 4;
+      if (remainder >= 9) {
+        c += view.getUint8(index2++) << 8;
+      }
+      if (remainder >= 10) {
+        c += view.getUint8(index2++) << 16;
+      }
+      if (remainder === 11) {
+        c += view.getUint8(index2++) << 24;
+      }
+    } else {
+      if (remainder >= 5) {
+        b += view.getUint8(index2++);
+      }
+      if (remainder >= 6) {
+        b += view.getUint8(index2++) << 8;
+      }
+      if (remainder === 7) {
+        b += view.getUint8(index2++) << 16;
+      }
+    }
+  } else {
+    if (remainder >= 1) {
+      a += view.getUint8(index2++);
+    }
+    if (remainder >= 2) {
+      a += view.getUint8(index2++) << 8;
+    }
+    if (remainder === 3) {
+      a += view.getUint8(index2++) << 16;
+    }
+  }
   return mix(a, b, c)[2];
 }
 function mix(a, b, c) {
-  a = sub32(a, b);
-  a = sub32(a, c);
+  a -= b;
+  a -= c;
   a ^= c >>> 13;
-  b = sub32(b, c);
-  b = sub32(b, a);
+  b -= c;
+  b -= a;
   b ^= a << 8;
-  c = sub32(c, a);
-  c = sub32(c, b);
+  c -= a;
+  c -= b;
   c ^= b >>> 13;
-  a = sub32(a, b);
-  a = sub32(a, c);
+  a -= b;
+  a -= c;
   a ^= c >>> 12;
-  b = sub32(b, c);
-  b = sub32(b, a);
+  b -= c;
+  b -= a;
   b ^= a << 16;
-  c = sub32(c, a);
-  c = sub32(c, b);
+  c -= a;
+  c -= b;
   c ^= b >>> 5;
-  a = sub32(a, b);
-  a = sub32(a, c);
+  a -= b;
+  a -= c;
   a ^= c >>> 3;
-  b = sub32(b, c);
-  b = sub32(b, a);
+  b -= c;
+  b -= a;
   b ^= a << 10;
-  c = sub32(c, a);
-  c = sub32(c, b);
+  c -= a;
+  c -= b;
   c ^= b >>> 15;
   return [a, b, c];
 }
@@ -6984,11 +6933,6 @@ function add64(a, b) {
   const l = result[1];
   const h = add32(add32(ah, bh), carry);
   return [h, l];
-}
-function sub32(a, b) {
-  const low = (a & 65535) - (b & 65535);
-  const high = (a >> 16) - (b >> 16) + (low >> 16);
-  return high << 16 | low & 65535;
 }
 function rol32(a, count) {
   return a << count | a >>> 32 - count;
@@ -7022,24 +6966,6 @@ function wordAt(bytes, index2, endian) {
     }
   }
   return word;
-}
-function words32ToByteString(words32) {
-  return words32.reduce((bytes, word) => bytes.concat(word32ToByteString(word)), []);
-}
-function word32ToByteString(word) {
-  let bytes = [];
-  for (let i = 0; i < 4; i++) {
-    bytes.push(word >>> 8 * (3 - i) & 255);
-  }
-  return bytes;
-}
-function bytesToHexString(bytes) {
-  let hex = "";
-  for (let i = 0; i < bytes.length; i++) {
-    const b = byteAt(bytes, i);
-    hex += (b >>> 4).toString(16) + (b & 15).toString(16);
-  }
-  return hex.toLowerCase();
 }
 var base256 = new BigIntExponentiation(256);
 function wordsToDecimalString(hi, lo) {
@@ -8230,6 +8156,92 @@ Identifiers.sanitizeUrlOrResourceUrl = { name: "\u0275\u0275sanitizeUrlOrResourc
 Identifiers.trustConstantHtml = { name: "\u0275\u0275trustConstantHtml", moduleName: CORE };
 Identifiers.trustConstantResourceUrl = { name: "\u0275\u0275trustConstantResourceUrl", moduleName: CORE };
 Identifiers.validateIframeAttribute = { name: "\u0275\u0275validateIframeAttribute", moduleName: CORE };
+var DASH_CASE_REGEXP = /-+([a-z0-9])/g;
+function dashCaseToCamelCase(input) {
+  return input.replace(DASH_CASE_REGEXP, (...m) => m[1].toUpperCase());
+}
+function splitAtColon(input, defaultValues) {
+  return _splitAt(input, ":", defaultValues);
+}
+function splitAtPeriod(input, defaultValues) {
+  return _splitAt(input, ".", defaultValues);
+}
+function _splitAt(input, character, defaultValues) {
+  const characterIndex = input.indexOf(character);
+  if (characterIndex == -1)
+    return defaultValues;
+  return [input.slice(0, characterIndex).trim(), input.slice(characterIndex + 1).trim()];
+}
+function error(msg) {
+  throw new Error(`Internal Error: ${msg}`);
+}
+function utf8Encode(str) {
+  let encoded = [];
+  for (let index2 = 0; index2 < str.length; index2++) {
+    let codePoint = str.charCodeAt(index2);
+    if (codePoint >= 55296 && codePoint <= 56319 && str.length > index2 + 1) {
+      const low = str.charCodeAt(index2 + 1);
+      if (low >= 56320 && low <= 57343) {
+        index2++;
+        codePoint = (codePoint - 55296 << 10) + low - 56320 + 65536;
+      }
+    }
+    if (codePoint <= 127) {
+      encoded.push(codePoint);
+    } else if (codePoint <= 2047) {
+      encoded.push(codePoint >> 6 & 31 | 192, codePoint & 63 | 128);
+    } else if (codePoint <= 65535) {
+      encoded.push(codePoint >> 12 | 224, codePoint >> 6 & 63 | 128, codePoint & 63 | 128);
+    } else if (codePoint <= 2097151) {
+      encoded.push(codePoint >> 18 & 7 | 240, codePoint >> 12 & 63 | 128, codePoint >> 6 & 63 | 128, codePoint & 63 | 128);
+    }
+  }
+  return encoded;
+}
+function stringify(token) {
+  if (typeof token === "string") {
+    return token;
+  }
+  if (Array.isArray(token)) {
+    return "[" + token.map(stringify).join(", ") + "]";
+  }
+  if (token == null) {
+    return "" + token;
+  }
+  if (token.overriddenName) {
+    return `${token.overriddenName}`;
+  }
+  if (token.name) {
+    return `${token.name}`;
+  }
+  if (!token.toString) {
+    return "object";
+  }
+  const res = token.toString();
+  if (res == null) {
+    return "" + res;
+  }
+  const newLineIndex = res.indexOf("\n");
+  return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
+}
+var Version = class {
+  constructor(full) {
+    this.full = full;
+    const splits = full.split(".");
+    this.major = splits[0];
+    this.minor = splits[1];
+    this.patch = splits.slice(2).join(".");
+  }
+};
+var _global = /* @__PURE__ */ (() => typeof global !== "undefined" && global || typeof window !== "undefined" && window || typeof self !== "undefined" && typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope && self)();
+function partitionArray(arr, conditionFn) {
+  const truthy = [];
+  const falsy = [];
+  for (const item of arr) {
+    (conditionFn(item) ? truthy : falsy).push(item);
+  }
+  return [truthy, falsy];
+}
 var VERSION$1 = 3;
 var JS_B64_PREFIX = "# sourceMappingURL=data:application/json;base64,";
 var SourceMapGenerator = class {
@@ -8369,12 +8381,12 @@ var _EmittedLine = class {
   }
 };
 var EmitterVisitorContext = class {
+  static createRoot() {
+    return new EmitterVisitorContext(0);
+  }
   constructor(_indent) {
     this._indent = _indent;
     this._lines = [new _EmittedLine(_indent)];
-  }
-  static createRoot() {
-    return new EmitterVisitorContext(0);
   }
   get _currentLine() {
     return this._lines[this._lines.length - 1];
@@ -9740,16 +9752,16 @@ function assertInterpolationSymbols(identifier, value) {
   }
 }
 var InterpolationConfig = class {
-  constructor(start, end) {
-    this.start = start;
-    this.end = end;
-  }
   static fromArray(markers) {
     if (!markers) {
       return DEFAULT_INTERPOLATION_CONFIG;
     }
     assertInterpolationSymbols("interpolation", markers);
     return new InterpolationConfig(markers[0], markers[1]);
+  }
+  constructor(start, end) {
+    this.start = start;
+    this.end = end;
   }
 };
 var DEFAULT_INTERPOLATION_CONFIG = new InterpolationConfig("{{", "}}");
@@ -10516,6 +10528,12 @@ var Binary = class extends AST {
   }
 };
 var Unary = class extends Binary {
+  static createMinus(span, sourceSpan, expr) {
+    return new Unary(span, sourceSpan, "-", expr, "-", new LiteralPrimitive(span, sourceSpan, 0), expr);
+  }
+  static createPlus(span, sourceSpan, expr) {
+    return new Unary(span, sourceSpan, "+", expr, "-", expr, new LiteralPrimitive(span, sourceSpan, 0));
+  }
   constructor(span, sourceSpan, operator, expr, binaryOp, binaryLeft, binaryRight) {
     super(span, sourceSpan, binaryOp, binaryLeft, binaryRight);
     this.operator = operator;
@@ -10523,12 +10541,6 @@ var Unary = class extends Binary {
     this.left = null;
     this.right = null;
     this.operation = null;
-  }
-  static createMinus(span, sourceSpan, expr) {
-    return new Unary(span, sourceSpan, "-", expr, "-", new LiteralPrimitive(span, sourceSpan, 0), expr);
-  }
-  static createPlus(span, sourceSpan, expr) {
-    return new Unary(span, sourceSpan, "+", expr, "-", expr, new LiteralPrimitive(span, sourceSpan, 0));
   }
   visit(visitor, context = null) {
     if (visitor.visitUnary !== void 0) {
@@ -11814,7 +11826,7 @@ var ShadowCss = class {
       let content = rule2.content;
       if (rule2.selector[0] !== "@") {
         selector = this._scopeSelector(rule2.selector, scopeSelector, hostSelector, this.strictStyling);
-      } else if (rule2.selector.startsWith("@media") || rule2.selector.startsWith("@supports") || rule2.selector.startsWith("@document") || rule2.selector.startsWith("@layer")) {
+      } else if (rule2.selector.startsWith("@media") || rule2.selector.startsWith("@supports") || rule2.selector.startsWith("@document") || rule2.selector.startsWith("@layer") || rule2.selector.startsWith("@container")) {
         content = this._scopeSelectors(rule2.content, scopeSelector, hostSelector);
       } else if (rule2.selector.startsWith("@font-face") || rule2.selector.startsWith("@page")) {
         content = this._stripScopingSelectors(rule2.content);
@@ -17322,12 +17334,12 @@ var CursorError = class {
   }
 };
 var TreeError = class extends ParseError {
+  static create(elementName, span, msg) {
+    return new TreeError(elementName, span, msg);
+  }
   constructor(elementName, span, msg) {
     super(span, msg);
     this.elementName = elementName;
-  }
-  static create(elementName, span, msg) {
-    return new TreeError(elementName, span, msg);
   }
 };
 var ParseTreeResult = class {
@@ -18569,7 +18581,6 @@ function findTemplateFn(ctx, templateIndex) {
 function serializePlaceholderValue(value) {
   const element = (data, closed) => wrapTag("#", data, closed);
   const template = (data, closed) => wrapTag("*", data, closed);
-  const projection = (data, closed) => wrapTag("!", data, closed);
   switch (value.type) {
     case TagType.ELEMENT:
       if (value.closed) {
@@ -19923,7 +19934,7 @@ var TemplateDefinitionBuilder = class {
     if (!references || references.length === 0) {
       return TYPED_NULL_EXPR;
     }
-    const refsParam = flatten(references.map((reference) => {
+    const refsParam = references.flatMap((reference) => {
       const slot = this.allocateDataSlot();
       const variableName = this._bindingScope.freshReferenceName();
       const retrievalLevel = this.level;
@@ -19934,7 +19945,7 @@ var TemplateDefinitionBuilder = class {
         return nextContextStmt.concat(refExpr.toConstDecl());
       }, true);
       return [reference.name, reference.value];
-    }));
+    });
     return asLiteral(refsParam);
   }
   prepareListenerParameter(tagName, outputAst, index2) {
@@ -20047,6 +20058,9 @@ function getAttributeNameLiterals(name) {
 }
 var SHARED_CONTEXT_KEY = "$$shared_ctx$$";
 var BindingScope = class {
+  static createRootScope() {
+    return new BindingScope();
+  }
   constructor(bindingLevel = 0, parent = null, globals) {
     this.bindingLevel = bindingLevel;
     this.parent = parent;
@@ -20060,9 +20074,6 @@ var BindingScope = class {
         this.set(0, name, variable(name));
       }
     }
-  }
-  static createRootScope() {
-    return new BindingScope();
   }
   get(name) {
     let current = this;
@@ -20413,12 +20424,6 @@ function getTranslationDeclStmts(message, variable2, closureVar, params = {}, tr
 }
 function createClosureModeGuard() {
   return typeofExpr(variable(NG_I18N_CLOSURE_MODE)).notIdentical(literal("undefined", STRING_TYPE)).and(variable(NG_I18N_CLOSURE_MODE));
-}
-function flatten(list2) {
-  return list2.reduce((flat, item) => {
-    const flatItem = Array.isArray(item) ? flatten(item) : item;
-    return flat.concat(flatItem);
-  }, []);
 }
 var ATTR_REGEX = /attr\.([^\]]+)/;
 var COMPONENT_VARIABLE = "%COMP%";

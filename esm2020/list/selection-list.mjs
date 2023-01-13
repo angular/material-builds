@@ -75,6 +75,7 @@ export class MatSelectionList extends MatListBase {
          */
         this.compareWith = (a1, a2) => a1 === a2;
         this._multiple = true;
+        this._hideSingleSelectionIndicator = this._defaultOptions?.hideSingleSelectionIndicator ?? false;
         /** The currently selected options. */
         this.selectedOptions = new SelectionModel(this._multiple);
         /** View to model callback that should be called if the list or its options lost focus. */
@@ -125,8 +126,10 @@ export class MatSelectionList extends MatListBase {
     ngOnChanges(changes) {
         const disabledChanges = changes['disabled'];
         const disableRippleChanges = changes['disableRipple'];
+        const hideSingleSelectionIndicatorChanges = changes['hideSingleSelectionIndicator'];
         if ((disableRippleChanges && !disableRippleChanges.firstChange) ||
-            (disabledChanges && !disabledChanges.firstChange)) {
+            (disabledChanges && !disabledChanges.firstChange) ||
+            (hideSingleSelectionIndicatorChanges && !hideSingleSelectionIndicatorChanges.firstChange)) {
             this._markOptionsForCheck();
         }
     }
@@ -370,6 +373,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ng
             }], compareWith: [{
                 type: Input
             }], multiple: [{
+                type: Input
+            }], hideSingleSelectionIndicator: [{
                 type: Input
             }], disabled: [{
                 type: Input

@@ -135,7 +135,9 @@ export class MatListOption extends MatListItemBase {
     }
     /** Where a radio indicator is shown at the given position. */
     _hasRadioAt(position) {
-        return !this._selectionList.multiple && this._getTogglePosition() === position;
+        return (!this._selectionList.multiple &&
+            this._getTogglePosition() === position &&
+            !this._selectionList.hideSingleSelectionIndicator);
     }
     /** Whether icons or avatars are shown at the given position. */
     _hasIconsOrAvatarsAt(position) {
@@ -210,6 +212,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "15.1.0-rc.0", ng
             args: [{ selector: 'mat-list-option', exportAs: 'matListOption', host: {
                         'class': 'mat-mdc-list-item mat-mdc-list-option mdc-list-item',
                         'role': 'option',
+                        // As per MDC, only list items without checkbox or radio indicator should receive the
+                        // `--selected` class.
+                        '[class.mdc-list-item--selected]': 'selected && !_selectionList.multiple && _selectionList.hideSingleSelectionIndicator',
                         // Based on the checkbox/radio position and whether there are icons or avatars, we apply MDC's
                         // list-item `--leading` and `--trailing` classes.
                         '[class.mdc-list-item--with-leading-avatar]': '_hasProjected("avatars", "before")',
