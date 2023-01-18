@@ -22614,6 +22614,7 @@ var ts = __toESM(require("typescript"));
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/theming-styles.js
 var import_schematics = require("@angular/cdk/schematics");
+var import_path = require("path");
 
 // node_modules/postcss/lib/postcss.mjs
 var import_postcss = __toESM(require_postcss(), 1);
@@ -22662,13 +22663,19 @@ var ThemingStylesMigration = class extends import_schematics.Migration {
     this.enabled = true;
   }
   visitStylesheet(stylesheet) {
-    let migratedContent = this.migrate(stylesheet.content, stylesheet.filePath);
+    let migratedContent = this.migrate(stylesheet.content, stylesheet.filePath, stylesheet.inline);
     if (this._namespace) {
       migratedContent = migrateTypographyConfigs(migratedContent, this._namespace);
     }
-    this.fileSystem.edit(stylesheet.filePath).remove(stylesheet.start, stylesheet.content.length).insertRight(stylesheet.start, migratedContent);
+    if (migratedContent !== stylesheet.content) {
+      this.fileSystem.edit(stylesheet.filePath).remove(stylesheet.start, stylesheet.content.length).insertRight(stylesheet.start, migratedContent);
+    }
   }
-  migrate(styles, filename) {
+  migrate(styles, filename, isInline) {
+    const extension = (0, import_path.extname)(filename).toLowerCase();
+    if (!isInline && extension && extension !== ".css" && extension !== ".scss") {
+      return styles;
+    }
     const processor = new Processor([
       {
         postcssPlugin: "theming-styles-migration-plugin",
@@ -23105,7 +23112,7 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
     this._migratePropertyAssignment(node.initializer, this._templateMigration);
   }
   _migratePropertyAssignment(node, migration) {
-    let migratedText = migration.migrate(node.text, node.getSourceFile().fileName);
+    let migratedText = migration.migrate(node.text, node.getSourceFile().fileName, true);
     let migratedTextLines = migratedText.split("\n");
     if (migratedTextLines.length > 1) {
       migratedText = migratedTextLines.map((line, index2) => {
