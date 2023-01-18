@@ -306,7 +306,38 @@ MatChipListboxHarness.hostSelector = '.mat-mdc-chip-listbox';
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-// TODO(crisbeto): add harness for the chip edit input inside the row.
+/** Harness for interacting with an editable chip's input in tests. */
+class MatChipEditInputHarness extends ComponentHarness {
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a chip edit input with specific
+     * attributes.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options);
+    }
+    /** Sets the value of the input. */
+    async setValue(value) {
+        const host = await this.host();
+        // @breaking-change 16.0.0 Remove this null check once `setContenteditableValue`
+        // becomes a required method.
+        if (!host.setContenteditableValue) {
+            throw new Error('Cannot set chip edit input value, because test ' +
+                'element does not implement the `setContenteditableValue` method.');
+        }
+        return host.setContenteditableValue(value);
+    }
+}
+MatChipEditInputHarness.hostSelector = '.mat-chip-edit-input';
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 /** Harness for interacting with a mat-chip-row in tests. */
 class MatChipRowHarness extends MatChipHarness {
     /** Whether the chip is editable. */
@@ -316,6 +347,23 @@ class MatChipRowHarness extends MatChipHarness {
     /** Whether the chip is currently being edited. */
     async isEditing() {
         return (await this.host()).hasClass('mat-mdc-chip-editing');
+    }
+    /** Sets the chip row into an editing state, if it is editable. */
+    async startEditing() {
+        if (!(await this.isEditable())) {
+            throw new Error('Cannot begin editing a chip that is not editable.');
+        }
+        return (await this.host()).dispatchEvent('dblclick');
+    }
+    /** Stops editing the chip, if it was in the editing state. */
+    async finishEditing() {
+        if (await this.isEditing()) {
+            await (await this.host()).sendKeys(TestKey.ENTER);
+        }
+    }
+    /** Gets the edit input inside the chip row. */
+    async getEditInput(filter = {}) {
+        return this.locatorFor(MatChipEditInputHarness.with(filter))();
     }
 }
 MatChipRowHarness.hostSelector = '.mat-mdc-chip-row';
@@ -402,5 +450,5 @@ MatChipSetHarness.hostSelector = '.mat-mdc-chip-set';
  * found in the LICENSE file at https://angular.io/license
  */
 
-export { MatChipAvatarHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
+export { MatChipAvatarHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -10,6 +10,9 @@ import { TestKey } from '@angular/cdk/testing';
 export declare interface ChipAvatarHarnessFilters extends BaseHarnessFilters {
 }
 
+export declare interface ChipEditInputHarnessFilters extends BaseHarnessFilters {
+}
+
 export declare interface ChipGridHarnessFilters extends BaseHarnessFilters {
     /** Only find instances which match the given disabled state. */
     disabled?: boolean;
@@ -60,6 +63,20 @@ export declare class MatChipAvatarHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatChipAvatarHarness>(this: ComponentHarnessConstructor<T>, options?: ChipAvatarHarnessFilters): HarnessPredicate<T>;
+}
+
+/** Harness for interacting with an editable chip's input in tests. */
+export declare class MatChipEditInputHarness extends ComponentHarness {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a chip edit input with specific
+     * attributes.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatChipEditInputHarness>(this: ComponentHarnessConstructor<T>, options?: ChipEditInputHarnessFilters): HarnessPredicate<T>;
+    /** Sets the value of the input. */
+    setValue(value: string): Promise<void>;
 }
 
 /** Harness for interacting with a mat-chip-grid in tests. */
@@ -222,6 +239,12 @@ export declare class MatChipRowHarness extends MatChipHarness {
     isEditable(): Promise<boolean>;
     /** Whether the chip is currently being edited. */
     isEditing(): Promise<boolean>;
+    /** Sets the chip row into an editing state, if it is editable. */
+    startEditing(): Promise<void>;
+    /** Stops editing the chip, if it was in the editing state. */
+    finishEditing(): Promise<void>;
+    /** Gets the edit input inside the chip row. */
+    getEditInput(filter?: ChipEditInputHarnessFilters): Promise<MatChipEditInputHarness>;
 }
 
 /** Harness for interacting with a mat-chip-set in tests. */
