@@ -108,8 +108,14 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     protected _getChangeEvent(value: any): MatSelectChange;
     /** Gets how wide the overlay panel should be. */
     private _getOverlayWidth;
+    /** Whether checkmark indicator for single-selection options is hidden. */
+    get hideSingleSelectionIndicator(): boolean;
+    set hideSingleSelectionIndicator(value: BooleanInput);
+    private _hideSingleSelectionIndicator;
+    /** Syncs the parent state with the individual options. */
+    _syncParentProperties(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "hideSingleSelectionIndicator": "hideSingleSelectionIndicator"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
 }
 
 /**
@@ -136,7 +142,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _dir;
     protected _parentFormField: MatFormField;
     private _liveAnnouncer;
-    private _defaultOptions?;
+    protected _defaultOptions?: MatSelectConfig | undefined;
     /** All of the defined select options. */
     abstract options: QueryList<_MatOptionBase>;
     /** All of the defined groups of options. */
@@ -420,6 +426,8 @@ export declare interface MatSelectConfig {
     typeaheadDebounceInterval?: number;
     /** Class or list of classes to be applied to the menu's overlay panel. */
     overlayPanelClass?: string | string[];
+    /** Wheter icon indicators should be hidden for single-selection. */
+    hideSingleSelectionIndicator?: boolean;
 }
 
 /** @docs-private */

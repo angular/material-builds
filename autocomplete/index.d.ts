@@ -105,8 +105,14 @@ export declare class MatAutocomplete extends _MatAutocompleteBase {
     options: QueryList<MatOption>;
     protected _visibleClass: string;
     protected _hiddenClass: string;
+    /** Whether checkmark indicator for single-selection options is hidden. */
+    get hideSingleSelectionIndicator(): boolean;
+    set hideSingleSelectionIndicator(value: BooleanInput);
+    private _hideSingleSelectionIndicator;
+    /** Syncs the parent state with the individual options. */
+    _syncParentProperties(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocomplete, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": "disableRipple"; }, {}, ["optionGroups", "options"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": "disableRipple"; "hideSingleSelectionIndicator": "hideSingleSelectionIndicator"; }, {}, ["optionGroups", "options"], ["*"], false, never>;
 }
 
 /** Event object that is emitted when an autocomplete option is activated. */
@@ -121,6 +127,7 @@ export declare interface MatAutocompleteActivatedEvent {
 export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
+    protected _defaults: MatAutocompleteDefaultOptions;
     private _activeOptionChanges;
     /** Class to apply to the panel when it's visible. */
     protected abstract _visibleClass: string;
@@ -190,7 +197,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
      * @docs-private
      */
     readonly inertGroups: boolean;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, defaults: MatAutocompleteDefaultOptions, platform?: Platform);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _defaults: MatAutocompleteDefaultOptions, platform?: Platform);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**
@@ -222,6 +229,8 @@ export declare interface MatAutocompleteDefaultOptions {
     autoSelectActiveOption?: boolean;
     /** Class or list of classes to be applied to the autocomplete's overlay panel. */
     overlayPanelClass?: string | string[];
+    /** Wheter icon indicators should be hidden for single-selection. */
+    hideSingleSelectionIndicator?: boolean;
 }
 
 /** @docs-private */

@@ -564,7 +564,7 @@ export declare class MatOption<T = any> extends _MatOptionBase<T> {
 
 export declare class _MatOptionBase<T = any> implements FocusableOption, AfterViewChecked, OnDestroy {
     private _element;
-    private _changeDetectorRef;
+    _changeDetectorRef: ChangeDetectorRef;
     private _parent;
     readonly group: _MatOptgroupBase;
     private _selected;
@@ -584,6 +584,8 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
     set disabled(value: BooleanInput);
     /** Whether ripples for the option are disabled. */
     get disableRipple(): boolean;
+    /** Whether to display checkmark for single-selection. */
+    get hideSingleSelectionIndicator(): boolean;
     /** Event emitted when the option is selected or deselected. */
     readonly onSelectionChange: EventEmitter<MatOptionSelectionChange<T>>;
     /** Element containing the option's text. */
@@ -664,6 +666,7 @@ export declare interface MatOptionParentComponent {
     disableRipple?: boolean;
     multiple?: boolean;
     inertGroups?: boolean;
+    hideSingleSelectionIndicator?: boolean;
 }
 
 /** Event object emitted by MatOption when selected or deselected. */
@@ -698,9 +701,14 @@ export declare class MatPseudoCheckbox {
     state: MatPseudoCheckboxState;
     /** Whether the checkbox is disabled. */
     disabled: boolean;
+    /**
+     * Appearance of the pseudo checkbox. Default appearance of 'full' renders a checkmark/mixedmark
+     * indicator inside a square box. 'minimal' appearance only renders the checkmark/mixedmark.
+     */
+    appearance: 'minimal' | 'full';
     constructor(_animationMode?: string | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, [{ optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": "state"; "disabled": "disabled"; }, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": "state"; "disabled": "disabled"; "appearance": "appearance"; }, {}, never, never, false, never>;
 }
 
 export declare class MatPseudoCheckboxModule {
