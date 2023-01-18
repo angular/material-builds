@@ -6822,12 +6822,17 @@ var require_legacy_components_v15 = __commonJS({
     var scss = tslib_1.__importStar(require_scss_syntax());
     var constants_1 = require_constants();
     var schematics_1 = require("@angular/cdk/schematics");
+    var path_1 = require("path");
     var LegacyComponentsMigration2 = class extends schematics_1.Migration {
       constructor() {
         super(...arguments);
         this.enabled = this.targetVersion === schematics_1.TargetVersion.V15;
       }
       visitStylesheet(stylesheet) {
+        const extension = (0, path_1.extname)(stylesheet.filePath).toLowerCase();
+        if (!stylesheet.inline && extension && extension !== ".css" && extension !== ".scss") {
+          return;
+        }
         let namespace = void 0;
         const processor = new postcss.Processor([
           {
