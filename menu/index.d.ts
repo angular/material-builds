@@ -592,7 +592,7 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
 export declare const MENU_PANEL_TOP_PADDING = 8;
 
 /** Reason why the menu was closed. */
-declare type MenuCloseReason = void | 'click' | 'keydown' | 'tab';
+export declare type MenuCloseReason = void | 'click' | 'keydown' | 'tab';
 
 
 export declare type MenuPositionX = 'before' | 'after';
