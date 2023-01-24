@@ -23104,7 +23104,9 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
       this._stylesMigration = new ThemingStylesMigration(this.program, this.typeChecker, this.targetVersion, this.context, this.upgradeData, this.fileSystem, this.logger);
     }
     node.initializer.forEachChild((stringLiteralNode) => {
-      this._migratePropertyAssignment(stringLiteralNode, this._stylesMigration);
+      if (ts.isStringLiteralLike(stringLiteralNode)) {
+        this._migratePropertyAssignment(stringLiteralNode, this._stylesMigration);
+      }
     });
   }
   _migrateTemplate(node) {
@@ -23117,7 +23119,9 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
         this._templateMigration = new TemplateMigration(this.program, this.typeChecker, this.targetVersion, this.context, templateUpgradeData, this.fileSystem, this.logger);
       }
     }
-    this._migratePropertyAssignment(node.initializer, this._templateMigration);
+    if (ts.isStringLiteralLike(node.initializer)) {
+      this._migratePropertyAssignment(node.initializer, this._templateMigration);
+    }
   }
   _migratePropertyAssignment(node, migration) {
     let migratedText = migration.migrate(node.text, node.getSourceFile().fileName, true);
