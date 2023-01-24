@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, NgModule, Optional, Inject, inject, LOCALE_ID, Injectable, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -7,7 +7,7 @@ import { VERSION as VERSION$1 } from '@angular/cdk';
 import * as i3 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i1$1 from '@angular/cdk/platform';
-import { _isTestEnvironment, normalizePassiveListenerOptions, _getEventTarget } from '@angular/cdk/platform';
+import { Platform, _isTestEnvironment, normalizePassiveListenerOptions, _getEventTarget } from '@angular/cdk/platform';
 import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
 import { Observable, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -79,11 +79,13 @@ class MatCommonModule {
         if (!this._hasDoneGlobalChecks) {
             this._hasDoneGlobalChecks = true;
             if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                // Inject in here so the reference to `Platform` can be removed in production mode.
+                const platform = inject(Platform, { optional: true });
                 if (this._checkIsEnabled('doctype')) {
                     _checkDoctypeIsDefined(this._document);
                 }
                 if (this._checkIsEnabled('theme')) {
-                    _checkThemeIsPresent(this._document);
+                    _checkThemeIsPresent(this._document, !!platform?.isBrowser);
                 }
                 if (this._checkIsEnabled('version')) {
                     _checkCdkVersionMatch();
@@ -128,10 +130,10 @@ function _checkDoctypeIsDefined(doc) {
     }
 }
 /** Checks that a theme has been included. */
-function _checkThemeIsPresent(doc) {
+function _checkThemeIsPresent(doc, isBrowser) {
     // We need to assert that the `body` is defined, because these checks run very early
     // and the `body` won't be defined if the consumer put their scripts in the `head`.
-    if (!doc.body || typeof getComputedStyle !== 'function') {
+    if (!doc.body || !isBrowser) {
         return;
     }
     const testElement = doc.createElement('div');
