@@ -7100,8 +7100,17 @@ var require_legacy_components_v15 = __commonJS({
         this._replaceAt(filePath, node.pos, str);
       }
       _replaceAt(filePath, offset, str) {
+        var _a;
         const index = this.fileSystem.read(filePath).indexOf(str.old, offset);
-        this.fileSystem.edit(filePath).remove(index, str.old.length).insertRight(index, str.new);
+        (_a = this._updates) != null ? _a : this._updates = [];
+        this._updates.push({
+          offset: index,
+          update: () => this.fileSystem.edit(filePath).remove(index, str.old.length).insertRight(index, str.new)
+        });
+      }
+      postAnalysis() {
+        var _a;
+        (_a = this._updates) == null ? void 0 : _a.sort((a, b) => b.offset - a.offset).forEach(({ update }) => update());
       }
     };
     exports.LegacyComponentsMigration = LegacyComponentsMigration2;

@@ -23167,11 +23167,20 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
     return ts.isImportTypeNode(node) && ts.isLiteralTypeNode(node.argument) && ts.isStringLiteralLike(node.argument.literal);
   }
   _printAndUpdateNode(sourceFile, oldNode, newNode) {
+    var _a;
     const filePath = this.fileSystem.resolve(sourceFile.fileName);
     const newNodeText = typeof newNode === "string" ? newNode : this._printer.printNode(ts.EmitHint.Unspecified, newNode, sourceFile);
     const start = oldNode.getStart();
     const width = oldNode.getWidth();
-    this.fileSystem.edit(filePath).remove(start, width).insertRight(start, newNodeText);
+    (_a = this._updates) != null ? _a : this._updates = [];
+    this._updates.push({
+      offset: start,
+      update: () => this.fileSystem.edit(filePath).remove(start, width).insertRight(start, newNodeText)
+    });
+  }
+  postAnalysis() {
+    var _a;
+    (_a = this._updates) == null ? void 0 : _a.sort((a, b) => b.offset - a.offset).forEach(({ update }) => update());
   }
   _isReferenceToImport(node, importSpecifier) {
     var _a, _b, _c, _d;
