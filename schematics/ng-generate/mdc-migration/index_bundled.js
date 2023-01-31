@@ -48,7 +48,10 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
@@ -525,7 +528,9 @@ var require_stringifier = __commonJS({
       }
       stringify(node, semicolon) {
         if (!this[node.type]) {
-          throw new Error("Unknown AST node type " + node.type + ". Maybe you need to change PostCSS stringifier.");
+          throw new Error(
+            "Unknown AST node type " + node.type + ". Maybe you need to change PostCSS stringifier."
+          );
         }
         this[node.type](node, semicolon);
       }
@@ -888,7 +893,12 @@ var require_node = __commonJS({
       error(message, opts = {}) {
         if (this.source) {
           let { start, end } = this.rangeBy(opts);
-          return this.source.input.error(message, { line: start.line, column: start.column }, { line: end.line, column: end.column }, opts);
+          return this.source.input.error(
+            message,
+            { line: start.line, column: start.column },
+            { line: end.line, column: end.column },
+            opts
+          );
         }
         return new CssSyntaxError2(message);
       }
@@ -1137,7 +1147,10 @@ var require_node = __commonJS({
         error2.postcssNode = this;
         if (error2.stack && this.source && /\n\s{4}at /.test(error2.stack)) {
           let s = this.source;
-          error2.stack = error2.stack.replace(/\n\s{4}at /, `$&${s.input.from}:${s.start.line}:${s.start.column}$&`);
+          error2.stack = error2.stack.replace(
+            /\n\s{4}at /,
+            `$&${s.input.from}:${s.start.line}:${s.start.column}$&`
+          );
         }
         return error2;
       }
@@ -1878,7 +1891,9 @@ var require_source_map_generator = __commonJS({
       var sourceFile = aSourceFile;
       if (aSourceFile == null) {
         if (aSourceMapConsumer.file == null) {
-          throw new Error(`SourceMapGenerator.prototype.applySourceMap requires either an explicit source file, or the source map's "file" property. Both were omitted.`);
+          throw new Error(
+            `SourceMapGenerator.prototype.applySourceMap requires either an explicit source file, or the source map's "file" property. Both were omitted.`
+          );
         }
         sourceFile = aSourceMapConsumer.file;
       }
@@ -1935,7 +1950,9 @@ var require_source_map_generator = __commonJS({
     };
     SourceMapGenerator2.prototype._validateMapping = function SourceMapGenerator_validateMapping(aGenerated, aOriginal, aSource, aName) {
       if (aOriginal && typeof aOriginal.line !== "number" && typeof aOriginal.column !== "number") {
-        throw new Error("original.line and original.column are not numbers -- you probably meant to omit the original mapping entirely and only map the generated position. If so, pass null for the original mapping instead of an object with empty or null values.");
+        throw new Error(
+          "original.line and original.column are not numbers -- you probably meant to omit the original mapping entirely and only map the generated position. If so, pass null for the original mapping instead of an object with empty or null values."
+        );
       }
       if (aGenerated && "line" in aGenerated && "column" in aGenerated && aGenerated.line > 0 && aGenerated.column >= 0 && !aOriginal && !aSource && !aName) {
         return;
@@ -2071,7 +2088,14 @@ var require_binary_search = __commonJS({
       if (aHaystack.length === 0) {
         return -1;
       }
-      var index2 = recursiveSearch(-1, aHaystack.length, aNeedle, aHaystack, aCompare, aBias || exports.GREATEST_LOWER_BOUND);
+      var index2 = recursiveSearch(
+        -1,
+        aHaystack.length,
+        aNeedle,
+        aHaystack,
+        aCompare,
+        aBias || exports.GREATEST_LOWER_BOUND
+      );
       if (index2 < 0) {
         return -1;
       }
@@ -2232,7 +2256,14 @@ var require_source_map_consumer = __commonJS({
         return [];
       }
       var mappings2 = [];
-      var index2 = this._findMapping(needle, this._originalMappings, "originalLine", "originalColumn", util.compareByOriginalPositions, binarySearch.LEAST_UPPER_BOUND);
+      var index2 = this._findMapping(
+        needle,
+        this._originalMappings,
+        "originalLine",
+        "originalColumn",
+        util.compareByOriginalPositions,
+        binarySearch.LEAST_UPPER_BOUND
+      );
       if (index2 >= 0) {
         var mapping = this._originalMappings[index2];
         if (aArgs.column === void 0) {
@@ -2315,7 +2346,10 @@ var require_source_map_consumer = __commonJS({
       var names = smc._names = ArraySet.fromArray(aSourceMap._names.toArray(), true);
       var sources = smc._sources = ArraySet.fromArray(aSourceMap._sources.toArray(), true);
       smc.sourceRoot = aSourceMap._sourceRoot;
-      smc.sourcesContent = aSourceMap._generateSourcesContent(smc._sources.toArray(), smc.sourceRoot);
+      smc.sourcesContent = aSourceMap._generateSourcesContent(
+        smc._sources.toArray(),
+        smc.sourceRoot
+      );
       smc.file = aSourceMap._file;
       smc._sourceMapURL = aSourceMapURL;
       smc._absoluteSources = smc._sources.toArray().map(function(s) {
@@ -2496,7 +2530,14 @@ var require_source_map_consumer = __commonJS({
         generatedLine: util.getArg(aArgs, "line"),
         generatedColumn: util.getArg(aArgs, "column")
       };
-      var index2 = this._findMapping(needle, this._generatedMappings, "generatedLine", "generatedColumn", util.compareByGeneratedPositionsDeflated, util.getArg(aArgs, "bias", SourceMapConsumer.GREATEST_LOWER_BOUND));
+      var index2 = this._findMapping(
+        needle,
+        this._generatedMappings,
+        "generatedLine",
+        "generatedColumn",
+        util.compareByGeneratedPositionsDeflated,
+        util.getArg(aArgs, "bias", SourceMapConsumer.GREATEST_LOWER_BOUND)
+      );
       if (index2 >= 0) {
         var mapping = this._generatedMappings[index2];
         if (mapping.generatedLine === needle.generatedLine) {
@@ -2575,7 +2616,14 @@ var require_source_map_consumer = __commonJS({
         originalLine: util.getArg(aArgs, "line"),
         originalColumn: util.getArg(aArgs, "column")
       };
-      var index2 = this._findMapping(needle, this._originalMappings, "originalLine", "originalColumn", util.compareByOriginalPositions, util.getArg(aArgs, "bias", SourceMapConsumer.GREATEST_LOWER_BOUND));
+      var index2 = this._findMapping(
+        needle,
+        this._originalMappings,
+        "originalLine",
+        "originalColumn",
+        util.compareByOriginalPositions,
+        util.getArg(aArgs, "bias", SourceMapConsumer.GREATEST_LOWER_BOUND)
+      );
       if (index2 >= 0) {
         var mapping = this._originalMappings[index2];
         if (mapping.source === needle.source) {
@@ -2648,13 +2696,17 @@ var require_source_map_consumer = __commonJS({
         generatedLine: util.getArg(aArgs, "line"),
         generatedColumn: util.getArg(aArgs, "column")
       };
-      var sectionIndex = binarySearch.search(needle, this._sections, function(needle2, section2) {
-        var cmp = needle2.generatedLine - section2.generatedOffset.generatedLine;
-        if (cmp) {
-          return cmp;
+      var sectionIndex = binarySearch.search(
+        needle,
+        this._sections,
+        function(needle2, section2) {
+          var cmp = needle2.generatedLine - section2.generatedOffset.generatedLine;
+          if (cmp) {
+            return cmp;
+          }
+          return needle2.generatedColumn - section2.generatedOffset.generatedColumn;
         }
-        return needle2.generatedColumn - section2.generatedOffset.generatedColumn;
-      });
+      );
       var section = this._sections[sectionIndex];
       if (!section) {
         return {
@@ -2830,7 +2882,13 @@ var require_source_node = __commonJS({
           node.add(code);
         } else {
           var source = aRelativePath ? util.join(aRelativePath, mapping.source) : mapping.source;
-          node.add(new SourceNode(mapping.originalLine, mapping.originalColumn, source, code, mapping.name));
+          node.add(new SourceNode(
+            mapping.originalLine,
+            mapping.originalColumn,
+            source,
+            code,
+            mapping.name
+          ));
         }
       }
     };
@@ -2844,7 +2902,9 @@ var require_source_node = __commonJS({
           this.children.push(aChunk);
         }
       } else {
-        throw new TypeError("Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk);
+        throw new TypeError(
+          "Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk
+        );
       }
       return this;
     };
@@ -2856,7 +2916,9 @@ var require_source_node = __commonJS({
       } else if (aChunk[isSourceNode] || typeof aChunk === "string") {
         this.children.unshift(aChunk);
       } else {
-        throw new TypeError("Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk);
+        throw new TypeError(
+          "Expected a SourceNode, string, or an array of SourceNodes and strings. Got " + aChunk
+        );
       }
       return this;
     };
@@ -3128,7 +3190,9 @@ var require_previous_map = __commonJS({
             if (prevPath) {
               let map = this.loadFile(prevPath);
               if (!map) {
-                throw new Error("Unable to load previous source map: " + prevPath.toString());
+                throw new Error(
+                  "Unable to load previous source map: " + prevPath.toString()
+                );
               }
               return map;
             }
@@ -3139,7 +3203,9 @@ var require_previous_map = __commonJS({
           } else if (this.isMap(prev)) {
             return JSON.stringify(prev);
           } else {
-            throw new Error("Unsupported previous source map format: " + prev.toString());
+            throw new Error(
+              "Unsupported previous source map format: " + prev.toString()
+            );
           }
         } else if (this.inline) {
           return this.decodeInline(this.annotation);
@@ -3275,9 +3341,23 @@ var require_input = __commonJS({
         }
         let origin = this.origin(line, column, endLine, endColumn);
         if (origin) {
-          result = new CssSyntaxError2(message, origin.endLine === void 0 ? origin.line : { line: origin.line, column: origin.column }, origin.endLine === void 0 ? origin.column : { line: origin.endLine, column: origin.endColumn }, origin.source, origin.file, opts.plugin);
+          result = new CssSyntaxError2(
+            message,
+            origin.endLine === void 0 ? origin.line : { line: origin.line, column: origin.column },
+            origin.endLine === void 0 ? origin.column : { line: origin.endLine, column: origin.endColumn },
+            origin.source,
+            origin.file,
+            opts.plugin
+          );
         } else {
-          result = new CssSyntaxError2(message, endLine === void 0 ? line : { line, column }, endLine === void 0 ? column : { line: endLine, column: endColumn }, this.css, this.file, opts.plugin);
+          result = new CssSyntaxError2(
+            message,
+            endLine === void 0 ? line : { line, column },
+            endLine === void 0 ? column : { line: endLine, column: endColumn },
+            this.css,
+            this.file,
+            opts.plugin
+          );
         }
         result.input = { line, column, endLine, endColumn, source: this.css };
         if (this.file) {
@@ -3303,7 +3383,10 @@ var require_input = __commonJS({
         if (isAbsolute(from.source)) {
           fromUrl = pathToFileURL(from.source);
         } else {
-          fromUrl = new URL(from.source, this.map.consumer().sourceRoot || pathToFileURL(this.map.mapFile));
+          fromUrl = new URL(
+            from.source,
+            this.map.consumer().sourceRoot || pathToFileURL(this.map.mapFile)
+          );
         }
         let result = {
           url: fromUrl.toString(),
@@ -3570,7 +3653,9 @@ var require_map_generator = __commonJS({
         if (pathToFileURL) {
           return pathToFileURL(path).toString();
         } else {
-          throw new Error("`map.absolute` option is not available in this PostCSS build");
+          throw new Error(
+            "`map.absolute` option is not available in this PostCSS build"
+          );
         }
       }
       sourcePath(node) {
@@ -4000,17 +4085,21 @@ var require_container = __commonJS({
               return node[prop];
             } else if (prop === "each" || typeof prop === "string" && prop.startsWith("walk")) {
               return (...args) => {
-                return node[prop](...args.map((i) => {
-                  if (typeof i === "function") {
-                    return (child, index2) => i(child.toProxy(), index2);
-                  } else {
-                    return i;
-                  }
-                }));
+                return node[prop](
+                  ...args.map((i) => {
+                    if (typeof i === "function") {
+                      return (child, index2) => i(child.toProxy(), index2);
+                    } else {
+                      return i;
+                    }
+                  })
+                );
               };
             } else if (prop === "every" || prop === "some") {
               return (cb) => {
-                return node[prop]((child, ...other) => cb(child.toProxy(), ...other));
+                return node[prop](
+                  (child, ...other) => cb(child.toProxy(), ...other)
+                );
               };
             } else if (prop === "root") {
               return () => node.root().toProxy();
@@ -4531,7 +4620,9 @@ var require_parser = __commonJS({
           this.semicolon = true;
           tokens.pop();
         }
-        node.source.end = this.getPosition(last[3] || last[2] || findLastWithPosition(tokens));
+        node.source.end = this.getPosition(
+          last[3] || last[2] || findLastWithPosition(tokens)
+        );
         while (tokens[0][0] !== "word") {
           if (tokens.length === 1)
             this.unknownWord(tokens);
@@ -4838,23 +4929,43 @@ var require_parser = __commonJS({
         return false;
       }
       unclosedBracket(bracket) {
-        throw this.input.error("Unclosed bracket", { offset: bracket[2] }, { offset: bracket[2] + 1 });
+        throw this.input.error(
+          "Unclosed bracket",
+          { offset: bracket[2] },
+          { offset: bracket[2] + 1 }
+        );
       }
       unknownWord(tokens) {
-        throw this.input.error("Unknown word", { offset: tokens[0][2] }, { offset: tokens[0][2] + tokens[0][1].length });
+        throw this.input.error(
+          "Unknown word",
+          { offset: tokens[0][2] },
+          { offset: tokens[0][2] + tokens[0][1].length }
+        );
       }
       unexpectedClose(token) {
-        throw this.input.error("Unexpected }", { offset: token[2] }, { offset: token[2] + 1 });
+        throw this.input.error(
+          "Unexpected }",
+          { offset: token[2] },
+          { offset: token[2] + 1 }
+        );
       }
       unclosedBlock() {
         let pos = this.current.source.start;
         throw this.input.error("Unclosed block", pos.line, pos.column);
       }
       doubleColon(token) {
-        throw this.input.error("Double colon", { offset: token[2] }, { offset: token[2] + token[1].length });
+        throw this.input.error(
+          "Double colon",
+          { offset: token[2] },
+          { offset: token[2] + token[1].length }
+        );
       }
       unnamedAtrule(node, token) {
-        throw this.input.error("At-rule without name", { offset: token[2] }, { offset: token[2] + token[1].length });
+        throw this.input.error(
+          "At-rule without name",
+          { offset: token[2] },
+          { offset: token[2] + token[1].length }
+        );
       }
       precheckMissedSemicolon() {
       }
@@ -4872,7 +4983,10 @@ var require_parser = __commonJS({
               break;
           }
         }
-        throw this.input.error("Missed semicolon", token[0] === "word" ? token[3] + 1 : token[2]);
+        throw this.input.error(
+          "Missed semicolon",
+          token[0] === "word" ? token[3] + 1 : token[2]
+        );
       }
     };
     module2.exports = Parser2;
@@ -5087,7 +5201,9 @@ var require_lazy_result = __commonJS({
       then(onFulfilled, onRejected) {
         if (process.env.NODE_ENV !== "production") {
           if (!("from" in this.opts)) {
-            warnOnce("Without `from` option PostCSS could generate wrong source map and will not find Browserslist config. Set it to CSS file path or to `undefined` to prevent this warning.");
+            warnOnce(
+              "Without `from` option PostCSS could generate wrong source map and will not find Browserslist config. Set it to CSS file path or to `undefined` to prevent this warning."
+            );
           }
         }
         return this.async().then(onFulfilled, onRejected);
@@ -5205,7 +5321,9 @@ var require_lazy_result = __commonJS({
         try {
           if (typeof plugin2 === "object" && plugin2.Once) {
             if (this.result.root.type === "document") {
-              let roots = this.result.root.nodes.map((root2) => plugin2.Once(root2, this.helpers));
+              let roots = this.result.root.nodes.map(
+                (root2) => plugin2.Once(root2, this.helpers)
+              );
               if (isPromise(roots[0])) {
                 return Promise.all(roots);
               }
@@ -5239,7 +5357,9 @@ var require_lazy_result = __commonJS({
               let a = pluginVer.split(".");
               let b = runtimeVer.split(".");
               if (a[0] !== b[0] || parseInt(a[1]) > parseInt(b[1])) {
-                console.error("Unknown error from PostCSS plugin. Your current PostCSS version is " + runtimeVer + ", but " + pluginName + " uses " + pluginVer + ". Perhaps this is the source of the error below.");
+                console.error(
+                  "Unknown error from PostCSS plugin. Your current PostCSS version is " + runtimeVer + ", but " + pluginName + " uses " + pluginVer + ". Perhaps this is the source of the error below."
+                );
               }
             }
           }
@@ -5286,7 +5406,9 @@ var require_lazy_result = __commonJS({
                 this.result.lastPlugin = plugin2;
                 try {
                   if (root2.type === "document") {
-                    let roots = root2.nodes.map((subRoot) => visitor(subRoot, this.helpers));
+                    let roots = root2.nodes.map(
+                      (subRoot) => visitor(subRoot, this.helpers)
+                    );
                     yield Promise.all(roots);
                   } else {
                     yield visitor(root2, this.helpers);
@@ -5312,7 +5434,9 @@ var require_lazy_result = __commonJS({
           if (typeof plugin2 === "object") {
             for (let event in plugin2) {
               if (!PLUGIN_PROPS[event] && /^[A-Z]/.test(event)) {
-                throw new Error(`Unknown event ${event} in ${plugin2.postcssPlugin}. Try to update PostCSS (${this.processor.version} now).`);
+                throw new Error(
+                  `Unknown event ${event} in ${plugin2.postcssPlugin}. Try to update PostCSS (${this.processor.version} now).`
+                );
               }
               if (!NOT_VISITORS[event]) {
                 if (typeof plugin2[event] === "object") {
@@ -5320,7 +5444,11 @@ var require_lazy_result = __commonJS({
                     if (filter === "*") {
                       add(plugin2, event, plugin2[event][filter]);
                     } else {
-                      add(plugin2, event + "-" + filter.toLowerCase(), plugin2[event][filter]);
+                      add(
+                        plugin2,
+                        event + "-" + filter.toLowerCase(),
+                        plugin2[event][filter]
+                      );
                     }
                   }
                 } else if (typeof plugin2[event] === "function") {
@@ -5481,7 +5609,9 @@ var require_no_work_result = __commonJS({
       then(onFulfilled, onRejected) {
         if (process.env.NODE_ENV !== "production") {
           if (!("from" in this._opts)) {
-            warnOnce("Without `from` option PostCSS could generate wrong source map and will not find Browserslist config. Set it to CSS file path or to `undefined` to prevent this warning.");
+            warnOnce(
+              "Without `from` option PostCSS could generate wrong source map and will not find Browserslist config. Set it to CSS file path or to `undefined` to prevent this warning."
+            );
           }
         }
         return this.async().then(onFulfilled, onRejected);
@@ -5548,7 +5678,9 @@ var require_processor = __commonJS({
             normalized.push(i);
           } else if (typeof i === "object" && (i.parse || i.stringify)) {
             if (process.env.NODE_ENV !== "production") {
-              throw new Error("PostCSS syntaxes cannot be used as plugins. Instead, please use one of the syntax/parser/stringifier options as outlined in your PostCSS runner documentation.");
+              throw new Error(
+                "PostCSS syntaxes cannot be used as plugins. Instead, please use one of the syntax/parser/stringifier options as outlined in your PostCSS runner documentation."
+              );
             }
           } else {
             throw new Error(i + " is not a PostCSS plugin");
@@ -5653,9 +5785,13 @@ var require_postcss = __commonJS({
       function creator(...args) {
         if (console && console.warn && !warningPrinted) {
           warningPrinted = true;
-          console.warn(name + ": postcss.plugin was deprecated. Migration guide:\nhttps://evilmartians.com/chronicles/postcss-8-plugin-migration");
+          console.warn(
+            name + ": postcss.plugin was deprecated. Migration guide:\nhttps://evilmartians.com/chronicles/postcss-8-plugin-migration"
+          );
           if (process.env.LANG && process.env.LANG.startsWith("cn")) {
-            console.warn(name + ": \u91CC\u9762 postcss.plugin \u88AB\u5F03\u7528. \u8FC1\u79FB\u6307\u5357:\nhttps://www.w3ctech.com/topic/2226");
+            console.warn(
+              name + ": \u91CC\u9762 postcss.plugin \u88AB\u5F03\u7528. \u8FC1\u79FB\u6307\u5357:\nhttps://www.w3ctech.com/topic/2226"
+            );
           }
         }
         let transformer = initializer(...args);
@@ -6447,7 +6583,10 @@ var TemplateMigrator = class {
 };
 
 // node_modules/@angular/compiler/fesm2015/compiler.mjs
-var _SELECTOR_REGEXP = new RegExp(`(\\:not\\()|(([\\.\\#]?)[-\\w]+)|(?:\\[([-.\\w*\\\\$]+)(?:=(["']?)([^\\]"']*)\\5)?\\])|(\\))|(\\s*,\\s*)`, "g");
+var _SELECTOR_REGEXP = new RegExp(
+  `(\\:not\\()|(([\\.\\#]?)[-\\w]+)|(?:\\[([-.\\w*\\\\$]+)(?:=(["']?)([^\\]"']*)\\5)?\\])|(\\))|(\\s*,\\s*)`,
+  "g"
+);
 var CssSelector = class {
   constructor() {
     this.element = null;
@@ -7844,9 +7983,12 @@ var ConstantPool = class {
       let definition;
       let usage;
       if (this.isClosureCompilerEnabled && isLongStringLiteral(literal2)) {
-        definition = variable(name).set(new FunctionExpr([], [
-          new ReturnStatement(literal2)
-        ]));
+        definition = variable(name).set(new FunctionExpr(
+          [],
+          [
+            new ReturnStatement(literal2)
+          ]
+        ));
         usage = variable(name).callFn([]);
       } else {
         definition = variable(name).set(literal2);
@@ -8872,7 +9014,14 @@ function jitOnlyGuardedExpression(expr) {
 function guardedExpression(guard, expr) {
   const guardExpr = new ExternalExpr({ name: guard, moduleName: null });
   const guardNotDefined = new BinaryOperatorExpr(BinaryOperator.Identical, new TypeofExpr(guardExpr), literal("undefined"));
-  const guardUndefinedOrTrue = new BinaryOperatorExpr(BinaryOperator.Or, guardNotDefined, guardExpr, void 0, void 0, true);
+  const guardUndefinedOrTrue = new BinaryOperatorExpr(
+    BinaryOperator.Or,
+    guardNotDefined,
+    guardExpr,
+    void 0,
+    void 0,
+    true
+  );
   return new BinaryOperatorExpr(BinaryOperator.And, guardUndefinedOrTrue, expr);
 }
 function wrapReference(value) {
@@ -10299,10 +10448,19 @@ function generateSetNgModuleScopeCall(meta) {
   if (Object.keys(scopeMap.values).length === 0) {
     return null;
   }
-  const fnCall = new InvokeFunctionExpr(importExpr(Identifiers.setNgModuleScope), [moduleType, scopeMap.toLiteralMap()]);
+  const fnCall = new InvokeFunctionExpr(
+    importExpr(Identifiers.setNgModuleScope),
+    [moduleType, scopeMap.toLiteralMap()]
+  );
   const guardedCall = jitOnlyGuardedExpression(fnCall);
-  const iife = new FunctionExpr([], [guardedCall.toStmt()]);
-  const iifeCall = new InvokeFunctionExpr(iife, []);
+  const iife = new FunctionExpr(
+    [],
+    [guardedCall.toStmt()]
+  );
+  const iifeCall = new InvokeFunctionExpr(
+    iife,
+    []
+  );
   return iifeCall.toStmt();
 }
 function tupleTypeOf(exp) {
@@ -17765,7 +17923,17 @@ var BindingParser = class {
     for (const propName of Object.keys(properties)) {
       const expression = properties[propName];
       if (typeof expression === "string") {
-        this.parsePropertyBinding(propName, expression, true, sourceSpan, sourceSpan.start.offset, void 0, [], boundProps, sourceSpan);
+        this.parsePropertyBinding(
+          propName,
+          expression,
+          true,
+          sourceSpan,
+          sourceSpan.start.offset,
+          void 0,
+          [],
+          boundProps,
+          sourceSpan
+        );
       } else {
         this._reportError(`Value of the host property binding "${propName}" needs to be a string representing an expression but got "${expression}" (${typeof expression})`, sourceSpan);
       }
@@ -18425,7 +18593,17 @@ var NonBindableVisitor = class {
       return null;
     }
     const children = visitAll(this, ast.children, null);
-    return new Element$1(ast.name, visitAll(this, ast.attrs), [], [], children, [], ast.sourceSpan, ast.startSourceSpan, ast.endSourceSpan);
+    return new Element$1(
+      ast.name,
+      visitAll(this, ast.attrs),
+      [],
+      [],
+      children,
+      [],
+      ast.sourceSpan,
+      ast.startSourceSpan,
+      ast.endSourceSpan
+    );
   }
   visitComment(comment2) {
     return null;
@@ -19192,7 +19370,10 @@ function prepareEventListenerParameters(eventAst, handlerName = null, scope = nu
   const handlerFn = fn(fnArgs, statements, INFERRED_TYPE, null, fnName);
   const params = [literal(eventName), handlerFn];
   if (target) {
-    params.push(literal(false), importExpr(GLOBAL_TARGET_RESOLVERS.get(target)));
+    params.push(
+      literal(false),
+      importExpr(GLOBAL_TARGET_RESOLVERS.get(target))
+    );
   }
   return params;
 }
@@ -19272,11 +19453,17 @@ var TemplateDefinitionBuilder = class {
     const updateVariables = this._bindingScope.variableDeclarations().concat(this._tempVariables);
     const creationBlock = creationStatements.length > 0 ? [renderFlagCheckIfStmt(1, creationVariables.concat(creationStatements))] : [];
     const updateBlock = updateStatements.length > 0 ? [renderFlagCheckIfStmt(2, updateVariables.concat(updateStatements))] : [];
-    return fn([new FnParam(RENDER_FLAGS, NUMBER_TYPE), new FnParam(CONTEXT_NAME, null)], [
-      ...this._prefixCode,
-      ...creationBlock,
-      ...updateBlock
-    ], INFERRED_TYPE, null, this.templateName);
+    return fn(
+      [new FnParam(RENDER_FLAGS, NUMBER_TYPE), new FnParam(CONTEXT_NAME, null)],
+      [
+        ...this._prefixCode,
+        ...creationBlock,
+        ...updateBlock
+      ],
+      INFERRED_TYPE,
+      null,
+      this.templateName
+    );
   }
   getLocal(name) {
     return this._bindingScope.get(name);
@@ -20499,7 +20686,10 @@ function compileComponentFromMetadata(meta, constantPool, bindingParser) {
   if (firstSelector) {
     const selectorAttributes = firstSelector.getAttrs();
     if (selectorAttributes.length) {
-      definitionMap.set("attrs", constantPool.getConstLiteral(literalArr(selectorAttributes.map((value) => value != null ? literal(value) : literal(void 0))), true));
+      definitionMap.set("attrs", constantPool.getConstLiteral(
+        literalArr(selectorAttributes.map((value) => value != null ? literal(value) : literal(void 0))),
+        true
+      ));
     }
   }
   const templateTypeName = meta.name;
@@ -20706,7 +20896,12 @@ function createHostBindingsFunction(hostBindingsMetadata, typeSourceSpan, bindin
         totalHostVarsCount += numSlots;
         return originalVarsCount;
       };
-      valueConverter = new ValueConverter(constantPool, () => error("Unexpected node"), hostVarsCountFn, () => error("Unexpected pipe"));
+      valueConverter = new ValueConverter(
+        constantPool,
+        () => error("Unexpected node"),
+        hostVarsCountFn,
+        () => error("Unexpected pipe")
+      );
     }
     return valueConverter;
   };
@@ -20964,34 +21159,40 @@ var CompilerFacadeImpl = class {
   }
   compileInjectable(angularCoreEnv, sourceMapUrl, facade) {
     var _a;
-    const { expression, statements } = compileInjectable({
-      name: facade.name,
-      type: wrapReference(facade.type),
-      internalType: new WrappedNodeExpr(facade.type),
-      typeArgumentCount: facade.typeArgumentCount,
-      providedIn: computeProvidedIn(facade.providedIn),
-      useClass: convertToProviderExpression(facade, "useClass"),
-      useFactory: wrapExpression(facade, "useFactory"),
-      useValue: convertToProviderExpression(facade, "useValue"),
-      useExisting: convertToProviderExpression(facade, "useExisting"),
-      deps: (_a = facade.deps) === null || _a === void 0 ? void 0 : _a.map(convertR3DependencyMetadata)
-    }, true);
+    const { expression, statements } = compileInjectable(
+      {
+        name: facade.name,
+        type: wrapReference(facade.type),
+        internalType: new WrappedNodeExpr(facade.type),
+        typeArgumentCount: facade.typeArgumentCount,
+        providedIn: computeProvidedIn(facade.providedIn),
+        useClass: convertToProviderExpression(facade, "useClass"),
+        useFactory: wrapExpression(facade, "useFactory"),
+        useValue: convertToProviderExpression(facade, "useValue"),
+        useExisting: convertToProviderExpression(facade, "useExisting"),
+        deps: (_a = facade.deps) === null || _a === void 0 ? void 0 : _a.map(convertR3DependencyMetadata)
+      },
+      true
+    );
     return this.jitExpression(expression, angularCoreEnv, sourceMapUrl, statements);
   }
   compileInjectableDeclaration(angularCoreEnv, sourceMapUrl, facade) {
     var _a;
-    const { expression, statements } = compileInjectable({
-      name: facade.type.name,
-      type: wrapReference(facade.type),
-      internalType: new WrappedNodeExpr(facade.type),
-      typeArgumentCount: 0,
-      providedIn: computeProvidedIn(facade.providedIn),
-      useClass: convertToProviderExpression(facade, "useClass"),
-      useFactory: wrapExpression(facade, "useFactory"),
-      useValue: convertToProviderExpression(facade, "useValue"),
-      useExisting: convertToProviderExpression(facade, "useExisting"),
-      deps: (_a = facade.deps) === null || _a === void 0 ? void 0 : _a.map(convertR3DeclareDependencyMetadata)
-    }, true);
+    const { expression, statements } = compileInjectable(
+      {
+        name: facade.type.name,
+        type: wrapReference(facade.type),
+        internalType: new WrappedNodeExpr(facade.type),
+        typeArgumentCount: 0,
+        providedIn: computeProvidedIn(facade.providedIn),
+        useClass: convertToProviderExpression(facade, "useClass"),
+        useFactory: wrapExpression(facade, "useFactory"),
+        useValue: convertToProviderExpression(facade, "useValue"),
+        useExisting: convertToProviderExpression(facade, "useExisting"),
+        deps: (_a = facade.deps) === null || _a === void 0 ? void 0 : _a.map(convertR3DeclareDependencyMetadata)
+      },
+      true
+    );
     return this.jitExpression(expression, angularCoreEnv, sourceMapUrl, statements);
   }
   compileInjector(angularCoreEnv, sourceMapUrl, facade) {
