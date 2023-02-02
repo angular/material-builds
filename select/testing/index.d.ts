@@ -73,6 +73,8 @@ export declare abstract class _MatSelectHarnessBase<OptionType extends Component
 
 /** A set of criteria that can be used to filter a list of `MatSelectHarness` instances. */
 export declare interface SelectHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 export { }

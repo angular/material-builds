@@ -146,7 +146,9 @@ class MatSelectHarness extends _MatSelectHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options);
+        return new HarnessPredicate(this, options).addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
 }
 MatSelectHarness.hostSelector = '.mat-mdc-select';

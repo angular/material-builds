@@ -12,6 +12,8 @@ import { _MatSelectHarnessBase } from '@angular/material/select/testing';
  * @breaking-change 17.0.0
  */
 export declare interface LegacySelectHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
 }
 
 /**
