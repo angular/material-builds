@@ -1,14 +1,8 @@
+import { __awaiter } from 'tslib';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { _MatSelectHarnessBase } from '@angular/material/select/testing';
 import { MatLegacyOptionHarness, MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Harness for interacting with a standard mat-select in tests.
  * @deprecated Use `MatSelectHarness` from `@angular/material/select/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -28,7 +22,9 @@ class MatLegacySelectHarness extends _MatSelectHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatLegacySelectHarness, options);
+        return new HarnessPredicate(MatLegacySelectHarness, options).addOption('disabled', options.disabled, (harness, disabled) => __awaiter(this, void 0, void 0, function* () {
+            return (yield harness.isDisabled()) === disabled;
+        }));
     }
 }
 MatLegacySelectHarness.hostSelector = '.mat-select';
