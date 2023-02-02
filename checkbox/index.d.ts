@@ -63,6 +63,7 @@ export declare class MatCheckbox extends _MatCheckboxBase<MatCheckboxChange> imp
     protected _createChangeEvent(isChecked: boolean): MatCheckboxChange;
     protected _getAnimationTargetElement(): HTMLInputElement;
     _onInputClick(): void;
+    _onTouchTargetClick(): void;
     /**
      *  Prevent click events that come from the `<label/>` element from bubbling. This prevents the
      *  click handler on the host from triggering twice when clicking on the `<label/>` element. After
