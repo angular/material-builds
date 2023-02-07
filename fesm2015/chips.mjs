@@ -117,7 +117,8 @@ class MatChipAction extends _MatChipActionMixinBase {
         if ((event.keyCode === ENTER || event.keyCode === SPACE) &&
             !this.disabled &&
             this.isInteractive &&
-            this._isPrimary) {
+            this._isPrimary &&
+            !this._parentChip._isEditing) {
             event.preventDefault();
             this._parentChip._handlePrimaryActionInteraction();
         }

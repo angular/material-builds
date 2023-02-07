@@ -252,6 +252,7 @@ declare class MatChipAction extends _MatChipActionMixinBase implements HasTabInd
         _handlePrimaryActionInteraction(): void;
         remove(): void;
         disabled: boolean;
+        _isEditing?: boolean;
     };
     /** Whether the action is interactive. */
     isInteractive: boolean;
@@ -277,6 +278,7 @@ declare class MatChipAction extends _MatChipActionMixinBase implements HasTabInd
         _handlePrimaryActionInteraction(): void;
         remove(): void;
         disabled: boolean;
+        _isEditing?: boolean;
     });
     focus(): void;
     _handleClick(event: MouseEvent): void;
