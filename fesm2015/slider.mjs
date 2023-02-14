@@ -1240,6 +1240,7 @@ class MatSliderThumb {
         this._setIsFocused(true);
     }
     _onChange() {
+        this.valueChange.emit(this.value);
         // only used to handle the edge case where user
         // mousedown on the slider then uses arrow keys.
         if (this._isActive) {
@@ -1247,7 +1248,6 @@ class MatSliderThumb {
         }
     }
     _onInput() {
-        this.valueChange.emit(this.value);
         this._onChangeFn(this.value);
         // handles arrowing and updating the value when
         // a step is defined.
