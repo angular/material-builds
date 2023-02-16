@@ -153,6 +153,8 @@ export declare abstract class _MatRadioButtonBase extends _MatRadioButtonMixinBa
     _onInputClick(event: Event): void;
     /** Triggered when the radio button receives an interaction from the user. */
     _onInputInteraction(event: Event): void;
+    /** Triggered when the user clicks on the touch target. */
+    _onTouchTargetClick(event: Event): void;
     /** Sets the disabled state and marks for check if a change occurred. */
     protected _setDisabled(value: boolean): void;
     /** Gets the tabindex for the underlying input element. */
