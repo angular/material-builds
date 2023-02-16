@@ -11620,7 +11620,7 @@ var _AstToIrVisitor = class {
         return null;
       },
       visitNonNullAssert(ast2) {
-        return null;
+        return visit(this, ast2.expression);
       },
       visitPropertyRead(ast2) {
         return visit(this, ast2.receiver);
@@ -11863,7 +11863,6 @@ var animationKeywords = /* @__PURE__ */ new Set([
 ]);
 var ShadowCss = class {
   constructor() {
-    this.strictStyling = true;
     this._animationDeclarationKeyframesRe = /(^|\s+)(?:(?:(['"])((?:\\\\|\\\2|(?!\2).)+)\2)|(-?[A-Za-z][\w\-]*))(?=[,\s]|$)/g;
   }
   shimCssText(cssText, selector, hostSelector = "") {
@@ -11983,7 +11982,7 @@ var ShadowCss = class {
       let selector = rule2.selector;
       let content = rule2.content;
       if (rule2.selector[0] !== "@") {
-        selector = this._scopeSelector(rule2.selector, scopeSelector, hostSelector, this.strictStyling);
+        selector = this._scopeSelector(rule2.selector, scopeSelector, hostSelector);
       } else if (rule2.selector.startsWith("@media") || rule2.selector.startsWith("@supports") || rule2.selector.startsWith("@document") || rule2.selector.startsWith("@layer") || rule2.selector.startsWith("@container")) {
         content = this._scopeSelectors(rule2.content, scopeSelector, hostSelector);
       } else if (rule2.selector.startsWith("@font-face") || rule2.selector.startsWith("@page")) {
@@ -11998,12 +11997,12 @@ var ShadowCss = class {
       return new CssRule(selector, rule2.content);
     });
   }
-  _scopeSelector(selector, scopeSelector, hostSelector, strict) {
+  _scopeSelector(selector, scopeSelector, hostSelector) {
     return selector.split(",").map((part) => part.trim().split(_shadowDeepSelectors)).map((deepParts) => {
       const [shallowPart, ...otherParts] = deepParts;
       const applyScope = (shallowPart2) => {
         if (this._selectorNeedsScoping(shallowPart2, scopeSelector)) {
-          return strict ? this._applyStrictSelectorScope(shallowPart2, scopeSelector, hostSelector) : this._applySelectorScope(shallowPart2, scopeSelector, hostSelector);
+          return this._applySelectorScope(shallowPart2, scopeSelector, hostSelector);
         } else {
           return shallowPart2;
         }
@@ -12021,13 +12020,10 @@ var ShadowCss = class {
     scopeSelector = scopeSelector.replace(lre, "\\[").replace(rre, "\\]");
     return new RegExp("^(" + scopeSelector + ")" + _selectorReSuffix, "m");
   }
-  _applySelectorScope(selector, scopeSelector, hostSelector) {
-    return this._applySimpleSelectorScope(selector, scopeSelector, hostSelector);
-  }
   _applySimpleSelectorScope(selector, scopeSelector, hostSelector) {
     _polyfillHostRe.lastIndex = 0;
     if (_polyfillHostRe.test(selector)) {
-      const replaceBy = this.strictStyling ? `[${hostSelector}]` : scopeSelector;
+      const replaceBy = `[${hostSelector}]`;
       return selector.replace(_polyfillHostNoCombinatorRe, (hnc, selector2) => {
         return selector2.replace(/([^:]*)(:*)(.*)/, (_, before, colon, after) => {
           return before + replaceBy + colon + after;
@@ -12036,7 +12032,8 @@ var ShadowCss = class {
     }
     return scopeSelector + " " + selector;
   }
-  _applyStrictSelectorScope(selector, scopeSelector, hostSelector) {
+  _applySelectorScope(selector, scopeSelector, hostSelector) {
+    var _a;
     const isRe = /\[is=([^\]]*)\]/g;
     scopeSelector = scopeSelector.replace(isRe, (_, ...parts) => parts[0]);
     const attrName = "[" + scopeSelector + "]";
@@ -12069,6 +12066,9 @@ var ShadowCss = class {
     while ((res = sep.exec(selector)) !== null) {
       const separator = res[1];
       const part2 = selector.slice(startIndex, res.index).trim();
+      if (part2.match(_placeholderRe) && ((_a = selector[res.index + 1]) === null || _a === void 0 ? void 0 : _a.match(/[a-fA-F\d]/))) {
+        continue;
+      }
       shouldScope = shouldScope || part2.indexOf(_polyfillHostNoCombinator) > -1;
       const scopedPart = shouldScope ? _scopeSelectorPart(part2) : part2;
       scopedSelector += `${scopedPart} ${separator} `;
@@ -12097,7 +12097,7 @@ var SafeSelector = class {
     });
   }
   restore(content) {
-    return content.replace(/__ph-(\d+)__/g, (_ph, index2) => this.placeholders[+index2]);
+    return content.replace(_placeholderRe, (_ph, index2) => this.placeholders[+index2]);
   }
   content() {
     return this._content;
@@ -12134,6 +12134,7 @@ var _polyfillHostRe = /-shadowcsshost/gim;
 var _colonHostRe = /:host/gim;
 var _colonHostContextRe = /:host-context/gim;
 var _commentRe = /\/\*[\s\S]*?\*\//g;
+var _placeholderRe = /__ph-(\d+)__/g;
 function stripComments(input) {
   return input.replace(_commentRe, "");
 }
@@ -21566,7 +21567,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("15.1.0");
+var VERSION = new Version("15.2.0-rc.0");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -23497,7 +23498,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v15.1.0-rc.0
+ * @license Angular v15.2.0-rc.0
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
