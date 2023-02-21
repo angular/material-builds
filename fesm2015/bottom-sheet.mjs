@@ -315,7 +315,9 @@ class MatBottomSheet {
         let ref;
         this._dialog.open(componentOrTemplateRef, Object.assign(Object.assign({}, _config), { 
             // Disable closing since we need to sync it up to the animation ourselves.
-            disableClose: true, maxWidth: '100%', container: MatBottomSheetContainer, scrollStrategy: _config.scrollStrategy || this._overlay.scrollStrategies.block(), positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0'), templateContext: () => ({ bottomSheetRef: ref }), providers: (cdkRef, _cdkConfig, container) => {
+            disableClose: true, 
+            // Disable closing on detachments so that we can sync up the animation.
+            closeOnOverlayDetachments: false, maxWidth: '100%', container: MatBottomSheetContainer, scrollStrategy: _config.scrollStrategy || this._overlay.scrollStrategies.block(), positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0'), templateContext: () => ({ bottomSheetRef: ref }), providers: (cdkRef, _cdkConfig, container) => {
                 ref = new MatBottomSheetRef(cdkRef, _config, container);
                 return [
                     { provide: MatBottomSheetRef, useValue: ref },
