@@ -1714,6 +1714,8 @@ class MatTabGroup extends _MatTabGroupBase {
             defaultConfig && defaultConfig.fitInkBarToContent != null
                 ? defaultConfig.fitInkBarToContent
                 : false;
+        this.stretchTabs =
+            defaultConfig && defaultConfig.stretchTabs != null ? defaultConfig.stretchTabs : true;
     }
 }
 MatTabGroup.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.0-rc.0", ngImport: i0, type: MatTabGroup, deps: [{ token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: MAT_TABS_CONFIG, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component });
