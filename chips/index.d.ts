@@ -239,7 +239,7 @@ export declare class MatChip extends _MatChipMixinBase implements AfterViewInit,
     /** Starts the focus monitoring process on the chip. */
     private _monitorFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, [null, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, mat-chip", ["matChip"], { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "id": "id"; "ariaLabel": "aria-label"; "ariaDescription": "aria-description"; "value": "value"; "removable": "removable"; "highlighted": "highlighted"; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "trailingIcon", "removeIcon"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "id": "id"; "ariaLabel": "aria-label"; "ariaDescription": "aria-description"; "value": "value"; "removable": "removable"; "highlighted": "highlighted"; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "trailingIcon", "removeIcon"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
 }
 
 /**
@@ -801,7 +801,7 @@ export declare class MatChipOption extends MatChip implements OnInit {
     _hasLeadingGraphic(): boolean;
     _setSelectedState(isSelected: boolean, isUserInput: boolean, emitEvent: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipOption, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipOption, "mat-basic-chip-option, mat-chip-option", never, { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "selectable": "selectable"; "selected": "selected"; }, { "selectionChange": "selectionChange"; }, never, ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipOption, "mat-basic-chip-option, [mat-basic-chip-option], mat-chip-option, [mat-chip-option]", never, { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "selectable": "selectable"; "selected": "selected"; }, { "selectionChange": "selectionChange"; }, never, ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
 }
 
 /**
@@ -861,7 +861,7 @@ export declare class MatChipRow extends MatChip implements AfterViewInit {
      */
     private _getEditInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRow, [null, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, mat-basic-chip-row", never, { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "editable": "editable"; }, { "edited": "edited"; }, ["contentEditInput"], ["mat-chip-avatar, [matChipAvatar]", "*", "[matChipEditInput]", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]", never, { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "editable": "editable"; }, { "edited": "edited"; }, ["contentEditInput"], ["mat-chip-avatar, [matChipAvatar]", "*", "[matChipEditInput]", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
 }
 
 /** Default options, for the chips module, that can be overridden. */
