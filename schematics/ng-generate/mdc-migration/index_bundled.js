@@ -21567,7 +21567,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("15.2.0-rc.0");
+var VERSION = new Version("16.0.0-next.0");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -23498,7 +23498,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v15.2.0-rc.0
+ * @license Angular v16.0.0-next.0
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
