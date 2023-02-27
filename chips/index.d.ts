@@ -146,7 +146,7 @@ export declare const MAT_CHIPS_DEFAULT_OPTIONS: InjectionToken<MatChipsDefaultOp
  *
  * Extended by MatChipOption and MatChipRow for different interaction patterns.
  */
-export declare class MatChip extends _MatChipMixinBase implements AfterViewInit, CanColor, CanDisableRipple, CanDisable, HasTabIndex, OnDestroy {
+export declare class MatChip extends _MatChipMixinBase implements AfterViewInit, AfterContentInit, CanColor, CanDisableRipple, CanDisable, HasTabIndex, OnDestroy {
     _changeDetectorRef: ChangeDetectorRef;
     protected _ngZone: NgZone;
     private _focusMonitor;
@@ -166,8 +166,16 @@ export declare class MatChip extends _MatChipMixinBase implements AfterViewInit,
     private _hasFocusInternal;
     /** Whether moving focus into the chip is pending. */
     private _pendingFocus;
+    /** Subscription to changes in the chip's actions. */
+    private _actionChanges;
     /** Whether animations for the chip are enabled. */
     _animationsDisabled: boolean;
+    /** All avatars present in the chip. */
+    protected _allLeadingIcons: QueryList<MatChipAvatar>;
+    /** All trailing icons present in the chip. */
+    protected _allTrailingIcons: QueryList<MatChipTrailingIcon>;
+    /** All remove icons present in the chip. */
+    protected _allRemoveIcons: QueryList<MatChipRemove>;
     _hasFocus(): boolean;
     /** A unique id for the chip. If none is supplied, it will be auto-generated. */
     id: string;
@@ -215,6 +223,7 @@ export declare class MatChip extends _MatChipMixinBase implements AfterViewInit,
     primaryAction: MatChipAction;
     constructor(_changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _focusMonitor: FocusMonitor, _document: any, animationMode?: string, _globalRippleOptions?: RippleGlobalOptions | undefined, tabIndex?: string);
     ngAfterViewInit(): void;
+    ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**
      * Allows for programmatic removal of the chip.
@@ -239,7 +248,7 @@ export declare class MatChip extends _MatChipMixinBase implements AfterViewInit,
     /** Starts the focus monitoring process on the chip. */
     private _monitorFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, [null, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "id": "id"; "ariaLabel": "aria-label"; "ariaDescription": "aria-description"; "value": "value"; "removable": "removable"; "highlighted": "highlighted"; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "trailingIcon", "removeIcon"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "id": "id"; "ariaLabel": "aria-label"; "ariaDescription": "aria-description"; "value": "value"; "removable": "removable"; "highlighted": "highlighted"; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "trailingIcon", "removeIcon", "_allLeadingIcons", "_allTrailingIcons", "_allRemoveIcons"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
 }
 
 /**
