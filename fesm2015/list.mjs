@@ -282,6 +282,7 @@ class MatListItemBase {
         this._hasUnscopedTextContent = false;
         this.rippleConfig = globalRippleOptions || {};
         this._hostElement = this._elementRef.nativeElement;
+        this._isButtonElement = this._hostElement.nodeName.toLowerCase() === 'button';
         this._noopAnimations = animationMode === 'NoopAnimations';
         if (_listBase && !_listBase._isNonInteractive) {
             this._initInteractiveListItem();
@@ -289,8 +290,7 @@ class MatListItemBase {
         // If no type attribute is specified for a host `<button>` element, set it to `button`. If a
         // type attribute is already specified, we do nothing. We do this for backwards compatibility.
         // TODO: Determine if we intend to continue doing this for the MDC-based list.
-        if (this._hostElement.nodeName.toLowerCase() === 'button' &&
-            !this._hostElement.hasAttribute('type')) {
+        if (this._isButtonElement && !this._hostElement.hasAttribute('type')) {
             this._hostElement.setAttribute('type', 'button');
         }
     }
@@ -393,13 +393,14 @@ class MatListItemBase {
     }
 }
 MatListItemBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.0", ngImport: i0, type: MatListItemBase, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: MatListBase, optional: true }, { token: i1.Platform }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatListItemBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.0", type: MatListItemBase, inputs: { lines: "lines", disableRipple: "disableRipple", disabled: "disabled" }, host: { properties: { "class.mdc-list-item--disabled": "disabled", "attr.aria-disabled": "disabled" } }, queries: [{ propertyName: "_avatars", predicate: MatListItemAvatar }, { propertyName: "_icons", predicate: MatListItemIcon }], ngImport: i0 });
+MatListItemBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.0", type: MatListItemBase, inputs: { lines: "lines", disableRipple: "disableRipple", disabled: "disabled" }, host: { properties: { "class.mdc-list-item--disabled": "disabled", "attr.aria-disabled": "disabled", "attr.disabled": "(_isButtonElement && disabled) || null" } }, queries: [{ propertyName: "_avatars", predicate: MatListItemAvatar }, { propertyName: "_icons", predicate: MatListItemIcon }], ngImport: i0 });
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.0", ngImport: i0, type: MatListItemBase, decorators: [{
             type: Directive,
             args: [{
                     host: {
                         '[class.mdc-list-item--disabled]': 'disabled',
                         '[attr.aria-disabled]': 'disabled',
+                        '[attr.disabled]': '(_isButtonElement && disabled) || null',
                     },
                 }]
         }], ctorParameters: function () {
