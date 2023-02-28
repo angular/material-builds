@@ -22806,6 +22806,7 @@ var PERMANENT_MIGRATORS = [
     styles: new TypographyHierarchyStylesMigrator()
   }
 ];
+var CORE_COMPONENTS = ["option", "optgroup"];
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/index.mjs
 var import_schematics4 = require("@angular/cdk/schematics");
@@ -23215,13 +23216,19 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
       this._printAndUpdateNode(sourceFile, currentNode, newName);
     });
   }
+  _importPathHasComponentToMigrate(importTextPath) {
+    const lastImportName = importTextPath.split("/").slice(-1)[0];
+    return !!this.upgradeData.find((componentMigrator) => {
+      return lastImportName.includes(componentMigrator.component) || lastImportName === "legacy-core" && CORE_COMPONENTS.includes(componentMigrator.component);
+    });
+  }
   _findImportsToMigrate(sourceFile) {
     var _a;
     const importSpecifiersToNewNames = /* @__PURE__ */ new Map();
     const moduleSpecifiers = /* @__PURE__ */ new Map();
     const identifiersToImportSpecifiers = /* @__PURE__ */ new Map();
     for (const statement of sourceFile.statements) {
-      if (ts.isImportDeclaration(statement) && ts.isStringLiteral(statement.moduleSpecifier) && ((_a = statement.importClause) == null ? void 0 : _a.namedBindings) && ts.isNamedImports(statement.importClause.namedBindings) && LEGACY_MODULES.has(statement.moduleSpecifier.text)) {
+      if (ts.isImportDeclaration(statement) && ts.isStringLiteral(statement.moduleSpecifier) && ((_a = statement.importClause) == null ? void 0 : _a.namedBindings) && ts.isNamedImports(statement.importClause.namedBindings) && LEGACY_MODULES.has(statement.moduleSpecifier.text) && this._importPathHasComponentToMigrate(statement.moduleSpecifier.text)) {
         statement.importClause.namedBindings.elements.forEach((element) => {
           const oldName = (element.propertyName || element.name).text;
           const newName = this._removeLegacy(oldName);
