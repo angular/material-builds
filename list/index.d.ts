@@ -188,6 +188,8 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
     abstract _unscopedContent: ElementRef<HTMLSpanElement> | undefined;
     /** Host element for the list item. */
     _hostElement: HTMLElement;
+    /** indicate whether the host element is a button or not */
+    _isButtonElement: boolean;
     /** Whether animations are disabled. */
     _noopAnimations: boolean;
     _avatars: QueryList<never>;
