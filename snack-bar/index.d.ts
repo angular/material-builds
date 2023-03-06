@@ -230,6 +230,8 @@ export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet
     private _platform;
     /** The snack bar configuration. */
     snackBarConfig: MatSnackBarConfig;
+    private _document;
+    private _trackedModals;
     /** The number of milliseconds to wait before announcing the snack bar's content. */
     private readonly _announceDelay;
     /** The timeout for announcing the snack bar's content. */
@@ -253,6 +255,8 @@ export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet
      * JAWS does not read out aria-live message.
      */
     _role?: 'status' | 'alert';
+    /** Unique ID of the aria-live element. */
+    readonly _liveElementId: string;
     constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _platform: Platform, 
     /** The snack bar configuration. */
     snackBarConfig: MatSnackBarConfig);
@@ -284,6 +288,14 @@ export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet
      * used to modify the DOM once it's guaranteed to be in place.
      */
     protected _afterPortalAttached(): void;
+    /**
+     * Some browsers won't expose the accessibility node of the live element if there is an
+     * `aria-modal` and the live element is outside of it. This method works around the issue by
+     * pointing the `aria-owns` of all modals to the live element.
+     */
+    private _exposeToModals;
+    /** Clears the references to the live element from any modals it was added to. */
+    private _clearFromModals;
     /** Asserts that no content is already attached to the container. */
     private _assertNotAttached;
     /**
