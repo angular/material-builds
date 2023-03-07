@@ -632,13 +632,6 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
      * determine if the select's view -> model callback should be invoked.`
      */
     _selectViaInteraction(): void;
-    /**
-     * Gets the `aria-selected` value for the option. We explicitly omit the `aria-selected`
-     * attribute from single-selection, unselected options. Including the `aria-selected="false"`
-     * attributes adds a significant amount of noise to screen-reader users without providing useful
-     * information.
-     */
-    _getAriaSelected(): boolean | null;
     /** Returns the correct tabindex for the option depending on disabled state. */
     _getTabIndex(): string;
     /** Gets the host DOM element. */
