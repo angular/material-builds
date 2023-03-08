@@ -398,6 +398,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
 export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, AfterViewChecked {
     private _elementRef;
     private _ngZone;
+    private _platform;
     /**
      * Used to skip the next focus event when rendering the preview range.
      * We need a flag like this, because some browsers fire focus events asynchronously.

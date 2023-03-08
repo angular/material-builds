@@ -7,7 +7,7 @@ import { ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/port
 import * as i1 from '@angular/common';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, inject, Directive, Attribute, ContentChild, Self, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, inject, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, Directive, Attribute, ContentChild, Self, TemplateRef, NgModule } from '@angular/core';
 import * as i3 from '@angular/material/button';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -17,9 +17,9 @@ import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import * as i2 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
+import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { take, startWith, filter } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
-import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
 import * as i2$1 from '@angular/forms';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, NgControl } from '@angular/forms';
@@ -143,6 +143,7 @@ class MatCalendarBody {
     constructor(_elementRef, _ngZone) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
+        this._platform = inject(Platform);
         /**
          * Used to focus the active cell after change detection has run.
          */
@@ -286,8 +287,10 @@ class MatCalendarBody {
             element.addEventListener('blur', this._leaveHandler, true);
             element.addEventListener('mousedown', this._mousedownHandler);
             element.addEventListener('touchstart', this._mousedownHandler);
-            window.addEventListener('mouseup', this._mouseupHandler);
-            window.addEventListener('touchend', this._touchendHandler);
+            if (this._platform.isBrowser) {
+                window.addEventListener('mouseup', this._mouseupHandler);
+                window.addEventListener('touchend', this._touchendHandler);
+            }
         });
     }
     /** Called when a cell is clicked. */
@@ -332,8 +335,10 @@ class MatCalendarBody {
         element.removeEventListener('blur', this._leaveHandler, true);
         element.removeEventListener('mousedown', this._mousedownHandler);
         element.removeEventListener('touchstart', this._mousedownHandler);
-        window.removeEventListener('mouseup', this._mouseupHandler);
-        window.removeEventListener('touchend', this._touchendHandler);
+        if (this._platform.isBrowser) {
+            window.removeEventListener('mouseup', this._mouseupHandler);
+            window.removeEventListener('touchend', this._touchendHandler);
+        }
     }
     /** Returns whether a cell is active. */
     _isActiveCell(rowIndex, colIndex) {
