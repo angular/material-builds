@@ -13,14 +13,15 @@ import * as i0 from "@angular/core";
  *     placeholder.
  * @breaking-change 8.0.0
  */
-export class MatLegacyPlaceholder {
+class MatLegacyPlaceholder {
 }
-MatLegacyPlaceholder.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.0", ngImport: i0, type: MatLegacyPlaceholder, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyPlaceholder.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.0", type: MatLegacyPlaceholder, selector: "mat-placeholder", ngImport: i0 });
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.0", ngImport: i0, type: MatLegacyPlaceholder, decorators: [{
+MatLegacyPlaceholder.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyPlaceholder, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyPlaceholder.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatLegacyPlaceholder, selector: "mat-placeholder", ngImport: i0 });
+export { MatLegacyPlaceholder };
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyPlaceholder, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-placeholder',
                 }]
         }] });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGxhY2Vob2xkZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi9zcmMvbWF0ZXJpYWwvbGVnYWN5LWZvcm0tZmllbGQvcGxhY2Vob2xkZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFDLFNBQVMsRUFBQyxNQUFNLGVBQWUsQ0FBQzs7QUFFeEM7Ozs7O0dBS0c7QUFJSCxNQUFNLE9BQU8sb0JBQW9COzt3SEFBcEIsb0JBQW9COzRHQUFwQixvQkFBb0I7a0dBQXBCLG9CQUFvQjtrQkFIaEMsU0FBUzttQkFBQztvQkFDVCxRQUFRLEVBQUUsaUJBQWlCO2lCQUM1QiIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge0RpcmVjdGl2ZX0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbi8qKlxuICogVGhlIHBsYWNlaG9sZGVyIHRleHQgZm9yIGFuIGBNYXRGb3JtRmllbGRgLlxuICogQGRlcHJlY2F0ZWQgVXNlIGA8bWF0LWxhYmVsPmAgdG8gc3BlY2lmeSB0aGUgbGFiZWwgYW5kIHRoZSBgcGxhY2Vob2xkZXJgIGF0dHJpYnV0ZSB0byBzcGVjaWZ5IHRoZVxuICogICAgIHBsYWNlaG9sZGVyLlxuICogQGJyZWFraW5nLWNoYW5nZSA4LjAuMFxuICovXG5ARGlyZWN0aXZlKHtcbiAgc2VsZWN0b3I6ICdtYXQtcGxhY2Vob2xkZXInLFxufSlcbmV4cG9ydCBjbGFzcyBNYXRMZWdhY3lQbGFjZWhvbGRlciB7fVxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGxhY2Vob2xkZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi9zcmMvbWF0ZXJpYWwvbGVnYWN5LWZvcm0tZmllbGQvcGxhY2Vob2xkZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFDLFNBQVMsRUFBQyxNQUFNLGVBQWUsQ0FBQzs7QUFFeEM7Ozs7O0dBS0c7QUFDSCxNQUdhLG9CQUFvQjs7d0hBQXBCLG9CQUFvQjs0R0FBcEIsb0JBQW9CO1NBQXBCLG9CQUFvQjtrR0FBcEIsb0JBQW9CO2tCQUhoQyxTQUFTO21CQUFDO29CQUNULFFBQVEsRUFBRSxpQkFBaUI7aUJBQzVCIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7RGlyZWN0aXZlfSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuLyoqXG4gKiBUaGUgcGxhY2Vob2xkZXIgdGV4dCBmb3IgYW4gYE1hdEZvcm1GaWVsZGAuXG4gKiBAZGVwcmVjYXRlZCBVc2UgYDxtYXQtbGFiZWw+YCB0byBzcGVjaWZ5IHRoZSBsYWJlbCBhbmQgdGhlIGBwbGFjZWhvbGRlcmAgYXR0cmlidXRlIHRvIHNwZWNpZnkgdGhlXG4gKiAgICAgcGxhY2Vob2xkZXIuXG4gKiBAYnJlYWtpbmctY2hhbmdlIDguMC4wXG4gKi9cbkBEaXJlY3RpdmUoe1xuICBzZWxlY3RvcjogJ21hdC1wbGFjZWhvbGRlcicsXG59KVxuZXhwb3J0IGNsYXNzIE1hdExlZ2FjeVBsYWNlaG9sZGVyIHt9XG4iXX0=
