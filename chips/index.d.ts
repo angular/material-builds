@@ -859,9 +859,9 @@ export declare class MatChipRow extends MatChip implements AfterViewInit {
     constructor(changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef, ngZone: NgZone, focusMonitor: FocusMonitor, _document: any, animationMode?: string, globalRippleOptions?: RippleGlobalOptions, tabIndex?: string);
     _hasTrailingIcon(): boolean;
     /** Sends focus to the first gridcell when the user clicks anywhere inside the chip. */
-    _mousedown(event: MouseEvent): void;
+    _handleFocus(): void;
     _handleKeydown(event: KeyboardEvent): void;
-    _doubleclick(event: MouseEvent): void;
+    _handleDoubleclick(event: MouseEvent): void;
     private _startEditing;
     private _onEditFinish;
     /**
