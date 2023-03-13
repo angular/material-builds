@@ -50,7 +50,7 @@ class MatTable extends CdkTable {
     }
 }
 MatTable.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatTable, deps: null, target: i0.ɵɵFactoryTarget.Component });
-MatTable.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatTable, selector: "mat-table, table[mat-table]", host: { properties: { "class.mdc-table-fixed-layout": "fixedLayout" }, classAttribute: "mat-mdc-table mdc-data-table__table" }, providers: [
+MatTable.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatTable, selector: "mat-table, table[mat-table]", host: { attributes: { "ngSkipHydration": "true" }, properties: { "class.mdc-table-fixed-layout": "fixedLayout" }, classAttribute: "mat-mdc-table mdc-data-table__table" }, providers: [
         { provide: CdkTable, useExisting: MatTable },
         { provide: CDK_TABLE, useExisting: MatTable },
         { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
@@ -65,6 +65,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", 
             args: [{ selector: 'mat-table, table[mat-table]', exportAs: 'matTable', template: CDK_TABLE_TEMPLATE, host: {
                         'class': 'mat-mdc-table mdc-data-table__table',
                         '[class.mdc-table-fixed-layout]': 'fixedLayout',
+                        'ngSkipHydration': 'true',
                     }, providers: [
                         { provide: CdkTable, useExisting: MatTable },
                         { provide: CDK_TABLE, useExisting: MatTable },
