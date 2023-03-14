@@ -146,7 +146,7 @@ export declare const MAT_CHIPS_DEFAULT_OPTIONS: InjectionToken<MatChipsDefaultOp
  *
  * Extended by MatChipOption and MatChipRow for different interaction patterns.
  */
-export declare class MatChip extends _MatChipMixinBase implements AfterViewInit, AfterContentInit, CanColor, CanDisableRipple, CanDisable, HasTabIndex, OnDestroy {
+export declare class MatChip extends _MatChipMixinBase implements OnInit, AfterViewInit, AfterContentInit, CanColor, CanDisableRipple, CanDisable, HasTabIndex, OnDestroy {
     _changeDetectorRef: ChangeDetectorRef;
     protected _ngZone: NgZone;
     private _focusMonitor;
@@ -159,7 +159,7 @@ export declare class MatChip extends _MatChipMixinBase implements AfterViewInit,
     /** Emits when the chip is blurred. */
     readonly _onBlur: Subject<MatChipEvent>;
     /** Whether this chip is a basic (unstyled) chip. */
-    readonly _isBasicChip: boolean;
+    _isBasicChip: boolean;
     /** Role for the root of the chip. */
     role: string | null;
     /** Whether the chip has focus. */
@@ -222,6 +222,7 @@ export declare class MatChip extends _MatChipMixinBase implements AfterViewInit,
     /** Action receiving the primary set of user interactions. */
     primaryAction: MatChipAction;
     constructor(_changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _focusMonitor: FocusMonitor, _document: any, animationMode?: string, _globalRippleOptions?: RippleGlobalOptions | undefined, tabIndex?: string);
+    ngOnInit(): void;
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
