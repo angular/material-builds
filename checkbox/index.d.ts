@@ -169,7 +169,6 @@ export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase 
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: any): void;
     setDisabledState(isDisabled: boolean): void;
-    _getAriaChecked(): 'true' | 'false' | 'mixed';
     private _transitionCheckState;
     private _emitChangeEvent;
     /** Toggles the `checked` state of the checkbox. */
