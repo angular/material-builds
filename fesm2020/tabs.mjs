@@ -681,11 +681,6 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
     passive: true,
 });
 /**
- * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
- * provide a small affordance to the label next to it.
- */
-const EXAGGERATED_OVERSCROLL = 60;
-/**
  * Amount of milliseconds to wait before starting to scroll the header automatically.
  * Set a little conservatively in order to handle fake events dispatched on touch devices.
  */
@@ -1042,11 +1037,11 @@ class MatPaginatedTabHeader {
         const afterVisiblePos = this.scrollDistance + viewLength;
         if (labelBeforePos < beforeVisiblePos) {
             // Scroll header to move label to the before direction
-            this.scrollDistance -= beforeVisiblePos - labelBeforePos + EXAGGERATED_OVERSCROLL;
+            this.scrollDistance -= beforeVisiblePos - labelBeforePos;
         }
         else if (labelAfterPos > afterVisiblePos) {
             // Scroll header to move label to the after direction
-            this.scrollDistance += labelAfterPos - afterVisiblePos + EXAGGERATED_OVERSCROLL;
+            this.scrollDistance += Math.min(labelAfterPos - afterVisiblePos, labelBeforePos - beforeVisiblePos);
         }
     }
     /**
