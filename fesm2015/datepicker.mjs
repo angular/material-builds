@@ -4152,7 +4152,10 @@ class MatDateRangeInput {
     }
     /** Whether the input is required. */
     get required() {
-        return !!this._required;
+        var _a, _b;
+        return ((_b = (_a = this._required) !== null && _a !== void 0 ? _a : (this._isTargetRequired(this) ||
+            this._isTargetRequired(this._startInput) ||
+            this._isTargetRequired(this._endInput))) !== null && _b !== void 0 ? _b : false);
     }
     set required(value) {
         this._required = coerceBooleanProperty(value);
@@ -4381,6 +4384,11 @@ class MatDateRangeInput {
         if (this._endInput) {
             this._endInput._registerModel(model);
         }
+    }
+    /** Checks whether a specific range input directive is required. */
+    _isTargetRequired(target) {
+        var _a, _b;
+        return (_b = (_a = target === null || target === void 0 ? void 0 : target.ngControl) === null || _a === void 0 ? void 0 : _a.control) === null || _b === void 0 ? void 0 : _b.hasValidator(Validators.required);
     }
 }
 MatDateRangeInput.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.0-rc.0", ngImport: i0, type: MatDateRangeInput, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: i2$1.ControlContainer, optional: true, self: true }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Component });
