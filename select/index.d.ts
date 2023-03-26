@@ -114,6 +114,7 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     private _hideSingleSelectionIndicator;
     /** Syncs the parent state with the individual options. */
     _syncParentProperties(): void;
+    protected _skipPredicate: (option: MatOption) => boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": "disabled"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "hideSingleSelectionIndicator": "hideSingleSelectionIndicator"; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
 }
@@ -359,6 +360,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _selectOptionByValue;
     /** Assigns a specific value to the select. Returns whether the value has changed. */
     private _assignValue;
+    protected _skipPredicate(item: MatOption): boolean;
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     private _initKeyManager;
     /** Drops current option subscriptions and IDs and resets from scratch. */
@@ -371,7 +373,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _propagateChanges;
     /**
      * Highlights the selected item. If no option is selected, it will highlight
-     * the first item instead.
+     * the first *enabled* option.
      */
     private _highlightCorrectOption;
     /** Whether the panel is allowed to open. */

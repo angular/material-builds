@@ -162,7 +162,9 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
         this.inertGroups = platform?.SAFARI || false;
     }
     ngAfterContentInit() {
-        this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
+        this._keyManager = new ActiveDescendantKeyManager(this.options)
+            .withWrap()
+            .skipPredicate(this._skipPredicate);
         this._activeOptionChanges = this._keyManager.change.subscribe(index => {
             if (this.isOpen) {
                 this.optionActivated.emit({ source: this, option: this.options.toArray()[index] || null });
@@ -217,6 +219,9 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
         classList['mat-primary'] = this._color === 'primary';
         classList['mat-warn'] = this._color === 'warn';
         classList['mat-accent'] = this._color === 'accent';
+    }
+    _skipPredicate(option) {
+        return option.disabled;
     }
 }
 _MatAutocompleteBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: _MatAutocompleteBase, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS }, { token: i1.Platform }], target: i0.ɵɵFactoryTarget.Directive });
@@ -280,6 +285,23 @@ class MatAutocomplete extends _MatAutocompleteBase {
                 option._changeDetectorRef.markForCheck();
             }
         }
+    }
+    // `skipPredicate` determines if key manager should avoid putting a given option in the tab
+    // order. Allow disabled list items to receive focus via keyboard to align with WAI ARIA
+    // recommendation.
+    //
+    // Normally WAI ARIA's instructions are to exclude disabled items from the tab order, but it
+    // makes a few exceptions for compound widgets.
+    //
+    // From [Developing a Keyboard Interface](
+    // https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/):
+    //   "For the following composite widget elements, keep them focusable when disabled: Options in a
+    //   Listbox..."
+    //
+    // The user can focus disabled options using the keyboard, but the user cannot click disabled
+    // options.
+    _skipPredicate(_option) {
+        return false;
     }
 }
 MatAutocomplete.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatAutocomplete, deps: null, target: i0.ɵɵFactoryTarget.Component });
@@ -878,15 +900,27 @@ class _MatAutocompleteTriggerBase {
         return this._getConnectedElement().nativeElement.getBoundingClientRect().width;
     }
     /**
-     * Resets the active item to -1 so arrow events will activate the
-     * correct options, or to 0 if the consumer opted into it.
+     * Reset the active item to -1. This is so that pressing arrow keys will activate the correct
+     * option.
+     *
+     * If the consumer opted-in to automatically activatating the first option, activate the first
+     * *enabled* option.
      */
     _resetActiveItem() {
         const autocomplete = this.autocomplete;
         if (autocomplete.autoActiveFirstOption) {
-            // Note that we go through `setFirstItemActive`, rather than `setActiveItem(0)`, because
-            // the former will find the next enabled option, if the first one is disabled.
-            autocomplete._keyManager.setFirstItemActive();
+            // Find the index of the first *enabled* option. Avoid calling `_keyManager.setActiveItem`
+            // because it activates the first option that passes the skip predicate, rather than the
+            // first *enabled* option.
+            let firstEnabledOptionIndex = -1;
+            for (let index = 0; index < autocomplete.options.length; index++) {
+                const option = autocomplete.options.get(index);
+                if (!option.disabled) {
+                    firstEnabledOptionIndex = index;
+                    break;
+                }
+            }
+            autocomplete._keyManager.setActiveItem(firstEnabledOptionIndex);
         }
         else {
             autocomplete._keyManager.setActiveItem(-1);

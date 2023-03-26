@@ -111,6 +111,7 @@ export declare class MatAutocomplete extends _MatAutocompleteBase {
     private _hideSingleSelectionIndicator;
     /** Syncs the parent state with the individual options. */
     _syncParentProperties(): void;
+    protected _skipPredicate(_option: _MatOptionBase): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocomplete, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": "disableRipple"; "hideSingleSelectionIndicator": "hideSingleSelectionIndicator"; }, {}, ["optionGroups", "options"], ["*"], false, never>;
 }
@@ -217,6 +218,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     private _setVisibilityClasses;
     /** Sets the theming classes on a classlist based on the theme of the panel. */
     private _setThemeClasses;
+    protected _skipPredicate(option: _MatOptionBase): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": "aria-label"; "ariaLabelledby": "aria-labelledby"; "displayWith": "displayWith"; "autoActiveFirstOption": "autoActiveFirstOption"; "autoSelectActiveOption": "autoSelectActiveOption"; "panelWidth": "panelWidth"; "classList": "class"; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false, never>;
 }
@@ -435,8 +437,11 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     /** Returns the width of the input element, so the panel width can match it. */
     private _getHostWidth;
     /**
-     * Resets the active item to -1 so arrow events will activate the
-     * correct options, or to 0 if the consumer opted into it.
+     * Reset the active item to -1. This is so that pressing arrow keys will activate the correct
+     * option.
+     *
+     * If the consumer opted-in to automatically activatating the first option, activate the first
+     * *enabled* option.
      */
     private _resetActiveItem;
     /** Determines whether the panel can be opened. */
