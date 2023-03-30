@@ -93,7 +93,7 @@ export declare class MatColumnDef extends CdkColumnDef {
      */
     protected _updateColumnCssClassName(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatColumnDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "sticky": "sticky"; "name": "matColumnDef"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "sticky": { "alias": "sticky"; "required": false; }; "name": { "alias": "matColumnDef"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Footer cell template container that adds the right classes and role. */
@@ -123,7 +123,7 @@ export declare class MatFooterRow extends CdkFooterRow {
  */
 export declare class MatFooterRowDef extends CdkFooterRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterRowDef, "[matFooterRowDef]", never, { "columns": "matFooterRowDef"; "sticky": "matFooterRowDefSticky"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterRowDef, "[matFooterRowDef]", never, { "columns": { "alias": "matFooterRowDef"; "required": false; }; "sticky": { "alias": "matFooterRowDefSticky"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Header cell template container that adds the right classes and role. */
@@ -153,7 +153,7 @@ export declare class MatHeaderRow extends CdkHeaderRow {
  */
 export declare class MatHeaderRowDef extends CdkHeaderRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderRowDef, "[matHeaderRowDef]", never, { "columns": "matHeaderRowDef"; "sticky": "matHeaderRowDefSticky"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderRowDef, "[matHeaderRowDef]", never, { "columns": { "alias": "matHeaderRowDef"; "required": false; }; "sticky": { "alias": "matHeaderRowDefSticky"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Row that can be used to display a message when no data is shown in the table. */
@@ -185,7 +185,7 @@ export declare class MatRow extends CdkRow {
  */
 export declare class MatRowDef<T> extends CdkRowDef<T> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRowDef<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRowDef<any>, "[matRowDef]", never, { "columns": "matRowDefColumns"; "when": "matRowDefWhen"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRowDef<any>, "[matRowDef]", never, { "columns": { "alias": "matRowDefColumns"; "required": false; }; "when": { "alias": "matRowDefWhen"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 export declare class MatTable<T> extends CdkTable<T> implements OnInit {

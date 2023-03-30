@@ -22,10 +22,10 @@ class MatPrefix {
         this._isText = true;
     }
 }
-MatPrefix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatPrefix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatPrefix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatPrefix, selector: "[matPrefix], [matIconPrefix], [matTextPrefix]", inputs: { _isTextSelector: ["matTextPrefix", "_isTextSelector"] }, providers: [{ provide: MAT_PREFIX, useExisting: MatPrefix }], ngImport: i0 });
+MatPrefix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatPrefix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatPrefix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatPrefix, selector: "[matPrefix], [matIconPrefix], [matTextPrefix]", inputs: { _isTextSelector: ["matTextPrefix", "_isTextSelector"] }, providers: [{ provide: MAT_PREFIX, useExisting: MatPrefix }], ngImport: i0 });
 export { MatPrefix };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatPrefix, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatPrefix, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matPrefix], [matIconPrefix], [matTextPrefix]',

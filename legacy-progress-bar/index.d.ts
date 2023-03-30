@@ -104,7 +104,7 @@ export declare class MatLegacyProgressBar extends _MatProgressBarBase implements
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyProgressBar, [null, null, { optional: true; }, { optional: true; }, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": "color"; "value": "value"; "bufferValue": "bufferValue"; "mode": "mode"; }, { "animationEnd": "animationEnd"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "bufferValue": { "alias": "bufferValue"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; }, { "animationEnd": "animationEnd"; }, never, never, false, never>;
 }
 
 export { MatLegacyProgressBarDefaultOptions }

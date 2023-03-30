@@ -81,7 +81,7 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     /** Sets style on the main grid-list element, given the style name and value. */
     _setListStyle(style: [string, string | null] | null): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridList, [null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": "cols"; "gutterSize": "gutterSize"; "rowHeight": "rowHeight"; }, {}, ["_tiles"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": { "alias": "cols"; "required": false; }; "gutterSize": { "alias": "gutterSize"; "required": false; }; "rowHeight": { "alias": "rowHeight"; "required": false; }; }, {}, ["_tiles"], ["*"], false, never>;
 }
 
 /**
@@ -118,7 +118,7 @@ export declare class MatGridTile {
      */
     _setStyle(property: string, value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTile, [null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTile, "mat-grid-tile", ["matGridTile"], { "rowspan": "rowspan"; "colspan": "colspan"; }, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTile, "mat-grid-tile", ["matGridTile"], { "rowspan": { "alias": "rowspan"; "required": false; }; "colspan": { "alias": "colspan"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 /**

@@ -50,13 +50,12 @@ export { LEGACY_SCROLL_THROTTLE_MS }
  * @breaking-change 17.0.0
  */
 export declare class LegacyTooltipComponent extends _TooltipComponentBase {
-    private _breakpointObserver;
     /** Stream that emits whether the user has a handset-sized display.  */
     _isHandset: Observable<BreakpointState>;
     _showAnimation: string;
     _hideAnimation: string;
     _tooltip: ElementRef<HTMLElement>;
-    constructor(changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver, animationMode?: string);
+    constructor(changeDetectorRef: ChangeDetectorRef, breakpointObserver: BreakpointObserver, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<LegacyTooltipComponent, [null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<LegacyTooltipComponent, "mat-tooltip-component", never, {}, {}, never, never, false, never>;
 }

@@ -207,7 +207,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements AfterViewI
     _getThumb(thumbPosition: _MatThumb): _MatSliderVisualThumb;
     _setTransition(withAnimation: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlider, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "color": "color"; "disableRipple": "disableRipple"; "disabled": "disabled"; "discrete": "discrete"; "showTickMarks": "showTickMarks"; "min": "min"; "max": "max"; "step": "step"; "displayWith": "displayWith"; }, {}, ["_input", "_inputs"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "discrete": { "alias": "discrete"; "required": false; }; "showTickMarks": { "alias": "showTickMarks"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "step": { "alias": "step"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; }, {}, ["_input", "_inputs"], ["*"], false, never>;
 }
 
 declare interface _MatSlider {
@@ -519,7 +519,7 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     focus(): void;
     blur(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderThumb, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSliderThumb, "input[matSliderThumb]", ["matSliderThumb"], { "value": "value"; }, { "valueChange": "valueChange"; "dragStart": "dragStart"; "dragEnd": "dragEnd"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSliderThumb, "input[matSliderThumb]", ["matSliderThumb"], { "value": { "alias": "value"; "required": false; }; }, { "valueChange": "valueChange"; "dragStart": "dragStart"; "dragEnd": "dragEnd"; }, never, never, false, never>;
 }
 
 declare interface _MatSliderThumb {
@@ -649,7 +649,7 @@ export declare class MatSliderVisualThumb implements _MatSliderVisualThumb, Afte
     _isShowingAnyRipple(): boolean;
     private _isSliderThumbHovered;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderVisualThumb, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSliderVisualThumb, "mat-slider-visual-thumb", never, { "discrete": "discrete"; "thumbPosition": "thumbPosition"; "valueIndicatorText": "valueIndicatorText"; }, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSliderVisualThumb, "mat-slider-visual-thumb", never, { "discrete": { "alias": "discrete"; "required": false; }; "thumbPosition": { "alias": "thumbPosition"; "required": false; }; "valueIndicatorText": { "alias": "valueIndicatorText"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 declare interface _MatSliderVisualThumb {

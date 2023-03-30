@@ -14,10 +14,10 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyTabLabelWrapper extends _MatTabLabelWrapperBase {
 }
-MatLegacyTabLabelWrapper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyTabLabelWrapper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyTabLabelWrapper.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatLegacyTabLabelWrapper, selector: "[matTabLabelWrapper]", inputs: { disabled: "disabled" }, host: { properties: { "class.mat-tab-disabled": "disabled", "attr.aria-disabled": "!!disabled" } }, usesInheritance: true, ngImport: i0 });
+MatLegacyTabLabelWrapper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTabLabelWrapper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyTabLabelWrapper.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyTabLabelWrapper, selector: "[matTabLabelWrapper]", inputs: { disabled: "disabled" }, host: { properties: { "class.mat-tab-disabled": "disabled", "attr.aria-disabled": "!!disabled" } }, usesInheritance: true, ngImport: i0 });
 export { MatLegacyTabLabelWrapper };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyTabLabelWrapper, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTabLabelWrapper, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matTabLabelWrapper]',

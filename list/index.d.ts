@@ -131,7 +131,7 @@ declare abstract class MatListBase {
     private _disabled;
     protected _defaultOptions: MatListConfig | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Object that can be used to configure the default options for the list module. */
@@ -157,7 +157,7 @@ export declare class MatListItem extends MatListItemBase {
      */
     _getAriaCurrent(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, { optional: true; }, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": "activated"; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": { "alias": "activated"; "required": false; }; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], false, never>;
 }
 
 /**
@@ -262,7 +262,7 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
     /** Checks whether the list item has unscoped text content. */
     private _checkDomForUnscopedTextContent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemBase, [null, null, { optional: true; }, null, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": "lines"; "disableRipple": "disableRipple"; "disabled": "disabled"; }, {}, ["_avatars", "_icons"], never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": { "alias": "lines"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, ["_avatars", "_icons"], never, false, never>;
 }
 
 /**
@@ -409,7 +409,7 @@ export declare class MatListOption extends MatListItemBase implements ListOption
     /** Sets the tabindex of the list option. */
     _setTabindex(value: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, [null, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": "togglePosition"; "checkboxPosition": "checkboxPosition"; "color": "color"; "value": "value"; "selected": "selected"; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": { "alias": "togglePosition"; "required": false; }; "checkboxPosition": { "alias": "checkboxPosition"; "required": false; }; "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], false, never>;
 }
 
 /**
@@ -548,7 +548,7 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     /** Returns whether the focus is currently within the list. */
     private _containsFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": "color"; "compareWith": "compareWith"; "multiple": "multiple"; "hideSingleSelectionIndicator": "hideSingleSelectionIndicator"; "disabled": "disabled"; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": { "alias": "color"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false, never>;
 }
 
 /** Change event that is being fired whenever the selected state of an option changes. */

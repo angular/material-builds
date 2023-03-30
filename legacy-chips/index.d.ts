@@ -240,7 +240,7 @@ export declare class MatLegacyChip extends _MatChipMixinBase implements Focusabl
     _blur(): void;
     private _dispatchSelectionChange;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChip, [null, null, null, { optional: true; }, null, null, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": "color"; "disableRipple": "disableRipple"; "tabIndex": "tabIndex"; "role": "role"; "selected": "selected"; "value": "value"; "selectable": "selectable"; "disabled": "disabled"; "removable": "removable"; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"], never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "role": { "alias": "role"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selectable": { "alias": "selectable"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "removable": { "alias": "removable"; "required": false; }; }, { "selectionChange": "selectionChange"; "destroyed": "destroyed"; "removed": "removed"; }, ["avatar", "trailingIcon", "removeIcon"], never, false, never>;
 }
 
 /**
@@ -272,7 +272,6 @@ export declare interface MatLegacyChipEvent {
  */
 export declare class MatLegacyChipInput implements MatLegacyChipTextControl, OnChanges, OnDestroy, AfterContentInit {
     protected _elementRef: ElementRef<HTMLInputElement>;
-    private _defaultOptions;
     /** Used to prevent focus moving to chips while user is holding backspace */
     private _focusLastChipOnBackspace;
     /** Whether the control is focused. */
@@ -306,7 +305,7 @@ export declare class MatLegacyChipInput implements MatLegacyChipTextControl, OnC
     get empty(): boolean;
     /** The native input element to which this directive is attached. */
     readonly inputElement: HTMLInputElement;
-    constructor(_elementRef: ElementRef<HTMLInputElement>, _defaultOptions: MatLegacyChipsDefaultOptions);
+    constructor(_elementRef: ElementRef<HTMLInputElement>, defaultOptions: MatLegacyChipsDefaultOptions);
     ngOnChanges(): void;
     ngOnDestroy(): void;
     ngAfterContentInit(): void;
@@ -329,7 +328,7 @@ export declare class MatLegacyChipInput implements MatLegacyChipTextControl, OnC
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChipInput, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipList": "matChipInputFor"; "addOnBlur": "matChipInputAddOnBlur"; "separatorKeyCodes": "matChipInputSeparatorKeyCodes"; "placeholder": "placeholder"; "id": "id"; "disabled": "disabled"; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipList": { "alias": "matChipInputFor"; "required": false; }; "addOnBlur": { "alias": "matChipInputAddOnBlur"; "required": false; }; "separatorKeyCodes": { "alias": "matChipInputSeparatorKeyCodes"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, false, never>;
 }
 
 /**
@@ -587,7 +586,7 @@ export declare class MatLegacyChipList extends _MatChipListBase implements MatLe
     /** Syncs the list's state with the individual chips. */
     private _syncChipsState;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyChipList, [null, null, { optional: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyChipList, "mat-chip-list", ["matChipList"], { "role": "role"; "userAriaDescribedBy": "aria-describedby"; "errorStateMatcher": "errorStateMatcher"; "multiple": "multiple"; "compareWith": "compareWith"; "value": "value"; "required": "required"; "placeholder": "placeholder"; "disabled": "disabled"; "ariaOrientation": "aria-orientation"; "selectable": "selectable"; "tabIndex": "tabIndex"; }, { "change": "change"; "valueChange": "valueChange"; }, ["chips"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyChipList, "mat-chip-list", ["matChipList"], { "role": { "alias": "role"; "required": false; }; "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "value": { "alias": "value"; "required": false; }; "required": { "alias": "required"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "ariaOrientation": { "alias": "aria-orientation"; "required": false; }; "selectable": { "alias": "selectable"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, { "change": "change"; "valueChange": "valueChange"; }, ["chips"], ["*"], false, never>;
 }
 
 /**

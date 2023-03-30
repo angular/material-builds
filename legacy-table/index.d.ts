@@ -98,7 +98,7 @@ export declare class MatLegacyColumnDef extends CdkColumnDef {
      */
     protected _updateColumnCssClassName(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyColumnDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyColumnDef, "[matColumnDef]", never, { "sticky": "sticky"; "name": "matColumnDef"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyColumnDef, "[matColumnDef]", never, { "sticky": { "alias": "sticky"; "required": false; }; "name": { "alias": "matColumnDef"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**
@@ -140,7 +140,7 @@ export declare class MatLegacyFooterRow extends CdkFooterRow {
  */
 export declare class MatLegacyFooterRowDef extends CdkFooterRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyFooterRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyFooterRowDef, "[matFooterRowDef]", never, { "columns": "matFooterRowDef"; "sticky": "matFooterRowDefSticky"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyFooterRowDef, "[matFooterRowDef]", never, { "columns": { "alias": "matFooterRowDef"; "required": false; }; "sticky": { "alias": "matFooterRowDefSticky"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**
@@ -182,7 +182,7 @@ export declare class MatLegacyHeaderRow extends CdkHeaderRow {
  */
 export declare class MatLegacyHeaderRowDef extends CdkHeaderRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyHeaderRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHeaderRowDef, "[matHeaderRowDef]", never, { "columns": "matHeaderRowDef"; "sticky": "matHeaderRowDefSticky"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHeaderRowDef, "[matHeaderRowDef]", never, { "columns": { "alias": "matHeaderRowDef"; "required": false; }; "sticky": { "alias": "matHeaderRowDefSticky"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**
@@ -226,7 +226,7 @@ export declare class MatLegacyRow extends CdkRow {
  */
 export declare class MatLegacyRowDef<T> extends CdkRowDef<T> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyRowDef<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyRowDef<any>, "[matRowDef]", never, { "columns": "matRowDefColumns"; "when": "matRowDefWhen"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyRowDef<any>, "[matRowDef]", never, { "columns": { "alias": "matRowDefColumns"; "required": false; }; "when": { "alias": "matRowDefWhen"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**

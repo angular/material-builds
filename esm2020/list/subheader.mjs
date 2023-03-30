@@ -13,10 +13,10 @@ import * as i0 from "@angular/core";
  */
 class MatListSubheaderCssMatStyler {
 }
-MatListSubheaderCssMatStyler.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatListSubheaderCssMatStyler, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatListSubheaderCssMatStyler.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatListSubheaderCssMatStyler, selector: "[mat-subheader], [matSubheader]", host: { classAttribute: "mat-mdc-subheader mdc-list-group__subheader" }, ngImport: i0 });
+MatListSubheaderCssMatStyler.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatListSubheaderCssMatStyler, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatListSubheaderCssMatStyler.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatListSubheaderCssMatStyler, selector: "[mat-subheader], [matSubheader]", host: { classAttribute: "mat-mdc-subheader mdc-list-group__subheader" }, ngImport: i0 });
 export { MatListSubheaderCssMatStyler };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatListSubheaderCssMatStyler, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatListSubheaderCssMatStyler, decorators: [{
             type: Directive,
             args: [{
                     selector: '[mat-subheader], [matSubheader]',

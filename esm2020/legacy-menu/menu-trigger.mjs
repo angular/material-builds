@@ -16,10 +16,10 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyMenuTrigger extends _MatMenuTriggerBase {
 }
-MatLegacyMenuTrigger.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyMenuTrigger, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyMenuTrigger.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatLegacyMenuTrigger, selector: "[mat-menu-trigger-for], [matMenuTriggerFor]", host: { classAttribute: "mat-menu-trigger" }, exportAs: ["matMenuTrigger"], usesInheritance: true, ngImport: i0 });
+MatLegacyMenuTrigger.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyMenuTrigger, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyMenuTrigger.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyMenuTrigger, selector: "[mat-menu-trigger-for], [matMenuTriggerFor]", host: { classAttribute: "mat-menu-trigger" }, exportAs: ["matMenuTrigger"], usesInheritance: true, ngImport: i0 });
 export { MatLegacyMenuTrigger };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyMenuTrigger, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyMenuTrigger, decorators: [{
             type: Directive,
             args: [{
                     selector: `[mat-menu-trigger-for], [matMenuTriggerFor]`,

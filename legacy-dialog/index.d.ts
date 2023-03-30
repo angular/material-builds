@@ -135,7 +135,7 @@ export declare class MatLegacyDialogActions {
      */
     align?: 'start' | 'center' | 'end';
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyDialogActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, { "align": "align"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, { "align": { "alias": "align"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 export { matLegacyDialogAnimations }
@@ -174,7 +174,7 @@ export declare class MatLegacyDialogClose implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void;
     _onButtonClick(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyDialogClose, [{ optional: true; }, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyDialogClose, "[mat-dialog-close], [matDialogClose]", ["matDialogClose"], { "ariaLabel": "aria-label"; "type": "type"; "dialogResult": "mat-dialog-close"; "_matDialogClose": "matDialogClose"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyDialogClose, "[mat-dialog-close], [matDialogClose]", ["matDialogClose"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "type": { "alias": "type"; "required": false; }; "dialogResult": { "alias": "mat-dialog-close"; "required": false; }; "_matDialogClose": { "alias": "matDialogClose"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**
@@ -263,7 +263,7 @@ export declare class MatLegacyDialogTitle implements OnInit {
     constructor(_dialogRef: MatLegacyDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatLegacyDialog);
     ngOnInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyDialogTitle, [{ optional: true; }, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": "id"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 export { }

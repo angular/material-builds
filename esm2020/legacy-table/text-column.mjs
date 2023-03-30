@@ -23,8 +23,8 @@ import * as i1 from "./cell";
  */
 class MatLegacyTextColumn extends CdkTextColumn {
 }
-MatLegacyTextColumn.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyTextColumn, deps: null, target: i0.ɵɵFactoryTarget.Component });
-MatLegacyTextColumn.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatLegacyTextColumn, selector: "mat-text-column", usesInheritance: true, ngImport: i0, template: `
+MatLegacyTextColumn.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTextColumn, deps: null, target: i0.ɵɵFactoryTarget.Component });
+MatLegacyTextColumn.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyTextColumn, selector: "mat-text-column", usesInheritance: true, ngImport: i0, template: `
     <ng-container matColumnDef>
       <th mat-header-cell *matHeaderCellDef [style.text-align]="justify">
         {{headerText}}
@@ -35,7 +35,7 @@ MatLegacyTextColumn.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", ve
     </ng-container>
   `, isInline: true, dependencies: [{ kind: "directive", type: i1.MatLegacyHeaderCellDef, selector: "[matHeaderCellDef]" }, { kind: "directive", type: i1.MatLegacyColumnDef, selector: "[matColumnDef]", inputs: ["sticky", "matColumnDef"] }, { kind: "directive", type: i1.MatLegacyCellDef, selector: "[matCellDef]" }, { kind: "directive", type: i1.MatLegacyHeaderCell, selector: "mat-header-cell, th[mat-header-cell]" }, { kind: "directive", type: i1.MatLegacyCell, selector: "mat-cell, td[mat-cell]" }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 export { MatLegacyTextColumn };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyTextColumn, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTextColumn, decorators: [{
             type: Component,
             args: [{
                     selector: 'mat-text-column',

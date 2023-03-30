@@ -6582,7 +6582,7 @@ var CardStylesMigrator = class extends StyleMigrator {
 var TemplateMigrator = class {
 };
 
-// node_modules/@angular/compiler/fesm2015/compiler.mjs
+// node_modules/@angular/compiler/fesm2022/compiler.mjs
 var _SELECTOR_REGEXP = new RegExp(
   `(\\:not\\()|(([\\.\\#]?)[-\\w]+)|(?:\\[([-.\\w*\\\\$]+)(?:=(["']?)([^\\]"']*)\\5)?\\])|(\\))|(\\s*,\\s*)`,
   "g"
@@ -6898,7 +6898,7 @@ var _SerializerIgnoreIcuExpVisitor = class extends _SerializerVisitor {
   }
 };
 function sha1(str) {
-  textEncoder !== null && textEncoder !== void 0 ? textEncoder : textEncoder = new TextEncoder();
+  textEncoder != null ? textEncoder : textEncoder = new TextEncoder();
   const utf8 = [...textEncoder.encode(str)];
   const words32 = bytesToWords32(utf8, Endian.Big);
   const len = utf8.length * 8;
@@ -6948,7 +6948,7 @@ function fk(index2, b, c, d) {
   return [b ^ c ^ d, 3395469782];
 }
 function fingerprint(str) {
-  textEncoder !== null && textEncoder !== void 0 ? textEncoder : textEncoder = new TextEncoder();
+  textEncoder != null ? textEncoder : textEncoder = new TextEncoder();
   const utf8 = textEncoder.encode(str);
   const view = new DataView(utf8.buffer, utf8.byteOffset, utf8.byteLength);
   let hi = hash32(view, utf8.length, 0);
@@ -7466,7 +7466,7 @@ var TemplateLiteralElement = class {
     var _a;
     this.text = text;
     this.sourceSpan = sourceSpan;
-    this.rawText = (_a = rawText !== null && rawText !== void 0 ? rawText : sourceSpan === null || sourceSpan === void 0 ? void 0 : sourceSpan.toString()) !== null && _a !== void 0 ? _a : escapeForTemplateLiteral(escapeSlashes(text));
+    this.rawText = (_a = rawText != null ? rawText : sourceSpan == null ? void 0 : sourceSpan.toString()) != null ? _a : escapeForTemplateLiteral(escapeSlashes(text));
   }
 };
 var LiteralPiece = class {
@@ -7519,18 +7519,18 @@ var LocalizedString = class extends Expression {
   }
   getMessagePartSourceSpan(i) {
     var _a, _b;
-    return (_b = (_a = this.messageParts[i]) === null || _a === void 0 ? void 0 : _a.sourceSpan) !== null && _b !== void 0 ? _b : this.sourceSpan;
+    return (_b = (_a = this.messageParts[i]) == null ? void 0 : _a.sourceSpan) != null ? _b : this.sourceSpan;
   }
   getPlaceholderSourceSpan(i) {
     var _a, _b, _c, _d;
-    return (_d = (_b = (_a = this.placeHolderNames[i]) === null || _a === void 0 ? void 0 : _a.sourceSpan) !== null && _b !== void 0 ? _b : (_c = this.expressions[i]) === null || _c === void 0 ? void 0 : _c.sourceSpan) !== null && _d !== void 0 ? _d : this.sourceSpan;
+    return (_d = (_c = (_a = this.placeHolderNames[i]) == null ? void 0 : _a.sourceSpan) != null ? _c : (_b = this.expressions[i]) == null ? void 0 : _b.sourceSpan) != null ? _d : this.sourceSpan;
   }
   serializeI18nTemplatePart(partIndex) {
     var _a;
     const placeholder = this.placeHolderNames[partIndex - 1];
     const messagePart = this.messageParts[partIndex];
     let metaBlock = placeholder.text;
-    if (((_a = placeholder.associatedMessage) === null || _a === void 0 ? void 0 : _a.legacyIds.length) === 0) {
+    if (((_a = placeholder.associatedMessage) == null ? void 0 : _a.legacyIds.length) === 0) {
       metaBlock += `${ID_SEPARATOR$1}${computeMsgId(placeholder.associatedMessage.messageString, placeholder.associatedMessage.meaning)}`;
     }
     return createCookedRawString(metaBlock, messagePart.text, this.getMessagePartSourceSpan(partIndex));
@@ -7789,7 +7789,7 @@ var Statement = class {
   }
   addLeadingComment(leadingComment) {
     var _a;
-    this.leadingComments = (_a = this.leadingComments) !== null && _a !== void 0 ? _a : [];
+    this.leadingComments = (_a = this.leadingComments) != null ? _a : [];
     this.leadingComments.push(leadingComment);
   }
 };
@@ -8097,207 +8097,558 @@ function isLongStringLiteral(expr) {
   return expr instanceof LiteralExpr && typeof expr.value === "string" && expr.value.length >= POOL_INCLUSION_LENGTH_THRESHOLD_FOR_STRINGS;
 }
 var CORE = "@angular/core";
-var Identifiers = class {
+var _Identifiers = class {
 };
-Identifiers.NEW_METHOD = "factory";
-Identifiers.TRANSFORM_METHOD = "transform";
-Identifiers.PATCH_DEPS = "patchedDeps";
-Identifiers.core = { name: null, moduleName: CORE };
-Identifiers.namespaceHTML = { name: "\u0275\u0275namespaceHTML", moduleName: CORE };
-Identifiers.namespaceMathML = { name: "\u0275\u0275namespaceMathML", moduleName: CORE };
-Identifiers.namespaceSVG = { name: "\u0275\u0275namespaceSVG", moduleName: CORE };
-Identifiers.element = { name: "\u0275\u0275element", moduleName: CORE };
-Identifiers.elementStart = { name: "\u0275\u0275elementStart", moduleName: CORE };
-Identifiers.elementEnd = { name: "\u0275\u0275elementEnd", moduleName: CORE };
-Identifiers.advance = { name: "\u0275\u0275advance", moduleName: CORE };
-Identifiers.syntheticHostProperty = { name: "\u0275\u0275syntheticHostProperty", moduleName: CORE };
-Identifiers.syntheticHostListener = { name: "\u0275\u0275syntheticHostListener", moduleName: CORE };
-Identifiers.attribute = { name: "\u0275\u0275attribute", moduleName: CORE };
-Identifiers.attributeInterpolate1 = { name: "\u0275\u0275attributeInterpolate1", moduleName: CORE };
-Identifiers.attributeInterpolate2 = { name: "\u0275\u0275attributeInterpolate2", moduleName: CORE };
-Identifiers.attributeInterpolate3 = { name: "\u0275\u0275attributeInterpolate3", moduleName: CORE };
-Identifiers.attributeInterpolate4 = { name: "\u0275\u0275attributeInterpolate4", moduleName: CORE };
-Identifiers.attributeInterpolate5 = { name: "\u0275\u0275attributeInterpolate5", moduleName: CORE };
-Identifiers.attributeInterpolate6 = { name: "\u0275\u0275attributeInterpolate6", moduleName: CORE };
-Identifiers.attributeInterpolate7 = { name: "\u0275\u0275attributeInterpolate7", moduleName: CORE };
-Identifiers.attributeInterpolate8 = { name: "\u0275\u0275attributeInterpolate8", moduleName: CORE };
-Identifiers.attributeInterpolateV = { name: "\u0275\u0275attributeInterpolateV", moduleName: CORE };
-Identifiers.classProp = { name: "\u0275\u0275classProp", moduleName: CORE };
-Identifiers.elementContainerStart = { name: "\u0275\u0275elementContainerStart", moduleName: CORE };
-Identifiers.elementContainerEnd = { name: "\u0275\u0275elementContainerEnd", moduleName: CORE };
-Identifiers.elementContainer = { name: "\u0275\u0275elementContainer", moduleName: CORE };
-Identifiers.styleMap = { name: "\u0275\u0275styleMap", moduleName: CORE };
-Identifiers.styleMapInterpolate1 = { name: "\u0275\u0275styleMapInterpolate1", moduleName: CORE };
-Identifiers.styleMapInterpolate2 = { name: "\u0275\u0275styleMapInterpolate2", moduleName: CORE };
-Identifiers.styleMapInterpolate3 = { name: "\u0275\u0275styleMapInterpolate3", moduleName: CORE };
-Identifiers.styleMapInterpolate4 = { name: "\u0275\u0275styleMapInterpolate4", moduleName: CORE };
-Identifiers.styleMapInterpolate5 = { name: "\u0275\u0275styleMapInterpolate5", moduleName: CORE };
-Identifiers.styleMapInterpolate6 = { name: "\u0275\u0275styleMapInterpolate6", moduleName: CORE };
-Identifiers.styleMapInterpolate7 = { name: "\u0275\u0275styleMapInterpolate7", moduleName: CORE };
-Identifiers.styleMapInterpolate8 = { name: "\u0275\u0275styleMapInterpolate8", moduleName: CORE };
-Identifiers.styleMapInterpolateV = { name: "\u0275\u0275styleMapInterpolateV", moduleName: CORE };
-Identifiers.classMap = { name: "\u0275\u0275classMap", moduleName: CORE };
-Identifiers.classMapInterpolate1 = { name: "\u0275\u0275classMapInterpolate1", moduleName: CORE };
-Identifiers.classMapInterpolate2 = { name: "\u0275\u0275classMapInterpolate2", moduleName: CORE };
-Identifiers.classMapInterpolate3 = { name: "\u0275\u0275classMapInterpolate3", moduleName: CORE };
-Identifiers.classMapInterpolate4 = { name: "\u0275\u0275classMapInterpolate4", moduleName: CORE };
-Identifiers.classMapInterpolate5 = { name: "\u0275\u0275classMapInterpolate5", moduleName: CORE };
-Identifiers.classMapInterpolate6 = { name: "\u0275\u0275classMapInterpolate6", moduleName: CORE };
-Identifiers.classMapInterpolate7 = { name: "\u0275\u0275classMapInterpolate7", moduleName: CORE };
-Identifiers.classMapInterpolate8 = { name: "\u0275\u0275classMapInterpolate8", moduleName: CORE };
-Identifiers.classMapInterpolateV = { name: "\u0275\u0275classMapInterpolateV", moduleName: CORE };
-Identifiers.styleProp = { name: "\u0275\u0275styleProp", moduleName: CORE };
-Identifiers.stylePropInterpolate1 = { name: "\u0275\u0275stylePropInterpolate1", moduleName: CORE };
-Identifiers.stylePropInterpolate2 = { name: "\u0275\u0275stylePropInterpolate2", moduleName: CORE };
-Identifiers.stylePropInterpolate3 = { name: "\u0275\u0275stylePropInterpolate3", moduleName: CORE };
-Identifiers.stylePropInterpolate4 = { name: "\u0275\u0275stylePropInterpolate4", moduleName: CORE };
-Identifiers.stylePropInterpolate5 = { name: "\u0275\u0275stylePropInterpolate5", moduleName: CORE };
-Identifiers.stylePropInterpolate6 = { name: "\u0275\u0275stylePropInterpolate6", moduleName: CORE };
-Identifiers.stylePropInterpolate7 = { name: "\u0275\u0275stylePropInterpolate7", moduleName: CORE };
-Identifiers.stylePropInterpolate8 = { name: "\u0275\u0275stylePropInterpolate8", moduleName: CORE };
-Identifiers.stylePropInterpolateV = { name: "\u0275\u0275stylePropInterpolateV", moduleName: CORE };
-Identifiers.nextContext = { name: "\u0275\u0275nextContext", moduleName: CORE };
-Identifiers.resetView = { name: "\u0275\u0275resetView", moduleName: CORE };
-Identifiers.templateCreate = { name: "\u0275\u0275template", moduleName: CORE };
-Identifiers.text = { name: "\u0275\u0275text", moduleName: CORE };
-Identifiers.enableBindings = { name: "\u0275\u0275enableBindings", moduleName: CORE };
-Identifiers.disableBindings = { name: "\u0275\u0275disableBindings", moduleName: CORE };
-Identifiers.getCurrentView = { name: "\u0275\u0275getCurrentView", moduleName: CORE };
-Identifiers.textInterpolate = { name: "\u0275\u0275textInterpolate", moduleName: CORE };
-Identifiers.textInterpolate1 = { name: "\u0275\u0275textInterpolate1", moduleName: CORE };
-Identifiers.textInterpolate2 = { name: "\u0275\u0275textInterpolate2", moduleName: CORE };
-Identifiers.textInterpolate3 = { name: "\u0275\u0275textInterpolate3", moduleName: CORE };
-Identifiers.textInterpolate4 = { name: "\u0275\u0275textInterpolate4", moduleName: CORE };
-Identifiers.textInterpolate5 = { name: "\u0275\u0275textInterpolate5", moduleName: CORE };
-Identifiers.textInterpolate6 = { name: "\u0275\u0275textInterpolate6", moduleName: CORE };
-Identifiers.textInterpolate7 = { name: "\u0275\u0275textInterpolate7", moduleName: CORE };
-Identifiers.textInterpolate8 = { name: "\u0275\u0275textInterpolate8", moduleName: CORE };
-Identifiers.textInterpolateV = { name: "\u0275\u0275textInterpolateV", moduleName: CORE };
-Identifiers.restoreView = { name: "\u0275\u0275restoreView", moduleName: CORE };
-Identifiers.pureFunction0 = { name: "\u0275\u0275pureFunction0", moduleName: CORE };
-Identifiers.pureFunction1 = { name: "\u0275\u0275pureFunction1", moduleName: CORE };
-Identifiers.pureFunction2 = { name: "\u0275\u0275pureFunction2", moduleName: CORE };
-Identifiers.pureFunction3 = { name: "\u0275\u0275pureFunction3", moduleName: CORE };
-Identifiers.pureFunction4 = { name: "\u0275\u0275pureFunction4", moduleName: CORE };
-Identifiers.pureFunction5 = { name: "\u0275\u0275pureFunction5", moduleName: CORE };
-Identifiers.pureFunction6 = { name: "\u0275\u0275pureFunction6", moduleName: CORE };
-Identifiers.pureFunction7 = { name: "\u0275\u0275pureFunction7", moduleName: CORE };
-Identifiers.pureFunction8 = { name: "\u0275\u0275pureFunction8", moduleName: CORE };
-Identifiers.pureFunctionV = { name: "\u0275\u0275pureFunctionV", moduleName: CORE };
-Identifiers.pipeBind1 = { name: "\u0275\u0275pipeBind1", moduleName: CORE };
-Identifiers.pipeBind2 = { name: "\u0275\u0275pipeBind2", moduleName: CORE };
-Identifiers.pipeBind3 = { name: "\u0275\u0275pipeBind3", moduleName: CORE };
-Identifiers.pipeBind4 = { name: "\u0275\u0275pipeBind4", moduleName: CORE };
-Identifiers.pipeBindV = { name: "\u0275\u0275pipeBindV", moduleName: CORE };
-Identifiers.hostProperty = { name: "\u0275\u0275hostProperty", moduleName: CORE };
-Identifiers.property = { name: "\u0275\u0275property", moduleName: CORE };
-Identifiers.propertyInterpolate = { name: "\u0275\u0275propertyInterpolate", moduleName: CORE };
-Identifiers.propertyInterpolate1 = { name: "\u0275\u0275propertyInterpolate1", moduleName: CORE };
-Identifiers.propertyInterpolate2 = { name: "\u0275\u0275propertyInterpolate2", moduleName: CORE };
-Identifiers.propertyInterpolate3 = { name: "\u0275\u0275propertyInterpolate3", moduleName: CORE };
-Identifiers.propertyInterpolate4 = { name: "\u0275\u0275propertyInterpolate4", moduleName: CORE };
-Identifiers.propertyInterpolate5 = { name: "\u0275\u0275propertyInterpolate5", moduleName: CORE };
-Identifiers.propertyInterpolate6 = { name: "\u0275\u0275propertyInterpolate6", moduleName: CORE };
-Identifiers.propertyInterpolate7 = { name: "\u0275\u0275propertyInterpolate7", moduleName: CORE };
-Identifiers.propertyInterpolate8 = { name: "\u0275\u0275propertyInterpolate8", moduleName: CORE };
-Identifiers.propertyInterpolateV = { name: "\u0275\u0275propertyInterpolateV", moduleName: CORE };
-Identifiers.i18n = { name: "\u0275\u0275i18n", moduleName: CORE };
-Identifiers.i18nAttributes = { name: "\u0275\u0275i18nAttributes", moduleName: CORE };
-Identifiers.i18nExp = { name: "\u0275\u0275i18nExp", moduleName: CORE };
-Identifiers.i18nStart = { name: "\u0275\u0275i18nStart", moduleName: CORE };
-Identifiers.i18nEnd = { name: "\u0275\u0275i18nEnd", moduleName: CORE };
-Identifiers.i18nApply = { name: "\u0275\u0275i18nApply", moduleName: CORE };
-Identifiers.i18nPostprocess = { name: "\u0275\u0275i18nPostprocess", moduleName: CORE };
-Identifiers.pipe = { name: "\u0275\u0275pipe", moduleName: CORE };
-Identifiers.projection = { name: "\u0275\u0275projection", moduleName: CORE };
-Identifiers.projectionDef = { name: "\u0275\u0275projectionDef", moduleName: CORE };
-Identifiers.reference = { name: "\u0275\u0275reference", moduleName: CORE };
-Identifiers.inject = { name: "\u0275\u0275inject", moduleName: CORE };
-Identifiers.injectAttribute = { name: "\u0275\u0275injectAttribute", moduleName: CORE };
-Identifiers.directiveInject = { name: "\u0275\u0275directiveInject", moduleName: CORE };
-Identifiers.invalidFactory = { name: "\u0275\u0275invalidFactory", moduleName: CORE };
-Identifiers.invalidFactoryDep = { name: "\u0275\u0275invalidFactoryDep", moduleName: CORE };
-Identifiers.templateRefExtractor = { name: "\u0275\u0275templateRefExtractor", moduleName: CORE };
-Identifiers.forwardRef = { name: "forwardRef", moduleName: CORE };
-Identifiers.resolveForwardRef = { name: "resolveForwardRef", moduleName: CORE };
-Identifiers.\u0275\u0275defineInjectable = { name: "\u0275\u0275defineInjectable", moduleName: CORE };
-Identifiers.declareInjectable = { name: "\u0275\u0275ngDeclareInjectable", moduleName: CORE };
-Identifiers.InjectableDeclaration = { name: "\u0275\u0275InjectableDeclaration", moduleName: CORE };
-Identifiers.resolveWindow = { name: "\u0275\u0275resolveWindow", moduleName: CORE };
-Identifiers.resolveDocument = { name: "\u0275\u0275resolveDocument", moduleName: CORE };
-Identifiers.resolveBody = { name: "\u0275\u0275resolveBody", moduleName: CORE };
-Identifiers.defineComponent = { name: "\u0275\u0275defineComponent", moduleName: CORE };
-Identifiers.declareComponent = { name: "\u0275\u0275ngDeclareComponent", moduleName: CORE };
-Identifiers.setComponentScope = { name: "\u0275\u0275setComponentScope", moduleName: CORE };
-Identifiers.ChangeDetectionStrategy = {
-  name: "ChangeDetectionStrategy",
-  moduleName: CORE
-};
-Identifiers.ViewEncapsulation = {
-  name: "ViewEncapsulation",
-  moduleName: CORE
-};
-Identifiers.ComponentDeclaration = {
-  name: "\u0275\u0275ComponentDeclaration",
-  moduleName: CORE
-};
-Identifiers.FactoryDeclaration = {
-  name: "\u0275\u0275FactoryDeclaration",
-  moduleName: CORE
-};
-Identifiers.declareFactory = { name: "\u0275\u0275ngDeclareFactory", moduleName: CORE };
-Identifiers.FactoryTarget = { name: "\u0275\u0275FactoryTarget", moduleName: CORE };
-Identifiers.defineDirective = { name: "\u0275\u0275defineDirective", moduleName: CORE };
-Identifiers.declareDirective = { name: "\u0275\u0275ngDeclareDirective", moduleName: CORE };
-Identifiers.DirectiveDeclaration = {
-  name: "\u0275\u0275DirectiveDeclaration",
-  moduleName: CORE
-};
-Identifiers.InjectorDef = { name: "\u0275\u0275InjectorDef", moduleName: CORE };
-Identifiers.InjectorDeclaration = { name: "\u0275\u0275InjectorDeclaration", moduleName: CORE };
-Identifiers.defineInjector = { name: "\u0275\u0275defineInjector", moduleName: CORE };
-Identifiers.declareInjector = { name: "\u0275\u0275ngDeclareInjector", moduleName: CORE };
-Identifiers.NgModuleDeclaration = {
-  name: "\u0275\u0275NgModuleDeclaration",
-  moduleName: CORE
-};
-Identifiers.ModuleWithProviders = {
-  name: "ModuleWithProviders",
-  moduleName: CORE
-};
-Identifiers.defineNgModule = { name: "\u0275\u0275defineNgModule", moduleName: CORE };
-Identifiers.declareNgModule = { name: "\u0275\u0275ngDeclareNgModule", moduleName: CORE };
-Identifiers.setNgModuleScope = { name: "\u0275\u0275setNgModuleScope", moduleName: CORE };
-Identifiers.registerNgModuleType = { name: "\u0275\u0275registerNgModuleType", moduleName: CORE };
-Identifiers.PipeDeclaration = { name: "\u0275\u0275PipeDeclaration", moduleName: CORE };
-Identifiers.definePipe = { name: "\u0275\u0275definePipe", moduleName: CORE };
-Identifiers.declarePipe = { name: "\u0275\u0275ngDeclarePipe", moduleName: CORE };
-Identifiers.declareClassMetadata = { name: "\u0275\u0275ngDeclareClassMetadata", moduleName: CORE };
-Identifiers.setClassMetadata = { name: "\u0275setClassMetadata", moduleName: CORE };
-Identifiers.queryRefresh = { name: "\u0275\u0275queryRefresh", moduleName: CORE };
-Identifiers.viewQuery = { name: "\u0275\u0275viewQuery", moduleName: CORE };
-Identifiers.loadQuery = { name: "\u0275\u0275loadQuery", moduleName: CORE };
-Identifiers.contentQuery = { name: "\u0275\u0275contentQuery", moduleName: CORE };
-Identifiers.NgOnChangesFeature = { name: "\u0275\u0275NgOnChangesFeature", moduleName: CORE };
-Identifiers.InheritDefinitionFeature = { name: "\u0275\u0275InheritDefinitionFeature", moduleName: CORE };
-Identifiers.CopyDefinitionFeature = { name: "\u0275\u0275CopyDefinitionFeature", moduleName: CORE };
-Identifiers.StandaloneFeature = { name: "\u0275\u0275StandaloneFeature", moduleName: CORE };
-Identifiers.ProvidersFeature = { name: "\u0275\u0275ProvidersFeature", moduleName: CORE };
-Identifiers.HostDirectivesFeature = { name: "\u0275\u0275HostDirectivesFeature", moduleName: CORE };
-Identifiers.listener = { name: "\u0275\u0275listener", moduleName: CORE };
-Identifiers.getInheritedFactory = {
-  name: "\u0275\u0275getInheritedFactory",
-  moduleName: CORE
-};
-Identifiers.sanitizeHtml = { name: "\u0275\u0275sanitizeHtml", moduleName: CORE };
-Identifiers.sanitizeStyle = { name: "\u0275\u0275sanitizeStyle", moduleName: CORE };
-Identifiers.sanitizeResourceUrl = { name: "\u0275\u0275sanitizeResourceUrl", moduleName: CORE };
-Identifiers.sanitizeScript = { name: "\u0275\u0275sanitizeScript", moduleName: CORE };
-Identifiers.sanitizeUrl = { name: "\u0275\u0275sanitizeUrl", moduleName: CORE };
-Identifiers.sanitizeUrlOrResourceUrl = { name: "\u0275\u0275sanitizeUrlOrResourceUrl", moduleName: CORE };
-Identifiers.trustConstantHtml = { name: "\u0275\u0275trustConstantHtml", moduleName: CORE };
-Identifiers.trustConstantResourceUrl = { name: "\u0275\u0275trustConstantResourceUrl", moduleName: CORE };
-Identifiers.validateIframeAttribute = { name: "\u0275\u0275validateIframeAttribute", moduleName: CORE };
+var Identifiers = _Identifiers;
+(() => {
+  _Identifiers.NEW_METHOD = "factory";
+})();
+(() => {
+  _Identifiers.TRANSFORM_METHOD = "transform";
+})();
+(() => {
+  _Identifiers.PATCH_DEPS = "patchedDeps";
+})();
+(() => {
+  _Identifiers.core = { name: null, moduleName: CORE };
+})();
+(() => {
+  _Identifiers.namespaceHTML = { name: "\u0275\u0275namespaceHTML", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.namespaceMathML = { name: "\u0275\u0275namespaceMathML", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.namespaceSVG = { name: "\u0275\u0275namespaceSVG", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.element = { name: "\u0275\u0275element", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.elementStart = { name: "\u0275\u0275elementStart", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.elementEnd = { name: "\u0275\u0275elementEnd", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.advance = { name: "\u0275\u0275advance", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.syntheticHostProperty = { name: "\u0275\u0275syntheticHostProperty", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.syntheticHostListener = { name: "\u0275\u0275syntheticHostListener", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attribute = { name: "\u0275\u0275attribute", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolate1 = { name: "\u0275\u0275attributeInterpolate1", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolate2 = { name: "\u0275\u0275attributeInterpolate2", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolate3 = { name: "\u0275\u0275attributeInterpolate3", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolate4 = { name: "\u0275\u0275attributeInterpolate4", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolate5 = { name: "\u0275\u0275attributeInterpolate5", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolate6 = { name: "\u0275\u0275attributeInterpolate6", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolate7 = { name: "\u0275\u0275attributeInterpolate7", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolate8 = { name: "\u0275\u0275attributeInterpolate8", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.attributeInterpolateV = { name: "\u0275\u0275attributeInterpolateV", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classProp = { name: "\u0275\u0275classProp", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.elementContainerStart = { name: "\u0275\u0275elementContainerStart", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.elementContainerEnd = { name: "\u0275\u0275elementContainerEnd", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.elementContainer = { name: "\u0275\u0275elementContainer", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMap = { name: "\u0275\u0275styleMap", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolate1 = { name: "\u0275\u0275styleMapInterpolate1", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolate2 = { name: "\u0275\u0275styleMapInterpolate2", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolate3 = { name: "\u0275\u0275styleMapInterpolate3", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolate4 = { name: "\u0275\u0275styleMapInterpolate4", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolate5 = { name: "\u0275\u0275styleMapInterpolate5", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolate6 = { name: "\u0275\u0275styleMapInterpolate6", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolate7 = { name: "\u0275\u0275styleMapInterpolate7", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolate8 = { name: "\u0275\u0275styleMapInterpolate8", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleMapInterpolateV = { name: "\u0275\u0275styleMapInterpolateV", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMap = { name: "\u0275\u0275classMap", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolate1 = { name: "\u0275\u0275classMapInterpolate1", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolate2 = { name: "\u0275\u0275classMapInterpolate2", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolate3 = { name: "\u0275\u0275classMapInterpolate3", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolate4 = { name: "\u0275\u0275classMapInterpolate4", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolate5 = { name: "\u0275\u0275classMapInterpolate5", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolate6 = { name: "\u0275\u0275classMapInterpolate6", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolate7 = { name: "\u0275\u0275classMapInterpolate7", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolate8 = { name: "\u0275\u0275classMapInterpolate8", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.classMapInterpolateV = { name: "\u0275\u0275classMapInterpolateV", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.styleProp = { name: "\u0275\u0275styleProp", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolate1 = { name: "\u0275\u0275stylePropInterpolate1", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolate2 = { name: "\u0275\u0275stylePropInterpolate2", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolate3 = { name: "\u0275\u0275stylePropInterpolate3", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolate4 = { name: "\u0275\u0275stylePropInterpolate4", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolate5 = { name: "\u0275\u0275stylePropInterpolate5", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolate6 = { name: "\u0275\u0275stylePropInterpolate6", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolate7 = { name: "\u0275\u0275stylePropInterpolate7", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolate8 = { name: "\u0275\u0275stylePropInterpolate8", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.stylePropInterpolateV = { name: "\u0275\u0275stylePropInterpolateV", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.nextContext = { name: "\u0275\u0275nextContext", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.resetView = { name: "\u0275\u0275resetView", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.templateCreate = { name: "\u0275\u0275template", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.text = { name: "\u0275\u0275text", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.enableBindings = { name: "\u0275\u0275enableBindings", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.disableBindings = { name: "\u0275\u0275disableBindings", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.getCurrentView = { name: "\u0275\u0275getCurrentView", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate = { name: "\u0275\u0275textInterpolate", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate1 = { name: "\u0275\u0275textInterpolate1", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate2 = { name: "\u0275\u0275textInterpolate2", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate3 = { name: "\u0275\u0275textInterpolate3", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate4 = { name: "\u0275\u0275textInterpolate4", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate5 = { name: "\u0275\u0275textInterpolate5", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate6 = { name: "\u0275\u0275textInterpolate6", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate7 = { name: "\u0275\u0275textInterpolate7", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolate8 = { name: "\u0275\u0275textInterpolate8", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.textInterpolateV = { name: "\u0275\u0275textInterpolateV", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.restoreView = { name: "\u0275\u0275restoreView", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction0 = { name: "\u0275\u0275pureFunction0", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction1 = { name: "\u0275\u0275pureFunction1", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction2 = { name: "\u0275\u0275pureFunction2", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction3 = { name: "\u0275\u0275pureFunction3", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction4 = { name: "\u0275\u0275pureFunction4", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction5 = { name: "\u0275\u0275pureFunction5", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction6 = { name: "\u0275\u0275pureFunction6", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction7 = { name: "\u0275\u0275pureFunction7", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunction8 = { name: "\u0275\u0275pureFunction8", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pureFunctionV = { name: "\u0275\u0275pureFunctionV", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pipeBind1 = { name: "\u0275\u0275pipeBind1", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pipeBind2 = { name: "\u0275\u0275pipeBind2", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pipeBind3 = { name: "\u0275\u0275pipeBind3", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pipeBind4 = { name: "\u0275\u0275pipeBind4", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pipeBindV = { name: "\u0275\u0275pipeBindV", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.hostProperty = { name: "\u0275\u0275hostProperty", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.property = { name: "\u0275\u0275property", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate = { name: "\u0275\u0275propertyInterpolate", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate1 = { name: "\u0275\u0275propertyInterpolate1", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate2 = { name: "\u0275\u0275propertyInterpolate2", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate3 = { name: "\u0275\u0275propertyInterpolate3", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate4 = { name: "\u0275\u0275propertyInterpolate4", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate5 = { name: "\u0275\u0275propertyInterpolate5", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate6 = { name: "\u0275\u0275propertyInterpolate6", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate7 = { name: "\u0275\u0275propertyInterpolate7", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolate8 = { name: "\u0275\u0275propertyInterpolate8", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.propertyInterpolateV = { name: "\u0275\u0275propertyInterpolateV", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.i18n = { name: "\u0275\u0275i18n", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.i18nAttributes = { name: "\u0275\u0275i18nAttributes", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.i18nExp = { name: "\u0275\u0275i18nExp", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.i18nStart = { name: "\u0275\u0275i18nStart", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.i18nEnd = { name: "\u0275\u0275i18nEnd", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.i18nApply = { name: "\u0275\u0275i18nApply", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.i18nPostprocess = { name: "\u0275\u0275i18nPostprocess", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.pipe = { name: "\u0275\u0275pipe", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.projection = { name: "\u0275\u0275projection", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.projectionDef = { name: "\u0275\u0275projectionDef", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.reference = { name: "\u0275\u0275reference", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.inject = { name: "\u0275\u0275inject", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.injectAttribute = { name: "\u0275\u0275injectAttribute", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.directiveInject = { name: "\u0275\u0275directiveInject", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.invalidFactory = { name: "\u0275\u0275invalidFactory", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.invalidFactoryDep = { name: "\u0275\u0275invalidFactoryDep", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.templateRefExtractor = { name: "\u0275\u0275templateRefExtractor", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.forwardRef = { name: "forwardRef", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.resolveForwardRef = { name: "resolveForwardRef", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.\u0275\u0275defineInjectable = { name: "\u0275\u0275defineInjectable", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.declareInjectable = { name: "\u0275\u0275ngDeclareInjectable", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.InjectableDeclaration = { name: "\u0275\u0275InjectableDeclaration", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.resolveWindow = { name: "\u0275\u0275resolveWindow", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.resolveDocument = { name: "\u0275\u0275resolveDocument", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.resolveBody = { name: "\u0275\u0275resolveBody", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.defineComponent = { name: "\u0275\u0275defineComponent", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.declareComponent = { name: "\u0275\u0275ngDeclareComponent", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.setComponentScope = { name: "\u0275\u0275setComponentScope", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.ChangeDetectionStrategy = {
+    name: "ChangeDetectionStrategy",
+    moduleName: CORE
+  };
+})();
+(() => {
+  _Identifiers.ViewEncapsulation = {
+    name: "ViewEncapsulation",
+    moduleName: CORE
+  };
+})();
+(() => {
+  _Identifiers.ComponentDeclaration = {
+    name: "\u0275\u0275ComponentDeclaration",
+    moduleName: CORE
+  };
+})();
+(() => {
+  _Identifiers.FactoryDeclaration = {
+    name: "\u0275\u0275FactoryDeclaration",
+    moduleName: CORE
+  };
+})();
+(() => {
+  _Identifiers.declareFactory = { name: "\u0275\u0275ngDeclareFactory", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.FactoryTarget = { name: "\u0275\u0275FactoryTarget", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.defineDirective = { name: "\u0275\u0275defineDirective", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.declareDirective = { name: "\u0275\u0275ngDeclareDirective", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.DirectiveDeclaration = {
+    name: "\u0275\u0275DirectiveDeclaration",
+    moduleName: CORE
+  };
+})();
+(() => {
+  _Identifiers.InjectorDef = { name: "\u0275\u0275InjectorDef", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.InjectorDeclaration = { name: "\u0275\u0275InjectorDeclaration", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.defineInjector = { name: "\u0275\u0275defineInjector", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.declareInjector = { name: "\u0275\u0275ngDeclareInjector", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.NgModuleDeclaration = {
+    name: "\u0275\u0275NgModuleDeclaration",
+    moduleName: CORE
+  };
+})();
+(() => {
+  _Identifiers.ModuleWithProviders = {
+    name: "ModuleWithProviders",
+    moduleName: CORE
+  };
+})();
+(() => {
+  _Identifiers.defineNgModule = { name: "\u0275\u0275defineNgModule", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.declareNgModule = { name: "\u0275\u0275ngDeclareNgModule", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.setNgModuleScope = { name: "\u0275\u0275setNgModuleScope", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.registerNgModuleType = { name: "\u0275\u0275registerNgModuleType", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.PipeDeclaration = { name: "\u0275\u0275PipeDeclaration", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.definePipe = { name: "\u0275\u0275definePipe", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.declarePipe = { name: "\u0275\u0275ngDeclarePipe", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.declareClassMetadata = { name: "\u0275\u0275ngDeclareClassMetadata", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.setClassMetadata = { name: "\u0275setClassMetadata", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.queryRefresh = { name: "\u0275\u0275queryRefresh", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.viewQuery = { name: "\u0275\u0275viewQuery", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.loadQuery = { name: "\u0275\u0275loadQuery", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.contentQuery = { name: "\u0275\u0275contentQuery", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.NgOnChangesFeature = { name: "\u0275\u0275NgOnChangesFeature", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.InheritDefinitionFeature = { name: "\u0275\u0275InheritDefinitionFeature", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.CopyDefinitionFeature = { name: "\u0275\u0275CopyDefinitionFeature", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.StandaloneFeature = { name: "\u0275\u0275StandaloneFeature", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.ProvidersFeature = { name: "\u0275\u0275ProvidersFeature", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.HostDirectivesFeature = { name: "\u0275\u0275HostDirectivesFeature", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.listener = { name: "\u0275\u0275listener", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.getInheritedFactory = {
+    name: "\u0275\u0275getInheritedFactory",
+    moduleName: CORE
+  };
+})();
+(() => {
+  _Identifiers.sanitizeHtml = { name: "\u0275\u0275sanitizeHtml", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.sanitizeStyle = { name: "\u0275\u0275sanitizeStyle", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.sanitizeResourceUrl = { name: "\u0275\u0275sanitizeResourceUrl", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.sanitizeScript = { name: "\u0275\u0275sanitizeScript", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.sanitizeUrl = { name: "\u0275\u0275sanitizeUrl", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.sanitizeUrlOrResourceUrl = { name: "\u0275\u0275sanitizeUrlOrResourceUrl", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.trustConstantHtml = { name: "\u0275\u0275trustConstantHtml", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.trustConstantResourceUrl = { name: "\u0275\u0275trustConstantResourceUrl", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.validateIframeAttribute = { name: "\u0275\u0275validateIframeAttribute", moduleName: CORE };
+})();
 var DASH_CASE_REGEXP = /-+([a-z0-9])/g;
 function dashCaseToCamelCase(input) {
   return input.replace(DASH_CASE_REGEXP, (...m) => m[1].toUpperCase());
@@ -9383,8 +9734,8 @@ var Message = class {
     this.meaning = meaning;
     this.description = description;
     this.customId = customId;
-    this.id = this.customId;
     this.legacyIds = [];
+    this.id = this.customId;
     this.messageString = serializeMessage(this.nodes);
     if (nodes.length) {
       this.sources = [{
@@ -9705,27 +10056,27 @@ function asLiteral(value) {
   }
   return literal(value, INFERRED_TYPE);
 }
-function conditionallyCreateMapObjectLiteral(keys, keepDeclared) {
-  if (Object.getOwnPropertyNames(keys).length > 0) {
-    return mapToExpression(keys, keepDeclared);
+function conditionallyCreateDirectiveBindingLiteral(map, keepDeclared) {
+  const keys = Object.getOwnPropertyNames(map);
+  if (keys.length === 0) {
+    return null;
   }
-  return null;
-}
-function mapToExpression(map, keepDeclared) {
-  return literalMap(Object.getOwnPropertyNames(map).map((key) => {
+  return literalMap(keys.map((key) => {
     const value = map[key];
     let declaredName;
     let publicName;
     let minifiedName;
     let needsDeclaredName;
-    if (Array.isArray(value)) {
-      [publicName, declaredName] = value;
+    if (typeof value === "string") {
+      declaredName = key;
       minifiedName = key;
-      needsDeclaredName = publicName !== declaredName;
-    } else {
-      minifiedName = declaredName = key;
       publicName = value;
       needsDeclaredName = false;
+    } else {
+      minifiedName = key;
+      declaredName = value.classPropertyName;
+      publicName = value.bindingPropertyName;
+      needsDeclaredName = publicName !== declaredName;
     }
     return {
       key: minifiedName,
@@ -9786,7 +10137,7 @@ function getInstructionStatements(instructions) {
   let pendingExpressionType = null;
   let chainLength = 0;
   for (const current of instructions) {
-    const resolvedParams = (_a = typeof current.paramsOrFn === "function" ? current.paramsOrFn() : current.paramsOrFn) !== null && _a !== void 0 ? _a : [];
+    const resolvedParams = (_a = typeof current.paramsOrFn === "function" ? current.paramsOrFn() : current.paramsOrFn) != null ? _a : [];
     const params = Array.isArray(resolvedParams) ? resolvedParams : [resolvedParams];
     if (chainLength < MAX_CHAIN_LENGTH && pendingExpressionType === current.reference && CHAINABLE_INSTRUCTIONS.has(pendingExpressionType)) {
       pendingExpression = pendingExpression.callFn(params, pendingExpression.sourceSpan);
@@ -9822,7 +10173,11 @@ function compileInjectable(meta, resolveForwardRefs) {
       deps = meta.deps;
     }
     if (deps !== void 0) {
-      result = compileFactoryFunction(Object.assign(Object.assign({}, factoryMeta), { delegate: meta.useClass.expression, delegateDeps: deps, delegateType: R3FactoryDelegateType.Class }));
+      result = compileFactoryFunction(__spreadProps(__spreadValues({}, factoryMeta), {
+        delegate: meta.useClass.expression,
+        delegateDeps: deps,
+        delegateType: R3FactoryDelegateType.Class
+      }));
     } else if (useClassOnSelf) {
       result = compileFactoryFunction(factoryMeta);
     } else {
@@ -9833,7 +10188,11 @@ function compileInjectable(meta, resolveForwardRefs) {
     }
   } else if (meta.useFactory !== void 0) {
     if (meta.deps !== void 0) {
-      result = compileFactoryFunction(Object.assign(Object.assign({}, factoryMeta), { delegate: meta.useFactory, delegateDeps: meta.deps || [], delegateType: R3FactoryDelegateType.Function }));
+      result = compileFactoryFunction(__spreadProps(__spreadValues({}, factoryMeta), {
+        delegate: meta.useFactory,
+        delegateDeps: meta.deps || [],
+        delegateType: R3FactoryDelegateType.Function
+      }));
     } else {
       result = {
         statements: [],
@@ -9841,9 +10200,13 @@ function compileInjectable(meta, resolveForwardRefs) {
       };
     }
   } else if (meta.useValue !== void 0) {
-    result = compileFactoryFunction(Object.assign(Object.assign({}, factoryMeta), { expression: meta.useValue.expression }));
+    result = compileFactoryFunction(__spreadProps(__spreadValues({}, factoryMeta), {
+      expression: meta.useValue.expression
+    }));
   } else if (meta.useExisting !== void 0) {
-    result = compileFactoryFunction(Object.assign(Object.assign({}, factoryMeta), { expression: importExpr(Identifiers.inject).callFn([meta.useExisting.expression]) }));
+    result = compileFactoryFunction(__spreadProps(__spreadValues({}, factoryMeta), {
+      expression: importExpr(Identifiers.inject).callFn([meta.useExisting.expression])
+    }));
   } else {
     result = {
       statements: [],
@@ -10216,7 +10579,7 @@ function getPolicy() {
         policy = _global.trustedTypes.createPolicy("angular#unsafe-jit", {
           createScript: (s) => s
         });
-      } catch (_a) {
+      } catch (e) {
       }
     }
   }
@@ -10224,7 +10587,7 @@ function getPolicy() {
 }
 function trustedScriptFromString(script) {
   var _a;
-  return ((_a = getPolicy()) === null || _a === void 0 ? void 0 : _a.createScript(script)) || script;
+  return ((_a = getPolicy()) == null ? void 0 : _a.createScript(script)) || script;
 }
 function newTrustedFunctionForJIT(...args) {
   if (!_global.trustedTypes) {
@@ -10540,7 +10903,7 @@ var ImplicitReceiver = class extends AST {
 var ThisReceiver = class extends ImplicitReceiver {
   visit(visitor, context = null) {
     var _a;
-    return (_a = visitor.visitThisReceiver) === null || _a === void 0 ? void 0 : _a.call(visitor, this, context);
+    return (_a = visitor.visitThisReceiver) == null ? void 0 : _a.call(visitor, this, context);
   }
 };
 var Chain = class extends AST {
@@ -11160,9 +11523,12 @@ var BoundElementProperty = class {
     this.valueSpan = valueSpan;
   }
 };
-var EventHandlerVars = class {
+var _EventHandlerVars = class {
 };
-EventHandlerVars.event = variable("$event");
+var EventHandlerVars = _EventHandlerVars;
+(() => {
+  _EventHandlerVars.event = variable("$event");
+})();
 function convertActionBinding(localResolver, implicitReceiver, action, bindingId, baseSourceSpan, implicitReceiverAccesses, globals) {
   if (!localResolver) {
     localResolver = new DefaultLocalResolver(globals);
@@ -11444,7 +11810,7 @@ var _AstToIrVisitor = class {
   }
   _getLocal(name, receiver) {
     var _a;
-    if (((_a = this._localResolver.globals) === null || _a === void 0 ? void 0 : _a.has(name)) && receiver instanceof ThisReceiver) {
+    if (((_a = this._localResolver.globals) == null ? void 0 : _a.has(name)) && receiver instanceof ThisReceiver) {
       return null;
     }
     return this._localResolver.getLocal(name);
@@ -11882,10 +12248,12 @@ var ShadowCss = class {
     return processRules(scopedKeyframesCssText, (rule2) => this._scopeAnimationRule(rule2, scopeSelector, unscopedKeyframesSet));
   }
   _scopeLocalKeyframeDeclarations(rule2, scopeSelector, unscopedKeyframesSet) {
-    return Object.assign(Object.assign({}, rule2), { selector: rule2.selector.replace(/(^@(?:-webkit-)?keyframes(?:\s+))(['"]?)(.+)\2(\s*)$/, (_, start, quote, keyframeName, endSpaces) => {
-      unscopedKeyframesSet.add(unescapeQuotes(keyframeName, quote));
-      return `${start}${quote}${scopeSelector}_${keyframeName}${quote}${endSpaces}`;
-    }) });
+    return __spreadProps(__spreadValues({}, rule2), {
+      selector: rule2.selector.replace(/(^@(?:-webkit-)?keyframes(?:\s+))(['"]?)(.+)\2(\s*)$/, (_, start, quote, keyframeName, endSpaces) => {
+        unscopedKeyframesSet.add(unescapeQuotes(keyframeName, quote));
+        return `${start}${quote}${scopeSelector}_${keyframeName}${quote}${endSpaces}`;
+      })
+    });
   }
   _scopeAnimationKeyframe(keyframe, scopeSelector, unscopedKeyframesSet) {
     return keyframe.replace(/^(\s*)(['"]?)(.+?)\2(\s*)$/, (_, spaces1, quote, name, spaces2) => {
@@ -11902,7 +12270,7 @@ var ShadowCss = class {
       }
     }));
     content = content.replace(/((?:^|\s+|;)(?:-webkit-)?animation-name(?:\s*):(?:\s*))([^;]+)/g, (_match, start, commaSeparatedKeyframes) => `${start}${commaSeparatedKeyframes.split(",").map((keyframe) => this._scopeAnimationKeyframe(keyframe, scopeSelector, unscopedKeyframesSet)).join(",")}`);
-    return Object.assign(Object.assign({}, rule2), { content });
+    return __spreadProps(__spreadValues({}, rule2), { content });
   }
   _insertPolyfillDirectivesInCssText(cssText) {
     return cssText.replace(_cssContentNextSelectorRe, function(...m) {
@@ -11961,7 +12329,7 @@ var ShadowCss = class {
       const contextSelectorGroups = [[]];
       let match;
       while (match = _cssColonHostContextRe.exec(selectorText)) {
-        const newContextSelectors = ((_a = match[1]) !== null && _a !== void 0 ? _a : "").trim().split(",").map((m) => m.trim()).filter((m) => m !== "");
+        const newContextSelectors = ((_a = match[1]) != null ? _a : "").trim().split(",").map((m) => m.trim()).filter((m) => m !== "");
         const contextSelectorGroupsLength = contextSelectorGroups.length;
         repeatGroups(contextSelectorGroups, newContextSelectors.length);
         for (let i = 0; i < newContextSelectors.length; i++) {
@@ -12066,7 +12434,7 @@ var ShadowCss = class {
     while ((res = sep.exec(selector)) !== null) {
       const separator = res[1];
       const part2 = selector.slice(startIndex, res.index).trim();
-      if (part2.match(_placeholderRe) && ((_a = selector[res.index + 1]) === null || _a === void 0 ? void 0 : _a.match(/[a-fA-F\d]/))) {
+      if (part2.match(_placeholderRe) && ((_a = selector[res.index + 1]) == null ? void 0 : _a.match(/[a-fA-F\d]/))) {
         continue;
       }
       shouldScope = shouldScope || part2.indexOf(_polyfillHostNoCombinator) > -1;
@@ -12296,7 +12664,6 @@ function parse(value) {
   let valueStart = 0;
   let propStart = 0;
   let currentProp = null;
-  let valueHasQuotes = false;
   while (i < value.length) {
     const token = value.charCodeAt(i++);
     switch (token) {
@@ -12307,7 +12674,6 @@ function parse(value) {
         parenDepth--;
         break;
       case 39:
-        valueHasQuotes = valueHasQuotes || valueStart > 0;
         if (quote === 0) {
           quote = 39;
         } else if (quote === 39 && value.charCodeAt(i - 1) !== 92) {
@@ -12315,7 +12681,6 @@ function parse(value) {
         }
         break;
       case 34:
-        valueHasQuotes = valueHasQuotes || valueStart > 0;
         if (quote === 0) {
           quote = 34;
         } else if (quote === 34 && value.charCodeAt(i - 1) !== 92) {
@@ -12331,31 +12696,19 @@ function parse(value) {
       case 59:
         if (currentProp && valueStart > 0 && parenDepth === 0 && quote === 0) {
           const styleVal = value.substring(valueStart, i - 1).trim();
-          styles.push(currentProp, valueHasQuotes ? stripUnnecessaryQuotes(styleVal) : styleVal);
+          styles.push(currentProp, styleVal);
           propStart = i;
           valueStart = 0;
           currentProp = null;
-          valueHasQuotes = false;
         }
         break;
     }
   }
   if (currentProp && valueStart) {
     const styleVal = value.slice(valueStart).trim();
-    styles.push(currentProp, valueHasQuotes ? stripUnnecessaryQuotes(styleVal) : styleVal);
+    styles.push(currentProp, styleVal);
   }
   return styles;
-}
-function stripUnnecessaryQuotes(value) {
-  const qS = value.charCodeAt(0);
-  const qE = value.charCodeAt(value.length - 1);
-  if (qS == qE && (qS == 39 || qS == 34)) {
-    const tempValue = value.substring(1, value.length - 1);
-    if (tempValue.indexOf("'") == -1 && tempValue.indexOf('"') == -1) {
-      value = tempValue;
-    }
-  }
-  return value;
 }
 function hyphenate(value) {
   return value.replace(/[a-z][A-Z]/g, (v) => {
@@ -13177,7 +13530,7 @@ var Parser$1 = class {
           this._reportError("Blank expressions are not allowed in interpolated strings", input, `at column ${i} in`, location);
         }
         expressions.push({ text, start: fullStart, end: fullEnd });
-        const startInOriginalTemplate = (_a = inputToTemplateIndexMap === null || inputToTemplateIndexMap === void 0 ? void 0 : inputToTemplateIndexMap.get(fullStart)) !== null && _a !== void 0 ? _a : fullStart;
+        const startInOriginalTemplate = (_a = inputToTemplateIndexMap == null ? void 0 : inputToTemplateIndexMap.get(fullStart)) != null ? _a : fullStart;
         const offset = startInOriginalTemplate + interpStart.length;
         offsets.push(offset);
         i = fullEnd;
@@ -13707,7 +14060,7 @@ var _ParseAST = class {
           const sourceSpan = this.sourceSpan(keyStart);
           values.push(new PropertyRead(span, sourceSpan, sourceSpan, new ImplicitReceiver(span, sourceSpan), key));
         }
-      } while (this.consumeOptionalCharacter($COMMA));
+      } while (this.consumeOptionalCharacter($COMMA) && !this.next.isCharacter($RBRACE));
       this.rbracesExpected--;
       this.expectCharacter($RBRACE);
     }
@@ -13717,7 +14070,7 @@ var _ParseAST = class {
     const nameStart = this.inputIndex;
     const id = this.withContext(ParseContextFlags.Writable, () => {
       var _a;
-      const id2 = (_a = this.expectIdentifierOrKeyword()) !== null && _a !== void 0 ? _a : "";
+      const id2 = (_a = this.expectIdentifierOrKeyword()) != null ? _a : "";
       if (id2.length === 0) {
         this.error(`Expected identifier for property access`, readReceiver.span.end);
       }
@@ -14323,7 +14676,7 @@ var DomElementSchemaRegistry = class extends ElementSchemaRegistry {
   }
   getMappedPropName(propName) {
     var _a;
-    return (_a = _ATTR_TO_PROP.get(propName)) !== null && _a !== void 0 ? _a : propName;
+    return (_a = _ATTR_TO_PROP.get(propName)) != null ? _a : propName;
   }
   getDefaultComponentElementName() {
     return "ng-component";
@@ -14352,12 +14705,12 @@ If '${name}' is a directive input, make sure the directive is imported by the cu
     const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get("unknown");
     return Array.from(elementProperties.keys()).map((prop) => {
       var _a;
-      return (_a = _PROP_TO_ATTR.get(prop)) !== null && _a !== void 0 ? _a : prop;
+      return (_a = _PROP_TO_ATTR.get(prop)) != null ? _a : prop;
     });
   }
   allKnownEventsOfElement(tagName) {
     var _a;
-    return Array.from((_a = this._eventSchema.get(tagName.toLowerCase())) !== null && _a !== void 0 ? _a : []);
+    return Array.from((_a = this._eventSchema.get(tagName.toLowerCase())) != null ? _a : []);
   }
   normalizeAnimationStyleProperty(propName) {
     return dashCaseToCamelCase(propName);
@@ -14427,7 +14780,7 @@ var HtmlTagDefinition = class {
     this.contentType = contentType;
     this.ignoreFirstLf = ignoreFirstLf;
     this.preventNamespaceInheritance = preventNamespaceInheritance;
-    this.canSelfClose = canSelfClose !== null && canSelfClose !== void 0 ? canSelfClose : isVoid;
+    this.canSelfClose = canSelfClose != null ? canSelfClose : isVoid;
   }
   isClosedByChild(name) {
     return this.isVoid || name.toLowerCase() in this.closedByChildren;
@@ -14435,7 +14788,7 @@ var HtmlTagDefinition = class {
   getContentType(prefix) {
     if (typeof this.contentType === "object") {
       const overrideType = prefix === void 0 ? void 0 : this.contentType[prefix];
-      return overrideType !== null && overrideType !== void 0 ? overrideType : this.contentType.default;
+      return overrideType != null ? overrideType : this.contentType.default;
     }
     return this.contentType;
   }
@@ -14528,7 +14881,7 @@ function getHtmlTagDefinition(tagName) {
       }
     });
   }
-  return (_b = (_a = TAG_DEFINITIONS[tagName]) !== null && _a !== void 0 ? _a : TAG_DEFINITIONS[tagName.toLowerCase()]) !== null && _b !== void 0 ? _b : DEFAULT_TAG_DEFINITION;
+  return (_b = (_a = TAG_DEFINITIONS[tagName]) != null ? _a : TAG_DEFINITIONS[tagName.toLowerCase()]) != null ? _b : DEFAULT_TAG_DEFINITION;
 }
 var NAMED_ENTITIES = {
   "AElig": "\xC6",
@@ -16791,7 +17144,7 @@ var _Tokenizer = class {
     const token = {
       type: this._currentTokenType,
       parts,
-      sourceSpan: (end !== null && end !== void 0 ? end : this._cursor).getSpan(this._currentTokenStart, this._leadingTriviaCodePoints)
+      sourceSpan: (end != null ? end : this._cursor).getSpan(this._currentTokenStart, this._leadingTriviaCodePoints)
     };
     this.tokens.push(token);
     this._currentTokenStart = null;
@@ -16905,7 +17258,7 @@ var _Tokenizer = class {
       try {
         const charCode = parseInt(strNum, isHex ? 16 : 10);
         this._endToken([String.fromCharCode(charCode), this._cursor.getChars(start)]);
-      } catch (_a) {
+      } catch (e) {
         throw this._createError(_unknownEntityErrorMsg(this._cursor.getChars(start)), this._cursor.getSpan());
       }
     } else {
@@ -17388,7 +17741,7 @@ var EscapedCharacterCursor = class extends PlainCharacterCursor {
   constructor(fileOrCursor, range) {
     if (fileOrCursor instanceof EscapedCharacterCursor) {
       super(fileOrCursor);
-      this.internalState = Object.assign({}, fileOrCursor.internalState);
+      this.internalState = __spreadValues({}, fileOrCursor.internalState);
     } else {
       super(fileOrCursor, range);
       this.internalState = this.state;
@@ -17418,7 +17771,7 @@ var EscapedCharacterCursor = class extends PlainCharacterCursor {
   processEscapeSequence() {
     const peek = () => this.internalState.peek;
     if (peek() === $BACKSLASH) {
-      this.internalState = Object.assign({}, this.state);
+      this.internalState = __spreadValues({}, this.state);
       this.advanceState(this.internalState);
       if (peek() === $n) {
         this.state.peek = $LF;
@@ -18552,7 +18905,7 @@ var HtmlAstToIvyAst = class {
       return true;
     }
     const keySpan = createKeySpan(srcSpan, "", name);
-    const hasBinding = this.bindingParser.parsePropertyInterpolation(name, value, srcSpan, attribute.valueSpan, matchableAttributes, parsedProperties, keySpan, (_a = attribute.valueTokens) !== null && _a !== void 0 ? _a : null);
+    const hasBinding = this.bindingParser.parsePropertyInterpolation(name, value, srcSpan, attribute.valueSpan, matchableAttributes, parsedProperties, keySpan, (_a = attribute.valueTokens) != null ? _a : null);
     return hasBinding;
   }
   _visitTextWithInterpolation(value, sourceSpan, interpolatedTokens, i18n) {
@@ -18939,7 +19292,7 @@ var _I18nVisitor = class {
       closePhName = context.placeholderRegistry.getCloseTagPlaceholderName(el.name);
       context.placeholderToContent[closePhName] = {
         text: `</${el.name}>`,
-        sourceSpan: (_a = el.endSourceSpan) !== null && _a !== void 0 ? _a : el.sourceSpan
+        sourceSpan: (_a = el.endSourceSpan) != null ? _a : el.sourceSpan
       };
     }
     const node = new TagPlaceholder(el.name, attrs, startPhName, closePhName, children, isVoid, el.sourceSpan, el.startSourceSpan, el.endSourceSpan);
@@ -19070,11 +19423,11 @@ var I18nMetaVisitor = class {
     this.enableI18nLegacyMessageIdFormat = enableI18nLegacyMessageIdFormat;
     this.hasI18nMeta = false;
     this._errors = [];
-    this._createI18nMessage = createI18nMessageFactory(this.interpolationConfig);
   }
   _generateI18nMessage(nodes, meta = "", visitNodeFn) {
     const { meaning, description, customId } = this._parseMetadata(meta);
-    const message = this._createI18nMessage(nodes, meaning, description, customId, visitNodeFn);
+    const createI18nMessage = createI18nMessageFactory(this.interpolationConfig);
+    const message = createI18nMessage(nodes, meaning, description, customId, visitNodeFn);
     this._setMessageId(message, meta);
     this._setLegacyIds(message, meta);
     return message;
@@ -19276,10 +19629,10 @@ var LocalizeSerializerVisitor = class {
   }
   visitTagPlaceholder(ph) {
     var _a, _b;
-    this.pieces.push(this.createPlaceholderPiece(ph.startName, (_a = ph.startSourceSpan) !== null && _a !== void 0 ? _a : ph.sourceSpan));
+    this.pieces.push(this.createPlaceholderPiece(ph.startName, (_a = ph.startSourceSpan) != null ? _a : ph.sourceSpan));
     if (!ph.isVoid) {
       ph.children.forEach((child) => child.visit(this));
-      this.pieces.push(this.createPlaceholderPiece(ph.closeName, (_b = ph.endSourceSpan) !== null && _b !== void 0 ? _b : ph.sourceSpan));
+      this.pieces.push(this.createPlaceholderPiece(ph.closeName, (_b = ph.endSourceSpan) != null ? _b : ph.sourceSpan));
     }
   }
   visitPlaceholder(ph) {
@@ -19347,8 +19700,8 @@ function prepareEventListenerParameters(eventAst, handlerName = null, scope = nu
   const implicitReceiverExpr = scope === null || scope.bindingLevel === 0 ? variable(CONTEXT_NAME) : scope.getOrCreateSharedContextVar(0);
   const bindingStatements = convertActionBinding(scope, implicitReceiverExpr, handler, "b", eventAst.handlerSpan, implicitReceiverAccesses, EVENT_BINDING_SCOPE_GLOBALS);
   const statements = [];
-  const variableDeclarations = scope === null || scope === void 0 ? void 0 : scope.variableDeclarations();
-  const restoreViewStatement = scope === null || scope === void 0 ? void 0 : scope.restoreViewStatement();
+  const variableDeclarations = scope == null ? void 0 : scope.variableDeclarations();
+  const restoreViewStatement = scope == null ? void 0 : scope.restoreViewStatement();
   if (variableDeclarations) {
     statements.push(...variableDeclarations);
   }
@@ -19727,7 +20080,7 @@ var TemplateDefinitionBuilder = class {
         this.creationInstruction(element.startSourceSpan, Identifiers.disableBindings);
       }
       if (boundI18nAttrs.length > 0) {
-        this.i18nAttributesInstruction(elementIndex, boundI18nAttrs, (_a = element.startSourceSpan) !== null && _a !== void 0 ? _a : element.sourceSpan);
+        this.i18nAttributesInstruction(elementIndex, boundI18nAttrs, (_a = element.startSourceSpan) != null ? _a : element.sourceSpan);
       }
       if (element.outputs.length > 0) {
         for (const outputAst of element.outputs) {
@@ -19826,7 +20179,7 @@ var TemplateDefinitionBuilder = class {
       this.i18n.appendElement(element.i18n, elementIndex, true);
     }
     if (!createSelfClosingInstruction) {
-      const span = (_b = element.endSourceSpan) !== null && _b !== void 0 ? _b : element.sourceSpan;
+      const span = (_b = element.endSourceSpan) != null ? _b : element.sourceSpan;
       if (isI18nRootElement) {
         this.i18nEnd(span, createSelfClosingI18nInstruction);
       }
@@ -19874,7 +20227,7 @@ var TemplateDefinitionBuilder = class {
     if (tagNameWithoutNamespace === NG_TEMPLATE_TAG_NAME) {
       const [i18nInputs, inputs] = partitionArray(template.inputs, hasI18nMeta);
       if (i18nInputs.length > 0) {
-        this.i18nAttributesInstruction(templateIndex, i18nInputs, (_a = template.startSourceSpan) !== null && _a !== void 0 ? _a : template.sourceSpan);
+        this.i18nAttributesInstruction(templateIndex, i18nInputs, (_a = template.startSourceSpan) != null ? _a : template.sourceSpan);
       }
       if (inputs.length > 0) {
         this.templatePropertyBindings(templateIndex, inputs);
@@ -19920,7 +20273,7 @@ var TemplateDefinitionBuilder = class {
     const placeholders = this.i18nBindProps(icu.placeholders);
     const message = icu.i18n;
     const transformFn = (raw) => {
-      const params = Object.assign(Object.assign({}, vars), placeholders);
+      const params = __spreadValues(__spreadValues({}, vars), placeholders);
       const formatted = formatI18nPlaceholderNamesInMap(params, false);
       return invokeInstruction(null, Identifiers.i18nPostprocess, [raw, mapLiteral(formatted, true)]);
     };
@@ -20482,7 +20835,7 @@ function parseTemplate(template, templateUrl, options = {}) {
   const { interpolationConfig, preserveWhitespaces, enableI18nLegacyMessageIdFormat } = options;
   const bindingParser = makeBindingParser(interpolationConfig);
   const htmlParser = new HtmlParser();
-  const parseResult = htmlParser.parse(template, templateUrl, Object.assign(Object.assign({ leadingTriviaChars: LEADING_TRIVIA_CHARS }, options), { tokenizeExpansionForms: true }));
+  const parseResult = htmlParser.parse(template, templateUrl, __spreadProps(__spreadValues({ leadingTriviaChars: LEADING_TRIVIA_CHARS }, options), { tokenizeExpansionForms: true }));
   if (!options.alwaysAttemptHtmlToR3AstConversion && parseResult.errors && parseResult.errors.length > 0) {
     const parsedTemplate2 = {
       interpolationConfig,
@@ -20631,8 +20984,8 @@ function baseDirectiveFields(meta, constantPool, bindingParser) {
     definitionMap.set("viewQuery", createViewQueriesFunction(meta.viewQueries, constantPool, meta.name));
   }
   definitionMap.set("hostBindings", createHostBindingsFunction(meta.host, meta.typeSourceSpan, bindingParser, constantPool, meta.selector || "", meta.name, definitionMap));
-  definitionMap.set("inputs", conditionallyCreateMapObjectLiteral(meta.inputs, true));
-  definitionMap.set("outputs", conditionallyCreateMapObjectLiteral(meta.outputs));
+  definitionMap.set("inputs", conditionallyCreateDirectiveBindingLiteral(meta.inputs, true));
+  definitionMap.set("outputs", conditionallyCreateDirectiveBindingLiteral(meta.outputs));
   if (meta.exportAs !== null) {
     definitionMap.set("exportAs", literalArr(meta.exportAs.map((e) => literal(e))));
   }
@@ -20665,7 +21018,7 @@ function addFeatures(definitionMap, meta) {
   if (meta.hasOwnProperty("template") && meta.isStandalone) {
     features.push(importExpr(Identifiers.StandaloneFeature));
   }
-  if ((_a = meta.hostDirectives) === null || _a === void 0 ? void 0 : _a.length) {
+  if ((_a = meta.hostDirectives) == null ? void 0 : _a.length) {
     features.push(importExpr(Identifiers.HostDirectivesFeature).callFn([createHostDirectivesFeatureArg(meta.hostDirectives)]));
   }
   if (features.length) {
@@ -20828,10 +21181,23 @@ function createBaseDirectiveTypeParams(meta) {
     typeWithParameters(meta.type.type, meta.typeArgumentCount),
     selectorForType !== null ? stringAsType(selectorForType) : NONE_TYPE,
     meta.exportAs !== null ? stringArrayAsType(meta.exportAs) : NONE_TYPE,
-    expressionType(stringMapAsLiteralExpression(meta.inputs)),
+    expressionType(getInputsTypeExpression(meta)),
     expressionType(stringMapAsLiteralExpression(meta.outputs)),
     stringArrayAsType(meta.queries.map((q) => q.propertyName))
   ];
+}
+function getInputsTypeExpression(meta) {
+  return literalMap(Object.keys(meta.inputs).map((key) => {
+    const value = meta.inputs[key];
+    return {
+      key,
+      value: literalMap([
+        { key: "alias", value: literal(value.bindingPropertyName), quoted: true },
+        { key: "required", value: literal(value.required), quoted: true }
+      ]),
+      quoted: true
+    };
+  }));
 }
 function createDirectiveType(meta) {
   const typeParams = createBaseDirectiveTypeParams(meta);
@@ -21084,7 +21450,7 @@ function compileStyles(styles, selector, hostSelector) {
 }
 function createHostDirectivesType(meta) {
   var _a;
-  if (!((_a = meta.hostDirectives) === null || _a === void 0 ? void 0 : _a.length)) {
+  if (!((_a = meta.hostDirectives) == null ? void 0 : _a.length)) {
     return NONE_TYPE;
   }
   return expressionType(literalArr(meta.hostDirectives.map((hostMeta) => literalMap([
@@ -21171,7 +21537,7 @@ var CompilerFacadeImpl = class {
         useFactory: wrapExpression(facade, "useFactory"),
         useValue: convertToProviderExpression(facade, "useValue"),
         useExisting: convertToProviderExpression(facade, "useExisting"),
-        deps: (_a = facade.deps) === null || _a === void 0 ? void 0 : _a.map(convertR3DependencyMetadata)
+        deps: (_a = facade.deps) == null ? void 0 : _a.map(convertR3DependencyMetadata)
       },
       true
     );
@@ -21190,7 +21556,7 @@ var CompilerFacadeImpl = class {
         useFactory: wrapExpression(facade, "useFactory"),
         useValue: convertToProviderExpression(facade, "useValue"),
         useExisting: convertToProviderExpression(facade, "useExisting"),
-        deps: (_a = facade.deps) === null || _a === void 0 ? void 0 : _a.map(convertR3DeclareDependencyMetadata)
+        deps: (_a = facade.deps) == null ? void 0 : _a.map(convertR3DeclareDependencyMetadata)
       },
       true
     );
@@ -21252,7 +21618,20 @@ var CompilerFacadeImpl = class {
   }
   compileComponent(angularCoreEnv, sourceMapUrl, facade) {
     const { template, interpolation } = parseJitTemplate(facade.template, facade.name, sourceMapUrl, facade.preserveWhitespaces, facade.interpolation);
-    const meta = Object.assign(Object.assign(Object.assign({}, facade), convertDirectiveFacadeToMetadata(facade)), { selector: facade.selector || this.elementSchemaRegistry.getDefaultComponentElementName(), template, declarations: facade.declarations.map(convertDeclarationFacadeToMetadata), declarationListEmitMode: 0, styles: [...facade.styles, ...template.styles], encapsulation: facade.encapsulation, interpolation, changeDetection: facade.changeDetection, animations: facade.animations != null ? new WrappedNodeExpr(facade.animations) : null, viewProviders: facade.viewProviders != null ? new WrappedNodeExpr(facade.viewProviders) : null, relativeContextFilePath: "", i18nUseExternalIds: true });
+    const meta = __spreadProps(__spreadValues(__spreadValues({}, facade), convertDirectiveFacadeToMetadata(facade)), {
+      selector: facade.selector || this.elementSchemaRegistry.getDefaultComponentElementName(),
+      template,
+      declarations: facade.declarations.map(convertDeclarationFacadeToMetadata),
+      declarationListEmitMode: 0,
+      styles: [...facade.styles, ...template.styles],
+      encapsulation: facade.encapsulation,
+      interpolation,
+      changeDetection: facade.changeDetection,
+      animations: facade.animations != null ? new WrappedNodeExpr(facade.animations) : null,
+      viewProviders: facade.viewProviders != null ? new WrappedNodeExpr(facade.viewProviders) : null,
+      relativeContextFilePath: "",
+      i18nUseExternalIds: true
+    });
     const jitExpressionSourceMap = `ng:///${facade.name}.js`;
     return this.compileComponentFromMeta(angularCoreEnv, jitExpressionSourceMap, meta);
   }
@@ -21302,26 +21681,31 @@ var CompilerFacadeImpl = class {
   }
 };
 function convertToR3QueryMetadata(facade) {
-  return Object.assign(Object.assign({}, facade), { predicate: convertQueryPredicate(facade.predicate), read: facade.read ? new WrappedNodeExpr(facade.read) : null, static: facade.static, emitDistinctChangesOnly: facade.emitDistinctChangesOnly });
+  return __spreadProps(__spreadValues({}, facade), {
+    predicate: convertQueryPredicate(facade.predicate),
+    read: facade.read ? new WrappedNodeExpr(facade.read) : null,
+    static: facade.static,
+    emitDistinctChangesOnly: facade.emitDistinctChangesOnly
+  });
 }
 function convertQueryDeclarationToMetadata(declaration) {
   var _a, _b, _c, _d;
   return {
     propertyName: declaration.propertyName,
-    first: (_a = declaration.first) !== null && _a !== void 0 ? _a : false,
+    first: (_a = declaration.first) != null ? _a : false,
     predicate: convertQueryPredicate(declaration.predicate),
-    descendants: (_b = declaration.descendants) !== null && _b !== void 0 ? _b : false,
+    descendants: (_b = declaration.descendants) != null ? _b : false,
     read: declaration.read ? new WrappedNodeExpr(declaration.read) : null,
-    static: (_c = declaration.static) !== null && _c !== void 0 ? _c : false,
-    emitDistinctChangesOnly: (_d = declaration.emitDistinctChangesOnly) !== null && _d !== void 0 ? _d : true
+    static: (_c = declaration.static) != null ? _c : false,
+    emitDistinctChangesOnly: (_d = declaration.emitDistinctChangesOnly) != null ? _d : true
   };
 }
 function convertQueryPredicate(predicate) {
   return Array.isArray(predicate) ? predicate : createMayBeForwardRefExpression(new WrappedNodeExpr(predicate), 1);
 }
 function convertDirectiveFacadeToMetadata(facade) {
-  const inputsFromMetadata = parseInputOutputs(facade.inputs || []);
-  const outputsFromMetadata = parseInputOutputs(facade.outputs || []);
+  const inputsFromMetadata = parseInputsArray(facade.inputs || []);
+  const outputsFromMetadata = parseMappingStringArray(facade.outputs || []);
   const propMetadata = facade.propMetadata;
   const inputsFromType = {};
   const outputsFromType = {};
@@ -21329,45 +21713,63 @@ function convertDirectiveFacadeToMetadata(facade) {
     if (propMetadata.hasOwnProperty(field)) {
       propMetadata[field].forEach((ann) => {
         if (isInput(ann)) {
-          inputsFromType[field] = ann.bindingPropertyName ? [ann.bindingPropertyName, field] : field;
+          inputsFromType[field] = {
+            bindingPropertyName: ann.alias || field,
+            classPropertyName: field,
+            required: ann.required || false
+          };
         } else if (isOutput(ann)) {
-          outputsFromType[field] = ann.bindingPropertyName || field;
+          outputsFromType[field] = ann.alias || field;
         }
       });
     }
   }
-  return Object.assign(Object.assign({}, facade), { typeArgumentCount: 0, typeSourceSpan: facade.typeSourceSpan, type: wrapReference(facade.type), internalType: new WrappedNodeExpr(facade.type), deps: null, host: extractHostBindings(facade.propMetadata, facade.typeSourceSpan, facade.host), inputs: Object.assign(Object.assign({}, inputsFromMetadata), inputsFromType), outputs: Object.assign(Object.assign({}, outputsFromMetadata), outputsFromType), queries: facade.queries.map(convertToR3QueryMetadata), providers: facade.providers != null ? new WrappedNodeExpr(facade.providers) : null, viewQueries: facade.viewQueries.map(convertToR3QueryMetadata), fullInheritance: false, hostDirectives: convertHostDirectivesToMetadata(facade) });
+  return __spreadProps(__spreadValues({}, facade), {
+    typeArgumentCount: 0,
+    typeSourceSpan: facade.typeSourceSpan,
+    type: wrapReference(facade.type),
+    internalType: new WrappedNodeExpr(facade.type),
+    deps: null,
+    host: extractHostBindings(facade.propMetadata, facade.typeSourceSpan, facade.host),
+    inputs: __spreadValues(__spreadValues({}, inputsFromMetadata), inputsFromType),
+    outputs: __spreadValues(__spreadValues({}, outputsFromMetadata), outputsFromType),
+    queries: facade.queries.map(convertToR3QueryMetadata),
+    providers: facade.providers != null ? new WrappedNodeExpr(facade.providers) : null,
+    viewQueries: facade.viewQueries.map(convertToR3QueryMetadata),
+    fullInheritance: false,
+    hostDirectives: convertHostDirectivesToMetadata(facade)
+  });
 }
 function convertDeclareDirectiveFacadeToMetadata(declaration, typeSourceSpan) {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+  var _a, _b, _c, _d, _e, _f, _g, _h;
   return {
     name: declaration.type.name,
     type: wrapReference(declaration.type),
     typeSourceSpan,
     internalType: new WrappedNodeExpr(declaration.type),
-    selector: (_a = declaration.selector) !== null && _a !== void 0 ? _a : null,
-    inputs: (_b = declaration.inputs) !== null && _b !== void 0 ? _b : {},
-    outputs: (_c = declaration.outputs) !== null && _c !== void 0 ? _c : {},
+    selector: (_a = declaration.selector) != null ? _a : null,
+    inputs: declaration.inputs ? inputsMappingToInputMetadata(declaration.inputs) : {},
+    outputs: (_b = declaration.outputs) != null ? _b : {},
     host: convertHostDeclarationToMetadata(declaration.host),
-    queries: ((_d = declaration.queries) !== null && _d !== void 0 ? _d : []).map(convertQueryDeclarationToMetadata),
-    viewQueries: ((_e = declaration.viewQueries) !== null && _e !== void 0 ? _e : []).map(convertQueryDeclarationToMetadata),
+    queries: ((_c = declaration.queries) != null ? _c : []).map(convertQueryDeclarationToMetadata),
+    viewQueries: ((_d = declaration.viewQueries) != null ? _d : []).map(convertQueryDeclarationToMetadata),
     providers: declaration.providers !== void 0 ? new WrappedNodeExpr(declaration.providers) : null,
-    exportAs: (_f = declaration.exportAs) !== null && _f !== void 0 ? _f : null,
-    usesInheritance: (_g = declaration.usesInheritance) !== null && _g !== void 0 ? _g : false,
-    lifecycle: { usesOnChanges: (_h = declaration.usesOnChanges) !== null && _h !== void 0 ? _h : false },
+    exportAs: (_e = declaration.exportAs) != null ? _e : null,
+    usesInheritance: (_f = declaration.usesInheritance) != null ? _f : false,
+    lifecycle: { usesOnChanges: (_g = declaration.usesOnChanges) != null ? _g : false },
     deps: null,
     typeArgumentCount: 0,
     fullInheritance: false,
-    isStandalone: (_j = declaration.isStandalone) !== null && _j !== void 0 ? _j : false,
+    isStandalone: (_h = declaration.isStandalone) != null ? _h : false,
     hostDirectives: convertHostDirectivesToMetadata(declaration)
   };
 }
 function convertHostDeclarationToMetadata(host = {}) {
   var _a, _b, _c;
   return {
-    attributes: convertOpaqueValuesToExpressions((_a = host.attributes) !== null && _a !== void 0 ? _a : {}),
-    listeners: (_b = host.listeners) !== null && _b !== void 0 ? _b : {},
-    properties: (_c = host.properties) !== null && _c !== void 0 ? _c : {},
+    attributes: convertOpaqueValuesToExpressions((_a = host.attributes) != null ? _a : {}),
+    listeners: (_b = host.listeners) != null ? _b : {},
+    properties: (_c = host.properties) != null ? _c : {},
     specialAttributes: {
       classAttr: host.classAttribute,
       styleAttr: host.styleAttribute
@@ -21376,7 +21778,7 @@ function convertHostDeclarationToMetadata(host = {}) {
 }
 function convertHostDirectivesToMetadata(metadata) {
   var _a;
-  if ((_a = metadata.hostDirectives) === null || _a === void 0 ? void 0 : _a.length) {
+  if ((_a = metadata.hostDirectives) == null ? void 0 : _a.length) {
     return metadata.hostDirectives.map((hostDirective) => {
       return typeof hostDirective === "function" ? {
         directive: wrapReference(hostDirective),
@@ -21386,8 +21788,8 @@ function convertHostDirectivesToMetadata(metadata) {
       } : {
         directive: wrapReference(hostDirective.directive),
         isForwardReference: false,
-        inputs: hostDirective.inputs ? parseInputOutputs(hostDirective.inputs) : null,
-        outputs: hostDirective.outputs ? parseInputOutputs(hostDirective.outputs) : null
+        inputs: hostDirective.inputs ? parseMappingStringArray(hostDirective.inputs) : null,
+        outputs: hostDirective.outputs ? parseMappingStringArray(hostDirective.outputs) : null
       };
     });
   }
@@ -21402,7 +21804,7 @@ function convertOpaqueValuesToExpressions(obj) {
 }
 function convertDeclareComponentFacadeToMetadata(decl2, typeSourceSpan, sourceMapUrl) {
   var _a, _b, _c, _d;
-  const { template, interpolation } = parseJitTemplate(decl2.template, decl2.type.name, sourceMapUrl, (_a = decl2.preserveWhitespaces) !== null && _a !== void 0 ? _a : false, decl2.interpolation);
+  const { template, interpolation } = parseJitTemplate(decl2.template, decl2.type.name, sourceMapUrl, (_a = decl2.preserveWhitespaces) != null ? _a : false, decl2.interpolation);
   const declarations = [];
   if (decl2.dependencies) {
     for (const innerDep of decl2.dependencies) {
@@ -21421,10 +21823,24 @@ function convertDeclareComponentFacadeToMetadata(decl2, typeSourceSpan, sourceMa
     decl2.directives && declarations.push(...decl2.directives.map((dir) => convertDirectiveDeclarationToMetadata(dir)));
     decl2.pipes && declarations.push(...convertPipeMapToMetadata(decl2.pipes));
   }
-  return Object.assign(Object.assign({}, convertDeclareDirectiveFacadeToMetadata(decl2, typeSourceSpan)), { template, styles: (_b = decl2.styles) !== null && _b !== void 0 ? _b : [], declarations, viewProviders: decl2.viewProviders !== void 0 ? new WrappedNodeExpr(decl2.viewProviders) : null, animations: decl2.animations !== void 0 ? new WrappedNodeExpr(decl2.animations) : null, changeDetection: (_c = decl2.changeDetection) !== null && _c !== void 0 ? _c : ChangeDetectionStrategy.Default, encapsulation: (_d = decl2.encapsulation) !== null && _d !== void 0 ? _d : ViewEncapsulation.Emulated, interpolation, declarationListEmitMode: 2, relativeContextFilePath: "", i18nUseExternalIds: true });
+  return __spreadProps(__spreadValues({}, convertDeclareDirectiveFacadeToMetadata(decl2, typeSourceSpan)), {
+    template,
+    styles: (_b = decl2.styles) != null ? _b : [],
+    declarations,
+    viewProviders: decl2.viewProviders !== void 0 ? new WrappedNodeExpr(decl2.viewProviders) : null,
+    animations: decl2.animations !== void 0 ? new WrappedNodeExpr(decl2.animations) : null,
+    changeDetection: (_c = decl2.changeDetection) != null ? _c : ChangeDetectionStrategy.Default,
+    encapsulation: (_d = decl2.encapsulation) != null ? _d : ViewEncapsulation.Emulated,
+    interpolation,
+    declarationListEmitMode: 2,
+    relativeContextFilePath: "",
+    i18nUseExternalIds: true
+  });
 }
 function convertDeclarationFacadeToMetadata(declaration) {
-  return Object.assign(Object.assign({}, declaration), { type: new WrappedNodeExpr(declaration.type) });
+  return __spreadProps(__spreadValues({}, declaration), {
+    type: new WrappedNodeExpr(declaration.type)
+  });
 }
 function convertDirectiveDeclarationToMetadata(declaration, isComponent = null) {
   var _a, _b, _c;
@@ -21433,9 +21849,9 @@ function convertDirectiveDeclarationToMetadata(declaration, isComponent = null) 
     isComponent: isComponent || declaration.kind === "component",
     selector: declaration.selector,
     type: new WrappedNodeExpr(declaration.type),
-    inputs: (_a = declaration.inputs) !== null && _a !== void 0 ? _a : [],
-    outputs: (_b = declaration.outputs) !== null && _b !== void 0 ? _b : [],
-    exportAs: (_c = declaration.exportAs) !== null && _c !== void 0 ? _c : null
+    inputs: (_a = declaration.inputs) != null ? _a : [],
+    outputs: (_b = declaration.outputs) != null ? _b : [],
+    exportAs: (_c = declaration.exportAs) != null ? _c : null
   };
 }
 function convertPipeMapToMetadata(pipes) {
@@ -21481,7 +21897,7 @@ function wrapExpression(obj, property) {
   }
 }
 function computeProvidedIn(providedIn) {
-  const expression = typeof providedIn === "function" ? new WrappedNodeExpr(providedIn) : new LiteralExpr(providedIn !== null && providedIn !== void 0 ? providedIn : null);
+  const expression = typeof providedIn === "function" ? new WrappedNodeExpr(providedIn) : new LiteralExpr(providedIn != null ? providedIn : null);
   return createMayBeForwardRefExpression(expression, 0);
 }
 function convertR3DependencyMetadataArray(facades) {
@@ -21495,9 +21911,9 @@ function convertR3DependencyMetadata(facade) {
 }
 function convertR3DeclareDependencyMetadata(facade) {
   var _a, _b, _c, _d, _e;
-  const isAttributeDep = (_a = facade.attribute) !== null && _a !== void 0 ? _a : false;
+  const isAttributeDep = (_a = facade.attribute) != null ? _a : false;
   const token = facade.token === null ? null : new WrappedNodeExpr(facade.token);
-  return createR3DependencyMetadata(token, isAttributeDep, (_b = facade.host) !== null && _b !== void 0 ? _b : false, (_c = facade.optional) !== null && _c !== void 0 ? _c : false, (_d = facade.self) !== null && _d !== void 0 ? _d : false, (_e = facade.skipSelf) !== null && _e !== void 0 ? _e : false);
+  return createR3DependencyMetadata(token, isAttributeDep, (_b = facade.host) != null ? _b : false, (_c = facade.optional) != null ? _c : false, (_d = facade.self) != null ? _d : false, (_e = facade.skipSelf) != null ? _e : false);
 }
 function createR3DependencyMetadata(token, isAttributeDep, host, optional, self2, skipSelf) {
   const attributeNameType = isAttributeDep ? literal("unknown") : null;
@@ -21534,12 +21950,38 @@ function isInput(value) {
 function isOutput(value) {
   return value.ngMetadataName === "Output";
 }
-function parseInputOutputs(values) {
+function inputsMappingToInputMetadata(inputs) {
+  return Object.keys(inputs).reduce((result, key) => {
+    const value = inputs[key];
+    result[key] = typeof value === "string" ? { bindingPropertyName: value, classPropertyName: value, required: false } : { bindingPropertyName: value[0], classPropertyName: value[1], required: false };
+    return result;
+  }, {});
+}
+function parseInputsArray(values) {
   return values.reduce((results, value) => {
-    const [field, property] = value.split(":", 2).map((str) => str.trim());
-    results[field] = property || field;
+    if (typeof value === "string") {
+      const [bindingPropertyName, classPropertyName] = parseMappingString(value);
+      results[classPropertyName] = { bindingPropertyName, classPropertyName, required: false };
+    } else {
+      results[value.name] = {
+        bindingPropertyName: value.alias || value.name,
+        classPropertyName: value.name,
+        required: value.required || false
+      };
+    }
     return results;
   }, {});
+}
+function parseMappingStringArray(values) {
+  return values.reduce((results, value) => {
+    const [alias, fieldName] = parseMappingString(value);
+    results[fieldName] = alias;
+    return results;
+  }, {});
+}
+function parseMappingString(value) {
+  const [fieldName, bindingPropertyName] = value.split(":", 2).map((str) => str.trim());
+  return [bindingPropertyName != null ? bindingPropertyName : fieldName, fieldName];
 }
 function convertDeclarePipeFacadeToMetadata(declaration) {
   var _a, _b;
@@ -21550,8 +21992,8 @@ function convertDeclarePipeFacadeToMetadata(declaration) {
     typeArgumentCount: 0,
     pipeName: declaration.name,
     deps: null,
-    pure: (_a = declaration.pure) !== null && _a !== void 0 ? _a : true,
-    isStandalone: (_b = declaration.isStandalone) !== null && _b !== void 0 ? _b : false
+    pure: (_a = declaration.pure) != null ? _a : true,
+    isStandalone: (_b = declaration.isStandalone) != null ? _b : false
   };
 }
 function convertDeclareInjectorFacadeToMetadata(declaration) {
@@ -21567,7 +22009,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("16.0.0-next.2");
+var VERSION = new Version("16.0.0-next.5");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -23505,7 +23947,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v16.0.0-next.2
+ * @license Angular v16.0.0-next.5
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */

@@ -38,7 +38,7 @@ export declare class MatCard {
     appearance: MatCardAppearance;
     constructor(config?: MatCardConfig);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCard, [{ optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCard, "mat-card", ["matCard"], { "appearance": "appearance"; }, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCard, "mat-card", ["matCard"], { "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 /**
@@ -52,7 +52,7 @@ export declare class MatCardActions {
     /** Position of the actions inside the card. */
     align: 'start' | 'end';
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCardActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCardActions, "mat-card-actions", ["matCardActions"], { "align": "align"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCardActions, "mat-card-actions", ["matCardActions"], { "align": { "alias": "align"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 export declare type MatCardAppearance = 'outlined' | 'raised';

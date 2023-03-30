@@ -173,7 +173,7 @@ export { MatLegacyNativeDateModule }
  */
 export declare class MatLegacyOptgroup extends _MatLegacyOptgroupBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyOptgroup, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": "disabled"; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
 }
 
 export { _MatLegacyOptgroupBase }

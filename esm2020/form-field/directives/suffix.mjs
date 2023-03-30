@@ -22,10 +22,10 @@ class MatSuffix {
         this._isText = true;
     }
 }
-MatSuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatSuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatSuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatSuffix, selector: "[matSuffix], [matIconSuffix], [matTextSuffix]", inputs: { _isTextSelector: ["matTextSuffix", "_isTextSelector"] }, providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }], ngImport: i0 });
+MatSuffix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatSuffix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatSuffix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatSuffix, selector: "[matSuffix], [matIconSuffix], [matTextSuffix]", inputs: { _isTextSelector: ["matTextSuffix", "_isTextSelector"] }, providers: [{ provide: MAT_SUFFIX, useExisting: MatSuffix }], ngImport: i0 });
 export { MatSuffix };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatSuffix, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatSuffix, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matSuffix], [matIconSuffix], [matTextSuffix]',

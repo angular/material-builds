@@ -51,7 +51,7 @@ export declare class MatLegacyCardActions {
     /** Position of the actions inside the card. */
     align: 'start' | 'end';
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyCardActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyCardActions, "mat-card-actions", ["matCardActions"], { "align": "align"; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyCardActions, "mat-card-actions", ["matCardActions"], { "align": { "alias": "align"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**

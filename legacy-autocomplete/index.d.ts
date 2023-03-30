@@ -71,7 +71,7 @@ export declare class MatLegacyAutocomplete extends _MatAutocompleteBase {
     protected _visibleClass: string;
     protected _hiddenClass: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyAutocomplete, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": "disableRipple"; }, {}, ["optionGroups", "options"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, ["optionGroups", "options"], ["*"], false, never>;
 }
 
 export { MatLegacyAutocompleteActivatedEvent }

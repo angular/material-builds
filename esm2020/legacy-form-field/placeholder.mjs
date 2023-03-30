@@ -15,10 +15,10 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyPlaceholder {
 }
-MatLegacyPlaceholder.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyPlaceholder, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyPlaceholder.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.2", type: MatLegacyPlaceholder, selector: "mat-placeholder", ngImport: i0 });
+MatLegacyPlaceholder.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyPlaceholder, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyPlaceholder.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyPlaceholder, selector: "mat-placeholder", ngImport: i0 });
 export { MatLegacyPlaceholder };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.2", ngImport: i0, type: MatLegacyPlaceholder, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyPlaceholder, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-placeholder',
