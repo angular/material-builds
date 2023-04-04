@@ -255,21 +255,5 @@ class MatTabNavBarHarness extends ComponentHarness {
 /** The selector for the host element of a `MatTabNavBar` instance. */
 MatTabNavBarHarness.hostSelector = '.mat-mdc-tab-nav-bar';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatTabGroupHarness, MatTabHarness, MatTabLinkHarness, MatTabNavBarHarness };
 //# sourceMappingURL=testing.mjs.map

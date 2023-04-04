@@ -1,13 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 import { ɵTileCoordinator } from '@angular/material/grid-list';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard `MatGridTitle` in tests. */
 class MatGridTileHarness extends ContentContainerComponentHarness {
     constructor() {
@@ -65,13 +58,6 @@ class MatGridTileHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a `MatGridTile` instance. */
 MatGridTileHarness.hostSelector = '.mat-grid-tile';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard `MatGridList` in tests. */
 class MatGridListHarness extends ComponentHarness {
     constructor() {
@@ -137,30 +123,6 @@ class MatGridListHarness extends ComponentHarness {
 }
 /** The selector for the host element of a `MatGridList` instance. */
 MatGridListHarness.hostSelector = '.mat-grid-list';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatGridListHarness, MatGridTileHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -1,12 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with an MDC-based mat-card in tests. */
 class MatCardHarness extends ContentContainerComponentHarness {
     constructor() {
@@ -40,30 +33,6 @@ class MatCardHarness extends ContentContainerComponentHarness {
 }
 /** The selector for the host element of a `MatCard` instance. */
 MatCardHarness.hostSelector = '.mat-mdc-card';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatCardHarness };
 //# sourceMappingURL=testing.mjs.map

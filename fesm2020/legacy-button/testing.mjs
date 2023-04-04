@@ -2,13 +2,6 @@ import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-button in tests.
  * @deprecated Use `MatButtonHarness` from `@angular/material/button/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -80,22 +73,6 @@ class MatLegacyButtonHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a button instance. */
 MatLegacyButtonHarness.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button], [mat-icon-button],
                          [mat-stroked-button], [mat-fab], [mat-mini-fab]`;
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyButtonHarness };
 //# sourceMappingURL=testing.mjs.map

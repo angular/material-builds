@@ -49,21 +49,5 @@ class MatLegacyMenuItemHarness extends _MatMenuItemHarnessBase {
 /** The selector for the host element of a `MatMenuItem` instance. */
 MatLegacyMenuItemHarness.hostSelector = '.mat-menu-item';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatLegacyMenuHarness, MatLegacyMenuItemHarness };
 //# sourceMappingURL=testing.mjs.map

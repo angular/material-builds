@@ -1,12 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with an MDC_based Angular Material tab in tests. */
 class MatTabHarness extends ContentContainerComponentHarness {
     /**
@@ -65,13 +58,6 @@ class MatTabHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a `MatTab` instance. */
 MatTabHarness.hostSelector = '.mat-mdc-tab';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with an MDC-based mat-tab-group in tests. */
 class MatTabGroupHarness extends ComponentHarness {
     /**
@@ -119,13 +105,6 @@ class MatTabGroupHarness extends ComponentHarness {
 /** The selector for the host element of a `MatTabGroup` instance. */
 MatTabGroupHarness.hostSelector = '.mat-mdc-tab-group';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with an MDC-based Angular Material tab link in tests. */
 class MatTabLinkHarness extends ComponentHarness {
     /**
@@ -158,13 +137,6 @@ class MatTabLinkHarness extends ComponentHarness {
 /** The selector for the host element of a `MatTabLink` instance. */
 MatTabLinkHarness.hostSelector = '.mat-mdc-tab-link';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-tab-nav-panel in tests. */
 class MatTabNavPanelHarness extends ContentContainerComponentHarness {
     /**
@@ -184,13 +156,6 @@ class MatTabNavPanelHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a `MatTabNavPanel` instance. */
 MatTabNavPanelHarness.hostSelector = '.mat-mdc-tab-nav-panel';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with an MDC-based mat-tab-nav-bar in tests. */
 class MatTabNavBarHarness extends ComponentHarness {
     /**
@@ -246,22 +211,6 @@ class MatTabNavBarHarness extends ComponentHarness {
 }
 /** The selector for the host element of a `MatTabNavBar` instance. */
 MatTabNavBarHarness.hostSelector = '.mat-mdc-tab-nav-bar';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatTabGroupHarness, MatTabHarness, MatTabLinkHarness, MatTabNavBarHarness };
 //# sourceMappingURL=testing.mjs.map

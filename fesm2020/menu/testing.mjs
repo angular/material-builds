@@ -1,13 +1,6 @@
 import { ContentContainerComponentHarness, TestKey, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatMenuHarnessBase extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
@@ -178,30 +171,6 @@ class MatMenuItemHarness extends _MatMenuItemHarnessBase {
 }
 /** The selector for the host element of a `MatMenuItem` instance. */
 MatMenuItemHarness.hostSelector = '.mat-mdc-menu-item';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatMenuHarness, MatMenuItemHarness, _MatMenuHarnessBase, _MatMenuItemHarnessBase };
 //# sourceMappingURL=testing.mjs.map

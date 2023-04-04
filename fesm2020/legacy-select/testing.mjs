@@ -3,13 +3,6 @@ import { _MatSelectHarnessBase } from '@angular/material/select/testing';
 import { MatLegacyOptionHarness, MatLegacyOptgroupHarness } from '@angular/material/legacy-core/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-select in tests.
  * @deprecated Use `MatSelectHarness` from `@angular/material/select/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -34,22 +27,6 @@ class MatLegacySelectHarness extends _MatSelectHarnessBase {
     }
 }
 MatLegacySelectHarness.hostSelector = '.mat-select';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacySelectHarness };
 //# sourceMappingURL=testing.mjs.map

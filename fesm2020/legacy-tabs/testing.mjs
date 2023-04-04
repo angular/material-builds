@@ -1,13 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard Angular Material tab-label in tests.
  * @deprecated Use `MatTabHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -71,13 +64,6 @@ class MatLegacyTabHarness extends ContentContainerComponentHarness {
 MatLegacyTabHarness.hostSelector = '.mat-tab-label';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-tab-group in tests.
  * @deprecated Use `MatTabGroupHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -130,13 +116,6 @@ class MatLegacyTabGroupHarness extends ComponentHarness {
 MatLegacyTabGroupHarness.hostSelector = '.mat-tab-group';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard Angular Material tab link in tests.
  * @deprecated Use `MatTabLinkHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -174,13 +153,6 @@ class MatLegacyTabLinkHarness extends ComponentHarness {
 MatLegacyTabLinkHarness.hostSelector = '.mat-tab-link';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-tab-nav-panel in tests.
  * @deprecated Use `MatTabNavPanelHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -203,13 +175,6 @@ class MatLegacyTabNavPanelHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a `MatTabNavPanel` instance. */
 MatLegacyTabNavPanelHarness.hostSelector = '.mat-tab-nav-panel';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Harness for interacting with a standard mat-tab-nav-bar in tests.
  * @deprecated Use `MatTabNavBarHarness` from `@angular/material/tabs/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -269,22 +234,6 @@ class MatLegacyTabNavBarHarness extends ComponentHarness {
 }
 /** The selector for the host element of a `MatTabNavBar` instance. */
 MatLegacyTabNavBarHarness.hostSelector = '.mat-tab-nav-bar';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyTabGroupHarness, MatLegacyTabHarness, MatLegacyTabLinkHarness, MatLegacyTabNavBarHarness };
 //# sourceMappingURL=testing.mjs.map

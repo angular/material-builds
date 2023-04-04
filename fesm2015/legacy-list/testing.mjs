@@ -241,13 +241,6 @@ class MatLegacyActionListItemHarness extends MatLegacyListItemHarnessBase {
 MatLegacyActionListItemHarness.hostSelector = `${MatLegacyActionListHarness.hostSelector} .mat-list-item`;
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-list in tests.
  * @deprecated Use `MatListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -501,22 +494,6 @@ class MatLegacyListOptionHarness extends MatLegacyListItemHarnessBase {
 }
 /** The selector for the host element of a `MatListOption` instance. */
 MatLegacyListOptionHarness.hostSelector = '.mat-list-option';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyActionListHarness, MatLegacyActionListItemHarness, MatLegacyListHarness, MatLegacyListItemHarness, MatLegacyListOptionHarness, MatLegacyNavListHarness, MatLegacyNavListItemHarness, MatLegacySelectionListHarness };
 //# sourceMappingURL=testing.mjs.map

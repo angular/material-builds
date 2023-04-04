@@ -2,13 +2,6 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 import { _MatSnackBarHarnessBase } from '@angular/material/snack-bar/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-snack-bar in tests.
  * @deprecated Use `MatSnackBarHarness` from `@angular/material/snack-bar/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -44,22 +37,6 @@ class MatLegacySnackBarHarness extends _MatSnackBarHarnessBase {
 // notified when it's done.
 /** The selector for the host element of a `MatSnackBar` instance. */
 MatLegacySnackBarHarness.hostSelector = '.mat-snack-bar-container';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacySnackBarHarness };
 //# sourceMappingURL=testing.mjs.map

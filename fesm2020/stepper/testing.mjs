@@ -1,12 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Angular Material step in tests. */
 class MatStepHarness extends ContentContainerComponentHarness {
     /**
@@ -89,13 +82,6 @@ class MatStepHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a `MatStep` instance. */
 MatStepHarness.hostSelector = '.mat-step-header';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material stepper in tests. */
 class MatStepperHarness extends ComponentHarness {
     /**
@@ -137,13 +123,6 @@ class MatStepperHarness extends ComponentHarness {
 /** The selector for the host element of a `MatStepper` instance. */
 MatStepperHarness.hostSelector = '.mat-stepper-horizontal, .mat-stepper-vertical';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Base class for stepper button harnesses. */
 class StepperButtonHarness extends ComponentHarness {
     /** Gets the text of the button. */
@@ -183,22 +162,6 @@ class MatStepperPreviousHarness extends StepperButtonHarness {
 }
 /** The selector for the host element of a `MatStep` instance. */
 MatStepperPreviousHarness.hostSelector = '.mat-stepper-previous';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatStepHarness, MatStepperHarness, MatStepperNextHarness, MatStepperPreviousHarness };
 //# sourceMappingURL=testing.mjs.map

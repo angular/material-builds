@@ -1,12 +1,5 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Angular Material sort header in tests. */
 class MatSortHeaderHarness extends ComponentHarness {
     constructor() {
@@ -55,13 +48,6 @@ class MatSortHeaderHarness extends ComponentHarness {
 }
 MatSortHeaderHarness.hostSelector = '.mat-sort-header';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard `mat-sort` in tests. */
 class MatSortHarness extends ComponentHarness {
     /**
@@ -88,22 +74,6 @@ class MatSortHarness extends ComponentHarness {
     }
 }
 MatSortHarness.hostSelector = '.mat-sort';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatSortHarness, MatSortHeaderHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -3,13 +3,6 @@ import { _MatCellHarnessBase, _MatRowHarnessBase, _MatTableHarnessBase } from '@
 export { _MatCellHarnessBase as _MatLegacyCellHarnessBase, _MatRowHarnessBase as _MatLegacyRowHarnessBase, _MatTableHarnessBase as _MatLegacyTableHarnessBase } from '@angular/material/table/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard Angular Material table cell.
  * @deprecated Use `MatCellHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -63,13 +56,6 @@ class MatLegacyFooterCellHarness extends _MatCellHarnessBase {
 /** The selector for the host element of a `MatFooterCellHarness` instance. */
 MatLegacyFooterCellHarness.hostSelector = '.mat-footer-cell';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Harness for interacting with a standard Angular Material table row.
  * @deprecated Use `MatRowHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -137,13 +123,6 @@ class MatLegacyFooterRowHarness extends _MatRowHarnessBase {
 MatLegacyFooterRowHarness.hostSelector = '.mat-footer-row';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-table in tests.
  * @deprecated Use `MatTableHarness` from `@angular/material/table/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -166,22 +145,6 @@ class MatLegacyTableHarness extends _MatTableHarnessBase {
 }
 /** The selector for the host element of a `MatTableHarness` instance. */
 MatLegacyTableHarness.hostSelector = '.mat-table';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyCellHarness, MatLegacyFooterCellHarness, MatLegacyFooterRowHarness, MatLegacyHeaderCellHarness, MatLegacyHeaderRowHarness, MatLegacyRowHarness, MatLegacyTableHarness };
 //# sourceMappingURL=testing.mjs.map

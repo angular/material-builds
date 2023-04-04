@@ -86,21 +86,5 @@ class MatButtonHarness extends ContentContainerComponentHarness {
 MatButtonHarness.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button],
                          [mat-icon-button], [mat-stroked-button], [mat-fab], [mat-mini-fab]`;
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatButtonHarness };
 //# sourceMappingURL=testing.mjs.map

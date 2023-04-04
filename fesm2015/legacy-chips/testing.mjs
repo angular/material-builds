@@ -2,13 +2,6 @@ import { __awaiter } from 'tslib';
 import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness, TestKey, parallel } from '@angular/cdk/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard Material chip avatar in tests.
  * @deprecated Use `MatChipAvatarHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -434,22 +427,6 @@ class MatLegacyChipListboxHarness extends _MatChipListHarnessBase {
 }
 /** The selector for the host element of a `MatChipList` instance. */
 MatLegacyChipListboxHarness.hostSelector = '.mat-chip-list';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyChipHarness, MatLegacyChipInputHarness, MatLegacyChipListHarness, MatLegacyChipListboxHarness, MatLegacyChipOptionHarness, MatLegacyChipRemoveHarness };
 //# sourceMappingURL=testing.mjs.map

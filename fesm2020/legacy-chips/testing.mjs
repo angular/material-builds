@@ -1,13 +1,6 @@
 import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness, TestKey, parallel } from '@angular/cdk/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard Material chip avatar in tests.
  * @deprecated Use `MatChipAvatarHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -25,13 +18,6 @@ class MatLegacyChipAvatarHarness extends ComponentHarness {
 }
 MatLegacyChipAvatarHarness.hostSelector = '.mat-chip-avatar';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Harness for interacting with a standard Material chip remove button in tests.
  * @deprecated Use `MatChipRemoveHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -54,13 +40,6 @@ class MatLegacyChipRemoveHarness extends ComponentHarness {
 }
 MatLegacyChipRemoveHarness.hostSelector = '.mat-chip-remove';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Harness for interacting with a standard selectable Angular Material chip in tests.
  * @deprecated Use `MatChipHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -147,13 +126,6 @@ class MatLegacyChipHarness extends ContentContainerComponentHarness {
 MatLegacyChipHarness.hostSelector = '.mat-chip';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard Material chip inputs in tests.
  * @deprecated Use `MatChipInputHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -231,13 +203,6 @@ class MatLegacyChipInputHarness extends ComponentHarness {
 }
 MatLegacyChipInputHarness.hostSelector = '.mat-chip-input';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Base class for chip list harnesses.
  * @deprecated Use `class` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -319,13 +284,6 @@ class MatLegacyChipListHarness extends _MatChipListHarnessBase {
 MatLegacyChipListHarness.hostSelector = '.mat-chip-list';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * @deprecated Use `MatChipOptionHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
  */
@@ -366,13 +324,6 @@ class MatLegacyChipOptionHarness extends MatLegacyChipHarness {
 MatLegacyChipOptionHarness.hostSelector = '.mat-chip';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard selectable chip list in tests.
  * @deprecated Use `MatChipListboxHarness` from `@angular/material/chips/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -409,22 +360,6 @@ class MatLegacyChipListboxHarness extends _MatChipListHarnessBase {
 }
 /** The selector for the host element of a `MatChipList` instance. */
 MatLegacyChipListboxHarness.hostSelector = '.mat-chip-list';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyChipHarness, MatLegacyChipInputHarness, MatLegacyChipListHarness, MatLegacyChipListboxHarness, MatLegacyChipOptionHarness, MatLegacyChipRemoveHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -314,13 +314,6 @@ class MatActionListItemHarness extends MatListItemHarnessBase {
 /** The selector for the host element of a `MatListItem` instance. */
 MatActionListItemHarness.hostSelector = `${MatActionListHarness.hostSelector} .mat-mdc-list-item`;
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a MDC-based list in tests. */
 class MatListHarness extends MatListHarnessBase {
     constructor() {
@@ -560,22 +553,6 @@ class MatListOptionHarness extends MatListItemHarnessBase {
 }
 /** The selector for the host element of a `MatListOption` instance. */
 MatListOptionHarness.hostSelector = '.mat-mdc-list-option';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatActionListHarness, MatActionListItemHarness, MatListHarness, MatListItemHarness, MatListOptionHarness, MatNavListHarness, MatNavListItemHarness, MatSelectionListHarness, MatSubheaderHarness };
 //# sourceMappingURL=testing.mjs.map

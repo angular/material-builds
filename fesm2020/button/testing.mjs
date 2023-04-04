@@ -1,13 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a MDC-based mat-button in tests. */
 class MatButtonHarness extends ContentContainerComponentHarness {
     /**
@@ -77,30 +70,6 @@ class MatButtonHarness extends ContentContainerComponentHarness {
 // TODO(jelbourn) use a single class, like `.mat-button-base`
 MatButtonHarness.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button],
                          [mat-icon-button], [mat-stroked-button], [mat-fab], [mat-mini-fab]`;
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatButtonHarness };
 //# sourceMappingURL=testing.mjs.map

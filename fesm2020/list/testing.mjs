@@ -1,13 +1,6 @@
 import { HarnessPredicate, ComponentHarness, ContentContainerComponentHarness, parallel } from '@angular/cdk/testing';
 import { MatDividerHarness } from '@angular/material/divider/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const iconSelector = '.mat-mdc-list-item-icon';
 const avatarSelector = '.mat-mdc-list-item-avatar';
 /**
@@ -151,13 +144,6 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
 }
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Shared behavior among the harnesses for the various `MatList` flavors.
  * @template T A constructor type for a list item harness type used by this list harness.
  * @template C The list item harness type that `T` constructs.
@@ -242,13 +228,6 @@ class MatListHarnessBase extends ComponentHarness {
     }
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a MDC-based action-list in tests. */
 class MatActionListHarness extends MatListHarnessBase {
     constructor() {
@@ -298,13 +277,6 @@ class MatActionListItemHarness extends MatListItemHarnessBase {
 /** The selector for the host element of a `MatListItem` instance. */
 MatActionListItemHarness.hostSelector = `${MatActionListHarness.hostSelector} .mat-mdc-list-item`;
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a MDC-based list in tests. */
 class MatListHarness extends MatListHarnessBase {
     constructor() {
@@ -336,21 +308,6 @@ class MatListItemHarness extends MatListItemHarnessBase {
 /** The selector for the host element of a `MatListItem` instance. */
 MatListItemHarness.hostSelector = `${MatListHarness.hostSelector} .mat-mdc-list-item`;
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a MDC-based mat-nav-list in tests. */
 class MatNavListHarness extends MatListHarnessBase {
     constructor() {
@@ -410,13 +367,6 @@ class MatNavListItemHarness extends MatListItemHarnessBase {
 /** The selector for the host element of a `MatListItem` instance. */
 MatNavListItemHarness.hostSelector = `${MatNavListHarness.hostSelector} .mat-mdc-list-item`;
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a MDC_based selection-list in tests. */
 class MatSelectionListHarness extends MatListHarnessBase {
     constructor() {
@@ -528,22 +478,6 @@ class MatListOptionHarness extends MatListItemHarnessBase {
 }
 /** The selector for the host element of a `MatListOption` instance. */
 MatListOptionHarness.hostSelector = '.mat-mdc-list-option';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatActionListHarness, MatActionListItemHarness, MatListHarness, MatListItemHarness, MatListOptionHarness, MatNavListHarness, MatNavListItemHarness, MatSelectionListHarness, MatSubheaderHarness };
 //# sourceMappingURL=testing.mjs.map

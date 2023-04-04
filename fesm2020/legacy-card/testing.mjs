@@ -1,13 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-card in tests.
  * @deprecated Use `MatCardHarness` from `@angular/material/card/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -45,22 +38,6 @@ class MatLegacyCardHarness extends ContentContainerComponentHarness {
 }
 /** The selector for the host element of a `MatCard` instance. */
 MatLegacyCardHarness.hostSelector = '.mat-card';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyCardHarness };
 //# sourceMappingURL=testing.mjs.map

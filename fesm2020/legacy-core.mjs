@@ -7,13 +7,6 @@ import { _MatOptgroupBase, MAT_OPTGROUP, _MatOptionBase, MAT_OPTION_PARENT_COMPO
 export { VERSION as LEGACY_VERSION, AnimationCurves as LegacyAnimationCurves, AnimationDurations as LegacyAnimationDurations, DateAdapter as LegacyDateAdapter, ErrorStateMatcher as LegacyErrorStateMatcher, NativeDateAdapter as LegacyNativeDateAdapter, NativeDateModule as LegacyNativeDateModule, RippleRef as LegacyRippleRef, RippleRenderer as LegacyRippleRenderer, ShowOnDirtyErrorStateMatcher as LegacyShowOnDirtyErrorStateMatcher, MATERIAL_SANITY_CHECKS as MATERIAL_LEGACY_SANITY_CHECKS, MAT_DATE_FORMATS as MAT_LEGACY_DATE_FORMATS, MAT_DATE_LOCALE as MAT_LEGACY_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY as MAT_LEGACY_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS as MAT_LEGACY_NATIVE_DATE_FORMATS, MAT_OPTGROUP as MAT_LEGACY_OPTGROUP, MAT_OPTION_PARENT_COMPONENT as MAT_LEGACY_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS as MAT_LEGACY_RIPPLE_GLOBAL_OPTIONS, MatCommonModule as MatLegacyCommonModule, MatLine as MatLegacyLine, MatLineModule as MatLegacyLineModule, MatNativeDateModule as MatLegacyNativeDateModule, MatOptionSelectionChange as MatLegacyOptionSelectionChange, MatPseudoCheckbox as MatLegacyPseudoCheckbox, MatPseudoCheckboxModule as MatLegacyPseudoCheckboxModule, MatRipple as MatLegacyRipple, MatRippleModule as MatLegacyRippleModule, _MatOptgroupBase as _MatLegacyOptgroupBase, _MatOptionBase as _MatLegacyOptionBase, _countGroupLabelsBeforeOption as _countGroupLabelsBeforeLegacyOption, _getOptionScrollPosition as _getLegacyOptionScrollPosition, defaultRippleAnimationConfig as legacyDefaultRippleAnimationConfig, mixinColor as legacyMixinColor, mixinDisableRipple as legacyMixinDisableRipple, mixinDisabled as legacyMixinDisabled, mixinErrorState as legacyMixinErrorState, mixinInitialized as legacyMixinInitialized, mixinTabIndex as legacyMixinTabIndex, setLines as legacySetLines } from '@angular/material/core';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Component that is used to group instances of `mat-option`.
  * @deprecated Use `MatOptgroup` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -33,13 +26,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
                     }, providers: [{ provide: MAT_OPTGROUP, useExisting: MatLegacyOptgroup }], template: "<span class=\"mat-optgroup-label\" aria-hidden=\"true\" [id]=\"_labelId\">{{ label }} <ng-content></ng-content></span>\n<ng-content select=\"mat-option, ng-container\"></ng-content>\n", styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;-webkit-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}.mat-optgroup-label .mat-icon svg{vertical-align:top}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}"] }]
         }] });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Single option inside of a `<mat-select>` element.
  * @deprecated Use `MatOption` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -81,13 +67,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
                 }] }]; } });
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * @deprecated Use `MatOptionModule` from `@angular/material/core` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
  */
@@ -104,22 +83,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
                     declarations: [MatLegacyOption, MatLegacyOptgroup],
                 }]
         }] });
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 /**
  * Generated bundle index. Do not edit.

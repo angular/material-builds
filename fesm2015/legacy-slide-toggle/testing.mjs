@@ -48,21 +48,5 @@ class MatLegacySlideToggleHarness extends _MatSlideToggleHarnessBase {
 /** The selector for the host element of a `MatSlideToggle` instance. */
 MatLegacySlideToggleHarness.hostSelector = '.mat-slide-toggle';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatLegacySlideToggleHarness };
 //# sourceMappingURL=testing.mjs.map

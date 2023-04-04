@@ -1,13 +1,6 @@
 import { HarnessPredicate, ComponentHarness, ContentContainerComponentHarness, parallel } from '@angular/cdk/testing';
 import { MatDividerHarness } from '@angular/material/divider/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const iconSelector = '.mat-list-icon';
 const avatarSelector = '.mat-list-avatar';
 /**
@@ -74,13 +67,6 @@ class MatLegacyListItemHarnessBase extends ContentContainerComponentHarness {
     }
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Shared behavior among the harnesses for the various `MatList` flavors.
  * @template T A constructor type for a list item harness type used by this list harness.
@@ -169,13 +155,6 @@ class MatLegacyListHarnessBase extends ComponentHarness {
 }
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-action-list in tests.
  * @deprecated Use `MatActionListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -233,13 +212,6 @@ class MatLegacyActionListItemHarness extends MatLegacyListItemHarnessBase {
 MatLegacyActionListItemHarness.hostSelector = `${MatLegacyActionListHarness.hostSelector} .mat-list-item`;
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-list in tests.
  * @deprecated Use `MatListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -280,13 +252,6 @@ class MatLegacyListItemHarness extends MatLegacyListItemHarnessBase {
 /** The selector for the host element of a `MatListItem` instance. */
 MatLegacyListItemHarness.hostSelector = `${MatLegacyListHarness.hostSelector} .mat-list-item`;
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Harness for interacting with a standard mat-nav-list in tests.
  * @deprecated Use `MatNavListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -348,13 +313,6 @@ class MatLegacyNavListItemHarness extends MatLegacyListItemHarnessBase {
 /** The selector for the host element of a `MatListItem` instance. */
 MatLegacyNavListItemHarness.hostSelector = `${MatLegacyNavListHarness.hostSelector} .mat-list-item`;
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Harness for interacting with a standard mat-selection-list in tests.
  * @deprecated Use `MatSelectionListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
@@ -473,22 +431,6 @@ class MatLegacyListOptionHarness extends MatLegacyListItemHarnessBase {
 }
 /** The selector for the host element of a `MatListOption` instance. */
 MatLegacyListOptionHarness.hostSelector = '.mat-list-option';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyActionListHarness, MatLegacyActionListItemHarness, MatLegacyListHarness, MatLegacyListItemHarness, MatLegacyListOptionHarness, MatLegacyNavListHarness, MatLegacyNavListItemHarness, MatLegacySelectionListHarness };
 //# sourceMappingURL=testing.mjs.map

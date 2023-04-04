@@ -1,13 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Angular Material tree node. */
 class MatTreeNodeHarness extends ContentContainerComponentHarness {
     constructor() {
@@ -68,13 +61,6 @@ function getNodePredicate(type, options) {
         .addOption('level', options.level, async (harness, level) => (await harness.getLevel()) === level);
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-tree in tests. */
 class MatTreeHarness extends ComponentHarness {
     /**
@@ -188,30 +174,6 @@ class MatTreeHarness extends ComponentHarness {
 }
 /** The selector for the host element of a `MatTableHarness` instance. */
 MatTreeHarness.hostSelector = '.mat-tree';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatTreeHarness, MatTreeNodeHarness };
 //# sourceMappingURL=testing.mjs.map

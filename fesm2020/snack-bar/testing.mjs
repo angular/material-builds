@@ -1,12 +1,5 @@
 import { ContentContainerComponentHarness, parallel, HarnessPredicate } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatSnackBarHarnessBase extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
@@ -112,30 +105,6 @@ class MatSnackBarHarness extends _MatSnackBarHarnessBase {
 // snackbar. The canonical snack-bar parent is the "MatSnackBarContainer".
 /** The selector for the host element of a `MatSnackBar` instance. */
 MatSnackBarHarness.hostSelector = '.mat-mdc-snack-bar-container:not([mat-exit])';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatSnackBarHarness, _MatSnackBarHarnessBase };
 //# sourceMappingURL=testing.mjs.map

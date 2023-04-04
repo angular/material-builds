@@ -278,21 +278,5 @@ class MatLegacyTabNavBarHarness extends ComponentHarness {
 /** The selector for the host element of a `MatTabNavBar` instance. */
 MatLegacyTabNavBarHarness.hostSelector = '.mat-tab-nav-bar';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatLegacyTabGroupHarness, MatLegacyTabHarness, MatLegacyTabLinkHarness, MatLegacyTabNavBarHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -2,13 +2,6 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatAutocompleteHarnessBase extends ComponentHarness {
     constructor() {
         super(...arguments);
@@ -112,30 +105,6 @@ class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
 }
 /** The selector for the host element of a `MatAutocomplete` instance. */
 MatAutocompleteHarness.hostSelector = '.mat-mdc-autocomplete-trigger';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatAutocompleteHarness, _MatAutocompleteHarnessBase };
 //# sourceMappingURL=testing.mjs.map

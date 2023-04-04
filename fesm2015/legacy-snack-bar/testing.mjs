@@ -43,21 +43,5 @@ class MatLegacySnackBarHarness extends _MatSnackBarHarnessBase {
 /** The selector for the host element of a `MatSnackBar` instance. */
 MatLegacySnackBarHarness.hostSelector = '.mat-snack-bar-container';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatLegacySnackBarHarness };
 //# sourceMappingURL=testing.mjs.map

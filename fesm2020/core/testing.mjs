@@ -1,12 +1,5 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with an MDC-based `mat-option` in tests. */
 class MatOptionHarness extends ComponentHarness {
     constructor() {
@@ -52,21 +45,6 @@ class MatOptionHarness extends ComponentHarness {
 /** Selector used to locate option instances. */
 MatOptionHarness.hostSelector = '.mat-mdc-option';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with an MDC-based `mat-optgroup` in tests. */
 class MatOptgroupHarness extends ComponentHarness {
     constructor() {
@@ -100,30 +78,6 @@ class MatOptgroupHarness extends ComponentHarness {
 }
 /** Selector used to locate option group instances. */
 MatOptgroupHarness.hostSelector = '.mat-mdc-optgroup';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatOptgroupHarness, MatOptionHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -98,21 +98,5 @@ class MatOptgroupHarness extends ComponentHarness {
 /** Selector used to locate option group instances. */
 MatOptgroupHarness.hostSelector = '.mat-mdc-optgroup';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatOptgroupHarness, MatOptionHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -3,13 +3,6 @@ import { MatLegacyOptionHarness, MatLegacyOptgroupHarness } from '@angular/mater
 import { _MatAutocompleteHarnessBase } from '@angular/material/autocomplete/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-autocomplete in tests.
  * @deprecated Use `MatAutocompleteHarness` from `@angular/material/autocomplete/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -37,22 +30,6 @@ class MatLegacyAutocompleteHarness extends _MatAutocompleteHarnessBase {
 }
 /** The selector for the host element of a `MatAutocomplete` instance. */
 MatLegacyAutocompleteHarness.hostSelector = '.mat-autocomplete-trigger';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyAutocompleteHarness };
 //# sourceMappingURL=testing.mjs.map

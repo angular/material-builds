@@ -1,12 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-expansion-panel in tests. */
 class MatExpansionPanelHarness extends ContentContainerComponentHarness {
     constructor() {
@@ -119,13 +112,6 @@ class MatExpansionPanelHarness extends ContentContainerComponentHarness {
 }
 MatExpansionPanelHarness.hostSelector = '.mat-expansion-panel';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-accordion in tests. */
 class MatAccordionHarness extends ComponentHarness {
     /**
@@ -147,30 +133,6 @@ class MatAccordionHarness extends ComponentHarness {
     }
 }
 MatAccordionHarness.hostSelector = '.mat-accordion';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatAccordionHarness, MatExpansionPanelHarness };
 //# sourceMappingURL=testing.mjs.map

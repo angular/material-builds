@@ -32,21 +32,5 @@ class MatLegacyAutocompleteHarness extends _MatAutocompleteHarnessBase {
 /** The selector for the host element of a `MatAutocomplete` instance. */
 MatLegacyAutocompleteHarness.hostSelector = '.mat-autocomplete-trigger';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatLegacyAutocompleteHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -2,13 +2,6 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 import { _MatRadioGroupHarnessBase, _MatRadioButtonHarnessBase } from '@angular/material/radio/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-radio-group in tests
  * @deprecated Use `MatRadioGroupHarness` from `@angular/material/radio/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -56,22 +49,6 @@ class MatLegacyRadioButtonHarness extends _MatRadioButtonHarnessBase {
 }
 /** The selector for the host element of a `MatRadioButton` instance. */
 MatLegacyRadioButtonHarness.hostSelector = '.mat-radio-button';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyRadioButtonHarness, MatLegacyRadioGroupHarness };
 //# sourceMappingURL=testing.mjs.map

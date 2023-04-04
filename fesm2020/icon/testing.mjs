@@ -4,13 +4,6 @@ import { Injectable, NgModule } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { of } from 'rxjs';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-icon in tests. */
 class MatIconHarness extends ComponentHarness {
     /**
@@ -57,21 +50,6 @@ class MatIconHarness extends ComponentHarness {
 /** The selector for the host element of a `MatIcon` instance. */
 MatIconHarness.hostSelector = '.mat-icon';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * A null icon registry that must be imported to allow disabling of custom
  * icons.
@@ -152,22 +130,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
                     providers: [{ provide: MatIconRegistry, useClass: FakeMatIconRegistry }],
                 }]
         }] });
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 /**
  * Generated bundle index. Do not edit.

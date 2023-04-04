@@ -17,13 +17,6 @@ import { MatCommonModule } from '@angular/material/core';
 import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Configuration for opening a modal dialog with the MatDialog service.
  */
 class MatDialogConfig {
@@ -77,13 +70,6 @@ class MatDialogConfig {
     }
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Class added when the dialog is open. */
 const OPEN_CLASS = 'mdc-dialog--open';
 /** Class added while the dialog is opening. */
@@ -312,13 +298,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
                 }] }, { type: i1.FocusMonitor }]; } });
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Reference to a dialog opened via the MatDialog service.
  */
 class MatDialogRef {
@@ -477,13 +456,6 @@ function _closeDialogVia(ref, interactionType, result) {
     return ref.close(result);
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Injection token that can be used to access the data that was passed in to a dialog. */
 const MAT_DIALOG_DATA = new InjectionToken('MatMdcDialogData');
 /** Injection token that can be used to specify default dialog options. */
@@ -690,13 +662,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
                     args: [ANIMATION_MODULE_TYPE$1]
                 }] }]; } });
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Counter used to generate unique IDs for dialog elements. */
 let dialogElementUid = 0;
 /**
@@ -862,13 +827,6 @@ function getClosestDialog(element, openDialogs) {
     return parent ? openDialogs.find(dialog => dialog.id === parent.id) : null;
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MatDialogModule {
 }
 MatDialogModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatDialogModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
@@ -907,13 +865,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
         }] });
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Default parameters for the animation for backwards compatibility.
  * @docs-private
  */
@@ -942,22 +893,6 @@ const matDialogAnimations = {
         ]), _defaultParams),
     ]),
 };
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 /**
  * Generated bundle index. Do not edit.

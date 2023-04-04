@@ -238,21 +238,7 @@ class MatFormFieldHarness extends _MatFormFieldHarnessBase {
 }
 MatFormFieldHarness.hostSelector = '.mat-mdc-form-field';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+// Re-export the base control harness from the "form-field/testing/control" entry-point. To
 
 export { MatErrorHarness, MatFormFieldHarness, _MatErrorHarnessBase, _MatFormFieldHarnessBase };
 //# sourceMappingURL=testing.mjs.map

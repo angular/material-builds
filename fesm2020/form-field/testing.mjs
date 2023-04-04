@@ -4,21 +4,6 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatErrorHarnessBase extends ComponentHarness {
     /** Gets a promise for the error's label text. */
     async getText() {
@@ -42,13 +27,6 @@ class MatErrorHarness extends _MatErrorHarnessBase {
 }
 MatErrorHarness.hostSelector = '.mat-mdc-form-field-error';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatFormFieldHarnessBase extends ComponentHarness {
     /** Gets the label of the form-field. */
     async getLabel() {
@@ -219,21 +197,7 @@ class MatFormFieldHarness extends _MatFormFieldHarnessBase {
 }
 MatFormFieldHarness.hostSelector = '.mat-mdc-form-field';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
+// Re-export the base control harness from the "form-field/testing/control" entry-point. To
 
 export { MatErrorHarness, MatFormFieldHarness, _MatErrorHarnessBase, _MatFormFieldHarnessBase };
 //# sourceMappingURL=testing.mjs.map

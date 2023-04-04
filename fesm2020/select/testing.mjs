@@ -2,13 +2,6 @@ import { parallel, HarnessPredicate } from '@angular/cdk/testing';
 import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatSelectHarnessBase extends MatFormFieldControlHarness {
     constructor() {
         super(...arguments);
@@ -132,30 +125,6 @@ class MatSelectHarness extends _MatSelectHarnessBase {
     }
 }
 MatSelectHarness.hostSelector = '.mat-mdc-select';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatSelectHarness, _MatSelectHarnessBase };
 //# sourceMappingURL=testing.mjs.map

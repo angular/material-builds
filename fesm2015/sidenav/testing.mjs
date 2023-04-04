@@ -48,13 +48,6 @@ class MatDrawerHarness extends MatDrawerHarnessBase {
 /** The selector for the host element of a `MatDrawer` instance. */
 MatDrawerHarness.hostSelector = '.mat-drawer';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-drawer-content in tests. */
 class MatDrawerContentHarness extends ContentContainerComponentHarness {
     /**
@@ -100,13 +93,6 @@ class MatDrawerContainerHarness extends ContentContainerComponentHarness {
 /** The selector for the host element of a `MatDrawerContainer` instance. */
 MatDrawerContainerHarness.hostSelector = '.mat-drawer-container';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-sidenav-content in tests. */
 class MatSidenavContentHarness extends ContentContainerComponentHarness {
     /**
@@ -172,22 +158,6 @@ class MatSidenavContainerHarness extends ContentContainerComponentHarness {
 }
 /** The selector for the host element of a `MatSidenavContainer` instance. */
 MatSidenavContainerHarness.hostSelector = '.mat-sidenav-container';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatDrawerContainerHarness, MatDrawerContentHarness, MatDrawerHarness, MatSidenavContainerHarness, MatSidenavContentHarness, MatSidenavHarness };
 //# sourceMappingURL=testing.mjs.map

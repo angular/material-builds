@@ -1,13 +1,6 @@
 import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a thumb inside of a Material slider in tests. */
 class MatSliderThumbHarness extends ComponentHarness {
     /**
@@ -93,13 +86,6 @@ class MatSliderThumbHarness extends ComponentHarness {
 }
 MatSliderThumbHarness.hostSelector = 'input[matSliderThumb], input[matSliderStartThumb], input[matSliderEndThumb]';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a MDC mat-slider in tests. */
 class MatSliderHarness extends ComponentHarness {
     /**
@@ -155,22 +141,6 @@ class MatSliderHarness extends ComponentHarness {
     }
 }
 MatSliderHarness.hostSelector = '.mat-mdc-slider';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatSliderHarness, MatSliderThumbHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -6,13 +6,6 @@ import { MatLegacyDialog, MatLegacyDialogModule } from '@angular/material/legacy
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard `MatDialog` in tests.
  * @deprecated Use `MatDialogHarness` from `@angular/material/dialog/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -39,13 +32,6 @@ class MatLegacyDialogHarness extends _MatDialogHarnessBase {
 /** The selector for the host element of a `MatDialog` instance. */
 MatLegacyDialogHarness.hostSelector = '.mat-dialog-container';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var MatTestLegacyDialogOpener_1;
 /**
  * Test component that immediately opens a dialog when created.
@@ -84,22 +70,6 @@ MatTestLegacyDialogOpenerModule = __decorate([
         imports: [MatLegacyDialogModule, NoopAnimationsModule],
     })
 ], MatTestLegacyDialogOpenerModule);
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyDialogHarness, MatTestLegacyDialogOpener, MatTestLegacyDialogOpenerModule };
 //# sourceMappingURL=testing.mjs.map

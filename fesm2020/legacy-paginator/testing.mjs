@@ -4,13 +4,6 @@ import { _MatPaginatorHarnessBase } from '@angular/material/paginator/testing';
 export { _MatPaginatorHarnessBase as _MatLegacyPaginatorHarnessBase } from '@angular/material/paginator/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-paginator in tests.
  * @deprecated Use `MatPaginatorHarness` from `@angular/material/paginator/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -40,22 +33,6 @@ class MatLegacyPaginatorHarness extends _MatPaginatorHarnessBase {
 }
 /** Selector used to find paginator instances. */
 MatLegacyPaginatorHarness.hostSelector = '.mat-paginator';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyPaginatorHarness };
 //# sourceMappingURL=testing.mjs.map

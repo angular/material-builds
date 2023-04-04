@@ -2,21 +2,6 @@ import { HarnessPredicate, ComponentHarness, parallel, TestKey } from '@angular/
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Sets up the filter predicates for a datepicker input harness. */
 function getInputPredicate(type, options) {
     return new HarnessPredicate(type, options)
@@ -89,13 +74,6 @@ class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
     }
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material calendar cell in tests. */
 class MatCalendarCellHarness extends ComponentHarness {
     constructor() {
@@ -226,13 +204,6 @@ class MatCalendarCellHarness extends ComponentHarness {
 }
 MatCalendarCellHarness.hostSelector = '.mat-calendar-body-cell';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material calendar in tests. */
 class MatCalendarHarness extends ComponentHarness {
     constructor() {
@@ -300,13 +271,6 @@ class MatCalendarHarness extends ComponentHarness {
 }
 MatCalendarHarness.hostSelector = '.mat-calendar';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Base class for harnesses that can trigger a calendar. */
 class DatepickerTriggerHarnessBase extends ComponentHarness {
     /** Opens the calendar if the trigger is enabled and it has a calendar. */
@@ -363,13 +327,6 @@ async function getCalendar(filter, host, documentLocator) {
     }))();
 }
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material datepicker inputs in tests. */
 class MatDatepickerInputHarness extends MatDatepickerInputHarnessBase {
     /**
@@ -418,13 +375,6 @@ class MatDatepickerInputHarness extends MatDatepickerInputHarnessBase {
 }
 MatDatepickerInputHarness.hostSelector = '.mat-datepicker-input';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material datepicker toggle in tests. */
 class MatDatepickerToggleHarness extends DatepickerTriggerHarnessBase {
     constructor() {
@@ -456,13 +406,6 @@ class MatDatepickerToggleHarness extends DatepickerTriggerHarnessBase {
 }
 MatDatepickerToggleHarness.hostSelector = '.mat-datepicker-toggle';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material date range start input in tests. */
 class MatStartDateHarness extends MatDatepickerInputHarnessBase {
     /**
@@ -550,22 +493,6 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     }
 }
 MatDateRangeInputHarness.hostSelector = '.mat-date-range-input';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatCalendarCellHarness, MatCalendarHarness, MatDateRangeInputHarness, MatDatepickerInputHarness, MatDatepickerToggleHarness, MatEndDateHarness, MatStartDateHarness };
 //# sourceMappingURL=testing.mjs.map

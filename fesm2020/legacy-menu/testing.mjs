@@ -2,13 +2,6 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 import { _MatMenuHarnessBase, _MatMenuItemHarnessBase } from '@angular/material/menu/testing';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a standard mat-menu in tests.
  * @deprecated Use `MatMenuHarness` from `@angular/material/menu/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -54,22 +47,6 @@ class MatLegacyMenuItemHarness extends _MatMenuItemHarnessBase {
 }
 /** The selector for the host element of a `MatMenuItem` instance. */
 MatLegacyMenuItemHarness.hostSelector = '.mat-menu-item';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyMenuHarness, MatLegacyMenuItemHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -1,13 +1,6 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-button-toggle in tests. */
 class MatButtonToggleHarness extends ComponentHarness {
     constructor() {
@@ -100,21 +93,6 @@ class MatButtonToggleHarness extends ComponentHarness {
 /** The selector for the host element of a `MatButton` instance. */
 MatButtonToggleHarness.hostSelector = '.mat-button-toggle';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard mat-button-toggle in tests. */
 class MatButtonToggleGroupHarness extends ComponentHarness {
     /**
@@ -152,30 +130,6 @@ class MatButtonToggleGroupHarness extends ComponentHarness {
 }
 /** The selector for the host element of a `MatButton` instance. */
 MatButtonToggleGroupHarness.hostSelector = '.mat-button-toggle-group';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatButtonToggleGroupHarness, MatButtonToggleHarness };
 //# sourceMappingURL=testing.mjs.map

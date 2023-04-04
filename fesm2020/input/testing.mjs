@@ -1,13 +1,6 @@
 import { HarnessPredicate, parallel, ComponentHarness } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material inputs in tests. */
 class MatInputHarness extends MatFormFieldControlHarness {
     /**
@@ -112,21 +105,6 @@ class MatInputHarness extends MatFormFieldControlHarness {
 // For more details. See: https://github.com/angular/components/pull/18221.
 MatInputHarness.hostSelector = '[matInput], input[matNativeControl], textarea[matNativeControl]';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a native `option` in tests. */
 class MatNativeOptionHarness extends ComponentHarness {
     /**
@@ -161,13 +139,6 @@ class MatNativeOptionHarness extends ComponentHarness {
 /** Selector used to locate option instances. */
 MatNativeOptionHarness.hostSelector = 'select[matNativeControl] option';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a native `select` in tests. */
 class MatNativeSelectHarness extends MatFormFieldControlHarness {
     /**
@@ -236,30 +207,6 @@ class MatNativeSelectHarness extends MatFormFieldControlHarness {
     }
 }
 MatNativeSelectHarness.hostSelector = 'select[matNativeControl]';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatInputHarness, MatNativeOptionHarness, MatNativeSelectHarness };
 //# sourceMappingURL=testing.mjs.map

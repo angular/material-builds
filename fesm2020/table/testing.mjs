@@ -1,12 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatCellHarnessBase extends ContentContainerComponentHarness {
     /** Gets the cell's text. */
     async getText() {
@@ -76,13 +69,6 @@ class MatFooterCellHarness extends _MatCellHarnessBase {
 /** The selector for the host element of a `MatFooterCellHarness` instance. */
 MatFooterCellHarness.hostSelector = '.mat-mdc-footer-cell';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatRowHarnessBase extends ComponentHarness {
     /** Gets a list of `MatCellHarness` for all cells in the row. */
     async getCells(filter = {}) {
@@ -158,13 +144,6 @@ class MatFooterRowHarness extends _MatRowHarnessBase {
 /** The selector for the host element of a `MatFooterRowHarness` instance. */
 MatFooterRowHarness.hostSelector = '.mat-mdc-footer-row';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatTableHarnessBase extends ContentContainerComponentHarness {
     /** Gets all of the header rows in a table. */
     async getHeaderRows(filter = {}) {
@@ -243,22 +222,6 @@ function getCellTextsByColumn(rowsData, column) {
     });
     return columnTexts;
 }
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, MatTableHarness, _MatCellHarnessBase, _MatRowHarnessBase, _MatTableHarnessBase };
 //# sourceMappingURL=testing.mjs.map

@@ -1,13 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatRadioGroupHarnessBase extends ComponentHarness {
     /** Gets the name of the radio-group. */
     async getName() {
@@ -229,30 +222,6 @@ class MatRadioButtonHarness extends _MatRadioButtonHarnessBase {
 }
 /** The selector for the host element of a `MatRadioButton` instance. */
 MatRadioButtonHarness.hostSelector = '.mat-mdc-radio-button';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatRadioButtonHarness, MatRadioGroupHarness, _MatRadioButtonHarnessBase, _MatRadioGroupHarnessBase };
 //# sourceMappingURL=testing.mjs.map

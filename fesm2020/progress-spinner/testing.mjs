@@ -1,13 +1,6 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a MDC based mat-progress-spinner in tests. */
 class MatProgressSpinnerHarness extends ComponentHarness {
     /**
@@ -33,30 +26,6 @@ class MatProgressSpinnerHarness extends ComponentHarness {
 }
 /** The selector for the host element of a `MatProgressSpinner` instance. */
 MatProgressSpinnerHarness.hostSelector = '.mat-mdc-progress-spinner';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 /**
  * Generated bundle index. Do not edit.

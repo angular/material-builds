@@ -1,12 +1,5 @@
 import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness, TestKey, parallel } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material chip avatar in tests. */
 class MatChipAvatarHarness extends ComponentHarness {
     /**
@@ -21,13 +14,6 @@ class MatChipAvatarHarness extends ComponentHarness {
 }
 MatChipAvatarHarness.hostSelector = '.mat-mdc-chip-avatar';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard Material chip remove button in tests. */
 class MatChipRemoveHarness extends ComponentHarness {
     /**
@@ -46,13 +32,6 @@ class MatChipRemoveHarness extends ComponentHarness {
 }
 MatChipRemoveHarness.hostSelector = '.mat-mdc-chip-remove';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a mat-chip in tests. */
 class MatChipHarness extends ContentContainerComponentHarness {
     constructor() {
@@ -105,21 +84,6 @@ class MatChipHarness extends ContentContainerComponentHarness {
 }
 MatChipHarness.hostSelector = '.mat-mdc-basic-chip, .mat-mdc-chip';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a grid's chip input in tests. */
 class MatChipInputHarness extends ComponentHarness {
     /**
@@ -197,13 +161,6 @@ class MatChipInputHarness extends ComponentHarness {
 }
 MatChipInputHarness.hostSelector = '.mat-mdc-chip-input';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a mat-chip-option in tests. */
 class MatChipOptionHarness extends MatChipHarness {
     /**
@@ -240,13 +197,6 @@ class MatChipOptionHarness extends MatChipHarness {
 }
 MatChipOptionHarness.hostSelector = '.mat-mdc-chip-option';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a mat-chip-listbox in tests. */
 class MatChipListboxHarness extends ComponentHarness {
     /**
@@ -299,13 +249,6 @@ class MatChipListboxHarness extends ComponentHarness {
 }
 MatChipListboxHarness.hostSelector = '.mat-mdc-chip-listbox';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with an editable chip's input in tests. */
 class MatChipEditInputHarness extends ComponentHarness {
     /**
@@ -331,13 +274,6 @@ class MatChipEditInputHarness extends ComponentHarness {
 }
 MatChipEditInputHarness.hostSelector = '.mat-chip-edit-input';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a mat-chip-row in tests. */
 class MatChipRowHarness extends MatChipHarness {
     /** Whether the chip is editable. */
@@ -368,13 +304,6 @@ class MatChipRowHarness extends MatChipHarness {
 }
 MatChipRowHarness.hostSelector = '.mat-mdc-chip-row';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a mat-chip-grid in tests. */
 class MatChipGridHarness extends ComponentHarness {
     /**
@@ -410,13 +339,6 @@ class MatChipGridHarness extends ComponentHarness {
 }
 MatChipGridHarness.hostSelector = '.mat-mdc-chip-grid';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a mat-chip-set in tests. */
 class MatChipSetHarness extends ComponentHarness {
     /**
@@ -433,22 +355,6 @@ class MatChipSetHarness extends ComponentHarness {
     }
 }
 MatChipSetHarness.hostSelector = '.mat-mdc-chip-set';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatChipAvatarHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
 //# sourceMappingURL=testing.mjs.map

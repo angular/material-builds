@@ -1,12 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Harness for interacting with a standard MatBottomSheet in tests. */
 class MatBottomSheetHarness extends ContentContainerComponentHarness {
     /**
@@ -33,30 +26,6 @@ class MatBottomSheetHarness extends ContentContainerComponentHarness {
 // Developers can provide a custom component or template for the
 // bottom sheet. The canonical parent is the ".mat-bottom-sheet-container".
 MatBottomSheetHarness.hostSelector = '.mat-bottom-sheet-container';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatBottomSheetHarness };
 //# sourceMappingURL=testing.mjs.map

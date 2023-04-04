@@ -7,13 +7,6 @@ import { MatLegacySelectHarness } from '@angular/material/legacy-select/testing'
 export { MatFormFieldControlHarness as MatLegacyFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Harness for interacting with a `mat-error` in tests.
  * @deprecated Use `MatErrorHarness` from `@angular/material/form-field/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
@@ -96,22 +89,6 @@ class MatLegacyFormFieldHarness extends _MatFormFieldHarnessBase {
     }
 }
 MatLegacyFormFieldHarness.hostSelector = '.mat-form-field';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatLegacyErrorHarness, MatLegacyFormFieldHarness };
 //# sourceMappingURL=testing.mjs.map

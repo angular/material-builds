@@ -4,13 +4,6 @@ import { Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, NgMod
 import { _MatDialogBase, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Base class for the `MatDialogHarness` implementation. */
 class _MatDialogHarnessBase
 // @breaking-change 14.0.0 change generic type to MatDialogSection.
@@ -83,13 +76,6 @@ class MatDialogHarness extends _MatDialogHarnessBase {
 /** The selector for the host element of a `MatDialog` instance. */
 MatDialogHarness.hostSelector = '.mat-mdc-dialog-container';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 var _MatTestDialogOpenerBase_1, MatTestDialogOpener_1;
 /** Base class for a component that immediately opens a dialog when created. */
 let _MatTestDialogOpenerBase = _MatTestDialogOpenerBase_1 = class _MatTestDialogOpenerBase {
@@ -142,22 +128,6 @@ MatTestDialogOpenerModule = __decorate([
         imports: [MatDialogModule, NoopAnimationsModule],
     })
 ], MatTestDialogOpenerModule);
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatDialogHarness, MatTestDialogOpener, MatTestDialogOpenerModule, _MatDialogHarnessBase, _MatTestDialogOpenerBase };
 //# sourceMappingURL=testing.mjs.map

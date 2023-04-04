@@ -194,21 +194,5 @@ class MatStepperPreviousHarness extends StepperButtonHarness {
 /** The selector for the host element of a `MatStep` instance. */
 MatStepperPreviousHarness.hostSelector = '.mat-stepper-previous';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 export { MatStepHarness, MatStepperHarness, MatStepperNextHarness, MatStepperPreviousHarness };
 //# sourceMappingURL=testing.mjs.map

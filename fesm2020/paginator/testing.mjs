@@ -2,13 +2,6 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class _MatPaginatorHarnessBase extends ComponentHarness {
     /** Goes to the next page in the paginator. */
     async goToNextPage() {
@@ -98,30 +91,6 @@ class MatPaginatorHarness extends _MatPaginatorHarnessBase {
 }
 /** Selector used to find paginator instances. */
 MatPaginatorHarness.hostSelector = '.mat-mdc-paginator';
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 
 export { MatPaginatorHarness, _MatPaginatorHarnessBase };
 //# sourceMappingURL=testing.mjs.map
