@@ -758,8 +758,8 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     private _rippleRenderer;
     /** Options that are set globally for all ripples. */
     private _globalOptions;
-    /** Whether ripple directive is initialized and the input bindings are set. */
-    private _isInitialized;
+    /** @docs-private Whether ripple directive is initialized and the input bindings are set. */
+    _isInitialized: boolean;
     constructor(_elementRef: ElementRef<HTMLElement>, ngZone: NgZone, platform: Platform, globalOptions?: RippleGlobalOptions, _animationMode?: string | undefined);
     ngOnInit(): void;
     ngOnDestroy(): void;

@@ -1158,7 +1158,7 @@ class MatRipple {
          */
         this.radius = 0;
         this._disabled = false;
-        /** Whether ripple directive is initialized and the input bindings are set. */
+        /** @docs-private Whether ripple directive is initialized and the input bindings are set. */
         this._isInitialized = false;
         this._globalOptions = globalOptions || {};
         this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
