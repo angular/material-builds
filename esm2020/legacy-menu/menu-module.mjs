@@ -22,17 +22,17 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyMenuModule {
 }
-MatLegacyMenuModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyMenuModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyMenuModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyMenuModule, declarations: [MatLegacyMenu, MatLegacyMenuItem, MatLegacyMenuTrigger, MatLegacyMenuContent], imports: [CommonModule, MatCommonModule, MatRippleModule, OverlayModule], exports: [CdkScrollableModule,
+MatLegacyMenuModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyMenuModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyMenuModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyMenuModule, declarations: [MatLegacyMenu, MatLegacyMenuItem, MatLegacyMenuTrigger, MatLegacyMenuContent], imports: [CommonModule, MatCommonModule, MatRippleModule, OverlayModule], exports: [CdkScrollableModule,
         MatCommonModule,
         MatLegacyMenu,
         MatLegacyMenuItem,
         MatLegacyMenuTrigger,
         MatLegacyMenuContent] });
-MatLegacyMenuModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyMenuModule, providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [CommonModule, MatCommonModule, MatRippleModule, OverlayModule, CdkScrollableModule,
+MatLegacyMenuModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyMenuModule, providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [CommonModule, MatCommonModule, MatRippleModule, OverlayModule, CdkScrollableModule,
         MatCommonModule] });
 export { MatLegacyMenuModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyMenuModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyMenuModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, MatCommonModule, MatRippleModule, OverlayModule],

@@ -16,11 +16,11 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyProgressBarModule {
 }
-MatLegacyProgressBarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyProgressBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyProgressBarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyProgressBarModule, declarations: [MatLegacyProgressBar], imports: [CommonModule, MatCommonModule], exports: [MatLegacyProgressBar, MatCommonModule] });
-MatLegacyProgressBarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyProgressBarModule, imports: [CommonModule, MatCommonModule, MatCommonModule] });
+MatLegacyProgressBarModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyProgressBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyProgressBarModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyProgressBarModule, declarations: [MatLegacyProgressBar], imports: [CommonModule, MatCommonModule], exports: [MatLegacyProgressBar, MatCommonModule] });
+MatLegacyProgressBarModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyProgressBarModule, imports: [CommonModule, MatCommonModule, MatCommonModule] });
 export { MatLegacyProgressBarModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyProgressBarModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyProgressBarModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, MatCommonModule],

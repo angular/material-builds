@@ -21,19 +21,19 @@ import * as i0 from "@angular/core";
  */
 class MatLegacySelectModule {
 }
-MatLegacySelectModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacySelectModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacySelectModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacySelectModule, declarations: [MatLegacySelect, MatLegacySelectTrigger], imports: [CommonModule, OverlayModule, MatLegacyOptionModule, MatCommonModule], exports: [CdkScrollableModule,
+MatLegacySelectModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacySelectModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacySelectModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacySelectModule, declarations: [MatLegacySelect, MatLegacySelectTrigger], imports: [CommonModule, OverlayModule, MatLegacyOptionModule, MatCommonModule], exports: [CdkScrollableModule,
         MatLegacyFormFieldModule,
         MatLegacySelect,
         MatLegacySelectTrigger,
         MatLegacyOptionModule,
         MatCommonModule] });
-MatLegacySelectModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacySelectModule, providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER], imports: [CommonModule, OverlayModule, MatLegacyOptionModule, MatCommonModule, CdkScrollableModule,
+MatLegacySelectModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacySelectModule, providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER], imports: [CommonModule, OverlayModule, MatLegacyOptionModule, MatCommonModule, CdkScrollableModule,
         MatLegacyFormFieldModule,
         MatLegacyOptionModule,
         MatCommonModule] });
 export { MatLegacySelectModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacySelectModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacySelectModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, OverlayModule, MatLegacyOptionModule, MatCommonModule],

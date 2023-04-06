@@ -20,11 +20,11 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyTooltipModule {
 }
-MatLegacyTooltipModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTooltipModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyTooltipModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTooltipModule, declarations: [MatLegacyTooltip, LegacyTooltipComponent], imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule], exports: [MatLegacyTooltip, LegacyTooltipComponent, MatCommonModule, CdkScrollableModule] });
-MatLegacyTooltipModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule] });
+MatLegacyTooltipModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyTooltipModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyTooltipModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyTooltipModule, declarations: [MatLegacyTooltip, LegacyTooltipComponent], imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule], exports: [MatLegacyTooltip, LegacyTooltipComponent, MatCommonModule, CdkScrollableModule] });
+MatLegacyTooltipModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule] });
 export { MatLegacyTooltipModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTooltipModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyTooltipModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule],

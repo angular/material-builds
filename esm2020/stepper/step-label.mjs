@@ -10,10 +10,10 @@ import { CdkStepLabel } from '@angular/cdk/stepper';
 import * as i0 from "@angular/core";
 class MatStepLabel extends CdkStepLabel {
 }
-MatStepLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatStepLabel, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatStepLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatStepLabel, selector: "[matStepLabel]", usesInheritance: true, ngImport: i0 });
+MatStepLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatStepLabel, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatStepLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatStepLabel, selector: "[matStepLabel]", usesInheritance: true, ngImport: i0 });
 export { MatStepLabel };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatStepLabel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatStepLabel, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matStepLabel]',

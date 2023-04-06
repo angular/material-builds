@@ -10,10 +10,10 @@ import * as i0 from "@angular/core";
 /** The floating label for a `mat-form-field`. */
 class MatLabel {
 }
-MatLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLabel, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLabel, selector: "mat-label", ngImport: i0 });
+MatLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLabel, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLabel, selector: "mat-label", ngImport: i0 });
 export { MatLabel };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLabel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLabel, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-label',

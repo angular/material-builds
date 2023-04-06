@@ -18,15 +18,15 @@ class MatTreeNodeOutlet {
         this._node = _node;
     }
 }
-MatTreeNodeOutlet.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatTreeNodeOutlet, deps: [{ token: i0.ViewContainerRef }, { token: CDK_TREE_NODE_OUTLET_NODE, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
-MatTreeNodeOutlet.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatTreeNodeOutlet, selector: "[matTreeNodeOutlet]", providers: [
+MatTreeNodeOutlet.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatTreeNodeOutlet, deps: [{ token: i0.ViewContainerRef }, { token: CDK_TREE_NODE_OUTLET_NODE, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
+MatTreeNodeOutlet.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatTreeNodeOutlet, selector: "[matTreeNodeOutlet]", providers: [
         {
             provide: CdkTreeNodeOutlet,
             useExisting: MatTreeNodeOutlet,
         },
     ], ngImport: i0 });
 export { MatTreeNodeOutlet };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatTreeNodeOutlet, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatTreeNodeOutlet, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matTreeNodeOutlet]',

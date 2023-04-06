@@ -13,11 +13,11 @@ import { MatBottomSheetContainer } from './bottom-sheet-container';
 import * as i0 from "@angular/core";
 class MatBottomSheetModule {
 }
-MatBottomSheetModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatBottomSheetModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatBottomSheetModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatBottomSheetModule, declarations: [MatBottomSheetContainer], imports: [DialogModule, MatCommonModule, PortalModule], exports: [MatBottomSheetContainer, MatCommonModule] });
-MatBottomSheetModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatBottomSheetModule, imports: [DialogModule, MatCommonModule, PortalModule, MatCommonModule] });
+MatBottomSheetModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatBottomSheetModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatBottomSheetModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatBottomSheetModule, declarations: [MatBottomSheetContainer], imports: [DialogModule, MatCommonModule, PortalModule], exports: [MatBottomSheetContainer, MatCommonModule] });
+MatBottomSheetModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatBottomSheetModule, imports: [DialogModule, MatCommonModule, PortalModule, MatCommonModule] });
 export { MatBottomSheetModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatBottomSheetModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatBottomSheetModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [DialogModule, MatCommonModule, PortalModule],

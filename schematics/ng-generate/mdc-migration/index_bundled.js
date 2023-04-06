@@ -9414,7 +9414,7 @@ var FactoryTarget$1;
 function compileFactoryFunction(meta) {
   const t = variable("t");
   let baseFactoryVar = null;
-  const typeForCtor = !isDelegatedFactoryMetadata(meta) ? new BinaryOperatorExpr(BinaryOperator.Or, t, meta.internalType) : t;
+  const typeForCtor = !isDelegatedFactoryMetadata(meta) ? new BinaryOperatorExpr(BinaryOperator.Or, t, meta.type.value) : t;
   let ctorExpr = null;
   if (meta.deps !== null) {
     if (meta.deps !== "invalid") {
@@ -9445,7 +9445,7 @@ function compileFactoryFunction(meta) {
   if (retExpr === null) {
     body.push(importExpr(Identifiers.invalidFactory).callFn([]).toStmt());
   } else if (baseFactoryVar !== null) {
-    const getInheritedFactoryCall = importExpr(Identifiers.getInheritedFactory).callFn([meta.internalType]);
+    const getInheritedFactoryCall = importExpr(Identifiers.getInheritedFactory).callFn([meta.type.value]);
     const baseFactory = new BinaryOperatorExpr(BinaryOperator.Or, baseFactoryVar, baseFactoryVar.set(getInheritedFactoryCall));
     body.push(new ReturnStatement(baseFactory.callFn([typeForCtor])));
   } else {
@@ -10161,13 +10161,12 @@ function compileInjectable(meta, resolveForwardRefs) {
   const factoryMeta = {
     name: meta.name,
     type: meta.type,
-    internalType: meta.internalType,
     typeArgumentCount: meta.typeArgumentCount,
     deps: [],
     target: FactoryTarget$1.Injectable
   };
   if (meta.useClass !== void 0) {
-    const useClassOnSelf = meta.useClass.expression.isEquivalent(meta.internalType);
+    const useClassOnSelf = meta.useClass.expression.isEquivalent(meta.type.value);
     let deps = void 0;
     if (meta.deps !== void 0) {
       deps = meta.deps;
@@ -10210,10 +10209,10 @@ function compileInjectable(meta, resolveForwardRefs) {
   } else {
     result = {
       statements: [],
-      expression: delegateToFactory(meta.type.value, meta.internalType, resolveForwardRefs)
+      expression: delegateToFactory(meta.type.value, meta.type.value, resolveForwardRefs)
     };
   }
-  const token = meta.internalType;
+  const token = meta.type.value;
   const injectableProps = new DefinitionMap();
   injectableProps.set("token", token);
   injectableProps.set("factory", result.expression);
@@ -10230,14 +10229,14 @@ function compileInjectable(meta, resolveForwardRefs) {
 function createInjectableType(meta) {
   return new ExpressionType(importExpr(Identifiers.InjectableDeclaration, [typeWithParameters(meta.type.type, meta.typeArgumentCount)]));
 }
-function delegateToFactory(type, internalType, unwrapForwardRefs) {
-  if (type.node === internalType.node) {
-    return internalType.prop("\u0275fac");
+function delegateToFactory(type, useType, unwrapForwardRefs) {
+  if (type.node === useType.node) {
+    return useType.prop("\u0275fac");
   }
   if (!unwrapForwardRefs) {
-    return createFactoryFunction(internalType);
+    return createFactoryFunction(useType);
   }
-  const unwrappedType = importExpr(Identifiers.resolveForwardRef).callFn([internalType]);
+  const unwrappedType = importExpr(Identifiers.resolveForwardRef).callFn([useType]);
   return createFactoryFunction(unwrappedType);
 }
 function createFactoryFunction(type) {
@@ -10730,10 +10729,10 @@ var R3SelectorScopeMode;
   R3SelectorScopeMode2[R3SelectorScopeMode2["Omit"] = 2] = "Omit";
 })(R3SelectorScopeMode || (R3SelectorScopeMode = {}));
 function compileNgModule(meta) {
-  const { adjacentType, internalType, bootstrap, declarations, imports, exports, schemas, containsForwardDecls, selectorScopeMode, id } = meta;
+  const { type: moduleType, bootstrap, declarations, imports, exports, schemas, containsForwardDecls, selectorScopeMode, id } = meta;
   const statements = [];
   const definitionMap = new DefinitionMap();
-  definitionMap.set("type", internalType);
+  definitionMap.set("type", moduleType.value);
   if (bootstrap.length > 0) {
     definitionMap.set("bootstrap", refsToArray(bootstrap, containsForwardDecls));
   }
@@ -10759,7 +10758,7 @@ function compileNgModule(meta) {
   }
   if (id !== null) {
     definitionMap.set("id", id);
-    statements.push(importExpr(Identifiers.registerNgModuleType).callFn([adjacentType, id]).toStmt());
+    statements.push(importExpr(Identifiers.registerNgModuleType).callFn([moduleType.value, id]).toStmt());
   }
   const expression = importExpr(Identifiers.defineNgModule).callFn([definitionMap.toLiteralMap()], void 0, true);
   const type = createNgModuleType(meta);
@@ -10797,7 +10796,7 @@ function createNgModuleType({ type: moduleType, declarations, exports, imports, 
   ]));
 }
 function generateSetNgModuleScopeCall(meta) {
-  const { adjacentType: moduleType, declarations, imports, exports, containsForwardDecls } = meta;
+  const { type: moduleType, declarations, imports, exports, containsForwardDecls } = meta;
   const scopeMap = new DefinitionMap();
   if (declarations.length > 0) {
     scopeMap.set("declarations", refsToArray(declarations, containsForwardDecls));
@@ -10813,7 +10812,7 @@ function generateSetNgModuleScopeCall(meta) {
   }
   const fnCall = new InvokeFunctionExpr(
     importExpr(Identifiers.setNgModuleScope),
-    [moduleType, scopeMap.toLiteralMap()]
+    [moduleType.value, scopeMap.toLiteralMap()]
   );
   const guardedCall = jitOnlyGuardedExpression(fnCall);
   const iife = new FunctionExpr(
@@ -20973,7 +20972,7 @@ var CONTENT_ATTR = `_ngcontent-${COMPONENT_VARIABLE}`;
 function baseDirectiveFields(meta, constantPool, bindingParser) {
   const definitionMap = new DefinitionMap();
   const selectors = parseSelectorToR3Selector(meta.selector);
-  definitionMap.set("type", meta.internalType);
+  definitionMap.set("type", meta.type.value);
   if (selectors.length > 0) {
     definitionMap.set("selectors", asLiteral(selectors));
   }
@@ -21509,7 +21508,6 @@ var CompilerFacadeImpl = class {
     const metadata = {
       name: facade.name,
       type: wrapReference(facade.type),
-      internalType: new WrappedNodeExpr(facade.type),
       typeArgumentCount: 0,
       deps: null,
       pipeName: facade.pipeName,
@@ -21530,7 +21528,6 @@ var CompilerFacadeImpl = class {
       {
         name: facade.name,
         type: wrapReference(facade.type),
-        internalType: new WrappedNodeExpr(facade.type),
         typeArgumentCount: facade.typeArgumentCount,
         providedIn: computeProvidedIn(facade.providedIn),
         useClass: convertToProviderExpression(facade, "useClass"),
@@ -21549,7 +21546,6 @@ var CompilerFacadeImpl = class {
       {
         name: facade.type.name,
         type: wrapReference(facade.type),
-        internalType: new WrappedNodeExpr(facade.type),
         typeArgumentCount: 0,
         providedIn: computeProvidedIn(facade.providedIn),
         useClass: convertToProviderExpression(facade, "useClass"),
@@ -21566,7 +21562,6 @@ var CompilerFacadeImpl = class {
     const meta = {
       name: facade.name,
       type: wrapReference(facade.type),
-      internalType: new WrappedNodeExpr(facade.type),
       providers: facade.providers && facade.providers.length > 0 ? new WrappedNodeExpr(facade.providers) : null,
       imports: facade.imports.map((i) => new WrappedNodeExpr(i))
     };
@@ -21581,8 +21576,6 @@ var CompilerFacadeImpl = class {
   compileNgModule(angularCoreEnv, sourceMapUrl, facade) {
     const meta = {
       type: wrapReference(facade.type),
-      internalType: new WrappedNodeExpr(facade.type),
-      adjacentType: new WrappedNodeExpr(facade.type),
       bootstrap: facade.bootstrap.map(wrapReference),
       declarations: facade.declarations.map(wrapReference),
       publicDeclarationTypes: null,
@@ -21650,7 +21643,6 @@ var CompilerFacadeImpl = class {
     const factoryRes = compileFactoryFunction({
       name: meta.name,
       type: wrapReference(meta.type),
-      internalType: new WrappedNodeExpr(meta.type),
       typeArgumentCount: meta.typeArgumentCount,
       deps: convertR3DependencyMetadataArray(meta.deps),
       target: meta.target
@@ -21661,7 +21653,6 @@ var CompilerFacadeImpl = class {
     const factoryRes = compileFactoryFunction({
       name: meta.type.name,
       type: wrapReference(meta.type),
-      internalType: new WrappedNodeExpr(meta.type),
       typeArgumentCount: 0,
       deps: Array.isArray(meta.deps) ? meta.deps.map(convertR3DeclareDependencyMetadata) : meta.deps,
       target: meta.target
@@ -21728,7 +21719,6 @@ function convertDirectiveFacadeToMetadata(facade) {
     typeArgumentCount: 0,
     typeSourceSpan: facade.typeSourceSpan,
     type: wrapReference(facade.type),
-    internalType: new WrappedNodeExpr(facade.type),
     deps: null,
     host: extractHostBindings(facade.propMetadata, facade.typeSourceSpan, facade.host),
     inputs: __spreadValues(__spreadValues({}, inputsFromMetadata), inputsFromType),
@@ -21746,7 +21736,6 @@ function convertDeclareDirectiveFacadeToMetadata(declaration, typeSourceSpan) {
     name: declaration.type.name,
     type: wrapReference(declaration.type),
     typeSourceSpan,
-    internalType: new WrappedNodeExpr(declaration.type),
     selector: (_a = declaration.selector) != null ? _a : null,
     inputs: declaration.inputs ? inputsMappingToInputMetadata(declaration.inputs) : {},
     outputs: (_b = declaration.outputs) != null ? _b : {},
@@ -21988,7 +21977,6 @@ function convertDeclarePipeFacadeToMetadata(declaration) {
   return {
     name: declaration.type.name,
     type: wrapReference(declaration.type),
-    internalType: new WrappedNodeExpr(declaration.type),
     typeArgumentCount: 0,
     pipeName: declaration.name,
     deps: null,
@@ -22000,7 +21988,6 @@ function convertDeclareInjectorFacadeToMetadata(declaration) {
   return {
     name: declaration.type.name,
     type: wrapReference(declaration.type),
-    internalType: new WrappedNodeExpr(declaration.type),
     providers: declaration.providers !== void 0 && declaration.providers.length > 0 ? new WrappedNodeExpr(declaration.providers) : null,
     imports: declaration.imports !== void 0 ? declaration.imports.map((i) => new WrappedNodeExpr(i)) : []
   };
@@ -22009,7 +21996,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("16.0.0-next.5");
+var VERSION = new Version("16.0.0-next.7");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -23947,7 +23934,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v16.0.0-next.5
+ * @license Angular v16.0.0-next.7
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */

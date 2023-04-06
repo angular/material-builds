@@ -53,10 +53,10 @@ class MatDateSelectionModel {
         return this._adapter.isDateInstance(date) && this._adapter.isValid(date);
     }
 }
-MatDateSelectionModel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatDateSelectionModel, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
-MatDateSelectionModel.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatDateSelectionModel });
+MatDateSelectionModel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatDateSelectionModel, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+MatDateSelectionModel.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatDateSelectionModel });
 export { MatDateSelectionModel };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatDateSelectionModel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatDateSelectionModel, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: undefined }, { type: i1.DateAdapter }]; } });
 /**
@@ -92,10 +92,10 @@ class MatSingleDateSelectionModel extends MatDateSelectionModel {
         return clone;
     }
 }
-MatSingleDateSelectionModel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatSingleDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
-MatSingleDateSelectionModel.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatSingleDateSelectionModel });
+MatSingleDateSelectionModel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatSingleDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+MatSingleDateSelectionModel.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatSingleDateSelectionModel });
 export { MatSingleDateSelectionModel };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatSingleDateSelectionModel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatSingleDateSelectionModel, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i1.DateAdapter }]; } });
 /**
@@ -156,10 +156,10 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
         return clone;
     }
 }
-MatRangeDateSelectionModel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatRangeDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
-MatRangeDateSelectionModel.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatRangeDateSelectionModel });
+MatRangeDateSelectionModel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatRangeDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+MatRangeDateSelectionModel.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatRangeDateSelectionModel });
 export { MatRangeDateSelectionModel };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatRangeDateSelectionModel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatRangeDateSelectionModel, decorators: [{
             type: Injectable
         }], ctorParameters: function () { return [{ type: i1.DateAdapter }]; } });
 /** @docs-private */

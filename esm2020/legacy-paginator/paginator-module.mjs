@@ -20,19 +20,19 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyPaginatorModule {
 }
-MatLegacyPaginatorModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyPaginatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLegacyPaginatorModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyPaginatorModule, declarations: [MatLegacyPaginator], imports: [CommonModule,
+MatLegacyPaginatorModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyPaginatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLegacyPaginatorModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyPaginatorModule, declarations: [MatLegacyPaginator], imports: [CommonModule,
         MatLegacyButtonModule,
         MatLegacySelectModule,
         MatLegacyTooltipModule,
         MatCommonModule], exports: [MatLegacyPaginator] });
-MatLegacyPaginatorModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyPaginatorModule, providers: [MAT_PAGINATOR_INTL_PROVIDER], imports: [CommonModule,
+MatLegacyPaginatorModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyPaginatorModule, providers: [MAT_PAGINATOR_INTL_PROVIDER], imports: [CommonModule,
         MatLegacyButtonModule,
         MatLegacySelectModule,
         MatLegacyTooltipModule,
         MatCommonModule] });
 export { MatLegacyPaginatorModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyPaginatorModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyPaginatorModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [

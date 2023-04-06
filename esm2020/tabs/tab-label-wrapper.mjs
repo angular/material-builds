@@ -33,10 +33,10 @@ class _MatTabLabelWrapperBase extends _MatTabLabelWrapperMixinBase {
         return this.elementRef.nativeElement.offsetWidth;
     }
 }
-_MatTabLabelWrapperBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: _MatTabLabelWrapperBase, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
-_MatTabLabelWrapperBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: _MatTabLabelWrapperBase, usesInheritance: true, ngImport: i0 });
+_MatTabLabelWrapperBase.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: _MatTabLabelWrapperBase, deps: [{ token: i0.ElementRef }], target: i0.ɵɵFactoryTarget.Directive });
+_MatTabLabelWrapperBase.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: _MatTabLabelWrapperBase, usesInheritance: true, ngImport: i0 });
 export { _MatTabLabelWrapperBase };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: _MatTabLabelWrapperBase, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: _MatTabLabelWrapperBase, decorators: [{
             type: Directive
         }], ctorParameters: function () { return [{ type: i0.ElementRef }]; } });
 const _MatTabLabelWrapperBaseWithInkBarItem = mixinInkBarItem(_MatTabLabelWrapperBase);
@@ -46,10 +46,10 @@ const _MatTabLabelWrapperBaseWithInkBarItem = mixinInkBarItem(_MatTabLabelWrappe
  */
 class MatTabLabelWrapper extends _MatTabLabelWrapperBaseWithInkBarItem {
 }
-MatTabLabelWrapper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatTabLabelWrapper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatTabLabelWrapper.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatTabLabelWrapper, selector: "[matTabLabelWrapper]", inputs: { disabled: "disabled", fitInkBarToContent: "fitInkBarToContent" }, host: { properties: { "class.mat-mdc-tab-disabled": "disabled", "attr.aria-disabled": "!!disabled" } }, usesInheritance: true, ngImport: i0 });
+MatTabLabelWrapper.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatTabLabelWrapper, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatTabLabelWrapper.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatTabLabelWrapper, selector: "[matTabLabelWrapper]", inputs: { disabled: "disabled", fitInkBarToContent: "fitInkBarToContent" }, host: { properties: { "class.mat-mdc-tab-disabled": "disabled", "attr.aria-disabled": "!!disabled" } }, usesInheritance: true, ngImport: i0 });
 export { MatTabLabelWrapper };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatTabLabelWrapper, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatTabLabelWrapper, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matTabLabelWrapper]',

@@ -15,10 +15,10 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyTabLabel extends MatNonLegacyTabLabel {
 }
-MatLegacyTabLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTabLabel, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyTabLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyTabLabel, selector: "[mat-tab-label], [matTabLabel]", providers: [{ provide: MAT_TAB_LABEL, useExisting: MatLegacyTabLabel }], usesInheritance: true, ngImport: i0 });
+MatLegacyTabLabel.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyTabLabel, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyTabLabel.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyTabLabel, selector: "[mat-tab-label], [matTabLabel]", providers: [{ provide: MAT_TAB_LABEL, useExisting: MatLegacyTabLabel }], usesInheritance: true, ngImport: i0 });
 export { MatLegacyTabLabel };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyTabLabel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyTabLabel, decorators: [{
             type: Directive,
             args: [{
                     selector: '[mat-tab-label], [matTabLabel]',

@@ -17,8 +17,8 @@ import { MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPane
 import * as i0 from "@angular/core";
 class MatExpansionModule {
 }
-MatExpansionModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatExpansionModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatExpansionModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatExpansionModule, declarations: [MatAccordion,
+MatExpansionModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatExpansionModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatExpansionModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatExpansionModule, declarations: [MatAccordion,
         MatExpansionPanel,
         MatExpansionPanelActionRow,
         MatExpansionPanelHeader,
@@ -31,9 +31,9 @@ MatExpansionModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", vers
         MatExpansionPanelTitle,
         MatExpansionPanelDescription,
         MatExpansionPanelContent] });
-MatExpansionModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatExpansionModule, imports: [CommonModule, MatCommonModule, CdkAccordionModule, PortalModule] });
+MatExpansionModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatExpansionModule, imports: [CommonModule, MatCommonModule, CdkAccordionModule, PortalModule] });
 export { MatExpansionModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatExpansionModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatExpansionModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, MatCommonModule, CdkAccordionModule, PortalModule],

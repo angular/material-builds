@@ -16,10 +16,10 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyCellDef extends CdkCellDef {
 }
-MatLegacyCellDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyCellDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyCellDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyCellDef, selector: "[matCellDef]", providers: [{ provide: CdkCellDef, useExisting: MatLegacyCellDef }], usesInheritance: true, ngImport: i0 });
+MatLegacyCellDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyCellDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyCellDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyCellDef, selector: "[matCellDef]", providers: [{ provide: CdkCellDef, useExisting: MatLegacyCellDef }], usesInheritance: true, ngImport: i0 });
 export { MatLegacyCellDef };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyCellDef, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyCellDef, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matCellDef]',
@@ -34,10 +34,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
  */
 class MatLegacyHeaderCellDef extends CdkHeaderCellDef {
 }
-MatLegacyHeaderCellDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyHeaderCellDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyHeaderCellDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyHeaderCellDef, selector: "[matHeaderCellDef]", providers: [{ provide: CdkHeaderCellDef, useExisting: MatLegacyHeaderCellDef }], usesInheritance: true, ngImport: i0 });
+MatLegacyHeaderCellDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyHeaderCellDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyHeaderCellDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyHeaderCellDef, selector: "[matHeaderCellDef]", providers: [{ provide: CdkHeaderCellDef, useExisting: MatLegacyHeaderCellDef }], usesInheritance: true, ngImport: i0 });
 export { MatLegacyHeaderCellDef };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyHeaderCellDef, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyHeaderCellDef, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matHeaderCellDef]',
@@ -52,10 +52,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
  */
 class MatLegacyFooterCellDef extends CdkFooterCellDef {
 }
-MatLegacyFooterCellDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyFooterCellDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyFooterCellDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyFooterCellDef, selector: "[matFooterCellDef]", providers: [{ provide: CdkFooterCellDef, useExisting: MatLegacyFooterCellDef }], usesInheritance: true, ngImport: i0 });
+MatLegacyFooterCellDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyFooterCellDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyFooterCellDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyFooterCellDef, selector: "[matFooterCellDef]", providers: [{ provide: CdkFooterCellDef, useExisting: MatLegacyFooterCellDef }], usesInheritance: true, ngImport: i0 });
 export { MatLegacyFooterCellDef };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyFooterCellDef, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyFooterCellDef, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matFooterCellDef]',
@@ -87,13 +87,13 @@ class MatLegacyColumnDef extends CdkColumnDef {
         this._columnCssClassName.push(`mat-column-${this.cssClassFriendlyName}`);
     }
 }
-MatLegacyColumnDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyColumnDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyColumnDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyColumnDef, selector: "[matColumnDef]", inputs: { sticky: "sticky", name: ["matColumnDef", "name"] }, providers: [
+MatLegacyColumnDef.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyColumnDef, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyColumnDef.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyColumnDef, selector: "[matColumnDef]", inputs: { sticky: "sticky", name: ["matColumnDef", "name"] }, providers: [
         { provide: CdkColumnDef, useExisting: MatLegacyColumnDef },
         { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatLegacyColumnDef },
     ], usesInheritance: true, ngImport: i0 });
 export { MatLegacyColumnDef };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyColumnDef, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyColumnDef, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matColumnDef]',
@@ -114,10 +114,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
  */
 class MatLegacyHeaderCell extends CdkHeaderCell {
 }
-MatLegacyHeaderCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyHeaderCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyHeaderCell.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyHeaderCell, selector: "mat-header-cell, th[mat-header-cell]", host: { attributes: { "role": "columnheader" }, classAttribute: "mat-header-cell" }, usesInheritance: true, ngImport: i0 });
+MatLegacyHeaderCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyHeaderCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyHeaderCell.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyHeaderCell, selector: "mat-header-cell, th[mat-header-cell]", host: { attributes: { "role": "columnheader" }, classAttribute: "mat-header-cell" }, usesInheritance: true, ngImport: i0 });
 export { MatLegacyHeaderCell };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyHeaderCell, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyHeaderCell, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-header-cell, th[mat-header-cell]',
@@ -134,10 +134,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
  */
 class MatLegacyFooterCell extends CdkFooterCell {
 }
-MatLegacyFooterCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyFooterCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyFooterCell.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyFooterCell, selector: "mat-footer-cell, td[mat-footer-cell]", host: { attributes: { "role": "gridcell" }, classAttribute: "mat-footer-cell" }, usesInheritance: true, ngImport: i0 });
+MatLegacyFooterCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyFooterCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyFooterCell.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyFooterCell, selector: "mat-footer-cell, td[mat-footer-cell]", host: { attributes: { "role": "gridcell" }, classAttribute: "mat-footer-cell" }, usesInheritance: true, ngImport: i0 });
 export { MatLegacyFooterCell };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyFooterCell, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyFooterCell, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-footer-cell, td[mat-footer-cell]',
@@ -154,10 +154,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", 
  */
 class MatLegacyCell extends CdkCell {
 }
-MatLegacyCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyCell.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyCell, selector: "mat-cell, td[mat-cell]", host: { attributes: { "role": "gridcell" }, classAttribute: "mat-cell" }, usesInheritance: true, ngImport: i0 });
+MatLegacyCell.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyCell, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyCell.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyCell, selector: "mat-cell, td[mat-cell]", host: { attributes: { "role": "gridcell" }, classAttribute: "mat-cell" }, usesInheritance: true, ngImport: i0 });
 export { MatLegacyCell };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyCell, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyCell, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-cell, td[mat-cell]',

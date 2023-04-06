@@ -63,15 +63,15 @@ class MatAccordion extends CdkAccordion {
         this._ownHeaders.destroy();
     }
 }
-MatAccordion.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatAccordion, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-MatAccordion.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatAccordion, selector: "mat-accordion", inputs: { multi: "multi", hideToggle: "hideToggle", displayMode: "displayMode", togglePosition: "togglePosition" }, host: { properties: { "class.mat-accordion-multi": "this.multi" }, classAttribute: "mat-accordion" }, providers: [
+MatAccordion.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatAccordion, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+MatAccordion.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatAccordion, selector: "mat-accordion", inputs: { multi: "multi", hideToggle: "hideToggle", displayMode: "displayMode", togglePosition: "togglePosition" }, host: { properties: { "class.mat-accordion-multi": "this.multi" }, classAttribute: "mat-accordion" }, providers: [
         {
             provide: MAT_ACCORDION,
             useExisting: MatAccordion,
         },
     ], queries: [{ propertyName: "_headers", predicate: MatExpansionPanelHeader, descendants: true }], exportAs: ["matAccordion"], usesInheritance: true, ngImport: i0 });
 export { MatAccordion };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatAccordion, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatAccordion, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-accordion',

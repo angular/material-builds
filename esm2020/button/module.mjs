@@ -13,8 +13,8 @@ import { MatIconAnchor, MatIconButton } from './icon-button';
 import * as i0 from "@angular/core";
 class MatButtonModule {
 }
-MatButtonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatButtonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatButtonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatButtonModule, declarations: [MatAnchor,
+MatButtonModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatButtonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatButtonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatButtonModule, declarations: [MatAnchor,
         MatButton,
         MatIconAnchor,
         MatMiniFabAnchor,
@@ -30,9 +30,9 @@ MatButtonModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version
         MatFabAnchor,
         MatFabButton,
         MatCommonModule] });
-MatButtonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatButtonModule, imports: [MatCommonModule, MatRippleModule, MatCommonModule] });
+MatButtonModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatButtonModule, imports: [MatCommonModule, MatRippleModule, MatCommonModule] });
 export { MatButtonModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatButtonModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatButtonModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, MatRippleModule],

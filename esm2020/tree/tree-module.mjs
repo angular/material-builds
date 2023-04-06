@@ -25,8 +25,8 @@ const MAT_TREE_DIRECTIVES = [
 ];
 class MatTreeModule {
 }
-MatTreeModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatTreeModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatTreeModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatTreeModule, declarations: [MatNestedTreeNode,
+MatTreeModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatTreeModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatTreeModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatTreeModule, declarations: [MatNestedTreeNode,
         MatTreeNodeDef,
         MatTreeNodePadding,
         MatTreeNodeToggle,
@@ -39,9 +39,9 @@ MatTreeModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: 
         MatTree,
         MatTreeNode,
         MatTreeNodeOutlet] });
-MatTreeModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatTreeModule, imports: [CdkTreeModule, MatCommonModule, MatCommonModule] });
+MatTreeModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatTreeModule, imports: [CdkTreeModule, MatCommonModule, MatCommonModule] });
 export { MatTreeModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatTreeModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatTreeModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CdkTreeModule, MatCommonModule],

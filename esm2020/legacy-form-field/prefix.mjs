@@ -15,10 +15,10 @@ import * as i0 from "@angular/core";
  */
 class MatLegacyPrefix {
 }
-MatLegacyPrefix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyPrefix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLegacyPrefix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLegacyPrefix, selector: "[matPrefix]", providers: [{ provide: MAT_PREFIX, useExisting: MatLegacyPrefix }], ngImport: i0 });
+MatLegacyPrefix.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyPrefix, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatLegacyPrefix.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLegacyPrefix, selector: "[matPrefix]", providers: [{ provide: MAT_PREFIX, useExisting: MatLegacyPrefix }], ngImport: i0 });
 export { MatLegacyPrefix };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLegacyPrefix, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLegacyPrefix, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matPrefix]',

@@ -16,10 +16,10 @@ import * as i0 from "@angular/core";
  */
 class MatLine {
 }
-MatLine.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLine, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-MatLine.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.5", type: MatLine, selector: "[mat-line], [matLine]", host: { classAttribute: "mat-line" }, ngImport: i0 });
+MatLine.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLine, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+MatLine.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-next.7", type: MatLine, selector: "[mat-line], [matLine]", host: { classAttribute: "mat-line" }, ngImport: i0 });
 export { MatLine };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLine, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLine, decorators: [{
             type: Directive,
             args: [{
                     selector: '[mat-line], [matLine]',
@@ -51,11 +51,11 @@ function setClass(element, className, isAdd) {
 }
 class MatLineModule {
 }
-MatLineModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLineModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-MatLineModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLineModule, declarations: [MatLine], imports: [MatCommonModule], exports: [MatLine, MatCommonModule] });
-MatLineModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLineModule, imports: [MatCommonModule, MatCommonModule] });
+MatLineModule.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLineModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+MatLineModule.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLineModule, declarations: [MatLine], imports: [MatCommonModule], exports: [MatLine, MatCommonModule] });
+MatLineModule.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLineModule, imports: [MatCommonModule, MatCommonModule] });
 export { MatLineModule };
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.5", ngImport: i0, type: MatLineModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-next.7", ngImport: i0, type: MatLineModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],
