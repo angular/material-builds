@@ -1,0 +1,87 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { ComponentHarness, HarnessPredicate, parallel, } from '@angular/cdk/testing';
+import { MatCellHarness, MatFooterCellHarness, MatHeaderCellHarness, } from './cell-harness';
+export class _MatRowHarnessBase extends ComponentHarness {
+    /** Gets a list of `MatCellHarness` for all cells in the row. */
+    async getCells(filter = {}) {
+        return this.locatorForAll(this._cellHarness.with(filter))();
+    }
+    /** Gets the text of the cells in the row. */
+    async getCellTextByIndex(filter = {}) {
+        const cells = await this.getCells(filter);
+        return parallel(() => cells.map(cell => cell.getText()));
+    }
+    /** Gets the text inside the row organized by columns. */
+    async getCellTextByColumnName() {
+        const output = {};
+        const cells = await this.getCells();
+        const cellsData = await parallel(() => cells.map(cell => {
+            return parallel(() => [cell.getColumnName(), cell.getText()]);
+        }));
+        cellsData.forEach(([columnName, text]) => (output[columnName] = text));
+        return output;
+    }
+}
+/** Harness for interacting with an MDC-based Angular Material table row. */
+class MatRowHarness extends _MatRowHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._cellHarness = MatCellHarness;
+    }
+    /** The selector for the host element of a `MatRowHarness` instance. */
+    static { this.hostSelector = '.mat-mdc-row'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table row with specific attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options);
+    }
+}
+export { MatRowHarness };
+/** Harness for interacting with an MDC-based Angular Material table header row. */
+class MatHeaderRowHarness extends _MatRowHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._cellHarness = MatHeaderCellHarness;
+    }
+    /** The selector for the host element of a `MatHeaderRowHarness` instance. */
+    static { this.hostSelector = '.mat-mdc-header-row'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table header row with specific
+     * attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options);
+    }
+}
+export { MatHeaderRowHarness };
+/** Harness for interacting with an MDC-based Angular Material table footer row. */
+class MatFooterRowHarness extends _MatRowHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._cellHarness = MatFooterCellHarness;
+    }
+    /** The selector for the host element of a `MatFooterRowHarness` instance. */
+    static { this.hostSelector = '.mat-mdc-footer-row'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table footer row cell with specific
+     * attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options);
+    }
+}
+export { MatFooterRowHarness };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm93LWhhcm5lc3MuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi9zcmMvbWF0ZXJpYWwvdGFibGUvdGVzdGluZy9yb3ctaGFybmVzcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7QUFFSCxPQUFPLEVBQ0wsZ0JBQWdCLEVBRWhCLGdCQUFnQixFQUNoQixRQUFRLEdBQ1QsTUFBTSxzQkFBc0IsQ0FBQztBQUM5QixPQUFPLEVBRUwsY0FBYyxFQUNkLG9CQUFvQixFQUNwQixvQkFBb0IsR0FDckIsTUFBTSxnQkFBZ0IsQ0FBQztBQVF4QixNQUFNLE9BQWdCLGtCQUtwQixTQUFRLGdCQUFnQjtJQUd4QixnRUFBZ0U7SUFDaEUsS0FBSyxDQUFDLFFBQVEsQ0FBQyxTQUE2QixFQUFFO1FBQzVDLE9BQU8sSUFBSSxDQUFDLGFBQWEsQ0FBQyxJQUFJLENBQUMsWUFBWSxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUMsQ0FBQyxFQUFFLENBQUM7SUFDOUQsQ0FBQztJQUVELDZDQUE2QztJQUM3QyxLQUFLLENBQUMsa0JBQWtCLENBQUMsU0FBNkIsRUFBRTtRQUN0RCxNQUFNLEtBQUssR0FBRyxNQUFNLElBQUksQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLENBQUM7UUFDMUMsT0FBTyxRQUFRLENBQUMsR0FBRyxFQUFFLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLElBQUksQ0FBQyxPQUFPLEVBQUUsQ0FBQyxDQUFDLENBQUM7SUFDM0QsQ0FBQztJQUVELHlEQUF5RDtJQUN6RCxLQUFLLENBQUMsdUJBQXVCO1FBQzNCLE1BQU0sTUFBTSxHQUE2QixFQUFFLENBQUM7UUFDNUMsTUFBTSxLQUFLLEdBQUcsTUFBTSxJQUFJLENBQUMsUUFBUSxFQUFFLENBQUM7UUFDcEMsTUFBTSxTQUFTLEdBQUcsTUFBTSxRQUFRLENBQUMsR0FBRyxFQUFFLENBQ3BDLEtBQUssQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLEVBQUU7WUFDZixPQUFPLFFBQVEsQ0FBQyxHQUFHLEVBQUUsQ0FBQyxDQUFDLElBQUksQ0FBQyxhQUFhLEVBQUUsRUFBRSxJQUFJLENBQUMsT0FBTyxFQUFFLENBQUMsQ0FBQyxDQUFDO1FBQ2hFLENBQUMsQ0FBQyxDQUNILENBQUM7UUFDRixTQUFTLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxVQUFVLEVBQUUsSUFBSSxDQUFDLEVBQUUsRUFBRSxDQUFDLENBQUMsTUFBTSxDQUFDLFVBQVUsQ0FBQyxHQUFHLElBQUksQ0FBQyxDQUFDLENBQUM7UUFDdkUsT0FBTyxNQUFNLENBQUM7SUFDaEIsQ0FBQztDQUNGO0FBRUQsNEVBQTRFO0FBQzVFLE1BQWEsYUFBYyxTQUFRLGtCQUF5RDtJQUE1Rjs7UUFHWSxpQkFBWSxHQUFHLGNBQWMsQ0FBQztJQWExQyxDQUFDO0lBZkMsdUVBQXVFO2FBQ2hFLGlCQUFZLEdBQUcsY0FBYyxBQUFqQixDQUFrQjtJQUdyQzs7OztPQUlHO0lBQ0gsTUFBTSxDQUFDLElBQUksQ0FFVCxVQUE2QixFQUFFO1FBRS9CLE9BQU8sSUFBSSxnQkFBZ0IsQ0FBQyxJQUFJLEVBQUUsT0FBTyxDQUFDLENBQUM7SUFDN0MsQ0FBQzs7U0FmVSxhQUFhO0FBa0IxQixtRkFBbUY7QUFDbkYsTUFBYSxtQkFBb0IsU0FBUSxrQkFHeEM7SUFIRDs7UUFNWSxpQkFBWSxHQUFHLG9CQUFvQixDQUFDO0lBY2hELENBQUM7SUFoQkMsNkVBQTZFO2FBQ3RFLGlCQUFZLEdBQUcscUJBQXFCLEFBQXhCLENBQXlCO0lBRzVDOzs7OztPQUtHO0lBQ0gsTUFBTSxDQUFDLElBQUksQ0FFVCxVQUE2QixFQUFFO1FBRS9CLE9BQU8sSUFBSSxnQkFBZ0IsQ0FBQyxJQUFJLEVBQUUsT0FBTyxDQUFDLENBQUM7SUFDN0MsQ0FBQzs7U0FuQlUsbUJBQW1CO0FBc0JoQyxtRkFBbUY7QUFDbkYsTUFBYSxtQkFBb0IsU0FBUSxrQkFHeEM7SUFIRDs7UUFNWSxpQkFBWSxHQUFHLG9CQUFvQixDQUFDO0lBY2hELENBQUM7SUFoQkMsNkVBQTZFO2FBQ3RFLGlCQUFZLEdBQUcscUJBQXFCLEFBQXhCLENBQXlCO0lBRzVDOzs7OztPQUtHO0lBQ0gsTUFBTSxDQUFDLElBQUksQ0FFVCxVQUE2QixFQUFFO1FBRS9CLE9BQU8sSUFBSSxnQkFBZ0IsQ0FBQyxJQUFJLEVBQUUsT0FBTyxDQUFDLENBQUM7SUFDN0MsQ0FBQzs7U0FuQlUsbUJBQW1CIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7XG4gIENvbXBvbmVudEhhcm5lc3MsXG4gIENvbXBvbmVudEhhcm5lc3NDb25zdHJ1Y3RvcixcbiAgSGFybmVzc1ByZWRpY2F0ZSxcbiAgcGFyYWxsZWwsXG59IGZyb20gJ0Bhbmd1bGFyL2Nkay90ZXN0aW5nJztcbmltcG9ydCB7XG4gIF9NYXRDZWxsSGFybmVzc0Jhc2UsXG4gIE1hdENlbGxIYXJuZXNzLFxuICBNYXRGb290ZXJDZWxsSGFybmVzcyxcbiAgTWF0SGVhZGVyQ2VsbEhhcm5lc3MsXG59IGZyb20gJy4vY2VsbC1oYXJuZXNzJztcbmltcG9ydCB7Q2VsbEhhcm5lc3NGaWx0ZXJzLCBSb3dIYXJuZXNzRmlsdGVyc30gZnJvbSAnLi90YWJsZS1oYXJuZXNzLWZpbHRlcnMnO1xuXG4vKiogVGV4dCBleHRyYWN0ZWQgZnJvbSBhIHRhYmxlIHJvdyBvcmdhbml6ZWQgYnkgY29sdW1ucy4gKi9cbmV4cG9ydCBpbnRlcmZhY2UgTWF0Um93SGFybmVzc0NvbHVtbnNUZXh0IHtcbiAgW2NvbHVtbk5hbWU6IHN0cmluZ106IHN0cmluZztcbn1cblxuZXhwb3J0IGFic3RyYWN0IGNsYXNzIF9NYXRSb3dIYXJuZXNzQmFzZTxcbiAgQ2VsbFR5cGUgZXh0ZW5kcyBDb21wb25lbnRIYXJuZXNzQ29uc3RydWN0b3I8Q2VsbD4gJiB7XG4gICAgd2l0aDogKG9wdGlvbnM/OiBDZWxsSGFybmVzc0ZpbHRlcnMpID0+IEhhcm5lc3NQcmVkaWNhdGU8Q2VsbD47XG4gIH0sXG4gIENlbGwgZXh0ZW5kcyBfTWF0Q2VsbEhhcm5lc3NCYXNlLFxuPiBleHRlbmRzIENvbXBvbmVudEhhcm5lc3Mge1xuICBwcm90ZWN0ZWQgYWJzdHJhY3QgX2NlbGxIYXJuZXNzOiBDZWxsVHlwZTtcblxuICAvKiogR2V0cyBhIGxpc3Qgb2YgYE1hdENlbGxIYXJuZXNzYCBmb3IgYWxsIGNlbGxzIGluIHRoZSByb3cuICovXG4gIGFzeW5jIGdldENlbGxzKGZpbHRlcjogQ2VsbEhhcm5lc3NGaWx0ZXJzID0ge30pOiBQcm9taXNlPENlbGxbXT4ge1xuICAgIHJldHVybiB0aGlzLmxvY2F0b3JGb3JBbGwodGhpcy5fY2VsbEhhcm5lc3Mud2l0aChmaWx0ZXIpKSgpO1xuICB9XG5cbiAgLyoqIEdldHMgdGhlIHRleHQgb2YgdGhlIGNlbGxzIGluIHRoZSByb3cuICovXG4gIGFzeW5jIGdldENlbGxUZXh0QnlJbmRleChmaWx0ZXI6IENlbGxIYXJuZXNzRmlsdGVycyA9IHt9KTogUHJvbWlzZTxzdHJpbmdbXT4ge1xuICAgIGNvbnN0IGNlbGxzID0gYXdhaXQgdGhpcy5nZXRDZWxscyhmaWx0ZXIpO1xuICAgIHJldHVybiBwYXJhbGxlbCgoKSA9PiBjZWxscy5tYXAoY2VsbCA9PiBjZWxsLmdldFRleHQoKSkpO1xuICB9XG5cbiAgLyoqIEdldHMgdGhlIHRleHQgaW5zaWRlIHRoZSByb3cgb3JnYW5pemVkIGJ5IGNvbHVtbnMuICovXG4gIGFzeW5jIGdldENlbGxUZXh0QnlDb2x1bW5OYW1lKCk6IFByb21pc2U8TWF0Um93SGFybmVzc0NvbHVtbnNUZXh0PiB7XG4gICAgY29uc3Qgb3V0cHV0OiBNYXRSb3dIYXJuZXNzQ29sdW1uc1RleHQgPSB7fTtcbiAgICBjb25zdCBjZWxscyA9IGF3YWl0IHRoaXMuZ2V0Q2VsbHMoKTtcbiAgICBjb25zdCBjZWxsc0RhdGEgPSBhd2FpdCBwYXJhbGxlbCgoKSA9PlxuICAgICAgY2VsbHMubWFwKGNlbGwgPT4ge1xuICAgICAgICByZXR1cm4gcGFyYWxsZWwoKCkgPT4gW2NlbGwuZ2V0Q29sdW1uTmFtZSgpLCBjZWxsLmdldFRleHQoKV0pO1xuICAgICAgfSksXG4gICAgKTtcbiAgICBjZWxsc0RhdGEuZm9yRWFjaCgoW2NvbHVtbk5hbWUsIHRleHRdKSA9PiAob3V0cHV0W2NvbHVtbk5hbWVdID0gdGV4dCkpO1xuICAgIHJldHVybiBvdXRwdXQ7XG4gIH1cbn1cblxuLyoqIEhhcm5lc3MgZm9yIGludGVyYWN0aW5nIHdpdGggYW4gTURDLWJhc2VkIEFuZ3VsYXIgTWF0ZXJpYWwgdGFibGUgcm93LiAqL1xuZXhwb3J0IGNsYXNzIE1hdFJvd0hhcm5lc3MgZXh0ZW5kcyBfTWF0Um93SGFybmVzc0Jhc2U8dHlwZW9mIE1hdENlbGxIYXJuZXNzLCBNYXRDZWxsSGFybmVzcz4ge1xuICAvKiogVGhlIHNlbGVjdG9yIGZvciB0aGUgaG9zdCBlbGVtZW50IG9mIGEgYE1hdFJvd0hhcm5lc3NgIGluc3RhbmNlLiAqL1xuICBzdGF0aWMgaG9zdFNlbGVjdG9yID0gJy5tYXQtbWRjLXJvdyc7XG4gIHByb3RlY3RlZCBfY2VsbEhhcm5lc3MgPSBNYXRDZWxsSGFybmVzcztcblxuICAvKipcbiAgICogR2V0cyBhIGBIYXJuZXNzUHJlZGljYXRlYCB0aGF0IGNhbiBiZSB1c2VkIHRvIHNlYXJjaCBmb3IgYSB0YWJsZSByb3cgd2l0aCBzcGVjaWZpYyBhdHRyaWJ1dGVzLlxuICAgKiBAcGFyYW0gb3B0aW9ucyBPcHRpb25zIGZvciBuYXJyb3dpbmcgdGhlIHNlYXJjaFxuICAgKiBAcmV0dXJuIGEgYEhhcm5lc3NQcmVkaWNhdGVgIGNvbmZpZ3VyZWQgd2l0aCB0aGUgZ2l2ZW4gb3B0aW9ucy5cbiAgICovXG4gIHN0YXRpYyB3aXRoPFQgZXh0ZW5kcyBNYXRSb3dIYXJuZXNzPihcbiAgICB0aGlzOiBDb21wb25lbnRIYXJuZXNzQ29uc3RydWN0b3I8VD4sXG4gICAgb3B0aW9uczogUm93SGFybmVzc0ZpbHRlcnMgPSB7fSxcbiAgKTogSGFybmVzc1ByZWRpY2F0ZTxUPiB7XG4gICAgcmV0dXJuIG5ldyBIYXJuZXNzUHJlZGljYXRlKHRoaXMsIG9wdGlvbnMpO1xuICB9XG59XG5cbi8qKiBIYXJuZXNzIGZvciBpbnRlcmFjdGluZyB3aXRoIGFuIE1EQy1iYXNlZCBBbmd1bGFyIE1hdGVyaWFsIHRhYmxlIGhlYWRlciByb3cuICovXG5leHBvcnQgY2xhc3MgTWF0SGVhZGVyUm93SGFybmVzcyBleHRlbmRzIF9NYXRSb3dIYXJuZXNzQmFzZTxcbiAgdHlwZW9mIE1hdEhlYWRlckNlbGxIYXJuZXNzLFxuICBNYXRIZWFkZXJDZWxsSGFybmVzc1xuPiB7XG4gIC8qKiBUaGUgc2VsZWN0b3IgZm9yIHRoZSBob3N0IGVsZW1lbnQgb2YgYSBgTWF0SGVhZGVyUm93SGFybmVzc2AgaW5zdGFuY2UuICovXG4gIHN0YXRpYyBob3N0U2VsZWN0b3IgPSAnLm1hdC1tZGMtaGVhZGVyLXJvdyc7XG4gIHByb3RlY3RlZCBfY2VsbEhhcm5lc3MgPSBNYXRIZWFkZXJDZWxsSGFybmVzcztcblxuICAvKipcbiAgICogR2V0cyBhIGBIYXJuZXNzUHJlZGljYXRlYCB0aGF0IGNhbiBiZSB1c2VkIHRvIHNlYXJjaCBmb3IgYSB0YWJsZSBoZWFkZXIgcm93IHdpdGggc3BlY2lmaWNcbiAgICogYXR0cmlidXRlcy5cbiAgICogQHBhcmFtIG9wdGlvbnMgT3B0aW9ucyBmb3IgbmFycm93aW5nIHRoZSBzZWFyY2hcbiAgICogQHJldHVybiBhIGBIYXJuZXNzUHJlZGljYXRlYCBjb25maWd1cmVkIHdpdGggdGhlIGdpdmVuIG9wdGlvbnMuXG4gICAqL1xuICBzdGF0aWMgd2l0aDxUIGV4dGVuZHMgTWF0SGVhZGVyUm93SGFybmVzcz4oXG4gICAgdGhpczogQ29tcG9uZW50SGFybmVzc0NvbnN0cnVjdG9yPFQ+LFxuICAgIG9wdGlvbnM6IFJvd0hhcm5lc3NGaWx0ZXJzID0ge30sXG4gICk6IEhhcm5lc3NQcmVkaWNhdGU8VD4ge1xuICAgIHJldHVybiBuZXcgSGFybmVzc1ByZWRpY2F0ZSh0aGlzLCBvcHRpb25zKTtcbiAgfVxufVxuXG4vKiogSGFybmVzcyBmb3IgaW50ZXJhY3Rpbmcgd2l0aCBhbiBNREMtYmFzZWQgQW5ndWxhciBNYXRlcmlhbCB0YWJsZSBmb290ZXIgcm93LiAqL1xuZXhwb3J0IGNsYXNzIE1hdEZvb3RlclJvd0hhcm5lc3MgZXh0ZW5kcyBfTWF0Um93SGFybmVzc0Jhc2U8XG4gIHR5cGVvZiBNYXRGb290ZXJDZWxsSGFybmVzcyxcbiAgTWF0Rm9vdGVyQ2VsbEhhcm5lc3Ncbj4ge1xuICAvKiogVGhlIHNlbGVjdG9yIGZvciB0aGUgaG9zdCBlbGVtZW50IG9mIGEgYE1hdEZvb3RlclJvd0hhcm5lc3NgIGluc3RhbmNlLiAqL1xuICBzdGF0aWMgaG9zdFNlbGVjdG9yID0gJy5tYXQtbWRjLWZvb3Rlci1yb3cnO1xuICBwcm90ZWN0ZWQgX2NlbGxIYXJuZXNzID0gTWF0Rm9vdGVyQ2VsbEhhcm5lc3M7XG5cbiAgLyoqXG4gICAqIEdldHMgYSBgSGFybmVzc1ByZWRpY2F0ZWAgdGhhdCBjYW4gYmUgdXNlZCB0byBzZWFyY2ggZm9yIGEgdGFibGUgZm9vdGVyIHJvdyBjZWxsIHdpdGggc3BlY2lmaWNcbiAgICogYXR0cmlidXRlcy5cbiAgICogQHBhcmFtIG9wdGlvbnMgT3B0aW9ucyBmb3IgbmFycm93aW5nIHRoZSBzZWFyY2hcbiAgICogQHJldHVybiBhIGBIYXJuZXNzUHJlZGljYXRlYCBjb25maWd1cmVkIHdpdGggdGhlIGdpdmVuIG9wdGlvbnMuXG4gICAqL1xuICBzdGF0aWMgd2l0aDxUIGV4dGVuZHMgTWF0Rm9vdGVyUm93SGFybmVzcz4oXG4gICAgdGhpczogQ29tcG9uZW50SGFybmVzc0NvbnN0cnVjdG9yPFQ+LFxuICAgIG9wdGlvbnM6IFJvd0hhcm5lc3NGaWx0ZXJzID0ge30sXG4gICk6IEhhcm5lc3NQcmVkaWNhdGU8VD4ge1xuICAgIHJldHVybiBuZXcgSGFybmVzc1ByZWRpY2F0ZSh0aGlzLCBvcHRpb25zKTtcbiAgfVxufVxuIl19

@@ -1,0 +1,60 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { HarnessPredicate } from '@angular/cdk/testing';
+import { _MatRadioGroupHarnessBase, _MatRadioButtonHarnessBase, } from '@angular/material/radio/testing';
+/**
+ * Harness for interacting with a standard mat-radio-group in tests
+ * @deprecated Use `MatRadioGroupHarness` from `@angular/material/radio/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+class MatLegacyRadioGroupHarness extends _MatRadioGroupHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._buttonClass = MatLegacyRadioButtonHarness;
+    }
+    /** The selector for the host element of a `MatRadioGroup` instance. */
+    static { this.hostSelector = '.mat-radio-group'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioGroupHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which radio group instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatLegacyRadioGroupHarness, options).addOption('name', options.name, this._checkRadioGroupName);
+    }
+}
+export { MatLegacyRadioGroupHarness };
+/**
+ * Harness for interacting with a standard mat-radio-button in tests.
+ * @deprecated Use `MatRadioButtonHarness` from `@angular/material/radio/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+class MatLegacyRadioButtonHarness extends _MatRadioButtonHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._textLabel = this.locatorFor('.mat-radio-label-content');
+        this._clickLabel = this.locatorFor('.mat-radio-label');
+    }
+    /** The selector for the host element of a `MatRadioButton` instance. */
+    static { this.hostSelector = '.mat-radio-button'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatRadioButtonHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which radio button instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatLegacyRadioButtonHarness, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
+            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
+            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked);
+    }
+}
+export { MatLegacyRadioButtonHarness };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmFkaW8taGFybmVzcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9sZWdhY3ktcmFkaW8vdGVzdGluZy9yYWRpby1oYXJuZXNzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUVILE9BQU8sRUFBQyxnQkFBZ0IsRUFBQyxNQUFNLHNCQUFzQixDQUFDO0FBQ3RELE9BQU8sRUFHTCx5QkFBeUIsRUFDekIsMEJBQTBCLEdBQzNCLE1BQU0saUNBQWlDLENBQUM7QUFFekM7Ozs7R0FJRztBQUNILE1BQWEsMEJBQTJCLFNBQVEseUJBSS9DO0lBSkQ7O1FBT1ksaUJBQVksR0FBRywyQkFBMkIsQ0FBQztJQWlCdkQsQ0FBQztJQW5CQyx1RUFBdUU7YUFDaEUsaUJBQVksR0FBRyxrQkFBa0IsQUFBckIsQ0FBc0I7SUFHekM7Ozs7O09BS0c7SUFDSCxNQUFNLENBQUMsSUFBSSxDQUNULFVBQW9DLEVBQUU7UUFFdEMsT0FBTyxJQUFJLGdCQUFnQixDQUFDLDBCQUEwQixFQUFFLE9BQU8sQ0FBQyxDQUFDLFNBQVMsQ0FDeEUsTUFBTSxFQUNOLE9BQU8sQ0FBQyxJQUFJLEVBQ1osSUFBSSxDQUFDLG9CQUFvQixDQUMxQixDQUFDO0lBQ0osQ0FBQzs7U0F2QlUsMEJBQTBCO0FBMEJ2Qzs7OztHQUlHO0FBQ0gsTUFBYSwyQkFBNEIsU0FBUSwwQkFBMEI7SUFBM0U7O1FBeUJZLGVBQVUsR0FBRyxJQUFJLENBQUMsVUFBVSxDQUFDLDBCQUEwQixDQUFDLENBQUM7UUFDekQsZ0JBQVcsR0FBRyxJQUFJLENBQUMsVUFBVSxDQUFDLGtCQUFrQixDQUFDLENBQUM7SUFDOUQsQ0FBQztJQTFCQyx3RUFBd0U7YUFDakUsaUJBQVksR0FBRyxtQkFBbUIsQUFBdEIsQ0FBdUI7SUFFMUM7Ozs7O09BS0c7SUFDSCxNQUFNLENBQUMsSUFBSSxDQUNULFVBQXFDLEVBQUU7UUFFdkMsT0FBTyxJQUFJLGdCQUFnQixDQUFDLDJCQUEyQixFQUFFLE9BQU8sQ0FBQzthQUM5RCxTQUFTLENBQUMsT0FBTyxFQUFFLE9BQU8sQ0FBQyxLQUFLLEVBQUUsQ0FBQyxPQUFPLEVBQUUsS0FBSyxFQUFFLEVBQUUsQ0FDcEQsZ0JBQWdCLENBQUMsYUFBYSxDQUFDLE9BQU8sQ0FBQyxZQUFZLEVBQUUsRUFBRSxLQUFLLENBQUMsQ0FDOUQ7YUFDQSxTQUFTLENBQUMsTUFBTSxFQUFFLE9BQU8sQ0FBQyxJQUFJLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsRUFBRSxDQUFDLENBQUMsTUFBTSxPQUFPLENBQUMsT0FBTyxFQUFFLENBQUMsS0FBSyxJQUFJLENBQUM7YUFDNUYsU0FBUyxDQUNSLFNBQVMsRUFDVCxPQUFPLENBQUMsT0FBTyxFQUNmLEtBQUssRUFBRSxPQUFPLEVBQUUsT0FBTyxFQUFFLEVBQUUsQ0FBQyxDQUFDLE1BQU0sT0FBTyxDQUFDLFNBQVMsRUFBRSxDQUFDLElBQUksT0FBTyxDQUNuRSxDQUFDO0lBQ04sQ0FBQzs7U0F2QlUsMkJBQTJCIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7SGFybmVzc1ByZWRpY2F0ZX0gZnJvbSAnQGFuZ3VsYXIvY2RrL3Rlc3RpbmcnO1xuaW1wb3J0IHtcbiAgUmFkaW9CdXR0b25IYXJuZXNzRmlsdGVycyxcbiAgUmFkaW9Hcm91cEhhcm5lc3NGaWx0ZXJzLFxuICBfTWF0UmFkaW9Hcm91cEhhcm5lc3NCYXNlLFxuICBfTWF0UmFkaW9CdXR0b25IYXJuZXNzQmFzZSxcbn0gZnJvbSAnQGFuZ3VsYXIvbWF0ZXJpYWwvcmFkaW8vdGVzdGluZyc7XG5cbi8qKlxuICogSGFybmVzcyBmb3IgaW50ZXJhY3Rpbmcgd2l0aCBhIHN0YW5kYXJkIG1hdC1yYWRpby1ncm91cCBpbiB0ZXN0c1xuICogQGRlcHJlY2F0ZWQgVXNlIGBNYXRSYWRpb0dyb3VwSGFybmVzc2AgZnJvbSBgQGFuZ3VsYXIvbWF0ZXJpYWwvcmFkaW8vdGVzdGluZ2AgaW5zdGVhZC4gU2VlIGh0dHBzOi8vbWF0ZXJpYWwuYW5ndWxhci5pby9ndWlkZS9tZGMtbWlncmF0aW9uIGZvciBpbmZvcm1hdGlvbiBhYm91dCBtaWdyYXRpbmcuXG4gKiBAYnJlYWtpbmctY2hhbmdlIDE3LjAuMFxuICovXG5leHBvcnQgY2xhc3MgTWF0TGVnYWN5UmFkaW9Hcm91cEhhcm5lc3MgZXh0ZW5kcyBfTWF0UmFkaW9Hcm91cEhhcm5lc3NCYXNlPFxuICB0eXBlb2YgTWF0TGVnYWN5UmFkaW9CdXR0b25IYXJuZXNzLFxuICBNYXRMZWdhY3lSYWRpb0J1dHRvbkhhcm5lc3MsXG4gIFJhZGlvQnV0dG9uSGFybmVzc0ZpbHRlcnNcbj4ge1xuICAvKiogVGhlIHNlbGVjdG9yIGZvciB0aGUgaG9zdCBlbGVtZW50IG9mIGEgYE1hdFJhZGlvR3JvdXBgIGluc3RhbmNlLiAqL1xuICBzdGF0aWMgaG9zdFNlbGVjdG9yID0gJy5tYXQtcmFkaW8tZ3JvdXAnO1xuICBwcm90ZWN0ZWQgX2J1dHRvbkNsYXNzID0gTWF0TGVnYWN5UmFkaW9CdXR0b25IYXJuZXNzO1xuXG4gIC8qKlxuICAgKiBHZXRzIGEgYEhhcm5lc3NQcmVkaWNhdGVgIHRoYXQgY2FuIGJlIHVzZWQgdG8gc2VhcmNoIGZvciBhIGBNYXRSYWRpb0dyb3VwSGFybmVzc2AgdGhhdCBtZWV0c1xuICAgKiBjZXJ0YWluIGNyaXRlcmlhLlxuICAgKiBAcGFyYW0gb3B0aW9ucyBPcHRpb25zIGZvciBmaWx0ZXJpbmcgd2hpY2ggcmFkaW8gZ3JvdXAgaW5zdGFuY2VzIGFyZSBjb25zaWRlcmVkIGEgbWF0Y2guXG4gICAqIEByZXR1cm4gYSBgSGFybmVzc1ByZWRpY2F0ZWAgY29uZmlndXJlZCB3aXRoIHRoZSBnaXZlbiBvcHRpb25zLlxuICAgKi9cbiAgc3RhdGljIHdpdGgoXG4gICAgb3B0aW9uczogUmFkaW9Hcm91cEhhcm5lc3NGaWx0ZXJzID0ge30sXG4gICk6IEhhcm5lc3NQcmVkaWNhdGU8TWF0TGVnYWN5UmFkaW9Hcm91cEhhcm5lc3M+IHtcbiAgICByZXR1cm4gbmV3IEhhcm5lc3NQcmVkaWNhdGUoTWF0TGVnYWN5UmFkaW9Hcm91cEhhcm5lc3MsIG9wdGlvbnMpLmFkZE9wdGlvbihcbiAgICAgICduYW1lJyxcbiAgICAgIG9wdGlvbnMubmFtZSxcbiAgICAgIHRoaXMuX2NoZWNrUmFkaW9Hcm91cE5hbWUsXG4gICAgKTtcbiAgfVxufVxuXG4vKipcbiAqIEhhcm5lc3MgZm9yIGludGVyYWN0aW5nIHdpdGggYSBzdGFuZGFyZCBtYXQtcmFkaW8tYnV0dG9uIGluIHRlc3RzLlxuICogQGRlcHJlY2F0ZWQgVXNlIGBNYXRSYWRpb0J1dHRvbkhhcm5lc3NgIGZyb20gYEBhbmd1bGFyL21hdGVyaWFsL3JhZGlvL3Rlc3RpbmdgIGluc3RlYWQuIFNlZSBodHRwczovL21hdGVyaWFsLmFuZ3VsYXIuaW8vZ3VpZGUvbWRjLW1pZ3JhdGlvbiBmb3IgaW5mb3JtYXRpb24gYWJvdXQgbWlncmF0aW5nLlxuICogQGJyZWFraW5nLWNoYW5nZSAxNy4wLjBcbiAqL1xuZXhwb3J0IGNsYXNzIE1hdExlZ2FjeVJhZGlvQnV0dG9uSGFybmVzcyBleHRlbmRzIF9NYXRSYWRpb0J1dHRvbkhhcm5lc3NCYXNlIHtcbiAgLyoqIFRoZSBzZWxlY3RvciBmb3IgdGhlIGhvc3QgZWxlbWVudCBvZiBhIGBNYXRSYWRpb0J1dHRvbmAgaW5zdGFuY2UuICovXG4gIHN0YXRpYyBob3N0U2VsZWN0b3IgPSAnLm1hdC1yYWRpby1idXR0b24nO1xuXG4gIC8qKlxuICAgKiBHZXRzIGEgYEhhcm5lc3NQcmVkaWNhdGVgIHRoYXQgY2FuIGJlIHVzZWQgdG8gc2VhcmNoIGZvciBhIGBNYXRSYWRpb0J1dHRvbkhhcm5lc3NgIHRoYXQgbWVldHNcbiAgICogY2VydGFpbiBjcml0ZXJpYS5cbiAgICogQHBhcmFtIG9wdGlvbnMgT3B0aW9ucyBmb3IgZmlsdGVyaW5nIHdoaWNoIHJhZGlvIGJ1dHRvbiBpbnN0YW5jZXMgYXJlIGNvbnNpZGVyZWQgYSBtYXRjaC5cbiAgICogQHJldHVybiBhIGBIYXJuZXNzUHJlZGljYXRlYCBjb25maWd1cmVkIHdpdGggdGhlIGdpdmVuIG9wdGlvbnMuXG4gICAqL1xuICBzdGF0aWMgd2l0aChcbiAgICBvcHRpb25zOiBSYWRpb0J1dHRvbkhhcm5lc3NGaWx0ZXJzID0ge30sXG4gICk6IEhhcm5lc3NQcmVkaWNhdGU8TWF0TGVnYWN5UmFkaW9CdXR0b25IYXJuZXNzPiB7XG4gICAgcmV0dXJuIG5ldyBIYXJuZXNzUHJlZGljYXRlKE1hdExlZ2FjeVJhZGlvQnV0dG9uSGFybmVzcywgb3B0aW9ucylcbiAgICAgIC5hZGRPcHRpb24oJ2xhYmVsJywgb3B0aW9ucy5sYWJlbCwgKGhhcm5lc3MsIGxhYmVsKSA9PlxuICAgICAgICBIYXJuZXNzUHJlZGljYXRlLnN0cmluZ01hdGNoZXMoaGFybmVzcy5nZXRMYWJlbFRleHQoKSwgbGFiZWwpLFxuICAgICAgKVxuICAgICAgLmFkZE9wdGlvbignbmFtZScsIG9wdGlvbnMubmFtZSwgYXN5bmMgKGhhcm5lc3MsIG5hbWUpID0+IChhd2FpdCBoYXJuZXNzLmdldE5hbWUoKSkgPT09IG5hbWUpXG4gICAgICAuYWRkT3B0aW9uKFxuICAgICAgICAnY2hlY2tlZCcsXG4gICAgICAgIG9wdGlvbnMuY2hlY2tlZCxcbiAgICAgICAgYXN5bmMgKGhhcm5lc3MsIGNoZWNrZWQpID0+IChhd2FpdCBoYXJuZXNzLmlzQ2hlY2tlZCgpKSA9PSBjaGVja2VkLFxuICAgICAgKTtcbiAgfVxuXG4gIHByb3RlY3RlZCBfdGV4dExhYmVsID0gdGhpcy5sb2NhdG9yRm9yKCcubWF0LXJhZGlvLWxhYmVsLWNvbnRlbnQnKTtcbiAgcHJvdGVjdGVkIF9jbGlja0xhYmVsID0gdGhpcy5sb2NhdG9yRm9yKCcubWF0LXJhZGlvLWxhYmVsJyk7XG59XG4iXX0=
