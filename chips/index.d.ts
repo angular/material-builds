@@ -217,7 +217,11 @@ export declare class MatChip extends _MatChipMixinBase implements OnInit, AfterV
     trailingIcon: MatChipTrailingIcon;
     /** The chip's trailing remove icon. */
     removeIcon: MatChipRemove;
-    /** Reference to the MatRipple instance of the chip. */
+    /**
+     * Reference to the MatRipple instance of the chip.
+     * @deprecated Considered an implementation detail. To be removed.
+     * @breaking-change 17.0.0
+     */
     ripple: MatRipple;
     /** Action receiving the primary set of user interactions. */
     primaryAction: MatChipAction;

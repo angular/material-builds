@@ -130,7 +130,11 @@ export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase 
     _inputElement: ElementRef<HTMLInputElement>;
     /** The native `<label>` element */
     _labelElement: ElementRef<HTMLInputElement>;
-    /** Reference to the ripple instance of the checkbox. */
+    /**
+     * Reference to the MatRipple instance of the checkbox.
+     * @deprecated Considered an implementation detail. To be removed.
+     * @breaking-change 17.0.0
+     */
     ripple: MatRipple;
     /**
      * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
