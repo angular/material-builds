@@ -711,12 +711,12 @@ class _MatTableDataSource extends DataSource {
     }
     /**
      * Returns a filtered data array where each filter object contains the filter string within
-     * the result of the filterTermAccessor function. If no filter is set, returns the data array
+     * the result of the filterPredicate function. If no filter is set, returns the data array
      * as provided.
      */
     _filterData(data) {
         // If there is a filter string, filter out data that does not contain it.
-        // Each data object is converted to a string using the function defined by filterTermAccessor.
+        // Each data object is converted to a string using the function defined by filterPredicate.
         // May be overridden for customization.
         this.filteredData =
             this.filter == null || this.filter === ''
@@ -799,7 +799,7 @@ class _MatTableDataSource extends DataSource {
  * sorting (using MatSort), and pagination (using MatPaginator).
  *
  * Allows for sort customization by overriding sortingDataAccessor, which defines how data
- * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
+ * properties are accessed. Also allows for filter customization by overriding filterPredicate,
  * which defines how row data is converted to a string for filter matching.
  *
  * **Note:** This class is meant to be a simple data source to help you get started. As such
