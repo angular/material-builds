@@ -1,0 +1,73 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { HarnessPredicate } from '@angular/cdk/testing';
+import { MatLegacyListHarnessBase } from './list-harness-base';
+import { getListItemPredicate, MatLegacyListItemHarnessBase } from './list-item-harness-base';
+/**
+ * Harness for interacting with a standard mat-nav-list in tests.
+ * @deprecated Use `MatNavListHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+class MatLegacyNavListHarness extends MatLegacyListHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._itemHarness = MatLegacyNavListItemHarness;
+    }
+    /** The selector for the host element of a `MatNavList` instance. */
+    static { this.hostSelector = '.mat-nav-list'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatNavListHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which nav list instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatLegacyNavListHarness, options);
+    }
+}
+export { MatLegacyNavListHarness };
+/**
+ * Harness for interacting with a nav list item.
+ * @deprecated Use `MatNavListItemHarness` from `@angular/material/list/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+class MatLegacyNavListItemHarness extends MatLegacyListItemHarnessBase {
+    /** The selector for the host element of a `MatListItem` instance. */
+    static { this.hostSelector = `${MatLegacyNavListHarness.hostSelector} .mat-list-item`; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatNavListItemHarness` that
+     * meets certain criteria.
+     * @param options Options for filtering which nav list item instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return getListItemPredicate(MatLegacyNavListItemHarness, options).addOption('href', options.href, async (harness, href) => HarnessPredicate.stringMatches(harness.getHref(), href));
+    }
+    /** Gets the href for this nav list item. */
+    async getHref() {
+        return (await this.host()).getAttribute('href');
+    }
+    /** Clicks on the nav list item. */
+    async click() {
+        return (await this.host()).click();
+    }
+    /** Focuses the nav list item. */
+    async focus() {
+        return (await this.host()).focus();
+    }
+    /** Blurs the nav list item. */
+    async blur() {
+        return (await this.host()).blur();
+    }
+    /** Whether the nav list item is focused. */
+    async isFocused() {
+        return (await this.host()).isFocused();
+    }
+}
+export { MatLegacyNavListItemHarness };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmF2LWxpc3QtaGFybmVzcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9sZWdhY3ktbGlzdC90ZXN0aW5nL25hdi1saXN0LWhhcm5lc3MudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFDLGdCQUFnQixFQUFDLE1BQU0sc0JBQXNCLENBQUM7QUFDdEQsT0FBTyxFQUFDLHdCQUF3QixFQUFDLE1BQU0scUJBQXFCLENBQUM7QUFFN0QsT0FBTyxFQUFDLG9CQUFvQixFQUFFLDRCQUE0QixFQUFDLE1BQU0sMEJBQTBCLENBQUM7QUFFNUY7Ozs7R0FJRztBQUNILE1BQWEsdUJBQXdCLFNBQVEsd0JBSTVDO0lBSkQ7O1FBb0JXLGlCQUFZLEdBQUcsMkJBQTJCLENBQUM7SUFDdEQsQ0FBQztJQWhCQyxvRUFBb0U7YUFDN0QsaUJBQVksR0FBRyxlQUFlLEFBQWxCLENBQW1CO0lBRXRDOzs7OztPQUtHO0lBQ0gsTUFBTSxDQUFDLElBQUksQ0FDVCxVQUF1QyxFQUFFO1FBRXpDLE9BQU8sSUFBSSxnQkFBZ0IsQ0FBQyx1QkFBdUIsRUFBRSxPQUFPLENBQUMsQ0FBQztJQUNoRSxDQUFDOztTQWxCVSx1QkFBdUI7QUF1QnBDOzs7O0dBSUc7QUFDSCxNQUFhLDJCQUE0QixTQUFRLDRCQUE0QjtJQUMzRSxxRUFBcUU7YUFDOUQsaUJBQVksR0FBRyxHQUFHLHVCQUF1QixDQUFDLFlBQVksaUJBQWlCLENBQUM7SUFFL0U7Ozs7O09BS0c7SUFDSCxNQUFNLENBQUMsSUFBSSxDQUNULFVBQTJDLEVBQUU7UUFFN0MsT0FBTyxvQkFBb0IsQ0FBQywyQkFBMkIsRUFBRSxPQUFPLENBQUMsQ0FBQyxTQUFTLENBQ3pFLE1BQU0sRUFDTixPQUFPLENBQUMsSUFBSSxFQUNaLEtBQUssRUFBRSxPQUFPLEVBQUUsSUFBSSxFQUFFLEVBQUUsQ0FBQyxnQkFBZ0IsQ0FBQyxhQUFhLENBQUMsT0FBTyxDQUFDLE9BQU8sRUFBRSxFQUFFLElBQUksQ0FBQyxDQUNqRixDQUFDO0lBQ0osQ0FBQztJQUVELDRDQUE0QztJQUM1QyxLQUFLLENBQUMsT0FBTztRQUNYLE9BQU8sQ0FBQyxNQUFNLElBQUksQ0FBQyxJQUFJLEVBQUUsQ0FBQyxDQUFDLFlBQVksQ0FBQyxNQUFNLENBQUMsQ0FBQztJQUNsRCxDQUFDO0lBRUQsbUNBQW1DO0lBQ25DLEtBQUssQ0FBQyxLQUFLO1FBQ1QsT0FBTyxDQUFDLE1BQU0sSUFBSSxDQUFDLElBQUksRUFBRSxDQUFDLENBQUMsS0FBSyxFQUFFLENBQUM7SUFDckMsQ0FBQztJQUVELGlDQUFpQztJQUNqQyxLQUFLLENBQUMsS0FBSztRQUNULE9BQU8sQ0FBQyxNQUFNLElBQUksQ0FBQyxJQUFJLEVBQUUsQ0FBQyxDQUFDLEtBQUssRUFBRSxDQUFDO0lBQ3JDLENBQUM7SUFFRCwrQkFBK0I7SUFDL0IsS0FBSyxDQUFDLElBQUk7UUFDUixPQUFPLENBQUMsTUFBTSxJQUFJLENBQUMsSUFBSSxFQUFFLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQztJQUNwQyxDQUFDO0lBRUQsNENBQTRDO0lBQzVDLEtBQUssQ0FBQyxTQUFTO1FBQ2IsT0FBTyxDQUFDLE1BQU0sSUFBSSxDQUFDLElBQUksRUFBRSxDQUFDLENBQUMsU0FBUyxFQUFFLENBQUM7SUFDekMsQ0FBQzs7U0EzQ1UsMkJBQTJCIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7SGFybmVzc1ByZWRpY2F0ZX0gZnJvbSAnQGFuZ3VsYXIvY2RrL3Rlc3RpbmcnO1xuaW1wb3J0IHtNYXRMZWdhY3lMaXN0SGFybmVzc0Jhc2V9IGZyb20gJy4vbGlzdC1oYXJuZXNzLWJhc2UnO1xuaW1wb3J0IHtMZWdhY3lOYXZMaXN0SGFybmVzc0ZpbHRlcnMsIExlZ2FjeU5hdkxpc3RJdGVtSGFybmVzc0ZpbHRlcnN9IGZyb20gJy4vbGlzdC1oYXJuZXNzLWZpbHRlcnMnO1xuaW1wb3J0IHtnZXRMaXN0SXRlbVByZWRpY2F0ZSwgTWF0TGVnYWN5TGlzdEl0ZW1IYXJuZXNzQmFzZX0gZnJvbSAnLi9saXN0LWl0ZW0taGFybmVzcy1iYXNlJztcblxuLyoqXG4gKiBIYXJuZXNzIGZvciBpbnRlcmFjdGluZyB3aXRoIGEgc3RhbmRhcmQgbWF0LW5hdi1saXN0IGluIHRlc3RzLlxuICogQGRlcHJlY2F0ZWQgVXNlIGBNYXROYXZMaXN0SGFybmVzc2AgZnJvbSBgQGFuZ3VsYXIvbWF0ZXJpYWwvbGlzdC90ZXN0aW5nYCBpbnN0ZWFkLiBTZWUgaHR0cHM6Ly9tYXRlcmlhbC5hbmd1bGFyLmlvL2d1aWRlL21kYy1taWdyYXRpb24gZm9yIGluZm9ybWF0aW9uIGFib3V0IG1pZ3JhdGluZy5cbiAqIEBicmVha2luZy1jaGFuZ2UgMTcuMC4wXG4gKi9cbmV4cG9ydCBjbGFzcyBNYXRMZWdhY3lOYXZMaXN0SGFybmVzcyBleHRlbmRzIE1hdExlZ2FjeUxpc3RIYXJuZXNzQmFzZTxcbiAgdHlwZW9mIE1hdExlZ2FjeU5hdkxpc3RJdGVtSGFybmVzcyxcbiAgTWF0TGVnYWN5TmF2TGlzdEl0ZW1IYXJuZXNzLFxuICBMZWdhY3lOYXZMaXN0SXRlbUhhcm5lc3NGaWx0ZXJzXG4+IHtcbiAgLyoqIFRoZSBzZWxlY3RvciBmb3IgdGhlIGhvc3QgZWxlbWVudCBvZiBhIGBNYXROYXZMaXN0YCBpbnN0YW5jZS4gKi9cbiAgc3RhdGljIGhvc3RTZWxlY3RvciA9ICcubWF0LW5hdi1saXN0JztcblxuICAvKipcbiAgICogR2V0cyBhIGBIYXJuZXNzUHJlZGljYXRlYCB0aGF0IGNhbiBiZSB1c2VkIHRvIHNlYXJjaCBmb3IgYSBgTWF0TmF2TGlzdEhhcm5lc3NgIHRoYXQgbWVldHNcbiAgICogY2VydGFpbiBjcml0ZXJpYS5cbiAgICogQHBhcmFtIG9wdGlvbnMgT3B0aW9ucyBmb3IgZmlsdGVyaW5nIHdoaWNoIG5hdiBsaXN0IGluc3RhbmNlcyBhcmUgY29uc2lkZXJlZCBhIG1hdGNoLlxuICAgKiBAcmV0dXJuIGEgYEhhcm5lc3NQcmVkaWNhdGVgIGNvbmZpZ3VyZWQgd2l0aCB0aGUgZ2l2ZW4gb3B0aW9ucy5cbiAgICovXG4gIHN0YXRpYyB3aXRoKFxuICAgIG9wdGlvbnM6IExlZ2FjeU5hdkxpc3RIYXJuZXNzRmlsdGVycyA9IHt9LFxuICApOiBIYXJuZXNzUHJlZGljYXRlPE1hdExlZ2FjeU5hdkxpc3RIYXJuZXNzPiB7XG4gICAgcmV0dXJuIG5ldyBIYXJuZXNzUHJlZGljYXRlKE1hdExlZ2FjeU5hdkxpc3RIYXJuZXNzLCBvcHRpb25zKTtcbiAgfVxuXG4gIG92ZXJyaWRlIF9pdGVtSGFybmVzcyA9IE1hdExlZ2FjeU5hdkxpc3RJdGVtSGFybmVzcztcbn1cblxuLyoqXG4gKiBIYXJuZXNzIGZvciBpbnRlcmFjdGluZyB3aXRoIGEgbmF2IGxpc3QgaXRlbS5cbiAqIEBkZXByZWNhdGVkIFVzZSBgTWF0TmF2TGlzdEl0ZW1IYXJuZXNzYCBmcm9tIGBAYW5ndWxhci9tYXRlcmlhbC9saXN0L3Rlc3RpbmdgIGluc3RlYWQuIFNlZSBodHRwczovL21hdGVyaWFsLmFuZ3VsYXIuaW8vZ3VpZGUvbWRjLW1pZ3JhdGlvbiBmb3IgaW5mb3JtYXRpb24gYWJvdXQgbWlncmF0aW5nLlxuICogQGJyZWFraW5nLWNoYW5nZSAxNy4wLjBcbiAqL1xuZXhwb3J0IGNsYXNzIE1hdExlZ2FjeU5hdkxpc3RJdGVtSGFybmVzcyBleHRlbmRzIE1hdExlZ2FjeUxpc3RJdGVtSGFybmVzc0Jhc2Uge1xuICAvKiogVGhlIHNlbGVjdG9yIGZvciB0aGUgaG9zdCBlbGVtZW50IG9mIGEgYE1hdExpc3RJdGVtYCBpbnN0YW5jZS4gKi9cbiAgc3RhdGljIGhvc3RTZWxlY3RvciA9IGAke01hdExlZ2FjeU5hdkxpc3RIYXJuZXNzLmhvc3RTZWxlY3Rvcn0gLm1hdC1saXN0LWl0ZW1gO1xuXG4gIC8qKlxuICAgKiBHZXRzIGEgYEhhcm5lc3NQcmVkaWNhdGVgIHRoYXQgY2FuIGJlIHVzZWQgdG8gc2VhcmNoIGZvciBhIGBNYXROYXZMaXN0SXRlbUhhcm5lc3NgIHRoYXRcbiAgICogbWVldHMgY2VydGFpbiBjcml0ZXJpYS5cbiAgICogQHBhcmFtIG9wdGlvbnMgT3B0aW9ucyBmb3IgZmlsdGVyaW5nIHdoaWNoIG5hdiBsaXN0IGl0ZW0gaW5zdGFuY2VzIGFyZSBjb25zaWRlcmVkIGEgbWF0Y2guXG4gICAqIEByZXR1cm4gYSBgSGFybmVzc1ByZWRpY2F0ZWAgY29uZmlndXJlZCB3aXRoIHRoZSBnaXZlbiBvcHRpb25zLlxuICAgKi9cbiAgc3RhdGljIHdpdGgoXG4gICAgb3B0aW9uczogTGVnYWN5TmF2TGlzdEl0ZW1IYXJuZXNzRmlsdGVycyA9IHt9LFxuICApOiBIYXJuZXNzUHJlZGljYXRlPE1hdExlZ2FjeU5hdkxpc3RJdGVtSGFybmVzcz4ge1xuICAgIHJldHVybiBnZXRMaXN0SXRlbVByZWRpY2F0ZShNYXRMZWdhY3lOYXZMaXN0SXRlbUhhcm5lc3MsIG9wdGlvbnMpLmFkZE9wdGlvbihcbiAgICAgICdocmVmJyxcbiAgICAgIG9wdGlvbnMuaHJlZixcbiAgICAgIGFzeW5jIChoYXJuZXNzLCBocmVmKSA9PiBIYXJuZXNzUHJlZGljYXRlLnN0cmluZ01hdGNoZXMoaGFybmVzcy5nZXRIcmVmKCksIGhyZWYpLFxuICAgICk7XG4gIH1cblxuICAvKiogR2V0cyB0aGUgaHJlZiBmb3IgdGhpcyBuYXYgbGlzdCBpdGVtLiAqL1xuICBhc3luYyBnZXRIcmVmKCk6IFByb21pc2U8c3RyaW5nIHwgbnVsbD4ge1xuICAgIHJldHVybiAoYXdhaXQgdGhpcy5ob3N0KCkpLmdldEF0dHJpYnV0ZSgnaHJlZicpO1xuICB9XG5cbiAgLyoqIENsaWNrcyBvbiB0aGUgbmF2IGxpc3QgaXRlbS4gKi9cbiAgYXN5bmMgY2xpY2soKTogUHJvbWlzZTx2b2lkPiB7XG4gICAgcmV0dXJuIChhd2FpdCB0aGlzLmhvc3QoKSkuY2xpY2soKTtcbiAgfVxuXG4gIC8qKiBGb2N1c2VzIHRoZSBuYXYgbGlzdCBpdGVtLiAqL1xuICBhc3luYyBmb2N1cygpOiBQcm9taXNlPHZvaWQ+IHtcbiAgICByZXR1cm4gKGF3YWl0IHRoaXMuaG9zdCgpKS5mb2N1cygpO1xuICB9XG5cbiAgLyoqIEJsdXJzIHRoZSBuYXYgbGlzdCBpdGVtLiAqL1xuICBhc3luYyBibHVyKCk6IFByb21pc2U8dm9pZD4ge1xuICAgIHJldHVybiAoYXdhaXQgdGhpcy5ob3N0KCkpLmJsdXIoKTtcbiAgfVxuXG4gIC8qKiBXaGV0aGVyIHRoZSBuYXYgbGlzdCBpdGVtIGlzIGZvY3VzZWQuICovXG4gIGFzeW5jIGlzRm9jdXNlZCgpOiBQcm9taXNlPGJvb2xlYW4+IHtcbiAgICByZXR1cm4gKGF3YWl0IHRoaXMuaG9zdCgpKS5pc0ZvY3VzZWQoKTtcbiAgfVxufVxuIl19
