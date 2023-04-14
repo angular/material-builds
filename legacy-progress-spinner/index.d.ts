@@ -36,6 +36,7 @@ export { MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY }
  */
 export declare class MatLegacyProgressSpinner extends _MatProgressSpinnerBase implements OnInit, OnDestroy, CanColor {
     private _document;
+    private _nonce?;
     private _diameter;
     private _value;
     private _strokeWidth;
@@ -74,7 +75,7 @@ export declare class MatLegacyProgressSpinner extends _MatProgressSpinnerBase im
      * parameters to become required.
      * @breaking-change 14.0.0
      */
-    changeDetectorRef?: ChangeDetectorRef, viewportRuler?: ViewportRuler, ngZone?: NgZone);
+    changeDetectorRef?: ChangeDetectorRef, viewportRuler?: ViewportRuler, ngZone?: NgZone, _nonce?: string | null | undefined);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** The radius of the spinner, adjusted for stroke width. */
@@ -95,7 +96,7 @@ export declare class MatLegacyProgressSpinner extends _MatProgressSpinnerBase im
     private _getAnimationText;
     /** Returns the circle diameter formatted for use with the animation-name CSS property. */
     private _getSpinnerAnimationLabel;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null, null, null, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyProgressSpinner, [null, null, { optional: true; }, { optional: true; }, null, null, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": { "alias": "color"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "strokeWidth": { "alias": "strokeWidth"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, {}, never, never, false, never>;
 }
 
