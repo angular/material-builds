@@ -1431,7 +1431,6 @@ class MatChipListbox extends MatChipSet {
             // Wait to see if focus moves to an individual chip.
             setTimeout(() => {
                 if (!this.focused) {
-                    this._propagateChanges();
                     this._markAsTouched();
                 }
             });
