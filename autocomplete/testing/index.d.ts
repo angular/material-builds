@@ -29,6 +29,8 @@ export declare class MatAutocompleteHarness extends _MatAutocompleteHarnessBase<
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatAutocompleteHarness>(this: ComponentHarnessConstructor<T>, options?: AutocompleteHarnessFilters): HarnessPredicate<T>;
+    /** Gets the selector that can be used to find the autocomplete trigger's panel. */
+    protected _getPanelSelector(): Promise<string>;
 }
 
 export declare abstract class _MatAutocompleteHarnessBase<OptionType extends ComponentHarnessConstructor<Option> & {
@@ -67,7 +69,7 @@ export declare abstract class _MatAutocompleteHarnessBase<OptionType extends Com
     /** Gets the panel associated with this autocomplete trigger. */
     private _getPanel;
     /** Gets the selector that can be used to find the autocomplete trigger's panel. */
-    private _getPanelSelector;
+    protected _getPanelSelector(): Promise<string>;
 }
 
 export { }

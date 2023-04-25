@@ -452,6 +452,34 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _scrollToOption;
     /** Handles keyboard events coming from the overlay panel. */
     private _handleOverlayEvents;
+    /**
+     * Track which modal we have modified the `aria-owns` attribute of. When the combobox trigger is
+     * inside an aria-modal, we apply aria-owns to the parent modal with the `id` of the options
+     * panel. Track the modal we have changed so we can undo the changes on destroy.
+     */
+    private _trackedModal;
+    /**
+     * If the autocomplete trigger is inside of an `aria-modal` element, connect
+     * that modal to the options panel with `aria-owns`.
+     *
+     * For some browser + screen reader combinations, when navigation is inside
+     * of an `aria-modal` element, the screen reader treats everything outside
+     * of that modal as hidden or invisible.
+     *
+     * This causes a problem when the combobox trigger is _inside_ of a modal, because the
+     * options panel is rendered _outside_ of that modal, preventing screen reader navigation
+     * from reaching the panel.
+     *
+     * We can work around this issue by applying `aria-owns` to the modal with the `id` of
+     * the options panel. This effectively communicates to assistive technology that the
+     * options panel is part of the same interaction as the modal.
+     *
+     * At time of this writing, this issue is present in VoiceOver.
+     * See https://github.com/angular/components/issues/20694
+     */
+    private _applyModalPanelOwnership;
+    /** Clears the references to the listbox overlay element from the modal it was added to. */
+    private _clearFromModal;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteTriggerBase, [null, null, null, null, null, null, { optional: true; }, { optional: true; host: true; }, { optional: true; }, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteTriggerBase, never, never, { "autocomplete": { "alias": "matAutocomplete"; "required": false; }; "position": { "alias": "matAutocompletePosition"; "required": false; }; "connectedTo": { "alias": "matAutocompleteConnectedTo"; "required": false; }; "autocompleteAttribute": { "alias": "autocomplete"; "required": false; }; "autocompleteDisabled": { "alias": "matAutocompleteDisabled"; "required": false; }; }, {}, never, never, false, never>;
 }

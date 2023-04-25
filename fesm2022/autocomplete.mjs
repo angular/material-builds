@@ -7,7 +7,7 @@ import * as i3 from '@angular/cdk/scrolling';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i1$1 from '@angular/cdk/overlay';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { _getEventTarget } from '@angular/cdk/platform';
@@ -443,6 +443,12 @@ class _MatAutocompleteTriggerBase {
             // Return a stream that we'll replace with the real one once everything is in place.
             return this._zone.onStable.pipe(take(1), switchMap(() => this.optionSelections));
         });
+        /**
+         * Track which modal we have modified the `aria-owns` attribute of. When the combobox trigger is
+         * inside an aria-modal, we apply aria-owns to the parent modal with the `id` of the options
+         * panel. Track the modal we have changed so we can undo the changes on destroy.
+         */
+        this._trackedModal = null;
         this._scrollStrategy = scrollStrategy;
     }
     ngAfterViewInit() {
@@ -468,6 +474,7 @@ class _MatAutocompleteTriggerBase {
         this._componentDestroyed = true;
         this._destroyPanel();
         this._closeKeyEventStream.complete();
+        this._clearFromModal();
     }
     /** Whether or not the autocomplete panel is open. */
     get panelOpen() {
@@ -805,6 +812,7 @@ class _MatAutocompleteTriggerBase {
         this.autocomplete._setVisibility();
         this.autocomplete._isOpen = this._overlayAttached = true;
         this.autocomplete._setColor(this._formField?.color);
+        this._applyModalPanelOwnership();
         // We need to do an extra `panelOpen` check in here, because the
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {
@@ -961,6 +969,52 @@ class _MatAutocompleteTriggerBase {
         // but the behvior isn't exactly the same and it ends up breaking some internal tests.
         overlayRef.outsidePointerEvents().subscribe();
     }
+    /**
+     * If the autocomplete trigger is inside of an `aria-modal` element, connect
+     * that modal to the options panel with `aria-owns`.
+     *
+     * For some browser + screen reader combinations, when navigation is inside
+     * of an `aria-modal` element, the screen reader treats everything outside
+     * of that modal as hidden or invisible.
+     *
+     * This causes a problem when the combobox trigger is _inside_ of a modal, because the
+     * options panel is rendered _outside_ of that modal, preventing screen reader navigation
+     * from reaching the panel.
+     *
+     * We can work around this issue by applying `aria-owns` to the modal with the `id` of
+     * the options panel. This effectively communicates to assistive technology that the
+     * options panel is part of the same interaction as the modal.
+     *
+     * At time of this writing, this issue is present in VoiceOver.
+     * See https://github.com/angular/components/issues/20694
+     */
+    _applyModalPanelOwnership() {
+        // TODO(http://github.com/angular/components/issues/26853): consider de-duplicating this with
+        // the `LiveAnnouncer` and any other usages.
+        //
+        // Note that the selector here is limited to CDK overlays at the moment in order to reduce the
+        // section of the DOM we need to look through. This should cover all the cases we support, but
+        // the selector can be expanded if it turns out to be too narrow.
+        const modal = this._element.nativeElement.closest('body > .cdk-overlay-container [aria-modal="true"]');
+        if (!modal) {
+            // Most commonly, the autocomplete trigger is not inside a modal.
+            return;
+        }
+        const panelId = this.autocomplete.id;
+        if (this._trackedModal) {
+            removeAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
+        }
+        addAriaReferencedId(modal, 'aria-owns', panelId);
+        this._trackedModal = modal;
+    }
+    /** Clears the references to the listbox overlay element from the modal it was added to. */
+    _clearFromModal() {
+        if (this._trackedModal) {
+            const panelId = this.autocomplete.id;
+            removeAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
+            this._trackedModal = null;
+        }
+    }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-rc.2", ngImport: i0, type: _MatAutocompleteTriggerBase, deps: [{ token: i0.ElementRef }, { token: i1$1.Overlay }, { token: i0.ViewContainerRef }, { token: i0.NgZone }, { token: i0.ChangeDetectorRef }, { token: MAT_AUTOCOMPLETE_SCROLL_STRATEGY }, { token: i2$1.Directionality, optional: true }, { token: MAT_FORM_FIELD, host: true, optional: true }, { token: DOCUMENT, optional: true }, { token: i3.ViewportRuler }, { token: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-rc.2", type: _MatAutocompleteTriggerBase, inputs: { autocomplete: ["matAutocomplete", "autocomplete"], position: ["matAutocompletePosition", "position"], connectedTo: ["matAutocompleteConnectedTo", "connectedTo"], autocompleteAttribute: ["autocomplete", "autocompleteAttribute"], autocompleteDisabled: ["matAutocompleteDisabled", "autocompleteDisabled"] }, usesOnChanges: true, ngImport: i0 }); }
 }
@@ -1010,7 +1064,7 @@ class MatAutocompleteTrigger extends _MatAutocompleteTriggerBase {
         this._aboveClass = 'mat-mdc-autocomplete-panel-above';
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0-rc.2", ngImport: i0, type: MatAutocompleteTrigger, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-rc.2", type: MatAutocompleteTrigger, selector: "input[matAutocomplete], textarea[matAutocomplete]", host: { listeners: { "focusin": "_handleFocus()", "blur": "_onTouched()", "input": "_handleInput($event)", "keydown": "_handleKeydown($event)", "click": "_handleClick()" }, properties: { "attr.autocomplete": "autocompleteAttribute", "attr.role": "autocompleteDisabled ? null : \"combobox\"", "attr.aria-autocomplete": "autocompleteDisabled ? null : \"list\"", "attr.aria-activedescendant": "(panelOpen && activeOption) ? activeOption.id : null", "attr.aria-expanded": "autocompleteDisabled ? null : panelOpen.toString()", "attr.aria-owns": "(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id", "attr.aria-haspopup": "autocompleteDisabled ? null : \"listbox\"" }, classAttribute: "mat-mdc-autocomplete-trigger" }, providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR], exportAs: ["matAutocompleteTrigger"], usesInheritance: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0-rc.2", type: MatAutocompleteTrigger, selector: "input[matAutocomplete], textarea[matAutocomplete]", host: { listeners: { "focusin": "_handleFocus()", "blur": "_onTouched()", "input": "_handleInput($event)", "keydown": "_handleKeydown($event)", "click": "_handleClick()" }, properties: { "attr.autocomplete": "autocompleteAttribute", "attr.role": "autocompleteDisabled ? null : \"combobox\"", "attr.aria-autocomplete": "autocompleteDisabled ? null : \"list\"", "attr.aria-activedescendant": "(panelOpen && activeOption) ? activeOption.id : null", "attr.aria-expanded": "autocompleteDisabled ? null : panelOpen.toString()", "attr.aria-controls": "(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id", "attr.aria-haspopup": "autocompleteDisabled ? null : \"listbox\"" }, classAttribute: "mat-mdc-autocomplete-trigger" }, providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR], exportAs: ["matAutocompleteTrigger"], usesInheritance: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-rc.2", ngImport: i0, type: MatAutocompleteTrigger, decorators: [{
             type: Directive,
@@ -1023,7 +1077,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0-rc.2", ng
                         '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                         '[attr.aria-activedescendant]': '(panelOpen && activeOption) ? activeOption.id : null',
                         '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
-                        '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
+                        '[attr.aria-controls]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
                         '[attr.aria-haspopup]': 'autocompleteDisabled ? null : "listbox"',
                         // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
                         // a little earlier. This avoids issues where IE delays the focusing of the input.

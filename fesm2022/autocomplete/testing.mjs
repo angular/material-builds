@@ -104,6 +104,10 @@ class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
             return (await harness.isDisabled()) === disabled;
         });
     }
+    /** Gets the selector that can be used to find the autocomplete trigger's panel. */
+    async _getPanelSelector() {
+        return `#${await (await this.host()).getAttribute('aria-controls')}`;
+    }
 }
 
 export { MatAutocompleteHarness, _MatAutocompleteHarnessBase };

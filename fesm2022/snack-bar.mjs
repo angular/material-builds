@@ -377,7 +377,9 @@ class _MatSnackBarContainerBase extends BasePortalOutlet {
      * pointing the `aria-owns` of all modals to the live element.
      */
     _exposeToModals() {
-        // TODO(crisbeto): consider de-duplicating this with the `LiveAnnouncer`.
+        // TODO(http://github.com/angular/components/issues/26853): consider de-duplicating this with the
+        // `LiveAnnouncer` and any other usages.
+        //
         // Note that the selector here is limited to CDK overlays at the moment in order to reduce the
         // section of the DOM we need to look through. This should cover all the cases we support, but
         // the selector can be expanded if it turns out to be too narrow.
