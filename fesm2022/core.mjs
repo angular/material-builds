@@ -15,7 +15,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /** Current version of Angular Material. */
-const VERSION = new Version('16.0.0-rc.1');
+const VERSION = new Version('16.0.0-rc.2');
 
 /** @docs-private */
 class AnimationCurves {
