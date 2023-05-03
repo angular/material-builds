@@ -221,11 +221,11 @@ class MatDialogContainer extends _MatDialogContainerBase {
     _startOpenAnimation() {
         this._animationStateChanged.emit({ state: 'opening', totalTime: this._openAnimationDuration });
         if (this._animationsEnabled) {
+            this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._openAnimationDuration}ms`);
+            // We need to give the `setProperty` call from above some time to be applied.
             // One would expect that the open class is added once the animation finished, but MDC
             // uses the open class in combination with the opening class to start the animation.
-            this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._openAnimationDuration}ms`);
-            this._hostElement.classList.add(OPENING_CLASS);
-            this._hostElement.classList.add(OPEN_CLASS);
+            this._requestAnimationFrame(() => this._hostElement.classList.add(OPENING_CLASS, OPEN_CLASS));
             this._waitForAnimationToComplete(this._openAnimationDuration, this._finishDialogOpen);
         }
         else {
@@ -246,7 +246,8 @@ class MatDialogContainer extends _MatDialogContainerBase {
         this._hostElement.classList.remove(OPEN_CLASS);
         if (this._animationsEnabled) {
             this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._openAnimationDuration}ms`);
-            this._hostElement.classList.add(CLOSING_CLASS);
+            // We need to give the `setProperty` call from above some time to be applied.
+            this._requestAnimationFrame(() => this._hostElement.classList.add(CLOSING_CLASS));
             this._waitForAnimationToComplete(this._closeAnimationDuration, this._finishDialogClose);
         }
         else {
@@ -272,8 +273,7 @@ class MatDialogContainer extends _MatDialogContainerBase {
     }
     /** Clears all dialog animation classes. */
     _clearAnimationClasses() {
-        this._hostElement.classList.remove(OPENING_CLASS);
-        this._hostElement.classList.remove(CLOSING_CLASS);
+        this._hostElement.classList.remove(OPENING_CLASS, CLOSING_CLASS);
     }
     _waitForAnimationToComplete(duration, callback) {
         if (this._animationTimer !== null) {
@@ -282,6 +282,17 @@ class MatDialogContainer extends _MatDialogContainerBase {
         // Note that we want this timer to run inside the NgZone, because we want
         // the related events like `afterClosed` to be inside the zone as well.
         this._animationTimer = setTimeout(callback, duration);
+    }
+    /** Runs a callback in `requestAnimationFrame`, if available. */
+    _requestAnimationFrame(callback) {
+        this._ngZone.runOutsideAngular(() => {
+            if (typeof requestAnimationFrame === 'function') {
+                requestAnimationFrame(callback);
+            }
+            else {
+                callback();
+            }
+        });
     }
 }
 MatDialogContainer.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "15.2.0-rc.0", ngImport: i0, type: MatDialogContainer, deps: [{ token: i0.ElementRef }, { token: i1.FocusTrapFactory }, { token: DOCUMENT, optional: true }, { token: MatDialogConfig }, { token: i1.InteractivityChecker }, { token: i0.NgZone }, { token: i1$1.OverlayRef }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: i1.FocusMonitor }], target: i0.ɵɵFactoryTarget.Component });

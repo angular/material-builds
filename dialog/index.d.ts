@@ -384,6 +384,8 @@ export declare class MatDialogContainer extends _MatDialogContainerBase implemen
     /** Clears all dialog animation classes. */
     private _clearAnimationClasses;
     private _waitForAnimationToComplete;
+    /** Runs a callback in `requestAnimationFrame`, if available. */
+    private _requestAnimationFrame;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, [null, null, { optional: true; }, null, null, null, null, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never, false, never>;
 }
