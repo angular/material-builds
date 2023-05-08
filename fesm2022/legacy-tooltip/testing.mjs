@@ -11,6 +11,7 @@ class MatLegacyTooltipHarness extends _MatTooltipHarnessBase {
         super(...arguments);
         this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-tooltip');
         this._hiddenClass = 'mat-tooltip-hide';
+        this._disabledClass = 'mat-tooltip-disabled';
         this._showAnimationName = 'mat-tooltip-show';
         this._hideAnimationName = 'mat-tooltip-hide';
     }

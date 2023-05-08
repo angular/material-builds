@@ -27,6 +27,11 @@ class _MatTooltipHarnessBase extends ComponentHarness {
         const panel = await this._optionalPanel();
         return !!panel && !(await panel.hasClass(this._hiddenClass));
     }
+    /** Gets whether the tooltip is disabled */
+    async isDisabled() {
+        const host = await this.host();
+        return host.hasClass(this._disabledClass);
+    }
     /** Gets a promise for the tooltip panel's text. */
     async getTooltipText() {
         const panel = await this._optionalPanel();
@@ -39,6 +44,7 @@ class MatTooltipHarness extends _MatTooltipHarnessBase {
         super(...arguments);
         this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-mdc-tooltip');
         this._hiddenClass = 'mat-mdc-tooltip-hide';
+        this._disabledClass = 'mat-mdc-tooltip-disabled';
         this._showAnimationName = 'mat-mdc-tooltip-show';
         this._hideAnimationName = 'mat-mdc-tooltip-hide';
     }

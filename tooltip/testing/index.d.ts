@@ -10,6 +10,7 @@ export declare class MatTooltipHarness extends _MatTooltipHarnessBase {
     protected _optionalPanel: AsyncFactoryFn<TestElement | null>;
     static hostSelector: string;
     protected _hiddenClass: string;
+    protected _disabledClass: string;
     protected _showAnimationName: string;
     protected _hideAnimationName: string;
     /**
@@ -24,6 +25,7 @@ export declare class MatTooltipHarness extends _MatTooltipHarnessBase {
 export declare abstract class _MatTooltipHarnessBase extends ComponentHarness {
     protected abstract _optionalPanel: AsyncFactoryFn<TestElement | null>;
     protected abstract _hiddenClass: string;
+    protected abstract _disabledClass: string;
     protected abstract _showAnimationName: string;
     protected abstract _hideAnimationName: string;
     /** Shows the tooltip. */
@@ -32,6 +34,8 @@ export declare abstract class _MatTooltipHarnessBase extends ComponentHarness {
     hide(): Promise<void>;
     /** Gets whether the tooltip is open. */
     isOpen(): Promise<boolean>;
+    /** Gets whether the tooltip is disabled */
+    isDisabled(): Promise<boolean>;
     /** Gets a promise for the tooltip panel's text. */
     getTooltipText(): Promise<string>;
 }

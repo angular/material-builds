@@ -14,6 +14,7 @@ export { LegacyTooltipHarnessFilters }
 export declare class MatLegacyTooltipHarness extends _MatTooltipHarnessBase {
     protected _optionalPanel: AsyncFactoryFn<TestElement | null>;
     protected _hiddenClass: string;
+    protected _disabledClass: string;
     protected _showAnimationName: string;
     protected _hideAnimationName: string;
     static hostSelector: string;
