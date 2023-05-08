@@ -337,6 +337,9 @@ class MatInkBar {
     alignToElement(element) {
         const correspondingItem = this._items.find(item => item.elementRef.nativeElement === element);
         const currentItem = this._currentItem;
+        if (correspondingItem === currentItem) {
+            return;
+        }
         currentItem?.deactivateInkBar();
         if (correspondingItem) {
             const clientRect = currentItem?.elementRef.nativeElement.getBoundingClientRect?.();
