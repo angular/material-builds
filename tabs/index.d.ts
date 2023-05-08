@@ -896,6 +896,9 @@ export declare class MatTabNav extends _MatTabNavBase implements AfterContentIni
     get stretchTabs(): boolean;
     set stretchTabs(v: BooleanInput);
     private _stretchTabs;
+    get animationDuration(): string;
+    set animationDuration(value: NumberInput);
+    private _animationDuration;
     _items: QueryList<MatTabLink>;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
@@ -907,7 +910,7 @@ export declare class MatTabNav extends _MatTabNavBase implements AfterContentIni
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNav, [null, { optional: true; }, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": { "alias": "color"; "required": false; }; "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; "stretchTabs": { "alias": "mat-stretch-tabs"; "required": false; }; }, {}, ["_items"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "color": { "alias": "color"; "required": false; }; "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; "stretchTabs": { "alias": "mat-stretch-tabs"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, {}, ["_items"], ["*"], false, never>;
 }
 
 /**
