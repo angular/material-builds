@@ -59,8 +59,13 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     _id: number;
     /** Visible badge element. */
     private _badgeElement;
+    /** Inline badge description. Used when the badge is applied to non-interactive host elements. */
+    private _inlineBadgeDescription;
     /** Whether the OnInit lifecycle hook has run yet */
     private _isInitialized;
+    /** InteractivityChecker to determine if the badge host is focusable. */
+    private _interactivityChecker;
+    private _document;
     constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _ariaDescriber: AriaDescriber, _renderer: Renderer2, _animationMode?: string | undefined);
     /** Whether the badge is above the host or not */
     isAbove(): boolean;
@@ -73,12 +78,16 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     getBadgeElement(): HTMLElement | undefined;
     ngOnInit(): void;
     ngOnDestroy(): void;
+    /** Gets whether the badge's host element is interactive. */
+    private _isHostInteractive;
     /** Creates the badge element */
     private _createBadgeElement;
     /** Update the text content of the badge element in the DOM, creating the element if necessary. */
     private _updateRenderedContent;
     /** Updates the host element's aria description via AriaDescriber. */
-    private _updateHostAriaDescription;
+    private _updateDescription;
+    private _updateInlineDescription;
+    private _removeInlineDescription;
     /** Adds css theme class given the color to the component host */
     private _setColor;
     /** Clears any existing badges that might be left over from server-side rendering. */
