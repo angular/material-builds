@@ -1,9 +1,10 @@
 import * as i0 from '@angular/core';
-import { Directive, Optional, Inject, Input, NgModule } from '@angular/core';
+import { inject, Directive, Optional, Inject, Input, NgModule } from '@angular/core';
 import { mixinDisabled, MatCommonModule } from '@angular/material/core';
 import * as i1 from '@angular/cdk/a11y';
-import { A11yModule } from '@angular/cdk/a11y';
+import { InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { DOCUMENT } from '@angular/common';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 let nextId = 0;
@@ -41,7 +42,7 @@ class MatBadge extends _MatBadgeBase {
         return this._description;
     }
     set description(newDescription) {
-        this._updateHostAriaDescription(newDescription);
+        this._updateDescription(newDescription);
     }
     /** Whether the badge is hidden. */
     get hidden() {
@@ -70,6 +71,9 @@ class MatBadge extends _MatBadgeBase {
         this._id = nextId++;
         /** Whether the OnInit lifecycle hook has run yet */
         this._isInitialized = false;
+        /** InteractivityChecker to determine if the badge host is focusable. */
+        this._interactivityChecker = inject(InteractivityChecker);
+        this._document = inject(DOCUMENT);
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             const nativeElement = _elementRef.nativeElement;
             if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
@@ -108,8 +112,16 @@ class MatBadge extends _MatBadgeBase {
         // We have to destroy it ourselves, otherwise it'll be retained in memory.
         if (this._renderer.destroyNode) {
             this._renderer.destroyNode(this._badgeElement);
+            this._inlineBadgeDescription?.remove();
         }
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.description);
+    }
+    /** Gets whether the badge's host element is interactive. */
+    _isHostInteractive() {
+        // Ignore visibility since it requires an expensive style caluclation.
+        return this._interactivityChecker.isFocusable(this._elementRef.nativeElement, {
+            ignoreVisibility: true,
+        });
     }
     /** Creates the badge element */
     _createBadgeElement() {
@@ -152,12 +164,40 @@ class MatBadge extends _MatBadgeBase {
         this._content = newContentNormalized;
     }
     /** Updates the host element's aria description via AriaDescriber. */
-    _updateHostAriaDescription(newDescription) {
+    _updateDescription(newDescription) {
+        // Always start by removing the aria-describedby; we will add a new one if necessary.
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.description);
-        if (newDescription) {
-            this._ariaDescriber.describe(this._elementRef.nativeElement, newDescription);
+        // NOTE: We only check whether the host is interactive here, which happens during
+        // when then badge content changes. It is possible that the host changes
+        // interactivity status separate from one of these. However, watching the interactivity
+        // status of the host would require a `MutationObserver`, which is likely more code + overhead
+        // than it's worth; from usages inside Google, we see that the vats majority of badges either
+        // never change interactivity, or also set `matBadgeHidden` based on the same condition.
+        if (!newDescription || this._isHostInteractive()) {
+            this._removeInlineDescription();
         }
         this._description = newDescription;
+        // We don't add `aria-describedby` for non-interactive hosts elements because we
+        // instead insert the description inline.
+        if (this._isHostInteractive()) {
+            this._ariaDescriber.describe(this._elementRef.nativeElement, newDescription);
+        }
+        else {
+            this._updateInlineDescription();
+        }
+    }
+    _updateInlineDescription() {
+        // Create the inline description element if it doesn't exist
+        if (!this._inlineBadgeDescription) {
+            this._inlineBadgeDescription = this._document.createElement('span');
+            this._inlineBadgeDescription.classList.add('cdk-visually-hidden');
+        }
+        this._inlineBadgeDescription.textContent = this.description;
+        this._badgeElement?.appendChild(this._inlineBadgeDescription);
+    }
+    _removeInlineDescription() {
+        this._inlineBadgeDescription?.remove();
+        this._inlineBadgeDescription = undefined;
     }
     /** Adds css theme class given the color to the component host */
     _setColor(colorPalette) {
