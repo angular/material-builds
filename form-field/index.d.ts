@@ -20,6 +20,14 @@ import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
+/** An injion token for the parent form-field. */
+declare const FLOATING_LABEL_PARENT: InjectionToken<FloatingLabelParent>;
+
+/** An interface that the parent form-field should implement to receive resize events. */
+declare interface FloatingLabelParent {
+    _handleLabelResized(): void;
+}
+
 /** Type for the available floatLabel values. */
 export declare type FloatLabelType = 'always' | 'auto';
 
@@ -80,6 +88,8 @@ declare namespace i6 {
 
 declare namespace i7 {
     export {
+        FloatingLabelParent,
+        FLOATING_LABEL_PARENT,
         MatFormFieldFloatingLabel
     }
 }
@@ -139,7 +149,7 @@ export declare class MatError {
 }
 
 /** Container for form controls that applies Material Design styling and behavior. */
-export declare class MatFormField implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
+export declare class MatFormField implements FloatingLabelParent, AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _ngZone;
@@ -147,7 +157,6 @@ export declare class MatFormField implements AfterContentInit, AfterContentCheck
     private _platform;
     private _defaults?;
     _animationMode?: string | undefined;
-    private _document?;
     _textField: ElementRef<HTMLElement>;
     _iconPrefixContainer: ElementRef<HTMLElement>;
     _textPrefixContainer: ElementRef<HTMLElement>;
@@ -195,8 +204,6 @@ export declare class MatFormField implements AfterContentInit, AfterContentCheck
     readonly _hintLabelId: string;
     /** State of the mat-hint and mat-error animations. */
     _subscriptAnimationState: string;
-    /** Width of the label element (at scale=1). */
-    _labelWidth: number;
     /** Gets the current form field control */
     get _control(): MatFormFieldControl<any>;
     set _control(value: MatFormFieldControl<any>);
@@ -204,7 +211,12 @@ export declare class MatFormField implements AfterContentInit, AfterContentCheck
     private _isFocused;
     private _explicitFormFieldControl;
     private _needsOutlineLabelOffsetUpdateOnStable;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _dir: Directionality, _platform: Platform, _defaults?: MatFormFieldDefaultOptions | undefined, _animationMode?: string | undefined, _document?: any);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _dir: Directionality, _platform: Platform, _defaults?: MatFormFieldDefaultOptions | undefined, _animationMode?: string | undefined, 
+    /**
+     * @deprecated not needed, to be removed.
+     * @breaking-change 17.0.0 remove this param
+     */
+    _unusedDocument?: any);
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
@@ -264,6 +276,8 @@ export declare class MatFormField implements AfterContentInit, AfterContentCheck
     _shouldForward(prop: keyof AbstractControlDirective): boolean;
     /** Determines whether to display hints or errors. */
     _getDisplayedMessages(): 'error' | 'hint';
+    /** Handle label resize events. */
+    _handleLabelResized(): void;
     /** Refreshes the width of the outline-notch, if present. */
     _refreshOutlineNotchWidth(): void;
     /** Does any extra processing that is required when handling the hints. */
@@ -391,17 +405,36 @@ export declare interface MatFormFieldDefaultOptions {
  * width for the outline notch, and providing inputs that can be used to toggle the
  * label's floating or required state.
  */
-declare class MatFormFieldFloatingLabel {
+declare class MatFormFieldFloatingLabel implements OnDestroy {
     private _elementRef;
     /** Whether the label is floating. */
-    floating: boolean;
+    get floating(): boolean;
+    set floating(value: boolean);
+    private _floating;
+    /** Whether to monitor for resize events on the floating label. */
+    get monitorResize(): boolean;
+    set monitorResize(value: boolean);
+    private _monitorResize;
+    /** The shared ResizeObserver. */
+    private _resizeObserver;
+    /** The Angular zone. */
+    private _ngZone;
+    /** The parent form-field. */
+    private _parent;
+    /** The current resize event subscription. */
+    private _resizeSubscription;
     constructor(_elementRef: ElementRef<HTMLElement>);
+    ngOnDestroy(): void;
     /** Gets the width of the label. Used for the outline notch. */
     getWidth(): number;
     /** Gets the HTML element for the floating label. */
     get element(): HTMLElement;
+    /** Handles resize events from the ResizeObserver. */
+    private _handleResize;
+    /** Subscribes to resize events. */
+    private _subscribeToResize;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldFloatingLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldFloatingLabel, "label[matFormFieldFloatingLabel]", never, { "floating": { "alias": "floating"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldFloatingLabel, "label[matFormFieldFloatingLabel]", never, { "floating": { "alias": "floating"; "required": false; }; "monitorResize": { "alias": "monitorResize"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**
@@ -438,15 +471,14 @@ export declare class MatFormFieldModule {
 declare class MatFormFieldNotchedOutline implements AfterViewInit {
     private _elementRef;
     private _ngZone;
-    /** Width of the label (original scale) */
-    labelWidth: number;
     /** Whether the notch should be opened. */
     open: boolean;
+    _notch: ElementRef;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
     ngAfterViewInit(): void;
-    _getNotchWidth(): string | null;
+    _setNotchWidth(labelWidth: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldNotchedOutline, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormFieldNotchedOutline, "div[matFormFieldNotchedOutline]", never, { "labelWidth": { "alias": "matFormFieldNotchedOutlineLabelWidth"; "required": false; }; "open": { "alias": "matFormFieldNotchedOutlineOpen"; "required": false; }; }, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormFieldNotchedOutline, "div[matFormFieldNotchedOutline]", never, { "open": { "alias": "matFormFieldNotchedOutlineOpen"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 /** Hint text to be shown underneath the form field control. */
