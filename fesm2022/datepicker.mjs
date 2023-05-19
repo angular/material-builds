@@ -17,7 +17,7 @@ import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import * as i2 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
-import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
+import { normalizePassiveListenerOptions, Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { take, startWith, filter } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
@@ -108,6 +108,18 @@ class MatCalendarCell {
     }
 }
 let calendarBodyId = 1;
+/** Event options that can be used to bind an active, capturing event. */
+const activeCapturingEventOptions = normalizePassiveListenerOptions({
+    passive: false,
+    capture: true,
+});
+/** Event options that can be used to bind a passive, capturing event. */
+const passiveCapturingEventOptions = normalizePassiveListenerOptions({
+    passive: true,
+    capture: true,
+});
+/** Event options that can be used to bind a passive, non-capturing event. */
+const passiveEventOptions = normalizePassiveListenerOptions({ passive: true });
 /**
  * An internal component used to display calendar data in a table.
  * @docs-private
@@ -259,13 +271,14 @@ class MatCalendarBody {
         this._endDateLabelId = `${this._id}-end-date`;
         _ngZone.runOutsideAngular(() => {
             const element = _elementRef.nativeElement;
-            element.addEventListener('mouseenter', this._enterHandler, true);
-            element.addEventListener('touchmove', this._touchmoveHandler, true);
-            element.addEventListener('focus', this._enterHandler, true);
-            element.addEventListener('mouseleave', this._leaveHandler, true);
-            element.addEventListener('blur', this._leaveHandler, true);
-            element.addEventListener('mousedown', this._mousedownHandler);
-            element.addEventListener('touchstart', this._mousedownHandler);
+            // `touchmove` is active since we need to call `preventDefault`.
+            element.addEventListener('touchmove', this._touchmoveHandler, activeCapturingEventOptions);
+            element.addEventListener('mouseenter', this._enterHandler, passiveCapturingEventOptions);
+            element.addEventListener('focus', this._enterHandler, passiveCapturingEventOptions);
+            element.addEventListener('mouseleave', this._leaveHandler, passiveCapturingEventOptions);
+            element.addEventListener('blur', this._leaveHandler, passiveCapturingEventOptions);
+            element.addEventListener('mousedown', this._mousedownHandler, passiveEventOptions);
+            element.addEventListener('touchstart', this._mousedownHandler, passiveEventOptions);
             if (this._platform.isBrowser) {
                 window.addEventListener('mouseup', this._mouseupHandler);
                 window.addEventListener('touchend', this._touchendHandler);
@@ -307,13 +320,13 @@ class MatCalendarBody {
     }
     ngOnDestroy() {
         const element = this._elementRef.nativeElement;
-        element.removeEventListener('mouseenter', this._enterHandler, true);
-        element.removeEventListener('touchmove', this._touchmoveHandler, true);
-        element.removeEventListener('focus', this._enterHandler, true);
-        element.removeEventListener('mouseleave', this._leaveHandler, true);
-        element.removeEventListener('blur', this._leaveHandler, true);
-        element.removeEventListener('mousedown', this._mousedownHandler);
-        element.removeEventListener('touchstart', this._mousedownHandler);
+        element.removeEventListener('touchmove', this._touchmoveHandler, activeCapturingEventOptions);
+        element.removeEventListener('mouseenter', this._enterHandler, passiveCapturingEventOptions);
+        element.removeEventListener('focus', this._enterHandler, passiveCapturingEventOptions);
+        element.removeEventListener('mouseleave', this._leaveHandler, passiveCapturingEventOptions);
+        element.removeEventListener('blur', this._leaveHandler, passiveCapturingEventOptions);
+        element.removeEventListener('mousedown', this._mousedownHandler, passiveEventOptions);
+        element.removeEventListener('touchstart', this._mousedownHandler, passiveEventOptions);
         if (this._platform.isBrowser) {
             window.removeEventListener('mouseup', this._mouseupHandler);
             window.removeEventListener('touchend', this._touchendHandler);
