@@ -38,7 +38,7 @@ class MatLegacyTable extends CdkTable {
         this.needsPositionStickyOnElement = false;
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0", ngImport: i0, type: MatLegacyTable, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.0.0", type: MatLegacyTable, selector: "mat-table, table[mat-table]", host: { attributes: { "ngSkipHydration": "true" }, properties: { "class.mat-table-fixed-layout": "fixedLayout" }, classAttribute: "mat-table" }, providers: [
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.0.0", type: MatLegacyTable, selector: "mat-table, table[mat-table]", host: { attributes: { "ngSkipHydration": "" }, properties: { "class.mat-table-fixed-layout": "fixedLayout" }, classAttribute: "mat-table" }, providers: [
             // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
             //  is only included in the build if used.
             { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
@@ -54,7 +54,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.0.0", ngImpor
             args: [{ selector: 'mat-table, table[mat-table]', exportAs: 'matTable', template: CDK_TABLE_TEMPLATE, host: {
                         'class': 'mat-table',
                         '[class.mat-table-fixed-layout]': 'fixedLayout',
-                        'ngSkipHydration': 'true',
+                        'ngSkipHydration': '',
                     }, providers: [
                         // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
                         //  is only included in the build if used.
