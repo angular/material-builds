@@ -88,6 +88,10 @@ class _MatTooltipBase {
             }
         }
     }
+    /**
+     * Whether tooltip should be relative to the click or touch origin
+     * instead of outside the element bounding box.
+     */
     get positionAtOrigin() {
         return this._positionAtOrigin;
     }

@@ -125,6 +125,10 @@ export declare abstract class _MatTooltipBase<T extends _TooltipComponentBase> i
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position(): TooltipPosition;
     set position(value: TooltipPosition);
+    /**
+     * Whether tooltip should be relative to the click or touch origin
+     * instead of outside the element bounding box.
+     */
     get positionAtOrigin(): boolean;
     set positionAtOrigin(value: BooleanInput);
     /** Disables the display of the tooltip. */
