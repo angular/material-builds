@@ -210,6 +210,7 @@ class MatListItemBase {
         this._explicitLines = coerceNumberProperty(lines, null);
         this._updateItemLines(false);
     }
+    /** Whether ripples for list items are disabled. */
     get disableRipple() {
         return (this.disabled ||
             this._disableRipple ||
