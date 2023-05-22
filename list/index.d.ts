@@ -206,8 +206,9 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
      */
     set lines(lines: number | string | null);
     _explicitLines: number | null;
+    /** Whether ripples for list items are disabled. */
     get disableRipple(): boolean;
-    set disableRipple(value: boolean);
+    set disableRipple(value: BooleanInput);
     private _disableRipple;
     /** Whether the list-item is disabled. */
     get disabled(): boolean;
