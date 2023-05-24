@@ -12,6 +12,7 @@ import * as i4 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { NgZone } from '@angular/core';
+import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
@@ -94,7 +95,7 @@ export declare class MatButton extends MatButtonBase {
 }
 
 /** Base class for all buttons.  */
-declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanColor, CanDisableRipple, AfterViewInit, OnDestroy {
+declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanColor, CanDisableRipple, AfterViewInit, OnChanges, OnDestroy {
     _platform: Platform;
     _ngZone: NgZone;
     _animationMode?: string | undefined;
@@ -117,12 +118,12 @@ declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanCo
     protected _ripple?: MatRipple;
     constructor(elementRef: ElementRef, _platform: Platform, _ngZone: NgZone, _animationMode?: string | undefined);
     ngAfterViewInit(): void;
+    ngOnChanges(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(_origin?: FocusOrigin, options?: FocusOptions): void;
     /** Gets whether the button has one of the given attributes. */
     private _hasHostAttributes;
-    _isRippleDisabled(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, {}, {}, never, never, false, never>;
 }
