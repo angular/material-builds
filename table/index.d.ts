@@ -141,7 +141,7 @@ export declare class MatHeaderCellDef extends CdkHeaderCellDef {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, false, never>;
 }
 
-/** Footer template container that contains the cell outlet. Adds the right class and role. */
+/** Header template container that contains the cell outlet. Adds the right class and role. */
 export declare class MatHeaderRow extends CdkHeaderRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRow, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatHeaderRow, "mat-header-row, tr[mat-header-row]", ["matHeaderRow"], {}, {}, never, never, false, never>;
