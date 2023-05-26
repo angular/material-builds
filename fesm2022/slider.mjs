@@ -1146,10 +1146,17 @@ class MatSliderThumb {
          * when correcting values on pointer up/down.
          */
         this._skipUIUpdate = false;
-        /** Callback called when the slider input value changes. */
-        this._onChangeFn = () => { };
         /** Callback called when the slider input has been touched. */
         this._onTouchedFn = () => { };
+        /**
+         * Whether the NgModel has been initialized.
+         *
+         * This flag is used to ignore ghost null calls to
+         * writeValue which can break slider initialization.
+         *
+         * See https://github.com/angular/angular/issues/14988.
+         */
+        this._isControlInitialized = false;
         this._hostElement = _elementRef.nativeElement;
         this._ngZone.runOutsideAngular(() => {
             this._hostElement.addEventListener('pointerdown', this._onPointerDown.bind(this));
@@ -1214,7 +1221,7 @@ class MatSliderThumb {
         }
     }
     _onInput() {
-        this._onChangeFn(this.value);
+        this._onChangeFn?.(this.value);
         // handles arrowing and updating the value when
         // a step is defined.
         if (this._slider.step || !this._isActive) {
@@ -1295,7 +1302,7 @@ class MatSliderThumb {
         }
         this.value = value;
         this.valueChange.emit(this.value);
-        this._onChangeFn(this.value);
+        this._onChangeFn?.(this.value);
         this._slider._onValueChange(this);
         this._slider.step > 0
             ? this._updateThumbUIByValue()
@@ -1362,7 +1369,9 @@ class MatSliderThumb {
      * @docs-private
      */
     writeValue(value) {
-        this.value = value;
+        if (this._isControlInitialized || value !== null) {
+            this.value = value;
+        }
     }
     /**
      * Registers a callback to be invoked when the input's value changes from user input.
@@ -1371,6 +1380,7 @@ class MatSliderThumb {
      */
     registerOnChange(fn) {
         this._onChangeFn = fn;
+        this._isControlInitialized = true;
     }
     /**
      * Registers a callback to be invoked when the input is blurred by the user.
@@ -1591,9 +1601,11 @@ class MatSliderRangeThumb extends MatSliderThumb {
      * @docs-private
      */
     writeValue(value) {
-        this.value = value;
-        this._updateWidthInactive();
-        this._updateSibling();
+        if (this._isControlInitialized || value !== null) {
+            this.value = value;
+            this._updateWidthInactive();
+            this._updateSibling();
+        }
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.0.0", ngImport: i0, type: MatSliderRangeThumb, deps: [{ token: i0.NgZone }, { token: MAT_SLIDER }, { token: i0.ElementRef }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.0.0", type: MatSliderRangeThumb, selector: "input[matSliderStartThumb], input[matSliderEndThumb]", providers: [

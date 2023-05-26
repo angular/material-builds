@@ -442,9 +442,18 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
      */
     _skipUIUpdate: boolean;
     /** Callback called when the slider input value changes. */
-    private _onChangeFn;
+    protected _onChangeFn: ((value: any) => void) | undefined;
     /** Callback called when the slider input has been touched. */
     private _onTouchedFn;
+    /**
+     * Whether the NgModel has been initialized.
+     *
+     * This flag is used to ignore ghost null calls to
+     * writeValue which can break slider initialization.
+     *
+     * See https://github.com/angular/angular/issues/14988.
+     */
+    protected _isControlInitialized: boolean;
     constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLInputElement>, _cdr: ChangeDetectorRef, _slider: _MatSlider);
     ngOnDestroy(): void;
     /** @docs-private */
