@@ -92,11 +92,16 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     options: QueryList<MatOption>;
     optionGroups: QueryList<MatOptgroup>;
     customTrigger: MatSelectTrigger;
+    /**
+     * Width of the panel. If set to `auto`, the panel will match the trigger width.
+     * If set to null or an empty string, the panel will grow to match the longest option's text.
+     */
+    panelWidth: string | number | null;
     _positions: ConnectedPosition[];
     /** Ideal origin for the overlay panel. */
     _preferredOverlayOrigin: CdkOverlayOrigin | ElementRef | undefined;
     /** Width of the overlay panel. */
-    _overlayWidth: number;
+    _overlayWidth: string | number;
     get shouldLabelFloat(): boolean;
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -116,7 +121,7 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     _syncParentProperties(): void;
     protected _skipPredicate: (option: MatOption) => boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
 }
 
 /**
@@ -458,6 +463,11 @@ export declare interface MatSelectConfig {
     overlayPanelClass?: string | string[];
     /** Wheter icon indicators should be hidden for single-selection. */
     hideSingleSelectionIndicator?: boolean;
+    /**
+     * Width of the panel. If set to `auto`, the panel will match the trigger width.
+     * If set to null or an empty string, the panel will grow to match the longest option's text.
+     */
+    panelWidth?: string | number | null;
 }
 
 /** @docs-private */

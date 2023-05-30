@@ -14,8 +14,8 @@ import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_LEGACY_SELECT_SCROLL
 import { MAT_SELECT_TRIGGER as MAT_LEGACY_SELECT_TRIGGER } from '@angular/material/select';
 import { MatLegacyOptgroup } from '@angular/material/legacy-core';
 import { MatLegacyOption } from '@angular/material/legacy-core';
-import { MatSelectConfig as MatLegacySelectConfig } from '@angular/material/select';
 import { _MatSelectBase } from '@angular/material/select';
+import { MatSelectConfig } from '@angular/material/select';
 import { OnInit } from '@angular/core';
 import { QueryList } from '@angular/core';
 
@@ -28,6 +28,7 @@ declare namespace i1 {
         SELECT_MULTIPLE_PANEL_PADDING_X,
         SELECT_PANEL_VIEWPORT_PADDING,
         MatLegacySelectChange,
+        MatLegacySelectConfig,
         MatLegacySelectTrigger,
         MatLegacySelect
     }
@@ -150,7 +151,11 @@ export declare class MatLegacySelectChange {
     value: any);
 }
 
-export { MatLegacySelectConfig }
+/**
+ * @deprecated Use `MatSelectConfig` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+export declare type MatLegacySelectConfig = Omit<MatSelectConfig, 'panelWidth'>;
 
 /**
  * @deprecated Use `MatSelectModule` from `@angular/material/select` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
