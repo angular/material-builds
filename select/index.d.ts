@@ -1,7 +1,6 @@
 import { _AbstractConstructor } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CanDisable } from '@angular/material/core';
@@ -88,7 +87,7 @@ export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ove
  */
 export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
 
-export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit, AfterViewInit {
+export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit {
     options: QueryList<MatOption>;
     optionGroups: QueryList<MatOptgroup>;
     customTrigger: MatSelectTrigger;
@@ -104,7 +103,6 @@ export declare class MatSelect extends _MatSelectBase<MatSelectChange> implement
     _overlayWidth: string | number;
     get shouldLabelFloat(): boolean;
     ngOnInit(): void;
-    ngAfterViewInit(): void;
     open(): void;
     close(): void;
     /** Scrolls the active option into view. */
