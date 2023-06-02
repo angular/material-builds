@@ -1905,6 +1905,8 @@ class MatTabNav extends _MatTabNavBase {
             defaultConfig && defaultConfig.fitInkBarToContent != null
                 ? defaultConfig.fitInkBarToContent
                 : false;
+        this.stretchTabs =
+            defaultConfig && defaultConfig.stretchTabs != null ? defaultConfig.stretchTabs : true;
     }
     ngAfterContentInit() {
         this._inkBar = new MatInkBar(this._items);
