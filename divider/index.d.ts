@@ -18,7 +18,7 @@ export declare class MatDivider {
     set inset(value: BooleanInput);
     private _inset;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDivider, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDivider, "mat-divider", never, { "vertical": { "alias": "vertical"; "required": false; }; "inset": { "alias": "inset"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDivider, "mat-divider", never, { "vertical": { "alias": "vertical"; "required": false; }; "inset": { "alias": "inset"; "required": false; }; }, {}, never, never, false, never, false>;
 }
 
 export declare class MatDividerModule {

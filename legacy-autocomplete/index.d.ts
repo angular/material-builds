@@ -71,7 +71,7 @@ export declare class MatLegacyAutocomplete extends _MatAutocompleteBase {
     protected _visibleClass: string;
     protected _hiddenClass: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyAutocomplete, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, ["optionGroups", "options"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, ["optionGroups", "options"], ["*"], false, never, false>;
 }
 
 export { MatLegacyAutocompleteActivatedEvent }
@@ -96,7 +96,7 @@ export declare class MatLegacyAutocompleteModule {
  */
 export declare class MatLegacyAutocompleteOrigin extends _MatAutocompleteOriginBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyAutocompleteOrigin, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, false, never, false>;
 }
 
 export { MatLegacyAutocompleteSelectedEvent }
@@ -108,7 +108,7 @@ export { MatLegacyAutocompleteSelectedEvent }
 export declare class MatLegacyAutocompleteTrigger extends _MatAutocompleteTriggerBase {
     protected _aboveClass: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyAutocompleteTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], {}, {}, never, never, false, never, false>;
 }
 
 export { }

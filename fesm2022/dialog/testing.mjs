@@ -78,7 +78,8 @@ class MatDialogHarness extends _MatDialogHarnessBase {
 
 var _MatTestDialogOpenerBase_1, MatTestDialogOpener_1;
 /** Base class for a component that immediately opens a dialog when created. */
-let _MatTestDialogOpenerBase = _MatTestDialogOpenerBase_1 = class _MatTestDialogOpenerBase {
+let _MatTestDialogOpenerBase = class _MatTestDialogOpenerBase {
+    static { _MatTestDialogOpenerBase_1 = this; }
     constructor(dialog) {
         this.dialog = dialog;
         if (!_MatTestDialogOpenerBase_1.component) {

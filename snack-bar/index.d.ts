@@ -79,13 +79,13 @@ export declare class MatSnackBar extends _MatSnackBarBase {
 /** Directive that should be applied to each of the snack bar's action buttons. */
 export declare class MatSnackBarAction {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarAction, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, false, never, false>;
 }
 
 /** Directive that should be applied to the element containing the snack bar's action buttons. */
 export declare class MatSnackBarActions {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarActions, "[matSnackBarActions]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarActions, "[matSnackBarActions]", never, {}, {}, never, never, false, never, false>;
 }
 
 /**
@@ -216,7 +216,7 @@ export declare class MatSnackBarContainer extends _MatSnackBarContainerBase {
     /** Applies the correct CSS class to the label based on its content. */
     protected _afterPortalAttached(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "mat-snack-bar-container", never, {}, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "mat-snack-bar-container", never, {}, {}, never, never, false, never, false>;
 }
 
 /**
@@ -304,7 +304,7 @@ export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet
      */
     private _screenReaderAnnounce;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatSnackBarContainerBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSnackBarContainerBase, never, never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSnackBarContainerBase, never, never, {}, {}, never, never, false, never, false>;
 }
 
 /** Event that is emitted when a snack bar is dismissed. */
@@ -319,7 +319,7 @@ export declare type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' |
 /** Directive that should be applied to the text element to be rendered in the snack bar. */
 export declare class MatSnackBarLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarLabel, "[matSnackBarLabel]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarLabel, "[matSnackBarLabel]", never, {}, {}, never, never, false, never, false>;
 }
 
 export declare class MatSnackBarModule {
@@ -396,7 +396,7 @@ export declare class SimpleSnackBar implements TextOnlySnackBar {
     /** If the action button should be shown. */
     get hasAction(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<SimpleSnackBar, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<SimpleSnackBar, "simple-snack-bar", ["matSnackBar"], {}, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<SimpleSnackBar, "simple-snack-bar", ["matSnackBar"], {}, {}, never, never, false, never, false>;
 }
 
 /**

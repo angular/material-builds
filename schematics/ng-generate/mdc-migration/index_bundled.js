@@ -7886,6 +7886,9 @@ var RecursiveAstVisitor$1 = class {
   visitMapType(type, context) {
     return this.visitType(type, context);
   }
+  visitTransplantedType(type, context) {
+    return type;
+  }
   visitWrappedNodeExpr(ast, context) {
     return ast;
   }
@@ -8771,6 +8774,9 @@ var Identifiers = _Identifiers;
 })();
 (() => {
   _Identifiers.HostDirectivesFeature = { name: "\u0275\u0275HostDirectivesFeature", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.InputTransformsFeatureFeature = { name: "\u0275\u0275InputTransformsFeature", moduleName: CORE };
 })();
 (() => {
   _Identifiers.listener = { name: "\u0275\u0275listener", moduleName: CORE };
@@ -9873,7 +9879,7 @@ function visitAll$1(visitor, nodes) {
   const result = [];
   if (visitor.visit) {
     for (const node of nodes) {
-      const newNode = visitor.visit(node) || node.visit(visitor);
+      visitor.visit(node) || node.visit(visitor);
     }
   } else {
     for (const node of nodes) {
@@ -10226,22 +10232,30 @@ function conditionallyCreateDirectiveBindingLiteral(map, keepDeclared) {
     let declaredName;
     let publicName;
     let minifiedName;
-    let needsDeclaredName;
+    let expressionValue;
     if (typeof value === "string") {
       declaredName = key;
       minifiedName = key;
       publicName = value;
-      needsDeclaredName = false;
+      expressionValue = asLiteral(publicName);
     } else {
       minifiedName = key;
       declaredName = value.classPropertyName;
       publicName = value.bindingPropertyName;
-      needsDeclaredName = publicName !== declaredName;
+      if (keepDeclared && (publicName !== declaredName || value.transformFunction != null)) {
+        const expressionKeys = [asLiteral(publicName), asLiteral(declaredName)];
+        if (value.transformFunction != null) {
+          expressionKeys.push(value.transformFunction);
+        }
+        expressionValue = literalArr(expressionKeys);
+      } else {
+        expressionValue = asLiteral(publicName);
+      }
     }
     return {
       key: minifiedName,
       quoted: UNSAFE_OBJECT_KEY_NAME_REGEXP.test(minifiedName),
-      value: keepDeclared && needsDeclaredName ? literalArr([asLiteral(publicName), asLiteral(declaredName)]) : asLiteral(publicName)
+      value: expressionValue
     };
   }));
 }
@@ -12930,11 +12944,14 @@ var OpKind;
   OpKind2[OpKind2["Element"] = 4] = "Element";
   OpKind2[OpKind2["Template"] = 5] = "Template";
   OpKind2[OpKind2["ElementEnd"] = 6] = "ElementEnd";
-  OpKind2[OpKind2["Text"] = 7] = "Text";
-  OpKind2[OpKind2["Listener"] = 8] = "Listener";
-  OpKind2[OpKind2["InterpolateText"] = 9] = "InterpolateText";
-  OpKind2[OpKind2["Property"] = 10] = "Property";
-  OpKind2[OpKind2["Advance"] = 11] = "Advance";
+  OpKind2[OpKind2["ContainerStart"] = 7] = "ContainerStart";
+  OpKind2[OpKind2["Container"] = 8] = "Container";
+  OpKind2[OpKind2["ContainerEnd"] = 9] = "ContainerEnd";
+  OpKind2[OpKind2["Text"] = 10] = "Text";
+  OpKind2[OpKind2["Listener"] = 11] = "Listener";
+  OpKind2[OpKind2["InterpolateText"] = 12] = "InterpolateText";
+  OpKind2[OpKind2["Property"] = 13] = "Property";
+  OpKind2[OpKind2["Advance"] = 14] = "Advance";
 })(OpKind || (OpKind = {}));
 var ExpressionKind;
 (function(ExpressionKind2) {
@@ -13183,6 +13200,9 @@ function transformExpressionsInOp(op, transform, flags) {
     case OpKind.Element:
     case OpKind.ElementStart:
     case OpKind.ElementEnd:
+    case OpKind.Container:
+    case OpKind.ContainerStart:
+    case OpKind.ContainerEnd:
     case OpKind.Template:
     case OpKind.Text:
     case OpKind.Advance:
@@ -13200,6 +13220,9 @@ function transformExpressionsInExpression(expr, transform, flags) {
     expr.rhs = transformExpressionsInExpression(expr.rhs, transform, flags);
   } else if (expr instanceof ReadPropExpr) {
     expr.receiver = transformExpressionsInExpression(expr.receiver, transform, flags);
+  } else if (expr instanceof ReadKeyExpr) {
+    expr.receiver = transformExpressionsInExpression(expr.receiver, transform, flags);
+    expr.index = transformExpressionsInExpression(expr.index, transform, flags);
   } else if (expr instanceof InvokeFunctionExpr) {
     expr.fn = transformExpressionsInExpression(expr.fn, transform, flags);
     for (let i = 0; i < expr.args.length; i++) {
@@ -13505,11 +13528,20 @@ function serializeAttributes({ attributes, bindings, classes, i18n, projectAs, s
   }
   return literalArr(attrArray);
 }
+var REPLACEMENTS = /* @__PURE__ */ new Map([
+  [OpKind.ElementEnd, [OpKind.ElementStart, OpKind.Element]],
+  [OpKind.ContainerEnd, [OpKind.ContainerStart, OpKind.Container]]
+]);
 function phaseEmptyElements(cpl) {
   for (const [_, view] of cpl.views) {
     for (const op of view.create) {
-      if (op.kind === OpKind.ElementEnd && op.prev !== null && op.prev.kind === OpKind.ElementStart) {
-        op.prev.kind = OpKind.Element;
+      const opReplacements = REPLACEMENTS.get(op.kind);
+      if (opReplacements === void 0) {
+        continue;
+      }
+      const [startKind, mergedKind] = opReplacements;
+      if (op.prev !== null && op.prev.kind === startKind) {
+        op.prev.kind = mergedKind;
         OpList.remove(op);
       }
     }
@@ -13546,16 +13578,16 @@ function phaseGenerateAdvance(cpl) {
   }
 }
 function element(slot, tag, constIndex, localRefIndex) {
-  return elementStartBase(Identifiers.element, slot, tag, constIndex, localRefIndex);
+  return elementOrContainerBase(Identifiers.element, slot, tag, constIndex, localRefIndex);
 }
 function elementStart(slot, tag, constIndex, localRefIndex) {
-  return elementStartBase(Identifiers.elementStart, slot, tag, constIndex, localRefIndex);
+  return elementOrContainerBase(Identifiers.elementStart, slot, tag, constIndex, localRefIndex);
 }
-function elementStartBase(instruction, slot, tag, constIndex, localRefIndex) {
-  const args = [
-    literal(slot),
-    literal(tag)
-  ];
+function elementOrContainerBase(instruction, slot, tag, constIndex, localRefIndex) {
+  const args = [literal(slot)];
+  if (tag !== null) {
+    args.push(literal(tag));
+  }
   if (localRefIndex !== null) {
     args.push(
       literal(constIndex),
@@ -13568,6 +13600,15 @@ function elementStartBase(instruction, slot, tag, constIndex, localRefIndex) {
 }
 function elementEnd() {
   return call(Identifiers.elementEnd, []);
+}
+function elementContainerStart(slot, constIndex, localRefIndex) {
+  return elementOrContainerBase(Identifiers.elementContainerStart, slot, null, constIndex, localRefIndex);
+}
+function elementContainer(slot, constIndex, localRefIndex) {
+  return elementOrContainerBase(Identifiers.elementContainer, slot, null, constIndex, localRefIndex);
+}
+function elementContainerEnd() {
+  return call(Identifiers.elementContainerEnd, []);
 }
 function template(slot, templateFnRef, decls, vars, tag, constIndex) {
   return call(Identifiers.templateCreate, [
@@ -13689,6 +13730,15 @@ function reifyCreateOperations(view, ops) {
         break;
       case OpKind.ElementEnd:
         OpList.replace(op, elementEnd());
+        break;
+      case OpKind.ContainerStart:
+        OpList.replace(op, elementContainerStart(op.slot, op.attributes, op.localRefs));
+        break;
+      case OpKind.Container:
+        OpList.replace(op, elementContainer(op.slot, op.attributes, op.localRefs));
+        break;
+      case OpKind.ContainerEnd:
+        OpList.replace(op, elementContainerEnd());
         break;
       case OpKind.Template:
         const childView = view.tpl.views.get(op.xref);
@@ -13957,25 +14007,15 @@ function phaseGenerateVariables(cpl) {
 }
 function recursivelyProcessView(view, parentScope) {
   const scope = getScopeForView(view, parentScope);
-  view.create.prepend([
-    createVariableOp(view.tpl.allocateXrefId(), scope.savedViewVariable, new GetCurrentViewExpr())
-  ]);
+  if (view.parent !== null) {
+  }
   for (const op of view.create) {
     switch (op.kind) {
       case OpKind.Template:
         recursivelyProcessView(view.tpl.views.get(op.xref), scope);
         break;
       case OpKind.Listener:
-        const preambleOps2 = [
-          createVariableOp(view.tpl.allocateXrefId(), scope.viewContextVariable, new RestoreViewExpr(view.xref)),
-          ...generateVariablesInScopeForView(view, scope)
-        ];
-        op.handlerOps.prepend(preambleOps2);
-        for (const handlerOp of op.handlerOps) {
-          if (handlerOp.kind === OpKind.Statement && handlerOp.statement instanceof ReturnStatement) {
-            handlerOp.statement.value = new ResetViewExpr(handlerOp.statement.value);
-          }
-        }
+        op.handlerOps.prepend(generateVariablesInScopeForView(view, scope));
         break;
     }
   }
@@ -13987,11 +14027,6 @@ function getScopeForView(view, parent) {
     view: view.xref,
     viewContextVariable: {
       kind: SemanticVariableKind.Context,
-      name: null,
-      view: view.xref
-    },
-    savedViewVariable: {
-      kind: SemanticVariableKind.SavedView,
       name: null,
       view: view.xref
     },
@@ -14333,7 +14368,10 @@ function allowConservativeInlining(decl2, target) {
 var CHAINABLE = /* @__PURE__ */ new Set([
   Identifiers.elementStart,
   Identifiers.elementEnd,
-  Identifiers.property
+  Identifiers.property,
+  Identifiers.elementContainerStart,
+  Identifiers.elementContainerEnd,
+  Identifiers.elementContainer
 ]);
 function phaseChaining(cpl) {
   for (const [_, view] of cpl.views) {
@@ -14411,12 +14449,58 @@ function mergeNextContextsInOps(ops) {
     }
   }
 }
+var CONTAINER_TAG = "ng-container";
+function phaseNgContainer(cpl) {
+  for (const [_, view] of cpl.views) {
+    const updatedElementXrefs = /* @__PURE__ */ new Set();
+    for (const op of view.create) {
+      if (op.kind === OpKind.ElementStart && op.tag === CONTAINER_TAG) {
+        op.kind = OpKind.ContainerStart;
+        updatedElementXrefs.add(op.xref);
+      }
+      if (op.kind === OpKind.ElementEnd && updatedElementXrefs.has(op.xref)) {
+        op.kind = OpKind.ContainerEnd;
+      }
+    }
+  }
+}
+function phaseSaveRestoreView(cpl) {
+  for (const view of cpl.views.values()) {
+    if (view === cpl.root) {
+      continue;
+    }
+    view.create.prepend([
+      createVariableOp(view.tpl.allocateXrefId(), {
+        kind: SemanticVariableKind.SavedView,
+        name: null,
+        view: view.xref
+      }, new GetCurrentViewExpr())
+    ]);
+    for (const op of view.create) {
+      if (op.kind !== OpKind.Listener) {
+        continue;
+      }
+      op.handlerOps.prepend([
+        createVariableOp(view.tpl.allocateXrefId(), {
+          kind: SemanticVariableKind.Context,
+          name: null,
+          view: view.xref
+        }, new RestoreViewExpr(view.xref))
+      ]);
+      for (const handlerOp of op.handlerOps) {
+        if (handlerOp.kind === OpKind.Statement && handlerOp.statement instanceof ReturnStatement) {
+          handlerOp.statement.value = new ResetViewExpr(handlerOp.statement.value);
+        }
+      }
+    }
+  }
+}
 function transformTemplate(cpl) {
   phaseGenerateVariables(cpl);
+  phaseSaveRestoreView(cpl);
   phaseResolveNames(cpl);
   phaseResolveContexts(cpl);
   phaseLocalRefs(cpl);
-  phaseEmptyElements(cpl);
   phaseConstCollection(cpl);
   phaseSlotAllocation(cpl);
   phaseVarCounting(cpl);
@@ -14424,6 +14508,8 @@ function transformTemplate(cpl) {
   phaseNaming(cpl);
   phaseVariableOptimization(cpl, { conservative: true });
   phaseMergeNextContext(cpl);
+  phaseNgContainer(cpl);
+  phaseEmptyElements(cpl);
   phaseReify(cpl);
   phaseChaining(cpl);
 }
@@ -14539,6 +14625,25 @@ var ViewCompilation = class {
     }
   }
 };
+var BINARY_OPERATORS = /* @__PURE__ */ new Map([
+  ["&&", BinaryOperator.And],
+  [">", BinaryOperator.Bigger],
+  [">=", BinaryOperator.BiggerEquals],
+  ["&", BinaryOperator.BitwiseAnd],
+  ["/", BinaryOperator.Divide],
+  ["==", BinaryOperator.Equals],
+  ["===", BinaryOperator.Identical],
+  ["<", BinaryOperator.Lower],
+  ["<=", BinaryOperator.LowerEquals],
+  ["-", BinaryOperator.Minus],
+  ["%", BinaryOperator.Modulo],
+  ["*", BinaryOperator.Multiply],
+  ["!=", BinaryOperator.NotEquals],
+  ["!==", BinaryOperator.NotIdentical],
+  ["??", BinaryOperator.NullishCoalesce],
+  ["||", BinaryOperator.Or],
+  ["+", BinaryOperator.Plus]
+]);
 function ingest(componentName, template2) {
   const cpl = new ComponentCompilation(componentName);
   ingestNodes(cpl.root, template2);
@@ -14618,8 +14723,18 @@ function convertAst(ast, cpl) {
     }
   } else if (ast instanceof LiteralPrimitive) {
     return literal(ast.value);
+  } else if (ast instanceof Binary) {
+    const operator = BINARY_OPERATORS.get(ast.operation);
+    if (operator === void 0) {
+      throw new Error(`AssertionError: unknown binary operator ${ast.operation}`);
+    }
+    return new BinaryOperatorExpr(operator, convertAst(ast.left, cpl), convertAst(ast.right, cpl));
   } else if (ast instanceof ThisReceiver) {
     return new ContextExpr(cpl.root.xref);
+  } else if (ast instanceof KeyedRead) {
+    return new ReadKeyExpr(convertAst(ast.receiver, cpl), convertAst(ast.key, cpl));
+  } else if (ast instanceof Chain) {
+    throw new Error(`AssertionError: Chain in unknown context`);
   } else {
     throw new Error(`Unhandled expression type: ${ast.constructor.name}`);
   }
@@ -14643,11 +14758,11 @@ function ingestAttributes(op, element2) {
 }
 function ingestBindings(view, op, element2) {
   if (element2 instanceof Template) {
-    for (const attr of element2.templateAttrs) {
-      if (typeof attr.value === "string") {
-      } else {
-        view.update.push(createPropertyOp(op.xref, attr.name, convertAst(attr.value, view.tpl)));
+    for (const input of [...element2.templateAttrs, ...element2.inputs]) {
+      if (!(input instanceof BoundAttribute)) {
+        continue;
       }
+      view.update.push(createPropertyOp(op.xref, input.name, convertAst(input.value, view.tpl)));
     }
   } else {
     for (const input of element2.inputs) {
@@ -14655,7 +14770,26 @@ function ingestBindings(view, op, element2) {
     }
     for (const output of element2.outputs) {
       const listenerOp = createListenerOp(op.xref, output.name, op.tag);
-      listenerOp.handlerOps.push(createStatementOp(new ReturnStatement(convertAst(output.handler, view.tpl))));
+      let inputExprs;
+      let handler = output.handler;
+      if (handler instanceof ASTWithSource) {
+        handler = handler.ast;
+      }
+      if (handler instanceof Chain) {
+        inputExprs = handler.expressions;
+      } else {
+        inputExprs = [handler];
+      }
+      if (inputExprs.length === 0) {
+        throw new Error("Expected listener to have non-empty expression list.");
+      }
+      const expressions = inputExprs.map((expr) => convertAst(expr, view.tpl));
+      const returnExpr = expressions.pop();
+      for (const expr of expressions) {
+        const stmtOp = createStatementOp(new ExpressionStatement(expr));
+        listenerOp.handlerOps.push(stmtOp);
+      }
+      listenerOp.handlerOps.push(createStatementOp(new ReturnStatement(returnExpr)));
       view.create.push(listenerOp);
     }
   }
@@ -22980,6 +23114,9 @@ function baseDirectiveFields(meta, constantPool, bindingParser) {
   if (meta.isStandalone) {
     definitionMap.set("standalone", literal(true));
   }
+  if (meta.isSignal) {
+    definitionMap.set("signals", literal(true));
+  }
   return definitionMap;
 }
 function addFeatures(definitionMap, meta) {
@@ -22987,12 +23124,19 @@ function addFeatures(definitionMap, meta) {
   const features = [];
   const providers = meta.providers;
   const viewProviders = meta.viewProviders;
+  const inputKeys = Object.keys(meta.inputs);
   if (providers || viewProviders) {
     const args = [providers || new LiteralArrayExpr([])];
     if (viewProviders) {
       args.push(viewProviders);
     }
     features.push(importExpr(Identifiers.ProvidersFeature).callFn(args));
+  }
+  for (const key of inputKeys) {
+    if (meta.inputs[key].transformFunction !== null) {
+      features.push(importExpr(Identifiers.InputTransformsFeatureFeature));
+      break;
+    }
   }
   if (meta.usesInheritance) {
     features.push(importExpr(Identifiers.InheritDefinitionFeature));
@@ -23105,6 +23249,7 @@ function createComponentType(meta) {
   typeParams.push(stringArrayAsType(meta.template.ngContentSelectors));
   typeParams.push(expressionType(literal(meta.isStandalone)));
   typeParams.push(createHostDirectivesType(meta));
+  typeParams.push(expressionType(literal(meta.isSignal)));
   return expressionType(importExpr(Identifiers.ComponentDeclaration, typeParams));
 }
 function compileDeclarationList(list2, mode) {
@@ -23204,6 +23349,7 @@ function createDirectiveType(meta) {
   typeParams.push(NONE_TYPE);
   typeParams.push(expressionType(literal(meta.isStandalone)));
   typeParams.push(createHostDirectivesType(meta));
+  typeParams.push(expressionType(literal(meta.isSignal)));
   return expressionType(importExpr(Identifiers.DirectiveDeclaration, typeParams));
 }
 function createViewQueriesFunction(viewQueries, constantPool, name) {
@@ -23708,7 +23854,8 @@ function convertDirectiveFacadeToMetadata(facade) {
           inputsFromType[field] = {
             bindingPropertyName: ann.alias || field,
             classPropertyName: field,
-            required: ann.required || false
+            required: ann.required || false,
+            transformFunction: ann.transform != null ? new WrappedNodeExpr(ann.transform) : null
           };
         } else if (isOutput(ann)) {
           outputsFromType[field] = ann.alias || field;
@@ -23732,7 +23879,7 @@ function convertDirectiveFacadeToMetadata(facade) {
   });
 }
 function convertDeclareDirectiveFacadeToMetadata(declaration, typeSourceSpan) {
-  var _a2, _b, _c, _d, _e, _f, _g, _h;
+  var _a2, _b, _c, _d, _e, _f, _g, _h, _i;
   return {
     name: declaration.type.name,
     type: wrapReference(declaration.type),
@@ -23751,6 +23898,7 @@ function convertDeclareDirectiveFacadeToMetadata(declaration, typeSourceSpan) {
     typeArgumentCount: 0,
     fullInheritance: false,
     isStandalone: (_h = declaration.isStandalone) != null ? _h : false,
+    isSignal: (_i = declaration.isSignal) != null ? _i : false,
     hostDirectives: convertHostDirectivesToMetadata(declaration)
   };
 }
@@ -23943,7 +24091,21 @@ function isOutput(value) {
 function inputsMappingToInputMetadata(inputs) {
   return Object.keys(inputs).reduce((result, key) => {
     const value = inputs[key];
-    result[key] = typeof value === "string" ? { bindingPropertyName: value, classPropertyName: value, required: false } : { bindingPropertyName: value[0], classPropertyName: value[1], required: false };
+    if (typeof value === "string") {
+      result[key] = {
+        bindingPropertyName: value,
+        classPropertyName: value,
+        transformFunction: null,
+        required: false
+      };
+    } else {
+      result[key] = {
+        bindingPropertyName: value[0],
+        classPropertyName: value[1],
+        transformFunction: value[2] || null,
+        required: false
+      };
+    }
     return result;
   }, {});
 }
@@ -23951,12 +24113,18 @@ function parseInputsArray(values) {
   return values.reduce((results, value) => {
     if (typeof value === "string") {
       const [bindingPropertyName, classPropertyName] = parseMappingString(value);
-      results[classPropertyName] = { bindingPropertyName, classPropertyName, required: false };
+      results[classPropertyName] = {
+        bindingPropertyName,
+        classPropertyName,
+        required: false,
+        transformFunction: null
+      };
     } else {
       results[value.name] = {
         bindingPropertyName: value.alias || value.name,
         classPropertyName: value.name,
-        required: value.required || false
+        required: value.required || false,
+        transformFunction: value.transform != null ? new WrappedNodeExpr(value.transform) : null
       };
     }
     return results;
@@ -23997,7 +24165,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("16.0.0");
+var VERSION = new Version("16.1.0-next.3");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -25936,7 +26104,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v16.0.0
+ * @license Angular v16.1.0-next.3
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */

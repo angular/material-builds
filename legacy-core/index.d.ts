@@ -173,7 +173,7 @@ export { MatLegacyNativeDateModule }
  */
 export declare class MatLegacyOptgroup extends _MatLegacyOptgroupBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyOptgroup, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], false, never, false>;
 }
 
 export { _MatLegacyOptgroupBase }
@@ -186,7 +186,7 @@ export { _MatLegacyOptgroupBase }
 export declare class MatLegacyOption<T = any> extends _MatLegacyOptionBase<T> {
     constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatLegacyOptionParentComponent, group: MatLegacyOptgroup);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyOption<any>, "mat-option", ["matOption"], {}, {}, never, ["*"], false, never, false>;
 }
 
 export { _MatLegacyOptionBase }
