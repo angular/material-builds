@@ -98,7 +98,10 @@ class MatSliderVisualThumb {
             }
             this._hostElement.classList.remove('mdc-slider__thumb--focused');
         };
-        this._onDragStart = () => {
+        this._onDragStart = (event) => {
+            if (event.button !== 0) {
+                return;
+            }
             this._isActive = true;
             this._showActiveRipple();
         };
@@ -1488,7 +1491,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
         this.getSibling()?._updateMinMax();
     }
     _onPointerDown(event) {
-        if (this.disabled) {
+        if (this.disabled || event.button !== 0) {
             return;
         }
         if (this._sibling) {
