@@ -125,7 +125,7 @@ class MatIconRegistry {
         /**
          * The CSS classes to apply when an `<mat-icon>` component has no icon name, url, or font
          * specified. The default 'material-icons' value assumes that the material icon font has been
-         * loaded as described at http://google.github.io/material-design-icons/#icon-font-for-the-web
+         * loaded as described at https://google.github.io/material-design-icons/#icon-font-for-the-web
          */
         this._defaultFontSetClass = ['material-icons', 'mat-ligature-font'];
         this._document = document;
