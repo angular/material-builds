@@ -1818,7 +1818,10 @@ class _MatTabLinkBase extends _MatTabLinkMixinBase {
         this._tabNavBar.focusIndex = this._tabNavBar._items.toArray().indexOf(this);
     }
     _handleKeydown(event) {
-        if (this._tabNavBar.tabPanel && event.keyCode === SPACE) {
+        if (this.disabled && (event.keyCode === SPACE || event.keyCode === ENTER)) {
+            event.preventDefault();
+        }
+        else if (this._tabNavBar.tabPanel && event.keyCode === SPACE) {
             this.elementRef.nativeElement.click();
         }
     }
