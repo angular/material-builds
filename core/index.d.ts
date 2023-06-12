@@ -797,6 +797,43 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": { "alias": "matRippleColor"; "required": false; }; "unbounded": { "alias": "matRippleUnbounded"; "required": false; }; "centered": { "alias": "matRippleCentered"; "required": false; }; "radius": { "alias": "matRippleRadius"; "required": false; }; "animation": { "alias": "matRippleAnimation"; "required": false; }; "disabled": { "alias": "matRippleDisabled"; "required": false; }; "trigger": { "alias": "matRippleTrigger"; "required": false; }; }, {}, never, never, false, never, false>;
 }
 
+/**
+ * Handles attaching ripples on demand.
+ *
+ * This service allows us to avoid eagerly creating & attaching MatRipples.
+ * It works by creating & attaching a ripple only when a component is first interacted with.
+ */
+export declare class MatRippleLoader implements OnDestroy {
+    private _document;
+    private _animationMode;
+    private _globalRippleOptions;
+    private _platform;
+    private _ngZone;
+    constructor();
+    ngOnDestroy(): void;
+    /**
+     * Configures the ripple that will be rendered by the ripple loader.
+     *
+     * Stores the given information about how the ripple should be configured on the host
+     * element so that it can later be retrived & used when the ripple is actually created.
+     */
+    configureRipple(host: HTMLElement, config: {
+        className?: string;
+        centered?: boolean;
+    }): void;
+    /** Returns the ripple instance for the given host element. */
+    getRipple(host: HTMLElement): MatRipple | undefined;
+    /** Sets the disabled state on the ripple instance corresponding to the given host element. */
+    setDisabled(host: HTMLElement, disabled: boolean): void;
+    /** Handles creating and attaching component internals when a component it is initially interacted with. */
+    private _onInteraction;
+    /** Creates a MatRipple and appends it to the given element. */
+    createRipple(host: HTMLElement): MatRipple | undefined;
+    attachRipple(host: Element, ripple: MatRipple): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRippleLoader, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatRippleLoader>;
+}
+
 export declare class MatRippleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRippleModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatRippleModule, [typeof i1_4.MatRipple], [typeof i1_2.MatCommonModule], [typeof i1_4.MatRipple, typeof i1_2.MatCommonModule]>;

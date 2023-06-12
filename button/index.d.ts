@@ -11,8 +11,8 @@ import * as i0 from '@angular/core';
 import * as i4 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
+import { MatRippleLoader } from '@angular/material/core';
 import { NgZone } from '@angular/core';
-import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
@@ -95,7 +95,7 @@ export declare class MatButton extends MatButtonBase {
 }
 
 /** Base class for all buttons.  */
-declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanColor, CanDisableRipple, AfterViewInit, OnChanges, OnDestroy {
+declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanColor, CanDisableRipple, AfterViewInit, OnDestroy {
     _platform: Platform;
     _ngZone: NgZone;
     _animationMode?: string | undefined;
@@ -104,7 +104,7 @@ declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanCo
      * Handles the lazy creation of the MatButton ripple.
      * Used to improve initial load time of large applications.
      */
-    _rippleLoader: MatButtonLazyLoader;
+    _rippleLoader: MatRippleLoader;
     /** Whether this button is a FAB. Used to apply the correct class on the ripple. */
     _isFab: boolean;
     /**
@@ -114,41 +114,23 @@ declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanCo
      */
     get ripple(): MatRipple;
     set ripple(v: MatRipple);
-    /** @docs-private Reference to the MatRipple instance of the button. */
-    protected _ripple?: MatRipple;
+    /** Whether the ripple effect is disabled or not. */
+    get disableRipple(): boolean;
+    set disableRipple(value: any);
+    private _disableRipple;
+    get disabled(): boolean;
+    set disabled(value: any);
+    private _disabled;
     constructor(elementRef: ElementRef, _platform: Platform, _ngZone: NgZone, _animationMode?: string | undefined);
     ngAfterViewInit(): void;
-    ngOnChanges(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(_origin?: FocusOrigin, options?: FocusOptions): void;
     /** Gets whether the button has one of the given attributes. */
     private _hasHostAttributes;
+    private _updateRippleDisabled;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, {}, {}, never, never, false, never, false>;
-}
-
-/**
- * Handles attaching the MatButton's ripple on demand.
- *
- * This service allows us to avoid eagerly creating & attaching the MatButton's ripple.
- * It works by creating & attaching the ripple only when a MatButton is first interacted with.
- */
-declare class MatButtonLazyLoader implements OnDestroy {
-    private _document;
-    private _animationMode;
-    private _globalRippleOptions;
-    private _platform;
-    private _ngZone;
-    constructor();
-    ngOnDestroy(): void;
-    /** Handles creating and attaching button internals when a button is initially interacted with. */
-    private _onInteraction;
-    /** Creates a MatButtonRipple and appends it to the given button element. */
-    private _appendRipple;
-    _createMatRipple(button: HTMLElement): MatRipple | undefined;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonLazyLoader, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatButtonLazyLoader>;
 }
 
 /** @docs-private */
@@ -222,12 +204,6 @@ export declare class MatIconAnchor extends MatAnchorBase {
  * See https://material.io/develop/web/components/buttons/icon-buttons/
  */
 export declare class MatIconButton extends MatButtonBase {
-    /**
-     * Reference to the MatRipple instance of the button.
-     * @deprecated Considered an implementation detail. To be removed.
-     * @breaking-change 17.0.0
-     */
-    get ripple(): MatRipple;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconButton, [null, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button]", ["matButton"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, ["*"], false, never, false>;

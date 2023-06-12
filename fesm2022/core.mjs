@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, EventEmitter, Output, ViewChild, ANIMATION_MODULE_TYPE as ANIMATION_MODULE_TYPE$1, NgZone, ElementRef } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -1710,9 +1710,130 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.3", 
                 }]
         }] });
 
+/** The options for the MatRippleLoader's event listeners. */
+const eventListenerOptions = { capture: true };
+/** The events that should trigger the initialization of the ripple. */
+const rippleInteractionEvents = ['focus', 'click', 'mouseenter', 'touchstart'];
+/** The attribute attached to a component whose ripple has not yet been initialized. */
+const matRippleUninitialized = 'mat-ripple-loader-uninitialized';
+/** Additional classes that should be added to the ripple when it is rendered. */
+const matRippleClassName = 'mat-ripple-loader-class-name';
+/** Whether the ripple should be centered. */
+const matRippleCentered = 'mat-ripple-loader-centered';
+/** Whether the ripple should be disabled. */
+const matRippleDisabled = 'mat-ripple-loader-disabled';
+/**
+ * Handles attaching ripples on demand.
+ *
+ * This service allows us to avoid eagerly creating & attaching MatRipples.
+ * It works by creating & attaching a ripple only when a component is first interacted with.
+ */
+class MatRippleLoader {
+    constructor() {
+        this._document = inject(DOCUMENT, { optional: true });
+        this._animationMode = inject(ANIMATION_MODULE_TYPE$1, { optional: true });
+        this._globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, { optional: true });
+        this._platform = inject(Platform);
+        this._ngZone = inject(NgZone);
+        /** Handles creating and attaching component internals when a component it is initially interacted with. */
+        this._onInteraction = (event) => {
+            if (!(event.target instanceof HTMLElement)) {
+                return;
+            }
+            const eventTarget = event.target;
+            // TODO(wagnermaciel): Consider batching these events to improve runtime performance.
+            const element = eventTarget.closest(`[${matRippleUninitialized}]`);
+            if (element) {
+                this.createRipple(element);
+            }
+        };
+        this._ngZone.runOutsideAngular(() => {
+            for (const event of rippleInteractionEvents) {
+                this._document?.addEventListener(event, this._onInteraction, eventListenerOptions);
+            }
+        });
+    }
+    ngOnDestroy() {
+        for (const event of rippleInteractionEvents) {
+            this._document?.removeEventListener(event, this._onInteraction, eventListenerOptions);
+        }
+    }
+    /**
+     * Configures the ripple that will be rendered by the ripple loader.
+     *
+     * Stores the given information about how the ripple should be configured on the host
+     * element so that it can later be retrived & used when the ripple is actually created.
+     */
+    configureRipple(host, config) {
+        // Indicates that the ripple has not yet been rendered for this component.
+        host.setAttribute(matRippleUninitialized, '');
+        // Store the additional class name(s) that should be added to the ripple element.
+        if (config.className || !host.hasAttribute(matRippleClassName)) {
+            host.setAttribute(matRippleClassName, config.className || '');
+        }
+        // Store whether the ripple should be centered.
+        if (config.centered) {
+            host.setAttribute(matRippleCentered, '');
+        }
+    }
+    /** Returns the ripple instance for the given host element. */
+    getRipple(host) {
+        if (host.matRipple) {
+            return host.matRipple;
+        }
+        return this.createRipple(host);
+    }
+    /** Sets the disabled state on the ripple instance corresponding to the given host element. */
+    setDisabled(host, disabled) {
+        const ripple = host.matRipple;
+        // If the ripple has already been instantiated, just disable it.
+        if (ripple) {
+            ripple.disabled = disabled;
+            return;
+        }
+        // Otherwise, set an attribute so we know what the
+        // disabled state should be when the ripple is initialized.
+        if (disabled) {
+            host.setAttribute(matRippleDisabled, '');
+        }
+        else {
+            host.removeAttribute(matRippleDisabled);
+        }
+    }
+    /** Creates a MatRipple and appends it to the given element. */
+    createRipple(host) {
+        if (!this._document) {
+            return;
+        }
+        // Create the ripple element.
+        host.querySelector('.mat-ripple')?.remove();
+        const rippleEl = this._document.createElement('span');
+        rippleEl.classList.add('mat-ripple', host.getAttribute(matRippleClassName));
+        host.append(rippleEl);
+        // Create the MatRipple.
+        const ripple = new MatRipple(new ElementRef(rippleEl), this._ngZone, this._platform, this._globalRippleOptions ? this._globalRippleOptions : undefined, this._animationMode ? this._animationMode : undefined);
+        ripple._isInitialized = true;
+        ripple.trigger = host;
+        ripple.centered = host.hasAttribute(matRippleCentered);
+        ripple.disabled = host.hasAttribute(matRippleDisabled);
+        this.attachRipple(host, ripple);
+        return ripple;
+    }
+    attachRipple(host, ripple) {
+        host.removeAttribute(matRippleUninitialized);
+        host.matRipple = ripple;
+    }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0-next.3", ngImport: i0, type: MatRippleLoader, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.0-next.3", ngImport: i0, type: MatRippleLoader, providedIn: 'root' }); }
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0-next.3", ngImport: i0, type: MatRippleLoader, decorators: [{
+            type: Injectable,
+            args: [{ providedIn: 'root' }]
+        }], ctorParameters: function () { return []; } });
+
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION, _MatOptgroupBase, _MatOptionBase, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines };
 //# sourceMappingURL=core.mjs.map
