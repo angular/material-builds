@@ -1027,6 +1027,7 @@ class MatSliderThumb {
         this._updateThumbUIByValue();
         this._slider._onValueChange(this);
         this._cdr.detectChanges();
+        this._slider._cdr.markForCheck();
     }
     /**
      * The current translateX in px of the slider visual thumb.

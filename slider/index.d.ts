@@ -263,6 +263,7 @@ declare interface _MatSlider {
     _updateDimensions: () => void;
     /** Used to set the transition duration for thumb and track animations. */
     _setTransition: (withAnimation: boolean) => void;
+    _cdr: ChangeDetectorRef;
 }
 
 /**
