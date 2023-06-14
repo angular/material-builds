@@ -113,7 +113,7 @@ export declare class MatAutocomplete extends _MatAutocompleteBase {
     _syncParentProperties(): void;
     protected _skipPredicate(_option: _MatOptionBase): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocomplete, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, {}, ["optionGroups", "options"], ["*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, {}, ["optionGroups", "options"], ["*"], false, never>;
 }
 
 /** Event object that is emitted when an autocomplete option is activated. */
@@ -220,7 +220,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     private _setThemeClasses;
     protected _skipPredicate(option: _MatOptionBase): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; "autoActiveFirstOption": { "alias": "autoActiveFirstOption"; "required": false; }; "autoSelectActiveOption": { "alias": "autoSelectActiveOption"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "classList": { "alias": "class"; "required": false; }; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; "autoActiveFirstOption": { "alias": "autoActiveFirstOption"; "required": false; }; "autoSelectActiveOption": { "alias": "autoSelectActiveOption"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "classList": { "alias": "class"; "required": false; }; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false, never>;
 }
 
 /** Default `mat-autocomplete` options that can be overridden. */
@@ -252,7 +252,7 @@ export declare class MatAutocompleteModule {
  */
 export declare class MatAutocompleteOrigin extends _MatAutocompleteOriginBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteOrigin, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, false, never>;
 }
 
 /** Base class containing all of the functionality for `MatAutocompleteOrigin`. */
@@ -263,7 +263,7 @@ export declare abstract class _MatAutocompleteOriginBase {
     /** Reference to the element on which the directive is applied. */
     elementRef: ElementRef<HTMLElement>);
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteOriginBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteOriginBase, never, never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteOriginBase, never, never, {}, {}, never, never, false, never>;
 }
 
 /** Event object that is emitted when an autocomplete option is selected. */
@@ -282,7 +282,7 @@ export declare class MatAutocompleteSelectedEvent {
 export declare class MatAutocompleteTrigger extends _MatAutocompleteTriggerBase {
     protected _aboveClass: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], {}, {}, never, never, false, never>;
 }
 
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
@@ -481,7 +481,7 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     /** Clears the references to the listbox overlay element from the modal it was added to. */
     private _clearFromModal;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteTriggerBase, [null, null, null, null, null, null, { optional: true; }, { optional: true; host: true; }, { optional: true; }, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteTriggerBase, never, never, { "autocomplete": { "alias": "matAutocomplete"; "required": false; }; "position": { "alias": "matAutocompletePosition"; "required": false; }; "connectedTo": { "alias": "matAutocompleteConnectedTo"; "required": false; }; "autocompleteAttribute": { "alias": "autocomplete"; "required": false; }; "autocompleteDisabled": { "alias": "matAutocompleteDisabled"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteTriggerBase, never, never, { "autocomplete": { "alias": "matAutocomplete"; "required": false; }; "position": { "alias": "matAutocompletePosition"; "required": false; }; "connectedTo": { "alias": "matAutocompleteConnectedTo"; "required": false; }; "autocompleteAttribute": { "alias": "autocomplete"; "required": false; }; "autocompleteDisabled": { "alias": "matAutocompleteDisabled"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 export { }

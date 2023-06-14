@@ -137,7 +137,7 @@ export declare class MatLegacyError {
     id: string;
     constructor(ariaLive: string, elementRef: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyError, [{ attribute: "aria-live"; }, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyError, "mat-error", never, { "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyError, "mat-error", never, { "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**
@@ -268,7 +268,7 @@ export declare class MatLegacyFormField extends _MatFormFieldBase implements Aft
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDOM;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyFormField, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyFormField, "mat-form-field", ["matFormField"], { "color": { "alias": "color"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "hideRequiredMarker": { "alias": "hideRequiredMarker"; "required": false; }; "hintLabel": { "alias": "hintLabel"; "required": false; }; "floatLabel": { "alias": "floatLabel"; "required": false; }; }, {}, ["_controlNonStatic", "_controlStatic", "_labelChildNonStatic", "_labelChildStatic", "_placeholderChild", "_errorChildren", "_hintChildren", "_prefixChildren", "_suffixChildren"], ["[matPrefix]", "*", "mat-placeholder", "mat-label", "[matSuffix]", "mat-error", "mat-hint:not([align='end'])", "mat-hint[align='end']"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyFormField, "mat-form-field", ["matFormField"], { "color": { "alias": "color"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "hideRequiredMarker": { "alias": "hideRequiredMarker"; "required": false; }; "hintLabel": { "alias": "hintLabel"; "required": false; }; "floatLabel": { "alias": "floatLabel"; "required": false; }; }, {}, ["_controlNonStatic", "_controlStatic", "_labelChildNonStatic", "_labelChildStatic", "_placeholderChild", "_errorChildren", "_hintChildren", "_prefixChildren", "_suffixChildren"], ["[matPrefix]", "*", "mat-placeholder", "mat-label", "[matSuffix]", "mat-error", "mat-hint:not([align='end'])", "mat-hint[align='end']"], false, never>;
 }
 
 export { matLegacyFormFieldAnimations }
@@ -323,7 +323,7 @@ export declare class MatLegacyHint {
     /** Unique ID for the hint. Used for the aria-describedby on the form field control. */
     id: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyHint, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHint, "mat-hint", never, { "align": { "alias": "align"; "required": false; }; "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyHint, "mat-hint", never, { "align": { "alias": "align"; "required": false; }; "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /**
@@ -333,7 +333,7 @@ export declare class MatLegacyHint {
  */
 export declare class MatLegacyLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyLabel, "mat-label", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyLabel, "mat-label", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -344,7 +344,7 @@ export declare class MatLegacyLabel {
  */
 export declare class MatLegacyPlaceholder {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyPlaceholder, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyPlaceholder, "mat-placeholder", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyPlaceholder, "mat-placeholder", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -354,7 +354,7 @@ export declare class MatLegacyPlaceholder {
  */
 export declare class MatLegacyPrefix {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyPrefix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyPrefix, "[matPrefix]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyPrefix, "[matPrefix]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -364,7 +364,7 @@ export declare class MatLegacyPrefix {
  */
 export declare class MatLegacySuffix {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySuffix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacySuffix, "[matSuffix]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacySuffix, "[matSuffix]", never, {}, {}, never, never, false, never>;
 }
 
 export { }

@@ -117,7 +117,7 @@ export declare class MatLegacySelect extends _MatSelectBase<MatLegacySelectChang
     /** Calculates the amount of items in the select. This includes options and group labels. */
     private _getItemCount;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelect, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySelect, "mat-select", ["matSelect"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySelect, "mat-select", ["matSelect"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
 }
 
 /**
@@ -174,7 +174,7 @@ export declare class MatLegacySelectModule {
  */
 export declare class MatLegacySelectTrigger {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySelectTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacySelectTrigger, "mat-select-trigger", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacySelectTrigger, "mat-select-trigger", never, {}, {}, never, never, false, never>;
 }
 
 /**

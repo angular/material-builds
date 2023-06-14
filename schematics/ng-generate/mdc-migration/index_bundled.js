@@ -5727,7 +5727,7 @@ var require_fromJSON = __commonJS({
         defaults.nodes = json.nodes.map((n) => fromJSON2(n, inputs));
       }
       if (defaults.source) {
-        let _b = defaults.source, { inputId } = _b, source = __objRest(_b, ["inputId"]);
+        let _b2 = defaults.source, { inputId } = _b2, source = __objRest(_b2, ["inputId"]);
         defaults.source = source;
         if (inputId != null) {
           defaults.source.input = inputs[inputId];
@@ -6421,7 +6421,7 @@ var StyleMigrator = class {
     return this.mixinChanges.some((change) => atRule2.params.includes(`${namespace}.${change.old}`));
   }
   getMixinChange(namespace, atRule2) {
-    var _a2, _b;
+    var _a2, _b2;
     const processedKey = `mixinChange-${namespace}`;
     if (this._nodeIsProcessed(atRule2, processedKey)) {
       return null;
@@ -6434,7 +6434,7 @@ var StyleMigrator = class {
     }
     const replacements = [...(_a2 = change.new) != null ? _a2 : []];
     if (change.checkForDuplicates) {
-      const mixinArgumentMatches = (_b = atRule2.params) == null ? void 0 : _b.match(MIXIN_ARGUMENTS_REGEX);
+      const mixinArgumentMatches = (_b2 = atRule2.params) == null ? void 0 : _b2.match(MIXIN_ARGUMENTS_REGEX);
       atRule2.root().walkAtRules((rule2) => {
         for (const index2 in replacements) {
           const mixinName = replacements[index2] + (mixinArgumentMatches ? mixinArgumentMatches[0] : "");
@@ -7518,12 +7518,12 @@ var LocalizedString = class extends Expression {
     return createCookedRawString(metaBlock, this.messageParts[0].text, this.getMessagePartSourceSpan(0));
   }
   getMessagePartSourceSpan(i) {
-    var _a2, _b;
-    return (_b = (_a2 = this.messageParts[i]) == null ? void 0 : _a2.sourceSpan) != null ? _b : this.sourceSpan;
+    var _a2, _b2;
+    return (_b2 = (_a2 = this.messageParts[i]) == null ? void 0 : _a2.sourceSpan) != null ? _b2 : this.sourceSpan;
   }
   getPlaceholderSourceSpan(i) {
-    var _a2, _b, _c, _d;
-    return (_d = (_c = (_a2 = this.placeHolderNames[i]) == null ? void 0 : _a2.sourceSpan) != null ? _c : (_b = this.expressions[i]) == null ? void 0 : _b.sourceSpan) != null ? _d : this.sourceSpan;
+    var _a2, _b2, _c2, _d2;
+    return (_d2 = (_c2 = (_a2 = this.placeHolderNames[i]) == null ? void 0 : _a2.sourceSpan) != null ? _c2 : (_b2 = this.expressions[i]) == null ? void 0 : _b2.sourceSpan) != null ? _d2 : this.sourceSpan;
   }
   serializeI18nTemplatePart(partIndex) {
     var _a2;
@@ -8126,13 +8126,14 @@ var ConstantPool = class {
     this.statements = [];
     this.literals = /* @__PURE__ */ new Map();
     this.literalFactories = /* @__PURE__ */ new Map();
+    this.sharedConstants = /* @__PURE__ */ new Map();
     this.nextNameIndex = 0;
   }
   getConstLiteral(literal2, forceShared) {
     if (literal2 instanceof LiteralExpr && !isLongStringLiteral(literal2) || literal2 instanceof FixupExpression) {
       return literal2;
     }
-    const key = this.keyOf(literal2);
+    const key = GenericKeyFn.INSTANCE.keyOf(literal2);
     let fixup = this.literals.get(key);
     let newValue = false;
     if (!fixup) {
@@ -8161,10 +8162,19 @@ var ConstantPool = class {
     }
     return fixup;
   }
+  getSharedConstant(def, expr) {
+    const key = def.keyOf(expr);
+    if (!this.sharedConstants.has(key)) {
+      const id = this.freshName();
+      this.sharedConstants.set(key, variable(id));
+      this.statements.push(def.toSharedConstantDeclaration(id, expr));
+    }
+    return this.sharedConstants.get(key);
+  }
   getLiteralFactory(literal2) {
     if (literal2 instanceof LiteralArrayExpr) {
       const argumentsForKey = literal2.entries.map((e) => e.isConstant() ? e : UNKNOWN_VALUE_KEY);
-      const key = this.keyOf(literalArr(argumentsForKey));
+      const key = GenericKeyFn.INSTANCE.keyOf(literalArr(argumentsForKey));
       return this._getLiteralFactory(key, literal2.entries, (entries) => literalArr(entries));
     } else {
       const expressionForKey = literalMap(literal2.entries.map((e) => ({
@@ -8172,7 +8182,7 @@ var ConstantPool = class {
         value: e.value.isConstant() ? e.value : UNKNOWN_VALUE_KEY,
         quoted: e.quoted
       })));
-      const key = this.keyOf(expressionForKey);
+      const key = GenericKeyFn.INSTANCE.keyOf(expressionForKey);
       return this._getLiteralFactory(key, literal2.entries.map((e) => e.value), (entries) => literalMap(entries.map((value, index2) => ({
         key: literal2.entries[index2].key,
         value,
@@ -8200,58 +8210,44 @@ var ConstantPool = class {
   freshName() {
     return this.uniqueName(CONSTANT_PREFIX);
   }
-  keyOf(expression) {
-    return expression.visitExpression(new KeyVisitor(), KEY_CONTEXT);
+};
+var _GenericKeyFn = class {
+  keyOf(expr) {
+    if (expr instanceof LiteralExpr && typeof expr.value === "string") {
+      return `"${expr.value}"`;
+    } else if (expr instanceof LiteralExpr) {
+      return String(expr.value);
+    } else if (expr instanceof LiteralArrayExpr) {
+      const entries = [];
+      for (const entry of expr.entries) {
+        entries.push(this.keyOf(entry));
+      }
+      return `[${entries.join(",")}]`;
+    } else if (expr instanceof LiteralMapExpr) {
+      const entries = [];
+      for (const entry of expr.entries) {
+        let key = entry.key;
+        if (entry.quoted) {
+          key = `"${key}"`;
+        }
+        entries.push(key + ":" + this.keyOf(entry.value));
+      }
+      return `{${entries.join(",")}}`;
+    } else if (expr instanceof ExternalExpr) {
+      return `import("${expr.value.moduleName}", ${expr.value.name})`;
+    } else if (expr instanceof ReadVarExpr) {
+      return `read(${expr.name})`;
+    } else if (expr instanceof TypeofExpr) {
+      return `typeof(${this.keyOf(expr.expr)})`;
+    } else {
+      throw new Error(`${this.constructor.name} does not handle expressions of type ${expr.constructor.name}`);
+    }
   }
 };
-var KeyVisitor = class {
-  constructor() {
-    this.visitWrappedNodeExpr = invalid$1;
-    this.visitWriteVarExpr = invalid$1;
-    this.visitWriteKeyExpr = invalid$1;
-    this.visitWritePropExpr = invalid$1;
-    this.visitInvokeFunctionExpr = invalid$1;
-    this.visitTaggedTemplateExpr = invalid$1;
-    this.visitInstantiateExpr = invalid$1;
-    this.visitConditionalExpr = invalid$1;
-    this.visitNotExpr = invalid$1;
-    this.visitAssertNotNullExpr = invalid$1;
-    this.visitCastExpr = invalid$1;
-    this.visitFunctionExpr = invalid$1;
-    this.visitUnaryOperatorExpr = invalid$1;
-    this.visitBinaryOperatorExpr = invalid$1;
-    this.visitReadPropExpr = invalid$1;
-    this.visitReadKeyExpr = invalid$1;
-    this.visitCommaExpr = invalid$1;
-    this.visitLocalizedString = invalid$1;
-  }
-  visitLiteralExpr(ast) {
-    return `${typeof ast.value === "string" ? '"' + ast.value + '"' : ast.value}`;
-  }
-  visitLiteralArrayExpr(ast, context) {
-    return `[${ast.entries.map((entry) => entry.visitExpression(this, context)).join(",")}]`;
-  }
-  visitLiteralMapExpr(ast, context) {
-    const mapKey = (entry) => {
-      const quote = entry.quoted ? '"' : "";
-      return `${quote}${entry.key}${quote}`;
-    };
-    const mapEntry = (entry) => `${mapKey(entry)}:${entry.value.visitExpression(this, context)}`;
-    return `{${ast.entries.map(mapEntry).join(",")}`;
-  }
-  visitExternalExpr(ast) {
-    return ast.value.moduleName ? `EX:${ast.value.moduleName}:${ast.value.name}` : `EX:${ast.value.runtime.name}`;
-  }
-  visitReadVarExpr(node) {
-    return `VAR:${node.name}`;
-  }
-  visitTypeofExpr(node, context) {
-    return `TYPEOF:${node.expr.visitExpression(this, context)}`;
-  }
-};
-function invalid$1(arg) {
-  throw new Error(`Invalid state: Visitor ${this.constructor.name} doesn't handle ${arg.constructor.name}`);
-}
+var GenericKeyFn = _GenericKeyFn;
+(() => {
+  _GenericKeyFn.INSTANCE = new _GenericKeyFn();
+})();
 function isVariable(e) {
   return e instanceof ReadVarExpr;
 }
@@ -12405,11 +12401,21 @@ var ShadowCss = class {
     this._animationDeclarationKeyframesRe = /(^|\s+)(?:(?:(['"])((?:\\\\|\\\2|(?!\2).)+)\2)|(-?[A-Za-z][\w\-]*))(?=[,\s]|$)/g;
   }
   shimCssText(cssText, selector, hostSelector = "") {
-    const commentsWithHash = extractCommentsWithHash(cssText);
-    cssText = stripComments(cssText);
+    const comments = [];
+    cssText = cssText.replace(_commentRe, (m) => {
+      var _a2;
+      if (m.match(_commentWithHashRe)) {
+        comments.push(m);
+      } else {
+        const newLinesMatches = m.match(_newLinesRe);
+        comments.push(((_a2 = newLinesMatches == null ? void 0 : newLinesMatches.join("")) != null ? _a2 : "") + "\n");
+      }
+      return COMMENT_PLACEHOLDER;
+    });
     cssText = this._insertDirectives(cssText);
     const scopedCssText = this._scopeCssText(cssText, selector, hostSelector);
-    return [scopedCssText, ...commentsWithHash].join("\n");
+    let commentIdx = 0;
+    return scopedCssText.replace(_commentWithHashPlaceHolderRe, () => comments[commentIdx++]);
   }
   _insertDirectives(cssText) {
     cssText = this._insertPolyfillDirectivesInCssText(cssText);
@@ -12674,17 +12680,14 @@ var _selectorReSuffix = "([>\\s~+[.,{:][\\s\\S]*)?$";
 var _polyfillHostRe = /-shadowcsshost/gim;
 var _colonHostRe = /:host/gim;
 var _colonHostContextRe = /:host-context/gim;
+var _newLinesRe = /\r?\n/g;
 var _commentRe = /\/\*[\s\S]*?\*\//g;
+var _commentWithHashRe = /\/\*\s*#\s*source(Mapping)?URL=/g;
+var COMMENT_PLACEHOLDER = "%COMMENT%";
+var _commentWithHashPlaceHolderRe = new RegExp(COMMENT_PLACEHOLDER, "g");
 var _placeholderRe = /__ph-(\d+)__/g;
-function stripComments(input) {
-  return input.replace(_commentRe, "");
-}
-var _commentWithHashRe = /\/\*\s*#\s*source(Mapping)?URL=[\s\S]+?\*\//g;
-function extractCommentsWithHash(input) {
-  return input.match(_commentWithHashRe) || [];
-}
 var BLOCK_PLACEHOLDER = "%BLOCK%";
-var _ruleRe = /(\s*)([^;\{\}]+?)(\s*)((?:{%BLOCK%}?\s*;?)|(?:\s*;))/g;
+var _ruleRe = new RegExp(`(\\s*(?:${COMMENT_PLACEHOLDER}\\s*)*)([^;\\{\\}]+?)(\\s*)((?:{%BLOCK%}?\\s*;?)|(?:\\s*;))`, "g");
 var CONTENT_PAIRS = /* @__PURE__ */ new Map([["{", "}"]]);
 var COMMA_IN_PLACEHOLDER = "%COMMA_IN_PLACEHOLDER%";
 var SEMI_IN_PLACEHOLDER = "%SEMI_IN_PLACEHOLDER%";
@@ -12951,7 +12954,9 @@ var OpKind;
   OpKind2[OpKind2["Listener"] = 11] = "Listener";
   OpKind2[OpKind2["InterpolateText"] = 12] = "InterpolateText";
   OpKind2[OpKind2["Property"] = 13] = "Property";
-  OpKind2[OpKind2["Advance"] = 14] = "Advance";
+  OpKind2[OpKind2["InterpolateProperty"] = 14] = "InterpolateProperty";
+  OpKind2[OpKind2["Advance"] = 15] = "Advance";
+  OpKind2[OpKind2["Pipe"] = 16] = "Pipe";
 })(OpKind || (OpKind = {}));
 var ExpressionKind;
 (function(ExpressionKind2) {
@@ -12963,6 +12968,10 @@ var ExpressionKind;
   ExpressionKind2[ExpressionKind2["GetCurrentView"] = 5] = "GetCurrentView";
   ExpressionKind2[ExpressionKind2["RestoreView"] = 6] = "RestoreView";
   ExpressionKind2[ExpressionKind2["ResetView"] = 7] = "ResetView";
+  ExpressionKind2[ExpressionKind2["PureFunctionExpr"] = 8] = "PureFunctionExpr";
+  ExpressionKind2[ExpressionKind2["PureFunctionParameterExpr"] = 9] = "PureFunctionParameterExpr";
+  ExpressionKind2[ExpressionKind2["PipeBinding"] = 10] = "PipeBinding";
+  ExpressionKind2[ExpressionKind2["PipeBindingVariadic"] = 11] = "PipeBindingVariadic";
 })(ExpressionKind || (ExpressionKind = {}));
 var SemanticVariableKind;
 (function(SemanticVariableKind2) {
@@ -12973,7 +12982,8 @@ var SemanticVariableKind;
 var ConsumesSlot = Symbol("ConsumesSlot");
 var DependsOnSlotContext = Symbol("DependsOnSlotContext");
 var UsesSlotIndex = Symbol("UsesSlotIndex");
-var ConsumesVarsTrait = Symbol("UsesVars");
+var ConsumesVarsTrait = Symbol("ConsumesVars");
+var UsesVarOffset = Symbol("UsesVarOffset");
 var TRAIT_CONSUMES_SLOT = {
   [ConsumesSlot]: true,
   slot: null,
@@ -12989,6 +12999,10 @@ var TRAIT_DEPENDS_ON_SLOT_CONTEXT = {
 var TRAIT_CONSUMES_VARS = {
   [ConsumesVarsTrait]: true
 };
+var TRAIT_USES_VAR_OFFSET = {
+  [UsesVarOffset]: true,
+  varOffset: null
+};
 function hasConsumesSlotTrait(op) {
   return op[ConsumesSlot] === true;
 }
@@ -12998,10 +13012,24 @@ function hasDependsOnSlotContextTrait(op) {
 function hasConsumesVarsTrait(value) {
   return value[ConsumesVarsTrait] === true;
 }
+function hasUsesVarOffsetTrait(expr) {
+  return expr[UsesVarOffset] === true;
+}
 function hasUsesSlotIndexTrait(value) {
   return value[UsesSlotIndex] === true;
 }
 var _a;
+var _b;
+var _c;
+var _d;
+var _e;
+var _f;
+var _g;
+var _h;
+var _j;
+function isIrExpression(expr) {
+  return expr instanceof ExpressionBase;
+}
 var ExpressionBase = class extends Expression {
   constructor(sourceSpan = null) {
     super(null, sourceSpan);
@@ -13165,6 +13193,128 @@ var ReadVariableExpr = class extends ExpressionBase {
   transformInternalExpressions() {
   }
 };
+var _PureFunctionExpr = class extends ExpressionBase {
+  constructor(expression, args) {
+    super();
+    this.kind = ExpressionKind.PureFunctionExpr;
+    this[_b] = true;
+    this[_c] = true;
+    this.varOffset = null;
+    this.fn = null;
+    this.body = expression;
+    this.args = args;
+  }
+  visitExpression(visitor, context) {
+    var _a2;
+    (_a2 = this.body) == null ? void 0 : _a2.visitExpression(visitor, context);
+    for (const arg of this.args) {
+      arg.visitExpression(visitor, context);
+    }
+  }
+  isEquivalent(other) {
+    if (!(other instanceof _PureFunctionExpr) || other.args.length !== this.args.length) {
+      return false;
+    }
+    return other.body !== null && this.body !== null && other.body.isEquivalent(this.body) && other.args.every((arg, idx) => arg.isEquivalent(this.args[idx]));
+  }
+  isConstant() {
+    return false;
+  }
+  transformInternalExpressions(transform, flags) {
+    if (this.body !== null) {
+      this.body = transformExpressionsInExpression(this.body, transform, flags | VisitorContextFlag.InChildOperation);
+    } else if (this.fn !== null) {
+      this.fn = transformExpressionsInExpression(this.fn, transform, flags);
+    }
+    for (let i = 0; i < this.args.length; i++) {
+      this.args[i] = transformExpressionsInExpression(this.args[i], transform, flags);
+    }
+  }
+};
+var PureFunctionExpr = _PureFunctionExpr;
+(() => {
+  _b = ConsumesVarsTrait, _c = UsesVarOffset;
+})();
+var PureFunctionParameterExpr = class extends ExpressionBase {
+  constructor(index2) {
+    super();
+    this.index = index2;
+    this.kind = ExpressionKind.PureFunctionParameterExpr;
+  }
+  visitExpression() {
+  }
+  isEquivalent(other) {
+    return other instanceof PureFunctionParameterExpr && other.index === this.index;
+  }
+  isConstant() {
+    return true;
+  }
+  transformInternalExpressions() {
+  }
+};
+var PipeBindingExpr = class extends ExpressionBase {
+  constructor(target, name, args) {
+    super();
+    this.target = target;
+    this.name = name;
+    this.args = args;
+    this.kind = ExpressionKind.PipeBinding;
+    this[_d] = true;
+    this[_e] = true;
+    this[_f] = true;
+    this.slot = null;
+    this.varOffset = null;
+  }
+  visitExpression(visitor, context) {
+    for (const arg of this.args) {
+      arg.visitExpression(visitor, context);
+    }
+  }
+  isEquivalent() {
+    return false;
+  }
+  isConstant() {
+    return false;
+  }
+  transformInternalExpressions(transform, flags) {
+    for (let idx = 0; idx < this.args.length; idx++) {
+      this.args[idx] = transformExpressionsInExpression(this.args[idx], transform, flags);
+    }
+  }
+};
+(() => {
+  _d = UsesSlotIndex, _e = ConsumesVarsTrait, _f = UsesVarOffset;
+})();
+var PipeBindingVariadicExpr = class extends ExpressionBase {
+  constructor(target, name, args, numArgs) {
+    super();
+    this.target = target;
+    this.name = name;
+    this.args = args;
+    this.numArgs = numArgs;
+    this.kind = ExpressionKind.PipeBindingVariadic;
+    this[_g] = true;
+    this[_h] = true;
+    this[_j] = true;
+    this.slot = null;
+    this.varOffset = null;
+  }
+  visitExpression(visitor, context) {
+    this.args.visitExpression(visitor, context);
+  }
+  isEquivalent() {
+    return false;
+  }
+  isConstant() {
+    return false;
+  }
+  transformInternalExpressions(transform, flags) {
+    this.args = transformExpressionsInExpression(this.args, transform, flags);
+  }
+};
+(() => {
+  _g = UsesSlotIndex, _h = ConsumesVarsTrait, _j = UsesVarOffset;
+})();
 function visitExpressionsInOp(op, visitor) {
   transformExpressionsInOp(op, (expr, flags) => {
     visitor(expr, flags);
@@ -13180,6 +13330,11 @@ function transformExpressionsInOp(op, transform, flags) {
   switch (op.kind) {
     case OpKind.Property:
       op.expression = transformExpressionsInExpression(op.expression, transform, flags);
+      break;
+    case OpKind.InterpolateProperty:
+      for (let i = 0; i < op.expressions.length; i++) {
+        op.expressions[i] = transformExpressionsInExpression(op.expressions[i], transform, flags);
+      }
       break;
     case OpKind.Statement:
       transformExpressionsInStatement(op.statement, transform, flags);
@@ -13205,6 +13360,7 @@ function transformExpressionsInOp(op, transform, flags) {
     case OpKind.ContainerEnd:
     case OpKind.Template:
     case OpKind.Text:
+    case OpKind.Pipe:
     case OpKind.Advance:
       break;
     default:
@@ -13214,7 +13370,6 @@ function transformExpressionsInOp(op, transform, flags) {
 function transformExpressionsInExpression(expr, transform, flags) {
   if (expr instanceof ExpressionBase) {
     expr.transformInternalExpressions(transform, flags);
-    return transform(expr, flags);
   } else if (expr instanceof BinaryOperatorExpr) {
     expr.lhs = transformExpressionsInExpression(expr.lhs, transform, flags);
     expr.rhs = transformExpressionsInExpression(expr.rhs, transform, flags);
@@ -13223,16 +13378,37 @@ function transformExpressionsInExpression(expr, transform, flags) {
   } else if (expr instanceof ReadKeyExpr) {
     expr.receiver = transformExpressionsInExpression(expr.receiver, transform, flags);
     expr.index = transformExpressionsInExpression(expr.index, transform, flags);
+  } else if (expr instanceof WritePropExpr) {
+    expr.receiver = transformExpressionsInExpression(expr.receiver, transform, flags);
+    expr.value = transformExpressionsInExpression(expr.value, transform, flags);
+  } else if (expr instanceof WriteKeyExpr) {
+    expr.receiver = transformExpressionsInExpression(expr.receiver, transform, flags);
+    expr.index = transformExpressionsInExpression(expr.index, transform, flags);
+    expr.value = transformExpressionsInExpression(expr.value, transform, flags);
   } else if (expr instanceof InvokeFunctionExpr) {
     expr.fn = transformExpressionsInExpression(expr.fn, transform, flags);
     for (let i = 0; i < expr.args.length; i++) {
       expr.args[i] = transformExpressionsInExpression(expr.args[i], transform, flags);
     }
+  } else if (expr instanceof LiteralArrayExpr) {
+    for (let i = 0; i < expr.entries.length; i++) {
+      expr.entries[i] = transformExpressionsInExpression(expr.entries[i], transform, flags);
+    }
+  } else if (expr instanceof LiteralMapExpr) {
+    for (let i = 0; i < expr.entries.length; i++) {
+      expr.entries[i].value = transformExpressionsInExpression(expr.entries[i].value, transform, flags);
+    }
+  } else if (expr instanceof ConditionalExpr) {
+    expr.condition = transformExpressionsInExpression(expr.condition, transform, flags);
+    expr.trueCase = transformExpressionsInExpression(expr.trueCase, transform, flags);
+    if (expr.falseCase !== null) {
+      expr.falseCase = transformExpressionsInExpression(expr.falseCase, transform, flags);
+    }
   } else if (expr instanceof ReadVarExpr || expr instanceof ExternalExpr || expr instanceof LiteralExpr) {
   } else {
     throw new Error(`Unhandled expression kind: ${expr.constructor.name}`);
   }
-  return expr;
+  return transform(expr, flags);
 }
 function transformExpressionsInStatement(stmt, transform, flags) {
   if (stmt instanceof ExpressionStatement) {
@@ -13372,10 +13548,12 @@ var _OpList = class {
     op.next = null;
   }
   static insertBefore(op, before) {
-    _OpList.assertIsNotEnd(before);
+    _OpList.assertIsOwned(before);
+    if (before.prev === null) {
+      throw new Error(`AssertionError: illegal operation on list start`);
+    }
     _OpList.assertIsNotEnd(op);
     _OpList.assertIsUnowned(op);
-    _OpList.assertIsOwned(before);
     op.debugListId = before.debugListId;
     op.prev = null;
     before.prev.next = op;
@@ -13467,6 +13645,13 @@ function createListenerOp(target, name, tag) {
     handlerFnName: null
   }, NEW_OP), TRAIT_USES_SLOT_INDEX);
 }
+function createPipeOp(xref, name) {
+  return __spreadValues(__spreadValues({
+    kind: OpKind.Pipe,
+    xref,
+    name
+  }, NEW_OP), TRAIT_CONSUMES_SLOT);
+}
 function createInterpolateTextOp(xref, strings, expressions) {
   return __spreadValues(__spreadValues(__spreadValues({
     kind: OpKind.InterpolateText,
@@ -13481,6 +13666,15 @@ function createPropertyOp(xref, name, expression) {
     target: xref,
     name,
     expression
+  }, TRAIT_DEPENDS_ON_SLOT_CONTEXT), TRAIT_CONSUMES_VARS), NEW_OP);
+}
+function createInterpolatePropertyOp(xref, name, strings, expressions) {
+  return __spreadValues(__spreadValues(__spreadValues({
+    kind: OpKind.InterpolateProperty,
+    target: xref,
+    name,
+    strings,
+    expressions
   }, TRAIT_DEPENDS_ON_SLOT_CONTEXT), TRAIT_CONSUMES_VARS), NEW_OP);
 }
 function createAdvanceOp(delta) {
@@ -13626,6 +13820,12 @@ function listener(name, handlerFn) {
     handlerFn
   ]);
 }
+function pipe(slot, name) {
+  return call(Identifiers.pipe, [
+    literal(slot),
+    literal(name)
+  ]);
+}
 function advance(delta) {
   return call(Identifiers.advance, [
     literal(delta)
@@ -13665,6 +13865,30 @@ function property(name, expression) {
     expression
   ]);
 }
+var PIPE_BINDINGS = [
+  Identifiers.pipeBind1,
+  Identifiers.pipeBind2,
+  Identifiers.pipeBind3,
+  Identifiers.pipeBind4
+];
+function pipeBind(slot, varOffset, args) {
+  if (args.length < 1 || args.length > PIPE_BINDINGS.length) {
+    throw new Error(`pipeBind() argument count out of bounds`);
+  }
+  const instruction = PIPE_BINDINGS[args.length - 1];
+  return importExpr(instruction).callFn([
+    literal(slot),
+    literal(varOffset),
+    ...args
+  ]);
+}
+function pipeBindV(slot, varOffset, args) {
+  return importExpr(Identifiers.pipeBindV).callFn([
+    literal(slot),
+    literal(varOffset),
+    args
+  ]);
+}
 function textInterpolate(strings, expressions) {
   if (strings.length < 1 || expressions.length !== strings.length - 1) {
     throw new Error(`AssertionError: expected specific shape of args for strings/expressions in interpolation`);
@@ -13679,7 +13903,29 @@ function textInterpolate(strings, expressions) {
     }
     interpolationArgs.push(literal(strings[idx]));
   }
-  return callInterpolation(TEXT_INTERPOLATE_CONFIG, [], interpolationArgs);
+  return callVariadicInstruction(TEXT_INTERPOLATE_CONFIG, [], interpolationArgs);
+}
+function propertyInterpolate(name, strings, expressions) {
+  if (strings.length < 1 || expressions.length !== strings.length - 1) {
+    throw new Error(`AssertionError: expected specific shape of args for strings/expressions in interpolation`);
+  }
+  const interpolationArgs = [];
+  if (expressions.length === 1 && strings[0] === "" && strings[1] === "") {
+    interpolationArgs.push(expressions[0]);
+  } else {
+    let idx;
+    for (idx = 0; idx < expressions.length; idx++) {
+      interpolationArgs.push(literal(strings[idx]), expressions[idx]);
+    }
+    interpolationArgs.push(literal(strings[idx]));
+  }
+  return callVariadicInstruction(PROPERTY_INTERPOLATE_CONFIG, [literal(name)], interpolationArgs);
+}
+function pureFunction(varOffset, fn2, args) {
+  return callVariadicInstructionExpr(PURE_FUNCTION_CONFIG, [
+    literal(varOffset),
+    fn2
+  ], args);
 }
 function call(instruction, args) {
   return createStatementOp(importExpr(instruction).callFn(args).toStmt());
@@ -13696,18 +13942,61 @@ var TEXT_INTERPOLATE_CONFIG = {
     Identifiers.textInterpolate7,
     Identifiers.textInterpolate8
   ],
-  variable: Identifiers.textInterpolateV
+  variable: Identifiers.textInterpolateV,
+  mapping: (n) => {
+    if (n % 2 === 0) {
+      throw new Error(`Expected odd number of arguments`);
+    }
+    return (n - 1) / 2;
+  }
 };
-function callInterpolation(config, baseArgs, interpolationArgs) {
-  if (interpolationArgs.length % 2 === 0) {
-    throw new Error(`Expected odd number of interpolation arguments`);
+var PROPERTY_INTERPOLATE_CONFIG = {
+  constant: [
+    Identifiers.propertyInterpolate,
+    Identifiers.propertyInterpolate1,
+    Identifiers.propertyInterpolate2,
+    Identifiers.propertyInterpolate3,
+    Identifiers.propertyInterpolate4,
+    Identifiers.propertyInterpolate5,
+    Identifiers.propertyInterpolate6,
+    Identifiers.propertyInterpolate7,
+    Identifiers.propertyInterpolate8
+  ],
+  variable: Identifiers.propertyInterpolateV,
+  mapping: (n) => {
+    if (n % 2 === 0) {
+      throw new Error(`Expected odd number of arguments`);
+    }
+    return (n - 1) / 2;
   }
-  const n = (interpolationArgs.length - 1) / 2;
+};
+var PURE_FUNCTION_CONFIG = {
+  constant: [
+    Identifiers.pureFunction0,
+    Identifiers.pureFunction1,
+    Identifiers.pureFunction2,
+    Identifiers.pureFunction3,
+    Identifiers.pureFunction4,
+    Identifiers.pureFunction5,
+    Identifiers.pureFunction6,
+    Identifiers.pureFunction7,
+    Identifiers.pureFunction8
+  ],
+  variable: Identifiers.pureFunctionV,
+  mapping: (n) => n
+};
+function callVariadicInstructionExpr(config, baseArgs, interpolationArgs) {
+  const n = config.mapping(interpolationArgs.length);
   if (n < config.constant.length) {
-    return call(config.constant[n], [...baseArgs, ...interpolationArgs]);
+    return importExpr(config.constant[n]).callFn([...baseArgs, ...interpolationArgs]);
+  } else if (config.variable !== null) {
+    return importExpr(config.variable).callFn([...baseArgs, literalArr(interpolationArgs)]);
   } else {
-    return call(config.variable, [...baseArgs, literalArr(interpolationArgs)]);
+    throw new Error(`AssertionError: unable to call variadic function`);
   }
+}
+function callVariadicInstruction(config, baseArgs, interpolationArgs) {
+  return createStatementOp(callVariadicInstructionExpr(config, baseArgs, interpolationArgs).toStmt());
 }
 function phaseReify(cpl) {
   for (const [_, view] of cpl.views) {
@@ -13744,6 +14033,9 @@ function reifyCreateOperations(view, ops) {
         const childView = view.tpl.views.get(op.xref);
         OpList.replace(op, template(op.slot, variable(childView.fnName), childView.decls, childView.vars, op.tag, op.attributes));
         break;
+      case OpKind.Pipe:
+        OpList.replace(op, pipe(op.slot, op.name));
+        break;
       case OpKind.Listener:
         const listenerFn = reifyListenerHandler(view, op.handlerFnName, op.handlerOps);
         OpList.replace(op, listener(op.name, listenerFn));
@@ -13771,6 +14063,9 @@ function reifyUpdateOperations(_view, ops) {
       case OpKind.Property:
         OpList.replace(op, property(op.name, op.expression));
         break;
+      case OpKind.InterpolateProperty:
+        OpList.replace(op, propertyInterpolate(op.name, op.strings, op.expressions));
+        break;
       case OpKind.InterpolateText:
         OpList.replace(op, textInterpolate(op.strings, op.expressions));
         break;
@@ -13788,6 +14083,9 @@ function reifyUpdateOperations(_view, ops) {
   }
 }
 function reifyIrExpression(expr) {
+  if (!isIrExpression(expr)) {
+    return expr;
+  }
   switch (expr.kind) {
     case ExpressionKind.NextContext:
       return nextContext(expr.steps);
@@ -13809,6 +14107,17 @@ function reifyIrExpression(expr) {
         throw new Error(`Read of unnamed variable ${expr.xref}`);
       }
       return variable(expr.name);
+    case ExpressionKind.PureFunctionExpr:
+      if (expr.fn === null) {
+        throw new Error(`AssertionError: expected PureFunctions to have been extracted`);
+      }
+      return pureFunction(expr.varOffset, expr.fn, expr.args);
+    case ExpressionKind.PureFunctionParameterExpr:
+      throw new Error(`AssertionError: expected PureFunctionParameterExpr to have been extracted`);
+    case ExpressionKind.PipeBinding:
+      return pipeBind(expr.slot, expr.varOffset, expr.args);
+    case ExpressionKind.PipeBindingVariadic:
+      return pipeBindV(expr.slot, expr.varOffset, expr.args);
     default:
       throw new Error(`AssertionError: Unsupported reification of ir.Expression kind: ${ExpressionKind[expr.kind]}`);
   }
@@ -13868,6 +14177,9 @@ function phaseSlotAllocation(cpl) {
         op.slot = slotMap.get(op.target);
       }
       visitExpressionsInOp(op, (expr) => {
+        if (!isIrExpression(expr)) {
+          return;
+        }
         if (!hasUsesSlotIndexTrait(expr) || expr.slot !== null) {
           return;
         }
@@ -13887,6 +14199,12 @@ function phaseVarCounting(cpl) {
         varCount += varsUsedByOp(op);
       }
       visitExpressionsInOp(op, (expr) => {
+        if (!isIrExpression(expr)) {
+          return;
+        }
+        if (hasUsesVarOffsetTrait(expr)) {
+          expr.varOffset = varCount;
+        }
         if (hasConsumesVarsTrait(expr)) {
           varCount += varsUsedByIrExpression(expr);
         }
@@ -13910,12 +14228,23 @@ function varsUsedByOp(op) {
       return 1;
     case OpKind.InterpolateText:
       return op.expressions.length;
+    case OpKind.InterpolateProperty:
+      return 1 + op.expressions.length;
     default:
       throw new Error(`Unhandled op: ${OpKind[op.kind]}`);
   }
 }
 function varsUsedByIrExpression(expr) {
-  return 0;
+  switch (expr.kind) {
+    case ExpressionKind.PureFunctionExpr:
+      return 1 + expr.args.length;
+    case ExpressionKind.PipeBinding:
+      return 1 + expr.args.length;
+    case ExpressionKind.PipeBindingVariadic:
+      return 1 + expr.numArgs;
+    default:
+      throw new Error(`AssertionError: unhandled ConsumesVarsTrait expression ${expr.constructor.name}`);
+  }
 }
 function phaseNaming(cpl) {
   addNamesToView(cpl.root, cpl.componentName, { index: 0 });
@@ -14279,6 +14608,9 @@ function collectOpInfo(op) {
   let fences = Fence.None;
   const variablesUsed = /* @__PURE__ */ new Set();
   visitExpressionsInOp(op, (expr) => {
+    if (!isIrExpression(expr)) {
+      return;
+    }
     switch (expr.kind) {
       case ExpressionKind.ReadVariable:
         variablesUsed.add(expr.xref);
@@ -14291,6 +14623,9 @@ function collectOpInfo(op) {
 }
 function countVariableUsages(op, varUsages, varRemoteUsage) {
   visitExpressionsInOp(op, (expr, flags) => {
+    if (!isIrExpression(expr)) {
+      return;
+    }
     if (expr.kind !== ExpressionKind.ReadVariable) {
       return;
     }
@@ -14306,6 +14641,9 @@ function countVariableUsages(op, varUsages, varRemoteUsage) {
 }
 function uncountVariableUsages(op, varUsages) {
   visitExpressionsInOp(op, (expr) => {
+    if (!isIrExpression(expr)) {
+      return;
+    }
     if (expr.kind !== ExpressionKind.ReadVariable) {
       return;
     }
@@ -14334,6 +14672,9 @@ function tryInlineVariableInitializer(id, initializer, target, declFences) {
   let inlined = false;
   let inliningAllowed = true;
   transformExpressionsInOp(target, (expr, flags) => {
+    if (!isIrExpression(expr)) {
+      return expr;
+    }
     if (inlined || !inliningAllowed) {
       return expr;
     } else if (flags & VisitorContextFlag.InChildOperation && declFences & Fence.ViewContextRead) {
@@ -14428,6 +14769,9 @@ function mergeNextContextsInOps(ops) {
     let tryToMerge = true;
     for (let candidate = op.next; candidate.kind !== OpKind.ListEnd && tryToMerge; candidate = candidate.next) {
       visitExpressionsInOp(candidate, (expr, flags) => {
+        if (!isIrExpression(expr)) {
+          return expr;
+        }
         if (!tryToMerge) {
           return;
         }
@@ -14495,7 +14839,170 @@ function phaseSaveRestoreView(cpl) {
     }
   }
 }
+function phasePureFunctionExtraction(cpl) {
+  for (const view of cpl.views.values()) {
+    for (const op of view.ops()) {
+      visitExpressionsInOp(op, (expr) => {
+        if (!(expr instanceof PureFunctionExpr) || expr.body === null) {
+          return;
+        }
+        const constantDef = new PureFunctionConstant(expr.args.length);
+        expr.fn = cpl.pool.getSharedConstant(constantDef, expr.body);
+        expr.body = null;
+      });
+    }
+  }
+}
+var PureFunctionConstant = class extends GenericKeyFn {
+  constructor(numArgs) {
+    super();
+    this.numArgs = numArgs;
+  }
+  keyOf(expr) {
+    if (expr instanceof PureFunctionParameterExpr) {
+      return `param(${expr.index})`;
+    } else {
+      return super.keyOf(expr);
+    }
+  }
+  toSharedConstantDeclaration(declName, keyExpr) {
+    const fnParams = [];
+    for (let idx = 0; idx < this.numArgs; idx++) {
+      fnParams.push(new FnParam("_p" + idx));
+    }
+    const returnExpr = transformExpressionsInExpression(keyExpr, (expr) => {
+      if (!(expr instanceof PureFunctionParameterExpr)) {
+        return expr;
+      }
+      return variable("_p" + expr.index);
+    }, VisitorContextFlag.None);
+    return new DeclareFunctionStmt(declName, fnParams, [new ReturnStatement(returnExpr)]);
+  }
+};
+function phasePipeCreation(cpl) {
+  for (const view of cpl.views.values()) {
+    processPipeBindingsInView(view);
+  }
+}
+function processPipeBindingsInView(view) {
+  for (const updateOp of view.update) {
+    visitExpressionsInOp(updateOp, (expr, flags) => {
+      if (!isIrExpression(expr)) {
+        return;
+      }
+      if (expr.kind !== ExpressionKind.PipeBinding) {
+        return;
+      }
+      if (flags & VisitorContextFlag.InChildOperation) {
+        throw new Error(`AssertionError: pipe bindings should not appear in child expressions`);
+      }
+      if (!hasDependsOnSlotContextTrait(updateOp)) {
+        throw new Error(`AssertionError: pipe binding associated with non-slot operation ${OpKind[updateOp.kind]}`);
+      }
+      addPipeToCreationBlock(view, updateOp.target, expr);
+    });
+  }
+}
+function addPipeToCreationBlock(view, afterTargetXref, binding) {
+  for (let op = view.create.head.next; op.kind !== OpKind.ListEnd; op = op.next) {
+    if (!hasConsumesSlotTrait(op)) {
+      continue;
+    }
+    if (op.xref !== afterTargetXref) {
+      continue;
+    }
+    while (op.next.kind === OpKind.Pipe) {
+      op = op.next;
+    }
+    const pipe2 = createPipeOp(binding.target, binding.name);
+    OpList.insertBefore(pipe2, op.next);
+    return;
+  }
+  throw new Error(`AssertionError: unable to find insertion point for pipe ${binding.name}`);
+}
+function phasePipeVariadic(cpl) {
+  for (const view of cpl.views.values()) {
+    for (const op of view.update) {
+      transformExpressionsInOp(op, (expr) => {
+        if (!(expr instanceof PipeBindingExpr)) {
+          return expr;
+        }
+        if (expr.args.length <= 4) {
+          return expr;
+        }
+        return new PipeBindingVariadicExpr(expr.target, expr.name, literalArr(expr.args), expr.args.length);
+      }, VisitorContextFlag.None);
+    }
+  }
+}
+function phasePureLiteralStructures(cpl) {
+  for (const view of cpl.views.values()) {
+    for (const op of view.update) {
+      transformExpressionsInOp(op, (expr, flags) => {
+        if (flags & VisitorContextFlag.InChildOperation) {
+          return expr;
+        }
+        if (expr instanceof LiteralArrayExpr) {
+          return transformLiteralArray(expr);
+        } else if (expr instanceof LiteralMapExpr) {
+          return transformLiteralMap(expr);
+        }
+        return expr;
+      }, VisitorContextFlag.None);
+    }
+  }
+}
+function transformLiteralArray(expr) {
+  const derivedEntries = [];
+  const nonConstantArgs = [];
+  for (const entry of expr.entries) {
+    if (entry.isConstant()) {
+      derivedEntries.push(entry);
+    } else {
+      const idx = nonConstantArgs.length;
+      nonConstantArgs.push(entry);
+      derivedEntries.push(new PureFunctionParameterExpr(idx));
+    }
+  }
+  return new PureFunctionExpr(literalArr(derivedEntries), nonConstantArgs);
+}
+function transformLiteralMap(expr) {
+  let derivedEntries = [];
+  const nonConstantArgs = [];
+  for (const entry of expr.entries) {
+    if (entry.value.isConstant()) {
+      derivedEntries.push(entry);
+    } else {
+      const idx = nonConstantArgs.length;
+      nonConstantArgs.push(entry.value);
+      derivedEntries.push(new LiteralMapEntry(entry.key, new PureFunctionParameterExpr(idx), entry.quoted));
+    }
+  }
+  return new PureFunctionExpr(literalMap(derivedEntries), nonConstantArgs);
+}
+function phaseAlignPipeVariadicVarOffset(cpl) {
+  for (const view of cpl.views.values()) {
+    for (const op of view.update) {
+      visitExpressionsInOp(op, (expr) => {
+        if (!(expr instanceof PipeBindingVariadicExpr)) {
+          return expr;
+        }
+        if (!(expr.args instanceof PureFunctionExpr)) {
+          return expr;
+        }
+        if (expr.varOffset === null || expr.args.varOffset === null) {
+          throw new Error(`Must run after variable counting`);
+        }
+        expr.varOffset = expr.args.varOffset;
+        expr.args.varOffset = expr.varOffset + varsUsedByIrExpression(expr);
+      });
+    }
+  }
+}
 function transformTemplate(cpl) {
+  phasePipeCreation(cpl);
+  phasePipeVariadic(cpl);
+  phasePureLiteralStructures(cpl);
   phaseGenerateVariables(cpl);
   phaseSaveRestoreView(cpl);
   phaseResolveNames(cpl);
@@ -14510,6 +15017,8 @@ function transformTemplate(cpl) {
   phaseMergeNextContext(cpl);
   phaseNgContainer(cpl);
   phaseEmptyElements(cpl);
+  phasePureFunctionExtraction(cpl);
+  phaseAlignPipeVariadicVarOffset(cpl);
   phaseReify(cpl);
   phaseChaining(cpl);
 }
@@ -14571,8 +15080,9 @@ function maybeGenerateRfBlock(flag, statements) {
   ];
 }
 var ComponentCompilation = class {
-  constructor(componentName) {
+  constructor(componentName, pool) {
     this.componentName = componentName;
+    this.pool = pool;
     this.nextXrefId = 0;
     this.views = /* @__PURE__ */ new Map();
     this.consts = [];
@@ -14644,8 +15154,8 @@ var BINARY_OPERATORS = /* @__PURE__ */ new Map([
   ["||", BinaryOperator.Or],
   ["+", BinaryOperator.Plus]
 ]);
-function ingest(componentName, template2) {
-  const cpl = new ComponentCompilation(componentName);
+function ingest(componentName, template2, constantPool) {
+  const cpl = new ComponentCompilation(componentName, constantPool);
   ingestNodes(cpl.root, template2);
   return cpl;
 }
@@ -14715,6 +15225,10 @@ function convertAst(ast, cpl) {
     } else {
       return new ReadPropExpr(convertAst(ast.receiver, cpl), ast.name);
     }
+  } else if (ast instanceof PropertyWrite) {
+    return new WritePropExpr(convertAst(ast.receiver, cpl), ast.name, convertAst(ast.value, cpl));
+  } else if (ast instanceof KeyedWrite) {
+    return new WriteKeyExpr(convertAst(ast.receiver, cpl), convertAst(ast.key, cpl), convertAst(ast.value, cpl));
   } else if (ast instanceof Call) {
     if (ast.receiver instanceof ImplicitReceiver) {
       throw new Error(`Unexpected ImplicitReceiver`);
@@ -14735,6 +15249,21 @@ function convertAst(ast, cpl) {
     return new ReadKeyExpr(convertAst(ast.receiver, cpl), convertAst(ast.key, cpl));
   } else if (ast instanceof Chain) {
     throw new Error(`AssertionError: Chain in unknown context`);
+  } else if (ast instanceof LiteralMap) {
+    const entries = ast.keys.map((key, idx) => {
+      const value = ast.values[idx];
+      return new LiteralMapEntry(key.key, convertAst(value, cpl), key.quoted);
+    });
+    return new LiteralMapExpr(entries);
+  } else if (ast instanceof LiteralArray) {
+    return new LiteralArrayExpr(ast.expressions.map((expr) => convertAst(expr, cpl)));
+  } else if (ast instanceof Conditional) {
+    return new ConditionalExpr(convertAst(ast.condition, cpl), convertAst(ast.trueExp, cpl), convertAst(ast.falseExp, cpl));
+  } else if (ast instanceof BindingPipe) {
+    return new PipeBindingExpr(cpl.allocateXrefId(), ast.name, [
+      convertAst(ast.exp, cpl),
+      ...ast.args.map((arg) => convertAst(arg, cpl))
+    ]);
   } else {
     throw new Error(`Unhandled expression type: ${ast.constructor.name}`);
   }
@@ -14758,15 +15287,15 @@ function ingestAttributes(op, element2) {
 }
 function ingestBindings(view, op, element2) {
   if (element2 instanceof Template) {
-    for (const input of [...element2.templateAttrs, ...element2.inputs]) {
-      if (!(input instanceof BoundAttribute)) {
+    for (const attr of [...element2.templateAttrs, ...element2.inputs]) {
+      if (!(attr instanceof BoundAttribute)) {
         continue;
       }
-      view.update.push(createPropertyOp(op.xref, input.name, convertAst(input.value, view.tpl)));
+      ingestPropertyBinding(view, op.xref, attr.name, attr.value);
     }
   } else {
     for (const input of element2.inputs) {
-      view.update.push(createPropertyOp(op.xref, input.name, convertAst(input.value, view.tpl)));
+      ingestPropertyBinding(view, op.xref, input.name, input.value);
     }
     for (const output of element2.outputs) {
       const listenerOp = createListenerOp(op.xref, output.name, op.tag);
@@ -14792,6 +15321,16 @@ function ingestBindings(view, op, element2) {
       listenerOp.handlerOps.push(createStatementOp(new ReturnStatement(returnExpr)));
       view.create.push(listenerOp);
     }
+  }
+}
+function ingestPropertyBinding(view, xref, name, value) {
+  if (value instanceof ASTWithSource) {
+    value = value.ast;
+  }
+  if (value instanceof Interpolation) {
+    view.update.push(createInterpolatePropertyOp(xref, name, value.strings, value.expressions.map((expr) => convertAst(expr, view.tpl))));
+  } else {
+    view.update.push(createPropertyOp(xref, name, convertAst(value, view.tpl)));
   }
 }
 function ingestReferences(op, element2) {
@@ -16918,7 +17457,7 @@ var HtmlTagDefinition = class {
 var DEFAULT_TAG_DEFINITION;
 var TAG_DEFINITIONS;
 function getHtmlTagDefinition(tagName) {
-  var _a2, _b;
+  var _a2, _b2;
   if (!TAG_DEFINITIONS) {
     DEFAULT_TAG_DEFINITION = new HtmlTagDefinition({ canSelfClose: true });
     TAG_DEFINITIONS = {
@@ -17003,7 +17542,7 @@ function getHtmlTagDefinition(tagName) {
       }
     });
   }
-  return (_b = (_a2 = TAG_DEFINITIONS[tagName]) != null ? _a2 : TAG_DEFINITIONS[tagName.toLowerCase()]) != null ? _b : DEFAULT_TAG_DEFINITION;
+  return (_b2 = (_a2 = TAG_DEFINITIONS[tagName]) != null ? _a2 : TAG_DEFINITIONS[tagName.toLowerCase()]) != null ? _b2 : DEFAULT_TAG_DEFINITION;
 }
 var NAMED_ENTITIES = {
   "AElig": "\xC6",
@@ -21750,11 +22289,11 @@ var LocalizeSerializerVisitor = class {
     this.pieces.push(new LiteralPiece(serializeIcuNode(icu), icu.sourceSpan));
   }
   visitTagPlaceholder(ph) {
-    var _a2, _b;
+    var _a2, _b2;
     this.pieces.push(this.createPlaceholderPiece(ph.startName, (_a2 = ph.startSourceSpan) != null ? _a2 : ph.sourceSpan));
     if (!ph.isVoid) {
       ph.children.forEach((child) => child.visit(this));
-      this.pieces.push(this.createPlaceholderPiece(ph.closeName, (_b = ph.endSourceSpan) != null ? _b : ph.sourceSpan));
+      this.pieces.push(this.createPlaceholderPiece(ph.closeName, (_b2 = ph.endSourceSpan) != null ? _b2 : ph.sourceSpan));
     }
   }
   visitPlaceholder(ph) {
@@ -22143,7 +22682,7 @@ var TemplateDefinitionBuilder = class {
     }
   }
   visitElement(element2) {
-    var _a2, _b;
+    var _a2, _b2;
     const elementIndex = this.allocateDataSlot();
     const stylingBuilder = new StylingBuilder(null);
     let isNonBindableMode = false;
@@ -22301,7 +22840,7 @@ var TemplateDefinitionBuilder = class {
       this.i18n.appendElement(element2.i18n, elementIndex, true);
     }
     if (!createSelfClosingInstruction) {
-      const span = (_b = element2.endSourceSpan) != null ? _b : element2.sourceSpan;
+      const span = (_b2 = element2.endSourceSpan) != null ? _b2 : element2.sourceSpan;
       if (isI18nRootElement) {
         this.i18nEnd(span, createSelfClosingI18nInstruction);
       }
@@ -22630,26 +23169,26 @@ var ValueConverter = class extends AstMemoryEfficientTransformer {
     this.definePipe = definePipe;
     this._pipeBindExprs = [];
   }
-  visitPipe(pipe, context) {
+  visitPipe(pipe2, context) {
     const slot = this.allocateSlot();
     const slotPseudoLocal = `PIPE:${slot}`;
-    const pureFunctionSlot = this.allocatePureFunctionSlots(2 + pipe.args.length);
-    const target = new PropertyRead(pipe.span, pipe.sourceSpan, pipe.nameSpan, new ImplicitReceiver(pipe.span, pipe.sourceSpan), slotPseudoLocal);
-    const { identifier, isVarLength } = pipeBindingCallInfo(pipe.args);
-    this.definePipe(pipe.name, slotPseudoLocal, slot, importExpr(identifier));
-    const args = [pipe.exp, ...pipe.args];
-    const convertedArgs = isVarLength ? this.visitAll([new LiteralArray(pipe.span, pipe.sourceSpan, args)]) : this.visitAll(args);
-    const pipeBindExpr = new Call(pipe.span, pipe.sourceSpan, target, [
-      new LiteralPrimitive(pipe.span, pipe.sourceSpan, slot),
-      new LiteralPrimitive(pipe.span, pipe.sourceSpan, pureFunctionSlot),
+    const pureFunctionSlot = this.allocatePureFunctionSlots(2 + pipe2.args.length);
+    const target = new PropertyRead(pipe2.span, pipe2.sourceSpan, pipe2.nameSpan, new ImplicitReceiver(pipe2.span, pipe2.sourceSpan), slotPseudoLocal);
+    const { identifier, isVarLength } = pipeBindingCallInfo(pipe2.args);
+    this.definePipe(pipe2.name, slotPseudoLocal, slot, importExpr(identifier));
+    const args = [pipe2.exp, ...pipe2.args];
+    const convertedArgs = isVarLength ? this.visitAll([new LiteralArray(pipe2.span, pipe2.sourceSpan, args)]) : this.visitAll(args);
+    const pipeBindExpr = new Call(pipe2.span, pipe2.sourceSpan, target, [
+      new LiteralPrimitive(pipe2.span, pipe2.sourceSpan, slot),
+      new LiteralPrimitive(pipe2.span, pipe2.sourceSpan, pureFunctionSlot),
       ...convertedArgs
     ], null);
     this._pipeBindExprs.push(pipeBindExpr);
     return pipeBindExpr;
   }
   updatePipeSlotOffsets(bindingSlots) {
-    this._pipeBindExprs.forEach((pipe) => {
-      const slotOffset = pipe.args[1];
+    this._pipeBindExprs.forEach((pipe2) => {
+      const slotOffset = pipe2.args[1];
       slotOffset.value += bindingSlots;
     });
   }
@@ -23201,7 +23740,7 @@ function compileComponentFromMetadata(meta, constantPool, bindingParser) {
     }
     definitionMap.set("template", templateFunctionExpression);
   } else {
-    const tpl = ingest(meta.name, meta.template.nodes);
+    const tpl = ingest(meta.name, meta.template.nodes, constantPool);
     transformTemplate(tpl);
     const templateFn = emitTemplateFn(tpl, constantPool);
     definitionMap.set("decls", literal(tpl.root.decls));
@@ -23249,7 +23788,9 @@ function createComponentType(meta) {
   typeParams.push(stringArrayAsType(meta.template.ngContentSelectors));
   typeParams.push(expressionType(literal(meta.isStandalone)));
   typeParams.push(createHostDirectivesType(meta));
-  typeParams.push(expressionType(literal(meta.isSignal)));
+  if (meta.isSignal) {
+    typeParams.push(expressionType(literal(meta.isSignal)));
+  }
   return expressionType(importExpr(Identifiers.ComponentDeclaration, typeParams));
 }
 function compileDeclarationList(list2, mode) {
@@ -23349,7 +23890,9 @@ function createDirectiveType(meta) {
   typeParams.push(NONE_TYPE);
   typeParams.push(expressionType(literal(meta.isStandalone)));
   typeParams.push(createHostDirectivesType(meta));
-  typeParams.push(expressionType(literal(meta.isSignal)));
+  if (meta.isSignal) {
+    typeParams.push(expressionType(literal(meta.isSignal)));
+  }
   return expressionType(importExpr(Identifiers.DirectiveDeclaration, typeParams));
 }
 function createViewQueriesFunction(viewQueries, constantPool, name) {
@@ -23827,15 +24370,15 @@ function convertToR3QueryMetadata(facade) {
   });
 }
 function convertQueryDeclarationToMetadata(declaration) {
-  var _a2, _b, _c, _d;
+  var _a2, _b2, _c2, _d2;
   return {
     propertyName: declaration.propertyName,
     first: (_a2 = declaration.first) != null ? _a2 : false,
     predicate: convertQueryPredicate(declaration.predicate),
-    descendants: (_b = declaration.descendants) != null ? _b : false,
+    descendants: (_b2 = declaration.descendants) != null ? _b2 : false,
     read: declaration.read ? new WrappedNodeExpr(declaration.read) : null,
-    static: (_c = declaration.static) != null ? _c : false,
-    emitDistinctChangesOnly: (_d = declaration.emitDistinctChangesOnly) != null ? _d : true
+    static: (_c2 = declaration.static) != null ? _c2 : false,
+    emitDistinctChangesOnly: (_d2 = declaration.emitDistinctChangesOnly) != null ? _d2 : true
   };
 }
 function convertQueryPredicate(predicate) {
@@ -23879,35 +24422,35 @@ function convertDirectiveFacadeToMetadata(facade) {
   });
 }
 function convertDeclareDirectiveFacadeToMetadata(declaration, typeSourceSpan) {
-  var _a2, _b, _c, _d, _e, _f, _g, _h, _i;
+  var _a2, _b2, _c2, _d2, _e2, _f2, _g2, _h2, _i;
   return {
     name: declaration.type.name,
     type: wrapReference(declaration.type),
     typeSourceSpan,
     selector: (_a2 = declaration.selector) != null ? _a2 : null,
     inputs: declaration.inputs ? inputsMappingToInputMetadata(declaration.inputs) : {},
-    outputs: (_b = declaration.outputs) != null ? _b : {},
+    outputs: (_b2 = declaration.outputs) != null ? _b2 : {},
     host: convertHostDeclarationToMetadata(declaration.host),
-    queries: ((_c = declaration.queries) != null ? _c : []).map(convertQueryDeclarationToMetadata),
-    viewQueries: ((_d = declaration.viewQueries) != null ? _d : []).map(convertQueryDeclarationToMetadata),
+    queries: ((_c2 = declaration.queries) != null ? _c2 : []).map(convertQueryDeclarationToMetadata),
+    viewQueries: ((_d2 = declaration.viewQueries) != null ? _d2 : []).map(convertQueryDeclarationToMetadata),
     providers: declaration.providers !== void 0 ? new WrappedNodeExpr(declaration.providers) : null,
-    exportAs: (_e = declaration.exportAs) != null ? _e : null,
-    usesInheritance: (_f = declaration.usesInheritance) != null ? _f : false,
-    lifecycle: { usesOnChanges: (_g = declaration.usesOnChanges) != null ? _g : false },
+    exportAs: (_e2 = declaration.exportAs) != null ? _e2 : null,
+    usesInheritance: (_f2 = declaration.usesInheritance) != null ? _f2 : false,
+    lifecycle: { usesOnChanges: (_g2 = declaration.usesOnChanges) != null ? _g2 : false },
     deps: null,
     typeArgumentCount: 0,
     fullInheritance: false,
-    isStandalone: (_h = declaration.isStandalone) != null ? _h : false,
+    isStandalone: (_h2 = declaration.isStandalone) != null ? _h2 : false,
     isSignal: (_i = declaration.isSignal) != null ? _i : false,
     hostDirectives: convertHostDirectivesToMetadata(declaration)
   };
 }
 function convertHostDeclarationToMetadata(host = {}) {
-  var _a2, _b, _c;
+  var _a2, _b2, _c2;
   return {
     attributes: convertOpaqueValuesToExpressions((_a2 = host.attributes) != null ? _a2 : {}),
-    listeners: (_b = host.listeners) != null ? _b : {},
-    properties: (_c = host.properties) != null ? _c : {},
+    listeners: (_b2 = host.listeners) != null ? _b2 : {},
+    properties: (_c2 = host.properties) != null ? _c2 : {},
     specialAttributes: {
       classAttr: host.classAttribute,
       styleAttr: host.styleAttribute
@@ -23941,7 +24484,7 @@ function convertOpaqueValuesToExpressions(obj) {
   return result;
 }
 function convertDeclareComponentFacadeToMetadata(decl2, typeSourceSpan, sourceMapUrl) {
-  var _a2, _b, _c, _d;
+  var _a2, _b2, _c2, _d2;
   const { template: template2, interpolation } = parseJitTemplate(decl2.template, decl2.type.name, sourceMapUrl, (_a2 = decl2.preserveWhitespaces) != null ? _a2 : false, decl2.interpolation);
   const declarations = [];
   if (decl2.dependencies) {
@@ -23963,12 +24506,12 @@ function convertDeclareComponentFacadeToMetadata(decl2, typeSourceSpan, sourceMa
   }
   return __spreadProps(__spreadValues({}, convertDeclareDirectiveFacadeToMetadata(decl2, typeSourceSpan)), {
     template: template2,
-    styles: (_b = decl2.styles) != null ? _b : [],
+    styles: (_b2 = decl2.styles) != null ? _b2 : [],
     declarations,
     viewProviders: decl2.viewProviders !== void 0 ? new WrappedNodeExpr(decl2.viewProviders) : null,
     animations: decl2.animations !== void 0 ? new WrappedNodeExpr(decl2.animations) : null,
-    changeDetection: (_c = decl2.changeDetection) != null ? _c : ChangeDetectionStrategy.Default,
-    encapsulation: (_d = decl2.encapsulation) != null ? _d : ViewEncapsulation.Emulated,
+    changeDetection: (_c2 = decl2.changeDetection) != null ? _c2 : ChangeDetectionStrategy.Default,
+    encapsulation: (_d2 = decl2.encapsulation) != null ? _d2 : ViewEncapsulation.Emulated,
     interpolation,
     declarationListEmitMode: 2,
     relativeContextFilePath: "",
@@ -23981,15 +24524,15 @@ function convertDeclarationFacadeToMetadata(declaration) {
   });
 }
 function convertDirectiveDeclarationToMetadata(declaration, isComponent = null) {
-  var _a2, _b, _c;
+  var _a2, _b2, _c2;
   return {
     kind: R3TemplateDependencyKind.Directive,
     isComponent: isComponent || declaration.kind === "component",
     selector: declaration.selector,
     type: new WrappedNodeExpr(declaration.type),
     inputs: (_a2 = declaration.inputs) != null ? _a2 : [],
-    outputs: (_b = declaration.outputs) != null ? _b : [],
-    exportAs: (_c = declaration.exportAs) != null ? _c : null
+    outputs: (_b2 = declaration.outputs) != null ? _b2 : [],
+    exportAs: (_c2 = declaration.exportAs) != null ? _c2 : null
   };
 }
 function convertPipeMapToMetadata(pipes) {
@@ -24004,11 +24547,11 @@ function convertPipeMapToMetadata(pipes) {
     };
   });
 }
-function convertPipeDeclarationToMetadata(pipe) {
+function convertPipeDeclarationToMetadata(pipe2) {
   return {
     kind: R3TemplateDependencyKind.Pipe,
-    name: pipe.name,
-    type: new WrappedNodeExpr(pipe.type)
+    name: pipe2.name,
+    type: new WrappedNodeExpr(pipe2.type)
   };
 }
 function parseJitTemplate(template2, typeName, sourceMapUrl, preserveWhitespaces, interpolation) {
@@ -24048,10 +24591,10 @@ function convertR3DependencyMetadata(facade) {
   return createR3DependencyMetadata(token, isAttributeDep, facade.host, facade.optional, facade.self, facade.skipSelf);
 }
 function convertR3DeclareDependencyMetadata(facade) {
-  var _a2, _b, _c, _d, _e;
+  var _a2, _b2, _c2, _d2, _e2;
   const isAttributeDep = (_a2 = facade.attribute) != null ? _a2 : false;
   const token = facade.token === null ? null : new WrappedNodeExpr(facade.token);
-  return createR3DependencyMetadata(token, isAttributeDep, (_b = facade.host) != null ? _b : false, (_c = facade.optional) != null ? _c : false, (_d = facade.self) != null ? _d : false, (_e = facade.skipSelf) != null ? _e : false);
+  return createR3DependencyMetadata(token, isAttributeDep, (_b2 = facade.host) != null ? _b2 : false, (_c2 = facade.optional) != null ? _c2 : false, (_d2 = facade.self) != null ? _d2 : false, (_e2 = facade.skipSelf) != null ? _e2 : false);
 }
 function createR3DependencyMetadata(token, isAttributeDep, host, optional, self2, skipSelf) {
   const attributeNameType = isAttributeDep ? literal("unknown") : null;
@@ -24102,7 +24645,7 @@ function inputsMappingToInputMetadata(inputs) {
       result[key] = {
         bindingPropertyName: value[0],
         classPropertyName: value[1],
-        transformFunction: value[2] || null,
+        transformFunction: value[2] ? new WrappedNodeExpr(value[2]) : null,
         required: false
       };
     }
@@ -24142,7 +24685,7 @@ function parseMappingString(value) {
   return [bindingPropertyName != null ? bindingPropertyName : fieldName, fieldName];
 }
 function convertDeclarePipeFacadeToMetadata(declaration) {
-  var _a2, _b;
+  var _a2, _b2;
   return {
     name: declaration.type.name,
     type: wrapReference(declaration.type),
@@ -24150,7 +24693,7 @@ function convertDeclarePipeFacadeToMetadata(declaration) {
     pipeName: declaration.name,
     deps: null,
     pure: (_a2 = declaration.pure) != null ? _a2 : true,
-    isStandalone: (_b = declaration.isStandalone) != null ? _b : false
+    isStandalone: (_b2 = declaration.isStandalone) != null ? _b2 : false
   };
 }
 function convertDeclareInjectorFacadeToMetadata(declaration) {
@@ -24165,7 +24708,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("16.1.0-next.3");
+var VERSION = new Version("16.1.1");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -25991,16 +26534,16 @@ var RuntimeCodeMigration = class extends import_schematics3.Migration {
     (_a2 = this._updates) == null ? void 0 : _a2.sort((a, b) => b.offset - a.offset).forEach(({ update }) => update());
   }
   _isReferenceToImport(node, importSpecifier) {
-    var _a2, _b, _c, _d;
+    var _a2, _b2, _c2, _d2;
     if ((importSpecifier.propertyName || importSpecifier.name).text !== node.text) {
       return false;
     }
     const nodeSymbol = this.typeChecker.getTypeAtLocation(node).getSymbol();
     const importSymbol = this.typeChecker.getTypeAtLocation(importSpecifier).getSymbol();
     if (!nodeSymbol && !importSymbol) {
-      return ((_b = (_a2 = this.typeChecker.getSymbolAtLocation(node)) == null ? void 0 : _a2.declarations) == null ? void 0 : _b[0]) === importSpecifier;
+      return ((_b2 = (_a2 = this.typeChecker.getSymbolAtLocation(node)) == null ? void 0 : _a2.declarations) == null ? void 0 : _b2[0]) === importSpecifier;
     }
-    return !!(((_c = nodeSymbol == null ? void 0 : nodeSymbol.declarations) == null ? void 0 : _c[0]) && ((_d = importSymbol == null ? void 0 : importSymbol.declarations) == null ? void 0 : _d[0])) && nodeSymbol.declarations[0] === importSymbol.declarations[0];
+    return !!(((_c2 = nodeSymbol == null ? void 0 : nodeSymbol.declarations) == null ? void 0 : _c2[0]) && ((_d2 = importSymbol == null ? void 0 : importSymbol.declarations) == null ? void 0 : _d2[0])) && nodeSymbol.declarations[0] === importSymbol.declarations[0];
   }
   _removeLegacy(name) {
     const legacyRegex = /legacy[_-]?/i;
@@ -26104,7 +26647,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v16.1.0-next.3
+ * @license Angular v16.1.1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */

@@ -201,7 +201,7 @@ export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewCh
     /** Sets a new SVG icon with a particular name. */
     private _updateSvgIcon;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, [null, null, { attribute: "aria-hidden"; }, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": { "alias": "color"; "required": false; }; "inline": { "alias": "inline"; "required": false; }; "svgIcon": { "alias": "svgIcon"; "required": false; }; "fontSet": { "alias": "fontSet"; "required": false; }; "fontIcon": { "alias": "fontIcon"; "required": false; }; }, {}, never, ["*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": { "alias": "color"; "required": false; }; "inline": { "alias": "inline"; "required": false; }; "svgIcon": { "alias": "svgIcon"; "required": false; }; "fontSet": { "alias": "fontSet"; "required": false; }; "fontIcon": { "alias": "fontIcon"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 /** @docs-private */
