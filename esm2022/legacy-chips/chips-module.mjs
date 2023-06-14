@@ -26,8 +26,8 @@ const CHIP_DECLARATIONS = [
  * @breaking-change 17.0.0
  */
 export class MatLegacyChipsModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacyChipsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.0", ngImport: i0, type: MatLegacyChipsModule, declarations: [MatLegacyChipList,
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacyChipsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.1", ngImport: i0, type: MatLegacyChipsModule, declarations: [MatLegacyChipList,
             MatLegacyChip,
             MatLegacyChipInput,
             MatLegacyChipRemove,
@@ -38,7 +38,7 @@ export class MatLegacyChipsModule {
             MatLegacyChipRemove,
             MatLegacyChipAvatar,
             MatLegacyChipTrailingIcon] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacyChipsModule, providers: [
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacyChipsModule, providers: [
             ErrorStateMatcher,
             {
                 provide: MAT_LEGACY_CHIPS_DEFAULT_OPTIONS,
@@ -48,7 +48,7 @@ export class MatLegacyChipsModule {
             },
         ], imports: [MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacyChipsModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacyChipsModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule],

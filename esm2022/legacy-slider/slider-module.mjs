@@ -15,11 +15,11 @@ import * as i0 from "@angular/core";
  * @breaking-change 17.0.0
  */
 export class MatLegacySliderModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacySliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.0", ngImport: i0, type: MatLegacySliderModule, declarations: [MatLegacySlider], imports: [CommonModule, MatCommonModule], exports: [MatLegacySlider, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacySliderModule, imports: [CommonModule, MatCommonModule, MatCommonModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacySliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.1", ngImport: i0, type: MatLegacySliderModule, declarations: [MatLegacySlider], imports: [CommonModule, MatCommonModule], exports: [MatLegacySlider, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacySliderModule, imports: [CommonModule, MatCommonModule, MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacySliderModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacySliderModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, MatCommonModule],

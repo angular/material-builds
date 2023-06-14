@@ -25,7 +25,7 @@ export declare class MatLegacyInput extends MatInput {
     private _legacyFormField;
     protected _getPlaceholder(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyInput, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], {}, {}, never, never, false, never>;
 }
 
 /**

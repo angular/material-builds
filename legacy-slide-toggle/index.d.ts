@@ -62,7 +62,7 @@ export declare class MatLegacySlideToggle extends _MatLegacySlideToggleBase<MatL
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacySlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacySlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 export { _MatLegacySlideToggleBase }

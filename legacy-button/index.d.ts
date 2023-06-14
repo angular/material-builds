@@ -44,7 +44,7 @@ export declare class MatLegacyAnchor extends MatLegacyButton implements AfterVie
     ngOnDestroy(): void;
     _haltDisabledEvents: (event: Event) => void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyAnchor, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyAnchor, "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab],             a[mat-mini-fab], a[mat-stroked-button], a[mat-flat-button]", ["matButton", "matAnchor"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyAnchor, "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab],             a[mat-mini-fab], a[mat-stroked-button], a[mat-flat-button]", ["matButton", "matAnchor"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 /**
@@ -71,7 +71,7 @@ export declare class MatLegacyButton extends _MatButtonBase implements AfterView
     /** Gets whether the button has one of the given attributes. */
     _hasHostAttributes(...attributes: string[]): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyButton, [null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyButton, "button[mat-button], button[mat-raised-button], button[mat-icon-button],             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],             button[mat-flat-button]", ["matButton"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, ["*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyButton, "button[mat-button], button[mat-raised-button], button[mat-icon-button],             button[mat-fab], button[mat-mini-fab], button[mat-stroked-button],             button[mat-flat-button]", ["matButton"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 /**

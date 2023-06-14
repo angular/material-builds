@@ -19,11 +19,11 @@ import * as i0 from "@angular/core";
  * @breaking-change 17.0.0
  */
 export class MatLegacySnackBarModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacySnackBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.0", ngImport: i0, type: MatLegacySnackBarModule, declarations: [MatLegacySnackBarContainer, LegacySimpleSnackBar], imports: [OverlayModule, PortalModule, CommonModule, MatLegacyButtonModule, MatCommonModule], exports: [MatLegacySnackBarContainer, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacySnackBarModule, imports: [OverlayModule, PortalModule, CommonModule, MatLegacyButtonModule, MatCommonModule, MatCommonModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacySnackBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.1", ngImport: i0, type: MatLegacySnackBarModule, declarations: [MatLegacySnackBarContainer, LegacySimpleSnackBar], imports: [OverlayModule, PortalModule, CommonModule, MatLegacyButtonModule, MatCommonModule], exports: [MatLegacySnackBarContainer, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacySnackBarModule, imports: [OverlayModule, PortalModule, CommonModule, MatLegacyButtonModule, MatCommonModule, MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatLegacySnackBarModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatLegacySnackBarModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [OverlayModule, PortalModule, CommonModule, MatLegacyButtonModule, MatCommonModule],

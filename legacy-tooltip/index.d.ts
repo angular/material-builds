@@ -57,7 +57,7 @@ export declare class LegacyTooltipComponent extends _TooltipComponentBase {
     _tooltip: ElementRef<HTMLElement>;
     constructor(changeDetectorRef: ChangeDetectorRef, breakpointObserver: BreakpointObserver, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<LegacyTooltipComponent, [null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<LegacyTooltipComponent, "mat-tooltip-component", never, {}, {}, never, never, false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<LegacyTooltipComponent, "mat-tooltip-component", never, {}, {}, never, never, false, never>;
 }
 
 export { LegacyTooltipPosition }
@@ -89,7 +89,7 @@ export declare class MatLegacyTooltip extends _MatTooltipBase<LegacyTooltipCompo
     protected readonly _tooltipComponent: typeof LegacyTooltipComponent;
     constructor(overlay: Overlay, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, viewContainerRef: ViewContainerRef, ngZone: NgZone, platform: Platform, ariaDescriber: AriaDescriber, focusMonitor: FocusMonitor, scrollStrategy: any, dir: Directionality, defaultOptions: MatLegacyTooltipDefaultOptions, _document: any);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyTooltip, [null, null, null, null, null, null, null, null, null, { optional: true; }, { optional: true; }, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyTooltip, "[matTooltip]", ["matTooltip"], {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyTooltip, "[matTooltip]", ["matTooltip"], {}, {}, never, never, false, never>;
 }
 
 /**

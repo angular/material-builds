@@ -73,7 +73,7 @@ export declare class MatLegacyMenu extends _MatMenuBase {
      */
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatLegacyMenuDefaultOptions);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyMenu, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyMenu, "mat-menu", ["matMenu"], {}, {}, never, ["*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyMenu, "mat-menu", ["matMenu"], {}, {}, never, ["*"], false, never>;
 }
 
 export { matLegacyMenuAnimations }
@@ -85,7 +85,7 @@ export { matLegacyMenuAnimations }
  */
 export declare class MatLegacyMenuContent extends _MatMenuContentBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyMenuContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, false, never>;
 }
 
 export { MatLegacyMenuDefaultOptions }
@@ -97,7 +97,7 @@ export { MatLegacyMenuDefaultOptions }
  */
 export declare class MatLegacyMenuItem extends MatMenuItem {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyMenuItem, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 /**
@@ -119,7 +119,7 @@ export { MatLegacyMenuPanel }
  */
 export declare class MatLegacyMenuTrigger extends _MatMenuTriggerBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyMenuTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], {}, {}, never, never, false, never>;
 }
 
 export { transformLegacyMenu }

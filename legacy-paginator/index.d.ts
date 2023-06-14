@@ -47,7 +47,7 @@ export declare class MatLegacyPaginator extends _MatLegacyPaginatorBase<MatLegac
     _formFieldAppearance?: MatLegacyFormFieldAppearance;
     constructor(intl: MatLegacyPaginatorIntl, changeDetectorRef: ChangeDetectorRef, defaults?: MatLegacyPaginatorDefaultOptions);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyPaginator, [null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyPaginator, "mat-paginator", ["matPaginator"], { "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyPaginator, "mat-paginator", ["matPaginator"], { "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 export { _MatLegacyPaginatorBase }

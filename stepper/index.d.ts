@@ -105,7 +105,7 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, [null, { skipSelf: true; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": { "alias": "color"; "required": false; }; }, {}, ["stepLabel", "_lazyContent"], ["*"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": { "alias": "color"; "required": false; }; }, {}, ["stepLabel", "_lazyContent"], ["*"], false, never>;
 }
 
 /**
@@ -115,7 +115,7 @@ export declare class MatStepContent {
     _template: TemplateRef<any>;
     constructor(_template: TemplateRef<any>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never, never, false, never>;
 }
 
 export declare class MatStepHeader extends _MatStepHeaderBase implements AfterViewInit, OnDestroy, CanColor {
@@ -157,7 +157,7 @@ export declare class MatStepHeader extends _MatStepHeaderBase implements AfterVi
     _getIconContext(): MatStepperIconContext;
     _getDefaultTextForState(state: StepState): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepHeader, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "color": { "alias": "color"; "required": false; }; "state": { "alias": "state"; "required": false; }; "label": { "alias": "label"; "required": false; }; "errorMessage": { "alias": "errorMessage"; "required": false; }; "iconOverrides": { "alias": "iconOverrides"; "required": false; }; "index": { "alias": "index"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "active": { "alias": "active"; "required": false; }; "optional": { "alias": "optional"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "color": { "alias": "color"; "required": false; }; "state": { "alias": "state"; "required": false; }; "label": { "alias": "label"; "required": false; }; "errorMessage": { "alias": "errorMessage"; "required": false; }; "iconOverrides": { "alias": "iconOverrides"; "required": false; }; "index": { "alias": "index"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "active": { "alias": "active"; "required": false; }; "optional": { "alias": "optional"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** @docs-private */
@@ -172,7 +172,7 @@ declare const _MatStepHeaderBase: _Constructor<CanColor> & _AbstractConstructor<
 
 export declare class MatStepLabel extends CdkStepLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepLabel, "[matStepLabel]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepLabel, "[matStepLabel]", never, {}, {}, never, never, false, never>;
 }
 
 export declare class MatStepper extends CdkStepper implements AfterContentInit {
@@ -213,7 +213,7 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     _stepIsNavigable(index: number, step: MatStep): boolean;
     _getAnimationDuration(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, [{ optional: true; }, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never, false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never, false, never>;
 }
 
 /**
@@ -234,7 +234,7 @@ export declare class MatStepperIcon {
     name: StepState;
     constructor(templateRef: TemplateRef<MatStepperIconContext>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": { "alias": "matStepperIcon"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": { "alias": "matStepperIcon"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Template context available to an attached `matStepperIcon`. */
@@ -273,13 +273,13 @@ export declare class MatStepperModule {
 /** Button that moves to the next step in a stepper workflow. */
 export declare class MatStepperNext extends CdkStepperNext {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperNext, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperNext, "button[matStepperNext]", never, { "type": { "alias": "type"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperNext, "button[matStepperNext]", never, { "type": { "alias": "type"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Button that moves to the previous step in a stepper workflow. */
 export declare class MatStepperPrevious extends CdkStepperPrevious {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperPrevious, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperPrevious, "button[matStepperPrevious]", never, { "type": { "alias": "type"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperPrevious, "button[matStepperPrevious]", never, { "type": { "alias": "type"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 export { StepperOrientation }

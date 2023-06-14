@@ -23788,7 +23788,9 @@ function createComponentType(meta) {
   typeParams.push(stringArrayAsType(meta.template.ngContentSelectors));
   typeParams.push(expressionType(literal(meta.isStandalone)));
   typeParams.push(createHostDirectivesType(meta));
-  typeParams.push(expressionType(literal(meta.isSignal)));
+  if (meta.isSignal) {
+    typeParams.push(expressionType(literal(meta.isSignal)));
+  }
   return expressionType(importExpr(Identifiers.ComponentDeclaration, typeParams));
 }
 function compileDeclarationList(list2, mode) {
@@ -23888,7 +23890,9 @@ function createDirectiveType(meta) {
   typeParams.push(NONE_TYPE);
   typeParams.push(expressionType(literal(meta.isStandalone)));
   typeParams.push(createHostDirectivesType(meta));
-  typeParams.push(expressionType(literal(meta.isSignal)));
+  if (meta.isSignal) {
+    typeParams.push(expressionType(literal(meta.isSignal)));
+  }
   return expressionType(importExpr(Identifiers.DirectiveDeclaration, typeParams));
 }
 function createViewQueriesFunction(viewQueries, constantPool, name) {
@@ -24704,7 +24708,7 @@ function publishFacade(global2) {
   const ng = global2.ng || (global2.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("16.1.0");
+var VERSION = new Version("16.1.1");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -26643,7 +26647,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v16.1.0
+ * @license Angular v16.1.1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */

@@ -65,7 +65,7 @@ declare namespace i4 {
 /** Cell template container that adds the right classes and role. */
 export declare class MatCell extends CdkCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCell, "mat-cell, td[mat-cell]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCell, "mat-cell, td[mat-cell]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -74,7 +74,7 @@ export declare class MatCell extends CdkCell {
  */
 export declare class MatCellDef extends CdkCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCellDef, "[matCellDef]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCellDef, "[matCellDef]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -93,13 +93,13 @@ export declare class MatColumnDef extends CdkColumnDef {
      */
     protected _updateColumnCssClassName(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatColumnDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "sticky": { "alias": "sticky"; "required": false; }; "name": { "alias": "matColumnDef"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "sticky": { "alias": "sticky"; "required": false; }; "name": { "alias": "matColumnDef"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Footer cell template container that adds the right classes and role. */
 export declare class MatFooterCell extends CdkFooterCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCell, "mat-footer-cell, td[mat-footer-cell]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCell, "mat-footer-cell, td[mat-footer-cell]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -108,13 +108,13 @@ export declare class MatFooterCell extends CdkFooterCell {
  */
 export declare class MatFooterCellDef extends CdkFooterCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCellDef, "[matFooterCellDef]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCellDef, "[matFooterCellDef]", never, {}, {}, never, never, false, never>;
 }
 
 /** Footer template container that contains the cell outlet. Adds the right class and role. */
 export declare class MatFooterRow extends CdkFooterRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFooterRow, "mat-footer-row, tr[mat-footer-row]", ["matFooterRow"], {}, {}, never, never, false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFooterRow, "mat-footer-row, tr[mat-footer-row]", ["matFooterRow"], {}, {}, never, never, false, never>;
 }
 
 /**
@@ -123,13 +123,13 @@ export declare class MatFooterRow extends CdkFooterRow {
  */
 export declare class MatFooterRowDef extends CdkFooterRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterRowDef, "[matFooterRowDef]", never, { "columns": { "alias": "matFooterRowDef"; "required": false; }; "sticky": { "alias": "matFooterRowDefSticky"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterRowDef, "[matFooterRowDef]", never, { "columns": { "alias": "matFooterRowDef"; "required": false; }; "sticky": { "alias": "matFooterRowDefSticky"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends CdkHeaderCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCell, "mat-header-cell, th[mat-header-cell]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCell, "mat-header-cell, th[mat-header-cell]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -138,13 +138,13 @@ export declare class MatHeaderCell extends CdkHeaderCell {
  */
 export declare class MatHeaderCellDef extends CdkHeaderCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, false, never>;
 }
 
 /** Header template container that contains the cell outlet. Adds the right class and role. */
 export declare class MatHeaderRow extends CdkHeaderRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatHeaderRow, "mat-header-row, tr[mat-header-row]", ["matHeaderRow"], {}, {}, never, never, false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatHeaderRow, "mat-header-row, tr[mat-header-row]", ["matHeaderRow"], {}, {}, never, never, false, never>;
 }
 
 /**
@@ -153,14 +153,14 @@ export declare class MatHeaderRow extends CdkHeaderRow {
  */
 export declare class MatHeaderRowDef extends CdkHeaderRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderRowDef, "[matHeaderRowDef]", never, { "columns": { "alias": "matHeaderRowDef"; "required": false; }; "sticky": { "alias": "matHeaderRowDefSticky"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderRowDef, "[matHeaderRowDef]", never, { "columns": { "alias": "matHeaderRowDef"; "required": false; }; "sticky": { "alias": "matHeaderRowDefSticky"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Row that can be used to display a message when no data is shown in the table. */
 export declare class MatNoDataRow extends CdkNoDataRow {
     _contentClassName: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNoDataRow, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNoDataRow, "ng-template[matNoDataRow]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNoDataRow, "ng-template[matNoDataRow]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -169,13 +169,13 @@ export declare class MatNoDataRow extends CdkNoDataRow {
  */
 export declare class MatRecycleRows {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRecycleRows, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRecycleRows, "mat-table[recycleRows], table[mat-table][recycleRows]", never, {}, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRecycleRows, "mat-table[recycleRows], table[mat-table][recycleRows]", never, {}, {}, never, never, false, never>;
 }
 
 /** Data row template container that contains the cell outlet. Adds the right class and role. */
 export declare class MatRow extends CdkRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatRow, "mat-row, tr[mat-row]", ["matRow"], {}, {}, never, never, false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatRow, "mat-row, tr[mat-row]", ["matRow"], {}, {}, never, never, false, never>;
 }
 
 /**
@@ -185,7 +185,7 @@ export declare class MatRow extends CdkRow {
  */
 export declare class MatRowDef<T> extends CdkRowDef<T> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRowDef<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRowDef<any>, "[matRowDef]", never, { "columns": { "alias": "matRowDefColumns"; "required": false; }; "when": { "alias": "matRowDefWhen"; "required": false; }; }, {}, never, never, false, never, false>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRowDef<any>, "[matRowDef]", never, { "columns": { "alias": "matRowDefColumns"; "required": false; }; "when": { "alias": "matRowDefWhen"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 export declare class MatTable<T> extends CdkTable<T> implements OnInit {
@@ -195,7 +195,7 @@ export declare class MatTable<T> extends CdkTable<T> implements OnInit {
     protected needsPositionStickyOnElement: boolean;
     ngOnInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTable<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col"], false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col"], false, never>;
 }
 
 /**
@@ -379,7 +379,7 @@ export declare class MatTableModule {
  */
 export declare class MatTextColumn<T> extends CdkTextColumn<T> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTextColumn<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTextColumn<any>, "mat-text-column", never, {}, {}, never, never, false, never, false>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTextColumn<any>, "mat-text-column", never, {}, {}, never, never, false, never>;
 }
 
 export { }

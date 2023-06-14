@@ -13,8 +13,8 @@ import { MatDrawer, MatDrawerContainer, MatDrawerContent } from './drawer';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from './sidenav';
 import * as i0 from "@angular/core";
 export class MatSidenavModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatSidenavModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.0", ngImport: i0, type: MatSidenavModule, declarations: [MatDrawer,
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatSidenavModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.1", ngImport: i0, type: MatSidenavModule, declarations: [MatDrawer,
             MatDrawerContainer,
             MatDrawerContent,
             MatSidenav,
@@ -27,10 +27,10 @@ export class MatSidenavModule {
             MatSidenav,
             MatSidenavContainer,
             MatSidenavContent] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatSidenavModule, imports: [CommonModule, MatCommonModule, CdkScrollableModule, CdkScrollableModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatSidenavModule, imports: [CommonModule, MatCommonModule, CdkScrollableModule, CdkScrollableModule,
             MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.0", ngImport: i0, type: MatSidenavModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatSidenavModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [CommonModule, MatCommonModule, CdkScrollableModule],
