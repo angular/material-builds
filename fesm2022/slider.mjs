@@ -473,7 +473,7 @@ class MatSlider extends _MatSliderMixinBase {
         this._showTickMarks = false;
         this._min = 0;
         this._max = 100;
-        this._step = 0;
+        this._step = 1;
         /**
          * Function that will be used to format the value before it is displayed
          * in the thumb label. Can be used to format very large number in order
