@@ -101,6 +101,10 @@ export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixi
     /** Whether the slide-toggle element is checked or not. */
     get checked(): boolean;
     set checked(value: BooleanInput);
+    /** Whether to hide the icon inside of the slide toggle. */
+    get hideIcon(): boolean;
+    set hideIcon(value: BooleanInput);
+    private _hideIcon;
     /** An event will be dispatched each time the slide-toggle changes its value. */
     readonly change: EventEmitter<T>;
     /**
@@ -129,7 +133,7 @@ export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixi
      */
     protected _emitChangeEvent(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatSlideToggleBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSlideToggleBase<any>, never, never, { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSlideToggleBase<any>, never, never, { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, never, false, never>;
 }
 
 /** Change event object emitted by a slide toggle. */
@@ -151,6 +155,8 @@ export declare interface MatSlideToggleDefaultOptions {
     disableToggleValue?: boolean;
     /** Default color for slide toggles. */
     color?: ThemePalette;
+    /** Whether to hide the icon inside the slide toggle. */
+    hideIcon?: boolean;
 }
 
 /** @docs-private */
