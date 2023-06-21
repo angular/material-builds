@@ -13,7 +13,7 @@ import * as i2 from '@angular/cdk/a11y';
 import { Subject, Subscription } from 'rxjs';
 import * as i3$1 from '@angular/cdk/bidi';
 import { switchMap, map, startWith, takeUntil, distinctUntilChanged } from 'rxjs/operators';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 
 class MatStepLabel extends CdkStepLabel {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatStepLabel, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
@@ -165,7 +165,10 @@ const matStepperAnimations = {
         // making this element focusable inside of a `hidden` element.
         state('current', style({ transform: 'none', visibility: 'inherit' })),
         state('next', style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
-        transition('* => *', animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)'), {
+        transition('* => *', group([
+            animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)'),
+            query('@*', animateChild(), { optional: true }),
+        ]), {
             params: { 'animationDuration': DEFAULT_HORIZONTAL_ANIMATION_DURATION },
         }),
     ]),
@@ -177,7 +180,10 @@ const matStepperAnimations = {
         // because visibility on a child element the one from the parent,
         // making this element focusable inside of a `hidden` element.
         state('current', style({ height: '*', visibility: 'inherit' })),
-        transition('* <=> current', animate('{{animationDuration}} cubic-bezier(0.4, 0.0, 0.2, 1)'), {
+        transition('* <=> current', group([
+            animate('{{animationDuration}} cubic-bezier(0.4, 0.0, 0.2, 1)'),
+            query('@*', animateChild(), { optional: true }),
+        ]), {
             params: { 'animationDuration': DEFAULT_VERTICAL_ANIMATION_DURATION },
         }),
     ]),
