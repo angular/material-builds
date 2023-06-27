@@ -356,9 +356,9 @@ export declare class MatDialogContainer extends _MatDialogContainerBase implemen
     /** Host element of the dialog container component. */
     private _hostElement;
     /** Duration of the dialog open animation. */
-    private _openAnimationDuration;
+    private _enterAnimationDuration;
     /** Duration of the dialog close animation. */
-    private _closeAnimationDuration;
+    private _exitAnimationDuration;
     /** Current timer for dialog animations. */
     private _animationTimer;
     constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, document: any, dialogConfig: MatDialogConfig, checker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, _animationMode?: string | undefined, focusMonitor?: FocusMonitor);

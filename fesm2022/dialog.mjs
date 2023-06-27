@@ -156,11 +156,11 @@ class MatDialogContainer extends _MatDialogContainerBase {
         /** Host element of the dialog container component. */
         this._hostElement = this._elementRef.nativeElement;
         /** Duration of the dialog open animation. */
-        this._openAnimationDuration = this._animationsEnabled
+        this._enterAnimationDuration = this._animationsEnabled
             ? parseCssTime(this._config.enterAnimationDuration) ?? OPEN_ANIMATION_DURATION
             : 0;
         /** Duration of the dialog close animation. */
-        this._closeAnimationDuration = this._animationsEnabled
+        this._exitAnimationDuration = this._animationsEnabled
             ? parseCssTime(this._config.exitAnimationDuration) ?? CLOSE_ANIMATION_DURATION
             : 0;
         /** Current timer for dialog animations. */
@@ -171,7 +171,7 @@ class MatDialogContainer extends _MatDialogContainerBase {
          */
         this._finishDialogOpen = () => {
             this._clearAnimationClasses();
-            this._openAnimationDone(this._openAnimationDuration);
+            this._openAnimationDone(this._enterAnimationDuration);
         };
         /**
          * Completes the dialog close by clearing potential animation classes, restoring
@@ -179,7 +179,7 @@ class MatDialogContainer extends _MatDialogContainerBase {
          */
         this._finishDialogClose = () => {
             this._clearAnimationClasses();
-            this._animationStateChanged.emit({ state: 'closed', totalTime: this._closeAnimationDuration });
+            this._animationStateChanged.emit({ state: 'closed', totalTime: this._exitAnimationDuration });
         };
     }
     _contentAttached() {
@@ -205,14 +205,14 @@ class MatDialogContainer extends _MatDialogContainerBase {
     }
     /** Starts the dialog open animation if enabled. */
     _startOpenAnimation() {
-        this._animationStateChanged.emit({ state: 'opening', totalTime: this._openAnimationDuration });
+        this._animationStateChanged.emit({ state: 'opening', totalTime: this._enterAnimationDuration });
         if (this._animationsEnabled) {
-            this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._openAnimationDuration}ms`);
+            this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._enterAnimationDuration}ms`);
             // We need to give the `setProperty` call from above some time to be applied.
             // One would expect that the open class is added once the animation finished, but MDC
             // uses the open class in combination with the opening class to start the animation.
             this._requestAnimationFrame(() => this._hostElement.classList.add(OPENING_CLASS, OPEN_CLASS));
-            this._waitForAnimationToComplete(this._openAnimationDuration, this._finishDialogOpen);
+            this._waitForAnimationToComplete(this._enterAnimationDuration, this._finishDialogOpen);
         }
         else {
             this._hostElement.classList.add(OPEN_CLASS);
@@ -228,13 +228,13 @@ class MatDialogContainer extends _MatDialogContainerBase {
      * called by the dialog ref.
      */
     _startExitAnimation() {
-        this._animationStateChanged.emit({ state: 'closing', totalTime: this._closeAnimationDuration });
+        this._animationStateChanged.emit({ state: 'closing', totalTime: this._exitAnimationDuration });
         this._hostElement.classList.remove(OPEN_CLASS);
         if (this._animationsEnabled) {
-            this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._openAnimationDuration}ms`);
+            this._hostElement.style.setProperty(TRANSITION_DURATION_PROPERTY, `${this._exitAnimationDuration}ms`);
             // We need to give the `setProperty` call from above some time to be applied.
             this._requestAnimationFrame(() => this._hostElement.classList.add(CLOSING_CLASS));
-            this._waitForAnimationToComplete(this._closeAnimationDuration, this._finishDialogClose);
+            this._waitForAnimationToComplete(this._exitAnimationDuration, this._finishDialogClose);
         }
         else {
             // This subscription to the `OverlayRef#backdropClick` observable in the `DialogRef` is
