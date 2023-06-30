@@ -867,6 +867,9 @@ class _MatMenuTriggerBase {
         }
         this._closingActionsSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
         this._initMenu(menu);
+        if (this._panelClass) {
+            overlayRef.overlayElement.classList.add(this._panelClass);
+        }
         if (menu instanceof _MatMenuBase) {
             menu._startAnimation();
             menu._directDescendantItems.changes.pipe(takeUntil(menu.close)).subscribe(() => {
@@ -1215,6 +1218,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImpor
             }] } });
 /** Directive applied to an element that should trigger a `mat-menu`. */
 class MatMenuTrigger extends _MatMenuTriggerBase {
+    constructor() {
+        super(...arguments);
+        this._panelClass = 'mat-mdc-menu-panel-wrapper';
+    }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatMenuTrigger, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.1.1", type: MatMenuTrigger, selector: "[mat-menu-trigger-for], [matMenuTriggerFor]", host: { classAttribute: "mat-mdc-menu-trigger" }, exportAs: ["matMenuTrigger"], usesInheritance: true, ngImport: i0 }); }
 }
