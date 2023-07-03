@@ -340,7 +340,7 @@ export declare interface MatMenuDefaultOptions {
 }
 
 /**
- * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
+ * Single item inside a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
 export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOption, CanDisable, CanDisableRipple, AfterViewInit, OnDestroy {
     private _elementRef;
