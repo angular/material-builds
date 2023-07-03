@@ -29,7 +29,7 @@ const MAT_MENU_PANEL = new InjectionToken('MAT_MENU_PANEL');
 const _MatMenuItemBase = mixinDisableRipple(mixinDisabled(class {
 }));
 /**
- * Single item inside of a `mat-menu`. Provides the menu item styling and accessibility treatment.
+ * Single item inside a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
 class MatMenuItem extends _MatMenuItemBase {
     constructor(_elementRef, _document, _focusMonitor, _parentMenu, _changeDetectorRef) {
@@ -63,7 +63,7 @@ class MatMenuItem extends _MatMenuItemBase {
     }
     ngAfterViewInit() {
         if (this._focusMonitor) {
-            // Start monitoring the element so it gets the appropriate focused classes. We want
+            // Start monitoring the element, so it gets the appropriate focused classes. We want
             // to show the focus style for menu items only when the focus was not caused by a
             // mouse or touch interaction.
             this._focusMonitor.monitor(this._elementRef, false);
@@ -102,7 +102,7 @@ class MatMenuItem extends _MatMenuItemBase {
     getLabel() {
         const clone = this._elementRef.nativeElement.cloneNode(true);
         const icons = clone.querySelectorAll('mat-icon, .material-icons');
-        // Strip away icons so they don't show up in the text.
+        // Strip away icons, so they don't show up in the text.
         for (let i = 0; i < icons.length; i++) {
             icons[i].remove();
         }
