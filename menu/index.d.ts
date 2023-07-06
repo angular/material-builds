@@ -431,7 +431,6 @@ export declare interface MatMenuPanel<T = any> {
 
 /** Directive applied to an element that should trigger a `mat-menu`. */
 export declare class MatMenuTrigger extends _MatMenuTriggerBase {
-    protected _panelClass: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTrigger, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], {}, {}, never, never, false, never>;
 }
@@ -452,7 +451,6 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
     private _menuCloseSubscription;
     private _scrollStrategy;
     private _changeDetectorRef;
-    protected _panelClass: string | null;
     /**
      * We're specifically looking for a `MatMenu` here since the generic `MatMenuPanel`
      * interface lacks some functionality around nested menus and animations.
