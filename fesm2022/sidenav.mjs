@@ -444,8 +444,9 @@ class MatDrawer {
     /** Updates the enabled state of the focus trap. */
     _updateFocusTrapState() {
         if (this._focusTrap) {
-            // The focus trap is only enabled when the drawer is open in any mode other than side.
-            this._focusTrap.enabled = this.opened && this.mode !== 'side';
+            // Trap focus only if the backdrop is enabled. Otherwise, allow end user to interact with the
+            // sidenav content.
+            this._focusTrap.enabled = !!this._container?.hasBackdrop;
         }
     }
     /**
@@ -562,10 +563,7 @@ class MatDrawerContainer {
      * mode as well.
      */
     get hasBackdrop() {
-        if (this._backdropOverride == null) {
-            return !this._start || this._start.mode !== 'side' || !this._end || this._end.mode !== 'side';
-        }
-        return this._backdropOverride;
+        return this._drawerHasBackdrop(this._start) || this._drawerHasBackdrop(this._end);
     }
     set hasBackdrop(value) {
         this._backdropOverride = value == null ? null : coerceBooleanProperty(value);
@@ -810,18 +808,22 @@ class MatDrawerContainer {
     _closeModalDrawersViaBackdrop() {
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
-            .filter(drawer => drawer && !drawer.disableClose && this._canHaveBackdrop(drawer))
+            .filter(drawer => drawer && !drawer.disableClose && this._drawerHasBackdrop(drawer))
             .forEach(drawer => drawer._closeViaBackdropClick());
     }
     _isShowingBackdrop() {
-        return ((this._isDrawerOpen(this._start) && this._canHaveBackdrop(this._start)) ||
-            (this._isDrawerOpen(this._end) && this._canHaveBackdrop(this._end)));
-    }
-    _canHaveBackdrop(drawer) {
-        return drawer.mode !== 'side' || !!this._backdropOverride;
+        return ((this._isDrawerOpen(this._start) && this._drawerHasBackdrop(this._start)) ||
+            (this._isDrawerOpen(this._end) && this._drawerHasBackdrop(this._end)));
     }
     _isDrawerOpen(drawer) {
         return drawer != null && drawer.opened;
+    }
+    // Whether argument drawer should have a backdrop when it opens
+    _drawerHasBackdrop(drawer) {
+        if (this._backdropOverride == null) {
+            return !!drawer && drawer.mode !== 'side';
+        }
+        return this._backdropOverride;
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatDrawerContainer, deps: [{ token: i4.Directionality, optional: true }, { token: i0.ElementRef }, { token: i0.NgZone }, { token: i0.ChangeDetectorRef }, { token: i1.ViewportRuler }, { token: MAT_DRAWER_DEFAULT_AUTOSIZE }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
     static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.1.1", type: MatDrawerContainer, selector: "mat-drawer-container", inputs: { autosize: "autosize", hasBackdrop: "hasBackdrop" }, outputs: { backdropClick: "backdropClick" }, host: { attributes: { "ngSkipHydration": "" }, properties: { "class.mat-drawer-container-explicit-backdrop": "_backdropOverride" }, classAttribute: "mat-drawer-container" }, providers: [

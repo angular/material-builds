@@ -326,8 +326,8 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     _onBackdropClicked(): void;
     _closeModalDrawersViaBackdrop(): void;
     _isShowingBackdrop(): boolean;
-    private _canHaveBackdrop;
     private _isDrawerOpen;
+    private _drawerHasBackdrop;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContainer, [{ optional: true; }, null, null, null, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContainer, "mat-drawer-container", ["matDrawerContainer"], { "autosize": { "alias": "autosize"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; }, { "backdropClick": "backdropClick"; }, ["_content", "_allDrawers"], ["mat-drawer", "mat-drawer-content", "*"], false, never>;
 }
