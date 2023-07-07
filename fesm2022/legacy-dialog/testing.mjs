@@ -55,6 +55,11 @@ MatTestLegacyDialogOpener = MatTestLegacyDialogOpener_1 = __decorate([
         template: '',
         changeDetection: ChangeDetectionStrategy.OnPush,
         encapsulation: ViewEncapsulation.None,
+        host: {
+            // This binding is used to ensure that the component ID
+            // doesn't clash with the `MatTestDialogOpener`.
+            '[attr.mat-id-collision]': 'null',
+        },
     }),
     __metadata("design:paramtypes", [MatLegacyDialog])
 ], MatTestLegacyDialogOpener);
