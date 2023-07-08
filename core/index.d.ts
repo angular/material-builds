@@ -606,9 +606,9 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
      */
     get viewValue(): string;
     /** Selects the option. */
-    select(): void;
+    select(emitEvent?: boolean): void;
     /** Deselects the option. */
-    deselect(): void;
+    deselect(emitEvent?: boolean): void;
     /** Sets focus onto this option. */
     focus(_origin?: FocusOrigin, options?: FocusOptions): void;
     /**

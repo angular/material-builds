@@ -632,6 +632,9 @@ class _MatAutocompleteTriggerBase {
             this._previousValue = value;
             this._pendingAutoselectedOption = null;
             this._onChange(value);
+            if (!value) {
+                this._clearPreviousSelectedOption(null, false);
+            }
             if (this._canOpen() && this._document.activeElement === event.target) {
                 this.openPanel();
             }
@@ -774,12 +777,14 @@ class _MatAutocompleteTriggerBase {
     /**
      * Clear any previous selected option and emit a selection change event for this option
      */
-    _clearPreviousSelectedOption(skip) {
-        this.autocomplete.options.forEach(option => {
-            if (option !== skip && option.selected) {
-                option.deselect();
-            }
-        });
+    _clearPreviousSelectedOption(skip, emitEvent) {
+        if (this.autocomplete && this.autocomplete.options) {
+            this.autocomplete.options.forEach(option => {
+                if (option !== skip && option.selected) {
+                    option.deselect(emitEvent);
+                }
+            });
+        }
     }
     _attachOverlay() {
         if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
