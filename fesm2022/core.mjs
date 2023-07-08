@@ -1496,19 +1496,23 @@ class _MatOptionBase {
         return (this._text?.nativeElement.textContent || '').trim();
     }
     /** Selects the option. */
-    select() {
+    select(emitEvent = true) {
         if (!this._selected) {
             this._selected = true;
             this._changeDetectorRef.markForCheck();
-            this._emitSelectionChangeEvent();
+            if (emitEvent) {
+                this._emitSelectionChangeEvent();
+            }
         }
     }
     /** Deselects the option. */
-    deselect() {
+    deselect(emitEvent = true) {
         if (this._selected) {
             this._selected = false;
             this._changeDetectorRef.markForCheck();
-            this._emitSelectionChangeEvent();
+            if (emitEvent) {
+                this._emitSelectionChangeEvent();
+            }
         }
     }
     /** Sets focus onto this option. */
