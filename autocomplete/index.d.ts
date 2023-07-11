@@ -302,6 +302,8 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _componentDestroyed;
     private _autocompleteDisabled;
     private _scrollStrategy;
+    private _keydownSubscription;
+    private _outsideClickSubscription;
     /** Old value of the native input. Used to work around issues with the `input` event on IE. */
     private _previousValue;
     /** Strategy that is used to position the panel. */
@@ -428,6 +430,10 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      */
     private _clearPreviousSelectedOption;
     private _attachOverlay;
+    /** Handles keyboard events coming from the overlay panel. */
+    private _handlePanelKeydown;
+    /** Updates the panel's visibility state and any trigger state tied to id. */
+    private _updatePanelState;
     private _getOverlayConfig;
     private _getOverlayPosition;
     /** Sets the positions on a position strategy based on the directive's input state. */
@@ -450,8 +456,6 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _getWindow;
     /** Scrolls to a particular option in the list. */
     private _scrollToOption;
-    /** Handles keyboard events coming from the overlay panel. */
-    private _handleOverlayEvents;
     /**
      * Track which modal we have modified the `aria-owns` attribute of. When the combobox trigger is
      * inside an aria-modal, we apply aria-owns to the parent modal with the `id` of the options

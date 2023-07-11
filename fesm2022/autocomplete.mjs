@@ -13,7 +13,7 @@ import * as i1 from '@angular/cdk/platform';
 import { _getEventTarget } from '@angular/cdk/platform';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
 import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
-import { hasModifierKey, ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
+import { ESCAPE, hasModifierKey, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as i4 from '@angular/material/form-field';
@@ -443,6 +443,26 @@ class _MatAutocompleteTriggerBase {
             // Return a stream that we'll replace with the real one once everything is in place.
             return this._zone.onStable.pipe(take(1), switchMap(() => this.optionSelections));
         });
+        /** Handles keyboard events coming from the overlay panel. */
+        this._handlePanelKeydown = (event) => {
+            // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
+            // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
+            if ((event.keyCode === ESCAPE && !hasModifierKey(event)) ||
+                (event.keyCode === UP_ARROW && hasModifierKey(event, 'altKey'))) {
+                // If the user had typed something in before we autoselected an option, and they decided
+                // to cancel the selection, restore the input value to the one they had typed in.
+                if (this._pendingAutoselectedOption) {
+                    this._updateNativeInputValue(this._valueBeforeAutoSelection ?? '');
+                    this._pendingAutoselectedOption = null;
+                }
+                this._closeKeyEventStream.next();
+                this._resetActiveItem();
+                // We need to stop propagation, otherwise the event will eventually
+                // reach the input itself and cause the overlay to be reopened.
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        };
         /**
          * Track which modal we have modified the `aria-owns` attribute of. When the combobox trigger is
          * inside an aria-modal, we apply aria-owns to the parent modal with the `id` of the options
@@ -506,6 +526,7 @@ class _MatAutocompleteTriggerBase {
             this._overlayRef.detach();
             this._closingActionsSubscription.unsubscribe();
         }
+        this._updatePanelState();
         // Note that in some cases this can end up being called after the component is destroyed.
         // Add a check to ensure that we don't try to run change detection on a destroyed view.
         if (!this._componentDestroyed) {
@@ -703,7 +724,7 @@ class _MatAutocompleteTriggerBase {
             this._zone.run(() => {
                 const wasOpen = this.panelOpen;
                 this._resetActiveItem();
-                this.autocomplete._setVisibility();
+                this._updatePanelState();
                 this._changeDetectorRef.detectChanges();
                 if (this.panelOpen) {
                     this._overlayRef.updatePosition();
@@ -797,7 +818,6 @@ class _MatAutocompleteTriggerBase {
             });
             overlayRef = this._overlay.create(this._getOverlayConfig());
             this._overlayRef = overlayRef;
-            this._handleOverlayEvents(overlayRef);
             this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
                 if (this.panelOpen && overlayRef) {
                     overlayRef.updateSize({ width: this._getPanelWidth() });
@@ -814,14 +834,40 @@ class _MatAutocompleteTriggerBase {
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         const wasOpen = this.panelOpen;
-        this.autocomplete._setVisibility();
         this.autocomplete._isOpen = this._overlayAttached = true;
         this.autocomplete._setColor(this._formField?.color);
+        this._updatePanelState();
         this._applyModalPanelOwnership();
         // We need to do an extra `panelOpen` check in here, because the
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {
             this.autocomplete.opened.emit();
+        }
+    }
+    /** Updates the panel's visibility state and any trigger state tied to id. */
+    _updatePanelState() {
+        this.autocomplete._setVisibility();
+        // Note that here we subscribe and unsubscribe based on the panel's visiblity state,
+        // because the act of subscribing will prevent events from reaching other overlays and
+        // we don't want to block the events if there are no options.
+        if (this.panelOpen) {
+            const overlayRef = this._overlayRef;
+            if (!this._keydownSubscription) {
+                // Use the `keydownEvents` in order to take advantage of
+                // the overlay event targeting provided by the CDK overlay.
+                this._keydownSubscription = overlayRef.keydownEvents().subscribe(this._handlePanelKeydown);
+            }
+            if (!this._outsideClickSubscription) {
+                // Subscribe to the pointer events stream so that it doesn't get picked up by other overlays.
+                // TODO(crisbeto): we should switch `_getOutsideClickStream` eventually to use this stream,
+                // but the behvior isn't exactly the same and it ends up breaking some internal tests.
+                this._outsideClickSubscription = overlayRef.outsidePointerEvents().subscribe();
+            }
+        }
+        else {
+            this._keydownSubscription?.unsubscribe();
+            this._outsideClickSubscription?.unsubscribe();
+            this._keydownSubscription = this._outsideClickSubscription = null;
         }
     }
     _getOverlayConfig() {
@@ -945,34 +991,6 @@ class _MatAutocompleteTriggerBase {
                 autocomplete._setScrollTop(newScrollPosition);
             }
         }
-    }
-    /** Handles keyboard events coming from the overlay panel. */
-    _handleOverlayEvents(overlayRef) {
-        // Use the `keydownEvents` in order to take advantage of
-        // the overlay event targeting provided by the CDK overlay.
-        overlayRef.keydownEvents().subscribe(event => {
-            // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
-            // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-            if ((event.keyCode === ESCAPE && !hasModifierKey(event)) ||
-                (event.keyCode === UP_ARROW && hasModifierKey(event, 'altKey'))) {
-                // If the user had typed something in before we autoselected an option, and they decided
-                // to cancel the selection, restore the input value to the one they had typed in.
-                if (this._pendingAutoselectedOption) {
-                    this._updateNativeInputValue(this._valueBeforeAutoSelection ?? '');
-                    this._pendingAutoselectedOption = null;
-                }
-                this._closeKeyEventStream.next();
-                this._resetActiveItem();
-                // We need to stop propagation, otherwise the event will eventually
-                // reach the input itself and cause the overlay to be reopened.
-                event.stopPropagation();
-                event.preventDefault();
-            }
-        });
-        // Subscribe to the pointer events stream so that it doesn't get picked up by other overlays.
-        // TODO(crisbeto): we should switch `_getOutsideClickStream` eventually to use this stream,
-        // but the behvior isn't exactly the same and it ends up breaking some internal tests.
-        overlayRef.outsidePointerEvents().subscribe();
     }
     /**
      * If the autocomplete trigger is inside of an `aria-modal` element, connect
