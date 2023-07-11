@@ -2,6 +2,7 @@ import { _AbstractConstructor } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
+import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CanDisableRipple } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
@@ -98,19 +99,21 @@ export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER: {
  */
 export declare const MAT_AUTOCOMPLETE_VALUE_ACCESSOR: any;
 
-export declare class MatAutocomplete extends _MatAutocompleteBase {
+export declare class MatAutocomplete extends _MatAutocompleteBase implements OnDestroy {
     /** Reference to all option groups within the autocomplete. */
     optionGroups: QueryList<MatOptgroup>;
     /** Reference to all options within the autocomplete. */
     options: QueryList<MatOption>;
     protected _visibleClass: string;
     protected _hiddenClass: string;
+    _animationDone: EventEmitter<AnimationEvent_2>;
     /** Whether checkmark indicator for single-selection options is hidden. */
     get hideSingleSelectionIndicator(): boolean;
     set hideSingleSelectionIndicator(value: BooleanInput);
     private _hideSingleSelectionIndicator;
     /** Syncs the parent state with the individual options. */
     _syncParentProperties(): void;
+    ngOnDestroy(): void;
     protected _skipPredicate(_option: _MatOptionBase): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocomplete, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, {}, ["optionGroups", "options"], ["*"], false, never>;
@@ -134,6 +137,8 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     protected abstract _visibleClass: string;
     /** Class to apply to the panel when it's hidden. */
     protected abstract _hiddenClass: string;
+    /** Emits when the panel animation is done. Null if the panel doesn't animate. */
+    abstract _animationDone: EventEmitter<AnimationEvent_2> | null;
     /** Manages active item in option list based on key events. */
     _keyManager: ActiveDescendantKeyManager<_MatOptionBase>;
     /** Whether the autocomplete panel should be visible, depending on option length. */
@@ -170,6 +175,15 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     get autoSelectActiveOption(): boolean;
     set autoSelectActiveOption(value: BooleanInput);
     private _autoSelectActiveOption;
+    /**
+     * Whether the user is required to make a selection when they're interacting with the
+     * autocomplete. If the user moves away from the autcomplete without selecting an option from
+     * the list, the value will be reset. If the user opens the panel and closes it without
+     * interacting or selecting a value, the initial value will be kept.
+     */
+    get requireSelection(): boolean;
+    set requireSelection(value: BooleanInput);
+    private _requireSelection;
     /**
      * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
      * match the width of its host.
@@ -220,7 +234,7 @@ export declare abstract class _MatAutocompleteBase extends _MatAutocompleteMixin
     private _setThemeClasses;
     protected _skipPredicate(option: _MatOptionBase): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatAutocompleteBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; "autoActiveFirstOption": { "alias": "autoActiveFirstOption"; "required": false; }; "autoSelectActiveOption": { "alias": "autoSelectActiveOption"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "classList": { "alias": "class"; "required": false; }; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatAutocompleteBase, never, never, { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; "autoActiveFirstOption": { "alias": "autoActiveFirstOption"; "required": false; }; "autoSelectActiveOption": { "alias": "autoSelectActiveOption"; "required": false; }; "requireSelection": { "alias": "requireSelection"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "classList": { "alias": "class"; "required": false; }; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, never, never, false, never>;
 }
 
 /** Default `mat-autocomplete` options that can be overridden. */
@@ -229,6 +243,11 @@ export declare interface MatAutocompleteDefaultOptions {
     autoActiveFirstOption?: boolean;
     /** Whether the active option should be selected as the user is navigating. */
     autoSelectActiveOption?: boolean;
+    /**
+     * Whether the user is required to make a selection when
+     * they're interacting with the autocomplete.
+     */
+    requireSelection?: boolean;
     /** Class or list of classes to be applied to the autocomplete's overlay panel. */
     overlayPanelClass?: string | string[];
     /** Wheter icon indicators should be hidden for single-selection. */
@@ -306,6 +325,8 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
     private _outsideClickSubscription;
     /** Old value of the native input. Used to work around issues with the `input` event on IE. */
     private _previousValue;
+    /** Value of the input element when the panel was opened. */
+    private _valueOnOpen;
     /** Strategy that is used to position the panel. */
     private _positionStrategy;
     /** Whether or not the label state is being overridden. */
@@ -415,6 +436,11 @@ export declare abstract class _MatAutocompleteTriggerBase implements ControlValu
      * stream every time the option list changes.
      */
     private _subscribeToClosingActions;
+    /**
+     * Emits the opened event once it's known that the panel will be shown and stores
+     * the state of the trigger right before the opening sequence was finished.
+     */
+    private _emitOpened;
     /** Destroys the autocomplete suggestion panel. */
     private _destroyPanel;
     private _assignOptionValue;

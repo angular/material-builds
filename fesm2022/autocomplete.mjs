@@ -69,6 +69,7 @@ function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
         autoActiveFirstOption: false,
         autoSelectActiveOption: false,
         hideSingleSelectionIndicator: false,
+        requireSelection: false,
     };
 }
 /** Base class with all of the `MatAutocomplete` functionality. */
@@ -98,6 +99,18 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
     }
     set autoSelectActiveOption(value) {
         this._autoSelectActiveOption = coerceBooleanProperty(value);
+    }
+    /**
+     * Whether the user is required to make a selection when they're interacting with the
+     * autocomplete. If the user moves away from the autcomplete without selecting an option from
+     * the list, the value will be reset. If the user opens the panel and closes it without
+     * interacting or selecting a value, the initial value will be kept.
+     */
+    get requireSelection() {
+        return this._requireSelection;
+    }
+    set requireSelection(value) {
+        this._requireSelection = coerceBooleanProperty(value);
     }
     /**
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
@@ -146,6 +159,7 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
         this.inertGroups = platform?.SAFARI || false;
         this._autoActiveFirstOption = !!_defaults.autoActiveFirstOption;
         this._autoSelectActiveOption = !!_defaults.autoSelectActiveOption;
+        this._requireSelection = !!_defaults.requireSelection;
     }
     ngAfterContentInit() {
         this._keyManager = new ActiveDescendantKeyManager(this.options)
@@ -210,7 +224,7 @@ class _MatAutocompleteBase extends _MatAutocompleteMixinBase {
         return option.disabled;
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: _MatAutocompleteBase, deps: [{ token: i0.ChangeDetectorRef }, { token: i0.ElementRef }, { token: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS }, { token: i1.Platform }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.1.1", type: _MatAutocompleteBase, inputs: { ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], displayWith: "displayWith", autoActiveFirstOption: "autoActiveFirstOption", autoSelectActiveOption: "autoSelectActiveOption", panelWidth: "panelWidth", classList: ["class", "classList"] }, outputs: { optionSelected: "optionSelected", opened: "opened", closed: "closed", optionActivated: "optionActivated" }, viewQueries: [{ propertyName: "template", first: true, predicate: TemplateRef, descendants: true, static: true }, { propertyName: "panel", first: true, predicate: ["panel"], descendants: true }], usesInheritance: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.1.1", type: _MatAutocompleteBase, inputs: { ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], displayWith: "displayWith", autoActiveFirstOption: "autoActiveFirstOption", autoSelectActiveOption: "autoSelectActiveOption", requireSelection: "requireSelection", panelWidth: "panelWidth", classList: ["class", "classList"] }, outputs: { optionSelected: "optionSelected", opened: "opened", closed: "closed", optionActivated: "optionActivated" }, viewQueries: [{ propertyName: "template", first: true, predicate: TemplateRef, descendants: true, static: true }, { propertyName: "panel", first: true, predicate: ["panel"], descendants: true }], usesInheritance: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: _MatAutocompleteBase, decorators: [{
             type: Directive
@@ -235,6 +249,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImpor
                 type: Input
             }], autoSelectActiveOption: [{
                 type: Input
+            }], requireSelection: [{
+                type: Input
             }], panelWidth: [{
                 type: Input
             }], optionSelected: [{
@@ -254,6 +270,7 @@ class MatAutocomplete extends _MatAutocompleteBase {
         super(...arguments);
         this._visibleClass = 'mat-mdc-autocomplete-visible';
         this._hiddenClass = 'mat-mdc-autocomplete-hidden';
+        this._animationDone = new EventEmitter();
         this._hideSingleSelectionIndicator = this._defaults.hideSingleSelectionIndicator ?? false;
     }
     /** Whether checkmark indicator for single-selection options is hidden. */
@@ -271,6 +288,10 @@ class MatAutocomplete extends _MatAutocompleteBase {
                 option._changeDetectorRef.markForCheck();
             }
         }
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+        this._animationDone.complete();
     }
     // `skipPredicate` determines if key manager should avoid putting a given option in the tab
     // order. Allow disabled list items to receive focus via keyboard to align with WAI ARIA
@@ -290,14 +311,14 @@ class MatAutocomplete extends _MatAutocompleteBase {
         return false;
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatAutocomplete, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.1.1", type: MatAutocomplete, selector: "mat-autocomplete", inputs: { disableRipple: "disableRipple", hideSingleSelectionIndicator: "hideSingleSelectionIndicator" }, host: { attributes: { "ngSkipHydration": "" }, classAttribute: "mat-mdc-autocomplete" }, providers: [{ provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }], queries: [{ propertyName: "optionGroups", predicate: MAT_OPTGROUP, descendants: true }, { propertyName: "options", predicate: MatOption, descendants: true }], exportAs: ["matAutocomplete"], usesInheritance: true, ngImport: i0, template: "<ng-template let-formFieldId=\"id\">\n  <div\n    class=\"mat-mdc-autocomplete-panel mdc-menu-surface mdc-menu-surface--open\"\n    role=\"listbox\"\n    [id]=\"id\"\n    [ngClass]=\"_classList\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"_getPanelAriaLabelledby(formFieldId)\"\n    [@panelAnimation]=\"isOpen ? 'visible' : 'hidden'\"\n    #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n", styles: ["div.mat-mdc-autocomplete-panel{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);width:100%;max-height:256px;visibility:hidden;transform-origin:center top;overflow:auto;padding:8px 0;border-radius:4px;box-sizing:border-box;position:static;background-color:var(--mat-autocomplete-background-color)}.cdk-high-contrast-active div.mat-mdc-autocomplete-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel{border-top-left-radius:0;border-top-right-radius:0}.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{visibility:visible}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden{visibility:hidden}mat-autocomplete{display:none}"], dependencies: [{ kind: "directive", type: i2.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], animations: [panelAnimation], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "16.1.1", type: MatAutocomplete, selector: "mat-autocomplete", inputs: { disableRipple: "disableRipple", hideSingleSelectionIndicator: "hideSingleSelectionIndicator" }, host: { attributes: { "ngSkipHydration": "" }, classAttribute: "mat-mdc-autocomplete" }, providers: [{ provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }], queries: [{ propertyName: "optionGroups", predicate: MAT_OPTGROUP, descendants: true }, { propertyName: "options", predicate: MatOption, descendants: true }], exportAs: ["matAutocomplete"], usesInheritance: true, ngImport: i0, template: "<ng-template let-formFieldId=\"id\">\n  <div\n    class=\"mat-mdc-autocomplete-panel mdc-menu-surface mdc-menu-surface--open\"\n    role=\"listbox\"\n    [id]=\"id\"\n    [ngClass]=\"_classList\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"_getPanelAriaLabelledby(formFieldId)\"\n    [@panelAnimation]=\"isOpen ? 'visible' : 'hidden'\"\n    (@panelAnimation.done)=\"_animationDone.next($event)\"\n    #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n", styles: ["div.mat-mdc-autocomplete-panel{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);width:100%;max-height:256px;visibility:hidden;transform-origin:center top;overflow:auto;padding:8px 0;border-radius:4px;box-sizing:border-box;position:static;background-color:var(--mat-autocomplete-background-color)}.cdk-high-contrast-active div.mat-mdc-autocomplete-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel{border-top-left-radius:0;border-top-right-radius:0}.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{visibility:visible}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden{visibility:hidden}mat-autocomplete{display:none}"], dependencies: [{ kind: "directive", type: i2.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], animations: [panelAnimation], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatAutocomplete, decorators: [{
             type: Component,
             args: [{ selector: 'mat-autocomplete', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, exportAs: 'matAutocomplete', inputs: ['disableRipple'], host: {
                         'class': 'mat-mdc-autocomplete',
                         'ngSkipHydration': '',
-                    }, providers: [{ provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }], animations: [panelAnimation], template: "<ng-template let-formFieldId=\"id\">\n  <div\n    class=\"mat-mdc-autocomplete-panel mdc-menu-surface mdc-menu-surface--open\"\n    role=\"listbox\"\n    [id]=\"id\"\n    [ngClass]=\"_classList\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"_getPanelAriaLabelledby(formFieldId)\"\n    [@panelAnimation]=\"isOpen ? 'visible' : 'hidden'\"\n    #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n", styles: ["div.mat-mdc-autocomplete-panel{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);width:100%;max-height:256px;visibility:hidden;transform-origin:center top;overflow:auto;padding:8px 0;border-radius:4px;box-sizing:border-box;position:static;background-color:var(--mat-autocomplete-background-color)}.cdk-high-contrast-active div.mat-mdc-autocomplete-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel{border-top-left-radius:0;border-top-right-radius:0}.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{visibility:visible}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden{visibility:hidden}mat-autocomplete{display:none}"] }]
+                    }, providers: [{ provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }], animations: [panelAnimation], template: "<ng-template let-formFieldId=\"id\">\n  <div\n    class=\"mat-mdc-autocomplete-panel mdc-menu-surface mdc-menu-surface--open\"\n    role=\"listbox\"\n    [id]=\"id\"\n    [ngClass]=\"_classList\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"_getPanelAriaLabelledby(formFieldId)\"\n    [@panelAnimation]=\"isOpen ? 'visible' : 'hidden'\"\n    (@panelAnimation.done)=\"_animationDone.next($event)\"\n    #panel>\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n", styles: ["div.mat-mdc-autocomplete-panel{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);width:100%;max-height:256px;visibility:hidden;transform-origin:center top;overflow:auto;padding:8px 0;border-radius:4px;box-sizing:border-box;position:static;background-color:var(--mat-autocomplete-background-color)}.cdk-high-contrast-active div.mat-mdc-autocomplete-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel{border-top-left-radius:0;border-top-right-radius:0}.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:center bottom}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible{visibility:visible}div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden{visibility:hidden}mat-autocomplete{display:none}"] }]
         }], propDecorators: { optionGroups: [{
                 type: ContentChildren,
                 args: [MAT_OPTGROUP, { descendants: true }]
@@ -738,7 +759,7 @@ class _MatAutocompleteTriggerBase {
                     //   of the available options,
                     // - if a valid string is entered after an invalid one.
                     if (this.panelOpen) {
-                        this.autocomplete.opened.emit();
+                        this._emitOpened();
                     }
                     else {
                         this.autocomplete.closed.emit();
@@ -751,6 +772,14 @@ class _MatAutocompleteTriggerBase {
         take(1))
             // set the value, close the panel, and complete.
             .subscribe(event => this._setValueAndClose(event)));
+    }
+    /**
+     * Emits the opened event once it's known that the panel will be shown and stores
+     * the state of the trigger right before the opening sequence was finished.
+     */
+    _emitOpened() {
+        this._valueOnOpen = this._element.nativeElement.value;
+        this.autocomplete.opened.emit();
     }
     /** Destroys the autocomplete suggestion panel. */
     _destroyPanel() {
@@ -785,13 +814,29 @@ class _MatAutocompleteTriggerBase {
      * stemmed from the user.
      */
     _setValueAndClose(event) {
+        const panel = this.autocomplete;
         const toSelect = event ? event.source : this._pendingAutoselectedOption;
         if (toSelect) {
             this._clearPreviousSelectedOption(toSelect);
             this._assignOptionValue(toSelect.value);
+            // TODO(crisbeto): this should wait until the animation is done, otherwise the value
+            // gets reset while the panel is still animating which looks glitchy. It'll likely break
+            // some tests to change it at this point.
             this._onChange(toSelect.value);
-            this.autocomplete._emitSelectEvent(toSelect);
+            panel._emitSelectEvent(toSelect);
             this._element.nativeElement.focus();
+        }
+        else if (panel.requireSelection && this._element.nativeElement.value !== this._valueOnOpen) {
+            this._clearPreviousSelectedOption(null);
+            this._assignOptionValue(null);
+            // Wait for the animation to finish before clearing the form control value, otherwise
+            // the options might change while the animation is running which looks glitchy.
+            if (panel._animationDone) {
+                panel._animationDone.pipe(take(1)).subscribe(() => this._onChange(null));
+            }
+            else {
+                this._onChange(null);
+            }
         }
         this.closePanel();
     }
@@ -799,13 +844,13 @@ class _MatAutocompleteTriggerBase {
      * Clear any previous selected option and emit a selection change event for this option
      */
     _clearPreviousSelectedOption(skip, emitEvent) {
-        if (this.autocomplete && this.autocomplete.options) {
-            this.autocomplete.options.forEach(option => {
-                if (option !== skip && option.selected) {
-                    option.deselect(emitEvent);
-                }
-            });
-        }
+        // Null checks are necessary here, because the autocomplete
+        // or its options may not have been assigned yet.
+        this.autocomplete?.options?.forEach(option => {
+            if (option !== skip && option.selected) {
+                option.deselect(emitEvent);
+            }
+        });
     }
     _attachOverlay() {
         if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
@@ -841,7 +886,7 @@ class _MatAutocompleteTriggerBase {
         // We need to do an extra `panelOpen` check in here, because the
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {
-            this.autocomplete.opened.emit();
+            this._emitOpened();
         }
     }
     /** Updates the panel's visibility state and any trigger state tied to id. */

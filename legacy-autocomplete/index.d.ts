@@ -70,6 +70,7 @@ export declare class MatLegacyAutocomplete extends _MatAutocompleteBase {
     options: QueryList<MatLegacyOption>;
     protected _visibleClass: string;
     protected _hiddenClass: string;
+    _animationDone: null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyAutocomplete, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatLegacyAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, ["optionGroups", "options"], ["*"], false, never>;
 }
