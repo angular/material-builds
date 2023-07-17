@@ -157,6 +157,18 @@ class _MatRadioGroupBase {
         // possibly be set by NgModel on MatRadioGroup, and it is possible that the OnInit of the
         // NgModel occurs *after* the OnInit of the MatRadioGroup.
         this._isInitialized = true;
+        // Clear the `selected` button when it's destroyed since the tabindex of the rest of the
+        // buttons depends on it. Note that we don't clear the `value`, because the radio button
+        // may be swapped out with a similar one and there are some internal apps that depend on
+        // that behavior.
+        this._buttonChanges = this._radios.changes.subscribe(() => {
+            if (this.selected && !this._radios.find(radio => radio === this.selected)) {
+                this._selected = null;
+            }
+        });
+    }
+    ngOnDestroy() {
+        this._buttonChanges?.unsubscribe();
     }
     /**
      * Mark this group as being "touched" (for ngModel). Meant to be called by the contained

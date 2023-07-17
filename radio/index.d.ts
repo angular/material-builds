@@ -196,7 +196,7 @@ export declare class MatRadioGroup extends _MatRadioGroupBase<MatRadioButton> {
  * Base class with all of the `MatRadioGroup` functionality.
  * @docs-private
  */
-export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> implements AfterContentInit, ControlValueAccessor {
+export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> implements AfterContentInit, OnDestroy, ControlValueAccessor {
     private _changeDetector;
     /** Selected value for the radio group. */
     private _value;
@@ -212,6 +212,8 @@ export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> 
     private _disabled;
     /** Whether the radio group is required. */
     private _required;
+    /** Subscription to changes in amount of radio buttons. */
+    private _buttonChanges;
     /** The method to be called in order to update ngModel */
     _controlValueAccessorChangeFn: (value: any) => void;
     /**
@@ -262,6 +264,7 @@ export declare abstract class _MatRadioGroupBase<T extends _MatRadioButtonBase> 
      * This allows us to propagate relevant attributes to associated buttons.
      */
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /**
      * Mark this group as being "touched" (for ngModel). Meant to be called by the contained
      * radio buttons upon their blur.
