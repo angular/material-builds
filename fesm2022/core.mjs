@@ -1783,6 +1783,9 @@ class MatRippleLoader {
         if (config.centered) {
             host.setAttribute(matRippleCentered, '');
         }
+        if (config.disabled) {
+            host.setAttribute(matRippleDisabled, '');
+        }
     }
     /** Returns the ripple instance for the given host element. */
     getRipple(host) {

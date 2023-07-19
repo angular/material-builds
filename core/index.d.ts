@@ -820,6 +820,7 @@ export declare class MatRippleLoader implements OnDestroy {
     configureRipple(host: HTMLElement, config: {
         className?: string;
         centered?: boolean;
+        disabled?: boolean;
     }): void;
     /** Returns the ripple instance for the given host element. */
     getRipple(host: HTMLElement): MatRipple | undefined;

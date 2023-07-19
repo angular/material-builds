@@ -25,6 +25,7 @@ import { InjectionToken } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatRipple } from '@angular/material/core';
+import { MatRippleLoader } from '@angular/material/core';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -146,14 +147,12 @@ export declare const MAT_CHIPS_DEFAULT_OPTIONS: InjectionToken<MatChipsDefaultOp
  *
  * Extended by MatChipOption and MatChipRow for different interaction patterns.
  */
-export declare class MatChip extends _MatChipMixinBase implements OnInit, AfterViewInit, AfterContentInit, CanColor, CanDisableRipple, CanDisable, HasTabIndex, OnDestroy {
+export declare class MatChip extends _MatChipMixinBase implements OnInit, AfterViewInit, AfterContentInit, CanColor, CanDisableRipple, CanDisable, DoCheck, HasTabIndex, OnDestroy {
     _changeDetectorRef: ChangeDetectorRef;
     protected _ngZone: NgZone;
     private _focusMonitor;
     private _globalRippleOptions?;
     protected _document: Document;
-    /** Whether the ripple is centered on the chip. */
-    readonly _isRippleCentered = false;
     /** Emits when the chip is focused. */
     readonly _onFocus: Subject<MatChipEvent>;
     /** Emits when the chip is blurred. */
@@ -222,13 +221,20 @@ export declare class MatChip extends _MatChipMixinBase implements OnInit, AfterV
      * @deprecated Considered an implementation detail. To be removed.
      * @breaking-change 17.0.0
      */
-    ripple: MatRipple;
+    get ripple(): MatRipple;
+    set ripple(v: MatRipple);
     /** Action receiving the primary set of user interactions. */
     primaryAction: MatChipAction;
+    /**
+     * Handles the lazy creation of the MatChip ripple.
+     * Used to improve initial load time of large applications.
+     */
+    _rippleLoader: MatRippleLoader;
     constructor(_changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _focusMonitor: FocusMonitor, _document: any, animationMode?: string, _globalRippleOptions?: RippleGlobalOptions | undefined, tabIndex?: string);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
+    ngDoCheck(): void;
     ngOnDestroy(): void;
     /**
      * Allows for programmatic removal of the chip.
@@ -868,6 +874,7 @@ export declare class MatChipRow extends MatChip implements AfterViewInit {
     _handleDoubleclick(event: MouseEvent): void;
     private _startEditing;
     private _onEditFinish;
+    _isRippleDisabled(): boolean;
     /**
      * Gets the projected chip edit input, or the default input if none is projected in. One of these
      * two values is guaranteed to be defined.
