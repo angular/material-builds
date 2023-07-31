@@ -578,6 +578,7 @@ class _MatDialogBase {
         });
         // This can't be assigned in the `providers` callback, because
         // the instance hasn't been assigned to the CDK ref yet.
+        dialogRef.componentRef = cdkRef.componentRef;
         dialogRef.componentInstance = cdkRef.componentInstance;
         this.openDialogs.push(dialogRef);
         this.afterOpened.next(dialogRef);

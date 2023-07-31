@@ -3,6 +3,7 @@ import { AnimationTriggerMetadata } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
 import { ChangeDetectorRef } from '@angular/core';
+import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { DialogConfig } from '@angular/cdk/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
@@ -167,6 +168,11 @@ export declare class MatBottomSheetRef<T = any, R = any> {
     private _ref;
     /** Instance of the component making up the content of the bottom sheet. */
     get instance(): T;
+    /**
+     * `ComponentRef` of the component opened into the bottom sheet. Will be
+     * null when the bottom sheet is opened using a `TemplateRef`.
+     */
+    get componentRef(): ComponentRef<T> | null;
     /**
      * Instance of the component into which the bottom sheet content is projected.
      * @docs-private

@@ -168,6 +168,13 @@ class MatBottomSheetRef {
     get instance() {
         return this._ref.componentInstance;
     }
+    /**
+     * `ComponentRef` of the component opened into the bottom sheet. Will be
+     * null when the bottom sheet is opened using a `TemplateRef`.
+     */
+    get componentRef() {
+        return this._ref.componentRef;
+    }
     constructor(_ref, config, containerInstance) {
         this._ref = _ref;
         /** Subject for notifying the user that the bottom sheet has opened and appeared. */
