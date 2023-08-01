@@ -179,7 +179,7 @@ declare interface MatInkBarItem extends OnInit, OnDestroy {
 }
 
 /**
- * Interface for a a MatInkBar positioner method, defining the positioning and width of the ink
+ * Interface for a MatInkBar positioner method, defining the positioning and width of the ink
  * bar in a set of tabs.
  */
 export declare interface _MatInkBarPositioner {
