@@ -16,7 +16,6 @@ import { MatRipple } from '@angular/material/core';
 import { NgZone } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 import { RippleGlobalOptions } from '@angular/material/core';
 import { Subject } from 'rxjs';
@@ -61,7 +60,6 @@ declare const MAT_SLIDER_THUMB_VALUE_ACCESSOR: any;
 export declare class MatSlider extends _MatSliderMixinBase implements AfterViewInit, CanDisableRipple, OnDestroy, _MatSlider {
     readonly _ngZone: NgZone;
     readonly _cdr: ChangeDetectorRef;
-    readonly _platform: Platform;
     readonly _dir: Directionality;
     readonly _globalRippleOptions?: RippleGlobalOptions | undefined;
     /** The active portion of the slider track. */
@@ -139,7 +137,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements AfterViewI
     _tickMarkTrackWidth: number;
     _hasAnimation: boolean;
     private _resizeTimer;
-    constructor(_ngZone: NgZone, _cdr: ChangeDetectorRef, _platform: Platform, elementRef: ElementRef<HTMLElement>, _dir: Directionality, _globalRippleOptions?: RippleGlobalOptions | undefined, animationMode?: string);
+    private _platform;
+    constructor(_ngZone: NgZone, _cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _dir: Directionality, _globalRippleOptions?: RippleGlobalOptions | undefined, animationMode?: string);
     /** The radius of the native slider's knob. AFAIK there is no way to avoid hardcoding this. */
     _knobRadius: number;
     _inputPadding: number;
@@ -206,11 +205,15 @@ export declare class MatSlider extends _MatSliderMixinBase implements AfterViewI
     /** Gets the slider thumb HTML input element of the given thumb position. */
     _getThumb(thumbPosition: _MatThumb): _MatSliderVisualThumb;
     _setTransition(withAnimation: boolean): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlider, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    /** Whether the given pointer event occurred within the bounds of the slider pointer's DOM Rect. */
+    _isCursorOnSliderThumb(event: PointerEvent, rect: DOMRect): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlider, [null, null, null, { optional: true; }, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "discrete": { "alias": "discrete"; "required": false; }; "showTickMarks": { "alias": "showTickMarks"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "step": { "alias": "step"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; }, {}, ["_input", "_inputs"], ["*"], false, never>;
 }
 
 declare interface _MatSlider {
+    /** Whether the given pointer event occurred within the bounds of the slider pointer's DOM Rect. */
+    _isCursorOnSliderThumb(event: PointerEvent, rect: DOMRect): boolean;
     /** Gets the slider thumb input of the given thumb position. */
     _getInput(thumbPosition: _MatThumb): _MatSliderThumb | _MatSliderRangeThumb | undefined;
     /** Gets the slider thumb HTML input element of the given thumb position. */
@@ -455,6 +458,7 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
      * See https://github.com/angular/angular/issues/14988.
      */
     protected _isControlInitialized: boolean;
+    private _platform;
     constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLInputElement>, _cdr: ChangeDetectorRef, _slider: _MatSlider);
     ngOnDestroy(): void;
     /** @docs-private */
@@ -657,7 +661,6 @@ export declare class MatSliderVisualThumb implements _MatSliderVisualThumb, Afte
     /** Gets the native HTML element of the slider thumb knob. */
     _getKnob(): HTMLElement;
     _isShowingAnyRipple(): boolean;
-    private _isSliderThumbHovered;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderVisualThumb, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSliderVisualThumb, "mat-slider-visual-thumb", never, { "discrete": { "alias": "discrete"; "required": false; }; "thumbPosition": { "alias": "thumbPosition"; "required": false; }; "valueIndicatorText": { "alias": "valueIndicatorText"; "required": false; }; }, {}, never, never, false, never>;
 }
