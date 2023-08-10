@@ -25,6 +25,7 @@ import { _MatDialogContainerBase as _MatLegacyDialogContainerBase } from '@angul
 import { MatDialogState as MatLegacyDialogState } from '@angular/material/dialog';
 import { NgZone } from '@angular/core';
 import { OnChanges } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -254,7 +255,7 @@ export { MatLegacyDialogState }
  * @deprecated Use `MatDialogTitle` from `@angular/material/dialog` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
  */
-export declare class MatLegacyDialogTitle implements OnInit {
+export declare class MatLegacyDialogTitle implements OnInit, OnDestroy {
     private _dialogRef;
     private _elementRef;
     private _dialog;
@@ -262,6 +263,7 @@ export declare class MatLegacyDialogTitle implements OnInit {
     id: string;
     constructor(_dialogRef: MatLegacyDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatLegacyDialog);
     ngOnInit(): void;
+    ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLegacyDialogTitle, [{ optional: true; }, null, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLegacyDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never>;
 }

@@ -513,13 +513,14 @@ export declare const enum MatDialogState {
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
-export declare class MatDialogTitle implements OnInit {
+export declare class MatDialogTitle implements OnInit, OnDestroy {
     private _dialogRef;
     private _elementRef;
     private _dialog;
     id: string;
     constructor(_dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;
+    ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogTitle, [{ optional: true; }, null, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never>;
 }
