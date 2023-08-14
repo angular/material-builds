@@ -48,7 +48,6 @@ declare namespace i1 {
         MenuCloseReason,
         MatMenuDefaultOptions,
         MAT_MENU_DEFAULT_OPTIONS,
-        _MatMenuBase,
         MatMenu
     }
 }
@@ -62,7 +61,6 @@ declare namespace i2 {
 declare namespace i3 {
     export {
         MAT_MENU_CONTENT,
-        _MatMenuContentBase,
         MatMenuContent
     }
 }
@@ -73,7 +71,6 @@ declare namespace i4 {
         MAT_MENU_SCROLL_STRATEGY,
         MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER,
         MENU_PANEL_TOP_PADDING,
-        _MatMenuTriggerBase,
         MatMenuTrigger
     }
 }
@@ -110,27 +107,7 @@ export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     useFactory: typeof MAT_MENU_SCROLL_STRATEGY_FACTORY;
 };
 
-export declare class MatMenu extends _MatMenuBase {
-    protected _elevationPrefix: string;
-    protected _baseElevation: number;
-    constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenu, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], {}, {}, never, ["*"], false, never>;
-}
-
-/**
- * Animations used by the mat-menu component.
- * Animation duration and timing values are based on:
- * https://material.io/guidelines/components/menus.html#menus-usage
- * @docs-private
- */
-export declare const matMenuAnimations: {
-    readonly transformMenu: AnimationTriggerMetadata;
-    readonly fadeInItems: AnimationTriggerMetadata;
-};
-
-/** Base class with all of the `MatMenu` functionality. */
-export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
+export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
     private _elementRef;
     private _ngZone;
     private _changeDetectorRef?;
@@ -139,8 +116,8 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
     private _yPosition;
     private _firstItemFocusSubscription?;
     private _previousElevation;
-    protected _elevationPrefix: string;
-    protected _baseElevation: number;
+    private _elevationPrefix;
+    private _baseElevation;
     /** All items inside the menu. Includes items nested inside another menu. */
     _allItems: QueryList<MatMenuItem>;
     /** Only the direct descendant menu items. */
@@ -280,17 +257,23 @@ export declare class _MatMenuBase implements AfterContentInit, MatMenuPanel<MatM
      * when it comes to maintaining the item order.
      */
     private _updateDirectDescendants;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuBase, never, never, { "backdropClass": { "alias": "backdropClass"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "xPosition": { "alias": "xPosition"; "required": false; }; "yPosition": { "alias": "yPosition"; "required": false; }; "overlapTrigger": { "alias": "overlapTrigger"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; "panelClass": { "alias": "class"; "required": false; }; "classList": { "alias": "classList"; "required": false; }; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"], never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenu, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], { "backdropClass": { "alias": "backdropClass"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "xPosition": { "alias": "xPosition"; "required": false; }; "yPosition": { "alias": "yPosition"; "required": false; }; "overlapTrigger": { "alias": "overlapTrigger"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; "panelClass": { "alias": "class"; "required": false; }; "classList": { "alias": "classList"; "required": false; }; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"], ["*"], false, never>;
 }
+
+/**
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
+ * @docs-private
+ */
+export declare const matMenuAnimations: {
+    readonly transformMenu: AnimationTriggerMetadata;
+    readonly fadeInItems: AnimationTriggerMetadata;
+};
 
 /** Menu content that will be rendered lazily once the menu is opened. */
-export declare class MatMenuContent extends _MatMenuContentBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, false, never>;
-}
-
-export declare abstract class _MatMenuContentBase implements OnDestroy {
+export declare class MatMenuContent implements OnDestroy {
     private _template;
     private _componentFactoryResolver;
     private _appRef;
@@ -319,8 +302,8 @@ export declare abstract class _MatMenuContentBase implements OnDestroy {
      */
     detach(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuContentBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuContentBase, never, never, {}, {}, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuContent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, false, never>;
 }
 
 /** Default `mat-menu` options that can be overridden. */
@@ -430,12 +413,7 @@ export declare interface MatMenuPanel<T = any> {
 }
 
 /** Directive applied to an element that should trigger a `mat-menu`. */
-export declare class MatMenuTrigger extends _MatMenuTriggerBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], {}, {}, never, never, false, never>;
-}
-
-export declare abstract class _MatMenuTriggerBase implements AfterContentInit, OnDestroy {
+export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _overlay;
     private _element;
     private _viewContainerRef;
@@ -579,8 +557,8 @@ export declare abstract class _MatMenuTriggerBase implements AfterContentInit, O
     private _handleHover;
     /** Gets the portal that should be attached to the overlay. */
     private _getPortal;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatMenuTriggerBase, [null, null, null, null, { optional: true; }, { optional: true; self: true; }, { optional: true; }, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatMenuTriggerBase, never, never, { "_deprecatedMatMenuTriggerFor": { "alias": "mat-menu-trigger-for"; "required": false; }; "menu": { "alias": "matMenuTriggerFor"; "required": false; }; "menuData": { "alias": "matMenuTriggerData"; "required": false; }; "restoreFocus": { "alias": "matMenuTriggerRestoreFocus"; "required": false; }; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTrigger, [null, null, null, null, { optional: true; }, { optional: true; self: true; }, { optional: true; }, null, null]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], { "_deprecatedMatMenuTriggerFor": { "alias": "mat-menu-trigger-for"; "required": false; }; "menu": { "alias": "matMenuTriggerFor"; "required": false; }; "menuData": { "alias": "matMenuTriggerData"; "required": false; }; "restoreFocus": { "alias": "matMenuTriggerRestoreFocus"; "required": false; }; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never, never, false, never>;
 }
 
 /**

@@ -481,8 +481,20 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImpor
  * flaky browser support and the value not being defined in Closure's typings.
  */
 const MAX_SAFE_INTEGER = 9007199254740991;
-/** Shared base class with MDC-based implementation. */
-class _MatTableDataSource extends DataSource {
+/**
+ * Data source that accepts a client-side data array and includes native support of filtering,
+ * sorting (using MatSort), and pagination (using MatPaginator).
+ *
+ * Allows for sort customization by overriding sortingDataAccessor, which defines how data
+ * properties are accessed. Also allows for filter customization by overriding filterPredicate,
+ * which defines how row data is converted to a string for filter matching.
+ *
+ * **Note:** This class is meant to be a simple data source to help you get started. As such
+ * it isn't equipped to handle some more advanced cases like robust i18n support or server-side
+ * interactions. If your app needs to support more advanced use cases, consider implementing your
+ * own `DataSource`.
+ */
+class MatTableDataSource extends DataSource {
     /** Array of data that should be rendered by the table, where each object represents one row. */
     get data() {
         return this._data.value;
@@ -769,25 +781,10 @@ class _MatTableDataSource extends DataSource {
         this._renderChangesSubscription = null;
     }
 }
-/**
- * Data source that accepts a client-side data array and includes native support of filtering,
- * sorting (using MatSort), and pagination (using MatPaginator).
- *
- * Allows for sort customization by overriding sortingDataAccessor, which defines how data
- * properties are accessed. Also allows for filter customization by overriding filterPredicate,
- * which defines how row data is converted to a string for filter matching.
- *
- * **Note:** This class is meant to be a simple data source to help you get started. As such
- * it isn't equipped to handle some more advanced cases like robust i18n support or server-side
- * interactions. If your app needs to support more advanced use cases, consider implementing your
- * own `DataSource`.
- */
-class MatTableDataSource extends _MatTableDataSource {
-}
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MatCell, MatCellDef, MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRecycleRows, MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule, MatTextColumn, _MatTableDataSource };
+export { MatCell, MatCellDef, MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRecycleRows, MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule, MatTextColumn };
 //# sourceMappingURL=table.mjs.map

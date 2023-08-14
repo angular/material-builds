@@ -11,7 +11,6 @@ import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { FocusOrigin } from '@angular/cdk/a11y';
 import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i3 from '@angular/material/core';
@@ -33,7 +32,6 @@ declare namespace i2 {
     export {
         MAT_SLIDE_TOGGLE_VALUE_ACCESSOR,
         MatSlideToggleChange,
-        _MatSlideToggleBase,
         MatSlideToggle
     }
 }
@@ -50,35 +48,24 @@ export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: {
     multi: boolean;
 };
 
-export declare class MatSlideToggle extends _MatSlideToggleBase<MatSlideToggleChange> {
+export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
+    protected _focusMonitor: FocusMonitor;
+    protected _changeDetectorRef: ChangeDetectorRef;
+    defaults: MatSlideToggleDefaultOptions;
+    private _onChange;
+    private _onTouched;
+    private _uniqueId;
+    private _required;
+    private _checked;
+    private _createChangeEvent;
     /** Unique ID for the label element. */
     _labelId: string;
     /** Returns the unique id for the visual hidden button. */
     get buttonId(): string;
     /** Reference to the MDC switch element. */
     _switchElement: ElementRef<HTMLElement>;
-    constructor(elementRef: ElementRef, focusMonitor: FocusMonitor, changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
-    /** Method being called whenever the underlying button is clicked. */
-    _handleClick(): void;
     /** Focuses the slide-toggle. */
     focus(): void;
-    protected _createChangeEvent(isChecked: boolean): MatSlideToggleChange;
-    _getAriaLabelledBy(): string | null;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["*"], false, never>;
-}
-
-export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
-    protected _focusMonitor: FocusMonitor;
-    protected _changeDetectorRef: ChangeDetectorRef;
-    defaults: MatSlideToggleDefaultOptions;
-    protected _onChange: (_: any) => void;
-    private _onTouched;
-    protected _uniqueId: string;
-    private _required;
-    private _checked;
-    protected abstract _createChangeEvent(isChecked: boolean): T;
-    abstract focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /** Whether noop animations are enabled. */
     _noopAnimations: boolean;
     /** Whether the slide toggle is currently focused. */
@@ -106,7 +93,7 @@ export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixi
     set hideIcon(value: BooleanInput);
     private _hideIcon;
     /** An event will be dispatched each time the slide-toggle changes its value. */
-    readonly change: EventEmitter<T>;
+    readonly change: EventEmitter<MatSlideToggleChange>;
     /**
      * An event will be dispatched each time the slide-toggle input is toggled.
      * This event is always emitted when the user toggles the slide toggle, but this does not mean
@@ -115,7 +102,7 @@ export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixi
     readonly toggleChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */
     get inputId(): string;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode: string | undefined, idPrefix: string);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Implemented as part of ControlValueAccessor. */
@@ -132,8 +119,11 @@ export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixi
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
      */
     protected _emitChangeEvent(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSlideToggleBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSlideToggleBase<any>, never, never, { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, never, false, never>;
+    /** Method being called whenever the underlying button is clicked. */
+    _handleClick(): void;
+    _getAriaLabelledBy(): string | null;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, ["*"], false, never>;
 }
 
 /** Change event object emitted by a slide toggle. */

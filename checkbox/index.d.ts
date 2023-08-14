@@ -11,7 +11,6 @@ import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusOrigin } from '@angular/cdk/a11y';
 import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i3 from '@angular/material/core';
@@ -33,7 +32,6 @@ declare namespace i2 {
         TransitionCheckState,
         MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
         MatCheckboxChange,
-        _MatCheckboxBase,
         MatCheckbox
     }
 }
@@ -48,47 +46,19 @@ export declare function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY(): MatCheckboxDefau
 
 export declare const MAT_CHECKBOX_REQUIRED_VALIDATOR: Provider;
 
-export declare class MatCheckbox extends _MatCheckboxBase<MatCheckboxChange> implements ControlValueAccessor, CanColor, CanDisable {
-    protected _animationClasses: {
-        uncheckedToChecked: string;
-        uncheckedToIndeterminate: string;
-        checkedToUnchecked: string;
-        checkedToIndeterminate: string;
-        indeterminateToChecked: string;
-        indeterminateToUnchecked: string;
-    };
-    constructor(elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, ngZone: NgZone, tabIndex: string, animationMode?: string, options?: MatCheckboxDefaultOptions);
+export declare class MatCheckbox extends _MatCheckboxMixinBase implements AfterViewInit, ControlValueAccessor, CanColor, CanDisable, HasTabIndex, CanDisableRipple, FocusableOption {
+    private _changeDetectorRef;
+    private _ngZone;
+    _animationMode?: string | undefined;
+    private _options?;
     /** Focuses the checkbox. */
     focus(): void;
-    protected _createChangeEvent(isChecked: boolean): MatCheckboxChange;
-    protected _getAnimationTargetElement(): HTMLInputElement;
-    _onInputClick(): void;
-    _onTouchTargetClick(): void;
-    /**
-     *  Prevent click events that come from the `<label/>` element from bubbling. This prevents the
-     *  click handler on the host from triggering twice when clicking on the `<label/>` element. After
-     *  the click event on the `<label/>` propagates, the browsers dispatches click on the associated
-     *  `<input/>`. By preventing clicks on the label by bubbling, we ensure only one click event
-     *  bubbles when the label is clicked.
-     */
-    _preventBubblingFromLabel(event: MouseEvent): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["*"], false, never>;
-}
-
-export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase implements AfterViewInit, ControlValueAccessor, CanColor, CanDisable, HasTabIndex, CanDisableRipple, FocusableOption {
-    protected _changeDetectorRef: ChangeDetectorRef;
-    protected _ngZone: NgZone;
-    _animationMode?: string | undefined;
-    protected _options?: MatCheckboxDefaultOptions | undefined;
-    /** Focuses the checkbox. */
-    abstract focus(origin?: FocusOrigin): void;
     /** Creates the change event that will be emitted by the checkbox. */
-    protected abstract _createChangeEvent(isChecked: boolean): E;
+    protected _createChangeEvent(isChecked: boolean): MatCheckboxChange;
     /** Gets the element on which to add the animation CSS classes. */
-    protected abstract _getAnimationTargetElement(): HTMLElement | null;
+    protected _getAnimationTargetElement(): HTMLInputElement;
     /** CSS classes to add when transitioning between the different checkbox states. */
-    protected abstract _animationClasses: {
+    protected _animationClasses: {
         uncheckedToChecked: string;
         uncheckedToIndeterminate: string;
         checkedToUnchecked: string;
@@ -121,7 +91,7 @@ export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase 
     /** Name value will be applied to the input element if present */
     name: string | null;
     /** Event emitted when the checkbox's `checked` value changes. */
-    readonly change: EventEmitter<E>;
+    readonly change: EventEmitter<MatCheckboxChange>;
     /** Event emitted when the checkbox's `indeterminate` value changes. */
     readonly indeterminateChange: EventEmitter<boolean>;
     /** The value attribute of the native input element */
@@ -144,7 +114,7 @@ export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase 
     private _currentAnimationClass;
     private _currentCheckState;
     private _controlValueAccessorChangeFn;
-    constructor(idPrefix: string, elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
+    constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
     ngAfterViewInit(): void;
     /** Whether the checkbox is checked. */
     get checked(): boolean;
@@ -190,8 +160,18 @@ export declare abstract class _MatCheckboxBase<E> extends _MatCheckboxMixinBase 
      * server-side rendering.
      */
     private _syncIndeterminate;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatCheckboxBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatCheckboxBase<any>, never, never, { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, never, false, never>;
+    _onInputClick(): void;
+    _onTouchTargetClick(): void;
+    /**
+     *  Prevent click events that come from the `<label/>` element from bubbling. This prevents the
+     *  click handler on the host from triggering twice when clicking on the `<label/>` element. After
+     *  the click event on the `<label/>` propagates, the browsers dispatches click on the associated
+     *  `<input/>`. By preventing clicks on the label by bubbling, we ensure only one click event
+     *  bubbles when the label is clicked.
+     */
+    _preventBubblingFromLabel(event: MouseEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], false, never>;
 }
 
 /** Change event object emitted by checkbox. */

@@ -30,7 +30,6 @@ import { Platform } from '@angular/cdk/platform';
 import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TemplateRef } from '@angular/core';
-import { Type } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 
 declare namespace i1 {
@@ -42,7 +41,6 @@ declare namespace i1 {
 
 declare namespace i2 {
     export {
-        _MatSnackBarContainerBase,
         MatSnackBarContainer
     }
 }
@@ -67,36 +65,7 @@ export declare function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY(): MatSnackBarConf
 /**
  * Service to dispatch Material Design snack bar messages.
  */
-export declare class MatSnackBar extends _MatSnackBarBase {
-    protected simpleSnackBarComponent: typeof SimpleSnackBar;
-    protected snackBarContainerComponent: typeof MatSnackBarContainer;
-    protected handsetCssClass: string;
-    constructor(overlay: Overlay, live: LiveAnnouncer, injector: Injector, breakpointObserver: BreakpointObserver, parentSnackBar: MatSnackBar, defaultConfig: MatSnackBarConfig);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBar, [null, null, null, null, { optional: true; skipSelf: true; }, null]>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatSnackBar>;
-}
-
-/** Directive that should be applied to each of the snack bar's action buttons. */
-export declare class MatSnackBarAction {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarAction, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, false, never>;
-}
-
-/** Directive that should be applied to the element containing the snack bar's action buttons. */
-export declare class MatSnackBarActions {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarActions, "[matSnackBarActions]", never, {}, {}, never, never, false, never>;
-}
-
-/**
- * Animations used by the Material snack bar.
- * @docs-private
- */
-export declare const matSnackBarAnimations: {
-    readonly snackBarState: AnimationTriggerMetadata;
-};
-
-export declare abstract class _MatSnackBarBase implements OnDestroy {
+export declare class MatSnackBar implements OnDestroy {
     private _overlay;
     private _live;
     private _injector;
@@ -110,15 +79,15 @@ export declare abstract class _MatSnackBarBase implements OnDestroy {
      */
     private _snackBarRefAtThisLevel;
     /** The component that should be rendered as the snack bar's simple component. */
-    protected abstract simpleSnackBarComponent: Type<TextOnlySnackBar>;
+    simpleSnackBarComponent: typeof SimpleSnackBar;
     /** The container component that attaches the provided template or component. */
-    protected abstract snackBarContainerComponent: Type<_MatSnackBarContainerBase>;
+    snackBarContainerComponent: typeof MatSnackBarContainer;
     /** The CSS class to apply for handset mode. */
-    protected abstract handsetCssClass: string;
+    handsetCssClass: string;
     /** Reference to the currently opened snackbar at *any* level. */
     get _openedSnackBarRef(): MatSnackBarRef<any> | null;
     set _openedSnackBarRef(value: MatSnackBarRef<any> | null);
-    constructor(_overlay: Overlay, _live: LiveAnnouncer, _injector: Injector, _breakpointObserver: BreakpointObserver, _parentSnackBar: _MatSnackBarBase, _defaultConfig: MatSnackBarConfig);
+    constructor(_overlay: Overlay, _live: LiveAnnouncer, _injector: Injector, _breakpointObserver: BreakpointObserver, _parentSnackBar: MatSnackBar, _defaultConfig: MatSnackBarConfig);
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
@@ -168,9 +137,29 @@ export declare abstract class _MatSnackBarBase implements OnDestroy {
      * @param snackBarRef Reference to the snack bar.
      */
     private _createInjector;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSnackBarBase, [null, null, null, null, { optional: true; skipSelf: true; }, null]>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<_MatSnackBarBase>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBar, [null, null, null, null, { optional: true; skipSelf: true; }, null]>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatSnackBar>;
 }
+
+/** Directive that should be applied to each of the snack bar's action buttons. */
+export declare class MatSnackBarAction {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarAction, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, false, never>;
+}
+
+/** Directive that should be applied to the element containing the snack bar's action buttons. */
+export declare class MatSnackBarActions {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarActions, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarActions, "[matSnackBarActions]", never, {}, {}, never, never, false, never>;
+}
+
+/**
+ * Animations used by the Material snack bar.
+ * @docs-private
+ */
+export declare const matSnackBarAnimations: {
+    readonly snackBarState: AnimationTriggerMetadata;
+};
 
 /**
  * Configuration used when opening a snack-bar.
@@ -206,26 +195,9 @@ export declare class MatSnackBarConfig<D = any> {
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
  */
-export declare class MatSnackBarContainer extends _MatSnackBarContainerBase {
-    /**
-     * Element that will have the `mdc-snackbar__label` class applied if the attached component
-     * or template does not have it. This ensures that the appropriate structure, typography, and
-     * color is applied to the attached view.
-     */
-    _label: ElementRef;
-    /** Applies the correct CSS class to the label based on its content. */
-    protected _afterPortalAttached(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "mat-snack-bar-container", never, {}, {}, never, never, false, never>;
-}
-
-/**
- * Base class for snack bar containers.
- * @docs-private
- */
-export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet implements OnDestroy {
+export declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy {
     private _ngZone;
-    protected _elementRef: ElementRef<HTMLElement>;
+    private _elementRef;
     private _changeDetectorRef;
     private _platform;
     /** The snack bar configuration. */
@@ -250,6 +222,12 @@ export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet
     _animationState: string;
     /** aria-live value for the live region. */
     _live: AriaLivePoliteness;
+    /**
+     * Element that will have the `mdc-snackbar__label` class applied if the attached component
+     * or template does not have it. This ensures that the appropriate structure, typography, and
+     * color is applied to the attached view.
+     */
+    _label: ElementRef;
     /**
      * Role of the live region. This is only for Firefox as there is a known issue where Firefox +
      * JAWS does not read out aria-live message.
@@ -287,7 +265,7 @@ export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet
      * Called after the portal contents have been attached. Can be
      * used to modify the DOM once it's guaranteed to be in place.
      */
-    protected _afterPortalAttached(): void;
+    private _afterPortalAttached;
     /**
      * Some browsers won't expose the accessibility node of the live element if there is an
      * `aria-modal` and the live element is outside of it. This method works around the issue by
@@ -303,8 +281,8 @@ export declare abstract class _MatSnackBarContainerBase extends BasePortalOutlet
      * announce it.
      */
     private _screenReaderAnnounce;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSnackBarContainerBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSnackBarContainerBase, never, never, {}, {}, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarContainer, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "mat-snack-bar-container", never, {}, {}, never, never, false, never>;
 }
 
 /** Event that is emitted when a snack bar is dismissed. */
@@ -339,7 +317,7 @@ export declare class MatSnackBarRef<T> {
      * The instance of the component making up the content of the snack bar.
      * @docs-private
      */
-    containerInstance: _MatSnackBarContainerBase;
+    containerInstance: MatSnackBarContainer;
     /** Subject for notifying the user that the snack bar has been dismissed. */
     private readonly _afterDismissed;
     /** Subject for notifying the user that the snack bar has opened and appeared. */
@@ -353,7 +331,7 @@ export declare class MatSnackBarRef<T> {
     private _durationTimeoutId;
     /** Whether the snack bar was dismissed using the action button. */
     private _dismissedByAction;
-    constructor(containerInstance: _MatSnackBarContainerBase, _overlayRef: OverlayRef);
+    constructor(containerInstance: MatSnackBarContainer, _overlayRef: OverlayRef);
     /** Dismisses the snack bar. */
     dismiss(): void;
     /** Marks the snackbar action clicked. */
