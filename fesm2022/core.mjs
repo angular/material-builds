@@ -406,19 +406,24 @@ function range(length, valueFunction) {
 }
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 class NativeDateAdapter extends DateAdapter {
-    constructor(matDateLocale, 
+    constructor(
     /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 14.0.0
+     * @deprecated Now injected via inject(), param to be removed.
+     * @breaking-change 18.0.0
      */
-    _platform) {
+    matDateLocale) {
         super();
         /**
          * @deprecated No longer being used. To be removed.
          * @breaking-change 14.0.0
          */
         this.useUtcForDisplay = false;
-        super.setLocale(matDateLocale);
+        /** The injected locale. */
+        this._matDateLocale = inject(MAT_DATE_LOCALE, { optional: true });
+        if (matDateLocale !== undefined) {
+            this._matDateLocale = matDateLocale;
+        }
+        super.setLocale(this._matDateLocale);
     }
     getYear(date) {
         return date.getFullYear();
@@ -584,7 +589,7 @@ class NativeDateAdapter extends DateAdapter {
         d.setUTCHours(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
         return dtf.format(d);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: NativeDateAdapter, deps: [{ token: MAT_DATE_LOCALE, optional: true }, { token: i1$1.Platform }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: NativeDateAdapter, deps: [{ token: MAT_DATE_LOCALE, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
     static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: NativeDateAdapter }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: NativeDateAdapter, decorators: [{
@@ -594,7 +599,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImpor
                 }, {
                     type: Inject,
                     args: [MAT_DATE_LOCALE]
-                }] }, { type: i1$1.Platform }]; } });
+                }] }]; } });
 
 const MAT_NATIVE_DATE_FORMATS = {
     parse: {

@@ -856,12 +856,14 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @breaking-change 14.0.0
      */
     useUtcForDisplay: boolean;
-    constructor(matDateLocale: string, 
+    /** The injected locale. */
+    private readonly _matDateLocale;
+    constructor(
     /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 14.0.0
+     * @deprecated Now injected via inject(), param to be removed.
+     * @breaking-change 18.0.0
      */
-    _platform?: Platform);
+    matDateLocale?: string);
     getYear(date: Date): number;
     getMonth(date: Date): number;
     getDate(date: Date): number;
@@ -910,7 +912,7 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @returns A Date object with its UTC representation based on the passed in date info
      */
     private _format;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, [{ optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, [{ optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<NativeDateAdapter>;
 }
 
