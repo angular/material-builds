@@ -1241,14 +1241,13 @@ class MatSliderThumb {
         // slider thumb and the slider does not receive focus from pointer events.
         if (this._platform.IOS) {
             const isCursorOnSliderThumb = this._slider._isCursorOnSliderThumb(event, this._slider._getThumb(this.thumbPosition)._hostElement.getBoundingClientRect());
-            if (isCursorOnSliderThumb) {
-                this._isActive = true;
-            }
+            this._isActive = isCursorOnSliderThumb;
+            this._updateWidthActive();
+            this._slider._updateDimensions();
+            return;
         }
-        else {
-            this._isActive = true;
-            this._setIsFocused(true);
-        }
+        this._isActive = true;
+        this._setIsFocused(true);
         this._updateWidthActive();
         this._slider._updateDimensions();
         // Does nothing if a step is defined because we
