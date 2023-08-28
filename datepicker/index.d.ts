@@ -1594,7 +1594,7 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     /** Handles when a new date is selected. */
     _dateSelected(event: MatCalendarUserEvent<number>): void;
     /**
-     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
@@ -1706,7 +1706,7 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     /** Handles when a new year is selected. */
     _yearSelected(event: MatCalendarUserEvent<number>): void;
     /**
-     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
@@ -1863,7 +1863,7 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     /** Handles when a new month is selected. */
     _monthSelected(event: MatCalendarUserEvent<number>): void;
     /**
-     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *

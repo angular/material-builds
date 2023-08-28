@@ -962,7 +962,7 @@ class MatMonthView {
         this._changeDetectorRef.markForCheck();
     }
     /**
-     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
@@ -1383,7 +1383,7 @@ class MatMultiYearView {
         this.selectedChange.emit(selectedDate);
     }
     /**
-     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
@@ -1678,7 +1678,7 @@ class MatYearView {
         this.selectedChange.emit(selectedDate);
     }
     /**
-     * Takes the index of a calendar body cell wrapped in in an event as argument. For the date that
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
      * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
      * that date.
      *
