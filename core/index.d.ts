@@ -1,9 +1,6 @@
-import { _AbstractConstructor as _AbstractConstructor_2 } from '@angular/material/core';
 import { AbstractControl } from '@angular/forms';
 import { AfterViewChecked } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef } from '@angular/core';
-import { _Constructor as _Constructor_2 } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
@@ -529,22 +526,20 @@ export declare class MatNativeDateModule {
 /**
  * Component that is used to group instances of `mat-option`.
  */
-export declare class MatOptgroup extends _MatOptgroupMixinBase implements CanDisable {
+export declare class MatOptgroup {
     /** Label for the option group. */
     label: string;
+    /** whether the option group is disabled. */
+    disabled: boolean;
     /** Unique id for the underlying label. */
     _labelId: string;
     /** Whether the group is in inert a11y mode. */
     _inert: boolean;
     constructor(parent?: MatOptionParentComponent);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, [{ optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": { "alias": "disabled"; "required": false; }; "label": { "alias": "label"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "label": { "alias": "label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
+    static ngAcceptInputType_disabled: unknown;
 }
-
-/** @docs-private */
-declare const _MatOptgroupMixinBase: _Constructor_2<CanDisable> & _AbstractConstructor_2<CanDisable> & {
-    new (): {};
-};
 
 /**
  * Single option inside of a `<mat-select>` element.
@@ -568,7 +563,7 @@ export declare class MatOption<T = any> implements FocusableOption, AfterViewChe
     id: string;
     /** Whether the option is disabled. */
     get disabled(): boolean;
-    set disabled(value: BooleanInput);
+    set disabled(value: boolean);
     /** Whether ripples for the option are disabled. */
     get disableRipple(): boolean;
     /** Whether to display checkmark for single-selection. */
@@ -629,6 +624,7 @@ export declare class MatOption<T = any> implements FocusableOption, AfterViewChe
     private _emitSelectionChangeEvent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], { "value": { "alias": "value"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "onSelectionChange": "onSelectionChange"; }, never, ["mat-icon", "*"], false, never>;
+    static ngAcceptInputType_disabled: unknown;
 }
 
 export declare class MatOptionModule {

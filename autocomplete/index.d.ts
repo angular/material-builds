@@ -1,12 +1,8 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { CanDisableRipple } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { _Constructor } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
@@ -95,7 +91,7 @@ export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER: {
 export declare const MAT_AUTOCOMPLETE_VALUE_ACCESSOR: any;
 
 /** Autocomplete component. */
-export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple, OnDestroy {
+export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     protected _defaults: MatAutocompleteDefaultOptions;
@@ -135,27 +131,23 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
      * Whether the first option should be highlighted when the autocomplete panel is opened.
      * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
      */
-    get autoActiveFirstOption(): boolean;
-    set autoActiveFirstOption(value: BooleanInput);
-    private _autoActiveFirstOption;
+    autoActiveFirstOption: boolean;
     /** Whether the active option should be selected as the user is navigating. */
-    get autoSelectActiveOption(): boolean;
-    set autoSelectActiveOption(value: BooleanInput);
-    private _autoSelectActiveOption;
+    autoSelectActiveOption: boolean;
     /**
      * Whether the user is required to make a selection when they're interacting with the
      * autocomplete. If the user moves away from the autocomplete without selecting an option from
      * the list, the value will be reset. If the user opens the panel and closes it without
      * interacting or selecting a value, the initial value will be kept.
      */
-    get requireSelection(): boolean;
-    set requireSelection(value: BooleanInput);
-    private _requireSelection;
+    requireSelection: boolean;
     /**
      * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
      * match the width of its host.
      */
     panelWidth: string | number;
+    /** Whether ripples are disabled within the autocomplete panel. */
+    disableRipple: boolean;
     /** Event that is emitted whenever an option from the list is selected. */
     readonly optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
     /** Event that is emitted when the autocomplete panel is opened. */
@@ -174,7 +166,7 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     };
     /** Whether checkmark indicator for single-selection options is hidden. */
     get hideSingleSelectionIndicator(): boolean;
-    set hideSingleSelectionIndicator(value: BooleanInput);
+    set hideSingleSelectionIndicator(value: boolean);
     private _hideSingleSelectionIndicator;
     /** Syncs the parent state with the individual options. */
     _syncParentProperties(): void;
@@ -207,7 +199,12 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     private _setThemeClasses;
     protected _skipPredicate(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocomplete, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; "autoActiveFirstOption": { "alias": "autoActiveFirstOption"; "required": false; }; "autoSelectActiveOption": { "alias": "autoSelectActiveOption"; "required": false; }; "requireSelection": { "alias": "requireSelection"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "classList": { "alias": "class"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, ["options", "optionGroups"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; "autoActiveFirstOption": { "alias": "autoActiveFirstOption"; "required": false; }; "autoSelectActiveOption": { "alias": "autoSelectActiveOption"; "required": false; }; "requireSelection": { "alias": "requireSelection"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "classList": { "alias": "class"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, ["options", "optionGroups"], ["*"], false, never>;
+    static ngAcceptInputType_autoActiveFirstOption: unknown;
+    static ngAcceptInputType_autoSelectActiveOption: unknown;
+    static ngAcceptInputType_requireSelection: unknown;
+    static ngAcceptInputType_disableRipple: unknown;
+    static ngAcceptInputType_hideSingleSelectionIndicator: unknown;
 }
 
 /** Event object that is emitted when an autocomplete option is activated. */
@@ -234,11 +231,6 @@ export declare interface MatAutocompleteDefaultOptions {
     /** Wheter icon indicators should be hidden for single-selection. */
     hideSingleSelectionIndicator?: boolean;
 }
-
-/** @docs-private */
-declare const _MatAutocompleteMixinBase: _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & {
-    new (): {};
-};
 
 export declare class MatAutocompleteModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteModule, never>;
@@ -288,7 +280,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _overlayRef;
     private _portal;
     private _componentDestroyed;
-    private _autocompleteDisabled;
     private _scrollStrategy;
     private _keydownSubscription;
     private _outsideClickSubscription;
@@ -352,8 +343,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
      * Whether the autocomplete is disabled. When disabled, the element will
      * act as a regular input and the user won't be able to open the panel.
      */
-    get autocompleteDisabled(): boolean;
-    set autocompleteDisabled(value: BooleanInput);
+    autocompleteDisabled: boolean;
     constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality | null, _formField: MatFormField | null, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | null | undefined);
     /** Class to apply to the panel when it's above the input. */
     private _aboveClass;
@@ -481,6 +471,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _clearFromModal;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteTrigger, [null, null, null, null, null, null, { optional: true; }, { optional: true; host: true; }, { optional: true; }, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], { "autocomplete": { "alias": "matAutocomplete"; "required": false; }; "position": { "alias": "matAutocompletePosition"; "required": false; }; "connectedTo": { "alias": "matAutocompleteConnectedTo"; "required": false; }; "autocompleteAttribute": { "alias": "autocomplete"; "required": false; }; "autocompleteDisabled": { "alias": "matAutocompleteDisabled"; "required": false; }; }, {}, never, never, false, never>;
+    static ngAcceptInputType_autocompleteDisabled: unknown;
 }
 
 export { }

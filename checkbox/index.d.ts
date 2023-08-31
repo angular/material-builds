@@ -1,17 +1,10 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AfterViewInit } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { CanColor } from '@angular/material/core';
-import { CanDisable } from '@angular/material/core';
-import { CanDisableRipple } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { CheckboxRequiredValidator } from '@angular/forms';
-import { _Constructor } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
-import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i3 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
@@ -46,7 +39,8 @@ export declare function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY(): MatCheckboxDefau
 
 export declare const MAT_CHECKBOX_REQUIRED_VALIDATOR: Provider;
 
-export declare class MatCheckbox extends _MatCheckboxMixinBase implements AfterViewInit, ControlValueAccessor, CanColor, CanDisable, HasTabIndex, CanDisableRipple, FocusableOption {
+export declare class MatCheckbox implements AfterViewInit, ControlValueAccessor, FocusableOption {
+    _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _ngZone;
     _animationMode?: string | undefined;
@@ -83,9 +77,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements AfterV
     /** Returns the unique id for the visual hidden input. */
     get inputId(): string;
     /** Whether the checkbox is required. */
-    get required(): boolean;
-    set required(value: BooleanInput);
-    private _required;
+    required: boolean;
     /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
     labelPosition: 'before' | 'after';
     /** Name value will be applied to the input element if present */
@@ -96,10 +88,16 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements AfterV
     readonly indeterminateChange: EventEmitter<boolean>;
     /** The value attribute of the native input element */
     value: string;
+    /** Whether the checkbox has a ripple. */
+    disableRipple: boolean;
     /** The native `<input type="checkbox">` element */
     _inputElement: ElementRef<HTMLInputElement>;
     /** The native `<label>` element */
     _labelElement: ElementRef<HTMLInputElement>;
+    /** Tabindex for the checkbox. */
+    tabIndex: number;
+    /** Palette color of the checkbox. */
+    color: string | undefined;
     /**
      * Reference to the MatRipple instance of the checkbox.
      * @deprecated Considered an implementation detail. To be removed.
@@ -114,18 +112,15 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements AfterV
     private _currentAnimationClass;
     private _currentCheckState;
     private _controlValueAccessorChangeFn;
-    constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
     ngAfterViewInit(): void;
     /** Whether the checkbox is checked. */
     get checked(): boolean;
-    set checked(value: BooleanInput);
+    set checked(value: boolean);
     private _checked;
-    /**
-     * Whether the checkbox is disabled. This fully overrides the implementation provided by
-     * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
-     */
+    /** Whether the checkbox is disabled. */
     get disabled(): boolean;
-    set disabled(value: BooleanInput);
+    set disabled(value: boolean);
     private _disabled;
     /**
      * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
@@ -134,7 +129,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements AfterV
      * set to false.
      */
     get indeterminate(): boolean;
-    set indeterminate(value: BooleanInput);
+    set indeterminate(value: boolean);
     private _indeterminate;
     _isRippleDisabled(): boolean;
     /** Method being called whenever the label text changes. */
@@ -171,7 +166,13 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements AfterV
      */
     _preventBubblingFromLabel(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "color": { "alias": "color"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], false, never>;
+    static ngAcceptInputType_required: unknown;
+    static ngAcceptInputType_disableRipple: unknown;
+    static ngAcceptInputType_tabIndex: unknown;
+    static ngAcceptInputType_checked: unknown;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_indeterminate: unknown;
 }
 
 /** Change event object emitted by checkbox. */
@@ -198,13 +199,6 @@ export declare interface MatCheckboxDefaultOptions {
     /** Default checkbox click action for checkboxes. */
     clickAction?: MatCheckboxClickAction;
 }
-
-/** @docs-private */
-declare const _MatCheckboxMixinBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanColor> & _AbstractConstructor<CanColor> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
-    new (_elementRef: ElementRef): {
-        _elementRef: ElementRef;
-    };
-};
 
 export declare class MatCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;

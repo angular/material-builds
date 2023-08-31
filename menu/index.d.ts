@@ -1,15 +1,10 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { ApplicationRef } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { CanDisable } from '@angular/material/core';
-import { CanDisableRipple } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFactoryResolver } from '@angular/core';
-import { _Constructor } from '@angular/material/core';
 import { Direction } from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
@@ -166,13 +161,9 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      */
     lazyContent: MatMenuContent;
     /** Whether the menu should overlap its trigger. */
-    get overlapTrigger(): boolean;
-    set overlapTrigger(value: BooleanInput);
-    private _overlapTrigger;
+    overlapTrigger: boolean;
     /** Whether the menu has a backdrop. */
-    get hasBackdrop(): boolean | undefined;
-    set hasBackdrop(value: BooleanInput);
-    private _hasBackdrop;
+    hasBackdrop?: boolean;
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
      * menu template that displays in the overlay container.  Otherwise, it's difficult
@@ -259,6 +250,8 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
     private _updateDirectDescendants;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenu, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], { "backdropClass": { "alias": "backdropClass"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "xPosition": { "alias": "xPosition"; "required": false; }; "yPosition": { "alias": "yPosition"; "required": false; }; "overlapTrigger": { "alias": "overlapTrigger"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; "panelClass": { "alias": "class"; "required": false; }; "classList": { "alias": "classList"; "required": false; }; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"], ["*"], false, never>;
+    static ngAcceptInputType_overlapTrigger: unknown;
+    static ngAcceptInputType_hasBackdrop: any;
 }
 
 /**
@@ -325,7 +318,7 @@ export declare interface MatMenuDefaultOptions {
 /**
  * Single item inside a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
-export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOption, CanDisable, CanDisableRipple, AfterViewInit, OnDestroy {
+export declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
     private _elementRef;
     private _document?;
     private _focusMonitor?;
@@ -333,6 +326,10 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     private _changeDetectorRef?;
     /** ARIA role for the menu item. */
     role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
+    /** Whether the menu item is disabled. */
+    disabled: boolean;
+    /** Whether ripples are disabled on the menu item. */
+    disableRipple: boolean;
     /** Stream that emits when the menu item is hovered. */
     readonly _hovered: Subject<MatMenuItem>;
     /** Stream that emits when the menu item is focused. */
@@ -365,13 +362,10 @@ export declare class MatMenuItem extends _MatMenuItemBase implements FocusableOp
     _setTriggersSubmenu(triggersSubmenu: boolean): void;
     _hasFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, [null, null, null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "role": { "alias": "role"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], false, never>;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_disableRipple: unknown;
 }
-
-/** @docs-private */
-declare const _MatMenuItemBase: _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
-    new (): {};
-};
 
 export declare class MatMenuModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuModule, never>;
