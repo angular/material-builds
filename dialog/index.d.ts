@@ -1,6 +1,7 @@
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
 import { ComponentFactoryResolver } from '@angular/core';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/overlay';
 import { DialogRef } from '@angular/cdk/dialog';
@@ -365,6 +366,7 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
      */
     protected _openAnimationDone(totalTime: number): void;
     ngOnDestroy(): void;
+    attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, [null, null, { optional: true; }, null, null, null, null, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never, false, never>;
 }
