@@ -285,8 +285,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _outsideClickSubscription;
     /** Old value of the native input. Used to work around issues with the `input` event on IE. */
     private _previousValue;
-    /** Value of the input element when the panel was opened. */
-    private _valueOnOpen;
+    /** Value of the input element when the panel was attached (even if there are no options). */
+    private _valueOnAttach;
     /** Strategy that is used to position the panel. */
     private _positionStrategy;
     /** Whether or not the label state is being overridden. */
@@ -400,6 +400,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
      * the state of the trigger right before the opening sequence was finished.
      */
     private _emitOpened;
+    /** Intended to be called when the panel is attached. Captures the current value of the input. */
+    private _captureValueOnAttach;
     /** Destroys the autocomplete suggestion panel. */
     private _destroyPanel;
     private _assignOptionValue;
