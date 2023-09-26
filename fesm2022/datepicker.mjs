@@ -29,7 +29,7 @@ import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 /** @docs-private */
 function createMissingDateImplError(provider) {
     return Error(`MatDatepicker: No provider found for ${provider}. You must import one of the following ` +
-        `modules at your application root: MatNativeDateModule, MatMomentDateModule, or provide a ` +
+        `modules at your application root: MatNativeDateModule, MatDateFnsModule, MatLuxonDateModule, MatMomentDateModule, or provide a ` +
         `custom implementation.`);
 }
 
