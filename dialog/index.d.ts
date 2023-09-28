@@ -12,10 +12,10 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i3 from '@angular/cdk/dialog';
-import * as i4 from '@angular/cdk/overlay';
-import * as i5 from '@angular/cdk/portal';
-import * as i6 from '@angular/material/core';
+import * as i1 from '@angular/cdk/dialog';
+import * as i2 from '@angular/cdk/overlay';
+import * as i3 from '@angular/cdk/portal';
+import * as i4 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
 import { InteractivityChecker } from '@angular/cdk/a11y';
@@ -73,7 +73,7 @@ export declare interface DialogPosition {
 /** Valid ARIA roles for a dialog element. */
 export declare type DialogRole = 'dialog' | 'alertdialog';
 
-declare namespace i1 {
+declare namespace i5 {
     export {
         OPEN_ANIMATION_DURATION,
         CLOSE_ANIMATION_DURATION,
@@ -81,7 +81,7 @@ declare namespace i1 {
     }
 }
 
-declare namespace i2 {
+declare namespace i6 {
     export {
         MatDialogClose,
         MatDialogTitle,
@@ -105,14 +105,22 @@ export declare const MAT_DIALOG_DEFAULT_OPTIONS: InjectionToken<MatDialogConfig<
 /** Injection token that determines the scroll handling while the dialog is open. */
 export declare const MAT_DIALOG_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used. To be removed.
+ * @breaking-change 19.0.0
+ */
 export declare const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
     useFactory: typeof MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 };
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used. To be removed.
+ * @breaking-change 19.0.0
+ */
 export declare function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
 
 /**
@@ -197,7 +205,7 @@ export declare class MatDialogActions {
      */
     align?: 'start' | 'center' | 'end';
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, { "align": { "alias": "align"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, { "align": { "alias": "align"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /**
@@ -227,7 +235,7 @@ export declare class MatDialogClose implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void;
     _onButtonClick(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogClose, [{ optional: true; }, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogClose, "[mat-dialog-close], [matDialogClose]", ["matDialogClose"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "type": { "alias": "type"; "required": false; }; "dialogResult": { "alias": "mat-dialog-close"; "required": false; }; "_matDialogClose": { "alias": "matDialogClose"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogClose, "[mat-dialog-close], [matDialogClose]", ["matDialogClose"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "type": { "alias": "type"; "required": false; }; "dialogResult": { "alias": "mat-dialog-close"; "required": false; }; "_matDialogClose": { "alias": "matDialogClose"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /**
@@ -368,7 +376,7 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
     ngOnDestroy(): void;
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContainer, [null, null, { optional: true; }, null, null, null, null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -376,12 +384,12 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
  */
 export declare class MatDialogContent {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogContent, "[mat-dialog-content], mat-dialog-content, [matDialogContent]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogContent, "[mat-dialog-content], mat-dialog-content, [matDialogContent]", never, {}, {}, never, never, true, never>;
 }
 
 export declare class MatDialogModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDialogModule, [typeof i1.MatDialogContainer, typeof i2.MatDialogClose, typeof i2.MatDialogTitle, typeof i2.MatDialogActions, typeof i2.MatDialogContent], [typeof i3.DialogModule, typeof i4.OverlayModule, typeof i5.PortalModule, typeof i6.MatCommonModule], [typeof i1.MatDialogContainer, typeof i2.MatDialogClose, typeof i2.MatDialogTitle, typeof i2.MatDialogContent, typeof i2.MatDialogActions, typeof i6.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDialogModule, never, [typeof i1.DialogModule, typeof i2.OverlayModule, typeof i3.PortalModule, typeof i4.MatCommonModule, typeof i5.MatDialogContainer, typeof i6.MatDialogClose, typeof i6.MatDialogTitle, typeof i6.MatDialogActions, typeof i6.MatDialogContent], [typeof i4.MatCommonModule, typeof i5.MatDialogContainer, typeof i6.MatDialogClose, typeof i6.MatDialogTitle, typeof i6.MatDialogActions, typeof i6.MatDialogContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDialogModule>;
 }
 
@@ -482,7 +490,7 @@ export declare class MatDialogTitle implements OnInit, OnDestroy {
     ngOnInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogTitle, [{ optional: true; }, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": { "alias": "id"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /** Duration of the opening animation in milliseconds. */
