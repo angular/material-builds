@@ -52,12 +52,12 @@ export class MatDateSelectionModel {
     _isValidDateInstance(date) {
         return this._adapter.isDateInstance(date) && this._adapter.isValid(date);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatDateSelectionModel, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatDateSelectionModel }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatDateSelectionModel, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatDateSelectionModel }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatDateSelectionModel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatDateSelectionModel, decorators: [{
             type: Injectable
-        }], ctorParameters: function () { return [{ type: undefined }, { type: i1.DateAdapter }]; } });
+        }], ctorParameters: () => [{ type: undefined }, { type: i1.DateAdapter }] });
 /**
  * A selection model that contains a single date.
  * @docs-private
@@ -90,12 +90,12 @@ export class MatSingleDateSelectionModel extends MatDateSelectionModel {
         clone.updateSelection(this.selection, this);
         return clone;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatSingleDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatSingleDateSelectionModel }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatSingleDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatSingleDateSelectionModel }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatSingleDateSelectionModel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatSingleDateSelectionModel, decorators: [{
             type: Injectable
-        }], ctorParameters: function () { return [{ type: i1.DateAdapter }]; } });
+        }], ctorParameters: () => [{ type: i1.DateAdapter }] });
 /**
  * A selection model that contains a date range.
  * @docs-private
@@ -153,12 +153,12 @@ export class MatRangeDateSelectionModel extends MatDateSelectionModel {
         clone.updateSelection(this.selection, this);
         return clone;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatRangeDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatRangeDateSelectionModel }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatRangeDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatRangeDateSelectionModel }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.4", ngImport: i0, type: MatRangeDateSelectionModel, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-next.6", ngImport: i0, type: MatRangeDateSelectionModel, decorators: [{
             type: Injectable
-        }], ctorParameters: function () { return [{ type: i1.DateAdapter }]; } });
+        }], ctorParameters: () => [{ type: i1.DateAdapter }] });
 /** @docs-private */
 export function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
     return parent || new MatSingleDateSelectionModel(adapter);
