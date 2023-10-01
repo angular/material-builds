@@ -7,7 +7,7 @@ import * as i3 from '@angular/cdk/scrolling';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i1$1 from '@angular/cdk/overlay';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, addAriaReferencedId, removeAriaReferencedId } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { _getEventTarget } from '@angular/cdk/platform';
@@ -525,6 +525,11 @@ class _MatAutocompleteTriggerBase {
     openPanel() {
         this._attachOverlay();
         this._floatLabel();
+        // Add aria-owns attribute when the autocomplete becomes visible.
+        if (this._trackedModal) {
+            const panelId = this.autocomplete.id;
+            addAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
+        }
     }
     /** Closes the autocomplete suggestion panel. */
     closePanel() {
@@ -556,6 +561,11 @@ class _MatAutocompleteTriggerBase {
             // This ensures that the label is reset when the
             // user clicks outside.
             this._changeDetectorRef.detectChanges();
+        }
+        // Remove aria-owns attribute when the autocomplete is no longer visible.
+        if (this._trackedModal) {
+            const panelId = this.autocomplete.id;
+            removeAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
         }
     }
     /**
