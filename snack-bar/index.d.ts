@@ -13,11 +13,10 @@ import { DomPortal } from '@angular/cdk/portal';
 import { ElementRef } from '@angular/core';
 import { EmbeddedViewRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i4 from '@angular/cdk/overlay';
-import * as i5 from '@angular/cdk/portal';
-import * as i6 from '@angular/common';
-import * as i7 from '@angular/material/button';
-import * as i8 from '@angular/material/core';
+import * as i1 from '@angular/cdk/overlay';
+import * as i2 from '@angular/cdk/portal';
+import * as i3 from '@angular/material/button';
+import * as i4 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
@@ -32,20 +31,20 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { TemplateRef } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
 
-declare namespace i1 {
+declare namespace i5 {
     export {
         TextOnlySnackBar,
         SimpleSnackBar
     }
 }
 
-declare namespace i2 {
+declare namespace i6 {
     export {
         MatSnackBarContainer
     }
 }
 
-declare namespace i3 {
+declare namespace i7 {
     export {
         MatSnackBarLabel,
         MatSnackBarActions,
@@ -144,13 +143,13 @@ export declare class MatSnackBar implements OnDestroy {
 /** Directive that should be applied to each of the snack bar's action buttons. */
 export declare class MatSnackBarAction {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarAction, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, true, never>;
 }
 
 /** Directive that should be applied to the element containing the snack bar's action buttons. */
 export declare class MatSnackBarActions {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarActions, "[matSnackBarActions]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarActions, "[matSnackBarActions]", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -282,7 +281,7 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      */
     private _screenReaderAnnounce;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "mat-snack-bar-container", never, {}, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSnackBarContainer, "mat-snack-bar-container", never, {}, {}, never, never, true, never>;
 }
 
 /** Event that is emitted when a snack bar is dismissed. */
@@ -297,12 +296,12 @@ export declare type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' |
 /** Directive that should be applied to the text element to be rendered in the snack bar. */
 export declare class MatSnackBarLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarLabel, "[matSnackBarLabel]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarLabel, "[matSnackBarLabel]", never, {}, {}, never, never, true, never>;
 }
 
 export declare class MatSnackBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSnackBarModule, [typeof i1.SimpleSnackBar, typeof i2.MatSnackBarContainer, typeof i3.MatSnackBarLabel, typeof i3.MatSnackBarActions, typeof i3.MatSnackBarAction], [typeof i4.OverlayModule, typeof i5.PortalModule, typeof i6.CommonModule, typeof i7.MatButtonModule, typeof i8.MatCommonModule], [typeof i8.MatCommonModule, typeof i2.MatSnackBarContainer, typeof i3.MatSnackBarLabel, typeof i3.MatSnackBarActions, typeof i3.MatSnackBarAction]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSnackBarModule, never, [typeof i1.OverlayModule, typeof i2.PortalModule, typeof i3.MatButtonModule, typeof i4.MatCommonModule, typeof i5.SimpleSnackBar, typeof i6.MatSnackBarContainer, typeof i7.MatSnackBarLabel, typeof i7.MatSnackBarActions, typeof i7.MatSnackBarAction], [typeof i4.MatCommonModule, typeof i6.MatSnackBarContainer, typeof i7.MatSnackBarLabel, typeof i7.MatSnackBarActions, typeof i7.MatSnackBarAction]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSnackBarModule>;
 }
 
@@ -374,7 +373,7 @@ export declare class SimpleSnackBar implements TextOnlySnackBar {
     /** If the action button should be shown. */
     get hasAction(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<SimpleSnackBar, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<SimpleSnackBar, "simple-snack-bar", ["matSnackBar"], {}, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<SimpleSnackBar, "simple-snack-bar", ["matSnackBar"], {}, {}, never, never, true, never>;
 }
 
 /**
