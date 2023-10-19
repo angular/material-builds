@@ -1,5 +1,5 @@
-import { booleanAttribute } from '@angular/core';
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a MDC-based mat-button in tests. */
 class MatButtonHarness extends ContentContainerComponentHarness {
@@ -28,7 +28,7 @@ class MatButtonHarness extends ContentContainerComponentHarness {
     /** Gets a boolean promise indicating if the button is disabled. */
     async isDisabled() {
         const disabled = (await this.host()).getAttribute('disabled');
-        return booleanAttribute(await disabled);
+        return coerceBooleanProperty(await disabled);
     }
     /** Gets a promise for the button's label text. */
     async getText() {

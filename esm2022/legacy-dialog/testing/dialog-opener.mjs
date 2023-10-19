@@ -1,0 +1,56 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var MatTestLegacyDialogOpener_1;
+import { __decorate, __metadata } from "tslib";
+import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
+import { MatLegacyDialog, MatLegacyDialogModule, } from '@angular/material/legacy-dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { _MatTestDialogOpenerBase } from '@angular/material/dialog/testing';
+/**
+ * Test component that immediately opens a dialog when created.
+ * @deprecated Use `MatTestDialogOpener` from `@angular/material/dialog/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+export let MatTestLegacyDialogOpener = MatTestLegacyDialogOpener_1 = class MatTestLegacyDialogOpener extends _MatTestDialogOpenerBase {
+    constructor(dialog) {
+        super(dialog);
+    }
+    /** Static method that prepares this class to open the provided component. */
+    static withComponent(component, config) {
+        _MatTestDialogOpenerBase.component = component;
+        _MatTestDialogOpenerBase.config = config;
+        return MatTestLegacyDialogOpener_1;
+    }
+};
+MatTestLegacyDialogOpener = MatTestLegacyDialogOpener_1 = __decorate([
+    Component({
+        selector: 'mat-test-dialog-opener',
+        template: '',
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        encapsulation: ViewEncapsulation.None,
+        host: {
+            // This binding is used to ensure that the component ID
+            // doesn't clash with the `MatTestDialogOpener`.
+            '[attr.mat-id-collision]': 'null',
+        },
+    }),
+    __metadata("design:paramtypes", [MatLegacyDialog])
+], MatTestLegacyDialogOpener);
+/**
+ * @deprecated Use `MatTestDialogOpenerModule` from `@angular/material/dialog/testing` instead. See https://material.angular.io/guide/mdc-migration for information about migrating.
+ * @breaking-change 17.0.0
+ */
+export let MatTestLegacyDialogOpenerModule = class MatTestLegacyDialogOpenerModule {
+};
+MatTestLegacyDialogOpenerModule = __decorate([
+    NgModule({
+        declarations: [MatTestLegacyDialogOpener],
+        imports: [MatLegacyDialogModule, NoopAnimationsModule],
+    })
+], MatTestLegacyDialogOpenerModule);
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZGlhbG9nLW9wZW5lci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uL3NyYy9tYXRlcmlhbC9sZWdhY3ktZGlhbG9nL3Rlc3RpbmcvZGlhbG9nLW9wZW5lci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7O0dBTUc7OztBQUdILE9BQU8sRUFBQyx1QkFBdUIsRUFBRSxTQUFTLEVBQUUsUUFBUSxFQUFFLGlCQUFpQixFQUFDLE1BQU0sZUFBZSxDQUFDO0FBQzlGLE9BQU8sRUFDTCxlQUFlLEVBR2YscUJBQXFCLEdBQ3RCLE1BQU0saUNBQWlDLENBQUM7QUFDekMsT0FBTyxFQUFDLG9CQUFvQixFQUFDLE1BQU0sc0NBQXNDLENBQUM7QUFDMUUsT0FBTyxFQUFDLHdCQUF3QixFQUFDLE1BQU0sa0NBQWtDLENBQUM7QUFFMUU7Ozs7R0FJRztBQVlJLFdBQU0seUJBQXlCLGlDQUEvQixNQUFNLHlCQUFvRCxTQUFRLHdCQUl4RTtJQUNDLFlBQVksTUFBdUI7UUFDakMsS0FBSyxDQUFDLE1BQU0sQ0FBQyxDQUFDO0lBQ2hCLENBQUM7SUFFRCw2RUFBNkU7SUFDN0UsTUFBTSxDQUFDLGFBQWEsQ0FDbEIsU0FBMkIsRUFDM0IsTUFBOEI7UUFFOUIsd0JBQXdCLENBQUMsU0FBUyxHQUFHLFNBQVMsQ0FBQztRQUMvQyx3QkFBd0IsQ0FBQyxNQUFNLEdBQUcsTUFBTSxDQUFDO1FBQ3pDLE9BQU8sMkJBQTJFLENBQUM7SUFDckYsQ0FBQztDQUNGLENBQUE7QUFsQlkseUJBQXlCO0lBWHJDLFNBQVMsQ0FBQztRQUNULFFBQVEsRUFBRSx3QkFBd0I7UUFDbEMsUUFBUSxFQUFFLEVBQUU7UUFDWixlQUFlLEVBQUUsdUJBQXVCLENBQUMsTUFBTTtRQUMvQyxhQUFhLEVBQUUsaUJBQWlCLENBQUMsSUFBSTtRQUNyQyxJQUFJLEVBQUU7WUFDSix1REFBdUQ7WUFDdkQsZ0RBQWdEO1lBQ2hELHlCQUF5QixFQUFFLE1BQU07U0FDbEM7S0FDRixDQUFDO3FDQU1vQixlQUFlO0dBTHhCLHlCQUF5QixDQWtCckM7QUFFRDs7O0dBR0c7QUFLSSxXQUFNLCtCQUErQixHQUFyQyxNQUFNLCtCQUErQjtDQUFHLENBQUE7QUFBbEMsK0JBQStCO0lBSjNDLFFBQVEsQ0FBQztRQUNSLFlBQVksRUFBRSxDQUFDLHlCQUF5QixDQUFDO1FBQ3pDLE9BQU8sRUFBRSxDQUFDLHFCQUFxQixFQUFFLG9CQUFvQixDQUFDO0tBQ3ZELENBQUM7R0FDVywrQkFBK0IsQ0FBRyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge0NvbXBvbmVudFR5cGV9IGZyb20gJ0Bhbmd1bGFyL2Nkay9vdmVybGF5JztcbmltcG9ydCB7Q2hhbmdlRGV0ZWN0aW9uU3RyYXRlZ3ksIENvbXBvbmVudCwgTmdNb2R1bGUsIFZpZXdFbmNhcHN1bGF0aW9ufSBmcm9tICdAYW5ndWxhci9jb3JlJztcbmltcG9ydCB7XG4gIE1hdExlZ2FjeURpYWxvZyxcbiAgTWF0TGVnYWN5RGlhbG9nQ29uZmlnLFxuICBNYXRMZWdhY3lEaWFsb2dDb250YWluZXIsXG4gIE1hdExlZ2FjeURpYWxvZ01vZHVsZSxcbn0gZnJvbSAnQGFuZ3VsYXIvbWF0ZXJpYWwvbGVnYWN5LWRpYWxvZyc7XG5pbXBvcnQge05vb3BBbmltYXRpb25zTW9kdWxlfSBmcm9tICdAYW5ndWxhci9wbGF0Zm9ybS1icm93c2VyL2FuaW1hdGlvbnMnO1xuaW1wb3J0IHtfTWF0VGVzdERpYWxvZ09wZW5lckJhc2V9IGZyb20gJ0Bhbmd1bGFyL21hdGVyaWFsL2RpYWxvZy90ZXN0aW5nJztcblxuLyoqXG4gKiBUZXN0IGNvbXBvbmVudCB0aGF0IGltbWVkaWF0ZWx5IG9wZW5zIGEgZGlhbG9nIHdoZW4gY3JlYXRlZC5cbiAqIEBkZXByZWNhdGVkIFVzZSBgTWF0VGVzdERpYWxvZ09wZW5lcmAgZnJvbSBgQGFuZ3VsYXIvbWF0ZXJpYWwvZGlhbG9nL3Rlc3RpbmdgIGluc3RlYWQuIFNlZSBodHRwczovL21hdGVyaWFsLmFuZ3VsYXIuaW8vZ3VpZGUvbWRjLW1pZ3JhdGlvbiBmb3IgaW5mb3JtYXRpb24gYWJvdXQgbWlncmF0aW5nLlxuICogQGJyZWFraW5nLWNoYW5nZSAxNy4wLjBcbiAqL1xuQENvbXBvbmVudCh7XG4gIHNlbGVjdG9yOiAnbWF0LXRlc3QtZGlhbG9nLW9wZW5lcicsXG4gIHRlbXBsYXRlOiAnJyxcbiAgY2hhbmdlRGV0ZWN0aW9uOiBDaGFuZ2VEZXRlY3Rpb25TdHJhdGVneS5PblB1c2gsXG4gIGVuY2Fwc3VsYXRpb246IFZpZXdFbmNhcHN1bGF0aW9uLk5vbmUsXG4gIGhvc3Q6IHtcbiAgICAvLyBUaGlzIGJpbmRpbmcgaXMgdXNlZCB0byBlbnN1cmUgdGhhdCB0aGUgY29tcG9uZW50IElEXG4gICAgLy8gZG9lc24ndCBjbGFzaCB3aXRoIHRoZSBgTWF0VGVzdERpYWxvZ09wZW5lcmAuXG4gICAgJ1thdHRyLm1hdC1pZC1jb2xsaXNpb25dJzogJ251bGwnLFxuICB9LFxufSlcbmV4cG9ydCBjbGFzcyBNYXRUZXN0TGVnYWN5RGlhbG9nT3BlbmVyPFQgPSB1bmtub3duLCBSID0gdW5rbm93bj4gZXh0ZW5kcyBfTWF0VGVzdERpYWxvZ09wZW5lckJhc2U8XG4gIE1hdExlZ2FjeURpYWxvZ0NvbnRhaW5lcixcbiAgVCxcbiAgUlxuPiB7XG4gIGNvbnN0cnVjdG9yKGRpYWxvZzogTWF0TGVnYWN5RGlhbG9nKSB7XG4gICAgc3VwZXIoZGlhbG9nKTtcbiAgfVxuXG4gIC8qKiBTdGF0aWMgbWV0aG9kIHRoYXQgcHJlcGFyZXMgdGhpcyBjbGFzcyB0byBvcGVuIHRoZSBwcm92aWRlZCBjb21wb25lbnQuICovXG4gIHN0YXRpYyB3aXRoQ29tcG9uZW50PFQgPSB1bmtub3duLCBSID0gdW5rbm93bj4oXG4gICAgY29tcG9uZW50OiBDb21wb25lbnRUeXBlPFQ+LFxuICAgIGNvbmZpZz86IE1hdExlZ2FjeURpYWxvZ0NvbmZpZyxcbiAgKSB7XG4gICAgX01hdFRlc3REaWFsb2dPcGVuZXJCYXNlLmNvbXBvbmVudCA9IGNvbXBvbmVudDtcbiAgICBfTWF0VGVzdERpYWxvZ09wZW5lckJhc2UuY29uZmlnID0gY29uZmlnO1xuICAgIHJldHVybiBNYXRUZXN0TGVnYWN5RGlhbG9nT3BlbmVyIGFzIENvbXBvbmVudFR5cGU8TWF0VGVzdExlZ2FjeURpYWxvZ09wZW5lcjxULCBSPj47XG4gIH1cbn1cblxuLyoqXG4gKiBAZGVwcmVjYXRlZCBVc2UgYE1hdFRlc3REaWFsb2dPcGVuZXJNb2R1bGVgIGZyb20gYEBhbmd1bGFyL21hdGVyaWFsL2RpYWxvZy90ZXN0aW5nYCBpbnN0ZWFkLiBTZWUgaHR0cHM6Ly9tYXRlcmlhbC5hbmd1bGFyLmlvL2d1aWRlL21kYy1taWdyYXRpb24gZm9yIGluZm9ybWF0aW9uIGFib3V0IG1pZ3JhdGluZy5cbiAqIEBicmVha2luZy1jaGFuZ2UgMTcuMC4wXG4gKi9cbkBOZ01vZHVsZSh7XG4gIGRlY2xhcmF0aW9uczogW01hdFRlc3RMZWdhY3lEaWFsb2dPcGVuZXJdLFxuICBpbXBvcnRzOiBbTWF0TGVnYWN5RGlhbG9nTW9kdWxlLCBOb29wQW5pbWF0aW9uc01vZHVsZV0sXG59KVxuZXhwb3J0IGNsYXNzIE1hdFRlc3RMZWdhY3lEaWFsb2dPcGVuZXJNb2R1bGUge31cbiJdfQ==

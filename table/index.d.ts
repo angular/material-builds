@@ -19,9 +19,10 @@ import { DataSource } from '@angular/cdk/collections';
 import * as i0 from '@angular/core';
 import * as i5 from '@angular/material/core';
 import * as i6 from '@angular/cdk/table';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Observable } from 'rxjs';
 import { OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
 
 declare namespace i1 {
@@ -210,7 +211,11 @@ export declare class MatTable<T> extends CdkTable<T> implements OnInit {
  * interactions. If your app needs to support more advanced use cases, consider implementing your
  * own `DataSource`.
  */
-export declare class MatTableDataSource<T, P extends MatPaginator = MatPaginator> extends DataSource<T> {
+export declare class MatTableDataSource<T, P extends MatTableDataSourcePaginator = MatTableDataSourcePaginator> extends _MatTableDataSource<T, P> {
+}
+
+/** Shared base class with MDC-based implementation. */
+export declare class _MatTableDataSource<T, P extends MatTableDataSourcePaginator = MatTableDataSourcePaginator> extends DataSource<T> {
     /** Stream that emits when a new data array is set on the data source. */
     private readonly _data;
     /** Stream emitting render data to the table (depends on ordered data changes). */
@@ -331,6 +336,30 @@ export declare class MatTableDataSource<T, P extends MatPaginator = MatPaginator
      * @docs-private
      */
     disconnect(): void;
+}
+
+/**
+ * Interface that matches the required API parts for the MatPaginator's PageEvent.
+ * Decoupled so that users can depend on either the legacy or MDC-based paginator.
+ */
+export declare interface MatTableDataSourcePageEvent {
+    pageIndex: number;
+    pageSize: number;
+    length: number;
+}
+
+/**
+ * Interface that matches the required API parts of the MatPaginator.
+ * Decoupled so that users can depend on either the legacy or MDC-based paginator.
+ */
+export declare interface MatTableDataSourcePaginator {
+    page: Subject<MatTableDataSourcePageEvent>;
+    pageIndex: number;
+    initialized: Observable<void>;
+    pageSize: number;
+    length: number;
+    firstPage: () => void;
+    lastPage: () => void;
 }
 
 export declare class MatTableModule {
