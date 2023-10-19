@@ -124,8 +124,6 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(_origin?: FocusOrigin, options?: FocusOptions): void;
-    /** Gets whether the button has one of the given attributes. */
-    private _hasHostAttributes;
     private _updateRippleDisabled;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, false, never>;

@@ -21,31 +21,31 @@ const MAT_BUTTON_HOST = {
 /** List of classes to add to buttons instances based on host attribute selector. */
 const HOST_SELECTOR_MDC_CLASS_PAIR = [
     {
-        selector: 'mat-button',
+        attribute: 'mat-button',
         mdcClasses: ['mdc-button', 'mat-mdc-button'],
     },
     {
-        selector: 'mat-flat-button',
+        attribute: 'mat-flat-button',
         mdcClasses: ['mdc-button', 'mdc-button--unelevated', 'mat-mdc-unelevated-button'],
     },
     {
-        selector: 'mat-raised-button',
+        attribute: 'mat-raised-button',
         mdcClasses: ['mdc-button', 'mdc-button--raised', 'mat-mdc-raised-button'],
     },
     {
-        selector: 'mat-stroked-button',
+        attribute: 'mat-stroked-button',
         mdcClasses: ['mdc-button', 'mdc-button--outlined', 'mat-mdc-outlined-button'],
     },
     {
-        selector: 'mat-fab',
+        attribute: 'mat-fab',
         mdcClasses: ['mdc-fab', 'mat-mdc-fab'],
     },
     {
-        selector: 'mat-mini-fab',
+        attribute: 'mat-mini-fab',
         mdcClasses: ['mdc-fab', 'mdc-fab--mini', 'mat-mdc-mini-fab'],
     },
     {
-        selector: 'mat-icon-button',
+        attribute: 'mat-icon-button',
         mdcClasses: ['mdc-icon-button', 'mat-mdc-icon-button'],
     },
 ];
@@ -95,14 +95,13 @@ class MatButtonBase {
         this._rippleLoader?.configureRipple(this._elementRef.nativeElement, {
             className: 'mat-mdc-button-ripple',
         });
-        const classList = _elementRef.nativeElement.classList;
+        const element = this._elementRef.nativeElement;
+        const classList = element.classList;
         // For each of the variant selectors that is present in the button's host
         // attributes, add the correct corresponding MDC classes.
-        for (const pair of HOST_SELECTOR_MDC_CLASS_PAIR) {
-            if (this._hasHostAttributes(pair.selector)) {
-                pair.mdcClasses.forEach((className) => {
-                    classList.add(className);
-                });
+        for (const { attribute, mdcClasses } of HOST_SELECTOR_MDC_CLASS_PAIR) {
+            if (element.hasAttribute(attribute)) {
+                classList.add(...mdcClasses);
             }
         }
     }
@@ -120,10 +119,6 @@ class MatButtonBase {
         else {
             this._elementRef.nativeElement.focus(options);
         }
-    }
-    /** Gets whether the button has one of the given attributes. */
-    _hasHostAttributes(...attributes) {
-        return attributes.some(attribute => this._elementRef.nativeElement.hasAttribute(attribute));
     }
     _updateRippleDisabled() {
         this._rippleLoader?.setDisabled(this._elementRef.nativeElement, this.disableRipple || this.disabled);
