@@ -5,10 +5,9 @@ import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { TestElement } from '@angular/cdk/testing';
 
-/** Harness for interacting with a mat-slide-toggle in tests. */
-export declare class MatSlideToggleHarness extends ComponentHarness {
-    private _label;
-    _nativeElement: AsyncFactoryFn<TestElement>;
+/** Harness for interacting with a MDC-based mat-slide-toggle in tests. */
+export declare class MatSlideToggleHarness extends _MatSlideToggleHarnessBase {
+    protected _nativeElement: AsyncFactoryFn<TestElement>;
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a slide-toggle w/ specific attributes.
@@ -18,10 +17,18 @@ export declare class MatSlideToggleHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatSlideToggleHarness>(this: ComponentHarnessConstructor<T>, options?: SlideToggleHarnessFilters): HarnessPredicate<T>;
-    /** Toggle the checked state of the slide-toggle. */
     toggle(): Promise<void>;
-    /** Whether the slide-toggle is checked. */
+    isRequired(): Promise<boolean>;
     isChecked(): Promise<boolean>;
+}
+
+export declare abstract class _MatSlideToggleHarnessBase extends ComponentHarness {
+    private _label;
+    protected abstract _nativeElement: AsyncFactoryFn<TestElement>;
+    /** Toggle the checked state of the slide-toggle. */
+    abstract toggle(): Promise<void>;
+    /** Whether the slide-toggle is checked. */
+    abstract isChecked(): Promise<boolean>;
     /** Whether the slide-toggle is disabled. */
     isDisabled(): Promise<boolean>;
     /** Whether the slide-toggle is required. */

@@ -598,14 +598,14 @@ var require_upgrade_data = __commonJS({
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/index.mjs
 var ng_update_exports = {};
 __export(ng_update_exports, {
-  updateToV17: () => updateToV17
+  updateToV16: () => updateToV16
 });
 module.exports = __toCommonJS(ng_update_exports);
 var import_schematics = require("@angular/cdk/schematics");
 var import_upgrade_data = __toESM(require_upgrade_data(), 1);
 var materialMigrations = [];
-function updateToV17() {
-  return (0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V17, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete);
+function updateToV16() {
+  return (0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V16, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete);
 }
 function onMigrationComplete(context, targetVersion, hasFailures) {
   context.logger.info("");
@@ -617,7 +617,7 @@ function onMigrationComplete(context, targetVersion, hasFailures) {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  updateToV17
+  updateToV16
 });
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
