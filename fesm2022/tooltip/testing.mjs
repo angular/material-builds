@@ -1,6 +1,25 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-class _MatTooltipHarnessBase extends ComponentHarness {
+/** Harness for interacting with a mat-tooltip in tests. */
+class MatTooltipHarness extends ComponentHarness {
+    constructor() {
+        super(...arguments);
+        this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-mdc-tooltip');
+        this._hiddenClass = 'mat-mdc-tooltip-hide';
+        this._disabledClass = 'mat-mdc-tooltip-disabled';
+        this._showAnimationName = 'mat-mdc-tooltip-show';
+        this._hideAnimationName = 'mat-mdc-tooltip-hide';
+    }
+    static { this.hostSelector = '.mat-mdc-tooltip-trigger'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a tooltip trigger with specific
+     * attributes.
+     * @param options Options for narrowing the search.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options);
+    }
     /** Shows the tooltip. */
     async show() {
         const host = await this.host();
@@ -38,27 +57,6 @@ class _MatTooltipHarnessBase extends ComponentHarness {
         return panel ? panel.text() : '';
     }
 }
-/** Harness for interacting with a standard mat-tooltip in tests. */
-class MatTooltipHarness extends _MatTooltipHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-mdc-tooltip');
-        this._hiddenClass = 'mat-mdc-tooltip-hide';
-        this._disabledClass = 'mat-mdc-tooltip-disabled';
-        this._showAnimationName = 'mat-mdc-tooltip-show';
-        this._hideAnimationName = 'mat-mdc-tooltip-hide';
-    }
-    static { this.hostSelector = '.mat-mdc-tooltip-trigger'; }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a tooltip trigger with specific
-     * attributes.
-     * @param options Options for narrowing the search.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(this, options);
-    }
-}
 
-export { MatTooltipHarness, _MatTooltipHarnessBase };
+export { MatTooltipHarness };
 //# sourceMappingURL=testing.mjs.map
