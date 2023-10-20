@@ -6,36 +6,23 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { TestElement } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-paginator in tests. */
-export declare class MatPaginatorHarness extends _MatPaginatorHarnessBase {
+/** Harness for interacting with a mat-paginator in tests. */
+export declare class MatPaginatorHarness extends ComponentHarness {
     /** Selector used to find paginator instances. */
     static hostSelector: string;
-    protected _nextButton: AsyncFactoryFn<TestElement>;
-    protected _previousButton: AsyncFactoryFn<TestElement>;
-    protected _firstPageButton: AsyncFactoryFn<TestElement | null>;
-    protected _lastPageButton: AsyncFactoryFn<TestElement | null>;
-    protected _select: AsyncFactoryFn<MatSelectHarness | null>;
-    protected _pageSizeFallback: AsyncFactoryFn<TestElement>;
-    protected _rangeLabel: AsyncFactoryFn<TestElement>;
+    private _nextButton;
+    private _previousButton;
+    private _firstPageButton;
+    private _lastPageButton;
+    _select: AsyncFactoryFn<MatSelectHarness | null>;
+    private _pageSizeFallback;
+    _rangeLabel: AsyncFactoryFn<TestElement>;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a paginator with specific attributes.
      * @param options Options for filtering which paginator instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatPaginatorHarness>(this: ComponentHarnessConstructor<T>, options?: PaginatorHarnessFilters): HarnessPredicate<T>;
-}
-
-export declare abstract class _MatPaginatorHarnessBase extends ComponentHarness {
-    protected abstract _nextButton: AsyncFactoryFn<TestElement>;
-    protected abstract _previousButton: AsyncFactoryFn<TestElement>;
-    protected abstract _firstPageButton: AsyncFactoryFn<TestElement | null>;
-    protected abstract _lastPageButton: AsyncFactoryFn<TestElement | null>;
-    protected abstract _select: AsyncFactoryFn<(ComponentHarness & {
-        getValueText(): Promise<string>;
-        clickOptions(...filters: unknown[]): Promise<void>;
-    }) | null>;
-    protected abstract _pageSizeFallback: AsyncFactoryFn<TestElement>;
-    protected abstract _rangeLabel: AsyncFactoryFn<TestElement>;
     /** Goes to the next page in the paginator. */
     goToNextPage(): Promise<void>;
     /** Returns whether or not the next page button is disabled. */
