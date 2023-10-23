@@ -1,9 +1,6 @@
-import { _AbstractConstructor as _AbstractConstructor_2 } from '@angular/material/core';
 import { AbstractControl } from '@angular/forms';
 import { AfterViewChecked } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { ChangeDetectorRef } from '@angular/core';
-import { _Constructor as _Constructor_2 } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
@@ -393,7 +390,6 @@ declare namespace i1_3 {
         _countGroupLabelsBeforeOption,
         _getOptionScrollPosition,
         MatOptionSelectionChange,
-        _MatOptionBase,
         MatOption
     }
 }
@@ -415,7 +411,6 @@ declare namespace i1_5 {
 
 declare namespace i2 {
     export {
-        _MatOptgroupBase,
         MAT_OPTGROUP,
         MatOptgroup
     }
@@ -531,42 +526,29 @@ export declare class MatNativeDateModule {
 /**
  * Component that is used to group instances of `mat-option`.
  */
-export declare class MatOptgroup extends _MatOptgroupBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
-}
-
-export declare class _MatOptgroupBase extends _MatOptgroupMixinBase implements CanDisable {
+export declare class MatOptgroup {
     /** Label for the option group. */
     label: string;
+    /** whether the option group is disabled. */
+    disabled: boolean;
     /** Unique id for the underlying label. */
     _labelId: string;
     /** Whether the group is in inert a11y mode. */
     _inert: boolean;
     constructor(parent?: MatOptionParentComponent);
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptgroupBase, [{ optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptgroupBase, never, never, { "label": { "alias": "label"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, [{ optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "label": { "alias": "label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
+    static ngAcceptInputType_disabled: unknown;
 }
-
-/** @docs-private */
-declare const _MatOptgroupMixinBase: _Constructor_2<CanDisable> & _AbstractConstructor_2<CanDisable> & {
-    new (): {};
-};
 
 /**
  * Single option inside of a `<mat-select>` element.
  */
-export declare class MatOption<T = any> extends _MatOptionBase<T> {
-    constructor(element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef, parent: MatOptionParentComponent, group: MatOptgroup);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], {}, {}, never, ["mat-icon", "*"], false, never>;
-}
-
-export declare class _MatOptionBase<T = any> implements FocusableOption, AfterViewChecked, OnDestroy {
+export declare class MatOption<T = any> implements FocusableOption, AfterViewChecked, OnDestroy {
     private _element;
     _changeDetectorRef: ChangeDetectorRef;
     private _parent;
-    readonly group: _MatOptgroupBase;
+    group: MatOptgroup;
     private _selected;
     private _active;
     private _disabled;
@@ -581,7 +563,7 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
     id: string;
     /** Whether the option is disabled. */
     get disabled(): boolean;
-    set disabled(value: BooleanInput);
+    set disabled(value: boolean);
     /** Whether ripples for the option are disabled. */
     get disableRipple(): boolean;
     /** Whether to display checkmark for single-selection. */
@@ -592,7 +574,7 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
     _text: ElementRef<HTMLElement> | undefined;
     /** Emits when the state of the option changes and any parents have to be notified. */
     readonly _stateChanges: Subject<void>;
-    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: _MatOptgroupBase);
+    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
     /**
      * Whether or not the option is currently active and ready to be selected.
      * An active option displays styles as if it is focused, but the
@@ -640,8 +622,9 @@ export declare class _MatOptionBase<T = any> implements FocusableOption, AfterVi
     ngOnDestroy(): void;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatOptionBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatOptionBase<any>, never, never, { "value": { "alias": "value"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "onSelectionChange": "onSelectionChange"; }, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], { "value": { "alias": "value"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "onSelectionChange": "onSelectionChange"; }, never, ["mat-icon", "*"], false, never>;
+    static ngAcceptInputType_disabled: unknown;
 }
 
 export declare class MatOptionModule {
@@ -665,12 +648,12 @@ export declare interface MatOptionParentComponent {
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange<T = any> {
     /** Reference to the option that emitted the event. */
-    source: _MatOptionBase<T>;
+    source: MatOption<T>;
     /** Whether the change in the option's value was a result of a user action. */
     isUserInput: boolean;
     constructor(
     /** Reference to the option that emitted the event. */
-    source: _MatOptionBase<T>, 
+    source: MatOption<T>, 
     /** Whether the change in the option's value was a result of a user action. */
     isUserInput?: boolean);
 }
@@ -869,12 +852,14 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @breaking-change 14.0.0
      */
     useUtcForDisplay: boolean;
-    constructor(matDateLocale: string, 
+    /** The injected locale. */
+    private readonly _matDateLocale;
+    constructor(
     /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 14.0.0
+     * @deprecated Now injected via inject(), param to be removed.
+     * @breaking-change 18.0.0
      */
-    _platform?: Platform);
+    matDateLocale?: string);
     getYear(date: Date): number;
     getMonth(date: Date): number;
     getDate(date: Date): number;
@@ -923,7 +908,7 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @returns A Date object with its UTC representation based on the passed in date info
      */
     private _format;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, [{ optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, [{ optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<NativeDateAdapter>;
 }
 
