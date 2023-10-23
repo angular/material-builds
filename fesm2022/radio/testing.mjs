@@ -1,23 +1,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-radio-group in tests. */
-class MatRadioGroupHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._buttonClass = MatRadioButtonHarness;
-    }
-    /** The selector for the host element of a `MatRadioGroup` instance. */
-    static { this.hostSelector = '.mat-mdc-radio-group'; }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a radio group with specific
-     * attributes.
-     * @param options Options for filtering which radio group instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(this, options).addOption('name', options.name, MatRadioGroupHarness._checkRadioGroupName);
-    }
+class _MatRadioGroupHarnessBase extends ComponentHarness {
     /** Gets the name of the radio-group. */
     async getName() {
         const hostName = await this._getGroupNameFromHost();
@@ -135,27 +119,28 @@ class MatRadioGroupHarness extends ComponentHarness {
         return true;
     }
 }
-/** Harness for interacting with an MDC-based mat-radio-button in tests. */
-class MatRadioButtonHarness extends ComponentHarness {
+/** Harness for interacting with an MDC-based mat-radio-group in tests. */
+class MatRadioGroupHarness extends _MatRadioGroupHarnessBase {
     constructor() {
         super(...arguments);
-        this._textLabel = this.locatorFor('label');
-        this._clickLabel = this._textLabel;
-        this._input = this.locatorFor('input');
+        this._buttonClass = MatRadioButtonHarness;
     }
-    /** The selector for the host element of a `MatRadioButton` instance. */
-    static { this.hostSelector = '.mat-mdc-radio-button'; }
+    /** The selector for the host element of a `MatRadioGroup` instance. */
+    static { this.hostSelector = '.mat-mdc-radio-group'; }
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a radio button with specific
+     * Gets a `HarnessPredicate` that can be used to search for a radio group with specific
      * attributes.
-     * @param options Options for filtering which radio button instances are considered a match.
+     * @param options Options for filtering which radio group instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options)
-            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
-            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
-            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked);
+        return new HarnessPredicate(this, options).addOption('name', options.name, MatRadioGroupHarness._checkRadioGroupName);
+    }
+}
+class _MatRadioButtonHarnessBase extends ComponentHarness {
+    constructor() {
+        super(...arguments);
+        this._input = this.locatorFor('input');
     }
     /** Whether the radio-button is checked. */
     async isChecked() {
@@ -215,6 +200,28 @@ class MatRadioButtonHarness extends ComponentHarness {
         }
     }
 }
+/** Harness for interacting with an MDC-based mat-radio-button in tests. */
+class MatRadioButtonHarness extends _MatRadioButtonHarnessBase {
+    constructor() {
+        super(...arguments);
+        this._textLabel = this.locatorFor('label');
+        this._clickLabel = this._textLabel;
+    }
+    /** The selector for the host element of a `MatRadioButton` instance. */
+    static { this.hostSelector = '.mat-mdc-radio-button'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a radio button with specific
+     * attributes.
+     * @param options Options for filtering which radio button instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
+            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
+            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked);
+    }
+}
 
-export { MatRadioButtonHarness, MatRadioGroupHarness };
+export { MatRadioButtonHarness, MatRadioGroupHarness, _MatRadioButtonHarnessBase, _MatRadioGroupHarnessBase };
 //# sourceMappingURL=testing.mjs.map
