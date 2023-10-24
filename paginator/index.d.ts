@@ -6,10 +6,9 @@ import { _Constructor } from '@angular/material/core';
 import { EventEmitter } from '@angular/core';
 import { HasInitialized } from '@angular/material/core';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/common';
-import * as i3 from '@angular/material/button';
-import * as i4 from '@angular/material/select';
-import * as i5 from '@angular/material/tooltip';
+import * as i2 from '@angular/material/button';
+import * as i3 from '@angular/material/select';
+import * as i4 from '@angular/material/tooltip';
 import { InjectionToken } from '@angular/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { NumberInput } from '@angular/cdk/coercion';
@@ -176,7 +175,7 @@ declare const _MatPaginatorMixinBase: _Constructor<CanDisable> & _AbstractConstr
 
 export declare class MatPaginatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, [typeof i1.MatPaginator], [typeof i2.CommonModule, typeof i3.MatButtonModule, typeof i4.MatSelectModule, typeof i5.MatTooltipModule], [typeof i1.MatPaginator]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, [typeof i1.MatPaginator], [typeof i2.MatButtonModule, typeof i3.MatSelectModule, typeof i4.MatTooltipModule], [typeof i1.MatPaginator]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatPaginatorModule>;
 }
 
