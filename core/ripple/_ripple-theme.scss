@@ -1,14 +1,12 @@
+@use 'sass:map';
 @use 'sass:meta';
 @use '../theming/theming';
-@use '../theming/inspection';
-
-@mixin base($theme) {
-  // TODO(mmalerba): Move ripple base tokens here
-}
 
 // Colors for the ripple elements.
-@mixin color($theme) {
-  $foreground-base: inspection.get-theme-color($theme, foreground, base);
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
+  $foreground: map.get($config, foreground);
+  $foreground-base: map.get($foreground, base);
   $color-opacity: 0.1;
 
   .mat-ripple-element {
@@ -24,11 +22,12 @@
   }
 }
 
-@mixin theme($theme) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-ripple') {
-    @include base($theme);
-    @if inspection.theme-has($theme, color) {
-      @include color($theme);
+    $color: theming.get-color-config($theme);
+    @if $color != null {
+      @include color($color);
     }
   }
 }

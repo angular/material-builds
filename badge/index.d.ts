@@ -1,4 +1,8 @@
+import { _AbstractConstructor } from '@angular/material/core';
 import { AriaDescriber } from '@angular/cdk/a11y';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { CanDisable } from '@angular/material/core';
+import { _Constructor } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/cdk/a11y';
@@ -18,7 +22,7 @@ declare namespace i1 {
 }
 
 /** Directive to display a text badge. */
-export declare class MatBadge implements OnInit, OnDestroy {
+export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy, CanDisable {
     private _ngZone;
     private _elementRef;
     private _ariaDescriber;
@@ -29,9 +33,9 @@ export declare class MatBadge implements OnInit, OnDestroy {
     set color(value: ThemePalette);
     private _color;
     /** Whether the badge should overlap its contents or not */
-    overlap: boolean;
-    /** Whether the badge is disabled. */
-    disabled: boolean;
+    get overlap(): boolean;
+    set overlap(val: BooleanInput);
+    private _overlap;
     /**
      * Position the badge should reside.
      * Accepts any combination of 'above'|'below' and 'before'|'after'
@@ -48,7 +52,9 @@ export declare class MatBadge implements OnInit, OnDestroy {
     /** Size of the badge. Can be 'small', 'medium', or 'large'. */
     size: MatBadgeSize;
     /** Whether the badge is hidden. */
-    hidden: boolean;
+    get hidden(): boolean;
+    set hidden(val: BooleanInput);
+    private _hidden;
     /** Unique id for the badge */
     _id: number;
     /** Visible badge element. */
@@ -87,11 +93,13 @@ export declare class MatBadge implements OnInit, OnDestroy {
     /** Clears any existing badges that might be left over from server-side rendering. */
     private _clearExistingBadges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadge, [null, null, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatBadge, "[matBadge]", never, { "color": { "alias": "matBadgeColor"; "required": false; }; "overlap": { "alias": "matBadgeOverlap"; "required": false; }; "disabled": { "alias": "matBadgeDisabled"; "required": false; }; "position": { "alias": "matBadgePosition"; "required": false; }; "content": { "alias": "matBadge"; "required": false; }; "description": { "alias": "matBadgeDescription"; "required": false; }; "size": { "alias": "matBadgeSize"; "required": false; }; "hidden": { "alias": "matBadgeHidden"; "required": false; }; }, {}, never, never, false, never>;
-    static ngAcceptInputType_overlap: unknown;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_hidden: unknown;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatBadge, "[matBadge]", never, { "disabled": { "alias": "matBadgeDisabled"; "required": false; }; "color": { "alias": "matBadgeColor"; "required": false; }; "overlap": { "alias": "matBadgeOverlap"; "required": false; }; "position": { "alias": "matBadgePosition"; "required": false; }; "content": { "alias": "matBadge"; "required": false; }; "description": { "alias": "matBadgeDescription"; "required": false; }; "size": { "alias": "matBadgeSize"; "required": false; }; "hidden": { "alias": "matBadgeHidden"; "required": false; }; }, {}, never, never, false, never>;
 }
+
+/** @docs-private */
+declare const _MatBadgeBase: _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
+    new (): {};
+};
 
 export declare class MatBadgeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadgeModule, never>;
