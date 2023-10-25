@@ -1,90 +1,121 @@
-@use '@material/radio/radio' as mdc-radio;
+@use 'sass:map';
 @use '@material/radio/radio-theme' as mdc-radio-theme;
 @use '@material/form-field' as mdc-form-field;
 @use '../core/mdc-helpers/mdc-helpers';
+@use '../core/style/sass-utils';
 @use '../core/theming/theming';
+@use '../core/theming/inspection';
 @use '../core/tokens/token-utils';
 @use '../core/typography/typography';
 @use '../core/tokens/m2/mdc/radio' as tokens-mdc-radio;
 @use '../core/tokens/m2/mat/radio' as tokens-mat-radio;
-@use 'sass:map';
 
-@mixin color($config-or-theme) {
-  $config: theming.get-color-config($config-or-theme);
-  $primary: map.get($config, primary);
-  $accent: map.get($config, accent);
-  $warn: map.get($config, warn);
+@mixin base($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
+  }
+  @else {
+    @include sass-utils.current-selector-or-root() {
+      @include mdc-radio-theme.theme(tokens-mdc-radio.get-unthemable-tokens());
+      @include token-utils.create-token-values(
+          tokens-mat-radio.$prefix, tokens-mat-radio.get-unthemable-tokens());
+    }
+  }
+}
 
-  @include mdc-helpers.using-mdc-theme($config) {
+@mixin color($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
+  }
+  @else {
+    @include mdc-helpers.using-mdc-theme($theme) {
+      .mat-mdc-radio-button {
+        @include mdc-form-field.core-styles($query: mdc-helpers.$mdc-theme-styles-query);
+      }
+    }
+
     .mat-mdc-radio-button {
-      @include mdc-form-field.core-styles($query: mdc-helpers.$mdc-theme-styles-query);
-    }
-  }
+      &.mat-primary {
+        @include mdc-radio-theme.theme(tokens-mdc-radio.get-color-tokens($theme, primary));
+        @include token-utils.create-token-values(tokens-mat-radio.$prefix,
+          tokens-mat-radio.get-color-tokens($theme, primary));
+      }
 
-  .mat-mdc-radio-button {
-    &.mat-primary {
-      $primary-config: map.merge($config, (accent: $primary));
-      @include mdc-radio-theme.theme(tokens-mdc-radio.get-color-tokens($primary-config));
-      @include token-utils.create-token-values(tokens-mat-radio.$prefix,
-        tokens-mat-radio.get-color-tokens($primary-config));
-    }
+      &.mat-accent {
+        @include mdc-radio-theme.theme(tokens-mdc-radio.get-color-tokens($theme));
+        @include token-utils.create-token-values(tokens-mat-radio.$prefix,
+          tokens-mat-radio.get-color-tokens($theme));
+      }
 
-    &.mat-accent {
-      $accent-config: map.merge($config, (accent: $accent));
-      @include mdc-radio-theme.theme(tokens-mdc-radio.get-color-tokens($accent-config));
-      @include token-utils.create-token-values(tokens-mat-radio.$prefix,
-        tokens-mat-radio.get-color-tokens($accent-config));
-    }
-
-    &.mat-warn {
-      $warn-config: map.merge($config, (accent: $warn));
-      @include mdc-radio-theme.theme(tokens-mdc-radio.get-color-tokens($warn-config));
-      @include token-utils.create-token-values(tokens-mat-radio.$prefix,
-        tokens-mat-radio.get-color-tokens($warn-config));
+      &.mat-warn {
+        @include mdc-radio-theme.theme(tokens-mdc-radio.get-color-tokens($theme, warn));
+        @include token-utils.create-token-values(tokens-mat-radio.$prefix,
+          tokens-mat-radio.get-color-tokens($theme, warn));
+      }
     }
   }
 }
 
-@mixin typography($config-or-theme) {
-  $config: typography.private-typography-to-2018-config(
-      theming.get-typography-config($config-or-theme));
+@mixin typography($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
+  }
+  @else {
+    @include sass-utils.current-selector-or-root() {
+      @include mdc-radio-theme.theme(tokens-mdc-radio.get-typography-tokens($theme));
+    }
 
-  .mat-mdc-radio-button {
-    @include mdc-radio-theme.theme(tokens-mdc-radio.get-typography-tokens($config));
-    @include mdc-helpers.using-mdc-typography($config) {
-      @include mdc-form-field.core-styles($query: mdc-helpers.$mdc-typography-styles-query);
+    .mat-mdc-radio-button {
+      @include mdc-helpers.using-mdc-typography($theme) {
+        @include mdc-form-field.core-styles($query: mdc-helpers.$mdc-typography-styles-query);
+      }
     }
   }
 }
 
-@mixin density($config-or-theme) {
-  $density-scale: theming.get-density-config($config-or-theme);
-  .mat-mdc-radio-button .mdc-radio {
-    @include mdc-radio-theme.theme(tokens-mdc-radio.get-density-tokens($density-scale));
+@mixin density($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
   }
+  @else {
+    $density-scale: inspection.get-theme-density($theme);
 
-  @include mdc-helpers.if-touch-targets-unsupported($density-scale) {
-    .mat-mdc-radio-touch-target {
-      display: none;
+    @include sass-utils.current-selector-or-root() {
+      @include mdc-radio-theme.theme(tokens-mdc-radio.get-density-tokens($theme));
+    }
+
+    @include mdc-helpers.if-touch-targets-unsupported($density-scale) {
+      .mat-mdc-radio-touch-target {
+        display: none;
+      }
     }
   }
 }
 
-@mixin theme($theme-or-color-config) {
-  $theme: theming.private-legacy-get-theme($theme-or-color-config);
+@mixin theme($theme) {
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-radio') {
-    $color: theming.get-color-config($theme);
-    $density: theming.get-density-config($theme);
-    $typography: theming.get-typography-config($theme);
+    @if inspection.get-theme-version($theme) == 1 {
+      @include _theme-from-tokens(inspection.get-theme-tokens($theme));
+    }
+    @else {
+      @include base($theme);
+      @if inspection.theme-has($theme, color) {
+        @include color($theme);
+      }
+      @if inspection.theme-has($theme, density) {
+        @include density($theme);
+      }
+      @if inspection.theme-has($theme, typography) {
+        @include typography($theme);
+      }
+    }
+  }
+}
 
-    @if $color != null {
-      @include color($color);
-    }
-    @if $density != null {
-      @include density($density);
-    }
-    @if $typography != null {
-      @include typography($typography);
-    }
+@mixin _theme-from-tokens($tokens) {
+  @if ($tokens != ()) {
+    @include mdc-radio-theme.theme(map.get($tokens, tokens-mdc-radio.$prefix));
+    @include token-utils.create-token-values(
+        tokens-mat-radio.$prefix, map.get($tokens, tokens-mat-radio.$prefix));
   }
 }
