@@ -611,6 +611,9 @@ var require_migration = __commonJS({
 // Please note: you do not need to include the 'base' mixins, if you include the corresponding
 // 'theme' mixin elsewhere in your Sass. The full 'theme' mixins already include the base styles.
 //
+// To learn more about "base" theme styles visit our theming guide:
+// https://material.angular.io/guide/theming#theming-dimensions
+//
 // TODO(v17): Please move these @include statements to the preferred place in your Sass, and pass
 // your theme to them. This will ensure the correct values for your app are included.`.split("\n");
     var THEME_MIXIN_SETS = [
