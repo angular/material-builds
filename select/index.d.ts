@@ -31,7 +31,6 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatOptgroup } from '@angular/material/core';
 import { MatOption } from '@angular/material/core';
-import { _MatOptionBase } from '@angular/material/core';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
@@ -58,9 +57,8 @@ declare namespace i1 {
         MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
         MAT_SELECT_TRIGGER,
         MatSelectChange,
-        _MatSelectBase,
-        MatSelectTrigger,
-        MatSelect
+        MatSelect,
+        MatSelectTrigger
     }
 }
 
@@ -87,59 +85,7 @@ export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ove
  */
 export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
 
-export declare class MatSelect extends _MatSelectBase<MatSelectChange> implements OnInit {
-    options: QueryList<MatOption>;
-    optionGroups: QueryList<MatOptgroup>;
-    customTrigger: MatSelectTrigger;
-    /**
-     * Width of the panel. If set to `auto`, the panel will match the trigger width.
-     * If set to null or an empty string, the panel will grow to match the longest option's text.
-     */
-    panelWidth: string | number | null;
-    _positions: ConnectedPosition[];
-    /** Ideal origin for the overlay panel. */
-    _preferredOverlayOrigin: CdkOverlayOrigin | ElementRef | undefined;
-    /** Width of the overlay panel. */
-    _overlayWidth: string | number;
-    get shouldLabelFloat(): boolean;
-    ngOnInit(): void;
-    open(): void;
-    close(): void;
-    /** Scrolls the active option into view. */
-    protected _scrollOptionIntoView(index: number): void;
-    protected _positioningSettled(): void;
-    protected _getChangeEvent(value: any): MatSelectChange;
-    /** Gets how wide the overlay panel should be. */
-    private _getOverlayWidth;
-    /** Whether checkmark indicator for single-selection options is hidden. */
-    get hideSingleSelectionIndicator(): boolean;
-    set hideSingleSelectionIndicator(value: BooleanInput);
-    private _hideSingleSelectionIndicator;
-    /** Syncs the parent state with the individual options. */
-    _syncParentProperties(): void;
-    protected _skipPredicate: (option: MatOption) => boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, {}, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
-}
-
-/**
- * The following are all the animations for the mat-select component, with each
- * const containing the metadata for one animation.
- *
- * The values below match the implementation of the AngularJS Material mat-select animation.
- * @docs-private
- */
-export declare const matSelectAnimations: {
-    /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 12.0.0
-     */
-    readonly transformPanelWrap: AnimationTriggerMetadata;
-    readonly transformPanel: AnimationTriggerMetadata;
-};
-
-/** Base class with all of the `MatSelect` functionality. */
-export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
+export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
     protected _viewportRuler: ViewportRuler;
     protected _changeDetectorRef: ChangeDetectorRef;
     protected _ngZone: NgZone;
@@ -148,24 +94,24 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _liveAnnouncer;
     protected _defaultOptions?: MatSelectConfig | undefined;
     /** All of the defined select options. */
-    abstract options: QueryList<_MatOptionBase>;
+    options: QueryList<MatOption>;
     /** All of the defined groups of options. */
-    abstract optionGroups: QueryList<MatOptgroup>;
+    optionGroups: QueryList<MatOptgroup>;
     /** User-supplied override of the trigger element. */
-    abstract customTrigger: {};
+    customTrigger: MatSelectTrigger;
     /**
      * This position config ensures that the top "start" corner of the overlay
      * is aligned with with the top "start" of the origin by default (overlapping
      * the trigger completely). If the panel cannot fit below the trigger, it
      * will fall back to a position above the trigger.
      */
-    abstract _positions: ConnectedPosition[];
+    _positions: ConnectedPosition[];
     /** Scrolls a particular option into the view. */
-    protected abstract _scrollOptionIntoView(index: number): void;
+    _scrollOptionIntoView(index: number): void;
     /** Called when the panel has been opened and the overlay has settled on its final position. */
-    protected abstract _positioningSettled(): void;
+    private _positioningSettled;
     /** Creates a change event object that should be emitted by the select. */
-    protected abstract _getChangeEvent(value: any): C;
+    private _getChangeEvent;
     /** Factory function used to create a scroll strategy for this select. */
     private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
@@ -192,6 +138,10 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     _selectionModel: SelectionModel<MatOption>;
     /** Manages keyboard events for options in the panel. */
     _keyManager: ActiveDescendantKeyManager<MatOption>;
+    /** Ideal origin for the overlay panel. */
+    _preferredOverlayOrigin: CdkOverlayOrigin | ElementRef | undefined;
+    /** Width of the overlay panel. */
+    _overlayWidth: string | number;
     /** `View -> model callback called when value changes` */
     _onChange: (value: any) => void;
     /** `View -> model callback called when select has been touched` */
@@ -218,6 +168,10 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     panelClass: string | string[] | Set<string> | {
         [key: string]: any;
     };
+    /** Whether checkmark indicator for single-selection options is hidden. */
+    get hideSingleSelectionIndicator(): boolean;
+    set hideSingleSelectionIndicator(value: BooleanInput);
+    private _hideSingleSelectionIndicator;
     /** Placeholder to be shown if no value has been selected. */
     get placeholder(): string;
     set placeholder(value: string);
@@ -264,6 +218,11 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     get id(): string;
     set id(value: string);
     private _id;
+    /**
+     * Width of the panel. If set to `auto`, the panel will match the trigger width.
+     * If set to null or an empty string, the panel will grow to match the longest option's text.
+     */
+    panelWidth: string | number | null;
     /** Combined stream of all of the child options' change events. */
     readonly optionSelectionChanges: Observable<MatOptionSelectionChange>;
     /** Event emitted when the select panel has been toggled. */
@@ -273,7 +232,7 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     /** Event emitted when the select has been closed. */
     readonly _closedStream: Observable<void>;
     /** Event emitted when the selected value has been changed by the user. */
-    readonly selectionChange: EventEmitter<C>;
+    readonly selectionChange: EventEmitter<MatSelectChange>;
     /**
      * Event that emits whenever the raw value of the select changes. This is here primarily
      * to facilitate the two-way binding for the `value` input.
@@ -391,7 +350,11 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
     private _selectOptionByValue;
     /** Assigns a specific value to the select. Returns whether the value has changed. */
     private _assignValue;
-    protected _skipPredicate(item: MatOption): boolean;
+    private _skipPredicate;
+    /** Gets how wide the overlay panel should be. */
+    private _getOverlayWidth;
+    /** Syncs the parent state with the individual options. */
+    _syncParentProperties(): void;
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     private _initKeyManager;
     /** Drops current option subscriptions and IDs and resets from scratch. */
@@ -434,9 +397,25 @@ export declare abstract class _MatSelectBase<C> extends _MatSelectMixinBase impl
      * @docs-private
      */
     get shouldLabelFloat(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSelectBase<any>, [null, null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; self: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSelectBase<any>, never, never, { "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disableOptionCentering": { "alias": "disableOptionCentering"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "value": { "alias": "value"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "typeaheadDebounceInterval": { "alias": "typeaheadDebounceInterval"; "required": false; }; "sortComparator": { "alias": "sortComparator"; "required": false; }; "id": { "alias": "id"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, [null, null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; self: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disableOptionCentering": { "alias": "disableOptionCentering"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "value": { "alias": "value"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "typeaheadDebounceInterval": { "alias": "typeaheadDebounceInterval"; "required": false; }; "sortComparator": { "alias": "sortComparator"; "required": false; }; "id": { "alias": "id"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
 }
+
+/**
+ * The following are all the animations for the mat-select component, with each
+ * const containing the metadata for one animation.
+ *
+ * The values below match the implementation of the AngularJS Material mat-select animation.
+ * @docs-private
+ */
+export declare const matSelectAnimations: {
+    /**
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 12.0.0
+     */
+    readonly transformPanelWrap: AnimationTriggerMetadata;
+    readonly transformPanel: AnimationTriggerMetadata;
+};
 
 /** Change event object that is emitted when the select value has changed. */
 export declare class MatSelectChange {

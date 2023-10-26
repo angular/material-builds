@@ -1,225 +1,215 @@
-@use 'sass:map';
 @use '@material/button/button' as mdc-button;
-@use '@material/button/button-theme' as mdc-button-theme;
 @use '@material/button/button-text-theme' as mdc-button-text-theme;
 @use '@material/button/button-filled-theme' as mdc-button-filled-theme;
 @use '@material/button/button-protected-theme' as mdc-button-protected-theme;
 @use '@material/button/button-outlined-theme' as mdc-button-outlined-theme;
-@use '@material/theme/theme-color' as mdc-theme-color;
+@use '@material/elevation/elevation-theme' as mdc-elevation-theme;
 
 @use './button-theme-private';
 @use '../core/mdc-helpers/mdc-helpers';
 @use '../core/theming/theming';
+@use '../core/theming/inspection';
 @use '../core/typography/typography';
+@use '../core/tokens/m2/mdc/filled-button' as tokens-mdc-filled-button;
+@use '../core/tokens/m2/mdc/outlined-button' as tokens-mdc-outlined-button;
+@use '../core/tokens/m2/mdc/protected-button' as tokens-mdc-protected-button;
+@use '../core/tokens/m2/mdc/text-button' as tokens-mdc-text-button;
 
-@mixin _button-variant($color) {
-  @include mdc-button-text-theme.theme((
-    label-text-color: $color,
-  ));
+@function _on-color($theme, $palette) {
+  $is-dark: inspection.get-theme-type($theme) == dark;
+  @return if(mdc-helpers.variable-safe-contrast-tone($palette, $is-dark) == 'dark', #000, #fff);
 }
 
-@mixin _unelevated-button-variant($foreground, $background) {
-  @include mdc-button-filled-theme.theme((
-    container-color: $background,
-    label-text-color: $foreground,
-  ));
+@mixin base($theme) {
+  // TODO(mmalerba): Move button base tokens here
 }
 
-@mixin _raised-button-variant($foreground, $background) {
-  @include mdc-button-protected-theme.theme((
-    container-color: $background,
-    label-text-color: $foreground,
-  ));
-}
+@mixin color($theme) {
+  $surface: inspection.get-theme-color($theme, background, card);
+  $primary: inspection.get-theme-color($theme, primary);
+  $accent: inspection.get-theme-color($theme, accent);
+  $error: inspection.get-theme-color($theme, warn);
 
-@mixin _outlined-button-variant($color) {
-  @include mdc-button-outlined-theme.theme((
-    label-text-color: $color,
-  ));
-}
+  $on-surface: _on-color($theme, $surface);
+  $on-primary: _on-color($theme, $primary);
+  $on-accent: _on-color($theme, $accent);
+  $on-error: _on-color($theme, $error);
 
-@mixin color($config-or-theme) {
-  $config: theming.get-color-config($config-or-theme);
-  @include mdc-helpers.using-mdc-theme($config) {
-    $is-dark: map.get($config, is-dark);
-    $on-surface: mdc-theme-color.prop-value(on-surface);
-    $surface: mdc-theme-color.prop-value(surface);
-    $disabled-ink-color: rgba($on-surface, if($is-dark, 0.5, 0.38));
-    $disabled-container-color: rgba($on-surface, 0.12);
-    $primary: mdc-theme-color.prop-value(primary);
-    $on-primary: mdc-theme-color.prop-value(on-primary);
-    $secondary: mdc-theme-color.prop-value(secondary);
-    $on-secondary: mdc-theme-color.prop-value(on-secondary);
-    $error: mdc-theme-color.prop-value(error);
-    $on-error: mdc-theme-color.prop-value(on-error);
-
-    .mat-mdc-button {
-      &.mat-unthemed {
-        @include _button-variant($on-surface);
-      }
-
-      &.mat-primary {
-        @include _button-variant($primary);
-      }
-
-      &.mat-accent {
-        @include _button-variant($secondary);
-      }
-
-      &.mat-warn {
-        @include _button-variant($error);
-      }
-
-      @include button-theme-private.apply-disabled-style() {
-        @include mdc-button-text-theme.theme((
-          // We need to pass both the disabled and enabled values, because the enabled
-          // ones apply to anchors while the disabled ones are for buttons.
-          disabled-label-text-color: $disabled-ink-color,
-          label-text-color: $disabled-ink-color
-        ));
-      }
-    }
-
-    .mat-mdc-unelevated-button {
-      &.mat-unthemed {
-        @include _unelevated-button-variant($on-surface, $surface);
-      }
-
-      &.mat-primary {
-        @include _unelevated-button-variant($on-primary, $primary);
-      }
-
-      &.mat-accent {
-        @include _unelevated-button-variant($on-secondary, $secondary);
-      }
-
-      &.mat-warn {
-        @include _unelevated-button-variant($on-error, $error);
-      }
-
-      @include button-theme-private.apply-disabled-style() {
-        @include mdc-button-filled-theme.theme((
-          // We need to pass both the disabled and enabled values, because the enabled
-          // ones apply to anchors while the disabled ones are for buttons.
-          disabled-container-color: $disabled-container-color,
-          disabled-label-text-color: $disabled-ink-color,
-          container-color: $disabled-container-color,
-          label-text-color: $disabled-ink-color,
-        ));
-      }
-    }
-
-    .mat-mdc-raised-button {
-      &.mat-unthemed {
-        @include _raised-button-variant($on-surface, $surface);
-      }
-
-      &.mat-primary {
-        @include _raised-button-variant($on-primary, $primary);
-      }
-
-      &.mat-accent {
-        @include _raised-button-variant($on-secondary, $secondary);
-      }
-
-      &.mat-warn {
-        @include _raised-button-variant($on-error, $error);
-      }
-
-      @include button-theme-private.apply-disabled-style() {
-        @include mdc-button-protected-theme.theme((
-          // We need to pass both the disabled and enabled values, because the enabled
-          // ones apply to anchors while the disabled ones are for buttons.
-          disabled-container-color: $disabled-container-color,
-          disabled-label-text-color: $disabled-ink-color,
-          container-color: $disabled-container-color,
-          label-text-color: $disabled-ink-color,
-          container-elevation: 0,
-        ));
-      }
-    }
-
-    .mat-mdc-outlined-button {
-      @include mdc-button-outlined-theme.theme((
-        outline-color: rgba(mdc-theme-color.prop-value(on-surface), 0.12)
-      ));
-
-      &.mat-unthemed {
-        @include _outlined-button-variant($on-surface);
-      }
-
-      &.mat-primary {
-        @include _outlined-button-variant($primary);
-      }
-
-      &.mat-accent {
-        @include _outlined-button-variant($secondary);
-      }
-
-      &.mat-warn {
-        @include _outlined-button-variant($error);
-      }
-
-      @include button-theme-private.apply-disabled-style() {
-        @include mdc-button-outlined-theme.theme((
-          // We need to pass both the disabled and enabled values, because the enabled
-          // ones apply to anchors while the disabled ones are for buttons.
-          label-text-color: $disabled-ink-color,
-          disabled-label-text-color: $disabled-ink-color,
-          outline-color: rgba($on-surface, 0.12),
-          disabled-outline-color: rgba($on-surface, 0.12),
-        ));
-      }
-    }
-
+  // TODO: remove these when tokenizing the ripples.
+  @include mdc-helpers.using-mdc-theme($theme) {
     // Ripple colors
     .mat-mdc-button, .mat-mdc-outlined-button {
-      @include button-theme-private.ripple-theme-styles($config, false);
+      @include button-theme-private.ripple-theme-styles($theme, false);
     }
 
     .mat-mdc-raised-button, .mat-mdc-unelevated-button {
-      @include button-theme-private.ripple-theme-styles($config, true);
+      @include button-theme-private.ripple-theme-styles($theme, true);
+    }
+  }
+
+  .mat-mdc-button {
+    @include mdc-button-text-theme.theme(tokens-mdc-text-button.get-color-tokens($theme));
+
+    &.mat-primary {
+      @include mdc-button-text-theme.theme(
+        tokens-mdc-text-button.private-get-color-palette-color-tokens($theme, primary));
+    }
+
+    &.mat-accent {
+      @include mdc-button-text-theme.theme(
+        tokens-mdc-text-button.private-get-color-palette-color-tokens($theme, accent));
+    }
+
+    &.mat-warn {
+      @include mdc-button-text-theme.theme(
+        tokens-mdc-text-button.private-get-color-palette-color-tokens($theme, warn));
+    }
+  }
+
+  .mat-mdc-unelevated-button {
+    $default-color-tokens: tokens-mdc-filled-button.get-color-tokens($theme, $surface, $on-surface);
+    $primary-color-tokens: tokens-mdc-filled-button.get-color-tokens($theme, $primary, $on-primary);
+    $accent-color-tokens: tokens-mdc-filled-button.get-color-tokens($theme, $accent, $on-accent);
+    $warn-color-tokens: tokens-mdc-filled-button.get-color-tokens($theme, $error, $on-error);
+
+    &.mat-unthemed {
+      @include mdc-button-filled-theme.theme($default-color-tokens);
+    }
+
+    &.mat-primary {
+      @include mdc-button-filled-theme.theme($primary-color-tokens);
+    }
+
+    &.mat-accent {
+      @include mdc-button-filled-theme.theme($accent-color-tokens);
+    }
+
+    &.mat-warn {
+      @include mdc-button-filled-theme.theme($warn-color-tokens);
+    }
+  }
+
+  .mat-mdc-raised-button {
+    $default-color-tokens: tokens-mdc-protected-button.get-color-tokens(
+      $theme,
+      $surface,
+      $on-surface
+    );
+    $primary-color-tokens: tokens-mdc-protected-button.get-color-tokens(
+      $theme,
+      $primary,
+      $on-primary
+    );
+    $accent-color-tokens: tokens-mdc-protected-button.get-color-tokens($theme, $accent, $on-accent);
+    $warn-color-tokens: tokens-mdc-protected-button.get-color-tokens($theme, $error, $on-error);
+
+    &.mat-unthemed {
+      @include mdc-button-protected-theme.theme($default-color-tokens);
+    }
+
+    &.mat-primary {
+      @include mdc-button-protected-theme.theme($primary-color-tokens);
+    }
+
+    &.mat-accent {
+      @include mdc-button-protected-theme.theme($accent-color-tokens);
+    }
+
+    &.mat-warn {
+      @include mdc-button-protected-theme.theme($warn-color-tokens);
+    }
+
+    // TODO(wagnermaciel): Remove this workaround when b/301126527 is resolved
+    @include mdc-helpers.disable-mdc-fallback-declarations {
+      @include mdc-elevation-theme.elevation(2);
+
+      &:hover, &:focus {
+        @include mdc-elevation-theme.elevation(4);
+      }
+
+      &:active, &:focus:active {
+        @include mdc-elevation-theme.elevation(8);
+      }
+    }
+  }
+
+  .mat-mdc-outlined-button {
+    $default-color-tokens: tokens-mdc-outlined-button.get-color-tokens(
+      $theme,
+      $on-surface,
+      $on-surface
+    );
+    $primary-color-tokens: tokens-mdc-outlined-button.get-color-tokens(
+      $theme,
+      $primary,
+      $on-primary
+    );
+    $accent-color-tokens: tokens-mdc-outlined-button.get-color-tokens($theme, $accent, $on-accent);
+    $warn-color-tokens: tokens-mdc-outlined-button.get-color-tokens($theme, $error, $on-error);
+
+    &.mat-unthemed {
+      @include mdc-button-outlined-theme.theme($default-color-tokens);
+    }
+
+    &.mat-primary {
+      @include mdc-button-outlined-theme.theme($primary-color-tokens);
+    }
+
+    &.mat-accent {
+      @include mdc-button-outlined-theme.theme($accent-color-tokens);
+    }
+
+    &.mat-warn {
+      @include mdc-button-outlined-theme.theme($warn-color-tokens);
     }
   }
 }
 
-@mixin typography($config-or-theme) {
-  $config: typography.private-typography-to-2018-config(
-    theming.get-typography-config($config-or-theme));
-  @include mdc-helpers.using-mdc-typography($config) {
+@mixin typography($theme) {
+  @include mdc-helpers.using-mdc-typography($theme) {
     @include mdc-button.without-ripple($query: mdc-helpers.$mdc-typography-styles-query);
   }
 }
 
-@mixin density($config-or-theme) {
-  $density-scale: theming.get-density-config($config-or-theme);
-  .mat-mdc-button,
-  .mat-mdc-raised-button,
-  .mat-mdc-unelevated-button,
+@mixin density($theme) {
+  $density-scale: theming.clamp-density(inspection.get-theme-density($theme), -3);
+
+  .mat-mdc-button {
+    $density-tokens: tokens-mdc-text-button.get-density-tokens($theme);
+    @include mdc-button-text-theme.theme($density-tokens);
+    @include button-theme-private.touch-target-density($density-scale);
+  }
+
+  .mat-mdc-raised-button {
+    $density-tokens: tokens-mdc-protected-button.get-density-tokens($theme);
+    @include mdc-button-protected-theme.theme($density-tokens);
+    @include button-theme-private.touch-target-density($density-scale);
+  }
+
+  .mat-mdc-unelevated-button {
+    $density-tokens: tokens-mdc-filled-button.get-density-tokens($theme);
+    @include mdc-button-filled-theme.theme($density-tokens);
+    @include button-theme-private.touch-target-density($density-scale);
+  }
+
   .mat-mdc-outlined-button {
-    // Use `mat-mdc-button-base` to increase the specificity over the button's structural styles.
-    &.mat-mdc-button-base {
-      @include mdc-button-theme.density($density-scale, $query: mdc-helpers.$mdc-base-styles-query);
-      @include button-theme-private.touch-target-density($density-scale);
-    }
+    $density-tokens: tokens-mdc-outlined-button.get-density-tokens($theme);
+    @include mdc-button-outlined-theme.theme($density-tokens);
+    @include button-theme-private.touch-target-density($density-scale);
   }
 }
 
-@mixin theme($theme-or-color-config) {
-  $theme: theming.private-legacy-get-theme($theme-or-color-config);
+@mixin theme($theme) {
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-button') {
-    $color: theming.get-color-config($theme);
-    $density: theming.get-density-config($theme);
-    $typography: theming.get-typography-config($theme);
-
-    @if $color != null {
-      @include color($color);
+    @include base($theme);
+    @if inspection.theme-has($theme, color) {
+      @include color($theme);
     }
-    @if $density != null {
-      @include density($density);
+    @if inspection.theme-has($theme, density) {
+      @include density($theme);
     }
-    @if $typography != null {
-      @include typography($typography);
+    @if inspection.theme-has($theme, typography) {
+      @include typography($theme);
     }
   }
 }
