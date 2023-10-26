@@ -1,5 +1,7 @@
+@use 'sass:map';
 @use '../../token-utils';
-@use '../../../theming/inspection';
+@use '../../../theming/theming';
+@use '../../../typography/typography-utils';
 @use '../../../style/sass-utils';
 
 // The prefix used to generate the fully qualified name for tokens in this file.
@@ -12,41 +14,45 @@ $prefix: (mat, card);
 }
 
 // Tokens that can be configured through Angular Material's color theming API.
-@function get-color-tokens($theme) {
+@function get-color-tokens($config) {
+  $foreground: map.get($config, foreground);
+
   @return (
     // Text color of the card's subtitle.
-    subtitle-text-color: inspection.get-theme-color($theme, foreground, secondary-text),
+    subtitle-text-color: theming.get-color-from-palette($foreground, secondary-text),
   );
 }
 
 // Tokens that can be configured through Angular Material's typography theming API.
-@function get-typography-tokens($theme) {
+@function get-typography-tokens($config) {
   @return (
     // Font family of the card's title.
-    title-text-font: inspection.get-theme-typography($theme, headline-6, font-family),
+    title-text-font: typography-utils.font-family($config, headline-6)
+          or typography-utils.font-family($config),
     // Line height of the card's title.
-    title-text-line-height: inspection.get-theme-typography($theme, headline-6, line-height),
+    title-text-line-height: typography-utils.line-height($config, headline-6),
     // Font size of the card's title.
-    title-text-size: inspection.get-theme-typography($theme, headline-6, font-size),
+    title-text-size: typography-utils.font-size($config, headline-6),
     // Letter spacing of the card's title.
-    title-text-tracking: inspection.get-theme-typography($theme, headline-6, letter-spacing),
+    title-text-tracking: typography-utils.letter-spacing($config, headline-6),
     // Font weight of the card's title.
-    title-text-weight: inspection.get-theme-typography($theme, headline-6, font-weight),
+    title-text-weight: typography-utils.font-weight($config, headline-6),
     // Font family of the card's subtitle.
-    subtitle-text-font: inspection.get-theme-typography($theme, subtitle-2, font-family),
+    subtitle-text-font: typography-utils.font-family($config, subtitle-2)
+          or typography-utils.font-family($config),
     // Line height of the card's subtitle.
-    subtitle-text-line-height: inspection.get-theme-typography($theme, subtitle-2, line-height),
+    subtitle-text-line-height: typography-utils.line-height($config, subtitle-2),
     // Font size of the card's subtitle.
-    subtitle-text-size: inspection.get-theme-typography($theme, subtitle-2, font-size),
+    subtitle-text-size: typography-utils.font-size($config, subtitle-2),
     // Letter spacing of the card's subtitle.
-    subtitle-text-tracking: inspection.get-theme-typography($theme, subtitle-2, letter-spacing),
+    subtitle-text-tracking: typography-utils.letter-spacing($config, subtitle-2),
     // Font weight of the card's subtitle.
-    subtitle-text-weight: inspection.get-theme-typography($theme, subtitle-2, font-weight),
+    subtitle-text-weight: typography-utils.font-weight($config, subtitle-2),
   );
 }
 
 // Tokens that can be configured through Angular Material's density theming API.
-@function get-density-tokens($theme) {
+@function get-density-tokens($config) {
   @return ();
 }
 

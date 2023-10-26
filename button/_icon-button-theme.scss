@@ -1,57 +1,74 @@
+@use 'sass:map';
 @use 'sass:math';
 @use '@material/density/functions' as mdc-density-functions;
 @use '@material/icon-button/icon-button-theme' as mdc-icon-button-theme;
+@use '@material/theme/theme-color' as mdc-theme-color;
 @use '../core/tokens/m2/mdc/icon-button' as tokens-mdc-icon-button;
 
 @use './button-theme-private';
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
 
 $_icon-size: 24px;
 
-// TODO(crisbeto): move these into tokens
 @mixin _ripple-color($color) {
   --mat-mdc-button-persistent-ripple-color: #{$color};
   --mat-mdc-button-ripple-color: #{rgba($color, 0.1)};
 }
 
-@mixin base($theme) {
-  // TODO(mmalerba): Move icon button base tokens here
+@function _variable-safe-contrast-tone($value, $is-dark) {
+  @if ($value == 'dark' or $value == 'light' or type-of($value) == 'color') {
+    @return mdc-theme-color.contrast-tone($value);
+  }
+
+  @return if($is-dark, 'light', 'dark');
 }
 
-@mixin color($theme) {
-  $color-tokens: tokens-mdc-icon-button.get-color-tokens($theme);
-  $is-dark: inspection.get-theme-type($theme) == dark;
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
+  $color-tokens: tokens-mdc-icon-button.get-color-tokens($config);
+  $background-palette: map.get($config, background);
+  $surface: theming.get-color-from-palette($background-palette, card);
+  $is-dark: map.get($config, is-dark);
+  $on-surface: if(_variable-safe-contrast-tone($surface, $is-dark) == 'dark', #000, #fff);
 
   .mat-mdc-icon-button {
-    @include button-theme-private.ripple-theme-styles($theme, false);
+    @include button-theme-private.ripple-theme-styles($config, false);
     @include mdc-icon-button-theme.theme($color-tokens);
-    @include _ripple-color(if($is-dark, #fff, #000));
+    @include _ripple-color($on-surface);
 
     &.mat-primary {
-      @include _ripple-color(inspection.get-theme-color($theme, primary));
-      @include mdc-icon-button-theme.theme(
-        tokens-mdc-icon-button.private-get-color-palette-color-tokens($theme, primary));
+      $color: theming.get-color-from-palette(map.get($config, primary));
+      @include mdc-icon-button-theme.theme((icon-color: $color));
+      @include _ripple-color($color);
     }
 
     &.mat-accent {
-      @include _ripple-color(inspection.get-theme-color($theme, accent));
-      @include mdc-icon-button-theme.theme(
-        tokens-mdc-icon-button.private-get-color-palette-color-tokens($theme, accent));
+      $color: theming.get-color-from-palette(map.get($config, accent));
+      @include mdc-icon-button-theme.theme((icon-color: $color));
+      @include _ripple-color($color);
     }
 
     &.mat-warn {
-      @include _ripple-color(inspection.get-theme-color($theme, warn));
-      @include mdc-icon-button-theme.theme(
-        tokens-mdc-icon-button.private-get-color-palette-color-tokens($theme, warn));
+      $color: theming.get-color-from-palette(map.get($config, warn));
+      @include mdc-icon-button-theme.theme((icon-color: $color));
+      @include _ripple-color($color);
+    }
+
+    @include button-theme-private.apply-disabled-style() {
+      $disabled-color: rgba($on-surface, if($is-dark, 0.5, 0.38));
+      @include mdc-icon-button-theme.theme((
+        icon-color: $disabled-color,
+        disabled-icon-color: $disabled-color,
+      ));
     }
   }
 }
 
-@mixin typography($theme) {}
+@mixin typography($config-or-theme) {
+}
 
-@mixin density($theme) {
-  $density-scale: inspection.get-theme-density($theme);
+@mixin density($config-or-theme) {
+  $density-scale: theming.get-density-config($config-or-theme);
   // Manually apply the expected density theming, and include the padding
   // as it was applied before
   $calculated-size: mdc-density-functions.prop-value(
@@ -87,17 +104,21 @@ $_icon-size: 24px;
   }
 }
 
-@mixin theme($theme) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-icon-button') {
-    @include base($theme);
-    @if inspection.theme-has($theme, color) {
-      @include color($theme);
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
+
+    @if $color != null {
+      @include color($color);
     }
-    @if inspection.theme-has($theme, density) {
-      @include density($theme);
+    @if $density != null {
+      @include density($density);
     }
-    @if inspection.theme-has($theme, typography) {
-      @include typography($theme);
+    @if $typography != null {
+      @include typography($typography);
     }
   }
 }

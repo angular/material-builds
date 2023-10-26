@@ -14,8 +14,9 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i3 from '@angular/material/core';
-import * as i4 from '@angular/cdk/scrolling';
+import * as i3 from '@angular/common';
+import * as i4 from '@angular/material/core';
+import * as i5 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
 import { InteractivityChecker } from '@angular/cdk/a11y';
 import { NgZone } from '@angular/core';
@@ -384,7 +385,7 @@ export declare class MatSidenavContent extends MatDrawerContent {
 
 export declare class MatSidenavModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSidenavModule, [typeof i1.MatDrawer, typeof i1.MatDrawerContainer, typeof i1.MatDrawerContent, typeof i2.MatSidenav, typeof i2.MatSidenavContainer, typeof i2.MatSidenavContent], [typeof i3.MatCommonModule, typeof i4.CdkScrollableModule], [typeof i4.CdkScrollableModule, typeof i3.MatCommonModule, typeof i1.MatDrawer, typeof i1.MatDrawerContainer, typeof i1.MatDrawerContent, typeof i2.MatSidenav, typeof i2.MatSidenavContainer, typeof i2.MatSidenavContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSidenavModule, [typeof i1.MatDrawer, typeof i1.MatDrawerContainer, typeof i1.MatDrawerContent, typeof i2.MatSidenav, typeof i2.MatSidenavContainer, typeof i2.MatSidenavContent], [typeof i3.CommonModule, typeof i4.MatCommonModule, typeof i5.CdkScrollableModule], [typeof i5.CdkScrollableModule, typeof i4.MatCommonModule, typeof i1.MatDrawer, typeof i1.MatDrawerContainer, typeof i1.MatDrawerContent, typeof i2.MatSidenav, typeof i2.MatSidenavContainer, typeof i2.MatSidenavContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSidenavModule>;
 }
 

@@ -1,53 +1,58 @@
+@use 'sass:map';
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
 @use '../core/tokens/m2/mat/icon' as tokens-mat-icon;
 @use '../core/tokens/token-utils';
 @use '../core/style/sass-utils';
 
-@mixin _palette-colors($theme, $palette-name) {
-  $color: inspection.get-theme-color($theme, $palette-name, text);
+@mixin _palette-colors($config, $palette-name) {
+  $palette: map.get($config, $palette-name);
+  $color: theming.get-color-from-palette($palette, text);
   $tokens: tokens-mat-icon.private-get-icon-color-tokens($color);
   @include token-utils.create-token-values(tokens-mat-icon.$prefix, $tokens);
 }
 
-@mixin base($theme) {}
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
 
-@mixin color($theme) {
   @include sass-utils.current-selector-or-root() {
     @include token-utils.create-token-values(tokens-mat-icon.$prefix,
-      tokens-mat-icon.get-color-tokens($theme));
+      tokens-mat-icon.get-color-tokens($config));
   }
 
   .mat-icon {
     &.mat-primary {
-      @include _palette-colors($theme, primary);
+      @include _palette-colors($config, primary);
     }
 
     &.mat-accent {
-      @include _palette-colors($theme, accent);
+      @include _palette-colors($config, accent);
     }
 
     &.mat-warn {
-      @include _palette-colors($theme, warn);
+      @include _palette-colors($config, warn);
     }
   }
 }
 
-@mixin typography($theme) {}
+@mixin typography($config-or-theme) {}
 
-@mixin density($theme) {}
+@mixin density($config-or-theme) {}
 
-@mixin theme($theme) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-icon') {
-    @include base($theme);
-    @if inspection.theme-has($theme, color) {
-      @include color($theme);
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
+
+    @if $color != null {
+      @include color($color);
     }
-    @if inspection.theme-has($theme, density) {
-      @include density($theme);
+    @if $density != null {
+      @include density($density);
     }
-    @if inspection.theme-has($theme, typography) {
-      @include typography($theme);
+    @if $typography != null {
+      @include typography($typography);
     }
   }
 }
