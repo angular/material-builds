@@ -20,6 +20,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i11 from '@angular/material/core';
+import * as i12 from '@angular/common';
 import { InjectionToken } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -880,7 +881,7 @@ export declare class MatChipRow extends MatChip implements AfterViewInit {
      */
     private _getEditInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRow, [null, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]", never, { "color": { "alias": "color"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "editable": { "alias": "editable"; "required": false; }; }, { "edited": "edited"; }, ["contentEditInput"], ["mat-chip-avatar, [matChipAvatar]", "[matChipEditInput]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]", never, { "color": { "alias": "color"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "editable": { "alias": "editable"; "required": false; }; }, { "edited": "edited"; }, ["contentEditInput"], ["mat-chip-avatar, [matChipAvatar]", "*", "[matChipEditInput]", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
 }
 
 /** Default options, for the chips module, that can be overridden. */
@@ -1009,7 +1010,7 @@ declare const _MatChipSetMixinBase: _Constructor<HasTabIndex> & _AbstractConstru
 
 export declare class MatChipsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatChipsModule, [typeof i1.MatChipAction, typeof i2.MatChip, typeof i3.MatChipAvatar, typeof i4.MatChipEditInput, typeof i5.MatChipGrid, typeof i6.MatChipInput, typeof i7.MatChipListbox, typeof i8.MatChipOption, typeof i3.MatChipRemove, typeof i9.MatChipRow, typeof i10.MatChipSet, typeof i3.MatChipTrailingIcon], [typeof i11.MatCommonModule, typeof i11.MatRippleModule], [typeof i11.MatCommonModule, typeof i2.MatChip, typeof i3.MatChipAvatar, typeof i4.MatChipEditInput, typeof i5.MatChipGrid, typeof i6.MatChipInput, typeof i7.MatChipListbox, typeof i8.MatChipOption, typeof i3.MatChipRemove, typeof i9.MatChipRow, typeof i10.MatChipSet, typeof i3.MatChipTrailingIcon]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatChipsModule, [typeof i1.MatChipAction, typeof i2.MatChip, typeof i3.MatChipAvatar, typeof i4.MatChipEditInput, typeof i5.MatChipGrid, typeof i6.MatChipInput, typeof i7.MatChipListbox, typeof i8.MatChipOption, typeof i3.MatChipRemove, typeof i9.MatChipRow, typeof i10.MatChipSet, typeof i3.MatChipTrailingIcon], [typeof i11.MatCommonModule, typeof i12.CommonModule, typeof i11.MatRippleModule], [typeof i11.MatCommonModule, typeof i2.MatChip, typeof i3.MatChipAvatar, typeof i4.MatChipEditInput, typeof i5.MatChipGrid, typeof i6.MatChipInput, typeof i7.MatChipListbox, typeof i8.MatChipOption, typeof i3.MatChipRemove, typeof i9.MatChipRow, typeof i10.MatChipSet, typeof i3.MatChipTrailingIcon]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatChipsModule>;
 }
 
