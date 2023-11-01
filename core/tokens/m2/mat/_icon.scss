@@ -11,18 +11,18 @@ $prefix: (mat, icon);
 }
 
 // Tokens that can be configured through Angular Material's color theming API.
-@function get-color-tokens($theme) {
+@function get-color-tokens($config) {
   // Default the icon to `inherit` so it matches the text around it.
   @return private-get-icon-color-tokens(inherit);
 }
 
 // Tokens that can be configured through Angular Material's typography theming API.
-@function get-typography-tokens($theme) {
+@function get-typography-tokens($config) {
   @return ();
 }
 
 // Tokens that can be configured through Angular Material's density theming API.
-@function get-density-tokens($theme) {
+@function get-density-tokens($config) {
   @return ();
 }
 
