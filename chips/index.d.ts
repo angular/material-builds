@@ -546,10 +546,9 @@ export declare class MatChipInput implements MatChipTextControl, AfterContentIni
     private _focusLastChipOnBackspace;
     /** Whether the control is focused. */
     focused: boolean;
+    _chipGrid: MatChipGrid;
     /** Register input for chip list */
-    get chipGrid(): MatChipGrid;
     set chipGrid(value: MatChipGrid);
-    private _chipGrid;
     /**
      * Whether or not the chipEnd event will be emitted when the input is blurred.
      */
@@ -928,10 +927,8 @@ export declare class MatChipSet extends _MatChipSetMixinBase implements AfterVie
     protected _defaultRole: string;
     /** Combined stream of all of the child chips' focus events. */
     get chipFocusChanges(): Observable<MatChipEvent>;
-    /** Combined stream of all of the child chips' destroy events. */
-    get chipDestroyedChanges(): Observable<MatChipEvent>;
     /** Combined stream of all of the child chips' remove events. */
-    get chipRemovedChanges(): Observable<MatChipEvent>;
+    get chipDestroyedChanges(): Observable<MatChipEvent>;
     /** Whether the chip set is disabled. */
     get disabled(): boolean;
     set disabled(value: BooleanInput);
