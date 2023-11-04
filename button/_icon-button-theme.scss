@@ -12,10 +12,7 @@
 
 
 @mixin base($theme) {
-  // Add default values for tokens not related to color, typography, or density.
-  @include sass-utils.current-selector-or-root() {
-    @include mdc-icon-button-theme.theme(tokens-mdc-icon-button.get-unthemable-tokens());
-  }
+  // TODO(mmalerba): Move icon button base tokens here
 }
 
 @mixin _icon-button-variant($theme, $palette) {
