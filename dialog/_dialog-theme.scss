@@ -1,43 +1,44 @@
 @use '@material/dialog/dialog-theme' as mdc-dialog-theme;
-@use '../core/style/sass-utils';
 @use '../core/tokens/m2/mdc/dialog' as tokens-mdc-dialog;
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
 @use '../core/typography/typography';
 
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
 
-@mixin base($theme) {
-  // Add default values for tokens not related to color, typography, or density.
-  @include sass-utils.current-selector-or-root() {
-    @include mdc-dialog-theme.theme(tokens-mdc-dialog.get-unthemable-tokens());
+  .mat-mdc-dialog-container {
+    @include mdc-dialog-theme.theme(tokens-mdc-dialog.get-color-tokens($config));
   }
 }
 
-@mixin color($theme) {
-  @include sass-utils.current-selector-or-root() {
-    @include mdc-dialog-theme.theme(tokens-mdc-dialog.get-color-tokens($theme));
+@mixin typography($config-or-theme) {
+  $config: typography.private-typography-to-2018-config(
+      theming.get-typography-config($config-or-theme));
+
+  .mat-mdc-dialog-container {
+    @include mdc-dialog-theme.theme(tokens-mdc-dialog.get-typography-tokens($config));
   }
 }
 
-@mixin typography($theme) {
-  @include sass-utils.current-selector-or-root() {
-    @include mdc-dialog-theme.theme(tokens-mdc-dialog.get-typography-tokens($theme));
-  }
+@mixin density($config-or-theme) {
+  $density-scale: theming.get-density-config($config-or-theme);
 }
 
-@mixin density($theme) {}
-
-@mixin theme($theme) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-dialog') {
-    @include base($theme);
-    @if inspection.theme-has($theme, color) {
-      @include color($theme);
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
+
+    @if $color != null {
+      @include color($color);
     }
-    @if inspection.theme-has($theme, density) {
-      @include density($theme);
+    @if $density != null {
+      @include density($density);
     }
-    @if inspection.theme-has($theme, typography) {
-      @include typography($theme);
+    @if $typography != null {
+      @include typography($typography);
     }
   }
 }

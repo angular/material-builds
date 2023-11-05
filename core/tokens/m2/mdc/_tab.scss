@@ -1,6 +1,5 @@
 @use 'sass:map';
 @use '../../../theming/theming';
-@use '../../../theming/inspection';
 @use '../../../style/sass-utils';
 @use '../../token-utils';
 
@@ -51,18 +50,18 @@ $prefix: (mdc, tab);
 }
 
 // Tokens that can be configured through Angular Material's color theming API.
-@function get-color-tokens($theme, $palette-name: primary) {
+@function get-color-tokens($config) {
   @return ();
 }
 
 // Tokens that can be configured through Angular Material's typography theming API.
-@function get-typography-tokens($theme) {
+@function get-typography-tokens($config) {
   @return ();
 }
 
 // Tokens that can be configured through Angular Material's density theming API.
-@function get-density-tokens($theme) {
-  $scale: theming.clamp-density(inspection.get-theme-density($theme), -4);
+@function get-density-tokens($config) {
+  $scale: theming.clamp-density($config, -4);
 
   @return (
     container-height: map.get((
