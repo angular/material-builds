@@ -947,9 +947,13 @@ class MatChipSet extends _MatChipSetMixinBase {
     get chipFocusChanges() {
         return this._getChipStream(chip => chip._onFocus);
     }
-    /** Combined stream of all of the child chips' remove events. */
+    /** Combined stream of all of the child chips' destroy events. */
     get chipDestroyedChanges() {
         return this._getChipStream(chip => chip.destroyed);
+    }
+    /** Combined stream of all of the child chips' remove events. */
+    get chipRemovedChanges() {
+        return this._getChipStream(chip => chip.removed);
     }
     /** Whether the chip set is disabled. */
     get disabled() {
@@ -1934,6 +1938,9 @@ let nextUniqueId = 0;
  */
 class MatChipInput {
     /** Register input for chip list */
+    get chipGrid() {
+        return this._chipGrid;
+    }
     set chipGrid(value) {
         if (value) {
             this._chipGrid = value;
