@@ -1,19 +1,15 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { ChangeDetectorRef } from '@angular/core';
-import { _Constructor } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i5 from '@angular/material/core';
 import * as i6 from '@angular/cdk/accordion';
@@ -90,9 +86,7 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     /** All headers inside the accordion. Includes headers inside nested accordions. */
     _headers: QueryList<MatExpansionPanelHeader>;
     /** Whether the expansion indicator should be hidden. */
-    get hideToggle(): boolean;
-    set hideToggle(show: BooleanInput);
-    private _hideToggle;
+    hideToggle: boolean;
     /**
      * Display mode used for all expansion panels in the accordion. Currently two display
      * modes exist:
@@ -111,6 +105,7 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAccordion, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "multi": { "alias": "multi"; "required": false; }; "hideToggle": { "alias": "hideToggle"; "required": false; }; "displayMode": { "alias": "displayMode"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, {}, ["_headers"], never, false, never>;
+    static ngAcceptInputType_hideToggle: unknown;
 }
 
 /**
@@ -177,14 +172,14 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     private _viewContainerRef;
     _animationMode: string;
     private _document;
-    private _hideToggle;
-    private _togglePosition;
     /** Whether the toggle indicator should be hidden. */
     get hideToggle(): boolean;
-    set hideToggle(value: BooleanInput);
+    set hideToggle(value: boolean);
+    private _hideToggle;
     /** The position of the expansion indicator. */
     get togglePosition(): MatAccordionTogglePosition;
     set togglePosition(value: MatAccordionTogglePosition);
+    private _togglePosition;
     /** An event emitted after the body's expansion animation happens. */
     readonly afterExpand: EventEmitter<void>;
     /** An event emitted after the body's collapse animation happens. */
@@ -221,6 +216,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _containsFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanel, [{ optional: true; skipSelf: true; }, null, null, null, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "disabled": { "alias": "disabled"; "required": false; }; "expanded": { "alias": "expanded"; "required": false; }; "hideToggle": { "alias": "hideToggle"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, { "opened": "opened"; "closed": "closed"; "expandedChange": "expandedChange"; "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], false, never>;
+    static ngAcceptInputType_hideToggle: unknown;
 }
 
 /**
@@ -276,7 +272,7 @@ export declare class MatExpansionPanelDescription {
 /**
  * Header element of a `<mat-expansion-panel>`.
  */
-export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMixinBase implements AfterViewInit, OnDestroy, FocusableOption, HasTabIndex {
+export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy, FocusableOption {
     panel: MatExpansionPanel;
     private _element;
     private _focusMonitor;
@@ -288,6 +284,8 @@ export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMix
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */
     collapsedHeight: string;
+    /** Tab index of the header. */
+    tabIndex: number;
     /**
      * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
      * @docs-private
@@ -321,15 +319,9 @@ export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMix
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelHeader, [{ host: true; }, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; "expandedHeight": { "alias": "expandedHeight"; "required": false; }; "collapsedHeight": { "alias": "collapsedHeight"; "required": false; }; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "expandedHeight": { "alias": "expandedHeight"; "required": false; }; "collapsedHeight": { "alias": "collapsedHeight"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], false, never>;
+    static ngAcceptInputType_tabIndex: unknown;
 }
-
-/** @docs-private */
-declare abstract class MatExpansionPanelHeaderBase {
-    abstract readonly disabled: boolean;
-}
-
-declare const _MatExpansionPanelHeaderMixinBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & typeof MatExpansionPanelHeaderBase;
 
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';

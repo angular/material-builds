@@ -18,6 +18,21 @@ function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY() {
     };
 }
 
+/**
+ * Represents the different states that require custom transitions between them.
+ * @docs-private
+ */
+var TransitionCheckState;
+(function (TransitionCheckState) {
+    /** The initial state of the component before any user interaction. */
+    TransitionCheckState[TransitionCheckState["Init"] = 0] = "Init";
+    /** The state representing the component when it's becoming checked. */
+    TransitionCheckState[TransitionCheckState["Checked"] = 1] = "Checked";
+    /** The state representing the component when it's becoming unchecked. */
+    TransitionCheckState[TransitionCheckState["Unchecked"] = 2] = "Unchecked";
+    /** The state representing the component when it's becoming indeterminate. */
+    TransitionCheckState[TransitionCheckState["Indeterminate"] = 3] = "Indeterminate";
+})(TransitionCheckState || (TransitionCheckState = {}));
 const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatCheckbox),
@@ -88,7 +103,7 @@ class MatCheckbox {
          */
         this._onTouched = () => { };
         this._currentAnimationClass = '';
-        this._currentCheckState = 0 /* TransitionCheckState.Init */;
+        this._currentCheckState = TransitionCheckState.Init;
         this._controlValueAccessorChangeFn = () => { };
         this._checked = false;
         this._disabled = false;
@@ -135,10 +150,10 @@ class MatCheckbox {
         this._indeterminate = value;
         if (changed) {
             if (this._indeterminate) {
-                this._transitionCheckState(3 /* TransitionCheckState.Indeterminate */);
+                this._transitionCheckState(TransitionCheckState.Indeterminate);
             }
             else {
-                this._transitionCheckState(this.checked ? 1 /* TransitionCheckState.Checked */ : 2 /* TransitionCheckState.Unchecked */);
+                this._transitionCheckState(this.checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
             }
             this.indeterminateChange.emit(this._indeterminate);
         }
@@ -220,7 +235,7 @@ class MatCheckbox {
                 });
             }
             this._checked = !this._checked;
-            this._transitionCheckState(this._checked ? 1 /* TransitionCheckState.Checked */ : 2 /* TransitionCheckState.Unchecked */);
+            this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
             // Emit our custom change event if the native input emitted one.
             // It is important to only emit it, if the native input triggered one, because
             // we don't want to trigger a change event, when the `checked` variable changes for example.
@@ -256,28 +271,28 @@ class MatCheckbox {
             return '';
         }
         switch (oldState) {
-            case 0 /* TransitionCheckState.Init */:
+            case TransitionCheckState.Init:
                 // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
                 // [checked] bound to it.
-                if (newState === 1 /* TransitionCheckState.Checked */) {
+                if (newState === TransitionCheckState.Checked) {
                     return this._animationClasses.uncheckedToChecked;
                 }
-                else if (newState == 3 /* TransitionCheckState.Indeterminate */) {
+                else if (newState == TransitionCheckState.Indeterminate) {
                     return this._checked
                         ? this._animationClasses.checkedToIndeterminate
                         : this._animationClasses.uncheckedToIndeterminate;
                 }
                 break;
-            case 2 /* TransitionCheckState.Unchecked */:
-                return newState === 1 /* TransitionCheckState.Checked */
+            case TransitionCheckState.Unchecked:
+                return newState === TransitionCheckState.Checked
                     ? this._animationClasses.uncheckedToChecked
                     : this._animationClasses.uncheckedToIndeterminate;
-            case 1 /* TransitionCheckState.Checked */:
-                return newState === 2 /* TransitionCheckState.Unchecked */
+            case TransitionCheckState.Checked:
+                return newState === TransitionCheckState.Unchecked
                     ? this._animationClasses.checkedToUnchecked
                     : this._animationClasses.checkedToIndeterminate;
-            case 3 /* TransitionCheckState.Indeterminate */:
-                return newState === 1 /* TransitionCheckState.Checked */
+            case TransitionCheckState.Indeterminate:
+                return newState === TransitionCheckState.Checked
                     ? this._animationClasses.indeterminateToChecked
                     : this._animationClasses.indeterminateToUnchecked;
         }
@@ -457,5 +472,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, MatCheckboxModule, MatCheckboxRequiredValidator, _MatCheckboxRequiredValidatorModule };
+export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, MatCheckboxModule, MatCheckboxRequiredValidator, TransitionCheckState, _MatCheckboxRequiredValidatorModule };
 //# sourceMappingURL=checkbox.mjs.map

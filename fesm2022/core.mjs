@@ -14,7 +14,7 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /** Current version of Angular Material. */
-const VERSION = new Version('17.0.0-rc.2');
+const VERSION = new Version('17.1.0-next.0');
 
 /** @docs-private */
 class AnimationCurves {
@@ -713,6 +713,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
                 }]
         }] });
 
+/** Possible states for a ripple element. */
+var RippleState;
+(function (RippleState) {
+    RippleState[RippleState["FADING_IN"] = 0] = "FADING_IN";
+    RippleState[RippleState["VISIBLE"] = 1] = "VISIBLE";
+    RippleState[RippleState["FADING_OUT"] = 2] = "FADING_OUT";
+    RippleState[RippleState["HIDDEN"] = 3] = "HIDDEN";
+})(RippleState || (RippleState = {}));
 /**
  * Reference to a previously launched ripple element.
  */
@@ -729,7 +737,7 @@ class RippleRef {
         this.config = config;
         this._animationForciblyDisabledThroughCss = _animationForciblyDisabledThroughCss;
         /** Current state of the ripple. */
-        this.state = 3 /* RippleState.HIDDEN */;
+        this.state = RippleState.HIDDEN;
     }
     /** Fades out the ripple element. */
     fadeOut() {
@@ -906,7 +914,7 @@ class RippleRenderer {
         // Note: We use a 3d transform here in order to avoid an issue in Safari where
         // the ripples aren't clipped when inside the shadow DOM (see #24028).
         ripple.style.transform = 'scale3d(1, 1, 1)';
-        rippleRef.state = 0 /* RippleState.FADING_IN */;
+        rippleRef.state = RippleState.FADING_IN;
         if (!config.persistent) {
             this._mostRecentTransientRipple = rippleRef;
         }
@@ -937,7 +945,7 @@ class RippleRenderer {
     /** Fades out a ripple reference. */
     fadeOutRipple(rippleRef) {
         // For ripples already fading out or hidden, this should be a noop.
-        if (rippleRef.state === 2 /* RippleState.FADING_OUT */ || rippleRef.state === 3 /* RippleState.HIDDEN */) {
+        if (rippleRef.state === RippleState.FADING_OUT || rippleRef.state === RippleState.HIDDEN) {
             return;
         }
         const rippleEl = rippleRef.element;
@@ -946,7 +954,7 @@ class RippleRenderer {
         // removes the ripple element from the DOM.
         rippleEl.style.transitionDuration = `${animationConfig.exitDuration}ms`;
         rippleEl.style.opacity = '0';
-        rippleRef.state = 2 /* RippleState.FADING_OUT */;
+        rippleRef.state = RippleState.FADING_OUT;
         // In case there is no fade-out transition duration, we need to manually call the
         // transition end listener because `transitionend` doesn't fire if there is no transition.
         if (rippleRef._animationForciblyDisabledThroughCss || !animationConfig.exitDuration) {
@@ -1013,10 +1021,10 @@ class RippleRenderer {
     }
     /** Method that will be called if the fade-in or fade-in transition completed. */
     _finishRippleTransition(rippleRef) {
-        if (rippleRef.state === 0 /* RippleState.FADING_IN */) {
+        if (rippleRef.state === RippleState.FADING_IN) {
             this._startFadeOutTransition(rippleRef);
         }
-        else if (rippleRef.state === 2 /* RippleState.FADING_OUT */) {
+        else if (rippleRef.state === RippleState.FADING_OUT) {
             this._destroyRipple(rippleRef);
         }
     }
@@ -1027,7 +1035,7 @@ class RippleRenderer {
     _startFadeOutTransition(rippleRef) {
         const isMostRecentTransientRipple = rippleRef === this._mostRecentTransientRipple;
         const { persistent } = rippleRef.config;
-        rippleRef.state = 1 /* RippleState.VISIBLE */;
+        rippleRef.state = RippleState.VISIBLE;
         // When the timer runs out while the user has kept their pointer down, we want to
         // keep only the persistent ripples and the latest transient ripple. We do this,
         // because we don't want stacked transient ripples to appear after their enter
@@ -1049,7 +1057,7 @@ class RippleRenderer {
         if (rippleRef === this._mostRecentTransientRipple) {
             this._mostRecentTransientRipple = null;
         }
-        rippleRef.state = 3 /* RippleState.HIDDEN */;
+        rippleRef.state = RippleState.HIDDEN;
         if (eventListeners !== null) {
             rippleRef.element.removeEventListener('transitionend', eventListeners.onTransitionEnd);
             rippleRef.element.removeEventListener('transitioncancel', eventListeners.onTransitionCancel);
@@ -1098,8 +1106,8 @@ class RippleRenderer {
         this._getActiveRipples().forEach(ripple => {
             // By default, only ripples that are completely visible will fade out on pointer release.
             // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
-            const isVisible = ripple.state === 1 /* RippleState.VISIBLE */ ||
-                (ripple.config.terminateOnPointerUp && ripple.state === 0 /* RippleState.FADING_IN */);
+            const isVisible = ripple.state === RippleState.VISIBLE ||
+                (ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN);
             if (!ripple.config.persistent && isVisible) {
                 ripple.fadeOut();
             }
@@ -1834,5 +1842,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, ShowOnDirtyErrorStateMatcher, VERSION, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, RippleState, ShowOnDirtyErrorStateMatcher, VERSION, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines };
 //# sourceMappingURL=core.mjs.map

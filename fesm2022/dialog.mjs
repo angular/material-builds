@@ -296,6 +296,12 @@ function parseCssTime(time) {
     return null; // anything else is invalid.
 }
 
+var MatDialogState;
+(function (MatDialogState) {
+    MatDialogState[MatDialogState["OPEN"] = 0] = "OPEN";
+    MatDialogState[MatDialogState["CLOSING"] = 1] = "CLOSING";
+    MatDialogState[MatDialogState["CLOSED"] = 2] = "CLOSED";
+})(MatDialogState || (MatDialogState = {}));
 /**
  * Reference to a dialog opened via the MatDialog service.
  */
@@ -308,7 +314,7 @@ class MatDialogRef {
         /** Subject for notifying the user that the dialog has started closing. */
         this._beforeClosed = new Subject();
         /** Current state of the dialog. */
-        this._state = 0 /* MatDialogState.OPEN */;
+        this._state = MatDialogState.OPEN;
         this.disableClose = config.disableClose;
         this.id = _ref.id;
         // Emit when opening animation completes
@@ -357,7 +363,7 @@ class MatDialogRef {
             // vast majority of cases the timeout will have been cleared before it has the chance to fire.
             this._closeFallbackTimeout = setTimeout(() => this._finishDialogClose(), event.totalTime + 100);
         });
-        this._state = 1 /* MatDialogState.CLOSING */;
+        this._state = MatDialogState.CLOSING;
         this._containerInstance._startExitAnimation();
     }
     /**
@@ -439,7 +445,7 @@ class MatDialogRef {
      * and disposing the overlay.
      */
     _finishDialogClose() {
-        this._state = 2 /* MatDialogState.CLOSED */;
+        this._state = MatDialogState.CLOSED;
         this._ref.close(this._result, { focusOrigin: this._closeInteractionType });
         this.componentInstance = null;
     }
@@ -891,5 +897,5 @@ const matDialogAnimations = {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MatDialog, MatDialogActions, MatDialogClose, MatDialogConfig, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle, _closeDialogVia, _defaultParams, matDialogAnimations };
+export { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MatDialog, MatDialogActions, MatDialogClose, MatDialogConfig, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogState, MatDialogTitle, _closeDialogVia, _defaultParams, matDialogAnimations };
 //# sourceMappingURL=dialog.mjs.map

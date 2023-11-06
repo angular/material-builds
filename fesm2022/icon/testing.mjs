@@ -4,6 +4,13 @@ import { Injectable, NgModule } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { of } from 'rxjs';
 
+/** Possible types of icons. */
+var IconType;
+(function (IconType) {
+    IconType[IconType["SVG"] = 0] = "SVG";
+    IconType[IconType["FONT"] = 1] = "FONT";
+})(IconType || (IconType = {}));
+
 /** Harness for interacting with a standard mat-icon in tests. */
 class MatIconHarness extends ComponentHarness {
     /** The selector for the host element of a `MatIcon` instance. */
@@ -23,7 +30,7 @@ class MatIconHarness extends ComponentHarness {
     /** Gets the type of the icon. */
     async getType() {
         const type = await (await this.host()).getAttribute('data-mat-icon-type');
-        return type === 'svg' ? 0 /* IconType.SVG */ : 1 /* IconType.FONT */;
+        return type === 'svg' ? IconType.SVG : IconType.FONT;
     }
     /** Gets the name of the icon. */
     async getName() {
@@ -35,7 +42,7 @@ class MatIconHarness extends ComponentHarness {
         }
         // Some icons support defining the icon as a ligature.
         // As a fallback, try to extract it from the DOM text.
-        if ((await this.getType()) === 1 /* IconType.FONT */) {
+        if ((await this.getType()) === IconType.FONT) {
             // Other directives may add content to the icon (e.g. `MatBadge`), however only the direct
             // text nodes affect the name of the icon. Exclude all element descendants from the result.
             const text = await host.text({ exclude: '*' });
@@ -140,5 +147,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
  * Generated bundle index. Do not edit.
  */
 
-export { FakeMatIconRegistry, MatIconHarness, MatIconTestingModule };
+export { FakeMatIconRegistry, IconType, MatIconHarness, MatIconTestingModule };
 //# sourceMappingURL=testing.mjs.map

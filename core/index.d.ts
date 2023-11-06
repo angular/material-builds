@@ -1059,7 +1059,7 @@ export declare class RippleRenderer implements EventListenerObject {
 
 
 /** Possible states for a ripple element. */
-export declare const enum RippleState {
+export declare enum RippleState {
     FADING_IN = 0,
     VISIBLE = 1,
     FADING_OUT = 2,
