@@ -1,15 +1,17 @@
+import { _AbstractConstructor } from '@angular/material/core';
 import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
+import { CanColor } from '@angular/material/core';
 import { CdkStep } from '@angular/cdk/stepper';
-import { CdkStepHeader } from '@angular/cdk/stepper';
 import { CdkStepLabel } from '@angular/cdk/stepper';
 import { CdkStepper } from '@angular/cdk/stepper';
 import { CdkStepperNext } from '@angular/cdk/stepper';
 import { CdkStepperPrevious } from '@angular/cdk/stepper';
 import { ChangeDetectorRef } from '@angular/core';
+import { _Constructor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -116,7 +118,7 @@ export declare class MatStepContent {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never, never, false, never>;
 }
 
-export declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDestroy {
+export declare class MatStepHeader extends _MatStepHeaderBase implements AfterViewInit, OnDestroy, CanColor {
     _intl: MatStepperIntl;
     private _focusMonitor;
     private _intlSubscription;
@@ -140,8 +142,6 @@ export declare class MatStepHeader extends CdkStepHeader implements AfterViewIni
     optional: boolean;
     /** Whether the ripple should be disabled. */
     disableRipple: boolean;
-    /** Theme palette color of the step header. */
-    color: ThemePalette;
     constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -157,8 +157,18 @@ export declare class MatStepHeader extends CdkStepHeader implements AfterViewIni
     _getIconContext(): MatStepperIconContext;
     _getDefaultTextForState(state: StepState): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepHeader, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "state": { "alias": "state"; "required": false; }; "label": { "alias": "label"; "required": false; }; "errorMessage": { "alias": "errorMessage"; "required": false; }; "iconOverrides": { "alias": "iconOverrides"; "required": false; }; "index": { "alias": "index"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "active": { "alias": "active"; "required": false; }; "optional": { "alias": "optional"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "color": { "alias": "color"; "required": false; }; "state": { "alias": "state"; "required": false; }; "label": { "alias": "label"; "required": false; }; "errorMessage": { "alias": "errorMessage"; "required": false; }; "iconOverrides": { "alias": "iconOverrides"; "required": false; }; "index": { "alias": "index"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "active": { "alias": "active"; "required": false; }; "optional": { "alias": "optional"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, never, false, never>;
 }
+
+/** @docs-private */
+declare const _MatStepHeaderBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {
+    new (elementRef: ElementRef): {
+        _elementRef: ElementRef<HTMLElement>;
+        focus(): void;
+    };
+    ɵfac: unknown;
+    ɵdir: unknown;
+};
 
 export declare class MatStepLabel extends CdkStepLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepLabel, never>;

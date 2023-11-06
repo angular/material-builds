@@ -473,7 +473,7 @@ export declare class MatDialogRef<T, R = any> {
     private _finishDialogClose;
 }
 
-export declare enum MatDialogState {
+export declare const enum MatDialogState {
     OPEN = 0,
     CLOSING = 1,
     CLOSED = 2

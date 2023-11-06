@@ -2,6 +2,9 @@ import { _AbstractConstructor } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { CanDisable } from '@angular/material/core';
+import { CanDisableRipple } from '@angular/material/core';
 import { CanUpdateErrorState } from '@angular/material/core';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
@@ -15,6 +18,7 @@ import { ElementRef } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { EventEmitter } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
+import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/common';
 import * as i3 from '@angular/cdk/overlay';
@@ -31,6 +35,7 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
+import { NumberInput } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
 import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -80,7 +85,7 @@ export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ove
  */
 export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
 
-export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<any>, CanUpdateErrorState {
+export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
     protected _viewportRuler: ViewportRuler;
     protected _changeDetectorRef: ChangeDetectorRef;
     protected _ngZone: NgZone;
@@ -163,15 +168,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     panelClass: string | string[] | Set<string> | {
         [key: string]: any;
     };
-    /** Whether the select is disabled. */
-    disabled: boolean;
-    /** Whether ripples in the select are disabled. */
-    disableRipple: boolean;
-    /** Tab index of the select. */
-    tabIndex: number;
     /** Whether checkmark indicator for single-selection options is hidden. */
     get hideSingleSelectionIndicator(): boolean;
-    set hideSingleSelectionIndicator(value: boolean);
+    set hideSingleSelectionIndicator(value: BooleanInput);
     private _hideSingleSelectionIndicator;
     /** Placeholder to be shown if no value has been selected. */
     get placeholder(): string;
@@ -179,14 +178,16 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _placeholder;
     /** Whether the component is required. */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     private _required;
     /** Whether the user should be allowed to select multiple options. */
     get multiple(): boolean;
-    set multiple(value: boolean);
+    set multiple(value: BooleanInput);
     private _multiple;
     /** Whether to center the active option over the trigger. */
-    disableOptionCentering: boolean;
+    get disableOptionCentering(): boolean;
+    set disableOptionCentering(value: BooleanInput);
+    private _disableOptionCentering;
     /**
      * Function to compare the option values with the selected values. The first argument
      * is a value from an option. The second is a value from the selection. A boolean
@@ -205,7 +206,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
     /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
-    typeaheadDebounceInterval: number;
+    get typeaheadDebounceInterval(): number;
+    set typeaheadDebounceInterval(value: NumberInput);
+    private _typeaheadDebounceInterval;
     /**
      * Function used to sort the values in a select in multiple mode.
      * Follows the same logic as `Array.prototype.sort`.
@@ -395,15 +398,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      */
     get shouldLabelFloat(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, [null, null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; self: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disableOptionCentering": { "alias": "disableOptionCentering"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "value": { "alias": "value"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "typeaheadDebounceInterval": { "alias": "typeaheadDebounceInterval"; "required": false; }; "sortComparator": { "alias": "sortComparator"; "required": false; }; "id": { "alias": "id"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_disableRipple: unknown;
-    static ngAcceptInputType_tabIndex: unknown;
-    static ngAcceptInputType_hideSingleSelectionIndicator: unknown;
-    static ngAcceptInputType_required: unknown;
-    static ngAcceptInputType_multiple: unknown;
-    static ngAcceptInputType_disableOptionCentering: unknown;
-    static ngAcceptInputType_typeaheadDebounceInterval: unknown;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disableOptionCentering": { "alias": "disableOptionCentering"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "value": { "alias": "value"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "typeaheadDebounceInterval": { "alias": "typeaheadDebounceInterval"; "required": false; }; "sortComparator": { "alias": "sortComparator"; "required": false; }; "id": { "alias": "id"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], false, never>;
 }
 
 /**
@@ -453,7 +448,7 @@ export declare interface MatSelectConfig {
 }
 
 /** @docs-private */
-declare const _MatSelectMixinBase: _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState> & {
+declare const _MatSelectMixinBase: _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState> & {
     new (_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
         /**
          * Emits whenever the component state changes and should cause the parent

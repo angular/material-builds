@@ -232,12 +232,12 @@ declare abstract class MatListItemHarnessBase extends ContentContainerComponentH
 }
 
 /** Selectors for the various list item sections that may contain user content. */
-export declare enum MatListItemSection {
+export declare const enum MatListItemSection {
     CONTENT = ".mdc-list-item__content"
 }
 
 /** Enum describing the possible variants of a list item. */
-export declare enum MatListItemType {
+export declare const enum MatListItemType {
     ONE_LINE_ITEM = 0,
     TWO_LINE_ITEM = 1,
     THREE_LINE_ITEM = 2
