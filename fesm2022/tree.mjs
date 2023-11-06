@@ -1,20 +1,20 @@
 import * as i1 from '@angular/cdk/tree';
 import { CdkTreeNode, CdkTreeNodeDef, CdkNestedTreeNode, CDK_TREE_NODE_OUTLET_NODE, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTree, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
 import * as i0 from '@angular/core';
-import { booleanAttribute, numberAttribute, Directive, Attribute, Input, Inject, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
+import { Directive, Attribute, Input, Inject, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { mixinTabIndex, mixinDisabled, MatCommonModule } from '@angular/material/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
+const _MatTreeNodeBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
-class MatTreeNode extends CdkTreeNode {
+class MatTreeNode extends _MatTreeNodeBase {
     constructor(elementRef, tree, tabIndex) {
         super(elementRef, tree);
-        /** Whether the node is disabled. */
-        this.disabled = false;
         this.tabIndex = Number(tabIndex) || 0;
     }
     // This is a workaround for https://github.com/angular/angular/issues/23091
@@ -26,13 +26,14 @@ class MatTreeNode extends CdkTreeNode {
         super.ngOnDestroy();
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-rc.2", ngImport: i0, type: MatTreeNode, deps: [{ token: i0.ElementRef }, { token: i1.CdkTree }, { token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.0.0-rc.2", type: MatTreeNode, selector: "mat-tree-node", inputs: { disabled: ["disabled", "disabled", booleanAttribute], tabIndex: ["tabIndex", "tabIndex", (value) => (value == null ? 0 : numberAttribute(value))] }, host: { classAttribute: "mat-tree-node" }, providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }], exportAs: ["matTreeNode"], usesInheritance: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0-rc.2", type: MatTreeNode, selector: "mat-tree-node", inputs: { role: "role", disabled: "disabled", tabIndex: "tabIndex" }, host: { classAttribute: "mat-tree-node" }, providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }], exportAs: ["matTreeNode"], usesInheritance: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ngImport: i0, type: MatTreeNode, decorators: [{
             type: Directive,
             args: [{
                     selector: 'mat-tree-node',
                     exportAs: 'matTreeNode',
+                    inputs: ['role', 'disabled', 'tabIndex'],
                     providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }],
                     host: {
                         'class': 'mat-tree-node',
@@ -41,15 +42,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
         }], ctorParameters: () => [{ type: i0.ElementRef }, { type: i1.CdkTree }, { type: undefined, decorators: [{
                     type: Attribute,
                     args: ['tabindex']
-                }] }], propDecorators: { disabled: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
-            }], tabIndex: [{
-                type: Input,
-                args: [{
-                        transform: (value) => (value == null ? 0 : numberAttribute(value)),
-                    }]
-            }] } });
+                }] }] });
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
  * Captures the node's template and a when predicate that describes when this node should be used.
@@ -73,6 +66,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
  * Wrapper for the CdkTree nested node with Material design styles.
  */
 class MatNestedTreeNode extends CdkNestedTreeNode {
+    /** Whether the node is disabled. */
+    get disabled() {
+        return this._disabled;
+    }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+    }
     /** Tabindex for the node. */
     get tabIndex() {
         return this.disabled ? -1 : this._tabIndex;
@@ -83,8 +83,7 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
     }
     constructor(elementRef, tree, differs, tabIndex) {
         super(elementRef, tree, differs);
-        /** Whether the node is disabled. */
-        this.disabled = false;
+        this._disabled = false;
         this.tabIndex = Number(tabIndex) || 0;
     }
     // This is a workaround for https://github.com/angular/angular/issues/19145
@@ -100,7 +99,7 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
         super.ngOnDestroy();
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-rc.2", ngImport: i0, type: MatNestedTreeNode, deps: [{ token: i0.ElementRef }, { token: i1.CdkTree }, { token: i0.IterableDiffers }, { token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.0.0-rc.2", type: MatNestedTreeNode, selector: "mat-nested-tree-node", inputs: { node: ["matNestedTreeNode", "node"], disabled: ["disabled", "disabled", booleanAttribute], tabIndex: "tabIndex" }, host: { classAttribute: "mat-nested-tree-node" }, providers: [
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0-rc.2", type: MatNestedTreeNode, selector: "mat-nested-tree-node", inputs: { role: "role", disabled: "disabled", tabIndex: "tabIndex", node: ["matNestedTreeNode", "node"] }, host: { classAttribute: "mat-nested-tree-node" }, providers: [
             { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
             { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
             { provide: CDK_TREE_NODE_OUTLET_NODE, useExisting: MatNestedTreeNode },
@@ -111,6 +110,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
             args: [{
                     selector: 'mat-nested-tree-node',
                     exportAs: 'matNestedTreeNode',
+                    inputs: ['role', 'disabled', 'tabIndex'],
                     providers: [
                         { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
                         { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
@@ -127,8 +127,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
                 type: Input,
                 args: ['matNestedTreeNode']
             }], disabled: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
+                type: Input
             }], tabIndex: [{
                 type: Input
             }] } });
@@ -152,7 +151,7 @@ class MatTreeNodePadding extends CdkTreeNodePadding {
         this._setIndentInput(indent);
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-rc.2", ngImport: i0, type: MatTreeNodePadding, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.0.0-rc.2", type: MatTreeNodePadding, selector: "[matTreeNodePadding]", inputs: { level: ["matTreeNodePadding", "level", numberAttribute], indent: ["matTreeNodePaddingIndent", "indent"] }, providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }], usesInheritance: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0-rc.2", type: MatTreeNodePadding, selector: "[matTreeNodePadding]", inputs: { level: ["matTreeNodePadding", "level"], indent: ["matTreeNodePaddingIndent", "indent"] }, providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }], usesInheritance: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ngImport: i0, type: MatTreeNodePadding, decorators: [{
             type: Directive,
@@ -162,7 +161,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
                 }]
         }], propDecorators: { level: [{
                 type: Input,
-                args: [{ alias: 'matTreeNodePadding', transform: numberAttribute }]
+                args: ['matTreeNodePadding']
             }], indent: [{
                 type: Input,
                 args: ['matTreeNodePaddingIndent']
