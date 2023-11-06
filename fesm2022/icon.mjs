@@ -1,7 +1,6 @@
 import * as i0 from '@angular/core';
-import { SecurityContext, Injectable, Optional, Inject, SkipSelf, ErrorHandler, InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, Attribute, Input, NgModule } from '@angular/core';
-import { mixinColor, MatCommonModule } from '@angular/material/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { SecurityContext, Injectable, Optional, Inject, SkipSelf, ErrorHandler, InjectionToken, inject, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Attribute, Input, NgModule } from '@angular/core';
+import { MatCommonModule } from '@angular/material/core';
 import { DOCUMENT } from '@angular/common';
 import { of, throwError, forkJoin, Subscription } from 'rxjs';
 import { tap, map, catchError, finalize, share, take } from 'rxjs/operators';
@@ -622,13 +621,6 @@ function isSafeUrlWithOptions(value) {
     return !!(value.url && value.options);
 }
 
-// Boilerplate for applying mixins to MatIcon.
-/** @docs-private */
-const _MatIconBase = mixinColor(class {
-    constructor(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-});
 /** Injection token to be used to override the default options for `mat-icon`. */
 const MAT_ICON_DEFAULT_OPTIONS = new InjectionToken('MAT_ICON_DEFAULT_OPTIONS');
 /**
@@ -701,16 +693,13 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  *   Example:
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
-class MatIcon extends _MatIconBase {
-    /**
-     * Whether the icon should be inlined, automatically sizing the icon to match the font size of
-     * the element the icon is contained in.
-     */
-    get inline() {
-        return this._inline;
+class MatIcon {
+    /** Theme palette color of the icon. */
+    get color() {
+        return this._color || this._defaultColor;
     }
-    set inline(inline) {
-        this._inline = coerceBooleanProperty(inline);
+    set color(value) {
+        this._color = value;
     }
     /** Name of the icon in the SVG icon set. */
     get svgIcon() {
@@ -749,18 +738,22 @@ class MatIcon extends _MatIconBase {
             this._updateFontIconClasses();
         }
     }
-    constructor(elementRef, _iconRegistry, ariaHidden, _location, _errorHandler, defaults) {
-        super(elementRef);
+    constructor(_elementRef, _iconRegistry, ariaHidden, _location, _errorHandler, defaults) {
+        this._elementRef = _elementRef;
         this._iconRegistry = _iconRegistry;
         this._location = _location;
         this._errorHandler = _errorHandler;
-        this._inline = false;
+        /**
+         * Whether the icon should be inlined, automatically sizing the icon to match the font size of
+         * the element the icon is contained in.
+         */
+        this.inline = false;
         this._previousFontSetClass = [];
         /** Subscription to the current in-progress SVG icon request. */
         this._currentIconFetch = Subscription.EMPTY;
         if (defaults) {
             if (defaults.color) {
-                this.color = this.defaultColor = defaults.color;
+                this.color = this._defaultColor = defaults.color;
             }
             if (defaults.fontSet) {
                 this.fontSet = defaults.fontSet;
@@ -769,7 +762,7 @@ class MatIcon extends _MatIconBase {
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
-            elementRef.nativeElement.setAttribute('aria-hidden', 'true');
+            _elementRef.nativeElement.setAttribute('aria-hidden', 'true');
         }
     }
     /**
@@ -948,13 +941,14 @@ class MatIcon extends _MatIconBase {
         }
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0-rc.2", ngImport: i0, type: MatIcon, deps: [{ token: i0.ElementRef }, { token: MatIconRegistry }, { token: 'aria-hidden', attribute: true }, { token: MAT_ICON_LOCATION }, { token: i0.ErrorHandler }, { token: MAT_ICON_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "17.0.0-rc.2", type: MatIcon, selector: "mat-icon", inputs: { color: "color", inline: "inline", svgIcon: "svgIcon", fontSet: "fontSet", fontIcon: "fontIcon" }, host: { attributes: { "role": "img" }, properties: { "attr.data-mat-icon-type": "_usingFontIcon() ? \"font\" : \"svg\"", "attr.data-mat-icon-name": "_svgName || fontIcon", "attr.data-mat-icon-namespace": "_svgNamespace || fontSet", "attr.fontIcon": "_usingFontIcon() ? fontIcon : null", "class.mat-icon-inline": "inline", "class.mat-icon-no-color": "color !== \"primary\" && color !== \"accent\" && color !== \"warn\"" }, classAttribute: "mat-icon notranslate" }, exportAs: ["matIcon"], usesInheritance: true, ngImport: i0, template: '<ng-content></ng-content>', isInline: true, styles: ["mat-icon,mat-icon.mat-primary,mat-icon.mat-accent,mat-icon.mat-warn{color:var(--mat-icon-color)}.mat-icon{-webkit-user-select:none;user-select:none;background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px;overflow:hidden}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-icon.mat-ligature-font[fontIcon]::before{content:attr(fontIcon)}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "17.0.0-rc.2", type: MatIcon, selector: "mat-icon", inputs: { color: "color", inline: ["inline", "inline", booleanAttribute], svgIcon: "svgIcon", fontSet: "fontSet", fontIcon: "fontIcon" }, host: { attributes: { "role": "img" }, properties: { "class": "color ? \"mat-\" + color : \"\"", "attr.data-mat-icon-type": "_usingFontIcon() ? \"font\" : \"svg\"", "attr.data-mat-icon-name": "_svgName || fontIcon", "attr.data-mat-icon-namespace": "_svgNamespace || fontSet", "attr.fontIcon": "_usingFontIcon() ? fontIcon : null", "class.mat-icon-inline": "inline", "class.mat-icon-no-color": "color !== \"primary\" && color !== \"accent\" && color !== \"warn\"" }, classAttribute: "mat-icon notranslate" }, exportAs: ["matIcon"], ngImport: i0, template: '<ng-content></ng-content>', isInline: true, styles: ["mat-icon,mat-icon.mat-primary,mat-icon.mat-accent,mat-icon.mat-warn{color:var(--mat-icon-color)}.mat-icon{-webkit-user-select:none;user-select:none;background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px;overflow:hidden}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-icon.mat-ligature-font[fontIcon]::before{content:attr(fontIcon)}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ngImport: i0, type: MatIcon, decorators: [{
             type: Component,
-            args: [{ template: '<ng-content></ng-content>', selector: 'mat-icon', exportAs: 'matIcon', inputs: ['color'], host: {
+            args: [{ template: '<ng-content></ng-content>', selector: 'mat-icon', exportAs: 'matIcon', host: {
                         'role': 'img',
                         'class': 'mat-icon notranslate',
+                        '[class]': 'color ? "mat-" + color : ""',
                         '[attr.data-mat-icon-type]': '_usingFontIcon() ? "font" : "svg"',
                         '[attr.data-mat-icon-name]': '_svgName || fontIcon',
                         '[attr.data-mat-icon-namespace]': '_svgNamespace || fontSet',
@@ -973,8 +967,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0-rc.2", ng
                 }, {
                     type: Inject,
                     args: [MAT_ICON_DEFAULT_OPTIONS]
-                }] }], propDecorators: { inline: [{
+                }] }], propDecorators: { color: [{
                 type: Input
+            }], inline: [{
+                type: Input,
+                args: [{ transform: booleanAttribute }]
             }], svgIcon: [{
                 type: Input
             }], fontSet: [{

@@ -22,7 +22,7 @@ export declare class MatToolbarHarness extends ContentContainerComponentHarness<
 }
 
 /** Selectors for different sections of the mat-toolbar that contain user content. */
-export declare const enum MatToolbarSection {
+export declare enum MatToolbarSection {
     ROW = ".mat-toolbar-row"
 }
 

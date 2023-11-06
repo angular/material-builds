@@ -34,7 +34,7 @@ export declare class MatCardHarness extends ContentContainerComponentHarness<Mat
 }
 
 /** Selectors for different sections of the mat-card that can container user content. */
-export declare const enum MatCardSection {
+export declare enum MatCardSection {
     HEADER = ".mat-mdc-card-header",
     CONTENT = ".mat-mdc-card-content",
     ACTIONS = ".mat-mdc-card-actions",
