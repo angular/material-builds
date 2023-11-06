@@ -4,11 +4,12 @@ import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
 /** Harness for interacting with an MDC-based mat-snack-bar in tests. */
-export declare class MatSnackBarHarness extends _MatSnackBarHarnessBase {
+export declare class MatSnackBarHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatSnackBar` instance. */
     static hostSelector: string;
-    protected _messageSelector: string;
-    protected _actionButtonSelector: string;
+    private _messageSelector;
+    private _actionButtonSelector;
+    private _snackBarLiveRegion;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
      * certain criteria.
@@ -16,17 +17,6 @@ export declare class MatSnackBarHarness extends _MatSnackBarHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options?: SnackBarHarnessFilters): HarnessPredicate<MatSnackBarHarness>;
-    /**
-     * Asserts that the current snack-bar has annotated content. Promise reject
-     * if content is not annotated.
-     */
-    protected _assertContentAnnotated(): Promise<void>;
-}
-
-export declare abstract class _MatSnackBarHarnessBase extends ContentContainerComponentHarness<string> {
-    protected abstract _messageSelector: string;
-    protected abstract _actionButtonSelector: string;
-    private _snackBarLiveRegion;
     /**
      * Gets the role of the snack-bar. The role of a snack-bar is determined based
      * on the ARIA politeness specified in the snack-bar config.
@@ -60,15 +50,10 @@ export declare abstract class _MatSnackBarHarnessBase extends ContentContainerCo
     /** Gets whether the snack-bar has been dismissed. */
     isDismissed(): Promise<boolean>;
     /**
-     * Asserts that the current snack-bar has annotated content. Promise reject
-     * if content is not annotated.
-     */
-    protected abstract _assertContentAnnotated(): Promise<void>;
-    /**
      * Asserts that the current snack-bar has an action defined. Otherwise the
      * promise will reject.
      */
-    protected _assertHasAction(): Promise<void>;
+    private _assertHasAction;
     /** Gets the simple snack bar action button. */
     private _getActionButton;
 }
