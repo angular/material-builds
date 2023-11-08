@@ -4,6 +4,7 @@ import { ComponentFactoryResolver } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/overlay';
+import { Dialog } from '@angular/cdk/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { Direction } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
@@ -134,7 +135,7 @@ export declare class MatDialog implements OnDestroy {
     private readonly _openDialogsAtThisLevel;
     private readonly _afterAllClosedAtThisLevel;
     private readonly _afterOpenedAtThisLevel;
-    private _dialog;
+    protected _dialog: Dialog;
     protected dialogConfigClass: typeof MatDialogConfig;
     private readonly _dialogRefConstructor;
     private readonly _dialogContainerType;
