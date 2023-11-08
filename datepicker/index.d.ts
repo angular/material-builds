@@ -5,8 +5,6 @@ import { AfterViewChecked } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { CanColor } from '@angular/material/core';
 import { CanUpdateErrorState } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
@@ -702,12 +700,10 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
      * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
      * than a dropdown and elements have more padding to allow for bigger touch targets.
      */
-    get touchUi(): boolean;
-    set touchUi(value: BooleanInput);
-    private _touchUi;
+    touchUi: boolean;
     /** Whether the datepicker pop-up should be disabled. */
     get disabled(): boolean;
-    set disabled(value: BooleanInput);
+    set disabled(value: boolean);
     private _disabled;
     /** Preferred position of the datepicker in the X axis. */
     xPosition: DatepickerDropdownPositionX;
@@ -718,9 +714,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
      * Note that automatic focus restoration is an accessibility feature and it is recommended that
      * you provide your own equivalent, if you decide to turn it off.
      */
-    get restoreFocus(): boolean;
-    set restoreFocus(value: BooleanInput);
-    private _restoreFocus;
+    restoreFocus: boolean;
     /**
      * Emits selected year in multiyear view.
      * This doesn't imply a change on the selected date.
@@ -750,7 +744,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     private _panelClass;
     /** Whether the calendar is open. */
     get opened(): boolean;
-    set opened(value: BooleanInput);
+    set opened(value: boolean);
     private _opened;
     /** The id for the datepicker calendar. */
     id: string;
@@ -822,6 +816,10 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     private _getCloseStream;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerBase<any, any, any>, [null, null, null, null, { optional: true; }, { optional: true; }, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerBase<any, any, any>, never, never, { "calendarHeaderComponent": { "alias": "calendarHeaderComponent"; "required": false; }; "startAt": { "alias": "startAt"; "required": false; }; "startView": { "alias": "startView"; "required": false; }; "color": { "alias": "color"; "required": false; }; "touchUi": { "alias": "touchUi"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "xPosition": { "alias": "xPosition"; "required": false; }; "yPosition": { "alias": "yPosition"; "required": false; }; "restoreFocus": { "alias": "restoreFocus"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "opened": { "alias": "opened"; "required": false; }; }, { "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "openedStream": "opened"; "closedStream": "closed"; }, never, never, false, never>;
+    static ngAcceptInputType_touchUi: unknown;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_restoreFocus: unknown;
+    static ngAcceptInputType_opened: unknown;
 }
 
 /** Button that will close the datepicker and discard the current selection. */
@@ -839,7 +837,8 @@ export declare class MatDatepickerCancel {
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> extends _MatDatepickerContentBase implements OnInit, AfterViewInit, OnDestroy, CanColor {
+export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> implements OnInit, AfterViewInit, OnDestroy {
+    protected _elementRef: ElementRef;
     private _changeDetectorRef;
     private _globalModel;
     private _dateAdapter;
@@ -848,6 +847,8 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     private _model;
     /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
+    /** Palette color of the internal calendar. */
+    color: ThemePalette;
     /** Reference to the datepicker that created the overlay. */
     datepicker: MatDatepickerBase<any, S, D>;
     /** Start of the comparison range. */
@@ -874,7 +875,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _actionsPortal: TemplatePortal | null;
     /** Id of the label for the `role="dialog"` element. */
     _dialogLabelId: string | null;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _globalModel: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, intl: MatDatepickerIntl);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _globalModel: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, intl: MatDatepickerIntl);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -896,13 +897,6 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerContent<any, any>, [null, null, null, null, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerContent<any, any>, "mat-datepicker-content", ["matDatepickerContent"], { "color": { "alias": "color"; "required": false; }; }, {}, never, never, false, never>;
 }
-
-/** @docs-private */
-declare const _MatDatepickerContentBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {
-    new (_elementRef: ElementRef): {
-        _elementRef: ElementRef;
-    };
-};
 
 /** Form control that can be associated with a datepicker. */
 export declare interface MatDatepickerControl<D> {
@@ -979,7 +973,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     protected _model: MatDateSelectionModel<S, D> | undefined;
     /** Whether the datepicker-input is disabled. */
     get disabled(): boolean;
-    set disabled(value: BooleanInput);
+    set disabled(value: boolean);
     private _disabled;
     /** Emits when a `change` event is fired on this `<input>`. */
     readonly dateChange: EventEmitter<MatDatepickerInputEvent<D, S>>;
@@ -1062,6 +1056,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     _matchesFilter(value: D | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInputBase<any, any>, [null, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": { "alias": "value"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
+    static ngAcceptInputType_disabled: unknown;
 }
 
 /**
@@ -1174,7 +1169,7 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     ariaLabel: string;
     /** Whether the toggle button is disabled. */
     get disabled(): boolean;
-    set disabled(value: BooleanInput);
+    set disabled(value: boolean);
     private _disabled;
     /** Whether ripples on the toggle should be disabled. */
     disableRipple: boolean;
@@ -1190,6 +1185,7 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     private _watchStateChanges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggle<any>, [null, null, { attribute: "tabindex"; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerToggle<any>, "mat-datepicker-toggle", ["matDatepickerToggle"], { "datepicker": { "alias": "for"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, ["_customIcon"], ["[matDatepickerToggleIcon]"], false, never>;
+    static ngAcceptInputType_disabled: unknown;
 }
 
 /** Can be used to override the icon of a `matDatepickerToggle`. */
@@ -1226,7 +1222,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _rangePicker;
     /** Whether the input is required. */
     get required(): boolean;
-    set required(value: BooleanInput);
+    set required(value: boolean);
     private _required;
     /** Function that can be used to filter out dates within the date range picker. */
     get dateFilter(): DateFilterFn<D>;
@@ -1242,7 +1238,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _max;
     /** Whether the input is disabled. */
     get disabled(): boolean;
-    set disabled(value: BooleanInput);
+    set disabled(value: boolean);
     _groupDisabled: boolean;
     /** Whether the input is in an error state. */
     get errorState(): boolean;
@@ -1314,6 +1310,8 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _isTargetRequired;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInput<any>, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangeInput<any>, "mat-date-range-input", ["matDateRangeInput"], { "rangePicker": { "alias": "rangePicker"; "required": false; }; "required": { "alias": "required"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "separator": { "alias": "separator"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; }, {}, ["_startInput", "_endInput"], ["input[matStartDate]", "input[matEndDate]"], false, never>;
+    static ngAcceptInputType_required: unknown;
+    static ngAcceptInputType_disabled: unknown;
 }
 
 declare const _MatDateRangeInputBase: _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState> & typeof MatDateRangeInputPartBase;

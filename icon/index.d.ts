@@ -1,8 +1,4 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AfterViewChecked } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { CanColor } from '@angular/material/core';
-import { _Constructor } from '@angular/material/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ElementRef } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
@@ -126,17 +122,21 @@ export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
  *   Example:
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
-export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewChecked, CanColor, OnDestroy {
+export declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
+    readonly _elementRef: ElementRef<HTMLElement>;
     private _iconRegistry;
     private _location;
     private readonly _errorHandler;
+    private _defaultColor;
+    /** Theme palette color of the icon. */
+    get color(): string | null | undefined;
+    set color(value: string | null | undefined);
+    private _color;
     /**
      * Whether the icon should be inlined, automatically sizing the icon to match the font size of
      * the element the icon is contained in.
      */
-    get inline(): boolean;
-    set inline(inline: BooleanInput);
-    private _inline;
+    inline: boolean;
     /** Name of the icon in the SVG icon set. */
     get svgIcon(): string;
     set svgIcon(value: string);
@@ -159,7 +159,7 @@ export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewCh
     private _elementsWithExternalReferences?;
     /** Subscription to the current in-progress SVG icon request. */
     private _currentIconFetch;
-    constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, _location: MatIconLocation, _errorHandler: ErrorHandler, defaults?: MatIconDefaultOptions);
+    constructor(_elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, _location: MatIconLocation, _errorHandler: ErrorHandler, defaults?: MatIconDefaultOptions);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
@@ -202,14 +202,8 @@ export declare class MatIcon extends _MatIconBase implements OnInit, AfterViewCh
     private _updateSvgIcon;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, [null, null, { attribute: "aria-hidden"; }, null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": { "alias": "color"; "required": false; }; "inline": { "alias": "inline"; "required": false; }; "svgIcon": { "alias": "svgIcon"; "required": false; }; "fontSet": { "alias": "fontSet"; "required": false; }; "fontIcon": { "alias": "fontIcon"; "required": false; }; }, {}, never, ["*"], false, never>;
+    static ngAcceptInputType_inline: unknown;
 }
-
-/** @docs-private */
-declare const _MatIconBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {
-    new (_elementRef: ElementRef): {
-        _elementRef: ElementRef;
-    };
-};
 
 /** Default options for `mat-icon`.  */
 export declare interface MatIconDefaultOptions {
