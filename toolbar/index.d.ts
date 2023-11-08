@@ -1,4 +1,7 @@
+import { _AbstractConstructor } from '@angular/material/core';
 import { AfterViewInit } from '@angular/core';
+import { CanColor } from '@angular/material/core';
+import { _Constructor } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/material/core';
@@ -13,15 +16,12 @@ declare namespace i1 {
     }
 }
 
-export declare class MatToolbar implements AfterViewInit {
-    protected _elementRef: ElementRef;
+export declare class MatToolbar extends _MatToolbarBase implements CanColor, AfterViewInit {
     private _platform;
-    /** Palette color of the toolbar. */
-    color?: string | null;
     private _document;
     /** Reference to all toolbar row elements that have been projected. */
     _toolbarRows: QueryList<MatToolbarRow>;
-    constructor(_elementRef: ElementRef, _platform: Platform, document?: any);
+    constructor(elementRef: ElementRef, _platform: Platform, document?: any);
     ngAfterViewInit(): void;
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
@@ -30,6 +30,13 @@ export declare class MatToolbar implements AfterViewInit {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbar, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatToolbar, "mat-toolbar", ["matToolbar"], { "color": { "alias": "color"; "required": false; }; }, {}, ["_toolbarRows"], ["*", "mat-toolbar-row"], false, never>;
 }
+
+/** @docs-private */
+declare const _MatToolbarBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 
 export declare class MatToolbarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbarModule, never>;

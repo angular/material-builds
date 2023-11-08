@@ -1,18 +1,24 @@
+import { _AbstractConstructor } from '@angular/material/core';
 import { AfterViewInit } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { CanColor } from '@angular/material/core';
+import { CanDisableRipple } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
+import { _Constructor } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i4 from '@angular/material/core';
+import * as i5 from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { NgZone } from '@angular/core';
+import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
 import { QueryList } from '@angular/core';
 import { RippleGlobalOptions } from '@angular/material/core';
 import { Subject } from 'rxjs';
-import { ThemePalette } from '@angular/material/core';
 
 declare namespace i1 {
     export {
@@ -51,10 +57,9 @@ declare const MAT_SLIDER_THUMB_VALUE_ACCESSOR: any;
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-export declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
+export declare class MatSlider extends _MatSliderMixinBase implements AfterViewInit, CanDisableRipple, OnDestroy, _MatSlider {
     readonly _ngZone: NgZone;
     readonly _cdr: ChangeDetectorRef;
-    readonly _elementRef: ElementRef<HTMLElement>;
     readonly _dir: Directionality;
     readonly _globalRippleOptions?: RippleGlobalOptions | undefined;
     /** The active portion of the slider track. */
@@ -67,35 +72,33 @@ export declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     _inputs: QueryList<_MatSliderRangeThumb>;
     /** Whether the slider is disabled. */
     get disabled(): boolean;
-    set disabled(v: boolean);
+    set disabled(v: BooleanInput);
     private _disabled;
     /** Whether the slider displays a numeric value label upon pressing the thumb. */
     get discrete(): boolean;
-    set discrete(v: boolean);
+    set discrete(v: BooleanInput);
     private _discrete;
     /** Whether the slider displays tick marks along the slider track. */
-    showTickMarks: boolean;
+    get showTickMarks(): boolean;
+    set showTickMarks(v: BooleanInput);
+    private _showTickMarks;
     /** The minimum value that the slider can have. */
     get min(): number;
-    set min(v: number);
+    set min(v: NumberInput);
     private _min;
-    /** Palette color of the slider. */
-    color: ThemePalette;
-    /** Whether ripples are disabled in the slider. */
-    disableRipple: boolean;
     private _updateMin;
     private _updateMinRange;
     private _updateMinNonRange;
     /** The maximum value that the slider can have. */
     get max(): number;
-    set max(v: number);
+    set max(v: NumberInput);
     private _max;
     private _updateMax;
     private _updateMaxRange;
     private _updateMaxNonRange;
     /** The values at which the thumb will snap. */
     get step(): number;
-    set step(v: number);
+    set step(v: NumberInput);
     private _step;
     private _updateStep;
     private _updateStepRange;
@@ -135,7 +138,7 @@ export declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     _hasAnimation: boolean;
     private _resizeTimer;
     private _platform;
-    constructor(_ngZone: NgZone, _cdr: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _dir: Directionality, _globalRippleOptions?: RippleGlobalOptions | undefined, animationMode?: string);
+    constructor(_ngZone: NgZone, _cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>, _dir: Directionality, _globalRippleOptions?: RippleGlobalOptions | undefined, animationMode?: string);
     /** The radius of the native slider's knob. AFAIK there is no way to avoid hardcoding this. */
     _knobRadius: number;
     _inputPadding: number;
@@ -205,14 +208,7 @@ export declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     /** Whether the given pointer event occurred within the bounds of the slider pointer's DOM Rect. */
     _isCursorOnSliderThumb(event: PointerEvent, rect: DOMRect): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlider, [null, null, null, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "disabled": { "alias": "disabled"; "required": false; }; "discrete": { "alias": "discrete"; "required": false; }; "showTickMarks": { "alias": "showTickMarks"; "required": false; }; "min": { "alias": "min"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "max": { "alias": "max"; "required": false; }; "step": { "alias": "step"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; }, {}, ["_input", "_inputs"], ["*"], false, never>;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_discrete: unknown;
-    static ngAcceptInputType_showTickMarks: unknown;
-    static ngAcceptInputType_min: unknown;
-    static ngAcceptInputType_disableRipple: unknown;
-    static ngAcceptInputType_max: unknown;
-    static ngAcceptInputType_step: unknown;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "discrete": { "alias": "discrete"; "required": false; }; "showTickMarks": { "alias": "showTickMarks"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "step": { "alias": "step"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; }, {}, ["_input", "_inputs"], ["*"], false, never>;
 }
 
 declare interface _MatSlider {
@@ -297,9 +293,15 @@ export declare interface MatSliderDragEvent {
     value: number;
 }
 
+declare const _MatSliderMixinBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & {
+    new (_elementRef: ElementRef<HTMLElement>): {
+        _elementRef: ElementRef<HTMLElement>;
+    };
+};
+
 export declare class MatSliderModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSliderModule, [typeof i1.MatSlider, typeof i2.MatSliderThumb, typeof i2.MatSliderRangeThumb, typeof i3.MatSliderVisualThumb], [typeof i4.MatCommonModule, typeof i4.MatRippleModule], [typeof i1.MatSlider, typeof i2.MatSliderThumb, typeof i2.MatSliderRangeThumb]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSliderModule, [typeof i1.MatSlider, typeof i2.MatSliderThumb, typeof i2.MatSliderRangeThumb, typeof i3.MatSliderVisualThumb], [typeof i4.MatCommonModule, typeof i5.CommonModule, typeof i4.MatRippleModule], [typeof i1.MatSlider, typeof i2.MatSliderThumb, typeof i2.MatSliderRangeThumb]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSliderModule>;
 }
 
@@ -377,7 +379,7 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     readonly _cdr: ChangeDetectorRef;
     protected _slider: _MatSlider;
     get value(): number;
-    set value(value: number);
+    set value(v: NumberInput);
     /** Event emitted when the `value` is changed. */
     readonly valueChange: EventEmitter<number>;
     /** Event emitted when the slider thumb starts being dragged. */
@@ -398,15 +400,15 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     thumbPosition: _MatThumb;
     /** @docs-private */
     get min(): number;
-    set min(v: number);
+    set min(v: NumberInput);
     /** @docs-private */
     get max(): number;
-    set max(v: number);
+    set max(v: NumberInput);
     get step(): number;
-    set step(v: number);
+    set step(v: NumberInput);
     /** @docs-private */
     get disabled(): boolean;
-    set disabled(v: boolean);
+    set disabled(v: BooleanInput);
     /** The percentage of the slider that coincides with the value. */
     get percentage(): number;
     /** @docs-private */
@@ -532,7 +534,6 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     blur(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderThumb, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatSliderThumb, "input[matSliderThumb]", ["matSliderThumb"], { "value": { "alias": "value"; "required": false; }; }, { "valueChange": "valueChange"; "dragStart": "dragStart"; "dragEnd": "dragEnd"; }, never, never, false, never>;
-    static ngAcceptInputType_value: unknown;
 }
 
 declare interface _MatSliderThumb {
@@ -683,13 +684,13 @@ declare interface _MatSliderVisualThumb {
  * Thumb types: range slider has two thumbs (START, END) whereas single point
  * slider only has one thumb (END).
  */
-declare enum _MatThumb {
+declare const enum _MatThumb {
     START = 1,
     END = 2
 }
 
 /** Tick mark enum, for discrete sliders. */
-declare enum _MatTickMark {
+declare const enum _MatTickMark {
     ACTIVE = 0,
     INACTIVE = 1
 }

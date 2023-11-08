@@ -1,4 +1,4 @@
-@use '../../../theming/inspection';
+@use '../../../theming/theming';
 @use '../../token-utils';
 
 @use 'sass:map';
@@ -22,13 +22,6 @@ $ripple-target: '.mdc-fab__ripple';
     container-shape: 50%,
     icon-size: 24px,
 
-    // We don't use this token, because it doesn't set the color of any text inside the FAB.
-    // We create a custom token for it instead.
-    icon-color: null,
-
-    // =============================================================================================
-    // = TOKENS NOT USED IN ANGULAR MATERIAL                                                       =
-    // =============================================================================================
     container-elevation: null,
     container-height: null,
     container-shadow-color: null,
@@ -62,27 +55,21 @@ $ripple-target: '.mdc-fab__ripple';
 }
 
 // Tokens that can be configured through Angular Material's color theming API.
-@function get-color-tokens($theme) {
-  @return (
-    // Background color of the FAB.
-    container-color: inspection.get-theme-color($theme, background, card),
-  );
-}
+@function get-color-tokens($config) {
+  $primary: map.get($config, primary);
+  $surface: theming.get-color-from-palette($primary, default);
+  $on-surface: theming.get-color-from-palette($primary, default-contrast);
 
-// Generates the mapping for the properties that change based on the FAB palette color.
-@function private-get-color-palette-color-tokens($theme, $palette-name) {
-  @return (
-    container-color: inspection.get-theme-color($theme, $palette-name, default),
-  );
+  @return (container-color: $surface, icon-color: $on-surface);
 }
 
 // Tokens that can be configured through Angular Material's typography theming API.
-@function get-typography-tokens($theme) {
+@function get-typography-tokens($config) {
   @return ();
 }
 
 // Tokens that can be configured through Angular Material's density theming API.
-@function get-density-tokens($theme) {
+@function get-density-tokens($config) {
   @return ();
 }
 

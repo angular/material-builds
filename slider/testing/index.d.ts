@@ -86,7 +86,7 @@ export declare interface SliderThumbHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Possible positions of a slider thumb. */
-export declare enum ThumbPosition {
+export declare const enum ThumbPosition {
     START = 0,
     END = 1
 }

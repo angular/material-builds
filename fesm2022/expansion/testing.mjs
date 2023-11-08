@@ -1,22 +1,14 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 
-/** Selectors for the various `mat-expansion-panel` sections that may contain user content. */
-var MatExpansionPanelSection;
-(function (MatExpansionPanelSection) {
-    MatExpansionPanelSection["HEADER"] = ".mat-expansion-panel-header";
-    MatExpansionPanelSection["TITLE"] = ".mat-expansion-panel-header-title";
-    MatExpansionPanelSection["DESCRIPTION"] = ".mat-expansion-panel-header-description";
-    MatExpansionPanelSection["CONTENT"] = ".mat-expansion-panel-content";
-})(MatExpansionPanelSection || (MatExpansionPanelSection = {}));
 /** Harness for interacting with a standard mat-expansion-panel in tests. */
 class MatExpansionPanelHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._header = this.locatorFor(MatExpansionPanelSection.HEADER);
-        this._title = this.locatorForOptional(MatExpansionPanelSection.TITLE);
-        this._description = this.locatorForOptional(MatExpansionPanelSection.DESCRIPTION);
+        this._header = this.locatorFor(".mat-expansion-panel-header" /* MatExpansionPanelSection.HEADER */);
+        this._title = this.locatorForOptional(".mat-expansion-panel-header-title" /* MatExpansionPanelSection.TITLE */);
+        this._description = this.locatorForOptional(".mat-expansion-panel-header-description" /* MatExpansionPanelSection.DESCRIPTION */);
         this._expansionIndicator = this.locatorForOptional('.mat-expansion-indicator');
-        this._content = this.locatorFor(MatExpansionPanelSection.CONTENT);
+        this._content = this.locatorFor(".mat-expansion-panel-content" /* MatExpansionPanelSection.CONTENT */);
     }
     static { this.hostSelector = '.mat-expansion-panel'; }
     /**
@@ -92,7 +84,7 @@ class MatExpansionPanelHarness extends ContentContainerComponentHarness {
      * @breaking-change 12.0.0
      */
     async getHarnessLoaderForContent() {
-        return this.getChildLoader(MatExpansionPanelSection.CONTENT);
+        return this.getChildLoader(".mat-expansion-panel-content" /* MatExpansionPanelSection.CONTENT */);
     }
     /** Focuses the panel. */
     async focus() {
@@ -142,5 +134,5 @@ class MatAccordionHarness extends ComponentHarness {
     }
 }
 
-export { MatAccordionHarness, MatExpansionPanelHarness, MatExpansionPanelSection };
+export { MatAccordionHarness, MatExpansionPanelHarness };
 //# sourceMappingURL=testing.mjs.map
