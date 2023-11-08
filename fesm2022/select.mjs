@@ -3,9 +3,9 @@ import { Overlay, CdkOverlayOrigin, CdkConnectedOverlay, OverlayModule } from '@
 import * as i6 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Self, Attribute, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Self, Attribute, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import * as i2 from '@angular/material/core';
-import { mixinErrorState, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { mixinDisableRipple, mixinTabIndex, mixinDisabled, mixinErrorState, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import * as i8 from '@angular/material/form-field';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import * as i1 from '@angular/cdk/scrolling';
@@ -13,6 +13,7 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i5 from '@angular/cdk/a11y';
 import { removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import * as i3 from '@angular/cdk/bidi';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, A } from '@angular/cdk/keycodes';
 import * as i4 from '@angular/forms';
@@ -113,7 +114,7 @@ class MatSelectChange {
 }
 // Boilerplate for applying mixins to MatSelect.
 /** @docs-private */
-const _MatSelectMixinBase = mixinErrorState(class {
+const _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(class {
     constructor(_elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
     /**
      * Form control bound to the component.
@@ -133,7 +134,7 @@ const _MatSelectMixinBase = mixinErrorState(class {
          */
         this.stateChanges = new Subject();
     }
-});
+}))));
 class MatSelect extends _MatSelectMixinBase {
     /** Scrolls a particular option into the view. */
     _scrollOptionIntoView(index) {
@@ -170,7 +171,7 @@ class MatSelect extends _MatSelectMixinBase {
         return this._hideSingleSelectionIndicator;
     }
     set hideSingleSelectionIndicator(value) {
-        this._hideSingleSelectionIndicator = value;
+        this._hideSingleSelectionIndicator = coerceBooleanProperty(value);
         this._syncParentProperties();
     }
     /** Placeholder to be shown if no value has been selected. */
@@ -186,7 +187,7 @@ class MatSelect extends _MatSelectMixinBase {
         return this._required ?? this.ngControl?.control?.hasValidator(Validators.required) ?? false;
     }
     set required(value) {
-        this._required = value;
+        this._required = coerceBooleanProperty(value);
         this.stateChanges.next();
     }
     /** Whether the user should be allowed to select multiple options. */
@@ -197,7 +198,14 @@ class MatSelect extends _MatSelectMixinBase {
         if (this._selectionModel && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getMatSelectDynamicMultipleError();
         }
-        this._multiple = value;
+        this._multiple = coerceBooleanProperty(value);
+    }
+    /** Whether to center the active option over the trigger. */
+    get disableOptionCentering() {
+        return this._disableOptionCentering;
+    }
+    set disableOptionCentering(value) {
+        this._disableOptionCentering = coerceBooleanProperty(value);
     }
     /**
      * Function to compare the option values with the selected values. The first argument
@@ -226,6 +234,13 @@ class MatSelect extends _MatSelectMixinBase {
         if (hasAssigned) {
             this._onChange(newValue);
         }
+    }
+    /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
+    get typeaheadDebounceInterval() {
+        return this._typeaheadDebounceInterval;
+    }
+    set typeaheadDebounceInterval(value) {
+        this._typeaheadDebounceInterval = coerceNumberProperty(value);
     }
     /** Unique id of the element. */
     get id() {
@@ -300,16 +315,9 @@ class MatSelect extends _MatSelectMixinBase {
         this._focused = false;
         /** A name for this control that can be used by `mat-form-field`. */
         this.controlType = 'mat-select';
-        /** Whether the select is disabled. */
-        this.disabled = false;
-        /** Whether ripples in the select are disabled. */
-        this.disableRipple = false;
-        /** Tab index of the select. */
-        this.tabIndex = 0;
         this._hideSingleSelectionIndicator = this._defaultOptions?.hideSingleSelectionIndicator ?? false;
         this._multiple = false;
-        /** Whether to center the active option over the trigger. */
-        this.disableOptionCentering = this._defaultOptions?.disableOptionCentering ?? false;
+        this._disableOptionCentering = this._defaultOptions?.disableOptionCentering ?? false;
         /** Aria label of the select. */
         this.ariaLabel = '';
         /**
@@ -379,7 +387,7 @@ class MatSelect extends _MatSelectMixinBase {
         // Note that we only want to set this when the defaults pass it in, otherwise it should
         // stay as `undefined` so that it falls back to the default in the key manager.
         if (_defaultOptions?.typeaheadDebounceInterval != null) {
-            this.typeaheadDebounceInterval = _defaultOptions.typeaheadDebounceInterval;
+            this._typeaheadDebounceInterval = _defaultOptions.typeaheadDebounceInterval;
         }
         this._scrollStrategyFactory = scrollStrategyFactory;
         this._scrollStrategy = this._scrollStrategyFactory();
@@ -447,13 +455,13 @@ class MatSelect extends _MatSelectMixinBase {
         }
     }
     ngOnChanges(changes) {
-        // Updating the disabled state is handled by the input, but we need to additionally let
+        // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let
         // the parent form field know to run change detection when the disabled state changes.
         if (changes['disabled'] || changes['userAriaDescribedBy']) {
             this.stateChanges.next();
         }
         if (changes['typeaheadDebounceInterval'] && this._keyManager) {
-            this._keyManager.withTypeAhead(this.typeaheadDebounceInterval);
+            this._keyManager.withTypeAhead(this._typeaheadDebounceInterval);
         }
     }
     ngOnDestroy() {
@@ -823,7 +831,7 @@ class MatSelect extends _MatSelectMixinBase {
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     _initKeyManager() {
         this._keyManager = new ActiveDescendantKeyManager(this.options)
-            .withTypeAhead(this.typeaheadDebounceInterval)
+            .withTypeAhead(this._typeaheadDebounceInterval)
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
             .withHomeAndEnd()
@@ -1031,20 +1039,20 @@ class MatSelect extends _MatSelectMixinBase {
         return this.panelOpen || !this.empty || (this.focused && !!this.placeholder);
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatSelect, deps: [{ token: i1.ViewportRuler }, { token: i0.ChangeDetectorRef }, { token: i0.NgZone }, { token: i2.ErrorStateMatcher }, { token: i0.ElementRef }, { token: i3.Directionality, optional: true }, { token: i4.NgForm, optional: true }, { token: i4.FormGroupDirective, optional: true }, { token: MAT_FORM_FIELD, optional: true }, { token: i4.NgControl, optional: true, self: true }, { token: 'tabindex', attribute: true }, { token: MAT_SELECT_SCROLL_STRATEGY }, { token: i5.LiveAnnouncer }, { token: MAT_SELECT_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "17.0.0", type: MatSelect, selector: "mat-select", inputs: { userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], panelClass: "panelClass", disabled: ["disabled", "disabled", booleanAttribute], disableRipple: ["disableRipple", "disableRipple", booleanAttribute], tabIndex: ["tabIndex", "tabIndex", (value) => (value == null ? 0 : numberAttribute(value))], hideSingleSelectionIndicator: ["hideSingleSelectionIndicator", "hideSingleSelectionIndicator", booleanAttribute], placeholder: "placeholder", required: ["required", "required", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], disableOptionCentering: ["disableOptionCentering", "disableOptionCentering", booleanAttribute], compareWith: "compareWith", value: "value", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], errorStateMatcher: "errorStateMatcher", typeaheadDebounceInterval: ["typeaheadDebounceInterval", "typeaheadDebounceInterval", numberAttribute], sortComparator: "sortComparator", id: "id", panelWidth: "panelWidth" }, outputs: { openedChange: "openedChange", _openedStream: "opened", _closedStream: "closed", selectionChange: "selectionChange", valueChange: "valueChange" }, host: { attributes: { "role": "combobox", "aria-autocomplete": "none", "aria-haspopup": "listbox", "ngSkipHydration": "" }, listeners: { "keydown": "_handleKeydown($event)", "focus": "_onFocus()", "blur": "_onBlur()" }, properties: { "attr.id": "id", "attr.tabindex": "disabled ? -1 : tabIndex", "attr.aria-controls": "panelOpen ? id + \"-panel\" : null", "attr.aria-expanded": "panelOpen", "attr.aria-label": "ariaLabel || null", "attr.aria-required": "required.toString()", "attr.aria-disabled": "disabled.toString()", "attr.aria-invalid": "errorState", "attr.aria-activedescendant": "_getAriaActiveDescendant()", "class.mat-mdc-select-disabled": "disabled", "class.mat-mdc-select-invalid": "errorState", "class.mat-mdc-select-required": "required", "class.mat-mdc-select-empty": "empty", "class.mat-mdc-select-multiple": "multiple" }, classAttribute: "mat-mdc-select" }, providers: [
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "17.0.0", type: MatSelect, selector: "mat-select", inputs: { disabled: "disabled", disableRipple: "disableRipple", tabIndex: "tabIndex", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], panelClass: "panelClass", hideSingleSelectionIndicator: "hideSingleSelectionIndicator", placeholder: "placeholder", required: "required", multiple: "multiple", disableOptionCentering: "disableOptionCentering", compareWith: "compareWith", value: "value", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], errorStateMatcher: "errorStateMatcher", typeaheadDebounceInterval: "typeaheadDebounceInterval", sortComparator: "sortComparator", id: "id", panelWidth: "panelWidth" }, outputs: { openedChange: "openedChange", _openedStream: "opened", _closedStream: "closed", selectionChange: "selectionChange", valueChange: "valueChange" }, host: { attributes: { "role": "combobox", "aria-autocomplete": "none", "aria-haspopup": "listbox", "ngSkipHydration": "" }, listeners: { "keydown": "_handleKeydown($event)", "focus": "_onFocus()", "blur": "_onBlur()" }, properties: { "attr.id": "id", "attr.tabindex": "tabIndex", "attr.aria-controls": "panelOpen ? id + \"-panel\" : null", "attr.aria-expanded": "panelOpen", "attr.aria-label": "ariaLabel || null", "attr.aria-required": "required.toString()", "attr.aria-disabled": "disabled.toString()", "attr.aria-invalid": "errorState", "attr.aria-activedescendant": "_getAriaActiveDescendant()", "class.mat-mdc-select-disabled": "disabled", "class.mat-mdc-select-invalid": "errorState", "class.mat-mdc-select-required": "required", "class.mat-mdc-select-empty": "empty", "class.mat-mdc-select-multiple": "multiple" }, classAttribute: "mat-mdc-select" }, providers: [
             { provide: MatFormFieldControl, useExisting: MatSelect },
             { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatSelect },
         ], queries: [{ propertyName: "customTrigger", first: true, predicate: MAT_SELECT_TRIGGER, descendants: true }, { propertyName: "options", predicate: MatOption, descendants: true }, { propertyName: "optionGroups", predicate: MAT_OPTGROUP, descendants: true }], viewQueries: [{ propertyName: "trigger", first: true, predicate: ["trigger"], descendants: true }, { propertyName: "panel", first: true, predicate: ["panel"], descendants: true }, { propertyName: "_overlayDir", first: true, predicate: CdkConnectedOverlay, descendants: true }], exportAs: ["matSelect"], usesInheritance: true, usesOnChanges: true, ngImport: i0, template: "<div cdk-overlay-origin\n     class=\"mat-mdc-select-trigger\"\n     (click)=\"toggle()\"\n     #fallbackOverlayOrigin=\"cdkOverlayOrigin\"\n     #trigger>\n\n  <div class=\"mat-mdc-select-value\" [attr.id]=\"_valueId\">\n    @if (empty) {\n      <span class=\"mat-mdc-select-placeholder mat-mdc-select-min-line\">{{placeholder}}</span>\n    } @else {\n      <span class=\"mat-mdc-select-value-text\">\n        @if (customTrigger) {\n          <ng-content select=\"mat-select-trigger\"></ng-content>\n        } @else {\n          <span class=\"mat-mdc-select-min-line\">{{triggerValue}}</span>\n        }\n      </span>\n    }\n  </div>\n\n  <div class=\"mat-mdc-select-arrow-wrapper\">\n    <div class=\"mat-mdc-select-arrow\">\n      <!-- Use an inline SVG, because it works better than a CSS triangle in high contrast mode. -->\n      <svg viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" focusable=\"false\" aria-hidden=\"true\">\n        <path d=\"M7 10l5 5 5-5z\"/>\n      </svg>\n    </div>\n  </div>\n</div>\n\n<ng-template\n  cdk-connected-overlay\n  cdkConnectedOverlayLockPosition\n  cdkConnectedOverlayHasBackdrop\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\n  [cdkConnectedOverlayPanelClass]=\"_overlayPanelClass\"\n  [cdkConnectedOverlayScrollStrategy]=\"_scrollStrategy\"\n  [cdkConnectedOverlayOrigin]=\"_preferredOverlayOrigin || fallbackOverlayOrigin\"\n  [cdkConnectedOverlayOpen]=\"panelOpen\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayWidth]=\"_overlayWidth\"\n  (backdropClick)=\"close()\"\n  (attach)=\"_onAttached()\"\n  (detach)=\"close()\">\n  <div\n    #panel\n    role=\"listbox\"\n    tabindex=\"-1\"\n    class=\"mat-mdc-select-panel mdc-menu-surface mdc-menu-surface--open {{ _getPanelTheme() }}\"\n    [attr.id]=\"id + '-panel'\"\n    [attr.aria-multiselectable]=\"multiple\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"_getPanelAriaLabelledby()\"\n    [ngClass]=\"panelClass\"\n    [@transformPanel]=\"'showing'\"\n    (@transformPanel.done)=\"_panelDoneAnimatingStream.next($event.toState)\"\n    (keydown)=\"_handleKeydown($event)\">\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n", styles: [".mat-mdc-select{display:inline-block;width:100%;outline:none;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;color:var(--mat-select-enabled-trigger-text-color);font-family:var(--mat-select-trigger-text-font);line-height:var(--mat-select-trigger-text-line-height);font-size:var(--mat-select-trigger-text-size);font-weight:var(--mat-select-trigger-text-weight);letter-spacing:var(--mat-select-trigger-text-tracking)}.mat-mdc-select-disabled{color:var(--mat-select-disabled-trigger-text-color)}.mat-mdc-select-trigger{display:inline-flex;align-items:center;cursor:pointer;position:relative;box-sizing:border-box;width:100%}.mat-mdc-select-disabled .mat-mdc-select-trigger{-webkit-user-select:none;user-select:none;cursor:default}.mat-mdc-select-value{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mat-mdc-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-mdc-select-arrow-wrapper{height:24px;flex-shrink:0;display:inline-flex;align-items:center}.mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper{transform:translateY(-8px)}.mat-form-field-appearance-fill .mdc-text-field--no-label .mat-mdc-select-arrow-wrapper{transform:none}.mat-mdc-select-arrow{width:10px;height:5px;position:relative;color:var(--mat-select-enabled-arrow-color)}.mat-mdc-form-field.mat-focused .mat-mdc-select-arrow{color:var(--mat-select-focused-arrow-color)}.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-invalid .mat-mdc-select-arrow{color:var(--mat-select-invalid-arrow-color)}.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-disabled .mat-mdc-select-arrow{color:var(--mat-select-disabled-arrow-color)}.mat-mdc-select-arrow svg{fill:currentColor;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.cdk-high-contrast-active .mat-mdc-select-arrow svg{fill:CanvasText}.mat-mdc-select-disabled .cdk-high-contrast-active .mat-mdc-select-arrow svg{fill:GrayText}div.mat-mdc-select-panel{box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);width:100%;max-height:275px;outline:0;overflow:auto;padding:8px 0;border-radius:4px;box-sizing:border-box;position:static;background-color:var(--mat-select-panel-background-color)}.cdk-high-contrast-active div.mat-mdc-select-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel{border-top-left-radius:0;border-top-right-radius:0;transform-origin:top center}.mat-mdc-select-panel-above div.mat-mdc-select-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:bottom center}.mat-mdc-select-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);color:var(--mat-select-placeholder-text-color)}._mat-animation-noopable .mat-mdc-select-placeholder{transition:none}.mat-form-field-hide-placeholder .mat-mdc-select-placeholder{color:rgba(0,0,0,0);-webkit-text-fill-color:rgba(0,0,0,0);transition:none;display:block}.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper{cursor:pointer}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mat-mdc-floating-label{max-width:calc(100% - 18px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mdc-floating-label--float-above{max-width:calc(100%/0.75 - 24px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-outline .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-outline .mdc-text-field--label-floating .mdc-notched-outline__notch{max-width:calc(100% - 24px)}.mat-mdc-select-min-line:empty::before{content:\" \";white-space:pre;width:1px;display:inline-block;visibility:hidden}"], dependencies: [{ kind: "directive", type: i6.NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }, { kind: "directive", type: i7.CdkConnectedOverlay, selector: "[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]", inputs: ["cdkConnectedOverlayOrigin", "cdkConnectedOverlayPositions", "cdkConnectedOverlayPositionStrategy", "cdkConnectedOverlayOffsetX", "cdkConnectedOverlayOffsetY", "cdkConnectedOverlayWidth", "cdkConnectedOverlayHeight", "cdkConnectedOverlayMinWidth", "cdkConnectedOverlayMinHeight", "cdkConnectedOverlayBackdropClass", "cdkConnectedOverlayPanelClass", "cdkConnectedOverlayViewportMargin", "cdkConnectedOverlayScrollStrategy", "cdkConnectedOverlayOpen", "cdkConnectedOverlayDisableClose", "cdkConnectedOverlayTransformOriginOn", "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayLockPosition", "cdkConnectedOverlayFlexibleDimensions", "cdkConnectedOverlayGrowAfterOpen", "cdkConnectedOverlayPush", "cdkConnectedOverlayDisposeOnNavigation"], outputs: ["backdropClick", "positionChange", "attach", "detach", "overlayKeydown", "overlayOutsideClick"], exportAs: ["cdkConnectedOverlay"] }, { kind: "directive", type: i7.CdkOverlayOrigin, selector: "[cdk-overlay-origin], [overlay-origin], [cdkOverlayOrigin]", exportAs: ["cdkOverlayOrigin"] }], animations: [matSelectAnimations.transformPanel], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatSelect, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-select', exportAs: 'matSelect', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, host: {
+            args: [{ selector: 'mat-select', exportAs: 'matSelect', inputs: ['disabled', 'disableRipple', 'tabIndex'], encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, host: {
                         'role': 'combobox',
                         'aria-autocomplete': 'none',
                         'aria-haspopup': 'listbox',
                         'class': 'mat-mdc-select',
                         '[attr.id]': 'id',
-                        '[attr.tabindex]': 'disabled ? -1 : tabIndex',
+                        '[attr.tabindex]': 'tabIndex',
                         '[attr.aria-controls]': 'panelOpen ? id + "-panel" : null',
                         '[attr.aria-expanded]': 'panelOpen',
                         '[attr.aria-label]': 'ariaLabel || null',
@@ -1114,31 +1122,16 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImpor
                 args: [CdkConnectedOverlay]
             }], panelClass: [{
                 type: Input
-            }], disabled: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
-            }], disableRipple: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
-            }], tabIndex: [{
-                type: Input,
-                args: [{
-                        transform: (value) => (value == null ? 0 : numberAttribute(value)),
-                    }]
             }], hideSingleSelectionIndicator: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
+                type: Input
             }], placeholder: [{
                 type: Input
             }], required: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
+                type: Input
             }], multiple: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
+                type: Input
             }], disableOptionCentering: [{
-                type: Input,
-                args: [{ transform: booleanAttribute }]
+                type: Input
             }], compareWith: [{
                 type: Input
             }], value: [{
@@ -1152,8 +1145,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImpor
             }], errorStateMatcher: [{
                 type: Input
             }], typeaheadDebounceInterval: [{
-                type: Input,
-                args: [{ transform: numberAttribute }]
+                type: Input
             }], sortComparator: [{
                 type: Input
             }], id: [{

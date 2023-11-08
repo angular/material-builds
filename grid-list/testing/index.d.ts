@@ -78,7 +78,7 @@ export declare class MatGridTileHarness extends ContentContainerComponentHarness
 }
 
 /** Selectors for the various `mat-grid-tile` sections that may contain user content. */
-export declare enum MatGridTileSection {
+export declare const enum MatGridTileSection {
     HEADER = ".mat-grid-tile-header",
     FOOTER = ".mat-grid-tile-footer"
 }

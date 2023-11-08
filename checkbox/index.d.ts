@@ -227,7 +227,7 @@ export declare class _MatCheckboxRequiredValidatorModule {
  * Represents the different states that require custom transitions between them.
  * @docs-private
  */
-export declare enum TransitionCheckState {
+export declare const enum TransitionCheckState {
     /** The initial state of the component before any user interaction. */
     Init = 0,
     /** The state representing the component when it's becoming checked. */

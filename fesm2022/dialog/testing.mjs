@@ -4,22 +4,15 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-/** Selectors for different sections of the mat-dialog that can contain user content. */
-var MatDialogSection;
-(function (MatDialogSection) {
-    MatDialogSection["TITLE"] = ".mat-mdc-dialog-title";
-    MatDialogSection["CONTENT"] = ".mat-mdc-dialog-content";
-    MatDialogSection["ACTIONS"] = ".mat-mdc-dialog-actions";
-})(MatDialogSection || (MatDialogSection = {}));
 /** Harness for interacting with a standard `MatDialog` in tests. */
 class MatDialogHarness
 // @breaking-change 14.0.0 change generic type to MatDialogSection.
  extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._title = this.locatorForOptional(MatDialogSection.TITLE);
-        this._content = this.locatorForOptional(MatDialogSection.CONTENT);
-        this._actions = this.locatorForOptional(MatDialogSection.ACTIONS);
+        this._title = this.locatorForOptional(".mat-mdc-dialog-title" /* MatDialogSection.TITLE */);
+        this._content = this.locatorForOptional(".mat-mdc-dialog-content" /* MatDialogSection.CONTENT */);
+        this._actions = this.locatorForOptional(".mat-mdc-dialog-actions" /* MatDialogSection.ACTIONS */);
     }
     /** The selector for the host element of a `MatDialog` instance. */
     static { this.hostSelector = '.mat-mdc-dialog-container'; }
@@ -124,5 +117,5 @@ MatTestDialogOpenerModule = __decorate([
     })
 ], MatTestDialogOpenerModule);
 
-export { MatDialogHarness, MatDialogSection, MatTestDialogOpener, MatTestDialogOpenerModule };
+export { MatDialogHarness, MatTestDialogOpener, MatTestDialogOpenerModule };
 //# sourceMappingURL=testing.mjs.map

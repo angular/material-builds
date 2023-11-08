@@ -55,7 +55,7 @@ export declare class MatDialogHarness extends ContentContainerComponentHarness<M
 }
 
 /** Selectors for different sections of the mat-dialog that can contain user content. */
-export declare enum MatDialogSection {
+export declare const enum MatDialogSection {
     TITLE = ".mat-mdc-dialog-title",
     CONTENT = ".mat-mdc-dialog-content",
     ACTIONS = ".mat-mdc-dialog-actions"
