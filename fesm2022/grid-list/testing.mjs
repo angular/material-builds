@@ -1,12 +1,18 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 import { ɵTileCoordinator } from '@angular/material/grid-list';
 
+/** Selectors for the various `mat-grid-tile` sections that may contain user content. */
+var MatGridTileSection;
+(function (MatGridTileSection) {
+    MatGridTileSection["HEADER"] = ".mat-grid-tile-header";
+    MatGridTileSection["FOOTER"] = ".mat-grid-tile-footer";
+})(MatGridTileSection || (MatGridTileSection = {}));
 /** Harness for interacting with a standard `MatGridTitle` in tests. */
 class MatGridTileHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._header = this.locatorForOptional(".mat-grid-tile-header" /* MatGridTileSection.HEADER */);
-        this._footer = this.locatorForOptional(".mat-grid-tile-footer" /* MatGridTileSection.FOOTER */);
+        this._header = this.locatorForOptional(MatGridTileSection.HEADER);
+        this._footer = this.locatorForOptional(MatGridTileSection.FOOTER);
         this._avatar = this.locatorForOptional('.mat-grid-avatar');
     }
     /** The selector for the host element of a `MatGridTile` instance. */
@@ -124,5 +130,5 @@ class MatGridListHarness extends ComponentHarness {
     }
 }
 
-export { MatGridListHarness, MatGridTileHarness };
+export { MatGridListHarness, MatGridTileHarness, MatGridTileSection };
 //# sourceMappingURL=testing.mjs.map

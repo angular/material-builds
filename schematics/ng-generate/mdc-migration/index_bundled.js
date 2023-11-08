@@ -31680,6 +31680,13 @@ var FormFieldTemplateMigrator = class extends TemplateMigrator {
 };
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/slider/slider-template.js
+var BindingType;
+(function(BindingType2) {
+  BindingType2[BindingType2["INPUT"] = 0] = "INPUT";
+  BindingType2[BindingType2["OUTPUT"] = 1] = "OUTPUT";
+  BindingType2[BindingType2["ATTRIBUTE"] = 2] = "ATTRIBUTE";
+  BindingType2[BindingType2["TWO_WAY_BINDING"] = 3] = "TWO_WAY_BINDING";
+})(BindingType || (BindingType = {}));
 var SliderTemplateMigrator = class extends TemplateMigrator {
   getUpdates(ast) {
     const updates = [];
@@ -31770,12 +31777,12 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
     return inputs.concat(outputs).concat(attributes).concat(twoWayBindings);
   }
   _getTwoWayBindings(inputs, outputs) {
-    return inputs.filter((input) => outputs.some((output) => output.name === input.name)).map((input) => __spreadProps(__spreadValues({}, input), { type: 3 }));
+    return inputs.filter((input) => outputs.some((output) => output.name === input.name)).map((input) => __spreadProps(__spreadValues({}, input), { type: BindingType.TWO_WAY_BINDING }));
   }
   _getOutputs(node) {
     return node.outputs.map((output) => ({
       node: output,
-      type: 1,
+      type: BindingType.OUTPUT,
       name: node.sourceSpan.start.file.content.slice(output.keySpan.start.offset, output.keySpan.end.offset),
       value: node.sourceSpan.start.file.content.slice(output.handlerSpan.start.offset, output.handlerSpan.end.offset)
     }));
@@ -31783,7 +31790,7 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
   _getInputs(node) {
     return node.inputs.map((input) => ({
       node: input,
-      type: 0,
+      type: BindingType.INPUT,
       name: node.sourceSpan.start.file.content.slice(input.keySpan.start.offset, input.keySpan.end.offset),
       value: node.sourceSpan.start.file.content.slice(input.value.sourceSpan.start, input.value.sourceSpan.end)
     }));
@@ -31791,7 +31798,7 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
   _getAttributes(node) {
     return node.attributes.map((attribute2) => ({
       node: attribute2,
-      type: 2,
+      type: BindingType.ATTRIBUTE,
       name: attribute2.name,
       value: attribute2.value
     }));
