@@ -227,7 +227,7 @@ class MatCalendarBody {
             this._didDragSinceMouseDown = false;
             // Begin a drag if a cell within the current range was targeted.
             const cell = event.target && this._getCellFromElement(event.target);
-            if (!cell || !this._isInRange(cell.rawValue)) {
+            if (!cell || !this._isInRange(cell.compareValue)) {
                 return;
             }
             this._ngZone.run(() => {
