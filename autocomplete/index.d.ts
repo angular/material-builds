@@ -473,7 +473,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _clearFromModal;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteTrigger, [null, null, null, null, null, null, { optional: true; }, { optional: true; host: true; }, { optional: true; }, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteTrigger, "input[matAutocomplete], textarea[matAutocomplete]", ["matAutocompleteTrigger"], { "autocomplete": { "alias": "matAutocomplete"; "required": false; }; "position": { "alias": "matAutocompletePosition"; "required": false; }; "connectedTo": { "alias": "matAutocompleteConnectedTo"; "required": false; }; "autocompleteAttribute": { "alias": "autocomplete"; "required": false; }; "autocompleteDisabled": { "alias": "matAutocompleteDisabled"; "required": false; }; }, {}, never, never, false, never>;
-    static ngAcceptInputType_autocompleteDisabled: unknown;
+    static ngAcceptInputType_autocompleteDisabled: unknown /** Handles keyboard events coming from the overlay panel. */;
 }
 
 export { }
