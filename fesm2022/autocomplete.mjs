@@ -760,6 +760,11 @@ class MatAutocompleteTrigger {
         this._updateNativeInputValue(toDisplay != null ? toDisplay : '');
     }
     _updateNativeInputValue(value) {
+        // We want to clear the previous selection if our new value is falsy. e.g: reactive form field
+        // being reset.
+        if (!value) {
+            this._clearPreviousSelectedOption(null, false);
+        }
         // If it's used within a `MatFormField`, we should set it through the property so it can go
         // through change detection.
         if (this._formField) {
