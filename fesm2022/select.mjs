@@ -931,7 +931,7 @@ class MatSelect extends _MatSelectMixinBase {
     }
     /** Emits change event to set the model value. */
     _propagateChanges(fallbackValue) {
-        let valueToEmit = null;
+        let valueToEmit;
         if (this.multiple) {
             valueToEmit = this.selected.map(option => option.value);
         }
