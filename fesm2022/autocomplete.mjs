@@ -717,7 +717,6 @@ class MatAutocompleteTrigger {
                     //   of the available options,
                     // - if a valid string is entered after an invalid one.
                     if (this.panelOpen) {
-                        this._captureValueOnAttach();
                         this._emitOpened();
                     }
                     else {
@@ -738,10 +737,6 @@ class MatAutocompleteTrigger {
      */
     _emitOpened() {
         this.autocomplete.opened.emit();
-    }
-    /** Intended to be called when the panel is attached. Captures the current value of the input. */
-    _captureValueOnAttach() {
-        this._valueOnAttach = this._element.nativeElement.value;
     }
     /** Destroys the autocomplete suggestion panel. */
     _destroyPanel() {
@@ -844,6 +839,7 @@ class MatAutocompleteTrigger {
         }
         if (overlayRef && !overlayRef.hasAttached()) {
             overlayRef.attach(this._portal);
+            this._valueOnAttach = this._element.nativeElement.value;
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         const wasOpen = this.panelOpen;
@@ -851,7 +847,6 @@ class MatAutocompleteTrigger {
         this.autocomplete._setColor(this._formField?.color);
         this._updatePanelState();
         this._applyModalPanelOwnership();
-        this._captureValueOnAttach();
         // We need to do an extra `panelOpen` check in here, because the
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {
