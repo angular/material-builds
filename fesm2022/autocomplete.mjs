@@ -635,6 +635,17 @@ class MatAutocompleteTrigger {
             if (!value) {
                 this._clearPreviousSelectedOption(null, false);
             }
+            else if (this.panelOpen && !this.autocomplete.requireSelection) {
+                // Note that we don't reset this when `requireSelection` is enabled,
+                // because the option will be reset when the panel is closed.
+                const selectedOption = this.autocomplete.options?.find(option => option.selected);
+                if (selectedOption) {
+                    const display = this.autocomplete.displayWith?.(selectedOption) ?? selectedOption.value;
+                    if (value !== display) {
+                        selectedOption.deselect(false);
+                    }
+                }
+            }
             if (this._canOpen() && this._document.activeElement === event.target) {
                 this.openPanel();
             }
@@ -750,16 +761,14 @@ class MatAutocompleteTrigger {
         const toDisplay = this.autocomplete && this.autocomplete.displayWith
             ? this.autocomplete.displayWith(value)
             : value;
+        if (value == null) {
+            this._clearPreviousSelectedOption(null, false);
+        }
         // Simply falling back to an empty string if the display value is falsy does not work properly.
         // The display value can also be the number zero and shouldn't fall back to an empty string.
         this._updateNativeInputValue(toDisplay != null ? toDisplay : '');
     }
     _updateNativeInputValue(value) {
-        // We want to clear the previous selection if our new value is falsy. e.g: reactive form field
-        // being reset.
-        if (!value) {
-            this._clearPreviousSelectedOption(null, false);
-        }
         // If it's used within a `MatFormField`, we should set it through the property so it can go
         // through change detection.
         if (this._formField) {
