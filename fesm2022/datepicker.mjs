@@ -12,7 +12,7 @@ import * as i3 from '@angular/material/button';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i1$1 from '@angular/material/core';
-import { DateAdapter, MAT_DATE_FORMATS, mixinErrorState, MatCommonModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import * as i2 from '@angular/cdk/bidi';
@@ -3645,6 +3645,20 @@ const MAT_DATE_RANGE_INPUT_PARENT = new InjectionToken('MAT_DATE_RANGE_INPUT_PAR
  * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
  */
 class MatDateRangeInputPartBase extends MatDatepickerInputBase {
+    /** Object used to control when error messages are shown. */
+    get errorStateMatcher() {
+        return this._errorStateTracker.matcher;
+    }
+    set errorStateMatcher(value) {
+        this._errorStateTracker.matcher = value;
+    }
+    /** Whether the input is in an error state. */
+    get errorState() {
+        return this._errorStateTracker.errorState;
+    }
+    set errorState(value) {
+        this._errorStateTracker.errorState = value;
+    }
     constructor(_rangeInput, _elementRef, _defaultErrorStateMatcher, _injector, _parentForm, _parentFormGroup, dateAdapter, dateFormats) {
         super(_elementRef, dateAdapter, dateFormats);
         this._rangeInput = _rangeInput;
@@ -3654,6 +3668,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this._dir = inject(Directionality, { optional: true });
+        this._errorStateTracker = new _ErrorStateTracker(this._defaultErrorStateMatcher, null, this._parentFormGroup, this._parentForm, this.stateChanges);
     }
     ngOnInit() {
         // We need the date input to provide itself as a `ControlValueAccessor` and a `Validator`, while
@@ -3662,10 +3677,10 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
         // itself. Usually we can work around it for the CVA, but there's no API to do it for the
         // validator. We work around it here by injecting the `NgControl` in `ngOnInit`, after
         // everything has been resolved.
-        // tslint:disable-next-line:no-bitwise
         const ngControl = this._injector.get(NgControl, null, { optional: true, self: true });
         if (ngControl) {
             this.ngControl = ngControl;
+            this._errorStateTracker.ngControl = ngControl;
         }
     }
     ngDoCheck() {
@@ -3693,6 +3708,10 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
         const element = this._elementRef.nativeElement;
         const value = element.value;
         return value.length > 0 ? value : element.placeholder;
+    }
+    /** Refreshes the error state of the input. */
+    updateErrorState() {
+        this._errorStateTracker.updateErrorState();
     }
     /** Handles `input` events on the input element. */
     _onInput(value) {
@@ -3733,7 +3752,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
         return _computeAriaAccessibleName(this._elementRef.nativeElement);
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatDateRangeInputPartBase, deps: [{ token: MAT_DATE_RANGE_INPUT_PARENT }, { token: i0.ElementRef }, { token: i1$1.ErrorStateMatcher }, { token: i0.Injector }, { token: i2$1.NgForm, optional: true }, { token: i2$1.FormGroupDirective, optional: true }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_DATE_FORMATS, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0", type: MatDateRangeInputPartBase, usesInheritance: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0", type: MatDateRangeInputPartBase, inputs: { errorStateMatcher: "errorStateMatcher" }, usesInheritance: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatDateRangeInputPartBase, decorators: [{
             type: Directive
@@ -3751,10 +3770,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImpor
                 }, {
                     type: Inject,
                     args: [MAT_DATE_FORMATS]
-                }] }] });
-const _MatDateRangeInputBase = mixinErrorState(MatDateRangeInputPartBase);
+                }] }], propDecorators: { errorStateMatcher: [{
+                type: Input
+            }] } });
 /** Input for entering the start date in a `mat-date-range-input`. */
-class MatStartDate extends _MatDateRangeInputBase {
+class MatStartDate extends MatDateRangeInputPartBase {
     constructor(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats) {
         super(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats);
         /** Validator that checks that the start date isn't after the end date. */
@@ -3810,7 +3830,7 @@ class MatStartDate extends _MatDateRangeInputBase {
         }
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatStartDate, deps: [{ token: MAT_DATE_RANGE_INPUT_PARENT }, { token: i0.ElementRef }, { token: i1$1.ErrorStateMatcher }, { token: i0.Injector }, { token: i2$1.NgForm, optional: true }, { token: i2$1.FormGroupDirective, optional: true }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_DATE_FORMATS, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0", type: MatStartDate, selector: "input[matStartDate]", inputs: { errorStateMatcher: "errorStateMatcher" }, outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "(_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0", type: MatStartDate, selector: "input[matStartDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "(_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
             { provide: NG_VALUE_ACCESSOR, useExisting: MatStartDate, multi: true },
             { provide: NG_VALIDATORS, useExisting: MatStartDate, multi: true },
         ], usesInheritance: true, ngImport: i0 }); }
@@ -3839,7 +3859,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImpor
                     // These need to be specified explicitly, because some tooling doesn't
                     // seem to pick them up from the base class. See #20932.
                     outputs: ['dateChange', 'dateInput'],
-                    inputs: ['errorStateMatcher'],
                 }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,
@@ -3857,7 +3876,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImpor
                     args: [MAT_DATE_FORMATS]
                 }] }] });
 /** Input for entering the end date in a `mat-date-range-input`. */
-class MatEndDate extends _MatDateRangeInputBase {
+class MatEndDate extends MatDateRangeInputPartBase {
     constructor(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats) {
         super(rangeInput, elementRef, defaultErrorStateMatcher, injector, parentForm, parentFormGroup, dateAdapter, dateFormats);
         /** Validator that checks that the end date isn't before the start date. */
@@ -3913,7 +3932,7 @@ class MatEndDate extends _MatDateRangeInputBase {
         }
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatEndDate, deps: [{ token: MAT_DATE_RANGE_INPUT_PARENT }, { token: i0.ElementRef }, { token: i1$1.ErrorStateMatcher }, { token: i0.Injector }, { token: i2$1.NgForm, optional: true }, { token: i2$1.FormGroupDirective, optional: true }, { token: i1$1.DateAdapter, optional: true }, { token: MAT_DATE_FORMATS, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0", type: MatEndDate, selector: "input[matEndDate]", inputs: { errorStateMatcher: "errorStateMatcher" }, outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "(_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-end-date mat-date-range-input-inner" }, providers: [
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.0.0", type: MatEndDate, selector: "input[matEndDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "(_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-end-date mat-date-range-input-inner" }, providers: [
             { provide: NG_VALUE_ACCESSOR, useExisting: MatEndDate, multi: true },
             { provide: NG_VALIDATORS, useExisting: MatEndDate, multi: true },
         ], usesInheritance: true, ngImport: i0 }); }
@@ -3942,7 +3961,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImpor
                     // These need to be specified explicitly, because some tooling doesn't
                     // seem to pick them up from the base class. See #20932.
                     outputs: ['dateChange', 'dateInput'],
-                    inputs: ['errorStateMatcher'],
                 }]
         }], ctorParameters: () => [{ type: undefined, decorators: [{
                     type: Inject,

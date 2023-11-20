@@ -1,13 +1,10 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { CanUpdateErrorState } from '@angular/material/core';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { ChangeDetectorRef } from '@angular/core';
 import { ConnectedPosition } from '@angular/cdk/overlay';
-import { _Constructor } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Directionality } from '@angular/cdk/bidi';
 import { DoCheck } from '@angular/core';
@@ -80,12 +77,14 @@ export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ove
  */
 export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
 
-export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<any>, CanUpdateErrorState {
+export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<any> {
     protected _viewportRuler: ViewportRuler;
     protected _changeDetectorRef: ChangeDetectorRef;
     protected _ngZone: NgZone;
+    readonly _elementRef: ElementRef;
     private _dir;
     protected _parentFormField: MatFormField;
+    ngControl: NgControl;
     private _liveAnnouncer;
     protected _defaultOptions?: MatSelectConfig | undefined;
     /** All of the defined select options. */
@@ -124,6 +123,14 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _previousControl;
     /** Emits whenever the component is destroyed. */
     protected readonly _destroy: Subject<void>;
+    /** Tracks the error state of the select. */
+    private _errorStateTracker;
+    /**
+     * Emits whenever the component state changes and should cause the parent
+     * form-field to update. Implemented as part of `MatFormFieldControl`.
+     * @docs-private
+     */
+    readonly stateChanges: Subject<void>;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -203,7 +210,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Input that can be used to specify the `aria-labelledby` attribute. */
     ariaLabelledby: string;
     /** Object used to control when error messages are shown. */
-    errorStateMatcher: ErrorStateMatcher;
+    get errorStateMatcher(): ErrorStateMatcher;
+    set errorStateMatcher(value: ErrorStateMatcher);
     /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
     typeaheadDebounceInterval: number;
     /**
@@ -215,6 +223,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     get id(): string;
     set id(value: string);
     private _id;
+    /** Whether the select is in an error state. */
+    get errorState(): boolean;
+    set errorState(value: boolean);
     /**
      * Width of the panel. If set to `auto`, the panel will match the trigger width.
      * If set to null or an empty string, the panel will grow to match the longest option's text.
@@ -236,7 +247,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, defaultErrorStateMatcher: ErrorStateMatcher, _elementRef: ElementRef, _dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
@@ -312,6 +323,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     get selected(): MatOption | MatOption[];
     /** The value displayed in the trigger. */
     get triggerValue(): string;
+    /** Refreshes the error state of the select. */
+    updateErrorState(): void;
     /** Whether the element is in RTL mode. */
     _isRtl(): boolean;
     /** Handles all keydown events on the select. */
@@ -451,28 +464,6 @@ export declare interface MatSelectConfig {
      */
     panelWidth?: string | number | null;
 }
-
-/** @docs-private */
-declare const _MatSelectMixinBase: _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState> & {
-    new (_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
-        /**
-         * Emits whenever the component state changes and should cause the parent
-         * form-field to update. Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
-        readonly stateChanges: Subject<void>;
-        _elementRef: ElementRef;
-        _defaultErrorStateMatcher: ErrorStateMatcher;
-        _parentForm: NgForm;
-        _parentFormGroup: FormGroupDirective;
-        /**
-         * Form control bound to the component.
-         * Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
-        ngControl: NgControl;
-    };
-};
 
 export declare class MatSelectModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectModule, never>;

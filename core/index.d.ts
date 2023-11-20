@@ -314,6 +314,25 @@ export declare class ErrorStateMatcher {
 }
 
 /**
+ * Class that tracks the error state of a component.
+ * @docs-private
+ */
+export declare class _ErrorStateTracker {
+    private _defaultMatcher;
+    ngControl: NgControl | null;
+    private _parentFormGroup;
+    private _parentForm;
+    private _stateChanges;
+    /** Whether the tracker is currently in an error state. */
+    errorState: boolean;
+    /** User-defined matcher for the error state. */
+    matcher: ErrorStateMatcher;
+    constructor(_defaultMatcher: ErrorStateMatcher | null, ngControl: NgControl | null, _parentFormGroup: FormGroupDirective | null, _parentForm: NgForm | null, _stateChanges: Subject<void>);
+    /** Updates the error state based on the provided error state matcher. */
+    updateErrorState(): void;
+}
+
+/**
  * Determines the position to which to scroll a panel in order for an option to be into view.
  * @param optionOffset Offset of the option from the top of the panel.
  * @param optionHeight Height of the options.

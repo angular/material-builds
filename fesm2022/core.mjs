@@ -215,24 +215,63 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
     };
 }
 
+/**
+ * Class that tracks the error state of a component.
+ * @docs-private
+ */
+class _ErrorStateTracker {
+    constructor(_defaultMatcher, ngControl, _parentFormGroup, _parentForm, _stateChanges) {
+        this._defaultMatcher = _defaultMatcher;
+        this.ngControl = ngControl;
+        this._parentFormGroup = _parentFormGroup;
+        this._parentForm = _parentForm;
+        this._stateChanges = _stateChanges;
+        /** Whether the tracker is currently in an error state. */
+        this.errorState = false;
+    }
+    /** Updates the error state based on the provided error state matcher. */
+    updateErrorState() {
+        const oldState = this.errorState;
+        const parent = this._parentFormGroup || this._parentForm;
+        const matcher = this.matcher || this._defaultMatcher;
+        const control = this.ngControl ? this.ngControl.control : null;
+        // Note: the null check here shouldn't be necessary, but there's an internal
+        // test that appears to pass an object whose `isErrorState` isn't a function.
+        const newState = typeof matcher?.isErrorState === 'function' ? matcher.isErrorState(control, parent) : false;
+        if (newState !== oldState) {
+            this.errorState = newState;
+            this._stateChanges.next();
+        }
+    }
+}
 function mixinErrorState(base) {
     return class extends base {
+        /** Whether the component is in an error state. */
+        get errorState() {
+            return this._getTracker().errorState;
+        }
+        set errorState(value) {
+            this._getTracker().errorState = value;
+        }
+        /** An object used to control the error state of the component. */
+        get errorStateMatcher() {
+            return this._getTracker().matcher;
+        }
+        set errorStateMatcher(value) {
+            this._getTracker().matcher = value;
+        }
         /** Updates the error state based on the provided error state matcher. */
         updateErrorState() {
-            const oldState = this.errorState;
-            const parent = this._parentFormGroup || this._parentForm;
-            const matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-            const control = this.ngControl ? this.ngControl.control : null;
-            const newState = matcher.isErrorState(control, parent);
-            if (newState !== oldState) {
-                this.errorState = newState;
-                this.stateChanges.next();
+            this._getTracker().updateErrorState();
+        }
+        _getTracker() {
+            if (!this._tracker) {
+                this._tracker = new _ErrorStateTracker(this._defaultErrorStateMatcher, this.ngControl, this._parentFormGroup, this._parentForm, this.stateChanges);
             }
+            return this._tracker;
         }
         constructor(...args) {
             super(...args);
-            /** Whether the component is in an error state. */
-            this.errorState = false;
         }
     };
 }
@@ -1842,5 +1881,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, RippleState, ShowOnDirtyErrorStateMatcher, VERSION, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, RippleState, ShowOnDirtyErrorStateMatcher, VERSION, _ErrorStateTracker, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, setLines };
 //# sourceMappingURL=core.mjs.map

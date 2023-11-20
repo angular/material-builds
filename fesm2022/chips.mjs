@@ -2,15 +2,15 @@ import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import * as i0 from '@angular/core';
 import { InjectionToken, booleanAttribute, numberAttribute, Directive, Inject, Input, EventEmitter, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Attribute, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, Self, NgModule } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import * as i2 from '@angular/material/core';
-import { MatRippleLoader, MAT_RIPPLE_GLOBAL_OPTIONS, mixinErrorState, MatCommonModule, MatRippleModule, ErrorStateMatcher } from '@angular/material/core';
+import * as i3 from '@angular/material/core';
+import { MatRippleLoader, MAT_RIPPLE_GLOBAL_OPTIONS, _ErrorStateTracker, MatCommonModule, MatRippleModule, ErrorStateMatcher } from '@angular/material/core';
 import * as i1 from '@angular/cdk/a11y';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Subject, merge } from 'rxjs';
 import { take, takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i1$1 from '@angular/cdk/bidi';
-import * as i3 from '@angular/forms';
+import * as i2 from '@angular/forms';
 import { NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import * as i1$2 from '@angular/material/form-field';
 import { MatFormFieldControl, MAT_FORM_FIELD } from '@angular/material/form-field';
@@ -1572,48 +1572,10 @@ class MatChipGridChange {
     }
 }
 /**
- * Boilerplate for applying mixins to MatChipGrid.
- * Important! this class needs to be marked as a component or a directive, because
- * leaving it without metadata cuases the framework to execute the host bindings multiple
- * times which breaks the keyboard navigation. We can't use `@Directive()` here, because
- * `MatChipSet` is a component. We should able to remove this class altogether once
- * the error state is moved away from using mixins.
- * @docs-private
- */
-// tslint:disable-next-line:validate-decorators
-class MatChipGridBase extends MatChipSet {
-    constructor(elementRef, changeDetectorRef, dir, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, 
-    /**
-     * Form control bound to the component.
-     * Implemented as part of `MatFormFieldControl`.
-     * @docs-private
-     */
-    ngControl) {
-        super(elementRef, changeDetectorRef, dir);
-        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
-        this.ngControl = ngControl;
-        /**
-         * Emits whenever the component state changes and should cause the parent
-         * form-field to update. Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
-        this.stateChanges = new Subject();
-    }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatChipGridBase, deps: [{ token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: i1$1.Directionality }, { token: i2.ErrorStateMatcher }, { token: i3.NgForm }, { token: i3.FormGroupDirective }, { token: i3.NgControl }], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "17.0.0", type: MatChipGridBase, selector: "ng-component", usesInheritance: true, ngImport: i0, template: '', isInline: true }); }
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatChipGridBase, decorators: [{
-            type: Component,
-            args: [{ template: '' }]
-        }], ctorParameters: () => [{ type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: i1$1.Directionality }, { type: i2.ErrorStateMatcher }, { type: i3.NgForm }, { type: i3.FormGroupDirective }, { type: i3.NgControl }] });
-const _MatChipGridMixinBase = mixinErrorState(MatChipGridBase);
-/**
  * An extension of the MatChipSet component used with MatChipRow chips and
  * the matChipInputFor directive.
  */
-class MatChipGrid extends _MatChipGridMixinBase {
+class MatChipGrid extends MatChipSet {
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -1682,12 +1644,27 @@ class MatChipGrid extends _MatChipGridMixinBase {
     set value(value) {
         this._value = value;
     }
+    /** An object used to control when error messages are shown. */
+    get errorStateMatcher() {
+        return this._errorStateTracker.matcher;
+    }
+    set errorStateMatcher(value) {
+        this._errorStateTracker.matcher = value;
+    }
     /** Combined stream of all of the child chips' blur events. */
     get chipBlurChanges() {
         return this._getChipStream(chip => chip._onBlur);
     }
+    /** Whether the chip grid is in an error state. */
+    get errorState() {
+        return this._errorStateTracker.errorState;
+    }
+    set errorState(value) {
+        this._errorStateTracker.errorState = value;
+    }
     constructor(elementRef, changeDetectorRef, dir, parentForm, parentFormGroup, defaultErrorStateMatcher, ngControl) {
-        super(elementRef, changeDetectorRef, dir, defaultErrorStateMatcher, parentForm, parentFormGroup, ngControl);
+        super(elementRef, changeDetectorRef, dir);
+        this.ngControl = ngControl;
         /**
          * Implemented as part of MatFormFieldControl.
          * @docs-private
@@ -1718,9 +1695,16 @@ class MatChipGrid extends _MatChipGridMixinBase {
          */
         this.valueChange = new EventEmitter();
         this._chips = undefined;
+        /**
+         * Emits whenever the component state changes and should cause the parent
+         * form-field to update. Implemented as part of `MatFormFieldControl`.
+         * @docs-private
+         */
+        this.stateChanges = new Subject();
         if (this.ngControl) {
             this.ngControl.valueAccessor = this;
         }
+        this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, ngControl, parentFormGroup, parentForm, this.stateChanges);
     }
     ngAfterContentInit() {
         this.chipBlurChanges.pipe(takeUntil(this._destroyed)).subscribe(() => {
@@ -1821,6 +1805,10 @@ class MatChipGrid extends _MatChipGridMixinBase {
         this.disabled = isDisabled;
         this.stateChanges.next();
     }
+    /** Refreshes the error state of the chip grid. */
+    updateErrorState() {
+        this._errorStateTracker.updateErrorState();
+    }
     /** When blurred, mark the field as touched when focus moved outside the chip grid. */
     _blur() {
         if (!this.disabled) {
@@ -1893,7 +1881,7 @@ class MatChipGrid extends _MatChipGridMixinBase {
         this._changeDetectorRef.markForCheck();
         this.stateChanges.next();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatChipGrid, deps: [{ token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: i1$1.Directionality, optional: true }, { token: i3.NgForm, optional: true }, { token: i3.FormGroupDirective, optional: true }, { token: i2.ErrorStateMatcher }, { token: i3.NgControl, optional: true, self: true }], target: i0.ɵɵFactoryTarget.Component }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatChipGrid, deps: [{ token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: i1$1.Directionality, optional: true }, { token: i2.NgForm, optional: true }, { token: i2.FormGroupDirective, optional: true }, { token: i3.ErrorStateMatcher }, { token: i2.NgControl, optional: true, self: true }], target: i0.ɵɵFactoryTarget.Component }); }
     static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "17.0.0", type: MatChipGrid, selector: "mat-chip-grid", inputs: { disabled: ["disabled", "disabled", booleanAttribute], placeholder: "placeholder", required: ["required", "required", booleanAttribute], value: "value", errorStateMatcher: "errorStateMatcher" }, outputs: { change: "change", valueChange: "valueChange" }, host: { listeners: { "focus": "focus()", "blur": "_blur()" }, properties: { "attr.role": "role", "attr.tabindex": "(disabled || (_chips && _chips.length === 0)) ? -1 : tabIndex", "attr.aria-disabled": "disabled.toString()", "attr.aria-invalid": "errorState", "class.mat-mdc-chip-list-disabled": "disabled", "class.mat-mdc-chip-list-invalid": "errorState", "class.mat-mdc-chip-list-required": "required" }, classAttribute: "mat-mdc-chip-set mat-mdc-chip-grid mdc-evolution-chip-set" }, providers: [{ provide: MatFormFieldControl, useExisting: MatChipGrid }], queries: [{ propertyName: "_chips", predicate: MatChipRow, descendants: true }], usesInheritance: true, ngImport: i0, template: `
     <div class="mdc-evolution-chip-set__chips" role="presentation">
       <ng-content></ng-content>
@@ -1920,11 +1908,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImpor
                     }, providers: [{ provide: MatFormFieldControl, useExisting: MatChipGrid }], encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, styles: [".mdc-evolution-chip-set{display:flex}.mdc-evolution-chip-set:focus{outline:none}.mdc-evolution-chip-set__chips{display:flex;flex-flow:wrap;min-width:0}.mdc-evolution-chip-set--overflow .mdc-evolution-chip-set__chips{flex-flow:nowrap}.mdc-evolution-chip-set .mdc-evolution-chip-set__chips{margin-left:-8px;margin-right:0}[dir=rtl] .mdc-evolution-chip-set .mdc-evolution-chip-set__chips,.mdc-evolution-chip-set .mdc-evolution-chip-set__chips[dir=rtl]{margin-left:0;margin-right:-8px}.mdc-evolution-chip-set .mdc-evolution-chip{margin-left:8px;margin-right:0}[dir=rtl] .mdc-evolution-chip-set .mdc-evolution-chip,.mdc-evolution-chip-set .mdc-evolution-chip[dir=rtl]{margin-left:0;margin-right:8px}.mdc-evolution-chip-set .mdc-evolution-chip{margin-top:4px;margin-bottom:4px}.mat-mdc-chip-set .mdc-evolution-chip-set__chips{min-width:100%}.mat-mdc-chip-set-stacked{flex-direction:column;align-items:flex-start}.mat-mdc-chip-set-stacked .mat-mdc-chip{width:100%}.mat-mdc-chip-set-stacked .mdc-evolution-chip__graphic{flex-grow:0}.mat-mdc-chip-set-stacked .mdc-evolution-chip__action--primary{flex-basis:100%;justify-content:start}input.mat-mdc-chip-input{flex:1 0 150px;margin-left:8px}[dir=rtl] input.mat-mdc-chip-input{margin-left:0;margin-right:8px}"] }]
         }], ctorParameters: () => [{ type: i0.ElementRef }, { type: i0.ChangeDetectorRef }, { type: i1$1.Directionality, decorators: [{
                     type: Optional
-                }] }, { type: i3.NgForm, decorators: [{
+                }] }, { type: i2.NgForm, decorators: [{
                     type: Optional
-                }] }, { type: i3.FormGroupDirective, decorators: [{
+                }] }, { type: i2.FormGroupDirective, decorators: [{
                     type: Optional
-                }] }, { type: i2.ErrorStateMatcher }, { type: i3.NgControl, decorators: [{
+                }] }, { type: i3.ErrorStateMatcher }, { type: i2.NgControl, decorators: [{
                     type: Optional
                 }, {
                     type: Self

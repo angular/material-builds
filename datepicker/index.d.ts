@@ -1,14 +1,11 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewChecked } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { CanUpdateErrorState } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { _Constructor } from '@angular/material/core';
 import { ControlContainer } from '@angular/forms';
 import { ControlValueAccessor } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
@@ -1314,8 +1311,6 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     static ngAcceptInputType_disabled: unknown;
 }
 
-declare const _MatDateRangeInputBase: _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState> & typeof MatDateRangeInputPartBase;
-
 /** Parent component that should be wrapped around `MatStartDate` and `MatEndDate`. */
 declare interface MatDateRangeInputParent<D> {
     id: string;
@@ -1348,12 +1343,17 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
      * @docs-private
      */
     ngControl: NgControl;
-    /** @docs-private */
-    abstract updateErrorState(): void;
     protected abstract _validator: ValidatorFn | null;
     protected abstract _assignValueToModel(value: D | null): void;
     protected abstract _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected readonly _dir: Directionality | null;
+    private _errorStateTracker;
+    /** Object used to control when error messages are shown. */
+    get errorStateMatcher(): ErrorStateMatcher;
+    set errorStateMatcher(value: ErrorStateMatcher);
+    /** Whether the input is in an error state. */
+    get errorState(): boolean;
+    set errorState(value: boolean);
     constructor(_rangeInput: MatDateRangeInputParent<D>, _elementRef: ElementRef<HTMLInputElement>, _defaultErrorStateMatcher: ErrorStateMatcher, _injector: Injector, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
     ngOnInit(): void;
     ngDoCheck(): void;
@@ -1365,6 +1365,8 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     focus(): void;
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue(): string;
+    /** Refreshes the error state of the input. */
+    updateErrorState(): void;
     /** Handles `input` events on the input element. */
     _onInput(value: string): void;
     /** Opens the datepicker associated with the input. */
@@ -1381,7 +1383,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     /** return the ARIA accessible name of the input element */
     _getAccessibleName(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInputPartBase<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, { "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Component responsible for managing the date range picker popup/dialog. */
@@ -1471,7 +1473,7 @@ export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSe
 }
 
 /** Input for entering the end date in a `mat-date-range-input`. */
-export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
+export declare class MatEndDate<D> extends MatDateRangeInputPartBase<D> {
     /** Validator that checks that the end date isn't before the start date. */
     private _endValidator;
     constructor(rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, defaultErrorStateMatcher: ErrorStateMatcher, injector: Injector, parentForm: NgForm, parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
@@ -1481,7 +1483,7 @@ export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements 
     protected _assignValueToModel(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatEndDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, { "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
 }
 
 /**
@@ -1790,7 +1792,7 @@ export declare class MatSingleDateSelectionModel<D> extends MatDateSelectionMode
 }
 
 /** Input for entering the start date in a `mat-date-range-input`. */
-export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
+export declare class MatStartDate<D> extends MatDateRangeInputPartBase<D> {
     /** Validator that checks that the start date isn't after the end date. */
     private _startValidator;
     constructor(rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, defaultErrorStateMatcher: ErrorStateMatcher, injector: Injector, parentForm: NgForm, parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
@@ -1801,7 +1803,7 @@ export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implement
     protected _formatValue(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
 }
 
 /**

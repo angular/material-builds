@@ -1,9 +1,6 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AfterViewInit } from '@angular/core';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { CanUpdateErrorState } from '@angular/material/core';
-import { _Constructor } from '@angular/material/core';
 import { DoCheck } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -43,15 +40,17 @@ export declare const MAT_INPUT_VALUE_ACCESSOR: InjectionToken<{
     value: any;
 }>;
 
-export declare class MatInput extends _MatInputBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, AfterViewInit, DoCheck, CanUpdateErrorState {
+export declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy, AfterViewInit, DoCheck {
     protected _elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
     protected _platform: Platform;
+    ngControl: NgControl;
     private _autofillMonitor;
     protected _formField?: MatFormField | undefined;
     protected _uid: string;
     protected _previousNativeValue: any;
     private _inputValueAccessor;
     private _previousPlaceholder;
+    private _errorStateTracker;
     /** Whether the component is being rendered on the server. */
     readonly _isServer: boolean;
     /** Whether the component is a native html select. */
@@ -116,7 +115,8 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
     set type(value: string);
     protected _type: string;
     /** An object used to control when error messages are shown. */
-    errorStateMatcher: ErrorStateMatcher;
+    get errorStateMatcher(): ErrorStateMatcher;
+    set errorStateMatcher(value: ErrorStateMatcher);
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -132,14 +132,19 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
     get readonly(): boolean;
     set readonly(value: BooleanInput);
     private _readonly;
+    /** Whether the input is in an error state. */
+    get errorState(): boolean;
+    set errorState(value: boolean);
     protected _neverEmptyInputTypes: string[];
-    constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone, _formField?: MatFormField | undefined);
+    constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, ngControl: NgControl, parentForm: NgForm, parentFormGroup: FormGroupDirective, defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone, _formField?: MatFormField | undefined);
     ngAfterViewInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
     ngDoCheck(): void;
     /** Focuses the input. */
     focus(options?: FocusOptions): void;
+    /** Refreshes the error state of the input. */
+    updateErrorState(): void;
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
@@ -181,27 +186,6 @@ export declare class MatInput extends _MatInputBase implements MatFormFieldContr
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInput, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }, null, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], { "disabled": { "alias": "disabled"; "required": false; }; "id": { "alias": "id"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "name": { "alias": "name"; "required": false; }; "required": { "alias": "required"; "required": false; }; "type": { "alias": "type"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "value": { "alias": "value"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; }, {}, never, never, false, never>;
 }
-
-/** @docs-private */
-declare const _MatInputBase: _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState> & {
-    new (_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl): {
-        /**
-         * Emits whenever the component state changes and should cause the parent
-         * form field to update. Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
-        readonly stateChanges: Subject<void>;
-        _defaultErrorStateMatcher: ErrorStateMatcher;
-        _parentForm: NgForm;
-        _parentFormGroup: FormGroupDirective;
-        /**
-         * Form control bound to the component.
-         * Implemented as part of `MatFormFieldControl`.
-         * @docs-private
-         */
-        ngControl: NgControl;
-    };
-};
 
 export declare class MatInputModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInputModule, never>;
