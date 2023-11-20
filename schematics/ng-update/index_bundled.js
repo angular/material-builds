@@ -489,18 +489,22 @@ var require_legacy_imports_error = __commonJS({
       return (tree, context) => __async(this, null, function* () {
         const filesUsingLegacyImports = /* @__PURE__ */ new Set();
         tree.visit((path) => {
-          if (!path.endsWith(".ts")) {
+          if (path.includes("node_modules") || path.endsWith(".d.ts") || !path.endsWith(".ts")) {
             return;
           }
           const content = tree.readText(path);
+          if (!content.includes(LEGACY_IMPORTS_START)) {
+            return;
+          }
           const sourceFile = ts.createSourceFile(path, content, ts.ScriptTarget.Latest);
-          sourceFile.forEachChild(function walk(node) {
-            const isImportOrExport = ts.isImportDeclaration(node) || ts.isExportDeclaration(node);
-            if (isImportOrExport && node.moduleSpecifier && ts.isStringLiteralLike(node.moduleSpecifier) && node.moduleSpecifier.text.startsWith(LEGACY_IMPORTS_START)) {
+          for (const statement of sourceFile.statements) {
+            if (!ts.isImportDeclaration(statement) && !ts.isExportDeclaration(statement)) {
+              continue;
+            }
+            if (statement.moduleSpecifier && ts.isStringLiteralLike(statement.moduleSpecifier) && statement.moduleSpecifier.text.startsWith(LEGACY_IMPORTS_START)) {
               filesUsingLegacyImports.add(path);
             }
-            node.forEachChild(walk);
-          });
+          }
         });
         if (filesUsingLegacyImports.size === 0) {
           return onSuccess;
