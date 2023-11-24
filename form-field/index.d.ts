@@ -165,7 +165,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     _lineRipple: MatFormFieldLineRipple | undefined;
     _labelChildNonStatic: MatLabel | undefined;
     _labelChildStatic: MatLabel | undefined;
-    _formFieldControl: MatFormFieldControl<any>;
+    _formFieldControl: MatFormFieldControl_2<any>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
     _errorChildren: QueryList<MatError>;
@@ -205,8 +205,8 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     /** State of the mat-hint and mat-error animations. */
     _subscriptAnimationState: string;
     /** Gets the current form field control */
-    get _control(): MatFormFieldControl<any>;
-    set _control(value: MatFormFieldControl<any>);
+    get _control(): MatFormFieldControl_2<any>;
+    set _control(value: MatFormFieldControl_2<any>);
     private _destroyed;
     private _isFocused;
     private _explicitFormFieldControl;
@@ -370,6 +370,17 @@ export declare abstract class MatFormFieldControl<T> {
     abstract onContainerClick(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldControl<any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldControl<any>, never, never, {}, {}, never, never, false, never>;
+}
+
+/**
+ * Despite `MatFormFieldControl` being an abstract class, most of our usages enforce its shape
+ * using `implements` instead of `extends`. This appears to be problematic when Closure compiler
+ * is configured to use type information to rename properties, because it can't figure out which
+ * class properties are coming from. This interface seems to work around the issue while preserving
+ * our type safety (alternative being using `any` everywhere).
+ * @docs-private
+ */
+declare interface MatFormFieldControl_2<T> extends MatFormFieldControl<T> {
 }
 
 /**
