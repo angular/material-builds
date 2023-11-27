@@ -4,7 +4,7 @@ import { ElementRef } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/material/core';
+import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
@@ -42,7 +42,7 @@ export declare function getMatIconNameNotFoundError(iconName: string): Error;
  */
 export declare function getMatIconNoHttpProviderError(): Error;
 
-declare namespace i1 {
+declare namespace i2 {
     export {
         MAT_ICON_LOCATION_FACTORY,
         MatIconDefaultOptions,
@@ -201,7 +201,7 @@ export declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
     /** Sets a new SVG icon with a particular name. */
     private _updateSvgIcon;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, [null, null, { attribute: "aria-hidden"; }, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": { "alias": "color"; "required": false; }; "inline": { "alias": "inline"; "required": false; }; "svgIcon": { "alias": "svgIcon"; "required": false; }; "fontSet": { "alias": "fontSet"; "required": false; }; "fontIcon": { "alias": "fontIcon"; "required": false; }; }, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": { "alias": "color"; "required": false; }; "inline": { "alias": "inline"; "required": false; }; "svgIcon": { "alias": "svgIcon"; "required": false; }; "fontSet": { "alias": "fontSet"; "required": false; }; "fontIcon": { "alias": "fontIcon"; "required": false; }; }, {}, never, ["*"], true, never>;
     static ngAcceptInputType_inline: unknown;
 }
 
@@ -223,7 +223,7 @@ export declare interface MatIconLocation {
 
 export declare class MatIconModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatIconModule, [typeof i1.MatIcon], [typeof i2.MatCommonModule], [typeof i1.MatIcon, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatIconModule, never, [typeof i1.MatCommonModule, typeof i2.MatIcon], [typeof i2.MatIcon, typeof i1.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatIconModule>;
 }
 

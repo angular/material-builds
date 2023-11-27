@@ -83,7 +83,7 @@ export declare class MatProgressBar implements AfterViewInit, OnDestroy {
     /** Event handler for `transitionend` events. */
     private _transitionendHandler;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBar, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "bufferValue": { "alias": "bufferValue"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; }, { "animationEnd": "animationEnd"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "bufferValue": { "alias": "bufferValue"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; }, { "animationEnd": "animationEnd"; }, never, never, true, never>;
     static ngAcceptInputType_value: unknown;
     static ngAcceptInputType_bufferValue: unknown;
 }
@@ -106,7 +106,7 @@ export declare interface MatProgressBarLocation {
 
 export declare class MatProgressBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressBarModule, [typeof i1.MatProgressBar], never, [typeof i1.MatProgressBar, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressBarModule, never, [typeof i1.MatProgressBar], [typeof i1.MatProgressBar, typeof i2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressBarModule>;
 }
 

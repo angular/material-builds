@@ -2,7 +2,7 @@ import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i4 from '@angular/material/core';
+import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { MatRippleLoader } from '@angular/material/core';
@@ -12,21 +12,21 @@ import { OnInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i1 {
+declare namespace i2 {
     export {
         MatButton,
         MatAnchor
     }
 }
 
-declare namespace i2 {
+declare namespace i3 {
     export {
         MatIconButton,
         MatIconAnchor
     }
 }
 
-declare namespace i3 {
+declare namespace i4 {
     export {
         MAT_FAB_DEFAULT_OPTIONS_FACTORY,
         MatFabDefaultOptions,
@@ -57,7 +57,7 @@ export declare function MAT_FAB_DEFAULT_OPTIONS_FACTORY(): MatFabDefaultOptions;
 export declare class MatAnchor extends MatAnchorBase {
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchor, [null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatAnchor, "a[mat-button], a[mat-raised-button], a[mat-flat-button], a[mat-stroked-button]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAnchor, "a[mat-button], a[mat-raised-button], a[mat-flat-button], a[mat-stroked-button]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
 
 /**
@@ -86,7 +86,7 @@ declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
 export declare class MatButton extends MatButtonBase {
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, [null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
 
 /** Base class for all buttons.  */
@@ -133,7 +133,7 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
 
 export declare class MatButtonModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonModule, [typeof i1.MatAnchor, typeof i1.MatButton, typeof i2.MatIconAnchor, typeof i3.MatMiniFabAnchor, typeof i3.MatMiniFabButton, typeof i2.MatIconButton, typeof i3.MatFabAnchor, typeof i3.MatFabButton], [typeof i4.MatCommonModule, typeof i4.MatRippleModule], [typeof i1.MatAnchor, typeof i1.MatButton, typeof i2.MatIconAnchor, typeof i2.MatIconButton, typeof i3.MatMiniFabAnchor, typeof i3.MatMiniFabButton, typeof i3.MatFabAnchor, typeof i3.MatFabButton, typeof i4.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i2.MatAnchor, typeof i2.MatButton, typeof i3.MatIconAnchor, typeof i4.MatMiniFabAnchor, typeof i4.MatMiniFabButton, typeof i3.MatIconButton, typeof i4.MatFabAnchor, typeof i4.MatFabButton], [typeof i2.MatAnchor, typeof i2.MatButton, typeof i3.MatIconAnchor, typeof i3.MatIconButton, typeof i4.MatMiniFabAnchor, typeof i4.MatMiniFabButton, typeof i4.MatFabAnchor, typeof i4.MatFabButton, typeof i1.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonModule>;
 }
 
@@ -150,7 +150,7 @@ export declare class MatFabAnchor extends MatAnchor {
     extended: boolean;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string, _options?: MatFabDefaultOptions | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFabAnchor, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabAnchor, "a[mat-fab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabAnchor, "a[mat-fab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
     static ngAcceptInputType_extended: unknown;
 }
 
@@ -167,7 +167,7 @@ export declare class MatFabButton extends MatButtonBase {
     extended: boolean;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string, _options?: MatFabDefaultOptions | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFabButton, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab]", ["matButton"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab]", ["matButton"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
     static ngAcceptInputType_extended: unknown;
 }
 
@@ -184,7 +184,7 @@ export declare interface MatFabDefaultOptions {
 export declare class MatIconAnchor extends MatAnchorBase {
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconAnchor, [null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconAnchor, "a[mat-icon-button]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconAnchor, "a[mat-icon-button]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
 
 /**
@@ -195,7 +195,7 @@ export declare class MatIconAnchor extends MatAnchorBase {
 export declare class MatIconButton extends MatButtonBase {
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconButton, [null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button]", ["matButton"], {}, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button]", ["matButton"], {}, {}, never, ["*"], true, never>;
 }
 
 /**
@@ -208,7 +208,7 @@ export declare class MatMiniFabAnchor extends MatAnchor {
     _isFab: boolean;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string, _options?: MatFabDefaultOptions | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabAnchor, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabAnchor, "a[mat-mini-fab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabAnchor, "a[mat-mini-fab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
 
 /**
@@ -221,7 +221,7 @@ export declare class MatMiniFabButton extends MatButtonBase {
     _isFab: boolean;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string, _options?: MatFabDefaultOptions | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabButton, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab]", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab]", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
 
 export { }

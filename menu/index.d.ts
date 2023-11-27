@@ -13,9 +13,9 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i5 from '@angular/common';
-import * as i6 from '@angular/material/core';
-import * as i7 from '@angular/cdk/overlay';
+import * as i1 from '@angular/common';
+import * as i2 from '@angular/material/core';
+import * as i3 from '@angular/cdk/overlay';
 import * as i8 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
@@ -37,7 +37,7 @@ import { ViewContainerRef } from '@angular/core';
  */
 export declare const fadeInItems: AnimationTriggerMetadata;
 
-declare namespace i1 {
+declare namespace i4 {
     export {
         MAT_MENU_DEFAULT_OPTIONS_FACTORY,
         MenuCloseReason,
@@ -47,20 +47,20 @@ declare namespace i1 {
     }
 }
 
-declare namespace i2 {
+declare namespace i5 {
     export {
         MatMenuItem
     }
 }
 
-declare namespace i3 {
+declare namespace i6 {
     export {
         MAT_MENU_CONTENT,
         MatMenuContent
     }
 }
 
-declare namespace i4 {
+declare namespace i7 {
     export {
         MAT_MENU_SCROLL_STRATEGY_FACTORY,
         MAT_MENU_SCROLL_STRATEGY,
@@ -249,7 +249,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      */
     private _updateDirectDescendants;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenu, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], { "backdropClass": { "alias": "backdropClass"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "xPosition": { "alias": "xPosition"; "required": false; }; "yPosition": { "alias": "yPosition"; "required": false; }; "overlapTrigger": { "alias": "overlapTrigger"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; "panelClass": { "alias": "class"; "required": false; }; "classList": { "alias": "classList"; "required": false; }; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], { "backdropClass": { "alias": "backdropClass"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "xPosition": { "alias": "xPosition"; "required": false; }; "yPosition": { "alias": "yPosition"; "required": false; }; "overlapTrigger": { "alias": "overlapTrigger"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; "panelClass": { "alias": "class"; "required": false; }; "classList": { "alias": "classList"; "required": false; }; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"], ["*"], true, never>;
     static ngAcceptInputType_overlapTrigger: unknown;
     static ngAcceptInputType_hasBackdrop: any;
 }
@@ -296,7 +296,7 @@ export declare class MatMenuContent implements OnDestroy {
     detach(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, true, never>;
 }
 
 /** Default `mat-menu` options that can be overridden. */
@@ -362,14 +362,14 @@ export declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDe
     _setTriggersSubmenu(triggersSubmenu: boolean): void;
     _hasFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, [null, null, null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_disableRipple: unknown;
 }
 
 export declare class MatMenuModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, [typeof i1.MatMenu, typeof i2.MatMenuItem, typeof i3.MatMenuContent, typeof i4.MatMenuTrigger], [typeof i5.CommonModule, typeof i6.MatRippleModule, typeof i6.MatCommonModule, typeof i7.OverlayModule], [typeof i8.CdkScrollableModule, typeof i1.MatMenu, typeof i6.MatCommonModule, typeof i2.MatMenuItem, typeof i3.MatMenuContent, typeof i4.MatMenuTrigger]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, never, [typeof i1.CommonModule, typeof i2.MatRippleModule, typeof i2.MatCommonModule, typeof i3.OverlayModule, typeof i4.MatMenu, typeof i5.MatMenuItem, typeof i6.MatMenuContent, typeof i7.MatMenuTrigger], [typeof i8.CdkScrollableModule, typeof i4.MatMenu, typeof i2.MatCommonModule, typeof i5.MatMenuItem, typeof i6.MatMenuContent, typeof i7.MatMenuTrigger]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatMenuModule>;
 }
 
@@ -552,7 +552,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     /** Gets the portal that should be attached to the overlay. */
     private _getPortal;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTrigger, [null, null, null, null, { optional: true; }, { optional: true; self: true; }, { optional: true; }, null, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], { "_deprecatedMatMenuTriggerFor": { "alias": "mat-menu-trigger-for"; "required": false; }; "menu": { "alias": "matMenuTriggerFor"; "required": false; }; "menuData": { "alias": "matMenuTriggerData"; "required": false; }; "restoreFocus": { "alias": "matMenuTriggerRestoreFocus"; "required": false; }; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], { "_deprecatedMatMenuTriggerFor": { "alias": "mat-menu-trigger-for"; "required": false; }; "menu": { "alias": "matMenuTriggerFor"; "required": false; }; "menuData": { "alias": "matMenuTriggerData"; "required": false; }; "restoreFocus": { "alias": "matMenuTriggerRestoreFocus"; "required": false; }; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never, never, true, never>;
 }
 
 /**

@@ -6,7 +6,7 @@ import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i3 from '@angular/material/core';
+import * as i2 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { NgZone } from '@angular/core';
@@ -20,7 +20,7 @@ declare namespace i1 {
     }
 }
 
-declare namespace i2 {
+declare namespace i3 {
     export {
         TransitionCheckState,
         MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
@@ -166,7 +166,7 @@ export declare class MatCheckbox implements AfterViewInit, ControlValueAccessor,
      */
     _preventBubblingFromLabel(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "color": { "alias": "color"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "color": { "alias": "color"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], true, never>;
     static ngAcceptInputType_required: unknown;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
@@ -202,7 +202,7 @@ export declare interface MatCheckboxDefaultOptions {
 
 export declare class MatCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, [typeof i2.MatCheckbox], [typeof i3.MatCommonModule, typeof i3.MatRippleModule, typeof _MatCheckboxRequiredValidatorModule], [typeof i2.MatCheckbox, typeof i3.MatCommonModule, typeof _MatCheckboxRequiredValidatorModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof i2.MatCommonModule, typeof i2.MatRippleModule, typeof _MatCheckboxRequiredValidatorModule, typeof i3.MatCheckbox], [typeof i3.MatCheckbox, typeof i2.MatCommonModule, typeof _MatCheckboxRequiredValidatorModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 
@@ -213,13 +213,13 @@ export declare class MatCheckboxModule {
  */
 export declare class MatCheckboxRequiredValidator extends CheckboxRequiredValidator {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxRequiredValidator, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCheckboxRequiredValidator, "mat-checkbox[required][formControlName],             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCheckboxRequiredValidator, "mat-checkbox[required][formControlName],             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]", never, {}, {}, never, never, true, never>;
 }
 
 /** This module is used by both original and MDC-based checkbox implementations. */
 export declare class _MatCheckboxRequiredValidatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatCheckboxRequiredValidatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<_MatCheckboxRequiredValidatorModule, [typeof i1.MatCheckboxRequiredValidator], never, [typeof i1.MatCheckboxRequiredValidator]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<_MatCheckboxRequiredValidatorModule, never, [typeof i1.MatCheckboxRequiredValidator], [typeof i1.MatCheckboxRequiredValidator]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<_MatCheckboxRequiredValidatorModule>;
 }
 

@@ -405,37 +405,6 @@ declare namespace i1_2 {
 
 declare namespace i1_3 {
     export {
-        _countGroupLabelsBeforeOption,
-        _getOptionScrollPosition,
-        MatOptionSelectionChange,
-        MatOption
-    }
-}
-
-declare namespace i1_4 {
-    export {
-        RippleGlobalOptions,
-        MAT_RIPPLE_GLOBAL_OPTIONS,
-        MatRipple
-    }
-}
-
-declare namespace i1_5 {
-    export {
-        MatPseudoCheckboxState,
-        MatPseudoCheckbox
-    }
-}
-
-declare namespace i2 {
-    export {
-        MAT_OPTGROUP,
-        MatOptgroup
-    }
-}
-
-declare namespace i3 {
-    export {
         MatRippleModule,
         RippleGlobalOptions,
         MAT_RIPPLE_GLOBAL_OPTIONS,
@@ -450,9 +419,40 @@ declare namespace i3 {
     }
 }
 
-declare namespace i5 {
+declare namespace i2 {
+    export {
+        RippleGlobalOptions,
+        MAT_RIPPLE_GLOBAL_OPTIONS,
+        MatRipple
+    }
+}
+
+declare namespace i2_2 {
+    export {
+        MatPseudoCheckboxState,
+        MatPseudoCheckbox
+    }
+}
+
+declare namespace i3 {
     export {
         MatPseudoCheckboxModule
+    }
+}
+
+declare namespace i4 {
+    export {
+        _countGroupLabelsBeforeOption,
+        _getOptionScrollPosition,
+        MatOptionSelectionChange,
+        MatOption
+    }
+}
+
+declare namespace i5 {
+    export {
+        MAT_OPTGROUP,
+        MatOptgroup
     }
 }
 
@@ -526,12 +526,12 @@ declare function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks;
  */
 export declare class MatLine {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLine, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLine, "[mat-line], [matLine]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLine, "[mat-line], [matLine]", never, {}, {}, never, never, true, never>;
 }
 
 export declare class MatLineModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLineModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatLineModule, [typeof MatLine], [typeof i1_2.MatCommonModule], [typeof MatLine, typeof i1_2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatLineModule, never, [typeof i1_2.MatCommonModule, typeof MatLine], [typeof MatLine, typeof i1_2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatLineModule>;
 }
 
@@ -555,7 +555,7 @@ export declare class MatOptgroup {
     _inert: boolean;
     constructor(parent?: MatOptionParentComponent);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, [{ optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "label": { "alias": "label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "label": { "alias": "label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], true, never>;
     static ngAcceptInputType_disabled: unknown;
 }
 
@@ -641,13 +641,13 @@ export declare class MatOption<T = any> implements FocusableOption, AfterViewChe
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], { "value": { "alias": "value"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "onSelectionChange": "onSelectionChange"; }, never, ["mat-icon", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], { "value": { "alias": "value"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "onSelectionChange": "onSelectionChange"; }, never, ["mat-icon", "*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
 }
 
 export declare class MatOptionModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOptionModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatOptionModule, [typeof i1_3.MatOption, typeof i2.MatOptgroup], [typeof i3.MatRippleModule, typeof i1_2.MatCommonModule, typeof i5.MatPseudoCheckboxModule], [typeof i1_3.MatOption, typeof i2.MatOptgroup]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatOptionModule, never, [typeof i1_3.MatRippleModule, typeof i1_2.MatCommonModule, typeof i3.MatPseudoCheckboxModule, typeof i4.MatOption, typeof i5.MatOptgroup], [typeof i4.MatOption, typeof i5.MatOptgroup]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatOptionModule>;
 }
 
@@ -702,12 +702,12 @@ export declare class MatPseudoCheckbox {
     appearance: 'minimal' | 'full';
     constructor(_animationMode?: string | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, [{ optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": { "alias": "state"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": { "alias": "state"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 export declare class MatPseudoCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPseudoCheckboxModule, [typeof i1_5.MatPseudoCheckbox], [typeof i1_2.MatCommonModule], [typeof i1_5.MatPseudoCheckbox]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPseudoCheckboxModule, never, [typeof i1_2.MatCommonModule, typeof i2_2.MatPseudoCheckbox], [typeof i2_2.MatPseudoCheckbox]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatPseudoCheckboxModule>;
 }
 
@@ -795,7 +795,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      */
     launch(x: number, y: number, config?: RippleConfig): RippleRef;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": { "alias": "matRippleColor"; "required": false; }; "unbounded": { "alias": "matRippleUnbounded"; "required": false; }; "centered": { "alias": "matRippleCentered"; "required": false; }; "radius": { "alias": "matRippleRadius"; "required": false; }; "animation": { "alias": "matRippleAnimation"; "required": false; }; "disabled": { "alias": "matRippleDisabled"; "required": false; }; "trigger": { "alias": "matRippleTrigger"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": { "alias": "matRippleColor"; "required": false; }; "unbounded": { "alias": "matRippleUnbounded"; "required": false; }; "centered": { "alias": "matRippleCentered"; "required": false; }; "radius": { "alias": "matRippleRadius"; "required": false; }; "animation": { "alias": "matRippleAnimation"; "required": false; }; "disabled": { "alias": "matRippleDisabled"; "required": false; }; "trigger": { "alias": "matRippleTrigger"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /**
@@ -838,7 +838,7 @@ export declare class MatRippleLoader implements OnDestroy {
 
 export declare class MatRippleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRippleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRippleModule, [typeof i1_4.MatRipple], [typeof i1_2.MatCommonModule], [typeof i1_4.MatRipple, typeof i1_2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRippleModule, never, [typeof i1_2.MatCommonModule, typeof i2.MatRipple], [typeof i2.MatRipple, typeof i1_2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRippleModule>;
 }
 

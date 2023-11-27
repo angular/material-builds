@@ -2,9 +2,9 @@ import { ChangeDetectorRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { HasInitialized } from '@angular/material/core';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/material/button';
-import * as i3 from '@angular/material/select';
-import * as i4 from '@angular/material/tooltip';
+import * as i1 from '@angular/material/button';
+import * as i2 from '@angular/material/select';
+import * as i3 from '@angular/material/tooltip';
 import { InjectionToken } from '@angular/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { OnDestroy } from '@angular/core';
@@ -13,7 +13,7 @@ import { Optional } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i1 {
+declare namespace i4 {
     export {
         MatPaginatorSelectConfig,
         PageEvent,
@@ -118,7 +118,7 @@ export declare class MatPaginator extends _MatPaginatorMixinBase implements OnIn
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     private _emitPageEvent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, [null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "color": { "alias": "color"; "required": false; }; "pageIndex": { "alias": "pageIndex"; "required": false; }; "length": { "alias": "length"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "pageSizeOptions": { "alias": "pageSizeOptions"; "required": false; }; "hidePageSize": { "alias": "hidePageSize"; "required": false; }; "showFirstLastButtons": { "alias": "showFirstLastButtons"; "required": false; }; "selectConfig": { "alias": "selectConfig"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "page": "page"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "color": { "alias": "color"; "required": false; }; "pageIndex": { "alias": "pageIndex"; "required": false; }; "length": { "alias": "length"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "pageSizeOptions": { "alias": "pageSizeOptions"; "required": false; }; "hidePageSize": { "alias": "hidePageSize"; "required": false; }; "showFirstLastButtons": { "alias": "showFirstLastButtons"; "required": false; }; "selectConfig": { "alias": "selectConfig"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "page": "page"; }, never, never, true, never>;
     static ngAcceptInputType_pageIndex: unknown;
     static ngAcceptInputType_length: unknown;
     static ngAcceptInputType_pageSize: unknown;
@@ -174,7 +174,7 @@ declare const _MatPaginatorMixinBase: (new (...args: any[]) => HasInitialized) &
 
 export declare class MatPaginatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, [typeof i1.MatPaginator], [typeof i2.MatButtonModule, typeof i3.MatSelectModule, typeof i4.MatTooltipModule], [typeof i1.MatPaginator]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, never, [typeof i1.MatButtonModule, typeof i2.MatSelectModule, typeof i3.MatTooltipModule, typeof i4.MatPaginator], [typeof i4.MatPaginator]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatPaginatorModule>;
 }
 

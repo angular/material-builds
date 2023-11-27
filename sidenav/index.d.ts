@@ -14,8 +14,8 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i3 from '@angular/material/core';
-import * as i4 from '@angular/cdk/scrolling';
+import * as i1 from '@angular/material/core';
+import * as i2 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
 import { InteractivityChecker } from '@angular/cdk/a11y';
 import { NgZone } from '@angular/core';
@@ -31,7 +31,7 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 /** Options for where to set focus to automatically on dialog open */
 declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
 
-declare namespace i1 {
+declare namespace i3 {
     export {
         throwMatDuplicatedDrawerError,
         MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
@@ -46,7 +46,7 @@ declare namespace i1 {
     }
 }
 
-declare namespace i2 {
+declare namespace i4 {
     export {
         MatSidenavContent,
         MatSidenav,
@@ -206,7 +206,7 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
      */
     private _updatePositionInParent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawer, [null, null, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawer, "mat-drawer", ["matDrawer"], { "position": { "alias": "position"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; "disableClose": { "alias": "disableClose"; "required": false; }; "autoFocus": { "alias": "autoFocus"; "required": false; }; "opened": { "alias": "opened"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "openedStart": "openedStart"; "_closedStream": "closed"; "closedStart": "closedStart"; "onPositionChanged": "positionChanged"; }, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawer, "mat-drawer", ["matDrawer"], { "position": { "alias": "position"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; "disableClose": { "alias": "disableClose"; "required": false; }; "autoFocus": { "alias": "autoFocus"; "required": false; }; "opened": { "alias": "opened"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "openedStart": "openedStart"; "_closedStream": "closed"; "closedStart": "closedStart"; "onPositionChanged": "positionChanged"; }, never, ["*"], true, never>;
 }
 
 /**
@@ -328,7 +328,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     private _isDrawerOpen;
     private _drawerHasBackdrop;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContainer, [{ optional: true; }, null, null, null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContainer, "mat-drawer-container", ["matDrawerContainer"], { "autosize": { "alias": "autosize"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; }, { "backdropClick": "backdropClick"; }, ["_content", "_allDrawers"], ["mat-drawer", "mat-drawer-content", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContainer, "mat-drawer-container", ["matDrawerContainer"], { "autosize": { "alias": "autosize"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; }, { "backdropClick": "backdropClick"; }, ["_content", "_allDrawers"], ["mat-drawer", "mat-drawer-content", "*"], true, never>;
 }
 
 export declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
@@ -337,7 +337,7 @@ export declare class MatDrawerContent extends CdkScrollable implements AfterCont
     constructor(_changeDetectorRef: ChangeDetectorRef, _container: MatDrawerContainer, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, ngZone: NgZone);
     ngAfterContentInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContent, "mat-drawer-content", never, {}, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContent, "mat-drawer-content", never, {}, {}, never, ["*"], true, never>;
 }
 
 /** Drawer and SideNav display modes. */
@@ -366,25 +366,25 @@ export declare class MatSidenav extends MatDrawer {
     set fixedBottomGap(value: NumberInput);
     private _fixedBottomGap;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenav, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenav, "mat-sidenav", ["matSidenav"], { "fixedInViewport": { "alias": "fixedInViewport"; "required": false; }; "fixedTopGap": { "alias": "fixedTopGap"; "required": false; }; "fixedBottomGap": { "alias": "fixedBottomGap"; "required": false; }; }, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenav, "mat-sidenav", ["matSidenav"], { "fixedInViewport": { "alias": "fixedInViewport"; "required": false; }; "fixedTopGap": { "alias": "fixedTopGap"; "required": false; }; "fixedBottomGap": { "alias": "fixedBottomGap"; "required": false; }; }, {}, never, ["*"], true, never>;
 }
 
 export declare class MatSidenavContainer extends MatDrawerContainer {
     _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContainer, "mat-sidenav-container", ["matSidenavContainer"], {}, {}, ["_content", "_allDrawers"], ["mat-sidenav", "mat-sidenav-content", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContainer, "mat-sidenav-container", ["matSidenavContainer"], {}, {}, ["_content", "_allDrawers"], ["mat-sidenav", "mat-sidenav-content", "*"], true, never>;
 }
 
 export declare class MatSidenavContent extends MatDrawerContent {
     constructor(changeDetectorRef: ChangeDetectorRef, container: MatSidenavContainer, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, ngZone: NgZone);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContent, "mat-sidenav-content", never, {}, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContent, "mat-sidenav-content", never, {}, {}, never, ["*"], true, never>;
 }
 
 export declare class MatSidenavModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSidenavModule, [typeof i1.MatDrawer, typeof i1.MatDrawerContainer, typeof i1.MatDrawerContent, typeof i2.MatSidenav, typeof i2.MatSidenavContainer, typeof i2.MatSidenavContent], [typeof i3.MatCommonModule, typeof i4.CdkScrollableModule], [typeof i4.CdkScrollableModule, typeof i3.MatCommonModule, typeof i1.MatDrawer, typeof i1.MatDrawerContainer, typeof i1.MatDrawerContent, typeof i2.MatSidenav, typeof i2.MatSidenavContainer, typeof i2.MatSidenavContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSidenavModule, never, [typeof i1.MatCommonModule, typeof i2.CdkScrollableModule, typeof i3.MatDrawer, typeof i3.MatDrawerContainer, typeof i3.MatDrawerContent, typeof i4.MatSidenav, typeof i4.MatSidenavContainer, typeof i4.MatSidenavContent], [typeof i2.CdkScrollableModule, typeof i1.MatCommonModule, typeof i3.MatDrawer, typeof i3.MatDrawerContainer, typeof i3.MatDrawerContent, typeof i4.MatSidenav, typeof i4.MatSidenavContainer, typeof i4.MatSidenavContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSidenavModule>;
 }
 

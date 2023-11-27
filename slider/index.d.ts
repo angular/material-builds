@@ -5,7 +5,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i4 from '@angular/material/core';
+import * as i1 from '@angular/material/core';
 import { MatRipple } from '@angular/material/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -14,13 +14,13 @@ import { RippleGlobalOptions } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i1 {
+declare namespace i2 {
     export {
         MatSlider
     }
 }
 
-declare namespace i2 {
+declare namespace i3 {
     export {
         MAT_SLIDER_THUMB_VALUE_ACCESSOR,
         MAT_SLIDER_RANGE_THUMB_VALUE_ACCESSOR,
@@ -29,7 +29,7 @@ declare namespace i2 {
     }
 }
 
-declare namespace i3 {
+declare namespace i4 {
     export {
         MatSliderVisualThumb
     }
@@ -205,7 +205,7 @@ export declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     /** Whether the given pointer event occurred within the bounds of the slider pointer's DOM Rect. */
     _isCursorOnSliderThumb(event: PointerEvent, rect: DOMRect): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlider, [null, null, null, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "disabled": { "alias": "disabled"; "required": false; }; "discrete": { "alias": "discrete"; "required": false; }; "showTickMarks": { "alias": "showTickMarks"; "required": false; }; "min": { "alias": "min"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "max": { "alias": "max"; "required": false; }; "step": { "alias": "step"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; }, {}, ["_input", "_inputs"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "disabled": { "alias": "disabled"; "required": false; }; "discrete": { "alias": "discrete"; "required": false; }; "showTickMarks": { "alias": "showTickMarks"; "required": false; }; "min": { "alias": "min"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "max": { "alias": "max"; "required": false; }; "step": { "alias": "step"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; }, {}, ["_input", "_inputs"], ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_discrete: unknown;
     static ngAcceptInputType_showTickMarks: unknown;
@@ -299,7 +299,7 @@ export declare interface MatSliderDragEvent {
 
 export declare class MatSliderModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSliderModule, [typeof i1.MatSlider, typeof i2.MatSliderThumb, typeof i2.MatSliderRangeThumb, typeof i3.MatSliderVisualThumb], [typeof i4.MatCommonModule, typeof i4.MatRippleModule], [typeof i1.MatSlider, typeof i2.MatSliderThumb, typeof i2.MatSliderRangeThumb]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSliderModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i2.MatSlider, typeof i3.MatSliderThumb, typeof i3.MatSliderRangeThumb, typeof i4.MatSliderVisualThumb], [typeof i2.MatSlider, typeof i3.MatSliderThumb, typeof i3.MatSliderRangeThumb]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSliderModule>;
 }
 
@@ -344,7 +344,7 @@ export declare class MatSliderRangeThumb extends MatSliderThumb implements _MatS
      */
     writeValue(value: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderRangeThumb, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSliderRangeThumb, "input[matSliderStartThumb], input[matSliderEndThumb]", ["matSliderRangeThumb"], {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSliderRangeThumb, "input[matSliderStartThumb], input[matSliderEndThumb]", ["matSliderRangeThumb"], {}, {}, never, never, true, never>;
 }
 
 declare interface _MatSliderRangeThumb extends _MatSliderThumb {
@@ -531,7 +531,7 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     focus(): void;
     blur(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderThumb, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSliderThumb, "input[matSliderThumb]", ["matSliderThumb"], { "value": { "alias": "value"; "required": false; }; }, { "valueChange": "valueChange"; "dragStart": "dragStart"; "dragEnd": "dragEnd"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSliderThumb, "input[matSliderThumb]", ["matSliderThumb"], { "value": { "alias": "value"; "required": false; }; }, { "valueChange": "valueChange"; "dragStart": "dragStart"; "dragEnd": "dragEnd"; }, never, never, true, never>;
     static ngAcceptInputType_value: unknown;
 }
 
@@ -661,7 +661,7 @@ export declare class MatSliderVisualThumb implements _MatSliderVisualThumb, Afte
     _getKnob(): HTMLElement;
     _isShowingAnyRipple(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderVisualThumb, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSliderVisualThumb, "mat-slider-visual-thumb", never, { "discrete": { "alias": "discrete"; "required": false; }; "thumbPosition": { "alias": "thumbPosition"; "required": false; }; "valueIndicatorText": { "alias": "valueIndicatorText"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSliderVisualThumb, "mat-slider-visual-thumb", never, { "discrete": { "alias": "discrete"; "required": false; }; "thumbPosition": { "alias": "thumbPosition"; "required": false; }; "valueIndicatorText": { "alias": "valueIndicatorText"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 declare interface _MatSliderVisualThumb {

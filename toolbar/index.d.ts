@@ -1,11 +1,11 @@
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/material/core';
+import * as i1 from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 
-declare namespace i1 {
+declare namespace i2 {
     export {
         throwToolbarMixedModesError,
         MatToolbarRow,
@@ -28,18 +28,18 @@ export declare class MatToolbar implements AfterViewInit {
      */
     private _checkToolbarMixedModes;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbar, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatToolbar, "mat-toolbar", ["matToolbar"], { "color": { "alias": "color"; "required": false; }; }, {}, ["_toolbarRows"], ["*", "mat-toolbar-row"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatToolbar, "mat-toolbar", ["matToolbar"], { "color": { "alias": "color"; "required": false; }; }, {}, ["_toolbarRows"], ["*", "mat-toolbar-row"], true, never>;
 }
 
 export declare class MatToolbarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatToolbarModule, [typeof i1.MatToolbar, typeof i1.MatToolbarRow], [typeof i2.MatCommonModule], [typeof i1.MatToolbar, typeof i1.MatToolbarRow, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatToolbarModule, never, [typeof i1.MatCommonModule, typeof i2.MatToolbar, typeof i2.MatToolbarRow], [typeof i2.MatToolbar, typeof i2.MatToolbarRow, typeof i1.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatToolbarModule>;
 }
 
 export declare class MatToolbarRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbarRow, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatToolbarRow, "mat-toolbar-row", ["matToolbarRow"], {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatToolbarRow, "mat-toolbar-row", ["matToolbarRow"], {}, {}, never, never, true, never>;
 }
 
 /**

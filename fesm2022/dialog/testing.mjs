@@ -112,6 +112,7 @@ MatTestDialogOpener = MatTestDialogOpener_1 = __decorate([
         template: '',
         changeDetection: ChangeDetectionStrategy.OnPush,
         encapsulation: ViewEncapsulation.None,
+        standalone: true,
     }),
     __metadata("design:paramtypes", [MatDialog])
 ], MatTestDialogOpener);
@@ -119,8 +120,7 @@ let MatTestDialogOpenerModule = class MatTestDialogOpenerModule {
 };
 MatTestDialogOpenerModule = __decorate([
     NgModule({
-        declarations: [MatTestDialogOpener],
-        imports: [MatDialogModule, NoopAnimationsModule],
+        imports: [MatDialogModule, NoopAnimationsModule, MatTestDialogOpener],
     })
 ], MatTestDialogOpenerModule);
 

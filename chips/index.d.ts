@@ -11,7 +11,7 @@ import { FocusKeyManager } from '@angular/cdk/a11y';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
-import * as i11 from '@angular/material/core';
+import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -28,13 +28,14 @@ import { QueryList } from '@angular/core';
 import { RippleGlobalOptions } from '@angular/material/core';
 import { Subject } from 'rxjs';
 
-declare namespace i1 {
+declare namespace i10 {
     export {
-        MatChipAction
+        MatChipEditedEvent,
+        MatChipRow
     }
 }
 
-declare namespace i10 {
+declare namespace i11 {
     export {
         MatChipSet
     }
@@ -42,12 +43,18 @@ declare namespace i10 {
 
 declare namespace i2 {
     export {
+        MatChipAction
+    }
+}
+
+declare namespace i3 {
+    export {
         MatChipEvent,
         MatChip
     }
 }
 
-declare namespace i3 {
+declare namespace i4 {
     export {
         MatChipAvatar,
         MatChipTrailingIcon,
@@ -55,27 +62,27 @@ declare namespace i3 {
     }
 }
 
-declare namespace i4 {
+declare namespace i5 {
     export {
         MatChipEditInput
     }
 }
 
-declare namespace i5 {
+declare namespace i6 {
     export {
         MatChipGridChange,
         MatChipGrid
     }
 }
 
-declare namespace i6 {
+declare namespace i7 {
     export {
         MatChipInputEvent,
         MatChipInput
     }
 }
 
-declare namespace i7 {
+declare namespace i8 {
     export {
         MatChipListboxChange,
         MAT_CHIP_LISTBOX_CONTROL_VALUE_ACCESSOR,
@@ -83,17 +90,10 @@ declare namespace i7 {
     }
 }
 
-declare namespace i8 {
+declare namespace i9 {
     export {
         MatChipSelectionChange,
         MatChipOption
-    }
-}
-
-declare namespace i9 {
-    export {
-        MatChipEditedEvent,
-        MatChipRow
     }
 }
 
@@ -257,7 +257,7 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
     /** Starts the focus monitoring process on the chip. */
     private _monitorFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, [null, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "role": { "alias": "role"; "required": false; }; "id": { "alias": "id"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaDescription": { "alias": "aria-description"; "required": false; }; "value": { "alias": "value"; "required": false; }; "color": { "alias": "color"; "required": false; }; "removable": { "alias": "removable"; "required": false; }; "highlighted": { "alias": "highlighted"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "trailingIcon", "removeIcon", "_allLeadingIcons", "_allTrailingIcons", "_allRemoveIcons"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "role": { "alias": "role"; "required": false; }; "id": { "alias": "id"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaDescription": { "alias": "aria-description"; "required": false; }; "value": { "alias": "value"; "required": false; }; "color": { "alias": "color"; "required": false; }; "removable": { "alias": "removable"; "required": false; }; "highlighted": { "alias": "highlighted"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "trailingIcon", "removeIcon", "_allLeadingIcons", "_allTrailingIcons", "_allRemoveIcons"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
     static ngAcceptInputType_removable: unknown;
     static ngAcceptInputType_highlighted: unknown;
     static ngAcceptInputType_disableRipple: unknown;
@@ -309,7 +309,7 @@ declare class MatChipAction {
     _handleClick(event: MouseEvent): void;
     _handleKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipAction, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAction, "[matChipAction]", never, { "isInteractive": { "alias": "isInteractive"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "_allowFocusWhenDisabled": { "alias": "_allowFocusWhenDisabled"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAction, "[matChipAction]", never, { "isInteractive": { "alias": "isInteractive"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "_allowFocusWhenDisabled": { "alias": "_allowFocusWhenDisabled"; "required": false; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_tabIndex: unknown;
 }
@@ -317,7 +317,7 @@ declare class MatChipAction {
 /** Avatar image within a chip. */
 export declare class MatChipAvatar {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipAvatar, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never, never, true, never>;
 }
 
 /** Represents an event fired on an individual `mat-chip` when it is edited. */
@@ -340,7 +340,7 @@ export declare class MatChipEditInput {
     getValue(): string;
     private _moveCursorToEndOfInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipEditInput, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipEditInput, "span[matChipEditInput]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipEditInput, "span[matChipEditInput]", never, {}, {}, never, never, true, never>;
 }
 
 /** Represents an event fired on an individual `mat-chip`. */
@@ -505,7 +505,7 @@ export declare class MatChipGrid extends MatChipSet implements AfterContentInit,
     /** Mark the field as touched */
     private _markAsTouched;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipGrid, [null, null, { optional: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipGrid, "mat-chip-grid", never, { "disabled": { "alias": "disabled"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "value": { "alias": "value"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, { "change": "change"; "valueChange": "valueChange"; }, ["_chips"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipGrid, "mat-chip-grid", never, { "disabled": { "alias": "disabled"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "value": { "alias": "value"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, { "change": "change"; "valueChange": "valueChange"; }, ["_chips"], ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_required: unknown;
 }
@@ -585,7 +585,7 @@ export declare class MatChipInput implements MatChipTextControl, AfterContentIni
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipInput, [null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipGrid": { "alias": "matChipInputFor"; "required": false; }; "addOnBlur": { "alias": "matChipInputAddOnBlur"; "required": false; }; "separatorKeyCodes": { "alias": "matChipInputSeparatorKeyCodes"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipGrid": { "alias": "matChipInputFor"; "required": false; }; "addOnBlur": { "alias": "matChipInputAddOnBlur"; "required": false; }; "separatorKeyCodes": { "alias": "matChipInputSeparatorKeyCodes"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, true, never>;
     static ngAcceptInputType_addOnBlur: unknown;
     static ngAcceptInputType_disabled: unknown;
 }
@@ -719,7 +719,7 @@ export declare class MatChipListbox extends MatChipSet implements AfterContentIn
      */
     protected _skipPredicate(action: MatChipAction): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipListbox, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipListbox, "mat-chip-listbox", never, { "multiple": { "alias": "multiple"; "required": false; }; "ariaOrientation": { "alias": "aria-orientation"; "required": false; }; "selectable": { "alias": "selectable"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "required": { "alias": "required"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "change": "change"; }, ["_chips"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipListbox, "mat-chip-listbox", never, { "multiple": { "alias": "multiple"; "required": false; }; "ariaOrientation": { "alias": "aria-orientation"; "required": false; }; "selectable": { "alias": "selectable"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "required": { "alias": "required"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "value": { "alias": "value"; "required": false; }; }, { "change": "change"; }, ["_chips"], ["*"], true, never>;
     static ngAcceptInputType_multiple: unknown;
     static ngAcceptInputType_selectable: unknown;
     static ngAcceptInputType_required: unknown;
@@ -799,7 +799,7 @@ export declare class MatChipOption extends MatChip implements OnInit {
     _hasLeadingGraphic(): boolean;
     _setSelectedState(isSelected: boolean, isUserInput: boolean, emitEvent: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipOption, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipOption, "mat-basic-chip-option, [mat-basic-chip-option], mat-chip-option, [mat-chip-option]", never, { "selectable": { "alias": "selectable"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectionChange": "selectionChange"; }, never, ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipOption, "mat-basic-chip-option, [mat-basic-chip-option], mat-chip-option, [mat-chip-option]", never, { "selectable": { "alias": "selectable"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectionChange": "selectionChange"; }, never, ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
     static ngAcceptInputType_selectable: unknown;
     static ngAcceptInputType_selected: unknown;
 }
@@ -824,7 +824,7 @@ export declare class MatChipRemove extends MatChipAction {
     _handleClick(event: MouseEvent): void;
     _handleKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRemove, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipRemove, "[matChipRemove]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipRemove, "[matChipRemove]", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -862,7 +862,7 @@ export declare class MatChipRow extends MatChip implements AfterViewInit {
      */
     private _getEditInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRow, [null, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]", never, { "editable": { "alias": "editable"; "required": false; }; }, { "edited": "edited"; }, ["contentEditInput"], ["mat-chip-avatar, [matChipAvatar]", "[matChipEditInput]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]", never, { "editable": { "alias": "editable"; "required": false; }; }, { "edited": "edited"; }, ["contentEditInput"], ["mat-chip-avatar, [matChipAvatar]", "[matChipEditInput]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
 }
 
 /** Default options, for the chips module, that can be overridden. */
@@ -979,14 +979,14 @@ export declare class MatChipSet implements AfterViewInit, OnDestroy {
      */
     private _redirectDestroyedChipFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipSet, [null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipSet, "mat-chip-set", never, { "disabled": { "alias": "disabled"; "required": false; }; "role": { "alias": "role"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, ["_chips"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipSet, "mat-chip-set", never, { "disabled": { "alias": "disabled"; "required": false; }; "role": { "alias": "role"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, ["_chips"], ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_tabIndex: unknown;
 }
 
 export declare class MatChipsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatChipsModule, [typeof i1.MatChipAction, typeof i2.MatChip, typeof i3.MatChipAvatar, typeof i4.MatChipEditInput, typeof i5.MatChipGrid, typeof i6.MatChipInput, typeof i7.MatChipListbox, typeof i8.MatChipOption, typeof i3.MatChipRemove, typeof i9.MatChipRow, typeof i10.MatChipSet, typeof i3.MatChipTrailingIcon], [typeof i11.MatCommonModule, typeof i11.MatRippleModule], [typeof i11.MatCommonModule, typeof i2.MatChip, typeof i3.MatChipAvatar, typeof i4.MatChipEditInput, typeof i5.MatChipGrid, typeof i6.MatChipInput, typeof i7.MatChipListbox, typeof i8.MatChipOption, typeof i3.MatChipRemove, typeof i9.MatChipRow, typeof i10.MatChipSet, typeof i3.MatChipTrailingIcon]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatChipsModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i2.MatChipAction, typeof i3.MatChip, typeof i4.MatChipAvatar, typeof i5.MatChipEditInput, typeof i6.MatChipGrid, typeof i7.MatChipInput, typeof i8.MatChipListbox, typeof i9.MatChipOption, typeof i4.MatChipRemove, typeof i10.MatChipRow, typeof i11.MatChipSet, typeof i4.MatChipTrailingIcon], [typeof i1.MatCommonModule, typeof i3.MatChip, typeof i4.MatChipAvatar, typeof i5.MatChipEditInput, typeof i6.MatChipGrid, typeof i7.MatChipInput, typeof i8.MatChipListbox, typeof i9.MatChipOption, typeof i4.MatChipRemove, typeof i10.MatChipRow, typeof i11.MatChipSet, typeof i4.MatChipTrailingIcon]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatChipsModule>;
 }
 
@@ -1016,7 +1016,7 @@ export declare class MatChipTrailingIcon extends MatChipAction {
     isInteractive: boolean;
     _isPrimary: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipTrailingIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never, never, true, never>;
 }
 
 export { }

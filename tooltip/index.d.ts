@@ -8,10 +8,10 @@ import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/cdk/a11y';
-import * as i3 from '@angular/common';
-import * as i4 from '@angular/cdk/overlay';
-import * as i5 from '@angular/material/core';
+import * as i1 from '@angular/cdk/a11y';
+import * as i2 from '@angular/common';
+import * as i3 from '@angular/cdk/overlay';
+import * as i4 from '@angular/material/core';
 import * as i6 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
 import { NgZone } from '@angular/core';
@@ -33,7 +33,7 @@ import { ViewContainerRef } from '@angular/core';
  */
 export declare function getMatTooltipInvalidPositionError(position: string): Error;
 
-declare namespace i1 {
+declare namespace i5 {
     export {
         getMatTooltipInvalidPositionError,
         MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
@@ -215,7 +215,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltip, [null, null, null, null, null, null, null, null, null, null, { optional: true; }, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTooltip, "[matTooltip]", ["matTooltip"], { "position": { "alias": "matTooltipPosition"; "required": false; }; "positionAtOrigin": { "alias": "matTooltipPositionAtOrigin"; "required": false; }; "disabled": { "alias": "matTooltipDisabled"; "required": false; }; "showDelay": { "alias": "matTooltipShowDelay"; "required": false; }; "hideDelay": { "alias": "matTooltipHideDelay"; "required": false; }; "touchGestures": { "alias": "matTooltipTouchGestures"; "required": false; }; "message": { "alias": "matTooltip"; "required": false; }; "tooltipClass": { "alias": "matTooltipClass"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTooltip, "[matTooltip]", ["matTooltip"], { "position": { "alias": "matTooltipPosition"; "required": false; }; "positionAtOrigin": { "alias": "matTooltipPositionAtOrigin"; "required": false; }; "disabled": { "alias": "matTooltipDisabled"; "required": false; }; "showDelay": { "alias": "matTooltipShowDelay"; "required": false; }; "hideDelay": { "alias": "matTooltipHideDelay"; "required": false; }; "touchGestures": { "alias": "matTooltipTouchGestures"; "required": false; }; "message": { "alias": "matTooltip"; "required": false; }; "tooltipClass": { "alias": "matTooltipClass"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /**
@@ -249,7 +249,7 @@ export declare interface MatTooltipDefaultOptions {
 
 export declare class MatTooltipModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltipModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTooltipModule, [typeof i1.MatTooltip, typeof i1.TooltipComponent], [typeof i2.A11yModule, typeof i3.CommonModule, typeof i4.OverlayModule, typeof i5.MatCommonModule], [typeof i1.MatTooltip, typeof i1.TooltipComponent, typeof i5.MatCommonModule, typeof i6.CdkScrollableModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTooltipModule, never, [typeof i1.A11yModule, typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatCommonModule, typeof i5.MatTooltip, typeof i5.TooltipComponent], [typeof i5.MatTooltip, typeof i5.TooltipComponent, typeof i4.MatCommonModule, typeof i6.CdkScrollableModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTooltipModule>;
 }
 
@@ -345,7 +345,7 @@ export declare class TooltipComponent implements OnDestroy {
     /** Toggles the visibility of the tooltip element. */
     private _toggleVisibility;
     static ɵfac: i0.ɵɵFactoryDeclaration<TooltipComponent, [null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<TooltipComponent, "mat-tooltip-component", never, {}, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<TooltipComponent, "mat-tooltip-component", never, {}, {}, never, never, true, never>;
 }
 
 /** Possible positions for a tooltip. */

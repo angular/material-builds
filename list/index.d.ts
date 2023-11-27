@@ -5,10 +5,10 @@ import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i10 from '@angular/material/core';
+import * as i1 from '@angular/cdk/observers';
 import * as i11 from '@angular/material/divider';
-import * as i8 from '@angular/cdk/observers';
-import * as i9 from '@angular/common';
+import * as i2 from '@angular/common';
+import * as i3 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnChanges } from '@angular/core';
@@ -23,50 +23,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SimpleChanges } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i1 {
-    export {
-        MAT_LIST,
-        MatList,
-        MatListItem
-    }
-}
-
-declare namespace i2 {
-    export {
-        MatActionList
-    }
-}
-
-declare namespace i3 {
-    export {
-        MAT_NAV_LIST,
-        MatNavList
-    }
-}
-
-declare namespace i4 {
-    export {
-        MAT_SELECTION_LIST_VALUE_ACCESSOR,
-        MatSelectionListChange,
-        MatSelectionList
-    }
-}
-
-declare namespace i5 {
-    export {
-        SELECTION_LIST,
-        SelectionList,
-        MatListOption
-    }
-}
-
-declare namespace i6 {
-    export {
-        MatListSubheaderCssMatStyler
-    }
-}
-
-declare namespace i7 {
+declare namespace i10 {
     export {
         MatListItemTitle,
         MatListItemLine,
@@ -74,6 +31,49 @@ declare namespace i7 {
         _MatListItemGraphicBase,
         MatListItemAvatar,
         MatListItemIcon
+    }
+}
+
+declare namespace i4 {
+    export {
+        MAT_LIST,
+        MatList,
+        MatListItem
+    }
+}
+
+declare namespace i5 {
+    export {
+        MatActionList
+    }
+}
+
+declare namespace i6 {
+    export {
+        MAT_NAV_LIST,
+        MatNavList
+    }
+}
+
+declare namespace i7 {
+    export {
+        MAT_SELECTION_LIST_VALUE_ACCESSOR,
+        MatSelectionListChange,
+        MatSelectionList
+    }
+}
+
+declare namespace i8 {
+    export {
+        SELECTION_LIST,
+        SelectionList,
+        MatListOption
+    }
+}
+
+declare namespace i9 {
+    export {
+        MatListSubheaderCssMatStyler
     }
 }
 
@@ -108,12 +108,12 @@ export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 export declare class MatActionList extends MatListBase {
     _isNonInteractive: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatActionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatActionList, "mat-action-list", ["matActionList"], {}, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatActionList, "mat-action-list", ["matActionList"], {}, {}, never, ["*"], true, never>;
 }
 
 export declare class MatList extends MatListBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list", ["matList"], {}, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list", ["matList"], {}, {}, never, ["*"], true, never>;
 }
 
 declare abstract class MatListBase {
@@ -157,7 +157,7 @@ export declare class MatListItem extends MatListItemBase {
      */
     _getAriaCurrent(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, { optional: true; }, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": { "alias": "activated"; "required": false; }; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": { "alias": "activated"; "required": false; }; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], true, never>;
 }
 
 /**
@@ -167,7 +167,7 @@ export declare class MatListItem extends MatListItemBase {
  */
 export declare class MatListItemAvatar extends _MatListItemGraphicBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemAvatar, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemAvatar, "[matListItemAvatar]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemAvatar, "[matListItemAvatar]", never, {}, {}, never, never, true, never>;
 }
 
 declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, RippleTarget {
@@ -289,7 +289,7 @@ export declare class _MatListItemGraphicBase {
  */
 export declare class MatListItemIcon extends _MatListItemGraphicBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemIcon, "[matListItemIcon]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemIcon, "[matListItemIcon]", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -302,7 +302,7 @@ export declare class MatListItemLine {
     _elementRef: ElementRef<HTMLElement>;
     constructor(_elementRef: ElementRef<HTMLElement>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemLine, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -313,7 +313,7 @@ export declare class MatListItemLine {
  */
 export declare class MatListItemMeta {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemMeta, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemMeta, "[matListItemMeta]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemMeta, "[matListItemMeta]", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -326,12 +326,12 @@ export declare class MatListItemTitle {
     _elementRef: ElementRef<HTMLElement>;
     constructor(_elementRef: ElementRef<HTMLElement>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemTitle, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, true, never>;
 }
 
 export declare class MatListModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, [typeof i1.MatList, typeof i2.MatActionList, typeof i3.MatNavList, typeof i4.MatSelectionList, typeof i1.MatListItem, typeof i5.MatListOption, typeof i6.MatListSubheaderCssMatStyler, typeof i7.MatListItemAvatar, typeof i7.MatListItemIcon, typeof i7.MatListItemLine, typeof i7.MatListItemTitle, typeof i7.MatListItemMeta], [typeof i8.ObserversModule, typeof i9.CommonModule, typeof i10.MatCommonModule, typeof i10.MatRippleModule, typeof i10.MatPseudoCheckboxModule], [typeof i1.MatList, typeof i2.MatActionList, typeof i3.MatNavList, typeof i4.MatSelectionList, typeof i1.MatListItem, typeof i5.MatListOption, typeof i7.MatListItemAvatar, typeof i7.MatListItemIcon, typeof i6.MatListSubheaderCssMatStyler, typeof i11.MatDividerModule, typeof i7.MatListItemLine, typeof i7.MatListItemTitle, typeof i7.MatListItemMeta]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i1.ObserversModule, typeof i2.CommonModule, typeof i3.MatCommonModule, typeof i3.MatRippleModule, typeof i3.MatPseudoCheckboxModule, typeof i4.MatList, typeof i5.MatActionList, typeof i6.MatNavList, typeof i7.MatSelectionList, typeof i4.MatListItem, typeof i8.MatListOption, typeof i9.MatListSubheaderCssMatStyler, typeof i10.MatListItemAvatar, typeof i10.MatListItemIcon, typeof i10.MatListItemLine, typeof i10.MatListItemTitle, typeof i10.MatListItemMeta], [typeof i4.MatList, typeof i5.MatActionList, typeof i6.MatNavList, typeof i7.MatSelectionList, typeof i4.MatListItem, typeof i8.MatListOption, typeof i10.MatListItemAvatar, typeof i10.MatListItemIcon, typeof i9.MatListSubheaderCssMatStyler, typeof i11.MatDividerModule, typeof i10.MatListItemLine, typeof i10.MatListItemTitle, typeof i10.MatListItemMeta]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
 }
 
@@ -410,7 +410,7 @@ export declare class MatListOption extends MatListItemBase implements ListOption
     /** Sets the tabindex of the list option. */
     _setTabindex(value: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, [null, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": { "alias": "togglePosition"; "required": false; }; "checkboxPosition": { "alias": "checkboxPosition"; "required": false; }; "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": { "alias": "togglePosition"; "required": false; }; "checkboxPosition": { "alias": "checkboxPosition"; "required": false; }; "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], true, never>;
 }
 
 /**
@@ -427,13 +427,13 @@ export { MatListOptionTogglePosition }
  */
 export declare class MatListSubheaderCssMatStyler {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListSubheaderCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, true, never>;
 }
 
 export declare class MatNavList extends MatListBase {
     _isNonInteractive: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNavList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], {}, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], {}, {}, never, ["*"], true, never>;
 }
 
 export declare class MatSelectionList extends MatListBase implements SelectionList, ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
@@ -549,7 +549,7 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     /** Returns whether the focus is currently within the list. */
     private _containsFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": { "alias": "color"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": { "alias": "color"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], true, never>;
 }
 
 /** Change event that is being fired whenever the selected state of an option changes. */

@@ -8,9 +8,9 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i10 from '@angular/material/core';
-import * as i11 from '@angular/common';
-import * as i12 from '@angular/cdk/observers';
+import * as i1 from '@angular/material/core';
+import * as i2 from '@angular/common';
+import * as i3 from '@angular/cdk/observers';
 import { InjectionToken } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -19,9 +19,6 @@ import { OnDestroy } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-
-/** An injion token for the parent form-field. */
-declare const FLOATING_LABEL_PARENT: InjectionToken<FloatingLabelParent>;
 
 /** An interface that the parent form-field should implement to receive resize events. */
 declare interface FloatingLabelParent {
@@ -41,7 +38,7 @@ export declare function getMatFormFieldMissingControlError(): Error;
 /** @docs-private */
 export declare function getMatFormFieldPlaceholderConflictError(): Error;
 
-declare namespace i1 {
+declare namespace i4 {
     export {
         FloatLabelType,
         MatFormFieldAppearance,
@@ -53,56 +50,36 @@ declare namespace i1 {
     }
 }
 
-declare namespace i2 {
+declare namespace i5 {
     export {
         MatLabel
     }
 }
 
-declare namespace i3 {
+declare namespace i6 {
     export {
         MAT_ERROR,
         MatError
     }
 }
 
-declare namespace i4 {
+declare namespace i7 {
     export {
         MatHint
     }
 }
 
-declare namespace i5 {
+declare namespace i8 {
     export {
         MAT_PREFIX,
         MatPrefix
     }
 }
 
-declare namespace i6 {
+declare namespace i9 {
     export {
         MAT_SUFFIX,
         MatSuffix
-    }
-}
-
-declare namespace i7 {
-    export {
-        FloatingLabelParent,
-        FLOATING_LABEL_PARENT,
-        MatFormFieldFloatingLabel
-    }
-}
-
-declare namespace i8 {
-    export {
-        MatFormFieldNotchedOutline
-    }
-}
-
-declare namespace i9 {
-    export {
-        MatFormFieldLineRipple
     }
 }
 
@@ -145,7 +122,7 @@ export declare class MatError {
     id: string;
     constructor(ariaLive: string, elementRef: ElementRef);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatError, [{ attribute: "aria-live"; }, null]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatError, "mat-error, [matError]", never, { "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatError, "mat-error, [matError]", never, { "id": { "alias": "id"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /** Container for form controls that applies Material Design styling and behavior. */
@@ -307,7 +284,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDom;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, [null, null, null, null, null, { optional: true; }, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "hideRequiredMarker": { "alias": "hideRequiredMarker"; "required": false; }; "color": { "alias": "color"; "required": false; }; "floatLabel": { "alias": "floatLabel"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "subscriptSizing": { "alias": "subscriptSizing"; "required": false; }; "hintLabel": { "alias": "hintLabel"; "required": false; }; }, {}, ["_labelChildNonStatic", "_labelChildStatic", "_formFieldControl", "_prefixChildren", "_suffixChildren", "_errorChildren", "_hintChildren"], ["mat-label", "[matPrefix], [matIconPrefix]", "[matTextPrefix]", "*", "[matTextSuffix]", "[matSuffix], [matIconSuffix]", "mat-error, [matError]", "mat-hint:not([align='end'])", "mat-hint[align='end']"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "hideRequiredMarker": { "alias": "hideRequiredMarker"; "required": false; }; "color": { "alias": "color"; "required": false; }; "floatLabel": { "alias": "floatLabel"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "subscriptSizing": { "alias": "subscriptSizing"; "required": false; }; "hintLabel": { "alias": "hintLabel"; "required": false; }; }, {}, ["_labelChildNonStatic", "_labelChildStatic", "_formFieldControl", "_prefixChildren", "_suffixChildren", "_errorChildren", "_hintChildren"], ["mat-label", "[matPrefix], [matIconPrefix]", "[matTextPrefix]", "*", "[matTextSuffix]", "[matSuffix], [matIconSuffix]", "mat-error, [matError]", "mat-hint:not([align='end'])", "mat-hint[align='end']"], true, never>;
 }
 
 /**
@@ -445,7 +422,7 @@ declare class MatFormFieldFloatingLabel implements OnDestroy {
     /** Subscribes to resize events. */
     private _subscribeToResize;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldFloatingLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldFloatingLabel, "label[matFormFieldFloatingLabel]", never, { "floating": { "alias": "floating"; "required": false; }; "monitorResize": { "alias": "monitorResize"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldFloatingLabel, "label[matFormFieldFloatingLabel]", never, { "floating": { "alias": "floating"; "required": false; }; "monitorResize": { "alias": "monitorResize"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /**
@@ -464,12 +441,12 @@ declare class MatFormFieldLineRipple implements OnDestroy {
     private _handleTransitionEnd;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldLineRipple, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldLineRipple, "div[matFormFieldLineRipple]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldLineRipple, "div[matFormFieldLineRipple]", never, {}, {}, never, never, true, never>;
 }
 
 export declare class MatFormFieldModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatFormFieldModule, [typeof i1.MatFormField, typeof i2.MatLabel, typeof i3.MatError, typeof i4.MatHint, typeof i5.MatPrefix, typeof i6.MatSuffix, typeof i7.MatFormFieldFloatingLabel, typeof i8.MatFormFieldNotchedOutline, typeof i9.MatFormFieldLineRipple], [typeof i10.MatCommonModule, typeof i11.CommonModule, typeof i12.ObserversModule], [typeof i1.MatFormField, typeof i2.MatLabel, typeof i4.MatHint, typeof i3.MatError, typeof i5.MatPrefix, typeof i6.MatSuffix, typeof i10.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatFormFieldModule, never, [typeof i1.MatCommonModule, typeof i2.CommonModule, typeof i3.ObserversModule, typeof i4.MatFormField, typeof i5.MatLabel, typeof i6.MatError, typeof i7.MatHint, typeof i8.MatPrefix, typeof i9.MatSuffix], [typeof i4.MatFormField, typeof i5.MatLabel, typeof i7.MatHint, typeof i6.MatError, typeof i8.MatPrefix, typeof i9.MatSuffix, typeof i1.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatFormFieldModule>;
 }
 
@@ -489,7 +466,7 @@ declare class MatFormFieldNotchedOutline implements AfterViewInit {
     ngAfterViewInit(): void;
     _setNotchWidth(labelWidth: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldNotchedOutline, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormFieldNotchedOutline, "div[matFormFieldNotchedOutline]", never, { "open": { "alias": "matFormFieldNotchedOutlineOpen"; "required": false; }; }, {}, never, ["*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormFieldNotchedOutline, "div[matFormFieldNotchedOutline]", never, { "open": { "alias": "matFormFieldNotchedOutlineOpen"; "required": false; }; }, {}, never, ["*"], true, never>;
 }
 
 /** Hint text to be shown underneath the form field control. */
@@ -499,13 +476,13 @@ export declare class MatHint {
     /** Unique ID for the hint. Used for the aria-describedby on the form field control. */
     id: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHint, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHint, "mat-hint", never, { "align": { "alias": "align"; "required": false; }; "id": { "alias": "id"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHint, "mat-hint", never, { "align": { "alias": "align"; "required": false; }; "id": { "alias": "id"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /** The floating label for a `mat-form-field`. */
 export declare class MatLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLabel, "mat-label", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatLabel, "mat-label", never, {}, {}, never, never, true, never>;
 }
 
 /** Prefix to be placed in front of the form field. */
@@ -513,7 +490,7 @@ export declare class MatPrefix {
     set _isTextSelector(value: '');
     _isText: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPrefix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPrefix, "[matPrefix], [matIconPrefix], [matTextPrefix]", never, { "_isTextSelector": { "alias": "matTextPrefix"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPrefix, "[matPrefix], [matIconPrefix], [matTextPrefix]", never, { "_isTextSelector": { "alias": "matTextPrefix"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /** Suffix to be placed at the end of the form field. */
@@ -521,7 +498,7 @@ export declare class MatSuffix {
     set _isTextSelector(value: '');
     _isText: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSuffix, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSuffix, "[matSuffix], [matIconSuffix], [matTextSuffix]", never, { "_isTextSelector": { "alias": "matTextSuffix"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSuffix, "[matSuffix], [matIconSuffix], [matTextSuffix]", never, { "_isTextSelector": { "alias": "matTextSuffix"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /** Behaviors for how the subscript height is set. */
