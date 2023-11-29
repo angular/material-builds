@@ -13,11 +13,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginator } from './paginator';
 import * as i0 from "@angular/core";
 export class MatPaginatorModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatPaginatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0", ngImport: i0, type: MatPaginatorModule, imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator], exports: [MatPaginator] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatPaginatorModule, providers: [MAT_PAGINATOR_INTL_PROVIDER], imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.4", ngImport: i0, type: MatPaginatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.4", ngImport: i0, type: MatPaginatorModule, imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator], exports: [MatPaginator] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.4", ngImport: i0, type: MatPaginatorModule, providers: [MAT_PAGINATOR_INTL_PROVIDER], imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatPaginatorModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.4", ngImport: i0, type: MatPaginatorModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator],
