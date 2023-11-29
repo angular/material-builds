@@ -131,7 +131,7 @@ declare abstract class MatListBase {
     private _disabled;
     protected _defaultOptions: MatListConfig | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /** Object that can be used to configure the default options for the list module. */
@@ -263,7 +263,7 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
     /** Checks whether the list item has unscoped text content. */
     private _checkDomForUnscopedTextContent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemBase, [null, null, { optional: true; }, null, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": { "alias": "lines"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, ["_avatars", "_icons"], never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": { "alias": "lines"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, ["_avatars", "_icons"], never, true, never>;
 }
 
 /**
@@ -279,7 +279,7 @@ export declare class _MatListItemGraphicBase {
     constructor(_listOption: ListOption);
     _isAlignedAtStart(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatListItemGraphicBase, [{ optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, true, never>;
 }
 
 /**
