@@ -19,8 +19,8 @@ import { MatSelectionList } from './selection-list';
 import { ObserversModule } from '@angular/cdk/observers';
 import * as i0 from "@angular/core";
 export class MatListModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.0", ngImport: i0, type: MatListModule, declarations: [MatList,
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.0.4", ngImport: i0, type: MatListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.0.4", ngImport: i0, type: MatListModule, declarations: [MatList,
             MatActionList,
             MatNavList,
             MatSelectionList,
@@ -48,13 +48,13 @@ export class MatListModule {
             MatListItemLine,
             MatListItemTitle,
             MatListItemMeta] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatListModule, imports: [ObserversModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.0.4", ngImport: i0, type: MatListModule, imports: [ObserversModule,
             CommonModule,
             MatCommonModule,
             MatRippleModule,
             MatPseudoCheckboxModule, MatDividerModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.0", ngImport: i0, type: MatListModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.0.4", ngImport: i0, type: MatListModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
