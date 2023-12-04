@@ -9854,6 +9854,37 @@ function getInjectFn(target) {
       return Identifiers.inject;
   }
 }
+var TagContentType;
+(function(TagContentType2) {
+  TagContentType2[TagContentType2["RAW_TEXT"] = 0] = "RAW_TEXT";
+  TagContentType2[TagContentType2["ESCAPABLE_RAW_TEXT"] = 1] = "ESCAPABLE_RAW_TEXT";
+  TagContentType2[TagContentType2["PARSABLE_DATA"] = 2] = "PARSABLE_DATA";
+})(TagContentType || (TagContentType = {}));
+function splitNsName(elementName) {
+  if (elementName[0] != ":") {
+    return [null, elementName];
+  }
+  const colonIndex = elementName.indexOf(":", 1);
+  if (colonIndex === -1) {
+    throw new Error(`Unsupported format "${elementName}" expecting ":namespace:name"`);
+  }
+  return [elementName.slice(1, colonIndex), elementName.slice(colonIndex + 1)];
+}
+function isNgContainer(tagName) {
+  return splitNsName(tagName)[1] === "ng-container";
+}
+function isNgContent(tagName) {
+  return splitNsName(tagName)[1] === "ng-content";
+}
+function isNgTemplate(tagName) {
+  return splitNsName(tagName)[1] === "ng-template";
+}
+function getNsPrefix(fullName) {
+  return fullName === null ? null : splitNsName(fullName)[0];
+}
+function mergeNsAndName(prefix, localName) {
+  return prefix ? `:${prefix}:${localName}` : localName;
+}
 var Comment$1 = class {
   constructor(value, sourceSpan) {
     this.value = value;
@@ -10686,6 +10717,23 @@ var DefinitionMap = class {
     return literalMap(this.values);
   }
 };
+function createCssSelectorFromNode(node) {
+  const elementName = node instanceof Element$1 ? node.name : "ng-template";
+  const attributes = getAttrsForDirectiveMatching(node);
+  const cssSelector = new CssSelector();
+  const elementNameNoNs = splitNsName(elementName)[1];
+  cssSelector.setElement(elementNameNoNs);
+  Object.getOwnPropertyNames(attributes).forEach((name) => {
+    const nameNoNs = splitNsName(name)[1];
+    const value = attributes[name];
+    cssSelector.addAttribute(nameNoNs, value);
+    if (name.toLowerCase() === "class") {
+      const classes = value.trim().split(/\s+/);
+      classes.forEach((className) => cssSelector.addClassName(className));
+    }
+  });
+  return cssSelector;
+}
 function getAttrsForDirectiveMatching(elOrTpl) {
   const attributesMap = {};
   if (elOrTpl instanceof Template && elOrTpl.tagName !== "ng-template") {
@@ -13474,6 +13522,11 @@ var DerivedRepeaterVarIdentity;
   DerivedRepeaterVarIdentity2[DerivedRepeaterVarIdentity2["Even"] = 2] = "Even";
   DerivedRepeaterVarIdentity2[DerivedRepeaterVarIdentity2["Odd"] = 3] = "Odd";
 })(DerivedRepeaterVarIdentity || (DerivedRepeaterVarIdentity = {}));
+var I18nContextKind;
+(function(I18nContextKind2) {
+  I18nContextKind2[I18nContextKind2["RootI18n"] = 0] = "RootI18n";
+  I18nContextKind2[I18nContextKind2["Icu"] = 1] = "Icu";
+})(I18nContextKind || (I18nContextKind = {}));
 var ConsumesSlot = Symbol("ConsumesSlot");
 var DependsOnSlotContext = Symbol("DependsOnSlotContext");
 var ConsumesVarsTrait = Symbol("ConsumesVars");
@@ -14945,9 +14998,10 @@ function createIcuEndOp(xref) {
     xref
   }, NEW_OP);
 }
-function createI18nContextOp(xref, i18nBlock, message, sourceSpan) {
+function createI18nContextOp(contextKind, xref, i18nBlock, message, sourceSpan) {
   return __spreadValues({
     kind: OpKind.I18nContext,
+    contextKind,
     xref,
     i18nBlock,
     message,
@@ -15118,7 +15172,6 @@ function needsApplication(i18nContexts, op) {
 }
 function assignI18nSlotDependencies(job) {
   const i18nLastSlotConsumers = /* @__PURE__ */ new Map();
-  const i18nContexts = /* @__PURE__ */ new Map();
   let lastSlotConsumer = null;
   let currentI18nOp = null;
   for (const unit of job.units) {
@@ -15134,15 +15187,11 @@ function assignI18nSlotDependencies(job) {
           i18nLastSlotConsumers.set(currentI18nOp.xref, lastSlotConsumer);
           currentI18nOp = null;
           break;
-        case OpKind.I18nContext:
-          i18nContexts.set(op.xref, op);
-          break;
       }
     }
     for (const op of unit.update) {
       if (op.kind === OpKind.I18nExpression) {
-        const i18nContext = i18nContexts.get(op.context);
-        op.target = i18nLastSlotConsumers.get(i18nContext.i18nBlock);
+        op.target = i18nLastSlotConsumers.get(op.target);
       }
     }
   }
@@ -15379,37 +15428,6 @@ function generateConditionalExpressions(job) {
     }
   }
 }
-var TagContentType;
-(function(TagContentType2) {
-  TagContentType2[TagContentType2["RAW_TEXT"] = 0] = "RAW_TEXT";
-  TagContentType2[TagContentType2["ESCAPABLE_RAW_TEXT"] = 1] = "ESCAPABLE_RAW_TEXT";
-  TagContentType2[TagContentType2["PARSABLE_DATA"] = 2] = "PARSABLE_DATA";
-})(TagContentType || (TagContentType = {}));
-function splitNsName(elementName) {
-  if (elementName[0] != ":") {
-    return [null, elementName];
-  }
-  const colonIndex = elementName.indexOf(":", 1);
-  if (colonIndex === -1) {
-    throw new Error(`Unsupported format "${elementName}" expecting ":namespace:name"`);
-  }
-  return [elementName.slice(1, colonIndex), elementName.slice(colonIndex + 1)];
-}
-function isNgContainer(tagName) {
-  return splitNsName(tagName)[1] === "ng-container";
-}
-function isNgContent(tagName) {
-  return splitNsName(tagName)[1] === "ng-content";
-}
-function isNgTemplate(tagName) {
-  return splitNsName(tagName)[1] === "ng-template";
-}
-function getNsPrefix(fullName) {
-  return fullName === null ? null : splitNsName(fullName)[0];
-}
-function mergeNsAndName(prefix, localName) {
-  return prefix ? `:${prefix}:${localName}` : localName;
-}
 var BINARY_OPERATORS = /* @__PURE__ */ new Map([
   ["&&", BinaryOperator.And],
   [">", BinaryOperator.Bigger],
@@ -15617,16 +15635,20 @@ function createDeferDepsFns(job) {
   }
 }
 function createI18nContexts(job) {
+  const rootContexts = /* @__PURE__ */ new Map();
   let currentI18nOp = null;
   let xref;
   for (const unit of job.units) {
     for (const op of unit.create) {
       switch (op.kind) {
         case OpKind.I18nStart:
-          xref = job.allocateXrefId();
-          unit.create.push(createI18nContextOp(xref, op.xref, op.message, null));
-          op.context = xref;
           currentI18nOp = op;
+          if (op.xref === op.root) {
+            xref = job.allocateXrefId();
+            unit.create.push(createI18nContextOp(I18nContextKind.RootI18n, xref, op.xref, op.message, null));
+            op.context = xref;
+            rootContexts.set(op.xref, xref);
+          }
           break;
         case OpKind.I18nEnd:
           currentI18nOp = null;
@@ -15637,12 +15659,19 @@ function createI18nContexts(job) {
           }
           if (op.message.id !== currentI18nOp.message.id) {
             xref = job.allocateXrefId();
-            unit.create.push(createI18nContextOp(xref, currentI18nOp.xref, op.message, null));
+            unit.create.push(createI18nContextOp(I18nContextKind.Icu, xref, currentI18nOp.xref, op.message, null));
             op.context = xref;
           } else {
             op.context = currentI18nOp.context;
           }
           break;
+      }
+    }
+  }
+  for (const unit of job.units) {
+    for (const op of unit.create) {
+      if (op.kind === OpKind.I18nStart && op.xref !== op.root) {
+        op.context = rootContexts.get(op.root);
       }
     }
   }
@@ -15923,7 +15952,7 @@ var LIST_END_MARKER = "]";
 var LIST_DELIMITER = "|";
 function extractI18nMessages(job) {
   const i18nContexts = /* @__PURE__ */ new Map();
-  const i18nBlockContexts = /* @__PURE__ */ new Set();
+  const i18nBlocks = /* @__PURE__ */ new Map();
   for (const unit of job.units) {
     for (const op of unit.create) {
       switch (op.kind) {
@@ -15931,7 +15960,7 @@ function extractI18nMessages(job) {
           i18nContexts.set(op.xref, op);
           break;
         case OpKind.I18nStart:
-          i18nBlockContexts.add(op.context);
+          i18nBlocks.set(op.xref, op);
           break;
       }
     }
@@ -15956,11 +15985,12 @@ function extractI18nMessages(job) {
           if (!op.context) {
             throw Error("ICU op should have its context set.");
           }
-          if (!i18nBlockContexts.has(op.context)) {
-            const i18nContext = i18nContexts.get(op.context);
+          const i18nContext = i18nContexts.get(op.context);
+          if (i18nContext.contextKind === I18nContextKind.Icu) {
             const subMessage = createI18nMessage(job, i18nContext, op.messagePlaceholder);
             unit.create.push(subMessage);
-            const parentMessage = i18nBlockMessages.get(i18nContext.i18nBlock);
+            const rootI18nId = i18nBlocks.get(i18nContext.i18nBlock).root;
+            const parentMessage = i18nBlockMessages.get(rootI18nId);
             parentMessage == null ? void 0 : parentMessage.subMessages.push(subMessage.xref);
           }
           OpList.remove(op);
@@ -15973,30 +16003,67 @@ function extractI18nMessages(job) {
   }
 }
 function createI18nMessage(job, context, messagePlaceholder) {
-  let needsPostprocessing = context.postprocessingParams.size > 0;
-  for (const values of context.params.values()) {
-    if (values.length > 1) {
-      needsPostprocessing = true;
-    }
-  }
-  return createI18nMessageOp(job.allocateXrefId(), context.i18nBlock, context.message, messagePlaceholder != null ? messagePlaceholder : null, formatParams(context.params), formatParams(context.postprocessingParams), needsPostprocessing);
+  let [formattedParams, needsPostprocessing] = formatParams(context.params);
+  const [formattedPostprocessingParams] = formatParams(context.postprocessingParams);
+  needsPostprocessing || (needsPostprocessing = formattedPostprocessingParams.size > 0);
+  return createI18nMessageOp(job.allocateXrefId(), context.i18nBlock, context.message, messagePlaceholder != null ? messagePlaceholder : null, formattedParams, formattedPostprocessingParams, needsPostprocessing);
 }
 function formatParams(params) {
-  const result = /* @__PURE__ */ new Map();
+  const formattedParams = /* @__PURE__ */ new Map();
+  let needsPostprocessing = false;
   for (const [placeholder, placeholderValues] of params) {
-    const serializedValues = formatParamValues(placeholderValues);
+    const [serializedValues, paramNeedsPostprocessing] = formatParamValues(placeholderValues);
+    needsPostprocessing || (needsPostprocessing = paramNeedsPostprocessing);
     if (serializedValues !== null) {
-      result.set(placeholder, literal(formatParamValues(placeholderValues)));
+      formattedParams.set(placeholder, literal(serializedValues));
     }
   }
-  return result;
+  return [formattedParams, needsPostprocessing];
 }
 function formatParamValues(values) {
   if (values.length === 0) {
-    return null;
+    return [null, false];
   }
+  collapseElementTemplatePairs(values);
   const serializedValues = values.map((value) => formatValue(value));
-  return serializedValues.length === 1 ? serializedValues[0] : `${LIST_START_MARKER}${serializedValues.join(LIST_DELIMITER)}${LIST_END_MARKER}`;
+  return serializedValues.length === 1 ? [serializedValues[0], false] : [`${LIST_START_MARKER}${serializedValues.join(LIST_DELIMITER)}${LIST_END_MARKER}`, true];
+}
+function collapseElementTemplatePairs(values) {
+  var _a2;
+  const valueIndiciesBySubTemplateIndex = /* @__PURE__ */ new Map();
+  for (let i = 0; i < values.length; i++) {
+    const value = values[i];
+    if (value.subTemplateIndex !== null && value.flags & (I18nParamValueFlags.ElementTag | I18nParamValueFlags.TemplateTag)) {
+      const valueIndicies = (_a2 = valueIndiciesBySubTemplateIndex.get(value.subTemplateIndex)) != null ? _a2 : [];
+      valueIndicies.push(i);
+      valueIndiciesBySubTemplateIndex.set(value.subTemplateIndex, valueIndicies);
+    }
+  }
+  for (const [subTemplateIndex, valueIndicies] of valueIndiciesBySubTemplateIndex) {
+    if (valueIndicies.length > 1) {
+      const elementIndex = valueIndicies.find((index2) => values[index2].flags & I18nParamValueFlags.ElementTag);
+      const templateIndex = valueIndicies.find((index2) => values[index2].flags & I18nParamValueFlags.TemplateTag);
+      if (elementIndex !== void 0 && templateIndex !== void 0) {
+        const elementValue = values[elementIndex];
+        const templateValue = values[templateIndex];
+        let compundValue;
+        if (elementValue.flags & I18nParamValueFlags.OpenTag && elementValue.flags & I18nParamValueFlags.CloseTag) {
+          compundValue = `${formatValue(templateValue)}${formatValue(elementValue)}${formatValue(templateValue)}`;
+        } else if (elementValue.flags & I18nParamValueFlags.OpenTag) {
+          compundValue = `${formatValue(templateValue)}${formatValue(elementValue)}`;
+        } else {
+          compundValue = `${formatValue(elementValue)}${formatValue(templateValue)}`;
+        }
+        values.splice(elementIndex, 1, { value: compundValue, subTemplateIndex, flags: I18nParamValueFlags.None });
+        values.splice(templateIndex, 1, null);
+      }
+    }
+  }
+  for (let i = values.length - 1; i >= 0; i--) {
+    if (values[i] === null) {
+      values.splice(i, 1);
+    }
+  }
 }
 function formatValue(value) {
   if (value.flags === I18nParamValueFlags.None) {
@@ -22306,45 +22373,6 @@ function serializeLocalRefs(refs) {
   }
   return literalArr(constRefs);
 }
-function mergeI18nContexts(job) {
-  const i18nOps = /* @__PURE__ */ new Map();
-  const i18nContexts = /* @__PURE__ */ new Map();
-  for (const unit of job.units) {
-    for (const op of unit.create) {
-      switch (op.kind) {
-        case OpKind.I18nStart:
-          if (!op.context) {
-            throw Error("I18n op should have its context set.");
-          }
-          i18nOps.set(op.xref, op);
-          break;
-        case OpKind.I18nContext:
-          i18nContexts.set(op.xref, op);
-          break;
-      }
-    }
-  }
-  for (const childI18nOp of i18nOps.values()) {
-    if (childI18nOp.xref !== childI18nOp.root) {
-      const childContext = i18nContexts.get(childI18nOp.context);
-      const rootI18nOp = i18nOps.get(childI18nOp.root);
-      const rootContext = i18nContexts.get(rootI18nOp.context);
-      mergeParams(rootContext.params, childContext.params);
-      mergeParams(rootContext.postprocessingParams, childContext.postprocessingParams);
-    }
-  }
-}
-function mergeParams(to, from) {
-  for (const [placeholder, fromValues] of from) {
-    const toValues = to.get(placeholder) || [];
-    const flags = fromValues[0].flags;
-    if (flags & I18nParamValueFlags.CloseTag && !(flags & I18nParamValueFlags.OpenTag)) {
-      to.set(placeholder, [...fromValues, ...toValues]);
-    } else {
-      to.set(placeholder, [...toValues, ...fromValues]);
-    }
-  }
-}
 function emitNamespaceChanges(job) {
   for (const unit of job.units) {
     let activeNamespace = Namespace.HTML;
@@ -22831,9 +22859,10 @@ function propagateI18nBlocksToTemplates(unit, subTemplateIndex) {
           subTemplateIndex++;
           wrapTemplateWithI18n(templateView, i18nBlock);
         }
-        propagateI18nBlocksToTemplates(templateView, subTemplateIndex);
+        subTemplateIndex = propagateI18nBlocksToTemplates(templateView, subTemplateIndex);
     }
   }
+  return subTemplateIndex;
 }
 function wrapTemplateWithI18n(unit, parentI18n) {
   var _a2;
@@ -23900,55 +23929,67 @@ function resolveI18nElementPlaceholders(job) {
       }
     }
   }
-  for (const unit of job.units) {
-    let currentOps = null;
-    for (const op of unit.create) {
-      switch (op.kind) {
-        case OpKind.I18nStart:
-          if (!op.context) {
-            throw Error("Could not find i18n context for i18n op");
+  resolvePlaceholdersForView(job, job.root, i18nContexts, elements);
+}
+function resolvePlaceholdersForView(job, unit, i18nContexts, elements) {
+  let currentOps = null;
+  for (const op of unit.create) {
+    switch (op.kind) {
+      case OpKind.I18nStart:
+        if (!op.context) {
+          throw Error("Could not find i18n context for i18n op");
+        }
+        currentOps = { i18nBlock: op, i18nContext: i18nContexts.get(op.context) };
+        break;
+      case OpKind.I18nEnd:
+        currentOps = null;
+        break;
+      case OpKind.ElementStart:
+        if (op.i18nPlaceholder !== void 0) {
+          if (currentOps === null) {
+            throw Error("i18n tag placeholder should only occur inside an i18n block");
           }
-          currentOps = { i18nBlock: op, i18nContext: i18nContexts.get(op.context) };
-          break;
-        case OpKind.I18nEnd:
-          currentOps = null;
-          break;
-        case OpKind.ElementStart:
-          if (op.i18nPlaceholder !== void 0) {
-            if (currentOps === null) {
-              throw Error("i18n tag placeholder should only occur inside an i18n block");
-            }
-            const { startName, closeName } = op.i18nPlaceholder;
-            let flags = I18nParamValueFlags.ElementTag | I18nParamValueFlags.OpenTag;
-            if (closeName === "") {
-              flags |= I18nParamValueFlags.CloseTag;
-            }
-            addParam(currentOps.i18nContext.params, startName, op.handle.slot, currentOps.i18nBlock.subTemplateIndex, flags);
+          const { startName, closeName } = op.i18nPlaceholder;
+          let flags = I18nParamValueFlags.ElementTag | I18nParamValueFlags.OpenTag;
+          if (closeName === "") {
+            flags |= I18nParamValueFlags.CloseTag;
           }
-          break;
-        case OpKind.ElementEnd:
-          const startOp = elements.get(op.xref);
-          if (startOp && startOp.i18nPlaceholder !== void 0) {
-            if (currentOps === null) {
-              throw Error("i18n tag placeholder should only occur inside an i18n block");
-            }
-            const { closeName } = startOp.i18nPlaceholder;
-            if (closeName !== "") {
-              addParam(currentOps.i18nContext.params, closeName, startOp.handle.slot, currentOps.i18nBlock.subTemplateIndex, I18nParamValueFlags.ElementTag | I18nParamValueFlags.CloseTag);
-            }
+          addParam(currentOps.i18nContext.params, startName, op.handle.slot, currentOps.i18nBlock.subTemplateIndex, flags);
+        }
+        break;
+      case OpKind.ElementEnd:
+        const startOp = elements.get(op.xref);
+        if (startOp && startOp.i18nPlaceholder !== void 0) {
+          if (currentOps === null) {
+            throw Error("i18n tag placeholder should only occur inside an i18n block");
           }
-          break;
-        case OpKind.Template:
-          if (op.i18nPlaceholder !== void 0) {
-            if (currentOps === null) {
-              throw Error("i18n tag placeholder should only occur inside an i18n block");
-            }
-            const subTemplateIndex = getSubTemplateIndexForTemplateTag(job, currentOps.i18nBlock, op);
-            addParam(currentOps.i18nContext.params, op.i18nPlaceholder.startName, op.handle.slot, subTemplateIndex, I18nParamValueFlags.TemplateTag);
-            addParam(currentOps.i18nContext.params, op.i18nPlaceholder.closeName, op.handle.slot, subTemplateIndex, I18nParamValueFlags.TemplateTag | I18nParamValueFlags.CloseTag);
+          const { closeName } = startOp.i18nPlaceholder;
+          if (closeName !== "") {
+            addParam(currentOps.i18nContext.params, closeName, startOp.handle.slot, currentOps.i18nBlock.subTemplateIndex, I18nParamValueFlags.ElementTag | I18nParamValueFlags.CloseTag);
           }
-          break;
-      }
+        }
+        break;
+      case OpKind.Template:
+        if (op.i18nPlaceholder !== void 0) {
+          if (currentOps === null) {
+            throw Error("i18n tag placeholder should only occur inside an i18n block");
+          }
+          let startFlags = I18nParamValueFlags.TemplateTag | I18nParamValueFlags.OpenTag;
+          const subTemplateIndex = getSubTemplateIndexForTemplateTag(job, currentOps.i18nBlock, op);
+          const { startName, closeName } = op.i18nPlaceholder;
+          const isSelfClosing = closeName === "";
+          if (isSelfClosing) {
+            startFlags |= I18nParamValueFlags.CloseTag;
+          }
+          addParam(currentOps.i18nContext.params, startName, op.handle.slot, subTemplateIndex, startFlags);
+          resolvePlaceholdersForView(job, job.views.get(op.xref), i18nContexts, elements);
+          if (!isSelfClosing) {
+            addParam(currentOps.i18nContext.params, closeName, op.handle.slot, subTemplateIndex, I18nParamValueFlags.TemplateTag | I18nParamValueFlags.CloseTag);
+          }
+        } else {
+          resolvePlaceholdersForView(job, job.views.get(op.xref), i18nContexts, elements);
+        }
+        break;
     }
   }
 }
@@ -23986,8 +24027,8 @@ function resolveI18nExpressionPlaceholders(job) {
     for (const op of unit.update) {
       if (op.kind === OpKind.I18nExpression) {
         const i18nContext = i18nContexts.get(op.context);
-        const index2 = expressionIndices.get(i18nContext.i18nBlock) || 0;
-        const subTemplateIndex = subTemplateIndicies.get(i18nContext.i18nBlock);
+        const index2 = expressionIndices.get(op.target) || 0;
+        const subTemplateIndex = subTemplateIndicies.get(op.target);
         const params = op.resolutionTime === I18nParamResolutionTime.Creation ? i18nContext.params : i18nContext.postprocessingParams;
         const values = params.get(op.i18nPlaceholder) || [];
         values.push({
@@ -23996,34 +24037,18 @@ function resolveI18nExpressionPlaceholders(job) {
           flags: I18nParamValueFlags.ExpressionIndex
         });
         params.set(op.i18nPlaceholder, values);
-        expressionIndices.set(i18nContext.i18nBlock, index2 + 1);
+        expressionIndices.set(op.target, index2 + 1);
       }
     }
   }
 }
 function resolveI18nIcuPlaceholders(job) {
-  const contextOps = /* @__PURE__ */ new Map();
   for (const unit of job.units) {
     for (const op of unit.create) {
-      switch (op.kind) {
-        case OpKind.I18nContext:
-          contextOps.set(op.xref, op);
-          break;
-      }
-    }
-  }
-  for (const unit of job.units) {
-    for (const op of unit.create) {
-      switch (op.kind) {
-        case OpKind.IcuStart:
-          if (op.context === null) {
-            throw Error("Icu should have its i18n context set.");
-          }
-          const i18nContext = contextOps.get(op.context);
-          for (const node of op.message.nodes) {
-            node.visit(new ResolveIcuPlaceholdersVisitor(i18nContext.postprocessingParams));
-          }
-          break;
+      if (op.kind === OpKind.I18nContext && op.contextKind === I18nContextKind.Icu) {
+        for (const node of op.message.nodes) {
+          node.visit(new ResolveIcuPlaceholdersVisitor(op.postprocessingParams));
+        }
       }
     }
   }
@@ -24819,7 +24844,6 @@ var phases = [
   { kind: CompilationJobKind.Tmpl, fn: resolveI18nElementPlaceholders },
   { kind: CompilationJobKind.Tmpl, fn: resolveI18nExpressionPlaceholders },
   { kind: CompilationJobKind.Tmpl, fn: resolveI18nIcuPlaceholders },
-  { kind: CompilationJobKind.Tmpl, fn: mergeI18nContexts },
   { kind: CompilationJobKind.Tmpl, fn: extractI18nMessages },
   { kind: CompilationJobKind.Tmpl, fn: generateTrackFns },
   { kind: CompilationJobKind.Tmpl, fn: collectI18nConsts },
@@ -29031,21 +29055,6 @@ var TrackByBindingScope = class extends BindingScope {
     return this.componentAccessCount;
   }
 };
-function createCssSelector(elementName, attributes) {
-  const cssSelector = new CssSelector();
-  const elementNameNoNs = splitNsName(elementName)[1];
-  cssSelector.setElement(elementNameNoNs);
-  Object.getOwnPropertyNames(attributes).forEach((name) => {
-    const nameNoNs = splitNsName(name)[1];
-    const value = attributes[name];
-    cssSelector.addAttribute(nameNoNs, value);
-    if (name.toLowerCase() === "class") {
-      const classes = value.trim().split(/\s+/);
-      classes.forEach((className) => cssSelector.addClassName(className));
-    }
-  });
-  return cssSelector;
-}
 function getNgProjectAsLiteral(attribute2) {
   const parsedR3Selector = parseSelectorToR3Selector(attribute2.value)[0];
   return [literal(5), asLiteral(parsedR3Selector)];
@@ -29312,6 +29321,9 @@ function addFeatures(definitionMap, meta) {
       break;
     }
   }
+  if ((_a2 = meta.hostDirectives) == null ? void 0 : _a2.length) {
+    features.push(importExpr(Identifiers.HostDirectivesFeature).callFn([createHostDirectivesFeatureArg(meta.hostDirectives)]));
+  }
   if (meta.usesInheritance) {
     features.push(importExpr(Identifiers.InheritDefinitionFeature));
   }
@@ -29323,9 +29335,6 @@ function addFeatures(definitionMap, meta) {
   }
   if (meta.hasOwnProperty("template") && meta.isStandalone) {
     features.push(importExpr(Identifiers.StandaloneFeature));
-  }
-  if ((_a2 = meta.hostDirectives) == null ? void 0 : _a2.length) {
-    features.push(importExpr(Identifiers.HostDirectivesFeature).callFn([createHostDirectivesFeatureArg(meta.hostDirectives)]));
   }
   if (features.length) {
     definitionMap.set("features", literalArr(features));
@@ -30029,13 +30038,13 @@ var DirectiveBinder = class {
     template2.forEach((node) => node.visit(this));
   }
   visitElement(element2) {
-    this.visitElementOrTemplate(element2.name, element2);
+    this.visitElementOrTemplate(element2);
   }
   visitTemplate(template2) {
-    this.visitElementOrTemplate("ng-template", template2);
+    this.visitElementOrTemplate(template2);
   }
-  visitElementOrTemplate(elementName, node) {
-    const cssSelector = createCssSelector(elementName, getAttrsForDirectiveMatching(node));
+  visitElementOrTemplate(node) {
+    const cssSelector = createCssSelectorFromNode(node);
     const directives = [];
     this.matcher.match(cssSelector, (_selector, results) => directives.push(...results));
     if (directives.length > 0) {
@@ -31017,7 +31026,7 @@ function publishFacade(global) {
   const ng = global.ng || (global.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("17.0.4");
+var VERSION = new Version("17.1.0-next.2");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -32971,7 +32980,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v17.0.4
+ * @license Angular v17.1.0-next.2
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
