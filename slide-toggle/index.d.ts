@@ -1,3 +1,4 @@
+import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { CheckboxRequiredValidator } from '@angular/forms';
@@ -6,12 +7,16 @@ import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/material/core';
+import * as i3 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
+import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { Type } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
+import { Validator } from '@angular/forms';
 
 declare namespace i1 {
     export {
@@ -20,7 +25,7 @@ declare namespace i1 {
     }
 }
 
-declare namespace i3 {
+declare namespace i2 {
     export {
         MAT_SLIDE_TOGGLE_VALUE_ACCESSOR,
         MatSlideToggleChange,
@@ -31,22 +36,30 @@ declare namespace i3 {
 /** Injection token to be used to override the default options for `mat-slide-toggle`. */
 export declare const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatSlideToggleDefaultOptions>;
 
+/**
+ * @deprecated No longer used, `MatCheckbox` implements required validation directly.
+ * @breaking-change 19.0.0
+ */
 export declare const MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR: Provider;
 
-/** @docs-private */
+/**
+ * @deprecated Will stop being exported.
+ * @breaking-change 19.0.0
+ */
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: {
     provide: InjectionToken<readonly ControlValueAccessor[]>;
     useExisting: Type<any>;
     multi: boolean;
 };
 
-export declare class MatSlideToggle implements OnDestroy, AfterContentInit, ControlValueAccessor {
+export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, ControlValueAccessor, Validator {
     private _elementRef;
     protected _focusMonitor: FocusMonitor;
     protected _changeDetectorRef: ChangeDetectorRef;
     defaults: MatSlideToggleDefaultOptions;
     private _onChange;
     private _onTouched;
+    private _validatorOnChange;
     private _uniqueId;
     private _checked;
     private _createChangeEvent;
@@ -101,6 +114,7 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, Cont
     get inputId(): string;
     constructor(_elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
     ngAfterContentInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
@@ -108,6 +122,10 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, Cont
     registerOnChange(fn: any): void;
     /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: any): void;
+    /** Implemented as a part of Validator. */
+    validate(control: AbstractControl<boolean>): ValidationErrors | null;
+    /** Implemented as a part of Validator. */
+    registerOnValidatorChange(fn: () => void): void;
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
     /** Toggles the checked state of the slide-toggle. */
@@ -154,7 +172,7 @@ export declare interface MatSlideToggleDefaultOptions {
 
 export declare class MatSlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof _MatSlideToggleRequiredValidatorModule, typeof i2.MatCommonModule, typeof i2.MatRippleModule, typeof i3.MatSlideToggle], [typeof _MatSlideToggleRequiredValidatorModule, typeof i3.MatSlideToggle, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof i2.MatSlideToggle, typeof i3.MatCommonModule], [typeof i2.MatSlideToggle, typeof i3.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSlideToggleModule>;
 }
 
@@ -165,13 +183,19 @@ export declare class MatSlideToggleModule {
  * where the value is always defined.
  *
  * Required slide-toggle form controls are valid when checked.
+ *
+ * @deprecated No longer used, `MatCheckbox` implements required validation directly.
+ * @breaking-change 19.0.0
  */
 export declare class MatSlideToggleRequiredValidator extends CheckboxRequiredValidator {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleRequiredValidator, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatSlideToggleRequiredValidator, "mat-slide-toggle[required][formControlName],             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]", never, {}, {}, never, never, true, never>;
 }
 
-/** This module is used by both original and MDC-based slide-toggle implementations. */
+/**
+ * @deprecated No longer used, `MatSlideToggle` implements required validation directly.
+ * @breaking-change 19.0.0
+ */
 export declare class _MatSlideToggleRequiredValidatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatSlideToggleRequiredValidatorModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<_MatSlideToggleRequiredValidatorModule, never, [typeof i1.MatSlideToggleRequiredValidator], [typeof i1.MatSlideToggleRequiredValidator]>;

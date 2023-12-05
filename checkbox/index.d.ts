@@ -1,3 +1,4 @@
+import { AbstractControl } from '@angular/forms';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { CheckboxRequiredValidator } from '@angular/forms';
@@ -6,12 +7,16 @@ import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/material/core';
+import * as i3 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { NgZone } from '@angular/core';
+import { OnChanges } from '@angular/core';
 import { Provider } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { ValidationErrors } from '@angular/forms';
+import { Validator } from '@angular/forms';
 
 declare namespace i1 {
     export {
@@ -20,7 +25,7 @@ declare namespace i1 {
     }
 }
 
-declare namespace i3 {
+declare namespace i2 {
     export {
         TransitionCheckState,
         MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
@@ -29,6 +34,10 @@ declare namespace i3 {
     }
 }
 
+/**
+ * @deprecated Will stop being exported.
+ * @breaking-change 19.0.0
+ */
 export declare const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR: any;
 
 /** Injection token to be used to override the default options for `mat-checkbox`. */
@@ -37,9 +46,13 @@ export declare const MAT_CHECKBOX_DEFAULT_OPTIONS: InjectionToken<MatCheckboxDef
 /** @docs-private */
 export declare function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY(): MatCheckboxDefaultOptions;
 
+/**
+ * @deprecated No longer used, `MatCheckbox` implements required validation directly.
+ * @breaking-change 19.0.0
+ */
 export declare const MAT_CHECKBOX_REQUIRED_VALIDATOR: Provider;
 
-export declare class MatCheckbox implements AfterViewInit, ControlValueAccessor, FocusableOption {
+export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAccessor, Validator, FocusableOption {
     _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _ngZone;
@@ -112,7 +125,9 @@ export declare class MatCheckbox implements AfterViewInit, ControlValueAccessor,
     private _currentAnimationClass;
     private _currentCheckState;
     private _controlValueAccessorChangeFn;
+    private _validatorChangeFn;
     constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
+    ngOnChanges(changes: SimpleChanges): void;
     ngAfterViewInit(): void;
     /** Whether the checkbox is checked. */
     get checked(): boolean;
@@ -138,6 +153,8 @@ export declare class MatCheckbox implements AfterViewInit, ControlValueAccessor,
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: any): void;
     setDisabledState(isDisabled: boolean): void;
+    validate(control: AbstractControl<boolean>): ValidationErrors | null;
+    registerOnValidatorChange(fn: () => void): void;
     private _transitionCheckState;
     private _emitChangeEvent;
     /** Toggles the `checked` state of the checkbox. */
@@ -202,7 +219,7 @@ export declare interface MatCheckboxDefaultOptions {
 
 export declare class MatCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof i2.MatCommonModule, typeof i2.MatRippleModule, typeof _MatCheckboxRequiredValidatorModule, typeof i3.MatCheckbox], [typeof i3.MatCheckbox, typeof i2.MatCommonModule, typeof _MatCheckboxRequiredValidatorModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof i2.MatCheckbox, typeof i3.MatCommonModule], [typeof i2.MatCheckbox, typeof i3.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 
@@ -210,13 +227,19 @@ export declare class MatCheckboxModule {
  * Validator for Material checkbox's required attribute in template-driven checkbox.
  * Current CheckboxRequiredValidator only work with `input type=checkbox` and does not
  * work with `mat-checkbox`.
+ *
+ * @deprecated No longer used, `MatCheckbox` implements required validation directly.
+ * @breaking-change 19.0.0
  */
 export declare class MatCheckboxRequiredValidator extends CheckboxRequiredValidator {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxRequiredValidator, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatCheckboxRequiredValidator, "mat-checkbox[required][formControlName],             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]", never, {}, {}, never, never, true, never>;
 }
 
-/** This module is used by both original and MDC-based checkbox implementations. */
+/**
+ * @deprecated No longer used, `MatCheckbox` implements required validation directly.
+ * @breaking-change 19.0.0
+ */
 export declare class _MatCheckboxRequiredValidatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatCheckboxRequiredValidatorModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<_MatCheckboxRequiredValidatorModule, never, [typeof i1.MatCheckboxRequiredValidator], [typeof i1.MatCheckboxRequiredValidator]>;
