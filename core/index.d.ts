@@ -520,6 +520,18 @@ export declare const MATERIAL_SANITY_CHECKS: InjectionToken<SanityChecks>;
 declare function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks;
 
 /**
+ * Internal shared component used as a container in form field controls.
+ * Not to be confused with `mat-form-field` which MDC calls a "text field".
+ * @docs-private
+ */
+export declare class _MatInternalFormField {
+    /** Position of the label relative to the content. */
+    labelPosition: 'before' | 'after';
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatInternalFormField, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
+}
+
+/**
  * Shared directive to count lines inside a text area, such as a list item.
  * Line elements can be extracted with a @ContentChildren(MatLine) query, then
  * counted by checking the query list's length.

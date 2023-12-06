@@ -113,6 +113,8 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     private _previousTabIndex;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef<HTMLInputElement>;
+    /** Trigger elements for the ripple events. */
+    _rippleTrigger: ElementRef<HTMLElement>;
     /** Whether animations are disabled. */
     _noopAnimations: boolean;
     constructor(radioGroup: MatRadioGroup, _elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, _providerOverride?: MatRadioDefaultOptions | undefined, tabIndex?: string);
