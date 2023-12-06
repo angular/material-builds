@@ -864,8 +864,8 @@ class MatSlider {
     }
     _updateTickMarkUINonRange(step) {
         const value = this._getValue();
-        let numActive = Math.max(Math.round((value - this.min) / step), 0);
-        let numInactive = Math.max(Math.round((this.max - value) / step), 0);
+        let numActive = Math.max(Math.floor((value - this.min) / step), 0);
+        let numInactive = Math.max(Math.floor((this.max - value) / step), 0);
         this._isRtl ? numActive++ : numInactive++;
         this._tickMarks = Array(numActive)
             .fill(_MatTickMark.ACTIVE)
@@ -1351,7 +1351,8 @@ class MatSliderThumb {
         if (this._slider._isRtl) {
             return (1 - this.percentage) * this._slider._cachedWidth;
         }
-        return this.percentage * this._slider._cachedWidth;
+        const tickMarkOffset = 3; // The spaces before & after the start & end tick marks.
+        return this.percentage * (this._slider._cachedWidth - tickMarkOffset * 2) + tickMarkOffset;
     }
     _calcTranslateXByPointerEvent(event) {
         return event.clientX - this._slider._cachedLeft;
