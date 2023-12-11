@@ -38,6 +38,9 @@ declare namespace i4 {
     }
 }
 
+/** Injection token that can be used to provide the default options the button component. */
+export declare const MAT_BUTTON_CONFIG: InjectionToken<MatButtonConfig>;
+
 /** Injection token to be used to override the default options for FAB. */
 export declare const MAT_FAB_DEFAULT_OPTIONS: InjectionToken<MatFabDefaultOptions>;
 
@@ -69,6 +72,7 @@ declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
     ngOnInit(): void;
     ngOnDestroy(): void;
     _haltDisabledEvents: (event: Event) => void;
+    protected _getAriaDisabled(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchorBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatAnchorBase, never, never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, false, never>;
     static ngAcceptInputType_tabIndex: unknown;
@@ -116,19 +120,44 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
     get disableRipple(): boolean;
     set disableRipple(value: any);
     private _disableRipple;
+    /** Whether the button is disabled. */
     get disabled(): boolean;
     set disabled(value: any);
     private _disabled;
+    /** `aria-disabled` value of the button. */
+    ariaDisabled: boolean | undefined;
+    /**
+     * Natively disabled buttons prevent focus and any pointer events from reaching the button.
+     * In some scenarios this might not be desirable, because it can prevent users from finding out
+     * why the button is disabled (e.g. via tooltip).
+     *
+     * Enabling this input will change the button so that it is styled to be disabled and will be
+     * marked as `aria-disabled`, but it will allow the button to receive events and focus.
+     *
+     * Note that by enabling this, you need to set the `tabindex` yourself if the button isn't
+     * meant to be tabbable and you have to prevent the button action (e.g. form submissions).
+     */
+    disabledInteractive: boolean;
     constructor(_elementRef: ElementRef, _platform: Platform, _ngZone: NgZone, _animationMode?: string | undefined);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
-    focus(_origin?: FocusOrigin, options?: FocusOptions): void;
+    focus(origin?: FocusOrigin, options?: FocusOptions): void;
+    protected _getAriaDisabled(): boolean | null;
+    protected _getDisabledAttribute(): true | null;
     private _updateRippleDisabled;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "ariaDisabled": { "alias": "aria-disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, {}, never, never, false, never>;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_ariaDisabled: unknown;
+    static ngAcceptInputType_disabledInteractive: unknown;
+}
+
+/** Object that can be used to configure the default options for the button component. */
+export declare interface MatButtonConfig {
+    /** Whether disabled buttons should be interactive. */
+    disabledInteractive?: boolean;
 }
 
 export declare class MatButtonModule {
