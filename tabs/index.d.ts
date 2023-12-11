@@ -614,7 +614,11 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     get preserveContent(): boolean;
     set preserveContent(value: BooleanInput);
     private _preserveContent;
-    /** Background color of the tab group. */
+    /**
+     * Background color of the tab group.
+     * @deprecated The background color should be customized through Sass theming APIs.
+     * @breaking-change 20.0.0 Remove this input
+     */
     get backgroundColor(): ThemePalette;
     set backgroundColor(value: ThemePalette);
     private _backgroundColor;
