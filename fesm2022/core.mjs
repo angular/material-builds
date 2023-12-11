@@ -1768,6 +1768,8 @@ const matRippleDisabled = 'mat-ripple-loader-disabled';
  *
  * This service allows us to avoid eagerly creating & attaching MatRipples.
  * It works by creating & attaching a ripple only when a component is first interacted with.
+ *
+ * @docs-private
  */
 class MatRippleLoader {
     constructor() {
@@ -1776,6 +1778,7 @@ class MatRippleLoader {
         this._globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, { optional: true });
         this._platform = inject(Platform);
         this._ngZone = inject(NgZone);
+        this._hosts = new Map();
         /** Handles creating and attaching component internals when a component it is initially interacted with. */
         this._onInteraction = (event) => {
             if (!(event.target instanceof HTMLElement)) {
@@ -1785,7 +1788,7 @@ class MatRippleLoader {
             // TODO(wagnermaciel): Consider batching these events to improve runtime performance.
             const element = eventTarget.closest(`[${matRippleUninitialized}]`);
             if (element) {
-                this.createRipple(element);
+                this._createRipple(element);
             }
         };
         this._ngZone.runOutsideAngular(() => {
@@ -1795,6 +1798,10 @@ class MatRippleLoader {
         });
     }
     ngOnDestroy() {
+        const hosts = this._hosts.keys();
+        for (const host of hosts) {
+            this.destroyRipple(host);
+        }
         for (const event of rippleInteractionEvents) {
             this._document?.removeEventListener(event, this._onInteraction, eventListenerOptions);
         }
@@ -1822,14 +1829,12 @@ class MatRippleLoader {
     }
     /** Returns the ripple instance for the given host element. */
     getRipple(host) {
-        if (host.matRipple) {
-            return host.matRipple;
-        }
-        return this.createRipple(host);
+        const ripple = this._hosts.get(host);
+        return ripple || this._createRipple(host);
     }
     /** Sets the disabled state on the ripple instance corresponding to the given host element. */
     setDisabled(host, disabled) {
-        const ripple = host.matRipple;
+        const ripple = this._hosts.get(host);
         // If the ripple has already been instantiated, just disable it.
         if (ripple) {
             ripple.disabled = disabled;
@@ -1845,9 +1850,13 @@ class MatRippleLoader {
         }
     }
     /** Creates a MatRipple and appends it to the given element. */
-    createRipple(host) {
+    _createRipple(host) {
         if (!this._document) {
             return;
+        }
+        const existingRipple = this._hosts.get(host);
+        if (existingRipple) {
+            return existingRipple;
         }
         // Create the ripple element.
         host.querySelector('.mat-ripple')?.remove();
@@ -1865,7 +1874,16 @@ class MatRippleLoader {
     }
     attachRipple(host, ripple) {
         host.removeAttribute(matRippleUninitialized);
-        host.matRipple = ripple;
+        this._hosts.set(host, ripple);
+    }
+    destroyRipple(host) {
+        const ripple = this._hosts.get(host);
+        if (ripple) {
+            // Since this directive is created manually, it needs to be destroyed manually too.
+            // tslint:disable-next-line:no-lifecycle-invocation
+            ripple.ngOnDestroy();
+            this._hosts.delete(host);
+        }
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.2", ngImport: i0, type: MatRippleLoader, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
     static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.1.0-next.2", ngImport: i0, type: MatRippleLoader, providedIn: 'root' }); }
