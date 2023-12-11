@@ -2330,7 +2330,13 @@ const matDatepickerAnimations = {
 /** Used to generate a unique ID for each datepicker instance. */
 let datepickerUid = 0;
 /** Injection token that determines the scroll handling while the calendar is open. */
-const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
+const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy', {
+    providedIn: 'root',
+    factory: () => {
+        const overlay = inject(Overlay);
+        return () => overlay.scrollStrategies.reposition();
+    },
+});
 /** @docs-private */
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();

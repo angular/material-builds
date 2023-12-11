@@ -17,7 +17,12 @@ import * as i1$2 from '@angular/material/form-field';
 import { MatFormFieldControl, MAT_FORM_FIELD } from '@angular/material/form-field';
 
 /** Injection token to be used to override the default options for the chips module. */
-const MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
+const MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options', {
+    providedIn: 'root',
+    factory: () => ({
+        separatorKeyCodes: [ENTER],
+    }),
+});
 /**
  * Injection token that can be used to reference instances of `MatChipAvatar`. It serves as
  * alternative token to the actual `MatChipAvatar` class which could cause unnecessary

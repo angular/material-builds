@@ -3,7 +3,7 @@ import { Overlay, CdkOverlayOrigin, CdkConnectedOverlay, OverlayModule } from '@
 import * as i6 from '@angular/common';
 import { CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Self, Attribute, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Self, Attribute, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import * as i2 from '@angular/material/core';
 import { mixinDisableRipple, mixinTabIndex, mixinDisabled, mixinErrorState, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import * as i8 from '@angular/material/form-field';
@@ -82,7 +82,13 @@ function getMatSelectNonFunctionValueError() {
 
 let nextUniqueId = 0;
 /** Injection token that determines the scroll handling while a select is open. */
-const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strategy');
+const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strategy', {
+    providedIn: 'root',
+    factory: () => {
+        const overlay = inject(Overlay);
+        return () => overlay.scrollStrategies.reposition();
+    },
+});
 /** @docs-private */
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
