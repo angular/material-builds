@@ -784,6 +784,8 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
  *
  * This service allows us to avoid eagerly creating & attaching MatRipples.
  * It works by creating & attaching a ripple only when a component is first interacted with.
+ *
+ * @docs-private
  */
 export declare class MatRippleLoader implements OnDestroy {
     private _document;
@@ -791,6 +793,7 @@ export declare class MatRippleLoader implements OnDestroy {
     private _globalRippleOptions;
     private _platform;
     private _ngZone;
+    private _hosts;
     constructor();
     ngOnDestroy(): void;
     /**
@@ -811,8 +814,9 @@ export declare class MatRippleLoader implements OnDestroy {
     /** Handles creating and attaching component internals when a component it is initially interacted with. */
     private _onInteraction;
     /** Creates a MatRipple and appends it to the given element. */
-    createRipple(host: HTMLElement): MatRipple | undefined;
-    attachRipple(host: Element, ripple: MatRipple): void;
+    private _createRipple;
+    attachRipple(host: HTMLElement, ripple: MatRipple): void;
+    destroyRipple(host: HTMLElement): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRippleLoader, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatRippleLoader>;
 }
