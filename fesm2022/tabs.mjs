@@ -1153,6 +1153,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.2", 
 
 /** Used to generate unique ID's for each tab component */
 let nextId = 0;
+/** Boolean constant that determines whether the tab group supports the `backgroundColor` input */
+const ENABLE_BACKGROUND_INPUT = true;
 /**
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -1194,11 +1196,18 @@ class MatTabGroup {
     set contentTabIndex(value) {
         this._contentTabIndex = isNaN(value) ? null : value;
     }
-    /** Background color of the tab group. */
+    /**
+     * Background color of the tab group.
+     * @deprecated The background color should be customized through Sass theming APIs.
+     * @breaking-change 20.0.0 Remove this input
+     */
     get backgroundColor() {
         return this._backgroundColor;
     }
     set backgroundColor(value) {
+        if (!ENABLE_BACKGROUND_INPUT) {
+            throw new Error(`mat-tab-group background color must be set through the Sass theming API`);
+        }
         const classList = this._elementRef.nativeElement.classList;
         classList.remove('mat-tabs-with-background', `mat-background-${this.backgroundColor}`);
         if (value) {

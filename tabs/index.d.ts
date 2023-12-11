@@ -580,7 +580,11 @@ export declare class MatTabGroup implements AfterContentInit, AfterContentChecke
      * like iframes and videos from reloading next time it comes back into the view.
      */
     preserveContent: boolean;
-    /** Background color of the tab group. */
+    /**
+     * Background color of the tab group.
+     * @deprecated The background color should be customized through Sass theming APIs.
+     * @breaking-change 20.0.0 Remove this input
+     */
     get backgroundColor(): ThemePalette;
     set backgroundColor(value: ThemePalette);
     private _backgroundColor;
