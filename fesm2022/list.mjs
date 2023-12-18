@@ -157,7 +157,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.2", 
                 }]
         }] });
 
-/** Injection token that can be used to provide the default options the list module. */
+/** Injection token that can be used to provide the default options for the list module. */
 const MAT_LIST_CONFIG = new InjectionToken('MAT_LIST_CONFIG');
 
 /** @docs-private */
