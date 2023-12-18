@@ -93,7 +93,7 @@ declare interface ListOption {
  */
 export declare const MAT_LIST: InjectionToken<MatList>;
 
-/** Injection token that can be used to provide the default options the list module. */
+/** Injection token that can be used to provide the default options for the list module. */
 export declare const MAT_LIST_CONFIG: InjectionToken<MatListConfig>;
 
 /**
