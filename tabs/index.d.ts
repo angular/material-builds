@@ -203,7 +203,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     disablePagination: boolean;
     /** The index of the active tab. */
     get selectedIndex(): number;
-    set selectedIndex(v: unknown);
+    set selectedIndex(v: number);
     private _selectedIndex;
     /** Event emitted when the option is selected. */
     readonly selectFocusedIndex: EventEmitter<number>;
@@ -318,8 +318,9 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      */
     private _scrollTo;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatedTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": { "alias": "disablePagination"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": { "alias": "disablePagination"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, never, never, false, never>;
     static ngAcceptInputType_disablePagination: unknown;
+    static ngAcceptInputType_selectedIndex: unknown;
 }
 
 /** Item inside a paginated tab header. */
@@ -692,7 +693,7 @@ export declare class MatTabHeader extends MatPaginatedTabHeader implements After
     ngAfterContentInit(): void;
     protected _itemSelected(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabHeader, [null, null, null, { optional: true; }, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabHeader, "mat-tab-header", never, { "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, ["_items"], ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabHeader, "mat-tab-header", never, { "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, ["_items"], ["*"], true, never>;
     static ngAcceptInputType_disableRipple: unknown;
 }
 
@@ -778,7 +779,7 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements AfterVie
     _getRole(): string | null;
     _getTabIndex(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLink, [null, null, { optional: true; }, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "active": { "alias": "active"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "active": { "alias": "active"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "id": { "alias": "id"; "required": false; }; }, {}, never, ["*"], true, never>;
     static ngAcceptInputType_active: unknown;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_disableRipple: unknown;

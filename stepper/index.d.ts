@@ -203,7 +203,7 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     _stepIsNavigable(index: number, step: MatStep): boolean;
     _getAnimationDuration(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, [{ optional: true; }, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], never, true, never>;
 }
 
 /**
@@ -263,13 +263,13 @@ export declare class MatStepperModule {
 /** Button that moves to the next step in a stepper workflow. */
 export declare class MatStepperNext extends CdkStepperNext {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperNext, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperNext, "button[matStepperNext]", never, { "type": { "alias": "type"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperNext, "button[matStepperNext]", never, {}, {}, never, never, true, never>;
 }
 
 /** Button that moves to the previous step in a stepper workflow. */
 export declare class MatStepperPrevious extends CdkStepperPrevious {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperPrevious, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperPrevious, "button[matStepperPrevious]", never, { "type": { "alias": "type"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperPrevious, "button[matStepperPrevious]", never, {}, {}, never, never, true, never>;
 }
 
 export { StepperOrientation }
