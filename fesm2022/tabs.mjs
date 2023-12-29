@@ -211,9 +211,9 @@ class MatInkBar {
         }
         currentItem?.deactivateInkBar();
         if (correspondingItem) {
-            const clientRect = currentItem?.elementRef.nativeElement.getBoundingClientRect?.();
-            // The ink bar won't animate unless we give it the `ClientRect` of the previous item.
-            correspondingItem.activateInkBar(clientRect);
+            const domRect = currentItem?.elementRef.nativeElement.getBoundingClientRect?.();
+            // The ink bar won't animate unless we give it the `DOMRect` of the previous item.
+            correspondingItem.activateInkBar(domRect);
             this._currentItem = correspondingItem;
         }
     }
