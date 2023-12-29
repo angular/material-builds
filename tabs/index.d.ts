@@ -166,7 +166,7 @@ export declare class MatInkBar {
  */
 declare interface MatInkBarItem extends OnInit, OnDestroy {
     elementRef: ElementRef<HTMLElement>;
-    activateInkBar(previousIndicatorClientRect?: ClientRect): void;
+    activateInkBar(previousIndicatorClientRect?: DOMRect): void;
     deactivateInkBar(): void;
     fitInkBarToContent: boolean;
 }
