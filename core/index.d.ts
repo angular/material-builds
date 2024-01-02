@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
+import { Provider } from '@angular/core';
 import { QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Version } from '@angular/core';
@@ -951,6 +952,8 @@ export declare class NativeDateModule {
     static ɵmod: i0.ɵɵNgModuleDeclaration<NativeDateModule, never, never, never>;
     static ɵinj: i0.ɵɵInjectorDeclaration<NativeDateModule>;
 }
+
+export declare function provideNativeDateAdapter(formats?: MatDateFormats): Provider[];
 
 /**
  * Interface that describes the configuration for the animation of a ripple.
