@@ -29,8 +29,8 @@ import { MatDateRangePicker } from './date-range-picker';
 import { MatDatepickerActions, MatDatepickerApply, MatDatepickerCancel } from './datepicker-actions';
 import * as i0 from "@angular/core";
 export class MatDatepickerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.2", ngImport: i0, type: MatDatepickerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0-next.2", ngImport: i0, type: MatDatepickerModule, imports: [CommonModule,
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatDatepickerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatDatepickerModule, imports: [CommonModule,
             MatButtonModule,
             OverlayModule,
             A11yModule,
@@ -72,7 +72,7 @@ export class MatDatepickerModule {
             MatDatepickerActions,
             MatDatepickerCancel,
             MatDatepickerApply] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0-next.2", ngImport: i0, type: MatDatepickerModule, providers: [MatDatepickerIntl, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [CommonModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatDatepickerModule, providers: [MatDatepickerIntl, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [CommonModule,
             MatButtonModule,
             OverlayModule,
             A11yModule,
@@ -82,7 +82,7 @@ export class MatDatepickerModule {
             MatDatepickerToggle,
             MatCalendarHeader, CdkScrollableModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.2", ngImport: i0, type: MatDatepickerModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatDatepickerModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [

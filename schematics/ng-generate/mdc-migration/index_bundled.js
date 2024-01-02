@@ -8242,7 +8242,7 @@ var ConstantPool = class {
       }))));
     }
   }
-  getSharedFunctionReference(fn2, prefix) {
+  getSharedFunctionReference(fn2, prefix, useUniqueName = true) {
     var _a2;
     const isArrow = fn2 instanceof ArrowFunctionExpr;
     for (const current of this.statements) {
@@ -8253,7 +8253,7 @@ var ConstantPool = class {
         return variable(current.name);
       }
     }
-    const name = this.uniqueName(prefix);
+    const name = useUniqueName ? this.uniqueName(prefix) : prefix;
     this.statements.push(fn2.toDeclStmt(name, StmtModifier.Final));
     return variable(name);
   }
@@ -8951,6 +8951,12 @@ var Identifiers = _Identifiers;
 })();
 (() => {
   _Identifiers.validateIframeAttribute = { name: "\u0275\u0275validateIframeAttribute", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.InputSignalBrandWriteType = { name: "\u0275INPUT_SIGNAL_BRAND_WRITE_TYPE", moduleName: CORE };
+})();
+(() => {
+  _Identifiers.UnwrapDirectiveSignalInputs = { name: "\u0275UnwrapDirectiveSignalInputs", moduleName: CORE };
 })();
 var DASH_CASE_REGEXP = /-+([a-z0-9])/g;
 function dashCaseToCamelCase(input) {
@@ -9860,13 +9866,17 @@ var TagContentType;
   TagContentType2[TagContentType2["ESCAPABLE_RAW_TEXT"] = 1] = "ESCAPABLE_RAW_TEXT";
   TagContentType2[TagContentType2["PARSABLE_DATA"] = 2] = "PARSABLE_DATA";
 })(TagContentType || (TagContentType = {}));
-function splitNsName(elementName) {
+function splitNsName(elementName, fatal = true) {
   if (elementName[0] != ":") {
     return [null, elementName];
   }
   const colonIndex = elementName.indexOf(":", 1);
   if (colonIndex === -1) {
-    throw new Error(`Unsupported format "${elementName}" expecting ":namespace:name"`);
+    if (fatal) {
+      throw new Error(`Unsupported format "${elementName}" expecting ":namespace:name"`);
+    } else {
+      return [null, elementName];
+    }
   }
   return [elementName.slice(1, colonIndex), elementName.slice(colonIndex + 1)];
 }
@@ -10369,28 +10379,6 @@ var BlockPlaceholder = class {
     return visitor.visitBlockPlaceholder(this, context);
   }
 };
-var RecurseVisitor = class {
-  visitText(text2, context) {
-  }
-  visitContainer(container, context) {
-    container.children.forEach((child) => child.visit(this));
-  }
-  visitIcu(icu, context) {
-    Object.keys(icu.cases).forEach((k) => {
-      icu.cases[k].visit(this);
-    });
-  }
-  visitTagPlaceholder(ph, context) {
-    ph.children.forEach((child) => child.visit(this));
-  }
-  visitPlaceholder(ph, context) {
-  }
-  visitIcuPlaceholder(ph, context) {
-  }
-  visitBlockPlaceholder(ph, context) {
-    ph.children.forEach((child) => child.visit(this));
-  }
-};
 function serializeMessage(messageNodes) {
   const visitor = new LocalizeMessageStringVisitor();
   const str = messageNodes.map((n) => n.visit(visitor)).join("");
@@ -10456,7 +10444,7 @@ var TRANSLATION_VAR_PREFIX$1 = "i18n_";
 var I18N_ATTR = "i18n";
 var I18N_ATTR_PREFIX = "i18n-";
 var I18N_ICU_VAR_PREFIX = "VAR_";
-var I18N_ICU_MAPPING_PREFIX = "I18N_EXP_";
+var I18N_ICU_MAPPING_PREFIX$1 = "I18N_EXP_";
 var I18N_PLACEHOLDER_SYMBOL = "\uFFFD";
 function isI18nAttribute(name) {
   return name === I18N_ATTR || name.startsWith(I18N_ATTR_PREFIX);
@@ -13414,7 +13402,9 @@ var OpKind;
   OpKind2[OpKind2["I18nApply"] = 40] = "I18nApply";
   OpKind2[OpKind2["IcuStart"] = 41] = "IcuStart";
   OpKind2[OpKind2["IcuEnd"] = 42] = "IcuEnd";
-  OpKind2[OpKind2["I18nContext"] = 43] = "I18nContext";
+  OpKind2[OpKind2["IcuPlaceholder"] = 43] = "IcuPlaceholder";
+  OpKind2[OpKind2["I18nContext"] = 44] = "I18nContext";
+  OpKind2[OpKind2["I18nAttributes"] = 45] = "I18nAttributes";
 })(OpKind || (OpKind = {}));
 var ExpressionKind;
 (function(ExpressionKind2) {
@@ -13439,10 +13429,11 @@ var ExpressionKind;
   ExpressionKind2[ExpressionKind2["AssignTemporaryExpr"] = 18] = "AssignTemporaryExpr";
   ExpressionKind2[ExpressionKind2["ReadTemporaryExpr"] = 19] = "ReadTemporaryExpr";
   ExpressionKind2[ExpressionKind2["SanitizerExpr"] = 20] = "SanitizerExpr";
-  ExpressionKind2[ExpressionKind2["SlotLiteralExpr"] = 21] = "SlotLiteralExpr";
-  ExpressionKind2[ExpressionKind2["ConditionalCase"] = 22] = "ConditionalCase";
-  ExpressionKind2[ExpressionKind2["DerivedRepeaterVar"] = 23] = "DerivedRepeaterVar";
-  ExpressionKind2[ExpressionKind2["ConstCollected"] = 24] = "ConstCollected";
+  ExpressionKind2[ExpressionKind2["TrustedValueFnExpr"] = 21] = "TrustedValueFnExpr";
+  ExpressionKind2[ExpressionKind2["SlotLiteralExpr"] = 22] = "SlotLiteralExpr";
+  ExpressionKind2[ExpressionKind2["ConditionalCase"] = 23] = "ConditionalCase";
+  ExpressionKind2[ExpressionKind2["DerivedRepeaterVar"] = 24] = "DerivedRepeaterVar";
+  ExpressionKind2[ExpressionKind2["ConstCollected"] = 25] = "ConstCollected";
 })(ExpressionKind || (ExpressionKind = {}));
 var VariableFlags;
 (function(VariableFlags2) {
@@ -13461,15 +13452,6 @@ var CompatibilityMode;
   CompatibilityMode2[CompatibilityMode2["Normal"] = 0] = "Normal";
   CompatibilityMode2[CompatibilityMode2["TemplateDefinitionBuilder"] = 1] = "TemplateDefinitionBuilder";
 })(CompatibilityMode || (CompatibilityMode = {}));
-var SanitizerFn;
-(function(SanitizerFn2) {
-  SanitizerFn2[SanitizerFn2["Html"] = 0] = "Html";
-  SanitizerFn2[SanitizerFn2["Script"] = 1] = "Script";
-  SanitizerFn2[SanitizerFn2["Style"] = 2] = "Style";
-  SanitizerFn2[SanitizerFn2["Url"] = 3] = "Url";
-  SanitizerFn2[SanitizerFn2["ResourceUrl"] = 4] = "ResourceUrl";
-  SanitizerFn2[SanitizerFn2["IframeAttribute"] = 5] = "IframeAttribute";
-})(SanitizerFn || (SanitizerFn = {}));
 var DeferSecondaryKind;
 (function(DeferSecondaryKind2) {
   DeferSecondaryKind2[DeferSecondaryKind2["Loading"] = 0] = "Loading";
@@ -13491,6 +13473,11 @@ var I18nParamResolutionTime;
   I18nParamResolutionTime2[I18nParamResolutionTime2["Creation"] = 0] = "Creation";
   I18nParamResolutionTime2[I18nParamResolutionTime2["Postproccessing"] = 1] = "Postproccessing";
 })(I18nParamResolutionTime || (I18nParamResolutionTime = {}));
+var I18nExpressionFor;
+(function(I18nExpressionFor2) {
+  I18nExpressionFor2[I18nExpressionFor2["I18nText"] = 0] = "I18nText";
+  I18nExpressionFor2[I18nExpressionFor2["I18nAttribute"] = 1] = "I18nAttribute";
+})(I18nExpressionFor || (I18nExpressionFor = {}));
 var I18nParamValueFlags;
 (function(I18nParamValueFlags2) {
   I18nParamValueFlags2[I18nParamValueFlags2["None"] = 0] = "None";
@@ -13526,7 +13513,14 @@ var I18nContextKind;
 (function(I18nContextKind2) {
   I18nContextKind2[I18nContextKind2["RootI18n"] = 0] = "RootI18n";
   I18nContextKind2[I18nContextKind2["Icu"] = 1] = "Icu";
+  I18nContextKind2[I18nContextKind2["Attr"] = 2] = "Attr";
 })(I18nContextKind || (I18nContextKind = {}));
+var TemplateKind;
+(function(TemplateKind2) {
+  TemplateKind2[TemplateKind2["NgTemplate"] = 0] = "NgTemplate";
+  TemplateKind2[TemplateKind2["Structural"] = 1] = "Structural";
+  TemplateKind2[TemplateKind2["Block"] = 2] = "Block";
+})(TemplateKind || (TemplateKind = {}));
 var ConsumesSlot = Symbol("ConsumesSlot");
 var DependsOnSlotContext = Symbol("DependsOnSlotContext");
 var ConsumesVarsTrait = Symbol("ConsumesVars");
@@ -13577,22 +13571,25 @@ var NEW_OP = {
   prev: null,
   next: null
 };
-function createInterpolateTextOp(xref, interpolation, i18nPlaceholders, sourceSpan) {
+function createInterpolateTextOp(xref, interpolation, sourceSpan) {
   return __spreadValues(__spreadValues(__spreadValues({
     kind: OpKind.InterpolateText,
     target: xref,
     interpolation,
-    i18nPlaceholders,
     sourceSpan
   }, TRAIT_DEPENDS_ON_SLOT_CONTEXT), TRAIT_CONSUMES_VARS), NEW_OP);
 }
 var Interpolation = class {
-  constructor(strings, expressions) {
+  constructor(strings, expressions, i18nPlaceholders) {
     this.strings = strings;
     this.expressions = expressions;
+    this.i18nPlaceholders = i18nPlaceholders;
+    if (i18nPlaceholders.length !== 0 && i18nPlaceholders.length !== expressions.length) {
+      throw new Error(`Expected ${expressions.length} placeholders to match interpolation expression count, but got ${i18nPlaceholders.length}`);
+    }
   }
 };
-function createBindingOp(target, kind, name, expression, unit, securityContext, isTextAttribute, isTemplate, sourceSpan) {
+function createBindingOp(target, kind, name, expression, unit, securityContext, isTextAttribute, isStructuralTemplateAttribute, templateKind, i18nMessage, sourceSpan) {
   return __spreadValues({
     kind: OpKind.Binding,
     bindingKind: kind,
@@ -13602,11 +13599,14 @@ function createBindingOp(target, kind, name, expression, unit, securityContext, 
     unit,
     securityContext,
     isTextAttribute,
-    isTemplate,
+    isStructuralTemplateAttribute,
+    templateKind,
+    i18nContext: null,
+    i18nMessage,
     sourceSpan
   }, NEW_OP);
 }
-function createPropertyOp(target, name, expression, isAnimationTrigger, securityContext, isTemplate, sourceSpan) {
+function createPropertyOp(target, name, expression, isAnimationTrigger, securityContext, isStructuralTemplateAttribute, templateKind, i18nContext, i18nMessage, sourceSpan) {
   return __spreadValues(__spreadValues(__spreadValues({
     kind: OpKind.Property,
     target,
@@ -13615,7 +13615,10 @@ function createPropertyOp(target, name, expression, isAnimationTrigger, security
     isAnimationTrigger,
     securityContext,
     sanitizer: null,
-    isTemplate,
+    isStructuralTemplateAttribute,
+    templateKind,
+    i18nContext,
+    i18nMessage,
     sourceSpan
   }, TRAIT_DEPENDS_ON_SLOT_CONTEXT), TRAIT_CONSUMES_VARS), NEW_OP);
 }
@@ -13654,7 +13657,7 @@ function createClassMapOp(xref, expression, sourceSpan) {
     sourceSpan
   }, TRAIT_DEPENDS_ON_SLOT_CONTEXT), TRAIT_CONSUMES_VARS), NEW_OP);
 }
-function createAttributeOp(target, name, expression, securityContext, isTextAttribute, isTemplate, sourceSpan) {
+function createAttributeOp(target, name, expression, securityContext, isTextAttribute, isStructuralTemplateAttribute, templateKind, i18nMessage, sourceSpan) {
   return __spreadValues(__spreadValues(__spreadValues({
     kind: OpKind.Attribute,
     target,
@@ -13663,7 +13666,10 @@ function createAttributeOp(target, name, expression, securityContext, isTextAttr
     securityContext,
     sanitizer: null,
     isTextAttribute,
-    isTemplate,
+    isStructuralTemplateAttribute,
+    templateKind,
+    i18nContext: null,
+    i18nMessage,
     sourceSpan
   }, TRAIT_DEPENDS_ON_SLOT_CONTEXT), TRAIT_CONSUMES_VARS), NEW_OP);
 }
@@ -13696,30 +13702,34 @@ function createRepeaterOp(repeaterCreate2, targetSlot, collection, sourceSpan) {
   }, NEW_OP), TRAIT_DEPENDS_ON_SLOT_CONTEXT);
 }
 function createDeferWhenOp(target, expr, prefetch, sourceSpan) {
-  return __spreadValues(__spreadValues({
+  return __spreadValues(__spreadValues(__spreadValues({
     kind: OpKind.DeferWhen,
     target,
     expr,
     prefetch,
     sourceSpan
-  }, NEW_OP), TRAIT_DEPENDS_ON_SLOT_CONTEXT);
+  }, NEW_OP), TRAIT_DEPENDS_ON_SLOT_CONTEXT), TRAIT_CONSUMES_VARS);
 }
-function createI18nExpressionOp(context, target, handle, expression, i18nPlaceholder, resolutionTime, sourceSpan) {
+function createI18nExpressionOp(context, target, i18nOwner, handle, expression, icuPlaceholder, i18nPlaceholder, resolutionTime, usage, name, sourceSpan) {
   return __spreadValues(__spreadValues(__spreadValues({
     kind: OpKind.I18nExpression,
     context,
     target,
+    i18nOwner,
     handle,
     expression,
+    icuPlaceholder,
     i18nPlaceholder,
     resolutionTime,
+    usage,
+    name,
     sourceSpan
   }, NEW_OP), TRAIT_CONSUMES_VARS), TRAIT_DEPENDS_ON_SLOT_CONTEXT);
 }
-function createI18nApplyOp(target, handle, sourceSpan) {
+function createI18nApplyOp(owner, handle, sourceSpan) {
   return __spreadValues({
     kind: OpKind.I18nApply,
-    target,
+    owner,
     handle,
     sourceSpan
   }, NEW_OP);
@@ -14254,26 +14264,6 @@ var ReadTemporaryExpr = class extends ExpressionBase {
     return r;
   }
 };
-var SanitizerExpr = class extends ExpressionBase {
-  constructor(fn2) {
-    super();
-    this.fn = fn2;
-    this.kind = ExpressionKind.SanitizerExpr;
-  }
-  visitExpression(visitor, context) {
-  }
-  isEquivalent(e) {
-    return e instanceof SanitizerExpr && e.fn === this.fn;
-  }
-  isConstant() {
-    return true;
-  }
-  clone() {
-    return new SanitizerExpr(this.fn);
-  }
-  transformInternalExpressions() {
-  }
-};
 var SlotLiteralExpr = class extends ExpressionBase {
   constructor(slot) {
     super();
@@ -14392,7 +14382,6 @@ function transformExpressionsInOp(op, transform2, flags) {
     case OpKind.ClassProp:
     case OpKind.ClassMap:
     case OpKind.Binding:
-    case OpKind.HostProperty:
       if (op.expression instanceof Interpolation) {
         transformExpressionsInInterpolation(op.expression, transform2, flags);
       } else {
@@ -14400,6 +14389,7 @@ function transformExpressionsInOp(op, transform2, flags) {
       }
       break;
     case OpKind.Property:
+    case OpKind.HostProperty:
     case OpKind.Attribute:
       if (op.expression instanceof Interpolation) {
         transformExpressionsInInterpolation(op.expression, transform2, flags);
@@ -14441,6 +14431,7 @@ function transformExpressionsInOp(op, transform2, flags) {
       break;
     case OpKind.ExtractedAttribute:
       op.expression = op.expression && transformExpressionsInExpression(op.expression, transform2, flags);
+      op.trustedValueFn = op.trustedValueFn && transformExpressionsInExpression(op.trustedValueFn, transform2, flags);
       break;
     case OpKind.RepeaterCreate:
       op.track = transformExpressionsInExpression(op.track, transform2, flags);
@@ -14457,6 +14448,9 @@ function transformExpressionsInOp(op, transform2, flags) {
       }
       if (op.placeholderConfig !== null) {
         op.placeholderConfig = transformExpressionsInExpression(op.placeholderConfig, transform2, flags);
+      }
+      if (op.resolverFn !== null) {
+        op.resolverFn = transformExpressionsInExpression(op.resolverFn, transform2, flags);
       }
       break;
     case OpKind.I18nMessage:
@@ -14493,6 +14487,8 @@ function transformExpressionsInOp(op, transform2, flags) {
     case OpKind.ProjectionDef:
     case OpKind.Template:
     case OpKind.Text:
+    case OpKind.I18nAttributes:
+    case OpKind.IcuPlaceholder:
       break;
     default:
       throw new Error(`AssertionError: transformExpressionsInOp doesn't handle ${OpKind[op.kind]}`);
@@ -14504,6 +14500,8 @@ function transformExpressionsInExpression(expr, transform2, flags) {
   } else if (expr instanceof BinaryOperatorExpr) {
     expr.lhs = transformExpressionsInExpression(expr.lhs, transform2, flags);
     expr.rhs = transformExpressionsInExpression(expr.rhs, transform2, flags);
+  } else if (expr instanceof UnaryOperatorExpr) {
+    expr.expr = transformExpressionsInExpression(expr.expr, transform2, flags);
   } else if (expr instanceof ReadPropExpr) {
     expr.receiver = transformExpressionsInExpression(expr.receiver, transform2, flags);
   } else if (expr instanceof ReadKeyExpr) {
@@ -14543,6 +14541,20 @@ function transformExpressionsInExpression(expr, transform2, flags) {
     for (let i = 0; i < expr.expressions.length; i++) {
       expr.expressions[i] = transformExpressionsInExpression(expr.expressions[i], transform2, flags);
     }
+  } else if (expr instanceof NotExpr) {
+    expr.condition = transformExpressionsInExpression(expr.condition, transform2, flags);
+  } else if (expr instanceof TaggedTemplateExpr) {
+    expr.tag = transformExpressionsInExpression(expr.tag, transform2, flags);
+    expr.template.expressions = expr.template.expressions.map((e) => transformExpressionsInExpression(e, transform2, flags));
+  } else if (expr instanceof ArrowFunctionExpr) {
+    if (Array.isArray(expr.body)) {
+      for (let i = 0; i < expr.body.length; i++) {
+        transformExpressionsInStatement(expr.body[i], transform2, flags);
+      }
+    } else {
+      expr.body = transformExpressionsInExpression(expr.body, transform2, flags);
+    }
+  } else if (expr instanceof WrappedNodeExpr) {
   } else if (expr instanceof ReadVarExpr || expr instanceof ExternalExpr || expr instanceof LiteralExpr) {
   } else {
     throw new Error(`Unhandled expression kind: ${expr.constructor.name}`);
@@ -14778,7 +14790,7 @@ var elementContainerOpKinds = /* @__PURE__ */ new Set([
 function isElementOrContainerOp(op) {
   return elementContainerOpKinds.has(op.kind);
 }
-function createElementStartOp(tag, xref, namespace, i18nPlaceholder, sourceSpan) {
+function createElementStartOp(tag, xref, namespace, i18nPlaceholder, startSourceSpan, wholeSourceSpan) {
   return __spreadValues(__spreadValues({
     kind: OpKind.ElementStart,
     xref,
@@ -14789,13 +14801,15 @@ function createElementStartOp(tag, xref, namespace, i18nPlaceholder, sourceSpan)
     nonBindable: false,
     namespace,
     i18nPlaceholder,
-    sourceSpan
+    startSourceSpan,
+    wholeSourceSpan
   }, TRAIT_CONSUMES_SLOT), NEW_OP);
 }
-function createTemplateOp(xref, tag, functionNameSuffix, namespace, i18nPlaceholder, sourceSpan) {
+function createTemplateOp(xref, templateKind, tag, functionNameSuffix, namespace, i18nPlaceholder, startSourceSpan, wholeSourceSpan) {
   return __spreadValues(__spreadValues({
     kind: OpKind.Template,
     xref,
+    templateKind,
     attributes: null,
     tag,
     handle: new SlotHandle(),
@@ -14806,11 +14820,12 @@ function createTemplateOp(xref, tag, functionNameSuffix, namespace, i18nPlacehol
     nonBindable: false,
     namespace,
     i18nPlaceholder,
-    sourceSpan
+    startSourceSpan,
+    wholeSourceSpan
   }, TRAIT_CONSUMES_SLOT), NEW_OP);
 }
-function createRepeaterCreateOp(primaryView, emptyView, tag, track, varNames, sourceSpan) {
-  return __spreadProps(__spreadValues(__spreadValues({
+function createRepeaterCreateOp(primaryView, emptyView, tag, track, varNames, emptyTag, i18nPlaceholder, emptyI18nPlaceholder, startSourceSpan, wholeSourceSpan) {
+  return __spreadProps(__spreadValues(__spreadValues(__spreadValues({
     kind: OpKind.RepeaterCreate,
     attributes: null,
     xref: primaryView,
@@ -14819,6 +14834,8 @@ function createRepeaterCreateOp(primaryView, emptyView, tag, track, varNames, so
     track,
     trackByFn: null,
     tag,
+    emptyTag,
+    emptyAttributes: null,
     functionNameSuffix: "For",
     namespace: Namespace.HTML,
     nonBindable: false,
@@ -14827,8 +14844,11 @@ function createRepeaterCreateOp(primaryView, emptyView, tag, track, varNames, so
     vars: null,
     varNames,
     usesComponentInstance: false,
-    sourceSpan
-  }, TRAIT_CONSUMES_SLOT), NEW_OP), {
+    i18nPlaceholder,
+    emptyI18nPlaceholder,
+    startSourceSpan,
+    wholeSourceSpan
+  }, TRAIT_CONSUMES_SLOT), NEW_OP), TRAIT_CONSUMES_VARS), {
     numSlotsUsed: emptyView === null ? 2 : 3
   });
 }
@@ -14851,16 +14871,19 @@ function createEnableBindingsOp(xref) {
     xref
   }, NEW_OP);
 }
-function createTextOp(xref, initialValue, sourceSpan) {
+function createTextOp(xref, initialValue, icuPlaceholder, sourceSpan) {
   return __spreadValues(__spreadValues({
     kind: OpKind.Text,
     xref,
     handle: new SlotHandle(),
     initialValue,
+    icuPlaceholder,
     sourceSpan
   }, TRAIT_CONSUMES_SLOT), NEW_OP);
 }
-function createListenerOp(target, targetSlot, name, tag, animationPhase, hostListener, sourceSpan) {
+function createListenerOp(target, targetSlot, name, tag, handlerOps, animationPhase, eventTarget, hostListener, sourceSpan) {
+  const handlerList = new OpList();
+  handlerList.push(handlerOps);
   return __spreadValues({
     kind: OpKind.Listener,
     target,
@@ -14868,11 +14891,12 @@ function createListenerOp(target, targetSlot, name, tag, animationPhase, hostLis
     tag,
     hostListener,
     name,
-    handlerOps: new OpList(),
+    handlerOps: handlerList,
     handlerFnName: null,
     consumesDollarEvent: false,
     isAnimationListener: animationPhase !== null,
     animationPhase,
+    eventTarget,
     sourceSpan
   }, NEW_OP);
 }
@@ -14896,25 +14920,30 @@ function createProjectionDefOp(def) {
     def
   }, NEW_OP);
 }
-function createProjectionOp(xref, selector, sourceSpan) {
+function createProjectionOp(xref, selector, i18nPlaceholder, sourceSpan) {
   return __spreadValues(__spreadValues({
     kind: OpKind.Projection,
     xref,
     handle: new SlotHandle(),
     selector,
+    i18nPlaceholder,
     projectionSlotIndex: 0,
-    attributes: [],
+    attributes: null,
     localRefs: [],
     sourceSpan
   }, NEW_OP), TRAIT_CONSUMES_SLOT);
 }
-function createExtractedAttributeOp(target, bindingKind, name, expression) {
+function createExtractedAttributeOp(target, bindingKind, name, expression, i18nContext, i18nMessage, securityContext) {
   return __spreadValues({
     kind: OpKind.ExtractedAttribute,
     target,
     bindingKind,
     name,
-    expression
+    expression,
+    i18nContext,
+    i18nMessage,
+    securityContext,
+    trustedValueFn: null
   }, NEW_OP);
 }
 function createDeferOp(xref, main, mainSlot, metadata, sourceSpan) {
@@ -14951,10 +14980,11 @@ function createDeferOnOp(defer2, trigger, prefetch, sourceSpan) {
     sourceSpan
   }, NEW_OP);
 }
-function createI18nMessageOp(xref, i18nBlock, message, messagePlaceholder, params, postprocessingParams, needsPostprocessing) {
+function createI18nMessageOp(xref, i18nContext, i18nBlock, message, messagePlaceholder, params, postprocessingParams, needsPostprocessing) {
   return __spreadValues({
     kind: OpKind.I18nMessage,
     xref,
+    i18nContext,
     i18nBlock,
     message,
     messagePlaceholder,
@@ -14964,7 +14994,7 @@ function createI18nMessageOp(xref, i18nBlock, message, messagePlaceholder, param
     subMessages: []
   }, NEW_OP);
 }
-function createI18nStartOp(xref, message, root2) {
+function createI18nStartOp(xref, message, root2, sourceSpan) {
   return __spreadValues(__spreadValues({
     kind: OpKind.I18nStart,
     xref,
@@ -14973,13 +15003,15 @@ function createI18nStartOp(xref, message, root2) {
     message,
     messageIndex: null,
     subTemplateIndex: null,
-    context: null
+    context: null,
+    sourceSpan
   }, NEW_OP), TRAIT_CONSUMES_SLOT);
 }
-function createI18nEndOp(xref) {
+function createI18nEndOp(xref, sourceSpan) {
   return __spreadValues({
     kind: OpKind.I18nEnd,
-    xref
+    xref,
+    sourceSpan
   }, NEW_OP);
 }
 function createIcuStartOp(xref, message, messagePlaceholder, sourceSpan) {
@@ -14998,7 +15030,19 @@ function createIcuEndOp(xref) {
     xref
   }, NEW_OP);
 }
+function createIcuPlaceholderOp(xref, name, strings) {
+  return __spreadValues({
+    kind: OpKind.IcuPlaceholder,
+    xref,
+    name,
+    strings,
+    expressionPlaceholders: []
+  }, NEW_OP);
+}
 function createI18nContextOp(contextKind, xref, i18nBlock, message, sourceSpan) {
+  if (i18nBlock === null && contextKind !== I18nContextKind.Attr) {
+    throw new Error("AssertionError: i18nBlock must be provided for non-attribute contexts.");
+  }
   return __spreadValues({
     kind: OpKind.I18nContext,
     contextKind,
@@ -15010,12 +15054,24 @@ function createI18nContextOp(contextKind, xref, i18nBlock, message, sourceSpan) 
     postprocessingParams: /* @__PURE__ */ new Map()
   }, NEW_OP);
 }
-function createHostPropertyOp(name, expression, isAnimationTrigger, sourceSpan) {
+function createI18nAttributesOp(xref, handle, target) {
+  return __spreadValues(__spreadValues({
+    kind: OpKind.I18nAttributes,
+    xref,
+    handle,
+    target,
+    i18nAttributesConfig: null
+  }, NEW_OP), TRAIT_CONSUMES_SLOT);
+}
+function createHostPropertyOp(name, expression, isAnimationTrigger, i18nContext, securityContext, sourceSpan) {
   return __spreadValues(__spreadValues({
     kind: OpKind.HostProperty,
     name,
     expression,
     isAnimationTrigger,
+    i18nContext,
+    securityContext,
+    sanitizer: null,
     sourceSpan
   }, TRAIT_CONSUMES_VARS), NEW_OP);
 }
@@ -15153,7 +15209,7 @@ function applyI18nExpressions(job) {
   for (const unit of job.units) {
     for (const op of unit.update) {
       if (op.kind === OpKind.I18nExpression && needsApplication(i18nContexts, op)) {
-        OpList.insertAfter(createI18nApplyOp(op.target, op.handle, null), op);
+        OpList.insertAfter(createI18nApplyOp(op.i18nOwner, op.handle, null), op);
       }
     }
   }
@@ -15165,33 +15221,62 @@ function needsApplication(i18nContexts, op) {
   }
   const context = i18nContexts.get(op.context);
   const nextContext2 = i18nContexts.get(op.next.context);
-  if (context.i18nBlock !== nextContext2.i18nBlock) {
+  if (context === void 0) {
+    throw new Error("AssertionError: expected an I18nContextOp to exist for the I18nExpressionOp's context");
+  }
+  if (nextContext2 === void 0) {
+    throw new Error("AssertionError: expected an I18nContextOp to exist for the next I18nExpressionOp's context");
+  }
+  if (context.i18nBlock !== null) {
+    if (context.i18nBlock !== nextContext2.i18nBlock) {
+      return true;
+    }
+    return false;
+  }
+  if (op.i18nOwner !== op.next.i18nOwner) {
     return true;
   }
   return false;
 }
 function assignI18nSlotDependencies(job) {
-  const i18nLastSlotConsumers = /* @__PURE__ */ new Map();
-  let lastSlotConsumer = null;
-  let currentI18nOp = null;
   for (const unit of job.units) {
-    for (const op of unit.create) {
-      if (hasConsumesSlotTrait(op)) {
-        lastSlotConsumer = op.xref;
+    let updateOp = unit.update.head;
+    let i18nExpressionsInProgress = [];
+    let state = null;
+    for (const createOp of unit.create) {
+      if (createOp.kind === OpKind.I18nStart) {
+        state = {
+          blockXref: createOp.xref,
+          lastSlotConsumer: createOp.xref
+        };
+      } else if (createOp.kind === OpKind.I18nEnd) {
+        for (const op of i18nExpressionsInProgress) {
+          op.target = state.lastSlotConsumer;
+          OpList.insertBefore(op, updateOp);
+        }
+        i18nExpressionsInProgress.length = 0;
+        state = null;
       }
-      switch (op.kind) {
-        case OpKind.I18nStart:
-          currentI18nOp = op;
-          break;
-        case OpKind.I18nEnd:
-          i18nLastSlotConsumers.set(currentI18nOp.xref, lastSlotConsumer);
-          currentI18nOp = null;
-          break;
-      }
-    }
-    for (const op of unit.update) {
-      if (op.kind === OpKind.I18nExpression) {
-        op.target = i18nLastSlotConsumers.get(op.target);
+      if (hasConsumesSlotTrait(createOp)) {
+        if (state !== null) {
+          state.lastSlotConsumer = createOp.xref;
+        }
+        while (true) {
+          if (updateOp.next === null) {
+            break;
+          }
+          if (state !== null && updateOp.kind === OpKind.I18nExpression && updateOp.usage === I18nExpressionFor.I18nText && updateOp.i18nOwner === state.blockXref) {
+            const opToRemove = updateOp;
+            updateOp = updateOp.next;
+            OpList.remove(opToRemove);
+            i18nExpressionsInProgress.push(opToRemove);
+            continue;
+          }
+          if (hasDependsOnSlotContextTrait(updateOp) && updateOp.target !== createOp.xref) {
+            break;
+          }
+          updateOp = updateOp.next;
+        }
       }
     }
   }
@@ -15203,6 +15288,9 @@ function createOpXrefMap(unit) {
       continue;
     }
     map.set(op.xref, op);
+    if (op.kind === OpKind.RepeaterCreate && op.emptyView !== null) {
+      map.set(op.emptyView, op);
+    }
   }
   return map;
 }
@@ -15216,19 +15304,57 @@ function extractAttributes(job) {
           break;
         case OpKind.Property:
           if (!op.isAnimationTrigger) {
-            OpList.insertBefore(createExtractedAttributeOp(op.target, op.isTemplate ? BindingKind.Template : BindingKind.Property, op.name, null), lookupElement$2(elements, op.target));
+            let bindingKind;
+            if (op.i18nMessage !== null && op.templateKind === null) {
+              bindingKind = BindingKind.I18n;
+            } else if (op.isStructuralTemplateAttribute) {
+              bindingKind = BindingKind.Template;
+            } else {
+              bindingKind = BindingKind.Property;
+            }
+            OpList.insertBefore(
+              createExtractedAttributeOp(
+                op.target,
+                bindingKind,
+                op.name,
+                null,
+                null,
+                null,
+                op.securityContext
+              ),
+              lookupElement$2(elements, op.target)
+            );
           }
           break;
         case OpKind.StyleProp:
         case OpKind.ClassProp:
           if (unit.job.compatibility === CompatibilityMode.TemplateDefinitionBuilder && op.expression instanceof EmptyExpr) {
-            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.Property, op.name, null), lookupElement$2(elements, op.target));
+            OpList.insertBefore(createExtractedAttributeOp(
+              op.target,
+              BindingKind.Property,
+              op.name,
+              null,
+              null,
+              null,
+              SecurityContext.STYLE
+            ), lookupElement$2(elements, op.target));
           }
           break;
         case OpKind.Listener:
           if (!op.isAnimationListener) {
-            const extractedAttributeOp = createExtractedAttributeOp(op.target, BindingKind.Property, op.name, null);
+            const extractedAttributeOp = createExtractedAttributeOp(
+              op.target,
+              BindingKind.Property,
+              op.name,
+              null,
+              null,
+              null,
+              SecurityContext.NONE
+            );
             if (job.kind === CompilationJobKind.Host) {
+              if (job.compatibility) {
+                break;
+              }
               unit.create.push(extractedAttributeOp);
             } else {
               OpList.insertBefore(extractedAttributeOp, lookupElement$2(elements, op.target));
@@ -15250,18 +15376,12 @@ function extractAttributeOp(unit, op, elements) {
   if (op.expression instanceof Interpolation) {
     return;
   }
-  let extractable = op.expression.isConstant();
+  let extractable = op.isTextAttribute || op.expression.isConstant();
   if (unit.job.compatibility === CompatibilityMode.TemplateDefinitionBuilder) {
-    extractable = isStringLiteral(op.expression);
-    if (op.name === "style" || op.name === "class") {
-      extractable && (extractable = op.isTextAttribute);
-    }
-    if (unit.job.kind === CompilationJobKind.Host) {
-      extractable && (extractable = op.isTextAttribute);
-    }
+    extractable && (extractable = op.isTextAttribute);
   }
   if (extractable) {
-    const extractedAttributeOp = createExtractedAttributeOp(op.target, op.isTemplate ? BindingKind.Template : BindingKind.Attribute, op.name, op.expression);
+    const extractedAttributeOp = createExtractedAttributeOp(op.target, op.isStructuralTemplateAttribute ? BindingKind.Template : BindingKind.Attribute, op.name, op.expression, op.i18nContext, op.i18nMessage, op.securityContext);
     if (unit.job.kind === CompilationJobKind.Host) {
       unit.create.push(extractedAttributeOp);
     } else {
@@ -15300,15 +15420,15 @@ function specializeBindings(job) {
             const target = lookupElement$1(elements, op.target);
             target.nonBindable = true;
           } else {
-            OpList.replace(op, createAttributeOp(op.target, op.name, op.expression, op.securityContext, op.isTextAttribute, op.isTemplate, op.sourceSpan));
+            OpList.replace(op, createAttributeOp(op.target, op.name, op.expression, op.securityContext, op.isTextAttribute, op.isStructuralTemplateAttribute, op.templateKind, op.i18nMessage, op.sourceSpan));
           }
           break;
         case BindingKind.Property:
         case BindingKind.Animation:
           if (job.kind === CompilationJobKind.Host) {
-            OpList.replace(op, createHostPropertyOp(op.name, op.expression, op.bindingKind === BindingKind.Animation, op.sourceSpan));
+            OpList.replace(op, createHostPropertyOp(op.name, op.expression, op.bindingKind === BindingKind.Animation, op.i18nContext, op.securityContext, op.sourceSpan));
           } else {
-            OpList.replace(op, createPropertyOp(op.target, op.name, op.expression, op.bindingKind === BindingKind.Animation, op.securityContext, op.isTemplate, op.sourceSpan));
+            OpList.replace(op, createPropertyOp(op.target, op.name, op.expression, op.bindingKind === BindingKind.Animation, op.securityContext, op.isStructuralTemplateAttribute, op.templateKind, op.i18nContext, op.i18nMessage, op.sourceSpan));
           }
           break;
         case BindingKind.I18n:
@@ -15481,9 +15601,9 @@ function collectElementConsts(job) {
   for (const unit of job.units) {
     for (const op of unit.create) {
       if (op.kind === OpKind.ExtractedAttribute) {
-        const attributes = allElementAttributes.get(op.target) || new ElementAttributes();
+        const attributes = allElementAttributes.get(op.target) || new ElementAttributes(job.compatibility);
         allElementAttributes.set(op.target, attributes);
-        attributes.add(op.bindingKind, op.name, op.expression);
+        attributes.add(op.bindingKind, op.name, op.expression, op.trustedValueFn);
         OpList.remove(op);
       }
     }
@@ -15491,13 +15611,18 @@ function collectElementConsts(job) {
   if (job instanceof ComponentCompilationJob) {
     for (const unit of job.units) {
       for (const op of unit.create) {
-        if (isElementOrContainerOp(op)) {
+        if (op.kind == OpKind.Projection) {
           const attributes = allElementAttributes.get(op.xref);
           if (attributes !== void 0) {
             const attrArray = serializeAttributes(attributes);
             if (attrArray.entries.length > 0) {
-              op.attributes = job.addConst(attrArray);
+              op.attributes = attrArray;
             }
+          }
+        } else if (isElementOrContainerOp(op)) {
+          op.attributes = getConstIndex(job, allElementAttributes, op.xref);
+          if (op.kind === OpKind.RepeaterCreate && op.emptyView !== null) {
+            op.emptyAttributes = getConstIndex(job, allElementAttributes, op.emptyView);
           }
         }
       }
@@ -15514,13 +15639,18 @@ function collectElementConsts(job) {
     }
   }
 }
+function getConstIndex(job, allElementAttributes, xref) {
+  const attributes = allElementAttributes.get(xref);
+  if (attributes !== void 0) {
+    const attrArray = serializeAttributes(attributes);
+    if (attrArray.entries.length > 0) {
+      return job.addConst(attrArray);
+    }
+  }
+  return null;
+}
 var FLYWEIGHT_ARRAY = Object.freeze([]);
 var ElementAttributes = class {
-  constructor() {
-    this.known = /* @__PURE__ */ new Set();
-    this.byKind = /* @__PURE__ */ new Map();
-    this.projectAs = null;
-  }
   get attributes() {
     var _a2;
     return (_a2 = this.byKind.get(BindingKind.Attribute)) != null ? _a2 : FLYWEIGHT_ARRAY;
@@ -15545,12 +15675,28 @@ var ElementAttributes = class {
     var _a2;
     return (_a2 = this.byKind.get(BindingKind.I18n)) != null ? _a2 : FLYWEIGHT_ARRAY;
   }
-  add(kind, name, value) {
+  constructor(compatibility) {
+    this.compatibility = compatibility;
+    this.known = /* @__PURE__ */ new Map();
+    this.byKind = /* @__PURE__ */ new Map();
+    this.projectAs = null;
+  }
+  isKnown(kind, name, value) {
     var _a2;
-    if (this.known.has(name)) {
+    const nameToValue = (_a2 = this.known.get(kind)) != null ? _a2 : /* @__PURE__ */ new Set();
+    this.known.set(kind, nameToValue);
+    if (nameToValue.has(name)) {
+      return true;
+    }
+    nameToValue.add(name);
+    return false;
+  }
+  add(kind, name, value, trustedValueFn) {
+    var _a2;
+    const allowDuplicates = this.compatibility === CompatibilityMode.TemplateDefinitionBuilder && (kind === BindingKind.Attribute || kind === BindingKind.ClassName || kind === BindingKind.StyleProperty);
+    if (!allowDuplicates && this.isKnown(kind, name, value)) {
       return;
     }
-    this.known.add(name);
     if (name === "ngProjectAs") {
       if (value === null || !(value instanceof LiteralExpr) || value.value == null || typeof ((_a2 = value.value) == null ? void 0 : _a2.toString()) !== "string") {
         throw Error("ngProjectAs must have a string literal value");
@@ -15561,9 +15707,16 @@ var ElementAttributes = class {
     array.push(...getAttributeNameLiterals$1(name));
     if (kind === BindingKind.Attribute || kind === BindingKind.StyleProperty) {
       if (value === null) {
-        throw Error("Attribute & style element attributes must have a value");
+        throw Error("Attribute, i18n attribute, & style element attributes must have a value");
       }
-      array.push(value);
+      if (trustedValueFn !== null) {
+        if (!isStringLiteral(value)) {
+          throw Error("AssertionError: extracted attribute value should be string literal");
+        }
+        array.push(taggedTemplate(trustedValueFn, new TemplateLiteral([new TemplateLiteralElement(value.value)], []), void 0, value.sourceSpan));
+      } else {
+        array.push(value);
+      }
     }
   }
   arrayFor(kind) {
@@ -15574,7 +15727,7 @@ var ElementAttributes = class {
   }
 };
 function getAttributeNameLiterals$1(name) {
-  const [attributeNamespace, attributeName] = splitNsName(name);
+  const [attributeNamespace, attributeName] = splitNsName(name, false);
   const nameLiteral = literal(attributeName);
   if (attributeNamespace) {
     return [
@@ -15608,6 +15761,45 @@ function serializeAttributes({ attributes, bindings, classes, i18n: i18n2, proje
   }
   return literalArr(attrArray);
 }
+function convertI18nBindings(job) {
+  const i18nAttributesByElem = /* @__PURE__ */ new Map();
+  for (const unit of job.units) {
+    for (const op of unit.create) {
+      if (op.kind === OpKind.I18nAttributes) {
+        i18nAttributesByElem.set(op.target, op);
+      }
+    }
+    for (const op of unit.update) {
+      switch (op.kind) {
+        case OpKind.Property:
+        case OpKind.Attribute:
+          if (op.i18nContext === null) {
+            continue;
+          }
+          if (!(op.expression instanceof Interpolation)) {
+            continue;
+          }
+          const i18nAttributesForElem = i18nAttributesByElem.get(op.target);
+          if (i18nAttributesForElem === void 0) {
+            throw new Error("AssertionError: An i18n attribute binding instruction requires the owning element to have an I18nAttributes create instruction");
+          }
+          if (i18nAttributesForElem.target !== op.target) {
+            throw new Error("AssertionError: Expected i18nAttributes target element to match binding target element");
+          }
+          const ops = [];
+          for (let i = 0; i < op.expression.expressions.length; i++) {
+            const expr = op.expression.expressions[i];
+            if (op.expression.i18nPlaceholders.length !== op.expression.expressions.length) {
+              throw new Error(`AssertionError: An i18n attribute binding instruction requires the same number of expressions and placeholders, but found ${op.expression.i18nPlaceholders.length} placeholders and ${op.expression.expressions.length} expressions`);
+            }
+            ops.push(createI18nExpressionOp(op.i18nContext, i18nAttributesForElem.target, i18nAttributesForElem.xref, i18nAttributesForElem.handle, expr, null, op.expression.i18nPlaceholders[i], I18nParamResolutionTime.Creation, I18nExpressionFor.I18nAttribute, op.name, op.sourceSpan));
+          }
+          OpList.replaceWithMany(op, ops);
+          break;
+      }
+    }
+  }
+}
 function createDeferDepsFns(job) {
   for (const unit of job.units) {
     for (const op of unit.create) {
@@ -15629,40 +15821,47 @@ function createDeferDepsFns(job) {
         if (op.handle.slot === null) {
           throw new Error("AssertionError: slot must be assigned bfore extracting defer deps functions");
         }
-        op.resolverFn = job.pool.getSharedFunctionReference(depsFnExpr, `${job.componentName}_Defer_${op.handle.slot}_DepsFn`);
+        op.resolverFn = job.pool.getSharedFunctionReference(
+          depsFnExpr,
+          `${job.componentName}_Defer_${op.handle.slot}_DepsFn`,
+          false
+        );
       }
     }
   }
 }
 function createI18nContexts(job) {
-  const rootContexts = /* @__PURE__ */ new Map();
-  let currentI18nOp = null;
-  let xref;
+  const attrContextByMessage = /* @__PURE__ */ new Map();
+  for (const unit of job.units) {
+    for (const op of unit.ops()) {
+      switch (op.kind) {
+        case OpKind.Binding:
+        case OpKind.Property:
+        case OpKind.Attribute:
+        case OpKind.ExtractedAttribute:
+          if (op.i18nMessage === null) {
+            continue;
+          }
+          if (!attrContextByMessage.has(op.i18nMessage)) {
+            const i18nContext = createI18nContextOp(I18nContextKind.Attr, job.allocateXrefId(), null, op.i18nMessage, null);
+            unit.create.push(i18nContext);
+            attrContextByMessage.set(op.i18nMessage, i18nContext.xref);
+          }
+          op.i18nContext = attrContextByMessage.get(op.i18nMessage);
+          break;
+      }
+    }
+  }
+  const blockContextByI18nBlock = /* @__PURE__ */ new Map();
   for (const unit of job.units) {
     for (const op of unit.create) {
       switch (op.kind) {
         case OpKind.I18nStart:
-          currentI18nOp = op;
           if (op.xref === op.root) {
-            xref = job.allocateXrefId();
-            unit.create.push(createI18nContextOp(I18nContextKind.RootI18n, xref, op.xref, op.message, null));
-            op.context = xref;
-            rootContexts.set(op.xref, xref);
-          }
-          break;
-        case OpKind.I18nEnd:
-          currentI18nOp = null;
-          break;
-        case OpKind.IcuStart:
-          if (currentI18nOp === null) {
-            throw Error("Unexpected ICU outside of an i18n block.");
-          }
-          if (op.message.id !== currentI18nOp.message.id) {
-            xref = job.allocateXrefId();
-            unit.create.push(createI18nContextOp(I18nContextKind.Icu, xref, currentI18nOp.xref, op.message, null));
-            op.context = xref;
-          } else {
-            op.context = currentI18nOp.context;
+            const contextOp = createI18nContextOp(I18nContextKind.RootI18n, job.allocateXrefId(), op.xref, op.message, null);
+            unit.create.push(contextOp);
+            op.context = contextOp.xref;
+            blockContextByI18nBlock.set(op.xref, contextOp);
           }
           break;
       }
@@ -15671,7 +15870,58 @@ function createI18nContexts(job) {
   for (const unit of job.units) {
     for (const op of unit.create) {
       if (op.kind === OpKind.I18nStart && op.xref !== op.root) {
-        op.context = rootContexts.get(op.root);
+        const rootContext = blockContextByI18nBlock.get(op.root);
+        if (rootContext === void 0) {
+          throw Error("AssertionError: Root i18n block i18n context should have been created.");
+        }
+        op.context = rootContext.xref;
+        blockContextByI18nBlock.set(op.xref, rootContext);
+      }
+    }
+  }
+  let currentI18nOp = null;
+  for (const unit of job.units) {
+    for (const op of unit.create) {
+      switch (op.kind) {
+        case OpKind.I18nStart:
+          currentI18nOp = op;
+          break;
+        case OpKind.I18nEnd:
+          currentI18nOp = null;
+          break;
+        case OpKind.IcuStart:
+          if (currentI18nOp === null) {
+            throw Error("AssertionError: Unexpected ICU outside of an i18n block.");
+          }
+          if (op.message.id !== currentI18nOp.message.id) {
+            const contextOp = createI18nContextOp(I18nContextKind.Icu, job.allocateXrefId(), currentI18nOp.xref, op.message, null);
+            unit.create.push(contextOp);
+            op.context = contextOp.xref;
+          } else {
+            op.context = currentI18nOp.context;
+            blockContextByI18nBlock.get(currentI18nOp.xref).contextKind = I18nContextKind.Icu;
+          }
+          break;
+      }
+    }
+  }
+}
+function deduplicateTextBindings(job) {
+  const seen = /* @__PURE__ */ new Map();
+  for (const unit of job.units) {
+    for (const op of unit.update.reversed()) {
+      if (op.kind === OpKind.Binding && op.isTextAttribute) {
+        const seenForElement = seen.get(op.target) || /* @__PURE__ */ new Set();
+        if (seenForElement.has(op.name)) {
+          if (job.compatibility === CompatibilityMode.TemplateDefinitionBuilder) {
+            if (op.name === "style" || op.name === "class") {
+              OpList.remove(op);
+            }
+          } else {
+          }
+        }
+        seenForElement.add(op.name);
+        seen.set(op.target, seenForElement);
       }
     }
   }
@@ -15942,7 +16192,7 @@ function ternaryTransform(e) {
   }
   return new ConditionalExpr(new BinaryOperatorExpr(BinaryOperator.Equals, e.guard, NULL_EXPR), NULL_EXPR, e.expr);
 }
-var ESCAPE = "\uFFFD";
+var ESCAPE$1 = "\uFFFD";
 var ELEMENT_MARKER = "#";
 var TEMPLATE_MARKER = "*";
 var TAG_CLOSE_MARKER = "/";
@@ -15951,12 +16201,16 @@ var LIST_START_MARKER = "[";
 var LIST_END_MARKER = "]";
 var LIST_DELIMITER = "|";
 function extractI18nMessages(job) {
-  const i18nContexts = /* @__PURE__ */ new Map();
+  const i18nMessagesByContext = /* @__PURE__ */ new Map();
   const i18nBlocks = /* @__PURE__ */ new Map();
+  const i18nContexts = /* @__PURE__ */ new Map();
   for (const unit of job.units) {
     for (const op of unit.create) {
       switch (op.kind) {
         case OpKind.I18nContext:
+          const i18nMessageOp = createI18nMessage(job, op);
+          unit.create.push(i18nMessageOp);
+          i18nMessagesByContext.set(op.xref, i18nMessageOp);
           i18nContexts.set(op.xref, op);
           break;
         case OpKind.I18nStart:
@@ -15965,37 +16219,40 @@ function extractI18nMessages(job) {
       }
     }
   }
-  const i18nBlockMessages = /* @__PURE__ */ new Map();
-  for (const unit of job.units) {
-    for (const op of unit.create) {
-      if (op.kind === OpKind.I18nStart && op.xref === op.root) {
-        if (!op.context) {
-          throw Error("I18n start op should have its context set.");
-        }
-        const i18nMessageOp = createI18nMessage(job, i18nContexts.get(op.context));
-        i18nBlockMessages.set(op.xref, i18nMessageOp);
-        unit.create.push(i18nMessageOp);
-      }
-    }
-  }
+  let currentIcu = null;
   for (const unit of job.units) {
     for (const op of unit.create) {
       switch (op.kind) {
         case OpKind.IcuStart:
-          if (!op.context) {
-            throw Error("ICU op should have its context set.");
-          }
-          const i18nContext = i18nContexts.get(op.context);
-          if (i18nContext.contextKind === I18nContextKind.Icu) {
-            const subMessage = createI18nMessage(job, i18nContext, op.messagePlaceholder);
-            unit.create.push(subMessage);
-            const rootI18nId = i18nBlocks.get(i18nContext.i18nBlock).root;
-            const parentMessage = i18nBlockMessages.get(rootI18nId);
-            parentMessage == null ? void 0 : parentMessage.subMessages.push(subMessage.xref);
-          }
+          currentIcu = op;
           OpList.remove(op);
+          const icuContext = i18nContexts.get(op.context);
+          if (icuContext.contextKind !== I18nContextKind.Icu) {
+            continue;
+          }
+          const i18nBlock = i18nBlocks.get(icuContext.i18nBlock);
+          if (i18nBlock.context === icuContext.xref) {
+            continue;
+          }
+          const rootI18nBlock = i18nBlocks.get(i18nBlock.root);
+          const rootMessage = i18nMessagesByContext.get(rootI18nBlock.context);
+          if (rootMessage === void 0) {
+            throw Error("AssertionError: ICU sub-message should belong to a root message.");
+          }
+          const subMessage = i18nMessagesByContext.get(icuContext.xref);
+          subMessage.messagePlaceholder = op.messagePlaceholder;
+          rootMessage.subMessages.push(subMessage.xref);
           break;
         case OpKind.IcuEnd:
+          currentIcu = null;
+          OpList.remove(op);
+          break;
+        case OpKind.IcuPlaceholder:
+          if (currentIcu === null || currentIcu.context == null) {
+            throw Error("AssertionError: Unexpected ICU placeholder outside of i18n context");
+          }
+          const msg = i18nMessagesByContext.get(currentIcu.context);
+          msg.postprocessingParams.set(op.name, literal(formatIcuPlaceholder(op)));
           OpList.remove(op);
           break;
       }
@@ -16003,69 +16260,56 @@ function extractI18nMessages(job) {
   }
 }
 function createI18nMessage(job, context, messagePlaceholder) {
-  let [formattedParams, needsPostprocessing] = formatParams(context.params);
-  const [formattedPostprocessingParams] = formatParams(context.postprocessingParams);
-  needsPostprocessing || (needsPostprocessing = formattedPostprocessingParams.size > 0);
-  return createI18nMessageOp(job.allocateXrefId(), context.i18nBlock, context.message, messagePlaceholder != null ? messagePlaceholder : null, formattedParams, formattedPostprocessingParams, needsPostprocessing);
+  let formattedParams = formatParams(context.params);
+  const formattedPostprocessingParams = formatParams(context.postprocessingParams);
+  let needsPostprocessing = [...context.params.values()].some((v) => v.length > 1);
+  return createI18nMessageOp(job.allocateXrefId(), context.xref, context.i18nBlock, context.message, messagePlaceholder != null ? messagePlaceholder : null, formattedParams, formattedPostprocessingParams, needsPostprocessing);
+}
+function formatIcuPlaceholder(op) {
+  if (op.strings.length !== op.expressionPlaceholders.length + 1) {
+    throw Error(`AsserionError: Invalid ICU placeholder with ${op.strings.length} strings and ${op.expressionPlaceholders.length} expressions`);
+  }
+  const values = op.expressionPlaceholders.map(formatValue);
+  return op.strings.flatMap((str, i) => [str, values[i] || ""]).join("");
 }
 function formatParams(params) {
   const formattedParams = /* @__PURE__ */ new Map();
-  let needsPostprocessing = false;
   for (const [placeholder, placeholderValues] of params) {
-    const [serializedValues, paramNeedsPostprocessing] = formatParamValues(placeholderValues);
-    needsPostprocessing || (needsPostprocessing = paramNeedsPostprocessing);
+    const serializedValues = formatParamValues(placeholderValues);
     if (serializedValues !== null) {
       formattedParams.set(placeholder, literal(serializedValues));
     }
   }
-  return [formattedParams, needsPostprocessing];
+  return formattedParams;
 }
 function formatParamValues(values) {
   if (values.length === 0) {
-    return [null, false];
+    return null;
   }
-  collapseElementTemplatePairs(values);
   const serializedValues = values.map((value) => formatValue(value));
-  return serializedValues.length === 1 ? [serializedValues[0], false] : [`${LIST_START_MARKER}${serializedValues.join(LIST_DELIMITER)}${LIST_END_MARKER}`, true];
-}
-function collapseElementTemplatePairs(values) {
-  var _a2;
-  const valueIndiciesBySubTemplateIndex = /* @__PURE__ */ new Map();
-  for (let i = 0; i < values.length; i++) {
-    const value = values[i];
-    if (value.subTemplateIndex !== null && value.flags & (I18nParamValueFlags.ElementTag | I18nParamValueFlags.TemplateTag)) {
-      const valueIndicies = (_a2 = valueIndiciesBySubTemplateIndex.get(value.subTemplateIndex)) != null ? _a2 : [];
-      valueIndicies.push(i);
-      valueIndiciesBySubTemplateIndex.set(value.subTemplateIndex, valueIndicies);
-    }
-  }
-  for (const [subTemplateIndex, valueIndicies] of valueIndiciesBySubTemplateIndex) {
-    if (valueIndicies.length > 1) {
-      const elementIndex = valueIndicies.find((index2) => values[index2].flags & I18nParamValueFlags.ElementTag);
-      const templateIndex = valueIndicies.find((index2) => values[index2].flags & I18nParamValueFlags.TemplateTag);
-      if (elementIndex !== void 0 && templateIndex !== void 0) {
-        const elementValue = values[elementIndex];
-        const templateValue = values[templateIndex];
-        let compundValue;
-        if (elementValue.flags & I18nParamValueFlags.OpenTag && elementValue.flags & I18nParamValueFlags.CloseTag) {
-          compundValue = `${formatValue(templateValue)}${formatValue(elementValue)}${formatValue(templateValue)}`;
-        } else if (elementValue.flags & I18nParamValueFlags.OpenTag) {
-          compundValue = `${formatValue(templateValue)}${formatValue(elementValue)}`;
-        } else {
-          compundValue = `${formatValue(elementValue)}${formatValue(templateValue)}`;
-        }
-        values.splice(elementIndex, 1, { value: compundValue, subTemplateIndex, flags: I18nParamValueFlags.None });
-        values.splice(templateIndex, 1, null);
-      }
-    }
-  }
-  for (let i = values.length - 1; i >= 0; i--) {
-    if (values[i] === null) {
-      values.splice(i, 1);
-    }
-  }
+  return serializedValues.length === 1 ? serializedValues[0] : `${LIST_START_MARKER}${serializedValues.join(LIST_DELIMITER)}${LIST_END_MARKER}`;
 }
 function formatValue(value) {
+  if (value.flags & I18nParamValueFlags.ElementTag && value.flags & I18nParamValueFlags.TemplateTag) {
+    if (typeof value.value !== "object") {
+      throw Error("AssertionError: Expected i18n param value to have an element and template slot");
+    }
+    const elementValue = formatValue(__spreadProps(__spreadValues({}, value), {
+      value: value.value.element,
+      flags: value.flags & ~I18nParamValueFlags.TemplateTag
+    }));
+    const templateValue = formatValue(__spreadProps(__spreadValues({}, value), {
+      value: value.value.template,
+      flags: value.flags & ~I18nParamValueFlags.ElementTag
+    }));
+    if (value.flags & I18nParamValueFlags.OpenTag && value.flags & I18nParamValueFlags.CloseTag) {
+      return `${templateValue}${elementValue}${templateValue}`;
+    }
+    return value.flags & I18nParamValueFlags.CloseTag ? `${elementValue}${templateValue}` : `${templateValue}${elementValue}`;
+  }
+  if (value.flags & I18nParamValueFlags.OpenTag && value.flags & I18nParamValueFlags.CloseTag) {
+    return `${formatValue(__spreadProps(__spreadValues({}, value), { flags: value.flags & ~I18nParamValueFlags.CloseTag }))}${formatValue(__spreadProps(__spreadValues({}, value), { flags: value.flags & ~I18nParamValueFlags.OpenTag }))}`;
+  }
   if (value.flags === I18nParamValueFlags.None) {
     return `${value.value}`;
   }
@@ -16080,10 +16324,7 @@ function formatValue(value) {
     closeMarker = value.flags & I18nParamValueFlags.CloseTag ? TAG_CLOSE_MARKER : "";
   }
   const context = value.subTemplateIndex === null ? "" : `${CONTEXT_MARKER}${value.subTemplateIndex}`;
-  if (value.flags & I18nParamValueFlags.OpenTag && value.flags & I18nParamValueFlags.CloseTag) {
-    return `${ESCAPE}${tagMarker}${value.value}${context}${ESCAPE}${ESCAPE}${closeMarker}${tagMarker}${value.value}${context}${ESCAPE}`;
-  }
-  return `${ESCAPE}${closeMarker}${tagMarker}${value.value}${context}${ESCAPE}`;
+  return `${ESCAPE$1}${closeMarker}${tagMarker}${value.value}${context}${ESCAPE$1}`;
 }
 function generateAdvance(job) {
   for (const unit of job.units) {
@@ -16101,7 +16342,7 @@ function generateAdvance(job) {
       if (!hasDependsOnSlotContextTrait(op)) {
         continue;
       } else if (!slotMap.has(op.target)) {
-        throw new Error(`AssertionError: reference to unknown slot for var ${op.target}`);
+        throw new Error(`AssertionError: reference to unknown slot for target ${op.target}`);
       }
       const slot = slotMap.get(op.target);
       if (slotContext !== slot) {
@@ -16145,8 +16386,13 @@ function recursivelyProcessView(view, parentScope) {
   for (const op of view.create) {
     switch (op.kind) {
       case OpKind.Template:
+        recursivelyProcessView(view.job.views.get(op.xref), scope);
+        break;
       case OpKind.RepeaterCreate:
         recursivelyProcessView(view.job.views.get(op.xref), scope);
+        if (op.emptyView) {
+          recursivelyProcessView(view.job.views.get(op.emptyView), scope);
+        }
         break;
       case OpKind.Listener:
         op.handlerOps.prepend(generateVariablesInScopeForView(view, scope));
@@ -16242,7 +16488,7 @@ var CLASS_BANG = "class!";
 var BANG_IMPORTANT = "!important";
 function parseHostStyleProperties(job) {
   for (const op of job.root.update) {
-    if (op.kind !== OpKind.Binding) {
+    if (!(op.kind === OpKind.Binding && op.bindingKind === BindingKind.Property)) {
       continue;
     }
     if (op.name.endsWith(BANG_IMPORTANT)) {
@@ -22197,55 +22443,135 @@ function createEmptyMessagePart(location) {
 }
 var NG_I18N_CLOSURE_MODE$1 = "ngI18nClosureMode";
 var TRANSLATION_VAR_PREFIX = "i18n_";
+var I18N_ICU_MAPPING_PREFIX = "I18N_EXP_";
+var ESCAPE = "\uFFFD";
 function collectI18nConsts(job) {
+  var _a2, _b2;
   const fileBasedI18nSuffix = job.relativeContextFilePath.replace(/[^A-Za-z0-9]/g, "_").toUpperCase() + "_";
-  const messageConstIndices = /* @__PURE__ */ new Map();
+  const extractedAttributesByI18nContext = /* @__PURE__ */ new Map();
+  const i18nAttributesByElement = /* @__PURE__ */ new Map();
+  const i18nExpressionsByElement = /* @__PURE__ */ new Map();
   const messages = /* @__PURE__ */ new Map();
+  for (const unit of job.units) {
+    for (const op of unit.ops()) {
+      if (op.kind === OpKind.ExtractedAttribute && op.i18nContext !== null) {
+        const attributes = (_a2 = extractedAttributesByI18nContext.get(op.i18nContext)) != null ? _a2 : [];
+        attributes.push(op);
+        extractedAttributesByI18nContext.set(op.i18nContext, attributes);
+      } else if (op.kind === OpKind.I18nAttributes) {
+        i18nAttributesByElement.set(op.target, op);
+      } else if (op.kind === OpKind.I18nExpression && op.usage === I18nExpressionFor.I18nAttribute) {
+        const expressions = (_b2 = i18nExpressionsByElement.get(op.target)) != null ? _b2 : [];
+        expressions.push(op);
+        i18nExpressionsByElement.set(op.target, expressions);
+      } else if (op.kind === OpKind.I18nMessage) {
+        messages.set(op.xref, op);
+      }
+    }
+  }
+  const i18nValuesByContext = /* @__PURE__ */ new Map();
+  const messageConstIndices = /* @__PURE__ */ new Map();
   for (const unit of job.units) {
     for (const op of unit.create) {
       if (op.kind === OpKind.I18nMessage) {
-        messages.set(op.xref, op);
+        if (op.messagePlaceholder === null) {
+          const { mainVar, statements } = collectMessage(job, fileBasedI18nSuffix, messages, op);
+          if (op.i18nBlock !== null) {
+            const i18nConst = job.addConst(mainVar, statements);
+            messageConstIndices.set(op.i18nBlock, i18nConst);
+          } else {
+            job.constsInitializers.push(...statements);
+            i18nValuesByContext.set(op.i18nContext, mainVar);
+            const attributesForMessage = extractedAttributesByI18nContext.get(op.i18nContext);
+            if (attributesForMessage !== void 0) {
+              for (const attr of attributesForMessage) {
+                attr.expression = mainVar.clone();
+              }
+            }
+          }
+        }
         OpList.remove(op);
       }
     }
   }
-  for (const op of messages.values()) {
-    if (op.kind === OpKind.I18nMessage && op.messagePlaceholder === null) {
-      const { mainVar, statements } = collectMessage(job, fileBasedI18nSuffix, messages, op);
-      messageConstIndices.set(op.i18nBlock, job.addConst(mainVar, statements));
+  for (const unit of job.units) {
+    for (const elem of unit.create) {
+      if (isElementOrContainerOp(elem)) {
+        const i18nAttributes2 = i18nAttributesByElement.get(elem.xref);
+        if (i18nAttributes2 === void 0) {
+          continue;
+        }
+        let i18nExpressions = i18nExpressionsByElement.get(elem.xref);
+        if (i18nExpressions === void 0) {
+          throw new Error("AssertionError: Could not find any i18n expressions associated with an I18nAttributes instruction");
+        }
+        const seenPropertyNames = /* @__PURE__ */ new Set();
+        i18nExpressions = i18nExpressions.filter((i18nExpr) => {
+          const seen = seenPropertyNames.has(i18nExpr.name);
+          seenPropertyNames.add(i18nExpr.name);
+          return !seen;
+        });
+        const i18nAttributeConfig = i18nExpressions.flatMap((i18nExpr) => {
+          const i18nExprValue = i18nValuesByContext.get(i18nExpr.context);
+          if (i18nExprValue === void 0) {
+            throw new Error("AssertionError: Could not find i18n expression's value");
+          }
+          return [literal(i18nExpr.name), i18nExprValue];
+        });
+        i18nAttributes2.i18nAttributesConfig = job.addConst(new LiteralArrayExpr(i18nAttributeConfig));
+      }
     }
   }
   for (const unit of job.units) {
     for (const op of unit.create) {
       if (op.kind === OpKind.I18nStart) {
-        op.messageIndex = messageConstIndices.get(op.root);
+        const msgIndex = messageConstIndices.get(op.root);
+        if (msgIndex === void 0) {
+          throw new Error("AssertionError: Could not find corresponding i18n block index for an i18n message op; was an i18n message incorrectly assumed to correspond to an attribute?");
+        }
+        op.messageIndex = msgIndex;
       }
     }
   }
 }
 function collectMessage(job, fileBasedI18nSuffix, messages, messageOp) {
+  var _a2;
   const statements = [];
+  const subMessagePlaceholders = /* @__PURE__ */ new Map();
   for (const subMessageId of messageOp.subMessages) {
     const subMessage = messages.get(subMessageId);
     const { mainVar: subMessageVar, statements: subMessageStatements } = collectMessage(job, fileBasedI18nSuffix, messages, subMessage);
     statements.push(...subMessageStatements);
-    messageOp.params.set(subMessage.messagePlaceholder, subMessageVar);
+    const subMessages = (_a2 = subMessagePlaceholders.get(subMessage.messagePlaceholder)) != null ? _a2 : [];
+    subMessages.push(subMessageVar);
+    subMessagePlaceholders.set(subMessage.messagePlaceholder, subMessages);
   }
+  addSubMessageParams(messageOp, subMessagePlaceholders);
   messageOp.params = new Map([...messageOp.params.entries()].sort());
-  assertAllParamsResolved(messageOp);
   const mainVar = variable(job.pool.uniqueName(TRANSLATION_VAR_PREFIX));
   const closureVar = i18nGenerateClosureVar(job.pool, messageOp.message.id, fileBasedI18nSuffix, job.i18nUseExternalIds);
   let transformFn = void 0;
-  if (messageOp.needsPostprocessing) {
-    messageOp.postprocessingParams = new Map([...messageOp.postprocessingParams.entries()].sort());
+  if (messageOp.needsPostprocessing || messageOp.postprocessingParams.size > 0) {
+    const postprocessingParams = Object.fromEntries([...messageOp.postprocessingParams.entries()].sort());
+    const formattedPostprocessingParams = formatI18nPlaceholderNamesInMap(postprocessingParams, false);
     const extraTransformFnParams = [];
     if (messageOp.postprocessingParams.size > 0) {
-      extraTransformFnParams.push(literalMap([...messageOp.postprocessingParams].map(([key, value]) => ({ key, value, quoted: true }))));
+      extraTransformFnParams.push(mapLiteral(formattedPostprocessingParams, true));
     }
     transformFn = (expr) => importExpr(Identifiers.i18nPostprocess).callFn([expr, ...extraTransformFnParams]);
   }
   statements.push(...getTranslationDeclStmts$1(messageOp.message, mainVar, closureVar, messageOp.params, transformFn));
   return { mainVar, statements };
+}
+function addSubMessageParams(messageOp, subMessagePlaceholders) {
+  for (const [placeholder, subMessages] of subMessagePlaceholders) {
+    if (subMessages.length === 1) {
+      messageOp.params.set(placeholder, subMessages[0]);
+    } else {
+      messageOp.params.set(placeholder, literal(`${ESCAPE}${I18N_ICU_MAPPING_PREFIX}${placeholder}${ESCAPE}`));
+      messageOp.postprocessingParams.set(placeholder, literalArr(subMessages));
+    }
+  }
 }
 function getTranslationDeclStmts$1(message, variable2, closureVar, params, transformFn) {
   const paramsObject = Object.fromEntries(params);
@@ -22274,27 +22600,14 @@ function i18nGenerateClosureVar(pool, messageId, fileBasedI18nSuffix, useExterna
   }
   return variable(name);
 }
-function assertAllParamsResolved(op) {
-  for (let placeholder in op.message.placeholders) {
-    placeholder = placeholder.trimEnd();
-    if (!op.params.has(placeholder) && !op.postprocessingParams.has(placeholder)) {
-      throw Error(`Failed to resolve i18n placeholder: ${placeholder}`);
-    }
-  }
-  for (let placeholder in op.message.placeholderToMessage) {
-    placeholder = placeholder.trimEnd();
-    if (!op.params.has(placeholder) && !op.postprocessingParams.has(placeholder)) {
-      throw Error(`Failed to resolve i18n message placeholder: ${placeholder}`);
-    }
-  }
-}
-function extractI18nText(job) {
-  var _a2;
+function convertI18nText(job) {
+  var _a2, _b2, _c2;
   for (const unit of job.units) {
     let currentI18n = null;
     let currentIcu = null;
     const textNodeI18nBlocks = /* @__PURE__ */ new Map();
     const textNodeIcus = /* @__PURE__ */ new Map();
+    const icuPlaceholderByText = /* @__PURE__ */ new Map();
     for (const op of unit.create) {
       switch (op.kind) {
         case OpKind.I18nStart:
@@ -22319,7 +22632,13 @@ function extractI18nText(job) {
           if (currentI18n !== null) {
             textNodeI18nBlocks.set(op.xref, currentI18n);
             textNodeIcus.set(op.xref, currentIcu);
-            OpList.remove(op);
+            if (op.icuPlaceholder !== null) {
+              const icuPlaceholderOp = createIcuPlaceholderOp(job.allocateXrefId(), op.icuPlaceholder, [op.initialValue]);
+              OpList.replace(op, icuPlaceholderOp);
+              icuPlaceholderByText.set(op.xref, icuPlaceholderOp);
+            } else {
+              OpList.remove(op);
+            }
           }
           break;
       }
@@ -22332,14 +22651,18 @@ function extractI18nText(job) {
           }
           const i18nOp = textNodeI18nBlocks.get(op.target);
           const icuOp = textNodeIcus.get(op.target);
+          const icuPlaceholder = icuPlaceholderByText.get(op.target);
           const contextId = icuOp ? icuOp.context : i18nOp.context;
           const resolutionTime = icuOp ? I18nParamResolutionTime.Postproccessing : I18nParamResolutionTime.Creation;
           const ops = [];
           for (let i = 0; i < op.interpolation.expressions.length; i++) {
             const expr = op.interpolation.expressions[i];
-            ops.push(createI18nExpressionOp(contextId, i18nOp.xref, i18nOp.handle, expr, op.i18nPlaceholders[i], resolutionTime, (_a2 = expr.sourceSpan) != null ? _a2 : op.sourceSpan));
+            ops.push(createI18nExpressionOp(contextId, i18nOp.xref, i18nOp.xref, i18nOp.handle, expr, (_a2 = icuPlaceholder == null ? void 0 : icuPlaceholder.xref) != null ? _a2 : null, (_b2 = op.interpolation.i18nPlaceholders[i]) != null ? _b2 : null, resolutionTime, I18nExpressionFor.I18nText, "", (_c2 = expr.sourceSpan) != null ? _c2 : op.sourceSpan));
           }
           OpList.replaceWithMany(op, ops);
+          if (icuPlaceholder !== void 0) {
+            icuPlaceholder.strings = op.interpolation.strings;
+          }
           break;
       }
     }
@@ -22482,7 +22805,7 @@ function addNamesToView(unit, baseName, state, compatibility) {
         op.handlerFnName = sanitizeIdentifier(op.handlerFnName);
         break;
       case OpKind.Variable:
-        varNames.set(op.xref, getVariableName(op.variable, state));
+        varNames.set(op.xref, getVariableName(unit, op.variable, state));
         break;
       case OpKind.RepeaterCreate:
         if (!(unit instanceof ViewCompilationUnit)) {
@@ -22533,14 +22856,19 @@ function addNamesToView(unit, baseName, state, compatibility) {
     });
   }
 }
-function getVariableName(variable2, state) {
+function getVariableName(unit, variable2, state) {
   if (variable2.name === null) {
     switch (variable2.kind) {
       case SemanticVariableKind.Context:
         variable2.name = `ctx_r${state.index++}`;
         break;
       case SemanticVariableKind.Identifier:
-        variable2.name = `${variable2.identifier}_r${++state.index}`;
+        if (unit.job.compatibility === CompatibilityMode.TemplateDefinitionBuilder) {
+          const compatPrefix = variable2.identifier === "ctx" ? "i" : "";
+          variable2.name = `${variable2.identifier}_${compatPrefix}r${++state.index}`;
+        } else {
+          variable2.name = `${variable2.identifier}_i${state.index++}`;
+        }
         break;
       default:
         variable2.name = `_r${++state.index}`;
@@ -22673,16 +23001,23 @@ var CREATE_ORDERING = [
   { test: (op) => op.kind === OpKind.Listener && !(op.hostListener && op.isAnimationListener) }
 ];
 var UPDATE_ORDERING = [
-  { test: kindWithInterpolationTest(OpKind.HostProperty, true) },
-  { test: kindWithInterpolationTest(OpKind.HostProperty, false) },
   { test: kindTest(OpKind.StyleMap), transform: keepLast },
   { test: kindTest(OpKind.ClassMap), transform: keepLast },
   { test: kindTest(OpKind.StyleProp) },
   { test: kindTest(OpKind.ClassProp) },
-  { test: kindWithInterpolationTest(OpKind.Property, true) },
   { test: kindWithInterpolationTest(OpKind.Attribute, true) },
+  { test: kindWithInterpolationTest(OpKind.Property, true) },
   { test: kindWithInterpolationTest(OpKind.Property, false) },
   { test: kindWithInterpolationTest(OpKind.Attribute, false) }
+];
+var UPDATE_HOST_ORDERING = [
+  { test: kindWithInterpolationTest(OpKind.HostProperty, true) },
+  { test: kindWithInterpolationTest(OpKind.HostProperty, false) },
+  { test: kindTest(OpKind.Attribute) },
+  { test: kindTest(OpKind.StyleMap), transform: keepLast },
+  { test: kindTest(OpKind.ClassMap), transform: keepLast },
+  { test: kindTest(OpKind.StyleProp) },
+  { test: kindTest(OpKind.ClassProp) }
 ];
 var handledOpKinds = /* @__PURE__ */ new Set([
   OpKind.Listener,
@@ -22697,7 +23032,8 @@ var handledOpKinds = /* @__PURE__ */ new Set([
 function orderOps(job) {
   for (const unit of job.units) {
     orderWithin(unit.create, CREATE_ORDERING);
-    orderWithin(unit.update, UPDATE_ORDERING);
+    const ordering = unit.job.kind === CompilationJobKind.Host ? UPDATE_HOST_ORDERING : UPDATE_ORDERING;
+    orderWithin(unit.update, ordering);
   }
 }
 function orderWithin(opList, ordering) {
@@ -22733,19 +23069,31 @@ function keepLast(ops) {
   return ops.slice(ops.length - 1);
 }
 function parseExtractedStyles(job) {
+  const elements = /* @__PURE__ */ new Map();
+  for (const unit of job.units) {
+    for (const op of unit.create) {
+      if (isElementOrContainerOp(op)) {
+        elements.set(op.xref, op);
+      }
+    }
+  }
   for (const unit of job.units) {
     for (const op of unit.create) {
       if (op.kind === OpKind.ExtractedAttribute && op.bindingKind === BindingKind.Attribute && isStringLiteral(op.expression)) {
+        const target = elements.get(op.target);
+        if (target !== void 0 && target.kind === OpKind.Template && target.templateKind === TemplateKind.Structural) {
+          continue;
+        }
         if (op.name === "style") {
           const parsedStyles = parse(op.expression.value);
           for (let i = 0; i < parsedStyles.length - 1; i += 2) {
-            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.StyleProperty, parsedStyles[i], literal(parsedStyles[i + 1])), op);
+            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.StyleProperty, parsedStyles[i], literal(parsedStyles[i + 1]), null, null, SecurityContext.STYLE), op);
           }
           OpList.remove(op);
         } else if (op.name === "class") {
           const parsedClasses = op.expression.value.trim().split(/\s+/g);
           for (const parsedClass of parsedClasses) {
-            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.ClassName, parsedClass, null), op);
+            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.ClassName, parsedClass, null, null, null, SecurityContext.NONE), op);
           }
           OpList.remove(op);
         }
@@ -22756,17 +23104,20 @@ function parseExtractedStyles(job) {
 function removeContentSelectors(job) {
   for (const unit of job.units) {
     const elements = createOpXrefMap(unit);
-    for (const op of unit.update) {
+    for (const op of unit.ops()) {
       switch (op.kind) {
         case OpKind.Binding:
           const target = lookupInXrefMap(elements, op.target);
-          if (op.name.toLowerCase() === "select" && target.kind === OpKind.Projection) {
+          if (isSelectAttribute(op.name) && target.kind === OpKind.Projection) {
             OpList.remove(op);
           }
           break;
       }
     }
   }
+}
+function isSelectAttribute(name) {
+  return name.toLowerCase() === "select";
 }
 function lookupInXrefMap(map, xref) {
   const el = map.get(xref);
@@ -22848,28 +23199,44 @@ function propagateI18nBlocksToTemplates(unit, subTemplateIndex) {
         i18nBlock = op;
         break;
       case OpKind.I18nEnd:
+        if (i18nBlock.subTemplateIndex === null) {
+          subTemplateIndex = 0;
+        }
         i18nBlock = null;
         break;
       case OpKind.Template:
-        const templateView = unit.job.views.get(op.xref);
-        if (op.i18nPlaceholder !== void 0) {
-          if (i18nBlock === null) {
-            throw Error("Expected template with i18n placeholder to be in an i18n block.");
-          }
-          subTemplateIndex++;
-          wrapTemplateWithI18n(templateView, i18nBlock);
+        subTemplateIndex = propagateI18nBlocksForView(unit.job.views.get(op.xref), i18nBlock, op.i18nPlaceholder, subTemplateIndex);
+        break;
+      case OpKind.RepeaterCreate:
+        const forView = unit.job.views.get(op.xref);
+        subTemplateIndex = propagateI18nBlocksForView(unit.job.views.get(op.xref), i18nBlock, op.i18nPlaceholder, subTemplateIndex);
+        if (op.emptyView !== null) {
+          subTemplateIndex = propagateI18nBlocksForView(unit.job.views.get(op.emptyView), i18nBlock, op.emptyI18nPlaceholder, subTemplateIndex);
         }
-        subTemplateIndex = propagateI18nBlocksToTemplates(templateView, subTemplateIndex);
+        break;
     }
   }
   return subTemplateIndex;
+}
+function propagateI18nBlocksForView(view, i18nBlock, i18nPlaceholder, subTemplateIndex) {
+  if (i18nPlaceholder !== void 0) {
+    if (i18nBlock === null) {
+      throw Error("Expected template with i18n placeholder to be in an i18n block.");
+    }
+    subTemplateIndex++;
+    wrapTemplateWithI18n(view, i18nBlock);
+  }
+  return propagateI18nBlocksToTemplates(view, subTemplateIndex);
 }
 function wrapTemplateWithI18n(unit, parentI18n) {
   var _a2;
   if (((_a2 = unit.create.head.next) == null ? void 0 : _a2.kind) !== OpKind.I18nStart) {
     const id = unit.job.allocateXrefId();
-    OpList.insertAfter(createI18nStartOp(id, parentI18n.message, parentI18n.root), unit.create.head);
-    OpList.insertBefore(createI18nEndOp(id), unit.create.tail);
+    OpList.insertAfter(
+      createI18nStartOp(id, parentI18n.message, parentI18n.root, null),
+      unit.create.head
+    );
+    OpList.insertBefore(createI18nEndOp(id, null), unit.create.tail);
   }
 }
 function extractPureFunctions(job) {
@@ -23014,17 +23381,13 @@ function disableBindings() {
 function enableBindings() {
   return call(Identifiers.enableBindings, [], null);
 }
-function listener(name, handlerFn, sourceSpan) {
-  return call(Identifiers.listener, [
-    literal(name),
-    handlerFn
-  ], sourceSpan);
-}
-function syntheticHostListener(name, handlerFn, sourceSpan) {
-  return call(Identifiers.syntheticHostListener, [
-    literal(name),
-    handlerFn
-  ], sourceSpan);
+function listener(name, handlerFn, eventTargetResolver, syntheticHost, sourceSpan) {
+  const args = [literal(name), handlerFn];
+  if (eventTargetResolver !== null) {
+    args.push(literal(false));
+    args.push(importExpr(eventTargetResolver));
+  }
+  return call(syntheticHost ? Identifiers.syntheticHostListener : Identifiers.listener, args, sourceSpan);
 }
 function pipe(slot, name) {
   return call(Identifiers.pipe, [
@@ -23122,22 +23485,22 @@ function projectionDef(def) {
 }
 function projection(slot, projectionSlotIndex, attributes, sourceSpan) {
   const args = [literal(slot)];
-  if (projectionSlotIndex !== 0 || attributes.length > 0) {
+  if (projectionSlotIndex !== 0 || attributes !== null) {
     args.push(literal(projectionSlotIndex));
-    if (attributes.length > 0) {
-      args.push(literalArr(attributes.map((attr) => literal(attr))));
+    if (attributes !== null) {
+      args.push(attributes);
     }
   }
   return call(Identifiers.projection, args, sourceSpan);
 }
-function i18nStart(slot, constIndex, subTemplateIndex) {
+function i18nStart(slot, constIndex, subTemplateIndex, sourceSpan) {
   const args = [literal(slot), literal(constIndex)];
   if (subTemplateIndex !== null) {
     args.push(literal(subTemplateIndex));
   }
-  return call(Identifiers.i18nStart, args, null);
+  return call(Identifiers.i18nStart, args, sourceSpan);
 }
-function repeaterCreate(slot, viewFnName, decls, vars, tag, constIndex, trackByFn, trackByUsesComponentInstance, emptyViewFnName, emptyDecls, emptyVars, sourceSpan) {
+function repeaterCreate(slot, viewFnName, decls, vars, tag, constIndex, trackByFn, trackByUsesComponentInstance, emptyViewFnName, emptyDecls, emptyVars, emptyTag, emptyConstIndex, sourceSpan) {
   const args = [
     literal(slot),
     variable(viewFnName),
@@ -23151,6 +23514,12 @@ function repeaterCreate(slot, viewFnName, decls, vars, tag, constIndex, trackByF
     args.push(literal(trackByUsesComponentInstance));
     if (emptyViewFnName !== null) {
       args.push(variable(emptyViewFnName), literal(emptyDecls), literal(emptyVars));
+      if (emptyTag !== null || emptyConstIndex !== null) {
+        args.push(literal(emptyTag));
+      }
+      if (emptyConstIndex !== null) {
+        args.push(literal(emptyConstIndex));
+      }
     }
   }
   return call(Identifiers.repeaterCreate, args, sourceSpan);
@@ -23161,15 +23530,19 @@ function repeater(collection, sourceSpan) {
 function deferWhen(prefetch, expr, sourceSpan) {
   return call(prefetch ? Identifiers.deferPrefetchWhen : Identifiers.deferWhen, [expr], sourceSpan);
 }
-function i18n(slot, constIndex, subTemplateIndex) {
+function i18n(slot, constIndex, subTemplateIndex, sourceSpan) {
   const args = [literal(slot), literal(constIndex)];
   if (subTemplateIndex) {
     args.push(literal(subTemplateIndex));
   }
-  return call(Identifiers.i18n, args, null);
+  return call(Identifiers.i18n, args, sourceSpan);
 }
-function i18nEnd() {
-  return call(Identifiers.i18nEnd, [], null);
+function i18nEnd(endSourceSpan) {
+  return call(Identifiers.i18nEnd, [], endSourceSpan);
+}
+function i18nAttributes(slot, i18nAttributesConfig) {
+  const args = [literal(slot), literal(i18nAttributesConfig)];
+  return call(Identifiers.i18nAttributes, args, null);
 }
 function property(name, expression, sanitizer, sourceSpan) {
   const args = [literal(name), expression];
@@ -23279,8 +23652,12 @@ function classMapInterpolate(strings, expressions, sourceSpan) {
   const interpolationArgs = collateInterpolationArgs(strings, expressions);
   return callVariadicInstruction(CLASS_MAP_INTERPOLATE_CONFIG, [], interpolationArgs, [], sourceSpan);
 }
-function hostProperty(name, expression, sourceSpan) {
-  return call(Identifiers.hostProperty, [literal(name), expression], sourceSpan);
+function hostProperty(name, expression, sanitizer, sourceSpan) {
+  const args = [literal(name), expression];
+  if (sanitizer !== null) {
+    args.push(sanitizer);
+  }
+  return call(Identifiers.hostProperty, args, sourceSpan);
 }
 function syntheticHostProperty(name, expression, sourceSpan) {
   return call(Identifiers.syntheticHostProperty, [literal(name), expression], sourceSpan);
@@ -23466,13 +23843,10 @@ function callVariadicInstructionExpr(config, baseArgs, interpolationArgs, extraA
 function callVariadicInstruction(config, baseArgs, interpolationArgs, extraArgs, sourceSpan) {
   return createStatementOp(callVariadicInstructionExpr(config, baseArgs, interpolationArgs, extraArgs, sourceSpan).toStmt());
 }
-var sanitizerIdentifierMap = /* @__PURE__ */ new Map([
-  [SanitizerFn.Html, Identifiers.sanitizeHtml],
-  [SanitizerFn.IframeAttribute, Identifiers.validateIframeAttribute],
-  [SanitizerFn.ResourceUrl, Identifiers.sanitizeResourceUrl],
-  [SanitizerFn.Script, Identifiers.sanitizeScript],
-  [SanitizerFn.Style, Identifiers.sanitizeStyle],
-  [SanitizerFn.Url, Identifiers.sanitizeUrl]
+var GLOBAL_TARGET_RESOLVERS$1 = /* @__PURE__ */ new Map([
+  ["window", Identifiers.resolveWindow],
+  ["document", Identifiers.resolveDocument],
+  ["body", Identifiers.resolveBody]
 ]);
 function reify(job) {
   for (const unit of job.units) {
@@ -23489,31 +23863,37 @@ function reifyCreateOperations(unit, ops) {
         OpList.replace(op, text(op.handle.slot, op.initialValue, op.sourceSpan));
         break;
       case OpKind.ElementStart:
-        OpList.replace(op, elementStart(op.handle.slot, op.tag, op.attributes, op.localRefs, op.sourceSpan));
+        OpList.replace(op, elementStart(op.handle.slot, op.tag, op.attributes, op.localRefs, op.startSourceSpan));
         break;
       case OpKind.Element:
-        OpList.replace(op, element(op.handle.slot, op.tag, op.attributes, op.localRefs, op.sourceSpan));
+        OpList.replace(op, element(op.handle.slot, op.tag, op.attributes, op.localRefs, op.wholeSourceSpan));
         break;
       case OpKind.ElementEnd:
         OpList.replace(op, elementEnd(op.sourceSpan));
         break;
       case OpKind.ContainerStart:
-        OpList.replace(op, elementContainerStart(op.handle.slot, op.attributes, op.localRefs, op.sourceSpan));
+        OpList.replace(op, elementContainerStart(op.handle.slot, op.attributes, op.localRefs, op.startSourceSpan));
         break;
       case OpKind.Container:
-        OpList.replace(op, elementContainer(op.handle.slot, op.attributes, op.localRefs, op.sourceSpan));
+        OpList.replace(op, elementContainer(op.handle.slot, op.attributes, op.localRefs, op.wholeSourceSpan));
         break;
       case OpKind.ContainerEnd:
         OpList.replace(op, elementContainerEnd());
         break;
       case OpKind.I18nStart:
-        OpList.replace(op, i18nStart(op.handle.slot, op.messageIndex, op.subTemplateIndex));
+        OpList.replace(op, i18nStart(op.handle.slot, op.messageIndex, op.subTemplateIndex, op.sourceSpan));
         break;
       case OpKind.I18nEnd:
-        OpList.replace(op, i18nEnd());
+        OpList.replace(op, i18nEnd(op.sourceSpan));
         break;
       case OpKind.I18n:
-        OpList.replace(op, i18n(op.handle.slot, op.messageIndex, op.subTemplateIndex));
+        OpList.replace(op, i18n(op.handle.slot, op.messageIndex, op.subTemplateIndex, op.sourceSpan));
+        break;
+      case OpKind.I18nAttributes:
+        if (op.i18nAttributesConfig === null) {
+          throw new Error(`AssertionError: i18nAttributesConfig was not set`);
+        }
+        OpList.replace(op, i18nAttributes(op.handle.slot, op.i18nAttributesConfig));
         break;
       case OpKind.Template:
         if (!(unit instanceof ViewCompilationUnit)) {
@@ -23523,7 +23903,7 @@ function reifyCreateOperations(unit, ops) {
           throw new Error(`AssertionError: local refs array should have been extracted into a constant`);
         }
         const childView = unit.job.views.get(op.xref);
-        OpList.replace(op, template(op.handle.slot, variable(childView.fnName), childView.decls, childView.vars, op.tag, op.attributes, op.localRefs, op.sourceSpan));
+        OpList.replace(op, template(op.handle.slot, variable(childView.fnName), childView.decls, childView.vars, op.tag, op.attributes, op.localRefs, op.startSourceSpan));
         break;
       case OpKind.DisableBindings:
         OpList.replace(op, disableBindings());
@@ -23536,8 +23916,11 @@ function reifyCreateOperations(unit, ops) {
         break;
       case OpKind.Listener:
         const listenerFn = reifyListenerHandler(unit, op.handlerFnName, op.handlerOps, op.consumesDollarEvent);
-        const reified = op.hostListener && op.isAnimationListener ? syntheticHostListener(op.name, listenerFn, op.sourceSpan) : listener(op.name, listenerFn, op.sourceSpan);
-        OpList.replace(op, reified);
+        const eventTargetResolver = op.eventTarget ? GLOBAL_TARGET_RESOLVERS$1.get(op.eventTarget) : null;
+        if (eventTargetResolver === void 0) {
+          throw new Error(`Unexpected global target '${op.eventTarget}' defined for '${op.name}' event. Supported list of global targets: window,document,body.`);
+        }
+        OpList.replace(op, listener(op.name, listenerFn, eventTargetResolver, op.hostListener && op.isAnimationListener, op.sourceSpan));
         break;
       case OpKind.Variable:
         if (op.variable.name === null) {
@@ -23622,7 +24005,7 @@ function reifyCreateOperations(unit, ops) {
           emptyDecls = emptyView.decls;
           emptyVars = emptyView.vars;
         }
-        OpList.replace(op, repeaterCreate(op.handle.slot, repeaterView.fnName, op.decls, op.vars, op.tag, op.attributes, op.trackByFn, op.usesComponentInstance, emptyViewFnName, emptyDecls, emptyVars, op.sourceSpan));
+        OpList.replace(op, repeaterCreate(op.handle.slot, repeaterView.fnName, op.decls, op.vars, op.tag, op.attributes, op.trackByFn, op.usesComponentInstance, emptyViewFnName, emptyDecls, emptyVars, op.emptyTag, op.emptyAttributes, op.wholeSourceSpan));
         break;
       case OpKind.Statement:
         break;
@@ -23692,7 +24075,7 @@ function reifyUpdateOperations(_unit, ops) {
           if (op.isAnimationTrigger) {
             OpList.replace(op, syntheticHostProperty(op.name, op.expression, op.sourceSpan));
           } else {
-            OpList.replace(op, hostProperty(op.name, op.expression, op.sourceSpan));
+            OpList.replace(op, hostProperty(op.name, op.expression, op.sanitizer, op.sourceSpan));
           }
         }
         break;
@@ -23770,8 +24153,6 @@ function reifyIrExpression(expr) {
       return pipeBind(expr.targetSlot.slot, expr.varOffset, expr.args);
     case ExpressionKind.PipeBindingVariadic:
       return pipeBindV(expr.targetSlot.slot, expr.varOffset, expr.args);
-    case ExpressionKind.SanitizerExpr:
-      return importExpr(sanitizerIdentifierMap.get(expr.fn));
     case ExpressionKind.SlotLiteralExpr:
       return literal(expr.slot.slot);
     default:
@@ -23822,6 +24203,26 @@ function removeI18nContexts(job) {
         case OpKind.I18nStart:
           op.context = null;
           break;
+      }
+    }
+  }
+}
+function removeUnusedI18nAttributesOps(job) {
+  for (const unit of job.units) {
+    const ownersWithI18nExpressions = /* @__PURE__ */ new Set();
+    for (const op of unit.update) {
+      switch (op.kind) {
+        case OpKind.I18nExpression:
+          ownersWithI18nExpressions.add(op.i18nOwner);
+      }
+    }
+    for (const op of unit.create) {
+      switch (op.kind) {
+        case OpKind.I18nAttributes:
+          if (ownersWithI18nExpressions.has(op.xref)) {
+            continue;
+          }
+          OpList.remove(op);
       }
     }
   }
@@ -23931,8 +24332,9 @@ function resolveI18nElementPlaceholders(job) {
   }
   resolvePlaceholdersForView(job, job.root, i18nContexts, elements);
 }
-function resolvePlaceholdersForView(job, unit, i18nContexts, elements) {
+function resolvePlaceholdersForView(job, unit, i18nContexts, elements, pendingStructuralDirective) {
   let currentOps = null;
+  let pendingStructuralDirectiveCloses = /* @__PURE__ */ new Map();
   for (const op of unit.create) {
     switch (op.kind) {
       case OpKind.I18nStart:
@@ -23949,52 +24351,135 @@ function resolvePlaceholdersForView(job, unit, i18nContexts, elements) {
           if (currentOps === null) {
             throw Error("i18n tag placeholder should only occur inside an i18n block");
           }
-          const { startName, closeName } = op.i18nPlaceholder;
-          let flags = I18nParamValueFlags.ElementTag | I18nParamValueFlags.OpenTag;
-          if (closeName === "") {
-            flags |= I18nParamValueFlags.CloseTag;
+          recordElementStart(op, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+          if (pendingStructuralDirective && op.i18nPlaceholder.closeName) {
+            pendingStructuralDirectiveCloses.set(op.xref, pendingStructuralDirective);
           }
-          addParam(currentOps.i18nContext.params, startName, op.handle.slot, currentOps.i18nBlock.subTemplateIndex, flags);
+          pendingStructuralDirective = void 0;
         }
         break;
       case OpKind.ElementEnd:
         const startOp = elements.get(op.xref);
         if (startOp && startOp.i18nPlaceholder !== void 0) {
           if (currentOps === null) {
-            throw Error("i18n tag placeholder should only occur inside an i18n block");
+            throw Error("AssertionError: i18n tag placeholder should only occur inside an i18n block");
           }
-          const { closeName } = startOp.i18nPlaceholder;
-          if (closeName !== "") {
-            addParam(currentOps.i18nContext.params, closeName, startOp.handle.slot, currentOps.i18nBlock.subTemplateIndex, I18nParamValueFlags.ElementTag | I18nParamValueFlags.CloseTag);
-          }
+          recordElementClose(startOp, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirectiveCloses.get(op.xref));
+          pendingStructuralDirectiveCloses.delete(op.xref);
         }
         break;
-      case OpKind.Template:
+      case OpKind.Projection:
         if (op.i18nPlaceholder !== void 0) {
           if (currentOps === null) {
             throw Error("i18n tag placeholder should only occur inside an i18n block");
           }
-          let startFlags = I18nParamValueFlags.TemplateTag | I18nParamValueFlags.OpenTag;
-          const subTemplateIndex = getSubTemplateIndexForTemplateTag(job, currentOps.i18nBlock, op);
-          const { startName, closeName } = op.i18nPlaceholder;
-          const isSelfClosing = closeName === "";
-          if (isSelfClosing) {
-            startFlags |= I18nParamValueFlags.CloseTag;
-          }
-          addParam(currentOps.i18nContext.params, startName, op.handle.slot, subTemplateIndex, startFlags);
-          resolvePlaceholdersForView(job, job.views.get(op.xref), i18nContexts, elements);
-          if (!isSelfClosing) {
-            addParam(currentOps.i18nContext.params, closeName, op.handle.slot, subTemplateIndex, I18nParamValueFlags.TemplateTag | I18nParamValueFlags.CloseTag);
-          }
+          recordElementStart(op, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+          recordElementClose(op, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+          pendingStructuralDirective = void 0;
+        }
+        break;
+      case OpKind.Template:
+        const view = job.views.get(op.xref);
+        if (op.i18nPlaceholder === void 0) {
+          resolvePlaceholdersForView(job, view, i18nContexts, elements);
         } else {
-          resolvePlaceholdersForView(job, job.views.get(op.xref), i18nContexts, elements);
+          if (currentOps === null) {
+            throw Error("i18n tag placeholder should only occur inside an i18n block");
+          }
+          if (op.templateKind === TemplateKind.Structural) {
+            resolvePlaceholdersForView(job, view, i18nContexts, elements, op);
+          } else {
+            recordTemplateStart(job, view, op.handle.slot, op.i18nPlaceholder, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+            resolvePlaceholdersForView(job, view, i18nContexts, elements);
+            recordTemplateClose(job, view, op.handle.slot, op.i18nPlaceholder, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+            pendingStructuralDirective = void 0;
+          }
+        }
+        break;
+      case OpKind.RepeaterCreate:
+        if (pendingStructuralDirective !== void 0) {
+          throw Error("AssertionError: Unexpected structural directive associated with @for block");
+        }
+        const forSlot = op.handle.slot + 1;
+        const forView = job.views.get(op.xref);
+        if (op.i18nPlaceholder === void 0) {
+          resolvePlaceholdersForView(job, forView, i18nContexts, elements);
+        } else {
+          if (currentOps === null) {
+            throw Error("i18n tag placeholder should only occur inside an i18n block");
+          }
+          recordTemplateStart(job, forView, forSlot, op.i18nPlaceholder, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+          resolvePlaceholdersForView(job, forView, i18nContexts, elements);
+          recordTemplateClose(job, forView, forSlot, op.i18nPlaceholder, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+          pendingStructuralDirective = void 0;
+        }
+        if (op.emptyView !== null) {
+          const emptySlot = op.handle.slot + 2;
+          const emptyView = job.views.get(op.emptyView);
+          if (op.emptyI18nPlaceholder === void 0) {
+            resolvePlaceholdersForView(job, emptyView, i18nContexts, elements);
+          } else {
+            if (currentOps === null) {
+              throw Error("i18n tag placeholder should only occur inside an i18n block");
+            }
+            recordTemplateStart(job, emptyView, emptySlot, op.emptyI18nPlaceholder, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+            resolvePlaceholdersForView(job, emptyView, i18nContexts, elements);
+            recordTemplateClose(job, emptyView, emptySlot, op.emptyI18nPlaceholder, currentOps.i18nContext, currentOps.i18nBlock, pendingStructuralDirective);
+            pendingStructuralDirective = void 0;
+          }
         }
         break;
     }
   }
 }
-function getSubTemplateIndexForTemplateTag(job, i18nOp, op) {
-  for (const childOp of job.views.get(op.xref).create) {
+function recordElementStart(op, i18nContext, i18nBlock, structuralDirective) {
+  const { startName, closeName } = op.i18nPlaceholder;
+  let flags = I18nParamValueFlags.ElementTag | I18nParamValueFlags.OpenTag;
+  let value = op.handle.slot;
+  if (structuralDirective !== void 0) {
+    flags |= I18nParamValueFlags.TemplateTag;
+    value = { element: value, template: structuralDirective.handle.slot };
+  }
+  if (!closeName) {
+    flags |= I18nParamValueFlags.CloseTag;
+  }
+  addParam(i18nContext.params, startName, value, i18nBlock.subTemplateIndex, flags);
+}
+function recordElementClose(op, i18nContext, i18nBlock, structuralDirective) {
+  const { closeName } = op.i18nPlaceholder;
+  if (closeName) {
+    let flags = I18nParamValueFlags.ElementTag | I18nParamValueFlags.CloseTag;
+    let value = op.handle.slot;
+    if (structuralDirective !== void 0) {
+      flags |= I18nParamValueFlags.TemplateTag;
+      value = { element: value, template: structuralDirective.handle.slot };
+    }
+    addParam(i18nContext.params, closeName, value, i18nBlock.subTemplateIndex, flags);
+  }
+}
+function recordTemplateStart(job, view, slot, i18nPlaceholder, i18nContext, i18nBlock, structuralDirective) {
+  let { startName, closeName } = i18nPlaceholder;
+  let flags = I18nParamValueFlags.TemplateTag | I18nParamValueFlags.OpenTag;
+  if (!closeName) {
+    flags |= I18nParamValueFlags.CloseTag;
+  }
+  if (structuralDirective !== void 0) {
+    addParam(i18nContext.params, startName, structuralDirective.handle.slot, i18nBlock.subTemplateIndex, flags);
+  }
+  addParam(i18nContext.params, startName, slot, getSubTemplateIndexForTemplateTag(job, i18nBlock, view), flags);
+}
+function recordTemplateClose(job, view, slot, i18nPlaceholder, i18nContext, i18nBlock, structuralDirective) {
+  const { startName, closeName } = i18nPlaceholder;
+  const flags = I18nParamValueFlags.TemplateTag | I18nParamValueFlags.CloseTag;
+  if (closeName) {
+    addParam(i18nContext.params, closeName, slot, getSubTemplateIndexForTemplateTag(job, i18nBlock, view), flags);
+    if (structuralDirective !== void 0) {
+      addParam(i18nContext.params, closeName, structuralDirective.handle.slot, i18nBlock.subTemplateIndex, flags);
+    }
+  }
+}
+function getSubTemplateIndexForTemplateTag(job, i18nOp, view) {
+  for (const childOp of view.create) {
     if (childOp.kind === OpKind.I18nStart) {
       return childOp.subTemplateIndex;
     }
@@ -24008,8 +24493,10 @@ function addParam(params, placeholder, value, subTemplateIndex, flags) {
   params.set(placeholder, values);
 }
 function resolveI18nExpressionPlaceholders(job) {
+  var _a2;
   const subTemplateIndicies = /* @__PURE__ */ new Map();
   const i18nContexts = /* @__PURE__ */ new Map();
+  const icuPlaceholders = /* @__PURE__ */ new Map();
   for (const unit of job.units) {
     for (const op of unit.create) {
       switch (op.kind) {
@@ -24019,71 +24506,43 @@ function resolveI18nExpressionPlaceholders(job) {
         case OpKind.I18nContext:
           i18nContexts.set(op.xref, op);
           break;
+        case OpKind.IcuPlaceholder:
+          icuPlaceholders.set(op.xref, op);
+          break;
       }
     }
   }
   const expressionIndices = /* @__PURE__ */ new Map();
+  const referenceIndex = (op) => op.usage === I18nExpressionFor.I18nText ? op.i18nOwner : op.context;
   for (const unit of job.units) {
     for (const op of unit.update) {
       if (op.kind === OpKind.I18nExpression) {
-        const i18nContext = i18nContexts.get(op.context);
-        const index2 = expressionIndices.get(op.target) || 0;
-        const subTemplateIndex = subTemplateIndicies.get(op.target);
-        const params = op.resolutionTime === I18nParamResolutionTime.Creation ? i18nContext.params : i18nContext.postprocessingParams;
-        const values = params.get(op.i18nPlaceholder) || [];
-        values.push({
+        const index2 = expressionIndices.get(referenceIndex(op)) || 0;
+        const subTemplateIndex = (_a2 = subTemplateIndicies.get(op.i18nOwner)) != null ? _a2 : null;
+        const value = {
           value: index2,
           subTemplateIndex,
           flags: I18nParamValueFlags.ExpressionIndex
-        });
-        params.set(op.i18nPlaceholder, values);
-        expressionIndices.set(op.target, index2 + 1);
+        };
+        updatePlaceholder(op, value, i18nContexts, icuPlaceholders);
+        expressionIndices.set(referenceIndex(op), index2 + 1);
       }
     }
   }
 }
-function resolveI18nIcuPlaceholders(job) {
-  for (const unit of job.units) {
-    for (const op of unit.create) {
-      if (op.kind === OpKind.I18nContext && op.contextKind === I18nContextKind.Icu) {
-        for (const node of op.message.nodes) {
-          node.visit(new ResolveIcuPlaceholdersVisitor(op.postprocessingParams));
-        }
-      }
-    }
+function updatePlaceholder(op, value, i18nContexts, icuPlaceholders) {
+  if (op.i18nPlaceholder !== null) {
+    const i18nContext = i18nContexts.get(op.context);
+    const params = op.resolutionTime === I18nParamResolutionTime.Creation ? i18nContext.params : i18nContext.postprocessingParams;
+    const values = params.get(op.i18nPlaceholder) || [];
+    values.push(value);
+    params.set(op.i18nPlaceholder, values);
+  }
+  if (op.icuPlaceholder !== null) {
+    const icuPlaceholderOp = icuPlaceholders.get(op.icuPlaceholder);
+    icuPlaceholderOp == null ? void 0 : icuPlaceholderOp.expressionPlaceholders.push(value);
   }
 }
-var ResolveIcuPlaceholdersVisitor = class extends RecurseVisitor {
-  constructor(params) {
-    super();
-    this.params = params;
-  }
-  visitContainerPlaceholder(placeholder) {
-    var _a2, _b2;
-    if (placeholder.startName && placeholder.startSourceSpan && !this.params.has(placeholder.startName)) {
-      this.params.set(placeholder.startName, [{
-        value: (_a2 = placeholder.startSourceSpan) == null ? void 0 : _a2.toString(),
-        subTemplateIndex: null,
-        flags: I18nParamValueFlags.None
-      }]);
-    }
-    if (placeholder.closeName && placeholder.endSourceSpan && !this.params.has(placeholder.closeName)) {
-      this.params.set(placeholder.closeName, [{
-        value: (_b2 = placeholder.endSourceSpan) == null ? void 0 : _b2.toString(),
-        subTemplateIndex: null,
-        flags: I18nParamValueFlags.None
-      }]);
-    }
-  }
-  visitTagPlaceholder(placeholder) {
-    super.visitTagPlaceholder(placeholder);
-    this.visitContainerPlaceholder(placeholder);
-  }
-  visitBlockPlaceholder(placeholder) {
-    super.visitBlockPlaceholder(placeholder);
-    this.visitContainerPlaceholder(placeholder);
-  }
-};
 function resolveNames(job) {
   for (const unit of job.units) {
     processLexicalScope(unit, unit.create, null);
@@ -24146,30 +24605,54 @@ function processLexicalScope(unit, ops, savedView) {
     });
   }
 }
-var sanitizers = /* @__PURE__ */ new Map([
-  [SecurityContext.HTML, SanitizerFn.Html],
-  [SecurityContext.SCRIPT, SanitizerFn.Script],
-  [SecurityContext.STYLE, SanitizerFn.Style],
-  [SecurityContext.URL, SanitizerFn.Url],
-  [SecurityContext.RESOURCE_URL, SanitizerFn.ResourceUrl]
+var sanitizerFns = /* @__PURE__ */ new Map([
+  [SecurityContext.HTML, Identifiers.sanitizeHtml],
+  [SecurityContext.RESOURCE_URL, Identifiers.sanitizeResourceUrl],
+  [SecurityContext.SCRIPT, Identifiers.sanitizeScript],
+  [SecurityContext.STYLE, Identifiers.sanitizeStyle],
+  [SecurityContext.URL, Identifiers.sanitizeUrl]
+]);
+var trustedValueFns = /* @__PURE__ */ new Map([
+  [SecurityContext.HTML, Identifiers.trustConstantHtml],
+  [SecurityContext.RESOURCE_URL, Identifiers.trustConstantResourceUrl]
 ]);
 function resolveSanitizers(job) {
+  var _a2, _b2;
   for (const unit of job.units) {
     const elements = createOpXrefMap(unit);
-    let sanitizerFn;
+    if (job.kind !== CompilationJobKind.Host) {
+      for (const op of unit.create) {
+        if (op.kind === OpKind.ExtractedAttribute) {
+          const trustedValueFn = (_a2 = trustedValueFns.get(getOnlySecurityContext(op.securityContext))) != null ? _a2 : null;
+          op.trustedValueFn = trustedValueFn !== null ? importExpr(trustedValueFn) : null;
+        }
+      }
+    }
     for (const op of unit.update) {
       switch (op.kind) {
         case OpKind.Property:
         case OpKind.Attribute:
-          sanitizerFn = sanitizers.get(op.securityContext) || null;
-          op.sanitizer = sanitizerFn ? new SanitizerExpr(sanitizerFn) : null;
+        case OpKind.HostProperty:
+          let sanitizerFn = null;
+          if (Array.isArray(op.securityContext) && op.securityContext.length === 2 && op.securityContext.indexOf(SecurityContext.URL) > -1 && op.securityContext.indexOf(SecurityContext.RESOURCE_URL) > -1) {
+            sanitizerFn = Identifiers.sanitizeUrlOrResourceUrl;
+          } else {
+            sanitizerFn = (_b2 = sanitizerFns.get(getOnlySecurityContext(op.securityContext))) != null ? _b2 : null;
+          }
+          op.sanitizer = sanitizerFn !== null ? importExpr(sanitizerFn) : null;
           if (op.sanitizer === null) {
-            const ownerOp = elements.get(op.target);
-            if (ownerOp === void 0 || !isElementOrContainerOp(ownerOp)) {
-              throw Error("Property should have an element-like owner");
+            let isIframe = false;
+            if (job.kind === CompilationJobKind.Host || op.kind === OpKind.HostProperty) {
+              isIframe = true;
+            } else {
+              const ownerOp = elements.get(op.target);
+              if (ownerOp === void 0 || !isElementOrContainerOp(ownerOp)) {
+                throw Error("Property should have an element-like owner");
+              }
+              isIframe = isIframeElement$1(ownerOp);
             }
-            if (isIframeElement$1(ownerOp) && isIframeSecuritySensitiveAttr(op.name)) {
-              op.sanitizer = new SanitizerExpr(SanitizerFn.IframeAttribute);
+            if (isIframe && isIframeSecuritySensitiveAttr(op.name)) {
+              op.sanitizer = importExpr(Identifiers.validateIframeAttribute);
             }
           }
           break;
@@ -24180,6 +24663,15 @@ function resolveSanitizers(job) {
 function isIframeElement$1(op) {
   var _a2;
   return op.kind === OpKind.ElementStart && ((_a2 = op.tag) == null ? void 0 : _a2.toLowerCase()) === "iframe";
+}
+function getOnlySecurityContext(securityContext) {
+  if (Array.isArray(securityContext)) {
+    if (securityContext.length > 1) {
+      throw Error(`AssertionError: Ambiguous security context`);
+    }
+    return securityContext[0] || SecurityContext.NONE;
+  }
+  return securityContext;
 }
 function saveAndRestoreView(job) {
   for (const unit of job.units) {
@@ -24342,6 +24834,9 @@ function generateTrackFns(job) {
       }
       let usesComponentContext = false;
       op.track = transformExpressionsInExpression(op.track, (expr) => {
+        if (expr instanceof PipeBindingExpr || expr instanceof PipeBindingVariadicExpr) {
+          throw new Error(`Illegal State: Pipes are not allowed in this context`);
+        }
         if (expr instanceof TrackContextExpr) {
           usesComponentContext = true;
           return variable("this");
@@ -24500,7 +24995,10 @@ function varsUsedByOp(op) {
       return op.interpolation.expressions.length;
     case OpKind.I18nExpression:
     case OpKind.Conditional:
+    case OpKind.DeferWhen:
       return 1;
+    case OpKind.RepeaterCreate:
+      return op.emptyView ? 1 : 0;
     default:
       throw new Error(`Unhandled op: ${OpKind[op.kind]}`);
   }
@@ -24789,12 +25287,12 @@ function wrapI18nIcus(job) {
         case OpKind.IcuStart:
           if (currentI18nOp === null) {
             addedI18nId = job.allocateXrefId();
-            OpList.insertBefore(createI18nStartOp(addedI18nId, op.message), op);
+            OpList.insertBefore(createI18nStartOp(addedI18nId, op.message, void 0, null), op);
           }
           break;
         case OpKind.IcuEnd:
           if (addedI18nId !== null) {
-            OpList.insertAfter(createI18nEndOp(addedI18nId), op);
+            OpList.insertAfter(createI18nEndOp(addedI18nId, null), op);
             addedI18nId = null;
           }
           break;
@@ -24806,12 +25304,13 @@ var phases = [
   { kind: CompilationJobKind.Tmpl, fn: removeContentSelectors },
   { kind: CompilationJobKind.Host, fn: parseHostStyleProperties },
   { kind: CompilationJobKind.Tmpl, fn: emitNamespaceChanges },
-  { kind: CompilationJobKind.Both, fn: specializeStyleBindings },
-  { kind: CompilationJobKind.Both, fn: specializeBindings },
   { kind: CompilationJobKind.Tmpl, fn: propagateI18nBlocks },
   { kind: CompilationJobKind.Tmpl, fn: wrapI18nIcus },
-  { kind: CompilationJobKind.Tmpl, fn: createI18nContexts },
+  { kind: CompilationJobKind.Both, fn: deduplicateTextBindings },
+  { kind: CompilationJobKind.Both, fn: specializeStyleBindings },
+  { kind: CompilationJobKind.Both, fn: specializeBindings },
   { kind: CompilationJobKind.Both, fn: extractAttributes },
+  { kind: CompilationJobKind.Tmpl, fn: createI18nContexts },
   { kind: CompilationJobKind.Both, fn: parseExtractedStyles },
   { kind: CompilationJobKind.Tmpl, fn: removeEmptyBindings },
   { kind: CompilationJobKind.Both, fn: collapseSingletonInterpolations },
@@ -24819,14 +25318,17 @@ var phases = [
   { kind: CompilationJobKind.Tmpl, fn: generateConditionalExpressions },
   { kind: CompilationJobKind.Tmpl, fn: createPipes },
   { kind: CompilationJobKind.Tmpl, fn: configureDeferInstructions },
-  { kind: CompilationJobKind.Tmpl, fn: extractI18nText },
+  { kind: CompilationJobKind.Tmpl, fn: convertI18nText },
+  { kind: CompilationJobKind.Tmpl, fn: convertI18nBindings },
+  { kind: CompilationJobKind.Tmpl, fn: removeUnusedI18nAttributesOps },
+  { kind: CompilationJobKind.Tmpl, fn: assignI18nSlotDependencies },
   { kind: CompilationJobKind.Tmpl, fn: applyI18nExpressions },
   { kind: CompilationJobKind.Tmpl, fn: createVariadicPipes },
   { kind: CompilationJobKind.Both, fn: generatePureLiteralStructures },
   { kind: CompilationJobKind.Tmpl, fn: generateProjectionDefs },
   { kind: CompilationJobKind.Tmpl, fn: generateVariables },
   { kind: CompilationJobKind.Tmpl, fn: saveAndRestoreView },
-  { kind: CompilationJobKind.Tmpl, fn: deleteAnyCasts },
+  { kind: CompilationJobKind.Both, fn: deleteAnyCasts },
   { kind: CompilationJobKind.Both, fn: resolveDollarEvent },
   { kind: CompilationJobKind.Tmpl, fn: generateRepeaterDerivedVars },
   { kind: CompilationJobKind.Tmpl, fn: generateTrackVariables },
@@ -24834,7 +25336,7 @@ var phases = [
   { kind: CompilationJobKind.Tmpl, fn: resolveDeferTargetNames },
   { kind: CompilationJobKind.Tmpl, fn: optimizeTrackFns },
   { kind: CompilationJobKind.Both, fn: resolveContexts },
-  { kind: CompilationJobKind.Tmpl, fn: resolveSanitizers },
+  { kind: CompilationJobKind.Both, fn: resolveSanitizers },
   { kind: CompilationJobKind.Tmpl, fn: liftLocalRefs },
   { kind: CompilationJobKind.Both, fn: generateNullishCoalesceExpressions },
   { kind: CompilationJobKind.Both, fn: expandSafeReads },
@@ -24843,13 +25345,11 @@ var phases = [
   { kind: CompilationJobKind.Tmpl, fn: createDeferDepsFns },
   { kind: CompilationJobKind.Tmpl, fn: resolveI18nElementPlaceholders },
   { kind: CompilationJobKind.Tmpl, fn: resolveI18nExpressionPlaceholders },
-  { kind: CompilationJobKind.Tmpl, fn: resolveI18nIcuPlaceholders },
   { kind: CompilationJobKind.Tmpl, fn: extractI18nMessages },
   { kind: CompilationJobKind.Tmpl, fn: generateTrackFns },
   { kind: CompilationJobKind.Tmpl, fn: collectI18nConsts },
   { kind: CompilationJobKind.Tmpl, fn: collectConstExpressions },
   { kind: CompilationJobKind.Both, fn: collectElementConsts },
-  { kind: CompilationJobKind.Tmpl, fn: assignI18nSlotDependencies },
   { kind: CompilationJobKind.Tmpl, fn: removeI18nContexts },
   { kind: CompilationJobKind.Both, fn: countVariables },
   { kind: CompilationJobKind.Tmpl, fn: generateAdvance },
@@ -24965,6 +25465,8 @@ function emitHostBindingFunction(job) {
   );
 }
 var compatibilityMode = CompatibilityMode.TemplateDefinitionBuilder;
+var domSchema = new DomElementSchemaRegistry();
+var NG_TEMPLATE_TAG_NAME$1 = "ng-template";
 function ingestComponent(componentName, template2, constantPool, relativeContextFilePath, i18nUseExternalIds, deferBlocksMeta) {
   const job = new ComponentCompilationJob(componentName, constantPool, compatibilityMode, relativeContextFilePath, i18nUseExternalIds, deferBlocksMeta);
   ingestNodes(job.root, template2);
@@ -24974,51 +25476,55 @@ function ingestHostBinding(input, bindingParser, constantPool) {
   var _a2, _b2, _c2;
   const job = new HostBindingCompilationJob(input.componentName, constantPool, compatibilityMode);
   for (const property2 of (_a2 = input.properties) != null ? _a2 : []) {
-    ingestHostProperty(job, property2, false);
+    let bindingKind = BindingKind.Property;
+    if (property2.name.startsWith("attr.")) {
+      property2.name = property2.name.substring("attr.".length);
+      bindingKind = BindingKind.Attribute;
+    }
+    if (property2.isAnimation) {
+      bindingKind = BindingKind.Animation;
+    }
+    const securityContexts = bindingParser.calcPossibleSecurityContexts(input.componentSelector, property2.name, bindingKind === BindingKind.Attribute).filter((context) => context !== SecurityContext.NONE);
+    ingestHostProperty(job, property2, bindingKind, securityContexts);
   }
   for (const [name, expr] of (_b2 = Object.entries(input.attributes)) != null ? _b2 : []) {
-    ingestHostAttribute(job, name, expr);
+    const securityContexts = bindingParser.calcPossibleSecurityContexts(input.componentSelector, name, true).filter((context) => context !== SecurityContext.NONE);
+    ingestHostAttribute(job, name, expr, securityContexts);
   }
   for (const event of (_c2 = input.events) != null ? _c2 : []) {
     ingestHostEvent(job, event);
   }
   return job;
 }
-function ingestHostProperty(job, property2, isTextAttribute) {
+function ingestHostProperty(job, property2, bindingKind, securityContexts) {
   let expression;
   const ast = property2.expression.ast;
   if (ast instanceof Interpolation$1) {
-    expression = new Interpolation(ast.strings, ast.expressions.map((expr) => convertAst(expr, job, property2.sourceSpan)));
+    expression = new Interpolation(ast.strings, ast.expressions.map((expr) => convertAst(expr, job, property2.sourceSpan)), []);
   } else {
     expression = convertAst(ast, job, property2.sourceSpan);
   }
-  let bindingKind = BindingKind.Property;
-  if (property2.name.startsWith("attr.")) {
-    property2.name = property2.name.substring("attr.".length);
-    bindingKind = BindingKind.Attribute;
-  }
-  if (property2.isAnimation) {
-    bindingKind = BindingKind.Animation;
-  }
-  job.root.update.push(createBindingOp(job.root.xref, bindingKind, property2.name, expression, null, SecurityContext.NONE, isTextAttribute, false, property2.sourceSpan));
+  job.root.update.push(createBindingOp(job.root.xref, bindingKind, property2.name, expression, null, securityContexts, false, false, null, null, property2.sourceSpan));
 }
-function ingestHostAttribute(job, name, value) {
+function ingestHostAttribute(job, name, value, securityContexts) {
   const attrBinding = createBindingOp(
     job.root.xref,
     BindingKind.Attribute,
     name,
     value,
     null,
-    SecurityContext.NONE,
+    securityContexts,
     true,
     false,
-    null
+    null,
+    null,
+    value.sourceSpan
   );
   job.root.update.push(attrBinding);
 }
 function ingestHostEvent(job, event) {
-  const eventBinding = createListenerOp(job.root.xref, new SlotHandle(), event.name, null, event.targetOrPhase, true, event.sourceSpan);
-  eventBinding.handlerOps.push(createStatementOp(new ReturnStatement(convertAst(event.handler.ast, job, event.sourceSpan), event.handlerSpan)));
+  const [phase, target] = event.type === 0 ? [null, event.targetOrPhase] : [event.targetOrPhase, null];
+  const eventBinding = createListenerOp(job.root.xref, new SlotHandle(), event.name, null, makeListenerHandlerOps(job.root, event.handler, event.handlerSpan), phase, target, true, event.sourceSpan);
   job.root.create.push(eventBinding);
 }
 function ingestNodes(unit, template2) {
@@ -25030,9 +25536,9 @@ function ingestNodes(unit, template2) {
     } else if (node instanceof Content) {
       ingestContent(unit, node);
     } else if (node instanceof Text$3) {
-      ingestText(unit, node);
+      ingestText(unit, node, null);
     } else if (node instanceof BoundText) {
-      ingestBoundText(unit, node);
+      ingestBoundText(unit, node, null);
     } else if (node instanceof IfBlock) {
       ingestIfBlock(unit, node);
     } else if (node instanceof SwitchBlock) {
@@ -25049,26 +25555,30 @@ function ingestNodes(unit, template2) {
   }
 }
 function ingestElement(unit, element2) {
-  var _a2;
+  var _a2, _b2;
   if (element2.i18n !== void 0 && !(element2.i18n instanceof Message || element2.i18n instanceof TagPlaceholder)) {
     throw Error(`Unhandled i18n metadata type for element: ${element2.i18n.constructor.name}`);
   }
   const id = unit.job.allocateXrefId();
   const [namespaceKey, elementName] = splitNsName(element2.name);
-  const startOp = createElementStartOp(elementName, id, namespaceForKey(namespaceKey), element2.i18n instanceof TagPlaceholder ? element2.i18n : void 0, element2.startSourceSpan);
+  const startOp = createElementStartOp(elementName, id, namespaceForKey(namespaceKey), element2.i18n instanceof TagPlaceholder ? element2.i18n : void 0, element2.startSourceSpan, element2.sourceSpan);
   unit.create.push(startOp);
-  ingestBindings(unit, startOp, element2);
+  ingestElementBindings(unit, startOp, element2);
   ingestReferences(startOp, element2);
+  let i18nBlockId = null;
+  if (element2.i18n instanceof Message) {
+    i18nBlockId = unit.job.allocateXrefId();
+    unit.create.push(createI18nStartOp(i18nBlockId, element2.i18n, void 0, element2.startSourceSpan));
+  }
   ingestNodes(unit, element2.children);
   const endOp = createElementEndOp(id, (_a2 = element2.endSourceSpan) != null ? _a2 : element2.startSourceSpan);
   unit.create.push(endOp);
-  if (element2.i18n instanceof Message) {
-    const i18nBlockId = unit.job.allocateXrefId();
-    OpList.insertAfter(createI18nStartOp(i18nBlockId, element2.i18n), startOp);
-    OpList.insertBefore(createI18nEndOp(i18nBlockId), endOp);
+  if (i18nBlockId !== null) {
+    OpList.insertBefore(createI18nEndOp(i18nBlockId, (_b2 = element2.endSourceSpan) != null ? _b2 : element2.startSourceSpan), endOp);
   }
 }
 function ingestTemplate(unit, tmpl) {
+  var _a2;
   if (tmpl.i18n !== void 0 && !(tmpl.i18n instanceof Message || tmpl.i18n instanceof TagPlaceholder)) {
     throw Error(`Unhandled i18n metadata type for template: ${tmpl.i18n.constructor.name}`);
   }
@@ -25081,31 +25591,36 @@ function ingestTemplate(unit, tmpl) {
   const i18nPlaceholder = tmpl.i18n instanceof TagPlaceholder ? tmpl.i18n : void 0;
   const namespace = namespaceForKey(namespacePrefix);
   const functionNameSuffix = tagNameWithoutNamespace === null ? "" : prefixWithNamespace(tagNameWithoutNamespace, namespace);
-  const tplOp = createTemplateOp(childView.xref, tagNameWithoutNamespace, functionNameSuffix, namespace, i18nPlaceholder, tmpl.startSourceSpan);
-  unit.create.push(tplOp);
-  ingestBindings(unit, tplOp, tmpl);
-  ingestReferences(tplOp, tmpl);
+  const templateKind = isPlainTemplate(tmpl) ? TemplateKind.NgTemplate : TemplateKind.Structural;
+  const templateOp = createTemplateOp(childView.xref, templateKind, tagNameWithoutNamespace, functionNameSuffix, namespace, i18nPlaceholder, tmpl.startSourceSpan, tmpl.sourceSpan);
+  unit.create.push(templateOp);
+  ingestTemplateBindings(unit, templateOp, tmpl, templateKind);
+  ingestReferences(templateOp, tmpl);
   ingestNodes(childView, tmpl.children);
   for (const { name, value } of tmpl.variables) {
     childView.contextVariables.set(name, value !== "" ? value : "$implicit");
   }
-  if (isPlainTemplate(tmpl) && tmpl.i18n instanceof Message) {
+  if (templateKind === TemplateKind.NgTemplate && tmpl.i18n instanceof Message) {
     const id = unit.job.allocateXrefId();
-    OpList.insertAfter(createI18nStartOp(id, tmpl.i18n), childView.create.head);
-    OpList.insertBefore(createI18nEndOp(id), childView.create.tail);
+    OpList.insertAfter(createI18nStartOp(id, tmpl.i18n, void 0, tmpl.startSourceSpan), childView.create.head);
+    OpList.insertBefore(createI18nEndOp(id, (_a2 = tmpl.endSourceSpan) != null ? _a2 : tmpl.startSourceSpan), childView.create.tail);
   }
 }
 function ingestContent(unit, content) {
-  const op = createProjectionOp(unit.job.allocateXrefId(), content.selector, content.sourceSpan);
+  if (content.i18n !== void 0 && !(content.i18n instanceof TagPlaceholder)) {
+    throw Error(`Unhandled i18n metadata type for element: ${content.i18n.constructor.name}`);
+  }
+  const op = createProjectionOp(unit.job.allocateXrefId(), content.selector, content.i18n, content.sourceSpan);
   for (const attr of content.attributes) {
-    ingestBinding(unit, op.xref, attr.name, literal(attr.value), 1, null, SecurityContext.NONE, attr.sourceSpan, BindingFlags.TextValue);
+    const securityContext = domSchema.securityContext(content.name, attr.name, true);
+    unit.update.push(createBindingOp(op.xref, BindingKind.Attribute, attr.name, literal(attr.value), null, securityContext, true, false, null, asMessage(attr.i18n), attr.sourceSpan));
   }
   unit.create.push(op);
 }
-function ingestText(unit, text2) {
-  unit.create.push(createTextOp(unit.job.allocateXrefId(), text2.value, text2.sourceSpan));
+function ingestText(unit, text2, icuPlaceholder) {
+  unit.create.push(createTextOp(unit.job.allocateXrefId(), text2.value, icuPlaceholder, text2.sourceSpan));
 }
-function ingestBoundText(unit, text2, i18nPlaceholders) {
+function ingestBoundText(unit, text2, icuPlaceholder) {
   var _a2;
   let value = text2.value;
   if (value instanceof ASTWithSource) {
@@ -25117,18 +25632,17 @@ function ingestBoundText(unit, text2, i18nPlaceholders) {
   if (text2.i18n !== void 0 && !(text2.i18n instanceof Container)) {
     throw Error(`Unhandled i18n metadata type for text interpolation: ${(_a2 = text2.i18n) == null ? void 0 : _a2.constructor.name}`);
   }
-  if (i18nPlaceholders === void 0) {
-    i18nPlaceholders = text2.i18n instanceof Container ? text2.i18n.children.filter((node) => node instanceof Placeholder).map((placeholder) => placeholder.name) : [];
-  }
+  const i18nPlaceholders = text2.i18n instanceof Container ? text2.i18n.children.filter((node) => node instanceof Placeholder).map((placeholder) => placeholder.name) : [];
   if (i18nPlaceholders.length > 0 && i18nPlaceholders.length !== value.expressions.length) {
     throw Error(`Unexpected number of i18n placeholders (${value.expressions.length}) for BoundText with ${value.expressions.length} expressions`);
   }
   const textXref = unit.job.allocateXrefId();
-  unit.create.push(createTextOp(textXref, "", text2.sourceSpan));
+  unit.create.push(createTextOp(textXref, "", icuPlaceholder, text2.sourceSpan));
   const baseSourceSpan = unit.job.compatibility ? null : text2.sourceSpan;
-  unit.update.push(createInterpolateTextOp(textXref, new Interpolation(value.strings, value.expressions.map((expr) => convertAst(expr, unit.job, baseSourceSpan))), i18nPlaceholders, text2.sourceSpan));
+  unit.update.push(createInterpolateTextOp(textXref, new Interpolation(value.strings, value.expressions.map((expr) => convertAst(expr, unit.job, baseSourceSpan)), i18nPlaceholders), text2.sourceSpan));
 }
 function ingestIfBlock(unit, ifBlock) {
+  var _a2;
   let firstXref = null;
   let firstSlotHandle = null;
   let conditions = [];
@@ -25142,14 +25656,21 @@ function ingestIfBlock(unit, ifBlock) {
     if (ifCase.expressionAlias !== null) {
       cView.contextVariables.set(ifCase.expressionAlias.name, CTX_REF);
     }
-    const tmplOp = createTemplateOp(cView.xref, tagName, "Conditional", Namespace.HTML, void 0, ifCase.sourceSpan);
-    unit.create.push(tmplOp);
+    let ifCaseI18nMeta = void 0;
+    if (ifCase.i18n !== void 0) {
+      if (!(ifCase.i18n instanceof BlockPlaceholder)) {
+        throw Error(`Unhandled i18n metadata type for if block: ${(_a2 = ifCase.i18n) == null ? void 0 : _a2.constructor.name}`);
+      }
+      ifCaseI18nMeta = ifCase.i18n;
+    }
+    const templateOp = createTemplateOp(cView.xref, TemplateKind.Block, tagName, "Conditional", Namespace.HTML, ifCaseI18nMeta, ifCase.startSourceSpan, ifCase.sourceSpan);
+    unit.create.push(templateOp);
     if (firstXref === null) {
       firstXref = cView.xref;
-      firstSlotHandle = tmplOp.handle;
+      firstSlotHandle = templateOp.handle;
     }
     const caseExpr = ifCase.expression ? convertAst(ifCase.expression, unit.job, null) : null;
-    const conditionalCaseExpr = new ConditionalCaseExpr(caseExpr, tmplOp.xref, tmplOp.handle, ifCase.expressionAlias);
+    const conditionalCaseExpr = new ConditionalCaseExpr(caseExpr, templateOp.xref, templateOp.handle, ifCase.expressionAlias);
     conditions.push(conditionalCaseExpr);
     ingestNodes(cView, ifCase.children);
   }
@@ -25157,54 +25678,65 @@ function ingestIfBlock(unit, ifBlock) {
   unit.update.push(conditional2);
 }
 function ingestSwitchBlock(unit, switchBlock) {
+  var _a2;
   let firstXref = null;
   let firstSlotHandle = null;
   let conditions = [];
   for (const switchCase of switchBlock.cases) {
     const cView = unit.job.allocateView(unit.xref);
-    const tmplOp = createTemplateOp(cView.xref, null, "Case", Namespace.HTML, void 0, switchCase.sourceSpan);
-    unit.create.push(tmplOp);
+    let switchCaseI18nMeta = void 0;
+    if (switchCase.i18n !== void 0) {
+      if (!(switchCase.i18n instanceof BlockPlaceholder)) {
+        throw Error(`Unhandled i18n metadata type for switch block: ${(_a2 = switchCase.i18n) == null ? void 0 : _a2.constructor.name}`);
+      }
+      switchCaseI18nMeta = switchCase.i18n;
+    }
+    const templateOp = createTemplateOp(cView.xref, TemplateKind.Block, null, "Case", Namespace.HTML, switchCaseI18nMeta, switchCase.startSourceSpan, switchCase.sourceSpan);
+    unit.create.push(templateOp);
     if (firstXref === null) {
       firstXref = cView.xref;
-      firstSlotHandle = tmplOp.handle;
+      firstSlotHandle = templateOp.handle;
     }
     const caseExpr = switchCase.expression ? convertAst(switchCase.expression, unit.job, switchBlock.startSourceSpan) : null;
-    const conditionalCaseExpr = new ConditionalCaseExpr(caseExpr, tmplOp.xref, tmplOp.handle);
+    const conditionalCaseExpr = new ConditionalCaseExpr(caseExpr, templateOp.xref, templateOp.handle);
     conditions.push(conditionalCaseExpr);
     ingestNodes(cView, switchCase.children);
   }
   const conditional2 = createConditionalOp(firstXref, firstSlotHandle, convertAst(switchBlock.expression, unit.job, null), conditions, switchBlock.sourceSpan);
   unit.update.push(conditional2);
 }
-function ingestDeferView(unit, suffix, children, sourceSpan) {
+function ingestDeferView(unit, suffix, i18nMeta, children, sourceSpan) {
+  if (i18nMeta !== void 0 && !(i18nMeta instanceof BlockPlaceholder)) {
+    throw Error("Unhandled i18n metadata type for defer block");
+  }
   if (children === void 0) {
     return null;
   }
   const secondaryView = unit.job.allocateView(unit.xref);
   ingestNodes(secondaryView, children);
-  const templateOp = createTemplateOp(secondaryView.xref, null, `Defer${suffix}`, Namespace.HTML, void 0, sourceSpan);
+  const templateOp = createTemplateOp(secondaryView.xref, TemplateKind.Block, null, `Defer${suffix}`, Namespace.HTML, i18nMeta, sourceSpan, sourceSpan);
   unit.create.push(templateOp);
   return templateOp;
 }
 function ingestDeferBlock(unit, deferBlock) {
-  var _a2, _b2, _c2, _d2, _e2, _f2, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p;
+  var _a2, _b2, _c2, _d2, _e2, _f2, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s;
   const blockMeta = unit.job.deferBlocksMeta.get(deferBlock);
   if (blockMeta === void 0) {
     throw new Error(`AssertionError: unable to find metadata for deferred block`);
   }
-  const main = ingestDeferView(unit, "", deferBlock.children, deferBlock.sourceSpan);
-  const loading = ingestDeferView(unit, "Loading", (_a2 = deferBlock.loading) == null ? void 0 : _a2.children, (_b2 = deferBlock.loading) == null ? void 0 : _b2.sourceSpan);
-  const placeholder = ingestDeferView(unit, "Placeholder", (_c2 = deferBlock.placeholder) == null ? void 0 : _c2.children, (_d2 = deferBlock.placeholder) == null ? void 0 : _d2.sourceSpan);
-  const error2 = ingestDeferView(unit, "Error", (_e2 = deferBlock.error) == null ? void 0 : _e2.children, (_f2 = deferBlock.error) == null ? void 0 : _f2.sourceSpan);
+  const main = ingestDeferView(unit, "", deferBlock.i18n, deferBlock.children, deferBlock.sourceSpan);
+  const loading = ingestDeferView(unit, "Loading", (_a2 = deferBlock.loading) == null ? void 0 : _a2.i18n, (_b2 = deferBlock.loading) == null ? void 0 : _b2.children, (_c2 = deferBlock.loading) == null ? void 0 : _c2.sourceSpan);
+  const placeholder = ingestDeferView(unit, "Placeholder", (_d2 = deferBlock.placeholder) == null ? void 0 : _d2.i18n, (_e2 = deferBlock.placeholder) == null ? void 0 : _e2.children, (_f2 = deferBlock.placeholder) == null ? void 0 : _f2.sourceSpan);
+  const error2 = ingestDeferView(unit, "Error", (_g = deferBlock.error) == null ? void 0 : _g.i18n, (_h = deferBlock.error) == null ? void 0 : _h.children, (_i = deferBlock.error) == null ? void 0 : _i.sourceSpan);
   const deferXref = unit.job.allocateXrefId();
   const deferOp = createDeferOp(deferXref, main.xref, main.handle, blockMeta, deferBlock.sourceSpan);
-  deferOp.placeholderView = (_g = placeholder == null ? void 0 : placeholder.xref) != null ? _g : null;
-  deferOp.placeholderSlot = (_h = placeholder == null ? void 0 : placeholder.handle) != null ? _h : null;
-  deferOp.loadingSlot = (_i = loading == null ? void 0 : loading.handle) != null ? _i : null;
-  deferOp.errorSlot = (_j = error2 == null ? void 0 : error2.handle) != null ? _j : null;
-  deferOp.placeholderMinimumTime = (_l = (_k = deferBlock.placeholder) == null ? void 0 : _k.minimumTime) != null ? _l : null;
-  deferOp.loadingMinimumTime = (_n = (_m = deferBlock.loading) == null ? void 0 : _m.minimumTime) != null ? _n : null;
-  deferOp.loadingAfterTime = (_p = (_o = deferBlock.loading) == null ? void 0 : _o.afterTime) != null ? _p : null;
+  deferOp.placeholderView = (_j = placeholder == null ? void 0 : placeholder.xref) != null ? _j : null;
+  deferOp.placeholderSlot = (_k = placeholder == null ? void 0 : placeholder.handle) != null ? _k : null;
+  deferOp.loadingSlot = (_l = loading == null ? void 0 : loading.handle) != null ? _l : null;
+  deferOp.errorSlot = (_m = error2 == null ? void 0 : error2.handle) != null ? _m : null;
+  deferOp.placeholderMinimumTime = (_o = (_n = deferBlock.placeholder) == null ? void 0 : _n.minimumTime) != null ? _o : null;
+  deferOp.loadingMinimumTime = (_q = (_p = deferBlock.loading) == null ? void 0 : _p.minimumTime) != null ? _q : null;
+  deferOp.loadingAfterTime = (_s = (_r = deferBlock.loading) == null ? void 0 : _r.afterTime) != null ? _s : null;
   unit.create.push(deferOp);
   let prefetch = false;
   let deferOnOps = [];
@@ -25256,6 +25788,9 @@ function ingestDeferBlock(unit, deferBlock) {
       deferOnOps.push(deferOnOp);
     }
     if (triggers.when !== void 0) {
+      if (triggers.when.value instanceof Interpolation$1) {
+        throw new Error(`Unexpected interpolation in defer block when trigger`);
+      }
       const deferOnOp = createDeferWhenOp(deferXref, convertAst(triggers.when.value, unit.job, triggers.when.sourceSpan), prefetch, triggers.when.sourceSpan);
       deferWhenOps.push(deferOnOp);
     }
@@ -25268,30 +25803,25 @@ function ingestDeferBlock(unit, deferBlock) {
   unit.update.push(deferWhenOps);
 }
 function ingestIcu(unit, icu) {
-  var _a2, _b2;
+  var _a2;
   if (icu.i18n instanceof Message && isSingleI18nIcu(icu.i18n)) {
     const xref = unit.job.allocateXrefId();
     const icuNode = icu.i18n.nodes[0];
     unit.create.push(createIcuStartOp(xref, icu.i18n, icuFromI18nMessage(icu.i18n).name, null));
-    const expressionPlaceholder = (_a2 = icuNode.expressionPlaceholder) == null ? void 0 : _a2.trimEnd();
-    if (expressionPlaceholder === void 0 || icu.vars[expressionPlaceholder] === void 0) {
-      throw Error("ICU should have a text binding");
-    }
-    ingestBoundText(unit, icu.vars[expressionPlaceholder], [expressionPlaceholder]);
-    for (const [placeholder, text2] of Object.entries(icu.placeholders)) {
+    for (const [placeholder, text2] of Object.entries(__spreadValues(__spreadValues({}, icu.vars), icu.placeholders))) {
       if (text2 instanceof BoundText) {
-        ingestBoundText(unit, text2, [placeholder]);
+        ingestBoundText(unit, text2, placeholder);
       } else {
-        ingestText(unit, text2);
+        ingestText(unit, text2, placeholder);
       }
     }
     unit.create.push(createIcuEndOp(xref));
   } else {
-    throw Error(`Unhandled i18n metadata type for ICU: ${(_b2 = icu.i18n) == null ? void 0 : _b2.constructor.name}`);
+    throw Error(`Unhandled i18n metadata type for ICU: ${(_a2 = icu.i18n) == null ? void 0 : _a2.constructor.name}`);
   }
 }
 function ingestForBlock(unit, forBlock) {
-  var _a2;
+  var _a2, _b2, _c2;
   const repeaterView = unit.job.allocateView(unit.xref);
   const createRepeaterAlias = (ident, repeaterVar) => {
     repeaterView.aliases.add({
@@ -25312,9 +25842,11 @@ function ingestForBlock(unit, forBlock) {
   const track = convertAst(forBlock.trackBy, unit.job, sourceSpan);
   ingestNodes(repeaterView, forBlock.children);
   let emptyView = null;
+  let emptyTagName = null;
   if (forBlock.empty !== null) {
     emptyView = unit.job.allocateView(unit.xref);
     ingestNodes(emptyView, forBlock.empty.children);
+    emptyTagName = ingestControlFlowInsertionPoint(unit, emptyView.xref, forBlock.empty);
   }
   const varNames = {
     $index: forBlock.contextVariables.$index.name,
@@ -25325,8 +25857,16 @@ function ingestForBlock(unit, forBlock) {
     $odd: forBlock.contextVariables.$odd.name,
     $implicit: forBlock.item.name
   };
+  if (forBlock.i18n !== void 0 && !(forBlock.i18n instanceof BlockPlaceholder)) {
+    throw Error("AssertionError: Unhandled i18n metadata type or @for");
+  }
+  if (((_a2 = forBlock.empty) == null ? void 0 : _a2.i18n) !== void 0 && !(forBlock.empty.i18n instanceof BlockPlaceholder)) {
+    throw Error("AssertionError: Unhandled i18n metadata type or @empty");
+  }
+  const i18nPlaceholder = forBlock.i18n;
+  const emptyI18nPlaceholder = (_b2 = forBlock.empty) == null ? void 0 : _b2.i18n;
   const tagName = ingestControlFlowInsertionPoint(unit, repeaterView.xref, forBlock);
-  const repeaterCreate2 = createRepeaterCreateOp(repeaterView.xref, (_a2 = emptyView == null ? void 0 : emptyView.xref) != null ? _a2 : null, tagName, track, varNames, forBlock.sourceSpan);
+  const repeaterCreate2 = createRepeaterCreateOp(repeaterView.xref, (_c2 = emptyView == null ? void 0 : emptyView.xref) != null ? _c2 : null, tagName, track, varNames, emptyTagName, i18nPlaceholder, emptyI18nPlaceholder, forBlock.startSourceSpan, forBlock.sourceSpan);
   unit.create.push(repeaterCreate2);
   const expression = convertAst(forBlock.expression, unit.job, convertSourceSpan(forBlock.expression.span, forBlock.sourceSpan));
   const repeater2 = createRepeaterOp(repeaterCreate2.xref, repeaterCreate2.handle, expression, forBlock.sourceSpan);
@@ -25336,7 +25876,10 @@ function convertAst(ast, job, baseSourceSpan) {
   if (ast instanceof ASTWithSource) {
     return convertAst(ast.ast, job, baseSourceSpan);
   } else if (ast instanceof PropertyRead) {
-    if (ast.receiver instanceof ImplicitReceiver && !(ast.receiver instanceof ThisReceiver)) {
+    const isThisReceiver = ast.receiver instanceof ThisReceiver;
+    const isImplicitReceiver = ast.receiver instanceof ImplicitReceiver && !(ast.receiver instanceof ThisReceiver);
+    const isSpecialNode = ast.name === "$any" || ast.name === "$event";
+    if (isImplicitReceiver || isThisReceiver && !isSpecialNode) {
       return new LexicalReadExpr(ast.name);
     } else {
       return new ReadPropExpr(convertAst(ast.receiver, job, baseSourceSpan), ast.name, null, convertSourceSpan(ast.span, baseSourceSpan));
@@ -25362,6 +25905,15 @@ function convertAst(ast, job, baseSourceSpan) {
     }
   } else if (ast instanceof LiteralPrimitive) {
     return literal(ast.value, void 0, convertSourceSpan(ast.span, baseSourceSpan));
+  } else if (ast instanceof Unary) {
+    switch (ast.operator) {
+      case "+":
+        return new UnaryOperatorExpr(UnaryOperator.Plus, convertAst(ast.expr, job, baseSourceSpan), void 0, convertSourceSpan(ast.span, baseSourceSpan));
+      case "-":
+        return new UnaryOperatorExpr(UnaryOperator.Minus, convertAst(ast.expr, job, baseSourceSpan), void 0, convertSourceSpan(ast.span, baseSourceSpan));
+      default:
+        throw new Error(`AssertionError: unknown unary operator ${ast.operator}`);
+    }
   } else if (ast instanceof Binary) {
     const operator = BINARY_OPERATORS.get(ast.operation);
     if (operator === void 0) {
@@ -25399,70 +25951,23 @@ function convertAst(ast, job, baseSourceSpan) {
     return new SafeInvokeFunctionExpr(convertAst(ast.receiver, job, baseSourceSpan), ast.args.map((a) => convertAst(a, job, baseSourceSpan)));
   } else if (ast instanceof EmptyExpr$1) {
     return new EmptyExpr(convertSourceSpan(ast.span, baseSourceSpan));
+  } else if (ast instanceof PrefixNot) {
+    return not(convertAst(ast.expression, job, baseSourceSpan), convertSourceSpan(ast.span, baseSourceSpan));
   } else {
     throw new Error(`Unhandled expression type "${ast.constructor.name}" in file "${baseSourceSpan == null ? void 0 : baseSourceSpan.start.file.url}"`);
   }
 }
-function isPlainTemplate(tmpl) {
-  var _a2;
-  return splitNsName((_a2 = tmpl.tagName) != null ? _a2 : "")[1] === "ng-template";
-}
-function ingestBindings(unit, op, element2) {
-  let flags = BindingFlags.None;
-  if (element2 instanceof Template) {
-    flags |= BindingFlags.OnNgTemplateElement;
-    if (element2 instanceof Template && isPlainTemplate(element2)) {
-      flags |= BindingFlags.BindingTargetsTemplate;
-    }
-    const templateAttrFlags = flags | BindingFlags.BindingTargetsTemplate | BindingFlags.IsStructuralTemplateAttribute;
-    for (const attr of element2.templateAttrs) {
-      if (attr instanceof TextAttribute) {
-        ingestBinding(unit, op.xref, attr.name, literal(attr.value), 1, null, SecurityContext.NONE, attr.sourceSpan, templateAttrFlags | BindingFlags.TextValue);
-      } else {
-        ingestBinding(unit, op.xref, attr.name, attr.value, attr.type, attr.unit, attr.securityContext, attr.sourceSpan, templateAttrFlags);
-      }
-    }
+function convertAstWithInterpolation(job, value, i18nMeta, sourceSpan) {
+  var _a2, _b2;
+  let expression;
+  if (value instanceof Interpolation$1) {
+    expression = new Interpolation(value.strings, value.expressions.map((e) => convertAst(e, job, sourceSpan != null ? sourceSpan : null)), Object.keys((_b2 = (_a2 = asMessage(i18nMeta)) == null ? void 0 : _a2.placeholders) != null ? _b2 : {}));
+  } else if (value instanceof AST) {
+    expression = convertAst(value, job, sourceSpan != null ? sourceSpan : null);
+  } else {
+    expression = literal(value);
   }
-  for (const attr of element2.attributes) {
-    ingestBinding(unit, op.xref, attr.name, literal(attr.value), 1, null, SecurityContext.NONE, attr.sourceSpan, flags | BindingFlags.TextValue);
-  }
-  for (const input of element2.inputs) {
-    ingestBinding(unit, op.xref, input.name, input.value, input.type, input.unit, input.securityContext, input.sourceSpan, flags);
-  }
-  for (const output of element2.outputs) {
-    let listenerOp;
-    if (output.type === 1) {
-      if (output.phase === null) {
-        throw Error("Animation listener should have a phase");
-      }
-    }
-    if (element2 instanceof Template && !isPlainTemplate(element2)) {
-      unit.create.push(createExtractedAttributeOp(op.xref, BindingKind.Property, output.name, null));
-      continue;
-    }
-    listenerOp = createListenerOp(op.xref, op.handle, output.name, op.tag, output.phase, false, output.sourceSpan);
-    let handlerExprs;
-    let handler = output.handler;
-    if (handler instanceof ASTWithSource) {
-      handler = handler.ast;
-    }
-    if (handler instanceof Chain) {
-      handlerExprs = handler.expressions;
-    } else {
-      handlerExprs = [handler];
-    }
-    if (handlerExprs.length === 0) {
-      throw new Error("Expected listener to have non-empty expression list.");
-    }
-    const expressions = handlerExprs.map((expr) => convertAst(expr, unit.job, output.handlerSpan));
-    const returnExpr = expressions.pop();
-    for (const expr of expressions) {
-      const stmtOp = createStatementOp(new ExpressionStatement(expr, expr.sourceSpan));
-      listenerOp.handlerOps.push(stmtOp);
-    }
-    listenerOp.handlerOps.push(createStatementOp(new ReturnStatement(returnExpr, returnExpr.sourceSpan)));
-    unit.create.push(listenerOp);
-  }
+  return expression;
 }
 var BINDING_KINDS = /* @__PURE__ */ new Map([
   [0, BindingKind.Property],
@@ -25471,32 +25976,109 @@ var BINDING_KINDS = /* @__PURE__ */ new Map([
   [3, BindingKind.StyleProperty],
   [4, BindingKind.Animation]
 ]);
-var BindingFlags;
-(function(BindingFlags2) {
-  BindingFlags2[BindingFlags2["None"] = 0] = "None";
-  BindingFlags2[BindingFlags2["TextValue"] = 1] = "TextValue";
-  BindingFlags2[BindingFlags2["BindingTargetsTemplate"] = 2] = "BindingTargetsTemplate";
-  BindingFlags2[BindingFlags2["IsStructuralTemplateAttribute"] = 4] = "IsStructuralTemplateAttribute";
-  BindingFlags2[BindingFlags2["OnNgTemplateElement"] = 8] = "OnNgTemplateElement";
-})(BindingFlags || (BindingFlags = {}));
-function ingestBinding(view, xref, name, value, type, unit, securityContext, sourceSpan, flags) {
-  if (value instanceof ASTWithSource) {
-    value = value.ast;
+function isPlainTemplate(tmpl) {
+  var _a2;
+  return splitNsName((_a2 = tmpl.tagName) != null ? _a2 : "")[1] === NG_TEMPLATE_TAG_NAME$1;
+}
+function asMessage(i18nMeta) {
+  if (i18nMeta == null) {
+    return null;
   }
-  if (flags & BindingFlags.OnNgTemplateElement && !(flags & BindingFlags.BindingTargetsTemplate) && type === 0) {
-    view.create.push(createExtractedAttributeOp(xref, BindingKind.Property, name, null));
-    return;
+  if (!(i18nMeta instanceof Message)) {
+    throw Error(`Expected i18n meta to be a Message, but got: ${i18nMeta.constructor.name}`);
   }
-  let expression;
-  if (value instanceof Interpolation$1) {
-    expression = new Interpolation(value.strings, value.expressions.map((expr) => convertAst(expr, view.job, null)));
-  } else if (value instanceof AST) {
-    expression = convertAst(value, view.job, null);
-  } else {
-    expression = value;
+  return i18nMeta;
+}
+function ingestElementBindings(unit, op, element2) {
+  var _a2;
+  let bindings = new Array();
+  for (const attr of element2.attributes) {
+    const securityContext = domSchema.securityContext(element2.name, attr.name, true);
+    bindings.push(createBindingOp(op.xref, BindingKind.Attribute, attr.name, convertAstWithInterpolation(unit.job, attr.value, attr.i18n), null, securityContext, true, false, null, asMessage(attr.i18n), attr.sourceSpan));
   }
-  const kind = BINDING_KINDS.get(type);
-  view.update.push(createBindingOp(xref, kind, name, expression, unit, securityContext, !!(flags & BindingFlags.TextValue), !!(flags & BindingFlags.IsStructuralTemplateAttribute), sourceSpan));
+  for (const input of element2.inputs) {
+    bindings.push(createBindingOp(op.xref, BINDING_KINDS.get(input.type), input.name, convertAstWithInterpolation(unit.job, astOf(input.value), input.i18n), input.unit, input.securityContext, false, false, null, (_a2 = asMessage(input.i18n)) != null ? _a2 : null, input.sourceSpan));
+  }
+  unit.create.push(bindings.filter((b) => (b == null ? void 0 : b.kind) === OpKind.ExtractedAttribute));
+  unit.update.push(bindings.filter((b) => (b == null ? void 0 : b.kind) === OpKind.Binding));
+  for (const output of element2.outputs) {
+    if (output.type === 1 && output.phase === null) {
+      throw Error("Animation listener should have a phase");
+    }
+    unit.create.push(createListenerOp(op.xref, op.handle, output.name, op.tag, makeListenerHandlerOps(unit, output.handler, output.handlerSpan), output.phase, output.target, false, output.sourceSpan));
+  }
+  if (bindings.some((b) => b == null ? void 0 : b.i18nMessage) !== null) {
+    unit.create.push(createI18nAttributesOp(unit.job.allocateXrefId(), new SlotHandle(), op.xref));
+  }
+}
+function ingestTemplateBindings(unit, op, template2, templateKind) {
+  let bindings = new Array();
+  for (const attr of template2.templateAttrs) {
+    if (attr instanceof TextAttribute) {
+      const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME$1, attr.name, true);
+      bindings.push(createTemplateBinding(unit, op.xref, 1, attr.name, attr.value, null, securityContext, true, templateKind, asMessage(attr.i18n), attr.sourceSpan));
+    } else {
+      bindings.push(createTemplateBinding(unit, op.xref, attr.type, attr.name, astOf(attr.value), attr.unit, attr.securityContext, true, templateKind, asMessage(attr.i18n), attr.sourceSpan));
+    }
+  }
+  for (const attr of template2.attributes) {
+    const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME$1, attr.name, true);
+    bindings.push(createTemplateBinding(unit, op.xref, 1, attr.name, attr.value, null, securityContext, false, templateKind, asMessage(attr.i18n), attr.sourceSpan));
+  }
+  for (const input of template2.inputs) {
+    bindings.push(createTemplateBinding(unit, op.xref, input.type, input.name, astOf(input.value), input.unit, input.securityContext, false, templateKind, asMessage(input.i18n), input.sourceSpan));
+  }
+  unit.create.push(bindings.filter((b) => (b == null ? void 0 : b.kind) === OpKind.ExtractedAttribute));
+  unit.update.push(bindings.filter((b) => (b == null ? void 0 : b.kind) === OpKind.Binding));
+  for (const output of template2.outputs) {
+    if (output.type === 1 && output.phase === null) {
+      throw Error("Animation listener should have a phase");
+    }
+    if (templateKind === TemplateKind.NgTemplate) {
+      unit.create.push(createListenerOp(op.xref, op.handle, output.name, op.tag, makeListenerHandlerOps(unit, output.handler, output.handlerSpan), output.phase, output.target, false, output.sourceSpan));
+    }
+    if (templateKind === TemplateKind.Structural && output.type !== 1) {
+      const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME$1, output.name, false);
+      unit.create.push(createExtractedAttributeOp(op.xref, BindingKind.Property, output.name, null, null, null, securityContext));
+    }
+  }
+  if (bindings.some((b) => b == null ? void 0 : b.i18nMessage) !== null) {
+    unit.create.push(createI18nAttributesOp(unit.job.allocateXrefId(), new SlotHandle(), op.xref));
+  }
+}
+function createTemplateBinding(view, xref, type, name, value, unit, securityContext, isStructuralTemplateAttribute, templateKind, i18nMessage, sourceSpan) {
+  const isTextBinding = typeof value === "string";
+  if (templateKind === TemplateKind.Structural) {
+    if (!isStructuralTemplateAttribute && (type === 0 || type === 2 || type === 3)) {
+      return createExtractedAttributeOp(xref, BindingKind.Property, name, null, null, i18nMessage, securityContext);
+    }
+    if (!isTextBinding && (type === 1 || type === 4)) {
+      return null;
+    }
+  }
+  let bindingType = BINDING_KINDS.get(type);
+  if (templateKind === TemplateKind.NgTemplate) {
+    if (type === 2 || type === 3 || type === 1 && !isTextBinding) {
+      bindingType = BindingKind.Property;
+    }
+  }
+  return createBindingOp(xref, bindingType, name, convertAstWithInterpolation(view.job, value, i18nMessage), unit, securityContext, isTextBinding, isStructuralTemplateAttribute, templateKind, i18nMessage, sourceSpan);
+}
+function makeListenerHandlerOps(unit, handler, handlerSpan) {
+  handler = astOf(handler);
+  const handlerOps = new Array();
+  let handlerExprs = handler instanceof Chain ? handler.expressions : [handler];
+  if (handlerExprs.length === 0) {
+    throw new Error("Expected listener to have non-empty expression list.");
+  }
+  const expressions = handlerExprs.map((expr) => convertAst(expr, unit.job, handlerSpan));
+  const returnExpr = expressions.pop();
+  handlerOps.push(...expressions.map((e) => createStatementOp(new ExpressionStatement(e, e.sourceSpan))));
+  handlerOps.push(createStatementOp(new ReturnStatement(returnExpr, returnExpr.sourceSpan)));
+  return handlerOps;
+}
+function astOf(ast) {
+  return ast instanceof ASTWithSource ? ast.ast : ast;
 }
 function ingestReferences(op, element2) {
   assertIsArray(op.localRefs);
@@ -25536,10 +26118,11 @@ function ingestControlFlowInsertionPoint(unit, xref, node) {
   }
   if (root2 !== null) {
     for (const attr of root2.attributes) {
-      ingestBinding(unit, xref, attr.name, literal(attr.value), 1, null, SecurityContext.NONE, attr.sourceSpan, BindingFlags.TextValue);
+      const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME$1, attr.name, true);
+      unit.update.push(createBindingOp(xref, BindingKind.Attribute, attr.name, literal(attr.value), null, securityContext, true, false, null, asMessage(attr.i18n), attr.sourceSpan));
     }
     const tagName = root2 instanceof Element$1 ? root2.name : root2.tagName;
-    return tagName === "ng-template" ? null : tagName;
+    return tagName === NG_TEMPLATE_TAG_NAME$1 ? null : tagName;
   }
   return null;
 }
@@ -27862,7 +28445,7 @@ var TemplateDefinitionBuilder = class {
           if (refs.length === 1) {
             params[key] = refs[0];
           } else {
-            const placeholder = wrapI18nPlaceholder(`${I18N_ICU_MAPPING_PREFIX}${key}`);
+            const placeholder = wrapI18nPlaceholder(`${I18N_ICU_MAPPING_PREFIX$1}${key}`);
             params[key] = literal(placeholder);
             icuMapping[key] = literalArr(refs);
           }
@@ -28449,7 +29032,12 @@ var TemplateDefinitionBuilder = class {
     });
     const { expression: trackByExpression, usesComponentInstance: trackByUsesComponentInstance } = this.createTrackByFunction(block);
     let emptyData = null;
+    let emptyTagName = null;
+    let emptyAttrsExprs;
     if (block.empty !== null) {
+      const emptyInferred = this.inferProjectionDataFromInsertionPoint(block.empty);
+      emptyTagName = emptyInferred.tagName;
+      emptyAttrsExprs = emptyInferred.attrsExprs;
       emptyData = this.prepareEmbeddedTemplateFn(block.empty.children, "_ForEmpty", void 0, block.empty.i18n);
       this.allocateBindingSlots(null);
     }
@@ -28465,11 +29053,11 @@ var TemplateDefinitionBuilder = class {
         trackByExpression
       ];
       if (emptyData !== null) {
-        params.push(literal(trackByUsesComponentInstance), variable(emptyData.name), literal(emptyData.getConstCount()), literal(emptyData.getVarCount()));
+        params.push(literal(trackByUsesComponentInstance), variable(emptyData.name), literal(emptyData.getConstCount()), literal(emptyData.getVarCount()), literal(emptyTagName), this.addAttrsToConsts(emptyAttrsExprs || null));
       } else if (trackByUsesComponentInstance) {
         params.push(literal(trackByUsesComponentInstance));
       }
-      return params;
+      return trimTrailingNulls(params);
     });
     const value = block.expression.visit(this._valueConverter);
     this.updateInstructionWithAdvance(blockIndex, block.sourceSpan, Identifiers.repeater, () => [this.convertPropertyBinding(value)]);
@@ -29032,21 +29620,21 @@ var BindingScope = class {
   }
 };
 var TrackByBindingScope = class extends BindingScope {
-  constructor(parentScope, globalAliases) {
+  constructor(parentScope, globalOverrides) {
     super(parentScope.bindingLevel + 1, parentScope);
-    this.globalAliases = globalAliases;
+    this.globalOverrides = globalOverrides;
     this.componentAccessCount = 0;
   }
   get(name) {
+    if (this.globalOverrides.hasOwnProperty(name)) {
+      return variable(this.globalOverrides[name]);
+    }
     let current = this.parent;
     while (current) {
       if (current.hasLocal(name)) {
         return null;
       }
       current = current.parent;
-    }
-    if (this.globalAliases[name]) {
-      return variable(this.globalAliases[name]);
     }
     this.componentAccessCount++;
     return variable("this").prop(name);
@@ -29540,14 +30128,14 @@ function createBaseDirectiveTypeParams(meta) {
 function getInputsTypeExpression(meta) {
   return literalMap(Object.keys(meta.inputs).map((key) => {
     const value = meta.inputs[key];
-    return {
-      key,
-      value: literalMap([
-        { key: "alias", value: literal(value.bindingPropertyName), quoted: true },
-        { key: "required", value: literal(value.required), quoted: true }
-      ]),
-      quoted: true
-    };
+    const values = [
+      { key: "alias", value: literal(value.bindingPropertyName), quoted: true },
+      { key: "required", value: literal(value.required), quoted: true }
+    ];
+    if (value.isSignal) {
+      values.push({ key: "isSignal", value: literal(value.isSignal), quoted: true });
+    }
+    return { key, value: literalMap(values), quoted: true };
   }));
 }
 function createDirectiveType(meta) {
@@ -29591,6 +30179,7 @@ function createHostBindingsFunction(hostBindingsMetadata, typeSourceSpan, bindin
     }
     const hostJob = ingestHostBinding({
       componentName: name,
+      componentSelector: selector,
       properties: bindings,
       events: eventBindings,
       attributes: hostBindingsMetadata.attributes
@@ -29603,6 +30192,8 @@ function createHostBindingsFunction(hostBindingsMetadata, typeSourceSpan, bindin
     }
     return emitHostBindingFunction(hostJob);
   }
+  let bindingId = 0;
+  const getNextBindingId = () => `${bindingId++}`;
   const bindingContext = variable(CONTEXT_NAME);
   const styleBuilder = new StylingBuilder(bindingContext);
   const { styleAttr, classAttr } = hostBindingsMetadata.specialAttributes;
@@ -29652,7 +30243,7 @@ function createHostBindingsFunction(hostBindingsMetadata, typeSourceSpan, bindin
   const syntheticHostBindings = [];
   for (const binding of allOtherBindings) {
     const value = binding.expression.visit(getValueConverter());
-    const bindingExpr = bindingFn(bindingContext, value);
+    const bindingExpr = bindingFn(bindingContext, value, getNextBindingId);
     const { bindingName, instruction, isAttribute } = getBindingNameAndInstruction(binding);
     const securityContexts = bindingParser.calcPossibleSecurityContexts(selector, bindingName, isAttribute).filter((context) => context !== SecurityContext.NONE);
     let sanitizerFn = null;
@@ -29697,9 +30288,11 @@ function createHostBindingsFunction(hostBindingsMetadata, typeSourceSpan, bindin
     styleBuilder.buildUpdateLevelInstructions(getValueConverter()).forEach((instruction) => {
       for (const call2 of instruction.calls) {
         totalHostVarsCount += Math.max(call2.allocateBindingSlots - MIN_STYLING_BINDING_SLOTS_REQUIRED, 0);
+        const { params, stmts } = convertStylingCall(call2, bindingContext, bindingFn, getNextBindingId);
+        updateVariables.push(...stmts);
         updateInstructions.push({
           reference: instruction.reference,
-          paramsOrFn: convertStylingCall(call2, bindingContext, bindingFn),
+          paramsOrFn: params,
           span: null
         });
       }
@@ -29721,11 +30314,19 @@ function createHostBindingsFunction(hostBindingsMetadata, typeSourceSpan, bindin
   }
   return null;
 }
-function bindingFn(implicit, value) {
-  return convertPropertyBinding(null, implicit, value, "b");
+function bindingFn(implicit, value, getNextBindingIdFn) {
+  return convertPropertyBinding(null, implicit, value, getNextBindingIdFn());
 }
-function convertStylingCall(call2, bindingContext, bindingFn2) {
-  return call2.params((value) => bindingFn2(bindingContext, value).currValExpr);
+function convertStylingCall(call2, bindingContext, bindingFn2, getNextBindingIdFn) {
+  const stmts = [];
+  const params = call2.params((value) => {
+    const result = bindingFn2(bindingContext, value, getNextBindingIdFn);
+    if (Array.isArray(result.stmts) && result.stmts.length > 0) {
+      stmts.push(...result.stmts);
+    }
+    return result.currValExpr;
+  });
+  return { params, stmts };
 }
 function getBindingNameAndInstruction(binding) {
   let bindingName = binding.name;
@@ -30691,6 +31292,7 @@ function convertDirectiveFacadeToMetadata(facade) {
             bindingPropertyName: ann.alias || field,
             classPropertyName: field,
             required: ann.required || false,
+            isSignal: false,
             transformFunction: ann.transform != null ? new WrappedNodeExpr(ann.transform) : null
           };
         } else if (isOutput(ann)) {
@@ -30721,7 +31323,7 @@ function convertDeclareDirectiveFacadeToMetadata(declaration, typeSourceSpan) {
     type: wrapReference(declaration.type),
     typeSourceSpan,
     selector: (_a2 = declaration.selector) != null ? _a2 : null,
-    inputs: declaration.inputs ? inputsMappingToInputMetadata(declaration.inputs) : {},
+    inputs: declaration.inputs ? inputsPartialMetadataToInputMetadata(declaration.inputs) : {},
     outputs: (_b2 = declaration.outputs) != null ? _b2 : {},
     host: convertHostDeclarationToMetadata(declaration.host),
     queries: ((_c2 = declaration.queries) != null ? _c2 : []).map(convertQueryDeclarationToMetadata),
@@ -30949,26 +31551,40 @@ function isInput(value) {
 function isOutput(value) {
   return value.ngMetadataName === "Output";
 }
-function inputsMappingToInputMetadata(inputs) {
-  return Object.keys(inputs).reduce((result, key) => {
-    const value = inputs[key];
-    if (typeof value === "string") {
-      result[key] = {
-        bindingPropertyName: value,
-        classPropertyName: value,
-        transformFunction: null,
-        required: false
-      };
+function inputsPartialMetadataToInputMetadata(inputs) {
+  return Object.keys(inputs).reduce((result, minifiedClassName) => {
+    const value = inputs[minifiedClassName];
+    if (typeof value === "string" || Array.isArray(value)) {
+      result[minifiedClassName] = parseLegacyInputPartialOutput(value);
     } else {
-      result[key] = {
-        bindingPropertyName: value[0],
-        classPropertyName: value[1],
-        transformFunction: value[2] ? new WrappedNodeExpr(value[2]) : null,
-        required: false
+      result[minifiedClassName] = {
+        bindingPropertyName: value.publicName,
+        classPropertyName: minifiedClassName,
+        transformFunction: value.transformFunction !== null ? new WrappedNodeExpr(value.transformFunction) : null,
+        required: value.isRequired,
+        isSignal: value.isSignal
       };
     }
     return result;
   }, {});
+}
+function parseLegacyInputPartialOutput(value) {
+  if (typeof value === "string") {
+    return {
+      bindingPropertyName: value,
+      classPropertyName: value,
+      transformFunction: null,
+      required: false,
+      isSignal: false
+    };
+  }
+  return {
+    bindingPropertyName: value[0],
+    classPropertyName: value[1],
+    transformFunction: value[2] ? new WrappedNodeExpr(value[2]) : null,
+    required: false,
+    isSignal: false
+  };
 }
 function parseInputsArray(values) {
   return values.reduce((results, value) => {
@@ -30978,6 +31594,7 @@ function parseInputsArray(values) {
         bindingPropertyName,
         classPropertyName,
         required: false,
+        isSignal: false,
         transformFunction: null
       };
     } else {
@@ -30985,6 +31602,7 @@ function parseInputsArray(values) {
         bindingPropertyName: value.alias || value.name,
         classPropertyName: value.name,
         required: value.required || false,
+        isSignal: false,
         transformFunction: value.transform != null ? new WrappedNodeExpr(value.transform) : null
       };
     }
@@ -31026,7 +31644,7 @@ function publishFacade(global) {
   const ng = global.ng || (global.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("17.1.0-next.2");
+var VERSION = new Version("17.1.0-next.5");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -32980,7 +33598,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v17.1.0-next.2
+ * @license Angular v17.1.0-next.5
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
