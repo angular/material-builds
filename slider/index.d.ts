@@ -632,6 +632,7 @@ export declare class MatSliderVisualThumb implements _MatSliderVisualThumb, Afte
     _isValueIndicatorVisible: boolean;
     /** The host native HTML input element. */
     _hostElement: HTMLElement;
+    private _platform;
     constructor(_cdr: ChangeDetectorRef, _ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _slider: _MatSlider);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
