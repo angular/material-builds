@@ -343,6 +343,7 @@ export declare class MatSliderRangeThumb extends MatSliderThumb implements _MatS
      * @docs-private
      */
     writeValue(value: any): void;
+    _setValue(value: string): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderRangeThumb, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatSliderRangeThumb, "input[matSliderStartThumb], input[matSliderEndThumb]", ["matSliderRangeThumb"], {}, {}, never, never, true, never>;
 }
@@ -378,6 +379,11 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     protected _slider: _MatSlider;
     get value(): number;
     set value(value: number);
+    /**
+     * Handles programmatic value setting. This has been split out to
+     * allow the range thumb to override it and add additional necessary logic.
+     */
+    protected _setValue(value: string): void;
     /** Event emitted when the `value` is changed. */
     readonly valueChange: EventEmitter<number>;
     /** Event emitted when the slider thumb starts being dragged. */

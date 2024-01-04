@@ -1038,7 +1038,14 @@ class MatSliderThumb {
         if (this._isActive) {
             return;
         }
-        this._hostElement.value = stringValue;
+        this._setValue(stringValue);
+    }
+    /**
+     * Handles programmatic value setting. This has been split out to
+     * allow the range thumb to override it and add additional necessary logic.
+     */
+    _setValue(value) {
+        this._hostElement.value = value;
         this._updateThumbUIByValue();
         this._slider._onValueChange(this);
         this._cdr.detectChanges();
@@ -1642,6 +1649,11 @@ class MatSliderRangeThumb extends MatSliderThumb {
             this._updateWidthInactive();
             this._updateSibling();
         }
+    }
+    _setValue(value) {
+        super._setValue(value);
+        this._updateWidthInactive();
+        this._updateSibling();
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatSliderRangeThumb, deps: [{ token: i0.NgZone }, { token: MAT_SLIDER }, { token: i0.ElementRef }, { token: i0.ChangeDetectorRef }], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.1.0-next.5", type: MatSliderRangeThumb, isStandalone: true, selector: "input[matSliderStartThumb], input[matSliderEndThumb]", providers: [
