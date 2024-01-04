@@ -2,7 +2,7 @@ import * as i1$1 from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Input, ViewChild, inject, Optional, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, Directive, Output, NgModule } from '@angular/core';
+import { InjectionToken, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Input, ViewChild, Optional, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, Directive, Output, NgModule } from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { MatRipple, mixinColor, mixinDisableRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
@@ -60,6 +60,7 @@ class MatSliderVisualThumb {
         this._isActive = false;
         /** Whether the value indicator tooltip is visible. */
         this._isValueIndicatorVisible = false;
+        this._platform = inject(Platform);
         this._onPointerMove = (event) => {
             if (this._sliderInput._isFocused) {
                 return;
@@ -109,6 +110,11 @@ class MatSliderVisualThumb {
             // Happens when the user starts dragging a thumb, tabs away, and then stops dragging.
             if (!this._sliderInput._isFocused) {
                 this._hideRipple(this._focusRippleRef);
+            }
+            // On Safari we need to immediately re-show the hover ripple because
+            // sliders do not retain focus from pointer events on that platform.
+            if (this._platform.SAFARI) {
+                this._showHoverRipple();
             }
         };
         this._hostElement = _elementRef.nativeElement;
@@ -1320,6 +1326,9 @@ class MatSliderThumb {
     _onPointerUp() {
         if (this._isActive) {
             this._isActive = false;
+            if (this._platform.SAFARI) {
+                this._setIsFocused(false);
+            }
             this.dragEnd.emit({ source: this, parent: this._slider, value: this.value });
             // This setTimeout is to prevent the pointerup from triggering a value
             // change on the input based on the inactive width. It's not clear why
