@@ -6,12 +6,12 @@ import { DOCUMENT } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import * as i1 from '@angular/cdk/platform';
-import { take, takeUntil } from 'rxjs/operators';
 import * as i2 from '@angular/cdk/a11y';
 import * as i3 from '@angular/cdk/layout';
 import { Breakpoints } from '@angular/cdk/layout';
 import * as i1$1 from '@angular/cdk/overlay';
 import { OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { takeUntil } from 'rxjs/operators';
 import { MatCommonModule } from '@angular/material/core';
 
 /** Maximum amount of milliseconds that can be passed into setTimeout. */
@@ -346,15 +346,13 @@ class MatSnackBarContainer extends BasePortalOutlet {
         this._completeExit();
     }
     /**
-     * Waits for the zone to settle before removing the element. Helps prevent
-     * errors where we end up removing an element which is in the middle of an animation.
+     * Removes the element in a microtask. Helps prevent errors where we end up
+     * removing an element which is in the middle of an animation.
      */
     _completeExit() {
-        this._ngZone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => {
-            this._ngZone.run(() => {
-                this._onExit.next();
-                this._onExit.complete();
-            });
+        queueMicrotask(() => {
+            this._onExit.next();
+            this._onExit.complete();
         });
     }
     /**
