@@ -21,7 +21,6 @@ import * as i1 from '@angular/material/core';
 import * as i2 from '@angular/cdk/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 declare namespace i3 {
@@ -187,14 +186,13 @@ export declare class MatRowDef<T> extends CdkRowDef<T> {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatRowDef<any>, "[matRowDef]", never, { "columns": { "alias": "matRowDefColumns"; "required": false; }; "when": { "alias": "matRowDefWhen"; "required": false; }; }, {}, never, never, true, never>;
 }
 
-export declare class MatTable<T> extends CdkTable<T> implements OnInit {
+export declare class MatTable<T> extends CdkTable<T> {
     /** Overrides the sticky CSS class set by the `CdkTable`. */
     protected stickyCssClass: string;
     /** Overrides the need to add position: sticky on every sticky cell element in `CdkTable`. */
     protected needsPositionStickyOnElement: boolean;
-    ngOnInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTable<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col", "*"], true, never>;
 }
 
 /**

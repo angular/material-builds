@@ -550,7 +550,7 @@ export declare class MatLineModule {
 
 export declare class MatNativeDateModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNativeDateModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatNativeDateModule, never, [typeof NativeDateModule], never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatNativeDateModule, never, never, never>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatNativeDateModule>;
 }
 
