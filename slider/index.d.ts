@@ -141,7 +141,6 @@ export declare class MatSlider extends _MatSliderMixinBase implements AfterViewI
     /** The radius of the native slider's knob. AFAIK there is no way to avoid hardcoding this. */
     _knobRadius: number;
     _inputPadding: number;
-    _inputOffset: number;
     ngAfterViewInit(): void;
     private _initUINonRange;
     private _initUIRange;
@@ -238,17 +237,6 @@ declare interface _MatSlider {
      * thumb ripple extends past the end of the slider track clickable.
      */
     _inputPadding: number;
-    /**
-     * The offset represents left most translateX of the slider knob. Inversely,
-     * (slider width - offset) = the right most translateX of the slider knob.
-     *
-     * Note:
-     *    * The native slider knob differs from the visual slider. It's knob cannot slide past
-     *      the end of the track AT ALL.
-     *    * The visual slider knob CAN slide past the end of the track slightly. It's knob can slide
-     *      past the end of the track such that it's center lines up with the end of the track.
-     */
-    _inputOffset: number;
     /** The radius of the visual slider's ripple. */
     _rippleRadius: number;
     /** The global configuration for `matRipple` instances. */
@@ -418,6 +406,8 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     _valuetext: string;
     /** The radius of a native html slider's knob. */
     _knobRadius: number;
+    /** The distance in px from the start of the slider track to the first tick mark. */
+    _tickMarkOffset: number;
     /** Whether user's cursor is currently in a mouse down state on the input. */
     _isActive: boolean;
     /** Whether the input is currently focused (either by tab or after clicking). */

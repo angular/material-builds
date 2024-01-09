@@ -515,7 +515,6 @@ class MatSlider extends _MatSliderMixinBase {
         const thumb = this._getThumb(2 /* _MatThumb.END */);
         this._rippleRadius = thumb._ripple.radius;
         this._inputPadding = this._rippleRadius - this._knobRadius;
-        this._inputOffset = this._knobRadius;
         this._isRange
             ? this._initUIRange(eInput, sInput)
             : this._initUINonRange(eInput);
@@ -1040,7 +1039,7 @@ class MatSliderThumb {
      */
     get translateX() {
         if (this._slider.min >= this._slider.max) {
-            this._translateX = 0;
+            this._translateX = this._tickMarkOffset;
             return this._translateX;
         }
         if (this._translateX === undefined) {
@@ -1124,6 +1123,8 @@ class MatSliderThumb {
         this.thumbPosition = 2 /* _MatThumb.END */;
         /** The radius of a native html slider's knob. */
         this._knobRadius = 8;
+        /** The distance in px from the start of the slider track to the first tick mark. */
+        this._tickMarkOffset = 3;
         /** Whether user's cursor is currently in a mouse down state on the input. */
         this._isActive = false;
         /** Whether the input is currently focused (either by tab or after clicking). */
@@ -1338,14 +1339,17 @@ class MatSliderThumb {
         }
     }
     _clamp(v) {
-        return Math.max(Math.min(v, this._slider._cachedWidth), 0);
+        const min = this._tickMarkOffset;
+        const max = this._slider._cachedWidth - this._tickMarkOffset;
+        return Math.max(Math.min(v, max), min);
     }
     _calcTranslateXByValue() {
         if (this._slider._isRtl) {
-            return (1 - this.percentage) * this._slider._cachedWidth;
+            return ((1 - this.percentage) * (this._slider._cachedWidth - this._tickMarkOffset * 2) +
+                this._tickMarkOffset);
         }
-        const tickMarkOffset = 3; // The spaces before & after the start & end tick marks.
-        return this.percentage * (this._slider._cachedWidth - tickMarkOffset * 2) + tickMarkOffset;
+        return (this.percentage * (this._slider._cachedWidth - this._tickMarkOffset * 2) +
+            this._tickMarkOffset);
     }
     _calcTranslateXByPointerEvent(event) {
         return event.clientX - this._slider._cachedLeft;
@@ -1354,18 +1358,15 @@ class MatSliderThumb {
      * Used to set the slider width to the correct
      * dimensions while the user is dragging.
      */
-    _updateWidthActive() {
-        this._hostElement.style.padding = `0 ${this._slider._inputPadding}px`;
-        this._hostElement.style.width = `calc(100% + ${this._slider._inputPadding}px)`;
-    }
+    _updateWidthActive() { }
     /**
      * Sets the slider input to disproportionate dimensions to allow for touch
      * events to be captured on touch devices.
      */
     _updateWidthInactive() {
-        this._hostElement.style.padding = '0px';
-        this._hostElement.style.width = 'calc(100% + 48px)';
-        this._hostElement.style.left = '-24px';
+        this._hostElement.style.padding = `0 ${this._slider._inputPadding}px`;
+        this._hostElement.style.width = `calc(100% + ${this._slider._inputPadding - this._tickMarkOffset * 2}px)`;
+        this._hostElement.style.left = `-${this._slider._rippleRadius - this._tickMarkOffset}px`;
     }
     _updateThumbUIByValue(options) {
         this.translateX = this._clamp(this._calcTranslateXByValue());
@@ -1476,7 +1477,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
         if (!this._isLeftThumb && sibling) {
             return sibling.translateX;
         }
-        return 0;
+        return this._tickMarkOffset;
     }
     /**
      * Returns the maximum translateX position allowed for this slider input's visual thumb.
@@ -1487,7 +1488,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
         if (this._isLeftThumb && sibling) {
             return sibling.translateX;
         }
-        return this._slider._cachedWidth;
+        return this._slider._cachedWidth - this._tickMarkOffset;
     }
     _setIsLeftThumb() {
         this._isLeftThumb =
@@ -1562,7 +1563,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
     }
     _updateWidthActive() {
         const minWidth = this._slider._rippleRadius * 2 - this._slider._inputPadding * 2;
-        const maxWidth = this._slider._cachedWidth + this._slider._inputPadding - minWidth;
+        const maxWidth = this._slider._cachedWidth + this._slider._inputPadding - minWidth - this._tickMarkOffset * 2;
         const percentage = this._slider.min < this._slider.max
             ? (this.max - this.min) / (this._slider.max - this._slider.min)
             : 1;
@@ -1575,7 +1576,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
         if (!sibling) {
             return;
         }
-        const maxWidth = this._slider._cachedWidth;
+        const maxWidth = this._slider._cachedWidth - this._tickMarkOffset * 2;
         const midValue = this._isEndThumb
             ? this.value - (this.value - sibling.value) / 2
             : this.value + (sibling.value - this.value) / 2;
@@ -1598,12 +1599,12 @@ class MatSliderRangeThumb extends MatSliderThumb {
         this._hostElement.style.width = `${width}px`;
         this._hostElement.style.padding = '0px';
         if (this._isLeftThumb) {
-            this._hostElement.style.left = '-24px';
+            this._hostElement.style.left = `-${this._slider._rippleRadius - this._tickMarkOffset}px`;
             this._hostElement.style.right = 'auto';
         }
         else {
             this._hostElement.style.left = 'auto';
-            this._hostElement.style.right = '-24px';
+            this._hostElement.style.right = `-${this._slider._rippleRadius - this._tickMarkOffset}px`;
         }
     }
     _updateStaticStyles() {
