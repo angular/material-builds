@@ -2,7 +2,6 @@
 @use 'sass:map';
 @use '../core/tokens/m2/mat/datepicker' as tokens-mat-datepicker;
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
 @use '../core/tokens/token-utils';
 @use '../core/style/sass-utils';
 @use '../core/typography/typography';
@@ -16,69 +15,60 @@ $today-fade-amount: 0.2;
 $calendar-body-font-size: 13px !default;
 $calendar-weekday-table-font-size: 11px !default;
 
-@mixin _calendar-color($theme, $palette-name) {
-  $palette-color: inspection.get-theme-color($theme, $palette-name);
+@mixin _calendar-color($config, $palette) {
+  $palette-color: theming.get-color-from-palette(map.get($config, $palette));
   $range-color: tokens-mat-datepicker.private-get-range-background-color($palette-color);
   $range-tokens: tokens-mat-datepicker.get-range-color-tokens($range-color);
   $calendar-tokens:
-    tokens-mat-datepicker.private-get-calendar-color-palette-color-tokens($theme, $palette-name);
+    tokens-mat-datepicker.private-get-calendar-color-palette-color-tokens($config, $palette);
 
   @include token-utils.create-token-values(tokens-mat-datepicker.$prefix,
     map.merge($calendar-tokens, $range-tokens));
 }
 
-@mixin base($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
-  }
-  @else {}
-}
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $disabled-color: theming.get-color-from-palette($foreground, disabled-text);
 
-@mixin color($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
+  @include sass-utils.current-selector-or-root() {
+    @include token-utils.create-token-values(tokens-mat-datepicker.$prefix,
+      tokens-mat-datepicker.get-color-tokens($config));
   }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(tokens-mat-datepicker.$prefix,
-        tokens-mat-datepicker.get-color-tokens($theme));
+
+  .mat-datepicker-content {
+    &.mat-accent {
+      @include _calendar-color($config, accent);
     }
 
-    .mat-datepicker-content {
-      &.mat-accent {
-        @include _calendar-color($theme, accent);
-      }
+    &.mat-warn {
+      @include _calendar-color($config, warn);
+    }
+  }
 
-      &.mat-warn {
-        @include _calendar-color($theme, warn);
-      }
+  .mat-datepicker-toggle-active {
+    &.mat-accent {
+      $accent-tokens:
+        tokens-mat-datepicker.private-get-toggle-color-palette-color-tokens($config, accent);
+      @include token-utils.create-token-values(tokens-mat-datepicker.$prefix, $accent-tokens);
     }
 
-    .mat-datepicker-toggle-active {
-      &.mat-accent {
-        $accent-tokens:
-          tokens-mat-datepicker.private-get-toggle-color-palette-color-tokens($theme, accent);
-        @include token-utils.create-token-values(tokens-mat-datepicker.$prefix, $accent-tokens);
-      }
-
-      &.mat-warn {
-        $warn-tokens:
-          tokens-mat-datepicker.private-get-toggle-color-palette-color-tokens($theme, warn);
-        @include token-utils.create-token-values(tokens-mat-datepicker.$prefix, $warn-tokens);
-      }
+    &.mat-warn {
+      $warn-tokens:
+        tokens-mat-datepicker.private-get-toggle-color-palette-color-tokens($config, warn);
+      @include token-utils.create-token-values(tokens-mat-datepicker.$prefix, $warn-tokens);
     }
   }
 }
 
-@mixin typography($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(tokens-mat-datepicker.$prefix,
-        tokens-mat-datepicker.get-typography-tokens($theme));
-    }
+@mixin typography($config-or-theme) {
+  $config: typography.private-typography-to-2014-config(
+      theming.get-typography-config($config-or-theme));
+
+  @include sass-utils.current-selector-or-root() {
+    @include token-utils.create-token-values(tokens-mat-datepicker.$prefix,
+      tokens-mat-datepicker.get-typography-tokens($config));
   }
 }
 
@@ -100,45 +90,34 @@ $calendar-weekday-table-font-size: 11px !default;
   }
 }
 
-@mixin density($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
-  }
-  @else {
-    // TODO(crisbeto): move this into the structural styles
-    // once the icon button density is switched to tokens.
+@mixin density($config-or-theme) {
+  $density-scale: theming.get-density-config($config-or-theme);
 
-    // Regardless of the user-passed density, we want the calendar
-    // previous/next buttons to remain at density -2
-    .mat-calendar-controls {
-      @include icon-button-theme.density(-2);
-    }
+  // TODO(crisbeto): move this into the structural styles
+  // once the icon button density is switched to tokens.
+
+  // Regardless of the user-passed density, we want the calendar
+  // previous/next buttons to remain at density -2
+  .mat-calendar-controls {
+    @include icon-button-theme.density(-2);
   }
 }
 
-@mixin theme($theme) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-datepicker') {
-    @if inspection.get-theme-version($theme) == 1 {
-      @include _theme-from-tokens(inspection.get-theme-tokens($theme));
-    }
-    @else {
-      @include base($theme);
-      @if inspection.theme-has($theme, color) {
-        @include color($theme);
-      }
-      @if inspection.theme-has($theme, density) {
-        @include density($theme);
-      }
-      @if inspection.theme-has($theme, typography) {
-        @include typography($theme);
-      }
-    }
-  }
-}
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
 
-@mixin _theme-from-tokens($tokens) {
-  @if ($tokens != ()) {
-    @include token-utils.create-token-values(
-        tokens-mat-datepicker.$prefix, map.get($tokens, tokens-mat-datepicker.$prefix));
+    @if $color != null {
+      @include color($color);
+    }
+    @if $density != null {
+      @include density($density);
+    }
+    @if $typography != null {
+      @include typography($typography);
+    }
   }
 }

@@ -2,81 +2,61 @@
 @use '../tokens/m2/mat/option' as tokens-mat-option;
 @use '../tokens/token-utils';
 @use '../style/sass-utils';
+
 @use '../theming/theming';
-@use '../theming/inspection';
 @use '../typography/typography';
+@use '../mdc-helpers/mdc-helpers';
 
-@mixin base($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
-  }
-  @else {}
-}
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
 
-@mixin color($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
-  }
-  @else {
+  @include mdc-helpers.using-mdc-theme($config) {
     @include sass-utils.current-selector-or-root() {
       @include token-utils.create-token-values(tokens-mat-option.$prefix,
-        tokens-mat-option.get-color-tokens($theme));
+        tokens-mat-option.get-color-tokens($config));
     }
 
     .mat-accent {
       @include token-utils.create-token-values(tokens-mat-option.$prefix,
-        tokens-mat-option.get-color-tokens($theme, accent));
+        tokens-mat-option.private-get-color-palette-color-tokens(map.get($config, accent)));
     }
 
     .mat-warn {
       @include token-utils.create-token-values(tokens-mat-option.$prefix,
-        tokens-mat-option.get-color-tokens($theme, warn));
+        tokens-mat-option.private-get-color-palette-color-tokens(map.get($config, warn)));
     }
   }
 }
 
-@mixin typography($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(tokens-mat-option.$prefix,
-        tokens-mat-option.get-typography-tokens($theme));
-    }
+@mixin typography($config-or-theme) {
+  $config: typography.private-typography-to-2018-config(
+      theming.get-typography-config($config-or-theme));
+
+  @include sass-utils.current-selector-or-root() {
+    @include token-utils.create-token-values(tokens-mat-option.$prefix,
+      tokens-mat-option.get-typography-tokens($config));
   }
 }
 
-@mixin density($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
-  }
-  @else {}
+@mixin density($config-or-theme) {
+  $density-scale: theming.get-density-config($config-or-theme);
 }
 
-@mixin theme($theme) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-option') {
-    @if inspection.get-theme-version($theme) == 1 {
-      @include _theme-from-tokens(inspection.get-theme-tokens($theme));
-    }
-    @else {
-      @include base($theme);
-      @if inspection.theme-has($theme, color) {
-        @include color($theme);
-      }
-      @if inspection.theme-has($theme, density) {
-        @include density($theme);
-      }
-      @if inspection.theme-has($theme, typography) {
-        @include typography($theme);
-      }
-    }
-  }
-}
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
 
-@mixin _theme-from-tokens($tokens) {
-  @if ($tokens != ()) {
-    @include token-utils.create-token-values(
-        tokens-mat-option.$prefix, map.get($tokens, tokens-mat-option.$prefix));
+    @if $color != null {
+      @include color($color);
+    }
+    @if $density != null {
+      @include density($density);
+    }
+    @if $typography != null {
+      @include typography($typography);
+    }
   }
 }

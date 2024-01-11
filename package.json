@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "17.2.0-next.0",
+  "version": "16.2.12",
   "description": "Angular Material",
   "repository": {
     "type": "git",
@@ -45,6 +45,21 @@
     },
     "./prebuilt-themes/*": {
       "style": "./prebuilt-themes/*.css"
+    },
+    "./legacy-prebuilt-themes/indigo-pink.css": {
+      "style": "./legacy-prebuilt-themes/legacy-indigo-pink.css"
+    },
+    "./legacy-prebuilt-themes/deeppurple-amber.css": {
+      "style": "./legacy-prebuilt-themes/legacy-deeppurple-amber.css"
+    },
+    "./legacy-prebuilt-themes/pink-bluegrey.css": {
+      "style": "./legacy-prebuilt-themes/legacy-pink-bluegrey.css"
+    },
+    "./legacy-prebuilt-themes/purple-green.css": {
+      "style": "./legacy-prebuilt-themes/legacy-purple-green.css"
+    },
+    "./legacy-prebuilt-themes/*": {
+      "style": "./legacy-prebuilt-themes/*.css"
     },
     "./package.json": {
       "default": "./package.json"
@@ -258,6 +273,270 @@
       "esm2022": "./esm2022/input/testing/index.mjs",
       "esm": "./esm2022/input/testing/index.mjs",
       "default": "./fesm2022/input/testing.mjs"
+    },
+    "./legacy-autocomplete": {
+      "types": "./legacy-autocomplete/index.d.ts",
+      "esm2022": "./esm2022/legacy-autocomplete/legacy-autocomplete_public_index.mjs",
+      "esm": "./esm2022/legacy-autocomplete/legacy-autocomplete_public_index.mjs",
+      "default": "./fesm2022/legacy-autocomplete.mjs"
+    },
+    "./legacy-autocomplete/testing": {
+      "types": "./legacy-autocomplete/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-autocomplete/testing/index.mjs",
+      "esm": "./esm2022/legacy-autocomplete/testing/index.mjs",
+      "default": "./fesm2022/legacy-autocomplete/testing.mjs"
+    },
+    "./legacy-button": {
+      "types": "./legacy-button/index.d.ts",
+      "esm2022": "./esm2022/legacy-button/legacy-button_public_index.mjs",
+      "esm": "./esm2022/legacy-button/legacy-button_public_index.mjs",
+      "default": "./fesm2022/legacy-button.mjs"
+    },
+    "./legacy-button/testing": {
+      "types": "./legacy-button/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-button/testing/index.mjs",
+      "esm": "./esm2022/legacy-button/testing/index.mjs",
+      "default": "./fesm2022/legacy-button/testing.mjs"
+    },
+    "./legacy-card": {
+      "types": "./legacy-card/index.d.ts",
+      "esm2022": "./esm2022/legacy-card/legacy-card_public_index.mjs",
+      "esm": "./esm2022/legacy-card/legacy-card_public_index.mjs",
+      "default": "./fesm2022/legacy-card.mjs"
+    },
+    "./legacy-card/testing": {
+      "types": "./legacy-card/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-card/testing/index.mjs",
+      "esm": "./esm2022/legacy-card/testing/index.mjs",
+      "default": "./fesm2022/legacy-card/testing.mjs"
+    },
+    "./legacy-checkbox": {
+      "types": "./legacy-checkbox/index.d.ts",
+      "esm2022": "./esm2022/legacy-checkbox/legacy-checkbox_public_index.mjs",
+      "esm": "./esm2022/legacy-checkbox/legacy-checkbox_public_index.mjs",
+      "default": "./fesm2022/legacy-checkbox.mjs"
+    },
+    "./legacy-checkbox/testing": {
+      "types": "./legacy-checkbox/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-checkbox/testing/index.mjs",
+      "esm": "./esm2022/legacy-checkbox/testing/index.mjs",
+      "default": "./fesm2022/legacy-checkbox/testing.mjs"
+    },
+    "./legacy-chips": {
+      "types": "./legacy-chips/index.d.ts",
+      "esm2022": "./esm2022/legacy-chips/legacy-chips_public_index.mjs",
+      "esm": "./esm2022/legacy-chips/legacy-chips_public_index.mjs",
+      "default": "./fesm2022/legacy-chips.mjs"
+    },
+    "./legacy-chips/testing": {
+      "types": "./legacy-chips/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-chips/testing/index.mjs",
+      "esm": "./esm2022/legacy-chips/testing/index.mjs",
+      "default": "./fesm2022/legacy-chips/testing.mjs"
+    },
+    "./legacy-core": {
+      "types": "./legacy-core/index.d.ts",
+      "esm2022": "./esm2022/legacy-core/legacy-core_public_index.mjs",
+      "esm": "./esm2022/legacy-core/legacy-core_public_index.mjs",
+      "default": "./fesm2022/legacy-core.mjs"
+    },
+    "./legacy-core/testing": {
+      "types": "./legacy-core/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-core/testing/index.mjs",
+      "esm": "./esm2022/legacy-core/testing/index.mjs",
+      "default": "./fesm2022/legacy-core/testing.mjs"
+    },
+    "./legacy-dialog": {
+      "types": "./legacy-dialog/index.d.ts",
+      "esm2022": "./esm2022/legacy-dialog/legacy-dialog_public_index.mjs",
+      "esm": "./esm2022/legacy-dialog/legacy-dialog_public_index.mjs",
+      "default": "./fesm2022/legacy-dialog.mjs"
+    },
+    "./legacy-dialog/testing": {
+      "types": "./legacy-dialog/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-dialog/testing/index.mjs",
+      "esm": "./esm2022/legacy-dialog/testing/index.mjs",
+      "default": "./fesm2022/legacy-dialog/testing.mjs"
+    },
+    "./legacy-form-field": {
+      "types": "./legacy-form-field/index.d.ts",
+      "esm2022": "./esm2022/legacy-form-field/legacy-form-field_public_index.mjs",
+      "esm": "./esm2022/legacy-form-field/legacy-form-field_public_index.mjs",
+      "default": "./fesm2022/legacy-form-field.mjs"
+    },
+    "./legacy-form-field/testing": {
+      "types": "./legacy-form-field/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-form-field/testing/index.mjs",
+      "esm": "./esm2022/legacy-form-field/testing/index.mjs",
+      "default": "./fesm2022/legacy-form-field/testing.mjs"
+    },
+    "./legacy-input": {
+      "types": "./legacy-input/index.d.ts",
+      "esm2022": "./esm2022/legacy-input/legacy-input_public_index.mjs",
+      "esm": "./esm2022/legacy-input/legacy-input_public_index.mjs",
+      "default": "./fesm2022/legacy-input.mjs"
+    },
+    "./legacy-input/testing": {
+      "types": "./legacy-input/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-input/testing/index.mjs",
+      "esm": "./esm2022/legacy-input/testing/index.mjs",
+      "default": "./fesm2022/legacy-input/testing.mjs"
+    },
+    "./legacy-list": {
+      "types": "./legacy-list/index.d.ts",
+      "esm2022": "./esm2022/legacy-list/legacy-list_public_index.mjs",
+      "esm": "./esm2022/legacy-list/legacy-list_public_index.mjs",
+      "default": "./fesm2022/legacy-list.mjs"
+    },
+    "./legacy-list/testing": {
+      "types": "./legacy-list/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-list/testing/index.mjs",
+      "esm": "./esm2022/legacy-list/testing/index.mjs",
+      "default": "./fesm2022/legacy-list/testing.mjs"
+    },
+    "./legacy-menu": {
+      "types": "./legacy-menu/index.d.ts",
+      "esm2022": "./esm2022/legacy-menu/legacy-menu_public_index.mjs",
+      "esm": "./esm2022/legacy-menu/legacy-menu_public_index.mjs",
+      "default": "./fesm2022/legacy-menu.mjs"
+    },
+    "./legacy-menu/testing": {
+      "types": "./legacy-menu/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-menu/testing/index.mjs",
+      "esm": "./esm2022/legacy-menu/testing/index.mjs",
+      "default": "./fesm2022/legacy-menu/testing.mjs"
+    },
+    "./legacy-paginator": {
+      "types": "./legacy-paginator/index.d.ts",
+      "esm2022": "./esm2022/legacy-paginator/legacy-paginator_public_index.mjs",
+      "esm": "./esm2022/legacy-paginator/legacy-paginator_public_index.mjs",
+      "default": "./fesm2022/legacy-paginator.mjs"
+    },
+    "./legacy-paginator/testing": {
+      "types": "./legacy-paginator/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-paginator/testing/index.mjs",
+      "esm": "./esm2022/legacy-paginator/testing/index.mjs",
+      "default": "./fesm2022/legacy-paginator/testing.mjs"
+    },
+    "./legacy-progress-bar": {
+      "types": "./legacy-progress-bar/index.d.ts",
+      "esm2022": "./esm2022/legacy-progress-bar/legacy-progress-bar_public_index.mjs",
+      "esm": "./esm2022/legacy-progress-bar/legacy-progress-bar_public_index.mjs",
+      "default": "./fesm2022/legacy-progress-bar.mjs"
+    },
+    "./legacy-progress-bar/testing": {
+      "types": "./legacy-progress-bar/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-progress-bar/testing/index.mjs",
+      "esm": "./esm2022/legacy-progress-bar/testing/index.mjs",
+      "default": "./fesm2022/legacy-progress-bar/testing.mjs"
+    },
+    "./legacy-progress-spinner": {
+      "types": "./legacy-progress-spinner/index.d.ts",
+      "esm2022": "./esm2022/legacy-progress-spinner/legacy-progress-spinner_public_index.mjs",
+      "esm": "./esm2022/legacy-progress-spinner/legacy-progress-spinner_public_index.mjs",
+      "default": "./fesm2022/legacy-progress-spinner.mjs"
+    },
+    "./legacy-progress-spinner/testing": {
+      "types": "./legacy-progress-spinner/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-progress-spinner/testing/index.mjs",
+      "esm": "./esm2022/legacy-progress-spinner/testing/index.mjs",
+      "default": "./fesm2022/legacy-progress-spinner/testing.mjs"
+    },
+    "./legacy-radio": {
+      "types": "./legacy-radio/index.d.ts",
+      "esm2022": "./esm2022/legacy-radio/legacy-radio_public_index.mjs",
+      "esm": "./esm2022/legacy-radio/legacy-radio_public_index.mjs",
+      "default": "./fesm2022/legacy-radio.mjs"
+    },
+    "./legacy-radio/testing": {
+      "types": "./legacy-radio/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-radio/testing/index.mjs",
+      "esm": "./esm2022/legacy-radio/testing/index.mjs",
+      "default": "./fesm2022/legacy-radio/testing.mjs"
+    },
+    "./legacy-select": {
+      "types": "./legacy-select/index.d.ts",
+      "esm2022": "./esm2022/legacy-select/legacy-select_public_index.mjs",
+      "esm": "./esm2022/legacy-select/legacy-select_public_index.mjs",
+      "default": "./fesm2022/legacy-select.mjs"
+    },
+    "./legacy-select/testing": {
+      "types": "./legacy-select/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-select/testing/index.mjs",
+      "esm": "./esm2022/legacy-select/testing/index.mjs",
+      "default": "./fesm2022/legacy-select/testing.mjs"
+    },
+    "./legacy-slide-toggle": {
+      "types": "./legacy-slide-toggle/index.d.ts",
+      "esm2022": "./esm2022/legacy-slide-toggle/legacy-slide-toggle_public_index.mjs",
+      "esm": "./esm2022/legacy-slide-toggle/legacy-slide-toggle_public_index.mjs",
+      "default": "./fesm2022/legacy-slide-toggle.mjs"
+    },
+    "./legacy-slide-toggle/testing": {
+      "types": "./legacy-slide-toggle/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-slide-toggle/testing/index.mjs",
+      "esm": "./esm2022/legacy-slide-toggle/testing/index.mjs",
+      "default": "./fesm2022/legacy-slide-toggle/testing.mjs"
+    },
+    "./legacy-slider": {
+      "types": "./legacy-slider/index.d.ts",
+      "esm2022": "./esm2022/legacy-slider/legacy-slider_public_index.mjs",
+      "esm": "./esm2022/legacy-slider/legacy-slider_public_index.mjs",
+      "default": "./fesm2022/legacy-slider.mjs"
+    },
+    "./legacy-slider/testing": {
+      "types": "./legacy-slider/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-slider/testing/index.mjs",
+      "esm": "./esm2022/legacy-slider/testing/index.mjs",
+      "default": "./fesm2022/legacy-slider/testing.mjs"
+    },
+    "./legacy-snack-bar": {
+      "types": "./legacy-snack-bar/index.d.ts",
+      "esm2022": "./esm2022/legacy-snack-bar/legacy-snack-bar_public_index.mjs",
+      "esm": "./esm2022/legacy-snack-bar/legacy-snack-bar_public_index.mjs",
+      "default": "./fesm2022/legacy-snack-bar.mjs"
+    },
+    "./legacy-snack-bar/testing": {
+      "types": "./legacy-snack-bar/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-snack-bar/testing/index.mjs",
+      "esm": "./esm2022/legacy-snack-bar/testing/index.mjs",
+      "default": "./fesm2022/legacy-snack-bar/testing.mjs"
+    },
+    "./legacy-table": {
+      "types": "./legacy-table/index.d.ts",
+      "esm2022": "./esm2022/legacy-table/legacy-table_public_index.mjs",
+      "esm": "./esm2022/legacy-table/legacy-table_public_index.mjs",
+      "default": "./fesm2022/legacy-table.mjs"
+    },
+    "./legacy-table/testing": {
+      "types": "./legacy-table/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-table/testing/index.mjs",
+      "esm": "./esm2022/legacy-table/testing/index.mjs",
+      "default": "./fesm2022/legacy-table/testing.mjs"
+    },
+    "./legacy-tabs": {
+      "types": "./legacy-tabs/index.d.ts",
+      "esm2022": "./esm2022/legacy-tabs/legacy-tabs_public_index.mjs",
+      "esm": "./esm2022/legacy-tabs/legacy-tabs_public_index.mjs",
+      "default": "./fesm2022/legacy-tabs.mjs"
+    },
+    "./legacy-tabs/testing": {
+      "types": "./legacy-tabs/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-tabs/testing/index.mjs",
+      "esm": "./esm2022/legacy-tabs/testing/index.mjs",
+      "default": "./fesm2022/legacy-tabs/testing.mjs"
+    },
+    "./legacy-tooltip": {
+      "types": "./legacy-tooltip/index.d.ts",
+      "esm2022": "./esm2022/legacy-tooltip/legacy-tooltip_public_index.mjs",
+      "esm": "./esm2022/legacy-tooltip/legacy-tooltip_public_index.mjs",
+      "default": "./fesm2022/legacy-tooltip.mjs"
+    },
+    "./legacy-tooltip/testing": {
+      "types": "./legacy-tooltip/testing/index.d.ts",
+      "esm2022": "./esm2022/legacy-tooltip/testing/index.mjs",
+      "esm": "./esm2022/legacy-tooltip/testing/index.mjs",
+      "default": "./fesm2022/legacy-tooltip/testing.mjs"
     },
     "./list": {
       "types": "./list/index.d.ts",
@@ -477,63 +756,63 @@
     }
   },
   "peerDependencies": {
-    "@angular/animations": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
-    "@angular/cdk": "17.2.0-next.0",
-    "@angular/core": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
-    "@angular/common": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
-    "@angular/forms": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
-    "@angular/platform-browser": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
+    "@angular/animations": "^16.0.0 || ^17.0.0",
+    "@angular/cdk": "16.2.12",
+    "@angular/core": "^16.0.0 || ^17.0.0",
+    "@angular/common": "^16.0.0 || ^17.0.0",
+    "@angular/forms": "^16.0.0 || ^17.0.0",
+    "@angular/platform-browser": "^16.0.0 || ^17.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {
     "tslib": "^2.3.0",
-    "@material/animation": "15.0.0-canary.7f224ddd4.0",
-    "@material/auto-init": "15.0.0-canary.7f224ddd4.0",
-    "@material/banner": "15.0.0-canary.7f224ddd4.0",
-    "@material/base": "15.0.0-canary.7f224ddd4.0",
-    "@material/button": "15.0.0-canary.7f224ddd4.0",
-    "@material/card": "15.0.0-canary.7f224ddd4.0",
-    "@material/checkbox": "15.0.0-canary.7f224ddd4.0",
-    "@material/chips": "15.0.0-canary.7f224ddd4.0",
-    "@material/circular-progress": "15.0.0-canary.7f224ddd4.0",
-    "@material/data-table": "15.0.0-canary.7f224ddd4.0",
-    "@material/density": "15.0.0-canary.7f224ddd4.0",
-    "@material/dialog": "15.0.0-canary.7f224ddd4.0",
-    "@material/dom": "15.0.0-canary.7f224ddd4.0",
-    "@material/drawer": "15.0.0-canary.7f224ddd4.0",
-    "@material/elevation": "15.0.0-canary.7f224ddd4.0",
-    "@material/fab": "15.0.0-canary.7f224ddd4.0",
-    "@material/feature-targeting": "15.0.0-canary.7f224ddd4.0",
-    "@material/floating-label": "15.0.0-canary.7f224ddd4.0",
-    "@material/form-field": "15.0.0-canary.7f224ddd4.0",
-    "@material/icon-button": "15.0.0-canary.7f224ddd4.0",
-    "@material/image-list": "15.0.0-canary.7f224ddd4.0",
-    "@material/layout-grid": "15.0.0-canary.7f224ddd4.0",
-    "@material/line-ripple": "15.0.0-canary.7f224ddd4.0",
-    "@material/linear-progress": "15.0.0-canary.7f224ddd4.0",
-    "@material/list": "15.0.0-canary.7f224ddd4.0",
-    "@material/menu": "15.0.0-canary.7f224ddd4.0",
-    "@material/menu-surface": "15.0.0-canary.7f224ddd4.0",
-    "@material/notched-outline": "15.0.0-canary.7f224ddd4.0",
-    "@material/radio": "15.0.0-canary.7f224ddd4.0",
-    "@material/ripple": "15.0.0-canary.7f224ddd4.0",
-    "@material/rtl": "15.0.0-canary.7f224ddd4.0",
-    "@material/segmented-button": "15.0.0-canary.7f224ddd4.0",
-    "@material/select": "15.0.0-canary.7f224ddd4.0",
-    "@material/shape": "15.0.0-canary.7f224ddd4.0",
-    "@material/slider": "15.0.0-canary.7f224ddd4.0",
-    "@material/snackbar": "15.0.0-canary.7f224ddd4.0",
-    "@material/switch": "15.0.0-canary.7f224ddd4.0",
-    "@material/tab": "15.0.0-canary.7f224ddd4.0",
-    "@material/tab-bar": "15.0.0-canary.7f224ddd4.0",
-    "@material/tab-indicator": "15.0.0-canary.7f224ddd4.0",
-    "@material/tab-scroller": "15.0.0-canary.7f224ddd4.0",
-    "@material/textfield": "15.0.0-canary.7f224ddd4.0",
-    "@material/theme": "15.0.0-canary.7f224ddd4.0",
-    "@material/tooltip": "15.0.0-canary.7f224ddd4.0",
-    "@material/top-app-bar": "15.0.0-canary.7f224ddd4.0",
-    "@material/touch-target": "15.0.0-canary.7f224ddd4.0",
-    "@material/typography": "15.0.0-canary.7f224ddd4.0"
+    "@material/animation": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/auto-init": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/banner": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/base": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/button": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/card": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/checkbox": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/chips": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/circular-progress": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/data-table": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/density": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/dialog": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/dom": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/drawer": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/elevation": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/fab": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/feature-targeting": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/floating-label": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/form-field": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/icon-button": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/image-list": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/layout-grid": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/line-ripple": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/linear-progress": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/list": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/menu": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/menu-surface": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/notched-outline": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/radio": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/ripple": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/rtl": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/segmented-button": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/select": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/shape": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/slider": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/snackbar": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/switch": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/tab": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/tab-bar": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/tab-indicator": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/tab-scroller": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/textfield": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/theme": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/tooltip": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/top-app-bar": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/touch-target": "15.0.0-canary.bc9ae6c9c.0",
+    "@material/typography": "15.0.0-canary.bc9ae6c9c.0"
   },
   "schematics": "./schematics/collection.json",
   "ng-update": {

@@ -1,7 +1,6 @@
 import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ComponentHarness } from '@angular/cdk/testing';
 import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
 /** Harness for interacting with an MDC-based `mat-optgroup` in tests. */
@@ -28,7 +27,7 @@ export declare class MatOptgroupHarness extends ComponentHarness {
 }
 
 /** Harness for interacting with an MDC-based `mat-option` in tests. */
-export declare class MatOptionHarness extends ContentContainerComponentHarness {
+export declare class MatOptionHarness extends ComponentHarness {
     /** Selector used to locate option instances. */
     static hostSelector: string;
     /** Element containing the option's text. */

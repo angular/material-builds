@@ -1,11 +1,16 @@
+import { _AbstractConstructor } from '@angular/material/core';
 import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewChecked } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { CanColor } from '@angular/material/core';
+import { CanUpdateErrorState } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
+import { _Constructor } from '@angular/material/core';
 import { ControlContainer } from '@angular/forms';
 import { ControlValueAccessor } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
@@ -18,13 +23,13 @@ import { FactoryProvider } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/common';
-import * as i2 from '@angular/material/button';
+import * as i14 from '@angular/common';
+import * as i15 from '@angular/material/button';
+import * as i16 from '@angular/cdk/overlay';
+import * as i17 from '@angular/cdk/a11y';
+import * as i18 from '@angular/cdk/portal';
+import * as i19 from '@angular/material/core';
 import * as i20 from '@angular/cdk/scrolling';
-import * as i3 from '@angular/cdk/overlay';
-import * as i4 from '@angular/cdk/a11y';
-import * as i5 from '@angular/cdk/portal';
-import * as i6 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
 import { MatButton } from '@angular/material/button';
@@ -114,7 +119,61 @@ export declare type ExtractDateTypeFromSelection<T> = T extends DateRange<infer 
  */
 declare function getActiveOffset<D>(dateAdapter: DateAdapter<D>, activeDate: D, minDate: D | null, maxDate: D | null): number;
 
+declare namespace i1 {
+    export {
+        MatCalendarView,
+        MatCalendarHeader,
+        MatCalendar
+    }
+}
+
 declare namespace i10 {
+    export {
+        MatDateRangeInput
+    }
+}
+
+declare namespace i11 {
+    export {
+        MatDateRangeInputParent,
+        MAT_DATE_RANGE_INPUT_PARENT,
+        MatStartDate,
+        MatEndDate
+    }
+}
+
+declare namespace i12 {
+    export {
+        MatDateRangePickerInput,
+        MatDateRangePicker
+    }
+}
+
+declare namespace i13 {
+    export {
+        MatDatepickerApply,
+        MatDatepickerCancel,
+        MatDatepickerActions
+    }
+}
+
+declare namespace i2 {
+    export {
+        MatCalendarCellCssClasses,
+        MatCalendarCellClassFunction,
+        MatCalendarCell,
+        MatCalendarUserEvent,
+        MatCalendarBody
+    }
+}
+
+declare namespace i3 {
+    export {
+        MatDatepicker
+    }
+}
+
+declare namespace i4 {
     export {
         MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
         MAT_DATEPICKER_SCROLL_STRATEGY,
@@ -128,7 +187,7 @@ declare namespace i10 {
     }
 }
 
-declare namespace i11 {
+declare namespace i5 {
     export {
         MAT_DATEPICKER_VALUE_ACCESSOR,
         MAT_DATEPICKER_VALIDATORS,
@@ -136,86 +195,32 @@ declare namespace i11 {
     }
 }
 
-declare namespace i12 {
+declare namespace i6 {
     export {
         MatDatepickerToggleIcon,
         MatDatepickerToggle
     }
 }
 
-declare namespace i13 {
+declare namespace i7 {
     export {
         MatMonthView
     }
 }
 
-declare namespace i14 {
+declare namespace i8 {
     export {
         MatYearView
     }
 }
 
-declare namespace i15 {
+declare namespace i9 {
     export {
         isSameMultiYearView,
         getActiveOffset,
         yearsPerPage,
         yearsPerRow,
         MatMultiYearView
-    }
-}
-
-declare namespace i16 {
-    export {
-        MatDateRangeInput
-    }
-}
-
-declare namespace i17 {
-    export {
-        MatDateRangeInputParent,
-        MAT_DATE_RANGE_INPUT_PARENT,
-        MatStartDate,
-        MatEndDate
-    }
-}
-
-declare namespace i18 {
-    export {
-        MatDateRangePickerInput,
-        MatDateRangePicker
-    }
-}
-
-declare namespace i19 {
-    export {
-        MatDatepickerApply,
-        MatDatepickerCancel,
-        MatDatepickerActions
-    }
-}
-
-declare namespace i7 {
-    export {
-        MatCalendarView,
-        MatCalendarHeader,
-        MatCalendar
-    }
-}
-
-declare namespace i8 {
-    export {
-        MatCalendarCellCssClasses,
-        MatCalendarCellClassFunction,
-        MatCalendarCell,
-        MatCalendarUserEvent,
-        MatCalendarBody
-    }
-}
-
-declare namespace i9 {
-    export {
-        MatDatepicker
     }
 }
 
@@ -383,7 +388,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     /** Returns the component instance that corresponds to the current calendar view. */
     private _getCurrentViewComponent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendar<any>, [null, { optional: true; }, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": { "alias": "headerComponent"; "required": false; }; "startAt": { "alias": "startAt"; "required": false; }; "startView": { "alias": "startView"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; "_userDragDrop": "_userDragDrop"; }, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": { "alias": "headerComponent"; "required": false; }; "startAt": { "alias": "startAt"; "required": false; }; "startView": { "alias": "startView"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; "_userDragDrop": "_userDragDrop"; }, never, never, false, never>;
 }
 
 /**
@@ -551,7 +556,7 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     _startDateLabelId: string;
     _endDateLabelId: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarBody<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody<any>, "[mat-calendar-body]", ["matCalendarBody"], { "label": { "alias": "label"; "required": false; }; "rows": { "alias": "rows"; "required": false; }; "todayValue": { "alias": "todayValue"; "required": false; }; "startValue": { "alias": "startValue"; "required": false; }; "endValue": { "alias": "endValue"; "required": false; }; "labelMinRequiredCells": { "alias": "labelMinRequiredCells"; "required": false; }; "numCols": { "alias": "numCols"; "required": false; }; "activeCell": { "alias": "activeCell"; "required": false; }; "isRange": { "alias": "isRange"; "required": false; }; "cellAspectRatio": { "alias": "cellAspectRatio"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "previewStart": { "alias": "previewStart"; "required": false; }; "previewEnd": { "alias": "previewEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; }, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody<any>, "[mat-calendar-body]", ["matCalendarBody"], { "label": { "alias": "label"; "required": false; }; "rows": { "alias": "rows"; "required": false; }; "todayValue": { "alias": "todayValue"; "required": false; }; "startValue": { "alias": "startValue"; "required": false; }; "endValue": { "alias": "endValue"; "required": false; }; "labelMinRequiredCells": { "alias": "labelMinRequiredCells"; "required": false; }; "numCols": { "alias": "numCols"; "required": false; }; "activeCell": { "alias": "activeCell"; "required": false; }; "isRange": { "alias": "isRange"; "required": false; }; "cellAspectRatio": { "alias": "cellAspectRatio"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "previewStart": { "alias": "previewStart"; "required": false; }; "previewEnd": { "alias": "previewEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; }, never, never, false, never>;
 }
 
 /**
@@ -615,7 +620,7 @@ export declare class MatCalendarHeader<D> {
     private _id;
     _periodButtonLabelId: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarHeader<any>, [null, null, { optional: true; }, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarHeader<any>, "mat-calendar-header", ["matCalendarHeader"], {}, {}, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarHeader<any>, "mat-calendar-header", ["matCalendarHeader"], {}, {}, never, ["*"], false, never>;
 }
 
 /** Event emitted when a date inside the calendar is triggered as a result of a user action. */
@@ -633,7 +638,7 @@ export declare type MatCalendarView = 'month' | 'year' | 'multi-year';
 /** Component responsible for managing the datepicker popup/dialog. */
 export declare class MatDatepicker<D> extends MatDatepickerBase<MatDatepickerControl<D>, D | null, D> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepicker<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepicker<any>, "mat-datepicker", ["matDatepicker"], {}, {}, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepicker<any>, "mat-datepicker", ["matDatepicker"], {}, {}, never, never, false, never>;
 }
 
 /**
@@ -649,7 +654,7 @@ export declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerActions, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerActions, "mat-datepicker-actions, mat-date-range-picker-actions", never, {}, {}, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerActions, "mat-datepicker-actions, mat-date-range-picker-actions", never, {}, {}, never, ["*"], false, never>;
 }
 
 /**
@@ -667,7 +672,7 @@ export declare class MatDatepickerApply {
     constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown>);
     _applySelection(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerApply, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerApply, "[matDatepickerApply], [matDateRangePickerApply]", never, {}, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerApply, "[matDatepickerApply], [matDateRangePickerApply]", never, {}, {}, never, never, false, never>;
 }
 
 /** Base class for a datepicker. */
@@ -697,10 +702,12 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
      * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
      * than a dropdown and elements have more padding to allow for bigger touch targets.
      */
-    touchUi: boolean;
+    get touchUi(): boolean;
+    set touchUi(value: BooleanInput);
+    private _touchUi;
     /** Whether the datepicker pop-up should be disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Preferred position of the datepicker in the X axis. */
     xPosition: DatepickerDropdownPositionX;
@@ -711,7 +718,9 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
      * Note that automatic focus restoration is an accessibility feature and it is recommended that
      * you provide your own equivalent, if you decide to turn it off.
      */
-    restoreFocus: boolean;
+    get restoreFocus(): boolean;
+    set restoreFocus(value: BooleanInput);
+    private _restoreFocus;
     /**
      * Emits selected year in multiyear view.
      * This doesn't imply a change on the selected date.
@@ -741,7 +750,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     private _panelClass;
     /** Whether the calendar is open. */
     get opened(): boolean;
-    set opened(value: boolean);
+    set opened(value: BooleanInput);
     private _opened;
     /** The id for the datepicker calendar. */
     id: string;
@@ -813,10 +822,6 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     private _getCloseStream;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerBase<any, any, any>, [null, null, null, null, { optional: true; }, { optional: true; }, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerBase<any, any, any>, never, never, { "calendarHeaderComponent": { "alias": "calendarHeaderComponent"; "required": false; }; "startAt": { "alias": "startAt"; "required": false; }; "startView": { "alias": "startView"; "required": false; }; "color": { "alias": "color"; "required": false; }; "touchUi": { "alias": "touchUi"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "xPosition": { "alias": "xPosition"; "required": false; }; "yPosition": { "alias": "yPosition"; "required": false; }; "restoreFocus": { "alias": "restoreFocus"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "opened": { "alias": "opened"; "required": false; }; }, { "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "openedStream": "opened"; "closedStream": "closed"; }, never, never, false, never>;
-    static ngAcceptInputType_touchUi: unknown;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_restoreFocus: unknown;
-    static ngAcceptInputType_opened: unknown;
 }
 
 /** Button that will close the datepicker and discard the current selection. */
@@ -824,7 +829,7 @@ export declare class MatDatepickerCancel {
     _datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown>;
     constructor(_datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown>);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerCancel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerCancel, "[matDatepickerCancel], [matDateRangePickerCancel]", never, {}, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerCancel, "[matDatepickerCancel], [matDateRangePickerCancel]", never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -834,8 +839,7 @@ export declare class MatDatepickerCancel {
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> implements OnInit, AfterViewInit, OnDestroy {
-    protected _elementRef: ElementRef;
+export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> extends _MatDatepickerContentBase implements OnInit, AfterViewInit, OnDestroy, CanColor {
     private _changeDetectorRef;
     private _globalModel;
     private _dateAdapter;
@@ -844,8 +848,6 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     private _model;
     /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
-    /** Palette color of the internal calendar. */
-    color: ThemePalette;
     /** Reference to the datepicker that created the overlay. */
     datepicker: MatDatepickerBase<any, S, D>;
     /** Start of the comparison range. */
@@ -872,7 +874,7 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _actionsPortal: TemplatePortal | null;
     /** Id of the label for the `role="dialog"` element. */
     _dialogLabelId: string | null;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _globalModel: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, intl: MatDatepickerIntl);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _globalModel: MatDateSelectionModel<S, D>, _dateAdapter: DateAdapter<D>, _rangeSelectionStrategy: MatDateRangeSelectionStrategy<D>, intl: MatDatepickerIntl);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -892,8 +894,15 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
      */
     _assignActions(portal: TemplatePortal<any> | null, forceRerender: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerContent<any, any>, [null, null, null, null, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerContent<any, any>, "mat-datepicker-content", ["matDatepickerContent"], { "color": { "alias": "color"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerContent<any, any>, "mat-datepicker-content", ["matDatepickerContent"], { "color": { "alias": "color"; "required": false; }; }, {}, never, never, false, never>;
 }
+
+/** @docs-private */
+declare const _MatDatepickerContentBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 
 /** Form control that can be associated with a datepicker. */
 export declare interface MatDatepickerControl<D> {
@@ -954,7 +963,7 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     protected _getDateFilter(): DateFilterFn<D | null>;
     protected _shouldHandleChangeEvent(event: DateSelectionModelChange<D>): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInput<any>, [null, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInput<any>, "input[matDatepicker]", ["matDatepickerInput"], { "matDatepicker": { "alias": "matDatepicker"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "dateFilter": { "alias": "matDatepickerFilter"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInput<any>, "input[matDatepicker]", ["matDatepickerInput"], { "matDatepicker": { "alias": "matDatepicker"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "dateFilter": { "alias": "matDatepickerFilter"; "required": false; }; }, {}, never, never, false, never>;
 }
 
 /** Base class for datepicker inputs. */
@@ -970,7 +979,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     protected _model: MatDateSelectionModel<S, D> | undefined;
     /** Whether the datepicker-input is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Emits when a `change` event is fired on this `<input>`. */
     readonly dateChange: EventEmitter<MatDatepickerInputEvent<D, S>>;
@@ -1052,8 +1061,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     /** Gets whether a value matches the current date filter. */
     _matchesFilter(value: D | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInputBase<any, any>, [null, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": { "alias": "value"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
-    static ngAcceptInputType_disabled: unknown;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": { "alias": "value"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
 }
 
 /**
@@ -1126,7 +1134,7 @@ export declare class MatDatepickerIntl {
 
 export declare class MatDatepickerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof i1.CommonModule, typeof i2.MatButtonModule, typeof i3.OverlayModule, typeof i4.A11yModule, typeof i5.PortalModule, typeof i6.MatCommonModule, typeof i7.MatCalendar, typeof i8.MatCalendarBody, typeof i9.MatDatepicker, typeof i10.MatDatepickerContent, typeof i11.MatDatepickerInput, typeof i12.MatDatepickerToggle, typeof i12.MatDatepickerToggleIcon, typeof i13.MatMonthView, typeof i14.MatYearView, typeof i15.MatMultiYearView, typeof i7.MatCalendarHeader, typeof i16.MatDateRangeInput, typeof i17.MatStartDate, typeof i17.MatEndDate, typeof i18.MatDateRangePicker, typeof i19.MatDatepickerActions, typeof i19.MatDatepickerCancel, typeof i19.MatDatepickerApply], [typeof i20.CdkScrollableModule, typeof i7.MatCalendar, typeof i8.MatCalendarBody, typeof i9.MatDatepicker, typeof i10.MatDatepickerContent, typeof i11.MatDatepickerInput, typeof i12.MatDatepickerToggle, typeof i12.MatDatepickerToggleIcon, typeof i13.MatMonthView, typeof i14.MatYearView, typeof i15.MatMultiYearView, typeof i7.MatCalendarHeader, typeof i16.MatDateRangeInput, typeof i17.MatStartDate, typeof i17.MatEndDate, typeof i18.MatDateRangePicker, typeof i19.MatDatepickerActions, typeof i19.MatDatepickerCancel, typeof i19.MatDatepickerApply]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, [typeof i1.MatCalendar, typeof i2.MatCalendarBody, typeof i3.MatDatepicker, typeof i4.MatDatepickerContent, typeof i5.MatDatepickerInput, typeof i6.MatDatepickerToggle, typeof i6.MatDatepickerToggleIcon, typeof i7.MatMonthView, typeof i8.MatYearView, typeof i9.MatMultiYearView, typeof i1.MatCalendarHeader, typeof i10.MatDateRangeInput, typeof i11.MatStartDate, typeof i11.MatEndDate, typeof i12.MatDateRangePicker, typeof i13.MatDatepickerActions, typeof i13.MatDatepickerCancel, typeof i13.MatDatepickerApply], [typeof i14.CommonModule, typeof i15.MatButtonModule, typeof i16.OverlayModule, typeof i17.A11yModule, typeof i18.PortalModule, typeof i19.MatCommonModule], [typeof i20.CdkScrollableModule, typeof i1.MatCalendar, typeof i2.MatCalendarBody, typeof i3.MatDatepicker, typeof i4.MatDatepickerContent, typeof i5.MatDatepickerInput, typeof i6.MatDatepickerToggle, typeof i6.MatDatepickerToggleIcon, typeof i7.MatMonthView, typeof i8.MatYearView, typeof i9.MatMultiYearView, typeof i1.MatCalendarHeader, typeof i10.MatDateRangeInput, typeof i11.MatStartDate, typeof i11.MatEndDate, typeof i12.MatDateRangePicker, typeof i13.MatDatepickerActions, typeof i13.MatDatepickerCancel, typeof i13.MatDatepickerApply]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDatepickerModule>;
 }
 
@@ -1166,7 +1174,7 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     ariaLabel: string;
     /** Whether the toggle button is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     private _disabled;
     /** Whether ripples on the toggle should be disabled. */
     disableRipple: boolean;
@@ -1181,14 +1189,13 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     _open(event: Event): void;
     private _watchStateChanges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggle<any>, [null, null, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerToggle<any>, "mat-datepicker-toggle", ["matDatepickerToggle"], { "datepicker": { "alias": "for"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, ["_customIcon"], ["[matDatepickerToggleIcon]"], true, never>;
-    static ngAcceptInputType_disabled: unknown;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerToggle<any>, "mat-datepicker-toggle", ["matDatepickerToggle"], { "datepicker": { "alias": "for"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, ["_customIcon"], ["[matDatepickerToggleIcon]"], false, never>;
 }
 
 /** Can be used to override the icon of a `matDatepickerToggle`. */
 export declare class MatDatepickerToggleIcon {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggleIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never, never, false, never>;
 }
 
 export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
@@ -1219,7 +1226,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _rangePicker;
     /** Whether the input is required. */
     get required(): boolean;
-    set required(value: boolean);
+    set required(value: BooleanInput);
     private _required;
     /** Function that can be used to filter out dates within the date range picker. */
     get dateFilter(): DateFilterFn<D>;
@@ -1235,7 +1242,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _max;
     /** Whether the input is disabled. */
     get disabled(): boolean;
-    set disabled(value: boolean);
+    set disabled(value: BooleanInput);
     _groupDisabled: boolean;
     /** Whether the input is in an error state. */
     get errorState(): boolean;
@@ -1306,10 +1313,10 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     /** Checks whether a specific range input directive is required. */
     private _isTargetRequired;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInput<any>, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangeInput<any>, "mat-date-range-input", ["matDateRangeInput"], { "rangePicker": { "alias": "rangePicker"; "required": false; }; "required": { "alias": "required"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "separator": { "alias": "separator"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; }, {}, ["_startInput", "_endInput"], ["input[matStartDate]", "input[matEndDate]"], true, never>;
-    static ngAcceptInputType_required: unknown;
-    static ngAcceptInputType_disabled: unknown;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangeInput<any>, "mat-date-range-input", ["matDateRangeInput"], { "rangePicker": { "alias": "rangePicker"; "required": false; }; "required": { "alias": "required"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "separator": { "alias": "separator"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; }, {}, ["_startInput", "_endInput"], ["input[matStartDate]", "input[matEndDate]"], false, never>;
 }
+
+declare const _MatDateRangeInputBase: _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState> & typeof MatDateRangeInputPartBase;
 
 /** Parent component that should be wrapped around `MatStartDate` and `MatEndDate`. */
 declare interface MatDateRangeInputParent<D> {
@@ -1343,17 +1350,12 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
      * @docs-private
      */
     ngControl: NgControl;
+    /** @docs-private */
+    abstract updateErrorState(): void;
     protected abstract _validator: ValidatorFn | null;
     protected abstract _assignValueToModel(value: D | null): void;
     protected abstract _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected readonly _dir: Directionality | null;
-    private _errorStateTracker;
-    /** Object used to control when error messages are shown. */
-    get errorStateMatcher(): ErrorStateMatcher;
-    set errorStateMatcher(value: ErrorStateMatcher);
-    /** Whether the input is in an error state. */
-    get errorState(): boolean;
-    set errorState(value: boolean);
     constructor(_rangeInput: MatDateRangeInputParent<D>, _elementRef: ElementRef<HTMLInputElement>, _defaultErrorStateMatcher: ErrorStateMatcher, _injector: Injector, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
     ngOnInit(): void;
     ngDoCheck(): void;
@@ -1365,8 +1367,6 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     focus(): void;
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue(): string;
-    /** Refreshes the error state of the input. */
-    updateErrorState(): void;
     /** Handles `input` events on the input element. */
     _onInput(value: string): void;
     /** Opens the datepicker associated with the input. */
@@ -1383,14 +1383,14 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     /** return the ARIA accessible name of the input element */
     _getAccessibleName(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInputPartBase<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, { "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, {}, {}, never, never, false, never>;
 }
 
 /** Component responsible for managing the date range picker popup/dialog. */
 export declare class MatDateRangePicker<D> extends MatDatepickerBase<MatDateRangePickerInput<D>, DateRange<D>, D> {
     protected _forwardContentValues(instance: MatDatepickerContent<DateRange<D>, D>): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangePicker<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangePicker<any>, "mat-date-range-picker", ["matDateRangePicker"], {}, {}, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangePicker<any>, "mat-date-range-picker", ["matDateRangePicker"], {}, {}, never, never, false, never>;
 }
 
 /**
@@ -1473,7 +1473,7 @@ export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSe
 }
 
 /** Input for entering the end date in a `mat-date-range-input`. */
-export declare class MatEndDate<D> extends MatDateRangeInputPartBase<D> {
+export declare class MatEndDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
     /** Validator that checks that the end date isn't before the start date. */
     private _endValidator;
     constructor(rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, defaultErrorStateMatcher: ErrorStateMatcher, injector: Injector, parentForm: NgForm, parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
@@ -1483,7 +1483,7 @@ export declare class MatEndDate<D> extends MatDateRangeInputPartBase<D> {
     protected _assignValueToModel(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatEndDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, { "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
 }
 
 /**
@@ -1650,7 +1650,7 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     /** Clears out preview state. */
     private _clearPreview;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMonthView<any>, [null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; "activeDrag": { "alias": "activeDrag"; "required": false; }; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; "activeDrag": { "alias": "activeDrag"; "required": false; }; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; "activeDateChange": "activeDateChange"; }, never, never, false, never>;
 }
 
 /**
@@ -1739,7 +1739,7 @@ export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy 
     /** Sets the currently-highlighted year based on a model value. */
     private _setSelectedYear;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMultiYearView<any>, [null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMultiYearView<any>, "mat-multi-year-view", ["matMultiYearView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMultiYearView<any>, "mat-multi-year-view", ["matMultiYearView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "activeDateChange": "activeDateChange"; }, never, never, false, never>;
 }
 
 /**
@@ -1792,7 +1792,7 @@ export declare class MatSingleDateSelectionModel<D> extends MatDateSelectionMode
 }
 
 /** Input for entering the start date in a `mat-date-range-input`. */
-export declare class MatStartDate<D> extends MatDateRangeInputPartBase<D> {
+export declare class MatStartDate<D> extends _MatDateRangeInputBase<D> implements CanUpdateErrorState {
     /** Validator that checks that the start date isn't after the end date. */
     private _startValidator;
     constructor(rangeInput: MatDateRangeInputParent<D>, elementRef: ElementRef<HTMLInputElement>, defaultErrorStateMatcher: ErrorStateMatcher, injector: Injector, parentForm: NgForm, parentFormGroup: FormGroupDirective, dateAdapter: DateAdapter<D>, dateFormats: MatDateFormats);
@@ -1803,7 +1803,7 @@ export declare class MatStartDate<D> extends MatDateRangeInputPartBase<D> {
     protected _formatValue(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, { "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, false, never>;
 }
 
 /**
@@ -1912,7 +1912,7 @@ export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     /** Sets the currently-selected month based on a model value. */
     private _setSelectedMonth;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatYearView<any>, [null, { optional: true; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatYearView<any>, "mat-year-view", ["matYearView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; }, { "selectedChange": "selectedChange"; "monthSelected": "monthSelected"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatYearView<any>, "mat-year-view", ["matYearView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; }, { "selectedChange": "selectedChange"; "monthSelected": "monthSelected"; "activeDateChange": "activeDateChange"; }, never, never, false, never>;
 }
 
 export declare const yearsPerPage = 24;

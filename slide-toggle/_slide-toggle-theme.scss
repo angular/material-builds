@@ -1,105 +1,92 @@
 @use 'sass:map';
 @use '@material/switch/switch-theme' as mdc-switch-theme;
-@use '@material/form-field/form-field-theme' as mdc-form-field-theme;
+@use '@material/form-field' as mdc-form-field;
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
+@use '../core/mdc-helpers/mdc-helpers';
 @use '../core/typography/typography';
-@use '../core/tokens/m2/mdc/form-field' as tokens-mdc-form-field;
-@use '../core/tokens/m2/mdc/switch' as tokens-mdc-switch;
+@use '../core/tokens/m2/mdc/switch' as m2-mdc-switch;
+@use '../core/tokens/m2/mat/slide-toggle' as m2-mat-slide-toggle;
+@use '../core/tokens/token-utils';
 
-@mixin base($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
-  }
-  @else {
-    .mdc-switch {
-      @include mdc-switch-theme.theme(tokens-mdc-switch.get-unthemable-tokens());
-    }
-  }
-}
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
+  $is-dark: map.get($config, is-dark);
+  $foreground: map.get($config, foreground);
 
-@mixin color($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
-  }
-  @else {
-    $is-dark: inspection.get-theme-type($theme) == dark;
-    $mdc-switch-color-tokens: tokens-mdc-switch.get-color-tokens($theme);
+  $mdc-switch-color-tokens: m2-mdc-switch.get-color-tokens($config);
 
+  @include mdc-helpers.using-mdc-theme($config) {
     // Add values for MDC slide toggles tokens
     .mat-mdc-slide-toggle {
+      @include mdc-form-field.core-styles($query: mdc-helpers.$mdc-theme-styles-query);
       @include mdc-switch-theme.theme($mdc-switch-color-tokens);
-      @include mdc-form-field-theme.theme(tokens-mdc-form-field.get-color-tokens($theme));
 
       // MDC should set the disabled color on the label, but doesn't, so we do it here instead.
       .mdc-switch--disabled + label {
-        color: inspection.get-theme-color($theme, foreground, disabled-text);
+        color: theming.get-color-from-palette($foreground, disabled-text);
       }
 
       // Change the color palette related tokens to accent or warn if applicable
       &.mat-accent {
-        @include mdc-switch-theme.theme(
-            tokens-mdc-switch.private-get-color-palette-color-tokens($theme, accent));
+        @include mdc-switch-theme.theme(m2-mdc-switch.private-get-color-palette-color-tokens(
+          map.get($config, accent),
+          map.get($config, is-dark)
+        ));
       }
 
       &.mat-warn {
-        @include mdc-switch-theme.theme(
-            tokens-mdc-switch.private-get-color-palette-color-tokens($theme, warn));
+        @include mdc-switch-theme.theme(m2-mdc-switch.private-get-color-palette-color-tokens(
+          map.get($config, warn),
+          map.get($config, is-dark)
+        ));
       }
     }
   }
 }
 
-@mixin typography($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
-  }
-  @else {
-    $mdc-switch-typography-tokens: tokens-mdc-switch.get-typography-tokens($theme);
+@mixin typography($config-or-theme) {
+  $config: typography.private-typography-to-2018-config(
+      theming.get-typography-config($config-or-theme));
+  $mdc-switch-typography-tokens: m2-mdc-switch.get-typography-tokens($config);
+  $mat-slide-toggle-typography-tokens: m2-mat-slide-toggle.get-typography-tokens($config);
 
-    // Add values for MDC slide toggle tokens
-    .mat-mdc-slide-toggle {
-      @include mdc-switch-theme.theme($mdc-switch-typography-tokens);
-      @include mdc-form-field-theme.theme(tokens-mdc-form-field.get-typography-tokens($theme));
-    }
-  }
-}
-
-@mixin density($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
-  }
-  @else {
-    $density-scale: inspection.get-theme-density($theme);
-
-    .mat-mdc-slide-toggle {
-      @include mdc-switch-theme.theme(mdc-switch-theme.density($density-scale));
-    }
+  //Add values for MDC slide toggle tokens
+  .mat-mdc-slide-toggle {
+    @include mdc-form-field.core-styles($query: mdc-helpers.$mdc-typography-styles-query);
+    @include mdc-switch-theme.theme($mdc-switch-typography-tokens);
+    @include token-utils.create-token-values(
+      m2-mat-slide-toggle.$prefix,
+      $mat-slide-toggle-typography-tokens
+    );
   }
 }
 
-@mixin theme($theme) {
+@mixin density($config-or-theme) {
+  $density-scale: theming.get-density-config($config-or-theme);
+  .mat-mdc-slide-toggle {
+    @include mdc-switch-theme.theme(mdc-switch-theme.density($density-scale));
+  }
+}
+
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
+
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-slide-toggle') {
-    @if inspection.get-theme-version($theme) == 1 {
-      @include _theme-from-tokens(inspection.get-theme-tokens($theme));
-    }
-    @else {
-      @include base($theme);
-      @if inspection.theme-has($theme, color) {
-        @include color($theme);
-      }
-      @if inspection.theme-has($theme, density) {
-        @include density($theme);
-      }
-      @if inspection.theme-has($theme, typography) {
-        @include typography($theme);
-      }
-    }
-  }
-}
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
 
-@mixin _theme-from-tokens($tokens) {
-  @if ($tokens != ()) {
-    @include mdc-switch-theme.theme(map.get($tokens, tokens-mdc-switch.$prefix));
+    @if $color != null {
+      @include color($color);
+    }
+    @if $density != null {
+      @include density($density);
+    }
+    @if $typography != null {
+      @include typography($typography);
+    }
   }
 }

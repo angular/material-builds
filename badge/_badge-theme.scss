@@ -2,8 +2,8 @@
 @use 'sass:map';
 @use 'sass:math';
 @use '@angular/cdk';
+
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
 @use '../core/typography/typography';
 @use '../core/tokens/m2/mat/badge' as tokens-mat-badge;
 @use '../core/tokens/token-utils';
@@ -164,89 +164,66 @@ $_emit-fallback-vars: true;
   }
 }
 
-@mixin base($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
+
+  @include sass-utils.current-selector-or-root() {
+    @include token-utils.create-token-values(tokens-mat-badge.$prefix,
+      tokens-mat-badge.get-color-tokens($config));
   }
-  @else {}
-}
 
-@mixin color($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
+  .mat-badge-accent {
+    @include token-utils.create-token-values(tokens-mat-badge.$prefix,
+      tokens-mat-badge.private-get-color-palette-color-tokens($accent));
   }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(tokens-mat-badge.$prefix,
-        tokens-mat-badge.get-color-tokens($theme));
-    }
 
-    .mat-badge-accent {
-      @include token-utils.create-token-values(tokens-mat-badge.$prefix,
-        tokens-mat-badge.private-get-color-palette-color-tokens($theme, accent));
-    }
-
-    .mat-badge-warn {
-      @include token-utils.create-token-values(tokens-mat-badge.$prefix,
-        tokens-mat-badge.private-get-color-palette-color-tokens($theme, warn));
-    }
+  .mat-badge-warn {
+    @include token-utils.create-token-values(tokens-mat-badge.$prefix,
+      tokens-mat-badge.private-get-color-palette-color-tokens($warn));
   }
 }
 
-@mixin typography($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(tokens-mat-badge.$prefix,
-        tokens-mat-badge.get-typography-tokens($theme));
-    }
+@mixin typography($config-or-theme) {
+  $config: typography.private-typography-to-2014-config(
+      theming.get-typography-config($config-or-theme));
+
+  @include sass-utils.current-selector-or-root() {
+    @include token-utils.create-token-values(tokens-mat-badge.$prefix,
+      tokens-mat-badge.get-typography-tokens($config));
   }
 }
 
-@mixin density($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
-  }
-  @else {}
-}
+@mixin density($config-or-theme) {}
 
-@mixin theme($theme) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-badge') {
-    @if inspection.get-theme-version($theme) == 1 {
-      @include _theme-from-tokens(inspection.get-theme-tokens($theme));
-    }
-    @else {
-      // Try to reduce the number of times that the structural styles are emitted.
-      @if not $_badge-structure-emitted {
-        @include _badge-structure;
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
 
-        // Only flip the flag if the mixin is included at the top level. Otherwise the first
-        // inclusion might be inside of a theme class which will exclude the structural styles
-        // from all other themes.
-        @if not & {
-          $_badge-structure-emitted: true !global;
-        }
-      }
+    // Try to reduce the number of times that the structural styles are emitted.
+    @if not $_badge-structure-emitted {
+      @include _badge-structure;
 
-      @include base($theme);
-      @if inspection.theme-has($theme, color) {
-        @include color($theme);
-      }
-      @if inspection.theme-has($theme, density) {
-        @include density($theme);
-      }
-      @if inspection.theme-has($theme, typography) {
-        @include typography($theme);
+      // Only flip the flag if the mixin is included at the top level. Otherwise the first
+      // inclusion might be inside of a theme class which will exclude the structural styles
+      // from all other themes.
+      @if not & {
+        $_badge-structure-emitted: true !global;
       }
     }
-  }
-}
 
-@mixin _theme-from-tokens($tokens) {
-  @if ($tokens != ()) {
-    @include token-utils.create-token-values(
-        tokens-mat-badge.$prefix, map.get($tokens, tokens-mat-badge.$prefix));
+    @if $color != null {
+      @include color($color);
+    }
+    @if $density != null {
+      @include density($density);
+    }
+    @if $typography != null {
+      @include typography($typography);
+    }
   }
 }

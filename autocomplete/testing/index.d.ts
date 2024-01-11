@@ -15,8 +15,11 @@ export declare interface AutocompleteHarnessFilters extends BaseHarnessFilters {
     disabled?: boolean;
 }
 
-export declare class MatAutocompleteHarness extends ComponentHarness {
-    private _documentRootLocator;
+/** Harness for interacting with an MDC-based mat-autocomplete in tests. */
+export declare class MatAutocompleteHarness extends _MatAutocompleteHarnessBase<typeof MatOptionHarness, MatOptionHarness, OptionHarnessFilters, typeof MatOptgroupHarness, MatOptgroupHarness, OptgroupHarnessFilters> {
+    protected _prefix: string;
+    protected _optionClass: typeof MatOptionHarness;
+    protected _optionGroupClass: typeof MatOptgroupHarness;
     /** The selector for the host element of a `MatAutocomplete` instance. */
     static hostSelector: string;
     /**
@@ -26,6 +29,21 @@ export declare class MatAutocompleteHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatAutocompleteHarness>(this: ComponentHarnessConstructor<T>, options?: AutocompleteHarnessFilters): HarnessPredicate<T>;
+    /** Gets the selector that can be used to find the autocomplete trigger's panel. */
+    protected _getPanelSelector(): Promise<string>;
+}
+
+export declare abstract class _MatAutocompleteHarnessBase<OptionType extends ComponentHarnessConstructor<Option> & {
+    with: (options?: OptionFilters) => HarnessPredicate<Option>;
+}, Option extends ComponentHarness & {
+    click(): Promise<void>;
+}, OptionFilters extends BaseHarnessFilters, OptionGroupType extends ComponentHarnessConstructor<OptionGroup> & {
+    with: (options?: OptionGroupFilters) => HarnessPredicate<OptionGroup>;
+}, OptionGroup extends ComponentHarness, OptionGroupFilters extends BaseHarnessFilters> extends ComponentHarness {
+    private _documentRootLocator;
+    protected abstract _prefix: string;
+    protected abstract _optionClass: OptionType;
+    protected abstract _optionGroupClass: OptionGroupType;
     /** Gets the value of the autocomplete input. */
     getValue(): Promise<string>;
     /** Whether the autocomplete input is disabled. */
@@ -41,11 +59,11 @@ export declare class MatAutocompleteHarness extends ComponentHarness {
     /** Clears the input value. */
     clear(): Promise<void>;
     /** Gets the options inside the autocomplete panel. */
-    getOptions(filters?: Omit<OptionHarnessFilters, 'ancestor'>): Promise<MatOptionHarness[]>;
+    getOptions(filters?: Omit<OptionFilters, 'ancestor'>): Promise<Option[]>;
     /** Gets the option groups inside the autocomplete panel. */
-    getOptionGroups(filters?: Omit<OptgroupHarnessFilters, 'ancestor'>): Promise<MatOptgroupHarness[]>;
+    getOptionGroups(filters?: Omit<OptionGroupFilters, 'ancestor'>): Promise<OptionGroup[]>;
     /** Selects the first option matching the given filters. */
-    selectOption(filters: OptionHarnessFilters): Promise<void>;
+    selectOption(filters: OptionFilters): Promise<void>;
     /** Whether the autocomplete is open. */
     isOpen(): Promise<boolean>;
     /** Gets the panel associated with this autocomplete trigger. */
