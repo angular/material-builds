@@ -2,7 +2,6 @@ import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
-import { ChangeDetectorRef } from '@angular/core';
 import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { DialogConfig } from '@angular/cdk/dialog';
@@ -13,9 +12,9 @@ import { EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/cdk/dialog';
-import * as i3 from '@angular/material/core';
-import * as i4 from '@angular/cdk/portal';
+import * as i1 from '@angular/cdk/dialog';
+import * as i2 from '@angular/material/core';
+import * as i3 from '@angular/cdk/portal';
 import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
 import { InteractivityChecker } from '@angular/cdk/a11y';
@@ -31,7 +30,7 @@ import { ViewContainerRef } from '@angular/core';
 /** Options for where to set focus to automatically on dialog open */
 export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
 
-declare namespace i1 {
+declare namespace i4 {
     export {
         MatBottomSheetContainer
     }
@@ -133,7 +132,6 @@ export declare class MatBottomSheetConfig<D = any> {
  * @docs-private
  */
 export declare class MatBottomSheetContainer extends CdkDialogContainer implements OnDestroy {
-    private _changeDetectorRef;
     private _breakpointSubscription;
     /** The state of the bottom sheet animations. */
     _animationState: 'void' | 'visible' | 'hidden';
@@ -141,7 +139,7 @@ export declare class MatBottomSheetContainer extends CdkDialogContainer implemen
     _animationStateChanged: EventEmitter<AnimationEvent_2>;
     /** Whether the component has been destroyed. */
     private _destroyed;
-    constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, document: any, config: DialogConfig, checker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, breakpointObserver: BreakpointObserver, _changeDetectorRef: ChangeDetectorRef, focusMonitor?: FocusMonitor);
+    constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, document: any, config: DialogConfig, checker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, breakpointObserver: BreakpointObserver, focusMonitor?: FocusMonitor);
     /** Begin animation of bottom sheet entrance into view. */
     enter(): void;
     /** Begin animation of the bottom sheet exiting from view. */
@@ -151,13 +149,13 @@ export declare class MatBottomSheetContainer extends CdkDialogContainer implemen
     _onAnimationStart(event: AnimationEvent_2): void;
     protected _captureInitialFocus(): void;
     private _toggleClass;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, [null, null, { optional: true; }, null, null, null, null, null, null, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, false, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, [null, null, { optional: true; }, null, null, null, null, null, null]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, true, never>;
 }
 
 export declare class MatBottomSheetModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBottomSheetModule, [typeof i1.MatBottomSheetContainer], [typeof i2.DialogModule, typeof i3.MatCommonModule, typeof i4.PortalModule], [typeof i1.MatBottomSheetContainer, typeof i3.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBottomSheetModule, never, [typeof i1.DialogModule, typeof i2.MatCommonModule, typeof i3.PortalModule, typeof i4.MatBottomSheetContainer], [typeof i4.MatBottomSheetContainer, typeof i2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatBottomSheetModule>;
 }
 

@@ -1,67 +1,89 @@
+@use 'sass:map';
 @use 'sass:meta';
 @use '../core/tokens/m2/mat/paginator' as tokens-mat-paginator;
+@use '../form-field/form-field-theme';
 @use '../core/style/sass-utils';
 @use '../core/typography/typography';
 @use '../core/theming/theming';
+@use '../core/theming/inspection';
 @use '../core/tokens/token-utils';
-@use '../form-field/form-field-density';
 
-@mixin color($config-or-theme) {
-  $config: theming.get-color-config($config-or-theme);
+@mixin base($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
+  }
+  @else {}
+}
 
-  @include sass-utils.current-selector-or-root() {
-    @include token-utils.create-token-values(tokens-mat-paginator.$prefix,
-      tokens-mat-paginator.get-color-tokens($config));
+@mixin color($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
+  }
+  @else {
+    @include sass-utils.current-selector-or-root() {
+      @include token-utils.create-token-values(tokens-mat-paginator.$prefix,
+        tokens-mat-paginator.get-color-tokens($theme));
+    }
   }
 }
 
-@mixin typography($config-or-theme) {
-  $config: typography.private-typography-to-2018-config(
-      theming.get-typography-config($config-or-theme));
-
-  @include sass-utils.current-selector-or-root() {
-    @include token-utils.create-token-values(tokens-mat-paginator.$prefix,
-      tokens-mat-paginator.get-typography-tokens($config));
+@mixin typography($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
+  }
+  @else {
+    @include sass-utils.current-selector-or-root() {
+      @include token-utils.create-token-values(tokens-mat-paginator.$prefix,
+        tokens-mat-paginator.get-typography-tokens($theme));
+    }
   }
 }
 
-@mixin density($config-or-theme) {
-  $density-scale: theming.get-density-config($config-or-theme);
+@mixin density($theme) {
+  $density-scale: inspection.get-theme-density($theme);
+  $form-field-density: if((meta.type-of($density-scale) == 'number' and $density-scale >= -4) or
+    $density-scale == maximum, -4, $density-scale);
 
-  @include sass-utils.current-selector-or-root() {
-    @include token-utils.create-token-values(tokens-mat-paginator.$prefix,
-      tokens-mat-paginator.get-density-tokens($density-scale));
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+  }
+  @else {
+    @include sass-utils.current-selector-or-root() {
+      @include token-utils.create-token-values(tokens-mat-paginator.$prefix,
+        tokens-mat-paginator.get-density-tokens($theme));
+    }
   }
 
-  // TODO: this should be done through tokens once the form field has been switched over.
+  // We need the form field to be narrower in order to fit into the paginator,
+  // so we set its density to be -4 or denser.
   .mat-mdc-paginator {
-    // We need the form field to be narrower in order to fit into the paginator,
-    // so we set its density to be -4 or denser.
-    @if ((meta.type-of($density-scale) == 'number' and $density-scale >= -4) or
-         $density-scale == maximum) {
-      @include form-field-density.private-form-field-density(-4);
+    @include form-field-theme.density((density: $form-field-density));
+  }
+}
+
+@mixin theme($theme) {
+  @include theming.private-check-duplicate-theme-styles($theme, 'mat-paginator') {
+    @if inspection.get-theme-version($theme) == 1 {
+      @include _theme-from-tokens(inspection.get-theme-tokens($theme));
     }
     @else {
-      @include form-field-density.private-form-field-density($density-scale);
+      @include base($theme);
+      @if inspection.theme-has($theme, color) {
+        @include color($theme);
+      }
+      @if inspection.theme-has($theme, density) {
+        @include density($theme);
+      }
+      @if inspection.theme-has($theme, typography) {
+        @include typography($theme);
+      }
     }
   }
 }
 
-@mixin theme($theme-or-color-config) {
-  $theme: theming.private-legacy-get-theme($theme-or-color-config);
-  @include theming.private-check-duplicate-theme-styles($theme, 'mat-paginator') {
-    $color: theming.get-color-config($theme);
-    $density: theming.get-density-config($theme);
-    $typography: theming.get-typography-config($theme);
-
-    @if $color != null {
-      @include color($color);
-    }
-    @if $density != null {
-      @include density($density);
-    }
-    @if $typography != null {
-      @include typography($typography);
-    }
+@mixin _theme-from-tokens($tokens) {
+  @if ($tokens != ()) {
+    @include token-utils.create-token-values(
+        tokens-mat-paginator.$prefix, map.get($tokens, tokens-mat-paginator.$prefix));
   }
 }

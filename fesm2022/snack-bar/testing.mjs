@@ -1,9 +1,25 @@
-import { ContentContainerComponentHarness, parallel, HarnessPredicate } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 
-class _MatSnackBarHarnessBase extends ContentContainerComponentHarness {
+/** Harness for interacting with an MDC-based mat-snack-bar in tests. */
+class MatSnackBarHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
+        this._messageSelector = '.mdc-snackbar__label';
+        this._actionButtonSelector = '.mat-mdc-snack-bar-action';
         this._snackBarLiveRegion = this.locatorFor('[aria-live]');
+    }
+    // Developers can provide a custom component or template for the
+    // snackbar. The canonical snack-bar parent is the "MatSnackBarContainer".
+    /** The selector for the host element of a `MatSnackBar` instance. */
+    static { this.hostSelector = '.mat-mdc-snack-bar-container:not([mat-exit])'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which snack bar instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(MatSnackBarHarness, options);
     }
     /**
      * Gets the role of the snack-bar. The role of a snack-bar is determined based
@@ -25,7 +41,6 @@ class _MatSnackBarHarnessBase extends ContentContainerComponentHarness {
      * Whether the snack-bar has an action. Method cannot be used for snack-bar's with custom content.
      */
     async hasAction() {
-        await this._assertContentAnnotated();
         return (await this._getActionButton()) !== null;
     }
     /**
@@ -48,7 +63,6 @@ class _MatSnackBarHarnessBase extends ContentContainerComponentHarness {
      * Gets the message of the snack-bar. Method cannot be used for snack-bar's with custom content.
      */
     async getMessage() {
-        await this._assertContentAnnotated();
         return (await this.locatorFor(this._messageSelector)()).text();
     }
     /** Gets whether the snack-bar has been dismissed. */
@@ -69,7 +83,6 @@ class _MatSnackBarHarnessBase extends ContentContainerComponentHarness {
      * promise will reject.
      */
     async _assertHasAction() {
-        await this._assertContentAnnotated();
         if (!(await this.hasAction())) {
             throw Error('Method cannot be used for a snack-bar without an action.');
         }
@@ -79,32 +92,6 @@ class _MatSnackBarHarnessBase extends ContentContainerComponentHarness {
         return this.locatorForOptional(this._actionButtonSelector)();
     }
 }
-/** Harness for interacting with an MDC-based mat-snack-bar in tests. */
-class MatSnackBarHarness extends _MatSnackBarHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._messageSelector = '.mdc-snackbar__label';
-        this._actionButtonSelector = '.mat-mdc-snack-bar-action';
-    }
-    // Developers can provide a custom component or template for the
-    // snackbar. The canonical snack-bar parent is the "MatSnackBarContainer".
-    /** The selector for the host element of a `MatSnackBar` instance. */
-    static { this.hostSelector = '.mat-mdc-snack-bar-container:not([mat-exit])'; }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which snack bar instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(MatSnackBarHarness, options);
-    }
-    /**
-     * Asserts that the current snack-bar has annotated content. Promise reject
-     * if content is not annotated.
-     */
-    async _assertContentAnnotated() { }
-}
 
-export { MatSnackBarHarness, _MatSnackBarHarnessBase };
+export { MatSnackBarHarness };
 //# sourceMappingURL=testing.mjs.map

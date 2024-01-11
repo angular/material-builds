@@ -43,7 +43,7 @@ export declare interface IconHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Possible types of icons. */
-export declare const enum IconType {
+export declare enum IconType {
     SVG = 0,
     FONT = 1
 }

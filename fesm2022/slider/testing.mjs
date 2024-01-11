@@ -1,6 +1,13 @@
 import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
+/** Possible positions of a slider thumb. */
+var ThumbPosition;
+(function (ThumbPosition) {
+    ThumbPosition[ThumbPosition["START"] = 0] = "START";
+    ThumbPosition[ThumbPosition["END"] = 1] = "END";
+})(ThumbPosition || (ThumbPosition = {}));
+
 /** Harness for interacting with a thumb inside of a Material slider in tests. */
 class MatSliderThumbHarness extends ComponentHarness {
     static { this.hostSelector = 'input[matSliderThumb], input[matSliderStartThumb], input[matSliderEndThumb]'; }
@@ -18,7 +25,7 @@ class MatSliderThumbHarness extends ComponentHarness {
     async getPosition() {
         // Meant to mimic MDC's logic where `matSliderThumb` is treated as END.
         const isStart = (await (await this.host()).getAttribute('matSliderStartThumb')) != null;
-        return isStart ? 0 /* ThumbPosition.START */ : 1 /* ThumbPosition.END */;
+        return isStart ? ThumbPosition.START : ThumbPosition.END;
     }
     /** Gets the value of the thumb. */
     async getValue() {
@@ -109,11 +116,11 @@ class MatSliderHarness extends ComponentHarness {
             throw Error('`getStartThumb` is only applicable for range sliders. ' +
                 'Did you mean to use `getEndThumb`?');
         }
-        return this.locatorFor(MatSliderThumbHarness.with({ position: 0 /* ThumbPosition.START */ }))();
+        return this.locatorFor(MatSliderThumbHarness.with({ position: ThumbPosition.START }))();
     }
     /** Gets the thumb (for single point sliders), or the end thumb (for range sliders). */
     async getEndThumb() {
-        return this.locatorFor(MatSliderThumbHarness.with({ position: 1 /* ThumbPosition.END */ }))();
+        return this.locatorFor(MatSliderThumbHarness.with({ position: ThumbPosition.END }))();
     }
     /** Gets whether the slider is a range slider. */
     async isRange() {
@@ -142,5 +149,5 @@ class MatSliderHarness extends ComponentHarness {
     }
 }
 
-export { MatSliderHarness, MatSliderThumbHarness };
+export { MatSliderHarness, MatSliderThumbHarness, ThumbPosition };
 //# sourceMappingURL=testing.mjs.map

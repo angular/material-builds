@@ -17,9 +17,12 @@ export declare interface CheckboxHarnessFilters extends BaseHarnessFilters {
     disabled?: boolean;
 }
 
-/** Harness for interacting with a MDC-based mat-checkbox in tests. */
-export declare class MatCheckboxHarness extends _MatCheckboxHarnessBase {
+/** Harness for interacting with a mat-checkbox in tests. */
+export declare class MatCheckboxHarness extends ComponentHarness {
     static hostSelector: string;
+    _input: AsyncFactoryFn<TestElement>;
+    private _label;
+    private _inputContainer;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a checkbox with specific attributes.
      * @param options Options for narrowing the search:
@@ -29,15 +32,6 @@ export declare class MatCheckboxHarness extends _MatCheckboxHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatCheckboxHarness>(this: ComponentHarnessConstructor<T>, options?: CheckboxHarnessFilters): HarnessPredicate<T>;
-    protected _input: AsyncFactoryFn<TestElement>;
-    protected _label: AsyncFactoryFn<TestElement>;
-    private _inputContainer;
-    toggle(): Promise<void>;
-}
-
-export declare abstract class _MatCheckboxHarnessBase extends ComponentHarness {
-    protected abstract _input: AsyncFactoryFn<TestElement>;
-    protected abstract _label: AsyncFactoryFn<TestElement>;
     /** Whether the checkbox is checked. */
     isChecked(): Promise<boolean>;
     /** Whether the checkbox is in an indeterminate state. */
@@ -71,7 +65,7 @@ export declare abstract class _MatCheckboxHarnessBase extends ComponentHarness {
      * are using `MAT_CHECKBOX_DEFAULT_OPTIONS` to change the behavior on click, calling this method
      * might not have the expected result.
      */
-    abstract toggle(): Promise<void>;
+    toggle(): Promise<void>;
     /**
      * Puts the checkbox in a checked state by toggling it if it is currently unchecked, or doing
      * nothing if it is already checked.

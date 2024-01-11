@@ -1,6 +1,5 @@
-@use '../../../mdc-helpers/mdc-helpers';
 @use '../../token-utils';
-@use '../../../typography/typography-utils';
+@use '../../../theming/inspection';
 
 @use 'sass:map';
 
@@ -9,20 +8,19 @@ $prefix: (mdc, extended-fab);
 
 @function get-unthemable-tokens() {
   @return (
+    // =============================================================================================
+    // = TOKENS NOT USED IN ANGULAR MATERIAL                                                       =
+    // =============================================================================================
     container-color: null,
-    container-elevation: null,
     container-height: null,
-    container-shadow-color: null,
     container-shape: null,
     container-surface-tint-layer-color: null,
-    focus-container-elevation: null,
     focus-icon-color: null,
     focus-label-text-color: null,
     focus-outline-color: null,
     focus-outline-width: null,
     focus-state-layer-color: null,
     focus-state-layer-opacity: null,
-    hover-container-elevation: null,
     hover-icon-color: null,
     hover-label-text-color: null,
     hover-state-layer-color: null,
@@ -34,7 +32,6 @@ $prefix: (mdc, extended-fab);
     lowered-focus-container-elevation: null,
     lowered-hover-container-elevation: null,
     lowered-pressed-container-elevation: null,
-    pressed-container-elevation: null,
     pressed-icon-color: null,
     pressed-label-text-color: null,
     pressed-ripple-color: null,
@@ -45,30 +42,28 @@ $prefix: (mdc, extended-fab);
 }
 
 // Tokens that can be configured through Angular Material's color theming API.
-@function get-color-tokens($config) {
-  @return ();
+@function get-color-tokens($theme) {
+  @return (
+    container-elevation: 6,
+    focus-container-elevation: 8,
+    hover-container-elevation: 8,
+    pressed-container-elevation: 12,
+    container-shadow-color: #000,
+  );
 }
 
 // Tokens that can be configured through Angular Material's typography theming API.
-@function get-typography-tokens($config) {
-  // TODO(wagnermaciel): The earlier implementation of the snack bar used MDC's APIs to create the
-  // typography tokens. As a result, we unintentionally allowed `null` typography configs to be
-  // passed in. Since there a lot of apps that now depend on this pattern, we need this temporary
-  // fallback.
-  @if ($config == null) {
-    $config: mdc-helpers.private-fallback-typography-from-mdc();
-  }
+@function get-typography-tokens($theme) {
   @return (
-    label-text-font: typography-utils.font-family($config, button) or
-      typography-utils.font-family($config),
-    label-text-size: typography-utils.font-size($config, button),
-    label-text-tracking: typography-utils.letter-spacing($config, button),
-    label-text-weight: typography-utils.font-weight($config, button)
+    label-text-font: inspection.get-theme-typography($theme, button, font-family),
+    label-text-size: inspection.get-theme-typography($theme, button, font-size),
+    label-text-tracking: inspection.get-theme-typography($theme, button, letter-spacing),
+    label-text-weight: inspection.get-theme-typography($theme, button, font-weight)
   );
 }
 
 // Tokens that can be configured through Angular Material's density theming API.
-@function get-density-tokens($config) {
+@function get-density-tokens($theme) {
   @return ();
 }
 

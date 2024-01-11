@@ -1,20 +1,15 @@
 import * as i0 from '@angular/core';
-import { inject, Directive, Optional, Inject, Input, NgModule } from '@angular/core';
-import { mixinDisabled, MatCommonModule } from '@angular/material/core';
+import { inject, booleanAttribute, Directive, Optional, Inject, Input, NgModule } from '@angular/core';
+import { MatCommonModule } from '@angular/material/core';
 import * as i1 from '@angular/cdk/a11y';
 import { InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 let nextId = 0;
-// Boilerplate for applying mixins to MatBadge.
-/** @docs-private */
-const _MatBadgeBase = mixinDisabled(class {
-});
 const BADGE_CONTENT_CLASS = 'mat-badge-content';
 /** Directive to display a text badge. */
-class MatBadge extends _MatBadgeBase {
+class MatBadge {
     /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
     get color() {
         return this._color;
@@ -22,13 +17,6 @@ class MatBadge extends _MatBadgeBase {
     set color(value) {
         this._setColor(value);
         this._color = value;
-    }
-    /** Whether the badge should overlap its contents or not */
-    get overlap() {
-        return this._overlap;
-    }
-    set overlap(val) {
-        this._overlap = coerceBooleanProperty(val);
     }
     /** The content for the badge */
     get content() {
@@ -44,22 +32,15 @@ class MatBadge extends _MatBadgeBase {
     set description(newDescription) {
         this._updateDescription(newDescription);
     }
-    /** Whether the badge is hidden. */
-    get hidden() {
-        return this._hidden;
-    }
-    set hidden(val) {
-        this._hidden = coerceBooleanProperty(val);
-    }
     constructor(_ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
-        super();
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
         this._renderer = _renderer;
         this._animationMode = _animationMode;
         this._color = 'primary';
-        this._overlap = true;
+        /** Whether the badge should overlap its contents or not */
+        this.overlap = true;
         /**
          * Position the badge should reside.
          * Accepts any combination of 'above'|'below' and 'before'|'after'
@@ -228,14 +209,13 @@ class MatBadge extends _MatBadgeBase {
             }
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatBadge, deps: [{ token: i0.NgZone }, { token: i0.ElementRef }, { token: i1.AriaDescriber }, { token: i0.Renderer2 }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "16.1.1", type: MatBadge, selector: "[matBadge]", inputs: { disabled: ["matBadgeDisabled", "disabled"], color: ["matBadgeColor", "color"], overlap: ["matBadgeOverlap", "overlap"], position: ["matBadgePosition", "position"], content: ["matBadge", "content"], description: ["matBadgeDescription", "description"], size: ["matBadgeSize", "size"], hidden: ["matBadgeHidden", "hidden"] }, host: { properties: { "class.mat-badge-overlap": "overlap", "class.mat-badge-above": "isAbove()", "class.mat-badge-below": "!isAbove()", "class.mat-badge-before": "!isAfter()", "class.mat-badge-after": "isAfter()", "class.mat-badge-small": "size === \"small\"", "class.mat-badge-medium": "size === \"medium\"", "class.mat-badge-large": "size === \"large\"", "class.mat-badge-hidden": "hidden || !content", "class.mat-badge-disabled": "disabled" }, classAttribute: "mat-badge" }, usesInheritance: true, ngImport: i0 }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatBadge, deps: [{ token: i0.NgZone }, { token: i0.ElementRef }, { token: i1.AriaDescriber }, { token: i0.Renderer2 }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.1.0-next.5", type: MatBadge, isStandalone: true, selector: "[matBadge]", inputs: { color: ["matBadgeColor", "color"], overlap: ["matBadgeOverlap", "overlap", booleanAttribute], disabled: ["matBadgeDisabled", "disabled", booleanAttribute], position: ["matBadgePosition", "position"], content: ["matBadge", "content"], description: ["matBadgeDescription", "description"], size: ["matBadgeSize", "size"], hidden: ["matBadgeHidden", "hidden", booleanAttribute] }, host: { properties: { "class.mat-badge-overlap": "overlap", "class.mat-badge-above": "isAbove()", "class.mat-badge-below": "!isAbove()", "class.mat-badge-before": "!isAfter()", "class.mat-badge-after": "isAfter()", "class.mat-badge-small": "size === \"small\"", "class.mat-badge-medium": "size === \"medium\"", "class.mat-badge-large": "size === \"large\"", "class.mat-badge-hidden": "hidden || !content", "class.mat-badge-disabled": "disabled" }, classAttribute: "mat-badge" }, ngImport: i0 }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatBadge, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatBadge, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matBadge]',
-                    inputs: ['disabled: matBadgeDisabled'],
                     host: {
                         'class': 'mat-badge',
                         '[class.mat-badge-overlap]': 'overlap',
@@ -249,18 +229,22 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImpor
                         '[class.mat-badge-hidden]': 'hidden || !content',
                         '[class.mat-badge-disabled]': 'disabled',
                     },
+                    standalone: true,
                 }]
-        }], ctorParameters: function () { return [{ type: i0.NgZone }, { type: i0.ElementRef }, { type: i1.AriaDescriber }, { type: i0.Renderer2 }, { type: undefined, decorators: [{
+        }], ctorParameters: () => [{ type: i0.NgZone }, { type: i0.ElementRef }, { type: i1.AriaDescriber }, { type: i0.Renderer2 }, { type: undefined, decorators: [{
                     type: Optional
                 }, {
                     type: Inject,
                     args: [ANIMATION_MODULE_TYPE]
-                }] }]; }, propDecorators: { color: [{
+                }] }], propDecorators: { color: [{
                 type: Input,
                 args: ['matBadgeColor']
             }], overlap: [{
                 type: Input,
-                args: ['matBadgeOverlap']
+                args: [{ alias: 'matBadgeOverlap', transform: booleanAttribute }]
+            }], disabled: [{
+                type: Input,
+                args: [{ alias: 'matBadgeDisabled', transform: booleanAttribute }]
             }], position: [{
                 type: Input,
                 args: ['matBadgePosition']
@@ -275,20 +259,19 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImpor
                 args: ['matBadgeSize']
             }], hidden: [{
                 type: Input,
-                args: ['matBadgeHidden']
+                args: [{ alias: 'matBadgeHidden', transform: booleanAttribute }]
             }] } });
 
 class MatBadgeModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatBadgeModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "16.1.1", ngImport: i0, type: MatBadgeModule, declarations: [MatBadge], imports: [A11yModule, MatCommonModule], exports: [MatBadge, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatBadgeModule, imports: [A11yModule, MatCommonModule, MatCommonModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatBadgeModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatBadgeModule, imports: [A11yModule, MatCommonModule, MatBadge], exports: [MatBadge, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatBadgeModule, imports: [A11yModule, MatCommonModule, MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "16.1.1", ngImport: i0, type: MatBadgeModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatBadgeModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [A11yModule, MatCommonModule],
+                    imports: [A11yModule, MatCommonModule, MatBadge],
                     exports: [MatBadge, MatCommonModule],
-                    declarations: [MatBadge],
                 }]
         }] });
 

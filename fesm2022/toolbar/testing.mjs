@@ -1,10 +1,15 @@
 import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 
+/** Selectors for different sections of the mat-toolbar that contain user content. */
+var MatToolbarSection;
+(function (MatToolbarSection) {
+    MatToolbarSection["ROW"] = ".mat-toolbar-row";
+})(MatToolbarSection || (MatToolbarSection = {}));
 /** Harness for interacting with a standard mat-toolbar in tests. */
 class MatToolbarHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
-        this._getRows = this.locatorForAll(".mat-toolbar-row" /* MatToolbarSection.ROW */);
+        this._getRows = this.locatorForAll(MatToolbarSection.ROW);
     }
     static { this.hostSelector = '.mat-toolbar'; }
     /**
@@ -31,5 +36,5 @@ class MatToolbarHarness extends ContentContainerComponentHarness {
     }
 }
 
-export { MatToolbarHarness };
+export { MatToolbarHarness, MatToolbarSection };
 //# sourceMappingURL=testing.mjs.map

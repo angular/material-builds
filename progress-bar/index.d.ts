@@ -1,15 +1,11 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AfterViewInit } from '@angular/core';
-import { CanColor } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { _Constructor } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { NgZone } from '@angular/core';
-import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
@@ -39,20 +35,26 @@ export declare const MAT_PROGRESS_BAR_LOCATION: InjectionToken<MatProgressBarLoc
 /** @docs-private */
 export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
 
-export declare class MatProgressBar extends _MatProgressBarBase implements AfterViewInit, OnDestroy, CanColor {
+export declare class MatProgressBar implements AfterViewInit, OnDestroy {
+    readonly _elementRef: ElementRef<HTMLElement>;
     private _ngZone;
     private _changeDetectorRef;
     _animationMode?: string | undefined;
-    constructor(elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _animationMode?: string | undefined, defaults?: MatProgressBarDefaultOptions);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _animationMode?: string | undefined, defaults?: MatProgressBarDefaultOptions);
     /** Flag that indicates whether NoopAnimations mode is set to true. */
     _isNoopAnimation: boolean;
+    /** Theme palette color of the progress bar. */
+    get color(): string | null | undefined;
+    set color(value: string | null | undefined);
+    private _color;
+    private _defaultColor;
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
     get value(): number;
-    set value(v: NumberInput);
+    set value(v: number);
     private _value;
     /** Buffer value of the progress bar. Defaults to zero. */
     get bufferValue(): number;
-    set bufferValue(v: NumberInput);
+    set bufferValue(v: number);
     private _bufferValue;
     /**
      * Event emitted when animation of the primary progress bar completes. This event will not
@@ -81,15 +83,10 @@ export declare class MatProgressBar extends _MatProgressBarBase implements After
     /** Event handler for `transitionend` events. */
     private _transitionendHandler;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBar, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "bufferValue": { "alias": "bufferValue"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; }, { "animationEnd": "animationEnd"; }, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "bufferValue": { "alias": "bufferValue"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; }, { "animationEnd": "animationEnd"; }, never, never, true, never>;
+    static ngAcceptInputType_value: unknown;
+    static ngAcceptInputType_bufferValue: unknown;
 }
-
-/** @docs-private */
-declare const _MatProgressBarBase: _Constructor<CanColor> & _AbstractConstructor<CanColor> & {
-    new (_elementRef: ElementRef<HTMLElement>): {
-        _elementRef: ElementRef<HTMLElement>;
-    };
-};
 
 /** Default `mat-progress-bar` options that can be overridden. */
 export declare interface MatProgressBarDefaultOptions {
@@ -109,7 +106,7 @@ export declare interface MatProgressBarLocation {
 
 export declare class MatProgressBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressBarModule, [typeof i1.MatProgressBar], never, [typeof i1.MatProgressBar, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressBarModule, never, [typeof i1.MatProgressBar], [typeof i1.MatProgressBar, typeof i2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressBarModule>;
 }
 

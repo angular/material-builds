@@ -1,105 +1,142 @@
 @use 'sass:map';
 @use '@material/tab-indicator/tab-indicator-theme' as mdc-tab-indicator-theme;
 @use '@material/tab/tab-theme' as mdc-tab-theme;
+@use '../core/style/sass-utils';
 @use '../core/tokens/m2/mdc/tab' as tokens-mdc-tab;
 @use '../core/tokens/m2/mdc/tab-indicator' as tokens-mdc-tab-indicator;
 @use '../core/tokens/m2/mat/tab-header' as tokens-mat-tab-header;
 @use '../core/tokens/m2/mat/tab-header-with-background' as tokens-mat-tab-header-with-background;
 @use '../core/theming/theming';
+@use '../core/theming/inspection';
 @use '../core/typography/typography';
 @use '../core/tokens/token-utils';
 
-
-@mixin color($config-or-theme) {
-  $config: theming.get-color-config($config-or-theme);
-
-  .mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
-    @include _palette-styles($config, primary);
-
-    &.mat-accent {
-      @include _palette-styles($config, accent);
-    }
-
-    &.mat-warn {
-      @include _palette-styles($config, warn);
-    }
-
-    &.mat-background-primary {
-      @include _background-styles($config, primary);
-    }
-
-    &.mat-background-accent {
-      @include _background-styles($config, accent);
-    }
-
-    &.mat-background-warn {
-      @include _background-styles($config, warn);
+@mixin base($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
+  }
+  @else {
+    @include sass-utils.current-selector-or-root() {
+      @include mdc-tab-indicator-theme.theme(tokens-mdc-tab-indicator.get-unthemable-tokens());
+      @include mdc-tab-theme.secondary-navigation-tab-theme(tokens-mdc-tab.get-unthemable-tokens());
+      @include token-utils.create-token-values(
+          tokens-mat-tab-header.$prefix, tokens-mat-tab-header.get-unthemable-tokens());
+      @include token-utils.create-token-values(
+          tokens-mat-tab-header-with-background.$prefix,
+          tokens-mat-tab-header-with-background.get-unthemable-tokens()
+      );
     }
   }
 }
 
-@mixin _background-styles($initial-config, $palette) {
-  $config: map.merge($initial-config, (primary: map.get($initial-config, $palette)));
+@mixin color($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
+  }
+  @else {
+    .mat-mdc-tab-group, .mat-mdc-tab-nav-bar {
+      @include _palette-styles($theme, primary);
+
+      &.mat-accent {
+        @include _palette-styles($theme, accent);
+      }
+
+      &.mat-warn {
+        @include _palette-styles($theme, warn);
+      }
+
+      &.mat-background-primary {
+        @include _background-styles($theme, primary);
+      }
+
+      &.mat-background-accent {
+        @include _background-styles($theme, accent);
+      }
+
+      &.mat-background-warn {
+        @include _background-styles($theme, warn);
+      }
+    }
+  }
+}
+
+@mixin _background-styles($theme, $palette-name) {
   @include token-utils.create-token-values(tokens-mat-tab-header-with-background.$prefix,
-    tokens-mat-tab-header-with-background.get-color-tokens($config));
+    tokens-mat-tab-header-with-background.get-color-tokens($theme, $palette-name));
 }
 
-@mixin _palette-styles($initial-config, $palette) {
-  $config: map.merge($initial-config, (primary: map.get($initial-config, $palette)));
+@mixin _palette-styles($theme, $palette-name) {
   @include mdc-tab-theme.secondary-navigation-tab-theme(
-    tokens-mdc-tab.get-color-tokens($config));
+    tokens-mdc-tab.get-color-tokens($theme, $palette-name));
   @include mdc-tab-indicator-theme.theme(
-    tokens-mdc-tab-indicator.get-color-tokens($config));
+    tokens-mdc-tab-indicator.get-color-tokens($theme, $palette-name));
   @include token-utils.create-token-values(tokens-mat-tab-header.$prefix,
-   tokens-mat-tab-header.get-color-tokens($config));
+   tokens-mat-tab-header.get-color-tokens($theme, $palette-name));
 }
 
-@mixin typography($config-or-theme) {
-  $config: typography.private-typography-to-2018-config(
-      theming.get-typography-config($config-or-theme));
-
-  .mat-mdc-tab-header {
-    @include mdc-tab-theme.secondary-navigation-tab-theme(
-      tokens-mdc-tab.get-typography-tokens($config));
-    @include mdc-tab-indicator-theme.theme(
-      tokens-mdc-tab-indicator.get-typography-tokens($config));
-    @include token-utils.create-token-values(tokens-mat-tab-header.$prefix,
-      tokens-mat-tab-header.get-typography-tokens($config));
-    @include token-utils.create-token-values(tokens-mat-tab-header-with-background.$prefix,
-      tokens-mat-tab-header-with-background.get-typography-tokens($config));
+@mixin typography($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
+  }
+  @else {
+    .mat-mdc-tab-header {
+      @include mdc-tab-theme.secondary-navigation-tab-theme(
+          tokens-mdc-tab.get-typography-tokens($theme));
+      @include mdc-tab-indicator-theme.theme(
+          tokens-mdc-tab-indicator.get-typography-tokens($theme));
+      @include token-utils.create-token-values(tokens-mat-tab-header.$prefix,
+        tokens-mat-tab-header.get-typography-tokens($theme));
+      @include token-utils.create-token-values(tokens-mat-tab-header-with-background.$prefix,
+        tokens-mat-tab-header-with-background.get-typography-tokens($theme));
+    }
   }
 }
 
-@mixin density($config-or-theme) {
-  $density-scale: theming.get-density-config($config-or-theme);
-  .mat-mdc-tab-header {
-    @include mdc-tab-theme.secondary-navigation-tab-theme(
-      tokens-mdc-tab.get-density-tokens($density-scale));
-    @include mdc-tab-indicator-theme.theme(
-      tokens-mdc-tab-indicator.get-density-tokens($density-scale));
-    @include token-utils.create-token-values(tokens-mat-tab-header.$prefix,
-      tokens-mat-tab-header.get-density-tokens($density-scale));
-    @include token-utils.create-token-values(tokens-mat-tab-header-with-background.$prefix,
-      tokens-mat-tab-header-with-background.get-density-tokens($density-scale));
+@mixin density($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+  }
+  @else {
+    .mat-mdc-tab-header {
+      @include mdc-tab-theme.secondary-navigation-tab-theme(
+          tokens-mdc-tab.get-density-tokens($theme));
+      @include mdc-tab-indicator-theme.theme(
+          tokens-mdc-tab-indicator.get-density-tokens($theme));
+      @include token-utils.create-token-values(tokens-mat-tab-header.$prefix,
+        tokens-mat-tab-header.get-density-tokens($theme));
+      @include token-utils.create-token-values(tokens-mat-tab-header-with-background.$prefix,
+        tokens-mat-tab-header-with-background.get-density-tokens($theme));
+    }
   }
 }
 
-@mixin theme($theme-or-color-config) {
-  $theme: theming.private-legacy-get-theme($theme-or-color-config);
+@mixin theme($theme) {
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-tabs') {
-    $color: theming.get-color-config($theme);
-    $density: theming.get-density-config($theme);
-    $typography: theming.get-typography-config($theme);
-
-    @if $color != null {
-      @include color($color);
+    @if inspection.get-theme-version($theme) == 1 {
+      @include _theme-from-tokens(inspection.get-theme-tokens($theme));
     }
-    @if $density != null {
-      @include density($density);
-    }
-    @if $typography != null {
-      @include typography($typography);
+    @else {
+      @include base($theme);
+      @if inspection.theme-has($theme, color) {
+        @include color($theme);
+      }
+      @if inspection.theme-has($theme, density) {
+        @include density($theme);
+      }
+      @if inspection.theme-has($theme, typography) {
+        @include typography($theme);
+      }
     }
   }
 }
 
+@mixin _theme-from-tokens($tokens) {
+  @if ($tokens != ()) {
+    @include mdc-tab-theme.secondary-navigation-tab-theme(
+        map.get($tokens, tokens-mdc-tab.$prefix));
+    @include mdc-tab-indicator-theme.theme(
+        map.get($tokens, tokens-mdc-tab-indicator.$prefix));
+    @include token-utils.create-token-values(
+        tokens-mat-tab-header.$prefix, map.get($tokens, tokens-mat-tab-header.$prefix));
+  }
+}

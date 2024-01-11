@@ -96,7 +96,7 @@ export declare class MatExpansionPanelHarness extends ContentContainerComponentH
 }
 
 /** Selectors for the various `mat-expansion-panel` sections that may contain user content. */
-export declare const enum MatExpansionPanelSection {
+export declare enum MatExpansionPanelSection {
     HEADER = ".mat-expansion-panel-header",
     TITLE = ".mat-expansion-panel-header-title",
     DESCRIPTION = ".mat-expansion-panel-header-description",

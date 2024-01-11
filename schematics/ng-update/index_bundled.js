@@ -24,6 +24,26 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
 
 // node_modules/tslib/tslib.js
 var require_tslib = __commonJS({
@@ -454,6 +474,79 @@ var require_tslib = __commonJS({
   }
 });
 
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/legacy-imports-error.js
+var require_legacy_imports_error = __commonJS({
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/legacy-imports-error.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.legacyImportsError = void 0;
+    var tslib_1 = require_tslib();
+    var tasks_1 = require("@angular-devkit/schematics/tasks");
+    var ts = tslib_1.__importStar(require("typescript"));
+    var LEGACY_IMPORTS_START = "@angular/material/legacy-";
+    var MAX_FILES_TO_PRINT = 50;
+    function legacyImportsError2(onSuccess) {
+      return (tree, context) => __async(this, null, function* () {
+        const filesUsingLegacyImports = /* @__PURE__ */ new Set();
+        tree.visit((path) => {
+          if (path.includes("node_modules") || path.endsWith(".d.ts") || !path.endsWith(".ts")) {
+            return;
+          }
+          const content = tree.readText(path);
+          if (!content.includes(LEGACY_IMPORTS_START)) {
+            return;
+          }
+          const sourceFile = ts.createSourceFile(path, content, ts.ScriptTarget.Latest);
+          for (const statement of sourceFile.statements) {
+            if (!ts.isImportDeclaration(statement) && !ts.isExportDeclaration(statement)) {
+              continue;
+            }
+            if (statement.moduleSpecifier && ts.isStringLiteralLike(statement.moduleSpecifier) && statement.moduleSpecifier.text.startsWith(LEGACY_IMPORTS_START)) {
+              filesUsingLegacyImports.add(path);
+            }
+          }
+        });
+        if (filesUsingLegacyImports.size === 0) {
+          return onSuccess;
+        }
+        if (tree.exists("package.json")) {
+          let packageJson = null;
+          try {
+            packageJson = JSON.parse(tree.readText("package.json"));
+          } catch (e) {
+          }
+          if (packageJson !== null && packageJson["dependencies"]) {
+            packageJson["dependencies"]["@angular/material"] = "^16.2.0";
+            tree.overwrite("package.json", JSON.stringify(packageJson, null, 2));
+            context.addTask(new tasks_1.NodePackageInstallTask());
+          }
+        }
+        context.logger.fatal(formatErrorMessage(filesUsingLegacyImports));
+        return;
+      });
+    }
+    exports.legacyImportsError = legacyImportsError2;
+    function formatErrorMessage(filesUsingLegacyImports) {
+      const files = Array.from(filesUsingLegacyImports, (path) => " - " + path);
+      const filesMessage = files.length > MAX_FILES_TO_PRINT ? [
+        ...files.slice(0, MAX_FILES_TO_PRINT),
+        `${files.length - MAX_FILES_TO_PRINT} more...`,
+        `Search your project for "${LEGACY_IMPORTS_START}" to view all usages.`
+      ].join("\n") : files.join("\n");
+      return `Cannot update to Angular Material v17 because the project is using the legacy Material components
+that have been deleted. While Angular Material v16 is compatible with Angular v17, it is recommended
+to switch away from the legacy components as soon as possible because they no longer receive bug fixes,
+accessibility improvements and new features.
+
+Read more about migrating away from legacy components: https://material.angular.io/guide/mdc-migration
+
+Files in the project using legacy Material components:
+${filesMessage}
+`;
+    }
+  }
+});
+
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/attribute-selectors.js
 var require_attribute_selectors = __commonJS({
   "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/attribute-selectors.js"(exports) {
@@ -595,17 +688,323 @@ var require_upgrade_data = __commonJS({
   }
 });
 
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/theme-base-v17/migration.js
+var require_migration = __commonJS({
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/theme-base-v17/migration.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.addThemeBaseMixins = exports.checkThemeBaseMixins = void 0;
+    var MISSING_MIXIN_PREAMBLE_LINES = `
+// The following mixins include base theme styles that are only needed once per application. These
+// theme styles do not depend on the color, typography, or density settings in your theme. However,
+// these styles may differ depending on the theme's design system. Currently all themes use the
+// Material 2 design system, but in the future it may be possible to create theme based on other
+// design systems, such as Material 3.
+//
+// Please note: you do not need to include the 'base' mixins, if you include the corresponding
+// 'theme' mixin elsewhere in your Sass. The full 'theme' mixins already include the base styles.
+//
+// To learn more about "base" theme styles visit our theming guide:
+// https://material.angular.io/guide/theming#theming-dimensions
+//
+// TODO(v17): Please move these @include statements to the preferred place in your Sass, and pass
+// your theme to them. This will ensure the correct values for your app are included.`.split("\n");
+    var THEME_MIXIN_SETS = [
+      {
+        theme: "all-component-themes",
+        color: "all-component-colors",
+        typography: "all-component-typographies",
+        density: "all-component-densities",
+        base: "all-component-bases"
+      },
+      ...[
+        "core",
+        "card",
+        "progress-bar",
+        "tooltip",
+        "form-field",
+        "input",
+        "select",
+        "autocomplete",
+        "dialog",
+        "chips",
+        "slide-toggle",
+        "radio",
+        "slider",
+        "menu",
+        "list",
+        "paginator",
+        "tabs",
+        "checkbox",
+        "button",
+        "icon-button",
+        "fab",
+        "snack-bar",
+        "table",
+        "progress-spinner",
+        "badge",
+        "bottom-sheet",
+        "button-toggle",
+        "datepicker",
+        "divider",
+        "expansion",
+        "grid-list",
+        "icon",
+        "sidenav",
+        "stepper",
+        "sort",
+        "toolbar",
+        "tree"
+      ].map((comp) => ({
+        theme: `${comp}-theme`,
+        color: `${comp}-color`,
+        typography: `${comp}-typography`,
+        density: `${comp}-density`,
+        base: `${comp}-base`
+      }))
+    ];
+    var COMMENT_PAIRS = /* @__PURE__ */ new Map([
+      ["/*", "*/"],
+      ["//", "\n"]
+    ]);
+    var COMMENT_PLACEHOLDER_START = "__<<ngThemingMigrationEscapedComment";
+    var COMMENT_PLACEHOLDER_END = ">>__";
+    function escapeComments(content) {
+      const placeholders = {};
+      let commentCounter = 0;
+      let [openIndex, closeIndex] = findComment(content);
+      while (openIndex > -1 && closeIndex > -1) {
+        const placeholder = COMMENT_PLACEHOLDER_START + commentCounter++ + COMMENT_PLACEHOLDER_END;
+        placeholders[placeholder] = content.slice(openIndex, closeIndex);
+        content = content.slice(0, openIndex) + placeholder + content.slice(closeIndex);
+        [openIndex, closeIndex] = findComment(content);
+      }
+      return { content, placeholders };
+    }
+    function findComment(content) {
+      content += "\n";
+      for (const [open, close] of COMMENT_PAIRS.entries()) {
+        const openIndex = content.indexOf(open);
+        if (openIndex > -1) {
+          const closeIndex = content.indexOf(close, openIndex + 1);
+          return closeIndex > -1 ? [openIndex, closeIndex + close.length] : [-1, -1];
+        }
+      }
+      return [-1, -1];
+    }
+    function restoreComments(content, placeholders) {
+      Object.keys(placeholders).forEach((key) => content = content.replace(key, placeholders[key]));
+      return content;
+    }
+    function escapeRegExp(str) {
+      return str.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
+    }
+    function extractNamespaceFromUseStatement(fullImport) {
+      const closeQuoteIndex = Math.max(fullImport.lastIndexOf(`"`), fullImport.lastIndexOf(`'`));
+      if (closeQuoteIndex > -1) {
+        const asExpression = "as ";
+        const asIndex = fullImport.indexOf(asExpression, closeQuoteIndex);
+        if (asIndex > -1) {
+          return fullImport.slice(asIndex + asExpression.length).split(";")[0].trim();
+        }
+        const lastSlashIndex = fullImport.lastIndexOf("/", closeQuoteIndex);
+        if (lastSlashIndex > -1) {
+          const fileName = fullImport.slice(lastSlashIndex + 1, closeQuoteIndex).replace(/^_|(\.import)?\.scss$|\.import$/g, "");
+          if (fileName === "index") {
+            const nextSlashIndex = fullImport.lastIndexOf("/", lastSlashIndex - 1);
+            if (nextSlashIndex > -1) {
+              return fullImport.slice(nextSlashIndex + 1, lastSlashIndex);
+            }
+          } else {
+            return fileName;
+          }
+        }
+      }
+      throw Error(`Could not extract namespace from import "${fullImport}".`);
+    }
+    function getAtUseNamespaces(content, path) {
+      const namespaces = /* @__PURE__ */ new Set();
+      const pattern = new RegExp(`@use +['"]~?${escapeRegExp(path)}['"].*;?
+`, "g");
+      let match = null;
+      while (match = pattern.exec(content)) {
+        namespaces.add(extractNamespaceFromUseStatement(match[0]));
+      }
+      return namespaces;
+    }
+    function getAtIncludes(content, namespace, mixin) {
+      const ending = "([^\\n\\w-][^\\n]*)?($|\\n)";
+      const pattern = new RegExp(`@include\\s+${escapeRegExp(namespace)}\\.${escapeRegExp(mixin)}${ending}`, "g");
+      return [...content.matchAll(pattern)];
+    }
+    function isMixinAtIncluded(content, namespace, mixin) {
+      return !!getAtIncludes(content, namespace, mixin).length;
+    }
+    function insertLinesAfterMatch(content, match, lines) {
+      const insertionPoint = match.index + match[0].length;
+      return content.substring(0, insertionPoint) + lines.join("\n") + "\n" + content.substring(insertionPoint);
+    }
+    function getIndentation(content, index) {
+      let indentationStart = 0;
+      let indentationEnd = index;
+      for (let i = index; i >= 0; i--) {
+        if (content[i] === "\n") {
+          indentationStart = i + 1;
+          break;
+        }
+        if (!/\s/.exec(content[i])) {
+          indentationEnd = i;
+        }
+      }
+      return content.slice(indentationStart, indentationEnd);
+    }
+    function getMissingMixinLines(namespace, mixins, indentation) {
+      return [
+        ...MISSING_MIXIN_PREAMBLE_LINES,
+        ...[...mixins].sort().map((mixin) => `@include ${namespace}.${mixin}(/* TODO(v17): pass $your-theme here */);`),
+        ""
+      ].map((line) => (indentation + line).trimRight());
+    }
+    function checkThemeBaseMixins(fileContent) {
+      const found = /* @__PURE__ */ new Set();
+      const missing = /* @__PURE__ */ new Set();
+      const { content } = escapeComments(fileContent);
+      const materialNamespaces = getAtUseNamespaces(content, "@angular/material");
+      for (const namespace of materialNamespaces) {
+        for (const mixins of THEME_MIXIN_SETS) {
+          if (isMixinAtIncluded(content, namespace, mixins.theme)) {
+            found.add(mixins.base);
+            missing.delete(mixins.base);
+            continue;
+          }
+          if (!found.has(mixins.base)) {
+            if (isMixinAtIncluded(content, namespace, mixins.color) || isMixinAtIncluded(content, namespace, mixins.typography) || isMixinAtIncluded(content, namespace, mixins.density)) {
+              missing.add(mixins.base);
+            }
+          }
+        }
+      }
+      return { found, missing };
+    }
+    exports.checkThemeBaseMixins = checkThemeBaseMixins;
+    function addThemeBaseMixins(fileContent, mixins) {
+      let { content, placeholders } = escapeComments(fileContent);
+      const materialNamespaces = getAtUseNamespaces(content, "@angular/material");
+      for (const namespace of materialNamespaces) {
+        const coreIncludes = getAtIncludes(content, namespace, "core").reverse();
+        for (const coreInclude of coreIncludes) {
+          if (coreInclude.index === void 0) {
+            throw Error(`Cannot find location of mat.core() match: ${coreInclude}`);
+          }
+          const indentation = getIndentation(content, coreInclude.index);
+          const lines = getMissingMixinLines(namespace, mixins, indentation);
+          content = insertLinesAfterMatch(content, coreInclude, lines);
+        }
+      }
+      return restoreComments(content, placeholders);
+    }
+    exports.addThemeBaseMixins = addThemeBaseMixins;
+  }
+});
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/theme-base-v17/index.js
+var require_theme_base_v17 = __commonJS({
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/theme-base-v17/index.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.ThemeBaseMigration = void 0;
+    var core_1 = require("@angular-devkit/core");
+    var schematics_1 = require("@angular/cdk/schematics");
+    var migration_1 = require_migration();
+    var _ThemeBaseMigration = class extends schematics_1.DevkitMigration {
+      constructor() {
+        super(...arguments);
+        this.enabled = this.targetVersion === schematics_1.TargetVersion.V17;
+        this.visitedSassStylesheets = [];
+      }
+      visitStylesheet(stylesheet) {
+        if ((0, core_1.extname)(stylesheet.filePath) === ".scss") {
+          this.visitedSassStylesheets.push(stylesheet);
+          const content = stylesheet.content;
+          const { found, missing } = (0, migration_1.checkThemeBaseMixins)(content);
+          for (const mixin of found) {
+            _ThemeBaseMigration.foundBaseMixins.add(mixin);
+            _ThemeBaseMigration.missingBaseMixins.delete(mixin);
+          }
+          for (const mixin of missing) {
+            if (!_ThemeBaseMigration.foundBaseMixins.has(mixin)) {
+              _ThemeBaseMigration.missingBaseMixins.add(mixin);
+            }
+          }
+        }
+      }
+      postAnalysis() {
+        if (_ThemeBaseMigration.missingBaseMixins.size === 0) {
+          return;
+        }
+        if (_ThemeBaseMigration.foundBaseMixins.has("all-component-bases")) {
+          return;
+        }
+        if (_ThemeBaseMigration.missingBaseMixins.has("all-component-bases")) {
+          _ThemeBaseMigration.missingBaseMixins = /* @__PURE__ */ new Set(["all-component-bases"]);
+        }
+        for (const stylesheet of this.visitedSassStylesheets) {
+          const content = stylesheet.content;
+          const migratedContent = content ? (0, migration_1.addThemeBaseMixins)(content, _ThemeBaseMigration.missingBaseMixins) : content;
+          if (migratedContent && migratedContent !== content) {
+            this.fileSystem.edit(stylesheet.filePath).remove(0, stylesheet.content.length).insertLeft(0, migratedContent);
+            _ThemeBaseMigration.migratedFileCount++;
+          }
+        }
+        if (_ThemeBaseMigration.migratedFileCount === 0) {
+          const mixinsText = [..._ThemeBaseMigration.missingBaseMixins].sort().map((m) => `mat.${m}($theme)`).join("\n");
+          this.failures.push({
+            filePath: this.context.tree.root.path,
+            message: `The following mixins could not be automatically added, please add them manually if needed:
+${mixinsText}`
+          });
+        }
+      }
+      static globalPostMigration(_tree, _targetVersion, context) {
+        const fileCount = _ThemeBaseMigration.migratedFileCount;
+        const mixinCount = _ThemeBaseMigration.missingBaseMixins.size;
+        if (fileCount > 0 && mixinCount > 0) {
+          const fileCountText = fileCount === 1 ? "1 file" : `${fileCount} files`;
+          const mixinCountText = mixinCount === 1 ? "1 theme base mixin" : `${mixinCount} theme base mixins`;
+          context.logger.info(`Added ${mixinCountText} to ${fileCountText}. Please search for, and address, any "TODO(v17)" comments.`);
+        }
+        _ThemeBaseMigration.migratedFileCount = 0;
+        _ThemeBaseMigration.missingBaseMixins = /* @__PURE__ */ new Set();
+        _ThemeBaseMigration.foundBaseMixins = /* @__PURE__ */ new Set();
+      }
+    };
+    var ThemeBaseMigration2 = _ThemeBaseMigration;
+    (() => {
+      _ThemeBaseMigration.migratedFileCount = 0;
+    })();
+    (() => {
+      _ThemeBaseMigration.foundBaseMixins = /* @__PURE__ */ new Set();
+    })();
+    (() => {
+      _ThemeBaseMigration.missingBaseMixins = /* @__PURE__ */ new Set();
+    })();
+    exports.ThemeBaseMigration = ThemeBaseMigration2;
+  }
+});
+
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/index.mjs
 var ng_update_exports = {};
 __export(ng_update_exports, {
-  updateToV16: () => updateToV16
+  updateToV17: () => updateToV17
 });
 module.exports = __toCommonJS(ng_update_exports);
 var import_schematics = require("@angular/cdk/schematics");
+var import_legacy_imports_error = __toESM(require_legacy_imports_error(), 1);
 var import_upgrade_data = __toESM(require_upgrade_data(), 1);
-var materialMigrations = [];
-function updateToV16() {
-  return (0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V16, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete);
+var import_theme_base_v17 = __toESM(require_theme_base_v17(), 1);
+var materialMigrations = [import_theme_base_v17.ThemeBaseMigration];
+function updateToV17() {
+  return (0, import_legacy_imports_error.legacyImportsError)((0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V17, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete));
 }
 function onMigrationComplete(context, targetVersion, hasFailures) {
   context.logger.info("");
@@ -617,7 +1016,7 @@ function onMigrationComplete(context, targetVersion, hasFailures) {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  updateToV16
+  updateToV17
 });
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.

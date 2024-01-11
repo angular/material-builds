@@ -1,19 +1,15 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AriaDescriber } from '@angular/cdk/a11y';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { CanDisable } from '@angular/material/core';
-import { _Constructor } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/cdk/a11y';
-import * as i3 from '@angular/material/core';
+import * as i1 from '@angular/cdk/a11y';
+import * as i2 from '@angular/material/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i1 {
+declare namespace i3 {
     export {
         MatBadgePosition,
         MatBadgeSize,
@@ -22,7 +18,7 @@ declare namespace i1 {
 }
 
 /** Directive to display a text badge. */
-export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy, CanDisable {
+export declare class MatBadge implements OnInit, OnDestroy {
     private _ngZone;
     private _elementRef;
     private _ariaDescriber;
@@ -33,9 +29,9 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     set color(value: ThemePalette);
     private _color;
     /** Whether the badge should overlap its contents or not */
-    get overlap(): boolean;
-    set overlap(val: BooleanInput);
-    private _overlap;
+    overlap: boolean;
+    /** Whether the badge is disabled. */
+    disabled: boolean;
     /**
      * Position the badge should reside.
      * Accepts any combination of 'above'|'below' and 'before'|'after'
@@ -52,9 +48,7 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     /** Size of the badge. Can be 'small', 'medium', or 'large'. */
     size: MatBadgeSize;
     /** Whether the badge is hidden. */
-    get hidden(): boolean;
-    set hidden(val: BooleanInput);
-    private _hidden;
+    hidden: boolean;
     /** Unique id for the badge */
     _id: number;
     /** Visible badge element. */
@@ -93,17 +87,15 @@ export declare class MatBadge extends _MatBadgeBase implements OnInit, OnDestroy
     /** Clears any existing badges that might be left over from server-side rendering. */
     private _clearExistingBadges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadge, [null, null, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatBadge, "[matBadge]", never, { "disabled": { "alias": "matBadgeDisabled"; "required": false; }; "color": { "alias": "matBadgeColor"; "required": false; }; "overlap": { "alias": "matBadgeOverlap"; "required": false; }; "position": { "alias": "matBadgePosition"; "required": false; }; "content": { "alias": "matBadge"; "required": false; }; "description": { "alias": "matBadgeDescription"; "required": false; }; "size": { "alias": "matBadgeSize"; "required": false; }; "hidden": { "alias": "matBadgeHidden"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatBadge, "[matBadge]", never, { "color": { "alias": "matBadgeColor"; "required": false; }; "overlap": { "alias": "matBadgeOverlap"; "required": false; }; "disabled": { "alias": "matBadgeDisabled"; "required": false; }; "position": { "alias": "matBadgePosition"; "required": false; }; "content": { "alias": "matBadge"; "required": false; }; "description": { "alias": "matBadgeDescription"; "required": false; }; "size": { "alias": "matBadgeSize"; "required": false; }; "hidden": { "alias": "matBadgeHidden"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_overlap: unknown;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_hidden: unknown;
 }
-
-/** @docs-private */
-declare const _MatBadgeBase: _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
-    new (): {};
-};
 
 export declare class MatBadgeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadgeModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBadgeModule, [typeof i1.MatBadge], [typeof i2.A11yModule, typeof i3.MatCommonModule], [typeof i1.MatBadge, typeof i3.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBadgeModule, never, [typeof i1.A11yModule, typeof i2.MatCommonModule, typeof i3.MatBadge], [typeof i3.MatBadge, typeof i2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatBadgeModule>;
 }
 

@@ -1,24 +1,19 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { ChangeDetectorRef } from '@angular/core';
-import { _Constructor } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
-import * as i5 from '@angular/common';
-import * as i6 from '@angular/material/core';
-import * as i7 from '@angular/cdk/accordion';
-import * as i8 from '@angular/cdk/portal';
+import * as i1 from '@angular/material/core';
+import * as i2 from '@angular/cdk/accordion';
+import * as i3 from '@angular/cdk/portal';
 import { InjectionToken } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -33,13 +28,13 @@ import { ViewContainerRef } from '@angular/core';
 /** Time and timing curve for expansion panel animations. */
 export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
 
-declare namespace i1 {
+declare namespace i4 {
     export {
         MatAccordion
     }
 }
 
-declare namespace i2 {
+declare namespace i5 {
     export {
         MatExpansionPanelState,
         MatExpansionPanelDefaultOptions,
@@ -49,7 +44,7 @@ declare namespace i2 {
     }
 }
 
-declare namespace i3 {
+declare namespace i6 {
     export {
         MatExpansionPanelHeader,
         MatExpansionPanelDescription,
@@ -57,7 +52,7 @@ declare namespace i3 {
     }
 }
 
-declare namespace i4 {
+declare namespace i7 {
     export {
         MatExpansionPanelContent
     }
@@ -91,9 +86,7 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     /** All headers inside the accordion. Includes headers inside nested accordions. */
     _headers: QueryList<MatExpansionPanelHeader>;
     /** Whether the expansion indicator should be hidden. */
-    get hideToggle(): boolean;
-    set hideToggle(show: BooleanInput);
-    private _hideToggle;
+    hideToggle: boolean;
     /**
      * Display mode used for all expansion panels in the accordion. Currently two display
      * modes exist:
@@ -111,7 +104,8 @@ export declare class MatAccordion extends CdkAccordion implements MatAccordionBa
     _handleHeaderFocus(header: MatExpansionPanelHeader): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAccordion, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "multi": { "alias": "multi"; "required": false; }; "hideToggle": { "alias": "hideToggle"; "required": false; }; "displayMode": { "alias": "displayMode"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, {}, ["_headers"], never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "hideToggle": { "alias": "hideToggle"; "required": false; }; "displayMode": { "alias": "displayMode"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, {}, ["_headers"], never, true, never>;
+    static ngAcceptInputType_hideToggle: unknown;
 }
 
 /**
@@ -166,7 +160,7 @@ export declare const matExpansionAnimations: {
 
 export declare class MatExpansionModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatExpansionModule, [typeof i1.MatAccordion, typeof i2.MatExpansionPanel, typeof i2.MatExpansionPanelActionRow, typeof i3.MatExpansionPanelHeader, typeof i3.MatExpansionPanelTitle, typeof i3.MatExpansionPanelDescription, typeof i4.MatExpansionPanelContent], [typeof i5.CommonModule, typeof i6.MatCommonModule, typeof i7.CdkAccordionModule, typeof i8.PortalModule], [typeof i1.MatAccordion, typeof i2.MatExpansionPanel, typeof i2.MatExpansionPanelActionRow, typeof i3.MatExpansionPanelHeader, typeof i3.MatExpansionPanelTitle, typeof i3.MatExpansionPanelDescription, typeof i4.MatExpansionPanelContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatExpansionModule, never, [typeof i1.MatCommonModule, typeof i2.CdkAccordionModule, typeof i3.PortalModule, typeof i4.MatAccordion, typeof i5.MatExpansionPanel, typeof i5.MatExpansionPanelActionRow, typeof i6.MatExpansionPanelHeader, typeof i6.MatExpansionPanelTitle, typeof i6.MatExpansionPanelDescription, typeof i7.MatExpansionPanelContent], [typeof i4.MatAccordion, typeof i5.MatExpansionPanel, typeof i5.MatExpansionPanelActionRow, typeof i6.MatExpansionPanelHeader, typeof i6.MatExpansionPanelTitle, typeof i6.MatExpansionPanelDescription, typeof i7.MatExpansionPanelContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatExpansionModule>;
 }
 
@@ -178,14 +172,14 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     private _viewContainerRef;
     _animationMode: string;
     private _document;
-    private _hideToggle;
-    private _togglePosition;
     /** Whether the toggle indicator should be hidden. */
     get hideToggle(): boolean;
-    set hideToggle(value: BooleanInput);
+    set hideToggle(value: boolean);
+    private _hideToggle;
     /** The position of the expansion indicator. */
     get togglePosition(): MatAccordionTogglePosition;
     set togglePosition(value: MatAccordionTogglePosition);
+    private _togglePosition;
     /** An event emitted after the body's expansion animation happens. */
     readonly afterExpand: EventEmitter<void>;
     /** An event emitted after the body's collapse animation happens. */
@@ -221,7 +215,8 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     _containsFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanel, [{ optional: true; skipSelf: true; }, null, null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "disabled": { "alias": "disabled"; "required": false; }; "expanded": { "alias": "expanded"; "required": false; }; "hideToggle": { "alias": "hideToggle"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, { "opened": "opened"; "closed": "closed"; "expandedChange": "expandedChange"; "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "hideToggle": { "alias": "hideToggle"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, { "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], true, never>;
+    static ngAcceptInputType_hideToggle: unknown;
 }
 
 /**
@@ -229,7 +224,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
  */
 export declare class MatExpansionPanelActionRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelActionRow, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelActionRow, "mat-action-row", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelActionRow, "mat-action-row", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -250,7 +245,7 @@ export declare class MatExpansionPanelContent {
     _expansionPanel?: MatExpansionPanelBase | undefined;
     constructor(_template: TemplateRef<any>, _expansionPanel?: MatExpansionPanelBase | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, [null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -271,13 +266,13 @@ export declare interface MatExpansionPanelDefaultOptions {
  */
 export declare class MatExpansionPanelDescription {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelDescription, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never, never, true, never>;
 }
 
 /**
  * Header element of a `<mat-expansion-panel>`.
  */
-export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMixinBase implements AfterViewInit, OnDestroy, FocusableOption, HasTabIndex {
+export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy, FocusableOption {
     panel: MatExpansionPanel;
     private _element;
     private _focusMonitor;
@@ -289,6 +284,8 @@ export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMix
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */
     collapsedHeight: string;
+    /** Tab index of the header. */
+    tabIndex: number;
     /**
      * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
      * @docs-private
@@ -322,15 +319,9 @@ export declare class MatExpansionPanelHeader extends _MatExpansionPanelHeaderMix
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelHeader, [{ host: true; }, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; "expandedHeight": { "alias": "expandedHeight"; "required": false; }; "collapsedHeight": { "alias": "collapsedHeight"; "required": false; }; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "expandedHeight": { "alias": "expandedHeight"; "required": false; }; "collapsedHeight": { "alias": "collapsedHeight"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], true, never>;
+    static ngAcceptInputType_tabIndex: unknown;
 }
-
-/** @docs-private */
-declare abstract class MatExpansionPanelHeaderBase {
-    abstract readonly disabled: boolean;
-}
-
-declare const _MatExpansionPanelHeaderMixinBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & typeof MatExpansionPanelHeaderBase;
 
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
@@ -340,7 +331,7 @@ export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
  */
 export declare class MatExpansionPanelTitle {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelTitle, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelTitle, "mat-panel-title", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelTitle, "mat-panel-title", never, {}, {}, never, never, true, never>;
 }
 
 export { }

@@ -1,46 +1,71 @@
 @use 'sass:map';
+@use '../core/style/sass-utils';
 @use '../core/theming/theming';
+@use '../core/theming/inspection';
 @use '../core/tokens/m2/mdc/circular-progress' as tokens-mdc-circular-progress;
 @use '@material/circular-progress/circular-progress-theme' as mdc-circular-progress-theme;
 
-@mixin color($config-or-theme) {
-  $config: theming.get-color-config($config-or-theme);
-  $mdc-circular-progress-color-tokens: tokens-mdc-circular-progress.get-color-tokens($config);
-
-  .mat-mdc-progress-spinner {
-    @include mdc-circular-progress-theme.theme($mdc-circular-progress-color-tokens);
-
-    &.mat-accent {
-      $color: theming.get-color-from-palette(map.get($config, accent));
-      @include mdc-circular-progress-theme.theme((active-indicator-color: $color));
-    }
-
-    &.mat-warn {
-      $color: theming.get-color-from-palette(map.get($config, warn));
-      @include mdc-circular-progress-theme.theme((active-indicator-color: $color));
+@mixin base($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
+  }
+  @else {
+    // Add default values for tokens not related to color, typography, or density.
+    @include sass-utils.current-selector-or-root() {
+      @include mdc-circular-progress-theme.theme(
+          tokens-mdc-circular-progress.get-unthemable-tokens()
+      );
     }
   }
 }
 
-@mixin typography($config-or-theme) {}
+@mixin color($theme) {
+  @if inspection.get-theme-version($theme) == 1 {
+    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
+  }
+  @else {
+    $mdc-circular-progress-color-tokens: tokens-mdc-circular-progress.get-color-tokens($theme);
 
-@mixin density($config-or-theme) {}
+    @include sass-utils.current-selector-or-root() {
+      @include mdc-circular-progress-theme.theme($mdc-circular-progress-color-tokens);
 
-@mixin theme($theme-or-color-config) {
-  $theme: theming.private-legacy-get-theme($theme-or-color-config);
+      .mat-accent {
+        $color: inspection.get-theme-color($theme, accent);
+        @include mdc-circular-progress-theme.theme((active-indicator-color: $color));
+      }
+
+      .mat-warn {
+        $color: inspection.get-theme-color($theme, warn);
+        @include mdc-circular-progress-theme.theme((active-indicator-color: $color));
+      }
+    }
+  }
+}
+
+@mixin typography($theme) {
+}
+
+@mixin density($theme) {
+}
+
+@mixin theme($theme) {
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-progress-spinner') {
-    $color: theming.get-color-config($theme);
-    $density: theming.get-density-config($theme);
-    $typography: theming.get-typography-config($theme);
+    @include base($theme);
+    @if inspection.theme-has($theme, color) {
+      @include color($theme);
+    }
+    @if inspection.theme-has($theme, density) {
+      @include density($theme);
+    }
+    @if inspection.theme-has($theme, typography) {
+      @include typography($theme);
+    }
+  }
+}
 
-    @if $color != null {
-      @include color($color);
-    }
-    @if $density != null {
-      @include density($density);
-    }
-    @if $typography != null {
-      @include typography($typography);
-    }
+@mixin _theme-from-tokens($tokens) {
+  @if ($tokens != ()) {
+    @include mdc-circular-progress-theme.theme(
+        map.get($tokens, tokens-mdc-circular-progress.$prefix));
   }
 }

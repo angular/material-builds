@@ -1,7 +1,4 @@
-import { _AbstractConstructor } from '@angular/material/core';
 import { AfterContentInit } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { CanDisable } from '@angular/material/core';
 import { CdkNestedTreeNode } from '@angular/cdk/tree';
 import { CdkTree } from '@angular/cdk/tree';
 import { CdkTreeNode } from '@angular/cdk/tree';
@@ -10,23 +7,20 @@ import { CdkTreeNodeOutlet } from '@angular/cdk/tree';
 import { CdkTreeNodePadding } from '@angular/cdk/tree';
 import { CdkTreeNodeToggle } from '@angular/cdk/tree';
 import { CollectionViewer } from '@angular/cdk/collections';
-import { _Constructor } from '@angular/material/core';
 import { DataSource } from '@angular/cdk/collections';
 import { ElementRef } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
-import * as i6 from '@angular/cdk/tree';
-import * as i7 from '@angular/material/core';
+import * as i1 from '@angular/cdk/tree';
+import * as i2 from '@angular/material/core';
 import { IterableDiffers } from '@angular/core';
-import { NumberInput } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { TreeControl } from '@angular/cdk/tree';
 import { ViewContainerRef } from '@angular/core';
 
-declare namespace i1 {
+declare namespace i3 {
     export {
         MatTreeNode,
         MatTreeNodeDef,
@@ -34,25 +28,25 @@ declare namespace i1 {
     }
 }
 
-declare namespace i2 {
+declare namespace i4 {
     export {
         MatTreeNodePadding
     }
 }
 
-declare namespace i3 {
+declare namespace i5 {
     export {
         MatTreeNodeToggle
     }
 }
 
-declare namespace i4 {
+declare namespace i6 {
     export {
         MatTree
     }
 }
 
-declare namespace i5 {
+declare namespace i7 {
     export {
         MatTreeNodeOutlet
     }
@@ -64,9 +58,7 @@ declare namespace i5 {
 export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K> implements AfterContentInit, OnDestroy, OnInit {
     node: T;
     /** Whether the node is disabled. */
-    get disabled(): boolean;
-    set disabled(value: BooleanInput);
-    private _disabled;
+    disabled: boolean;
     /** Tabindex for the node. */
     get tabIndex(): number;
     set tabIndex(value: number);
@@ -76,7 +68,8 @@ export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K>
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNestedTreeNode<any, any>, [null, null, null, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "node": { "alias": "matNestedTreeNode"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "node": { "alias": "matNestedTreeNode"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_disabled: unknown;
 }
 
 /**
@@ -85,7 +78,7 @@ export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K>
 export declare class MatTree<T, K = T> extends CdkTree<T, K> {
     _nodeOutlet: MatTreeNodeOutlet;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTree<any, any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTree<any, any>, "mat-tree", ["matTree"], {}, {}, never, never, false, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTree<any, any>, "mat-tree", ["matTree"], {}, {}, never, never, true, never>;
 }
 
 /**
@@ -165,7 +158,7 @@ export declare class MatTreeFlattener<T, F, K = F> {
 
 export declare class MatTreeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTreeModule, [typeof i1.MatNestedTreeNode, typeof i1.MatTreeNodeDef, typeof i2.MatTreeNodePadding, typeof i3.MatTreeNodeToggle, typeof i4.MatTree, typeof i1.MatTreeNode, typeof i5.MatTreeNodeOutlet], [typeof i6.CdkTreeModule, typeof i7.MatCommonModule], [typeof i7.MatCommonModule, typeof i1.MatNestedTreeNode, typeof i1.MatTreeNodeDef, typeof i2.MatTreeNodePadding, typeof i3.MatTreeNodeToggle, typeof i4.MatTree, typeof i1.MatTreeNode, typeof i5.MatTreeNodeOutlet]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTreeModule, never, [typeof i1.CdkTreeModule, typeof i2.MatCommonModule, typeof i3.MatNestedTreeNode, typeof i3.MatTreeNodeDef, typeof i4.MatTreeNodePadding, typeof i5.MatTreeNodeToggle, typeof i6.MatTree, typeof i3.MatTreeNode, typeof i7.MatTreeNodeOutlet], [typeof i2.MatCommonModule, typeof i3.MatNestedTreeNode, typeof i3.MatTreeNodeDef, typeof i4.MatTreeNodePadding, typeof i5.MatTreeNodeToggle, typeof i6.MatTree, typeof i3.MatTreeNode, typeof i7.MatTreeNodeOutlet]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTreeModule>;
 }
 
@@ -189,15 +182,19 @@ export declare class MatTreeNestedDataSource<T> extends DataSource<T> {
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
-export declare class MatTreeNode<T, K = T> extends _MatTreeNodeBase<T, K> implements CanDisable, HasTabIndex, OnInit, OnDestroy {
+export declare class MatTreeNode<T, K = T> extends CdkTreeNode<T, K> implements OnInit, OnDestroy {
+    /** Whether the node is disabled. */
+    disabled: boolean;
+    /** Tabindex of the node. */
+    tabIndex: number;
     constructor(elementRef: ElementRef<HTMLElement>, tree: CdkTree<T, K>, tabIndex: string);
     ngOnInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNode<any, any>, [null, null, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_tabIndex: unknown;
 }
-
-declare const _MatTreeNodeBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & typeof CdkTreeNode;
 
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
@@ -206,7 +203,7 @@ declare const _MatTreeNodeBase: _Constructor<HasTabIndex> & _AbstractConstructor
 export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
     data: T;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodeDef<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeDef<any>, "[matTreeNodeDef]", never, { "when": { "alias": "matTreeNodeDefWhen"; "required": false; }; "data": { "alias": "matTreeNode"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeDef<any>, "[matTreeNodeDef]", never, { "when": { "alias": "matTreeNodeDefWhen"; "required": false; }; "data": { "alias": "matTreeNode"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /**
@@ -218,7 +215,7 @@ export declare class MatTreeNodeOutlet implements CdkTreeNodeOutlet {
     _node?: any;
     constructor(viewContainer: ViewContainerRef, _node?: any);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodeOutlet, [null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeOutlet, "[matTreeNodeOutlet]", never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeOutlet, "[matTreeNodeOutlet]", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -227,12 +224,13 @@ export declare class MatTreeNodeOutlet implements CdkTreeNodeOutlet {
 export declare class MatTreeNodePadding<T, K = T> extends CdkTreeNodePadding<T, K> {
     /** The level of depth of the tree node. The padding will be `level * indent` pixels. */
     get level(): number;
-    set level(value: NumberInput);
+    set level(value: number);
     /** The indent for each level. Default number 40px from material design menu sub-menu spec. */
     get indent(): number | string;
     set indent(indent: number | string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodePadding<any, any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodePadding<any, any>, "[matTreeNodePadding]", never, { "level": { "alias": "matTreeNodePadding"; "required": false; }; "indent": { "alias": "matTreeNodePaddingIndent"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodePadding<any, any>, "[matTreeNodePadding]", never, { "level": { "alias": "matTreeNodePadding"; "required": false; }; "indent": { "alias": "matTreeNodePaddingIndent"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_level: unknown;
 }
 
 /**
@@ -240,7 +238,7 @@ export declare class MatTreeNodePadding<T, K = T> extends CdkTreeNodePadding<T, 
  */
 export declare class MatTreeNodeToggle<T, K = T> extends CdkTreeNodeToggle<T, K> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodeToggle<any, any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeToggle<any, any>, "[matTreeNodeToggle]", never, { "recursive": { "alias": "matTreeNodeToggleRecursive"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeToggle<any, any>, "[matTreeNodeToggle]", never, { "recursive": { "alias": "matTreeNodeToggleRecursive"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 export { }

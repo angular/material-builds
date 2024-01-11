@@ -2,10 +2,25 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 
-class _MatAutocompleteHarnessBase extends ComponentHarness {
+class MatAutocompleteHarness extends ComponentHarness {
     constructor() {
         super(...arguments);
         this._documentRootLocator = this.documentRootLocatorFactory();
+    }
+    /** The selector for the host element of a `MatAutocomplete` instance. */
+    static { this.hostSelector = '.mat-mdc-autocomplete-trigger'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for an autocomplete with specific
+     * attributes.
+     * @param options Options for filtering which autocomplete instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options)
+            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value))
+            .addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
+        });
     }
     /** Gets the value of the autocomplete input. */
     async getValue() {
@@ -41,7 +56,7 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
         if (!(await this.isOpen())) {
             throw new Error('Unable to retrieve options for autocomplete. Autocomplete panel is closed.');
         }
-        return this._documentRootLocator.locatorForAll(this._optionClass.with({
+        return this._documentRootLocator.locatorForAll(MatOptionHarness.with({
             ...(filters || {}),
             ancestor: await this._getPanelSelector(),
         }))();
@@ -51,7 +66,7 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
         if (!(await this.isOpen())) {
             throw new Error('Unable to retrieve option groups for autocomplete. Autocomplete panel is closed.');
         }
-        return this._documentRootLocator.locatorForAll(this._optionGroupClass.with({
+        return this._documentRootLocator.locatorForAll(MatOptgroupHarness.with({
             ...(filters || {}),
             ancestor: await this._getPanelSelector(),
         }))();
@@ -68,7 +83,7 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     /** Whether the autocomplete is open. */
     async isOpen() {
         const panel = await this._getPanel();
-        return !!panel && (await panel.hasClass(`${this._prefix}-autocomplete-visible`));
+        return !!panel && (await panel.hasClass(`mat-mdc-autocomplete-visible`));
     }
     /** Gets the panel associated with this autocomplete trigger. */
     async _getPanel() {
@@ -78,37 +93,9 @@ class _MatAutocompleteHarnessBase extends ComponentHarness {
     }
     /** Gets the selector that can be used to find the autocomplete trigger's panel. */
     async _getPanelSelector() {
-        return `#${await (await this.host()).getAttribute('aria-owns')}`;
-    }
-}
-/** Harness for interacting with an MDC-based mat-autocomplete in tests. */
-class MatAutocompleteHarness extends _MatAutocompleteHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._prefix = 'mat-mdc';
-        this._optionClass = MatOptionHarness;
-        this._optionGroupClass = MatOptgroupHarness;
-    }
-    /** The selector for the host element of a `MatAutocomplete` instance. */
-    static { this.hostSelector = '.mat-mdc-autocomplete-trigger'; }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for an autocomplete with specific
-     * attributes.
-     * @param options Options for filtering which autocomplete instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(this, options)
-            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value))
-            .addOption('disabled', options.disabled, async (harness, disabled) => {
-            return (await harness.isDisabled()) === disabled;
-        });
-    }
-    /** Gets the selector that can be used to find the autocomplete trigger's panel. */
-    async _getPanelSelector() {
         return `#${await (await this.host()).getAttribute('aria-controls')}`;
     }
 }
 
-export { MatAutocompleteHarness, _MatAutocompleteHarnessBase };
+export { MatAutocompleteHarness };
 //# sourceMappingURL=testing.mjs.map

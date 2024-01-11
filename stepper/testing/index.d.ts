@@ -136,7 +136,7 @@ export declare interface StepperHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Possible orientations for a stepper. */
-export declare const enum StepperOrientation {
+export declare enum StepperOrientation {
     HORIZONTAL = 0,
     VERTICAL = 1
 }

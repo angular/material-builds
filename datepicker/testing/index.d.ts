@@ -28,7 +28,7 @@ export declare interface CalendarHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Possible views of a `MatCalendarHarness`. */
-export declare const enum CalendarView {
+export declare enum CalendarView {
     MONTH = 0,
     YEAR = 1,
     MULTI_YEAR = 2
