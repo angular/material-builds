@@ -21,6 +21,7 @@
 @use './mat/option' as tokens-mat-option;
 @use './mat/optgroup' as tokens-mat-optgroup;
 @use './mat/paginator' as tokens-mat-paginator;
+@use './mat/checkbox' as tokens-mat-checkbox;
 @use './mat/full-pseudo-checkbox' as tokens-mat-full-pseudo-checkbox;
 @use './mat/minimal-pseudo-checkbox' as tokens-mat-minimal-pseudo-checkbox;
 @use './mat/radio' as tokens-mat-radio;
@@ -48,6 +49,7 @@
 @use './mdc/elevated-card' as tokens-mdc-elevated-card;
 @use './mdc/extended-fab' as tokens-mdc-extended-fab;
 @use './mdc/fab' as tokens-mdc-fab;
+@use './mdc/form-field' as tokens-mdc-form-field;
 @use './mdc/filled-text-field' as tokens-mdc-filled-text-field;
 @use './mdc/icon-button' as tokens-mdc-icon-button;
 @use './mdc/linear-progress' as tokens-mdc-linear-progress;
@@ -124,6 +126,7 @@
       _get-tokens-for-module($theme, tokens-mat-option),
       _get-tokens-for-module($theme, tokens-mat-outlined-button),
       _get-tokens-for-module($theme, tokens-mat-paginator),
+      _get-tokens-for-module($theme, tokens-mat-checkbox),
       _get-tokens-for-module($theme, tokens-mat-full-pseudo-checkbox),
       _get-tokens-for-module($theme, tokens-mat-minimal-pseudo-checkbox),
       _get-tokens-for-module($theme, tokens-mat-protected-button),
@@ -150,6 +153,7 @@
       _get-tokens-for-module($theme, tokens-mdc-fab),
       _get-tokens-for-module($theme, tokens-mdc-filled-button),
       _get-tokens-for-module($theme, tokens-mdc-filled-text-field),
+      _get-tokens-for-module($theme, tokens-mdc-form-field),
       _get-tokens-for-module($theme, tokens-mdc-icon-button),
       _get-tokens-for-module($theme, tokens-mdc-linear-progress),
       _get-tokens-for-module($theme, tokens-mdc-list),

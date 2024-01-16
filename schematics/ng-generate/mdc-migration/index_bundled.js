@@ -6900,6 +6900,12 @@ var ChangeDetectionStrategy;
   ChangeDetectionStrategy2[ChangeDetectionStrategy2["OnPush"] = 0] = "OnPush";
   ChangeDetectionStrategy2[ChangeDetectionStrategy2["Default"] = 1] = "Default";
 })(ChangeDetectionStrategy || (ChangeDetectionStrategy = {}));
+var InputFlags;
+(function(InputFlags2) {
+  InputFlags2[InputFlags2["None"] = 0] = "None";
+  InputFlags2[InputFlags2["SignalBased"] = 1] = "SignalBased";
+  InputFlags2[InputFlags2["HasDecoratorInputTransform"] = 2] = "HasDecoratorInputTransform";
+})(InputFlags || (InputFlags = {}));
 var CUSTOM_ELEMENTS_SCHEMA = {
   name: "custom-elements"
 };
@@ -7256,12 +7262,13 @@ var BinaryOperator;
   BinaryOperator2[BinaryOperator2["Modulo"] = 8] = "Modulo";
   BinaryOperator2[BinaryOperator2["And"] = 9] = "And";
   BinaryOperator2[BinaryOperator2["Or"] = 10] = "Or";
-  BinaryOperator2[BinaryOperator2["BitwiseAnd"] = 11] = "BitwiseAnd";
-  BinaryOperator2[BinaryOperator2["Lower"] = 12] = "Lower";
-  BinaryOperator2[BinaryOperator2["LowerEquals"] = 13] = "LowerEquals";
-  BinaryOperator2[BinaryOperator2["Bigger"] = 14] = "Bigger";
-  BinaryOperator2[BinaryOperator2["BiggerEquals"] = 15] = "BiggerEquals";
-  BinaryOperator2[BinaryOperator2["NullishCoalesce"] = 16] = "NullishCoalesce";
+  BinaryOperator2[BinaryOperator2["BitwiseOr"] = 11] = "BitwiseOr";
+  BinaryOperator2[BinaryOperator2["BitwiseAnd"] = 12] = "BitwiseAnd";
+  BinaryOperator2[BinaryOperator2["Lower"] = 13] = "Lower";
+  BinaryOperator2[BinaryOperator2["LowerEquals"] = 14] = "LowerEquals";
+  BinaryOperator2[BinaryOperator2["Bigger"] = 15] = "Bigger";
+  BinaryOperator2[BinaryOperator2["BiggerEquals"] = 16] = "BiggerEquals";
+  BinaryOperator2[BinaryOperator2["NullishCoalesce"] = 17] = "NullishCoalesce";
 })(BinaryOperator || (BinaryOperator = {}));
 function nullSafeIsEquivalent(base, other) {
   if (base == null || other == null) {
@@ -7333,6 +7340,9 @@ var Expression = class {
   }
   and(rhs, sourceSpan) {
     return new BinaryOperatorExpr(BinaryOperator.And, this, rhs, null, sourceSpan);
+  }
+  bitwiseOr(rhs, sourceSpan, parens = true) {
+    return new BinaryOperatorExpr(BinaryOperator.BitwiseOr, this, rhs, null, sourceSpan, parens);
   }
   bitwiseAnd(rhs, sourceSpan, parens = true) {
     return new BinaryOperatorExpr(BinaryOperator.BitwiseAnd, this, rhs, null, sourceSpan, parens);
@@ -8926,6 +8936,12 @@ var Identifiers = _Identifiers;
   };
 })();
 (() => {
+  _Identifiers.InputFlags = {
+    name: "\u0275\u0275InputFlags",
+    moduleName: CORE
+  };
+})();
+(() => {
   _Identifiers.sanitizeHtml = { name: "\u0275\u0275sanitizeHtml", moduleName: CORE };
 })();
 (() => {
@@ -9517,6 +9533,9 @@ var AbstractEmitterVisitor = class {
         break;
       case BinaryOperator.And:
         opStr = "&&";
+        break;
+      case BinaryOperator.BitwiseOr:
+        opStr = "|";
         break;
       case BinaryOperator.BitwiseAnd:
         opStr = "&";
@@ -10626,7 +10645,7 @@ function asLiteral(value) {
   }
   return literal(value, INFERRED_TYPE);
 }
-function conditionallyCreateDirectiveBindingLiteral(map, keepDeclared) {
+function conditionallyCreateDirectiveBindingLiteral(map, forInputs) {
   const keys = Object.getOwnPropertyNames(map);
   if (keys.length === 0) {
     return null;
@@ -10646,12 +10665,25 @@ function conditionallyCreateDirectiveBindingLiteral(map, keepDeclared) {
       minifiedName = key;
       declaredName = value.classPropertyName;
       publicName = value.bindingPropertyName;
-      if (keepDeclared && (publicName !== declaredName || value.transformFunction != null)) {
-        const expressionKeys = [asLiteral(publicName), asLiteral(declaredName)];
-        if (value.transformFunction != null) {
-          expressionKeys.push(value.transformFunction);
+      const differentDeclaringName = publicName !== declaredName;
+      const hasDecoratorInputTransform = value.transformFunction !== null;
+      let flags = null;
+      if (value.isSignal) {
+        flags = bitwiseOrInputFlagsExpr(InputFlags.SignalBased, flags);
+      }
+      if (hasDecoratorInputTransform) {
+        flags = bitwiseOrInputFlagsExpr(InputFlags.HasDecoratorInputTransform, flags);
+      }
+      if (forInputs && (differentDeclaringName || hasDecoratorInputTransform || flags !== null)) {
+        const flagsExpr = flags != null ? flags : importExpr(Identifiers.InputFlags).prop(InputFlags[InputFlags.None]);
+        const result = [flagsExpr, asLiteral(publicName)];
+        if (differentDeclaringName || hasDecoratorInputTransform) {
+          result.push(asLiteral(declaredName));
+          if (hasDecoratorInputTransform) {
+            result.push(value.transformFunction);
+          }
         }
-        expressionValue = literalArr(expressionKeys);
+        expressionValue = literalArr(result);
       } else {
         expressionValue = asLiteral(publicName);
       }
@@ -10662,6 +10694,15 @@ function conditionallyCreateDirectiveBindingLiteral(map, keepDeclared) {
       value: expressionValue
     };
   }));
+}
+function getInputFlagExpr(flag) {
+  return importExpr(Identifiers.InputFlags).prop(InputFlags[flag]);
+}
+function bitwiseOrInputFlagsExpr(flag, expr) {
+  if (expr === null) {
+    return getInputFlagExpr(flag);
+  }
+  return getInputFlagExpr(flag).bitwiseOr(expr);
 }
 function trimTrailingNulls(parameters) {
   while (isNull(parameters[parameters.length - 1])) {
@@ -13502,13 +13543,6 @@ var DeferTriggerKind;
   DeferTriggerKind2[DeferTriggerKind2["Interaction"] = 4] = "Interaction";
   DeferTriggerKind2[DeferTriggerKind2["Viewport"] = 5] = "Viewport";
 })(DeferTriggerKind || (DeferTriggerKind = {}));
-var DerivedRepeaterVarIdentity;
-(function(DerivedRepeaterVarIdentity2) {
-  DerivedRepeaterVarIdentity2[DerivedRepeaterVarIdentity2["First"] = 0] = "First";
-  DerivedRepeaterVarIdentity2[DerivedRepeaterVarIdentity2["Last"] = 1] = "Last";
-  DerivedRepeaterVarIdentity2[DerivedRepeaterVarIdentity2["Even"] = 2] = "Even";
-  DerivedRepeaterVarIdentity2[DerivedRepeaterVarIdentity2["Odd"] = 3] = "Odd";
-})(DerivedRepeaterVarIdentity || (DerivedRepeaterVarIdentity = {}));
 var I18nContextKind;
 (function(I18nContextKind2) {
   I18nContextKind2[I18nContextKind2["RootI18n"] = 0] = "RootI18n";
@@ -13657,10 +13691,11 @@ function createClassMapOp(xref, expression, sourceSpan) {
     sourceSpan
   }, TRAIT_DEPENDS_ON_SLOT_CONTEXT), TRAIT_CONSUMES_VARS), NEW_OP);
 }
-function createAttributeOp(target, name, expression, securityContext, isTextAttribute, isStructuralTemplateAttribute, templateKind, i18nMessage, sourceSpan) {
+function createAttributeOp(target, namespace, name, expression, securityContext, isTextAttribute, isStructuralTemplateAttribute, templateKind, i18nMessage, sourceSpan) {
   return __spreadValues(__spreadValues(__spreadValues({
     kind: OpKind.Attribute,
     target,
+    namespace,
     name,
     expression,
     securityContext,
@@ -14313,27 +14348,6 @@ var ConditionalCaseExpr = class extends ExpressionBase {
     }
   }
 };
-var DerivedRepeaterVarExpr = class extends ExpressionBase {
-  constructor(xref, identity) {
-    super();
-    this.xref = xref;
-    this.identity = identity;
-    this.kind = ExpressionKind.DerivedRepeaterVar;
-  }
-  transformInternalExpressions(transform2, flags) {
-  }
-  visitExpression(visitor, context) {
-  }
-  isEquivalent(e) {
-    return e instanceof DerivedRepeaterVarExpr && e.identity === this.identity && e.xref === this.xref;
-  }
-  isConstant() {
-    return false;
-  }
-  clone() {
-    return new DerivedRepeaterVarExpr(this.xref, this.identity);
-  }
-};
 var ConstCollectedExpr = class extends ExpressionBase {
   constructor(expr) {
     super();
@@ -14933,11 +14947,12 @@ function createProjectionOp(xref, selector, i18nPlaceholder, sourceSpan) {
     sourceSpan
   }, NEW_OP), TRAIT_CONSUMES_SLOT);
 }
-function createExtractedAttributeOp(target, bindingKind, name, expression, i18nContext, i18nMessage, securityContext) {
+function createExtractedAttributeOp(target, bindingKind, namespace, name, expression, i18nContext, i18nMessage, securityContext) {
   return __spreadValues({
     kind: OpKind.ExtractedAttribute,
     target,
     bindingKind,
+    namespace,
     name,
     expression,
     i18nContext,
@@ -15316,6 +15331,7 @@ function extractAttributes(job) {
               createExtractedAttributeOp(
                 op.target,
                 bindingKind,
+                null,
                 op.name,
                 null,
                 null,
@@ -15332,6 +15348,7 @@ function extractAttributes(job) {
             OpList.insertBefore(createExtractedAttributeOp(
               op.target,
               BindingKind.Property,
+              null,
               op.name,
               null,
               null,
@@ -15345,6 +15362,7 @@ function extractAttributes(job) {
             const extractedAttributeOp = createExtractedAttributeOp(
               op.target,
               BindingKind.Property,
+              null,
               op.name,
               null,
               null,
@@ -15381,7 +15399,7 @@ function extractAttributeOp(unit, op, elements) {
     extractable && (extractable = op.isTextAttribute);
   }
   if (extractable) {
-    const extractedAttributeOp = createExtractedAttributeOp(op.target, op.isStructuralTemplateAttribute ? BindingKind.Template : BindingKind.Attribute, op.name, op.expression, op.i18nContext, op.i18nMessage, op.securityContext);
+    const extractedAttributeOp = createExtractedAttributeOp(op.target, op.isStructuralTemplateAttribute ? BindingKind.Template : BindingKind.Attribute, op.namespace, op.name, op.expression, op.i18nContext, op.i18nMessage, op.securityContext);
     if (unit.job.kind === CompilationJobKind.Host) {
       unit.create.push(extractedAttributeOp);
     } else {
@@ -15420,7 +15438,8 @@ function specializeBindings(job) {
             const target = lookupElement$1(elements, op.target);
             target.nonBindable = true;
           } else {
-            OpList.replace(op, createAttributeOp(op.target, op.name, op.expression, op.securityContext, op.isTextAttribute, op.isStructuralTemplateAttribute, op.templateKind, op.i18nMessage, op.sourceSpan));
+            const [namespace, name] = splitNsName(op.name);
+            OpList.replace(op, createAttributeOp(op.target, namespace, name, op.expression, op.securityContext, op.isTextAttribute, op.isStructuralTemplateAttribute, op.templateKind, op.i18nMessage, op.sourceSpan));
           }
           break;
         case BindingKind.Property:
@@ -15552,6 +15571,7 @@ var BINARY_OPERATORS = /* @__PURE__ */ new Map([
   ["&&", BinaryOperator.And],
   [">", BinaryOperator.Bigger],
   [">=", BinaryOperator.BiggerEquals],
+  ["|", BinaryOperator.BitwiseOr],
   ["&", BinaryOperator.BitwiseAnd],
   ["/", BinaryOperator.Divide],
   ["==", BinaryOperator.Equals],
@@ -15603,7 +15623,7 @@ function collectElementConsts(job) {
       if (op.kind === OpKind.ExtractedAttribute) {
         const attributes = allElementAttributes.get(op.target) || new ElementAttributes(job.compatibility);
         allElementAttributes.set(op.target, attributes);
-        attributes.add(op.bindingKind, op.name, op.expression, op.trustedValueFn);
+        attributes.add(op.bindingKind, op.name, op.expression, op.namespace, op.trustedValueFn);
         OpList.remove(op);
       }
     }
@@ -15691,7 +15711,7 @@ var ElementAttributes = class {
     nameToValue.add(name);
     return false;
   }
-  add(kind, name, value, trustedValueFn) {
+  add(kind, name, value, namespace, trustedValueFn) {
     var _a2;
     const allowDuplicates = this.compatibility === CompatibilityMode.TemplateDefinitionBuilder && (kind === BindingKind.Attribute || kind === BindingKind.ClassName || kind === BindingKind.StyleProperty);
     if (!allowDuplicates && this.isKnown(kind, name, value)) {
@@ -15704,7 +15724,7 @@ var ElementAttributes = class {
       this.projectAs = value.value.toString();
     }
     const array = this.arrayFor(kind);
-    array.push(...getAttributeNameLiterals$1(name));
+    array.push(...getAttributeNameLiterals$1(namespace, name));
     if (kind === BindingKind.Attribute || kind === BindingKind.StyleProperty) {
       if (value === null) {
         throw Error("Attribute, i18n attribute, & style element attributes must have a value");
@@ -15726,15 +15746,10 @@ var ElementAttributes = class {
     return this.byKind.get(kind);
   }
 };
-function getAttributeNameLiterals$1(name) {
-  const [attributeNamespace, attributeName] = splitNsName(name, false);
-  const nameLiteral = literal(attributeName);
-  if (attributeNamespace) {
-    return [
-      literal(0),
-      literal(attributeNamespace),
-      nameLiteral
-    ];
+function getAttributeNameLiterals$1(namespace, name) {
+  const nameLiteral = literal(name);
+  if (namespace) {
+    return [literal(0), literal(namespace), nameLiteral];
   }
   return [nameLiteral];
 }
@@ -16497,7 +16512,7 @@ function parseHostStyleProperties(job) {
     if (op.name.startsWith(STYLE_DOT)) {
       op.bindingKind = BindingKind.StyleProperty;
       op.name = op.name.substring(STYLE_DOT.length);
-      if (isCssCustomProperty$1(op.name)) {
+      if (!isCssCustomProperty$1(op.name)) {
         op.name = hyphenate$1(op.name);
       }
       const { property: property2, suffix } = parseProperty$1(op.name);
@@ -23087,13 +23102,13 @@ function parseExtractedStyles(job) {
         if (op.name === "style") {
           const parsedStyles = parse(op.expression.value);
           for (let i = 0; i < parsedStyles.length - 1; i += 2) {
-            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.StyleProperty, parsedStyles[i], literal(parsedStyles[i + 1]), null, null, SecurityContext.STYLE), op);
+            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.StyleProperty, null, parsedStyles[i], literal(parsedStyles[i + 1]), null, null, SecurityContext.STYLE), op);
           }
           OpList.remove(op);
         } else if (op.name === "class") {
           const parsedClasses = op.expression.value.trim().split(/\s+/g);
           for (const parsedClass of parsedClasses) {
-            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.ClassName, parsedClass, null, null, null, SecurityContext.NONE), op);
+            OpList.insertBefore(createExtractedAttributeOp(op.target, BindingKind.ClassName, null, parsedClass, null, null, null, SecurityContext.NONE), op);
           }
           OpList.remove(op);
         }
@@ -23405,9 +23420,7 @@ function namespaceMath() {
   return call(Identifiers.namespaceMathML, [], null);
 }
 function advance(delta, sourceSpan) {
-  return call(Identifiers.advance, [
-    literal(delta)
-  ], sourceSpan);
+  return call(Identifiers.advance, delta > 1 ? [literal(delta)] : [], sourceSpan);
 }
 function reference(slot) {
   return importExpr(Identifiers.reference).callFn([
@@ -23551,10 +23564,13 @@ function property(name, expression, sanitizer, sourceSpan) {
   }
   return call(Identifiers.property, args, sourceSpan);
 }
-function attribute(name, expression, sanitizer) {
+function attribute(name, expression, sanitizer, namespace) {
   const args = [literal(name), expression];
-  if (sanitizer !== null) {
-    args.push(sanitizer);
+  if (sanitizer !== null || namespace !== null) {
+    args.push(sanitizer != null ? sanitizer : literal(null));
+  }
+  if (namespace !== null) {
+    args.push(literal(namespace));
   }
   return call(Identifiers.attribute, args, null);
 }
@@ -24065,7 +24081,7 @@ function reifyUpdateOperations(_unit, ops) {
         if (op.expression instanceof Interpolation) {
           OpList.replace(op, attributeInterpolate(op.name, op.expression.strings, op.expression.expressions, op.sanitizer, op.sourceSpan));
         } else {
-          OpList.replace(op, attribute(op.name, op.expression, op.sanitizer));
+          OpList.replace(op, attribute(op.name, op.expression, op.sanitizer, op.namespace));
         }
         break;
       case OpKind.HostProperty:
@@ -24224,36 +24240,6 @@ function removeUnusedI18nAttributesOps(job) {
           }
           OpList.remove(op);
       }
-    }
-  }
-}
-function generateRepeaterDerivedVars(job) {
-  const repeaters = /* @__PURE__ */ new Map();
-  for (const unit of job.units) {
-    for (const op of unit.ops()) {
-      if (op.kind === OpKind.RepeaterCreate) {
-        repeaters.set(op.xref, op);
-      }
-    }
-  }
-  for (const unit of job.units) {
-    for (const op of unit.ops()) {
-      transformExpressionsInOp(op, (expr) => {
-        if (!(expr instanceof DerivedRepeaterVarExpr)) {
-          return expr;
-        }
-        const repeaterOp = repeaters.get(expr.xref);
-        switch (expr.identity) {
-          case DerivedRepeaterVarIdentity.First:
-            return new BinaryOperatorExpr(BinaryOperator.Identical, new LexicalReadExpr(repeaterOp.varNames.$index), literal(0));
-          case DerivedRepeaterVarIdentity.Last:
-            return new BinaryOperatorExpr(BinaryOperator.Identical, new LexicalReadExpr(repeaterOp.varNames.$index), new BinaryOperatorExpr(BinaryOperator.Minus, new LexicalReadExpr(repeaterOp.varNames.$count), literal(1)));
-          case DerivedRepeaterVarIdentity.Even:
-            return new BinaryOperatorExpr(BinaryOperator.Identical, new BinaryOperatorExpr(BinaryOperator.Modulo, new LexicalReadExpr(repeaterOp.varNames.$index), literal(2)), literal(0));
-          case DerivedRepeaterVarIdentity.Odd:
-            return new BinaryOperatorExpr(BinaryOperator.NotIdentical, new BinaryOperatorExpr(BinaryOperator.Modulo, new LexicalReadExpr(repeaterOp.varNames.$index), literal(2)), literal(0));
-        }
-      }, VisitorContextFlag.None);
     }
   }
 }
@@ -25330,7 +25316,6 @@ var phases = [
   { kind: CompilationJobKind.Tmpl, fn: saveAndRestoreView },
   { kind: CompilationJobKind.Both, fn: deleteAnyCasts },
   { kind: CompilationJobKind.Both, fn: resolveDollarEvent },
-  { kind: CompilationJobKind.Tmpl, fn: generateRepeaterDerivedVars },
   { kind: CompilationJobKind.Tmpl, fn: generateTrackVariables },
   { kind: CompilationJobKind.Both, fn: resolveNames },
   { kind: CompilationJobKind.Tmpl, fn: resolveDeferTargetNames },
@@ -25679,6 +25664,9 @@ function ingestIfBlock(unit, ifBlock) {
 }
 function ingestSwitchBlock(unit, switchBlock) {
   var _a2;
+  if (switchBlock.cases.length === 0) {
+    return;
+  }
   let firstXref = null;
   let firstSlotHandle = null;
   let conditions = [];
@@ -25823,21 +25811,37 @@ function ingestIcu(unit, icu) {
 function ingestForBlock(unit, forBlock) {
   var _a2, _b2, _c2;
   const repeaterView = unit.job.allocateView(unit.xref);
-  const createRepeaterAlias = (ident, repeaterVar) => {
-    repeaterView.aliases.add({
-      kind: SemanticVariableKind.Alias,
-      name: null,
-      identifier: ident,
-      expression: new DerivedRepeaterVarExpr(repeaterView.xref, repeaterVar)
-    });
-  };
   repeaterView.contextVariables.set(forBlock.item.name, forBlock.item.value);
   repeaterView.contextVariables.set(forBlock.contextVariables.$index.name, forBlock.contextVariables.$index.value);
   repeaterView.contextVariables.set(forBlock.contextVariables.$count.name, forBlock.contextVariables.$count.value);
-  createRepeaterAlias(forBlock.contextVariables.$first.name, DerivedRepeaterVarIdentity.First);
-  createRepeaterAlias(forBlock.contextVariables.$last.name, DerivedRepeaterVarIdentity.Last);
-  createRepeaterAlias(forBlock.contextVariables.$even.name, DerivedRepeaterVarIdentity.Even);
-  createRepeaterAlias(forBlock.contextVariables.$odd.name, DerivedRepeaterVarIdentity.Odd);
+  const indexName = `\u0275${forBlock.contextVariables.$index.name}_${repeaterView.xref}`;
+  const countName = `\u0275${forBlock.contextVariables.$count.name}_${repeaterView.xref}`;
+  repeaterView.contextVariables.set(indexName, forBlock.contextVariables.$index.value);
+  repeaterView.contextVariables.set(countName, forBlock.contextVariables.$count.value);
+  repeaterView.aliases.add({
+    kind: SemanticVariableKind.Alias,
+    name: null,
+    identifier: forBlock.contextVariables.$first.name,
+    expression: new LexicalReadExpr(indexName).identical(literal(0))
+  });
+  repeaterView.aliases.add({
+    kind: SemanticVariableKind.Alias,
+    name: null,
+    identifier: forBlock.contextVariables.$last.name,
+    expression: new LexicalReadExpr(indexName).identical(new LexicalReadExpr(countName).minus(literal(1)))
+  });
+  repeaterView.aliases.add({
+    kind: SemanticVariableKind.Alias,
+    name: null,
+    identifier: forBlock.contextVariables.$even.name,
+    expression: new LexicalReadExpr(indexName).modulo(literal(2)).identical(literal(0))
+  });
+  repeaterView.aliases.add({
+    kind: SemanticVariableKind.Alias,
+    name: null,
+    identifier: forBlock.contextVariables.$odd.name,
+    expression: new LexicalReadExpr(indexName).modulo(literal(2)).notIdentical(literal(0))
+  });
   const sourceSpan = convertSourceSpan(forBlock.trackBy.span, forBlock.sourceSpan);
   const track = convertAst(forBlock.trackBy, unit.job, sourceSpan);
   ingestNodes(repeaterView, forBlock.children);
@@ -26039,7 +26043,7 @@ function ingestTemplateBindings(unit, op, template2, templateKind) {
     }
     if (templateKind === TemplateKind.Structural && output.type !== 1) {
       const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME$1, output.name, false);
-      unit.create.push(createExtractedAttributeOp(op.xref, BindingKind.Property, output.name, null, null, null, securityContext));
+      unit.create.push(createExtractedAttributeOp(op.xref, BindingKind.Property, null, output.name, null, null, null, securityContext));
     }
   }
   if (bindings.some((b) => b == null ? void 0 : b.i18nMessage) !== null) {
@@ -26050,7 +26054,7 @@ function createTemplateBinding(view, xref, type, name, value, unit, securityCont
   const isTextBinding = typeof value === "string";
   if (templateKind === TemplateKind.Structural) {
     if (!isStructuralTemplateAttribute && (type === 0 || type === 2 || type === 3)) {
-      return createExtractedAttributeOp(xref, BindingKind.Property, name, null, null, i18nMessage, securityContext);
+      return createExtractedAttributeOp(xref, BindingKind.Property, null, name, null, null, i18nMessage, securityContext);
     }
     if (!isTextBinding && (type === 1 || type === 4)) {
       return null;
@@ -28883,6 +28887,9 @@ var TemplateDefinitionBuilder = class {
     this.updateInstructionWithAdvance(containerIndex, block.branches[0].sourceSpan, Identifiers.conditional, paramsCallback);
   }
   visitSwitchBlock(block) {
+    if (block.cases.length === 0) {
+      return;
+    }
     const caseData = block.cases.map((currentCase) => {
       const index2 = this.createEmbeddedTemplateFn(null, currentCase.children, "_Case", currentCase.sourceSpan, void 0, void 0, void 0, currentCase.i18n);
       const expression = currentCase.expression === null ? null : currentCase.expression.visit(this._valueConverter);
@@ -29210,7 +29217,7 @@ var TemplateDefinitionBuilder = class {
       if (delta < 1) {
         throw new Error("advance instruction can only go forwards");
       }
-      this.instructionFn(this._updateCodeFns, span, Identifiers.advance, [literal(delta)]);
+      this.instructionFn(this._updateCodeFns, span, Identifiers.advance, delta > 1 ? [literal(delta)] : []);
       this._currentIndex = nodeIndex;
     }
   }
@@ -31292,7 +31299,7 @@ function convertDirectiveFacadeToMetadata(facade) {
             bindingPropertyName: ann.alias || field,
             classPropertyName: field,
             required: ann.required || false,
-            isSignal: false,
+            isSignal: !!ann.isSignal,
             transformFunction: ann.transform != null ? new WrappedNodeExpr(ann.transform) : null
           };
         } else if (isOutput(ann)) {
@@ -31644,7 +31651,7 @@ function publishFacade(global) {
   const ng = global.ng || (global.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("17.1.0-next.5");
+var VERSION = new Version("17.1.0-rc.0");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -33598,7 +33605,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v17.1.0-next.5
+ * @license Angular v17.1.0-rc.0
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
