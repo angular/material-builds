@@ -77,7 +77,7 @@ export declare interface CanUpdateErrorState {
     /** Whether the component is in an error state. */
     errorState: boolean;
     /** An object used to control the error state of the component. */
-    errorStateMatcher: ErrorStateMatcher;
+    errorStateMatcher: ErrorStateMatcher_2;
 }
 
 declare type CanUpdateErrorStateCtor = _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState>;
@@ -314,6 +314,9 @@ export declare class ErrorStateMatcher {
     static ɵprov: i0.ɵɵInjectableDeclaration<ErrorStateMatcher>;
 }
 
+declare interface ErrorStateMatcher_2 extends ErrorStateMatcher {
+}
+
 /**
  * Class that tracks the error state of a component.
  * @docs-private
@@ -327,8 +330,8 @@ export declare class _ErrorStateTracker {
     /** Whether the tracker is currently in an error state. */
     errorState: boolean;
     /** User-defined matcher for the error state. */
-    matcher: ErrorStateMatcher;
-    constructor(_defaultMatcher: ErrorStateMatcher | null, ngControl: NgControl | null, _parentFormGroup: FormGroupDirective | null, _parentForm: NgForm | null, _stateChanges: Subject<void>);
+    matcher: ErrorStateMatcher_2;
+    constructor(_defaultMatcher: ErrorStateMatcher_2 | null, ngControl: NgControl | null, _parentFormGroup: FormGroupDirective | null, _parentForm: NgForm | null, _stateChanges: Subject<void>);
     /** Updates the error state based on the provided error state matcher. */
     updateErrorState(): void;
 }
@@ -359,7 +362,7 @@ declare interface HasElementRef {
 declare interface HasErrorState {
     _parentFormGroup: FormGroupDirective;
     _parentForm: NgForm;
-    _defaultErrorStateMatcher: ErrorStateMatcher;
+    _defaultErrorStateMatcher: ErrorStateMatcher_2;
     ngControl: NgControl;
     stateChanges: Subject<void>;
 }
