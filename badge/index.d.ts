@@ -13,6 +13,7 @@ declare namespace i3 {
     export {
         MatBadgePosition,
         MatBadgeSize,
+        _MatBadgeStyleLoader,
         MatBadge
     }
 }
@@ -95,7 +96,7 @@ export declare class MatBadge implements OnInit, OnDestroy {
 
 export declare class MatBadgeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadgeModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBadgeModule, never, [typeof i1.A11yModule, typeof i2.MatCommonModule, typeof i3.MatBadge], [typeof i3.MatBadge, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBadgeModule, never, [typeof i1.A11yModule, typeof i2.MatCommonModule, typeof i3.MatBadge, typeof i3._MatBadgeStyleLoader], [typeof i3.MatBadge, typeof i2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatBadgeModule>;
 }
 
@@ -104,5 +105,14 @@ export declare type MatBadgePosition = 'above after' | 'above before' | 'below b
 
 /** Allowed size options for matBadgeSize */
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
+
+/**
+ * Component used to load the structural styles of the badge.
+ * @docs-private
+ */
+declare class _MatBadgeStyleLoader {
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatBadgeStyleLoader, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<_MatBadgeStyleLoader, "ng-component", never, {}, {}, never, never, true, never>;
+}
 
 export { }
