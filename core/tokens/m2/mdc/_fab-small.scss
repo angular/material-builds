@@ -1,40 +1,42 @@
-@use '../../token-utils';
 @use '../../../theming/inspection';
+@use '../../token-utils';
 
 @use 'sass:map';
 
 // The prefix used to generate the fully qualified name for tokens in this file.
-$prefix: (mdc, extended-fab);
+$prefix: (mdc, fab-small);
 
 @function get-unthemable-tokens() {
   @return (
-    container-height: 48px,
-    container-shape: 24px,
+    container-shape: 50%,
+    icon-size: 24px,
+
+    // We don't use this token, because it doesn't set the color of any text inside the FAB.
+    // We create a custom token for it instead.
+    icon-color: null,
 
     // =============================================================================================
     // = TOKENS NOT USED IN ANGULAR MATERIAL                                                       =
     // =============================================================================================
-    container-color: null,
-    container-surface-tint-layer-color: null,
+    container-height: null,
+    container-width: null,
+
     focus-icon-color: null,
-    focus-label-text-color: null,
     focus-outline-color: null,
     focus-outline-width: null,
     focus-state-layer-color: null,
     focus-state-layer-opacity: null,
+
     hover-icon-color: null,
-    hover-label-text-color: null,
     hover-state-layer-color: null,
     hover-state-layer-opacity: null,
-    icon-color: null,
-    icon-size: null,
-    label-text-color: null,
+
     lowered-container-elevation: null,
     lowered-focus-container-elevation: null,
     lowered-hover-container-elevation: null,
     lowered-pressed-container-elevation: null,
+
     pressed-icon-color: null,
-    pressed-label-text-color: null,
     pressed-ripple-color: null,
     pressed-ripple-opacity: null,
     pressed-state-layer-color: null,
@@ -45,6 +47,8 @@ $prefix: (mdc, extended-fab);
 // Tokens that can be configured through Angular Material's color theming API.
 @function get-color-tokens($theme) {
   @return (
+    // Background color of the FAB.
+    container-color: inspection.get-theme-color($theme, background, card),
     container-elevation: 6,
     focus-container-elevation: 8,
     hover-container-elevation: 8,
@@ -53,14 +57,16 @@ $prefix: (mdc, extended-fab);
   );
 }
 
+// Generates the mapping for the properties that change based on the FAB palette color.
+@function private-get-color-palette-color-tokens($theme, $palette-name) {
+  @return (
+    container-color: inspection.get-theme-color($theme, $palette-name, default),
+  );
+}
+
 // Tokens that can be configured through Angular Material's typography theming API.
 @function get-typography-tokens($theme) {
-  @return (
-    label-text-font: inspection.get-theme-typography($theme, button, font-family),
-    label-text-size: inspection.get-theme-typography($theme, button, font-size),
-    label-text-tracking: inspection.get-theme-typography($theme, button, letter-spacing),
-    label-text-weight: inspection.get-theme-typography($theme, button, font-weight)
-  );
+  @return ();
 }
 
 // Tokens that can be configured through Angular Material's density theming API.
