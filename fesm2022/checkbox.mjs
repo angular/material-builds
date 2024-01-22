@@ -1,8 +1,7 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, EventEmitter, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Attribute, Optional, Inject, Input, Output, ViewChild, Directive, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, EventEmitter, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Attribute, Optional, Inject, Input, Output, ViewChild, Directive, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
 import { MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /** Injection token to be used to override the default options for `mat-checkbox`. */
 const MAT_CHECKBOX_DEFAULT_OPTIONS = new InjectionToken('mat-checkbox-default-options', {

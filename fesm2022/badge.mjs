@@ -1,10 +1,9 @@
 import * as i0 from '@angular/core';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, ApplicationRef, createComponent, EnvironmentInjector, booleanAttribute, Directive, Optional, Inject, Input, NgModule } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, ApplicationRef, createComponent, EnvironmentInjector, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Optional, Inject, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i1 from '@angular/cdk/a11y';
 import { InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 let nextId = 0;
 const BADGE_CONTENT_CLASS = 'mat-badge-content';

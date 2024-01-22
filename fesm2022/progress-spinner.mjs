@@ -1,6 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Optional, Inject, Input, ViewChild, NgModule } from '@angular/core';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { InjectionToken, ANIMATION_MODULE_TYPE, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Optional, Inject, Input, ViewChild, NgModule } from '@angular/core';
 import { NgTemplateOutlet, CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 

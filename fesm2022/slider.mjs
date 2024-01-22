@@ -1,9 +1,8 @@
 import * as i1 from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Input, ViewChild, booleanAttribute, numberAttribute, Optional, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, Directive, Output, NgModule } from '@angular/core';
+import { InjectionToken, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Input, ViewChild, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, Optional, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, Directive, Output, NgModule } from '@angular/core';
 import { RippleState, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 

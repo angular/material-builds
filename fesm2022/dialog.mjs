@@ -3,9 +3,8 @@ import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import * as i2 from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, InjectionToken, inject, ANIMATION_MODULE_TYPE as ANIMATION_MODULE_TYPE$1, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
+import { EventEmitter, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, InjectionToken, inject, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular/cdk/dialog';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
@@ -625,7 +624,7 @@ class MatDialog {
             dialogs[i].close();
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatDialog, deps: [{ token: i1$1.Overlay }, { token: i0.Injector }, { token: i2.Location, optional: true }, { token: MAT_DIALOG_DEFAULT_OPTIONS, optional: true }, { token: MAT_DIALOG_SCROLL_STRATEGY }, { token: MatDialog, optional: true, skipSelf: true }, { token: i1$1.OverlayContainer }, { token: ANIMATION_MODULE_TYPE$1, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatDialog, deps: [{ token: i1$1.Overlay }, { token: i0.Injector }, { token: i2.Location, optional: true }, { token: MAT_DIALOG_DEFAULT_OPTIONS, optional: true }, { token: MAT_DIALOG_SCROLL_STRATEGY }, { token: MatDialog, optional: true, skipSelf: true }, { token: i1$1.OverlayContainer }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Injectable }); }
     static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatDialog, providedIn: 'root' }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.5", ngImport: i0, type: MatDialog, decorators: [{
@@ -649,7 +648,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-next.5", 
                     type: Optional
                 }, {
                     type: Inject,
-                    args: [ANIMATION_MODULE_TYPE$1]
+                    args: [ANIMATION_MODULE_TYPE]
                 }] }] });
 
 /** Counter used to generate unique IDs for dialog elements. */

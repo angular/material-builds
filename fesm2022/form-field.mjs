@@ -1,8 +1,7 @@
 import * as i0 from '@angular/core';
-import { Directive, InjectionToken, Attribute, Input, inject, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Optional, Inject, ContentChild, ContentChildren, NgModule } from '@angular/core';
+import { Directive, InjectionToken, Attribute, Input, inject, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ANIMATION_MODULE_TYPE, Optional, Inject, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import * as i1 from '@angular/cdk/bidi';
 import * as i2 from '@angular/cdk/platform';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subscription, Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';

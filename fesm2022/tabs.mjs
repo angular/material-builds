@@ -1,9 +1,8 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Inject, Optional, booleanAttribute, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, EventEmitter, numberAttribute, Output, ContentChildren, forwardRef, QueryList, inject, Attribute, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Inject, Optional, booleanAttribute, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, EventEmitter, ANIMATION_MODULE_TYPE, numberAttribute, Output, ContentChildren, forwardRef, QueryList, inject, Attribute, NgModule } from '@angular/core';
 import { MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, fromEvent, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import * as i1 from '@angular/cdk/scrolling';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import * as i3 from '@angular/cdk/platform';

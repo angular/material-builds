@@ -1,7 +1,6 @@
 import * as i1 from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, booleanAttribute, Directive, Input, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, NgModule } from '@angular/core';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { InjectionToken, inject, booleanAttribute, Directive, Input, numberAttribute, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatRippleLoader, MatCommonModule, MatRippleModule } from '@angular/material/core';
 

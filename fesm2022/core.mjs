@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, booleanAttribute, EventEmitter, Output, ViewChild, ANIMATION_MODULE_TYPE as ANIMATION_MODULE_TYPE$1, NgZone, ElementRef } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, ANIMATION_MODULE_TYPE, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, booleanAttribute, EventEmitter, Output, ViewChild, NgZone, ElementRef } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -10,7 +10,6 @@ import { Platform, _isTestEnvironment, normalizePassiveListenerOptions, _getEven
 import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
 import { Observable, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /** Current version of Angular Material. */
@@ -1777,7 +1776,7 @@ const matRippleDisabled = 'mat-ripple-loader-disabled';
 class MatRippleLoader {
     constructor() {
         this._document = inject(DOCUMENT, { optional: true });
-        this._animationMode = inject(ANIMATION_MODULE_TYPE$1, { optional: true });
+        this._animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         this._globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, { optional: true });
         this._platform = inject(Platform);
         this._ngZone = inject(NgZone);

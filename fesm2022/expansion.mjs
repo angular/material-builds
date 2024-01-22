@@ -1,13 +1,12 @@
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Inject, Optional, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, SkipSelf, Input, Output, ContentChild, ViewChild, numberAttribute, Host, Attribute, QueryList, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Inject, Optional, EventEmitter, ANIMATION_MODULE_TYPE, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, SkipSelf, Input, Output, ContentChild, ViewChild, numberAttribute, Host, Attribute, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i2 from '@angular/cdk/a11y';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { distinctUntilChanged, startWith, filter, take } from 'rxjs/operators';
 import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import * as i1 from '@angular/cdk/collections';
