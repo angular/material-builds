@@ -1,7 +1,7 @@
 import * as i1 from '@angular/cdk/scrolling';
 import { CdkScrollable, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, Output, ViewChild, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, Output, ViewChild, QueryList, ANIMATION_MODULE_TYPE, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i2 from '@angular/cdk/a11y';
 import * as i4 from '@angular/cdk/bidi';
@@ -12,7 +12,6 @@ import { DOCUMENT } from '@angular/common';
 import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, distinctUntilChanged, take, startWith, debounceTime } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * Animations used by the Material drawers.

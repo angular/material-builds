@@ -1,9 +1,8 @@
 import * as i0 from '@angular/core';
-import { forwardRef, InjectionToken, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, numberAttribute, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Attribute, ViewChild, NgModule } from '@angular/core';
+import { forwardRef, InjectionToken, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, numberAttribute, ANIMATION_MODULE_TYPE, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Attribute, ViewChild, NgModule } from '@angular/core';
 import { MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import * as i1 from '@angular/cdk/a11y';
 import * as i2 from '@angular/cdk/collections';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

@@ -1,7 +1,6 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, EventEmitter, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Attribute, Inject, Optional, ViewChild, Input, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, EventEmitter, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Attribute, Inject, Optional, ViewChild, Input, Output, Directive, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import * as i1 from '@angular/cdk/a11y';
 import { MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
 

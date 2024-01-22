@@ -1,6 +1,5 @@
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import * as i0 from '@angular/core';
-import { InjectionToken, booleanAttribute, numberAttribute, Directive, Inject, Input, EventEmitter, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Attribute, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, Self, NgModule } from '@angular/core';
+import { InjectionToken, booleanAttribute, numberAttribute, Directive, Inject, Input, EventEmitter, inject, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Attribute, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, Self, NgModule } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import * as i3 from '@angular/material/core';
 import { MatRippleLoader, MAT_RIPPLE_GLOBAL_OPTIONS, _ErrorStateTracker, MatCommonModule, MatRippleModule, ErrorStateMatcher } from '@angular/material/core';

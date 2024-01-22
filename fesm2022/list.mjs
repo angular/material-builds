@@ -1,10 +1,9 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Optional, Inject, inject, Input, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, EventEmitter, ANIMATION_MODULE_TYPE as ANIMATION_MODULE_TYPE$1, Output, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Optional, Inject, inject, Input, ANIMATION_MODULE_TYPE, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, EventEmitter, Output, forwardRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { RippleRenderer, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRippleModule, MatPseudoCheckboxModule } from '@angular/material/core';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { Subscription, merge, Subject } from 'rxjs';
 import { CdkObserveContent, ObserversModule } from '@angular/cdk/observers';
 import { NgTemplateOutlet, CommonModule } from '@angular/common';
@@ -714,7 +713,7 @@ class MatListOption extends MatListItemBase {
     _setTabindex(value) {
         this._hostElement.setAttribute('tabindex', value + '');
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-rc.0", ngImport: i0, type: MatListOption, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: SELECTION_LIST }, { token: i1.Platform }, { token: i0.ChangeDetectorRef }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE$1, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.1.0-rc.0", ngImport: i0, type: MatListOption, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: SELECTION_LIST }, { token: i1.Platform }, { token: i0.ChangeDetectorRef }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
     static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "17.1.0-rc.0", type: MatListOption, isStandalone: true, selector: "mat-list-option", inputs: { togglePosition: "togglePosition", checkboxPosition: "checkboxPosition", color: "color", value: "value", selected: "selected" }, outputs: { selectedChange: "selectedChange" }, host: { attributes: { "role": "option" }, listeners: { "blur": "_handleBlur()", "click": "_toggleOnInteraction()" }, properties: { "class.mdc-list-item--selected": "selected && !_selectionList.multiple && _selectionList.hideSingleSelectionIndicator", "class.mdc-list-item--with-leading-avatar": "_hasProjected(\"avatars\", \"before\")", "class.mdc-list-item--with-leading-icon": "_hasProjected(\"icons\", \"before\")", "class.mdc-list-item--with-trailing-icon": "_hasProjected(\"icons\", \"after\")", "class.mat-mdc-list-option-with-trailing-avatar": "_hasProjected(\"avatars\", \"after\")", "class.mdc-list-item--with-leading-checkbox": "_hasCheckboxAt(\"before\")", "class.mdc-list-item--with-trailing-checkbox": "_hasCheckboxAt(\"after\")", "class.mdc-list-item--with-leading-radio": "_hasRadioAt(\"before\")", "class.mdc-list-item--with-trailing-radio": "_hasRadioAt(\"after\")", "class.mat-accent": "color !== \"primary\" && color !== \"warn\"", "class.mat-warn": "color === \"warn\"", "class._mat-animation-noopable": "_noopAnimations", "attr.aria-selected": "selected" }, classAttribute: "mat-mdc-list-item mat-mdc-list-option mdc-list-item" }, providers: [
             { provide: MatListItemBase, useExisting: MatListOption },
             { provide: LIST_OPTION, useExisting: MatListOption },
@@ -762,7 +761,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.1.0-rc.0", ng
                     type: Optional
                 }, {
                     type: Inject,
-                    args: [ANIMATION_MODULE_TYPE$1]
+                    args: [ANIMATION_MODULE_TYPE]
                 }] }], propDecorators: { _lines: [{
                 type: ContentChildren,
                 args: [MatListItemLine, { descendants: true }]

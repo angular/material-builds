@@ -1,7 +1,6 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, EventEmitter, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Optional, Inject, Input, Output, NgModule } from '@angular/core';
+import { InjectionToken, inject, EventEmitter, ANIMATION_MODULE_TYPE, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Optional, Inject, Input, Output, NgModule } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { MatCommonModule } from '@angular/material/core';
 
 /** Injection token to be used to override the default options for `mat-progress-bar`. */
