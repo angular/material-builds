@@ -85,6 +85,7 @@ declare namespace i5 {
 declare namespace i6 {
     export {
         MatDialogClose,
+        MatDialogLayoutSection,
         MatDialogTitle,
         MatDialogContent,
         MatDialogActions
@@ -200,11 +201,13 @@ export declare class MatDialog implements OnDestroy {
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
  */
-export declare class MatDialogActions {
+export declare class MatDialogActions extends MatDialogLayoutSection {
     /**
      * Horizontal alignment of action buttons.
      */
     align?: 'start' | 'center' | 'end';
+    protected _onAdd(): void;
+    protected _onRemove(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogActions, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, { "align": { "alias": "align"; "required": false; }; }, {}, never, never, true, never>;
 }
@@ -336,6 +339,8 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
     _animationStateChanged: EventEmitter<LegacyDialogAnimationEvent>;
     /** Whether animations are enabled. */
     _animationsEnabled: boolean;
+    /** Number of actions projected in the dialog. */
+    protected _actionSectionCount: number;
     /** Host element of the dialog container component. */
     private _hostElement;
     /** Duration of the dialog open animation. */
@@ -353,6 +358,11 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
      * called by the dialog ref.
      */
     _startExitAnimation(): void;
+    /**
+     * Updates the number action sections.
+     * @param delta Increase/decrease in the number of sections.
+     */
+    _updateActionSectionCount(delta: number): void;
     /**
      * Completes the dialog open by clearing potential animation classes, trapping
      * focus and emitting an opened event.
@@ -386,6 +396,19 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
 export declare class MatDialogContent {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogContent, "[mat-dialog-content], mat-dialog-content, [matDialogContent]", never, {}, {}, never, never, true, never>;
+}
+
+declare abstract class MatDialogLayoutSection implements OnInit, OnDestroy {
+    protected _dialogRef: MatDialogRef<any>;
+    private _elementRef;
+    private _dialog;
+    constructor(_dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
+    protected abstract _onAdd(): void;
+    protected abstract _onRemove(): void;
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogLayoutSection, [{ optional: true; }, null, null]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogLayoutSection, never, never, {}, {}, never, never, true, never>;
 }
 
 export declare class MatDialogModule {
@@ -482,15 +505,11 @@ export declare enum MatDialogState {
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
-export declare class MatDialogTitle implements OnInit, OnDestroy {
-    private _dialogRef;
-    private _elementRef;
-    private _dialog;
+export declare class MatDialogTitle extends MatDialogLayoutSection {
     id: string;
-    constructor(_dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
-    ngOnInit(): void;
-    ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogTitle, [{ optional: true; }, null, null]>;
+    protected _onAdd(): void;
+    protected _onRemove(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogTitle, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": { "alias": "id"; "required": false; }; }, {}, never, never, true, never>;
 }
 
