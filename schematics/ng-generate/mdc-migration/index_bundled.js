@@ -15909,7 +15909,7 @@ function createI18nContexts(job) {
             throw Error("AssertionError: Unexpected ICU outside of an i18n block.");
           }
           if (op.message.id !== currentI18nOp.message.id) {
-            const contextOp = createI18nContextOp(I18nContextKind.Icu, job.allocateXrefId(), currentI18nOp.xref, op.message, null);
+            const contextOp = createI18nContextOp(I18nContextKind.Icu, job.allocateXrefId(), currentI18nOp.root, op.message, null);
             unit.create.push(contextOp);
             op.context = contextOp.xref;
           } else {
@@ -28256,7 +28256,7 @@ var TemplateData = class {
   }
 };
 var TemplateDefinitionBuilder = class {
-  constructor(constantPool, parentBindingScope, level = 0, contextName, i18nContext, templateIndex, templateName, _namespace, relativeContextFilePath, i18nUseExternalIds, deferBlocks, elementLocations, _constants = createComponentDefConsts()) {
+  constructor(constantPool, parentBindingScope, level = 0, contextName, i18nContext, templateIndex, templateName, _namespace, relativeContextFilePath, i18nUseExternalIds, deferBlocks, elementLocations, allDeferrableDepsFn, _constants = createComponentDefConsts()) {
     this.constantPool = constantPool;
     this.level = level;
     this.contextName = contextName;
@@ -28267,6 +28267,7 @@ var TemplateDefinitionBuilder = class {
     this.i18nUseExternalIds = i18nUseExternalIds;
     this.deferBlocks = deferBlocks;
     this.elementLocations = elementLocations;
+    this.allDeferrableDepsFn = allDeferrableDepsFn;
     this._constants = _constants;
     this._dataIndex = 0;
     this._bindingContext = 0;
@@ -28742,7 +28743,7 @@ var TemplateDefinitionBuilder = class {
     }
     const contextName = `${this.contextName}${contextNameSuffix}_${index2}`;
     const name = `${contextName}_Template`;
-    const visitor = new TemplateDefinitionBuilder(this.constantPool, this._bindingScope, this.level + 1, contextName, this.i18n, index2, name, this._namespace, this.fileBasedI18nSuffix, this.i18nUseExternalIds, this.deferBlocks, this.elementLocations, this._constants);
+    const visitor = new TemplateDefinitionBuilder(this.constantPool, this._bindingScope, this.level + 1, contextName, this.i18n, index2, name, this._namespace, this.fileBasedI18nSuffix, this.i18nUseExternalIds, this.deferBlocks, this.elementLocations, this.allDeferrableDepsFn, this._constants);
     this._nestedTemplateFns.push(() => {
       const templateFunctionExpr = visitor.buildTemplateFunction(children, variables, this._ngContentReservedSlots.length + this._ngContentSelectorsOffset, i18nMeta, variableAliases);
       this.constantPool.statements.push(templateFunctionExpr.toDeclStmt(name));
@@ -28914,6 +28915,7 @@ var TemplateDefinitionBuilder = class {
     });
   }
   visitDeferredBlock(deferred) {
+    var _a2;
     const { loading, placeholder, error: error2, triggers, prefetchTriggers } = deferred;
     const metadata = this.deferBlocks.get(deferred);
     if (!metadata) {
@@ -28930,7 +28932,7 @@ var TemplateDefinitionBuilder = class {
     this.creationInstruction(deferred.sourceSpan, Identifiers.defer, trimTrailingNulls([
       literal(deferredIndex),
       literal(primaryTemplateIndex),
-      this.createDeferredDepsFunction(depsFnName, metadata),
+      (_a2 = this.allDeferrableDepsFn) != null ? _a2 : this.createDeferredDepsFunction(depsFnName, metadata),
       literal(loadingIndex),
       literal(placeholderIndex),
       literal(errorIndex),
@@ -29942,6 +29944,17 @@ function compileDirectiveFromMetadata(meta, constantPool, bindingParser) {
   const type = createDirectiveType(meta);
   return { expression, type, statements: [] };
 }
+function createDeferredDepsFunction(constantPool, name, deps) {
+  const dependencyExp = [];
+  for (const [symbolName, importPath] of deps) {
+    const innerFn = arrowFn([new FnParam("m", DYNAMIC_TYPE)], variable("m").prop(symbolName));
+    const importExpr2 = new DynamicImportExpr(importPath).prop("then").callFn([innerFn]);
+    dependencyExp.push(importExpr2);
+  }
+  const depsFnExpr = arrowFn([], literalArr(dependencyExp));
+  constantPool.statements.push(depsFnExpr.toDeclStmt(name, StmtModifier.Final));
+  return variable(name);
+}
 function compileComponentFromMetadata(meta, constantPool, bindingParser) {
   const definitionMap = baseDirectiveFields(meta, constantPool, bindingParser);
   addFeatures(definitionMap, meta);
@@ -29959,8 +29972,13 @@ function compileComponentFromMetadata(meta, constantPool, bindingParser) {
   const templateTypeName = meta.name;
   const templateName = templateTypeName ? `${templateTypeName}_Template` : null;
   if (!USE_TEMPLATE_PIPELINE) {
+    let allDeferrableDepsFn = null;
+    if (meta.deferBlocks.size > 0 && meta.deferrableTypes.size > 0 && meta.deferBlockDepsEmitMode === 1) {
+      const fnName = `${templateTypeName}_DeferFn`;
+      allDeferrableDepsFn = createDeferredDepsFunction(constantPool, fnName, meta.deferrableTypes);
+    }
     const template2 = meta.template;
-    const templateBuilder = new TemplateDefinitionBuilder(constantPool, BindingScope.createRootScope(), 0, templateTypeName, null, null, templateName, Identifiers.namespaceHTML, meta.relativeContextFilePath, meta.i18nUseExternalIds, meta.deferBlocks, /* @__PURE__ */ new Map());
+    const templateBuilder = new TemplateDefinitionBuilder(constantPool, BindingScope.createRootScope(), 0, templateTypeName, null, null, templateName, Identifiers.namespaceHTML, meta.relativeContextFilePath, meta.i18nUseExternalIds, meta.deferBlocks, /* @__PURE__ */ new Map(), allDeferrableDepsFn);
     const templateFunctionExpression = templateBuilder.buildTemplateFunction(template2.nodes, []);
     const ngContentSelectors = templateBuilder.getNgContentSelectors();
     if (ngContentSelectors) {
@@ -30491,7 +30509,7 @@ var R3TargetBinder = class {
     const scopedNodeEntities = extractScopedNodeEntities(scope);
     const { directives, eagerDirectives, bindings, references } = DirectiveBinder.apply(target.template, this.directiveMatcher);
     const { expressions, symbols, nestingLevel, usedPipes, eagerPipes, deferBlocks } = TemplateBinder.applyWithScope(target.template, scope);
-    return new R3BoundTarget(target, directives, eagerDirectives, bindings, references, expressions, symbols, nestingLevel, scopedNodeEntities, usedPipes, eagerPipes, deferBlocks);
+    return new R3BoundTarget(target, directives, eagerDirectives, bindings, references, expressions, symbols, nestingLevel, scopedNodeEntities, usedPipes, eagerPipes, deferBlocks, scope);
   }
 };
 var Scope = class {
@@ -30499,6 +30517,7 @@ var Scope = class {
     this.parentScope = parentScope;
     this.rootNode = rootNode;
     this.namedEntities = /* @__PURE__ */ new Map();
+    this.elementsInScope = /* @__PURE__ */ new Set();
     this.childScopes = /* @__PURE__ */ new Map();
     this.isDeferred = parentScope !== null && parentScope.isDeferred ? true : rootNode instanceof DeferredBlock;
   }
@@ -30532,6 +30551,7 @@ var Scope = class {
   visitElement(element2) {
     element2.references.forEach((node) => this.visitReference(node));
     element2.children.forEach((node) => node.visit(this));
+    this.elementsInScope.add(element2);
   }
   visitTemplate(template2) {
     template2.references.forEach((node) => this.visitReference(node));
@@ -30941,7 +30961,7 @@ var TemplateBinder = class extends RecursiveAstVisitor {
   }
 };
 var R3BoundTarget = class {
-  constructor(target, directives, eagerDirectives, bindings, references, exprTargets, symbols, nestingLevel, scopedNodeEntities, usedPipes, eagerPipes, deferredBlocks) {
+  constructor(target, directives, eagerDirectives, bindings, references, exprTargets, symbols, nestingLevel, scopedNodeEntities, usedPipes, eagerPipes, deferredBlocks, rootScope) {
     this.target = target;
     this.directives = directives;
     this.eagerDirectives = eagerDirectives;
@@ -30954,6 +30974,7 @@ var R3BoundTarget = class {
     this.usedPipes = usedPipes;
     this.eagerPipes = eagerPipes;
     this.deferredBlocks = deferredBlocks;
+    this.rootScope = rootScope;
   }
   getEntitiesInScope(node) {
     var _a2;
@@ -31032,6 +31053,15 @@ var R3BoundTarget = class {
       }
     }
     return null;
+  }
+  isDeferred(element2) {
+    for (const deferBlock of this.deferredBlocks) {
+      const scope = this.rootScope.childScopes.get(deferBlock);
+      if (scope && scope.elementsInScope.has(element2)) {
+        return true;
+      }
+    }
+    return false;
   }
   findEntityInScope(rootNode, name) {
     const entities = this.getEntitiesInScope(rootNode);
@@ -31206,7 +31236,9 @@ var CompilerFacadeImpl = class {
       declarations: facade.declarations.map(convertDeclarationFacadeToMetadata),
       declarationListEmitMode: 0,
       deferBlocks,
+      deferrableTypes: /* @__PURE__ */ new Map(),
       deferrableDeclToImportDecl: /* @__PURE__ */ new Map(),
+      deferBlockDepsEmitMode: 0,
       styles: [...facade.styles, ...template2.styles],
       encapsulation: facade.encapsulation,
       interpolation,
@@ -31413,7 +31445,9 @@ function convertDeclareComponentFacadeToMetadata(decl2, typeSourceSpan, sourceMa
     viewProviders: decl2.viewProviders !== void 0 ? new WrappedNodeExpr(decl2.viewProviders) : null,
     animations: decl2.animations !== void 0 ? new WrappedNodeExpr(decl2.animations) : null,
     deferBlocks,
+    deferrableTypes: /* @__PURE__ */ new Map(),
     deferrableDeclToImportDecl: /* @__PURE__ */ new Map(),
+    deferBlockDepsEmitMode: 0,
     changeDetection: (_c2 = decl2.changeDetection) != null ? _c2 : ChangeDetectionStrategy.Default,
     encapsulation: (_d2 = decl2.encapsulation) != null ? _d2 : ViewEncapsulation.Emulated,
     interpolation,
@@ -31651,7 +31685,7 @@ function publishFacade(global) {
   const ng = global.ng || (global.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("17.1.0-rc.0");
+var VERSION = new Version("17.1.1");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -33605,7 +33639,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v17.1.0-rc.0
+ * @license Angular v17.1.1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
