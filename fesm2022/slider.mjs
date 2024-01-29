@@ -149,12 +149,14 @@ class MatSliderVisualThumb {
     }
     ngOnDestroy() {
         const input = this._sliderInputEl;
-        input.removeEventListener('pointermove', this._onPointerMove);
-        input.removeEventListener('pointerdown', this._onDragStart);
-        input.removeEventListener('pointerup', this._onDragEnd);
-        input.removeEventListener('pointerleave', this._onMouseLeave);
-        input.removeEventListener('focus', this._onFocus);
-        input.removeEventListener('blur', this._onBlur);
+        if (input) {
+            input.removeEventListener('pointermove', this._onPointerMove);
+            input.removeEventListener('pointerdown', this._onDragStart);
+            input.removeEventListener('pointerup', this._onDragEnd);
+            input.removeEventListener('pointerleave', this._onMouseLeave);
+            input.removeEventListener('focus', this._onFocus);
+            input.removeEventListener('blur', this._onBlur);
+        }
     }
     /** Handles displaying the hover ripple. */
     _showHoverRipple() {
