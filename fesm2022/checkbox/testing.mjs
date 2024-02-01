@@ -1,7 +1,35 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-class _MatCheckboxHarnessBase extends ComponentHarness {
+/** Harness for interacting with a mat-checkbox in tests. */
+class MatCheckboxHarness extends ComponentHarness {
+    constructor() {
+        super(...arguments);
+        this._input = this.locatorFor('input');
+        this._label = this.locatorFor('label');
+        this._inputContainer = this.locatorFor('.mdc-checkbox');
+    }
+    static { this.hostSelector = '.mat-mdc-checkbox'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a checkbox with specific attributes.
+     * @param options Options for narrowing the search:
+     *   - `selector` finds a checkbox whose host element matches the given selector.
+     *   - `label` finds a checkbox with specific label text.
+     *   - `name` finds a checkbox with specific name.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return (new HarnessPredicate(this, options)
+            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
+            // We want to provide a filter option for "name" because the name of the checkbox is
+            // only set on the underlying input. This means that it's not possible for developers
+            // to retrieve the harness of a specific checkbox with name through a CSS selector.
+            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
+            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked)
+            .addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
+        }));
+    }
     /** Whether the checkbox is checked. */
     async isChecked() {
         const checked = (await this._input()).getProperty('checked');
@@ -60,6 +88,17 @@ class _MatCheckboxHarnessBase extends ComponentHarness {
         return (await this._input()).isFocused();
     }
     /**
+     * Toggles the checked state of the checkbox.
+     *
+     * Note: This attempts to toggle the checkbox as a user would, by clicking it. Therefore if you
+     * are using `MAT_CHECKBOX_DEFAULT_OPTIONS` to change the behavior on click, calling this method
+     * might not have the expected result.
+     */
+    async toggle() {
+        const elToClick = await ((await this.isDisabled()) ? this._inputContainer() : this._input());
+        return elToClick.click();
+    }
+    /**
      * Puts the checkbox in a checked state by toggling it if it is currently unchecked, or doing
      * nothing if it is already checked.
      *
@@ -86,40 +125,6 @@ class _MatCheckboxHarnessBase extends ComponentHarness {
         }
     }
 }
-/** Harness for interacting with a MDC-based mat-checkbox in tests. */
-class MatCheckboxHarness extends _MatCheckboxHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._input = this.locatorFor('input');
-        this._label = this.locatorFor('label');
-        this._inputContainer = this.locatorFor('.mdc-checkbox');
-    }
-    static { this.hostSelector = '.mat-mdc-checkbox'; }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a checkbox with specific attributes.
-     * @param options Options for narrowing the search:
-     *   - `selector` finds a checkbox whose host element matches the given selector.
-     *   - `label` finds a checkbox with specific label text.
-     *   - `name` finds a checkbox with specific name.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return (new HarnessPredicate(this, options)
-            .addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label))
-            // We want to provide a filter option for "name" because the name of the checkbox is
-            // only set on the underlying input. This means that it's not possible for developers
-            // to retrieve the harness of a specific checkbox with name through a CSS selector.
-            .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
-            .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked)
-            .addOption('disabled', options.disabled, async (harness, disabled) => {
-            return (await harness.isDisabled()) === disabled;
-        }));
-    }
-    async toggle() {
-        const elToClick = (await this.isDisabled()) ? this._inputContainer() : this._input();
-        return (await elToClick).click();
-    }
-}
 
-export { MatCheckboxHarness, _MatCheckboxHarnessBase };
+export { MatCheckboxHarness };
 //# sourceMappingURL=testing.mjs.map

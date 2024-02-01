@@ -1,12 +1,27 @@
-import { parallel, HarnessPredicate } from '@angular/cdk/testing';
+import { HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
-class _MatSelectHarnessBase extends MatFormFieldControlHarness {
+/** Harness for interacting with an MDC-based mat-select in tests. */
+class MatSelectHarness extends MatFormFieldControlHarness {
     constructor() {
         super(...arguments);
+        this._prefix = 'mat-mdc';
+        this._optionClass = MatOptionHarness;
+        this._optionGroupClass = MatOptgroupHarness;
         this._documentRootLocator = this.documentRootLocatorFactory();
         this._backdrop = this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
+    }
+    static { this.hostSelector = '.mat-mdc-select'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a select with specific attributes.
+     * @param options Options for filtering which select instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options).addOption('disabled', options.disabled, async (harness, disabled) => {
+            return (await harness.isDisabled()) === disabled;
+        });
     }
     /** Gets a boolean promise indicating if the select is disabled. */
     async isDisabled() {
@@ -105,26 +120,6 @@ class _MatSelectHarnessBase extends MatFormFieldControlHarness {
         return `#${id}-panel`;
     }
 }
-/** Harness for interacting with an MDC-based mat-select in tests. */
-class MatSelectHarness extends _MatSelectHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._prefix = 'mat-mdc';
-        this._optionClass = MatOptionHarness;
-        this._optionGroupClass = MatOptgroupHarness;
-    }
-    static { this.hostSelector = '.mat-mdc-select'; }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a select with specific attributes.
-     * @param options Options for filtering which select instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(this, options).addOption('disabled', options.disabled, async (harness, disabled) => {
-            return (await harness.isDisabled()) === disabled;
-        });
-    }
-}
 
-export { MatSelectHarness, _MatSelectHarnessBase };
+export { MatSelectHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -4,17 +4,8 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 
-class _MatErrorHarnessBase extends ComponentHarness {
-    /** Gets a promise for the error's label text. */
-    async getText() {
-        return (await this.host()).text();
-    }
-    static _getErrorPredicate(type, options) {
-        return new HarnessPredicate(type, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
-    }
-}
 /** Harness for interacting with an MDC-based `mat-error` in tests. */
-class MatErrorHarness extends _MatErrorHarnessBase {
+class MatErrorHarness extends ComponentHarness {
     static { this.hostSelector = '.mat-mdc-form-field-error'; }
     /**
      * Gets a `HarnessPredicate` that can be used to search for an error with specific
@@ -23,11 +14,61 @@ class MatErrorHarness extends _MatErrorHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return _MatErrorHarnessBase._getErrorPredicate(this, options);
+        return MatErrorHarness._getErrorPredicate(this, options);
+    }
+    static _getErrorPredicate(type, options) {
+        return new HarnessPredicate(type, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
+    }
+    /** Gets a promise for the error's label text. */
+    async getText() {
+        return (await this.host()).text();
     }
 }
 
-class _MatFormFieldHarnessBase extends ComponentHarness {
+class MatFormFieldHarness extends ComponentHarness {
+    constructor() {
+        super(...arguments);
+        this._prefixContainer = this.locatorForOptional('.mat-mdc-form-field-text-prefix');
+        this._suffixContainer = this.locatorForOptional('.mat-mdc-form-field-text-suffix');
+        this._label = this.locatorForOptional('.mdc-floating-label');
+        this._hints = this.locatorForAll('.mat-mdc-form-field-hint');
+        this._inputControl = this.locatorForOptional(MatInputHarness);
+        this._selectControl = this.locatorForOptional(MatSelectHarness);
+        this._datepickerInputControl = this.locatorForOptional(MatDatepickerInputHarness);
+        this._dateRangeInputControl = this.locatorForOptional(MatDateRangeInputHarness);
+        this._textField = this.locatorFor('.mat-mdc-text-field-wrapper');
+        this._errorHarness = MatErrorHarness;
+    }
+    static { this.hostSelector = '.mat-mdc-form-field'; }
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a form field with specific
+     * attributes.
+     * @param options Options for filtering which form field instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options)
+            .addOption('floatingLabelText', options.floatingLabelText, async (harness, text) => HarnessPredicate.stringMatches(await harness.getLabel(), text))
+            .addOption('hasErrors', options.hasErrors, async (harness, hasErrors) => (await harness.hasErrors()) === hasErrors)
+            .addOption('isValid', options.isValid, async (harness, isValid) => (await harness.isControlValid()) === isValid);
+    }
+    /** Gets the appearance of the form-field. */
+    async getAppearance() {
+        const textFieldEl = await this._textField();
+        if (await textFieldEl.hasClass('mdc-text-field--outlined')) {
+            return 'outline';
+        }
+        return 'fill';
+    }
+    /** Whether the form-field has a label. */
+    async hasLabel() {
+        return (await this._label()) !== null;
+    }
+    /** Whether the label is currently floating. */
+    async isLabelFloating() {
+        const labelEl = await this._label();
+        return labelEl !== null ? await labelEl.hasClass('mdc-floating-label--float-above') : false;
+    }
     /** Gets the label of the form-field. */
     async getLabel() {
         const labelEl = await this._label();
@@ -150,54 +191,8 @@ class _MatFormFieldHarnessBase extends ComponentHarness {
         return isTouched || isUntouched;
     }
 }
-/** Harness for interacting with a MDC-based form-field's in tests. */
-class MatFormFieldHarness extends _MatFormFieldHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._prefixContainer = this.locatorForOptional('.mat-mdc-form-field-text-prefix');
-        this._suffixContainer = this.locatorForOptional('.mat-mdc-form-field-text-suffix');
-        this._label = this.locatorForOptional('.mdc-floating-label');
-        this._hints = this.locatorForAll('.mat-mdc-form-field-hint');
-        this._inputControl = this.locatorForOptional(MatInputHarness);
-        this._selectControl = this.locatorForOptional(MatSelectHarness);
-        this._datepickerInputControl = this.locatorForOptional(MatDatepickerInputHarness);
-        this._dateRangeInputControl = this.locatorForOptional(MatDateRangeInputHarness);
-        this._errorHarness = MatErrorHarness;
-        this._mdcTextField = this.locatorFor('.mat-mdc-text-field-wrapper');
-    }
-    static { this.hostSelector = '.mat-mdc-form-field'; }
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a form field with specific
-     * attributes.
-     * @param options Options for filtering which form field instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options = {}) {
-        return new HarnessPredicate(this, options)
-            .addOption('floatingLabelText', options.floatingLabelText, async (harness, text) => HarnessPredicate.stringMatches(await harness.getLabel(), text))
-            .addOption('hasErrors', options.hasErrors, async (harness, hasErrors) => (await harness.hasErrors()) === hasErrors)
-            .addOption('isValid', options.isValid, async (harness, isValid) => (await harness.isControlValid()) === isValid);
-    }
-    /** Gets the appearance of the form-field. */
-    async getAppearance() {
-        const textFieldEl = await this._mdcTextField();
-        if (await textFieldEl.hasClass('mdc-text-field--outlined')) {
-            return 'outline';
-        }
-        return 'fill';
-    }
-    /** Whether the form-field has a label. */
-    async hasLabel() {
-        return (await this._label()) !== null;
-    }
-    /** Whether the label is currently floating. */
-    async isLabelFloating() {
-        const labelEl = await this._label();
-        return labelEl !== null ? await labelEl.hasClass('mdc-floating-label--float-above') : false;
-    }
-}
 
 // Re-export the base control harness from the "form-field/testing/control" entry-point. To
 
-export { MatErrorHarness, MatFormFieldHarness, _MatErrorHarnessBase, _MatFormFieldHarnessBase };
+export { MatErrorHarness, MatFormFieldHarness };
 //# sourceMappingURL=testing.mjs.map

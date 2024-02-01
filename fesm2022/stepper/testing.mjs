@@ -82,6 +82,13 @@ class MatStepHarness extends ContentContainerComponentHarness {
     }
 }
 
+/** Possible orientations for a stepper. */
+var StepperOrientation;
+(function (StepperOrientation) {
+    StepperOrientation[StepperOrientation["HORIZONTAL"] = 0] = "HORIZONTAL";
+    StepperOrientation[StepperOrientation["VERTICAL"] = 1] = "VERTICAL";
+})(StepperOrientation || (StepperOrientation = {}));
+
 /** Harness for interacting with a standard Material stepper in tests. */
 class MatStepperHarness extends ComponentHarness {
     /** The selector for the host element of a `MatStepper` instance. */
@@ -106,8 +113,8 @@ class MatStepperHarness extends ComponentHarness {
     async getOrientation() {
         const host = await this.host();
         return (await host.hasClass('mat-stepper-horizontal'))
-            ? 0 /* StepperOrientation.HORIZONTAL */
-            : 1 /* StepperOrientation.VERTICAL */;
+            ? StepperOrientation.HORIZONTAL
+            : StepperOrientation.VERTICAL;
     }
     /**
      * Selects a step in this stepper.
@@ -163,5 +170,5 @@ class MatStepperPreviousHarness extends StepperButtonHarness {
     }
 }
 
-export { MatStepHarness, MatStepperHarness, MatStepperNextHarness, MatStepperPreviousHarness };
+export { MatStepHarness, MatStepperHarness, MatStepperNextHarness, MatStepperPreviousHarness, StepperOrientation };
 //# sourceMappingURL=testing.mjs.map

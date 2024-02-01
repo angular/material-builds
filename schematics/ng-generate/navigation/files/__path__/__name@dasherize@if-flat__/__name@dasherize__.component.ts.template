@@ -1,5 +1,6 @@
 import { Component, inject<% if(!!viewEncapsulation) { %>, ViewEncapsulation<% }%><% if(changeDetection !== 'Default') { %>, ChangeDetectionStrategy<% }%> } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';<% if(standalone) { %>
+import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -7,7 +8,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';<% } %>
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: '<%= selector %>',<% if(inlineTemplate) { %>
@@ -15,10 +15,10 @@ import { AsyncPipe, NgIf } from '@angular/common';
     <%= indentTextContent(resolvedFiles.template, 4) %>
   `,<% } else { %>
   templateUrl: './<%= dasherize(name) %>.component.html',<% } if(inlineStyle) { %>
-  styles: [`
+  styles: `
     <%= indentTextContent(resolvedFiles.stylesheet, 4) %>
-  `]<% } else { %>
-  styleUrls: ['./<%= dasherize(name) %>.component.<%= style %>']<% } %><% if(!!viewEncapsulation) { %>,
+  `<% } else { %>
+  styleUrl: './<%= dasherize(name) %>.component.<%= style %>'<% } %><% if(!!viewEncapsulation) { %>,
   encapsulation: ViewEncapsulation.<%= viewEncapsulation %><% } if (changeDetection !== 'Default') { %>,
   changeDetection: ChangeDetectionStrategy.<%= changeDetection %><% } %><% if(standalone) { %>,
   standalone: true,
@@ -29,7 +29,6 @@ import { AsyncPipe, NgIf } from '@angular/common';
     MatListModule,
     MatIconModule,
     AsyncPipe,
-    NgIf
   ]<% } %>
 })
 export class <%= classify(name) %>Component {
