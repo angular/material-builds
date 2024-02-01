@@ -2,148 +2,123 @@
 @use 'sass:math';
 @use '@material/density/functions' as mdc-density-functions;
 @use '@material/icon-button/icon-button-theme' as mdc-icon-button-theme;
+@use '@material/theme/theme-color' as mdc-theme-color;
 @use '../core/tokens/m2/mdc/icon-button' as tokens-mdc-icon-button;
-@use '../core/tokens/m2/mat/icon-button' as tokens-mat-icon-button;
-@use '../core/style/sass-utils';
-@use '../core/tokens/token-utils';
+
+@use './button-theme-private';
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
 
+$_icon-size: 24px;
 
-@mixin base($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
-  }
-  @else {
-    // Add default values for tokens not related to color, typography, or density.
-    @include sass-utils.current-selector-or-root() {
-      @include mdc-icon-button-theme.theme(tokens-mdc-icon-button.get-unthemable-tokens());
-    }
-  }
+@mixin _ripple-color($color) {
+  --mat-mdc-button-persistent-ripple-color: #{$color};
+  --mat-mdc-button-ripple-color: #{rgba($color, 0.1)};
 }
 
-@mixin _icon-button-variant($theme, $palette) {
-  $mdc-tokens: if($palette,
-    tokens-mdc-icon-button.private-get-color-palette-color-tokens($theme, $palette),
-    tokens-mdc-icon-button.get-color-tokens($theme)
-  );
+@function _variable-safe-contrast-tone($value, $is-dark) {
+  @if ($value == 'dark' or $value == 'light' or type-of($value) == 'color') {
+    @return mdc-theme-color.contrast-tone($value);
+  }
 
-  $mat-tokens: if($palette,
-    tokens-mat-icon-button.private-get-color-palette-color-tokens($theme, $palette),
-    tokens-mat-icon-button.get-color-tokens($theme)
-  );
-
-  @include mdc-icon-button-theme.theme($mdc-tokens);
-  @include token-utils.create-token-values(tokens-mat-icon-button.$prefix, $mat-tokens);
+  @return if($is-dark, 'light', 'dark');
 }
 
-@mixin color($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include _icon-button-variant($theme, null);
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
+  $color-tokens: tokens-mdc-icon-button.get-color-tokens($config);
+  $background-palette: map.get($config, background);
+  $surface: theming.get-color-from-palette($background-palette, card);
+  $is-dark: map.get($config, is-dark);
+  $on-surface: if(_variable-safe-contrast-tone($surface, $is-dark) == 'dark', #000, #fff);
 
-      .mat-mdc-icon-button {
-        &.mat-primary {
-          @include _icon-button-variant($theme, primary);
-        }
+  .mat-mdc-icon-button {
+    @include button-theme-private.ripple-theme-styles($config, false);
+    @include mdc-icon-button-theme.theme($color-tokens);
+    @include _ripple-color($on-surface);
 
-        &.mat-accent {
-          @include _icon-button-variant($theme, accent);
-        }
-
-        &.mat-warn {
-          @include _icon-button-variant($theme, warn);
-        }
-      }
-    }
-  }
-}
-
-@mixin typography($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(tokens-mat-icon-button.$prefix,
-        tokens-mat-icon-button.get-typography-tokens($theme));
-    }
-  }
-}
-
-@mixin density($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
-  }
-  @else {
-    $icon-size: 24px;
-    $density-scale: inspection.get-theme-density($theme);
-    // Manually apply the expected density theming, and include the padding
-    // as it was applied before
-    $calculated-size: mdc-density-functions.prop-value(
-      $density-config: (
-        size: (
-          default: 48px,
-          maximum: 48px,
-          minimum: 28px,
-        ),
-      ),
-      $density-scale: $density-scale,
-      $property-name: size,
-    );
-
-    @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(tokens-mat-icon-button.$prefix,
-        tokens-mat-icon-button.get-density-tokens($theme));
+    &.mat-primary {
+      $color: theming.get-color-from-palette(map.get($config, primary));
+      @include mdc-icon-button-theme.theme((icon-color: $color));
+      @include _ripple-color($color);
     }
 
-    // Use `mat-mdc-button-base` to increase the specificity over the button's structural styles.
-    .mat-mdc-icon-button.mat-mdc-button-base {
-      // Match the styles that used to be present. This is necessary for backwards
-      // compat to match the previous implementations selector count (two classes).
+    &.mat-accent {
+      $color: theming.get-color-from-palette(map.get($config, accent));
+      @include mdc-icon-button-theme.theme((icon-color: $color));
+      @include _ripple-color($color);
+    }
+
+    &.mat-warn {
+      $color: theming.get-color-from-palette(map.get($config, warn));
+      @include mdc-icon-button-theme.theme((icon-color: $color));
+      @include _ripple-color($color);
+    }
+
+    @include button-theme-private.apply-disabled-style() {
+      $disabled-color: rgba($on-surface, if($is-dark, 0.5, 0.38));
       @include mdc-icon-button-theme.theme((
-        state-layer-size: $calculated-size,
+        icon-color: $disabled-color,
+        disabled-icon-color: $disabled-color,
       ));
-
-      // TODO: Switch calculated-size to "var(--mdc-icon-button-state-layer-size)"
-      // Currently fails validation because the variable is "undefined"
-      // in the sass stack.
-      // TODO: Switch icon-size to "var(--mdc-icon-button-icon-size)". Currently
-      // fails validation because the variable is "undefined" in the sass stack.
-      width: var(--mdc-icon-button-state-layer-size);
-      height: var(--mdc-icon-button-state-layer-size);
-      padding: math.div($calculated-size - $icon-size, 2);
     }
   }
 }
 
-@mixin theme($theme) {
+@mixin typography($config-or-theme) {
+}
+
+@mixin density($config-or-theme) {
+  $density-scale: theming.get-density-config($config-or-theme);
+  // Manually apply the expected density theming, and include the padding
+  // as it was applied before
+  $calculated-size: mdc-density-functions.prop-value(
+    $density-config: (
+      size: (
+        default: 48px,
+        maximum: 48px,
+        minimum: 28px,
+      ),
+    ),
+    $density-scale: $density-scale,
+    $property-name: size,
+  );
+
+  // Use `mat-mdc-button-base` to increase the specificity over the button's structural styles.
+  .mat-mdc-icon-button.mat-mdc-button-base {
+    // Match the styles that used to be present. This is necessary for backwards
+    // compat to match the previous implementations selector count (two classes).
+    @include mdc-icon-button-theme.theme((
+      state-layer-size: $calculated-size,
+    ));
+
+    // TODO: Switch calculated-size to "var(--mdc-icon-button-state-layer-size)"
+    // Currently fails validation because the variable is "undefined"
+    // in the sass stack.
+    // TODO: Switch icon-size to "var(--mdc-icon-button-icon-size)". Currently
+    // fails validation because the variable is "undefined" in the sass stack.
+    width: var(--mdc-icon-button-state-layer-size);
+    height: var(--mdc-icon-button-state-layer-size);
+    padding: math.div($calculated-size - $_icon-size, 2);
+
+    @include button-theme-private.touch-target-density($density-scale);
+  }
+}
+
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-icon-button') {
-    @if inspection.get-theme-version($theme) == 1 {
-      @include _theme-from-tokens(inspection.get-theme-tokens($theme));
-    }
-    @else {
-      @include base($theme);
-      @if inspection.theme-has($theme, color) {
-        @include color($theme);
-      }
-      @if inspection.theme-has($theme, density) {
-        @include density($theme);
-      }
-      @if inspection.theme-has($theme, typography) {
-        @include typography($theme);
-      }
-    }
-  }
-}
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
 
-@mixin _theme-from-tokens($tokens) {
-  @if ($tokens != ()) {
-    @include mdc-icon-button-theme.theme(map.get($tokens, tokens-mdc-icon-button.$prefix));
-    @include token-utils.create-token-values(
-        tokens-mat-icon-button.$prefix, map.get($tokens, tokens-mat-icon-button.$prefix));
+    @if $color != null {
+      @include color($color);
+    }
+    @if $density != null {
+      @include density($density);
+    }
+    @if $typography != null {
+      @include typography($typography);
+    }
   }
 }

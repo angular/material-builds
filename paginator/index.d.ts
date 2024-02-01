@@ -1,24 +1,31 @@
+import { _AbstractConstructor } from '@angular/material/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { CanDisable } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
+import { _Constructor } from '@angular/material/core';
 import { EventEmitter } from '@angular/core';
 import { HasInitialized } from '@angular/material/core';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/material/button';
-import * as i2 from '@angular/material/select';
-import * as i3 from '@angular/material/tooltip';
+import * as i2 from '@angular/common';
+import * as i3 from '@angular/material/button';
+import * as i4 from '@angular/material/select';
+import * as i5 from '@angular/material/tooltip';
 import { InjectionToken } from '@angular/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { NumberInput } from '@angular/cdk/coercion';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Optional } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i4 {
+declare namespace i1 {
     export {
         MatPaginatorSelectConfig,
         PageEvent,
         MatPaginatorDefaultOptions,
         MAT_PAGINATOR_DEFAULT_OPTIONS,
+        _MatPaginatorBase,
         MatPaginator
     }
 }
@@ -41,46 +48,63 @@ export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPagin
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-export declare class MatPaginator extends _MatPaginatorMixinBase implements OnInit, OnDestroy, HasInitialized {
-    _intl: MatPaginatorIntl;
-    private _changeDetectorRef;
+export declare class MatPaginator extends _MatPaginatorBase<MatPaginatorDefaultOptions> {
     /** If set, styles the "page size" form field with the designated style. */
     _formFieldAppearance?: MatFormFieldAppearance;
     /** ID for the DOM node containing the paginator's items per page label. */
     readonly _pageSizeLabelId: string;
+    constructor(intl: MatPaginatorIntl, changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, [null, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, false, never>;
+}
+
+/**
+ * Base class with all of the `MatPaginator` functionality.
+ * @docs-private
+ */
+export declare abstract class _MatPaginatorBase<O extends {
+    pageSize?: number;
+    pageSizeOptions?: number[];
+    hidePageSize?: boolean;
+    showFirstLastButtons?: boolean;
+}> extends _MatPaginatorMixinBase implements OnInit, OnDestroy, CanDisable, HasInitialized {
+    _intl: MatPaginatorIntl;
+    private _changeDetectorRef;
     private _initialized;
     private _intlChanges;
     /** Theme color to be used for the underlying form controls. */
     color: ThemePalette;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */
     get pageIndex(): number;
-    set pageIndex(value: number);
+    set pageIndex(value: NumberInput);
     private _pageIndex;
     /** The length of the total number of items that are being paginated. Defaulted to 0. */
     get length(): number;
-    set length(value: number);
+    set length(value: NumberInput);
     private _length;
     /** Number of items to display on a page. By default set to 50. */
     get pageSize(): number;
-    set pageSize(value: number);
+    set pageSize(value: NumberInput);
     private _pageSize;
     /** The set of provided page size options to display to the user. */
     get pageSizeOptions(): number[];
     set pageSizeOptions(value: number[] | readonly number[]);
     private _pageSizeOptions;
     /** Whether to hide the page size selection UI from the user. */
-    hidePageSize: boolean;
+    get hidePageSize(): boolean;
+    set hidePageSize(value: BooleanInput);
+    private _hidePageSize;
     /** Whether to show the first/last buttons UI to the user. */
-    showFirstLastButtons: boolean;
+    get showFirstLastButtons(): boolean;
+    set showFirstLastButtons(value: BooleanInput);
+    private _showFirstLastButtons;
     /** Used to configure the underlying `MatSelect` inside the paginator. */
     selectConfig: MatPaginatorSelectConfig;
-    /** Whether the paginator is disabled. */
-    disabled: boolean;
     /** Event emitted when the paginator changes the page size or page index. */
     readonly page: EventEmitter<PageEvent>;
     /** Displayed set of page size options. Will be sorted and include current page size. */
     _displayedPageSizeOptions: number[];
-    constructor(_intl: MatPaginatorIntl, _changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
+    constructor(_intl: MatPaginatorIntl, _changeDetectorRef: ChangeDetectorRef, defaults?: O);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Advances to the next page if it exists. */
@@ -117,14 +141,8 @@ export declare class MatPaginator extends _MatPaginatorMixinBase implements OnIn
     private _updateDisplayedPageSizeOptions;
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     private _emitPageEvent;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, [null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "color": { "alias": "color"; "required": false; }; "pageIndex": { "alias": "pageIndex"; "required": false; }; "length": { "alias": "length"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "pageSizeOptions": { "alias": "pageSizeOptions"; "required": false; }; "hidePageSize": { "alias": "hidePageSize"; "required": false; }; "showFirstLastButtons": { "alias": "showFirstLastButtons"; "required": false; }; "selectConfig": { "alias": "selectConfig"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "page": "page"; }, never, never, true, never>;
-    static ngAcceptInputType_pageIndex: unknown;
-    static ngAcceptInputType_length: unknown;
-    static ngAcceptInputType_pageSize: unknown;
-    static ngAcceptInputType_hidePageSize: unknown;
-    static ngAcceptInputType_showFirstLastButtons: unknown;
-    static ngAcceptInputType_disabled: unknown;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatPaginatorBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatPaginatorBase<any>, never, never, { "color": { "alias": "color"; "required": false; }; "pageIndex": { "alias": "pageIndex"; "required": false; }; "length": { "alias": "length"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "pageSizeOptions": { "alias": "pageSizeOptions"; "required": false; }; "hidePageSize": { "alias": "hidePageSize"; "required": false; }; "showFirstLastButtons": { "alias": "showFirstLastButtons"; "required": false; }; "selectConfig": { "alias": "selectConfig"; "required": false; }; }, { "page": "page"; }, never, never, false, never>;
 }
 
 /** Object that can be used to configure the default options for the paginator module. */
@@ -168,13 +186,13 @@ export declare class MatPaginatorIntl {
 }
 
 /** @docs-private */
-declare const _MatPaginatorMixinBase: (new (...args: any[]) => HasInitialized) & {
+declare const _MatPaginatorMixinBase: _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & (new (...args: any[]) => HasInitialized) & {
     new (): {};
 };
 
 export declare class MatPaginatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, never, [typeof i1.MatButtonModule, typeof i2.MatSelectModule, typeof i3.MatTooltipModule, typeof i4.MatPaginator], [typeof i4.MatPaginator]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, [typeof i1.MatPaginator], [typeof i2.CommonModule, typeof i3.MatButtonModule, typeof i4.MatSelectModule, typeof i5.MatTooltipModule], [typeof i1.MatPaginator]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatPaginatorModule>;
 }
 

@@ -3,7 +3,6 @@
 @use '@angular/cdk';
 @use '../style/layout-common';
 @use '../theming/theming';
-@use '../theming/inspection';
 
 // Private sass variables that will be used as reference throughout component stylesheets.
 $default-border-width: 3px;
@@ -114,60 +113,65 @@ $default-border-radius: 4px;
   @include customize-focus-indicators($config, 'mat-mdc');
 }
 
-@mixin strong-focus-indicators-color($theme-or-color) {
-  @if meta.type-of($theme-or-color) == 'color' {
+@mixin strong-focus-indicators-color($config-or-theme-or-color) {
+  @if meta.type-of($config-or-theme-or-color) == 'color' {
     @include customize-focus-indicators((
-        border-color: $theme-or-color
+        border-color: $config-or-theme-or-color
     ), 'mat');
   }
   @else {
-    $border-color: inspection.get-theme-color($theme-or-color, primary);
+    $config: theming.get-color-config($config-or-theme-or-color);
+    $border-color: theming.get-color-from-palette(map.get($config, primary));
     @include customize-focus-indicators((
         border-color: $border-color
     ), 'mat');
   }
 }
 
-@mixin strong-focus-indicators-theme($theme-or-color) {
-  @if meta.type-of($theme-or-color) == 'color' {
+@mixin strong-focus-indicators-theme($theme-or-color-config-or-color) {
+  @if meta.type-of($theme-or-color-config-or-color) == 'color' {
     @include customize-focus-indicators((
-        border-color: $theme-or-color
+        border-color: $theme-or-color-config-or-color
     ), 'mat');
   }
   @else {
-    @include theming.private-check-duplicate-theme-styles($theme-or-color, 'mat-focus-indicators') {
-      @if inspection.theme-has($theme-or-color, color) {
-        @include strong-focus-indicators-color($theme-or-color);
+    $theme: theming.private-legacy-get-theme($theme-or-color-config-or-color);
+    @include theming.private-check-duplicate-theme-styles($theme, 'mat-focus-indicators') {
+      $color: theming.get-color-config($theme);
+      @if $color != null {
+        @include strong-focus-indicators-color($color);
       }
     }
   }
 }
 
-@mixin mdc-strong-focus-indicators-color($theme-or-color) {
-  @if meta.type-of($theme-or-color) == 'color' {
+@mixin mdc-strong-focus-indicators-color($config-or-theme-or-color) {
+  @if meta.type-of($config-or-theme-or-color) == 'color' {
     @include customize-focus-indicators((
-        border-color: $theme-or-color
+        border-color: $config-or-theme-or-color
     ), 'mat-mdc');
   }
   @else {
-    $border-color: inspection.get-theme-color($theme-or-color, primary);
+    $config: theming.get-color-config($config-or-theme-or-color);
+    $border-color: theming.get-color-from-palette(map.get($config, primary));
     @include customize-focus-indicators((
         border-color: $border-color
     ), 'mat-mdc');
   }
 }
 
-@mixin mdc-strong-focus-indicators-theme($theme-or-color) {
-  @if meta.type-of($theme-or-color) == 'color' {
+@mixin mdc-strong-focus-indicators-theme($theme-or-color-config-or-color) {
+  @if meta.type-of($theme-or-color-config-or-color) == 'color' {
     @include customize-focus-indicators((
-        border-color: $theme-or-color
+        border-color: $theme-or-color-config-or-color
     ), 'mat-mdc');
   }
   @else {
-    @include theming.private-check-duplicate-theme-styles(
-        $theme-or-color, 'mat-mdc-focus-indicators') {
-      @if inspection.theme-has($theme-or-color, color) {
-        @include mdc-strong-focus-indicators-color($theme-or-color);
+    $theme: theming.private-legacy-get-theme($theme-or-color-config-or-color);
+    @include theming.private-check-duplicate-theme-styles($theme, 'mat-mdc-focus-indicators') {
+      $color: theming.get-color-config($theme);
+      @if $color != null {
+        @include mdc-strong-focus-indicators-color($color);
       }
     }
   }

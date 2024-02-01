@@ -1,90 +1,62 @@
-@use '../core/style/sass-utils';
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
-@use '../core/tokens/token-utils';
 @use '../core/tokens/m2/mdc/linear-progress' as tokens-mdc-linear-progress;
 @use '@material/linear-progress/linear-progress-theme' as mdc-linear-progress-theme;
+@use 'sass:map';
 
-/// Outputs base theme styles (styles not dependent on the color, typography, or density settings)
-/// for the mat-progress-bar.
-/// @param {Map} $theme The theme to generate base styles for.
-@mixin base($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
-  }
-  @else {
-    // Add default values for tokens not related to color, typography, or density.
-    @include sass-utils.current-selector-or-root() {
-      @include mdc-linear-progress-theme.theme(tokens-mdc-linear-progress.get-unthemable-tokens());
+@mixin _palette-styles($config, $palette-name) {
+  $palette-config: map.merge($config, (primary: map.get($config, $palette-name)));
+  $color-tokens: tokens-mdc-linear-progress.get-color-tokens($palette-config);
+
+  // We can't set the `track-color` using `theme`, because it isn't possible for it to use a CSS
+  // variable since MDC's buffer animation works by constructing an SVG string from this color.
+  // We also can't set the `track-color` by creating our own token slot because the track-color
+  // is set in the SVG string in `theme-styles`.
+  @include mdc-linear-progress-theme.theme-styles((
+    // TODO(crisbeto): the buffer color should come from somewhere in MDC, however at the time of
+    // writing, their buffer color is hardcoded to #e6e6e6 which both doesn't account for theming
+    // and doesn't match the Material design spec. For now we approximate the buffer background by
+    // applying an opacity to the color of the bar.
+    track-color: map.get($color-tokens, track-color),
+  ));
+
+  @include mdc-linear-progress-theme.theme($color-tokens);
+}
+
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
+
+  .mat-mdc-progress-bar {
+    @include _palette-styles($config, primary);
+
+    &.mat-accent {
+      @include _palette-styles($config, accent);
+    }
+
+    &.mat-warn {
+      @include _palette-styles($config, warn);
     }
   }
 }
 
-@mixin _palette-styles($theme, $palette-name) {
-  @include mdc-linear-progress-theme.theme(
-    tokens-mdc-linear-progress.get-color-tokens($theme, $palette-name));
-}
+@mixin typography($config-or-theme) {}
 
-/// Outputs color theme styles for the mat-progress-bar.
-/// @param {Map} $theme The theme to generate color styles for.
-/// @param {ArgList} Additional optional arguments (only supported for M3 themes):
-///   $color-variant: The color variant to use for the progress bar: primary, secondary, tertiary,
-///      or error (If not specified, default primary color will be used).
-@mixin color($theme, $options...) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color), $options...);
-  }
-  @else {
-    .mat-mdc-progress-bar {
-      @include _palette-styles($theme, primary);
+@mixin density($config-or-theme) {}
 
-      &.mat-accent {
-        @include _palette-styles($theme, accent);
-      }
-
-      &.mat-warn {
-        @include _palette-styles($theme, warn);
-      }
-    }
-  }
-}
-
-/// Outputs typography theme styles for the mat-progress-bar.
-/// @param {Map} $theme The theme to generate typography styles for.
-@mixin typography($theme) {}
-
-
-/// Outputs density theme styles for the mat-progress-bar.
-/// @param {Map} $theme The theme to generate density styles for.
-@mixin density($theme) {}
-
-/// Outputs all (base, color, typography, and density) theme styles for the mat-progress-bar.
-/// @param {Map} $theme The theme to generate styles for.
-/// @param {ArgList} Additional optional arguments (only supported for M3 themes):
-///   $color-variant: The color variant to use for the progress bar: primary, secondary, tertiary,
-///      or error (If not specified, default primary color will be used).
-@mixin theme($theme, $options...) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-progress-bar') {
-    @if inspection.get-theme-version($theme) == 1 {
-      @include _theme-from-tokens(inspection.get-theme-tokens($theme), $options...);
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
+
+    @if $color != null {
+      @include color($color);
     }
-    @else {
-      @include base($theme);
-      @if inspection.theme-has($theme, color) {
-        @include color($theme);
-      }
-      @if inspection.theme-has($theme, density) {
-        @include density($theme);
-      }
-      @if inspection.theme-has($theme, typography) {
-        @include typography($theme);
-      }
+    @if $density != null {
+      @include density($density);
+    }
+    @if $typography != null {
+      @include typography($typography);
     }
   }
-}
-
-@mixin _theme-from-tokens($tokens, $options...) {
-  $mdc-linear-progress-tokens:
-    token-utils.get-tokens-for($tokens, tokens-mdc-linear-progress.$prefix, $options...);
-  @include mdc-linear-progress-theme.theme($mdc-linear-progress-tokens);
 }

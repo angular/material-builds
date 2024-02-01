@@ -1,3 +1,4 @@
+@use 'sass:map';
 @use '@material/density' as mdc-density;
 @use '@material/textfield' as mdc-textfield;
 @use '../core/tokens/m2/mat/select' as tokens-mat-select;
@@ -5,117 +6,80 @@
 @use '../core/style/sass-utils';
 
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
 @use '../core/typography/typography';
 
-/// Outputs base theme styles (styles not dependent on the color, typography, or density settings)
-/// for the mat-select.
-/// @param {Map} $theme The theme to generate base styles for.
-@mixin base($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
-  }
-  @else {}
-}
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
 
-/// Outputs color theme styles for the mat-select.
-/// @param {Map} $theme The theme to generate color styles for.
-/// @param {ArgList} Additional optional arguments (only supported for M3 themes):
-///   $color-variant: The color variant to use for the select arrow: primary, secondary, tertiary,
-///     or error (If not specified, default primary color will be used).
-@mixin color($theme, $options...) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color), $options...);
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
+  @include sass-utils.current-selector-or-root() {
+    @include token-utils.create-token-values(tokens-mat-select.$prefix,
+      tokens-mat-select.get-color-tokens($config));
+
+    .mat-mdc-form-field.mat-accent {
+      $accent: map.get($config, accent);
+      $accent-config: map.merge($config, (primary: $accent));
       @include token-utils.create-token-values(tokens-mat-select.$prefix,
-        tokens-mat-select.get-color-tokens($theme));
-
-      .mat-mdc-form-field.mat-accent {
-        @include token-utils.create-token-values(tokens-mat-select.$prefix,
-          tokens-mat-select.get-color-tokens($theme, accent));
-      }
-
-      .mat-mdc-form-field.mat-warn {
-        @include token-utils.create-token-values(tokens-mat-select.$prefix,
-          tokens-mat-select.get-color-tokens($theme, warn));
-      }
+        tokens-mat-select.get-color-tokens($accent-config));
     }
-  }
-}
 
-/// Outputs typography theme styles for the mat-select.
-/// @param {Map} $theme The theme to generate typography styles for.
-@mixin typography($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
+    .mat-mdc-form-field.mat-warn {
+      $warn: map.get($config, warn);
+      $warn-config: map.merge($config, (primary: $warn));
       @include token-utils.create-token-values(tokens-mat-select.$prefix,
-        tokens-mat-select.get-typography-tokens($theme));
+        tokens-mat-select.get-color-tokens($warn-config));
     }
   }
 }
 
-/// Outputs typography theme styles for the mat-select.
-/// @param {Map} $theme The theme to generate density styles for.
-@mixin density($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
-  }
-  @else {
-    $density-scale: inspection.get-theme-density($theme);
+@mixin typography($config-or-theme) {
+  $config: typography.private-typography-to-2018-config(
+      theming.get-typography-config($config-or-theme));
 
-    // Density is clamped at -5 here, because MDC's form field throws an error for anything lower.
-    $form-field-height: mdc-density.prop-value(
-      $density-config: mdc-textfield.$density-config,
-      $density-scale: theming.clamp-density($density-scale, -5),
-      $property-name: height,
-    );
-
-    // On lower densities the filled form field hides its label which causes the label to
-    // be misaligned. Remove the additional offset that was added because of the label.
-    @if ($form-field-height < mdc-textfield.$minimum-height-for-filled-label) {
-      .mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper {
-        transform: none;
-      }
-    }
-
-    @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(tokens-mat-select.$prefix,
-        tokens-mat-select.get-density-tokens($theme));
-    }
+  @include sass-utils.current-selector-or-root() {
+    @include token-utils.create-token-values(tokens-mat-select.$prefix,
+      tokens-mat-select.get-typography-tokens($config));
   }
 }
 
-/// Outputs all (base, color, typography, and density) theme styles for the mat-icon.
-/// @param {Map} $theme The theme to generate styles for.
-/// @param {ArgList} Additional optional arguments (only supported for M3 themes):
-///   $color-variant: The color variant to use for the select arrow: primary, secondary, tertiary,
-///     or error (If not specified, default primary color will be used).
-@mixin theme($theme, $options...) {
+@mixin density($config-or-theme) {
+  $density-scale: theming.get-density-config($config-or-theme);
+
+  // Density is clamped at -5 here, because MDC's form field throws an error for anything lower.
+  $form-field-height: mdc-density.prop-value(
+    $density-config: mdc-textfield.$density-config,
+    $density-scale: theming.clamp-density($density-scale, -5),
+    $property-name: height,
+  );
+
+  // On lower densities the filled form field hides its label which causes the label to
+  // be misaligned. Remove the additional offset that was added because of the label.
+  @if ($form-field-height < mdc-textfield.$minimum-height-for-filled-label) {
+    .mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper {
+      transform: none;
+    }
+  }
+
+  @include sass-utils.current-selector-or-root() {
+    @include token-utils.create-token-values(tokens-mat-select.$prefix,
+      tokens-mat-select.get-density-tokens($density-scale));
+  }
+}
+
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-select') {
-    @if inspection.get-theme-version($theme) == 1 {
-      @include _theme-from-tokens(inspection.get-theme-tokens($theme), $options...);
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
+
+    @if $color != null {
+      @include color($color);
     }
-    @else {
-      @include base($theme);
-      @if inspection.theme-has($theme, color) {
-        @include color($theme);
-      }
-      @if inspection.theme-has($theme, density) {
-        @include density($theme);
-      }
-      @if inspection.theme-has($theme, typography) {
-        @include typography($theme);
-      }
+    @if $density != null {
+      @include density($density);
+    }
+    @if $typography != null {
+      @include typography($typography);
     }
   }
-}
-
-@mixin _theme-from-tokens($tokens, $options...) {
-  $mat-select-tokens: token-utils.get-tokens-for($tokens, tokens-mat-select.$prefix, $options...);
-  @include token-utils.create-token-values(tokens-mat-select.$prefix, $mat-select-tokens);
 }

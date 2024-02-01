@@ -1,13 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Selectors for different sections of the mat-card that can container user content. */
-var MatCardSection;
-(function (MatCardSection) {
-    MatCardSection["HEADER"] = ".mat-mdc-card-header";
-    MatCardSection["CONTENT"] = ".mat-mdc-card-content";
-    MatCardSection["ACTIONS"] = ".mat-mdc-card-actions";
-    MatCardSection["FOOTER"] = ".mat-mdc-card-footer";
-})(MatCardSection || (MatCardSection = {}));
 /** Harness for interacting with an MDC-based mat-card in tests. */
 class MatCardHarness extends ContentContainerComponentHarness {
     constructor() {
@@ -42,5 +34,5 @@ class MatCardHarness extends ContentContainerComponentHarness {
     }
 }
 
-export { MatCardHarness, MatCardSection };
+export { MatCardHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -1,8 +1,14 @@
+import { _AbstractConstructor } from '@angular/material/core';
 import { AfterViewInit } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { CanColor } from '@angular/material/core';
+import { CanDisable } from '@angular/material/core';
+import { CanDisableRipple } from '@angular/material/core';
+import { _Constructor } from '@angular/material/core';
 import { ElementRef } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/material/core';
+import * as i4 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { MatRippleLoader } from '@angular/material/core';
@@ -12,21 +18,21 @@ import { OnInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i2 {
+declare namespace i1 {
     export {
         MatButton,
         MatAnchor
     }
 }
 
-declare namespace i3 {
+declare namespace i2 {
     export {
         MatIconButton,
         MatIconAnchor
     }
 }
 
-declare namespace i4 {
+declare namespace i3 {
     export {
         MAT_FAB_DEFAULT_OPTIONS_FACTORY,
         MatFabDefaultOptions,
@@ -37,9 +43,6 @@ declare namespace i4 {
         MatMiniFabAnchor
     }
 }
-
-/** Injection token that can be used to provide the default options the button component. */
-export declare const MAT_BUTTON_CONFIG: InjectionToken<MatButtonConfig>;
 
 /** Injection token to be used to override the default options for FAB. */
 export declare const MAT_FAB_DEFAULT_OPTIONS: InjectionToken<MatFabDefaultOptions>;
@@ -60,7 +63,7 @@ export declare function MAT_FAB_DEFAULT_OPTIONS_FACTORY(): MatFabDefaultOptions;
 export declare class MatAnchor extends MatAnchorBase {
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchor, [null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatAnchor, "a[mat-button], a[mat-raised-button], a[mat-flat-button], a[mat-stroked-button]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAnchor, "a[mat-button], a[mat-raised-button], a[mat-flat-button], a[mat-stroked-button]", ["matButton", "matAnchor"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
 }
 
 /**
@@ -72,10 +75,8 @@ declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
     ngOnInit(): void;
     ngOnDestroy(): void;
     _haltDisabledEvents: (event: Event) => void;
-    protected _getAriaDisabled(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchorBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAnchorBase, never, never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, false, never>;
-    static ngAcceptInputType_tabIndex: unknown;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAnchorBase, never, never, {}, {}, never, never, false, never>;
 }
 
 /**
@@ -90,12 +91,11 @@ declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
 export declare class MatButton extends MatButtonBase {
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, [null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", ["matButton"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
 }
 
 /** Base class for all buttons.  */
-declare class MatButtonBase implements AfterViewInit, OnDestroy {
-    _elementRef: ElementRef;
+declare class MatButtonBase extends _MatButtonMixin implements CanDisable, CanColor, CanDisableRipple, AfterViewInit, OnDestroy {
     _platform: Platform;
     _ngZone: NgZone;
     _animationMode?: string | undefined;
@@ -114,55 +114,35 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
      */
     get ripple(): MatRipple;
     set ripple(v: MatRipple);
-    /** Theme color palette of the button */
-    color?: string | null;
     /** Whether the ripple effect is disabled or not. */
     get disableRipple(): boolean;
     set disableRipple(value: any);
     private _disableRipple;
-    /** Whether the button is disabled. */
     get disabled(): boolean;
     set disabled(value: any);
     private _disabled;
-    /** `aria-disabled` value of the button. */
-    ariaDisabled: boolean | undefined;
-    /**
-     * Natively disabled buttons prevent focus and any pointer events from reaching the button.
-     * In some scenarios this might not be desirable, because it can prevent users from finding out
-     * why the button is disabled (e.g. via tooltip).
-     *
-     * Enabling this input will change the button so that it is styled to be disabled and will be
-     * marked as `aria-disabled`, but it will allow the button to receive events and focus.
-     *
-     * Note that by enabling this, you need to set the `tabindex` yourself if the button isn't
-     * meant to be tabbable and you have to prevent the button action (e.g. form submissions).
-     */
-    disabledInteractive: boolean;
-    constructor(_elementRef: ElementRef, _platform: Platform, _ngZone: NgZone, _animationMode?: string | undefined);
+    constructor(elementRef: ElementRef, _platform: Platform, _ngZone: NgZone, _animationMode?: string | undefined);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
-    focus(origin?: FocusOrigin, options?: FocusOptions): void;
-    protected _getAriaDisabled(): boolean | null;
-    protected _getDisabledAttribute(): true | null;
+    focus(_origin?: FocusOrigin, options?: FocusOptions): void;
+    /** Gets whether the button has one of the given attributes. */
+    private _hasHostAttributes;
     private _updateRippleDisabled;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "ariaDisabled": { "alias": "aria-disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, {}, never, never, false, never>;
-    static ngAcceptInputType_disableRipple: unknown;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_ariaDisabled: unknown;
-    static ngAcceptInputType_disabledInteractive: unknown;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, {}, {}, never, never, false, never>;
 }
 
-/** Object that can be used to configure the default options for the button component. */
-export declare interface MatButtonConfig {
-    /** Whether disabled buttons should be interactive. */
-    disabledInteractive?: boolean;
-}
+/** @docs-private */
+declare const _MatButtonMixin: _Constructor<CanColor> & _AbstractConstructor<CanColor> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
 
 export declare class MatButtonModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i2.MatAnchor, typeof i2.MatButton, typeof i3.MatIconAnchor, typeof i4.MatMiniFabAnchor, typeof i4.MatMiniFabButton, typeof i3.MatIconButton, typeof i4.MatFabAnchor, typeof i4.MatFabButton], [typeof i2.MatAnchor, typeof i2.MatButton, typeof i3.MatIconAnchor, typeof i3.MatIconButton, typeof i4.MatMiniFabAnchor, typeof i4.MatMiniFabButton, typeof i4.MatFabAnchor, typeof i4.MatFabButton, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonModule, [typeof i1.MatAnchor, typeof i1.MatButton, typeof i2.MatIconAnchor, typeof i3.MatMiniFabAnchor, typeof i3.MatMiniFabButton, typeof i2.MatIconButton, typeof i3.MatFabAnchor, typeof i3.MatFabButton], [typeof i4.MatCommonModule, typeof i4.MatRippleModule], [typeof i1.MatAnchor, typeof i1.MatButton, typeof i2.MatIconAnchor, typeof i2.MatIconButton, typeof i3.MatMiniFabAnchor, typeof i3.MatMiniFabButton, typeof i3.MatFabAnchor, typeof i3.MatFabButton, typeof i4.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonModule>;
 }
 
@@ -176,11 +156,12 @@ export declare class MatButtonModule {
 export declare class MatFabAnchor extends MatAnchor {
     private _options?;
     _isFab: boolean;
-    extended: boolean;
+    get extended(): boolean;
+    set extended(value: BooleanInput);
+    private _extended;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string, _options?: MatFabDefaultOptions | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFabAnchor, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabAnchor, "a[mat-fab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
-    static ngAcceptInputType_extended: unknown;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabAnchor, "a[mat-fab]", ["matButton", "matAnchor"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
 }
 
 /**
@@ -193,11 +174,12 @@ export declare class MatFabAnchor extends MatAnchor {
 export declare class MatFabButton extends MatButtonBase {
     private _options?;
     _isFab: boolean;
-    extended: boolean;
+    get extended(): boolean;
+    set extended(value: BooleanInput);
+    private _extended;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string, _options?: MatFabDefaultOptions | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFabButton, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab]", ["matButton"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
-    static ngAcceptInputType_extended: unknown;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab]", ["matButton"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
 }
 
 /** Default FAB options that can be overridden. */
@@ -213,7 +195,7 @@ export declare interface MatFabDefaultOptions {
 export declare class MatIconAnchor extends MatAnchorBase {
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconAnchor, [null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconAnchor, "a[mat-icon-button]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconAnchor, "a[mat-icon-button]", ["matButton", "matAnchor"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
 }
 
 /**
@@ -224,7 +206,7 @@ export declare class MatIconAnchor extends MatAnchorBase {
 export declare class MatIconButton extends MatButtonBase {
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconButton, [null, null, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button]", ["matButton"], {}, {}, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button]", ["matButton"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, ["*"], false, never>;
 }
 
 /**
@@ -237,7 +219,7 @@ export declare class MatMiniFabAnchor extends MatAnchor {
     _isFab: boolean;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string, _options?: MatFabDefaultOptions | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabAnchor, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabAnchor, "a[mat-mini-fab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabAnchor, "a[mat-mini-fab]", ["matButton", "matAnchor"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
 }
 
 /**
@@ -250,7 +232,7 @@ export declare class MatMiniFabButton extends MatButtonBase {
     _isFab: boolean;
     constructor(elementRef: ElementRef, platform: Platform, ngZone: NgZone, animationMode?: string, _options?: MatFabDefaultOptions | undefined);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabButton, [null, null, null, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab]", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab]", ["matButton"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], false, never>;
 }
 
 export { }

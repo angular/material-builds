@@ -1,132 +1,92 @@
+@use 'sass:map';
 @use '@material/switch/switch-theme' as mdc-switch-theme;
-@use '@material/form-field/form-field-theme' as mdc-form-field-theme;
-@use '../core/style/sass-utils';
+@use '@material/form-field' as mdc-form-field;
 @use '../core/theming/theming';
-@use '../core/theming/inspection';
-@use '../core/tokens/token-utils';
+@use '../core/mdc-helpers/mdc-helpers';
 @use '../core/typography/typography';
-@use '../core/tokens/m2/mdc/form-field' as tokens-mdc-form-field;
-@use '../core/tokens/m2/mdc/switch' as tokens-mdc-switch;
+@use '../core/tokens/m2/mdc/switch' as m2-mdc-switch;
+@use '../core/tokens/m2/mat/slide-toggle' as m2-mat-slide-toggle;
+@use '../core/tokens/token-utils';
 
-/// Outputs base theme styles (styles not dependent on the color, typography, or density settings)
-/// for the mat-slide-toggle.
-/// @param {Map} $theme The theme to generate base styles for.
-@mixin base($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include mdc-switch-theme.theme(tokens-mdc-switch.get-unthemable-tokens());
-    }
-  }
-}
+@mixin color($config-or-theme) {
+  $config: theming.get-color-config($config-or-theme);
+  $primary: map.get($config, primary);
+  $accent: map.get($config, accent);
+  $warn: map.get($config, warn);
+  $is-dark: map.get($config, is-dark);
+  $foreground: map.get($config, foreground);
 
-/// Outputs color theme styles for the mat-slide-toggle.
-/// @param {Map} $theme The theme to generate color styles for.
-/// @param {ArgList} Additional optional arguments (only supported for M3 themes):
-///   $color-variant: The color variant to use for the slide-toggle: primary, secondary, tertiary,
-///      or error (If not specified, default primary color will be used).
-@mixin color($theme, $options...) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, color), $options...);
-  }
-  @else {
-    $is-dark: inspection.get-theme-type($theme) == dark;
-    $mdc-switch-color-tokens: tokens-mdc-switch.get-color-tokens($theme);
+  $mdc-switch-color-tokens: m2-mdc-switch.get-color-tokens($config);
 
+  @include mdc-helpers.using-mdc-theme($config) {
     // Add values for MDC slide toggles tokens
-    @include sass-utils.current-selector-or-root() {
+    .mat-mdc-slide-toggle {
+      @include mdc-form-field.core-styles($query: mdc-helpers.$mdc-theme-styles-query);
       @include mdc-switch-theme.theme($mdc-switch-color-tokens);
 
-      // TODO(wagnermaciel): Use our token system to define this css variable.
-    --mdc-switch-disabled-label-text-color: #{inspection.get-theme-color(
-      $theme,
-      foreground,
-      disabled-text
-    )};
+      // MDC should set the disabled color on the label, but doesn't, so we do it here instead.
+      .mdc-switch--disabled + label {
+        color: theming.get-color-from-palette($foreground, disabled-text);
+      }
 
-    .mat-mdc-slide-toggle {
-        @include mdc-form-field-theme.theme(tokens-mdc-form-field.get-color-tokens($theme));
+      // Change the color palette related tokens to accent or warn if applicable
+      &.mat-accent {
+        @include mdc-switch-theme.theme(m2-mdc-switch.private-get-color-palette-color-tokens(
+          map.get($config, accent),
+          map.get($config, is-dark)
+        ));
+      }
 
-        // Change the color palette related tokens to accent or warn if applicable
-        &.mat-accent {
-          @include mdc-switch-theme.theme(
-              tokens-mdc-switch.private-get-color-palette-color-tokens($theme, accent));
-        }
-
-        &.mat-warn {
-          @include mdc-switch-theme.theme(
-              tokens-mdc-switch.private-get-color-palette-color-tokens($theme, warn));
-        }
+      &.mat-warn {
+        @include mdc-switch-theme.theme(m2-mdc-switch.private-get-color-palette-color-tokens(
+          map.get($config, warn),
+          map.get($config, is-dark)
+        ));
       }
     }
   }
 }
 
-/// Outputs typography theme styles for the mat-slide-toggle.
-/// @param {Map} $theme The theme to generate typography styles for.
-@mixin typography($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
-  }
-  @else {
-    $mdc-switch-typography-tokens: tokens-mdc-switch.get-typography-tokens($theme);
+@mixin typography($config-or-theme) {
+  $config: typography.private-typography-to-2018-config(
+      theming.get-typography-config($config-or-theme));
+  $mdc-switch-typography-tokens: m2-mdc-switch.get-typography-tokens($config);
+  $mat-slide-toggle-typography-tokens: m2-mat-slide-toggle.get-typography-tokens($config);
 
-    // Add values for MDC slide toggle tokens
-    @include sass-utils.current-selector-or-root() {
-      @include mdc-switch-theme.theme($mdc-switch-typography-tokens);
-
-      .mat-mdc-slide-toggle {
-        @include mdc-form-field-theme.theme(tokens-mdc-form-field.get-typography-tokens($theme));
-      }
-    }
+  //Add values for MDC slide toggle tokens
+  .mat-mdc-slide-toggle {
+    @include mdc-form-field.core-styles($query: mdc-helpers.$mdc-typography-styles-query);
+    @include mdc-switch-theme.theme($mdc-switch-typography-tokens);
+    @include token-utils.create-token-values(
+      m2-mat-slide-toggle.$prefix,
+      $mat-slide-toggle-typography-tokens
+    );
   }
 }
 
-/// Outputs density theme styles for the mat-slide-toggle.
-/// @param {Map} $theme The theme to generate density styles for.
-@mixin density($theme) {
-  @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
-  }
-  @else {
-    @include sass-utils.current-selector-or-root() {
-      @include mdc-switch-theme.theme(tokens-mdc-switch.get-density-tokens($theme));
-    }
+@mixin density($config-or-theme) {
+  $density-scale: theming.get-density-config($config-or-theme);
+  .mat-mdc-slide-toggle {
+    @include mdc-switch-theme.theme(mdc-switch-theme.density($density-scale));
   }
 }
 
-/// Outputs all (base, color, typography, and density) theme styles for the mat-icon.
-/// @param {Map} $theme The theme to generate styles for.
-/// @param {ArgList} Additional optional arguments (only supported for M3 themes):
-///   $color-variant: The color variant to use for the slide-toggle: primary, secondary, tertiary,
-///      or error (If not specified, default primary color will be used).
-@mixin theme($theme, $options...) {
+@mixin theme($theme-or-color-config) {
+  $theme: theming.private-legacy-get-theme($theme-or-color-config);
+
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-slide-toggle') {
-    @if inspection.get-theme-version($theme) == 1 {
-      @include _theme-from-tokens(inspection.get-theme-tokens($theme), $options...);
+    $color: theming.get-color-config($theme);
+    $density: theming.get-density-config($theme);
+    $typography: theming.get-typography-config($theme);
+
+    @if $color != null {
+      @include color($color);
     }
-    @else {
-      @include base($theme);
-      @if inspection.theme-has($theme, color) {
-        @include color($theme);
-      }
-      @if inspection.theme-has($theme, density) {
-        @include density($theme);
-      }
-      @if inspection.theme-has($theme, typography) {
-        @include typography($theme);
-      }
+    @if $density != null {
+      @include density($density);
+    }
+    @if $typography != null {
+      @include typography($typography);
     }
   }
-}
-
-@mixin _theme-from-tokens($tokens, $options...) {
-  $mdc-switch-tokens: token-utils.get-tokens-for($tokens, tokens-mdc-switch.$prefix, $options...);
-  // Don't pass $options here, since the mdc-form-field doesn't support color options,
-  // only the mdc-switch does.
-  $mdc-form-field-tokens: token-utils.get-tokens-for($tokens, tokens-mdc-form-field.$prefix);
-  @include mdc-switch-theme.theme($mdc-switch-tokens);
-  @include mdc-form-field-theme.theme($mdc-form-field-tokens);
 }

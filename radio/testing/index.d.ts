@@ -6,7 +6,7 @@ import { HarnessPredicate } from '@angular/cdk/testing';
 import { TestElement } from '@angular/cdk/testing';
 
 /** Harness for interacting with an MDC-based mat-radio-button in tests. */
-export declare class MatRadioButtonHarness extends ComponentHarness {
+export declare class MatRadioButtonHarness extends _MatRadioButtonHarnessBase {
     /** The selector for the host element of a `MatRadioButton` instance. */
     static hostSelector: string;
     /**
@@ -18,6 +18,11 @@ export declare class MatRadioButtonHarness extends ComponentHarness {
     static with<T extends MatRadioButtonHarness>(this: ComponentHarnessConstructor<T>, options?: RadioButtonHarnessFilters): HarnessPredicate<T>;
     protected _textLabel: AsyncFactoryFn<TestElement>;
     protected _clickLabel: AsyncFactoryFn<TestElement>;
+}
+
+export declare abstract class _MatRadioButtonHarnessBase extends ComponentHarness {
+    protected abstract _textLabel: AsyncFactoryFn<TestElement>;
+    protected abstract _clickLabel: AsyncFactoryFn<TestElement>;
     private _input;
     /** Whether the radio-button is checked. */
     isChecked(): Promise<boolean>;
@@ -52,10 +57,10 @@ export declare class MatRadioButtonHarness extends ComponentHarness {
 }
 
 /** Harness for interacting with an MDC-based mat-radio-group in tests. */
-export declare class MatRadioGroupHarness extends ComponentHarness {
+export declare class MatRadioGroupHarness extends _MatRadioGroupHarnessBase<typeof MatRadioButtonHarness, MatRadioButtonHarness, RadioButtonHarnessFilters> {
     /** The selector for the host element of a `MatRadioGroup` instance. */
     static hostSelector: string;
-    private _buttonClass;
+    protected _buttonClass: typeof MatRadioButtonHarness;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a radio group with specific
      * attributes.
@@ -63,25 +68,36 @@ export declare class MatRadioGroupHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatRadioGroupHarness>(this: ComponentHarnessConstructor<T>, options?: RadioGroupHarnessFilters): HarnessPredicate<T>;
+}
+
+export declare abstract class _MatRadioGroupHarnessBase<ButtonType extends ComponentHarnessConstructor<Button> & {
+    with: (options?: ButtonFilters) => HarnessPredicate<Button>;
+}, Button extends ComponentHarness & {
+    isChecked(): Promise<boolean>;
+    getValue(): Promise<string | null>;
+    getName(): Promise<string | null>;
+    check(): Promise<void>;
+}, ButtonFilters extends BaseHarnessFilters> extends ComponentHarness {
+    protected abstract _buttonClass: ButtonType;
     /** Gets the name of the radio-group. */
     getName(): Promise<string | null>;
     /** Gets the id of the radio-group. */
     getId(): Promise<string | null>;
     /** Gets the checked radio-button in a radio-group. */
-    getCheckedRadioButton(): Promise<MatRadioButtonHarness | null>;
+    getCheckedRadioButton(): Promise<Button | null>;
     /** Gets the checked value of the radio-group. */
     getCheckedValue(): Promise<string | null>;
     /**
      * Gets a list of radio buttons which are part of the radio-group.
      * @param filter Optionally filters which radio buttons are included.
      */
-    getRadioButtons(filter?: RadioButtonHarnessFilters): Promise<MatRadioButtonHarness[]>;
+    getRadioButtons(filter?: ButtonFilters): Promise<Button[]>;
     /**
      * Checks a radio button in this group.
      * @param filter An optional filter to apply to the child radio buttons. The first tab matching
      *     the filter will be selected.
      */
-    checkRadioButton(filter?: RadioButtonHarnessFilters): Promise<void>;
+    checkRadioButton(filter?: ButtonFilters): Promise<void>;
     /** Gets the name attribute of the host element. */
     private _getGroupNameFromHost;
     /** Gets a list of the name attributes of all child radio buttons. */
@@ -92,7 +108,7 @@ export declare class MatRadioGroupHarness extends ComponentHarness {
      * Checks if a radio-group harness has the given name. Throws if a radio-group with
      * matching name could be found but has mismatching radio-button names.
      */
-    protected static _checkRadioGroupName(harness: MatRadioGroupHarness, name: string): Promise<boolean>;
+    protected static _checkRadioGroupName(harness: _MatRadioGroupHarnessBase<any, any, any>, name: string): Promise<boolean>;
 }
 
 /** A set of criteria that can be used to filter a list of `MatRadioButtonHarness` instances. */

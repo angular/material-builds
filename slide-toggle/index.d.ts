@@ -1,22 +1,26 @@
-import { AbstractControl } from '@angular/forms';
+import { _AbstractConstructor } from '@angular/material/core';
 import { AfterContentInit } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import { CanColor } from '@angular/material/core';
+import { CanDisable } from '@angular/material/core';
+import { CanDisableRipple } from '@angular/material/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { CheckboxRequiredValidator } from '@angular/forms';
+import { _Constructor } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { HasTabIndex } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i3 from '@angular/material/core';
+import * as i4 from '@angular/common';
 import { InjectionToken } from '@angular/core';
-import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Provider } from '@angular/core';
-import { SimpleChanges } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { Type } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
-import { Validator } from '@angular/forms';
 
 declare namespace i1 {
     export {
@@ -29,6 +33,7 @@ declare namespace i2 {
     export {
         MAT_SLIDE_TOGGLE_VALUE_ACCESSOR,
         MatSlideToggleChange,
+        _MatSlideToggleBase,
         MatSlideToggle
     }
 }
@@ -36,41 +41,44 @@ declare namespace i2 {
 /** Injection token to be used to override the default options for `mat-slide-toggle`. */
 export declare const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatSlideToggleDefaultOptions>;
 
-/**
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
 export declare const MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR: Provider;
 
-/**
- * @deprecated Will stop being exported.
- * @breaking-change 19.0.0
- */
+/** @docs-private */
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: {
     provide: InjectionToken<readonly ControlValueAccessor[]>;
     useExisting: Type<any>;
     multi: boolean;
 };
 
-export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, ControlValueAccessor, Validator {
-    private _elementRef;
-    protected _focusMonitor: FocusMonitor;
-    protected _changeDetectorRef: ChangeDetectorRef;
-    defaults: MatSlideToggleDefaultOptions;
-    private _onChange;
-    private _onTouched;
-    private _validatorOnChange;
-    private _uniqueId;
-    private _checked;
-    private _createChangeEvent;
+export declare class MatSlideToggle extends _MatSlideToggleBase<MatSlideToggleChange> {
     /** Unique ID for the label element. */
     _labelId: string;
     /** Returns the unique id for the visual hidden button. */
     get buttonId(): string;
     /** Reference to the MDC switch element. */
     _switchElement: ElementRef<HTMLElement>;
+    constructor(elementRef: ElementRef, focusMonitor: FocusMonitor, changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
+    /** Method being called whenever the underlying button is clicked. */
+    _handleClick(): void;
     /** Focuses the slide-toggle. */
     focus(): void;
+    protected _createChangeEvent(isChecked: boolean): MatSlideToggleChange;
+    _getAriaLabelledBy(): string | null;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["*"], false, never>;
+}
+
+export declare abstract class _MatSlideToggleBase<T> extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
+    protected _focusMonitor: FocusMonitor;
+    protected _changeDetectorRef: ChangeDetectorRef;
+    defaults: MatSlideToggleDefaultOptions;
+    protected _onChange: (_: any) => void;
+    private _onTouched;
+    protected _uniqueId: string;
+    private _required;
+    private _checked;
+    protected abstract _createChangeEvent(isChecked: boolean): T;
+    abstract focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /** Whether noop animations are enabled. */
     _noopAnimations: boolean;
     /** Whether the slide toggle is currently focused. */
@@ -88,22 +96,17 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnCh
     /** Used to set the aria-describedby attribute on the underlying input element. */
     ariaDescribedby: string;
     /** Whether the slide-toggle is required. */
-    required: boolean;
-    /** Palette color of slide toggle. */
-    color: string | undefined;
-    /** Whether the slide toggle is disabled. */
-    disabled: boolean;
-    /** Whether the slide toggle has a ripple. */
-    disableRipple: boolean;
-    /** Tabindex of slide toggle. */
-    tabIndex: number;
+    get required(): boolean;
+    set required(value: BooleanInput);
     /** Whether the slide-toggle element is checked or not. */
     get checked(): boolean;
-    set checked(value: boolean);
+    set checked(value: BooleanInput);
     /** Whether to hide the icon inside of the slide toggle. */
-    hideIcon: boolean;
+    get hideIcon(): boolean;
+    set hideIcon(value: BooleanInput);
+    private _hideIcon;
     /** An event will be dispatched each time the slide-toggle changes its value. */
-    readonly change: EventEmitter<MatSlideToggleChange>;
+    readonly change: EventEmitter<T>;
     /**
      * An event will be dispatched each time the slide-toggle input is toggled.
      * This event is always emitted when the user toggles the slide toggle, but this does not mean
@@ -112,9 +115,8 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnCh
     readonly toggleChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */
     get inputId(): string;
-    constructor(_elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode?: string);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, defaults: MatSlideToggleDefaultOptions, animationMode: string | undefined, idPrefix: string);
     ngAfterContentInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
@@ -122,10 +124,6 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnCh
     registerOnChange(fn: any): void;
     /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: any): void;
-    /** Implemented as a part of Validator. */
-    validate(control: AbstractControl<boolean>): ValidationErrors | null;
-    /** Implemented as a part of Validator. */
-    registerOnValidatorChange(fn: () => void): void;
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
     /** Toggles the checked state of the slide-toggle. */
@@ -134,17 +132,8 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnCh
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
      */
     protected _emitChangeEvent(): void;
-    /** Method being called whenever the underlying button is clicked. */
-    _handleClick(): void;
-    _getAriaLabelledBy(): string | null;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, ["*"], true, never>;
-    static ngAcceptInputType_required: unknown;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_disableRipple: unknown;
-    static ngAcceptInputType_tabIndex: unknown;
-    static ngAcceptInputType_checked: unknown;
-    static ngAcceptInputType_hideIcon: unknown;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSlideToggleBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatSlideToggleBase<any>, never, never, { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, never, false, never>;
 }
 
 /** Change event object emitted by a slide toggle. */
@@ -170,9 +159,16 @@ export declare interface MatSlideToggleDefaultOptions {
     hideIcon?: boolean;
 }
 
+/** @docs-private */
+declare const _MatSlideToggleMixinBase: _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex> & _Constructor<CanColor> & _AbstractConstructor<CanColor> & _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple> & _Constructor<CanDisable> & _AbstractConstructor<CanDisable> & {
+    new (_elementRef: ElementRef): {
+        _elementRef: ElementRef;
+    };
+};
+
 export declare class MatSlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof i2.MatSlideToggle, typeof i3.MatCommonModule], [typeof i2.MatSlideToggle, typeof i3.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, [typeof i2.MatSlideToggle], [typeof _MatSlideToggleRequiredValidatorModule, typeof i3.MatCommonModule, typeof i3.MatRippleModule, typeof i4.CommonModule], [typeof _MatSlideToggleRequiredValidatorModule, typeof i2.MatSlideToggle, typeof i3.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSlideToggleModule>;
 }
 
@@ -183,22 +179,16 @@ export declare class MatSlideToggleModule {
  * where the value is always defined.
  *
  * Required slide-toggle form controls are valid when checked.
- *
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
  */
 export declare class MatSlideToggleRequiredValidator extends CheckboxRequiredValidator {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleRequiredValidator, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSlideToggleRequiredValidator, "mat-slide-toggle[required][formControlName],             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]", never, {}, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSlideToggleRequiredValidator, "mat-slide-toggle[required][formControlName],             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]", never, {}, {}, never, never, false, never>;
 }
 
-/**
- * @deprecated No longer used, `MatSlideToggle` implements required validation directly.
- * @breaking-change 19.0.0
- */
+/** This module is used by both original and MDC-based slide-toggle implementations. */
 export declare class _MatSlideToggleRequiredValidatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatSlideToggleRequiredValidatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<_MatSlideToggleRequiredValidatorModule, never, [typeof i1.MatSlideToggleRequiredValidator], [typeof i1.MatSlideToggleRequiredValidator]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<_MatSlideToggleRequiredValidatorModule, [typeof i1.MatSlideToggleRequiredValidator], never, [typeof i1.MatSlideToggleRequiredValidator]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<_MatSlideToggleRequiredValidatorModule>;
 }
 

@@ -1,7 +1,7 @@
 @use 'sass:map';
 @use '../../token-utils';
 @use '../../../theming/theming';
-@use '../../../theming/inspection';
+@use '../../../typography/typography-utils';
 @use '../../../style/sass-utils';
 
 // The prefix used to generate the fully qualified name for tokens in this file.
@@ -10,68 +10,66 @@ $prefix: (mat, stepper);
 // Tokens that can't be configured through Angular Material's current theming API,
 // but may be in a future version of the theming API.
 @function get-unthemable-tokens() {
-  @return (
-    // Border radius for step header on focus
-    header-focus-state-layer-shape: 0,
-    // Border radius for step header on hover
-    header-hover-state-layer-shape: 0,
-  );
+  @return ();
 }
 
 // Tokens that can be configured through Angular Material's color theming API.
-@function get-color-tokens($theme) {
-  @return map.merge(private-get-color-palette-color-tokens($theme, primary), (
+@function get-color-tokens($config) {
+  $foreground: map.get($config, foreground);
+  $background: map.get($config, background);
+  $primary: map.get($config, primary);
+  $warn: map.get($config, warn);
+
+  @return map.merge(private-get-color-palette-color-tokens($primary), (
     // Background for stepper container.
-    container-color: inspection.get-theme-color($theme, background, card),
+    container-color: theming.get-color-from-palette($background, card),
     // Color of the line indicator connecting the steps.
-    line-color: inspection.get-theme-color($theme, foreground, divider),
+    line-color: theming.get-color-from-palette($foreground, divider),
     // Background color of the header while hovered.
-    header-hover-state-layer-color: inspection.get-theme-color($theme, background, hover),
+    header-hover-state-layer-color: theming.get-color-from-palette($background, hover),
     // Background color of the header while focused.
-    header-focus-state-layer-color: inspection.get-theme-color($theme, background, hover),
+    header-focus-state-layer-color: theming.get-color-from-palette($background, hover),
     // Color of the text inside the step header.
-    header-label-text-color: inspection.get-theme-color($theme, foreground, secondary-text),
+    header-label-text-color: theming.get-color-from-palette($foreground, secondary-text),
     // Color for the "optional" label in the step header.
-    header-optional-label-text-color: inspection.get-theme-color(
-        $theme, foreground, secondary-text),
+    header-optional-label-text-color: theming.get-color-from-palette($foreground, secondary-text),
     // Color of the header text when a step is selected.
-    header-selected-state-label-text-color: inspection.get-theme-color($theme, foreground, text),
+    header-selected-state-label-text-color: theming.get-color-from-palette($foreground, text),
     // Color of the header text when a step is in an error state.
-    header-error-state-label-text-color: inspection.get-theme-color($theme, warn, text),
+    header-error-state-label-text-color: theming.get-color-from-palette($warn, text),
     // Background color of the header icon.
-    header-icon-background-color: inspection.get-theme-color($theme, foreground, secondary-text),
+    header-icon-background-color: theming.get-color-from-palette($foreground, secondary-text),
     // Foreground color of the header icon in the error state.
-    header-error-state-icon-foreground-color: inspection.get-theme-color($theme, warn, text),
+    header-error-state-icon-foreground-color: theming.get-color-from-palette($warn, text),
     // Background color of the header icon in the error state.
     header-error-state-icon-background-color: transparent,
   ));
 }
 
 // Tokens that can be configured through Angular Material's typography theming API.
-@function get-typography-tokens($theme) {
+@function get-typography-tokens($config) {
   @return (
     // Font family of the entire stepper.
-    container-text-font: inspection.get-theme-typography($theme, body-2, font-family),
+    container-text-font: typography-utils.font-family($config),
     // Font family of the text inside the step header.
-    header-label-text-font: inspection.get-theme-typography($theme, body-2, font-family),
+    header-label-text-font: typography-utils.font-family($config, body-1) or
+      typography-utils.font-family($config),
     // Size of the text inside the step header.
-    header-label-text-size: inspection.get-theme-typography($theme, body-2, font-size),
+    header-label-text-size: typography-utils.font-size($config, body-1),
     // Weight of the text inside the step header.
-    header-label-text-weight: inspection.get-theme-typography($theme, body-2, font-weight),
+    header-label-text-weight: typography-utils.font-weight($config, body-1),
     // Color of the header text when a step is in an error state.
-    header-error-state-label-text-size: inspection.get-theme-typography($theme, body-1, font-size),
+    header-error-state-label-text-size: typography-utils.font-size($config, body-2),
     // Size of the header text in the selected state.
-    header-selected-state-label-text-size: inspection.get-theme-typography(
-        $theme, body-1, font-size),
+    header-selected-state-label-text-size: typography-utils.font-size($config, body-2),
     // Weight of the header text in the selected state.
-    header-selected-state-label-text-weight: inspection.get-theme-typography(
-        $theme, body-1, font-weight),
+    header-selected-state-label-text-weight: typography-utils.font-weight($config, body-2),
   );
 }
 
 // Tokens that can be configured through Angular Material's density theming API.
-@function get-density-tokens($theme) {
-  $scale: theming.clamp-density(inspection.get-theme-density($theme), -4);
+@function get-density-tokens($config) {
+  $scale: theming.clamp-density($config, -4);
   $height-config: (
     0: 72px,
     -1: 68px,
@@ -86,13 +84,13 @@ $prefix: (mat, stepper);
 }
 
 // Generates the tokens used to theme the stepper based on a palette.
-@function private-get-color-palette-color-tokens($theme, $palette-name) {
-  $active-state-foreground: inspection.get-theme-color($theme, $palette-name, default-contrast);
-  $active-state-background: inspection.get-theme-color($theme, $palette-name);
+@function private-get-color-palette-color-tokens($palette) {
+  $active-state-foreground: theming.get-color-from-palette($palette, default-contrast);
+  $active-state-background: theming.get-color-from-palette($palette);
 
   @return (
     // Foreground color of the header icon.
-    header-icon-foreground-color: $active-state-foreground,
+    header-icon-foreground-color: theming.get-color-from-palette($palette, default-contrast),
     // Background color of the header icon in the selected state.
     header-selected-state-icon-background-color: $active-state-background,
     // Foreground color of the header icon in the selected state.

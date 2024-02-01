@@ -1,5 +1,3 @@
-@use 'sass:color';
-@use 'sass:list';
 @use 'sass:map';
 @use 'sass:meta';
 
@@ -11,13 +9,8 @@
 /// @content Content to output under the current selector, or root selector if there is no current
 ///     selector.
 @mixin current-selector-or-root($root: html) {
-  @if & {
+  @at-root #{& or $root} {
     @content;
-  }
-  @else {
-    #{$root} {
-      @content;
-    }
   }
 }
 
@@ -53,28 +46,4 @@
 ///     $value.
 @function coerce-to-list($value) {
   @return if(meta.type-of($value) != 'list', ($value,), $value);
-}
-
-/// A version of the Sass `color.change` function that is safe ot use with CSS variables.
-@function safe-color-change($color, $args...) {
-  $args: meta.keywords($args);
-  @return if(meta.type-of($color) == 'color', color.change($color, $args...), $color);
-}
-
-/// Gets the given arguments as a map of keywords and validates that only supported arguments were
-/// passed.
-/// @param {ArgList} $args The arguments to convert to a keywords map.
-/// @param {List} $supported-args The supported argument names.
-/// @return {Map} The $args as a map of argument name to argument value.
-@function validate-keyword-args($args, $supported-args) {
-  @if list.length($args) > 0 {
-    @error #{'Expected keyword args, but got positional args: '}#{$args};
-  }
-  $kwargs: meta.keywords($args);
-  @each $arg, $v in $kwargs {
-    @if list.index($supported-args, $arg) == null {
-      @error #{'Unsupported argument '}#{$arg}#{'. Valid arguments are: '}#{$supported-args};
-    }
-  }
-  @return $kwargs;
 }

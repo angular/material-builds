@@ -1,7 +1,8 @@
-@use '../../../theming/inspection';
+@use '../../../theming/theming';
 @use '../../../style/sass-utils';
 @use '../../token-utils';
 @use 'sass:color';
+@use 'sass:map';
 @use 'sass:meta';
 
 // The prefix used to generate the fully qualified name for tokens in this file.
@@ -26,26 +27,26 @@ $prefix: (mdc, linear-progress);
 }
 
 // Tokens that can be configured through Angular Material's color theming API.
-@function get-color-tokens($theme, $palette-name: primary) {
-  $palette-color: inspection.get-theme-color($theme, $palette-name);
+@function get-color-tokens($config) {
+  $primary: theming.get-color-from-palette(map.get($config, primary));
   @return (
     // The color of the progress bar's active section.
-    active-indicator-color: $palette-color,
+    active-indicator-color: $primary,
     track-color: if(
-        meta.type-of($palette-color) == color,
-        color.adjust($palette-color, $alpha: -0.75),
-        $palette-color
+        meta.type-of($primary) == color,
+        color.adjust($primary, $alpha: -0.75),
+        $primary
     )
   );
 }
 
 // Tokens that can be configured through Angular Material's typography theming API.
-@function get-typography-tokens($theme) {
+@function get-typography-tokens($config) {
   @return ();
 }
 
 // Tokens that can be configured through Angular Material's density theming API.
-@function get-density-tokens($theme) {
+@function get-density-tokens($config) {
   @return ();
 }
 

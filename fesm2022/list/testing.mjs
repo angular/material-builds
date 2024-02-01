@@ -30,18 +30,6 @@ class MatSubheaderHarness extends ComponentHarness {
         return (await this.host()).text();
     }
 }
-/** Selectors for the various list item sections that may contain user content. */
-var MatListItemSection;
-(function (MatListItemSection) {
-    MatListItemSection["CONTENT"] = ".mdc-list-item__content";
-})(MatListItemSection || (MatListItemSection = {}));
-/** Enum describing the possible variants of a list item. */
-var MatListItemType;
-(function (MatListItemType) {
-    MatListItemType[MatListItemType["ONE_LINE_ITEM"] = 0] = "ONE_LINE_ITEM";
-    MatListItemType[MatListItemType["TWO_LINE_ITEM"] = 1] = "TWO_LINE_ITEM";
-    MatListItemType[MatListItemType["THREE_LINE_ITEM"] = 2] = "THREE_LINE_ITEM";
-})(MatListItemType || (MatListItemType = {}));
 /**
  * Shared behavior among the harnesses for the various `MatListItem` flavors.
  * @docs-private
@@ -63,13 +51,13 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
             host.hasClass('mdc-list-item--with-two-lines'),
         ]);
         if (isOneLine) {
-            return MatListItemType.ONE_LINE_ITEM;
+            return 0 /* MatListItemType.ONE_LINE_ITEM */;
         }
         else if (isTwoLine) {
-            return MatListItemType.TWO_LINE_ITEM;
+            return 1 /* MatListItemType.TWO_LINE_ITEM */;
         }
         else {
-            return MatListItemType.THREE_LINE_ITEM;
+            return 2 /* MatListItemType.THREE_LINE_ITEM */;
         }
     }
     /**
@@ -103,7 +91,7 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
      */
     async getSecondaryText() {
         const type = await this.getType();
-        if (type === MatListItemType.ONE_LINE_ITEM) {
+        if (type === 0 /* MatListItemType.ONE_LINE_ITEM */) {
             return null;
         }
         const [lines, unscopedTextContent] = await parallel(() => [
@@ -125,7 +113,7 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
      */
     async getTertiaryText() {
         const type = await this.getType();
-        if (type !== MatListItemType.THREE_LINE_ITEM) {
+        if (type !== 2 /* MatListItemType.THREE_LINE_ITEM */) {
             return null;
         }
         const [lines, unscopedTextContent] = await parallel(() => [
@@ -491,5 +479,5 @@ class MatListOptionHarness extends MatListItemHarnessBase {
     }
 }
 
-export { MatActionListHarness, MatActionListItemHarness, MatListHarness, MatListItemHarness, MatListItemSection, MatListItemType, MatListOptionHarness, MatNavListHarness, MatNavListItemHarness, MatSelectionListHarness, MatSubheaderHarness };
+export { MatActionListHarness, MatActionListItemHarness, MatListHarness, MatListItemHarness, MatListOptionHarness, MatNavListHarness, MatNavListItemHarness, MatSelectionListHarness, MatSubheaderHarness };
 //# sourceMappingURL=testing.mjs.map
