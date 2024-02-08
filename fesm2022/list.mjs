@@ -1128,7 +1128,7 @@ class MatSelectionList extends MatListBase {
         // If the active item is removed from the list, reset back to the first one.
         this._items.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
             const activeItem = this._keyManager.activeItem;
-            if (!activeItem || !this._items.toArray().indexOf(activeItem)) {
+            if (!activeItem || this._items.toArray().indexOf(activeItem) === -1) {
                 this._resetActiveOption();
             }
         });
