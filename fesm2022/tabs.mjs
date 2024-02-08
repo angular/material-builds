@@ -1838,6 +1838,11 @@ class MatTabLink extends _MatTabLinkMixinBase {
                 event.preventDefault();
             }
             else if (this._tabNavBar.tabPanel) {
+                // Only prevent the default action on space since it can scroll the page.
+                // Don't prevent enter since it can break link navigation.
+                if (event.keyCode === SPACE) {
+                    event.preventDefault();
+                }
                 this.elementRef.nativeElement.click();
             }
         }
