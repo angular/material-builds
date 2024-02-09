@@ -7,9 +7,11 @@
 @use '../core/style/sass-utils';
 @use '../core/theming/theming';
 @use '../core/theming/inspection';
+@use '../core/tokens/m2/mat/list' as tokens-mat-list;
 @use '../core/tokens/m2/mdc/checkbox' as tokens-mdc-checkbox;
 @use '../core/tokens/m2/mdc/radio' as tokens-mdc-radio;
 @use '../core/tokens/m2/mdc/list' as tokens-mdc-list;
+@use '../core/tokens/token-utils';
 @use '../core/typography/typography';
 
 @mixin base($theme) {
@@ -20,6 +22,8 @@
   @else {
     @include sass-utils.current-selector-or-root() {
       @include mdc-list-theme.theme(tokens-mdc-list.get-unthemable-tokens());
+      @include token-utils.create-token-values(
+        tokens-mat-list.$prefix, tokens-mat-list.get-unthemable-tokens());
     }
   }
 }
@@ -34,6 +38,8 @@
     // Add values for MDC list tokens.
     @include sass-utils.current-selector-or-root() {
       @include mdc-list-theme.theme($mdc-list-color-tokens);
+      @include token-utils.create-token-values(
+        tokens-mat-list.$prefix, tokens-mat-list.get-color-tokens($theme));
     }
 
     .mdc-list-item__start,
@@ -96,6 +102,8 @@
     // Add values for MDC list tokens.
     @include sass-utils.current-selector-or-root() {
       @include mdc-list-theme.theme($mdc-list-density-tokens);
+      @include token-utils.create-token-values(
+        tokens-mat-list.$prefix, tokens-mat-list.get-density-tokens($theme));
     }
 
     .mdc-list-item__start,
@@ -146,6 +154,8 @@
     // Add values for MDC list tokens.
     @include sass-utils.current-selector-or-root() {
       @include mdc-list-theme.theme($mdc-list-typography-tokens);
+      @include token-utils.create-token-values(
+        tokens-mat-list.$prefix, tokens-mat-list.get-typography-tokens($theme));
     }
 
     // MDC does not have tokens for the subheader.
@@ -178,7 +188,8 @@
 }
 
 @mixin _theme-from-tokens($tokens) {
-  @if ($tokens != ()) {
-    @include mdc-list-theme.theme(map.get($tokens, tokens-mdc-list.$prefix));
-  }
+  @include mdc-list-theme.theme(token-utils.get-tokens-for($tokens, tokens-mdc-list.$prefix));
+
+  $mat-list-tokens: token-utils.get-tokens-for($tokens, tokens-mat-list.$prefix);
+  @include token-utils.create-token-values(tokens-mat-list.$prefix, $mat-list-tokens);
 }
