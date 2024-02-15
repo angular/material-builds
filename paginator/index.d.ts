@@ -1,12 +1,12 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { HasInitialized } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/button';
 import * as i2 from '@angular/material/select';
 import * as i3 from '@angular/material/tooltip';
 import { InjectionToken } from '@angular/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Optional } from '@angular/core';
@@ -41,15 +41,16 @@ export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPagin
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-export declare class MatPaginator extends _MatPaginatorMixinBase implements OnInit, OnDestroy, HasInitialized {
+export declare class MatPaginator implements OnInit, OnDestroy {
     _intl: MatPaginatorIntl;
     private _changeDetectorRef;
     /** If set, styles the "page size" form field with the designated style. */
     _formFieldAppearance?: MatFormFieldAppearance;
     /** ID for the DOM node containing the paginator's items per page label. */
     readonly _pageSizeLabelId: string;
-    private _initialized;
     private _intlChanges;
+    private _isInitialized;
+    private _initializedStream;
     /** Theme color to be used for the underlying form controls. */
     color: ThemePalette;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */
@@ -80,6 +81,8 @@ export declare class MatPaginator extends _MatPaginatorMixinBase implements OnIn
     readonly page: EventEmitter<PageEvent>;
     /** Displayed set of page size options. Will be sorted and include current page size. */
     _displayedPageSizeOptions: number[];
+    /** Emits when the paginator is initialized. */
+    initialized: Observable<void>;
     constructor(_intl: MatPaginatorIntl, _changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
     ngOnInit(): void;
     ngOnDestroy(): void;
@@ -166,11 +169,6 @@ export declare class MatPaginatorIntl {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorIntl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatPaginatorIntl>;
 }
-
-/** @docs-private */
-declare const _MatPaginatorMixinBase: (new (...args: any[]) => HasInitialized) & {
-    new (): {};
-};
 
 export declare class MatPaginatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorModule, never>;
