@@ -5,10 +5,10 @@ import { ChangeDetectorRef } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { HasInitialized } from '@angular/material/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
 import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -68,8 +68,9 @@ export declare const MAT_SORT_HEADER_INTL_PROVIDER: {
 export declare function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl: MatSortHeaderIntl): MatSortHeaderIntl;
 
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
-export declare class MatSort extends _MatSortBase implements HasInitialized, OnChanges, OnDestroy, OnInit {
+export declare class MatSort implements OnChanges, OnDestroy, OnInit {
     private _defaultOptions?;
+    private _initializedStream;
     /** Collection of all registered sortables that this directive manages. */
     sortables: Map<string, MatSortable>;
     /** Used to notify any child components listening to state changes. */
@@ -94,6 +95,8 @@ export declare class MatSort extends _MatSortBase implements HasInitialized, OnC
     disabled: boolean;
     /** Event emitted when the user changes either the active sort or sort direction. */
     readonly sortChange: EventEmitter<Sort>;
+    /** Emits when the paginator is initialized. */
+    initialized: Observable<void>;
     constructor(_defaultOptions?: MatSortDefaultOptions | undefined);
     /**
      * Register function to be used by the contained MatSortables. Adds the MatSortable to the
@@ -139,11 +142,6 @@ export declare const matSortAnimations: {
     readonly arrowOpacity: AnimationTriggerMetadata;
     readonly arrowPosition: AnimationTriggerMetadata;
     readonly allowChildren: AnimationTriggerMetadata;
-};
-
-/** @docs-private */
-declare const _MatSortBase: (new (...args: any[]) => HasInitialized) & {
-    new (): {};
 };
 
 /** Default options for `mat-sort`.  */

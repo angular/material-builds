@@ -2,9 +2,9 @@ import * as i0 from '@angular/core';
 import { InjectionToken, EventEmitter, booleanAttribute, Directive, Optional, Inject, Input, Output, Injectable, SkipSelf, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import * as i3 from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
-import { Subject, merge } from 'rxjs';
-import { mixinInitialized, AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
+import { ReplaySubject, Subject, merge } from 'rxjs';
 import { trigger, state, style, transition, animate, keyframes, query, animateChild } from '@angular/animations';
+import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
 
 /** @docs-private */
 function getSortDuplicateSortableIdError(id) {
@@ -25,12 +25,8 @@ function getSortInvalidDirectionError(direction) {
 
 /** Injection token to be used to override the default options for `mat-sort`. */
 const MAT_SORT_DEFAULT_OPTIONS = new InjectionToken('MAT_SORT_DEFAULT_OPTIONS');
-// Boilerplate for applying mixins to MatSort.
-/** @docs-private */
-const _MatSortBase = mixinInitialized(class {
-});
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
-class MatSort extends _MatSortBase {
+class MatSort {
     /** The sort direction of the currently active MatSortable. */
     get direction() {
         return this._direction;
@@ -45,8 +41,8 @@ class MatSort extends _MatSortBase {
         this._direction = direction;
     }
     constructor(_defaultOptions) {
-        super();
         this._defaultOptions = _defaultOptions;
+        this._initializedStream = new ReplaySubject(1);
         /** Collection of all registered sortables that this directive manages. */
         this.sortables = new Map();
         /** Used to notify any child components listening to state changes. */
@@ -61,6 +57,8 @@ class MatSort extends _MatSortBase {
         this.disabled = false;
         /** Event emitted when the user changes either the active sort or sort direction. */
         this.sortChange = new EventEmitter();
+        /** Emits when the paginator is initialized. */
+        this.initialized = this._initializedStream;
     }
     /**
      * Register function to be used by the contained MatSortables. Adds the MatSortable to the
@@ -111,16 +109,17 @@ class MatSort extends _MatSortBase {
         return sortDirectionCycle[nextDirectionIndex];
     }
     ngOnInit() {
-        this._markInitialized();
+        this._initializedStream.next();
     }
     ngOnChanges() {
         this._stateChanges.next();
     }
     ngOnDestroy() {
         this._stateChanges.complete();
+        this._initializedStream.complete();
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatSort, deps: [{ token: MAT_SORT_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: MatSort, isStandalone: true, selector: "[matSort]", inputs: { active: ["matSortActive", "active"], start: ["matSortStart", "start"], direction: ["matSortDirection", "direction"], disableClear: ["matSortDisableClear", "disableClear", booleanAttribute], disabled: ["matSortDisabled", "disabled", booleanAttribute] }, outputs: { sortChange: "matSortChange" }, host: { classAttribute: "mat-sort" }, exportAs: ["matSort"], usesInheritance: true, usesOnChanges: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: MatSort, isStandalone: true, selector: "[matSort]", inputs: { active: ["matSortActive", "active"], start: ["matSortStart", "start"], direction: ["matSortDirection", "direction"], disableClear: ["matSortDisableClear", "disableClear", booleanAttribute], disabled: ["matSortDisabled", "disabled", booleanAttribute] }, outputs: { sortChange: "matSortChange" }, host: { classAttribute: "mat-sort" }, exportAs: ["matSort"], usesOnChanges: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatSort, decorators: [{
             type: Directive,
