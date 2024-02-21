@@ -74,6 +74,34 @@ declare namespace i6 {
     }
 }
 
+declare abstract class InkBarItem implements OnInit, OnDestroy {
+    private _elementRef;
+    private _inkBarElement;
+    private _inkBarContentElement;
+    private _fitToContent;
+    /** Whether the ink bar should fit to the entire tab or just its content. */
+    get fitInkBarToContent(): boolean;
+    set fitInkBarToContent(newValue: boolean);
+    /** Aligns the ink bar to the current item. */
+    activateInkBar(previousIndicatorClientRect?: DOMRect): void;
+    /** Removes the ink bar from the current item. */
+    deactivateInkBar(): void;
+    /** Initializes the foundation. */
+    ngOnInit(): void;
+    /** Destroys the foundation. */
+    ngOnDestroy(): void;
+    /** Creates and appends the ink bar element. */
+    private _createInkBarElement;
+    /**
+     * Appends the ink bar to the tab host element or content, depending on whether
+     * the ink bar should fit to content.
+     */
+    private _appendInkBarElement;
+    static ɵfac: i0.ɵɵFactoryDeclaration<InkBarItem, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<InkBarItem, never, never, { "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; }, {}, never, never, false, never>;
+    static ngAcceptInputType_fitInkBarToContent: unknown;
+}
+
 /** Injection token for the MatInkBar's Positioner. */
 export declare const _MAT_INK_BAR_POSITIONER: InjectionToken<_MatInkBarPositioner>;
 
@@ -714,7 +742,7 @@ export declare class MatTabLabel extends CdkPortal {
  * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private
  */
-export declare class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase {
+export declare class MatTabLabelWrapper extends InkBarItem {
     elementRef: ElementRef;
     /** Whether the tab is disabled. */
     disabled: boolean;
@@ -728,17 +756,10 @@ export declare class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase {
     static ngAcceptInputType_disabled: unknown;
 }
 
-/** @docs-private */
-declare const _MatTabLabelWrapperMixinBase: {
-    new (): {
-        elementRef: ElementRef;
-    };
-} & (new (...args: any[]) => MatInkBarItem);
-
 /**
  * Link inside a `mat-tab-nav-bar`.
  */
-export declare class MatTabLink extends _MatTabLinkMixinBase implements AfterViewInit, OnDestroy, RippleTarget, FocusableOption {
+export declare class MatTabLink extends InkBarItem implements AfterViewInit, OnDestroy, RippleTarget, FocusableOption {
     private _tabNavBar;
     /** @docs-private */ elementRef: ElementRef;
     private _focusMonitor;
@@ -787,12 +808,6 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements AfterVie
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
 }
-
-declare const _MatTabLinkMixinBase: {
-    new (): {
-        elementRef: ElementRef;
-    };
-} & (new (...args: any[]) => MatInkBarItem);
 
 /**
  * Navigation component matching the styles of the tab group header.

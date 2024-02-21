@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Inject, Optional, booleanAttribute, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, EventEmitter, ANIMATION_MODULE_TYPE, numberAttribute, Output, ContentChildren, forwardRef, QueryList, inject, Attribute, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Inject, Optional, booleanAttribute, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, inject, ElementRef, numberAttribute, EventEmitter, ANIMATION_MODULE_TYPE, Output, ContentChildren, forwardRef, QueryList, Attribute, NgModule } from '@angular/core';
 import { MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, fromEvent, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
@@ -8,7 +8,6 @@ import { CdkScrollable } from '@angular/cdk/scrolling';
 import * as i3 from '@angular/cdk/platform';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import * as i2 from '@angular/cdk/bidi';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import * as i4 from '@angular/cdk/a11y';
 import { FocusKeyManager, CdkMonitorFocus } from '@angular/cdk/a11y';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
@@ -221,98 +220,97 @@ class MatInkBar {
         }
     }
 }
-/**
- * Mixin that can be used to apply the `MatInkBarItem` behavior to a class.
- * Base on MDC's `MDCSlidingTabIndicatorFoundation`:
- * https://github.com/material-components/material-components-web/blob/c0a11ef0d000a098fd0c372be8f12d6a99302855/packages/mdc-tab-indicator/sliding-foundation.ts
- * @docs-private
- */
-function mixinInkBarItem(base) {
-    return class extends base {
-        constructor(...args) {
-            super(...args);
-            this._fitToContent = false;
-        }
-        /** Whether the ink bar should fit to the entire tab or just its content. */
-        get fitInkBarToContent() {
-            return this._fitToContent;
-        }
-        set fitInkBarToContent(v) {
-            const newValue = coerceBooleanProperty(v);
-            if (this._fitToContent !== newValue) {
-                this._fitToContent = newValue;
-                if (this._inkBarElement) {
-                    this._appendInkBarElement();
-                }
+class InkBarItem {
+    constructor() {
+        this._elementRef = inject(ElementRef);
+        this._fitToContent = false;
+    }
+    /** Whether the ink bar should fit to the entire tab or just its content. */
+    get fitInkBarToContent() {
+        return this._fitToContent;
+    }
+    set fitInkBarToContent(newValue) {
+        if (this._fitToContent !== newValue) {
+            this._fitToContent = newValue;
+            if (this._inkBarElement) {
+                this._appendInkBarElement();
             }
         }
-        /** Aligns the ink bar to the current item. */
-        activateInkBar(previousIndicatorClientRect) {
-            const element = this.elementRef.nativeElement;
-            // Early exit if no indicator is present to handle cases where an indicator
-            // may be activated without a prior indicator state
-            if (!previousIndicatorClientRect ||
-                !element.getBoundingClientRect ||
-                !this._inkBarContentElement) {
-                element.classList.add(ACTIVE_CLASS);
-                return;
-            }
-            // This animation uses the FLIP approach. You can read more about it at the link below:
-            // https://aerotwist.com/blog/flip-your-animations/
-            // Calculate the dimensions based on the dimensions of the previous indicator
-            const currentClientRect = element.getBoundingClientRect();
-            const widthDelta = previousIndicatorClientRect.width / currentClientRect.width;
-            const xPosition = previousIndicatorClientRect.left - currentClientRect.left;
-            element.classList.add(NO_TRANSITION_CLASS);
-            this._inkBarContentElement.style.setProperty('transform', `translateX(${xPosition}px) scaleX(${widthDelta})`);
-            // Force repaint before updating classes and transform to ensure the transform properly takes effect
-            element.getBoundingClientRect();
-            element.classList.remove(NO_TRANSITION_CLASS);
+    }
+    /** Aligns the ink bar to the current item. */
+    activateInkBar(previousIndicatorClientRect) {
+        const element = this._elementRef.nativeElement;
+        // Early exit if no indicator is present to handle cases where an indicator
+        // may be activated without a prior indicator state
+        if (!previousIndicatorClientRect ||
+            !element.getBoundingClientRect ||
+            !this._inkBarContentElement) {
             element.classList.add(ACTIVE_CLASS);
-            this._inkBarContentElement.style.setProperty('transform', '');
+            return;
         }
-        /** Removes the ink bar from the current item. */
-        deactivateInkBar() {
-            this.elementRef.nativeElement.classList.remove(ACTIVE_CLASS);
+        // This animation uses the FLIP approach. You can read more about it at the link below:
+        // https://aerotwist.com/blog/flip-your-animations/
+        // Calculate the dimensions based on the dimensions of the previous indicator
+        const currentClientRect = element.getBoundingClientRect();
+        const widthDelta = previousIndicatorClientRect.width / currentClientRect.width;
+        const xPosition = previousIndicatorClientRect.left - currentClientRect.left;
+        element.classList.add(NO_TRANSITION_CLASS);
+        this._inkBarContentElement.style.setProperty('transform', `translateX(${xPosition}px) scaleX(${widthDelta})`);
+        // Force repaint before updating classes and transform to ensure the transform properly takes effect
+        element.getBoundingClientRect();
+        element.classList.remove(NO_TRANSITION_CLASS);
+        element.classList.add(ACTIVE_CLASS);
+        this._inkBarContentElement.style.setProperty('transform', '');
+    }
+    /** Removes the ink bar from the current item. */
+    deactivateInkBar() {
+        this._elementRef.nativeElement.classList.remove(ACTIVE_CLASS);
+    }
+    /** Initializes the foundation. */
+    ngOnInit() {
+        this._createInkBarElement();
+    }
+    /** Destroys the foundation. */
+    ngOnDestroy() {
+        this._inkBarElement?.remove();
+        this._inkBarElement = this._inkBarContentElement = null;
+    }
+    /** Creates and appends the ink bar element. */
+    _createInkBarElement() {
+        const documentNode = this._elementRef.nativeElement.ownerDocument || document;
+        const inkBarElement = (this._inkBarElement = documentNode.createElement('span'));
+        const inkBarContentElement = (this._inkBarContentElement = documentNode.createElement('span'));
+        inkBarElement.className = 'mdc-tab-indicator';
+        inkBarContentElement.className =
+            'mdc-tab-indicator__content mdc-tab-indicator__content--underline';
+        inkBarElement.appendChild(this._inkBarContentElement);
+        this._appendInkBarElement();
+    }
+    /**
+     * Appends the ink bar to the tab host element or content, depending on whether
+     * the ink bar should fit to content.
+     */
+    _appendInkBarElement() {
+        if (!this._inkBarElement && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            throw Error('Ink bar element has not been created and cannot be appended');
         }
-        /** Initializes the foundation. */
-        ngOnInit() {
-            this._createInkBarElement();
+        const parentElement = this._fitToContent
+            ? this._elementRef.nativeElement.querySelector('.mdc-tab__content')
+            : this._elementRef.nativeElement;
+        if (!parentElement && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+            throw Error('Missing element to host the ink bar');
         }
-        /** Destroys the foundation. */
-        ngOnDestroy() {
-            this._inkBarElement?.remove();
-            this._inkBarElement = this._inkBarContentElement = null;
-        }
-        /** Creates and appends the ink bar element. */
-        _createInkBarElement() {
-            const documentNode = this.elementRef.nativeElement.ownerDocument || document;
-            this._inkBarElement = documentNode.createElement('span');
-            this._inkBarContentElement = documentNode.createElement('span');
-            this._inkBarElement.className = 'mdc-tab-indicator';
-            this._inkBarContentElement.className =
-                'mdc-tab-indicator__content mdc-tab-indicator__content--underline';
-            this._inkBarElement.appendChild(this._inkBarContentElement);
-            this._appendInkBarElement();
-        }
-        /**
-         * Appends the ink bar to the tab host element or content, depending on whether
-         * the ink bar should fit to content.
-         */
-        _appendInkBarElement() {
-            if (!this._inkBarElement && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-                throw Error('Ink bar element has not been created and cannot be appended');
-            }
-            const parentElement = this._fitToContent
-                ? this.elementRef.nativeElement.querySelector('.mdc-tab__content')
-                : this.elementRef.nativeElement;
-            if (!parentElement && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-                throw Error('Missing element to host the ink bar');
-            }
-            parentElement.appendChild(this._inkBarElement);
-        }
-    };
+        parentElement.appendChild(this._inkBarElement);
+    }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: InkBarItem, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: InkBarItem, inputs: { fitInkBarToContent: ["fitInkBarToContent", "fitInkBarToContent", numberAttribute] }, ngImport: i0 }); }
 }
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: InkBarItem, decorators: [{
+            type: Directive
+        }], propDecorators: { fitInkBarToContent: [{
+                type: Input,
+                args: [{ transform: numberAttribute }]
+            }] } });
 /**
  * The default positioner function for the MatInkBar.
  * @docs-private
@@ -330,15 +328,11 @@ const _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
     factory: _MAT_INK_BAR_POSITIONER_FACTORY,
 });
 
-// Boilerplate for applying mixins to MatTabLabelWrapper.
-/** @docs-private */
-const _MatTabLabelWrapperMixinBase = mixinInkBarItem(class {
-});
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private
  */
-class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase {
+class MatTabLabelWrapper extends InkBarItem {
     constructor(elementRef) {
         super();
         this.elementRef = elementRef;
@@ -1760,13 +1754,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImpor
                 type: ViewChild,
                 args: ['previousPaginator']
             }] } });
-// Boilerplate for applying mixins to MatTabLink.
-const _MatTabLinkMixinBase = mixinInkBarItem(class {
-});
 /**
  * Link inside a `mat-tab-nav-bar`.
  */
-class MatTabLink extends _MatTabLinkMixinBase {
+class MatTabLink extends InkBarItem {
     /** Whether the link is active. */
     get active() {
         return this._isActive;
