@@ -91,7 +91,7 @@ export declare class MatColumnDef extends CdkColumnDef {
      */
     protected _updateColumnCssClassName(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatColumnDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "sticky": { "alias": "sticky"; "required": false; }; "name": { "alias": "matColumnDef"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "name": { "alias": "matColumnDef"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /** Footer cell template container that adds the right classes and role. */
@@ -122,6 +122,7 @@ export declare class MatFooterRow extends CdkFooterRow {
 export declare class MatFooterRowDef extends CdkFooterRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterRowDef, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterRowDef, "[matFooterRowDef]", never, { "columns": { "alias": "matFooterRowDef"; "required": false; }; "sticky": { "alias": "matFooterRowDefSticky"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_sticky: unknown;
 }
 
 /** Header cell template container that adds the right classes and role. */
@@ -152,6 +153,7 @@ export declare class MatHeaderRow extends CdkHeaderRow {
 export declare class MatHeaderRowDef extends CdkHeaderRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRowDef, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderRowDef, "[matHeaderRowDef]", never, { "columns": { "alias": "matHeaderRowDef"; "required": false; }; "sticky": { "alias": "matHeaderRowDefSticky"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_sticky: unknown;
 }
 
 /** Row that can be used to display a message when no data is shown in the table. */
