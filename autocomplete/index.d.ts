@@ -287,6 +287,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _previousValue;
     /** Value of the input element when the panel was attached (even if there are no options). */
     private _valueOnAttach;
+    /** Value on the previous keydown event. */
+    private _valueOnLastKeydown;
     /** Strategy that is used to position the panel. */
     private _positionStrategy;
     /** Whether or not the label state is being overridden. */
@@ -402,6 +404,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _emitOpened;
     /** Destroys the autocomplete suggestion panel. */
     private _destroyPanel;
+    /** Given a value, returns the string that should be shown within the input. */
+    private _getDisplayValue;
     private _assignOptionValue;
     private _updateNativeInputValue;
     /**
@@ -414,6 +418,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
      * Clear any previous selected option and emit a selection change event for this option
      */
     private _clearPreviousSelectedOption;
+    private _openPanelInternal;
     private _attachOverlay;
     /** Handles keyboard events coming from the overlay panel. */
     private _handlePanelKeydown;
