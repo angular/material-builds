@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Directive, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
+import { Directive, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, booleanAttribute, NgModule } from '@angular/core';
 import { CdkTable, CDK_TABLE, _COALESCED_STYLE_SCHEDULER, _CoalescedStyleScheduler, STICKY_POSITIONING_LISTENER, HeaderRowOutlet, DataRowOutlet, NoDataRowOutlet, FooterRowOutlet, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkCellOutlet, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule } from '@angular/cdk/table';
 import { _VIEW_REPEATER_STRATEGY, _RecycleViewRepeaterStrategy, _DisposeViewRepeaterStrategy, DataSource } from '@angular/cdk/collections';
 import { MatCommonModule } from '@angular/material/core';
@@ -189,7 +189,7 @@ class MatColumnDef extends CdkColumnDef {
         this._columnCssClassName.push(`mat-column-${this.cssClassFriendlyName}`);
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatColumnDef, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.2.0", type: MatColumnDef, isStandalone: true, selector: "[matColumnDef]", inputs: { sticky: "sticky", name: ["matColumnDef", "name"] }, providers: [
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.2.0", type: MatColumnDef, isStandalone: true, selector: "[matColumnDef]", inputs: { name: ["matColumnDef", "name"] }, providers: [
             { provide: CdkColumnDef, useExisting: MatColumnDef },
             { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef },
         ], usesInheritance: true, ngImport: i0 }); }
@@ -198,7 +198,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImpor
             type: Directive,
             args: [{
                     selector: '[matColumnDef]',
-                    inputs: ['sticky'],
                     providers: [
                         { provide: CdkColumnDef, useExisting: MatColumnDef },
                         { provide: 'MAT_SORT_HEADER_COLUMN_DEF', useExisting: MatColumnDef },
@@ -264,14 +263,17 @@ const ROW_TEMPLATE = `<ng-container cdkCellOutlet></ng-container>`;
  */
 class MatHeaderRowDef extends CdkHeaderRowDef {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatHeaderRowDef, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.2.0", type: MatHeaderRowDef, isStandalone: true, selector: "[matHeaderRowDef]", inputs: { columns: ["matHeaderRowDef", "columns"], sticky: ["matHeaderRowDefSticky", "sticky"] }, providers: [{ provide: CdkHeaderRowDef, useExisting: MatHeaderRowDef }], usesInheritance: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: MatHeaderRowDef, isStandalone: true, selector: "[matHeaderRowDef]", inputs: { columns: ["matHeaderRowDef", "columns"], sticky: ["matHeaderRowDefSticky", "sticky", booleanAttribute] }, providers: [{ provide: CdkHeaderRowDef, useExisting: MatHeaderRowDef }], usesInheritance: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatHeaderRowDef, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matHeaderRowDef]',
                     providers: [{ provide: CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
-                    inputs: ['columns: matHeaderRowDef', 'sticky: matHeaderRowDefSticky'],
+                    inputs: [
+                        { name: 'columns', alias: 'matHeaderRowDef' },
+                        { name: 'sticky', alias: 'matHeaderRowDefSticky', transform: booleanAttribute },
+                    ],
                     standalone: true,
                 }]
         }] });
@@ -281,14 +283,17 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImpor
  */
 class MatFooterRowDef extends CdkFooterRowDef {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatFooterRowDef, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "17.2.0", type: MatFooterRowDef, isStandalone: true, selector: "[matFooterRowDef]", inputs: { columns: ["matFooterRowDef", "columns"], sticky: ["matFooterRowDefSticky", "sticky"] }, providers: [{ provide: CdkFooterRowDef, useExisting: MatFooterRowDef }], usesInheritance: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: MatFooterRowDef, isStandalone: true, selector: "[matFooterRowDef]", inputs: { columns: ["matFooterRowDef", "columns"], sticky: ["matFooterRowDefSticky", "sticky", booleanAttribute] }, providers: [{ provide: CdkFooterRowDef, useExisting: MatFooterRowDef }], usesInheritance: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatFooterRowDef, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matFooterRowDef]',
                     providers: [{ provide: CdkFooterRowDef, useExisting: MatFooterRowDef }],
-                    inputs: ['columns: matFooterRowDef', 'sticky: matFooterRowDefSticky'],
+                    inputs: [
+                        { name: 'columns', alias: 'matFooterRowDef' },
+                        { name: 'sticky', alias: 'matFooterRowDefSticky', transform: booleanAttribute },
+                    ],
                     standalone: true,
                 }]
         }] });
@@ -306,7 +311,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImpor
             args: [{
                     selector: '[matRowDef]',
                     providers: [{ provide: CdkRowDef, useExisting: MatRowDef }],
-                    inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
+                    inputs: [
+                        { name: 'columns', alias: 'matRowDefColumns' },
+                        { name: 'when', alias: 'matRowDefWhen' },
+                    ],
                     standalone: true,
                 }]
         }] });
@@ -420,7 +428,7 @@ class MatTextColumn extends CdkTextColumn {
         {{dataAccessor(data, name)}}
       </td>
     </ng-container>
-  `, isInline: true, dependencies: [{ kind: "directive", type: MatColumnDef, selector: "[matColumnDef]", inputs: ["sticky", "matColumnDef"] }, { kind: "directive", type: MatHeaderCellDef, selector: "[matHeaderCellDef]" }, { kind: "directive", type: MatHeaderCell, selector: "mat-header-cell, th[mat-header-cell]" }, { kind: "directive", type: MatCellDef, selector: "[matCellDef]" }, { kind: "directive", type: MatCell, selector: "mat-cell, td[mat-cell]" }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None }); }
+  `, isInline: true, dependencies: [{ kind: "directive", type: MatColumnDef, selector: "[matColumnDef]", inputs: ["matColumnDef"] }, { kind: "directive", type: MatHeaderCellDef, selector: "[matHeaderCellDef]" }, { kind: "directive", type: MatHeaderCell, selector: "mat-header-cell, th[mat-header-cell]" }, { kind: "directive", type: MatCellDef, selector: "[matCellDef]" }, { kind: "directive", type: MatCell, selector: "mat-cell, td[mat-cell]" }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatTextColumn, decorators: [{
             type: Component,
