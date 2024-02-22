@@ -7,7 +7,7 @@ import * as i3 from '@angular/cdk/scrolling';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i1$1 from '@angular/cdk/overlay';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { ActiveDescendantKeyManager, addAriaReferencedId, removeAriaReferencedId } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { _getEventTarget } from '@angular/cdk/platform';
@@ -472,13 +472,7 @@ class MatAutocompleteTrigger {
     }
     /** Opens the autocomplete suggestion panel. */
     openPanel() {
-        this._attachOverlay();
-        this._floatLabel();
-        // Add aria-owns attribute when the autocomplete becomes visible.
-        if (this._trackedModal) {
-            const panelId = this.autocomplete.id;
-            addAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
-        }
+        this._openPanelInternal();
     }
     /** Closes the autocomplete suggestion panel. */
     closePanel() {
@@ -593,6 +587,7 @@ class MatAutocompleteTrigger {
         if (keyCode === ESCAPE && !hasModifier) {
             event.preventDefault();
         }
+        this._valueOnLastKeydown = this._element.nativeElement.value;
         if (this.activeOption && keyCode === ENTER && this.panelOpen && !hasModifier) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
@@ -605,13 +600,13 @@ class MatAutocompleteTrigger {
                 this.autocomplete._keyManager.onKeydown(event);
             }
             else if (isArrowKey && this._canOpen()) {
-                this.openPanel();
+                this._openPanelInternal(this._valueOnLastKeydown);
             }
             if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
                 this._scrollToOption(this.autocomplete._keyManager.activeItemIndex || 0);
                 if (this.autocomplete.autoSelectActiveOption && this.activeOption) {
                     if (!this._pendingAutoselectedOption) {
-                        this._valueBeforeAutoSelection = this._element.nativeElement.value;
+                        this._valueBeforeAutoSelection = this._valueOnLastKeydown;
                     }
                     this._pendingAutoselectedOption = this.activeOption;
                     this._assignOptionValue(this.activeOption.value);
@@ -648,14 +643,21 @@ class MatAutocompleteTrigger {
                 // because the option will be reset when the panel is closed.
                 const selectedOption = this.autocomplete.options?.find(option => option.selected);
                 if (selectedOption) {
-                    const display = this.autocomplete.displayWith?.(selectedOption) ?? selectedOption.value;
+                    const display = this._getDisplayValue(selectedOption.value);
                     if (value !== display) {
                         selectedOption.deselect(false);
                     }
                 }
             }
             if (this._canOpen() && this._document.activeElement === event.target) {
-                this.openPanel();
+                // When the `input` event fires, the input's value will have already changed. This means
+                // that if we take the `this._element.nativeElement.value` directly, it'll be one keystroke
+                // behind. This can be a problem when the user selects a value, changes a character while
+                // the input still has focus and then clicks away (see #28432). To work around it, we
+                // capture the value in `keydown` so we can use it here.
+                const valueOnAttach = this._valueOnLastKeydown ?? this._element.nativeElement.value;
+                this._valueOnLastKeydown = null;
+                this._openPanelInternal(valueOnAttach);
             }
         }
     }
@@ -665,13 +667,13 @@ class MatAutocompleteTrigger {
         }
         else if (this._canOpen()) {
             this._previousValue = this._element.nativeElement.value;
-            this._attachOverlay();
+            this._attachOverlay(this._previousValue);
             this._floatLabel(true);
         }
     }
     _handleClick() {
         if (this._canOpen() && !this.panelOpen) {
-            this.openPanel();
+            this._openPanelInternal();
         }
     }
     /**
@@ -765,10 +767,13 @@ class MatAutocompleteTrigger {
             this._overlayRef = null;
         }
     }
+    /** Given a value, returns the string that should be shown within the input. */
+    _getDisplayValue(value) {
+        const autocomplete = this.autocomplete;
+        return autocomplete && autocomplete.displayWith ? autocomplete.displayWith(value) : value;
+    }
     _assignOptionValue(value) {
-        const toDisplay = this.autocomplete && this.autocomplete.displayWith
-            ? this.autocomplete.displayWith(value)
-            : value;
+        const toDisplay = this._getDisplayValue(value);
         if (value == null) {
             this._clearPreviousSelectedOption(null, false);
         }
@@ -832,7 +837,16 @@ class MatAutocompleteTrigger {
             }
         });
     }
-    _attachOverlay() {
+    _openPanelInternal(valueOnAttach = this._element.nativeElement.value) {
+        this._attachOverlay(valueOnAttach);
+        this._floatLabel();
+        // Add aria-owns attribute when the autocomplete becomes visible.
+        if (this._trackedModal) {
+            const panelId = this.autocomplete.id;
+            addAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
+        }
+    }
+    _attachOverlay(valueOnAttach) {
         if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw getMatAutocompleteMissingPanelError();
         }
@@ -856,7 +870,8 @@ class MatAutocompleteTrigger {
         }
         if (overlayRef && !overlayRef.hasAttached()) {
             overlayRef.attach(this._portal);
-            this._valueOnAttach = this._element.nativeElement.value;
+            this._valueOnAttach = valueOnAttach;
+            this._valueOnLastKeydown = null;
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         const wasOpen = this.panelOpen;
