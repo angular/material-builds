@@ -171,6 +171,7 @@ export declare class MatExpansionModule {
 export declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
     _animationMode: string;
+    protected _animationsDisabled: boolean;
     private _document;
     /** Whether the toggle indicator should be hidden. */
     get hideToggle(): boolean;
@@ -196,8 +197,6 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _portal: TemplatePortal;
     /** ID for the associated header element. Used for a11y labelling. */
     _headerId: string;
-    /** Stream of body animation done events. */
-    readonly _bodyAnimationDone: Subject<AnimationEvent_2>;
     constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document: any, _animationMode: string, defaultOptions?: MatExpansionPanelDefaultOptions);
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
@@ -214,6 +213,10 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     ngOnDestroy(): void;
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     _containsFocus(): boolean;
+    /** Called when the expansion animation has started. */
+    protected _animationStarted(event: AnimationEvent_2): void;
+    /** Called when the expansion animation has finished. */
+    protected _animationDone(event: AnimationEvent_2): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanel, [{ optional: true; skipSelf: true; }, null, null, null, null, { optional: true; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "hideToggle": { "alias": "hideToggle"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, { "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], true, never>;
     static ngAcceptInputType_hideToggle: unknown;
