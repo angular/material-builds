@@ -63,7 +63,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImpor
             type: Directive,
             args: [{
                     selector: '[matTreeNodeDef]',
-                    inputs: ['when: matTreeNodeDefWhen'],
+                    inputs: [{ name: 'when', alias: 'matTreeNodeDefWhen' }],
                     providers: [{ provide: CdkTreeNodeDef, useExisting: MatTreeNodeDef }],
                     standalone: true,
                 }]
@@ -244,7 +244,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImpor
             args: [{
                     selector: '[matTreeNodeToggle]',
                     providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }],
-                    inputs: ['recursive: matTreeNodeToggleRecursive'],
+                    inputs: [{ name: 'recursive', alias: 'matTreeNodeToggleRecursive' }],
                     standalone: true,
                 }]
         }] });
