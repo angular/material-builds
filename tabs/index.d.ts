@@ -752,7 +752,7 @@ export declare class MatTabLabelWrapper extends InkBarItem {
     getOffsetLeft(): number;
     getOffsetWidth(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLabelWrapper, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabLabelWrapper, "[matTabLabelWrapper]", never, { "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_disabled: unknown;
 }
 
