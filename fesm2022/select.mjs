@@ -18,7 +18,7 @@ import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifie
 import * as i4 from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Subject, defer, merge } from 'rxjs';
-import { startWith, switchMap, take, filter, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { startWith, switchMap, filter, map, distinctUntilChanged, takeUntil, take } from 'rxjs/operators';
 import { trigger, transition, query, animateChild, state, style, animate } from '@angular/animations';
 
 /**
@@ -232,10 +232,14 @@ class MatSelect {
     set errorState(value) {
         this._errorStateTracker.errorState = value;
     }
-    constructor(_viewportRuler, _changeDetectorRef, _ngZone, defaultErrorStateMatcher, _elementRef, _dir, parentForm, parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _defaultOptions) {
+    constructor(_viewportRuler, _changeDetectorRef, 
+    /**
+     * @deprecated Unused param, will be removed.
+     * @breaking-change 19.0.0
+     */
+    _unusedNgZone, defaultErrorStateMatcher, _elementRef, _dir, parentForm, parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _defaultOptions) {
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
-        this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._dir = _dir;
         this._parentFormField = _parentFormField;
@@ -323,13 +327,14 @@ class MatSelect {
         this.panelWidth = this._defaultOptions && typeof this._defaultOptions.panelWidth !== 'undefined'
             ? this._defaultOptions.panelWidth
             : 'auto';
+        this._initialized = new Subject();
         /** Combined stream of all of the child options' change events. */
         this.optionSelectionChanges = defer(() => {
             const options = this.options;
             if (options) {
                 return options.changes.pipe(startWith(options), switchMap(() => merge(...options.map(option => option.onSelectionChange))));
             }
-            return this._ngZone.onStable.pipe(take(1), switchMap(() => this.optionSelectionChanges));
+            return this._initialized.pipe(switchMap(() => this.optionSelectionChanges));
         });
         /** Event emitted when the select panel has been toggled. */
         this.openedChange = new EventEmitter();
@@ -412,6 +417,8 @@ class MatSelect {
         });
     }
     ngAfterContentInit() {
+        this._initialized.next();
+        this._initialized.complete();
         this._initKeyManager();
         this._selectionModel.changed.pipe(takeUntil(this._destroy)).subscribe(event => {
             event.added.forEach(option => option.select());
