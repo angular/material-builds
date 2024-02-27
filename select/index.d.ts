@@ -99,7 +99,6 @@ export { MatPrefix }
 export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<any> {
     protected _viewportRuler: ViewportRuler;
     protected _changeDetectorRef: ChangeDetectorRef;
-    protected _ngZone: NgZone;
     readonly _elementRef: ElementRef;
     private _dir;
     protected _parentFormField: MatFormField;
@@ -250,6 +249,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
      * If set to null or an empty string, the panel will grow to match the longest option's text.
      */
     panelWidth: string | number | null;
+    private _initialized;
     /** Combined stream of all of the child options' change events. */
     readonly optionSelectionChanges: Observable<MatOptionSelectionChange>;
     /** Event emitted when the select panel has been toggled. */
@@ -266,7 +266,12 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, defaultErrorStateMatcher: ErrorStateMatcher, _elementRef: ElementRef, _dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, 
+    /**
+     * @deprecated Unused param, will be removed.
+     * @breaking-change 19.0.0
+     */
+    _unusedNgZone: NgZone, defaultErrorStateMatcher: ErrorStateMatcher, _elementRef: ElementRef, _dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
