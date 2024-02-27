@@ -14,6 +14,7 @@ import { QueryList } from '@angular/core';
 
 declare namespace i2 {
     export {
+        MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY,
         ToggleType,
         MatButtonToggleAppearance,
         MatButtonToggleDefaultOptions,
@@ -38,6 +39,8 @@ export declare const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatButton
  * could cause unnecessary retention of the class and its component metadata.
  */
 export declare const MAT_BUTTON_TOGGLE_GROUP: InjectionToken<MatButtonToggleGroup>;
+
+export declare function MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY(): MatButtonToggleDefaultOptions;
 
 /**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
@@ -141,6 +144,10 @@ export declare interface MatButtonToggleDefaultOptions {
      * setting an appearance on a button toggle or group.
      */
     appearance?: MatButtonToggleAppearance;
+    /** Whetehr icon indicators should be hidden for single-selection button toggle groups. */
+    hideSingleSelectionIndicator?: boolean;
+    /** Whether icon indicators should be hidden for multiple-selection button toggle groups. */
+    hideMultipleSelectionIndicator?: boolean;
 }
 
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
@@ -192,6 +199,14 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     set disabled(value: boolean);
     /** Event emitted when the group's value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
+    /** Whether checkmark indicator for single-selection button toggle groups is hidden. */
+    get hideSingleSelectionIndicator(): boolean;
+    set hideSingleSelectionIndicator(value: boolean);
+    private _hideSingleSelectionIndicator;
+    /** Whether checkmark indicator for multiple-selection button toggle groups is hidden. */
+    get hideMultipleSelectionIndicator(): boolean;
+    set hideMultipleSelectionIndicator(value: boolean);
+    private _hideMultipleSelectionIndicator;
     constructor(_changeDetector: ChangeDetectorRef, defaultOptions?: MatButtonToggleDefaultOptions);
     ngOnInit(): void;
     ngAfterContentInit(): void;
@@ -228,10 +243,12 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     /** Marks all of the child button toggles to be checked. */
     private _markButtonsForCheck;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleGroup, [null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonToggleGroup, "mat-button-toggle-group", ["matButtonToggleGroup"], { "appearance": { "alias": "appearance"; "required": false; }; "name": { "alias": "name"; "required": false; }; "vertical": { "alias": "vertical"; "required": false; }; "value": { "alias": "value"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "valueChange": "valueChange"; "change": "change"; }, ["_buttonToggles"], never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonToggleGroup, "mat-button-toggle-group", ["matButtonToggleGroup"], { "appearance": { "alias": "appearance"; "required": false; }; "name": { "alias": "name"; "required": false; }; "vertical": { "alias": "vertical"; "required": false; }; "value": { "alias": "value"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "hideMultipleSelectionIndicator": { "alias": "hideMultipleSelectionIndicator"; "required": false; }; }, { "valueChange": "valueChange"; "change": "change"; }, ["_buttonToggles"], never, true, never>;
     static ngAcceptInputType_vertical: unknown;
     static ngAcceptInputType_multiple: unknown;
     static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_hideSingleSelectionIndicator: unknown;
+    static ngAcceptInputType_hideMultipleSelectionIndicator: unknown;
 }
 
 export declare class MatButtonToggleModule {
