@@ -234,6 +234,8 @@ export declare interface MatTooltipDefaultOptions {
     hideDelay: number;
     /** Default delay when hiding the tooltip on a touch device. */
     touchendHideDelay: number;
+    /** Time between the user putting the pointer on a tooltip trigger and the long press event being fired on a touch device. */
+    touchLongPressShowDelay?: number;
     /** Default touch gesture handling for tooltips. */
     touchGestures?: TooltipTouchGestures;
     /** Default position for tooltips. */

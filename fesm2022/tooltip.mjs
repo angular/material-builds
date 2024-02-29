@@ -66,11 +66,6 @@ const TOOLTIP_PANEL_CLASS = 'mat-mdc-tooltip-panel';
 const PANEL_CLASS = 'tooltip-panel';
 /** Options used to bind passive event listeners. */
 const passiveListenerOptions = normalizePassiveListenerOptions({ passive: true });
-/**
- * Time between the user putting the pointer on a tooltip
- * trigger and the long press event being fired.
- */
-const LONGPRESS_DELAY = 500;
 // These constants were taken from MDC's `numbers` object. We can't import them from MDC,
 // because they have some top-level references to `window` which break during SSR.
 const MIN_VIEWPORT_TOOLTIP_THRESHOLD = 8;
@@ -578,7 +573,8 @@ class MatTooltip {
                     // because it can prevent click events from firing on the element.
                     this._setupPointerExitEventsIfNeeded();
                     clearTimeout(this._touchstartTimeout);
-                    this._touchstartTimeout = setTimeout(() => this.show(undefined, origin), LONGPRESS_DELAY);
+                    const DEFAULT_LONGPRESS_DELAY = 500;
+                    this._touchstartTimeout = setTimeout(() => this.show(undefined, origin), this._defaultOptions.touchLongPressShowDelay ?? DEFAULT_LONGPRESS_DELAY);
                 },
             ]);
         }
