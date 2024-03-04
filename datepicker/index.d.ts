@@ -1481,6 +1481,7 @@ export declare class MatEndDate<D> extends MatDateRangeInputPartBase<D> {
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
+    private _moveCaretToEndOfStartInput;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatEndDate<any>, [null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;

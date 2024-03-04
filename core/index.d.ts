@@ -44,7 +44,11 @@ export declare class AnimationDurations {
     static EXITING: string;
 }
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Will be removed together with `mixinColor`.
+ * @breaking-change 19.0.0
+ */
 export declare interface CanColor {
     /** Theme color palette for the component. */
     color: ThemePalette;
@@ -54,7 +58,11 @@ export declare interface CanColor {
 
 declare type CanColorCtor = _Constructor<CanColor> & _AbstractConstructor<CanColor>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Will be removed together with `mixinDisabled`.
+ * @breaking-change 19.0.0
+ */
 export declare interface CanDisable {
     /** Whether the component is disabled. */
     disabled: boolean;
@@ -62,7 +70,11 @@ export declare interface CanDisable {
 
 declare type CanDisableCtor = _Constructor<CanDisable> & _AbstractConstructor<CanDisable>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Will be removed together with `mixinDisableRipple`.
+ * @breaking-change 19.0.0
+ */
 export declare interface CanDisableRipple {
     /** Whether ripples are disabled. */
     disableRipple: boolean;
@@ -70,7 +82,11 @@ export declare interface CanDisableRipple {
 
 declare type CanDisableRippleCtor = _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Will be removed together with `mixinErrorState`.
+ * @breaking-change 19.0.0
+ */
 export declare interface CanUpdateErrorState {
     /** Updates the error state based on the provided error state matcher. */
     updateErrorState(): void;
@@ -373,6 +389,8 @@ declare interface HasErrorState {
  * If the subscription is made after it has already been marked as initialized, then it will trigger
  * an emit immediately.
  * @docs-private
+ * @deprecated Will be removed together with `mixinInitializer`.
+ * @breaking-change 19.0.0
  */
 export declare interface HasInitialized {
     /** Stream that emits once during the directive/component's ngOnInit. */
@@ -387,7 +405,11 @@ export declare interface HasInitialized {
 
 declare type HasInitializedCtor = _Constructor<HasInitialized>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated Will be removed together with `mixinTabIndex`.
+ * @breaking-change 19.0.0
+ */
 export declare interface HasTabIndex {
     /** Tabindex of the component. */
     tabIndex: number;
@@ -862,25 +884,47 @@ export declare class MatRippleModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRippleModule>;
 }
 
-/** Mixin to augment a directive with a `color` property. */
+/**
+ * Mixin to augment a directive with a `color` property.
+ * @deprecated Use a plain input and host bindings instead.
+ * @breaking-change 19.0.0
+ */
 export declare function mixinColor<T extends _AbstractConstructor<HasElementRef>>(base: T, defaultColor?: ThemePalette): CanColorCtor & T;
 
-/** Mixin to augment a directive with a `disabled` property. */
+/**
+ * Mixin to augment a directive with a `disabled` property.
+ * @deprecated Use an input with a transform instead.
+ * @breaking-change 19.0.0
+ */
 export declare function mixinDisabled<T extends _AbstractConstructor<{}>>(base: T): CanDisableCtor & T;
 
-/** Mixin to augment a directive with a `disableRipple` property. */
+/**
+ * Mixin to augment a directive with a `disableRipple` property.
+ * @deprecated Use an input with a transform instead.
+ * @breaking-change 19.0.0
+ */
 export declare function mixinDisableRipple<T extends _AbstractConstructor<{}>>(base: T): CanDisableRippleCtor & T;
 
 /**
  * Mixin to augment a directive with updateErrorState method.
  * For component with `errorState` and need to update `errorState`.
+ * @deprecated Implement the `updateErrorState` method directly.
+ * @breaking-change 19.0.0
  */
 export declare function mixinErrorState<T extends _AbstractConstructor<HasErrorState>>(base: T): CanUpdateErrorStateCtor & T;
 
-/** Mixin to augment a directive with an initialized property that will emits when ngOnInit ends. */
+/**
+ * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
+ * @deprecated Track the initialized state manually.
+ * @breaking-change 19.0.0
+ */
 export declare function mixinInitialized<T extends _Constructor<{}>>(base: T): HasInitializedCtor & T;
 
-/** Mixin to augment a directive with a `tabIndex` property. */
+/**
+ * Mixin to augment a directive with a `tabIndex` property.
+ * @deprecated Use an input with a transform instead.
+ * @breaking-change 19.0.0
+ */
 export declare function mixinTabIndex<T extends _AbstractConstructor<CanDisable>>(base: T, defaultTabIndex?: number): HasTabIndexCtor & T;
 
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */

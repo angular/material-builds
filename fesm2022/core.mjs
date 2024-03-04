@@ -273,7 +273,11 @@ function mixinErrorState(base) {
     };
 }
 
-/** Mixin to augment a directive with an initialized property that will emits when ngOnInit ends. */
+/**
+ * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
+ * @deprecated Track the initialized state manually.
+ * @breaking-change 19.0.0
+ */
 function mixinInitialized(base) {
     return class extends base {
         constructor(...args) {
