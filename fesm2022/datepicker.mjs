@@ -3917,13 +3917,20 @@ class MatEndDate extends MatDateRangeInputPartBase {
             this._model.updateSelection(range, this);
         }
     }
+    _moveCaretToEndOfStartInput() {
+        const startInput = this._rangeInput._startInput._elementRef.nativeElement;
+        const value = startInput.value;
+        if (value.length > 0) {
+            startInput.setSelectionRange(value.length, value.length);
+        }
+        startInput.focus();
+    }
     _onKeydown(event) {
-        const startInput = this._rangeInput._startInput;
         const element = this._elementRef.nativeElement;
         const isLtr = this._dir?.value !== 'rtl';
         // If the user is pressing backspace on an empty end input, move focus back to the start.
         if (event.keyCode === BACKSPACE && !element.value) {
-            startInput.focus();
+            this._moveCaretToEndOfStartInput();
         }
         // If the user hits LEFT (LTR) when at the start of the input (and no
         // selection), move the cursor to the end of the start input.
@@ -3931,9 +3938,7 @@ class MatEndDate extends MatDateRangeInputPartBase {
             element.selectionStart === 0 &&
             element.selectionEnd === 0) {
             event.preventDefault();
-            const endPosition = startInput._elementRef.nativeElement.value.length;
-            startInput._elementRef.nativeElement.setSelectionRange(endPosition, endPosition);
-            startInput.focus();
+            this._moveCaretToEndOfStartInput();
         }
         else {
             super._onKeydown(event);
