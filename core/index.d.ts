@@ -376,10 +376,10 @@ declare interface HasElementRef {
 
 /** @docs-private */
 declare interface HasErrorState {
-    _parentFormGroup: FormGroupDirective;
-    _parentForm: NgForm;
+    _parentFormGroup: FormGroupDirective | null;
+    _parentForm: NgForm | null;
     _defaultErrorStateMatcher: ErrorStateMatcher_2;
-    ngControl: NgControl;
+    ngControl: NgControl | null;
     stateChanges: Subject<void>;
 }
 
