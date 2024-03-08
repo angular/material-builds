@@ -9905,6 +9905,686 @@ function getInjectFn(target) {
       return Identifiers.inject;
   }
 }
+var ParserError = class {
+  constructor(message, input, errLocation, ctxLocation) {
+    this.input = input;
+    this.errLocation = errLocation;
+    this.ctxLocation = ctxLocation;
+    this.message = `Parser Error: ${message} ${errLocation} [${input}] in ${ctxLocation}`;
+  }
+};
+var ParseSpan = class {
+  constructor(start, end) {
+    this.start = start;
+    this.end = end;
+  }
+  toAbsolute(absoluteOffset) {
+    return new AbsoluteSourceSpan(absoluteOffset + this.start, absoluteOffset + this.end);
+  }
+};
+var AST = class {
+  constructor(span, sourceSpan) {
+    this.span = span;
+    this.sourceSpan = sourceSpan;
+  }
+  toString() {
+    return "AST";
+  }
+};
+var ASTWithName = class extends AST {
+  constructor(span, sourceSpan, nameSpan) {
+    super(span, sourceSpan);
+    this.nameSpan = nameSpan;
+  }
+};
+var EmptyExpr$1 = class extends AST {
+  visit(visitor, context = null) {
+  }
+};
+var ImplicitReceiver = class extends AST {
+  visit(visitor, context = null) {
+    return visitor.visitImplicitReceiver(this, context);
+  }
+};
+var ThisReceiver = class extends ImplicitReceiver {
+  visit(visitor, context = null) {
+    var _a2;
+    return (_a2 = visitor.visitThisReceiver) == null ? void 0 : _a2.call(visitor, this, context);
+  }
+};
+var Chain = class extends AST {
+  constructor(span, sourceSpan, expressions) {
+    super(span, sourceSpan);
+    this.expressions = expressions;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitChain(this, context);
+  }
+};
+var Conditional = class extends AST {
+  constructor(span, sourceSpan, condition, trueExp, falseExp) {
+    super(span, sourceSpan);
+    this.condition = condition;
+    this.trueExp = trueExp;
+    this.falseExp = falseExp;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitConditional(this, context);
+  }
+};
+var PropertyRead = class extends ASTWithName {
+  constructor(span, sourceSpan, nameSpan, receiver, name) {
+    super(span, sourceSpan, nameSpan);
+    this.receiver = receiver;
+    this.name = name;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitPropertyRead(this, context);
+  }
+};
+var PropertyWrite = class extends ASTWithName {
+  constructor(span, sourceSpan, nameSpan, receiver, name, value) {
+    super(span, sourceSpan, nameSpan);
+    this.receiver = receiver;
+    this.name = name;
+    this.value = value;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitPropertyWrite(this, context);
+  }
+};
+var SafePropertyRead = class extends ASTWithName {
+  constructor(span, sourceSpan, nameSpan, receiver, name) {
+    super(span, sourceSpan, nameSpan);
+    this.receiver = receiver;
+    this.name = name;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitSafePropertyRead(this, context);
+  }
+};
+var KeyedRead = class extends AST {
+  constructor(span, sourceSpan, receiver, key) {
+    super(span, sourceSpan);
+    this.receiver = receiver;
+    this.key = key;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitKeyedRead(this, context);
+  }
+};
+var SafeKeyedRead = class extends AST {
+  constructor(span, sourceSpan, receiver, key) {
+    super(span, sourceSpan);
+    this.receiver = receiver;
+    this.key = key;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitSafeKeyedRead(this, context);
+  }
+};
+var KeyedWrite = class extends AST {
+  constructor(span, sourceSpan, receiver, key, value) {
+    super(span, sourceSpan);
+    this.receiver = receiver;
+    this.key = key;
+    this.value = value;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitKeyedWrite(this, context);
+  }
+};
+var BindingPipe = class extends ASTWithName {
+  constructor(span, sourceSpan, exp, name, args, nameSpan) {
+    super(span, sourceSpan, nameSpan);
+    this.exp = exp;
+    this.name = name;
+    this.args = args;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitPipe(this, context);
+  }
+};
+var LiteralPrimitive = class extends AST {
+  constructor(span, sourceSpan, value) {
+    super(span, sourceSpan);
+    this.value = value;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitLiteralPrimitive(this, context);
+  }
+};
+var LiteralArray = class extends AST {
+  constructor(span, sourceSpan, expressions) {
+    super(span, sourceSpan);
+    this.expressions = expressions;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitLiteralArray(this, context);
+  }
+};
+var LiteralMap = class extends AST {
+  constructor(span, sourceSpan, keys, values) {
+    super(span, sourceSpan);
+    this.keys = keys;
+    this.values = values;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitLiteralMap(this, context);
+  }
+};
+var Interpolation$1 = class extends AST {
+  constructor(span, sourceSpan, strings, expressions) {
+    super(span, sourceSpan);
+    this.strings = strings;
+    this.expressions = expressions;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitInterpolation(this, context);
+  }
+};
+var Binary = class extends AST {
+  constructor(span, sourceSpan, operation, left, right) {
+    super(span, sourceSpan);
+    this.operation = operation;
+    this.left = left;
+    this.right = right;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitBinary(this, context);
+  }
+};
+var Unary = class extends Binary {
+  static createMinus(span, sourceSpan, expr) {
+    return new Unary(span, sourceSpan, "-", expr, "-", new LiteralPrimitive(span, sourceSpan, 0), expr);
+  }
+  static createPlus(span, sourceSpan, expr) {
+    return new Unary(span, sourceSpan, "+", expr, "-", expr, new LiteralPrimitive(span, sourceSpan, 0));
+  }
+  constructor(span, sourceSpan, operator, expr, binaryOp, binaryLeft, binaryRight) {
+    super(span, sourceSpan, binaryOp, binaryLeft, binaryRight);
+    this.operator = operator;
+    this.expr = expr;
+    this.left = null;
+    this.right = null;
+    this.operation = null;
+  }
+  visit(visitor, context = null) {
+    if (visitor.visitUnary !== void 0) {
+      return visitor.visitUnary(this, context);
+    }
+    return visitor.visitBinary(this, context);
+  }
+};
+var PrefixNot = class extends AST {
+  constructor(span, sourceSpan, expression) {
+    super(span, sourceSpan);
+    this.expression = expression;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitPrefixNot(this, context);
+  }
+};
+var NonNullAssert = class extends AST {
+  constructor(span, sourceSpan, expression) {
+    super(span, sourceSpan);
+    this.expression = expression;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitNonNullAssert(this, context);
+  }
+};
+var Call = class extends AST {
+  constructor(span, sourceSpan, receiver, args, argumentSpan) {
+    super(span, sourceSpan);
+    this.receiver = receiver;
+    this.args = args;
+    this.argumentSpan = argumentSpan;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitCall(this, context);
+  }
+};
+var SafeCall = class extends AST {
+  constructor(span, sourceSpan, receiver, args, argumentSpan) {
+    super(span, sourceSpan);
+    this.receiver = receiver;
+    this.args = args;
+    this.argumentSpan = argumentSpan;
+  }
+  visit(visitor, context = null) {
+    return visitor.visitSafeCall(this, context);
+  }
+};
+var AbsoluteSourceSpan = class {
+  constructor(start, end) {
+    this.start = start;
+    this.end = end;
+  }
+};
+var ASTWithSource = class extends AST {
+  constructor(ast, source, location, absoluteOffset, errors) {
+    super(new ParseSpan(0, source === null ? 0 : source.length), new AbsoluteSourceSpan(absoluteOffset, source === null ? absoluteOffset : absoluteOffset + source.length));
+    this.ast = ast;
+    this.source = source;
+    this.location = location;
+    this.errors = errors;
+  }
+  visit(visitor, context = null) {
+    if (visitor.visitASTWithSource) {
+      return visitor.visitASTWithSource(this, context);
+    }
+    return this.ast.visit(visitor, context);
+  }
+  toString() {
+    return `${this.source} in ${this.location}`;
+  }
+};
+var VariableBinding = class {
+  constructor(sourceSpan, key, value) {
+    this.sourceSpan = sourceSpan;
+    this.key = key;
+    this.value = value;
+  }
+};
+var ExpressionBinding = class {
+  constructor(sourceSpan, key, value) {
+    this.sourceSpan = sourceSpan;
+    this.key = key;
+    this.value = value;
+  }
+};
+var RecursiveAstVisitor = class {
+  visit(ast, context) {
+    ast.visit(this, context);
+  }
+  visitUnary(ast, context) {
+    this.visit(ast.expr, context);
+  }
+  visitBinary(ast, context) {
+    this.visit(ast.left, context);
+    this.visit(ast.right, context);
+  }
+  visitChain(ast, context) {
+    this.visitAll(ast.expressions, context);
+  }
+  visitConditional(ast, context) {
+    this.visit(ast.condition, context);
+    this.visit(ast.trueExp, context);
+    this.visit(ast.falseExp, context);
+  }
+  visitPipe(ast, context) {
+    this.visit(ast.exp, context);
+    this.visitAll(ast.args, context);
+  }
+  visitImplicitReceiver(ast, context) {
+  }
+  visitThisReceiver(ast, context) {
+  }
+  visitInterpolation(ast, context) {
+    this.visitAll(ast.expressions, context);
+  }
+  visitKeyedRead(ast, context) {
+    this.visit(ast.receiver, context);
+    this.visit(ast.key, context);
+  }
+  visitKeyedWrite(ast, context) {
+    this.visit(ast.receiver, context);
+    this.visit(ast.key, context);
+    this.visit(ast.value, context);
+  }
+  visitLiteralArray(ast, context) {
+    this.visitAll(ast.expressions, context);
+  }
+  visitLiteralMap(ast, context) {
+    this.visitAll(ast.values, context);
+  }
+  visitLiteralPrimitive(ast, context) {
+  }
+  visitPrefixNot(ast, context) {
+    this.visit(ast.expression, context);
+  }
+  visitNonNullAssert(ast, context) {
+    this.visit(ast.expression, context);
+  }
+  visitPropertyRead(ast, context) {
+    this.visit(ast.receiver, context);
+  }
+  visitPropertyWrite(ast, context) {
+    this.visit(ast.receiver, context);
+    this.visit(ast.value, context);
+  }
+  visitSafePropertyRead(ast, context) {
+    this.visit(ast.receiver, context);
+  }
+  visitSafeKeyedRead(ast, context) {
+    this.visit(ast.receiver, context);
+    this.visit(ast.key, context);
+  }
+  visitCall(ast, context) {
+    this.visit(ast.receiver, context);
+    this.visitAll(ast.args, context);
+  }
+  visitSafeCall(ast, context) {
+    this.visit(ast.receiver, context);
+    this.visitAll(ast.args, context);
+  }
+  visitAll(asts, context) {
+    for (const ast of asts) {
+      this.visit(ast, context);
+    }
+  }
+};
+var AstTransformer = class {
+  visitImplicitReceiver(ast, context) {
+    return ast;
+  }
+  visitThisReceiver(ast, context) {
+    return ast;
+  }
+  visitInterpolation(ast, context) {
+    return new Interpolation$1(ast.span, ast.sourceSpan, ast.strings, this.visitAll(ast.expressions));
+  }
+  visitLiteralPrimitive(ast, context) {
+    return new LiteralPrimitive(ast.span, ast.sourceSpan, ast.value);
+  }
+  visitPropertyRead(ast, context) {
+    return new PropertyRead(ast.span, ast.sourceSpan, ast.nameSpan, ast.receiver.visit(this), ast.name);
+  }
+  visitPropertyWrite(ast, context) {
+    return new PropertyWrite(ast.span, ast.sourceSpan, ast.nameSpan, ast.receiver.visit(this), ast.name, ast.value.visit(this));
+  }
+  visitSafePropertyRead(ast, context) {
+    return new SafePropertyRead(ast.span, ast.sourceSpan, ast.nameSpan, ast.receiver.visit(this), ast.name);
+  }
+  visitLiteralArray(ast, context) {
+    return new LiteralArray(ast.span, ast.sourceSpan, this.visitAll(ast.expressions));
+  }
+  visitLiteralMap(ast, context) {
+    return new LiteralMap(ast.span, ast.sourceSpan, ast.keys, this.visitAll(ast.values));
+  }
+  visitUnary(ast, context) {
+    switch (ast.operator) {
+      case "+":
+        return Unary.createPlus(ast.span, ast.sourceSpan, ast.expr.visit(this));
+      case "-":
+        return Unary.createMinus(ast.span, ast.sourceSpan, ast.expr.visit(this));
+      default:
+        throw new Error(`Unknown unary operator ${ast.operator}`);
+    }
+  }
+  visitBinary(ast, context) {
+    return new Binary(ast.span, ast.sourceSpan, ast.operation, ast.left.visit(this), ast.right.visit(this));
+  }
+  visitPrefixNot(ast, context) {
+    return new PrefixNot(ast.span, ast.sourceSpan, ast.expression.visit(this));
+  }
+  visitNonNullAssert(ast, context) {
+    return new NonNullAssert(ast.span, ast.sourceSpan, ast.expression.visit(this));
+  }
+  visitConditional(ast, context) {
+    return new Conditional(ast.span, ast.sourceSpan, ast.condition.visit(this), ast.trueExp.visit(this), ast.falseExp.visit(this));
+  }
+  visitPipe(ast, context) {
+    return new BindingPipe(ast.span, ast.sourceSpan, ast.exp.visit(this), ast.name, this.visitAll(ast.args), ast.nameSpan);
+  }
+  visitKeyedRead(ast, context) {
+    return new KeyedRead(ast.span, ast.sourceSpan, ast.receiver.visit(this), ast.key.visit(this));
+  }
+  visitKeyedWrite(ast, context) {
+    return new KeyedWrite(ast.span, ast.sourceSpan, ast.receiver.visit(this), ast.key.visit(this), ast.value.visit(this));
+  }
+  visitCall(ast, context) {
+    return new Call(ast.span, ast.sourceSpan, ast.receiver.visit(this), this.visitAll(ast.args), ast.argumentSpan);
+  }
+  visitSafeCall(ast, context) {
+    return new SafeCall(ast.span, ast.sourceSpan, ast.receiver.visit(this), this.visitAll(ast.args), ast.argumentSpan);
+  }
+  visitAll(asts) {
+    const res = [];
+    for (let i = 0; i < asts.length; ++i) {
+      res[i] = asts[i].visit(this);
+    }
+    return res;
+  }
+  visitChain(ast, context) {
+    return new Chain(ast.span, ast.sourceSpan, this.visitAll(ast.expressions));
+  }
+  visitSafeKeyedRead(ast, context) {
+    return new SafeKeyedRead(ast.span, ast.sourceSpan, ast.receiver.visit(this), ast.key.visit(this));
+  }
+};
+var AstMemoryEfficientTransformer = class {
+  visitImplicitReceiver(ast, context) {
+    return ast;
+  }
+  visitThisReceiver(ast, context) {
+    return ast;
+  }
+  visitInterpolation(ast, context) {
+    const expressions = this.visitAll(ast.expressions);
+    if (expressions !== ast.expressions)
+      return new Interpolation$1(ast.span, ast.sourceSpan, ast.strings, expressions);
+    return ast;
+  }
+  visitLiteralPrimitive(ast, context) {
+    return ast;
+  }
+  visitPropertyRead(ast, context) {
+    const receiver = ast.receiver.visit(this);
+    if (receiver !== ast.receiver) {
+      return new PropertyRead(ast.span, ast.sourceSpan, ast.nameSpan, receiver, ast.name);
+    }
+    return ast;
+  }
+  visitPropertyWrite(ast, context) {
+    const receiver = ast.receiver.visit(this);
+    const value = ast.value.visit(this);
+    if (receiver !== ast.receiver || value !== ast.value) {
+      return new PropertyWrite(ast.span, ast.sourceSpan, ast.nameSpan, receiver, ast.name, value);
+    }
+    return ast;
+  }
+  visitSafePropertyRead(ast, context) {
+    const receiver = ast.receiver.visit(this);
+    if (receiver !== ast.receiver) {
+      return new SafePropertyRead(ast.span, ast.sourceSpan, ast.nameSpan, receiver, ast.name);
+    }
+    return ast;
+  }
+  visitLiteralArray(ast, context) {
+    const expressions = this.visitAll(ast.expressions);
+    if (expressions !== ast.expressions) {
+      return new LiteralArray(ast.span, ast.sourceSpan, expressions);
+    }
+    return ast;
+  }
+  visitLiteralMap(ast, context) {
+    const values = this.visitAll(ast.values);
+    if (values !== ast.values) {
+      return new LiteralMap(ast.span, ast.sourceSpan, ast.keys, values);
+    }
+    return ast;
+  }
+  visitUnary(ast, context) {
+    const expr = ast.expr.visit(this);
+    if (expr !== ast.expr) {
+      switch (ast.operator) {
+        case "+":
+          return Unary.createPlus(ast.span, ast.sourceSpan, expr);
+        case "-":
+          return Unary.createMinus(ast.span, ast.sourceSpan, expr);
+        default:
+          throw new Error(`Unknown unary operator ${ast.operator}`);
+      }
+    }
+    return ast;
+  }
+  visitBinary(ast, context) {
+    const left = ast.left.visit(this);
+    const right = ast.right.visit(this);
+    if (left !== ast.left || right !== ast.right) {
+      return new Binary(ast.span, ast.sourceSpan, ast.operation, left, right);
+    }
+    return ast;
+  }
+  visitPrefixNot(ast, context) {
+    const expression = ast.expression.visit(this);
+    if (expression !== ast.expression) {
+      return new PrefixNot(ast.span, ast.sourceSpan, expression);
+    }
+    return ast;
+  }
+  visitNonNullAssert(ast, context) {
+    const expression = ast.expression.visit(this);
+    if (expression !== ast.expression) {
+      return new NonNullAssert(ast.span, ast.sourceSpan, expression);
+    }
+    return ast;
+  }
+  visitConditional(ast, context) {
+    const condition = ast.condition.visit(this);
+    const trueExp = ast.trueExp.visit(this);
+    const falseExp = ast.falseExp.visit(this);
+    if (condition !== ast.condition || trueExp !== ast.trueExp || falseExp !== ast.falseExp) {
+      return new Conditional(ast.span, ast.sourceSpan, condition, trueExp, falseExp);
+    }
+    return ast;
+  }
+  visitPipe(ast, context) {
+    const exp = ast.exp.visit(this);
+    const args = this.visitAll(ast.args);
+    if (exp !== ast.exp || args !== ast.args) {
+      return new BindingPipe(ast.span, ast.sourceSpan, exp, ast.name, args, ast.nameSpan);
+    }
+    return ast;
+  }
+  visitKeyedRead(ast, context) {
+    const obj = ast.receiver.visit(this);
+    const key = ast.key.visit(this);
+    if (obj !== ast.receiver || key !== ast.key) {
+      return new KeyedRead(ast.span, ast.sourceSpan, obj, key);
+    }
+    return ast;
+  }
+  visitKeyedWrite(ast, context) {
+    const obj = ast.receiver.visit(this);
+    const key = ast.key.visit(this);
+    const value = ast.value.visit(this);
+    if (obj !== ast.receiver || key !== ast.key || value !== ast.value) {
+      return new KeyedWrite(ast.span, ast.sourceSpan, obj, key, value);
+    }
+    return ast;
+  }
+  visitAll(asts) {
+    const res = [];
+    let modified = false;
+    for (let i = 0; i < asts.length; ++i) {
+      const original = asts[i];
+      const value = original.visit(this);
+      res[i] = value;
+      modified = modified || value !== original;
+    }
+    return modified ? res : asts;
+  }
+  visitChain(ast, context) {
+    const expressions = this.visitAll(ast.expressions);
+    if (expressions !== ast.expressions) {
+      return new Chain(ast.span, ast.sourceSpan, expressions);
+    }
+    return ast;
+  }
+  visitCall(ast, context) {
+    const receiver = ast.receiver.visit(this);
+    const args = this.visitAll(ast.args);
+    if (receiver !== ast.receiver || args !== ast.args) {
+      return new Call(ast.span, ast.sourceSpan, receiver, args, ast.argumentSpan);
+    }
+    return ast;
+  }
+  visitSafeCall(ast, context) {
+    const receiver = ast.receiver.visit(this);
+    const args = this.visitAll(ast.args);
+    if (receiver !== ast.receiver || args !== ast.args) {
+      return new SafeCall(ast.span, ast.sourceSpan, receiver, args, ast.argumentSpan);
+    }
+    return ast;
+  }
+  visitSafeKeyedRead(ast, context) {
+    const obj = ast.receiver.visit(this);
+    const key = ast.key.visit(this);
+    if (obj !== ast.receiver || key !== ast.key) {
+      return new SafeKeyedRead(ast.span, ast.sourceSpan, obj, key);
+    }
+    return ast;
+  }
+};
+var ParsedProperty = class {
+  constructor(name, expression, type, sourceSpan, keySpan, valueSpan) {
+    this.name = name;
+    this.expression = expression;
+    this.type = type;
+    this.sourceSpan = sourceSpan;
+    this.keySpan = keySpan;
+    this.valueSpan = valueSpan;
+    this.isLiteral = this.type === ParsedPropertyType.LITERAL_ATTR;
+    this.isAnimation = this.type === ParsedPropertyType.ANIMATION;
+  }
+};
+var ParsedPropertyType;
+(function(ParsedPropertyType2) {
+  ParsedPropertyType2[ParsedPropertyType2["DEFAULT"] = 0] = "DEFAULT";
+  ParsedPropertyType2[ParsedPropertyType2["LITERAL_ATTR"] = 1] = "LITERAL_ATTR";
+  ParsedPropertyType2[ParsedPropertyType2["ANIMATION"] = 2] = "ANIMATION";
+  ParsedPropertyType2[ParsedPropertyType2["TWO_WAY"] = 3] = "TWO_WAY";
+})(ParsedPropertyType || (ParsedPropertyType = {}));
+var ParsedEventType;
+(function(ParsedEventType2) {
+  ParsedEventType2[ParsedEventType2["Regular"] = 0] = "Regular";
+  ParsedEventType2[ParsedEventType2["Animation"] = 1] = "Animation";
+  ParsedEventType2[ParsedEventType2["TwoWay"] = 2] = "TwoWay";
+})(ParsedEventType || (ParsedEventType = {}));
+var ParsedEvent = class {
+  constructor(name, targetOrPhase, type, handler, sourceSpan, handlerSpan, keySpan) {
+    this.name = name;
+    this.targetOrPhase = targetOrPhase;
+    this.type = type;
+    this.handler = handler;
+    this.sourceSpan = sourceSpan;
+    this.handlerSpan = handlerSpan;
+    this.keySpan = keySpan;
+  }
+};
+var ParsedVariable = class {
+  constructor(name, value, sourceSpan, keySpan, valueSpan) {
+    this.name = name;
+    this.value = value;
+    this.sourceSpan = sourceSpan;
+    this.keySpan = keySpan;
+    this.valueSpan = valueSpan;
+  }
+};
+var BindingType;
+(function(BindingType3) {
+  BindingType3[BindingType3["Property"] = 0] = "Property";
+  BindingType3[BindingType3["Attribute"] = 1] = "Attribute";
+  BindingType3[BindingType3["Class"] = 2] = "Class";
+  BindingType3[BindingType3["Style"] = 3] = "Style";
+  BindingType3[BindingType3["Animation"] = 4] = "Animation";
+  BindingType3[BindingType3["TwoWay"] = 5] = "TwoWay";
+})(BindingType || (BindingType = {}));
+var BoundElementProperty = class {
+  constructor(name, type, securityContext, value, unit, sourceSpan, keySpan, valueSpan) {
+    this.name = name;
+    this.type = type;
+    this.securityContext = securityContext;
+    this.value = value;
+    this.unit = unit;
+    this.sourceSpan = sourceSpan;
+    this.keySpan = keySpan;
+    this.valueSpan = valueSpan;
+  }
+};
 var TagContentType;
 (function(TagContentType2) {
   TagContentType2[TagContentType2["RAW_TEXT"] = 0] = "RAW_TEXT";
@@ -10015,8 +10695,8 @@ var BoundEvent = class {
     this.keySpan = keySpan;
   }
   static fromParsedEvent(event) {
-    const target = event.type === 0 ? event.targetOrPhase : null;
-    const phase = event.type === 1 ? event.targetOrPhase : null;
+    const target = event.type === ParsedEventType.Regular ? event.targetOrPhase : null;
+    const phase = event.type === ParsedEventType.Animation ? event.targetOrPhase : null;
     if (event.keySpan === void 0) {
       throw new Error(`Unexpected state: keySpan must be defined for bound event but was not for ${event.name}: ${event.sourceSpan}`);
     }
@@ -10784,7 +11464,7 @@ function getAttrsForDirectiveMatching(elOrTpl) {
       }
     });
     elOrTpl.inputs.forEach((i) => {
-      if (i.type === 0 || i.type === 5) {
+      if (i.type === BindingType.Property || i.type === BindingType.TwoWay) {
         attributesMap[i.name] = "";
       }
     });
@@ -11580,671 +12260,6 @@ var R3TemplateDependencyKind;
   R3TemplateDependencyKind2[R3TemplateDependencyKind2["Pipe"] = 1] = "Pipe";
   R3TemplateDependencyKind2[R3TemplateDependencyKind2["NgModule"] = 2] = "NgModule";
 })(R3TemplateDependencyKind || (R3TemplateDependencyKind = {}));
-var ParserError = class {
-  constructor(message, input, errLocation, ctxLocation) {
-    this.input = input;
-    this.errLocation = errLocation;
-    this.ctxLocation = ctxLocation;
-    this.message = `Parser Error: ${message} ${errLocation} [${input}] in ${ctxLocation}`;
-  }
-};
-var ParseSpan = class {
-  constructor(start, end) {
-    this.start = start;
-    this.end = end;
-  }
-  toAbsolute(absoluteOffset) {
-    return new AbsoluteSourceSpan(absoluteOffset + this.start, absoluteOffset + this.end);
-  }
-};
-var AST = class {
-  constructor(span, sourceSpan) {
-    this.span = span;
-    this.sourceSpan = sourceSpan;
-  }
-  toString() {
-    return "AST";
-  }
-};
-var ASTWithName = class extends AST {
-  constructor(span, sourceSpan, nameSpan) {
-    super(span, sourceSpan);
-    this.nameSpan = nameSpan;
-  }
-};
-var EmptyExpr$1 = class extends AST {
-  visit(visitor, context = null) {
-  }
-};
-var ImplicitReceiver = class extends AST {
-  visit(visitor, context = null) {
-    return visitor.visitImplicitReceiver(this, context);
-  }
-};
-var ThisReceiver = class extends ImplicitReceiver {
-  visit(visitor, context = null) {
-    var _a2;
-    return (_a2 = visitor.visitThisReceiver) == null ? void 0 : _a2.call(visitor, this, context);
-  }
-};
-var Chain = class extends AST {
-  constructor(span, sourceSpan, expressions) {
-    super(span, sourceSpan);
-    this.expressions = expressions;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitChain(this, context);
-  }
-};
-var Conditional = class extends AST {
-  constructor(span, sourceSpan, condition, trueExp, falseExp) {
-    super(span, sourceSpan);
-    this.condition = condition;
-    this.trueExp = trueExp;
-    this.falseExp = falseExp;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitConditional(this, context);
-  }
-};
-var PropertyRead = class extends ASTWithName {
-  constructor(span, sourceSpan, nameSpan, receiver, name) {
-    super(span, sourceSpan, nameSpan);
-    this.receiver = receiver;
-    this.name = name;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitPropertyRead(this, context);
-  }
-};
-var PropertyWrite = class extends ASTWithName {
-  constructor(span, sourceSpan, nameSpan, receiver, name, value) {
-    super(span, sourceSpan, nameSpan);
-    this.receiver = receiver;
-    this.name = name;
-    this.value = value;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitPropertyWrite(this, context);
-  }
-};
-var SafePropertyRead = class extends ASTWithName {
-  constructor(span, sourceSpan, nameSpan, receiver, name) {
-    super(span, sourceSpan, nameSpan);
-    this.receiver = receiver;
-    this.name = name;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitSafePropertyRead(this, context);
-  }
-};
-var KeyedRead = class extends AST {
-  constructor(span, sourceSpan, receiver, key) {
-    super(span, sourceSpan);
-    this.receiver = receiver;
-    this.key = key;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitKeyedRead(this, context);
-  }
-};
-var SafeKeyedRead = class extends AST {
-  constructor(span, sourceSpan, receiver, key) {
-    super(span, sourceSpan);
-    this.receiver = receiver;
-    this.key = key;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitSafeKeyedRead(this, context);
-  }
-};
-var KeyedWrite = class extends AST {
-  constructor(span, sourceSpan, receiver, key, value) {
-    super(span, sourceSpan);
-    this.receiver = receiver;
-    this.key = key;
-    this.value = value;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitKeyedWrite(this, context);
-  }
-};
-var BindingPipe = class extends ASTWithName {
-  constructor(span, sourceSpan, exp, name, args, nameSpan) {
-    super(span, sourceSpan, nameSpan);
-    this.exp = exp;
-    this.name = name;
-    this.args = args;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitPipe(this, context);
-  }
-};
-var LiteralPrimitive = class extends AST {
-  constructor(span, sourceSpan, value) {
-    super(span, sourceSpan);
-    this.value = value;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitLiteralPrimitive(this, context);
-  }
-};
-var LiteralArray = class extends AST {
-  constructor(span, sourceSpan, expressions) {
-    super(span, sourceSpan);
-    this.expressions = expressions;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitLiteralArray(this, context);
-  }
-};
-var LiteralMap = class extends AST {
-  constructor(span, sourceSpan, keys, values) {
-    super(span, sourceSpan);
-    this.keys = keys;
-    this.values = values;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitLiteralMap(this, context);
-  }
-};
-var Interpolation$1 = class extends AST {
-  constructor(span, sourceSpan, strings, expressions) {
-    super(span, sourceSpan);
-    this.strings = strings;
-    this.expressions = expressions;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitInterpolation(this, context);
-  }
-};
-var Binary = class extends AST {
-  constructor(span, sourceSpan, operation, left, right) {
-    super(span, sourceSpan);
-    this.operation = operation;
-    this.left = left;
-    this.right = right;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitBinary(this, context);
-  }
-};
-var Unary = class extends Binary {
-  static createMinus(span, sourceSpan, expr) {
-    return new Unary(span, sourceSpan, "-", expr, "-", new LiteralPrimitive(span, sourceSpan, 0), expr);
-  }
-  static createPlus(span, sourceSpan, expr) {
-    return new Unary(span, sourceSpan, "+", expr, "-", expr, new LiteralPrimitive(span, sourceSpan, 0));
-  }
-  constructor(span, sourceSpan, operator, expr, binaryOp, binaryLeft, binaryRight) {
-    super(span, sourceSpan, binaryOp, binaryLeft, binaryRight);
-    this.operator = operator;
-    this.expr = expr;
-    this.left = null;
-    this.right = null;
-    this.operation = null;
-  }
-  visit(visitor, context = null) {
-    if (visitor.visitUnary !== void 0) {
-      return visitor.visitUnary(this, context);
-    }
-    return visitor.visitBinary(this, context);
-  }
-};
-var PrefixNot = class extends AST {
-  constructor(span, sourceSpan, expression) {
-    super(span, sourceSpan);
-    this.expression = expression;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitPrefixNot(this, context);
-  }
-};
-var NonNullAssert = class extends AST {
-  constructor(span, sourceSpan, expression) {
-    super(span, sourceSpan);
-    this.expression = expression;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitNonNullAssert(this, context);
-  }
-};
-var Call = class extends AST {
-  constructor(span, sourceSpan, receiver, args, argumentSpan) {
-    super(span, sourceSpan);
-    this.receiver = receiver;
-    this.args = args;
-    this.argumentSpan = argumentSpan;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitCall(this, context);
-  }
-};
-var SafeCall = class extends AST {
-  constructor(span, sourceSpan, receiver, args, argumentSpan) {
-    super(span, sourceSpan);
-    this.receiver = receiver;
-    this.args = args;
-    this.argumentSpan = argumentSpan;
-  }
-  visit(visitor, context = null) {
-    return visitor.visitSafeCall(this, context);
-  }
-};
-var AbsoluteSourceSpan = class {
-  constructor(start, end) {
-    this.start = start;
-    this.end = end;
-  }
-};
-var ASTWithSource = class extends AST {
-  constructor(ast, source, location, absoluteOffset, errors) {
-    super(new ParseSpan(0, source === null ? 0 : source.length), new AbsoluteSourceSpan(absoluteOffset, source === null ? absoluteOffset : absoluteOffset + source.length));
-    this.ast = ast;
-    this.source = source;
-    this.location = location;
-    this.errors = errors;
-  }
-  visit(visitor, context = null) {
-    if (visitor.visitASTWithSource) {
-      return visitor.visitASTWithSource(this, context);
-    }
-    return this.ast.visit(visitor, context);
-  }
-  toString() {
-    return `${this.source} in ${this.location}`;
-  }
-};
-var VariableBinding = class {
-  constructor(sourceSpan, key, value) {
-    this.sourceSpan = sourceSpan;
-    this.key = key;
-    this.value = value;
-  }
-};
-var ExpressionBinding = class {
-  constructor(sourceSpan, key, value) {
-    this.sourceSpan = sourceSpan;
-    this.key = key;
-    this.value = value;
-  }
-};
-var RecursiveAstVisitor = class {
-  visit(ast, context) {
-    ast.visit(this, context);
-  }
-  visitUnary(ast, context) {
-    this.visit(ast.expr, context);
-  }
-  visitBinary(ast, context) {
-    this.visit(ast.left, context);
-    this.visit(ast.right, context);
-  }
-  visitChain(ast, context) {
-    this.visitAll(ast.expressions, context);
-  }
-  visitConditional(ast, context) {
-    this.visit(ast.condition, context);
-    this.visit(ast.trueExp, context);
-    this.visit(ast.falseExp, context);
-  }
-  visitPipe(ast, context) {
-    this.visit(ast.exp, context);
-    this.visitAll(ast.args, context);
-  }
-  visitImplicitReceiver(ast, context) {
-  }
-  visitThisReceiver(ast, context) {
-  }
-  visitInterpolation(ast, context) {
-    this.visitAll(ast.expressions, context);
-  }
-  visitKeyedRead(ast, context) {
-    this.visit(ast.receiver, context);
-    this.visit(ast.key, context);
-  }
-  visitKeyedWrite(ast, context) {
-    this.visit(ast.receiver, context);
-    this.visit(ast.key, context);
-    this.visit(ast.value, context);
-  }
-  visitLiteralArray(ast, context) {
-    this.visitAll(ast.expressions, context);
-  }
-  visitLiteralMap(ast, context) {
-    this.visitAll(ast.values, context);
-  }
-  visitLiteralPrimitive(ast, context) {
-  }
-  visitPrefixNot(ast, context) {
-    this.visit(ast.expression, context);
-  }
-  visitNonNullAssert(ast, context) {
-    this.visit(ast.expression, context);
-  }
-  visitPropertyRead(ast, context) {
-    this.visit(ast.receiver, context);
-  }
-  visitPropertyWrite(ast, context) {
-    this.visit(ast.receiver, context);
-    this.visit(ast.value, context);
-  }
-  visitSafePropertyRead(ast, context) {
-    this.visit(ast.receiver, context);
-  }
-  visitSafeKeyedRead(ast, context) {
-    this.visit(ast.receiver, context);
-    this.visit(ast.key, context);
-  }
-  visitCall(ast, context) {
-    this.visit(ast.receiver, context);
-    this.visitAll(ast.args, context);
-  }
-  visitSafeCall(ast, context) {
-    this.visit(ast.receiver, context);
-    this.visitAll(ast.args, context);
-  }
-  visitAll(asts, context) {
-    for (const ast of asts) {
-      this.visit(ast, context);
-    }
-  }
-};
-var AstTransformer = class {
-  visitImplicitReceiver(ast, context) {
-    return ast;
-  }
-  visitThisReceiver(ast, context) {
-    return ast;
-  }
-  visitInterpolation(ast, context) {
-    return new Interpolation$1(ast.span, ast.sourceSpan, ast.strings, this.visitAll(ast.expressions));
-  }
-  visitLiteralPrimitive(ast, context) {
-    return new LiteralPrimitive(ast.span, ast.sourceSpan, ast.value);
-  }
-  visitPropertyRead(ast, context) {
-    return new PropertyRead(ast.span, ast.sourceSpan, ast.nameSpan, ast.receiver.visit(this), ast.name);
-  }
-  visitPropertyWrite(ast, context) {
-    return new PropertyWrite(ast.span, ast.sourceSpan, ast.nameSpan, ast.receiver.visit(this), ast.name, ast.value.visit(this));
-  }
-  visitSafePropertyRead(ast, context) {
-    return new SafePropertyRead(ast.span, ast.sourceSpan, ast.nameSpan, ast.receiver.visit(this), ast.name);
-  }
-  visitLiteralArray(ast, context) {
-    return new LiteralArray(ast.span, ast.sourceSpan, this.visitAll(ast.expressions));
-  }
-  visitLiteralMap(ast, context) {
-    return new LiteralMap(ast.span, ast.sourceSpan, ast.keys, this.visitAll(ast.values));
-  }
-  visitUnary(ast, context) {
-    switch (ast.operator) {
-      case "+":
-        return Unary.createPlus(ast.span, ast.sourceSpan, ast.expr.visit(this));
-      case "-":
-        return Unary.createMinus(ast.span, ast.sourceSpan, ast.expr.visit(this));
-      default:
-        throw new Error(`Unknown unary operator ${ast.operator}`);
-    }
-  }
-  visitBinary(ast, context) {
-    return new Binary(ast.span, ast.sourceSpan, ast.operation, ast.left.visit(this), ast.right.visit(this));
-  }
-  visitPrefixNot(ast, context) {
-    return new PrefixNot(ast.span, ast.sourceSpan, ast.expression.visit(this));
-  }
-  visitNonNullAssert(ast, context) {
-    return new NonNullAssert(ast.span, ast.sourceSpan, ast.expression.visit(this));
-  }
-  visitConditional(ast, context) {
-    return new Conditional(ast.span, ast.sourceSpan, ast.condition.visit(this), ast.trueExp.visit(this), ast.falseExp.visit(this));
-  }
-  visitPipe(ast, context) {
-    return new BindingPipe(ast.span, ast.sourceSpan, ast.exp.visit(this), ast.name, this.visitAll(ast.args), ast.nameSpan);
-  }
-  visitKeyedRead(ast, context) {
-    return new KeyedRead(ast.span, ast.sourceSpan, ast.receiver.visit(this), ast.key.visit(this));
-  }
-  visitKeyedWrite(ast, context) {
-    return new KeyedWrite(ast.span, ast.sourceSpan, ast.receiver.visit(this), ast.key.visit(this), ast.value.visit(this));
-  }
-  visitCall(ast, context) {
-    return new Call(ast.span, ast.sourceSpan, ast.receiver.visit(this), this.visitAll(ast.args), ast.argumentSpan);
-  }
-  visitSafeCall(ast, context) {
-    return new SafeCall(ast.span, ast.sourceSpan, ast.receiver.visit(this), this.visitAll(ast.args), ast.argumentSpan);
-  }
-  visitAll(asts) {
-    const res = [];
-    for (let i = 0; i < asts.length; ++i) {
-      res[i] = asts[i].visit(this);
-    }
-    return res;
-  }
-  visitChain(ast, context) {
-    return new Chain(ast.span, ast.sourceSpan, this.visitAll(ast.expressions));
-  }
-  visitSafeKeyedRead(ast, context) {
-    return new SafeKeyedRead(ast.span, ast.sourceSpan, ast.receiver.visit(this), ast.key.visit(this));
-  }
-};
-var AstMemoryEfficientTransformer = class {
-  visitImplicitReceiver(ast, context) {
-    return ast;
-  }
-  visitThisReceiver(ast, context) {
-    return ast;
-  }
-  visitInterpolation(ast, context) {
-    const expressions = this.visitAll(ast.expressions);
-    if (expressions !== ast.expressions)
-      return new Interpolation$1(ast.span, ast.sourceSpan, ast.strings, expressions);
-    return ast;
-  }
-  visitLiteralPrimitive(ast, context) {
-    return ast;
-  }
-  visitPropertyRead(ast, context) {
-    const receiver = ast.receiver.visit(this);
-    if (receiver !== ast.receiver) {
-      return new PropertyRead(ast.span, ast.sourceSpan, ast.nameSpan, receiver, ast.name);
-    }
-    return ast;
-  }
-  visitPropertyWrite(ast, context) {
-    const receiver = ast.receiver.visit(this);
-    const value = ast.value.visit(this);
-    if (receiver !== ast.receiver || value !== ast.value) {
-      return new PropertyWrite(ast.span, ast.sourceSpan, ast.nameSpan, receiver, ast.name, value);
-    }
-    return ast;
-  }
-  visitSafePropertyRead(ast, context) {
-    const receiver = ast.receiver.visit(this);
-    if (receiver !== ast.receiver) {
-      return new SafePropertyRead(ast.span, ast.sourceSpan, ast.nameSpan, receiver, ast.name);
-    }
-    return ast;
-  }
-  visitLiteralArray(ast, context) {
-    const expressions = this.visitAll(ast.expressions);
-    if (expressions !== ast.expressions) {
-      return new LiteralArray(ast.span, ast.sourceSpan, expressions);
-    }
-    return ast;
-  }
-  visitLiteralMap(ast, context) {
-    const values = this.visitAll(ast.values);
-    if (values !== ast.values) {
-      return new LiteralMap(ast.span, ast.sourceSpan, ast.keys, values);
-    }
-    return ast;
-  }
-  visitUnary(ast, context) {
-    const expr = ast.expr.visit(this);
-    if (expr !== ast.expr) {
-      switch (ast.operator) {
-        case "+":
-          return Unary.createPlus(ast.span, ast.sourceSpan, expr);
-        case "-":
-          return Unary.createMinus(ast.span, ast.sourceSpan, expr);
-        default:
-          throw new Error(`Unknown unary operator ${ast.operator}`);
-      }
-    }
-    return ast;
-  }
-  visitBinary(ast, context) {
-    const left = ast.left.visit(this);
-    const right = ast.right.visit(this);
-    if (left !== ast.left || right !== ast.right) {
-      return new Binary(ast.span, ast.sourceSpan, ast.operation, left, right);
-    }
-    return ast;
-  }
-  visitPrefixNot(ast, context) {
-    const expression = ast.expression.visit(this);
-    if (expression !== ast.expression) {
-      return new PrefixNot(ast.span, ast.sourceSpan, expression);
-    }
-    return ast;
-  }
-  visitNonNullAssert(ast, context) {
-    const expression = ast.expression.visit(this);
-    if (expression !== ast.expression) {
-      return new NonNullAssert(ast.span, ast.sourceSpan, expression);
-    }
-    return ast;
-  }
-  visitConditional(ast, context) {
-    const condition = ast.condition.visit(this);
-    const trueExp = ast.trueExp.visit(this);
-    const falseExp = ast.falseExp.visit(this);
-    if (condition !== ast.condition || trueExp !== ast.trueExp || falseExp !== ast.falseExp) {
-      return new Conditional(ast.span, ast.sourceSpan, condition, trueExp, falseExp);
-    }
-    return ast;
-  }
-  visitPipe(ast, context) {
-    const exp = ast.exp.visit(this);
-    const args = this.visitAll(ast.args);
-    if (exp !== ast.exp || args !== ast.args) {
-      return new BindingPipe(ast.span, ast.sourceSpan, exp, ast.name, args, ast.nameSpan);
-    }
-    return ast;
-  }
-  visitKeyedRead(ast, context) {
-    const obj = ast.receiver.visit(this);
-    const key = ast.key.visit(this);
-    if (obj !== ast.receiver || key !== ast.key) {
-      return new KeyedRead(ast.span, ast.sourceSpan, obj, key);
-    }
-    return ast;
-  }
-  visitKeyedWrite(ast, context) {
-    const obj = ast.receiver.visit(this);
-    const key = ast.key.visit(this);
-    const value = ast.value.visit(this);
-    if (obj !== ast.receiver || key !== ast.key || value !== ast.value) {
-      return new KeyedWrite(ast.span, ast.sourceSpan, obj, key, value);
-    }
-    return ast;
-  }
-  visitAll(asts) {
-    const res = [];
-    let modified = false;
-    for (let i = 0; i < asts.length; ++i) {
-      const original = asts[i];
-      const value = original.visit(this);
-      res[i] = value;
-      modified = modified || value !== original;
-    }
-    return modified ? res : asts;
-  }
-  visitChain(ast, context) {
-    const expressions = this.visitAll(ast.expressions);
-    if (expressions !== ast.expressions) {
-      return new Chain(ast.span, ast.sourceSpan, expressions);
-    }
-    return ast;
-  }
-  visitCall(ast, context) {
-    const receiver = ast.receiver.visit(this);
-    const args = this.visitAll(ast.args);
-    if (receiver !== ast.receiver || args !== ast.args) {
-      return new Call(ast.span, ast.sourceSpan, receiver, args, ast.argumentSpan);
-    }
-    return ast;
-  }
-  visitSafeCall(ast, context) {
-    const receiver = ast.receiver.visit(this);
-    const args = this.visitAll(ast.args);
-    if (receiver !== ast.receiver || args !== ast.args) {
-      return new SafeCall(ast.span, ast.sourceSpan, receiver, args, ast.argumentSpan);
-    }
-    return ast;
-  }
-  visitSafeKeyedRead(ast, context) {
-    const obj = ast.receiver.visit(this);
-    const key = ast.key.visit(this);
-    if (obj !== ast.receiver || key !== ast.key) {
-      return new SafeKeyedRead(ast.span, ast.sourceSpan, obj, key);
-    }
-    return ast;
-  }
-};
-var ParsedProperty = class {
-  constructor(name, expression, type, sourceSpan, keySpan, valueSpan) {
-    this.name = name;
-    this.expression = expression;
-    this.type = type;
-    this.sourceSpan = sourceSpan;
-    this.keySpan = keySpan;
-    this.valueSpan = valueSpan;
-    this.isLiteral = this.type === ParsedPropertyType.LITERAL_ATTR;
-    this.isAnimation = this.type === ParsedPropertyType.ANIMATION;
-  }
-};
-var ParsedPropertyType;
-(function(ParsedPropertyType2) {
-  ParsedPropertyType2[ParsedPropertyType2["DEFAULT"] = 0] = "DEFAULT";
-  ParsedPropertyType2[ParsedPropertyType2["LITERAL_ATTR"] = 1] = "LITERAL_ATTR";
-  ParsedPropertyType2[ParsedPropertyType2["ANIMATION"] = 2] = "ANIMATION";
-  ParsedPropertyType2[ParsedPropertyType2["TWO_WAY"] = 3] = "TWO_WAY";
-})(ParsedPropertyType || (ParsedPropertyType = {}));
-var ParsedEvent = class {
-  constructor(name, targetOrPhase, type, handler, sourceSpan, handlerSpan, keySpan) {
-    this.name = name;
-    this.targetOrPhase = targetOrPhase;
-    this.type = type;
-    this.handler = handler;
-    this.sourceSpan = sourceSpan;
-    this.handlerSpan = handlerSpan;
-    this.keySpan = keySpan;
-  }
-};
-var ParsedVariable = class {
-  constructor(name, value, sourceSpan, keySpan, valueSpan) {
-    this.name = name;
-    this.value = value;
-    this.sourceSpan = sourceSpan;
-    this.keySpan = keySpan;
-    this.valueSpan = valueSpan;
-  }
-};
-var BoundElementProperty = class {
-  constructor(name, type, securityContext, value, unit, sourceSpan, keySpan, valueSpan) {
-    this.name = name;
-    this.type = type;
-    this.securityContext = securityContext;
-    this.value = value;
-    this.unit = unit;
-    this.sourceSpan = sourceSpan;
-    this.keySpan = keySpan;
-    this.valueSpan = valueSpan;
-  }
-};
 var _EventHandlerVars = class {
 };
 var EventHandlerVars = _EventHandlerVars;
@@ -13533,13 +13548,10 @@ var ExpressionKind;
   ExpressionKind2[ExpressionKind2["EmptyExpr"] = 17] = "EmptyExpr";
   ExpressionKind2[ExpressionKind2["AssignTemporaryExpr"] = 18] = "AssignTemporaryExpr";
   ExpressionKind2[ExpressionKind2["ReadTemporaryExpr"] = 19] = "ReadTemporaryExpr";
-  ExpressionKind2[ExpressionKind2["SanitizerExpr"] = 20] = "SanitizerExpr";
-  ExpressionKind2[ExpressionKind2["TrustedValueFnExpr"] = 21] = "TrustedValueFnExpr";
-  ExpressionKind2[ExpressionKind2["SlotLiteralExpr"] = 22] = "SlotLiteralExpr";
-  ExpressionKind2[ExpressionKind2["ConditionalCase"] = 23] = "ConditionalCase";
-  ExpressionKind2[ExpressionKind2["DerivedRepeaterVar"] = 24] = "DerivedRepeaterVar";
-  ExpressionKind2[ExpressionKind2["ConstCollected"] = 25] = "ConstCollected";
-  ExpressionKind2[ExpressionKind2["TwoWayBindingSet"] = 26] = "TwoWayBindingSet";
+  ExpressionKind2[ExpressionKind2["SlotLiteralExpr"] = 20] = "SlotLiteralExpr";
+  ExpressionKind2[ExpressionKind2["ConditionalCase"] = 21] = "ConditionalCase";
+  ExpressionKind2[ExpressionKind2["ConstCollected"] = 22] = "ConstCollected";
+  ExpressionKind2[ExpressionKind2["TwoWayBindingSet"] = 23] = "TwoWayBindingSet";
 })(ExpressionKind || (ExpressionKind = {}));
 var VariableFlags;
 (function(VariableFlags2) {
@@ -13558,12 +13570,6 @@ var CompatibilityMode;
   CompatibilityMode2[CompatibilityMode2["Normal"] = 0] = "Normal";
   CompatibilityMode2[CompatibilityMode2["TemplateDefinitionBuilder"] = 1] = "TemplateDefinitionBuilder";
 })(CompatibilityMode || (CompatibilityMode = {}));
-var DeferSecondaryKind;
-(function(DeferSecondaryKind2) {
-  DeferSecondaryKind2[DeferSecondaryKind2["Loading"] = 0] = "Loading";
-  DeferSecondaryKind2[DeferSecondaryKind2["Placeholder"] = 1] = "Placeholder";
-  DeferSecondaryKind2[DeferSecondaryKind2["Error"] = 2] = "Error";
-})(DeferSecondaryKind || (DeferSecondaryKind = {}));
 var BindingKind;
 (function(BindingKind2) {
   BindingKind2[BindingKind2["Attribute"] = 0] = "Attribute";
@@ -13634,10 +13640,6 @@ var TRAIT_DEPENDS_ON_SLOT_CONTEXT = {
 };
 var TRAIT_CONSUMES_VARS = {
   [ConsumesVarsTrait]: true
-};
-var TRAIT_USES_VAR_OFFSET = {
-  [UsesVarOffset]: true,
-  varOffset: null
 };
 function hasConsumesSlotTrait(op) {
   return op[ConsumesSlot] === true;
@@ -15863,7 +15865,7 @@ var ElementAttributes = class {
     this.propertyBindings = null;
     this.projectAs = null;
   }
-  isKnown(kind, name, value) {
+  isKnown(kind, name) {
     var _a2;
     const nameToValue = (_a2 = this.known.get(kind)) != null ? _a2 : /* @__PURE__ */ new Set();
     this.known.set(kind, nameToValue);
@@ -15876,7 +15878,7 @@ var ElementAttributes = class {
   add(kind, name, value, namespace, trustedValueFn) {
     var _a2;
     const allowDuplicates = this.compatibility === CompatibilityMode.TemplateDefinitionBuilder && (kind === BindingKind.Attribute || kind === BindingKind.ClassName || kind === BindingKind.StyleProperty);
-    if (!allowDuplicates && this.isKnown(kind, name, value)) {
+    if (!allowDuplicates && this.isKnown(kind, name)) {
       return;
     }
     if (name === "ngProjectAs") {
@@ -16458,7 +16460,7 @@ function createI18nMessage(job, context, messagePlaceholder) {
 }
 function formatIcuPlaceholder(op) {
   if (op.strings.length !== op.expressionPlaceholders.length + 1) {
-    throw Error(`AsserionError: Invalid ICU placeholder with ${op.strings.length} strings and ${op.expressionPlaceholders.length} expressions`);
+    throw Error(`AssertionError: Invalid ICU placeholder with ${op.strings.length} strings and ${op.expressionPlaceholders.length} expressions`);
   }
   const values = op.expressionPlaceholders.map(formatValue);
   return op.strings.flatMap((str, i) => [str, values[i] || ""]).join("");
@@ -18124,7 +18126,7 @@ var STRING = "string";
 var OBJECT = "object";
 var SCHEMA = [
   "[Element]|textContent,%ariaAtomic,%ariaAutoComplete,%ariaBusy,%ariaChecked,%ariaColCount,%ariaColIndex,%ariaColSpan,%ariaCurrent,%ariaDescription,%ariaDisabled,%ariaExpanded,%ariaHasPopup,%ariaHidden,%ariaKeyShortcuts,%ariaLabel,%ariaLevel,%ariaLive,%ariaModal,%ariaMultiLine,%ariaMultiSelectable,%ariaOrientation,%ariaPlaceholder,%ariaPosInSet,%ariaPressed,%ariaReadOnly,%ariaRelevant,%ariaRequired,%ariaRoleDescription,%ariaRowCount,%ariaRowIndex,%ariaRowSpan,%ariaSelected,%ariaSetSize,%ariaSort,%ariaValueMax,%ariaValueMin,%ariaValueNow,%ariaValueText,%classList,className,elementTiming,id,innerHTML,*beforecopy,*beforecut,*beforepaste,*fullscreenchange,*fullscreenerror,*search,*webkitfullscreenchange,*webkitfullscreenerror,outerHTML,%part,#scrollLeft,#scrollTop,slot,*message,*mozfullscreenchange,*mozfullscreenerror,*mozpointerlockchange,*mozpointerlockerror,*webglcontextcreationerror,*webglcontextlost,*webglcontextrestored",
-  "[HTMLElement]^[Element]|accessKey,autocapitalize,!autofocus,contentEditable,dir,!draggable,enterKeyHint,!hidden,innerText,inputMode,lang,nonce,*abort,*animationend,*animationiteration,*animationstart,*auxclick,*beforexrselect,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*copy,*cuechange,*cut,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*formdata,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*paste,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerrawupdate,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*securitypolicyviolation,*seeked,*seeking,*select,*selectionchange,*selectstart,*slotchange,*stalled,*submit,*suspend,*timeupdate,*toggle,*transitioncancel,*transitionend,*transitionrun,*transitionstart,*volumechange,*waiting,*webkitanimationend,*webkitanimationiteration,*webkitanimationstart,*webkittransitionend,*wheel,outerText,!spellcheck,%style,#tabIndex,title,!translate,virtualKeyboardPolicy",
+  "[HTMLElement]^[Element]|accessKey,autocapitalize,!autofocus,contentEditable,dir,!draggable,enterKeyHint,!hidden,!inert,innerText,inputMode,lang,nonce,*abort,*animationend,*animationiteration,*animationstart,*auxclick,*beforexrselect,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*copy,*cuechange,*cut,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*formdata,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*paste,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerrawupdate,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*securitypolicyviolation,*seeked,*seeking,*select,*selectionchange,*selectstart,*slotchange,*stalled,*submit,*suspend,*timeupdate,*toggle,*transitioncancel,*transitionend,*transitionrun,*transitionstart,*volumechange,*waiting,*webkitanimationend,*webkitanimationiteration,*webkitanimationstart,*webkittransitionend,*wheel,outerText,!spellcheck,%style,#tabIndex,title,!translate,virtualKeyboardPolicy",
   "abbr,address,article,aside,b,bdi,bdo,cite,content,code,dd,dfn,dt,em,figcaption,figure,footer,header,hgroup,i,kbd,main,mark,nav,noscript,rb,rp,rt,rtc,ruby,s,samp,section,small,strong,sub,sup,u,var,wbr^[HTMLElement]|accessKey,autocapitalize,!autofocus,contentEditable,dir,!draggable,enterKeyHint,!hidden,innerText,inputMode,lang,nonce,*abort,*animationend,*animationiteration,*animationstart,*auxclick,*beforexrselect,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*copy,*cuechange,*cut,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*formdata,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*paste,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerrawupdate,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*securitypolicyviolation,*seeked,*seeking,*select,*selectionchange,*selectstart,*slotchange,*stalled,*submit,*suspend,*timeupdate,*toggle,*transitioncancel,*transitionend,*transitionrun,*transitionstart,*volumechange,*waiting,*webkitanimationend,*webkitanimationiteration,*webkitanimationstart,*webkittransitionend,*wheel,outerText,!spellcheck,%style,#tabIndex,title,!translate,virtualKeyboardPolicy",
   "media^[HTMLElement]|!autoplay,!controls,%controlsList,%crossOrigin,#currentTime,!defaultMuted,#defaultPlaybackRate,!disableRemotePlayback,!loop,!muted,*encrypted,*waitingforkey,#playbackRate,preload,!preservesPitch,src,%srcObject,#volume",
   ":svg:^[HTMLElement]|!autofocus,nonce,*abort,*animationend,*animationiteration,*animationstart,*auxclick,*beforexrselect,*blur,*cancel,*canplay,*canplaythrough,*change,*click,*close,*contextmenu,*copy,*cuechange,*cut,*dblclick,*drag,*dragend,*dragenter,*dragleave,*dragover,*dragstart,*drop,*durationchange,*emptied,*ended,*error,*focus,*formdata,*gotpointercapture,*input,*invalid,*keydown,*keypress,*keyup,*load,*loadeddata,*loadedmetadata,*loadstart,*lostpointercapture,*mousedown,*mouseenter,*mouseleave,*mousemove,*mouseout,*mouseover,*mouseup,*mousewheel,*paste,*pause,*play,*playing,*pointercancel,*pointerdown,*pointerenter,*pointerleave,*pointermove,*pointerout,*pointerover,*pointerrawupdate,*pointerup,*progress,*ratechange,*reset,*resize,*scroll,*securitypolicyviolation,*seeked,*seeking,*select,*selectionchange,*selectstart,*slotchange,*stalled,*submit,*suspend,*timeupdate,*toggle,*transitioncancel,*transitionend,*transitionrun,*transitionstart,*volumechange,*waiting,*webkitanimationend,*webkitanimationiteration,*webkitanimationstart,*webkittransitionend,*wheel,%style,#tabIndex",
@@ -23005,7 +23007,7 @@ function addNamesToView(unit, baseName, state, compatibility) {
         }
         if (op.emptyView !== null) {
           const emptyView = unit.job.views.get(op.emptyView);
-          addNamesToView(emptyView, `${baseName}_${`${op.functionNameSuffix}Empty`}_${op.handle.slot + 2}`, state, compatibility);
+          addNamesToView(emptyView, `${baseName}_${op.functionNameSuffix}Empty_${op.handle.slot + 2}`, state, compatibility);
         }
         addNamesToView(unit.job.views.get(op.xref), `${baseName}_${op.functionNameSuffix}_${op.handle.slot + 1}`, state, compatibility);
         break;
@@ -23406,7 +23408,7 @@ function propagateI18nBlocksToTemplates(unit, subTemplateIndex) {
         break;
       case OpKind.RepeaterCreate:
         const forView = unit.job.views.get(op.xref);
-        subTemplateIndex = propagateI18nBlocksForView(unit.job.views.get(op.xref), i18nBlock, op.i18nPlaceholder, subTemplateIndex);
+        subTemplateIndex = propagateI18nBlocksForView(forView, i18nBlock, op.i18nPlaceholder, subTemplateIndex);
         if (op.emptyView !== null) {
           subTemplateIndex = propagateI18nBlocksForView(unit.job.views.get(op.emptyView), i18nBlock, op.emptyI18nPlaceholder, subTemplateIndex);
         }
@@ -24488,11 +24490,11 @@ function processLexicalScope$1(view, ops) {
 }
 function resolveDollarEvent(job) {
   for (const unit of job.units) {
-    transformDollarEvent(unit, unit.create);
-    transformDollarEvent(unit, unit.update);
+    transformDollarEvent(unit.create);
+    transformDollarEvent(unit.update);
   }
 }
-function transformDollarEvent(unit, ops) {
+function transformDollarEvent(ops) {
   for (const op of ops) {
     if (op.kind === OpKind.Listener || op.kind === OpKind.TwoWayListener) {
       transformExpressionsInOp(op, (expr) => {
@@ -24661,7 +24663,7 @@ function recordTemplateStart(job, view, slot, i18nPlaceholder, i18nContext, i18n
   addParam(i18nContext.params, startName, slot, getSubTemplateIndexForTemplateTag(job, i18nBlock, view), flags);
 }
 function recordTemplateClose(job, view, slot, i18nPlaceholder, i18nContext, i18nBlock, structuralDirective) {
-  const { startName, closeName } = i18nPlaceholder;
+  const { closeName } = i18nPlaceholder;
   const flags = I18nParamValueFlags.TemplateTag | I18nParamValueFlags.CloseTag;
   if (closeName) {
     addParam(i18nContext.params, closeName, slot, getSubTemplateIndexForTemplateTag(job, i18nBlock, view), flags);
@@ -24686,14 +24688,14 @@ function addParam(params, placeholder, value, subTemplateIndex, flags) {
 }
 function resolveI18nExpressionPlaceholders(job) {
   var _a2;
-  const subTemplateIndicies = /* @__PURE__ */ new Map();
+  const subTemplateIndices = /* @__PURE__ */ new Map();
   const i18nContexts = /* @__PURE__ */ new Map();
   const icuPlaceholders = /* @__PURE__ */ new Map();
   for (const unit of job.units) {
     for (const op of unit.create) {
       switch (op.kind) {
         case OpKind.I18nStart:
-          subTemplateIndicies.set(op.xref, op.subTemplateIndex);
+          subTemplateIndices.set(op.xref, op.subTemplateIndex);
           break;
         case OpKind.I18nContext:
           i18nContexts.set(op.xref, op);
@@ -24710,7 +24712,7 @@ function resolveI18nExpressionPlaceholders(job) {
     for (const op of unit.update) {
       if (op.kind === OpKind.I18nExpression) {
         const index2 = expressionIndices.get(referenceIndex(op)) || 0;
-        const subTemplateIndex = (_a2 = subTemplateIndicies.get(op.i18nOwner)) != null ? _a2 : null;
+        const subTemplateIndex = (_a2 = subTemplateIndices.get(op.i18nOwner)) != null ? _a2 : null;
         const value = {
           value: index2,
           subTemplateIndex,
@@ -24772,7 +24774,7 @@ function processLexicalScope(unit, ops, savedView) {
     if (op.kind == OpKind.Listener || op.kind === OpKind.TwoWayListener) {
       continue;
     }
-    transformExpressionsInOp(op, (expr, flags) => {
+    transformExpressionsInOp(op, (expr) => {
       if (expr instanceof LexicalReadExpr) {
         if (scope.has(expr.name)) {
           return new ReadVariableExpr(scope.get(expr.name));
@@ -25352,7 +25354,6 @@ function optimizeVariablesInOpList(ops, compatibility) {
   const toInline = [];
   for (const [id, count] of varUsages) {
     const decl2 = varDecls.get(id);
-    const varInfo = opMap.get(decl2);
     const isAlwaysInline = !!(decl2.flags & VariableFlags.AlwaysInline);
     if (count !== 1 || isAlwaysInline) {
       continue;
@@ -25763,7 +25764,7 @@ function ingestHostAttribute(job, name, value, securityContexts) {
   job.root.update.push(attrBinding);
 }
 function ingestHostEvent(job, event) {
-  const [phase, target] = event.type !== 1 ? [null, event.targetOrPhase] : [event.targetOrPhase, null];
+  const [phase, target] = event.type !== ParsedEventType.Animation ? [null, event.targetOrPhase] : [event.targetOrPhase, null];
   const eventBinding = createListenerOp(job.root.xref, new SlotHandle(), event.name, null, makeListenerHandlerOps(job.root, event.handler, event.handlerSpan), phase, target, true, event.sourceSpan);
   job.root.create.push(eventBinding);
 }
@@ -26049,7 +26050,6 @@ function ingestIcu(unit, icu) {
   var _a2;
   if (icu.i18n instanceof Message && isSingleI18nIcu(icu.i18n)) {
     const xref = unit.job.allocateXrefId();
-    const icuNode = icu.i18n.nodes[0];
     unit.create.push(createIcuStartOp(xref, icu.i18n, icuFromI18nMessage(icu.i18n).name, null));
     for (const [placeholder, text2] of Object.entries(__spreadValues(__spreadValues({}, icu.vars), icu.placeholders))) {
       if (text2 instanceof BoundText) {
@@ -26229,12 +26229,12 @@ function convertAstWithInterpolation(job, value, i18nMeta, sourceSpan) {
   return expression;
 }
 var BINDING_KINDS = /* @__PURE__ */ new Map([
-  [0, BindingKind.Property],
-  [5, BindingKind.TwoWayProperty],
-  [1, BindingKind.Attribute],
-  [2, BindingKind.ClassName],
-  [3, BindingKind.StyleProperty],
-  [4, BindingKind.Animation]
+  [BindingType.Property, BindingKind.Property],
+  [BindingType.TwoWay, BindingKind.TwoWayProperty],
+  [BindingType.Attribute, BindingKind.Attribute],
+  [BindingType.Class, BindingKind.ClassName],
+  [BindingType.Style, BindingKind.StyleProperty],
+  [BindingType.Animation, BindingKind.Animation]
 ]);
 function isPlainTemplate(tmpl) {
   var _a2;
@@ -26269,10 +26269,10 @@ function ingestElementBindings(unit, op, element2) {
   unit.create.push(bindings.filter((b) => (b == null ? void 0 : b.kind) === OpKind.ExtractedAttribute));
   unit.update.push(bindings.filter((b) => (b == null ? void 0 : b.kind) === OpKind.Binding));
   for (const output of element2.outputs) {
-    if (output.type === 1 && output.phase === null) {
+    if (output.type === ParsedEventType.Animation && output.phase === null) {
       throw Error("Animation listener should have a phase");
     }
-    if (output.type === 2) {
+    if (output.type === ParsedEventType.TwoWay) {
       unit.create.push(createTwoWayListenerOp(op.xref, op.handle, output.name, op.tag, makeTwoWayListenerHandlerOps(unit, output.handler, output.handlerSpan), output.sourceSpan));
     } else {
       unit.create.push(createListenerOp(op.xref, op.handle, output.name, op.tag, makeListenerHandlerOps(unit, output.handler, output.handlerSpan), output.phase, output.target, false, output.sourceSpan));
@@ -26287,14 +26287,14 @@ function ingestTemplateBindings(unit, op, template2, templateKind) {
   for (const attr of template2.templateAttrs) {
     if (attr instanceof TextAttribute) {
       const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME$1, attr.name, true);
-      bindings.push(createTemplateBinding(unit, op.xref, 1, attr.name, attr.value, null, securityContext, true, templateKind, asMessage(attr.i18n), attr.sourceSpan));
+      bindings.push(createTemplateBinding(unit, op.xref, BindingType.Attribute, attr.name, attr.value, null, securityContext, true, templateKind, asMessage(attr.i18n), attr.sourceSpan));
     } else {
       bindings.push(createTemplateBinding(unit, op.xref, attr.type, attr.name, astOf(attr.value), attr.unit, attr.securityContext, true, templateKind, asMessage(attr.i18n), attr.sourceSpan));
     }
   }
   for (const attr of template2.attributes) {
     const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME$1, attr.name, true);
-    bindings.push(createTemplateBinding(unit, op.xref, 1, attr.name, attr.value, null, securityContext, false, templateKind, asMessage(attr.i18n), attr.sourceSpan));
+    bindings.push(createTemplateBinding(unit, op.xref, BindingType.Attribute, attr.name, attr.value, null, securityContext, false, templateKind, asMessage(attr.i18n), attr.sourceSpan));
   }
   for (const input of template2.inputs) {
     bindings.push(createTemplateBinding(unit, op.xref, input.type, input.name, astOf(input.value), input.unit, input.securityContext, false, templateKind, asMessage(input.i18n), input.sourceSpan));
@@ -26302,17 +26302,17 @@ function ingestTemplateBindings(unit, op, template2, templateKind) {
   unit.create.push(bindings.filter((b) => (b == null ? void 0 : b.kind) === OpKind.ExtractedAttribute));
   unit.update.push(bindings.filter((b) => (b == null ? void 0 : b.kind) === OpKind.Binding));
   for (const output of template2.outputs) {
-    if (output.type === 1 && output.phase === null) {
+    if (output.type === ParsedEventType.Animation && output.phase === null) {
       throw Error("Animation listener should have a phase");
     }
     if (templateKind === TemplateKind.NgTemplate) {
-      if (output.type === 2) {
+      if (output.type === ParsedEventType.TwoWay) {
         unit.create.push(createTwoWayListenerOp(op.xref, op.handle, output.name, op.tag, makeTwoWayListenerHandlerOps(unit, output.handler, output.handlerSpan), output.sourceSpan));
       } else {
         unit.create.push(createListenerOp(op.xref, op.handle, output.name, op.tag, makeListenerHandlerOps(unit, output.handler, output.handlerSpan), output.phase, output.target, false, output.sourceSpan));
       }
     }
-    if (templateKind === TemplateKind.Structural && output.type !== 1) {
+    if (templateKind === TemplateKind.Structural && output.type !== ParsedEventType.Animation) {
       const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME$1, output.name, false);
       unit.create.push(createExtractedAttributeOp(op.xref, BindingKind.Property, null, output.name, null, null, null, securityContext));
     }
@@ -26326,21 +26326,21 @@ function createTemplateBinding(view, xref, type, name, value, unit, securityCont
   if (templateKind === TemplateKind.Structural) {
     if (!isStructuralTemplateAttribute) {
       switch (type) {
-        case 0:
-        case 2:
-        case 3:
+        case BindingType.Property:
+        case BindingType.Class:
+        case BindingType.Style:
           return createExtractedAttributeOp(xref, BindingKind.Property, null, name, null, null, i18nMessage, securityContext);
-        case 5:
+        case BindingType.TwoWay:
           return createExtractedAttributeOp(xref, BindingKind.TwoWayProperty, null, name, null, null, i18nMessage, securityContext);
       }
     }
-    if (!isTextBinding && (type === 1 || type === 4)) {
+    if (!isTextBinding && (type === BindingType.Attribute || type === BindingType.Animation)) {
       return null;
     }
   }
   let bindingType = BINDING_KINDS.get(type);
   if (templateKind === TemplateKind.NgTemplate) {
-    if (type === 2 || type === 3 || type === 1 && !isTextBinding) {
+    if (type === BindingType.Class || type === BindingType.Style || type === BindingType.Attribute && !isTextBinding) {
       bindingType = BindingKind.Property;
     }
   }
@@ -26682,7 +26682,7 @@ var BindingParser = class {
   }
   createBoundElementProperty(elementSelector, boundProp, skipValidation = false, mapPropertyName = true) {
     if (boundProp.isAnimation) {
-      return new BoundElementProperty(boundProp.name, 4, SecurityContext.NONE, boundProp.expression, null, boundProp.sourceSpan, boundProp.keySpan, boundProp.valueSpan);
+      return new BoundElementProperty(boundProp.name, BindingType.Animation, SecurityContext.NONE, boundProp.expression, null, boundProp.sourceSpan, boundProp.keySpan, boundProp.valueSpan);
     }
     let unit = null;
     let bindingType = void 0;
@@ -26702,15 +26702,15 @@ var BindingParser = class {
           const name = boundPropertyName.substring(nsSeparatorIdx + 1);
           boundPropertyName = mergeNsAndName(ns, name);
         }
-        bindingType = 1;
+        bindingType = BindingType.Attribute;
       } else if (parts[0] == CLASS_PREFIX) {
         boundPropertyName = parts[1];
-        bindingType = 2;
+        bindingType = BindingType.Class;
         securityContexts = [SecurityContext.NONE];
       } else if (parts[0] == STYLE_PREFIX) {
         unit = parts.length > 2 ? parts[2] : null;
         boundPropertyName = parts[1];
-        bindingType = 3;
+        bindingType = BindingType.Style;
         securityContexts = [SecurityContext.STYLE];
       }
     }
@@ -26718,7 +26718,7 @@ var BindingParser = class {
       const mappedPropName = this._schemaRegistry.getMappedPropName(boundProp.name);
       boundPropertyName = mapPropertyName ? mappedPropName : boundProp.name;
       securityContexts = calcPossibleSecurityContexts(this._schemaRegistry, elementSelector, mappedPropName, false);
-      bindingType = boundProp.type === ParsedPropertyType.TWO_WAY ? 5 : 0;
+      bindingType = boundProp.type === ParsedPropertyType.TWO_WAY ? BindingType.TwoWay : BindingType.Property;
       if (!skipValidation) {
         this._validatePropertyOrAttributeName(mappedPropName, boundProp.sourceSpan, false);
       }
@@ -26748,7 +26748,7 @@ var BindingParser = class {
     const eventName = matches[0];
     const phase = matches[1].toLowerCase();
     const ast = this._parseAction(expression, handlerSpan);
-    targetEvents.push(new ParsedEvent(eventName, phase, 1, ast, sourceSpan, handlerSpan, keySpan));
+    targetEvents.push(new ParsedEvent(eventName, phase, ParsedEventType.Animation, ast, sourceSpan, handlerSpan, keySpan));
     if (eventName.length === 0) {
       this._reportError(`Animation event name is missing in binding`, sourceSpan);
     }
@@ -26769,7 +26769,7 @@ var BindingParser = class {
     if (isAssignmentEvent && isValid && !this._isAllowedAssignmentEvent(ast)) {
       this._reportError("Unsupported expression in a two-way binding", sourceSpan);
     }
-    targetEvents.push(new ParsedEvent(eventName, target, isAssignmentEvent ? 2 : 0, ast, sourceSpan, handlerSpan, keySpan));
+    targetEvents.push(new ParsedEvent(eventName, target, isAssignmentEvent ? ParsedEventType.TwoWay : ParsedEventType.Regular, ast, sourceSpan, handlerSpan, keySpan));
   }
   _parseAction(value, sourceSpan) {
     const sourceInfo = (sourceSpan && sourceSpan.start || "(unknown").toString();
@@ -28211,13 +28211,13 @@ var StylingBuilder = class {
     let binding = null;
     let name = input.name;
     switch (input.type) {
-      case 0:
+      case BindingType.Property:
         binding = this.registerInputBasedOnName(name, input.value, input.sourceSpan);
         break;
-      case 3:
+      case BindingType.Style:
         binding = this.registerStyleInput(name, false, input.value, input.sourceSpan, input.unit);
         break;
-      case 2:
+      case BindingType.Class:
         binding = this.registerClassInput(name, false, input.value, input.sourceSpan);
         break;
     }
@@ -28537,7 +28537,7 @@ function prepareEventListenerParameters(eventAst, handlerName = null, scope = nu
   const eventArgumentName = "$event";
   const implicitReceiverAccesses = /* @__PURE__ */ new Set();
   const implicitReceiverExpr = scope === null || scope.bindingLevel === 0 ? variable(CONTEXT_NAME) : scope.getOrCreateSharedContextVar(0);
-  const bindingStatements = eventAst.type === 2 ? convertAssignmentActionBinding(scope, implicitReceiverExpr, handler, "b", eventAst.handlerSpan, implicitReceiverAccesses, EVENT_BINDING_SCOPE_GLOBALS) : convertActionBinding(scope, implicitReceiverExpr, handler, "b", eventAst.handlerSpan, implicitReceiverAccesses, EVENT_BINDING_SCOPE_GLOBALS);
+  const bindingStatements = eventAst.type === ParsedEventType.TwoWay ? convertAssignmentActionBinding(scope, implicitReceiverExpr, handler, "b", eventAst.handlerSpan, implicitReceiverAccesses, EVENT_BINDING_SCOPE_GLOBALS) : convertActionBinding(scope, implicitReceiverExpr, handler, "b", eventAst.handlerSpan, implicitReceiverAccesses, EVENT_BINDING_SCOPE_GLOBALS);
   const statements = [];
   const variableDeclarations = scope == null ? void 0 : scope.variableDeclarations();
   const restoreViewStatement = scope == null ? void 0 : scope.restoreViewStatement();
@@ -28554,7 +28554,7 @@ function prepareEventListenerParameters(eventAst, handlerName = null, scope = nu
       statements.push(new ExpressionStatement(invokeInstruction(null, Identifiers.resetView, [])));
     }
   }
-  const eventName = type === 1 ? prepareSyntheticListenerName(name, phase) : name;
+  const eventName = type === ParsedEventType.Animation ? prepareSyntheticListenerName(name, phase) : name;
   const fnName = handlerName && sanitizeIdentifier(handlerName);
   const fnArgs = [];
   if (implicitReceiverAccesses.has(eventArgumentName)) {
@@ -28929,7 +28929,7 @@ var TemplateDefinitionBuilder = class {
     element2.inputs.forEach((input) => {
       const stylingInputWasSet = stylingBuilder.registerBoundInput(input);
       if (!stylingInputWasSet) {
-        if ((input.type === 0 || input.type === 5) && input.i18n) {
+        if ((input.type === BindingType.Property || input.type === BindingType.TwoWay) && input.i18n) {
           boundI18nAttrs.push(input);
         } else {
           allOtherInputs.push(input);
@@ -28963,7 +28963,7 @@ var TemplateDefinitionBuilder = class {
       }
       if (element2.outputs.length > 0) {
         for (const outputAst of element2.outputs) {
-          this.creationInstruction(outputAst.sourceSpan, outputAst.type === 2 ? Identifiers.twoWayListener : Identifiers.listener, this.prepareListenerParameter(element2.name, outputAst, elementIndex));
+          this.creationInstruction(outputAst.sourceSpan, outputAst.type === ParsedEventType.TwoWay ? Identifiers.twoWayListener : Identifiers.listener, this.prepareListenerParameter(element2.name, outputAst, elementIndex));
         }
       }
       if (isI18nRootElement) {
@@ -28981,7 +28981,7 @@ var TemplateDefinitionBuilder = class {
     const attributeBindings = [];
     allOtherInputs.forEach((input) => {
       const inputType = input.type;
-      if (inputType === 4) {
+      if (inputType === BindingType.Animation) {
         const value = input.value.visit(this._valueConverter);
         const hasValue = value instanceof LiteralPrimitive ? !!value.value : true;
         this.allocateBindingSlots(value);
@@ -28997,7 +28997,7 @@ var TemplateDefinitionBuilder = class {
         if (value !== void 0) {
           const params = [];
           const [attrNamespace, attrName] = splitNsName(input.name);
-          const isAttributeBinding = inputType === 1;
+          const isAttributeBinding = inputType === BindingType.Attribute;
           let sanitizationRef = resolveSanitizationFn(input.securityContext, isAttributeBinding);
           if (!sanitizationRef) {
             if (isIframeElement(element2.name) && isIframeSecuritySensitiveAttr(input.name)) {
@@ -29016,17 +29016,17 @@ var TemplateDefinitionBuilder = class {
             }
           }
           this.allocateBindingSlots(value);
-          if (inputType === 0 || inputType === 5) {
+          if (inputType === BindingType.Property || inputType === BindingType.TwoWay) {
             if (value instanceof Interpolation$1) {
               this.interpolatedUpdateInstruction(getPropertyInterpolationExpression(value), elementIndex, attrName, input, value, params);
             } else {
               propertyBindings.push({
                 span: input.sourceSpan,
-                reference: inputType === 5 ? Identifiers.twoWayProperty : Identifiers.property,
+                reference: inputType === BindingType.TwoWay ? Identifiers.twoWayProperty : Identifiers.property,
                 paramsOrFn: getBindingFunctionParams(() => this.convertPropertyBinding(value), attrName, params)
               });
             }
-          } else if (inputType === 1) {
+          } else if (inputType === BindingType.Attribute) {
             if (value instanceof Interpolation$1 && getInterpolationArgsLength(value) > 1) {
               this.interpolatedUpdateInstruction(getAttributeInterpolationExpression(value), elementIndex, attrName, input, value, params);
             } else {
@@ -29126,7 +29126,7 @@ var TemplateDefinitionBuilder = class {
         this.templatePropertyBindings(templateIndex, inputs);
       }
       for (const outputAst of template2.outputs) {
-        this.creationInstruction(outputAst.sourceSpan, outputAst.type === 2 ? Identifiers.twoWayListener : Identifiers.listener, this.prepareListenerParameter("ng_template", outputAst, templateIndex));
+        this.creationInstruction(outputAst.sourceSpan, outputAst.type === ParsedEventType.TwoWay ? Identifiers.twoWayListener : Identifiers.listener, this.prepareListenerParameter("ng_template", outputAst, templateIndex));
       }
     }
   }
@@ -29640,13 +29640,13 @@ var TemplateDefinitionBuilder = class {
       const attrsLengthBeforeInputs = attrExprs.length;
       for (let i = 0; i < inputs.length; i++) {
         const input = inputs[i];
-        if (input.type !== 4 && input.type !== 1) {
+        if (input.type !== BindingType.Animation && input.type !== BindingType.Attribute) {
           addAttrExpr(input.name);
         }
       }
       for (let i = 0; i < outputs.length; i++) {
         const output = outputs[i];
-        if (output.type !== 1) {
+        if (output.type !== ParsedEventType.Animation) {
           addAttrExpr(output.name);
         }
       }
@@ -29700,7 +29700,7 @@ var TemplateDefinitionBuilder = class {
   prepareListenerParameter(tagName, outputAst, index2) {
     return () => {
       const eventName = outputAst.name;
-      const bindingFnName = outputAst.type === 1 ? prepareSyntheticListenerFunctionName(eventName, outputAst.phase) : sanitizeIdentifier(eventName);
+      const bindingFnName = outputAst.type === ParsedEventType.Animation ? prepareSyntheticListenerFunctionName(eventName, outputAst.phase) : sanitizeIdentifier(eventName);
       const handlerName = `${this.templateName}_${tagName}_${bindingFnName}_${index2}_listener`;
       const scope = this._bindingScope.nestedScope(this._bindingScope.bindingLevel, EVENT_BINDING_SCOPE_GLOBALS);
       return prepareEventListenerParameters(outputAst, handlerName, scope);
@@ -30781,10 +30781,10 @@ function createHostListeners(eventBindings, name) {
   const instructions = [];
   for (const binding of eventBindings) {
     let bindingName = binding.name && sanitizeIdentifier(binding.name);
-    const bindingFnName = binding.type === 1 ? prepareSyntheticListenerFunctionName(bindingName, binding.targetOrPhase) : bindingName;
+    const bindingFnName = binding.type === ParsedEventType.Animation ? prepareSyntheticListenerFunctionName(bindingName, binding.targetOrPhase) : bindingName;
     const handlerName = name && bindingName ? `${name}_${bindingFnName}_HostBindingHandler` : null;
     const params = prepareEventListenerParameters(BoundEvent.fromParsedEvent(binding), handlerName);
-    if (binding.type == 1) {
+    if (binding.type == ParsedEventType.Animation) {
       syntheticListenerParams.push(params);
     } else {
       listenerParams.push(params);
@@ -30914,7 +30914,7 @@ var R3TargetBinder = class {
     const scopedNodeEntities = extractScopedNodeEntities(scope);
     const { directives, eagerDirectives, bindings, references } = DirectiveBinder.apply(target.template, this.directiveMatcher);
     const { expressions, symbols, nestingLevel, usedPipes, eagerPipes, deferBlocks } = TemplateBinder.applyWithScope(target.template, scope);
-    return new R3BoundTarget(target, directives, eagerDirectives, bindings, references, expressions, symbols, nestingLevel, scopedNodeEntities, usedPipes, eagerPipes, deferBlocks, scope);
+    return new R3BoundTarget(target, directives, eagerDirectives, bindings, references, expressions, symbols, nestingLevel, scopedNodeEntities, usedPipes, eagerPipes, deferBlocks);
   }
 };
 var Scope = class {
@@ -31211,7 +31211,7 @@ var TemplateBinder = class extends RecursiveAstVisitor {
     const usedPipes = /* @__PURE__ */ new Set();
     const eagerPipes = /* @__PURE__ */ new Set();
     const template2 = nodes instanceof Template ? nodes : null;
-    const deferBlocks = /* @__PURE__ */ new Set();
+    const deferBlocks = /* @__PURE__ */ new Map();
     const binder = new TemplateBinder(expressions, symbols, usedPipes, eagerPipes, deferBlocks, nestingLevel, scope, template2, 0);
     binder.ingest(nodes);
     return { expressions, symbols, nestingLevel, usedPipes, eagerPipes, deferBlocks };
@@ -31233,7 +31233,14 @@ var TemplateBinder = class extends RecursiveAstVisitor {
       nodeOrNodes.trackBy.visit(this);
       nodeOrNodes.children.forEach(this.visitNode);
       this.nestingLevel.set(nodeOrNodes, this.level);
-    } else if (nodeOrNodes instanceof SwitchBlockCase || nodeOrNodes instanceof ForLoopBlockEmpty || nodeOrNodes instanceof DeferredBlock || nodeOrNodes instanceof DeferredBlockError || nodeOrNodes instanceof DeferredBlockPlaceholder || nodeOrNodes instanceof DeferredBlockLoading) {
+    } else if (nodeOrNodes instanceof DeferredBlock) {
+      if (this.scope.rootNode !== nodeOrNodes) {
+        throw new Error(`Assertion error: resolved incorrect scope for deferred block ${nodeOrNodes}`);
+      }
+      this.deferBlocks.set(nodeOrNodes, this.scope);
+      nodeOrNodes.children.forEach((node) => node.visit(this));
+      this.nestingLevel.set(nodeOrNodes, this.level);
+    } else if (nodeOrNodes instanceof SwitchBlockCase || nodeOrNodes instanceof ForLoopBlockEmpty || nodeOrNodes instanceof DeferredBlockError || nodeOrNodes instanceof DeferredBlockPlaceholder || nodeOrNodes instanceof DeferredBlockLoading) {
       nodeOrNodes.children.forEach((node) => node.visit(this));
       this.nestingLevel.set(nodeOrNodes, this.level);
     } else {
@@ -31285,7 +31292,6 @@ var TemplateBinder = class extends RecursiveAstVisitor {
   }
   visitDeferredBlock(deferred) {
     var _a2, _b2;
-    this.deferBlocks.add(deferred);
     this.ingestScopedNode(deferred);
     (_a2 = deferred.triggers.when) == null ? void 0 : _a2.value.visit(this);
     (_b2 = deferred.prefetchTriggers.when) == null ? void 0 : _b2.value.visit(this);
@@ -31366,7 +31372,7 @@ var TemplateBinder = class extends RecursiveAstVisitor {
   }
 };
 var R3BoundTarget = class {
-  constructor(target, directives, eagerDirectives, bindings, references, exprTargets, symbols, nestingLevel, scopedNodeEntities, usedPipes, eagerPipes, deferredBlocks, rootScope) {
+  constructor(target, directives, eagerDirectives, bindings, references, exprTargets, symbols, nestingLevel, scopedNodeEntities, usedPipes, eagerPipes, deferBlocks) {
     this.target = target;
     this.directives = directives;
     this.eagerDirectives = eagerDirectives;
@@ -31378,8 +31384,7 @@ var R3BoundTarget = class {
     this.scopedNodeEntities = scopedNodeEntities;
     this.usedPipes = usedPipes;
     this.eagerPipes = eagerPipes;
-    this.deferredBlocks = deferredBlocks;
-    this.rootScope = rootScope;
+    this.deferBlocks = deferBlocks;
   }
   getEntitiesInScope(node) {
     var _a2;
@@ -31419,7 +31424,7 @@ var R3BoundTarget = class {
     return Array.from(this.eagerPipes);
   }
   getDeferBlocks() {
-    return Array.from(this.deferredBlocks);
+    return Array.from(this.deferBlocks.keys());
   }
   getDeferredTriggerTarget(block, trigger) {
     if (!(trigger instanceof InteractionDeferredTrigger) && !(trigger instanceof ViewportDeferredTrigger) && !(trigger instanceof HoverDeferredTrigger)) {
@@ -31460,10 +31465,14 @@ var R3BoundTarget = class {
     return null;
   }
   isDeferred(element2) {
-    for (const deferBlock of this.deferredBlocks) {
-      const scope = this.rootScope.childScopes.get(deferBlock);
-      if (scope && scope.elementsInScope.has(element2)) {
-        return true;
+    for (const deferredScope of this.deferBlocks.values()) {
+      const stack = [deferredScope];
+      while (stack.length > 0) {
+        const current = stack.pop();
+        if (current.elementsInScope.has(element2)) {
+          return true;
+        }
+        stack.push(...current.childScopes.values());
       }
     }
     return false;
@@ -31519,7 +31528,7 @@ function extractScopedNodeEntities(rootScope) {
 }
 var ResourceLoader = class {
 };
-var SHOULD_USE_TEMPLATE_PIPELINE_FOR_JIT = false;
+var SHOULD_USE_TEMPLATE_PIPELINE_FOR_JIT = true;
 var CompilerFacadeImpl = class {
   constructor(jitEvaluator = new JitEvaluator()) {
     this.jitEvaluator = jitEvaluator;
@@ -32098,7 +32107,7 @@ function publishFacade(global) {
   const ng = global.ng || (global.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("17.2.0");
+var VERSION = new Version("18.0.0-next.0+sha-37d1f71");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -32987,13 +32996,13 @@ var FormFieldTemplateMigrator = class extends TemplateMigrator {
 };
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/mdc-migration/rules/components/slider/slider-template.js
-var BindingType;
-(function(BindingType2) {
-  BindingType2[BindingType2["INPUT"] = 0] = "INPUT";
-  BindingType2[BindingType2["OUTPUT"] = 1] = "OUTPUT";
-  BindingType2[BindingType2["ATTRIBUTE"] = 2] = "ATTRIBUTE";
-  BindingType2[BindingType2["TWO_WAY_BINDING"] = 3] = "TWO_WAY_BINDING";
-})(BindingType || (BindingType = {}));
+var BindingType2;
+(function(BindingType3) {
+  BindingType3[BindingType3["INPUT"] = 0] = "INPUT";
+  BindingType3[BindingType3["OUTPUT"] = 1] = "OUTPUT";
+  BindingType3[BindingType3["ATTRIBUTE"] = 2] = "ATTRIBUTE";
+  BindingType3[BindingType3["TWO_WAY_BINDING"] = 3] = "TWO_WAY_BINDING";
+})(BindingType2 || (BindingType2 = {}));
 var SliderTemplateMigrator = class extends TemplateMigrator {
   getUpdates(ast) {
     const updates = [];
@@ -33084,12 +33093,12 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
     return inputs.concat(outputs).concat(attributes).concat(twoWayBindings);
   }
   _getTwoWayBindings(inputs, outputs) {
-    return inputs.filter((input) => outputs.some((output) => output.name === input.name)).map((input) => __spreadProps(__spreadValues({}, input), { type: BindingType.TWO_WAY_BINDING }));
+    return inputs.filter((input) => outputs.some((output) => output.name === input.name)).map((input) => __spreadProps(__spreadValues({}, input), { type: BindingType2.TWO_WAY_BINDING }));
   }
   _getOutputs(node) {
     return node.outputs.map((output) => ({
       node: output,
-      type: BindingType.OUTPUT,
+      type: BindingType2.OUTPUT,
       name: node.sourceSpan.start.file.content.slice(output.keySpan.start.offset, output.keySpan.end.offset),
       value: node.sourceSpan.start.file.content.slice(output.handlerSpan.start.offset, output.handlerSpan.end.offset)
     }));
@@ -33097,7 +33106,7 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
   _getInputs(node) {
     return node.inputs.map((input) => ({
       node: input,
-      type: BindingType.INPUT,
+      type: BindingType2.INPUT,
       name: node.sourceSpan.start.file.content.slice(input.keySpan.start.offset, input.keySpan.end.offset),
       value: node.sourceSpan.start.file.content.slice(input.value.sourceSpan.start, input.value.sourceSpan.end)
     }));
@@ -33105,7 +33114,7 @@ var SliderTemplateMigrator = class extends TemplateMigrator {
   _getAttributes(node) {
     return node.attributes.map((attribute2) => ({
       node: attribute2,
-      type: BindingType.ATTRIBUTE,
+      type: BindingType2.ATTRIBUTE,
       name: attribute2.name,
       value: attribute2.value
     }));
@@ -33160,7 +33169,7 @@ var TypographyHierarchyTemplateMigrator = class extends TemplateMigrator {
   }
   _addClassBindingUpdates(node, updates) {
     node.inputs.forEach((input) => {
-      if (input.type === 2 && RENAMED_TYPOGRAPHY_CLASSES.has(input.name)) {
+      if (input.type === BindingType.Class && RENAMED_TYPOGRAPHY_CLASSES.has(input.name)) {
         updates.push({
           offset: input.keySpan.start.offset,
           updateFn: (html) => {
@@ -34052,7 +34061,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v17.2.0
+ * @license Angular v18.0.0-next.0+sha-37d1f71
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */
