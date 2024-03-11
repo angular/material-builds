@@ -455,6 +455,7 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     /** Width of an individual cell. */
     _cellWidth: string;
     private _didDragSinceMouseDown;
+    private _injector;
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
     /** Called when a cell is clicked. */
     _cellClicked(cell: MatCalendarCell, event: MouseEvent): void;
@@ -673,7 +674,6 @@ export declare class MatDatepickerApply {
 /** Base class for a datepicker. */
 declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements MatDatepickerPanel<C, S, D>, OnDestroy, OnChanges {
     private _overlay;
-    private _ngZone;
     private _viewContainerRef;
     private _dateAdapter;
     private _dir;
@@ -764,7 +764,13 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     datepickerInput: C;
     /** Emits when the datepicker's state changes. */
     readonly stateChanges: Subject<void>;
-    constructor(_overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _model: MatDateSelectionModel<S, D>);
+    private _injector;
+    constructor(_overlay: Overlay, 
+    /**
+     * @deprecated parameter is unused and will be removed
+     * @breaking-change 19.0.0
+     */
+    _unusedNgZone: NgZone, _viewContainerRef: ViewContainerRef, scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _model: MatDateSelectionModel<S, D>);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Selects the given date */

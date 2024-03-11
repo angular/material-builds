@@ -4,7 +4,7 @@ import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModul
 import { ComponentPortal, CdkPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { NgClass, DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Injectable, inject, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, booleanAttribute, Directive, Attribute, ContentChild, Self, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, inject, EventEmitter, Injector, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, Inject, ViewChild, forwardRef, booleanAttribute, Directive, Attribute, ContentChild, Self, TemplateRef, NgModule } from '@angular/core';
 import { MatButton, MatIconButton, MatButtonModule } from '@angular/material/button';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i1 from '@angular/material/core';
@@ -14,7 +14,7 @@ import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DO
 import * as i2 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
 import { normalizePassiveListenerOptions, Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
-import { take, startWith, filter } from 'rxjs/operators';
+import { startWith, take, filter } from 'rxjs/operators';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
 import * as i2$1 from '@angular/forms';
@@ -160,6 +160,7 @@ class MatCalendarBody {
         /** Emits the date at the conclusion of a drag, or null if mouse was not released on a date. */
         this.dragEnded = new EventEmitter();
         this._didDragSinceMouseDown = false;
+        this._injector = inject(Injector);
         /**
          * Event handler for when the user enters an element
          * inside the calendar body (e.g. by hovering in or focus).
@@ -360,19 +361,17 @@ class MatCalendarBody {
      * Adding delay also complicates writing tests.
      */
     _focusActiveCell(movePreview = true) {
-        this._ngZone.runOutsideAngular(() => {
-            this._ngZone.onStable.pipe(take(1)).subscribe(() => {
-                setTimeout(() => {
-                    const activeCell = this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
-                    if (activeCell) {
-                        if (!movePreview) {
-                            this._skipNextFocus = true;
-                        }
-                        activeCell.focus();
+        afterNextRender(() => {
+            setTimeout(() => {
+                const activeCell = this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
+                if (activeCell) {
+                    if (!movePreview) {
+                        this._skipNextFocus = true;
                     }
-                });
+                    activeCell.focus();
+                }
             });
-        });
+        }, { injector: this._injector });
     }
     /** Focuses the active cell after change detection has run and the microtask queue is empty. */
     _scheduleFocusActiveCellAfterViewChecked() {
@@ -2527,9 +2526,13 @@ class MatDatepickerBase {
     _getDateFilter() {
         return this.datepickerInput && this.datepickerInput.dateFilter;
     }
-    constructor(_overlay, _ngZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _model) {
+    constructor(_overlay, 
+    /**
+     * @deprecated parameter is unused and will be removed
+     * @breaking-change 19.0.0
+     */
+    _unusedNgZone, _viewContainerRef, scrollStrategy, _dateAdapter, _dir, _model) {
         this._overlay = _overlay;
-        this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
@@ -2580,6 +2583,7 @@ class MatDatepickerBase {
         this._backdropHarnessClass = `${this.id}-backdrop`;
         /** Emits when the datepicker's state changes. */
         this.stateChanges = new Subject();
+        this._injector = inject(Injector);
         if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -2769,7 +2773,9 @@ class MatDatepickerBase {
         this._forwardContentValues(this._componentRef.instance);
         // Update the position once the calendar has rendered. Only relevant in dropdown mode.
         if (!isDialog) {
-            this._ngZone.onStable.pipe(take(1)).subscribe(() => overlayRef.updatePosition());
+            afterNextRender(() => {
+                overlayRef.updatePosition();
+            }, { injector: this._injector });
         }
     }
     /** Destroys the current overlay. */
