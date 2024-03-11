@@ -1234,6 +1234,8 @@ class MatSliderThumb {
         this._onTouchedFn();
     }
     _onFocus() {
+        this._slider._setTransition(false);
+        this._slider._updateTrackUI(this);
         this._setIsFocused(true);
     }
     _onChange() {
