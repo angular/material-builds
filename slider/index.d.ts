@@ -256,6 +256,8 @@ declare interface _MatSlider {
     _onTranslateXChange: (source: _MatSliderThumb) => void;
     /** Updates the stored slider dimensions using the current bounding client rect. */
     _updateDimensions: () => void;
+    /** Updates the scale on the active portion of the track. */
+    _updateTrackUI: (source: _MatSliderThumb) => void;
     /** Used to set the transition duration for thumb and track animations. */
     _setTransition: (withAnimation: boolean) => void;
     _cdr: ChangeDetectorRef;
