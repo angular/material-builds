@@ -1,8 +1,8 @@
-import { takeUntil, take } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, Directive, Inject, Optional, Input, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, Injector, ElementRef, afterNextRender, Directive, Inject, Optional, Input, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { DOCUMENT, NgClass, CommonModule } from '@angular/common';
 import * as i2 from '@angular/cdk/platform';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
@@ -212,6 +212,7 @@ class MatTooltip {
         this._passiveListeners = [];
         /** Emits when the component is destroyed. */
         this._destroyed = new Subject();
+        this._injector = inject(Injector);
         this._scrollStrategy = scrollStrategy;
         this._document = _document;
         if (_defaultOptions) {
@@ -474,10 +475,12 @@ class MatTooltip {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.pipe(take(1), takeUntil(this._destroyed)).subscribe(() => {
+            afterNextRender(() => {
                 if (this._tooltipInstance) {
                     this._overlayRef.updatePosition();
                 }
+            }, {
+                injector: this._injector,
             });
         }
     }

@@ -156,6 +156,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _touchstartTimeout;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
+    private _injector;
     constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, _document: any);
     ngAfterViewInit(): void;
     /**
