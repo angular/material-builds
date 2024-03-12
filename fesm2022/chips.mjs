@@ -1,13 +1,13 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, booleanAttribute, numberAttribute, Directive, Inject, Input, EventEmitter, inject, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Attribute, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, Self, NgModule } from '@angular/core';
+import { InjectionToken, booleanAttribute, numberAttribute, Directive, Inject, Input, EventEmitter, inject, Injector, afterNextRender, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Attribute, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, Self, NgModule } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import * as i3 from '@angular/material/core';
 import { MatRippleLoader, MAT_RIPPLE_GLOBAL_OPTIONS, _ErrorStateTracker, MatCommonModule, MatRippleModule, ErrorStateMatcher } from '@angular/material/core';
 import * as i1 from '@angular/cdk/a11y';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Subject, merge } from 'rxjs';
-import { take, takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey } from '@angular/cdk/keycodes';
+import { takeUntil, startWith, switchMap } from 'rxjs/operators';
 import * as i1$1 from '@angular/cdk/bidi';
 import * as i2 from '@angular/forms';
 import { NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
@@ -325,6 +325,7 @@ class MatChip {
          * Used to improve initial load time of large applications.
          */
         this._rippleLoader = inject(MatRippleLoader);
+        this._injector = inject(Injector);
         this._document = _document;
         this._animationsDisabled = animationMode === 'NoopAnimations';
         if (tabIndex != null) {
@@ -454,10 +455,10 @@ class MatChip {
                     // When animations are enabled, Angular may end up removing the chip from the DOM a little
                     // earlier than usual, causing it to be blurred and throwing off the logic in the chip list
                     // that moves focus not the next item. To work around the issue, we defer marking the chip
-                    // as not focused until the next time the zone stabilizes.
-                    this._ngZone.onStable
-                        .pipe(take(1))
-                        .subscribe(() => this._ngZone.run(() => this._onBlur.next({ chip: this })));
+                    // as not focused until after the next render.
+                    afterNextRender(() => this._ngZone.run(() => this._onBlur.next({ chip: this })), {
+                        injector: this._injector,
+                    });
                 }
             }
         });

@@ -226,6 +226,7 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
      * Used to improve initial load time of large applications.
      */
     _rippleLoader: MatRippleLoader;
+    private _injector;
     constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _focusMonitor: FocusMonitor, _document: any, animationMode?: string, _globalRippleOptions?: RippleGlobalOptions | undefined, tabIndex?: string);
     ngOnInit(): void;
     ngAfterViewInit(): void;
