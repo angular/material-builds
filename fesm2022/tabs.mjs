@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Inject, Optional, booleanAttribute, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, inject, ElementRef, EventEmitter, ANIMATION_MODULE_TYPE, numberAttribute, Output, ContentChildren, forwardRef, QueryList, Attribute, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Inject, Optional, booleanAttribute, TemplateRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, inject, ElementRef, EventEmitter, Injector, afterNextRender, ANIMATION_MODULE_TYPE, numberAttribute, Output, ContentChildren, forwardRef, QueryList, Attribute, NgModule } from '@angular/core';
 import { MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, fromEvent, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
@@ -11,7 +11,7 @@ import * as i2 from '@angular/cdk/bidi';
 import * as i4 from '@angular/cdk/a11y';
 import { FocusKeyManager, CdkMonitorFocus } from '@angular/cdk/a11y';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
-import { takeUntil, take, startWith, switchMap, skip, filter, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntil, startWith, switchMap, skip, filter, distinctUntilChanged } from 'rxjs/operators';
 import { CdkObserveContent } from '@angular/cdk/observers';
 import { DOCUMENT, NgClass } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -432,6 +432,7 @@ class MatPaginatedTabHeader {
         this.selectFocusedIndex = new EventEmitter();
         /** Event emitted when a label is focused. */
         this.indexFocused = new EventEmitter();
+        this._injector = inject(Injector);
         // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
         _ngZone.runOutsideAngular(() => {
             fromEvent(_elementRef.nativeElement, 'mouseleave')
@@ -470,9 +471,9 @@ class MatPaginatedTabHeader {
         this._keyManager.updateActiveItem(this._selectedIndex);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
-        // Note that we use `onStable` instead of `requestAnimationFrame`, because the latter
-        // can hold up tests that are in a background tab.
-        this._ngZone.onStable.pipe(take(1)).subscribe(realign);
+        // TODO(mmalerba): Consider breaking this into multiple `afterNextRender` calls with explicit
+        //  phase.
+        afterNextRender(realign, { injector: this._injector });
         // On dir change or window resize, realign the ink bar and update the orientation of
         // the key manager if the direction has changed.
         merge(dirChange, resize, this._items.changes, this._itemsResized())
