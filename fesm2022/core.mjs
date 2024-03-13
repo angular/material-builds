@@ -1792,7 +1792,7 @@ class MatRippleLoader {
             }
             const eventTarget = event.target;
             // TODO(wagnermaciel): Consider batching these events to improve runtime performance.
-            const element = eventTarget.closest(`[${matRippleUninitialized}]`);
+            const element = eventTarget.closest(`[${matRippleUninitialized}="${this._globalRippleOptions?.namespace ?? ''}"]`);
             if (element) {
                 this._createRipple(element);
             }
@@ -1820,7 +1820,7 @@ class MatRippleLoader {
      */
     configureRipple(host, config) {
         // Indicates that the ripple has not yet been rendered for this component.
-        host.setAttribute(matRippleUninitialized, '');
+        host.setAttribute(matRippleUninitialized, this._globalRippleOptions?.namespace ?? '');
         // Store the additional class name(s) that should be added to the ripple element.
         if (config.className || !host.hasAttribute(matRippleClassName)) {
             host.setAttribute(matRippleClassName, config.className || '');

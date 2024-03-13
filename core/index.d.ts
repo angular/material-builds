@@ -1040,6 +1040,10 @@ export declare interface RippleGlobalOptions {
      * default, ripples will wait for the enter animation to complete and for mouse or touch release.
      */
     terminateOnPointerUp?: boolean;
+    /**
+     * A namespace to use for ripple loader to allow multiple instances to exist on the same page.
+     */
+    namespace?: string;
 }
 
 /**
