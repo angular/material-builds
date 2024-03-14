@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, inject, Optional, Host, NgModule } from '@angular/core';
+import { InjectionToken, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Inject, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, inject, Injector, afterNextRender, Optional, Host, NgModule } from '@angular/core';
 import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 export { MatOptgroup, MatOption } from '@angular/material/core';
 import { NgClass, DOCUMENT, CommonModule } from '@angular/common';
@@ -12,13 +12,13 @@ import { coerceStringArray } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { _getEventTarget } from '@angular/cdk/platform';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
-import { Subscription, Subject, defer, merge, of, fromEvent } from 'rxjs';
+import { Subscription, Subject, defer, merge, of, fromEvent, Observable } from 'rxjs';
 import { ESCAPE, hasModifierKey, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as i4 from '@angular/material/form-field';
 import { MAT_FORM_FIELD } from '@angular/material/form-field';
-import { startWith, switchMap, take, filter, map, tap, delay } from 'rxjs/operators';
+import { startWith, switchMap, filter, map, tap, delay, take } from 'rxjs/operators';
 import * as i2 from '@angular/cdk/bidi';
 
 // Animation values come from
@@ -400,6 +400,8 @@ class MatAutocompleteTrigger {
          * @docs-private
          */
         this.autocompleteAttribute = 'off';
+        this._initialized = new Subject();
+        this._injector = inject(Injector);
         /** Class to apply to the panel when it's above the input. */
         this._aboveClass = 'mat-mdc-autocomplete-panel-above';
         this._overlayAttached = false;
@@ -411,7 +413,7 @@ class MatAutocompleteTrigger {
             }
             // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
             // Return a stream that we'll replace with the real one once everything is in place.
-            return this._zone.onStable.pipe(take(1), switchMap(() => this.optionSelections));
+            return this._initialized.pipe(switchMap(() => this.optionSelections));
         });
         /** Handles keyboard events coming from the overlay panel. */
         this._handlePanelKeydown = (event) => {
@@ -442,6 +444,8 @@ class MatAutocompleteTrigger {
         this._scrollStrategy = scrollStrategy;
     }
     ngAfterViewInit() {
+        this._initialized.next();
+        this._initialized.complete();
         const window = this._getWindow();
         if (typeof window !== 'undefined') {
             this._zone.runOutsideAngular(() => window.addEventListener('blur', this._windowBlurHandler));
@@ -482,8 +486,8 @@ class MatAutocompleteTrigger {
         }
         if (this.panelOpen) {
             // Only emit if the panel was visible.
-            // The `NgZone.onStable` always emits outside of the Angular zone,
-            // so all the subscriptions from `_subscribeToClosingActions()` are also outside of the Angular zone.
+            // `afterNextRender` always runs outside of the Angular zone, so all the subscriptions from
+            // `_subscribeToClosingActions()` are also outside of the Angular zone.
             // We should manually run in Angular zone to update UI after panel closing.
             this._zone.run(() => {
                 this.autocomplete.closed.emit();
@@ -707,46 +711,48 @@ class MatAutocompleteTrigger {
      * stream every time the option list changes.
      */
     _subscribeToClosingActions() {
-        const firstStable = this._zone.onStable.pipe(take(1));
+        const initialRender = new Observable(subscriber => {
+            afterNextRender(() => {
+                subscriber.next();
+            }, { injector: this._injector });
+        });
         const optionChanges = this.autocomplete.options.changes.pipe(tap(() => this._positionStrategy.reapplyLastPosition()), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
         delay(0));
-        // When the zone is stable initially, and when the option list changes...
-        return (merge(firstStable, optionChanges)
+        // When the options are initially rendered, and when the option list changes...
+        return (merge(initialRender, optionChanges)
             .pipe(
         // create a new stream of panelClosingActions, replacing any previous streams
         // that were created, and flatten it so our stream only emits closing events...
-        switchMap(() => {
-            // The `NgZone.onStable` always emits outside of the Angular zone, thus we have to re-enter
+        switchMap(() => this._zone.run(() => {
+            // `afterNextRender` always runs outside of the Angular zone, thus we have to re-enter
             // the Angular zone. This will lead to change detection being called outside of the Angular
             // zone and the `autocomplete.opened` will also emit outside of the Angular.
-            this._zone.run(() => {
-                const wasOpen = this.panelOpen;
-                this._resetActiveItem();
-                this._updatePanelState();
-                this._changeDetectorRef.detectChanges();
+            const wasOpen = this.panelOpen;
+            this._resetActiveItem();
+            this._updatePanelState();
+            this._changeDetectorRef.detectChanges();
+            if (this.panelOpen) {
+                this._overlayRef.updatePosition();
+            }
+            if (wasOpen !== this.panelOpen) {
+                // If the `panelOpen` state changed, we need to make sure to emit the `opened` or
+                // `closed` event, because we may not have emitted it. This can happen
+                // - if the users opens the panel and there are no options, but the
+                //   options come in slightly later or as a result of the value changing,
+                // - if the panel is closed after the user entered a string that did not match any
+                //   of the available options,
+                // - if a valid string is entered after an invalid one.
                 if (this.panelOpen) {
-                    this._overlayRef.updatePosition();
+                    this._emitOpened();
                 }
-                if (wasOpen !== this.panelOpen) {
-                    // If the `panelOpen` state changed, we need to make sure to emit the `opened` or
-                    // `closed` event, because we may not have emitted it. This can happen
-                    // - if the users opens the panel and there are no options, but the
-                    //   options come in slightly later or as a result of the value changing,
-                    // - if the panel is closed after the user entered a string that did not match any
-                    //   of the available options,
-                    // - if a valid string is entered after an invalid one.
-                    if (this.panelOpen) {
-                        this._emitOpened();
-                    }
-                    else {
-                        this.autocomplete.closed.emit();
-                    }
+                else {
+                    this.autocomplete.closed.emit();
                 }
-            });
+            }
             return this.panelClosingActions;
-        }), 
+        })), 
         // when the first closing event occurs...
         take(1))
             // set the value, close the panel, and complete.
