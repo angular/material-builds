@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "17.3.0-rc.0",
+  "version": "17.3.0",
   "description": "Angular Material",
   "repository": {
     "type": "git",
@@ -477,12 +477,12 @@
     }
   },
   "peerDependencies": {
-    "@angular/animations": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
-    "@angular/cdk": "17.3.0-rc.0",
-    "@angular/core": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
-    "@angular/common": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
-    "@angular/forms": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
-    "@angular/platform-browser": "^17.0.0-0 || ^17.1.0-0 || ^17.2.0-0 || ^17.3.0-0 || ^18.0.0-0",
+    "@angular/animations": "^17.0.0 || ^18.0.0",
+    "@angular/cdk": "17.3.0",
+    "@angular/core": "^17.0.0 || ^18.0.0",
+    "@angular/common": "^17.0.0 || ^18.0.0",
+    "@angular/forms": "^17.0.0 || ^18.0.0",
+    "@angular/platform-browser": "^17.0.0 || ^18.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {
