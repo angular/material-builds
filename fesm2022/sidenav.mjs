@@ -1,7 +1,7 @@
 import * as i1 from '@angular/cdk/scrolling';
 import { CdkScrollable, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, Output, ViewChild, QueryList, ANIMATION_MODULE_TYPE, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, Output, ViewChild, QueryList, inject, Injector, afterNextRender, AfterRenderPhase, ANIMATION_MODULE_TYPE, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i2 from '@angular/cdk/a11y';
 import * as i4 from '@angular/cdk/bidi';
@@ -597,6 +597,7 @@ class MatDrawerContainer {
          */
         this._contentMargins = { left: null, right: null };
         this._contentMarginChanges = new Subject();
+        this._injector = inject(Injector);
         // If a `Dir` directive exists up the tree, listen direction changes
         // and update the left/right properties to point to the proper start/end.
         if (_dir) {
@@ -744,9 +745,9 @@ class MatDrawerContainer {
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
         drawer.onPositionChanged.pipe(takeUntil(this._drawers.changes)).subscribe(() => {
-            this._ngZone.onMicrotaskEmpty.pipe(take(1)).subscribe(() => {
+            afterNextRender(() => {
                 this._validateDrawers();
-            });
+            }, { injector: this._injector, phase: AfterRenderPhase.Read });
         });
     }
     /** Subscribes to changes in drawer mode so we can run change detection. */
