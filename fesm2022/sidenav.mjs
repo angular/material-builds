@@ -1,7 +1,7 @@
 import * as i1 from '@angular/cdk/scrolling';
 import { CdkScrollable, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, Optional, Input, Output, ViewChild, QueryList, inject, Injector, afterNextRender, AfterRenderPhase, ANIMATION_MODULE_TYPE, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, inject, Injector, afterNextRender, Optional, Input, Output, ViewChild, QueryList, AfterRenderPhase, ANIMATION_MODULE_TYPE, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i2 from '@angular/cdk/a11y';
 import * as i4 from '@angular/cdk/bidi';
@@ -221,7 +221,8 @@ class MatDrawer {
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
         this._modeChanged = new Subject();
-        this.openedChange.subscribe((opened) => {
+        this._injector = inject(Injector);
+        this.openedChange.pipe(takeUntil(this._destroyed)).subscribe((opened) => {
             if (opened) {
                 if (this._doc) {
                     this._elementFocusedBeforeDrawerWasOpened = this._doc.activeElement;
@@ -311,11 +312,12 @@ class MatDrawer {
                 return;
             case true:
             case 'first-tabbable':
-                this._focusTrap.focusInitialElementWhenReady().then(hasMovedFocus => {
-                    if (!hasMovedFocus && typeof this._elementRef.nativeElement.focus === 'function') {
+                afterNextRender(() => {
+                    const hasMovedFocus = this._focusTrap.focusInitialElement();
+                    if (!hasMovedFocus && typeof element.focus === 'function') {
                         element.focus();
                     }
-                });
+                }, { injector: this._injector });
                 break;
             case 'first-heading':
                 this._focusByCssSelector('h1, h2, h3, h4, h5, h6, [role="heading"]');
