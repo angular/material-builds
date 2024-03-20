@@ -129,7 +129,6 @@ export declare class MatError {
 export declare class MatFormField implements FloatingLabelParent, AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
     _elementRef: ElementRef;
     private _changeDetectorRef;
-    private _ngZone;
     private _dir;
     private _platform;
     private _defaults?;
@@ -187,8 +186,14 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _destroyed;
     private _isFocused;
     private _explicitFormFieldControl;
-    private _needsOutlineLabelOffsetUpdateOnStable;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _dir: Directionality, _platform: Platform, _defaults?: MatFormFieldDefaultOptions | undefined, _animationMode?: string | undefined, 
+    private _needsOutlineLabelOffsetUpdate;
+    private _injector;
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
+    /**
+     * @deprecated not needed, to be removed.
+     * @breaking-change 19.0.0 remove this param
+     */
+    _unusedNgZone: NgZone, _dir: Directionality, _platform: Platform, _defaults?: MatFormFieldDefaultOptions | undefined, _animationMode?: string | undefined, 
     /**
      * @deprecated not needed, to be removed.
      * @breaking-change 17.0.0 remove this param
@@ -227,9 +232,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
      * The floating label in the docked state needs to account for prefixes. The horizontal offset
      * is calculated whenever the appearance changes to `outline`, the prefixes change, or when the
      * form field is added to the DOM. This method sets up all subscriptions which are needed to
-     * trigger the label offset update. In general, we want to avoid performing measurements often,
-     * so we rely on the `NgZone` as indicator when the offset should be recalculated, instead of
-     * checking every change detection cycle.
+     * trigger the label offset update.
      */
     private _initializeOutlineLabelOffsetSubscriptions;
     /** Whether the floating label should always float or not. */
