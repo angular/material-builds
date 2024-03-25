@@ -1,10 +1,10 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Optional, Input, Directive, QueryList, EventEmitter, TemplateRef, ContentChildren, ViewChild, ContentChild, Output, inject, ChangeDetectorRef, Self, NgModule } from '@angular/core';
+import { InjectionToken, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Optional, Input, Directive, QueryList, EventEmitter, inject, Injector, afterNextRender, TemplateRef, ContentChildren, ViewChild, ContentChild, Output, ChangeDetectorRef, Self, NgModule } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject, merge, Subscription, of, asapScheduler } from 'rxjs';
-import { startWith, switchMap, take, takeUntil, filter, delay } from 'rxjs/operators';
+import { startWith, switchMap, takeUntil, filter, take, delay } from 'rxjs/operators';
 import { DOCUMENT, NgClass, CommonModule } from '@angular/common';
 import { MatRipple, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
@@ -384,11 +384,15 @@ class MatMenu {
     set classList(classes) {
         this.panelClass = classes;
     }
-    constructor(_elementRef, _ngZone, defaultOptions, 
+    constructor(_elementRef, 
+    /**
+     * @deprecated Unused param, will be removed.
+     * @breaking-change 19.0.0
+     */
+    _unusedNgZone, defaultOptions, 
     // @breaking-change 15.0.0 `_changeDetectorRef` to become a required parameter.
     _changeDetectorRef) {
         this._elementRef = _elementRef;
-        this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
         this._elevationPrefix = 'mat-elevation-z';
         this._baseElevation = 8;
@@ -409,6 +413,7 @@ class MatMenu {
          */
         this.close = this.closed;
         this.panelId = `mat-menu-panel-${menuPanelUid++}`;
+        this._injector = inject(Injector);
         this.overlayPanelClass = defaultOptions.overlayPanelClass || '';
         this._xPosition = defaultOptions.xPosition;
         this._yPosition = defaultOptions.yPosition;
@@ -453,7 +458,7 @@ class MatMenu {
         this._keyManager?.destroy();
         this._directDescendantItems.destroy();
         this.closed.complete();
-        this._firstItemFocusSubscription?.unsubscribe();
+        this._firstItemFocusRef?.destroy();
     }
     /** Stream that emits whenever the hovered menu item changes. */
     _hovered() {
@@ -512,9 +517,9 @@ class MatMenu {
      * @param origin Action from which the focus originated. Used to set the correct styling.
      */
     focusFirstItem(origin = 'program') {
-        // Wait for `onStable` to ensure iOS VoiceOver screen reader focuses the first item (#24735).
-        this._firstItemFocusSubscription?.unsubscribe();
-        this._firstItemFocusSubscription = this._ngZone.onStable.pipe(take(1)).subscribe(() => {
+        // Wait for `afterNextRender` to ensure iOS VoiceOver screen reader focuses the first item (#24735).
+        this._firstItemFocusRef?.destroy();
+        this._firstItemFocusRef = afterNextRender(() => {
             let menuPanel = null;
             if (this._directDescendantItems.length) {
                 // Because the `mat-menuPanel` is at the DOM insertion point, not inside the overlay, we don't
@@ -534,7 +539,7 @@ class MatMenu {
                     menuPanel.focus();
                 }
             }
-        });
+        }, { injector: this._injector });
     }
     /**
      * Resets the active item in the menu. This is used when the menu is opened, allowing
