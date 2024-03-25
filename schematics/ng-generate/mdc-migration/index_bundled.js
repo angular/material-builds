@@ -3075,9 +3075,9 @@ var require_source_map = __commonJS({
   }
 });
 
-// node_modules/nanoid/non-secure/index.cjs
+// node_modules/postcss/node_modules/nanoid/non-secure/index.cjs
 var require_non_secure = __commonJS({
-  "node_modules/nanoid/non-secure/index.cjs"(exports, module2) {
+  "node_modules/postcss/node_modules/nanoid/non-secure/index.cjs"(exports, module2) {
     var urlAlphabet = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
     var customAlphabet = (alphabet, defaultSize = 21) => {
       return (size = defaultSize) => {
@@ -25278,6 +25278,12 @@ function ingestControlFlowInsertionPoint(unit, xref, node) {
       const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME, attr.name, true);
       unit.update.push(createBindingOp(xref, BindingKind.Attribute, attr.name, literal(attr.value), null, securityContext, true, false, null, asMessage(attr.i18n), attr.sourceSpan));
     }
+    for (const attr of root2.inputs) {
+      if (attr.type !== BindingType.Animation && attr.type !== BindingType.Attribute) {
+        const securityContext = domSchema.securityContext(NG_TEMPLATE_TAG_NAME, attr.name, true);
+        unit.create.push(createExtractedAttributeOp(xref, BindingKind.Property, null, attr.name, null, null, null, securityContext));
+      }
+    }
     const tagName = root2 instanceof Element$1 ? root2.name : root2.tagName;
     return tagName === NG_TEMPLATE_TAG_NAME ? null : tagName;
   }
@@ -28639,7 +28645,7 @@ function publishFacade(global) {
   const ng = global.ng || (global.ng = {});
   ng.\u0275compilerFacade = new CompilerFacadeImpl();
 }
-var VERSION = new Version("18.0.0-next.0");
+var VERSION = new Version("18.0.0-next.1");
 var _VisitorMode;
 (function(_VisitorMode2) {
   _VisitorMode2[_VisitorMode2["Extract"] = 0] = "Extract";
@@ -30593,7 +30599,7 @@ ${[...componentsToMigrate].join("\n")}`);
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * @license Angular v18.0.0-next.0
+ * @license Angular v18.0.0-next.1
  * (c) 2010-2022 Google LLC. https://angular.io/
  * License: MIT
  */

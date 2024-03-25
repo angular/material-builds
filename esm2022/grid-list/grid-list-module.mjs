@@ -11,8 +11,8 @@ import { MatGridTile, MatGridTileText, MatGridTileFooterCssMatStyler, MatGridTil
 import { MatGridList } from './grid-list';
 import * as i0 from "@angular/core";
 export class MatGridListModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.0", ngImport: i0, type: MatGridListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-next.0", ngImport: i0, type: MatGridListModule, imports: [MatLineModule,
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.1", ngImport: i0, type: MatGridListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-next.1", ngImport: i0, type: MatGridListModule, imports: [MatLineModule,
             MatCommonModule,
             MatGridList,
             MatGridTile,
@@ -27,11 +27,11 @@ export class MatGridListModule {
             MatGridTileHeaderCssMatStyler,
             MatGridTileFooterCssMatStyler,
             MatGridAvatarCssMatStyler] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-next.0", ngImport: i0, type: MatGridListModule, imports: [MatLineModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-next.1", ngImport: i0, type: MatGridListModule, imports: [MatLineModule,
             MatCommonModule, MatLineModule,
             MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.0", ngImport: i0, type: MatGridListModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.1", ngImport: i0, type: MatGridListModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
