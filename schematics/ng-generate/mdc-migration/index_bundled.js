@@ -3075,9 +3075,9 @@ var require_source_map = __commonJS({
   }
 });
 
-// node_modules/postcss/node_modules/nanoid/non-secure/index.cjs
+// node_modules/nanoid/non-secure/index.cjs
 var require_non_secure = __commonJS({
-  "node_modules/postcss/node_modules/nanoid/non-secure/index.cjs"(exports, module2) {
+  "node_modules/nanoid/non-secure/index.cjs"(exports, module2) {
     var urlAlphabet = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
     var customAlphabet = (alphabet, defaultSize = 21) => {
       return (size = defaultSize) => {
