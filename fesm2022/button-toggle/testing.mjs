@@ -1,4 +1,4 @@
-import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a standard mat-button-toggle in tests. */
@@ -27,8 +27,12 @@ class MatButtonToggleHarness extends ComponentHarness {
     }
     /** Gets a boolean promise indicating if the button toggle is checked. */
     async isChecked() {
-        const checked = (await this._button()).getAttribute('aria-pressed');
-        return coerceBooleanProperty(await checked);
+        const button = await this._button();
+        const [checked, pressed] = await parallel(() => [
+            button.getAttribute('aria-checked'),
+            button.getAttribute('aria-pressed'),
+        ]);
+        return coerceBooleanProperty(checked) || coerceBooleanProperty(pressed);
     }
     /** Gets a boolean promise indicating if the button toggle is disabled. */
     async isDisabled() {
