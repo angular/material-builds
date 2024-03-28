@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "18.0.0-next.0",
+  "version": "18.0.0-next.1",
   "description": "Angular Material",
   "repository": {
     "type": "git",
@@ -42,6 +42,18 @@
     },
     "./prebuilt-themes/purple-green.css": {
       "style": "./prebuilt-themes/purple-green.css"
+    },
+    "./prebuilt-themes/azure-blue.css": {
+      "style": "./prebuilt-themes/azure-blue.css"
+    },
+    "./prebuilt-themes/rose-red.css": {
+      "style": "./prebuilt-themes/rose-red.css"
+    },
+    "./prebuilt-themes/cyan-orange.css": {
+      "style": "./prebuilt-themes/cyan-orange.css"
+    },
+    "./prebuilt-themes/magenta-violet.css": {
+      "style": "./prebuilt-themes/magenta-violet.css"
     },
     "./prebuilt-themes/*": {
       "style": "./prebuilt-themes/*.css"
@@ -478,7 +490,7 @@
   },
   "peerDependencies": {
     "@angular/animations": "^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0",
-    "@angular/cdk": "18.0.0-next.0",
+    "@angular/cdk": "18.0.0-next.1",
     "@angular/core": "^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0",
     "@angular/common": "^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0",
     "@angular/forms": "^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0",

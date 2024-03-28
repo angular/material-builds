@@ -144,6 +144,7 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
      * to know when to when the mode changes so it can adapt the margins on the content.
      */
     readonly _modeChanged: Subject<void>;
+    private _injector;
     constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _interactivityChecker: InteractivityChecker, _doc: any, _container?: MatDrawerContainer | undefined);
     /**
      * Focuses the provided element. If the element is not focusable, it will add a tabIndex
@@ -290,6 +291,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     }>;
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
     get scrollable(): CdkScrollable;
+    private _injector;
     constructor(_dir: Directionality, _element: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, defaultAutosize?: boolean, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

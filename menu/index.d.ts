@@ -104,12 +104,11 @@ export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
 
 export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
     private _elementRef;
-    private _ngZone;
     private _changeDetectorRef?;
     private _keyManager;
     private _xPosition;
     private _yPosition;
-    private _firstItemFocusSubscription?;
+    private _firstItemFocusRef?;
     private _previousElevation;
     private _elevationPrefix;
     private _baseElevation;
@@ -190,6 +189,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      */
     readonly close: EventEmitter<MenuCloseReason>;
     readonly panelId: string;
+    private _injector;
     constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions, changeDetectorRef: ChangeDetectorRef);
     /**
      * @deprecated `_changeDetectorRef` to become a required parameter.
