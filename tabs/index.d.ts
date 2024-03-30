@@ -237,6 +237,8 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     readonly selectFocusedIndex: EventEmitter<number>;
     /** Event emitted when a label is focused. */
     readonly indexFocused: EventEmitter<number>;
+    private _sharedResizeObserver;
+    private _injector;
     constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone: NgZone, _platform: Platform, _animationMode?: string | undefined);
     /** Called when the user has selected an item via the keyboard. */
     protected abstract _itemSelected(event: KeyboardEvent): void;
