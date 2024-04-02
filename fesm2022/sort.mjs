@@ -361,6 +361,9 @@ class MatSortHeader {
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._sort.deregister(this);
         this._rerenderSubscription.unsubscribe();
+        if (this._sortButton) {
+            this._ariaDescriber?.removeDescription(this._sortButton, this._sortActionDescription);
+        }
     }
     /**
      * Sets the "hint" state such that the arrow will be semi-transparently displayed as a hint to the
