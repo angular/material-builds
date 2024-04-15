@@ -493,7 +493,13 @@ class MatAutocompleteTrigger {
                 this.autocomplete.closed.emit();
             });
         }
-        this.autocomplete._isOpen = this._overlayAttached = false;
+        // Only reset if this trigger is the latest one that opened the
+        // autocomplete since another may have taken it over.
+        if (this.autocomplete._latestOpeningTrigger === this) {
+            this.autocomplete._isOpen = false;
+            this.autocomplete._latestOpeningTrigger = null;
+        }
+        this._overlayAttached = false;
         this._pendingAutoselectedOption = null;
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
@@ -511,8 +517,7 @@ class MatAutocompleteTrigger {
         }
         // Remove aria-owns attribute when the autocomplete is no longer visible.
         if (this._trackedModal) {
-            const panelId = this.autocomplete.id;
-            removeAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
+            removeAriaReferencedId(this._trackedModal, 'aria-owns', this.autocomplete.id);
         }
     }
     /**
@@ -882,6 +887,7 @@ class MatAutocompleteTrigger {
         }
         const wasOpen = this.panelOpen;
         this.autocomplete._isOpen = this._overlayAttached = true;
+        this.autocomplete._latestOpeningTrigger = this;
         this.autocomplete._setColor(this._formField?.color);
         this._updatePanelState();
         this._applyModalPanelOwnership();

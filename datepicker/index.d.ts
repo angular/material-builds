@@ -732,10 +732,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     readonly openedStream: EventEmitter<void>;
     /** Emits when the datepicker has been closed. */
     readonly closedStream: EventEmitter<void>;
-    /**
-     * Classes to be passed to the date picker panel.
-     * Supports string and string array values, similar to `ngClass`.
-     */
+    /** Classes to be passed to the date picker panel. */
     get panelClass(): string | string[];
     set panelClass(value: string | string[]);
     private _panelClass;
