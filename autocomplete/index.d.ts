@@ -109,6 +109,8 @@ export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
     /** Whether the autocomplete panel is open. */
     get isOpen(): boolean;
     _isOpen: boolean;
+    /** Latest trigger that opened the autocomplete. */
+    _latestOpeningTrigger: unknown;
     /** @docs-private Sets the theme color of the panel. */
     _setColor(value: ThemePalette): void;
     /** @docs-private theme color of the panel */
