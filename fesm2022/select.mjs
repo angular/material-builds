@@ -296,6 +296,11 @@ class MatSelect {
          * @docs-private
          */
         this.stateChanges = new Subject();
+        /**
+         * Disable the automatic labeling to avoid issues like #27241.
+         * @docs-private
+         */
+        this.disableAutomaticLabeling = true;
         /** `View -> model callback called when value changes` */
         this._onChange = () => { };
         /** `View -> model callback called when select has been touched` */

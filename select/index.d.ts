@@ -150,6 +150,11 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
      */
     readonly stateChanges: Subject<void>;
     /**
+     * Disable the automatic labeling to avoid issues like #27241.
+     * @docs-private
+     */
+    readonly disableAutomaticLabeling = true;
+    /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
