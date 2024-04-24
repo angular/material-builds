@@ -1258,6 +1258,11 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     ngControl: NgControl | null;
     /** Emits when the input's state has changed. */
     readonly stateChanges: Subject<void>;
+    /**
+     * Disable the automatic labeling to avoid issues like #27241.
+     * @docs-private
+     */
+    readonly disableAutomaticLabeling = true;
     constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: _MatFormFieldPartial | undefined);
     /**
      * Implemented as a part of `MatFormFieldControl`.

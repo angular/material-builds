@@ -4123,6 +4123,11 @@ class MatDateRangeInput {
         this.comparisonEnd = null;
         /** Emits when the input's state has changed. */
         this.stateChanges = new Subject();
+        /**
+         * Disable the automatic labeling to avoid issues like #27241.
+         * @docs-private
+         */
+        this.disableAutomaticLabeling = true;
         if (!_dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
         }
