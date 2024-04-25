@@ -595,6 +595,219 @@ var require_upgrade_data = __commonJS({
   }
 });
 
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/m2-theming-v18/migration.js
+var require_migration = __commonJS({
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/m2-theming-v18/migration.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.migrateM2ThemingApiUsages = void 0;
+    var RENAMED_FUNCTIONS = [
+      "define-light-theme",
+      "define-dark-theme",
+      "define-palette",
+      "get-contrast-color-from-palette",
+      "get-color-from-palette",
+      "get-color-config",
+      "get-typography-config",
+      "get-density-config",
+      "define-typography-level",
+      "define-rem-typography-config",
+      "define-typography-config",
+      "define-legacy-typography-config",
+      "typography-level",
+      "font-size",
+      "line-height",
+      "font-weight",
+      "letter-spacing",
+      "font-family"
+    ];
+    var RENAMED_VARIABLES = [
+      "red-palette",
+      "pink-palette",
+      "indigo-palette",
+      "purple-palette",
+      "deep-purple-palette",
+      "blue-palette",
+      "light-blue-palette",
+      "cyan-palette",
+      "teal-palette",
+      "green-palette",
+      "light-green-palette",
+      "lime-palette",
+      "yellow-palette",
+      "amber-palette",
+      "orange-palette",
+      "deep-orange-palette",
+      "brown-palette",
+      "grey-palette",
+      "gray-palette",
+      "blue-grey-palette",
+      "blue-gray-palette",
+      "light-theme-background-palette",
+      "dark-theme-background-palette",
+      "light-theme-foreground-palette",
+      "dark-theme-foreground-palette"
+    ];
+    var M3_FUNCTIONS = ["define-theme", "define-colors", "define-typography", "define-density"];
+    var M3_VARIABLES = [
+      "red-palette",
+      "green-palette",
+      "blue-palette",
+      "yellow-palette",
+      "cyan-palette",
+      "magenta-palette",
+      "orange-palette",
+      "chartreuse-palette",
+      "azure-palette",
+      "violet-palette",
+      "rose-palette"
+    ];
+    var COMMENT_PAIRS = /* @__PURE__ */ new Map([
+      ["/*", "*/"],
+      ["//", "\n"]
+    ]);
+    var COMMENT_PLACEHOLDER_START = "__<<ngM2ThemingMigrationEscapedComment";
+    var COMMENT_PLACEHOLDER_END = ">>__";
+    function migrateM2ThemingApiUsages(fileContent) {
+      let { content, placeholders } = escapeComments(fileContent);
+      const materialNamespaces = getNamespaces("@angular/material", content);
+      const experimentalNamespaces = getNamespaces("@angular/material-experimental", content);
+      for (const namespace of materialNamespaces) {
+        for (const name of RENAMED_FUNCTIONS) {
+          content = migrateFunction(content, namespace, name, namespace, "m2-" + name);
+        }
+        for (const name of RENAMED_VARIABLES) {
+          content = migrateVariable(content, namespace, name, namespace, "m2-" + name);
+        }
+      }
+      if (experimentalNamespaces.length > 0) {
+        const preExperimentalContent = content;
+        const stableNamespace = materialNamespaces.length === 0 ? "mat" : materialNamespaces[0];
+        for (const namespace of experimentalNamespaces) {
+          content = migrateMixin(content, namespace, "color-variants-back-compat", stableNamespace, "color-variants-backwards-compatibility");
+          for (const name of M3_FUNCTIONS) {
+            content = migrateFunction(content, namespace, name, stableNamespace, name);
+          }
+          for (const name of M3_VARIABLES) {
+            content = migrateVariable(content, namespace, "m3-" + name, stableNamespace, name);
+          }
+        }
+        if (materialNamespaces.length === 0 && content !== preExperimentalContent) {
+          content = `@use '@angular/material' as ${stableNamespace};
+` + content;
+        }
+      }
+      return restoreComments(content, placeholders);
+    }
+    exports.migrateM2ThemingApiUsages = migrateM2ThemingApiUsages;
+    function migrateFunction(fileContent, oldNamespace, oldName, newNamespace, newName) {
+      return fileContent.replace(new RegExp(`${oldNamespace}\\.${oldName}\\(`, "g"), `${newNamespace}.${newName}(`);
+    }
+    function migrateVariable(fileContent, oldNamespace, oldName, newNamespace, newName) {
+      return fileContent.replace(new RegExp(`${oldNamespace}\\.\\$${oldName}(?!\\s+:|[-_a-zA-Z0-9:])`, "g"), `${newNamespace}.$${newName}`);
+    }
+    function migrateMixin(fileContent, oldNamespace, oldName, newNamespace, newName) {
+      const pattern = new RegExp(`@include +${oldNamespace}\\.${oldName}`, "g");
+      return fileContent.replace(pattern, `@include ${newNamespace}.${newName}`);
+    }
+    function escapeComments(content) {
+      const placeholders = {};
+      let commentCounter = 0;
+      let [openIndex, closeIndex] = findComment(content);
+      while (openIndex > -1 && closeIndex > -1) {
+        const placeholder = COMMENT_PLACEHOLDER_START + commentCounter++ + COMMENT_PLACEHOLDER_END;
+        placeholders[placeholder] = content.slice(openIndex, closeIndex);
+        content = content.slice(0, openIndex) + placeholder + content.slice(closeIndex);
+        [openIndex, closeIndex] = findComment(content);
+      }
+      return { content, placeholders };
+    }
+    function findComment(content) {
+      content += "\n";
+      for (const [open, close] of COMMENT_PAIRS.entries()) {
+        const openIndex = content.indexOf(open);
+        if (openIndex > -1) {
+          const closeIndex = content.indexOf(close, openIndex + 1);
+          return closeIndex > -1 ? [openIndex, closeIndex + close.length] : [-1, -1];
+        }
+      }
+      return [-1, -1];
+    }
+    function restoreComments(content, placeholders) {
+      Object.keys(placeholders).forEach((key) => content = content.replace(key, placeholders[key]));
+      return content;
+    }
+    function extractNamespaceFromUseStatement(fullImport) {
+      const closeQuoteIndex = Math.max(fullImport.lastIndexOf(`"`), fullImport.lastIndexOf(`'`));
+      if (closeQuoteIndex > -1) {
+        const asExpression = "as ";
+        const asIndex = fullImport.indexOf(asExpression, closeQuoteIndex);
+        if (asIndex > -1) {
+          return fullImport.slice(asIndex + asExpression.length).split(";")[0].trim();
+        }
+        const lastSlashIndex = fullImport.lastIndexOf("/", closeQuoteIndex);
+        if (lastSlashIndex > -1) {
+          const fileName = fullImport.slice(lastSlashIndex + 1, closeQuoteIndex).replace(/^_|(\.import)?\.scss$|\.import$/g, "");
+          if (fileName === "index") {
+            const nextSlashIndex = fullImport.lastIndexOf("/", lastSlashIndex - 1);
+            if (nextSlashIndex > -1) {
+              return fullImport.slice(nextSlashIndex + 1, lastSlashIndex);
+            }
+          } else {
+            return fileName;
+          }
+        }
+      }
+      throw Error(`Could not extract namespace from import "${fullImport}".`);
+    }
+    function getNamespaces(moduleName, content) {
+      const namespaces = /* @__PURE__ */ new Set();
+      const escapedName = moduleName.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
+      const pattern = new RegExp(`@use +['"]${escapedName}['"].*;?
+`, "g");
+      let match = null;
+      while (match = pattern.exec(content)) {
+        namespaces.add(extractNamespaceFromUseStatement(match[0]));
+      }
+      return Array.from(namespaces);
+    }
+  }
+});
+
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/m2-theming-v18/index.js
+var require_m2_theming_v18 = __commonJS({
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/m2-theming-v18/index.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.M2ThemingMigration = void 0;
+    var core_1 = require("@angular-devkit/core");
+    var schematics_1 = require("@angular/cdk/schematics");
+    var migration_1 = require_migration();
+    var M2ThemingMigration2 = class extends schematics_1.DevkitMigration {
+      constructor() {
+        super(...arguments);
+        this._potentialThemes = [];
+        this.enabled = this.targetVersion === schematics_1.TargetVersion.V18;
+      }
+      visitStylesheet(stylesheet) {
+        if ((0, core_1.extname)(stylesheet.filePath) === ".scss" && stylesheet.content.includes("@angular/material")) {
+          this._potentialThemes.push(stylesheet);
+        }
+      }
+      postAnalysis() {
+        for (const theme of this._potentialThemes) {
+          const migrated = (0, migration_1.migrateM2ThemingApiUsages)(theme.content);
+          if (migrated !== theme.content) {
+            this.fileSystem.edit(theme.filePath).remove(0, theme.content.length).insertLeft(0, migrated);
+            this.fileSystem.commitEdits();
+          }
+        }
+      }
+    };
+    exports.M2ThemingMigration = M2ThemingMigration2;
+  }
+});
+
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/index.mjs
 var ng_update_exports = {};
 __export(ng_update_exports, {
@@ -603,7 +816,8 @@ __export(ng_update_exports, {
 module.exports = __toCommonJS(ng_update_exports);
 var import_schematics = require("@angular/cdk/schematics");
 var import_upgrade_data = __toESM(require_upgrade_data(), 1);
-var materialMigrations = [];
+var import_m2_theming_v18 = __toESM(require_m2_theming_v18(), 1);
+var materialMigrations = [import_m2_theming_v18.M2ThemingMigration];
 function updateToV18() {
   return (0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V18, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete);
 }

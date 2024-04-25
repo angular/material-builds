@@ -116,7 +116,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
     _allItems: QueryList<MatMenuItem>;
     /** Only the direct descendant menu items. */
     _directDescendantItems: QueryList<MatMenuItem>;
-    /** Config object to be passed into the menu's ngClass */
+    /** Classes to be applied to the menu panel. */
     _classList: {
         [key: string]: boolean;
     };

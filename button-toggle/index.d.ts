@@ -2,6 +2,8 @@ import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { Direction } from '@angular/cdk/bidi';
+import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -76,8 +78,10 @@ export declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy
     name: string;
     /** MatButtonToggleGroup reads this to assign its own value. */
     value: any;
-    /** Tabindex for the toggle. */
-    tabIndex: number | null;
+    /** Tabindex of the toggle. */
+    get tabIndex(): number | null;
+    set tabIndex(value: number | null);
+    private _tabIndex;
     /** Whether ripples are disabled on the button toggle. */
     disableRipple: boolean;
     /** The appearance style of the button. */
@@ -110,7 +114,7 @@ export declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy
     /** Gets the name that should be assigned to the inner DOM node. */
     _getButtonName(): string | null;
     /** Whether the toggle is in single selection mode. */
-    private _isSingleSelector;
+    isSingleSelector(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggle, [{ optional: true; }, null, null, null, { attribute: "tabindex"; }, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatButtonToggle, "mat-button-toggle", ["matButtonToggle"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "change": "change"; }, never, ["*"], true, never>;
     static ngAcceptInputType_disableRipple: unknown;
@@ -153,6 +157,7 @@ export declare interface MatButtonToggleDefaultOptions {
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
 export declare class MatButtonToggleGroup implements ControlValueAccessor, OnInit, AfterContentInit {
     private _changeDetector;
+    private _dir?;
     private _multiple;
     private _disabled;
     private _selectionModel;
@@ -197,6 +202,8 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     /** Whether multiple button toggle group is disabled. */
     get disabled(): boolean;
     set disabled(value: boolean);
+    /** The layout direction of the toggle button group. */
+    get dir(): Direction;
     /** Event emitted when the group's value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
     /** Whether checkmark indicator for single-selection button toggle groups is hidden. */
@@ -207,7 +214,7 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     get hideMultipleSelectionIndicator(): boolean;
     set hideMultipleSelectionIndicator(value: boolean);
     private _hideMultipleSelectionIndicator;
-    constructor(_changeDetector: ChangeDetectorRef, defaultOptions?: MatButtonToggleDefaultOptions);
+    constructor(_changeDetector: ChangeDetectorRef, defaultOptions?: MatButtonToggleDefaultOptions, _dir?: Directionality | undefined);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     /**
@@ -218,6 +225,8 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: any): void;
     setDisabledState(isDisabled: boolean): void;
+    /** Handle keydown event calling to single-select button toggle. */
+    protected _keydown(event: KeyboardEvent): void;
     /** Dispatch change event with current selection and group value. */
     _emitChangeEvent(toggle: MatButtonToggle): void;
     /**
@@ -232,6 +241,10 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     _isSelected(toggle: MatButtonToggle): boolean;
     /** Determines whether a button toggle should be checked on init. */
     _isPrechecked(toggle: MatButtonToggle): boolean;
+    /** Initializes the tabindex attribute using the radio pattern. */
+    private _initializeTabIndex;
+    /** Obtain the subsequent index to which the focus shifts. */
+    private _getNextIndex;
     /** Updates the selection state of the toggles in the group based on a value. */
     private _setSelectionByValue;
     /** Clears the selected toggles. */
@@ -242,7 +255,7 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _updateModelValue;
     /** Marks all of the child button toggles to be checked. */
     private _markButtonsForCheck;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleGroup, [null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleGroup, [null, { optional: true; }, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonToggleGroup, "mat-button-toggle-group", ["matButtonToggleGroup"], { "appearance": { "alias": "appearance"; "required": false; }; "name": { "alias": "name"; "required": false; }; "vertical": { "alias": "vertical"; "required": false; }; "value": { "alias": "value"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "hideMultipleSelectionIndicator": { "alias": "hideMultipleSelectionIndicator"; "required": false; }; }, { "valueChange": "valueChange"; "change": "change"; }, ["_buttonToggles"], never, true, never>;
     static ngAcceptInputType_vertical: unknown;
     static ngAcceptInputType_multiple: unknown;

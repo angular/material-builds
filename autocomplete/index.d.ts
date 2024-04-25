@@ -96,10 +96,6 @@ export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
     private _elementRef;
     protected _defaults: MatAutocompleteDefaultOptions;
     private _activeOptionChanges;
-    /** Class to apply to the panel when it's visible. */
-    private _visibleClass;
-    /** Class to apply to the panel when it's hidden. */
-    private _hiddenClass;
     /** Emits when the panel animation is done. Null if the panel doesn't animate. */
     _animationDone: EventEmitter<AnimationEvent_2>;
     /** Manages active item in option list based on key events. */
@@ -109,10 +105,12 @@ export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
     /** Whether the autocomplete panel is open. */
     get isOpen(): boolean;
     _isOpen: boolean;
+    /** Latest trigger that opened the autocomplete. */
+    _latestOpeningTrigger: unknown;
     /** @docs-private Sets the theme color of the panel. */
     _setColor(value: ThemePalette): void;
     /** @docs-private theme color of the panel */
-    private _color;
+    protected _color: ThemePalette;
     /** @docs-private */
     template: TemplateRef<any>;
     /** Element for the panel containing the autocomplete options. */
@@ -161,9 +159,7 @@ export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
      * inside the overlay container to allow for easy styling.
      */
     set classList(value: string | string[]);
-    _classList: {
-        [key: string]: boolean;
-    };
+    _classList: string | string[];
     /** Whether checkmark indicator for single-selection options is hidden. */
     get hideSingleSelectionIndicator(): boolean;
     set hideSingleSelectionIndicator(value: boolean);
@@ -193,10 +189,6 @@ export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
     _emitSelectEvent(option: MatOption): void;
     /** Gets the aria-labelledby for the autocomplete panel. */
     _getPanelAriaLabelledby(labelId: string | null): string | null;
-    /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */
-    private _setVisibilityClasses;
-    /** Sets the theming classes on a classlist based on the theme of the panel. */
-    private _setThemeClasses;
     protected _skipPredicate(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocomplete, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatAutocomplete, "mat-autocomplete", ["matAutocomplete"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; "autoActiveFirstOption": { "alias": "autoActiveFirstOption"; "required": false; }; "autoSelectActiveOption": { "alias": "autoSelectActiveOption"; "required": false; }; "requireSelection": { "alias": "requireSelection"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "classList": { "alias": "class"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; }, { "optionSelected": "optionSelected"; "opened": "opened"; "closed": "closed"; "optionActivated": "optionActivated"; }, ["options", "optionGroups"], ["*"], true, never>;

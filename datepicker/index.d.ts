@@ -732,10 +732,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     readonly openedStream: EventEmitter<void>;
     /** Emits when the datepicker has been closed. */
     readonly closedStream: EventEmitter<void>;
-    /**
-     * Classes to be passed to the date picker panel.
-     * Supports string and string array values, similar to `ngClass`.
-     */
+    /** Classes to be passed to the date picker panel. */
     get panelClass(): string | string[];
     set panelClass(value: string | string[]);
     private _panelClass;
@@ -1267,6 +1264,11 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     ngControl: NgControl | null;
     /** Emits when the input's state has changed. */
     readonly stateChanges: Subject<void>;
+    /**
+     * Disable the automatic labeling to avoid issues like #27241.
+     * @docs-private
+     */
+    readonly disableAutomaticLabeling = true;
     constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, control: ControlContainer, _dateAdapter: DateAdapter<D>, _formField?: _MatFormFieldPartial | undefined);
     /**
      * Implemented as a part of `MatFormFieldControl`.

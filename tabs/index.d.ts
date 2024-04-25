@@ -237,6 +237,8 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     readonly selectFocusedIndex: EventEmitter<number>;
     /** Event emitted when a label is focused. */
     readonly indexFocused: EventEmitter<number>;
+    private _sharedResizeObserver;
+    private _injector;
     constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone: NgZone, _platform: Platform, _animationMode?: string | undefined);
     /** Called when the user has selected an item via the keyboard. */
     protected abstract _itemSelected(event: KeyboardEvent): void;
@@ -380,15 +382,9 @@ export declare class MatTab implements OnInit, OnChanges, OnDestroy {
      * Will be cleared if `aria-label` is set at the same time.
      */
     ariaLabelledby: string;
-    /**
-     * Classes to be passed to the tab label inside the mat-tab-header container.
-     * Supports string and string array values, same as `ngClass`.
-     */
+    /** Classes to be passed to the tab label inside the mat-tab-header container. */
     labelClass: string | string[];
-    /**
-     * Classes to be passed to the tab mat-tab-body container.
-     * Supports string and string array values, same as `ngClass`.
-     */
+    /** Classes to be passed to the tab mat-tab-body container. */
     bodyClass: string | string[];
     /** Portal that will be the hosted content of the tab */
     private _contentPortal;
