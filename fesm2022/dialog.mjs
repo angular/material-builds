@@ -11,6 +11,8 @@ import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { Subject, merge, defer } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
+import * as i3 from '@angular/cdk/scrolling';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatCommonModule } from '@angular/material/core';
 import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 
@@ -806,7 +808,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.5", 
  */
 class MatDialogContent {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-next.5", ngImport: i0, type: MatDialogContent, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "18.0.0-next.5", type: MatDialogContent, isStandalone: true, selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]", host: { classAttribute: "mat-mdc-dialog-content mdc-dialog__content" }, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "18.0.0-next.5", type: MatDialogContent, isStandalone: true, selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]", host: { classAttribute: "mat-mdc-dialog-content mdc-dialog__content" }, hostDirectives: [{ directive: i3.CdkScrollable }], ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.5", ngImport: i0, type: MatDialogContent, decorators: [{
             type: Directive,
@@ -814,6 +816,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-next.5", 
                     selector: `[mat-dialog-content], mat-dialog-content, [matDialogContent]`,
                     host: { 'class': 'mat-mdc-dialog-content mdc-dialog__content' },
                     standalone: true,
+                    hostDirectives: [CdkScrollable],
                 }]
         }] });
 /**
