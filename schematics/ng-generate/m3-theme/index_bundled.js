@@ -2579,7 +2579,8 @@ function generateSCSSTheme(colorPalettes, themeTypes, colorComment) {
     "$_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);",
     ""
   ];
-  for (const themeType of themeTypes) {
+  let themes = themeTypes === "both" ? ["light", "dark"] : [themeTypes];
+  for (const themeType of themes) {
     scss = scss.concat([
       "$" + themeType + "-theme: mat.define-theme((",
       "  color: (",
@@ -2612,9 +2613,9 @@ function m3_theme_default(options) {
       colorPalettes.set("neutral", getColorTonalPalettes(options.neutralColor).get("primary"));
       colorComment += ", neutral: " + options.neutralColor;
     }
-    if (options.themeTypes.length === 0) {
+    if (!options.themeTypes) {
       context.logger.info("No theme types specified, creating both light and dark themes.");
-      options.themeTypes = ["light", "dark"];
+      options.themeTypes = "both";
     }
     const themeScss = generateSCSSTheme(colorPalettes, options.themeTypes, colorComment);
     createThemeFile(themeScss, tree, options.directory);
