@@ -456,6 +456,12 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     _cellWidth: string;
     private _didDragSinceMouseDown;
     private _injector;
+    /**
+     * Tracking function for rows based on their identity. Ideally we would use some sort of
+     * key on the row, but that would require a breaking change for the `rows` input. We don't
+     * use the built-in identity tracking, because it logs warnings.
+     */
+    _trackRow: (row: MatCalendarCell[]) => MatCalendarCell<any>[];
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
     /** Called when a cell is clicked. */
     _cellClicked(cell: MatCalendarCell, event: MouseEvent): void;
@@ -567,6 +573,7 @@ export declare class MatCalendarCell<D = any> {
     cssClasses: MatCalendarCellCssClasses;
     compareValue: number;
     rawValue?: D | undefined;
+    readonly id: number;
     constructor(value: number, displayValue: string, ariaLabel: string, enabled: boolean, cssClasses?: MatCalendarCellCssClasses, compareValue?: number, rawValue?: D | undefined);
 }
 
@@ -1595,6 +1602,7 @@ export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnD
     _weekdays: {
         long: string;
         narrow: string;
+        id: number;
     }[];
     constructor(_changeDetectorRef: ChangeDetectorRef, _dateFormats: MatDateFormats, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined, _rangeStrategy?: MatDateRangeSelectionStrategy<D> | undefined);
     ngAfterContentInit(): void;
