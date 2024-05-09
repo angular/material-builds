@@ -868,7 +868,10 @@ export declare class MatRippleLoader implements OnDestroy {
     getRipple(host: HTMLElement): MatRipple | undefined;
     /** Sets the disabled state on the ripple instance corresponding to the given host element. */
     setDisabled(host: HTMLElement, disabled: boolean): void;
-    /** Handles creating and attaching component internals when a component it is initially interacted with. */
+    /**
+     * Handles creating and attaching component internals
+     * when a component is initially interacted with.
+     */
     private _onInteraction;
     /** Creates a MatRipple and appends it to the given element. */
     private _createRipple;

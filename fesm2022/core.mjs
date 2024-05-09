@@ -1759,8 +1759,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-rc.0", ng
 
 /** The options for the MatRippleLoader's event listeners. */
 const eventListenerOptions = { capture: true };
-/** The events that should trigger the initialization of the ripple. */
-const rippleInteractionEvents = ['focus', 'click', 'mouseenter', 'touchstart'];
+/**
+ * The events that should trigger the initialization of the ripple.
+ * Note that we use `mousedown`, rather than `click`, for mouse devices because
+ * we can't rely on `mouseenter` in the shadow DOM and `click` happens too late.
+ */
+const rippleInteractionEvents = ['focus', 'mousedown', 'mouseenter', 'touchstart'];
 /** The attribute attached to a component whose ripple has not yet been initialized. */
 const matRippleUninitialized = 'mat-ripple-loader-uninitialized';
 /** Additional classes that should be added to the ripple when it is rendered. */
@@ -1785,16 +1789,18 @@ class MatRippleLoader {
         this._platform = inject(Platform);
         this._ngZone = inject(NgZone);
         this._hosts = new Map();
-        /** Handles creating and attaching component internals when a component it is initially interacted with. */
+        /**
+         * Handles creating and attaching component internals
+         * when a component is initially interacted with.
+         */
         this._onInteraction = (event) => {
-            if (!(event.target instanceof HTMLElement)) {
-                return;
-            }
-            const eventTarget = event.target;
-            // TODO(wagnermaciel): Consider batching these events to improve runtime performance.
-            const element = eventTarget.closest(`[${matRippleUninitialized}="${this._globalRippleOptions?.namespace ?? ''}"]`);
-            if (element) {
-                this._createRipple(element);
+            const eventTarget = _getEventTarget(event);
+            if (eventTarget instanceof HTMLElement) {
+                // TODO(wagnermaciel): Consider batching these events to improve runtime performance.
+                const element = eventTarget.closest(`[${matRippleUninitialized}="${this._globalRippleOptions?.namespace ?? ''}"]`);
+                if (element) {
+                    this._createRipple(element);
+                }
             }
         };
         this._ngZone.runOutsideAngular(() => {
