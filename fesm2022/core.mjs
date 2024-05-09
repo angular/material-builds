@@ -1168,6 +1168,7 @@ class RippleRenderer {
             pointerDownEvents.forEach(type => RippleRenderer._eventManager.removeHandler(type, trigger, this));
             if (this._pointerUpEventsRegistered) {
                 pointerUpEvents.forEach(type => trigger.removeEventListener(type, this, passiveCapturingEventOptions));
+                this._pointerUpEventsRegistered = false;
             }
         }
     }
