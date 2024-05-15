@@ -13,6 +13,7 @@ import { QueryList } from '@angular/core';
 import { RippleGlobalOptions } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { ThemePalette } from '@angular/material/core';
+import { WritableSignal } from '@angular/core';
 
 declare namespace i2 {
     export {
@@ -410,7 +411,7 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     /** The host native HTML input element. */
     _hostElement: HTMLInputElement;
     /** The aria-valuetext string representation of the input's value. */
-    _valuetext: string;
+    _valuetext: WritableSignal<string>;
     /** The radius of a native html slider's knob. */
     _knobRadius: number;
     /** The distance in px from the start of the slider track to the first tick mark. */
@@ -555,7 +556,7 @@ declare interface _MatSliderThumb {
     /** Whether the input is currently focused (either by tab or after clicking). */
     _isFocused: boolean;
     /** The aria-valuetext string representation of the input's value. */
-    _valuetext: string;
+    _valuetext: WritableSignal<string>;
     /**
      * Indicates whether UI updates should be skipped.
      *
