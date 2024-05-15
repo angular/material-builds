@@ -1,7 +1,7 @@
 import * as i1 from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Input, ViewChild, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, Optional, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, Directive, Output, NgModule } from '@angular/core';
+import { InjectionToken, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Input, ViewChild, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, Optional, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, signal, Directive, Output, NgModule } from '@angular/core';
 import { RippleState, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -745,7 +745,7 @@ class MatSlider {
         }
         const valuetext = this.displayWith(source.value);
         this._hasViewInitialized
-            ? (source._valuetext = valuetext)
+            ? source._valuetext.set(valuetext)
             : source._hostElement.setAttribute('aria-valuetext', valuetext);
         if (this.discrete) {
             source.thumbPosition === _MatThumb.START
@@ -1145,6 +1145,8 @@ class MatSliderThumb {
          * @docs-private
          */
         this.thumbPosition = _MatThumb.END;
+        /** The aria-valuetext string representation of the input's value. */
+        this._valuetext = signal('');
         /** The radius of a native html slider's knob. */
         this._knobRadius = 8;
         /** The distance in px from the start of the slider track to the first tick mark. */
@@ -1448,7 +1450,7 @@ class MatSliderThumb {
         this._hostElement.blur();
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatSliderThumb, deps: [{ token: i0.NgZone }, { token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: MAT_SLIDER }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: MatSliderThumb, isStandalone: true, selector: "input[matSliderThumb]", inputs: { value: ["value", "value", numberAttribute] }, outputs: { valueChange: "valueChange", dragStart: "dragStart", dragEnd: "dragEnd" }, host: { attributes: { "type": "range" }, listeners: { "change": "_onChange()", "input": "_onInput()", "blur": "_onBlur()", "focus": "_onFocus()" }, properties: { "attr.aria-valuetext": "_valuetext" }, classAttribute: "mdc-slider__input" }, providers: [
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: MatSliderThumb, isStandalone: true, selector: "input[matSliderThumb]", inputs: { value: ["value", "value", numberAttribute] }, outputs: { valueChange: "valueChange", dragStart: "dragStart", dragEnd: "dragEnd" }, host: { attributes: { "type": "range" }, listeners: { "change": "_onChange()", "input": "_onInput()", "blur": "_onBlur()", "focus": "_onFocus()" }, properties: { "attr.aria-valuetext": "_valuetext()" }, classAttribute: "mdc-slider__input" }, providers: [
             MAT_SLIDER_THUMB_VALUE_ACCESSOR,
             { provide: MAT_SLIDER_THUMB, useExisting: MatSliderThumb },
         ], exportAs: ["matSliderThumb"], ngImport: i0 }); }
@@ -1461,7 +1463,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImpor
                     host: {
                         'class': 'mdc-slider__input',
                         'type': 'range',
-                        '[attr.aria-valuetext]': '_valuetext',
+                        '[attr.aria-valuetext]': '_valuetext()',
                         '(change)': '_onChange()',
                         '(input)': '_onInput()',
                         // TODO(wagnermaciel): Consider using a global event listener instead.
