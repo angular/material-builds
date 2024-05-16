@@ -37,8 +37,8 @@ const EXPORTED_DECLARATIONS = [
     MatTextColumn,
 ];
 export class MatTableModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-rc.0", ngImport: i0, type: MatTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-rc.0", ngImport: i0, type: MatTableModule, imports: [MatCommonModule, CdkTableModule, 
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-rc.2", ngImport: i0, type: MatTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-rc.2", ngImport: i0, type: MatTableModule, imports: [MatCommonModule, CdkTableModule, 
             // Table
             MatTable,
             MatRecycleRows,
@@ -81,9 +81,9 @@ export class MatTableModule {
             MatFooterRow,
             MatNoDataRow,
             MatTextColumn] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-rc.0", ngImport: i0, type: MatTableModule, imports: [MatCommonModule, CdkTableModule, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-rc.2", ngImport: i0, type: MatTableModule, imports: [MatCommonModule, CdkTableModule, MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-rc.0", ngImport: i0, type: MatTableModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-rc.2", ngImport: i0, type: MatTableModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, CdkTableModule, ...EXPORTED_DECLARATIONS],

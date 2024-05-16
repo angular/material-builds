@@ -12,17 +12,17 @@ import { MatSliderVisualThumb } from './slider-thumb';
 import { MatSliderThumb, MatSliderRangeThumb } from './slider-input';
 import * as i0 from "@angular/core";
 export class MatSliderModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-rc.0", ngImport: i0, type: MatSliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-rc.0", ngImport: i0, type: MatSliderModule, imports: [MatCommonModule,
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0-rc.2", ngImport: i0, type: MatSliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.0.0-rc.2", ngImport: i0, type: MatSliderModule, imports: [MatCommonModule,
             MatRippleModule,
             MatSlider,
             MatSliderThumb,
             MatSliderRangeThumb,
             MatSliderVisualThumb], exports: [MatSlider, MatSliderThumb, MatSliderRangeThumb] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-rc.0", ngImport: i0, type: MatSliderModule, imports: [MatCommonModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.0.0-rc.2", ngImport: i0, type: MatSliderModule, imports: [MatCommonModule,
             MatRippleModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-rc.0", ngImport: i0, type: MatSliderModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0-rc.2", ngImport: i0, type: MatSliderModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
