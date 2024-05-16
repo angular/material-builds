@@ -390,7 +390,9 @@ class MatChip {
     }
     /** Handles keyboard events on the chip. */
     _handleKeydown(event) {
-        if (event.keyCode === BACKSPACE || event.keyCode === DELETE) {
+        // Ignore backspace events where the user is holding down the key
+        // so that we don't accidentally remove too many chips.
+        if ((event.keyCode === BACKSPACE && !event.repeat) || event.keyCode === DELETE) {
             event.preventDefault();
             this.remove();
         }
@@ -2005,34 +2007,18 @@ class MatChipInput {
     ngOnDestroy() {
         this.chipEnd.complete();
     }
-    ngAfterContentInit() {
-        this._focusLastChipOnBackspace = this.empty;
-    }
     /** Utility method to make host definition/tests more clear. */
     _keydown(event) {
-        if (event) {
-            // To prevent the user from accidentally deleting chips when pressing BACKSPACE continuously,
-            // We focus the last chip on backspace only after the user has released the backspace button,
-            // And the input is empty (see behaviour in _keyup)
-            if (event.keyCode === BACKSPACE && this._focusLastChipOnBackspace) {
+        if (this.empty && event.keyCode === BACKSPACE) {
+            // Ignore events where the user is holding down backspace
+            // so that we don't accidentally remove too many chips.
+            if (!event.repeat) {
                 this._chipGrid._focusLastChip();
-                event.preventDefault();
-                return;
             }
-            else {
-                this._focusLastChipOnBackspace = false;
-            }
-        }
-        this._emitChipEnd(event);
-    }
-    /**
-     * Pass events to the keyboard manager. Available here for tests.
-     */
-    _keyup(event) {
-        // Allow user to move focus to chips next time he presses backspace
-        if (!this._focusLastChipOnBackspace && event.keyCode === BACKSPACE && this.empty) {
-            this._focusLastChipOnBackspace = true;
             event.preventDefault();
+        }
+        else {
+            this._emitChipEnd(event);
         }
     }
     /** Checks to see if the blur should emit the (chipEnd) event. */
@@ -2049,7 +2035,6 @@ class MatChipInput {
     }
     _focus() {
         this.focused = true;
-        this._focusLastChipOnBackspace = this.empty;
         this._chipGrid.stateChanges.next();
     }
     /** Checks to see if the (chipEnd) event needs to be emitted. */
@@ -2074,7 +2059,6 @@ class MatChipInput {
     /** Clears the input */
     clear() {
         this.inputElement.value = '';
-        this._focusLastChipOnBackspace = true;
     }
     setDescribedByIds(ids) {
         const element = this._elementRef.nativeElement;
@@ -2092,7 +2076,7 @@ class MatChipInput {
         return !hasModifierKey(event) && new Set(this.separatorKeyCodes).has(event.keyCode);
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatChipInput, deps: [{ token: i0.ElementRef }, { token: MAT_CHIPS_DEFAULT_OPTIONS }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: MatChipInput, isStandalone: true, selector: "input[matChipInputFor]", inputs: { chipGrid: ["matChipInputFor", "chipGrid"], addOnBlur: ["matChipInputAddOnBlur", "addOnBlur", booleanAttribute], separatorKeyCodes: ["matChipInputSeparatorKeyCodes", "separatorKeyCodes"], placeholder: "placeholder", id: "id", disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { chipEnd: "matChipInputTokenEnd" }, host: { listeners: { "keydown": "_keydown($event)", "keyup": "_keyup($event)", "blur": "_blur()", "focus": "_focus()", "input": "_onInput()" }, properties: { "id": "id", "attr.disabled": "disabled || null", "attr.placeholder": "placeholder || null", "attr.aria-invalid": "_chipGrid && _chipGrid.ngControl ? _chipGrid.ngControl.invalid : null", "attr.aria-required": "_chipGrid && _chipGrid.required || null", "attr.required": "_chipGrid && _chipGrid.required || null" }, classAttribute: "mat-mdc-chip-input mat-mdc-input-element mdc-text-field__input mat-input-element" }, exportAs: ["matChipInput", "matChipInputFor"], usesOnChanges: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "17.2.0", type: MatChipInput, isStandalone: true, selector: "input[matChipInputFor]", inputs: { chipGrid: ["matChipInputFor", "chipGrid"], addOnBlur: ["matChipInputAddOnBlur", "addOnBlur", booleanAttribute], separatorKeyCodes: ["matChipInputSeparatorKeyCodes", "separatorKeyCodes"], placeholder: "placeholder", id: "id", disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { chipEnd: "matChipInputTokenEnd" }, host: { listeners: { "keydown": "_keydown($event)", "blur": "_blur()", "focus": "_focus()", "input": "_onInput()" }, properties: { "id": "id", "attr.disabled": "disabled || null", "attr.placeholder": "placeholder || null", "attr.aria-invalid": "_chipGrid && _chipGrid.ngControl ? _chipGrid.ngControl.invalid : null", "attr.aria-required": "_chipGrid && _chipGrid.required || null", "attr.required": "_chipGrid && _chipGrid.required || null" }, classAttribute: "mat-mdc-chip-input mat-mdc-input-element mdc-text-field__input mat-input-element" }, exportAs: ["matChipInput", "matChipInputFor"], usesOnChanges: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: MatChipInput, decorators: [{
             type: Directive,
@@ -2105,7 +2089,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImpor
                         // the MDC chips were landed initially with it.
                         'class': 'mat-mdc-chip-input mat-mdc-input-element mdc-text-field__input mat-input-element',
                         '(keydown)': '_keydown($event)',
-                        '(keyup)': '_keyup($event)',
                         '(blur)': '_blur()',
                         '(focus)': '_focus()',
                         '(input)': '_onInput()',
