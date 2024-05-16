@@ -528,10 +528,8 @@ export declare class MatChipGridChange {
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of a `<mat-chip-grid>`.
  */
-export declare class MatChipInput implements MatChipTextControl, AfterContentInit, OnChanges, OnDestroy {
+export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy {
     protected _elementRef: ElementRef<HTMLInputElement>;
-    /** Used to prevent focus moving to chips while user is holding backspace */
-    private _focusLastChipOnBackspace;
     /** Whether the control is focused. */
     focused: boolean;
     /** Register input for chip list */
@@ -565,13 +563,8 @@ export declare class MatChipInput implements MatChipTextControl, AfterContentIni
     constructor(_elementRef: ElementRef<HTMLInputElement>, defaultOptions: MatChipsDefaultOptions, formField?: MatFormField);
     ngOnChanges(): void;
     ngOnDestroy(): void;
-    ngAfterContentInit(): void;
     /** Utility method to make host definition/tests more clear. */
-    _keydown(event?: KeyboardEvent): void;
-    /**
-     * Pass events to the keyboard manager. Available here for tests.
-     */
-    _keyup(event: KeyboardEvent): void;
+    _keydown(event: KeyboardEvent): void;
     /** Checks to see if the blur should emit the (chipEnd) event. */
     _blur(): void;
     _focus(): void;
