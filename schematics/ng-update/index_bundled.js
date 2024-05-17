@@ -494,6 +494,49 @@ var require_css_selectors = __commonJS({
   }
 });
 
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/css-tokens.js
+var require_css_tokens = __commonJS({
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/css-tokens.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.cssTokens = void 0;
+    var schematics_1 = require("@angular/cdk/schematics");
+    exports.cssTokens = {
+      [schematics_1.TargetVersion.V18]: [
+        {
+          pr: "https://github.com/angular/components/pull/29026",
+          changes: [
+            {
+              replace: "--mdc-form-field-label-text-color",
+              replaceWith: "--mat-checkbox-label-text-color"
+            },
+            {
+              replace: "--mdc-form-field-label-text-font",
+              replaceWith: "--mat-checkbox-label-text-font"
+            },
+            {
+              replace: "--mdc-form-field-label-text-line-height",
+              replaceWith: "--mat-checkbox-label-text-line-height"
+            },
+            {
+              replace: "--mdc-form-field-label-text-size",
+              replaceWith: "--mat-checkbox-label-text-size"
+            },
+            {
+              replace: "--mdc-form-field-label-text-tracking",
+              replaceWith: "--mat-checkbox-label-text-tracking"
+            },
+            {
+              replace: "--mdc-form-field-label-text-weight",
+              replaceWith: "--mat-checkbox-label-text-weight"
+            }
+          ]
+        }
+      ]
+    };
+  }
+});
+
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/element-selectors.js
 var require_element_selectors = __commonJS({
   "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/element-selectors.js"(exports) {
@@ -564,6 +607,7 @@ var require_data = __commonJS({
     tslib_1.__exportStar(require_class_names(), exports);
     tslib_1.__exportStar(require_constructor_checks(), exports);
     tslib_1.__exportStar(require_css_selectors(), exports);
+    tslib_1.__exportStar(require_css_tokens(), exports);
     tslib_1.__exportStar(require_element_selectors(), exports);
     tslib_1.__exportStar(require_input_names(), exports);
     tslib_1.__exportStar(require_method_call_checks(), exports);
@@ -585,6 +629,7 @@ var require_upgrade_data = __commonJS({
       classNames: data_1.classNames,
       constructorChecks: data_1.constructorChecks,
       cssSelectors: data_1.cssSelectors,
+      cssTokens: data_1.cssTokens,
       elementSelectors: data_1.elementSelectors,
       inputNames: data_1.inputNames,
       methodCallChecks: data_1.methodCallChecks,
