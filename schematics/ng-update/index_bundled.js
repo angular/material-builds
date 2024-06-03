@@ -808,8 +808,7 @@ var require_migration = __commonJS({
     function getNamespaces(moduleName, content) {
       const namespaces = /* @__PURE__ */ new Set();
       const escapedName = moduleName.replace(/([.*+?^=!:${}()|[\]\/\\])/g, "\\$1");
-      const pattern = new RegExp(`@use +['"]${escapedName}['"].*;?
-`, "g");
+      const pattern = new RegExp(`@use +['"]${escapedName}['"].*;?\\r?\\n`, "g");
       let match = null;
       while (match = pattern.exec(content)) {
         namespaces.add(extractNamespaceFromUseStatement(match[0]));
