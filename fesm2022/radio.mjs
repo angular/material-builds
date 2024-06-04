@@ -1,9 +1,9 @@
-import * as i0 from '@angular/core';
-import { forwardRef, InjectionToken, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, numberAttribute, ANIMATION_MODULE_TYPE, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Attribute, ViewChild, NgModule } from '@angular/core';
-import { MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import * as i1 from '@angular/cdk/a11y';
 import * as i2 from '@angular/cdk/collections';
+import * as i0 from '@angular/core';
+import { forwardRef, InjectionToken, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, inject, Injector, numberAttribute, afterNextRender, ANIMATION_MODULE_TYPE, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Attribute, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 
 // Increasing integer for generating unique ids for radio components.
@@ -386,6 +386,7 @@ class MatRadioButton {
         this._value = null;
         /** Unregister function for _radioDispatcher */
         this._removeUniqueSelectionListener = () => { };
+        this._injector = inject(Injector);
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         this.radioGroup = radioGroup;
@@ -516,6 +517,26 @@ class MatRadioButton {
             if (input) {
                 input.setAttribute('tabindex', value + '');
                 this._previousTabIndex = value;
+                // Wait for any pending tabindex changes to be applied
+                afterNextRender(() => {
+                    queueMicrotask(() => {
+                        // The radio group uses a "selection follows focus" pattern for tab management, so if this
+                        // radio button is currently focused and another radio button in the group becomes
+                        // selected, we should move focus to the newly selected radio button to maintain
+                        // consistency between the focused and selected states.
+                        if (group &&
+                            group.selected &&
+                            group.selected !== this &&
+                            document.activeElement === input) {
+                            group.selected?._inputElement.nativeElement.focus();
+                            // If this radio button still has focus, the selected one must be disabled. In this
+                            // case the radio group as a whole should lose focus.
+                            if (document.activeElement === input) {
+                                this._inputElement.nativeElement.blur();
+                            }
+                        }
+                    });
+                }, { injector: this._injector });
             }
         }
     }
