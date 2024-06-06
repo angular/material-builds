@@ -350,7 +350,6 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
     private _exitAnimationDuration;
     /** Current timer for dialog animations. */
     private _animationTimer;
-    private _isDestroyed;
     constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, _document: any, dialogConfig: MatDialogConfig, interactivityChecker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, _animationMode?: string | undefined, focusMonitor?: FocusMonitor);
     protected _contentAttached(): void;
     /** Starts the dialog open animation if enabled. */
