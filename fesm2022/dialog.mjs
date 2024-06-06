@@ -100,7 +100,6 @@ class MatDialogContainer extends CdkDialogContainer {
             : 0;
         /** Current timer for dialog animations. */
         this._animationTimer = null;
-        this._isDestroyed = false;
         /**
          * Completes the dialog open by clearing potential animation classes, trapping
          * focus and emitting an opened event.
@@ -228,9 +227,6 @@ class MatDialogContainer extends CdkDialogContainer {
      * be called by sub-classes that use different animation implementations.
      */
     _openAnimationDone(totalTime) {
-        if (this._isDestroyed) {
-            return;
-        }
         if (this._config.delayFocusTrap) {
             this._trapFocus();
         }
@@ -241,7 +237,6 @@ class MatDialogContainer extends CdkDialogContainer {
         if (this._animationTimer !== null) {
             clearTimeout(this._animationTimer);
         }
-        this._isDestroyed = true;
     }
     attachComponentPortal(portal) {
         // When a component is passed into the dialog, the host element interrupts
