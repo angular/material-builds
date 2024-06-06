@@ -1,6 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
 import { __decorate, __metadata } from 'tslib';
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from '@angular/core';
+import { inject, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -92,10 +92,11 @@ let MatTestDialogOpener = class MatTestDialogOpener {
     }
     constructor(dialog) {
         this.dialog = dialog;
+        this._ngZone = inject(NgZone);
         if (!MatTestDialogOpener_1.component) {
             throw new Error(`MatTestDialogOpener does not have a component provided.`);
         }
-        this.dialogRef = this.dialog.open(MatTestDialogOpener_1.component, MatTestDialogOpener_1.config || {});
+        this.dialogRef = this._ngZone.run(() => this.dialog.open(MatTestDialogOpener_1.component, MatTestDialogOpener_1.config || {}));
         this._afterClosedSubscription = this.dialogRef.afterClosed().subscribe(result => {
             this.closedResult = result;
         });
