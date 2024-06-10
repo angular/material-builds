@@ -54,7 +54,7 @@ export declare class MatBottomSheet implements OnDestroy {
     /** Reference to the currently opened bottom sheet. */
     get _openedBottomSheetRef(): MatBottomSheetRef<any> | null;
     set _openedBottomSheetRef(value: MatBottomSheetRef<any> | null);
-    constructor(_overlay: Overlay, injector: Injector, _parentBottomSheet: MatBottomSheet, _defaultOptions?: MatBottomSheetConfig<any> | undefined);
+    constructor(_overlay: Overlay, injector: Injector, _parentBottomSheet: MatBottomSheet, _defaultOptions?: MatBottomSheetConfig | undefined);
     /**
      * Opens a bottom sheet containing the given component.
      * @param component Type of the component to load into the bottom sheet.

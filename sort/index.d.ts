@@ -224,7 +224,7 @@ export declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, Af
      */
     _intl: MatSortHeaderIntl, _changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, 
     /** @breaking-change 14.0.0 _ariaDescriber will be required. */
-    _ariaDescriber?: AriaDescriber | null | undefined, defaultOptions?: MatSortDefaultOptions);
+    _ariaDescriber?: (AriaDescriber | null) | undefined, defaultOptions?: MatSortDefaultOptions);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

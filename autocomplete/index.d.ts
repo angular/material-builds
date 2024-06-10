@@ -340,7 +340,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     autocompleteDisabled: boolean;
     private _initialized;
     private _injector;
-    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality | null, _formField: MatFormField | null, _document: any, _viewportRuler: ViewportRuler, _defaults?: MatAutocompleteDefaultOptions | null | undefined);
+    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, scrollStrategy: any, _dir: Directionality | null, _formField: MatFormField | null, _document: any, _viewportRuler: ViewportRuler, _defaults?: (MatAutocompleteDefaultOptions | null) | undefined);
     /** Class to apply to the panel when it's above the input. */
     private _aboveClass;
     ngAfterViewInit(): void;

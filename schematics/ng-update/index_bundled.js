@@ -33,6 +33,10 @@ var require_tslib = __commonJS({
     var __rest;
     var __decorate;
     var __param;
+    var __esDecorate;
+    var __runInitializers;
+    var __propKey;
+    var __setFunctionName;
     var __metadata;
     var __awaiter;
     var __generator;
@@ -51,7 +55,10 @@ var require_tslib = __commonJS({
     var __importDefault;
     var __classPrivateFieldGet;
     var __classPrivateFieldSet;
+    var __classPrivateFieldIn;
     var __createBinding;
+    var __addDisposableResource;
+    var __disposeResources;
     (function(factory) {
       var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
       if (typeof define === "function" && define.amd) {
@@ -128,6 +135,65 @@ var require_tslib = __commonJS({
           decorator(target, key, paramIndex);
         };
       };
+      __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+        function accept(f) {
+          if (f !== void 0 && typeof f !== "function")
+            throw new TypeError("Function expected");
+          return f;
+        }
+        var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+        var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+        var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+        var _, done = false;
+        for (var i = decorators.length - 1; i >= 0; i--) {
+          var context = {};
+          for (var p in contextIn)
+            context[p] = p === "access" ? {} : contextIn[p];
+          for (var p in contextIn.access)
+            context.access[p] = contextIn.access[p];
+          context.addInitializer = function(f) {
+            if (done)
+              throw new TypeError("Cannot add initializers after decoration has completed");
+            extraInitializers.push(accept(f || null));
+          };
+          var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+          if (kind === "accessor") {
+            if (result === void 0)
+              continue;
+            if (result === null || typeof result !== "object")
+              throw new TypeError("Object expected");
+            if (_ = accept(result.get))
+              descriptor.get = _;
+            if (_ = accept(result.set))
+              descriptor.set = _;
+            if (_ = accept(result.init))
+              initializers.unshift(_);
+          } else if (_ = accept(result)) {
+            if (kind === "field")
+              initializers.unshift(_);
+            else
+              descriptor[key] = _;
+          }
+        }
+        if (target)
+          Object.defineProperty(target, contextIn.name, descriptor);
+        done = true;
+      };
+      __runInitializers = function(thisArg, initializers, value) {
+        var useValue = arguments.length > 2;
+        for (var i = 0; i < initializers.length; i++) {
+          value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+        }
+        return useValue ? value : void 0;
+      };
+      __propKey = function(x) {
+        return typeof x === "symbol" ? x : "".concat(x);
+      };
+      __setFunctionName = function(f, name, prefix) {
+        if (typeof name === "symbol")
+          name = name.description ? "[".concat(name.description, "]") : "";
+        return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
+      };
       __metadata = function(metadataKey, metadataValue) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
           return Reflect.metadata(metadataKey, metadataValue);
@@ -176,7 +242,7 @@ var require_tslib = __commonJS({
         function step(op) {
           if (f)
             throw new TypeError("Generator is already executing.");
-          while (_)
+          while (g && (g = 0, op[0] && (_ = 0)), _)
             try {
               if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
                 return t;
@@ -243,9 +309,13 @@ var require_tslib = __commonJS({
       __createBinding = Object.create ? function(o, m, k, k2) {
         if (k2 === void 0)
           k2 = k;
-        Object.defineProperty(o, k2, { enumerable: true, get: function() {
-          return m[k];
-        } });
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
       } : function(o, m, k, k2) {
         if (k2 === void 0)
           k2 = k;
@@ -317,16 +387,24 @@ var require_tslib = __commonJS({
         if (!Symbol.asyncIterator)
           throw new TypeError("Symbol.asyncIterator is not defined.");
         var g = generator.apply(thisArg, _arguments || []), i, q = [];
-        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
+        return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function() {
           return this;
         }, i;
-        function verb(n) {
-          if (g[n])
+        function awaitReturn(f) {
+          return function(v) {
+            return Promise.resolve(v).then(f, reject);
+          };
+        }
+        function verb(n, f) {
+          if (g[n]) {
             i[n] = function(v) {
               return new Promise(function(a, b) {
                 q.push([n, v, a, b]) > 1 || resume(n, v);
               });
             };
+            if (f)
+              i[n] = f(i[n]);
+          }
         }
         function resume(n, v) {
           try {
@@ -358,7 +436,7 @@ var require_tslib = __commonJS({
         }, i;
         function verb(n, f) {
           i[n] = o[n] ? function(v) {
-            return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v;
+            return (p = !p) ? { value: __await(o[n](v)), done: false } : f ? f(v) : v;
           } : f;
         }
       };
@@ -426,11 +504,81 @@ var require_tslib = __commonJS({
           throw new TypeError("Cannot write private member to an object whose class did not declare it");
         return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
       };
+      __classPrivateFieldIn = function(state, receiver) {
+        if (receiver === null || typeof receiver !== "object" && typeof receiver !== "function")
+          throw new TypeError("Cannot use 'in' operator on non-object");
+        return typeof state === "function" ? receiver === state : state.has(receiver);
+      };
+      __addDisposableResource = function(env, value, async) {
+        if (value !== null && value !== void 0) {
+          if (typeof value !== "object" && typeof value !== "function")
+            throw new TypeError("Object expected.");
+          var dispose, inner;
+          if (async) {
+            if (!Symbol.asyncDispose)
+              throw new TypeError("Symbol.asyncDispose is not defined.");
+            dispose = value[Symbol.asyncDispose];
+          }
+          if (dispose === void 0) {
+            if (!Symbol.dispose)
+              throw new TypeError("Symbol.dispose is not defined.");
+            dispose = value[Symbol.dispose];
+            if (async)
+              inner = dispose;
+          }
+          if (typeof dispose !== "function")
+            throw new TypeError("Object not disposable.");
+          if (inner)
+            dispose = function() {
+              try {
+                inner.call(this);
+              } catch (e) {
+                return Promise.reject(e);
+              }
+            };
+          env.stack.push({ value, dispose, async });
+        } else if (async) {
+          env.stack.push({ async: true });
+        }
+        return value;
+      };
+      var _SuppressedError = typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
+        var e = new Error(message);
+        return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+      };
+      __disposeResources = function(env) {
+        function fail(e) {
+          env.error = env.hasError ? new _SuppressedError(e, env.error, "An error was suppressed during disposal.") : e;
+          env.hasError = true;
+        }
+        function next() {
+          while (env.stack.length) {
+            var rec = env.stack.pop();
+            try {
+              var result = rec.dispose && rec.dispose.call(rec.value);
+              if (rec.async)
+                return Promise.resolve(result).then(next, function(e) {
+                  fail(e);
+                  return next();
+                });
+            } catch (e) {
+              fail(e);
+            }
+          }
+          if (env.hasError)
+            throw env.error;
+        }
+        return next();
+      };
       exporter("__extends", __extends);
       exporter("__assign", __assign);
       exporter("__rest", __rest);
       exporter("__decorate", __decorate);
       exporter("__param", __param);
+      exporter("__esDecorate", __esDecorate);
+      exporter("__runInitializers", __runInitializers);
+      exporter("__propKey", __propKey);
+      exporter("__setFunctionName", __setFunctionName);
       exporter("__metadata", __metadata);
       exporter("__awaiter", __awaiter);
       exporter("__generator", __generator);
@@ -450,6 +598,9 @@ var require_tslib = __commonJS({
       exporter("__importDefault", __importDefault);
       exporter("__classPrivateFieldGet", __classPrivateFieldGet);
       exporter("__classPrivateFieldSet", __classPrivateFieldSet);
+      exporter("__classPrivateFieldIn", __classPrivateFieldIn);
+      exporter("__addDisposableResource", __addDisposableResource);
+      exporter("__disposeResources", __disposeResources);
     });
   }
 });
@@ -645,7 +796,7 @@ var require_migration = __commonJS({
   "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/m2-theming-v18/migration.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.migrateM2ThemingApiUsages = void 0;
+    exports.migrateM2ThemingApiUsages = migrateM2ThemingApiUsages;
     var RENAMED_FUNCTIONS = [
       "define-light-theme",
       "define-dark-theme",
@@ -744,7 +895,6 @@ var require_migration = __commonJS({
       }
       return restoreComments(content, placeholders);
     }
-    exports.migrateM2ThemingApiUsages = migrateM2ThemingApiUsages;
     function migrateFunction(fileContent, oldNamespace, oldName, newNamespace, newName) {
       return fileContent.replace(new RegExp(`${oldNamespace}\\.${oldName}\\(`, "g"), `${newNamespace}.${newName}(`);
     }
@@ -877,20 +1027,6 @@ function onMigrationComplete(context, targetVersion, hasFailures) {
 0 && (module.exports = {
   updateToV18
 });
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
