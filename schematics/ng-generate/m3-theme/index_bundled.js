@@ -2515,7 +2515,19 @@ function customColor(source, color) {
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/m3-theme/index.mjs
 var HUE_TONES = [0, 10, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100];
-var NEUTRAL_HUE_TONES = HUE_TONES.concat([4, 6, 12, 17, 22, 24, 87, 92, 94, 96]);
+var NEUTRAL_HUES = /* @__PURE__ */ new Map([
+  [4, { prev: 0, next: 10 }],
+  [6, { prev: 0, next: 10 }],
+  [12, { prev: 10, next: 20 }],
+  [17, { prev: 10, next: 20 }],
+  [22, { prev: 20, next: 25 }],
+  [24, { prev: 20, next: 25 }],
+  [87, { prev: 80, next: 90 }],
+  [92, { prev: 90, next: 95 }],
+  [94, { prev: 90, next: 95 }],
+  [96, { prev: 95, next: 98 }]
+]);
+var NEUTRAL_HUE_TONES = [...HUE_TONES, ...NEUTRAL_HUES.keys()];
 function getMaterialTonalPalettes(color) {
   try {
     let argbColor = argbFromHex(color);
@@ -2567,7 +2579,7 @@ function generateSCSSTheme(colorPalettes, themeTypes, colorComment, useSystemVar
     "@use '@angular/material' as mat;",
     "",
     "// Note: " + colorComment,
-    "$_palettes: " + getColorPalettesSCSS(colorPalettes),
+    "$_palettes: " + getColorPalettesSCSS(patchMissingHues(colorPalettes)),
     "",
     "$_rest: (",
     "  secondary: map.get($_palettes, secondary),",
@@ -2622,6 +2634,73 @@ function m3_theme_default(options) {
     const themeScss = generateSCSSTheme(colorPalettes, options.themeTypes, colorComment, options.useSystemVariables || false);
     createThemeFile(themeScss, tree, options.directory);
   });
+}
+function patchMissingHues(palettes) {
+  const neutral = palettes.get("neutral");
+  if (!neutral) {
+    return palettes;
+  }
+  let newNeutral = null;
+  for (const [hue, { prev, next }] of NEUTRAL_HUES) {
+    if (!neutral.has(hue) && neutral.has(prev) && neutral.has(next)) {
+      const weight = (next - hue) / (next - prev);
+      const result = mixColors(neutral.get(prev), neutral.get(next), weight);
+      if (result !== null) {
+        newNeutral != null ? newNeutral : newNeutral = new Map(neutral.entries());
+        newNeutral.set(hue, result);
+      }
+    }
+  }
+  if (!newNeutral) {
+    return palettes;
+  }
+  const newPalettes = /* @__PURE__ */ new Map();
+  for (const [key, value] of palettes) {
+    if (key === "neutral") {
+      const sortedNeutral = Array.from(newNeutral.keys()).sort((a, b) => a - b).reduce((newHues, key2) => {
+        newHues.set(key2, newNeutral.get(key2));
+        return newHues;
+      }, /* @__PURE__ */ new Map());
+      newPalettes.set(key, sortedNeutral);
+    } else {
+      newPalettes.set(key, value);
+    }
+  }
+  return newPalettes;
+}
+function mixColors(c1, c2, weight) {
+  const normalizedWeight = weight * 2 - 1;
+  const weight1 = (normalizedWeight + 1) / 2;
+  const weight2 = 1 - weight1;
+  const color1 = parseHexColor(c1);
+  const color2 = parseHexColor(c2);
+  if (color1 === null || color2 === null) {
+    return null;
+  }
+  const red = Math.round(color1.red * weight1 + color2.red * weight2);
+  const green = Math.round(color1.green * weight1 + color2.green * weight2);
+  const blue = Math.round(color1.blue * weight1 + color2.blue * weight2);
+  const intToHex = (value) => value.toString(16).padStart(2, "0");
+  return `#${intToHex(red)}${intToHex(green)}${intToHex(blue)}`;
+}
+function parseHexColor(value) {
+  if (!/^#(?:[0-9a-fA-F]{3}){1,2}$/.test(value)) {
+    return null;
+  }
+  const hexToInt = (value2) => parseInt(value2, 16);
+  let red;
+  let green;
+  let blue;
+  if (value.length === 4) {
+    red = hexToInt(value[1] + value[1]);
+    green = hexToInt(value[2] + value[2]);
+    blue = hexToInt(value[3] + value[3]);
+  } else {
+    red = hexToInt(value.slice(1, 3));
+    green = hexToInt(value.slice(3, 5));
+    blue = hexToInt(value.slice(5, 7));
+  }
+  return { red, green, blue };
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
