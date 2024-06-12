@@ -23,7 +23,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.0.0", ngImpor
         }] });
 /** Directive to display a text badge. */
 class MatBadge {
-    /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
+    /**
+     * The color of the badge. Can be `primary`, `accent`, or `warn`.
+     * Not recommended in M3, for more information see https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants.
+     */
     get color() {
         return this._color;
     }
