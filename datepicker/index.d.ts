@@ -696,7 +696,11 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     private _startAt;
     /** The view that the calendar should start in. */
     startView: 'month' | 'year' | 'multi-year';
-    /** Color palette to use on the datepicker's calendar. */
+    /**
+     * Color palette to use on the datepicker's calendar. This API is supported in M2 themes only, it
+     * has no effect in M3 themes. For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants
+     */
     get color(): ThemePalette;
     set color(value: ThemePalette);
     _color: ThemePalette;
@@ -1144,7 +1148,11 @@ export declare class MatDatepickerModule {
 export declare interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> {
     /** Stream that emits whenever the date picker is closed. */
     closedStream: EventEmitter<void>;
-    /** Color palette to use on the datepicker's calendar. */
+    /**
+     * Color palette to use on the datepicker's calendar. This API is supported in M2 themes only, it
+     * has no effect in M3 themes. For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants
+     */
     color: ThemePalette;
     /** The input element the datepicker is associated with. */
     datepickerInput: C;
