@@ -150,7 +150,11 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     get hideRequiredMarker(): boolean;
     set hideRequiredMarker(value: BooleanInput);
     private _hideRequiredMarker;
-    /** The color palette for the form field. */
+    /**
+     * The color palette for the form field. This API is supported in M2 themes only, it has no
+     * effect in M3 themes. For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants
+     */
     color: ThemePalette;
     /** Whether the label should always float or float as the user types. */
     get floatLabel(): FloatLabelType;
@@ -376,7 +380,11 @@ declare interface MatFormFieldControl_2<T> extends MatFormFieldControl<T> {
 export declare interface MatFormFieldDefaultOptions {
     /** Default form field appearance style. */
     appearance?: MatFormFieldAppearance;
-    /** Default color of the form field. */
+    /**
+     * Default color of the form field. This API is supported in M2 themes only, it has no effect in
+     * M3 themes. For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants
+     */
     color?: ThemePalette;
     /** Whether the required marker should be hidden by default. */
     hideRequiredMarker?: boolean;

@@ -13,6 +13,7 @@ import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
+import { Injector } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatRipple } from '@angular/material/core';
@@ -230,7 +231,7 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
      * Used to improve initial load time of large applications.
      */
     _rippleLoader: MatRippleLoader;
-    private _injector;
+    protected _injector: Injector;
     constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _focusMonitor: FocusMonitor, _document: any, animationMode?: string, _globalRippleOptions?: RippleGlobalOptions | undefined, tabIndex?: string);
     ngOnInit(): void;
     ngAfterViewInit(): void;
@@ -358,7 +359,7 @@ export declare interface MatChipEvent {
  * An extension of the MatChipSet component used with MatChipRow chips and
  * the matChipInputFor directive.
  */
-export declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterViewInit, ControlValueAccessor, DoCheck, MatFormFieldControl<any>, OnDestroy {
+export declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterViewInit, ControlValueAccessor, DoCheck, MatFormFieldControl<any>, OnDestroy, OnInit {
     ngControl: NgControl;
     /**
      * Implemented as part of MatFormFieldControl.
@@ -451,6 +452,7 @@ export declare class MatChipGrid extends MatChipSet implements AfterContentInit,
     get errorState(): boolean;
     set errorState(value: boolean);
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, defaultErrorStateMatcher: ErrorStateMatcher, ngControl: NgControl);
+    ngOnInit(): void;
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
     ngDoCheck(): void;

@@ -861,16 +861,11 @@ class MatChipRow extends MatChip {
         // The value depends on the DOM so we need to extract it before we flip the flag.
         const value = this.value;
         this._isEditing = this._editStartPending = true;
-        // Starting the editing sequence below depends on the edit input
-        // query resolving on time. Trigger a synchronous change detection to
-        // ensure that it happens by the time we hit the timeout below.
-        this._changeDetectorRef.detectChanges();
-        // TODO(crisbeto): this timeout shouldn't be necessary given the `detectChange` call above.
-        // Defer initializing the input so it has time to be added to the DOM.
-        setTimeout(() => {
+        // Defer initializing the input until after it has been added to the DOM.
+        afterNextRender(() => {
             this._getEditInput().initialize(value);
             this._editStartPending = false;
-        });
+        }, { injector: this._injector });
     }
     _onEditFinish() {
         this._isEditing = this._editStartPending = false;
@@ -1065,9 +1060,13 @@ class MatChipSet {
         if (this.tabIndex !== -1) {
             const previousTabIndex = this.tabIndex;
             this.tabIndex = -1;
+            this._changeDetectorRef.markForCheck();
             // Note that this needs to be a `setTimeout`, because a `Promise.resolve`
             // doesn't allow enough time for the focus to escape.
-            setTimeout(() => (this.tabIndex = previousTabIndex));
+            setTimeout(() => {
+                this.tabIndex = previousTabIndex;
+                this._changeDetectorRef.markForCheck();
+            });
         }
     }
     /**
@@ -1717,6 +1716,13 @@ class MatChipGrid extends MatChipSet {
             this.ngControl.valueAccessor = this;
         }
         this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, ngControl, parentFormGroup, parentForm, this.stateChanges);
+    }
+    ngOnInit() {
+        if (this.ngControl) {
+            this.ngControl.control?.events.pipe(takeUntil(this._destroyed)).subscribe(() => {
+                this._changeDetectorRef.markForCheck();
+            });
+        }
     }
     ngAfterContentInit() {
         this.chipBlurChanges.pipe(takeUntil(this._destroyed)).subscribe(() => {

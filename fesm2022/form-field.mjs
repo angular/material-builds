@@ -1,13 +1,13 @@
 import * as i0 from '@angular/core';
 import { Directive, InjectionToken, Attribute, Input, inject, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Injector, afterRender, ANIMATION_MODULE_TYPE, Optional, Inject, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import * as i1 from '@angular/cdk/bidi';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import * as i2 from '@angular/cdk/platform';
+import { DOCUMENT, NgTemplateOutlet, CommonModule } from '@angular/common';
 import { Subscription, Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { DOCUMENT, NgTemplateOutlet, CommonModule } from '@angular/common';
 import { ObserversModule } from '@angular/cdk/observers';
 import { MatCommonModule } from '@angular/material/core';
 
@@ -536,7 +536,11 @@ class MatFormField {
         this._defaults = _defaults;
         this._animationMode = _animationMode;
         this._hideRequiredMarker = false;
-        /** The color palette for the form field. */
+        /**
+         * The color palette for the form field. This API is supported in M2 themes only, it has no
+         * effect in M3 themes. For information on applying color variants in M3, see
+         * https://material.angular.io/guide/theming#using-component-color-variants
+         */
         this.color = 'primary';
         this._appearance = DEFAULT_APPEARANCE;
         this._subscriptSizing = null;
