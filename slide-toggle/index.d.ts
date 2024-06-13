@@ -89,7 +89,13 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnCh
     ariaDescribedby: string;
     /** Whether the slide-toggle is required. */
     required: boolean;
-    /** Palette color of slide toggle. */
+    /**
+     * Theme color of the slide toggle. This API is supported in M2 themes only,
+     * it has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color: string | undefined;
     /** Whether the slide toggle is disabled. */
     disabled: boolean;

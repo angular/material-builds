@@ -16,7 +16,13 @@ declare namespace i2 {
 export declare class MatToolbar implements AfterViewInit {
     protected _elementRef: ElementRef;
     private _platform;
-    /** Palette color of the toolbar. */
+    /**
+     * Theme color of the toolbar. This API is supported in M2 themes only, it has
+     * no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color?: string | null;
     private _document;
     /** Reference to all toolbar row elements that have been projected. */

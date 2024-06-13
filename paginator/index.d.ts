@@ -51,7 +51,13 @@ export declare class MatPaginator implements OnInit, OnDestroy {
     private _intlChanges;
     private _isInitialized;
     private _initializedStream;
-    /** Theme color to be used for the underlying form controls. */
+    /**
+     * Theme color of the underlying form controls. This API is supported in M2
+     * themes only,it has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color: ThemePalette;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */
     get pageIndex(): number;

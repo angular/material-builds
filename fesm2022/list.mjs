@@ -880,7 +880,14 @@ class MatSelectionList extends MatListBase {
         this._onChange = (_) => { };
         /** Emits a change event whenever the selected state of an option changes. */
         this.selectionChange = new EventEmitter();
-        /** Theme color of the selection list. This sets the checkbox color for all list options. */
+        /**
+         * Theme color of the selection list. This sets the checkbox color for all
+         * list options. This API is supported in M2 themes only, it has no effect in
+         * M3 themes.
+         *
+         * For information on applying color variants in M3, see
+         * https://material.angular.io/guide/theming#using-component-color-variants.
+         */
         this.color = 'accent';
         /**
          * Function used for comparing an option against the selected value when determining which
