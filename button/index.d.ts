@@ -114,7 +114,13 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
      */
     get ripple(): MatRipple;
     set ripple(v: MatRipple);
-    /** Theme color palette of the button */
+    /**
+     * Theme color palette of the button. This API is supported in M2 themes
+     * only, it has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants
+     */
     color?: string | null;
     /** Whether the ripple effect is disabled or not. */
     get disableRipple(): boolean;
