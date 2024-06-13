@@ -289,6 +289,9 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _closingActionsSubscription;
     /** Subscription to viewport size changes. */
     private _viewportSubscription;
+    /** Implements BreakpointObserver to be used to detect handset landscape */
+    private _breakpointObserver;
+    private _handsetLandscapeSubscription;
     /**
      * Whether the autocomplete can open the next time it is focused. Used to prevent a focused,
      * closed autocomplete from being reopened if the user switches to another browser tab and then
