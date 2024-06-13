@@ -13,6 +13,7 @@ import { _getEventTarget } from '@angular/cdk/platform';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
 import { Subscription, Subject, defer, merge, of, fromEvent, Observable } from 'rxjs';
 import { ESCAPE, hasModifierKey, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as i4 from '@angular/material/form-field';
@@ -336,6 +337,9 @@ class MatAutocompleteTrigger {
         this._manuallyFloatingLabel = false;
         /** Subscription to viewport size changes. */
         this._viewportSubscription = Subscription.EMPTY;
+        /** Implements BreakpointObserver to be used to detect handset landscape */
+        this._breakpointObserver = inject(BreakpointObserver);
+        this._handsetLandscapeSubscription = Subscription.EMPTY;
         /**
          * Whether the autocomplete can open the next time it is focused. Used to prevent a focused,
          * closed autocomplete from being reopened if the user switches to another browser tab and then
@@ -436,6 +440,7 @@ class MatAutocompleteTrigger {
         if (typeof window !== 'undefined') {
             window.removeEventListener('blur', this._windowBlurHandler);
         }
+        this._handsetLandscapeSubscription.unsubscribe();
         this._viewportSubscription.unsubscribe();
         this._componentDestroyed = true;
         this._destroyPanel();
@@ -846,6 +851,27 @@ class MatAutocompleteTrigger {
                     overlayRef.updateSize({ width: this._getPanelWidth() });
                 }
             });
+            // Subscribe to the breakpoint events stream to detect when screen is in
+            // handsetLandscape.
+            this._handsetLandscapeSubscription = this._breakpointObserver
+                .observe(Breakpoints.HandsetLandscape)
+                .subscribe(result => {
+                const isHandsetLandscape = result.matches;
+                // Check if result.matches Breakpoints.HandsetLandscape. Apply HandsetLandscape
+                // settings to prevent overlay cutoff in that breakpoint. Fixes b/284148377
+                if (isHandsetLandscape) {
+                    this._positionStrategy
+                        .withFlexibleDimensions(true)
+                        .withGrowAfterOpen(true)
+                        .withViewportMargin(8);
+                }
+                else {
+                    this._positionStrategy
+                        .withFlexibleDimensions(false)
+                        .withGrowAfterOpen(false)
+                        .withViewportMargin(0);
+                }
+            });
         }
         else {
             // Update the trigger, panel width and direction, in case anything has changed.
@@ -906,6 +932,7 @@ class MatAutocompleteTrigger {
         });
     }
     _getOverlayPosition() {
+        // Set default Overlay Position
         const strategy = this._overlay
             .position()
             .flexibleConnectedTo(this._getConnectedElement())
