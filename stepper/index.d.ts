@@ -91,7 +91,13 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     private _isSelected;
     /** Content for step label given by `<ng-template matStepLabel>`. */
     stepLabel: MatStepLabel;
-    /** Theme color for the particular step. */
+    /**
+     * Theme color for the particular step. This API is supported in M2 themes
+     * only, it has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color: ThemePalette;
     /** Content that will be rendered lazily. */
     _lazyContent: MatStepContent;
@@ -140,7 +146,13 @@ export declare class MatStepHeader extends CdkStepHeader implements AfterViewIni
     optional: boolean;
     /** Whether the ripple should be disabled. */
     disableRipple: boolean;
-    /** Theme palette color of the step header. */
+    /**
+     * Theme color of the step header. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color: ThemePalette;
     constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
     ngAfterViewInit(): void;
@@ -178,7 +190,13 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     readonly animationDone: EventEmitter<void>;
     /** Whether ripples should be disabled for the step headers. */
     disableRipple: boolean;
-    /** Theme color for all of the steps in stepper. */
+    /**
+     * Theme color for all of the steps in stepper. This API is supported in M2
+     * themes only, it has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color: ThemePalette;
     /**
      * Whether the label should display in bottom or end position.
