@@ -40,6 +40,7 @@ import { OnInit } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { Portal } from '@angular/cdk/portal';
 import { ScrollStrategy } from '@angular/cdk/overlay';
+import { Signal } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -49,6 +50,7 @@ import { ValidationErrors } from '@angular/forms';
 import { Validator } from '@angular/forms';
 import { ValidatorFn } from '@angular/forms';
 import { ViewContainerRef } from '@angular/core';
+import { WritableSignal } from '@angular/core';
 
 /** Function that can be used to filter out dates from a calendar. */
 export declare type DateFilterFn<D> = (date: D | null) => boolean;
@@ -773,6 +775,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     /** Emits when the datepicker's state changes. */
     readonly stateChanges: Subject<void>;
     private _injector;
+    private readonly _changeDetectorRef;
     constructor(_overlay: Overlay, 
     /**
      * @deprecated parameter is unused and will be removed
@@ -932,9 +935,12 @@ export declare interface MatDatepickerControl<D> {
 export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> implements MatDatepickerControl<D | null>, OnDestroy {
     private _formField?;
     private _closedSubscription;
+    private _openedSubscription;
     /** The datepicker that this input is associated with. */
     set matDatepicker(datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>);
     _datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>;
+    /** The id of the panel owned by this input. */
+    protected _ariaOwns: WritableSignal<string | null>;
     /** The minimum valid date. */
     get min(): D | null;
     set min(value: D | null);
@@ -1221,6 +1227,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     private _dateAdapter;
     private _formField?;
     private _closedSubscription;
+    private _openedSubscription;
     /** Current value of the range input. */
     get value(): DateRange<D> | null;
     /** Unique ID for the group. */
@@ -1241,6 +1248,8 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     get rangePicker(): MatDatepickerPanel<MatDatepickerControl<D>, DateRange<D>, D>;
     set rangePicker(rangePicker: MatDatepickerPanel<MatDatepickerControl<D>, DateRange<D>, D>);
     private _rangePicker;
+    /** The id of the panel owned by this input. */
+    _ariaOwns: WritableSignal<string | null>;
     /** Whether the input is required. */
     get required(): boolean;
     set required(value: boolean);
@@ -1350,6 +1359,7 @@ declare interface MatDateRangeInputParent<D> {
         opened: boolean;
         id: string;
     };
+    _ariaOwns?: Signal<string | null>;
     _startInput: MatDateRangeInputPartBase<D>;
     _endInput: MatDateRangeInputPartBase<D>;
     _groupDisabled: boolean;
