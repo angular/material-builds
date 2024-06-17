@@ -128,7 +128,13 @@ export declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
     private _location;
     private readonly _errorHandler;
     private _defaultColor;
-    /** Theme palette color of the icon. */
+    /**
+     * Theme color of the icon. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get color(): string | null | undefined;
     set color(value: string | null | undefined);
     private _color;
@@ -207,7 +213,13 @@ export declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
 
 /** Default options for `mat-icon`.  */
 export declare interface MatIconDefaultOptions {
-    /** Default color of the icon. */
+    /**
+     * Theme color of the icon. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color?: ThemePalette;
     /** Font set that the icon is a part of. */
     fontSet?: string;
