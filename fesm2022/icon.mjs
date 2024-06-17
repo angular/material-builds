@@ -694,7 +694,13 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
 class MatIcon {
-    /** Theme palette color of the icon. */
+    /**
+     * Theme color of the icon. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get color() {
         return this._color || this._defaultColor;
     }
