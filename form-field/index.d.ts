@@ -193,6 +193,12 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _isFocused;
     private _explicitFormFieldControl;
     private _needsOutlineLabelOffsetUpdate;
+    /**
+     * Cached shadow root that the element is placed in. `null` means that the element isn't in
+     * the shadow DOM and `undefined` means that it hasn't been resolved yet. Should be read via
+     * `_getShadowRoot`, not directly.
+     */
+    private _cachedShadowRoot;
     private _injector;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
     /**
@@ -292,6 +298,13 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _updateOutlineLabelOffset;
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDom;
+    /**
+     * Lazily resolves and returns the shadow root of the element. We do this in a function, rather
+     * than saving it in property directly on init, because we want to resolve it as late as possible
+     * in order to ensure that the element has been moved into the shadow DOM. Doing it inside the
+     * constructor might be too early if the element is inside of something like `ngFor` or `ngIf`.
+     */
+    private _getShadowRoot;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, [null, null, null, null, null, { optional: true; }, { optional: true; }, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "hideRequiredMarker": { "alias": "hideRequiredMarker"; "required": false; }; "color": { "alias": "color"; "required": false; }; "floatLabel": { "alias": "floatLabel"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "subscriptSizing": { "alias": "subscriptSizing"; "required": false; }; "hintLabel": { "alias": "hintLabel"; "required": false; }; }, {}, ["_labelChildNonStatic", "_labelChildStatic", "_formFieldControl", "_prefixChildren", "_suffixChildren", "_errorChildren", "_hintChildren"], ["mat-label", "[matPrefix], [matIconPrefix]", "[matTextPrefix]", "*", "[matTextSuffix]", "[matSuffix], [matIconSuffix]", "mat-error, [matError]", "mat-hint:not([align='end'])", "mat-hint[align='end']"], true, never>;
 }
