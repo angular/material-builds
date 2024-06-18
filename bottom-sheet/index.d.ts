@@ -148,7 +148,6 @@ export declare class MatBottomSheetContainer extends CdkDialogContainer implemen
     _onAnimationDone(event: AnimationEvent_2): void;
     _onAnimationStart(event: AnimationEvent_2): void;
     protected _captureInitialFocus(): void;
-    private _toggleClass;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, [null, null, { optional: true; }, null, null, null, null, null, null]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, true, never>;
 }
