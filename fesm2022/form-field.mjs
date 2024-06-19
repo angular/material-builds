@@ -2,9 +2,8 @@ import * as i0 from '@angular/core';
 import { Directive, InjectionToken, Attribute, Input, inject, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, Injector, afterRender, ANIMATION_MODULE_TYPE, Optional, Inject, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import * as i1 from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { DOCUMENT, NgTemplateOutlet, CommonModule } from '@angular/common';
 import * as i2 from '@angular/cdk/platform';
-import { _getShadowRoot } from '@angular/cdk/platform';
+import { DOCUMENT, NgTemplateOutlet, CommonModule } from '@angular/common';
 import { Subscription, Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
@@ -889,26 +888,15 @@ class MatFormField {
     /** Checks whether the form field is attached to the DOM. */
     _isAttachedToDom() {
         const element = this._elementRef.nativeElement;
-        const rootNode = element.getRootNode();
-        // If the element is inside the DOM the root node will be either the document,
-        // the closest shadow root or an element that is not yet rendered, otherwise it'll be the element itself.
-        return (rootNode &&
-            rootNode !== element &&
-            // If the rootNode is the document we need to make sure that the element is visible
-            ((rootNode === document && element.offsetParent !== null) ||
-                rootNode === this._getShadowRoot()));
-    }
-    /**
-     * Lazily resolves and returns the shadow root of the element. We do this in a function, rather
-     * than saving it in property directly on init, because we want to resolve it as late as possible
-     * in order to ensure that the element has been moved into the shadow DOM. Doing it inside the
-     * constructor might be too early if the element is inside of something like `ngFor` or `ngIf`.
-     */
-    _getShadowRoot() {
-        if (this._cachedShadowRoot === undefined) {
-            this._cachedShadowRoot = _getShadowRoot(this._elementRef.nativeElement);
+        if (element.getRootNode) {
+            const rootNode = element.getRootNode();
+            // If the element is inside the DOM the root node will be either the document
+            // or the closest shadow root, otherwise it'll be the element itself.
+            return rootNode && rootNode !== element;
         }
-        return this._cachedShadowRoot;
+        // Otherwise fall back to checking if it's in the document. This doesn't account for
+        // shadow DOM, however browser that support shadow DOM should support `getRootNode` as well.
+        return document.documentElement.contains(element);
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.0.0", ngImport: i0, type: MatFormField, deps: [{ token: i0.ElementRef }, { token: i0.ChangeDetectorRef }, { token: i0.NgZone }, { token: i1.Directionality }, { token: i2.Platform }, { token: MAT_FORM_FIELD_DEFAULT_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Component }); }
     static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "18.0.0", type: MatFormField, isStandalone: true, selector: "mat-form-field", inputs: { hideRequiredMarker: "hideRequiredMarker", color: "color", floatLabel: "floatLabel", appearance: "appearance", subscriptSizing: "subscriptSizing", hintLabel: "hintLabel" }, host: { properties: { "class.mat-mdc-form-field-label-always-float": "_shouldAlwaysFloat()", "class.mat-mdc-form-field-has-icon-prefix": "_hasIconPrefix", "class.mat-mdc-form-field-has-icon-suffix": "_hasIconSuffix", "class.mat-form-field-invalid": "_control.errorState", "class.mat-form-field-disabled": "_control.disabled", "class.mat-form-field-autofilled": "_control.autofilled", "class.mat-form-field-no-animations": "_animationMode === \"NoopAnimations\"", "class.mat-form-field-appearance-fill": "appearance == \"fill\"", "class.mat-form-field-appearance-outline": "appearance == \"outline\"", "class.mat-form-field-hide-placeholder": "_hasFloatingLabel() && !_shouldLabelFloat()", "class.mat-focused": "_control.focused", "class.mat-primary": "color !== \"accent\" && color !== \"warn\"", "class.mat-accent": "color === \"accent\"", "class.mat-warn": "color === \"warn\"", "class.ng-untouched": "_shouldForward(\"untouched\")", "class.ng-touched": "_shouldForward(\"touched\")", "class.ng-pristine": "_shouldForward(\"pristine\")", "class.ng-dirty": "_shouldForward(\"dirty\")", "class.ng-valid": "_shouldForward(\"valid\")", "class.ng-invalid": "_shouldForward(\"invalid\")", "class.ng-pending": "_shouldForward(\"pending\")" }, classAttribute: "mat-mdc-form-field" }, providers: [
