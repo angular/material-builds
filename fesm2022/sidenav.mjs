@@ -1,7 +1,7 @@
 import * as i1 from '@angular/cdk/scrolling';
 import { CdkScrollable, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, inject, Injector, afterNextRender, Optional, Input, Output, ViewChild, QueryList, AfterRenderPhase, ANIMATION_MODULE_TYPE, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, EventEmitter, inject, Injector, ChangeDetectorRef, afterNextRender, Optional, Input, Output, ViewChild, QueryList, AfterRenderPhase, ANIMATION_MODULE_TYPE, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import * as i2 from '@angular/cdk/a11y';
 import * as i4 from '@angular/cdk/bidi';
@@ -222,6 +222,7 @@ class MatDrawer {
          */
         this._modeChanged = new Subject();
         this._injector = inject(Injector);
+        this._changeDetectorRef = inject(ChangeDetectorRef);
         this.openedChange.pipe(takeUntil(this._destroyed)).subscribe((opened) => {
             if (opened) {
                 if (this._doc) {
@@ -436,6 +437,8 @@ class MatDrawer {
                 this._restoreFocus(focusOrigin);
             }
         }
+        // Needed to ensure that the closing sequence fires off correctly.
+        this._changeDetectorRef.markForCheck();
         this._updateFocusTrapState();
         return new Promise(resolve => {
             this.openedChange.pipe(take(1)).subscribe(open => resolve(open ? 'open' : 'close'));

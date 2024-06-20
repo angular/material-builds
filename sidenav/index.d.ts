@@ -145,6 +145,7 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
      */
     readonly _modeChanged: Subject<void>;
     private _injector;
+    private _changeDetectorRef;
     constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _interactivityChecker: InteractivityChecker, _doc: any, _container?: MatDrawerContainer | undefined);
     /**
      * Focuses the provided element. If the element is not focusable, it will add a tabIndex
