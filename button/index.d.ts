@@ -164,6 +164,8 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
 export declare interface MatButtonConfig {
     /** Whether disabled buttons should be interactive. */
     disabledInteractive?: boolean;
+    /** Default palette color to apply to buttons. */
+    color?: ThemePalette;
 }
 
 export declare class MatButtonModule {

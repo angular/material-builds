@@ -101,6 +101,7 @@ class MatButtonBase {
         const element = _elementRef.nativeElement;
         const classList = element.classList;
         this.disabledInteractive = config?.disabledInteractive ?? false;
+        this.color = config?.color ?? null;
         this._rippleLoader?.configureRipple(element, { className: 'mat-mdc-button-ripple' });
         // For each of the variant selectors that is present in the button's host
         // attributes, add the correct corresponding MDC classes.
