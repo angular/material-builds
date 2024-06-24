@@ -10,11 +10,11 @@ import { MatCommonModule } from '@angular/material/core';
 import { MatProgressBar } from './progress-bar';
 import * as i0 from "@angular/core";
 export class MatProgressBarModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatProgressBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatProgressBarModule, imports: [MatProgressBar], exports: [MatProgressBar, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatProgressBarModule, imports: [MatCommonModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatProgressBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatProgressBarModule, imports: [MatProgressBar], exports: [MatProgressBar, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatProgressBarModule, imports: [MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatProgressBarModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatProgressBarModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatProgressBar],

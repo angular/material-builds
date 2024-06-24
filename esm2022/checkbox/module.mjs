@@ -15,11 +15,11 @@ import * as i0 from "@angular/core";
  * @breaking-change 19.0.0
  */
 export class _MatCheckboxRequiredValidatorModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.1", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, imports: [MatCheckboxRequiredValidator], exports: [MatCheckboxRequiredValidator] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: _MatCheckboxRequiredValidatorModule }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.3", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, imports: [MatCheckboxRequiredValidator], exports: [MatCheckboxRequiredValidator] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: _MatCheckboxRequiredValidatorModule }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCheckboxRequiredValidator],
@@ -27,11 +27,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.1", 
                 }]
         }] });
 export class MatCheckboxModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatCheckboxModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox, MatCommonModule], exports: [MatCheckbox, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox, MatCommonModule, MatCommonModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatCheckboxModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox, MatCommonModule], exports: [MatCheckbox, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox, MatCommonModule, MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatCheckboxModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatCheckboxModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCheckbox, MatCommonModule],

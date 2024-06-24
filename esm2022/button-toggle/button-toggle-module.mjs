@@ -10,11 +10,11 @@ import { MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { MatButtonToggle, MatButtonToggleGroup } from './button-toggle';
 import * as i0 from "@angular/core";
 export class MatButtonToggleModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatButtonToggleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatButtonToggleModule, imports: [MatCommonModule, MatRippleModule, MatButtonToggleGroup, MatButtonToggle], exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatButtonToggleModule, imports: [MatCommonModule, MatRippleModule, MatButtonToggle, MatCommonModule] }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatButtonToggleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatButtonToggleModule, imports: [MatCommonModule, MatRippleModule, MatButtonToggleGroup, MatButtonToggle], exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatButtonToggleModule, imports: [MatCommonModule, MatRippleModule, MatButtonToggle, MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatButtonToggleModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatButtonToggleModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, MatRippleModule, MatButtonToggleGroup, MatButtonToggle],

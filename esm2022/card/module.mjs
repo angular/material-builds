@@ -27,8 +27,8 @@ const CARD_DIRECTIVES = [
     MatCardXlImage,
 ];
 export class MatCardModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatCardModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, CommonModule, MatCard,
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatCardModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, CommonModule, MatCard,
             MatCardActions,
             MatCardAvatar,
             MatCardContent,
@@ -55,9 +55,9 @@ export class MatCardModule {
             MatCardTitle,
             MatCardTitleGroup,
             MatCardXlImage, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, CommonModule, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, CommonModule, MatCommonModule] }); }
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.1", ngImport: i0, type: MatCardModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.3", ngImport: i0, type: MatCardModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, CommonModule, ...CARD_DIRECTIVES],
