@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Optional, Inject, inject, Input, ANIMATION_MODULE_TYPE, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, EventEmitter, Output, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Optional, Inject, inject, Input, ANIMATION_MODULE_TYPE, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, EventEmitter, Output, forwardRef, ChangeDetectorRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
@@ -901,6 +901,7 @@ class MatSelectionList extends MatListBase {
         this.selectedOptions = new SelectionModel(this._multiple);
         /** View to model callback that should be called if the list or its options lost focus. */
         this._onTouched = () => { };
+        this._changeDetectorRef = inject(ChangeDetectorRef);
         this._selectionListDisabled = false;
         /** Handles focusout events within the list. */
         this._handleFocusout = () => {
@@ -999,6 +1000,7 @@ class MatSelectionList extends MatListBase {
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Whether the *entire* selection list is disabled. When true, each list item is also disabled

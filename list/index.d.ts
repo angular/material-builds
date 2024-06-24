@@ -479,6 +479,7 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     _value: string[] | null;
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
+    private readonly _changeDetectorRef;
     constructor(_element: ElementRef<HTMLElement>, _ngZone: NgZone);
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
