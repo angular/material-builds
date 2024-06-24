@@ -243,8 +243,8 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     _isPrechecked(toggle: MatButtonToggle): boolean;
     /** Initializes the tabindex attribute using the radio pattern. */
     private _initializeTabIndex;
-    /** Obtain the subsequent index to which the focus shifts. */
-    private _getNextIndex;
+    /** Obtain the subsequent toggle to which the focus shifts. */
+    private _getNextButton;
     /** Updates the selection state of the toggles in the group based on a value. */
     private _setSelectionByValue;
     /** Clears the selected toggles. */
