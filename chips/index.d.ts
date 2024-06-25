@@ -361,7 +361,7 @@ export declare interface MatChipEvent {
  * An extension of the MatChipSet component used with MatChipRow chips and
  * the matChipInputFor directive.
  */
-export declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterViewInit, ControlValueAccessor, DoCheck, MatFormFieldControl<any>, OnDestroy, OnInit {
+export declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterViewInit, ControlValueAccessor, DoCheck, MatFormFieldControl<any>, OnDestroy {
     ngControl: NgControl;
     /**
      * Implemented as part of MatFormFieldControl.
@@ -454,7 +454,6 @@ export declare class MatChipGrid extends MatChipSet implements AfterContentInit,
     get errorState(): boolean;
     set errorState(value: boolean);
     constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, defaultErrorStateMatcher: ErrorStateMatcher, ngControl: NgControl);
-    ngOnInit(): void;
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
     ngDoCheck(): void;

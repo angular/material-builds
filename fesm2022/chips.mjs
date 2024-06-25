@@ -1717,13 +1717,6 @@ class MatChipGrid extends MatChipSet {
         }
         this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, ngControl, parentFormGroup, parentForm, this.stateChanges);
     }
-    ngOnInit() {
-        if (this.ngControl) {
-            this.ngControl.control?.events.pipe(takeUntil(this._destroyed)).subscribe(() => {
-                this._changeDetectorRef.markForCheck();
-            });
-        }
-    }
     ngAfterContentInit() {
         this.chipBlurChanges.pipe(takeUntil(this._destroyed)).subscribe(() => {
             this._blur();

@@ -173,7 +173,6 @@ class MatRadioGroup {
     _touch() {
         if (this.onTouched) {
             this.onTouched();
-            this._changeDetector.markForCheck();
         }
     }
     _updateRadioButtonNames() {
