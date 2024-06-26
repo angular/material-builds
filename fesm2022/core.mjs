@@ -13,7 +13,7 @@ import { startWith } from 'rxjs/operators';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /** Current version of Angular Material. */
-const VERSION = new Version('18.0.4');
+const VERSION = new Version('18.0.5');
 
 /** @docs-private */
 class AnimationCurves {
