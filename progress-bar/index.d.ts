@@ -43,7 +43,13 @@ export declare class MatProgressBar implements AfterViewInit, OnDestroy {
     constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _animationMode?: string | undefined, defaults?: MatProgressBarDefaultOptions);
     /** Flag that indicates whether NoopAnimations mode is set to true. */
     _isNoopAnimation: boolean;
-    /** Theme palette color of the progress bar. */
+    /**
+     * Theme color of the progress bar. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get color(): string | null | undefined;
     set color(value: string | null | undefined);
     private _color;
@@ -90,7 +96,13 @@ export declare class MatProgressBar implements AfterViewInit, OnDestroy {
 
 /** Default `mat-progress-bar` options that can be overridden. */
 export declare interface MatProgressBarDefaultOptions {
-    /** Default color of the progress bar. */
+    /**
+     * Default theme color of the progress bar. This API is supported in M2 themes only,
+     * it has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color?: ThemePalette;
     /** Default mode of the progress bar. */
     mode?: ProgressBarMode;

@@ -22,7 +22,13 @@ const BASE_SIZE = 100;
 const BASE_STROKE_WIDTH = 10;
 class MatProgressSpinner {
     // TODO: should be typed as `ThemePalette` but internal apps pass in arbitrary strings.
-    /** Theme palette color of the progress spinner. */
+    /**
+     * Theme color of the progress spinner. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get color() {
         return this._color || this._defaultColor;
     }

@@ -1222,7 +1222,12 @@ class MatTabGroup {
         this._contentTabIndex = isNaN(value) ? null : value;
     }
     /**
-     * Background color of the tab group.
+     * Theme color of the background of the tab group. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     *
      * @deprecated The background color should be customized through Sass theming APIs.
      * @breaking-change 20.0.0 Remove this input
      */
@@ -1636,7 +1641,13 @@ class MatTabNav extends MatPaginatedTabHeader {
         const stringValue = value + '';
         this._animationDuration = /^\d+$/.test(stringValue) ? value + 'ms' : stringValue;
     }
-    /** Background color of the tab nav. */
+    /**
+     * Theme color of the background of the tab nav. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get backgroundColor() {
         return this._backgroundColor;
     }

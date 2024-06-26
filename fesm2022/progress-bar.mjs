@@ -59,7 +59,13 @@ class MatProgressBar {
         }
     }
     // TODO: should be typed as `ThemePalette` but internal apps pass in arbitrary strings.
-    /** Theme palette color of the progress bar. */
+    /**
+     * Theme color of the progress bar. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get color() {
         return this._color || this._defaultColor;
     }

@@ -85,7 +85,13 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     /** Whether the radio button is required. */
     get required(): boolean;
     set required(value: boolean);
-    /** Theme color of the radio button. */
+    /**
+     * Theme color of the radio button. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get color(): ThemePalette;
     set color(newValue: ThemePalette);
     private _color;
@@ -166,6 +172,13 @@ export declare class MatRadioChange {
 }
 
 export declare interface MatRadioDefaultOptions {
+    /**
+     * Theme color of the radio button. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color: ThemePalette;
 }
 

@@ -26,7 +26,13 @@ export declare class MatProgressSpinner {
     readonly _elementRef: ElementRef<HTMLElement>;
     /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
     _noopAnimations: boolean;
-    /** Theme palette color of the progress spinner. */
+    /**
+     * Theme color of the progress spinner. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get color(): string | null | undefined;
     set color(value: string | null | undefined);
     private _color;
@@ -73,7 +79,13 @@ export declare class MatProgressSpinner {
 
 /** Default `mat-progress-spinner` options that can be overridden. */
 export declare interface MatProgressSpinnerDefaultOptions {
-    /** Default color of the spinner. */
+    /**
+     * Default theme color of the progress spinner. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color?: ThemePalette;
     /** Diameter of the spinner. */
     diameter?: number;
