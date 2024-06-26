@@ -563,7 +563,13 @@ export declare class MatTabGroup implements AfterContentInit, AfterContentChecke
     private _tabsSubscription;
     /** Subscription to changes in the tab labels. */
     private _tabLabelSubscription;
-    /** Theme color of the tab group. */
+    /**
+     * Theme color of the tab group. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     color: ThemePalette;
     /** Whether the ink bar should fit its width to the size of the tab label content. */
     get fitInkBarToContent(): boolean;
@@ -606,7 +612,12 @@ export declare class MatTabGroup implements AfterContentInit, AfterContentChecke
      */
     preserveContent: boolean;
     /**
-     * Background color of the tab group.
+     * Theme color of the background of the tab group. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     *
      * @deprecated The background color should be customized through Sass theming APIs.
      * @breaking-change 20.0.0 Remove this input
      */
@@ -821,7 +832,13 @@ export declare class MatTabNav extends MatPaginatedTabHeader implements AfterCon
     private _animationDuration;
     /** Query list of all tab links of the tab navigation. */
     _items: QueryList<MatTabLink>;
-    /** Background color of the tab nav. */
+    /**
+     * Theme color of the background of the tab nav. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
     get backgroundColor(): ThemePalette;
     set backgroundColor(value: ThemePalette);
     private _backgroundColor;
