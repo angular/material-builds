@@ -24,8 +24,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.1.0-next.3", 
 /** Directive to display a text badge. */
 class MatBadge {
     /**
-     * The color of the badge. Can be `primary`, `accent`, or `warn`.
-     * Not recommended in M3, for more information see https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants.
+     * Theme color of the badge. This API is supported in M2 themes only, it
+     * has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
      */
     get color() {
         return this._color;

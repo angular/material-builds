@@ -218,8 +218,10 @@ export declare type MatCheckboxClickAction = 'noop' | 'check' | 'check-indetermi
 /** Default `mat-checkbox` options that can be overridden. */
 export declare interface MatCheckboxDefaultOptions {
     /**
-     * Default theme color palette to be used for checkboxes. This API is supported in M2 themes
-     * only, it has no effect in M3 themes. For information on applying color variants in M3, see
+     * Default theme color of the checkbox. This API is supported in M2 themes
+     * only, it has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
      * https://material.angular.io/guide/theming#using-component-color-variants
      */
     color?: ThemePalette;
