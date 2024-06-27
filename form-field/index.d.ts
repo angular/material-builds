@@ -18,6 +18,7 @@ import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
+import { Signal } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
 /** An interface that the parent form-field should implement to receive resize events. */
@@ -139,13 +140,12 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     _floatingLabel: MatFormFieldFloatingLabel | undefined;
     _notchedOutline: MatFormFieldNotchedOutline | undefined;
     _lineRipple: MatFormFieldLineRipple | undefined;
-    _labelChildNonStatic: MatLabel | undefined;
-    _labelChildStatic: MatLabel | undefined;
     _formFieldControl: MatFormFieldControl_2<any>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
     _errorChildren: QueryList<MatError>;
     _hintChildren: QueryList<MatHint>;
+    private readonly _labelChild;
     /** Whether the required marker should be hidden. */
     get hideRequiredMarker(): boolean;
     set hideRequiredMarker(value: BooleanInput);
@@ -212,7 +212,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     /**
      * Gets the id of the label element. If no label is present, returns `null`.
      */
-    getLabelId(): string | null;
+    getLabelId: Signal<string | null>;
     /**
      * Gets an ElementRef for the element that a overlay attached to the form field
      * should be positioned relative to.
@@ -253,7 +253,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
      * the label is part of the infix, the label cannot overflow the prefix content.
      */
     _forceDisplayInfixLabel(): boolean | 0;
-    _hasFloatingLabel(): boolean;
+    _hasFloatingLabel: Signal<boolean>;
     _shouldLabelFloat(): boolean;
     /**
      * Determines whether a class from the AbstractControlDirective
@@ -293,7 +293,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDom;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, [null, null, null, null, null, { optional: true; }, { optional: true; }, null]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "hideRequiredMarker": { "alias": "hideRequiredMarker"; "required": false; }; "color": { "alias": "color"; "required": false; }; "floatLabel": { "alias": "floatLabel"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "subscriptSizing": { "alias": "subscriptSizing"; "required": false; }; "hintLabel": { "alias": "hintLabel"; "required": false; }; }, {}, ["_labelChildNonStatic", "_labelChildStatic", "_formFieldControl", "_prefixChildren", "_suffixChildren", "_errorChildren", "_hintChildren"], ["mat-label", "[matPrefix], [matIconPrefix]", "[matTextPrefix]", "*", "[matTextSuffix]", "[matSuffix], [matIconSuffix]", "mat-error, [matError]", "mat-hint:not([align='end'])", "mat-hint[align='end']"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "hideRequiredMarker": { "alias": "hideRequiredMarker"; "required": false; }; "color": { "alias": "color"; "required": false; }; "floatLabel": { "alias": "floatLabel"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "subscriptSizing": { "alias": "subscriptSizing"; "required": false; }; "hintLabel": { "alias": "hintLabel"; "required": false; }; }, {}, ["_labelChild", "_formFieldControl", "_prefixChildren", "_suffixChildren", "_errorChildren", "_hintChildren"], ["mat-label", "[matPrefix], [matIconPrefix]", "[matTextPrefix]", "*", "[matTextSuffix]", "[matSuffix], [matIconSuffix]", "mat-error, [matError]", "mat-hint:not([align='end'])", "mat-hint[align='end']"], true, never>;
 }
 
 /**
