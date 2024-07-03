@@ -1,6 +1,6 @@
 import * as i1 from '@angular/cdk/a11y';
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey } from '@angular/cdk/keycodes';
+import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { InjectionToken, booleanAttribute, numberAttribute, Directive, Inject, Input, EventEmitter, inject, Injector, afterNextRender, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Attribute, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, Self, NgModule } from '@angular/core';
@@ -1847,14 +1847,16 @@ class MatChipGrid extends MatChipSet {
     }
     /** Handles custom keyboard events. */
     _handleKeydown(event) {
-        if (event.keyCode === TAB) {
+        const keyCode = event.keyCode;
+        const activeItem = this._keyManager.activeItem;
+        if (keyCode === TAB) {
             if (this._chipInput.focused &&
                 hasModifierKey(event, 'shiftKey') &&
                 this._chips.length &&
                 !this._chips.last.disabled) {
                 event.preventDefault();
-                if (this._keyManager.activeItem) {
-                    this._keyManager.setActiveItem(this._keyManager.activeItem);
+                if (activeItem) {
+                    this._keyManager.setActiveItem(activeItem);
                 }
                 else {
                     this._focusLastChip();
@@ -1868,7 +1870,23 @@ class MatChipGrid extends MatChipSet {
             }
         }
         else if (!this._chipInput.focused) {
-            super._handleKeydown(event);
+            // The up and down arrows are supposed to navigate between the individual rows in the grid.
+            // We do this by filtering the actions down to the ones that have the same `_isPrimary`
+            // flag as the active action and moving focus between them ourseles instead of delegating
+            // to the key manager. For more information, see #29359 and:
+            // https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/#ex2_label
+            if ((keyCode === UP_ARROW || keyCode === DOWN_ARROW) && activeItem) {
+                const eligibleActions = this._chipActions.filter(action => action._isPrimary === activeItem._isPrimary && !this._skipPredicate(action));
+                const currentIndex = eligibleActions.indexOf(activeItem);
+                const delta = event.keyCode === UP_ARROW ? -1 : 1;
+                event.preventDefault();
+                if (currentIndex > -1 && this._isValidIndex(currentIndex + delta)) {
+                    this._keyManager.setActiveItem(eligibleActions[currentIndex + delta]);
+                }
+            }
+            else {
+                super._handleKeydown(event);
+            }
         }
         this.stateChanges.next();
     }
