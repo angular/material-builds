@@ -52,7 +52,11 @@ import { ValidatorFn } from '@angular/forms';
 import { ViewContainerRef } from '@angular/core';
 import { WritableSignal } from '@angular/core';
 
-/** Function that can be used to filter out dates from a calendar. */
+/**
+ * Function that can be used to filter out dates from a calendar.
+ * Datepicker can sometimes receive a null value as input for the date argument.
+ * This doesn't represent a "null date" but rather signifies that no date has been selected yet in the calendar.
+ */
 export declare type DateFilterFn<D> = (date: D | null) => boolean;
 
 /** Possible positions for the datepicker dropdown along the X axis. */
