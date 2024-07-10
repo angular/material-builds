@@ -139,7 +139,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     touchGestures: TooltipTouchGestures;
     /** The message to be displayed in the tooltip */
     get message(): string;
-    set message(value: string);
+    set message(value: string | null | undefined);
     private _message;
     /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
     get tooltipClass(): string | string[] | Set<string> | {
