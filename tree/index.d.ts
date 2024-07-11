@@ -57,9 +57,15 @@ declare namespace i7 {
  */
 export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K> implements AfterContentInit, OnDestroy, OnInit {
     node: T;
-    /** Whether the node is disabled. */
-    disabled: boolean;
-    /** Tabindex for the node. */
+    /**
+     * Whether the node is disabled.
+     *
+     * @deprecated This is an alias for `isDisabled`.
+     * @breaking-change 21.0.0 Remove this input
+     */
+    get disabled(): boolean;
+    set disabled(value: boolean);
+    /** Tabindex of the node. */
     get tabIndex(): number;
     set tabIndex(value: number);
     private _tabIndex;
@@ -68,8 +74,9 @@ export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K>
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNestedTreeNode<any, any>, [null, null, null, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "node": { "alias": "matNestedTreeNode"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "node": { "alias": "matNestedTreeNode"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, { "activation": "activation"; "expandedChange": "expandedChange"; }, never, never, true, never>;
     static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_tabIndex: unknown;
 }
 
 /**
@@ -87,6 +94,10 @@ export declare class MatTree<T, K = T> extends CdkTree<T, K> {
  * to `MatTree`.
  * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
  * to type `F` for `MatTree` to consume.
+ *
+ * @deprecated Use one of levelAccessor or childrenAccessor instead. To be removed in a future
+ * version.
+ * @breaking-change 21.0.0
  */
 export declare class MatTreeFlatDataSource<T, F, K = F> extends DataSource<F> {
     private _treeControl;
@@ -134,6 +145,10 @@ export declare class MatTreeFlatDataSource<T, F, K = F> extends DataSource<F> {
  *   level: 2
  * }
  * and the output flattened type is `F` with additional information.
+ *
+ * @deprecated Use MatTree#childrenAccessor and MatTreeNode#isExpandable
+ * instead. To be removed in a future version.
+ * @breaking-change 21.0.0
  */
 export declare class MatTreeFlattener<T, F, K = F> {
     transformFunction: (node: T, level: number) => F;
@@ -183,17 +198,51 @@ export declare class MatTreeNestedDataSource<T> extends DataSource<T> {
  * Wrapper for the CdkTree node with Material design styles.
  */
 export declare class MatTreeNode<T, K = T> extends CdkTreeNode<T, K> implements OnInit, OnDestroy {
-    /** Whether the node is disabled. */
-    disabled: boolean;
-    /** Tabindex of the node. */
-    tabIndex: number;
-    constructor(elementRef: ElementRef<HTMLElement>, tree: CdkTree<T, K>, tabIndex: string);
+    /**
+     * The tabindex of the tree node.
+     *
+     * @deprecated By default MatTreeNode manages focus using TreeKeyManager instead of tabIndex.
+     *   Recommend to avoid setting tabIndex directly to prevent TreeKeyManager form getting into
+     *   an unexpected state. Tabindex to be removed in a future version.
+     * @breaking-change 21.0.0 Remove this attribute.
+     */
+    get tabIndexInputBinding(): number;
+    set tabIndexInputBinding(value: number);
+    private _tabIndexInputBinding;
+    /**
+     * The default tabindex of the tree node.
+     *
+     * @deprecated By default MatTreeNode manages focus using TreeKeyManager instead of tabIndex.
+     *   Recommend to avoid setting tabIndex directly to prevent TreeKeyManager form getting into
+     *   an unexpected state. Tabindex to be removed in a future version.
+     * @breaking-change 21.0.0 Remove this attribute.
+     */
+    defaultTabIndex: number;
+    protected _getTabindexAttribute(): number | null;
+    /**
+     * Whether the component is disabled.
+     *
+     * @deprecated This is an alias for `isDisabled`.
+     * @breaking-change 21.0.0 Remove this input
+     */
+    get disabled(): boolean;
+    set disabled(value: boolean);
+    constructor(elementRef: ElementRef<HTMLElement>, tree: CdkTree<T, K>, 
+    /**
+     * The tabindex of the tree node.
+     *
+     * @deprecated By default MatTreeNode manages focus using TreeKeyManager instead of tabIndex.
+     *   Recommend to avoid setting tabIndex directly to prevent TreeKeyManager form getting into
+     *   an unexpected state. Tabindex to be removed in a future version.
+     * @breaking-change 21.0.0 Remove this attribute.
+     */
+    tabIndex: string);
     ngOnInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNode<any, any>, [null, null, { attribute: "tabindex"; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "tabIndexInputBinding": { "alias": "tabIndex"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "activation": "activation"; "expandedChange": "expandedChange"; }, never, never, true, never>;
+    static ngAcceptInputType_tabIndexInputBinding: unknown;
     static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_tabIndex: unknown;
 }
 
 /**

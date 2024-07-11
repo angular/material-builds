@@ -84,6 +84,8 @@ export declare class MatTreeNodeHarness extends ContentContainerComponentHarness
     static with(options?: TreeNodeHarnessFilters): HarnessPredicate<MatTreeNodeHarness>;
     /** Whether the tree node is expanded. */
     isExpanded(): Promise<boolean>;
+    /** Whether the tree node is expandable. */
+    isExpandable(): Promise<boolean>;
     /** Whether the tree node is disabled. */
     isDisabled(): Promise<boolean>;
     /** Gets the level of the tree node. Note that this gets the aria-level and is 1 indexed. */
