@@ -1771,7 +1771,7 @@ class MatChipGrid extends MatChipSet {
             // error if the input does something on focus (e.g. opens an autocomplete).
             Promise.resolve().then(() => this._chipInput.focus());
         }
-        else if (this._chips.length) {
+        else if (this._chips.length && this._keyManager.activeItemIndex !== 0) {
             this._keyManager.setFirstItemActive();
         }
         this.stateChanges.next();
