@@ -56,12 +56,14 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     protected _platform: Platform;
     ngControl: NgControl;
     private _autofillMonitor;
+    private _ngZone;
     protected _formField?: MatFormField | undefined;
     protected _uid: string;
     protected _previousNativeValue: any;
     private _inputValueAccessor;
     private _previousPlaceholder;
     private _errorStateTracker;
+    private _webkitBlinkWheelListenerAttached;
     /** Whether the component is being rendered on the server. */
     readonly _isServer: boolean;
     /** Whether the component is a native html select. */
@@ -147,7 +149,7 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     get errorState(): boolean;
     set errorState(value: boolean);
     protected _neverEmptyInputTypes: string[];
-    constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, ngControl: NgControl, parentForm: NgForm, parentFormGroup: FormGroupDirective, defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone, _formField?: MatFormField | undefined);
+    constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, ngControl: NgControl, parentForm: NgForm, parentFormGroup: FormGroupDirective, defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, _ngZone: NgZone, _formField?: MatFormField | undefined);
     ngAfterViewInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
@@ -194,6 +196,16 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     /** Whether the form control is a native select that is displayed inline. */
     _isInlineSelect(): boolean;
     private _iOSKeyupListener;
+    private _webkitBlinkWheelListener;
+    /**
+     * In blink and webkit browsers a focused number input does not increment or decrement its value
+     * on mouse wheel interaction unless a wheel event listener is attached to it or one of its ancestors or a passive wheel listener is attached somewhere in the DOM.
+     * For example: Hitting a tooltip once enables the mouse wheel input for all number inputs as long as it exists.
+     * In order to get reliable and intuitive behavior we apply a wheel event on our own
+     * thus making sure increment and decrement by mouse wheel works every time.
+     * @docs-private
+     */
+    private _ensureWheelDefaultBehavior;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInput, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }, null, null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], { "disabled": { "alias": "disabled"; "required": false; }; "id": { "alias": "id"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "name": { "alias": "name"; "required": false; }; "required": { "alias": "required"; "required": false; }; "type": { "alias": "type"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "value": { "alias": "value"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; }, {}, never, never, true, never>;
 }
