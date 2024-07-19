@@ -90,6 +90,7 @@ class MatInput {
         if (!this._isTextarea && getSupportedInputTypes().has(this._type)) {
             this._elementRef.nativeElement.type = this._type;
         }
+        this._ensureWheelDefaultBehavior();
     }
     /** An object used to control when error messages are shown. */
     get errorStateMatcher() {
@@ -125,7 +126,7 @@ class MatInput {
     set errorState(value) {
         this._errorStateTracker.errorState = value;
     }
-    constructor(_elementRef, _platform, ngControl, parentForm, parentFormGroup, defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone, 
+    constructor(_elementRef, _platform, ngControl, parentForm, parentFormGroup, defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, _ngZone, 
     // TODO: Remove this once the legacy appearance has been removed. We only need
     // to inject the form field for determining whether the placeholder has been promoted.
     _formField) {
@@ -133,8 +134,10 @@ class MatInput {
         this._platform = _platform;
         this.ngControl = ngControl;
         this._autofillMonitor = _autofillMonitor;
+        this._ngZone = _ngZone;
         this._formField = _formField;
         this._uid = `mat-input-${nextUniqueId++}`;
+        this._webkitBlinkWheelListenerAttached = false;
         /**
          * Implemented as part of MatFormFieldControl.
          * @docs-private
@@ -183,6 +186,11 @@ class MatInput {
                 el.setSelectionRange(0, 0);
             }
         };
+        this._webkitBlinkWheelListener = () => {
+            // This is a noop function and is used to enable mouse wheel input
+            // on number inputs
+            // on blink and webkit browsers.
+        };
         const element = this._elementRef.nativeElement;
         const nodeName = element.nodeName.toLowerCase();
         // If no input value accessor was explicitly specified, use the element as the input value
@@ -195,7 +203,7 @@ class MatInput {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            ngZone.runOutsideAngular(() => {
+            _ngZone.runOutsideAngular(() => {
                 _elementRef.nativeElement.addEventListener('keyup', this._iOSKeyupListener);
             });
         }
@@ -228,6 +236,9 @@ class MatInput {
         }
         if (this._platform.IOS) {
             this._elementRef.nativeElement.removeEventListener('keyup', this._iOSKeyupListener);
+        }
+        if (this._webkitBlinkWheelListenerAttached) {
+            this._elementRef.nativeElement.removeEventListener('wheel', this._webkitBlinkWheelListener);
         }
     }
     ngDoCheck() {
@@ -377,6 +388,28 @@ class MatInput {
     _isInlineSelect() {
         const element = this._elementRef.nativeElement;
         return this._isNativeSelect && (element.multiple || element.size > 1);
+    }
+    /**
+     * In blink and webkit browsers a focused number input does not increment or decrement its value
+     * on mouse wheel interaction unless a wheel event listener is attached to it or one of its ancestors or a passive wheel listener is attached somewhere in the DOM.
+     * For example: Hitting a tooltip once enables the mouse wheel input for all number inputs as long as it exists.
+     * In order to get reliable and intuitive behavior we apply a wheel event on our own
+     * thus making sure increment and decrement by mouse wheel works every time.
+     * @docs-private
+     */
+    _ensureWheelDefaultBehavior() {
+        if (!this._webkitBlinkWheelListenerAttached &&
+            this._type === 'number' &&
+            (this._platform.BLINK || this._platform.WEBKIT)) {
+            this._ngZone.runOutsideAngular(() => {
+                this._elementRef.nativeElement.addEventListener('wheel', this._webkitBlinkWheelListener);
+            });
+            this._webkitBlinkWheelListenerAttached = true;
+        }
+        if (this._webkitBlinkWheelListenerAttached && this._type !== 'number') {
+            this._elementRef.nativeElement.removeEventListener('wheel', this._webkitBlinkWheelListener);
+            this._webkitBlinkWheelListenerAttached = true;
+        }
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.1.0", ngImport: i0, type: MatInput, deps: [{ token: i0.ElementRef }, { token: i1.Platform }, { token: i2.NgControl, optional: true, self: true }, { token: i2.NgForm, optional: true }, { token: i2.FormGroupDirective, optional: true }, { token: i3.ErrorStateMatcher }, { token: MAT_INPUT_VALUE_ACCESSOR, optional: true, self: true }, { token: i4.AutofillMonitor }, { token: i0.NgZone }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "18.1.0", type: MatInput, isStandalone: true, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly" }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled", "required": "required", "attr.name": "name || null", "attr.readonly": "readonly && !_isNativeSelect || null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesOnChanges: true, ngImport: i0 }); }
