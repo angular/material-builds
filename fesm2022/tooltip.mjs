@@ -227,6 +227,9 @@ class MatTooltip {
             if (_defaultOptions.touchGestures) {
                 this.touchGestures = _defaultOptions.touchGestures;
             }
+            if (_defaultOptions.tooltipClass) {
+                this.tooltipClass = _defaultOptions.tooltipClass;
+            }
         }
         _dir.change.pipe(takeUntil(this._destroyed)).subscribe(() => {
             if (this._overlayRef) {

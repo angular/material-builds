@@ -248,6 +248,11 @@ export declare interface MatTooltipDefaultOptions {
     positionAtOrigin?: boolean;
     /** Disables the ability for the user to interact with the tooltip element. */
     disableTooltipInteractivity?: boolean;
+    /**
+     * Default classes to be applied to the tooltip. These default classes will not be applied if
+     * `tooltipClass` is defined directly on the tooltip element, as it will override the default.
+     */
+    tooltipClass?: string | string[];
 }
 
 export declare class MatTooltipModule {
