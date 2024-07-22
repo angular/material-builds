@@ -743,6 +743,9 @@ class MatFormField {
         return !this._platform.isBrowser && this._prefixChildren.length && !this._shouldLabelFloat();
     }
     _shouldLabelFloat() {
+        if (!this._hasFloatingLabel()) {
+            return false;
+        }
         return this._control.shouldLabelFloat || this._shouldAlwaysFloat();
     }
     /**
