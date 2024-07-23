@@ -379,7 +379,7 @@ class MatNavListItemHarness extends MatListItemHarnessBase {
     }
 }
 
-/** Harness for interacting with a MDC_based selection-list in tests. */
+/** Harness for interacting with a selection-list in tests. */
 class MatSelectionListHarness extends MatListHarnessBase {
     constructor() {
         super(...arguments);

@@ -1,6 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC_based Angular Material tab in tests. */
+/** Harness for interacting with an Angular Material tab in tests. */
 class MatTabHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatTab` instance. */
     static { this.hostSelector = '.mat-mdc-tab'; }
