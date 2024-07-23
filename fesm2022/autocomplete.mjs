@@ -22,7 +22,6 @@ import { startWith, switchMap, filter, map, tap, delay, take } from 'rxjs/operat
 import * as i2 from '@angular/cdk/bidi';
 
 // Animation values come from
-// https://github.com/material-components/material-components-web/blob/master/packages/mdc-menu-surface/_mixins.scss
 // TODO(mmalerba): Ideally find a way to import the values from MDC's code.
 const panelAnimation = trigger('panelAnimation', [
     state('void, hidden', style({

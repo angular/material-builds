@@ -30,7 +30,7 @@ export declare class MatTabGroupHarness extends ComponentHarness {
     selectTab(filter?: TabHarnessFilters): Promise<void>;
 }
 
-/** Harness for interacting with an MDC_based Angular Material tab in tests. */
+/** Harness for interacting with an Angular Material tab in tests. */
 export declare class MatTabHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatTab` instance. */
     static hostSelector: string;

@@ -321,7 +321,7 @@ export declare class MatNavListItemHarness extends MatListItemHarnessBase {
     isActivated(): Promise<boolean>;
 }
 
-/** Harness for interacting with a MDC_based selection-list in tests. */
+/** Harness for interacting with a selection-list in tests. */
 export declare class MatSelectionListHarness extends MatListHarnessBase<typeof MatListOptionHarness, MatListOptionHarness, ListOptionHarnessFilters> {
     /** The selector for the host element of a `MatSelectionList` instance. */
     static hostSelector: string;
