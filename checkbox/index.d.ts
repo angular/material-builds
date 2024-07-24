@@ -117,6 +117,8 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
      * https://material.angular.io/guide/theming#using-component-color-variants.
      */
     color: string | undefined;
+    /** Whether the checkbox should remain interactive when it is disabled. */
+    disabledInteractive: boolean;
     /**
      * Reference to the MatRipple instance of the checkbox.
      * @deprecated Considered an implementation detail. To be removed.
@@ -189,10 +191,11 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
      */
     _preventBubblingFromLabel(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "color": { "alias": "color"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], true, never>;
     static ngAcceptInputType_required: unknown;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
+    static ngAcceptInputType_disabledInteractive: unknown;
     static ngAcceptInputType_checked: unknown;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_indeterminate: unknown;
@@ -227,6 +230,8 @@ export declare interface MatCheckboxDefaultOptions {
     color?: ThemePalette;
     /** Default checkbox click action for checkboxes. */
     clickAction?: MatCheckboxClickAction;
+    /** Whether disabled checkboxes should be interactive. */
+    disabledInteractive?: boolean;
 }
 
 export declare class MatCheckboxModule {
