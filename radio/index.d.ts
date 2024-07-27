@@ -53,7 +53,8 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     private _changeDetector;
     private _focusMonitor;
     private _radioDispatcher;
-    private _providerOverride?;
+    private _defaultOptions?;
+    private _ngZone;
     private _uniqueId;
     /** The unique ID for the radio button. */
     id: string;
@@ -95,6 +96,10 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     get color(): ThemePalette;
     set color(newValue: ThemePalette);
     private _color;
+    /** Whether the radio button should remain interactive when it is disabled. */
+    get disabledInteractive(): boolean;
+    set disabledInteractive(value: boolean);
+    private _disabledInteractive;
     /**
      * Event emitted when the checked state of this radio button changes.
      * Change events are only emitted when the value changes due to user interaction with
@@ -124,7 +129,7 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     /** Whether animations are disabled. */
     _noopAnimations: boolean;
     private _injector;
-    constructor(radioGroup: MatRadioGroup, _elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, _providerOverride?: MatRadioDefaultOptions | undefined, tabIndex?: string);
+    constructor(radioGroup: MatRadioGroup, _elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, _defaultOptions?: MatRadioDefaultOptions | undefined, tabIndex?: string);
     /** Focuses the radio button. */
     focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /**
@@ -140,22 +145,24 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     /** Dispatch change event with current value. */
     private _emitChangeEvent;
     _isRippleDisabled(): boolean;
-    _onInputClick(event: Event): void;
     /** Triggered when the radio button receives an interaction from the user. */
     _onInputInteraction(event: Event): void;
     /** Triggered when the user clicks on the touch target. */
     _onTouchTargetClick(event: Event): void;
     /** Sets the disabled state and marks for check if a change occurred. */
     protected _setDisabled(value: boolean): void;
+    /** Called when the input is clicked. */
+    private _onInputClick;
     /** Gets the tabindex for the underlying input element. */
     private _updateTabIndex;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioButton, [{ optional: true; }, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatRadioButton, "mat-radio-button", ["matRadioButton"], { "id": { "alias": "id"; "required": false; }; "name": { "alias": "name"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "value": { "alias": "value"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "required": { "alias": "required"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, { "change": "change"; }, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatRadioButton, "mat-radio-button", ["matRadioButton"], { "id": { "alias": "id"; "required": false; }; "name": { "alias": "name"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "value": { "alias": "value"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "required": { "alias": "required"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; }, never, ["*"], true, never>;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
     static ngAcceptInputType_checked: unknown;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_required: unknown;
+    static ngAcceptInputType_disabledInteractive: unknown;
 }
 
 /** Change event object emitted by radio button and radio group. */
@@ -180,6 +187,8 @@ export declare interface MatRadioDefaultOptions {
      * https://material.angular.io/guide/theming#using-component-color-variants.
      */
     color: ThemePalette;
+    /** Whether disabled radio buttons should be interactive. */
+    disabledInteractive?: boolean;
 }
 
 /**
@@ -253,6 +262,10 @@ export declare class MatRadioGroup implements AfterContentInit, OnDestroy, Contr
     /** Whether the radio group is required */
     get required(): boolean;
     set required(value: boolean);
+    /** Whether buttons in the group should be interactive while they're disabled. */
+    get disabledInteractive(): boolean;
+    set disabledInteractive(value: boolean);
+    private _disabledInteractive;
     constructor(_changeDetector: ChangeDetectorRef);
     /**
      * Initialize properties once content children are available.
@@ -294,9 +307,10 @@ export declare class MatRadioGroup implements AfterContentInit, OnDestroy, Contr
      */
     setDisabledState(isDisabled: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioGroup, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRadioGroup, "mat-radio-group", ["matRadioGroup"], { "color": { "alias": "color"; "required": false; }; "name": { "alias": "name"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "required": { "alias": "required"; "required": false; }; }, { "change": "change"; }, ["_radios"], never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRadioGroup, "mat-radio-group", ["matRadioGroup"], { "color": { "alias": "color"; "required": false; }; "name": { "alias": "name"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "required": { "alias": "required"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; }, ["_radios"], never, true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_required: unknown;
+    static ngAcceptInputType_disabledInteractive: unknown;
 }
 
 export declare class MatRadioModule {
