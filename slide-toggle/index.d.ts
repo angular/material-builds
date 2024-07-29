@@ -108,6 +108,8 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnCh
     set checked(value: boolean);
     /** Whether to hide the icon inside of the slide toggle. */
     hideIcon: boolean;
+    /** Whether the slide toggle should remain interactive when it is disabled. */
+    disabledInteractive: boolean;
     /** An event will be dispatched each time the slide-toggle changes its value. */
     readonly change: EventEmitter<MatSlideToggleChange>;
     /**
@@ -144,13 +146,14 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnCh
     _handleClick(): void;
     _getAriaLabelledBy(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, [null, null, null, { attribute: "tabindex"; }, null, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, ["*"], true, never>;
     static ngAcceptInputType_required: unknown;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
     static ngAcceptInputType_checked: unknown;
     static ngAcceptInputType_hideIcon: unknown;
+    static ngAcceptInputType_disabledInteractive: unknown;
 }
 
 /** Change event object emitted by a slide toggle. */
@@ -180,6 +183,8 @@ export declare interface MatSlideToggleDefaultOptions {
     color?: ThemePalette;
     /** Whether to hide the icon inside the slide toggle. */
     hideIcon?: boolean;
+    /** Whether disabled slide toggles should remain interactive. */
+    disabledInteractive?: boolean;
 }
 
 export declare class MatSlideToggleModule {
