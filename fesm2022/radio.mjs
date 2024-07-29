@@ -489,7 +489,8 @@ class MatRadioButton {
         });
     }
     ngOnDestroy() {
-        this._inputElement.nativeElement.removeEventListener('click', this._onInputClick);
+        // We need to null check in case the button was destroyed before `ngAfterViewInit`.
+        this._inputElement?.nativeElement.removeEventListener('click', this._onInputClick);
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._removeUniqueSelectionListener();
     }
@@ -524,7 +525,7 @@ class MatRadioButton {
         if (!this.disabled || this.disabledInteractive) {
             // Normally the input should be focused already, but if the click
             // comes from the touch target, then we might have to focus it ourselves.
-            this._inputElement.nativeElement.focus();
+            this._inputElement?.nativeElement.focus();
         }
     }
     /** Sets the disabled state and marks for check if a change occurred. */
