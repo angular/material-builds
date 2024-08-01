@@ -110,13 +110,17 @@ class MatTooltip {
         return this._disabled;
     }
     set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
-        // If tooltip is disabled, hide immediately.
-        if (this._disabled) {
-            this.hide(0);
-        }
-        else {
-            this._setupPointerEnterEventsIfNeeded();
+        const isDisabled = coerceBooleanProperty(value);
+        if (this._disabled !== isDisabled) {
+            this._disabled = isDisabled;
+            // If tooltip is disabled, hide immediately.
+            if (isDisabled) {
+                this.hide(0);
+            }
+            else {
+                this._setupPointerEnterEventsIfNeeded();
+            }
+            this._syncAriaDescription(this.message);
         }
     }
     /** The default delay in ms before showing the tooltip after show is called */
@@ -141,7 +145,7 @@ class MatTooltip {
         return this._message;
     }
     set message(value) {
-        this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message, 'tooltip');
+        const oldMessage = this._message;
         // If the message is not a string (e.g. number), convert it to a string and trim it.
         // Must convert with `String(value)`, not `${value}`, otherwise Closure Compiler optimises
         // away the string-conversion: https://github.com/angular/components/issues/20684
@@ -152,16 +156,8 @@ class MatTooltip {
         else {
             this._setupPointerEnterEventsIfNeeded();
             this._updateTooltipMessage();
-            this._ngZone.runOutsideAngular(() => {
-                // The `AriaDescriber` has some functionality that avoids adding a description if it's the
-                // same as the `aria-label` of an element, however we can't know whether the tooltip trigger
-                // has a data-bound `aria-label` or when it'll be set for the first time. We can avoid the
-                // issue by deferring the description by a tick so Angular has time to set the `aria-label`.
-                Promise.resolve().then(() => {
-                    this._ariaDescriber.describe(this._elementRef.nativeElement, this.message, 'tooltip');
-                });
-            });
         }
+        this._syncAriaDescription(oldMessage);
     }
     /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
     get tooltipClass() {
@@ -659,6 +655,26 @@ class MatTooltip {
             style.touchAction = 'none';
             style.webkitTapHighlightColor = 'transparent';
         }
+    }
+    /** Updates the tooltip's ARIA description based on it current state. */
+    _syncAriaDescription(oldMessage) {
+        if (this._ariaDescriptionPending) {
+            return;
+        }
+        this._ariaDescriptionPending = true;
+        this._ariaDescriber.removeDescription(this._elementRef.nativeElement, oldMessage, 'tooltip');
+        this._ngZone.runOutsideAngular(() => {
+            // The `AriaDescriber` has some functionality that avoids adding a description if it's the
+            // same as the `aria-label` of an element, however we can't know whether the tooltip trigger
+            // has a data-bound `aria-label` or when it'll be set for the first time. We can avoid the
+            // issue by deferring the description by a tick so Angular has time to set the `aria-label`.
+            Promise.resolve().then(() => {
+                this._ariaDescriptionPending = false;
+                if (this.message && !this.disabled) {
+                    this._ariaDescriber.describe(this._elementRef.nativeElement, this.message, 'tooltip');
+                }
+            });
+        });
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.0-next.2", ngImport: i0, type: MatTooltip, deps: [{ token: i1.Overlay }, { token: i0.ElementRef }, { token: i1.ScrollDispatcher }, { token: i0.ViewContainerRef }, { token: i0.NgZone }, { token: i2.Platform }, { token: i3.AriaDescriber }, { token: i3.FocusMonitor }, { token: MAT_TOOLTIP_SCROLL_STRATEGY }, { token: i4.Directionality }, { token: MAT_TOOLTIP_DEFAULT_OPTIONS, optional: true }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "18.2.0-next.2", type: MatTooltip, isStandalone: true, selector: "[matTooltip]", inputs: { position: ["matTooltipPosition", "position"], positionAtOrigin: ["matTooltipPositionAtOrigin", "positionAtOrigin"], disabled: ["matTooltipDisabled", "disabled"], showDelay: ["matTooltipShowDelay", "showDelay"], hideDelay: ["matTooltipHideDelay", "hideDelay"], touchGestures: ["matTooltipTouchGestures", "touchGestures"], message: ["matTooltip", "message"], tooltipClass: ["matTooltipClass", "tooltipClass"] }, host: { properties: { "class.mat-mdc-tooltip-disabled": "disabled" }, classAttribute: "mat-mdc-tooltip-trigger" }, exportAs: ["matTooltip"], ngImport: i0 }); }

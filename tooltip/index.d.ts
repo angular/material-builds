@@ -102,6 +102,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _viewportMargin;
     private _currentPosition;
     private readonly _cssClassPrefix;
+    private _ariaDescriptionPending;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position(): TooltipPosition;
     set position(value: TooltipPosition);
@@ -215,6 +216,8 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _wheelListener;
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
+    /** Updates the tooltip's ARIA description based on it current state. */
+    private _syncAriaDescription;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltip, [null, null, null, null, null, null, null, null, null, null, { optional: true; }, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTooltip, "[matTooltip]", ["matTooltip"], { "position": { "alias": "matTooltipPosition"; "required": false; }; "positionAtOrigin": { "alias": "matTooltipPositionAtOrigin"; "required": false; }; "disabled": { "alias": "matTooltipDisabled"; "required": false; }; "showDelay": { "alias": "matTooltipShowDelay"; "required": false; }; "hideDelay": { "alias": "matTooltipHideDelay"; "required": false; }; "touchGestures": { "alias": "matTooltipTouchGestures"; "required": false; }; "message": { "alias": "matTooltip"; "required": false; }; "tooltipClass": { "alias": "matTooltipClass"; "required": false; }; }, {}, never, never, true, never>;
 }
