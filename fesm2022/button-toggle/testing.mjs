@@ -36,8 +36,8 @@ class MatButtonToggleHarness extends ComponentHarness {
     }
     /** Gets a boolean promise indicating if the button toggle is disabled. */
     async isDisabled() {
-        const disabled = (await this._button()).getAttribute('disabled');
-        return coerceBooleanProperty(await disabled);
+        const host = await this.host();
+        return host.hasClass('mat-button-toggle-disabled');
     }
     /** Gets a promise for the button toggle's name. */
     async getName() {
