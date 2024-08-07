@@ -452,7 +452,7 @@ class MatDrawer {
         if (this._focusTrap) {
             // Trap focus only if the backdrop is enabled. Otherwise, allow end user to interact with the
             // sidenav content.
-            this._focusTrap.enabled = !!this._container?.hasBackdrop;
+            this._focusTrap.enabled = !!this._container?.hasBackdrop && this.opened;
         }
     }
     /**
