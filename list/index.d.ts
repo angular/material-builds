@@ -589,7 +589,7 @@ export declare class MatSelectionListChange {
 export declare const SELECTION_LIST: InjectionToken<SelectionList>;
 
 /**
- * Interface describing the containing list of an list option. This is used to avoid
+ * Interface describing the containing list of a list option. This is used to avoid
  * circular dependencies between the list-option and the selection list.
  * @docs-private
  */
