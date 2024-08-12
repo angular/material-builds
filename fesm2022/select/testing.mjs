@@ -2,7 +2,7 @@ import { HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
-/** Harness for interacting with an MDC-based mat-select in tests. */
+/** Harness for interacting with a mat-select in tests. */
 class MatSelectHarness extends MatFormFieldControlHarness {
     constructor() {
         super(...arguments);

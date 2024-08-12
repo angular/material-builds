@@ -8,7 +8,7 @@ var MatCardSection;
     MatCardSection["ACTIONS"] = ".mat-mdc-card-actions";
     MatCardSection["FOOTER"] = ".mat-mdc-card-footer";
 })(MatCardSection || (MatCardSection = {}));
-/** Harness for interacting with an MDC-based mat-card in tests. */
+/** Harness for interacting with a mat-card in tests. */
 class MatCardHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);

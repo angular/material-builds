@@ -19,7 +19,7 @@ function getListItemPredicate(harnessType, options) {
         .addOption('secondaryText', options.secondaryText, (harness, secondaryText) => HarnessPredicate.stringMatches(harness.getSecondaryText(), secondaryText))
         .addOption('tertiaryText', options.tertiaryText, (harness, tertiaryText) => HarnessPredicate.stringMatches(harness.getTertiaryText(), tertiaryText));
 }
-/** Harness for interacting with a MDC-based list subheader. */
+/** Harness for interacting with a list subheader. */
 class MatSubheaderHarness extends ComponentHarness {
     static { this.hostSelector = '.mat-mdc-subheader'; }
     static with(options = {}) {
@@ -240,7 +240,7 @@ class MatListHarnessBase extends ComponentHarness {
     }
 }
 
-/** Harness for interacting with a MDC-based action-list in tests. */
+/** Harness for interacting with a action-list in tests. */
 class MatActionListHarness extends MatListHarnessBase {
     constructor() {
         super(...arguments);
@@ -289,7 +289,7 @@ class MatActionListItemHarness extends MatListItemHarnessBase {
     }
 }
 
-/** Harness for interacting with a MDC-based list in tests. */
+/** Harness for interacting with a list in tests. */
 class MatListHarness extends MatListHarnessBase {
     constructor() {
         super(...arguments);
@@ -320,7 +320,7 @@ class MatListItemHarness extends MatListItemHarnessBase {
     }
 }
 
-/** Harness for interacting with a MDC-based mat-nav-list in tests. */
+/** Harness for interacting with a mat-nav-list in tests. */
 class MatNavListHarness extends MatListHarnessBase {
     constructor() {
         super(...arguments);
@@ -338,7 +338,7 @@ class MatNavListHarness extends MatListHarnessBase {
         return new HarnessPredicate(this, options);
     }
 }
-/** Harness for interacting with a MDC-based nav-list item. */
+/** Harness for interacting with a nav-list item. */
 class MatNavListItemHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
     static { this.hostSelector = `${MatNavListHarness.hostSelector} .mat-mdc-list-item`; }
@@ -425,7 +425,7 @@ class MatSelectionListHarness extends MatListHarnessBase {
         return matches.reduce((result, current) => [...result, ...current], []);
     }
 }
-/** Harness for interacting with a MDC-based list option. */
+/** Harness for interacting with a list option. */
 class MatListOptionHarness extends MatListItemHarnessBase {
     constructor() {
         super(...arguments);

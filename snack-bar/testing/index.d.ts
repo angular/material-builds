@@ -3,7 +3,7 @@ import { BaseHarnessFilters } from '@angular/cdk/testing';
 import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-snack-bar in tests. */
+/** Harness for interacting with a mat-snack-bar in tests. */
 export declare class MatSnackBarHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatSnackBar` instance. */
     static hostSelector: string;

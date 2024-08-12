@@ -1,6 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based `mat-option` in tests. */
+/** Harness for interacting with a `mat-option` in tests. */
 class MatOptionHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);
@@ -45,7 +45,7 @@ class MatOptionHarness extends ContentContainerComponentHarness {
     }
 }
 
-/** Harness for interacting with an MDC-based `mat-optgroup` in tests. */
+/** Harness for interacting with a `mat-optgroup` in tests. */
 class MatOptgroupHarness extends ComponentHarness {
     constructor() {
         super(...arguments);

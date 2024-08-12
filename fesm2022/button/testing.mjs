@@ -1,7 +1,7 @@
 import { booleanAttribute } from '@angular/core';
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with a MDC-based mat-button in tests. */
+/** Harness for interacting with a mat-button in tests. */
 class MatButtonHarness extends ContentContainerComponentHarness {
     // TODO(jelbourn) use a single class, like `.mat-button-base`
     static { this.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button],

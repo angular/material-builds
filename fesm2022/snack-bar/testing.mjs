@@ -1,6 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-snack-bar in tests. */
+/** Harness for interacting with a mat-snack-bar in tests. */
 class MatSnackBarHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);

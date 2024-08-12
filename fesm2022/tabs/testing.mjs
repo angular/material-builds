@@ -58,7 +58,7 @@ class MatTabHarness extends ContentContainerComponentHarness {
     }
 }
 
-/** Harness for interacting with an MDC-based mat-tab-group in tests. */
+/** Harness for interacting with a mat-tab-group in tests. */
 class MatTabGroupHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabGroup` instance. */
     static { this.hostSelector = '.mat-mdc-tab-group'; }
@@ -105,7 +105,7 @@ class MatTabGroupHarness extends ComponentHarness {
     }
 }
 
-/** Harness for interacting with an MDC-based Angular Material tab link in tests. */
+/** Harness for interacting with a Angular Material tab link in tests. */
 class MatTabLinkHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabLink` instance. */
     static { this.hostSelector = '.mat-mdc-tab-link'; }
@@ -156,7 +156,7 @@ class MatTabNavPanelHarness extends ContentContainerComponentHarness {
     }
 }
 
-/** Harness for interacting with an MDC-based mat-tab-nav-bar in tests. */
+/** Harness for interacting with a mat-tab-nav-bar in tests. */
 class MatTabNavBarHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabNavBar` instance. */
     static { this.hostSelector = '.mat-mdc-tab-nav-bar'; }
