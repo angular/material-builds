@@ -5,7 +5,7 @@ import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-tab-group in tests. */
+/** Harness for interacting with a mat-tab-group in tests. */
 export declare class MatTabGroupHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabGroup` instance. */
     static hostSelector: string;
@@ -59,7 +59,7 @@ export declare class MatTabHarness extends ContentContainerComponentHarness<stri
     private _getContentId;
 }
 
-/** Harness for interacting with an MDC-based Angular Material tab link in tests. */
+/** Harness for interacting with a Angular Material tab link in tests. */
 export declare class MatTabLinkHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabLink` instance. */
     static hostSelector: string;
@@ -79,7 +79,7 @@ export declare class MatTabLinkHarness extends ComponentHarness {
     click(): Promise<void>;
 }
 
-/** Harness for interacting with an MDC-based mat-tab-nav-bar in tests. */
+/** Harness for interacting with a mat-tab-nav-bar in tests. */
 export declare class MatTabNavBarHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabNavBar` instance. */
     static hostSelector: string;

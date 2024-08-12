@@ -4,7 +4,7 @@ import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 
-/** Harness for interacting with an MDC-based `mat-error` in tests. */
+/** Harness for interacting with a `mat-error` in tests. */
 class MatErrorHarness extends ComponentHarness {
     static { this.hostSelector = '.mat-mdc-form-field-error'; }
     /**

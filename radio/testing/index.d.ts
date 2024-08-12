@@ -5,7 +5,7 @@ import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { TestElement } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-radio-button in tests. */
+/** Harness for interacting with a mat-radio-button in tests. */
 export declare class MatRadioButtonHarness extends ComponentHarness {
     /** The selector for the host element of a `MatRadioButton` instance. */
     static hostSelector: string;
@@ -51,7 +51,7 @@ export declare class MatRadioButtonHarness extends ComponentHarness {
     check(): Promise<void>;
 }
 
-/** Harness for interacting with an MDC-based mat-radio-group in tests. */
+/** Harness for interacting with a mat-radio-group in tests. */
 export declare class MatRadioGroupHarness extends ComponentHarness {
     /** The selector for the host element of a `MatRadioGroup` instance. */
     static hostSelector: string;

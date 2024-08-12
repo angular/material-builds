@@ -43,7 +43,7 @@ declare interface ListSection<I> {
     items: I[];
 }
 
-/** Harness for interacting with a MDC-based action-list in tests. */
+/** Harness for interacting with a action-list in tests. */
 export declare class MatActionListHarness extends MatListHarnessBase<typeof MatActionListItemHarness, MatActionListItemHarness, ActionListItemHarnessFilters> {
     /** The selector for the host element of a `MatActionList` instance. */
     static hostSelector: string;
@@ -78,7 +78,7 @@ export declare class MatActionListItemHarness extends MatListItemHarnessBase {
     isFocused(): Promise<boolean>;
 }
 
-/** Harness for interacting with a MDC-based list in tests. */
+/** Harness for interacting with a list in tests. */
 export declare class MatListHarness extends MatListHarnessBase<typeof MatListItemHarness, MatListItemHarness, ListItemHarnessFilters> {
     /** The selector for the host element of a `MatList` instance. */
     static hostSelector: string;
@@ -243,7 +243,7 @@ export declare enum MatListItemType {
     THREE_LINE_ITEM = 2
 }
 
-/** Harness for interacting with a MDC-based list option. */
+/** Harness for interacting with a list option. */
 export declare class MatListOptionHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListOption` instance. */
     static hostSelector: string;
@@ -282,7 +282,7 @@ export declare class MatListOptionHarness extends MatListItemHarnessBase {
     deselect(): Promise<void>;
 }
 
-/** Harness for interacting with a MDC-based mat-nav-list in tests. */
+/** Harness for interacting with a mat-nav-list in tests. */
 export declare class MatNavListHarness extends MatListHarnessBase<typeof MatNavListItemHarness, MatNavListItemHarness, NavListItemHarnessFilters> {
     /** The selector for the host element of a `MatNavList` instance. */
     static hostSelector: string;
@@ -296,7 +296,7 @@ export declare class MatNavListHarness extends MatListHarnessBase<typeof MatNavL
     _itemHarness: typeof MatNavListItemHarness;
 }
 
-/** Harness for interacting with a MDC-based nav-list item. */
+/** Harness for interacting with a nav-list item. */
 export declare class MatNavListItemHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
     static hostSelector: string;
@@ -349,7 +349,7 @@ export declare class MatSelectionListHarness extends MatListHarnessBase<typeof M
     private _getItems;
 }
 
-/** Harness for interacting with a MDC-based list subheader. */
+/** Harness for interacting with a list subheader. */
 export declare class MatSubheaderHarness extends ComponentHarness {
     static hostSelector: string;
     static with(options?: SubheaderHarnessFilters): HarnessPredicate<MatSubheaderHarness>;

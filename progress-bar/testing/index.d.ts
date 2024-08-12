@@ -3,7 +3,7 @@ import { ComponentHarness } from '@angular/cdk/testing';
 import { ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based `mat-progress-bar` in tests. */
+/** Harness for interacting with a `mat-progress-bar` in tests. */
 export declare class MatProgressBarHarness extends ComponentHarness {
     static hostSelector: string;
     /**

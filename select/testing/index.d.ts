@@ -7,7 +7,7 @@ import { MatOptionHarness } from '@angular/material/core/testing';
 import { OptgroupHarnessFilters } from '@angular/material/core/testing';
 import { OptionHarnessFilters } from '@angular/material/core/testing';
 
-/** Harness for interacting with an MDC-based mat-select in tests. */
+/** Harness for interacting with a mat-select in tests. */
 export declare class MatSelectHarness extends MatFormFieldControlHarness {
     static hostSelector: string;
     private _prefix;
