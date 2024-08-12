@@ -101,10 +101,6 @@ function sanitizeDegreesDouble(degrees) {
   }
   return degrees;
 }
-function rotationDirection(from, to) {
-  const increasingDifference = sanitizeDegreesDouble(to - from);
-  return increasingDifference <= 180 ? 1 : -1;
-}
 function differenceDegrees(a, b) {
   return 180 - Math.abs(Math.abs(a - b) - 180);
 }
@@ -172,6 +168,26 @@ function xyzFromArgb(argb) {
   const g = linearized(greenFromArgb(argb));
   const b = linearized(blueFromArgb(argb));
   return matrixMultiply([r, g, b], SRGB_TO_XYZ);
+}
+function labFromArgb(argb) {
+  const linearR = linearized(redFromArgb(argb));
+  const linearG = linearized(greenFromArgb(argb));
+  const linearB = linearized(blueFromArgb(argb));
+  const matrix = SRGB_TO_XYZ;
+  const x = matrix[0][0] * linearR + matrix[0][1] * linearG + matrix[0][2] * linearB;
+  const y = matrix[1][0] * linearR + matrix[1][1] * linearG + matrix[1][2] * linearB;
+  const z = matrix[2][0] * linearR + matrix[2][1] * linearG + matrix[2][2] * linearB;
+  const whitePoint = WHITE_POINT_D65;
+  const xNormalized = x / whitePoint[0];
+  const yNormalized = y / whitePoint[1];
+  const zNormalized = z / whitePoint[2];
+  const fx = labF(xNormalized);
+  const fy = labF(yNormalized);
+  const fz = labF(zNormalized);
+  const l = 116 * fy - 16;
+  const a = 500 * (fx - fy);
+  const b = 200 * (fy - fz);
+  return [l, a, b];
 }
 function argbFromLstar(lstar) {
   const y = yFromLstar(lstar);
@@ -1071,39 +1087,6 @@ var Hct = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/blend/blend.js
-var Blend = class {
-  static harmonize(designColor, sourceColor) {
-    const fromHct = Hct.fromInt(designColor);
-    const toHct = Hct.fromInt(sourceColor);
-    const differenceDegrees2 = differenceDegrees(fromHct.hue, toHct.hue);
-    const rotationDegrees = Math.min(differenceDegrees2 * 0.5, 15);
-    const outputHue = sanitizeDegreesDouble(fromHct.hue + rotationDegrees * rotationDirection(fromHct.hue, toHct.hue));
-    return Hct.from(outputHue, fromHct.chroma, fromHct.tone).toInt();
-  }
-  static hctHue(from, to, amount) {
-    const ucs = Blend.cam16Ucs(from, to, amount);
-    const ucsCam = Cam16.fromInt(ucs);
-    const fromCam = Cam16.fromInt(from);
-    const blended = Hct.from(ucsCam.hue, fromCam.chroma, lstarFromArgb(from));
-    return blended.toInt();
-  }
-  static cam16Ucs(from, to, amount) {
-    const fromCam = Cam16.fromInt(from);
-    const toCam = Cam16.fromInt(to);
-    const fromJ = fromCam.jstar;
-    const fromA = fromCam.astar;
-    const fromB = fromCam.bstar;
-    const toJ = toCam.jstar;
-    const toA = toCam.astar;
-    const toB = toCam.bstar;
-    const jstar = fromJ + (toJ - fromJ) * amount;
-    const astar = fromA + (toA - fromA) * amount;
-    const bstar = fromB + (toB - fromB) * amount;
-    return Cam16.fromUcs(jstar, astar, bstar).toInt();
-  }
-};
-
 // node_modules/@material/material-color-utilities/contrast/contrast.js
 var Contrast = class {
   static ratioOfTones(toneA, toneB) {
@@ -1970,65 +1953,6 @@ var TonalPalette = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/palettes/core_palette.js
-var CorePalette = class {
-  static of(argb) {
-    return new CorePalette(argb, false);
-  }
-  static contentOf(argb) {
-    return new CorePalette(argb, true);
-  }
-  static fromColors(colors) {
-    return CorePalette.createPaletteFromColors(false, colors);
-  }
-  static contentFromColors(colors) {
-    return CorePalette.createPaletteFromColors(true, colors);
-  }
-  static createPaletteFromColors(content, colors) {
-    const palette = new CorePalette(colors.primary, content);
-    if (colors.secondary) {
-      const p = new CorePalette(colors.secondary, content);
-      palette.a2 = p.a1;
-    }
-    if (colors.tertiary) {
-      const p = new CorePalette(colors.tertiary, content);
-      palette.a3 = p.a1;
-    }
-    if (colors.error) {
-      const p = new CorePalette(colors.error, content);
-      palette.error = p.a1;
-    }
-    if (colors.neutral) {
-      const p = new CorePalette(colors.neutral, content);
-      palette.n1 = p.n1;
-    }
-    if (colors.neutralVariant) {
-      const p = new CorePalette(colors.neutralVariant, content);
-      palette.n2 = p.n2;
-    }
-    return palette;
-  }
-  constructor(argb, isContent) {
-    const hct = Hct.fromInt(argb);
-    const hue = hct.hue;
-    const chroma = hct.chroma;
-    if (isContent) {
-      this.a1 = TonalPalette.fromHueAndChroma(hue, chroma);
-      this.a2 = TonalPalette.fromHueAndChroma(hue, chroma / 3);
-      this.a3 = TonalPalette.fromHueAndChroma(hue + 60, chroma / 2);
-      this.n1 = TonalPalette.fromHueAndChroma(hue, Math.min(chroma / 12, 4));
-      this.n2 = TonalPalette.fromHueAndChroma(hue, Math.min(chroma / 6, 8));
-    } else {
-      this.a1 = TonalPalette.fromHueAndChroma(hue, Math.max(48, chroma));
-      this.a2 = TonalPalette.fromHueAndChroma(hue, 16);
-      this.a3 = TonalPalette.fromHueAndChroma(hue + 60, 24);
-      this.n1 = TonalPalette.fromHueAndChroma(hue, 4);
-      this.n2 = TonalPalette.fromHueAndChroma(hue, 8);
-    }
-    this.error = TonalPalette.fromHueAndChroma(25, 84);
-  }
-};
-
 // node_modules/@material/material-color-utilities/scheme/dynamic_scheme.js
 var DynamicScheme = class {
   constructor(args) {
@@ -2064,178 +1988,199 @@ var DynamicScheme = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/scheme/scheme.js
-var Scheme = class {
-  get primary() {
-    return this.props.primary;
+// node_modules/@material/material-color-utilities/temperature/temperature_cache.js
+var TemperatureCache = class {
+  constructor(input) {
+    this.input = input;
+    this.hctsByTempCache = [];
+    this.hctsByHueCache = [];
+    this.tempsByHctCache = /* @__PURE__ */ new Map();
+    this.inputRelativeTemperatureCache = -1;
+    this.complementCache = null;
   }
-  get onPrimary() {
-    return this.props.onPrimary;
+  get hctsByTemp() {
+    if (this.hctsByTempCache.length > 0) {
+      return this.hctsByTempCache;
+    }
+    const hcts = this.hctsByHue.concat([this.input]);
+    const temperaturesByHct = this.tempsByHct;
+    hcts.sort((a, b) => temperaturesByHct.get(a) - temperaturesByHct.get(b));
+    this.hctsByTempCache = hcts;
+    return hcts;
   }
-  get primaryContainer() {
-    return this.props.primaryContainer;
+  get warmest() {
+    return this.hctsByTemp[this.hctsByTemp.length - 1];
   }
-  get onPrimaryContainer() {
-    return this.props.onPrimaryContainer;
+  get coldest() {
+    return this.hctsByTemp[0];
   }
-  get secondary() {
-    return this.props.secondary;
+  analogous(count = 5, divisions = 12) {
+    const startHue = Math.round(this.input.hue);
+    const startHct = this.hctsByHue[startHue];
+    let lastTemp = this.relativeTemperature(startHct);
+    const allColors = [startHct];
+    let absoluteTotalTempDelta = 0;
+    for (let i = 0; i < 360; i++) {
+      const hue = sanitizeDegreesInt(startHue + i);
+      const hct = this.hctsByHue[hue];
+      const temp = this.relativeTemperature(hct);
+      const tempDelta = Math.abs(temp - lastTemp);
+      lastTemp = temp;
+      absoluteTotalTempDelta += tempDelta;
+    }
+    let hueAddend = 1;
+    const tempStep = absoluteTotalTempDelta / divisions;
+    let totalTempDelta = 0;
+    lastTemp = this.relativeTemperature(startHct);
+    while (allColors.length < divisions) {
+      const hue = sanitizeDegreesInt(startHue + hueAddend);
+      const hct = this.hctsByHue[hue];
+      const temp = this.relativeTemperature(hct);
+      const tempDelta = Math.abs(temp - lastTemp);
+      totalTempDelta += tempDelta;
+      const desiredTotalTempDeltaForIndex = allColors.length * tempStep;
+      let indexSatisfied = totalTempDelta >= desiredTotalTempDeltaForIndex;
+      let indexAddend = 1;
+      while (indexSatisfied && allColors.length < divisions) {
+        allColors.push(hct);
+        const desiredTotalTempDeltaForIndex2 = (allColors.length + indexAddend) * tempStep;
+        indexSatisfied = totalTempDelta >= desiredTotalTempDeltaForIndex2;
+        indexAddend++;
+      }
+      lastTemp = temp;
+      hueAddend++;
+      if (hueAddend > 360) {
+        while (allColors.length < divisions) {
+          allColors.push(hct);
+        }
+        break;
+      }
+    }
+    const answers = [this.input];
+    const increaseHueCount = Math.floor((count - 1) / 2);
+    for (let i = 1; i < increaseHueCount + 1; i++) {
+      let index = 0 - i;
+      while (index < 0) {
+        index = allColors.length + index;
+      }
+      if (index >= allColors.length) {
+        index = index % allColors.length;
+      }
+      answers.splice(0, 0, allColors[index]);
+    }
+    const decreaseHueCount = count - increaseHueCount - 1;
+    for (let i = 1; i < decreaseHueCount + 1; i++) {
+      let index = i;
+      while (index < 0) {
+        index = allColors.length + index;
+      }
+      if (index >= allColors.length) {
+        index = index % allColors.length;
+      }
+      answers.push(allColors[index]);
+    }
+    return answers;
   }
-  get onSecondary() {
-    return this.props.onSecondary;
+  get complement() {
+    if (this.complementCache != null) {
+      return this.complementCache;
+    }
+    const coldestHue = this.coldest.hue;
+    const coldestTemp = this.tempsByHct.get(this.coldest);
+    const warmestHue = this.warmest.hue;
+    const warmestTemp = this.tempsByHct.get(this.warmest);
+    const range = warmestTemp - coldestTemp;
+    const startHueIsColdestToWarmest = TemperatureCache.isBetween(this.input.hue, coldestHue, warmestHue);
+    const startHue = startHueIsColdestToWarmest ? warmestHue : coldestHue;
+    const endHue = startHueIsColdestToWarmest ? coldestHue : warmestHue;
+    const directionOfRotation = 1;
+    let smallestError = 1e3;
+    let answer = this.hctsByHue[Math.round(this.input.hue)];
+    const complementRelativeTemp = 1 - this.inputRelativeTemperature;
+    for (let hueAddend = 0; hueAddend <= 360; hueAddend += 1) {
+      const hue = sanitizeDegreesDouble(startHue + directionOfRotation * hueAddend);
+      if (!TemperatureCache.isBetween(hue, startHue, endHue)) {
+        continue;
+      }
+      const possibleAnswer = this.hctsByHue[Math.round(hue)];
+      const relativeTemp = (this.tempsByHct.get(possibleAnswer) - coldestTemp) / range;
+      const error = Math.abs(complementRelativeTemp - relativeTemp);
+      if (error < smallestError) {
+        smallestError = error;
+        answer = possibleAnswer;
+      }
+    }
+    this.complementCache = answer;
+    return this.complementCache;
   }
-  get secondaryContainer() {
-    return this.props.secondaryContainer;
+  relativeTemperature(hct) {
+    const range = this.tempsByHct.get(this.warmest) - this.tempsByHct.get(this.coldest);
+    const differenceFromColdest = this.tempsByHct.get(hct) - this.tempsByHct.get(this.coldest);
+    if (range === 0) {
+      return 0.5;
+    }
+    return differenceFromColdest / range;
   }
-  get onSecondaryContainer() {
-    return this.props.onSecondaryContainer;
+  get inputRelativeTemperature() {
+    if (this.inputRelativeTemperatureCache >= 0) {
+      return this.inputRelativeTemperatureCache;
+    }
+    this.inputRelativeTemperatureCache = this.relativeTemperature(this.input);
+    return this.inputRelativeTemperatureCache;
   }
-  get tertiary() {
-    return this.props.tertiary;
+  get tempsByHct() {
+    if (this.tempsByHctCache.size > 0) {
+      return this.tempsByHctCache;
+    }
+    const allHcts = this.hctsByHue.concat([this.input]);
+    const temperaturesByHct = /* @__PURE__ */ new Map();
+    for (const e of allHcts) {
+      temperaturesByHct.set(e, TemperatureCache.rawTemperature(e));
+    }
+    this.tempsByHctCache = temperaturesByHct;
+    return temperaturesByHct;
   }
-  get onTertiary() {
-    return this.props.onTertiary;
+  get hctsByHue() {
+    if (this.hctsByHueCache.length > 0) {
+      return this.hctsByHueCache;
+    }
+    const hcts = [];
+    for (let hue = 0; hue <= 360; hue += 1) {
+      const colorAtHue = Hct.from(hue, this.input.chroma, this.input.tone);
+      hcts.push(colorAtHue);
+    }
+    this.hctsByHueCache = hcts;
+    return this.hctsByHueCache;
   }
-  get tertiaryContainer() {
-    return this.props.tertiaryContainer;
+  static isBetween(angle, a, b) {
+    if (a < b) {
+      return a <= angle && angle <= b;
+    }
+    return a <= angle || angle <= b;
   }
-  get onTertiaryContainer() {
-    return this.props.onTertiaryContainer;
+  static rawTemperature(color) {
+    const lab = labFromArgb(color.toInt());
+    const hue = sanitizeDegreesDouble(Math.atan2(lab[2], lab[1]) * 180 / Math.PI);
+    const chroma = Math.sqrt(lab[1] * lab[1] + lab[2] * lab[2]);
+    const temperature = -0.5 + 0.02 * Math.pow(chroma, 1.07) * Math.cos(sanitizeDegreesDouble(hue - 50) * Math.PI / 180);
+    return temperature;
   }
-  get error() {
-    return this.props.error;
-  }
-  get onError() {
-    return this.props.onError;
-  }
-  get errorContainer() {
-    return this.props.errorContainer;
-  }
-  get onErrorContainer() {
-    return this.props.onErrorContainer;
-  }
-  get background() {
-    return this.props.background;
-  }
-  get onBackground() {
-    return this.props.onBackground;
-  }
-  get surface() {
-    return this.props.surface;
-  }
-  get onSurface() {
-    return this.props.onSurface;
-  }
-  get surfaceVariant() {
-    return this.props.surfaceVariant;
-  }
-  get onSurfaceVariant() {
-    return this.props.onSurfaceVariant;
-  }
-  get outline() {
-    return this.props.outline;
-  }
-  get outlineVariant() {
-    return this.props.outlineVariant;
-  }
-  get shadow() {
-    return this.props.shadow;
-  }
-  get scrim() {
-    return this.props.scrim;
-  }
-  get inverseSurface() {
-    return this.props.inverseSurface;
-  }
-  get inverseOnSurface() {
-    return this.props.inverseOnSurface;
-  }
-  get inversePrimary() {
-    return this.props.inversePrimary;
-  }
-  static light(argb) {
-    return Scheme.lightFromCorePalette(CorePalette.of(argb));
-  }
-  static dark(argb) {
-    return Scheme.darkFromCorePalette(CorePalette.of(argb));
-  }
-  static lightContent(argb) {
-    return Scheme.lightFromCorePalette(CorePalette.contentOf(argb));
-  }
-  static darkContent(argb) {
-    return Scheme.darkFromCorePalette(CorePalette.contentOf(argb));
-  }
-  static lightFromCorePalette(core) {
-    return new Scheme({
-      primary: core.a1.tone(40),
-      onPrimary: core.a1.tone(100),
-      primaryContainer: core.a1.tone(90),
-      onPrimaryContainer: core.a1.tone(10),
-      secondary: core.a2.tone(40),
-      onSecondary: core.a2.tone(100),
-      secondaryContainer: core.a2.tone(90),
-      onSecondaryContainer: core.a2.tone(10),
-      tertiary: core.a3.tone(40),
-      onTertiary: core.a3.tone(100),
-      tertiaryContainer: core.a3.tone(90),
-      onTertiaryContainer: core.a3.tone(10),
-      error: core.error.tone(40),
-      onError: core.error.tone(100),
-      errorContainer: core.error.tone(90),
-      onErrorContainer: core.error.tone(10),
-      background: core.n1.tone(99),
-      onBackground: core.n1.tone(10),
-      surface: core.n1.tone(99),
-      onSurface: core.n1.tone(10),
-      surfaceVariant: core.n2.tone(90),
-      onSurfaceVariant: core.n2.tone(30),
-      outline: core.n2.tone(50),
-      outlineVariant: core.n2.tone(80),
-      shadow: core.n1.tone(0),
-      scrim: core.n1.tone(0),
-      inverseSurface: core.n1.tone(20),
-      inverseOnSurface: core.n1.tone(95),
-      inversePrimary: core.a1.tone(80)
+};
+
+// node_modules/@material/material-color-utilities/scheme/scheme_content.js
+var SchemeContent = class extends DynamicScheme {
+  constructor(sourceColorHct, isDark, contrastLevel) {
+    super({
+      sourceColorArgb: sourceColorHct.toInt(),
+      variant: Variant.CONTENT,
+      contrastLevel,
+      isDark,
+      primaryPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma),
+      secondaryPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, Math.max(sourceColorHct.chroma - 32, sourceColorHct.chroma * 0.5)),
+      tertiaryPalette: TonalPalette.fromInt(DislikeAnalyzer.fixIfDisliked(new TemperatureCache(sourceColorHct).analogous(3, 6)[2]).toInt()),
+      neutralPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma / 8),
+      neutralVariantPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma / 8 + 4)
     });
-  }
-  static darkFromCorePalette(core) {
-    return new Scheme({
-      primary: core.a1.tone(80),
-      onPrimary: core.a1.tone(20),
-      primaryContainer: core.a1.tone(30),
-      onPrimaryContainer: core.a1.tone(90),
-      secondary: core.a2.tone(80),
-      onSecondary: core.a2.tone(20),
-      secondaryContainer: core.a2.tone(30),
-      onSecondaryContainer: core.a2.tone(90),
-      tertiary: core.a3.tone(80),
-      onTertiary: core.a3.tone(20),
-      tertiaryContainer: core.a3.tone(30),
-      onTertiaryContainer: core.a3.tone(90),
-      error: core.error.tone(80),
-      onError: core.error.tone(20),
-      errorContainer: core.error.tone(30),
-      onErrorContainer: core.error.tone(80),
-      background: core.n1.tone(10),
-      onBackground: core.n1.tone(90),
-      surface: core.n1.tone(10),
-      onSurface: core.n1.tone(90),
-      surfaceVariant: core.n2.tone(30),
-      onSurfaceVariant: core.n2.tone(80),
-      outline: core.n2.tone(60),
-      outlineVariant: core.n2.tone(30),
-      shadow: core.n1.tone(0),
-      scrim: core.n1.tone(0),
-      inverseSurface: core.n1.tone(90),
-      inverseOnSurface: core.n1.tone(20),
-      inversePrimary: core.a1.tone(40)
-    });
-  }
-  constructor(props) {
-    this.props = props;
-  }
-  toJSON() {
-    return __spreadValues({}, this.props);
   }
 };
 
@@ -2466,53 +2411,6 @@ function parseIntHex(value) {
   return parseInt(value, 16);
 }
 
-// node_modules/@material/material-color-utilities/utils/theme_utils.js
-function themeFromSourceColor(source, customColors = []) {
-  const palette = CorePalette.of(source);
-  return {
-    source,
-    schemes: {
-      light: Scheme.light(source),
-      dark: Scheme.dark(source)
-    },
-    palettes: {
-      primary: palette.a1,
-      secondary: palette.a2,
-      tertiary: palette.a3,
-      neutral: palette.n1,
-      neutralVariant: palette.n2,
-      error: palette.error
-    },
-    customColors: customColors.map((c) => customColor(source, c))
-  };
-}
-function customColor(source, color) {
-  let value = color.value;
-  const from = value;
-  const to = source;
-  if (color.blend) {
-    value = Blend.harmonize(from, to);
-  }
-  const palette = CorePalette.of(value);
-  const tones = palette.a1;
-  return {
-    color,
-    value,
-    light: {
-      color: tones.tone(40),
-      onColor: tones.tone(100),
-      colorContainer: tones.tone(90),
-      onColorContainer: tones.tone(10)
-    },
-    dark: {
-      color: tones.tone(80),
-      onColor: tones.tone(20),
-      colorContainer: tones.tone(30),
-      onColorContainer: tones.tone(90)
-    }
-  };
-}
-
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/m3-theme/index.mjs
 var HUE_TONES = [0, 10, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100];
 var NEUTRAL_HUES = /* @__PURE__ */ new Map([
@@ -2531,14 +2429,19 @@ var NEUTRAL_HUE_TONES = [...HUE_TONES, ...NEUTRAL_HUES.keys()];
 function getMaterialTonalPalettes(color) {
   try {
     let argbColor = argbFromHex(color);
-    const theme = themeFromSourceColor(argbColor, [
-      {
-        name: "m3-theme",
-        value: argbColor,
-        blend: true
-      }
-    ]);
-    return theme.palettes;
+    const scheme = new SchemeContent(
+      Hct.fromInt(argbColor),
+      false,
+      0
+    );
+    return {
+      primary: scheme.primaryPalette,
+      secondary: scheme.secondaryPalette,
+      tertiary: scheme.tertiaryPalette,
+      neutral: scheme.neutralPalette,
+      neutralVariant: scheme.neutralVariantPalette,
+      error: scheme.errorPalette
+    };
   } catch (e) {
     throw new Error("Cannot parse the specified color " + color + ". Please verify it is a hex color (ex. #ffffff or ffffff).");
   }
