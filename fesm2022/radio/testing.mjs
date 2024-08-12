@@ -1,7 +1,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-radio-group in tests. */
+/** Harness for interacting with a mat-radio-group in tests. */
 class MatRadioGroupHarness extends ComponentHarness {
     constructor() {
         super(...arguments);
@@ -135,7 +135,7 @@ class MatRadioGroupHarness extends ComponentHarness {
         return true;
     }
 }
-/** Harness for interacting with an MDC-based mat-radio-button in tests. */
+/** Harness for interacting with a mat-radio-button in tests. */
 class MatRadioButtonHarness extends ComponentHarness {
     constructor() {
         super(...arguments);

@@ -16,7 +16,7 @@ export declare interface ButtonHarnessFilters extends BaseHarnessFilters {
 /** Possible button appearances. */
 export declare type ButtonVariant = 'basic' | 'raised' | 'flat' | 'icon' | 'stroked' | 'fab' | 'mini-fab';
 
-/** Harness for interacting with a MDC-based mat-button in tests. */
+/** Harness for interacting with a mat-button in tests. */
 export declare class MatButtonHarness extends ContentContainerComponentHarness {
     static hostSelector: string;
     /**

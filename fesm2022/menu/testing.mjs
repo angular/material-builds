@@ -1,7 +1,7 @@
 import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
-/** Harness for interacting with an MDC-based mat-menu in tests. */
+/** Harness for interacting with a mat-menu in tests. */
 class MatMenuHarness extends ContentContainerComponentHarness {
     constructor() {
         super(...arguments);

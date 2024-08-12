@@ -4,7 +4,7 @@ import { ContentContainerComponentHarness } from '@angular/cdk/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based mat-menu in tests. */
+/** Harness for interacting with a mat-menu in tests. */
 export declare class MatMenuHarness extends ContentContainerComponentHarness<string> {
     private _documentRootLocator;
     /** The selector for the host element of a `MatMenu` instance. */

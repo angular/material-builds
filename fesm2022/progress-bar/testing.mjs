@@ -1,7 +1,7 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with an MDC-based `mat-progress-bar` in tests. */
+/** Harness for interacting with a `mat-progress-bar` in tests. */
 class MatProgressBarHarness extends ComponentHarness {
     static { this.hostSelector = '.mat-mdc-progress-bar'; }
     /**
