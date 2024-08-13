@@ -37,8 +37,12 @@ class MatSlideToggleHarness extends ComponentHarness {
     }
     /** Whether the slide-toggle is disabled. */
     async isDisabled() {
-        const disabled = (await this._nativeElement()).getAttribute('disabled');
-        return coerceBooleanProperty(await disabled);
+        const nativeElement = await this._nativeElement();
+        const disabled = await nativeElement.getAttribute('disabled');
+        if (disabled !== null) {
+            return coerceBooleanProperty(disabled);
+        }
+        return (await nativeElement.getAttribute('aria-disabled')) === 'true';
     }
     /** Whether the slide-toggle is required. */
     async isRequired() {

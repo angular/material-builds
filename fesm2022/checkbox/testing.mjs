@@ -42,8 +42,12 @@ class MatCheckboxHarness extends ComponentHarness {
     }
     /** Whether the checkbox is disabled. */
     async isDisabled() {
-        const disabled = (await this._input()).getAttribute('disabled');
-        return coerceBooleanProperty(await disabled);
+        const input = await this._input();
+        const disabled = await input.getAttribute('disabled');
+        if (disabled !== null) {
+            return coerceBooleanProperty(disabled);
+        }
+        return (await input.getAttribute('aria-disabled')) === 'true';
     }
     /** Whether the checkbox is required. */
     async isRequired() {
