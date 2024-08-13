@@ -193,6 +193,9 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _isFocused;
     private _explicitFormFieldControl;
     private _needsOutlineLabelOffsetUpdate;
+    private _previousControl;
+    private _stateChanges;
+    private _valueChanges;
     private _injector;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
     /**
