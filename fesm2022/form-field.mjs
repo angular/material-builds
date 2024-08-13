@@ -561,6 +561,7 @@ class MatFormField {
         this._destroyed = new Subject();
         this._isFocused = null;
         this._needsOutlineLabelOffsetUpdate = false;
+        this._previousControl = null;
         this._injector = inject(Injector);
         /**
          * Gets the id of the label element. If no label is present, returns `null`.
@@ -589,15 +590,20 @@ class MatFormField {
     }
     ngAfterContentInit() {
         this._assertFormFieldControl();
-        this._initializeControl();
         this._initializeSubscript();
         this._initializePrefixAndSuffix();
         this._initializeOutlineLabelOffsetSubscriptions();
     }
     ngAfterContentChecked() {
         this._assertFormFieldControl();
+        if (this._control !== this._previousControl) {
+            this._initializeControl(this._previousControl);
+            this._previousControl = this._control;
+        }
     }
     ngOnDestroy() {
+        this._stateChanges?.unsubscribe();
+        this._valueChanges?.unsubscribe();
         this._destroyed.next();
         this._destroyed.complete();
     }
@@ -623,20 +629,26 @@ class MatFormField {
         }
     }
     /** Initializes the registered form field control. */
-    _initializeControl() {
+    _initializeControl(previousControl) {
         const control = this._control;
+        const classPrefix = 'mat-mdc-form-field-type-';
+        if (previousControl) {
+            this._elementRef.nativeElement.classList.remove(classPrefix + previousControl.controlType);
+        }
         if (control.controlType) {
-            this._elementRef.nativeElement.classList.add(`mat-mdc-form-field-type-${control.controlType}`);
+            this._elementRef.nativeElement.classList.add(classPrefix + control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        control.stateChanges.subscribe(() => {
+        this._stateChanges?.unsubscribe();
+        this._stateChanges = control.stateChanges.subscribe(() => {
             this._updateFocusState();
             this._syncDescribedByIds();
             this._changeDetectorRef.markForCheck();
         });
+        this._valueChanges?.unsubscribe();
         // Run change detection if the value changes.
         if (control.ngControl && control.ngControl.valueChanges) {
-            control.ngControl.valueChanges
+            this._valueChanges = control.ngControl.valueChanges
                 .pipe(takeUntil(this._destroyed))
                 .subscribe(() => this._changeDetectorRef.markForCheck());
         }
