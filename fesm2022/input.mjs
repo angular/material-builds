@@ -4,7 +4,7 @@ import { getSupportedInputTypes } from '@angular/cdk/platform';
 import * as i4 from '@angular/cdk/text-field';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Optional, Self, Inject, Input, NgModule } from '@angular/core';
+import { InjectionToken, inject, booleanAttribute, Directive, Optional, Self, Inject, Input, NgModule } from '@angular/core';
 import * as i2 from '@angular/forms';
 import { Validators } from '@angular/forms';
 import * as i3 from '@angular/material/core';
@@ -40,6 +40,8 @@ const MAT_INPUT_INVALID_TYPES = [
     'submit',
 ];
 let nextUniqueId = 0;
+/** Injection token that can be used to provide the default options for the input. */
+const MAT_INPUT_CONFIG = new InjectionToken('MAT_INPUT_CONFIG');
 class MatInput {
     /**
      * Implemented as part of MatFormFieldControl.
@@ -138,6 +140,7 @@ class MatInput {
         this._formField = _formField;
         this._uid = `mat-input-${nextUniqueId++}`;
         this._webkitBlinkWheelListenerAttached = false;
+        this._config = inject(MAT_INPUT_CONFIG, { optional: true });
         /**
          * Implemented as part of MatFormFieldControl.
          * @docs-private
@@ -212,6 +215,7 @@ class MatInput {
         this._isNativeSelect = nodeName === 'select';
         this._isTextarea = nodeName === 'textarea';
         this._isInFormField = !!_formField;
+        this.disabledInteractive = this._config?.disabledInteractive || false;
         if (this._isNativeSelect) {
             this.controlType = element.multiple
                 ? 'mat-native-select-multiple'
@@ -274,10 +278,25 @@ class MatInput {
     }
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused) {
-        if (isFocused !== this.focused) {
-            this.focused = isFocused;
-            this.stateChanges.next();
+        if (isFocused === this.focused) {
+            return;
         }
+        if (!this._isNativeSelect && isFocused && this.disabled && this.disabledInteractive) {
+            const element = this._elementRef.nativeElement;
+            // Focusing an input that has text will cause all the text to be selected. Clear it since
+            // the user won't be able to change it. This is based on the internal implementation.
+            if (element.type === 'number') {
+                // setSelectionRange doesn't work on number inputs so it needs to be set briefly to text.
+                element.type = 'text';
+                element.setSelectionRange(0, 0);
+                element.type = 'number';
+            }
+            else {
+                element.setSelectionRange(0, 0);
+            }
+        }
+        this.focused = isFocused;
+        this.stateChanges.next();
     }
     _onInput() {
         // This is a noop function and is used to let Angular know whenever the value changes.
@@ -357,7 +376,7 @@ class MatInput {
                 !!(selectElement.selectedIndex > -1 && firstOption && firstOption.label));
         }
         else {
-            return this.focused || !this.empty;
+            return (this.focused && !this.disabled) || !this.empty;
         }
     }
     /**
@@ -411,8 +430,18 @@ class MatInput {
             this._webkitBlinkWheelListenerAttached = true;
         }
     }
+    /** Gets the value to set on the `readonly` attribute. */
+    _getReadonlyAttribute() {
+        if (this._isNativeSelect) {
+            return null;
+        }
+        if (this.readonly || (this.disabled && this.disabledInteractive)) {
+            return 'true';
+        }
+        return null;
+    }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.0-next.2", ngImport: i0, type: MatInput, deps: [{ token: i0.ElementRef }, { token: i1.Platform }, { token: i2.NgControl, optional: true, self: true }, { token: i2.NgForm, optional: true }, { token: i2.FormGroupDirective, optional: true }, { token: i3.ErrorStateMatcher }, { token: MAT_INPUT_VALUE_ACCESSOR, optional: true, self: true }, { token: i4.AutofillMonitor }, { token: i0.NgZone }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "18.2.0-next.2", type: MatInput, isStandalone: true, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly" }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled", "required": "required", "attr.name": "name || null", "attr.readonly": "readonly && !_isNativeSelect || null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesOnChanges: true, ngImport: i0 }); }
+    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "18.2.0-next.2", type: MatInput, isStandalone: true, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute] }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mat-mdc-input-disabled-interactive": "disabledInteractive", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled && !disabledInteractive", "required": "required", "attr.name": "name || null", "attr.readonly": "_getReadonlyAttribute()", "attr.aria-disabled": "disabled && disabledInteractive ? \"true\" : null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesOnChanges: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.0-next.2", ngImport: i0, type: MatInput, decorators: [{
             type: Directive,
@@ -428,15 +457,17 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.0-next.2", 
                         '[class.mat-input-server]': '_isServer',
                         '[class.mat-mdc-form-field-textarea-control]': '_isInFormField && _isTextarea',
                         '[class.mat-mdc-form-field-input-control]': '_isInFormField',
+                        '[class.mat-mdc-input-disabled-interactive]': 'disabledInteractive',
                         '[class.mdc-text-field__input]': '_isInFormField',
                         '[class.mat-mdc-native-select-inline]': '_isInlineSelect()',
                         // Native input properties that are overwritten by Angular inputs need to be synced with
                         // the native input element. Otherwise property bindings for those don't work.
                         '[id]': 'id',
-                        '[disabled]': 'disabled',
+                        '[disabled]': 'disabled && !disabledInteractive',
                         '[required]': 'required',
                         '[attr.name]': 'name || null',
-                        '[attr.readonly]': 'readonly && !_isNativeSelect || null',
+                        '[attr.readonly]': '_getReadonlyAttribute()',
+                        '[attr.aria-disabled]': 'disabled && disabledInteractive ? "true" : null',
                         // Only mark the input as invalid for assistive technology if it has a value since the
                         // state usually overlaps with `aria-required` when the input is empty and can be redundant.
                         '[attr.aria-invalid]': '(empty && required) ? null : errorState',
@@ -492,6 +523,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.0-next.2", 
                 type: Input
             }], readonly: [{
                 type: Input
+            }], disabledInteractive: [{
+                type: Input,
+                args: [{ transform: booleanAttribute }]
             }] } });
 
 class MatInputModule {
@@ -511,5 +545,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.0-next.2", 
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, getMatInputUnsupportedTypeError };
+export { MAT_INPUT_CONFIG, MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, getMatInputUnsupportedTypeError };
 //# sourceMappingURL=input.mjs.map

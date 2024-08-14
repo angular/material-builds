@@ -1,5 +1,6 @@
 import { HarnessPredicate, parallel, ComponentHarness } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a standard Material inputs in tests. */
 class MatInputHarness extends MatFormFieldControlHarness {
@@ -24,7 +25,12 @@ class MatInputHarness extends MatFormFieldControlHarness {
     }
     /** Whether the input is disabled. */
     async isDisabled() {
-        return (await this.host()).getProperty('disabled');
+        const host = await this.host();
+        const disabled = await host.getAttribute('disabled');
+        if (disabled !== null) {
+            return coerceBooleanProperty(disabled);
+        }
+        return (await host.getAttribute('aria-disabled')) === 'true';
     }
     /** Whether the input is required. */
     async isRequired() {

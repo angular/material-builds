@@ -31,9 +31,14 @@ export declare function getMatInputUnsupportedTypeError(type: string): Error;
 
 declare namespace i3 {
     export {
+        MatInputConfig,
+        MAT_INPUT_CONFIG,
         MatInput
     }
 }
+
+/** Injection token that can be used to provide the default options for the input. */
+export declare const MAT_INPUT_CONFIG: InjectionToken<MatInputConfig>;
 
 /**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
@@ -64,6 +69,7 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     private _previousPlaceholder;
     private _errorStateTracker;
     private _webkitBlinkWheelListenerAttached;
+    private _config;
     /** Whether the component is being rendered on the server. */
     readonly _isServer: boolean;
     /** Whether the component is a native html select. */
@@ -145,6 +151,8 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     get readonly(): boolean;
     set readonly(value: BooleanInput);
     private _readonly;
+    /** Whether the input should remain interactive when it is disabled. */
+    disabledInteractive: boolean;
     /** Whether the input is in an error state. */
     get errorState(): boolean;
     set errorState(value: boolean);
@@ -206,8 +214,17 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
      * @docs-private
      */
     private _ensureWheelDefaultBehavior;
+    /** Gets the value to set on the `readonly` attribute. */
+    protected _getReadonlyAttribute(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInput, [null, null, { optional: true; self: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }, null, null, { optional: true; }]>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], { "disabled": { "alias": "disabled"; "required": false; }; "id": { "alias": "id"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "name": { "alias": "name"; "required": false; }; "required": { "alias": "required"; "required": false; }; "type": { "alias": "type"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "value": { "alias": "value"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatInput, "input[matInput], textarea[matInput], select[matNativeControl],      input[matNativeControl], textarea[matNativeControl]", ["matInput"], { "disabled": { "alias": "disabled"; "required": false; }; "id": { "alias": "id"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "name": { "alias": "name"; "required": false; }; "required": { "alias": "required"; "required": false; }; "type": { "alias": "type"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "value": { "alias": "value"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_disabledInteractive: unknown;
+}
+
+/** Object that can be used to configure the default options for the input. */
+export declare interface MatInputConfig {
+    /** Whether disabled inputs should be interactive. */
+    disabledInteractive?: boolean;
 }
 
 export declare class MatInputModule {
