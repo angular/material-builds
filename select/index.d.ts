@@ -104,7 +104,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     protected _parentFormField: MatFormField;
     ngControl: NgControl;
     private _liveAnnouncer;
-    protected _defaultOptions?: MatSelectConfig | undefined;
+    protected _defaultOptions: MatSelectConfig | null;
     /** All of the defined select options. */
     options: QueryList<MatOption>;
     /** All of the defined groups of options. */
@@ -276,7 +276,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
      * @deprecated Unused param, will be removed.
      * @breaking-change 19.0.0
      */
-    _unusedNgZone: NgZone, defaultErrorStateMatcher: ErrorStateMatcher, _elementRef: ElementRef, _dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _defaultOptions?: MatSelectConfig | undefined);
+    _unusedNgZone: NgZone, defaultErrorStateMatcher: ErrorStateMatcher, _elementRef: ElementRef, _dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _unusedDefaultOptions?: unknown);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;

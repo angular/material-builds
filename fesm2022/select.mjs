@@ -237,7 +237,7 @@ class MatSelect {
      * @deprecated Unused param, will be removed.
      * @breaking-change 19.0.0
      */
-    _unusedNgZone, defaultErrorStateMatcher, _elementRef, _dir, parentForm, parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _defaultOptions) {
+    _unusedNgZone, defaultErrorStateMatcher, _elementRef, _dir, parentForm, parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _unusedDefaultOptions) {
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
@@ -245,7 +245,7 @@ class MatSelect {
         this._parentFormField = _parentFormField;
         this.ngControl = ngControl;
         this._liveAnnouncer = _liveAnnouncer;
-        this._defaultOptions = _defaultOptions;
+        this._defaultOptions = inject(MAT_SELECT_CONFIG, { optional: true });
         /**
          * This position config ensures that the top "start" corner of the overlay
          * is aligned with with the top "start" of the origin by default (overlapping
@@ -392,8 +392,8 @@ class MatSelect {
         }
         // Note that we only want to set this when the defaults pass it in, otherwise it should
         // stay as `undefined` so that it falls back to the default in the key manager.
-        if (_defaultOptions?.typeaheadDebounceInterval != null) {
-            this.typeaheadDebounceInterval = _defaultOptions.typeaheadDebounceInterval;
+        if (this._defaultOptions?.typeaheadDebounceInterval != null) {
+            this.typeaheadDebounceInterval = this._defaultOptions.typeaheadDebounceInterval;
         }
         this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, ngControl, parentFormGroup, parentForm, this.stateChanges);
         this._scrollStrategyFactory = scrollStrategyFactory;

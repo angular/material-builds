@@ -3,7 +3,7 @@ import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import * as i2 from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { EventEmitter, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, InjectionToken, inject, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
+import { inject, ANIMATION_MODULE_TYPE, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, InjectionToken, Injectable, SkipSelf, Directive, Input, NgModule } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular/cdk/dialog';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
@@ -79,9 +79,9 @@ const OPEN_ANIMATION_DURATION = 150;
 /** Duration of the closing animation in milliseconds. */
 const CLOSE_ANIMATION_DURATION = 75;
 class MatDialogContainer extends CdkDialogContainer {
-    constructor(elementRef, focusTrapFactory, _document, dialogConfig, interactivityChecker, ngZone, overlayRef, _animationMode, focusMonitor) {
+    constructor(elementRef, focusTrapFactory, _document, dialogConfig, interactivityChecker, ngZone, overlayRef, _unusedAnimationMode, focusMonitor) {
         super(elementRef, focusTrapFactory, _document, dialogConfig, interactivityChecker, ngZone, overlayRef, focusMonitor);
-        this._animationMode = _animationMode;
+        this._animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         /** Emits when an animation state changes. */
         this._animationStateChanged = new EventEmitter();
         /** Whether animations are enabled. */

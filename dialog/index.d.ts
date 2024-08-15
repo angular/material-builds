@@ -335,7 +335,7 @@ export declare class MatDialogConfig<D = any> {
 }
 
 export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConfig> implements OnDestroy {
-    private _animationMode?;
+    private _animationMode;
     /** Emits when an animation state changes. */
     _animationStateChanged: EventEmitter<LegacyDialogAnimationEvent>;
     /** Whether animations are enabled. */
@@ -350,7 +350,7 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
     private _exitAnimationDuration;
     /** Current timer for dialog animations. */
     private _animationTimer;
-    constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, _document: any, dialogConfig: MatDialogConfig, interactivityChecker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, _animationMode?: string | undefined, focusMonitor?: FocusMonitor);
+    constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, _document: any, dialogConfig: MatDialogConfig, interactivityChecker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, _unusedAnimationMode?: string, focusMonitor?: FocusMonitor);
     protected _contentAttached(): void;
     /** Starts the dialog open animation if enabled. */
     private _startOpenAnimation;
