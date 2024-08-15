@@ -59,9 +59,8 @@ function getMatIconNameNotFoundError(iconName) {
  * @docs-private
  */
 function getMatIconNoHttpProviderError() {
-    return Error('Could not find HttpClient provider for use with Angular Material icons. ' +
-        'Please include the HttpClientModule from @angular/common/http in your ' +
-        'app imports.');
+    return Error('Could not find HttpClient for use with Angular Material icons. ' +
+        'Please add provideHttpClient() to your providers.');
 }
 /**
  * Returns an exception to be thrown when a URL couldn't be sanitized.
