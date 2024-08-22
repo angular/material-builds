@@ -261,17 +261,6 @@ class MatChip {
     set value(value) {
         this._value = value;
     }
-    /**
-     * Reference to the MatRipple instance of the chip.
-     * @deprecated Considered an implementation detail. To be removed.
-     * @breaking-change 17.0.0
-     */
-    get ripple() {
-        return this._rippleLoader?.getRipple(this._elementRef.nativeElement);
-    }
-    set ripple(v) {
-        this._rippleLoader?.attachRipple(this._elementRef.nativeElement, v);
-    }
     constructor(_changeDetectorRef, _elementRef, _ngZone, _focusMonitor, _document, animationMode, _globalRippleOptions) {
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;

@@ -4,7 +4,6 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
-import { MatRipple } from '@angular/material/core';
 import { MatRippleLoader } from '@angular/material/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -104,16 +103,9 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
      * Handles the lazy creation of the MatButton ripple.
      * Used to improve initial load time of large applications.
      */
-    _rippleLoader: MatRippleLoader;
+    protected _rippleLoader: MatRippleLoader;
     /** Whether this button is a FAB. Used to apply the correct class on the ripple. */
-    _isFab: boolean;
-    /**
-     * Reference to the MatRipple instance of the button.
-     * @deprecated Considered an implementation detail. To be removed.
-     * @breaking-change 17.0.0
-     */
-    get ripple(): MatRipple;
-    set ripple(v: MatRipple);
+    protected _isFab: boolean;
     /**
      * Theme color of the button. This API is supported in M2 themes only, it has
      * no effect in M3 themes.

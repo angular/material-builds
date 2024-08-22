@@ -864,8 +864,6 @@ export declare class MatRippleLoader implements OnDestroy {
         centered?: boolean;
         disabled?: boolean;
     }): void;
-    /** Returns the ripple instance for the given host element. */
-    getRipple(host: HTMLElement): MatRipple | undefined;
     /** Sets the disabled state on the ripple instance corresponding to the given host element. */
     setDisabled(host: HTMLElement, disabled: boolean): void;
     /**

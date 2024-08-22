@@ -55,17 +55,6 @@ const HOST_SELECTOR_MDC_CLASS_PAIR = [
 ];
 /** Base class for all buttons.  */
 class MatButtonBase {
-    /**
-     * Reference to the MatRipple instance of the button.
-     * @deprecated Considered an implementation detail. To be removed.
-     * @breaking-change 17.0.0
-     */
-    get ripple() {
-        return this._rippleLoader?.getRipple(this._elementRef.nativeElement);
-    }
-    set ripple(v) {
-        this._rippleLoader?.attachRipple(this._elementRef.nativeElement, v);
-    }
     /** Whether the ripple effect is disabled or not. */
     get disableRipple() {
         return this._disableRipple;

@@ -9,7 +9,6 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i3 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
-import { MatRipple } from '@angular/material/core';
 import { NgZone } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { Provider } from '@angular/core';
@@ -119,12 +118,6 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
     color: string | undefined;
     /** Whether the checkbox should remain interactive when it is disabled. */
     disabledInteractive: boolean;
-    /**
-     * Reference to the MatRipple instance of the checkbox.
-     * @deprecated Considered an implementation detail. To be removed.
-     * @breaking-change 17.0.0
-     */
-    ripple: MatRipple;
     /**
      * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
      * @docs-private

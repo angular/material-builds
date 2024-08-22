@@ -16,8 +16,6 @@ import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { MatRipple } from '@angular/material/core';
-import { MatRippleLoader } from '@angular/material/core';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -217,20 +215,13 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
     trailingIcon: MatChipTrailingIcon;
     /** The chip's trailing remove icon. */
     removeIcon: MatChipRemove;
-    /**
-     * Reference to the MatRipple instance of the chip.
-     * @deprecated Considered an implementation detail. To be removed.
-     * @breaking-change 17.0.0
-     */
-    get ripple(): MatRipple;
-    set ripple(v: MatRipple);
     /** Action receiving the primary set of user interactions. */
     primaryAction: MatChipAction;
     /**
      * Handles the lazy creation of the MatChip ripple.
      * Used to improve initial load time of large applications.
      */
-    _rippleLoader: MatRippleLoader;
+    private _rippleLoader;
     protected _injector: Injector;
     constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _focusMonitor: FocusMonitor, _document: any, animationMode?: string, _globalRippleOptions?: RippleGlobalOptions | undefined);
     ngOnInit(): void;

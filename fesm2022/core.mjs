@@ -1858,11 +1858,6 @@ class MatRippleLoader {
             host.setAttribute(matRippleDisabled, '');
         }
     }
-    /** Returns the ripple instance for the given host element. */
-    getRipple(host) {
-        const ripple = this._hosts.get(host);
-        return ripple || this._createRipple(host);
-    }
     /** Sets the disabled state on the ripple instance corresponding to the given host element. */
     setDisabled(host, disabled) {
         const ripple = this._hosts.get(host);
