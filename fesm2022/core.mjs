@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, ANIMATION_MODULE_TYPE, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, booleanAttribute, EventEmitter, Output, ViewChild, NgZone, ElementRef } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, ANIMATION_MODULE_TYPE, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, booleanAttribute, EventEmitter, Output, ViewChild, NgZone } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -1863,12 +1863,15 @@ class MatRippleLoader {
         const ripple = this._hosts.get(host);
         // If the ripple has already been instantiated, just disable it.
         if (ripple) {
-            ripple.disabled = disabled;
-            return;
+            ripple.target.rippleDisabled = disabled;
+            if (!disabled && !ripple.hasSetUpEvents) {
+                ripple.hasSetUpEvents = true;
+                ripple.renderer.setupTriggerEvents(host);
+            }
         }
-        // Otherwise, set an attribute so we know what the
-        // disabled state should be when the ripple is initialized.
-        if (disabled) {
+        else if (disabled) {
+            // Otherwise, set an attribute so we know what the
+            // disabled state should be when the ripple is initialized.
             host.setAttribute(matRippleDisabled, '');
         }
         else {
@@ -1877,37 +1880,49 @@ class MatRippleLoader {
     }
     /** Creates a MatRipple and appends it to the given element. */
     _createRipple(host) {
-        if (!this._document) {
+        if (!this._document || this._hosts.has(host)) {
             return;
-        }
-        const existingRipple = this._hosts.get(host);
-        if (existingRipple) {
-            return existingRipple;
         }
         // Create the ripple element.
         host.querySelector('.mat-ripple')?.remove();
         const rippleEl = this._document.createElement('span');
         rippleEl.classList.add('mat-ripple', host.getAttribute(matRippleClassName));
         host.append(rippleEl);
-        // Create the MatRipple.
-        const ripple = new MatRipple(new ElementRef(rippleEl), this._ngZone, this._platform, this._globalRippleOptions ? this._globalRippleOptions : undefined, this._animationMode ? this._animationMode : undefined);
-        ripple._isInitialized = true;
-        ripple.trigger = host;
-        ripple.centered = host.hasAttribute(matRippleCentered);
-        ripple.disabled = host.hasAttribute(matRippleDisabled);
-        this.attachRipple(host, ripple);
-        return ripple;
-    }
-    attachRipple(host, ripple) {
+        const isNoopAnimations = this._animationMode === 'NoopAnimations';
+        const globalOptions = this._globalRippleOptions;
+        const enterDuration = isNoopAnimations
+            ? 0
+            : globalOptions?.animation?.enterDuration ?? defaultRippleAnimationConfig.enterDuration;
+        const exitDuration = isNoopAnimations
+            ? 0
+            : globalOptions?.animation?.exitDuration ?? defaultRippleAnimationConfig.exitDuration;
+        const target = {
+            rippleDisabled: isNoopAnimations || globalOptions?.disabled || host.hasAttribute(matRippleDisabled),
+            rippleConfig: {
+                centered: host.hasAttribute(matRippleCentered),
+                terminateOnPointerUp: globalOptions?.terminateOnPointerUp,
+                animation: {
+                    enterDuration,
+                    exitDuration,
+                },
+            },
+        };
+        const renderer = new RippleRenderer(target, this._ngZone, rippleEl, this._platform);
+        const hasSetUpEvents = !target.rippleDisabled;
+        if (hasSetUpEvents) {
+            renderer.setupTriggerEvents(host);
+        }
+        this._hosts.set(host, {
+            target,
+            renderer,
+            hasSetUpEvents,
+        });
         host.removeAttribute(matRippleUninitialized);
-        this._hosts.set(host, ripple);
     }
     destroyRipple(host) {
         const ripple = this._hosts.get(host);
         if (ripple) {
-            // Since this directive is created manually, it needs to be destroyed manually too.
-            // tslint:disable-next-line:no-lifecycle-invocation
-            ripple.ngOnDestroy();
+            ripple.renderer._removeTriggerEvents();
             this._hosts.delete(host);
         }
     }
