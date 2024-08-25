@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, ANIMATION_MODULE_TYPE, Input, Component, ViewEncapsulation, ChangeDetectionStrategy, booleanAttribute, EventEmitter, Output, ViewChild, NgZone } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ANIMATION_MODULE_TYPE, Input, booleanAttribute, EventEmitter, Output, ViewChild, NgZone } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -10,6 +10,7 @@ import { Platform, _isTestEnvironment, normalizePassiveListenerOptions, _getEven
 import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
 import { Observable, Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /** Current version of Angular Material. */
@@ -873,6 +874,14 @@ const passiveCapturingEventOptions = normalizePassiveListenerOptions({
 const pointerDownEvents = ['mousedown', 'touchstart'];
 /** Events that signal that the pointer is up. */
 const pointerUpEvents = ['mouseup', 'mouseleave', 'touchend', 'touchcancel'];
+class _MatRippleStylesLoader {
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.0-next.2", ngImport: i0, type: _MatRippleStylesLoader, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "18.2.0-next.2", type: _MatRippleStylesLoader, isStandalone: true, selector: "ng-component", host: { attributes: { "mat-ripple-style-loader": "" } }, ngImport: i0, template: '', isInline: true, styles: [".mat-ripple{overflow:hidden;position:relative}.mat-ripple:not(:empty){transform:translateZ(0)}.mat-ripple.mat-ripple-unbounded{overflow:visible}.mat-ripple-element{position:absolute;border-radius:50%;pointer-events:none;transition:opacity,transform 0ms cubic-bezier(0, 0, 0.2, 1);transform:scale3d(0, 0, 0);background-color:var(--mat-ripple-color, color-mix(in srgb, var(--mat-app-on-surface) 10%, transparent))}.cdk-high-contrast-active .mat-ripple-element{display:none}.cdk-drag-preview .mat-ripple-element,.cdk-drag-placeholder .mat-ripple-element{display:none}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.0-next.2", ngImport: i0, type: _MatRippleStylesLoader, decorators: [{
+            type: Component,
+            args: [{ template: '', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, standalone: true, host: { 'mat-ripple-style-loader': '' }, styles: [".mat-ripple{overflow:hidden;position:relative}.mat-ripple:not(:empty){transform:translateZ(0)}.mat-ripple.mat-ripple-unbounded{overflow:visible}.mat-ripple-element{position:absolute;border-radius:50%;pointer-events:none;transition:opacity,transform 0ms cubic-bezier(0, 0, 0.2, 1);transform:scale3d(0, 0, 0);background-color:var(--mat-ripple-color, color-mix(in srgb, var(--mat-app-on-surface) 10%, transparent))}.cdk-high-contrast-active .mat-ripple-element{display:none}.cdk-drag-preview .mat-ripple-element,.cdk-drag-placeholder .mat-ripple-element{display:none}"] }]
+        }] });
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -882,7 +891,7 @@ const pointerUpEvents = ['mouseup', 'mouseleave', 'touchend', 'touchcancel'];
  */
 class RippleRenderer {
     static { this._eventManager = new RippleEventManager(); }
-    constructor(_target, _ngZone, elementOrElementRef, _platform) {
+    constructor(_target, _ngZone, elementOrElementRef, _platform, injector) {
         this._target = _target;
         this._ngZone = _ngZone;
         this._platform = _platform;
@@ -900,6 +909,9 @@ class RippleRenderer {
         // Only do anything if we're on the browser.
         if (_platform.isBrowser) {
             this._containerElement = coerceElement(elementOrElementRef);
+        }
+        if (injector) {
+            injector.get(_CdkPrivateStyleLoader).load(_MatRippleStylesLoader);
         }
     }
     /**
@@ -1228,7 +1240,7 @@ class MatRipple {
         this._trigger = trigger;
         this._setupTriggerEventsIfEnabled();
     }
-    constructor(_elementRef, ngZone, platform, globalOptions, _animationMode) {
+    constructor(_elementRef, ngZone, platform, globalOptions, _animationMode, injector) {
         this._elementRef = _elementRef;
         this._animationMode = _animationMode;
         /**
@@ -1240,8 +1252,10 @@ class MatRipple {
         this._disabled = false;
         /** @docs-private Whether ripple directive is initialized and the input bindings are set. */
         this._isInitialized = false;
+        // Note: cannot use `inject()` here, because this class
+        // gets instantiated manually in the ripple loader.
         this._globalOptions = globalOptions || {};
-        this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
+        this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform, injector);
     }
     ngOnInit() {
         this._isInitialized = true;
@@ -1297,7 +1311,7 @@ class MatRipple {
             return this._rippleRenderer.fadeInRipple(0, 0, { ...this.rippleConfig, ...configOrX });
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.0-next.2", ngImport: i0, type: MatRipple, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: i1$1.Platform }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "18.2.0-next.2", ngImport: i0, type: MatRipple, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: i1$1.Platform }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: i0.Injector }], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "18.2.0-next.2", type: MatRipple, isStandalone: true, selector: "[mat-ripple], [matRipple]", inputs: { color: ["matRippleColor", "color"], unbounded: ["matRippleUnbounded", "unbounded"], centered: ["matRippleCentered", "centered"], radius: ["matRippleRadius", "radius"], animation: ["matRippleAnimation", "animation"], disabled: ["matRippleDisabled", "disabled"], trigger: ["matRippleTrigger", "trigger"] }, host: { properties: { "class.mat-ripple-unbounded": "unbounded" }, classAttribute: "mat-ripple" }, exportAs: ["matRipple"], ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.0-next.2", ngImport: i0, type: MatRipple, decorators: [{
@@ -1321,7 +1335,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.0-next.2", 
                 }, {
                     type: Inject,
                     args: [ANIMATION_MODULE_TYPE]
-                }] }], propDecorators: { color: [{
+                }] }, { type: i0.Injector }], propDecorators: { color: [{
                 type: Input,
                 args: ['matRippleColor']
             }], unbounded: [{

@@ -10,6 +10,7 @@ import { HighContrastModeDetector } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/bidi';
 import { InjectionToken } from '@angular/core';
+import { Injector } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
@@ -431,6 +432,9 @@ declare namespace i1_2 {
 
 declare namespace i1_3 {
     export {
+        RippleRenderer,
+        RippleTarget,
+        defaultRippleAnimationConfig,
         MatRippleModule,
         RippleGlobalOptions,
         MAT_RIPPLE_GLOBAL_OPTIONS,
@@ -438,10 +442,7 @@ declare namespace i1_3 {
         RippleState,
         RippleConfig,
         RippleAnimationConfig,
-        RippleRef,
-        RippleTarget,
-        defaultRippleAnimationConfig,
-        RippleRenderer
+        RippleRef
     }
 }
 
@@ -799,7 +800,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     private _globalOptions;
     /** @docs-private Whether ripple directive is initialized and the input bindings are set. */
     _isInitialized: boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, ngZone: NgZone, platform: Platform, globalOptions?: RippleGlobalOptions, _animationMode?: string | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>, ngZone: NgZone, platform: Platform, globalOptions?: RippleGlobalOptions, _animationMode?: string | undefined, injector?: Injector);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Fades out all currently showing ripple elements. */
@@ -832,7 +833,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * @param config Optional ripple configuration for the manual ripple.
      */
     launch(x: number, y: number, config?: RippleConfig): RippleRef;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, [null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, [null, null, null, { optional: true; }, { optional: true; }, null]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": { "alias": "matRippleColor"; "required": false; }; "unbounded": { "alias": "matRippleUnbounded"; "required": false; }; "centered": { "alias": "matRippleCentered"; "required": false; }; "radius": { "alias": "matRippleRadius"; "required": false; }; "animation": { "alias": "matRippleAnimation"; "required": false; }; "disabled": { "alias": "matRippleDisabled"; "required": false; }; "trigger": { "alias": "matRippleTrigger"; "required": false; }; }, {}, never, never, true, never>;
 }
 
@@ -1105,7 +1106,7 @@ export declare class RippleRenderer implements EventListenerObject {
      */
     private _containerRect;
     private static _eventManager;
-    constructor(_target: RippleTarget, _ngZone: NgZone, elementOrElementRef: HTMLElement | ElementRef<HTMLElement>, _platform: Platform);
+    constructor(_target: RippleTarget, _ngZone: NgZone, elementOrElementRef: HTMLElement | ElementRef<HTMLElement>, _platform: Platform, injector?: Injector);
     /**
      * Fades in a ripple at the given coordinates.
      * @param x Coordinate within the element, along the X axis at which to start the ripple.

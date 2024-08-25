@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, Optional, Inject, inject, Input, ANIMATION_MODULE_TYPE, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, EventEmitter, Output, forwardRef, ChangeDetectorRef, NgModule } from '@angular/core';
+import { InjectionToken, Directive, Optional, Inject, inject, Input, Injector, ANIMATION_MODULE_TYPE, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, EventEmitter, Output, forwardRef, ChangeDetectorRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i1 from '@angular/cdk/platform';
 import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
@@ -282,7 +282,7 @@ class MatListItemBase {
     }
     _initInteractiveListItem() {
         this._hostElement.classList.add('mat-mdc-list-item-interactive');
-        this._rippleRenderer = new RippleRenderer(this, this._ngZone, this._hostElement, this._platform);
+        this._rippleRenderer = new RippleRenderer(this, this._ngZone, this._hostElement, this._platform, inject(Injector));
         this._rippleRenderer.setupTriggerEvents(this._hostElement);
     }
     /**
