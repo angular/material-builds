@@ -206,6 +206,8 @@ class MatTooltip {
         this._message = '';
         /** Manually-bound passive event listeners. */
         this._passiveListeners = [];
+        /** Timer started at the last `touchstart` event. */
+        this._touchstartTimeout = null;
         /** Emits when the component is destroyed. */
         this._destroyed = new Subject();
         this._injector = inject(Injector);
@@ -256,7 +258,10 @@ class MatTooltip {
      */
     ngOnDestroy() {
         const nativeElement = this._elementRef.nativeElement;
-        clearTimeout(this._touchstartTimeout);
+        // Optimization: Do not call clearTimeout unless there is an active timer.
+        if (this._touchstartTimeout) {
+            clearTimeout(this._touchstartTimeout);
+        }
         if (this._overlayRef) {
             this._overlayRef.dispose();
             this._tooltipInstance = null;
@@ -574,9 +579,14 @@ class MatTooltip {
                     // Note that it's important that we don't `preventDefault` here,
                     // because it can prevent click events from firing on the element.
                     this._setupPointerExitEventsIfNeeded();
-                    clearTimeout(this._touchstartTimeout);
+                    if (this._touchstartTimeout) {
+                        clearTimeout(this._touchstartTimeout);
+                    }
                     const DEFAULT_LONGPRESS_DELAY = 500;
-                    this._touchstartTimeout = setTimeout(() => this.show(undefined, origin), this._defaultOptions.touchLongPressShowDelay ?? DEFAULT_LONGPRESS_DELAY);
+                    this._touchstartTimeout = setTimeout(() => {
+                        this._touchstartTimeout = null;
+                        this.show(undefined, origin);
+                    }, this._defaultOptions.touchLongPressShowDelay ?? DEFAULT_LONGPRESS_DELAY);
                 },
             ]);
         }
@@ -602,7 +612,9 @@ class MatTooltip {
         else if (this.touchGestures !== 'off') {
             this._disableNativeGesturesIfNecessary();
             const touchendListener = () => {
-                clearTimeout(this._touchstartTimeout);
+                if (this._touchstartTimeout) {
+                    clearTimeout(this._touchstartTimeout);
+                }
                 this.hide(this._defaultOptions.touchendHideDelay);
             };
             exitListeners.push(['touchend', touchendListener], ['touchcancel', touchendListener]);
