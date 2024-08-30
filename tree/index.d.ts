@@ -261,8 +261,8 @@ export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
  */
 export declare class MatTreeNodeOutlet implements CdkTreeNodeOutlet {
     viewContainer: ViewContainerRef;
-    _node?: any | undefined;
-    constructor(viewContainer: ViewContainerRef, _node?: any | undefined);
+    _node?: any;
+    constructor(viewContainer: ViewContainerRef, _node?: any);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodeOutlet, [null, { optional: true; }]>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeOutlet, "[matTreeNodeOutlet]", never, {}, {}, never, never, true, never>;
 }
