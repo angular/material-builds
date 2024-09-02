@@ -82,9 +82,7 @@ class MatBadge {
             });
             appRef.onDestroy(() => {
                 badgeApps.delete(appRef);
-                if (badgeApps.size === 0) {
-                    componentRef.destroy();
-                }
+                componentRef.destroy();
             });
         }
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
