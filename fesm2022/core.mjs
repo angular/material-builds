@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ANIMATION_MODULE_TYPE, Input, booleanAttribute, EventEmitter, Output, ViewChild, NgZone } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ANIMATION_MODULE_TYPE, Input, booleanAttribute, EventEmitter, Output, ViewChild, NgZone, Injector } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -1821,6 +1821,7 @@ class MatRippleLoader {
         this._globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, { optional: true });
         this._platform = inject(Platform);
         this._ngZone = inject(NgZone);
+        this._injector = inject(Injector);
         this._hosts = new Map();
         /**
          * Handles creating and attaching component internals
@@ -1921,7 +1922,7 @@ class MatRippleLoader {
                 },
             },
         };
-        const renderer = new RippleRenderer(target, this._ngZone, rippleEl, this._platform);
+        const renderer = new RippleRenderer(target, this._ngZone, rippleEl, this._platform, this._injector);
         const hasSetUpEvents = !target.rippleDisabled;
         if (hasSetUpEvents) {
             renderer.setupTriggerEvents(host);

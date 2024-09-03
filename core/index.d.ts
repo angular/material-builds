@@ -851,6 +851,7 @@ export declare class MatRippleLoader implements OnDestroy {
     private _globalRippleOptions;
     private _platform;
     private _ngZone;
+    private _injector;
     private _hosts;
     constructor();
     ngOnDestroy(): void;
