@@ -23,12 +23,6 @@ import { QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Version } from '@angular/core';
 
-/**
- * This is a permissive type for abstract class constructors.
- * @docs-private
- */
-export declare type _AbstractConstructor<T = object> = abstract new (...args: any[]) => T;
-
 
 /** @docs-private */
 export declare class AnimationCurves {
@@ -44,64 +38,6 @@ export declare class AnimationDurations {
     static ENTERING: string;
     static EXITING: string;
 }
-
-/**
- * @docs-private
- * @deprecated Will be removed together with `mixinColor`.
- * @breaking-change 19.0.0
- */
-export declare interface CanColor {
-    /** Theme color palette for the component. */
-    color: ThemePalette;
-    /** Default color to fall back to if no value is set. */
-    defaultColor: ThemePalette | undefined;
-}
-
-declare type CanColorCtor = _Constructor<CanColor> & _AbstractConstructor<CanColor>;
-
-/**
- * @docs-private
- * @deprecated Will be removed together with `mixinDisabled`.
- * @breaking-change 19.0.0
- */
-export declare interface CanDisable {
-    /** Whether the component is disabled. */
-    disabled: boolean;
-}
-
-declare type CanDisableCtor = _Constructor<CanDisable> & _AbstractConstructor<CanDisable>;
-
-/**
- * @docs-private
- * @deprecated Will be removed together with `mixinDisableRipple`.
- * @breaking-change 19.0.0
- */
-export declare interface CanDisableRipple {
-    /** Whether ripples are disabled. */
-    disableRipple: boolean;
-}
-
-declare type CanDisableRippleCtor = _Constructor<CanDisableRipple> & _AbstractConstructor<CanDisableRipple>;
-
-/**
- * @docs-private
- * @deprecated Will be removed together with `mixinErrorState`.
- * @breaking-change 19.0.0
- */
-export declare interface CanUpdateErrorState {
-    /** Updates the error state based on the provided error state matcher. */
-    updateErrorState(): void;
-    /** Whether the component is in an error state. */
-    errorState: boolean;
-    /** An object used to control the error state of the component. */
-    errorStateMatcher: ErrorStateMatcher_2;
-}
-
-declare type CanUpdateErrorStateCtor = _Constructor<CanUpdateErrorState> & _AbstractConstructor<CanUpdateErrorState>;
-
-
-/** @docs-private */
-export declare type _Constructor<T> = new (...args: any[]) => T;
 
 /**
  * Counts the amount of option group labels that precede the specified option.
@@ -369,56 +305,6 @@ export declare interface GranularSanityChecks {
     theme: boolean;
     version: boolean;
 }
-
-/** @docs-private */
-declare interface HasElementRef {
-    _elementRef: ElementRef;
-}
-
-/** @docs-private */
-declare interface HasErrorState {
-    _parentFormGroup: FormGroupDirective | null;
-    _parentForm: NgForm | null;
-    _defaultErrorStateMatcher: ErrorStateMatcher_2;
-    ngControl: NgControl | null;
-    stateChanges: Subject<void>;
-}
-
-/**
- * Mixin that adds an initialized property to a directive which, when subscribed to, will emit a
- * value once markInitialized has been called, which should be done during the ngOnInit function.
- * If the subscription is made after it has already been marked as initialized, then it will trigger
- * an emit immediately.
- * @docs-private
- * @deprecated Will be removed together with `mixinInitializer`.
- * @breaking-change 19.0.0
- */
-export declare interface HasInitialized {
-    /** Stream that emits once during the directive/component's ngOnInit. */
-    initialized: Observable<void>;
-    /**
-     * Sets the state as initialized and must be called during ngOnInit to notify subscribers that
-     * the directive has been initialized.
-     * @docs-private
-     */
-    _markInitialized: () => void;
-}
-
-declare type HasInitializedCtor = _Constructor<HasInitialized>;
-
-/**
- * @docs-private
- * @deprecated Will be removed together with `mixinTabIndex`.
- * @breaking-change 19.0.0
- */
-export declare interface HasTabIndex {
-    /** Tabindex of the component. */
-    tabIndex: number;
-    /** Tabindex to which to fall back to if no value is set. */
-    defaultTabIndex: number;
-}
-
-declare type HasTabIndexCtor = _Constructor<HasTabIndex> & _AbstractConstructor<HasTabIndex>;
 
 declare namespace i1_2 {
     export {
@@ -886,49 +772,6 @@ export declare class MatRippleModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRippleModule>;
 }
 
-/**
- * Mixin to augment a directive with a `color` property.
- * @deprecated Use a plain input and host bindings instead.
- * @breaking-change 19.0.0
- */
-export declare function mixinColor<T extends _AbstractConstructor<HasElementRef>>(base: T, defaultColor?: ThemePalette): CanColorCtor & T;
-
-/**
- * Mixin to augment a directive with a `disabled` property.
- * @deprecated Use an input with a transform instead.
- * @breaking-change 19.0.0
- */
-export declare function mixinDisabled<T extends _AbstractConstructor<{}>>(base: T): CanDisableCtor & T;
-
-/**
- * Mixin to augment a directive with a `disableRipple` property.
- * @deprecated Use an input with a transform instead.
- * @breaking-change 19.0.0
- */
-export declare function mixinDisableRipple<T extends _AbstractConstructor<{}>>(base: T): CanDisableRippleCtor & T;
-
-/**
- * Mixin to augment a directive with updateErrorState method.
- * For component with `errorState` and need to update `errorState`.
- * @deprecated Implement the `updateErrorState` method directly.
- * @breaking-change 19.0.0
- */
-export declare function mixinErrorState<T extends _AbstractConstructor<HasErrorState>>(base: T): CanUpdateErrorStateCtor & T;
-
-/**
- * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
- * @deprecated Track the initialized state manually.
- * @breaking-change 19.0.0
- */
-export declare function mixinInitialized<T extends _Constructor<{}>>(base: T): HasInitializedCtor & T;
-
-/**
- * Mixin to augment a directive with a `tabIndex` property.
- * @deprecated Use an input with a transform instead.
- * @breaking-change 19.0.0
- */
-export declare function mixinTabIndex<T extends _AbstractConstructor<CanDisable>>(base: T, defaultTabIndex?: number): HasTabIndexCtor & T;
-
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 export declare class NativeDateAdapter extends DateAdapter<Date> {
     /**
@@ -1187,6 +1030,7 @@ export declare class ShowOnDirtyErrorStateMatcher implements ErrorStateMatcher {
     static ɵfac: i0.ɵɵFactoryDeclaration<ShowOnDirtyErrorStateMatcher, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<ShowOnDirtyErrorStateMatcher>;
 }
+
 
 /** Possible color palette values. */
 export declare type ThemePalette = 'primary' | 'accent' | 'warn' | undefined;

@@ -7,9 +7,9 @@ import { VERSION as VERSION$1 } from '@angular/cdk';
 import { DOCUMENT } from '@angular/common';
 import * as i1$1 from '@angular/cdk/platform';
 import { Platform, _isTestEnvironment, normalizePassiveListenerOptions, _getEventTarget } from '@angular/cdk/platform';
-import { coerceBooleanProperty, coerceNumberProperty, coerceElement } from '@angular/cdk/coercion';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { coerceElement } from '@angular/cdk/coercion';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
@@ -141,80 +141,6 @@ function _checkCdkVersionMatch() {
     }
 }
 
-function mixinDisabled(base) {
-    return class extends base {
-        get disabled() {
-            return this._disabled;
-        }
-        set disabled(value) {
-            this._disabled = coerceBooleanProperty(value);
-        }
-        constructor(...args) {
-            super(...args);
-            this._disabled = false;
-        }
-    };
-}
-
-function mixinColor(base, defaultColor) {
-    return class extends base {
-        get color() {
-            return this._color;
-        }
-        set color(value) {
-            const colorPalette = value || this.defaultColor;
-            if (colorPalette !== this._color) {
-                if (this._color) {
-                    this._elementRef.nativeElement.classList.remove(`mat-${this._color}`);
-                }
-                if (colorPalette) {
-                    this._elementRef.nativeElement.classList.add(`mat-${colorPalette}`);
-                }
-                this._color = colorPalette;
-            }
-        }
-        constructor(...args) {
-            super(...args);
-            this.defaultColor = defaultColor;
-            // Set the default color that can be specified from the mixin.
-            this.color = defaultColor;
-        }
-    };
-}
-
-function mixinDisableRipple(base) {
-    return class extends base {
-        /** Whether the ripple effect is disabled or not. */
-        get disableRipple() {
-            return this._disableRipple;
-        }
-        set disableRipple(value) {
-            this._disableRipple = coerceBooleanProperty(value);
-        }
-        constructor(...args) {
-            super(...args);
-            this._disableRipple = false;
-        }
-    };
-}
-
-function mixinTabIndex(base, defaultTabIndex = 0) {
-    return class extends base {
-        get tabIndex() {
-            return this.disabled ? -1 : this._tabIndex;
-        }
-        set tabIndex(value) {
-            // If the specified tabIndex value is null or undefined, fall back to the default value.
-            this._tabIndex = value != null ? coerceNumberProperty(value) : this.defaultTabIndex;
-        }
-        constructor(...args) {
-            super(...args);
-            this._tabIndex = defaultTabIndex;
-            this.defaultTabIndex = defaultTabIndex;
-        }
-    };
-}
-
 /**
  * Class that tracks the error state of a component.
  * @docs-private
@@ -241,91 +167,6 @@ class _ErrorStateTracker {
             this._stateChanges.next();
         }
     }
-}
-function mixinErrorState(base) {
-    return class extends base {
-        /** Whether the component is in an error state. */
-        get errorState() {
-            return this._getTracker().errorState;
-        }
-        set errorState(value) {
-            this._getTracker().errorState = value;
-        }
-        /** An object used to control the error state of the component. */
-        get errorStateMatcher() {
-            return this._getTracker().matcher;
-        }
-        set errorStateMatcher(value) {
-            this._getTracker().matcher = value;
-        }
-        /** Updates the error state based on the provided error state matcher. */
-        updateErrorState() {
-            this._getTracker().updateErrorState();
-        }
-        _getTracker() {
-            if (!this._tracker) {
-                this._tracker = new _ErrorStateTracker(this._defaultErrorStateMatcher, this.ngControl, this._parentFormGroup, this._parentForm, this.stateChanges);
-            }
-            return this._tracker;
-        }
-        constructor(...args) {
-            super(...args);
-        }
-    };
-}
-
-/**
- * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
- * @deprecated Track the initialized state manually.
- * @breaking-change 19.0.0
- */
-function mixinInitialized(base) {
-    return class extends base {
-        constructor(...args) {
-            super(...args);
-            /** Whether this directive has been marked as initialized. */
-            this._isInitialized = false;
-            /**
-             * List of subscribers that subscribed before the directive was initialized. Should be notified
-             * during _markInitialized. Set to null after pending subscribers are notified, and should
-             * not expect to be populated after.
-             */
-            this._pendingSubscribers = [];
-            /**
-             * Observable stream that emits when the directive initializes. If already initialized, the
-             * subscriber is stored to be notified once _markInitialized is called.
-             */
-            this.initialized = new Observable(subscriber => {
-                // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
-                // when _markInitialized is called.
-                if (this._isInitialized) {
-                    this._notifySubscriber(subscriber);
-                }
-                else {
-                    this._pendingSubscribers.push(subscriber);
-                }
-            });
-        }
-        /**
-         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
-         * of ngOnInit.
-         * @docs-private
-         */
-        _markInitialized() {
-            if (this._isInitialized && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-                throw Error('This directive has already been marked as initialized and ' +
-                    'should not be called twice.');
-            }
-            this._isInitialized = true;
-            this._pendingSubscribers.forEach(this._notifySubscriber);
-            this._pendingSubscribers = null;
-        }
-        /** Emits and completes the subscriber stream (should only emit once). */
-        _notifySubscriber(subscriber) {
-            subscriber.next();
-            subscriber.complete();
-        }
-    };
 }
 
 /** InjectionToken for datepicker that can be used to override default locale code. */
@@ -1973,5 +1814,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.2", 
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, RippleState, ShowOnDirtyErrorStateMatcher, VERSION, _ErrorStateTracker, _MatInternalFormField, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinInitialized, mixinTabIndex, provideNativeDateAdapter, setLines };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, RippleState, ShowOnDirtyErrorStateMatcher, VERSION, _ErrorStateTracker, _MatInternalFormField, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, provideNativeDateAdapter, setLines };
 //# sourceMappingURL=core.mjs.map
