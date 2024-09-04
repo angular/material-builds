@@ -14,7 +14,7 @@ import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 
 /** Current version of Angular Material. */
-const VERSION = new Version('19.0.0-next.2');
+const VERSION = new Version('19.0.0-next.3');
 
 /** @docs-private */
 class AnimationCurves {
