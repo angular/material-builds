@@ -1,17 +1,15 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, Optional, Inject, LOCALE_ID, Injectable, Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ANIMATION_MODULE_TYPE, Input, booleanAttribute, EventEmitter, Output, ViewChild, NgZone, Injector } from '@angular/core';
-import * as i1 from '@angular/cdk/a11y';
-import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
+import { Version, InjectionToken, inject, NgModule, LOCALE_ID, Injectable, Optional, Inject, Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ANIMATION_MODULE_TYPE, Input, booleanAttribute, EventEmitter, Output, ViewChild, NgZone, Injector } from '@angular/core';
+import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
-import { VERSION as VERSION$1 } from '@angular/cdk';
-import { DOCUMENT } from '@angular/common';
-import * as i1$1 from '@angular/cdk/platform';
-import { Platform, _isTestEnvironment, normalizePassiveListenerOptions, _getEventTarget } from '@angular/cdk/platform';
 import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import * as i1 from '@angular/cdk/platform';
+import { normalizePassiveListenerOptions, _getEventTarget, Platform } from '@angular/cdk/platform';
 import { coerceElement } from '@angular/cdk/coercion';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
+import { DOCUMENT } from '@angular/common';
 
 /** Current version of Angular Material. */
 const VERSION = new Version('19.0.0-next.3');
@@ -30,58 +28,30 @@ class AnimationDurations {
     static { this.EXITING = '195ms'; }
 }
 
-/** @docs-private */
-function MATERIAL_SANITY_CHECKS_FACTORY() {
-    return true;
-}
-/** Injection token that configures whether the Material sanity checks are enabled. */
+/**
+ * Injection token that configures whether the Material sanity checks are enabled.
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
+ */
 const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
-    factory: MATERIAL_SANITY_CHECKS_FACTORY,
+    factory: () => true,
 });
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
  *
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
  */
 class MatCommonModule {
-    constructor(highContrastModeDetector, _sanityChecks, _document) {
-        this._sanityChecks = _sanityChecks;
-        this._document = _document;
-        /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
-        this._hasDoneGlobalChecks = false;
+    constructor() {
         // While A11yModule also does this, we repeat it here to avoid importing A11yModule
         // in MatCommonModule.
-        highContrastModeDetector._applyBodyHighContrastModeCssClasses();
-        if (!this._hasDoneGlobalChecks) {
-            this._hasDoneGlobalChecks = true;
-            if (typeof ngDevMode === 'undefined' || ngDevMode) {
-                // Inject in here so the reference to `Platform` can be removed in production mode.
-                const platform = inject(Platform, { optional: true });
-                if (this._checkIsEnabled('doctype')) {
-                    _checkDoctypeIsDefined(this._document);
-                }
-                if (this._checkIsEnabled('theme')) {
-                    _checkThemeIsPresent(this._document, !!platform?.isBrowser);
-                }
-                if (this._checkIsEnabled('version')) {
-                    _checkCdkVersionMatch();
-                }
-            }
-        }
+        inject(HighContrastModeDetector)._applyBodyHighContrastModeCssClasses();
     }
-    /** Gets whether a specific sanity check is enabled. */
-    _checkIsEnabled(name) {
-        if (_isTestEnvironment()) {
-            return false;
-        }
-        if (typeof this._sanityChecks === 'boolean') {
-            return this._sanityChecks;
-        }
-        return !!this._sanityChecks[name];
-    }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatCommonModule, deps: [{ token: i1.HighContrastModeDetector }, { token: MATERIAL_SANITY_CHECKS, optional: true }, { token: DOCUMENT }], target: i0.ɵɵFactoryTarget.NgModule }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatCommonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
     static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatCommonModule, imports: [BidiModule], exports: [BidiModule] }); }
     static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatCommonModule, imports: [BidiModule, BidiModule] }); }
 }
@@ -91,55 +61,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                     imports: [BidiModule],
                     exports: [BidiModule],
                 }]
-        }], ctorParameters: () => [{ type: i1.HighContrastModeDetector }, { type: undefined, decorators: [{
-                    type: Optional
-                }, {
-                    type: Inject,
-                    args: [MATERIAL_SANITY_CHECKS]
-                }] }, { type: Document, decorators: [{
-                    type: Inject,
-                    args: [DOCUMENT]
-                }] }] });
-/** Checks that the page has a doctype. */
-function _checkDoctypeIsDefined(doc) {
-    if (!doc.doctype) {
-        console.warn('Current document does not have a doctype. This may cause ' +
-            'some Angular Material components not to behave as expected.');
-    }
-}
-/** Checks that a theme has been included. */
-function _checkThemeIsPresent(doc, isBrowser) {
-    // We need to assert that the `body` is defined, because these checks run very early
-    // and the `body` won't be defined if the consumer put their scripts in the `head`.
-    if (!doc.body || !isBrowser) {
-        return;
-    }
-    const testElement = doc.createElement('div');
-    testElement.classList.add('mat-theme-loaded-marker');
-    doc.body.appendChild(testElement);
-    const computedStyle = getComputedStyle(testElement);
-    // In some situations the computed style of the test element can be null. For example in
-    // Firefox, the computed style is null if an application is running inside of a hidden iframe.
-    // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
-    if (computedStyle && computedStyle.display !== 'none') {
-        console.warn('Could not find Angular Material core theme. Most Material ' +
-            'components may not work as expected. For more info refer ' +
-            'to the theming guide: https://material.angular.io/guide/theming');
-    }
-    testElement.remove();
-}
-/** Checks whether the Material version matches the CDK version. */
-function _checkCdkVersionMatch() {
-    if (VERSION.full !== VERSION$1.full) {
-        console.warn('The Angular Material version (' +
-            VERSION.full +
-            ') does not match ' +
-            'the Angular CDK version (' +
-            VERSION$1.full +
-            ').\n' +
-            'Please ensure the versions of these two packages exactly match.');
-    }
-}
+        }], ctorParameters: () => [] });
 
 /**
  * Class that tracks the error state of a component.
@@ -1152,7 +1074,7 @@ class MatRipple {
             return this._rippleRenderer.fadeInRipple(0, 0, { ...this.rippleConfig, ...configOrX });
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatRipple, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: i1$1.Platform }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: i0.Injector }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatRipple, deps: [{ token: i0.ElementRef }, { token: i0.NgZone }, { token: i1.Platform }, { token: MAT_RIPPLE_GLOBAL_OPTIONS, optional: true }, { token: ANIMATION_MODULE_TYPE, optional: true }, { token: i0.Injector }], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.3", type: MatRipple, isStandalone: true, selector: "[mat-ripple], [matRipple]", inputs: { color: ["matRippleColor", "color"], unbounded: ["matRippleUnbounded", "unbounded"], centered: ["matRippleCentered", "centered"], radius: ["matRippleRadius", "radius"], animation: ["matRippleAnimation", "animation"], disabled: ["matRippleDisabled", "disabled"], trigger: ["matRippleTrigger", "trigger"] }, host: { properties: { "class.mat-ripple-unbounded": "unbounded" }, classAttribute: "mat-ripple" }, exportAs: ["matRipple"], ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatRipple, decorators: [{
@@ -1166,7 +1088,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                     },
                     standalone: true,
                 }]
-        }], ctorParameters: () => [{ type: i0.ElementRef }, { type: i0.NgZone }, { type: i1$1.Platform }, { type: undefined, decorators: [{
+        }], ctorParameters: () => [{ type: i0.ElementRef }, { type: i0.NgZone }, { type: i1.Platform }, { type: undefined, decorators: [{
                     type: Optional
                 }, {
                     type: Inject,

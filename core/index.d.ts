@@ -6,7 +6,6 @@ import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FormGroupDirective } from '@angular/forms';
-import { HighContrastModeDetector } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/bidi';
 import { InjectionToken } from '@angular/core';
@@ -299,7 +298,11 @@ export declare class _ErrorStateTracker {
  */
 export declare function _getOptionScrollPosition(optionOffset: number, optionHeight: number, currentScrollPosition: number, panelHeight: number): number;
 
-/** Object that can be used to configure the sanity checks granularly. */
+/**
+ * Object that can be used to configure the sanity checks granularly.
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare interface GranularSanityChecks {
     doctype: boolean;
     theme: boolean;
@@ -308,7 +311,6 @@ export declare interface GranularSanityChecks {
 
 declare namespace i1_2 {
     export {
-        MATERIAL_SANITY_CHECKS_FACTORY,
         MATERIAL_SANITY_CHECKS,
         SanityChecks,
         GranularSanityChecks,
@@ -399,16 +401,12 @@ export declare const MAT_RIPPLE_GLOBAL_OPTIONS: InjectionToken<RippleGlobalOptio
  * components. This includes Bidi, etc.
  *
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
  */
 export declare class MatCommonModule {
-    private _sanityChecks;
-    private _document;
-    /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
-    private _hasDoneGlobalChecks;
-    constructor(highContrastModeDetector: HighContrastModeDetector, _sanityChecks: SanityChecks, _document: Document);
-    /** Gets whether a specific sanity check is enabled. */
-    private _checkIsEnabled;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCommonModule, [null, { optional: true; }, null]>;
+    constructor(...args: any[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCommonModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatCommonModule, never, [typeof i1.BidiModule], [typeof i1.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCommonModule>;
 }
@@ -426,11 +424,12 @@ export declare type MatDateFormats = {
     };
 };
 
-/** Injection token that configures whether the Material sanity checks are enabled. */
+/**
+ * Injection token that configures whether the Material sanity checks are enabled.
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare const MATERIAL_SANITY_CHECKS: InjectionToken<SanityChecks>;
-
-/** @docs-private */
-declare function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks;
 
 /**
  * Internal shared component used as a container in form field controls.
@@ -1015,6 +1014,8 @@ export declare interface RippleTarget {
 /**
  * Possible sanity checks that can be enabled. If set to
  * true/false, all checks will be enabled/disabled.
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
  */
 export declare type SanityChecks = boolean | GranularSanityChecks;
 
