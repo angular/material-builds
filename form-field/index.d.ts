@@ -137,6 +137,8 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     _textField: ElementRef<HTMLElement>;
     _iconPrefixContainer: ElementRef<HTMLElement>;
     _textPrefixContainer: ElementRef<HTMLElement>;
+    _iconSuffixContainer: ElementRef<HTMLElement>;
+    _textSuffixContainer: ElementRef<HTMLElement>;
     _floatingLabel: MatFormFieldFloatingLabel | undefined;
     _notchedOutline: MatFormFieldNotchedOutline | undefined;
     _lineRipple: MatFormFieldLineRipple | undefined;
