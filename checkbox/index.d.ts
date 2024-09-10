@@ -83,6 +83,16 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
     ariaLabelledby: string | null;
     /** The 'aria-describedby' attribute is read after the element's label and field type. */
     ariaDescribedby: string;
+    /**
+     * Users can specify the `aria-expanded` attribute which will be forwarded to the input element
+     */
+    ariaExpanded: boolean;
+    /**
+     * Users can specify the `aria-controls` attribute which will be forwarded to the input element
+     */
+    ariaControls: string;
+    /** Users can specify the `aria-owns` attribute which will be forwarded to the input element */
+    ariaOwns: string;
     private _uniqueId;
     /** A unique id for the checkbox input. If none is supplied, it will be auto-generated. */
     id: string;
@@ -184,7 +194,8 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
      */
     _preventBubblingFromLabel(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "ariaExpanded": { "alias": "aria-expanded"; "required": false; }; "ariaControls": { "alias": "aria-controls"; "required": false; }; "ariaOwns": { "alias": "aria-owns"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], true, never>;
+    static ngAcceptInputType_ariaExpanded: unknown;
     static ngAcceptInputType_required: unknown;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
