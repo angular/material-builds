@@ -131,6 +131,7 @@ class MatExpansionPanel extends CdkAccordionItem {
         this._inputChanges = new Subject();
         /** ID for the associated header element. Used for a11y labelling. */
         this._headerId = `mat-expansion-panel-header-${uniqueId++}`;
+        this._expansionDispatcher = _uniqueSelectionDispatcher;
         this.accordion = accordion;
         this._document = _document;
         this._animationsDisabled = _animationMode === 'NoopAnimations';
