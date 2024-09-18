@@ -132,13 +132,19 @@ class MatSliderVisualThumb {
         this._hostElement = _elementRef.nativeElement;
     }
     ngAfterViewInit() {
+        const sliderInput = this._slider._getInput(this.thumbPosition);
+        // No-op if the slider isn't configured properly. `MatSlider` will
+        // throw an error instructing the user how to set up the slider.
+        if (!sliderInput) {
+            return;
+        }
         this._ripple.radius = 24;
-        this._sliderInput = this._slider._getInput(this.thumbPosition);
+        this._sliderInput = sliderInput;
         this._sliderInputEl = this._sliderInput._hostElement;
-        const input = this._sliderInputEl;
         // These listeners don't update any data bindings so we bind them outside
         // of the NgZone to prevent Angular from needlessly running change detection.
         this._ngZone.runOutsideAngular(() => {
+            const input = this._sliderInputEl;
             input.addEventListener('pointermove', this._onPointerMove);
             input.addEventListener('pointerdown', this._onDragStart);
             input.addEventListener('pointerup', this._onDragEnd);
@@ -981,7 +987,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "18.2.0-next.2", 
 /** Ensures that there is not an invalid configuration for the slider thumb inputs. */
 function _validateInputs(isRange, endInputElement, startInputElement) {
     const startValid = !isRange || startInputElement?._hostElement.hasAttribute('matSliderStartThumb');
-    const endValid = endInputElement._hostElement.hasAttribute(isRange ? 'matSliderEndThumb' : 'matSliderThumb');
+    const endValid = endInputElement?._hostElement.hasAttribute(isRange ? 'matSliderEndThumb' : 'matSliderThumb');
     if (!startValid || !endValid) {
         _throwInvalidInputConfigurationError();
     }
