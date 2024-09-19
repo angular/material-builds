@@ -1,28 +1,18 @@
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
 import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { DialogConfig } from '@angular/cdk/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 import { Direction } from '@angular/cdk/bidi';
-import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { FocusTrapFactory } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/dialog';
 import * as i2 from '@angular/material/core';
 import * as i3 from '@angular/cdk/portal';
 import { InjectionToken } from '@angular/core';
-import { Injector } from '@angular/core';
-import { InteractivityChecker } from '@angular/cdk/a11y';
-import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
-import { Overlay } from '@angular/cdk/overlay';
-import { OverlayRef } from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { TemplateRef } from '@angular/core';
 import { ViewContainerRef } from '@angular/core';
@@ -48,13 +38,13 @@ export declare const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: InjectionToken<MatBottomS
 export declare class MatBottomSheet implements OnDestroy {
     private _overlay;
     private _parentBottomSheet;
-    private _defaultOptions?;
+    private _defaultOptions;
     private _bottomSheetRefAtThisLevel;
     private _dialog;
     /** Reference to the currently opened bottom sheet. */
     get _openedBottomSheetRef(): MatBottomSheetRef<any> | null;
     set _openedBottomSheetRef(value: MatBottomSheetRef<any> | null);
-    constructor(_overlay: Overlay, injector: Injector, _parentBottomSheet: MatBottomSheet, _defaultOptions?: MatBottomSheetConfig | undefined);
+    constructor(...args: unknown[]);
     /**
      * Opens a bottom sheet containing the given component.
      * @param component Type of the component to load into the bottom sheet.
@@ -75,7 +65,7 @@ export declare class MatBottomSheet implements OnDestroy {
      */
     dismiss<R = any>(result?: R): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheet, [null, null, { optional: true; skipSelf: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheet, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatBottomSheet>;
 }
 
@@ -139,7 +129,7 @@ export declare class MatBottomSheetContainer extends CdkDialogContainer implemen
     _animationStateChanged: EventEmitter<AnimationEvent_2>;
     /** Whether the component has been destroyed. */
     private _destroyed;
-    constructor(elementRef: ElementRef, focusTrapFactory: FocusTrapFactory, document: any, config: DialogConfig, checker: InteractivityChecker, ngZone: NgZone, overlayRef: OverlayRef, breakpointObserver: BreakpointObserver, focusMonitor?: FocusMonitor);
+    constructor(...args: unknown[]);
     /** Begin animation of bottom sheet entrance into view. */
     enter(): void;
     /** Begin animation of the bottom sheet exiting from view. */
@@ -148,7 +138,7 @@ export declare class MatBottomSheetContainer extends CdkDialogContainer implemen
     _onAnimationDone(event: AnimationEvent_2): void;
     _onAnimationStart(event: AnimationEvent_2): void;
     protected _captureInitialFocus(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, [null, null, { optional: true; }, null, null, null, null, null, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, true, never>;
 }
 

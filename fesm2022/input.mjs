@@ -1,15 +1,10 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import * as i1 from '@angular/cdk/platform';
-import { getSupportedInputTypes } from '@angular/cdk/platform';
-import * as i4 from '@angular/cdk/text-field';
-import { TextFieldModule } from '@angular/cdk/text-field';
+import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
+import { AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, booleanAttribute, Directive, Optional, Self, Inject, Input, NgModule } from '@angular/core';
-import * as i2 from '@angular/forms';
-import { Validators } from '@angular/forms';
-import * as i3 from '@angular/material/core';
-import { _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
-import * as i5 from '@angular/material/form-field';
+import { InjectionToken, inject, ElementRef, NgZone, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { Validators, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
+import { ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
@@ -128,16 +123,13 @@ class MatInput {
     set errorState(value) {
         this._errorStateTracker.errorState = value;
     }
-    constructor(_elementRef, _platform, ngControl, parentForm, parentFormGroup, defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, _ngZone, 
-    // TODO: Remove this once the legacy appearance has been removed. We only need
-    // to inject the form field for determining whether the placeholder has been promoted.
-    _formField) {
-        this._elementRef = _elementRef;
-        this._platform = _platform;
-        this.ngControl = ngControl;
-        this._autofillMonitor = _autofillMonitor;
-        this._ngZone = _ngZone;
-        this._formField = _formField;
+    constructor() {
+        this._elementRef = inject(ElementRef);
+        this._platform = inject(Platform);
+        this.ngControl = inject(NgControl, { optional: true, self: true });
+        this._autofillMonitor = inject(AutofillMonitor);
+        this._ngZone = inject(NgZone);
+        this._formField = inject(MAT_FORM_FIELD, { optional: true });
         this._uid = `mat-input-${nextUniqueId++}`;
         this._webkitBlinkWheelListenerAttached = false;
         this._config = inject(MAT_INPUT_CONFIG, { optional: true });
@@ -194,6 +186,10 @@ class MatInput {
             // on number inputs
             // on blink and webkit browsers.
         };
+        const parentForm = inject(NgForm, { optional: true });
+        const parentFormGroup = inject(FormGroupDirective, { optional: true });
+        const defaultErrorStateMatcher = inject(ErrorStateMatcher);
+        const inputValueAccessor = inject(MAT_INPUT_VALUE_ACCESSOR, { optional: true, self: true });
         const element = this._elementRef.nativeElement;
         const nodeName = element.nodeName.toLowerCase();
         // If no input value accessor was explicitly specified, use the element as the input value
@@ -205,16 +201,16 @@ class MatInput {
         // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
-        if (_platform.IOS) {
-            _ngZone.runOutsideAngular(() => {
-                _elementRef.nativeElement.addEventListener('keyup', this._iOSKeyupListener);
+        if (this._platform.IOS) {
+            this._ngZone.runOutsideAngular(() => {
+                element.addEventListener('keyup', this._iOSKeyupListener);
             });
         }
-        this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, ngControl, parentFormGroup, parentForm, this.stateChanges);
+        this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, this.ngControl, parentFormGroup, parentForm, this.stateChanges);
         this._isServer = !this._platform.isBrowser;
         this._isNativeSelect = nodeName === 'select';
         this._isTextarea = nodeName === 'textarea';
-        this._isInFormField = !!_formField;
+        this._isInFormField = !!this._formField;
         this.disabledInteractive = this._config?.disabledInteractive || false;
         if (this._isNativeSelect) {
             this.controlType = element.multiple
@@ -440,7 +436,7 @@ class MatInput {
         }
         return null;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatInput, deps: [{ token: i0.ElementRef }, { token: i1.Platform }, { token: i2.NgControl, optional: true, self: true }, { token: i2.NgForm, optional: true }, { token: i2.FormGroupDirective, optional: true }, { token: i3.ErrorStateMatcher }, { token: MAT_INPUT_VALUE_ACCESSOR, optional: true, self: true }, { token: i4.AutofillMonitor }, { token: i0.NgZone }, { token: MAT_FORM_FIELD, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatInput, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.3", type: MatInput, isStandalone: true, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute] }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mat-mdc-input-disabled-interactive": "disabledInteractive", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled && !disabledInteractive", "required": "required", "attr.name": "name || null", "attr.readonly": "_getReadonlyAttribute()", "attr.aria-disabled": "disabled && disabledInteractive ? \"true\" : null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesOnChanges: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatInput, decorators: [{
@@ -482,27 +478,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                     providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
                     standalone: true,
                 }]
-        }], ctorParameters: () => [{ type: i0.ElementRef }, { type: i1.Platform }, { type: i2.NgControl, decorators: [{
-                    type: Optional
-                }, {
-                    type: Self
-                }] }, { type: i2.NgForm, decorators: [{
-                    type: Optional
-                }] }, { type: i2.FormGroupDirective, decorators: [{
-                    type: Optional
-                }] }, { type: i3.ErrorStateMatcher }, { type: undefined, decorators: [{
-                    type: Optional
-                }, {
-                    type: Self
-                }, {
-                    type: Inject,
-                    args: [MAT_INPUT_VALUE_ACCESSOR]
-                }] }, { type: i4.AutofillMonitor }, { type: i0.NgZone }, { type: i5.MatFormField, decorators: [{
-                    type: Optional
-                }, {
-                    type: Inject,
-                    args: [MAT_FORM_FIELD]
-                }] }], propDecorators: { disabled: [{
+        }], ctorParameters: () => [], propDecorators: { disabled: [{
                 type: Input
             }], id: [{
                 type: Input

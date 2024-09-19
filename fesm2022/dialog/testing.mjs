@@ -90,8 +90,8 @@ let MatTestDialogOpener = class MatTestDialogOpener {
         MatTestDialogOpener_1.config = config;
         return MatTestDialogOpener_1;
     }
-    constructor(dialog) {
-        this.dialog = dialog;
+    constructor() {
+        this.dialog = inject(MatDialog);
         this._ngZone = inject(NgZone);
         if (!MatTestDialogOpener_1.component) {
             throw new Error(`MatTestDialogOpener does not have a component provided.`);
@@ -115,7 +115,7 @@ MatTestDialogOpener = MatTestDialogOpener_1 = __decorate([
         encapsulation: ViewEncapsulation.None,
         standalone: true,
     }),
-    __metadata("design:paramtypes", [MatDialog])
+    __metadata("design:paramtypes", [])
 ], MatTestDialogOpener);
 let MatTestDialogOpenerModule = class MatTestDialogOpenerModule {
 };

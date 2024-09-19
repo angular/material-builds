@@ -8,12 +8,10 @@ import { CdkTreeNodePadding } from '@angular/cdk/tree';
 import { CdkTreeNodeToggle } from '@angular/cdk/tree';
 import { CollectionViewer } from '@angular/cdk/collections';
 import { DataSource } from '@angular/cdk/collections';
-import { ElementRef } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/tree';
 import * as i2 from '@angular/material/core';
-import { IterableDiffers } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -69,11 +67,10 @@ export declare class MatNestedTreeNode<T, K = T> extends CdkNestedTreeNode<T, K>
     get tabIndex(): number;
     set tabIndex(value: number);
     private _tabIndex;
-    constructor(elementRef: ElementRef<HTMLElement>, tree: CdkTree<T, K>, differs: IterableDiffers, tabIndex: string);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatNestedTreeNode<any, any>, [null, null, null, { attribute: "tabindex"; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatNestedTreeNode<any, any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatNestedTreeNode<any, any>, "mat-nested-tree-node", ["matNestedTreeNode"], { "node": { "alias": "matNestedTreeNode"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, { "activation": "activation"; "expandedChange": "expandedChange"; }, never, never, true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_tabIndex: unknown;
@@ -227,19 +224,10 @@ export declare class MatTreeNode<T, K = T> extends CdkTreeNode<T, K> implements 
      */
     get disabled(): boolean;
     set disabled(value: boolean);
-    constructor(elementRef: ElementRef<HTMLElement>, tree: CdkTree<T, K>, 
-    /**
-     * The tabindex of the tree node.
-     *
-     * @deprecated By default MatTreeNode manages focus using TreeKeyManager instead of tabIndex.
-     *   Recommend to avoid setting tabIndex directly to prevent TreeKeyManager form getting into
-     *   an unexpected state. Tabindex to be removed in a future version.
-     * @breaking-change 21.0.0 Remove this attribute.
-     */
-    tabIndex: string);
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNode<any, any>, [null, null, { attribute: "tabindex"; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNode<any, any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNode<any, any>, "mat-tree-node", ["matTreeNode"], { "tabIndexInputBinding": { "alias": "tabIndex"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "activation": "activation"; "expandedChange": "expandedChange"; }, never, never, true, never>;
     static ngAcceptInputType_tabIndexInputBinding: unknown;
     static ngAcceptInputType_disabled: unknown;
@@ -261,9 +249,8 @@ export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
  */
 export declare class MatTreeNodeOutlet implements CdkTreeNodeOutlet {
     viewContainer: ViewContainerRef;
-    _node?: any;
-    constructor(viewContainer: ViewContainerRef, _node?: any);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodeOutlet, [null, { optional: true; }]>;
+    _node: {} | null;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNodeOutlet, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTreeNodeOutlet, "[matTreeNodeOutlet]", never, {}, {}, never, never, true, never>;
 }
 

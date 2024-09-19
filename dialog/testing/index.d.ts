@@ -76,7 +76,7 @@ export declare class MatTestDialogOpener<T = unknown, R = unknown> implements On
     private readonly _ngZone;
     /** Static method that prepares this class to open the provided component. */
     static withComponent<T = unknown, R = unknown>(component: ComponentType<T>, config?: MatDialogConfig): ComponentType<MatTestDialogOpener<T, R>>;
-    constructor(dialog: MatDialog);
+    constructor(...args: unknown[]);
     ngOnDestroy(): void;
 }
 

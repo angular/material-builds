@@ -6,12 +6,10 @@ import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { ChangeDetectorRef } from '@angular/core';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import { ControlValueAccessor } from '@angular/forms';
-import { Directionality } from '@angular/cdk/bidi';
 import { DoCheck } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { EventEmitter } from '@angular/core';
-import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
 import * as i2 from '@angular/cdk/overlay';
@@ -19,7 +17,6 @@ import * as i3 from '@angular/material/core';
 import * as i5 from '@angular/cdk/scrolling';
 import * as i6 from '@angular/material/form-field';
 import { InjectionToken } from '@angular/core';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatError } from '@angular/material/form-field';
 import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -31,8 +28,6 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatPrefix } from '@angular/material/form-field';
 import { MatSuffix } from '@angular/material/form-field';
 import { NgControl } from '@angular/forms';
-import { NgForm } from '@angular/forms';
-import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -99,9 +94,9 @@ export { MatPrefix }
 export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<any> {
     protected _viewportRuler: ViewportRuler;
     protected _changeDetectorRef: ChangeDetectorRef;
-    readonly _elementRef: ElementRef;
+    readonly _elementRef: ElementRef<any>;
     private _dir;
-    protected _parentFormField: MatFormField;
+    protected _parentFormField: MatFormField | null;
     ngControl: NgControl;
     private _liveAnnouncer;
     protected _defaultOptions: MatSelectConfig | null;
@@ -271,12 +266,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, 
-    /**
-     * @deprecated Unused param, will be removed.
-     * @breaking-change 19.0.0
-     */
-    _unusedNgZone: NgZone, defaultErrorStateMatcher: ErrorStateMatcher, _elementRef: ElementRef, _dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, scrollStrategyFactory: any, _liveAnnouncer: LiveAnnouncer, _unusedDefaultOptions?: unknown);
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
@@ -436,7 +426,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
      * @docs-private
      */
     get shouldLabelFloat(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, [null, null, null, null, null, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; }, { optional: true; self: true; }, { attribute: "tabindex"; }, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disableOptionCentering": { "alias": "disableOptionCentering"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "value": { "alias": "value"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "typeaheadDebounceInterval": { "alias": "typeaheadDebounceInterval"; "required": false; }; "sortComparator": { "alias": "sortComparator"; "required": false; }; "id": { "alias": "id"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_disableRipple: unknown;

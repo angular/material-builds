@@ -1,22 +1,17 @@
 import { Overlay, CdkOverlayOrigin, CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
 import { NgClass, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, EventEmitter, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Optional, Inject, Self, Attribute, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
-import * as i2 from '@angular/material/core';
-import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, _ErrorStateTracker, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
+import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, ErrorStateMatcher, _ErrorStateTracker, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
 export { MatOptgroup, MatOption } from '@angular/material/core';
-import * as i6 from '@angular/material/form-field';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
-import * as i1 from '@angular/cdk/scrolling';
-import { CdkScrollableModule } from '@angular/cdk/scrolling';
-import * as i5 from '@angular/cdk/a11y';
-import { removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import * as i3 from '@angular/cdk/bidi';
+import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
+import { LiveAnnouncer, removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, A } from '@angular/cdk/keycodes';
-import * as i4 from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { Validators, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, filter, map, distinctUntilChanged, takeUntil, take } from 'rxjs/operators';
 import { trigger, transition, query, animateChild, state, style, animate } from '@angular/animations';
@@ -232,19 +227,14 @@ class MatSelect {
     set errorState(value) {
         this._errorStateTracker.errorState = value;
     }
-    constructor(_viewportRuler, _changeDetectorRef, 
-    /**
-     * @deprecated Unused param, will be removed.
-     * @breaking-change 19.0.0
-     */
-    _unusedNgZone, defaultErrorStateMatcher, _elementRef, _dir, parentForm, parentFormGroup, _parentFormField, ngControl, tabIndex, scrollStrategyFactory, _liveAnnouncer, _unusedDefaultOptions) {
-        this._viewportRuler = _viewportRuler;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._elementRef = _elementRef;
-        this._dir = _dir;
-        this._parentFormField = _parentFormField;
-        this.ngControl = ngControl;
-        this._liveAnnouncer = _liveAnnouncer;
+    constructor() {
+        this._viewportRuler = inject(ViewportRuler);
+        this._changeDetectorRef = inject(ChangeDetectorRef);
+        this._elementRef = inject(ElementRef);
+        this._dir = inject(Directionality, { optional: true });
+        this._parentFormField = inject(MAT_FORM_FIELD, { optional: true });
+        this.ngControl = inject(NgControl, { self: true, optional: true });
+        this._liveAnnouncer = inject(LiveAnnouncer);
         this._defaultOptions = inject(MAT_SELECT_CONFIG, { optional: true });
         /**
          * This position config ensures that the top "start" corner of the overlay
@@ -280,6 +270,8 @@ class MatSelect {
                 panelClass: 'mat-mdc-select-panel-above',
             },
         ];
+        /** Factory function used to create a scroll strategy for this select. */
+        this._scrollStrategyFactory = inject(MAT_SELECT_SCROLL_STRATEGY);
         /** Whether or not the overlay panel is open. */
         this._panelOpen = false;
         /** Comparison function to specify which option is displayed. Defaults to object equality. */
@@ -385,6 +377,10 @@ class MatSelect {
             // closed.
             return option.disabled;
         };
+        const defaultErrorStateMatcher = inject(ErrorStateMatcher);
+        const parentForm = inject(NgForm, { optional: true });
+        const parentFormGroup = inject(FormGroupDirective, { optional: true });
+        const tabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });
         if (this.ngControl) {
             // Note: we provide the value accessor through here, instead of
             // the `providers` to avoid running into a circular import.
@@ -395,10 +391,9 @@ class MatSelect {
         if (this._defaultOptions?.typeaheadDebounceInterval != null) {
             this.typeaheadDebounceInterval = this._defaultOptions.typeaheadDebounceInterval;
         }
-        this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, ngControl, parentFormGroup, parentForm, this.stateChanges);
-        this._scrollStrategyFactory = scrollStrategyFactory;
+        this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, this.ngControl, parentFormGroup, parentForm, this.stateChanges);
         this._scrollStrategy = this._scrollStrategyFactory();
-        this.tabIndex = parseInt(tabIndex) || 0;
+        this.tabIndex = tabIndex == null ? 0 : parseInt(tabIndex) || 0;
         // Force setter to be called in case id was not specified.
         this.id = this.id;
     }
@@ -996,7 +991,7 @@ class MatSelect {
         if (this.ariaLabel) {
             return null;
         }
-        const labelId = this._parentFormField?.getLabelId();
+        const labelId = this._parentFormField?.getLabelId() || null;
         const labelExpression = labelId ? labelId + ' ' : '';
         return this.ariaLabelledby ? labelExpression + this.ariaLabelledby : labelId;
     }
@@ -1052,7 +1047,7 @@ class MatSelect {
         // want the label to only float when there's a value.
         return this.panelOpen || !this.empty || (this.focused && !!this.placeholder);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatSelect, deps: [{ token: i1.ViewportRuler }, { token: i0.ChangeDetectorRef }, { token: i0.NgZone }, { token: i2.ErrorStateMatcher }, { token: i0.ElementRef }, { token: i3.Directionality, optional: true }, { token: i4.NgForm, optional: true }, { token: i4.FormGroupDirective, optional: true }, { token: MAT_FORM_FIELD, optional: true }, { token: i4.NgControl, optional: true, self: true }, { token: 'tabindex', attribute: true }, { token: MAT_SELECT_SCROLL_STRATEGY }, { token: i5.LiveAnnouncer }, { token: MAT_SELECT_CONFIG, optional: true }], target: i0.ɵɵFactoryTarget.Component }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatSelect, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
     static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.3", type: MatSelect, isStandalone: true, selector: "mat-select", inputs: { userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], panelClass: "panelClass", disabled: ["disabled", "disabled", booleanAttribute], disableRipple: ["disableRipple", "disableRipple", booleanAttribute], tabIndex: ["tabIndex", "tabIndex", (value) => (value == null ? 0 : numberAttribute(value))], hideSingleSelectionIndicator: ["hideSingleSelectionIndicator", "hideSingleSelectionIndicator", booleanAttribute], placeholder: "placeholder", required: ["required", "required", booleanAttribute], multiple: ["multiple", "multiple", booleanAttribute], disableOptionCentering: ["disableOptionCentering", "disableOptionCentering", booleanAttribute], compareWith: "compareWith", value: "value", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], errorStateMatcher: "errorStateMatcher", typeaheadDebounceInterval: ["typeaheadDebounceInterval", "typeaheadDebounceInterval", numberAttribute], sortComparator: "sortComparator", id: "id", panelWidth: "panelWidth" }, outputs: { openedChange: "openedChange", _openedStream: "opened", _closedStream: "closed", selectionChange: "selectionChange", valueChange: "valueChange" }, host: { attributes: { "role": "combobox", "aria-haspopup": "listbox" }, listeners: { "keydown": "_handleKeydown($event)", "focus": "_onFocus()", "blur": "_onBlur()" }, properties: { "attr.id": "id", "attr.tabindex": "disabled ? -1 : tabIndex", "attr.aria-controls": "panelOpen ? id + \"-panel\" : null", "attr.aria-expanded": "panelOpen", "attr.aria-label": "ariaLabel || null", "attr.aria-required": "required.toString()", "attr.aria-disabled": "disabled.toString()", "attr.aria-invalid": "errorState", "attr.aria-activedescendant": "_getAriaActiveDescendant()", "class.mat-mdc-select-disabled": "disabled", "class.mat-mdc-select-invalid": "errorState", "class.mat-mdc-select-required": "required", "class.mat-mdc-select-empty": "empty", "class.mat-mdc-select-multiple": "multiple" }, classAttribute: "mat-mdc-select" }, providers: [
             { provide: MatFormFieldControl, useExisting: MatSelect },
             { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatSelect },
@@ -1085,33 +1080,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                         { provide: MatFormFieldControl, useExisting: MatSelect },
                         { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatSelect },
                     ], standalone: true, imports: [CdkOverlayOrigin, CdkConnectedOverlay, NgClass], template: "<div cdk-overlay-origin\n     class=\"mat-mdc-select-trigger\"\n     (click)=\"open()\"\n     #fallbackOverlayOrigin=\"cdkOverlayOrigin\"\n     #trigger>\n\n  <div class=\"mat-mdc-select-value\" [attr.id]=\"_valueId\">\n    @if (empty) {\n      <span class=\"mat-mdc-select-placeholder mat-mdc-select-min-line\">{{placeholder}}</span>\n    } @else {\n      <span class=\"mat-mdc-select-value-text\">\n        @if (customTrigger) {\n          <ng-content select=\"mat-select-trigger\"></ng-content>\n        } @else {\n          <span class=\"mat-mdc-select-min-line\">{{triggerValue}}</span>\n        }\n      </span>\n    }\n  </div>\n\n  <div class=\"mat-mdc-select-arrow-wrapper\">\n    <div class=\"mat-mdc-select-arrow\">\n      <!-- Use an inline SVG, because it works better than a CSS triangle in high contrast mode. -->\n      <svg viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" focusable=\"false\" aria-hidden=\"true\">\n        <path d=\"M7 10l5 5 5-5z\"/>\n      </svg>\n    </div>\n  </div>\n</div>\n\n<ng-template\n  cdk-connected-overlay\n  cdkConnectedOverlayLockPosition\n  cdkConnectedOverlayHasBackdrop\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\n  [cdkConnectedOverlayPanelClass]=\"_overlayPanelClass\"\n  [cdkConnectedOverlayScrollStrategy]=\"_scrollStrategy\"\n  [cdkConnectedOverlayOrigin]=\"_preferredOverlayOrigin || fallbackOverlayOrigin\"\n  [cdkConnectedOverlayOpen]=\"panelOpen\"\n  [cdkConnectedOverlayPositions]=\"_positions\"\n  [cdkConnectedOverlayWidth]=\"_overlayWidth\"\n  (backdropClick)=\"close()\"\n  (attach)=\"_onAttached()\"\n  (detach)=\"close()\">\n  <div\n    #panel\n    role=\"listbox\"\n    tabindex=\"-1\"\n    class=\"mat-mdc-select-panel mdc-menu-surface mdc-menu-surface--open {{ _getPanelTheme() }}\"\n    [attr.id]=\"id + '-panel'\"\n    [attr.aria-multiselectable]=\"multiple\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"_getPanelAriaLabelledby()\"\n    [ngClass]=\"panelClass\"\n    [@transformPanel]=\"'showing'\"\n    (@transformPanel.done)=\"_panelDoneAnimatingStream.next($event.toState)\"\n    (keydown)=\"_handleKeydown($event)\">\n    <ng-content></ng-content>\n  </div>\n</ng-template>\n", styles: [".mat-mdc-select{display:inline-block;width:100%;outline:none;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;color:var(--mat-select-enabled-trigger-text-color, var(--mat-app-on-surface));font-family:var(--mat-select-trigger-text-font, var(--mat-app-body-large-font));line-height:var(--mat-select-trigger-text-line-height, var(--mat-app-body-large-line-height));font-size:var(--mat-select-trigger-text-size, var(--mat-app-body-large-size));font-weight:var(--mat-select-trigger-text-weight, var(--mat-app-body-large-weight));letter-spacing:var(--mat-select-trigger-text-tracking, var(--mat-app-body-large-tracking))}div.mat-mdc-select-panel{box-shadow:var(--mat-select-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12))}.mat-mdc-select-disabled{color:var(--mat-select-disabled-trigger-text-color, color-mix(in srgb, var(--mat-app-on-surface) 38%, transparent))}.mat-mdc-select-trigger{display:inline-flex;align-items:center;cursor:pointer;position:relative;box-sizing:border-box;width:100%}.mat-mdc-select-disabled .mat-mdc-select-trigger{-webkit-user-select:none;user-select:none;cursor:default}.mat-mdc-select-value{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mat-mdc-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-mdc-select-arrow-wrapper{height:24px;flex-shrink:0;display:inline-flex;align-items:center}.mat-form-field-appearance-fill .mdc-text-field--no-label .mat-mdc-select-arrow-wrapper{transform:none}.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-invalid .mat-mdc-select-arrow,.mat-form-field-invalid:not(.mat-form-field-disabled) .mat-mdc-form-field-infix::after{color:var(--mat-select-invalid-arrow-color, var(--mat-app-error))}.mat-mdc-select-arrow{width:10px;height:5px;position:relative;color:var(--mat-select-enabled-arrow-color, var(--mat-app-on-surface-variant))}.mat-mdc-form-field.mat-focused .mat-mdc-select-arrow{color:var(--mat-select-focused-arrow-color, var(--mat-app-primary))}.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-disabled .mat-mdc-select-arrow{color:var(--mat-select-disabled-arrow-color, color-mix(in srgb, var(--mat-app-on-surface) 38%, transparent))}.mat-mdc-select-arrow svg{fill:currentColor;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}@media(forced-colors: active){.mat-mdc-select-arrow svg{fill:CanvasText}.mat-mdc-select-disabled .mat-mdc-select-arrow svg{fill:GrayText}}div.mat-mdc-select-panel{width:100%;max-height:275px;outline:0;overflow:auto;padding:8px 0;border-radius:4px;box-sizing:border-box;position:static;background-color:var(--mat-select-panel-background-color, var(--mat-app-surface-container))}@media(forced-colors: active){div.mat-mdc-select-panel{outline:solid 1px}}.cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel{border-top-left-radius:0;border-top-right-radius:0;transform-origin:top center}.mat-mdc-select-panel-above div.mat-mdc-select-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:bottom center}div.mat-mdc-select-panel .mat-mdc-option{--mdc-list-list-item-container-color: var(--mat-select-panel-background-color)}.mat-mdc-select-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);color:var(--mat-select-placeholder-text-color, var(--mat-app-on-surface-variant))}._mat-animation-noopable .mat-mdc-select-placeholder{transition:none}.mat-form-field-hide-placeholder .mat-mdc-select-placeholder{color:rgba(0,0,0,0);-webkit-text-fill-color:rgba(0,0,0,0);transition:none;display:block}.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper{cursor:pointer}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mat-mdc-floating-label{max-width:calc(100% - 18px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mdc-floating-label--float-above{max-width:calc(100%/0.75 - 24px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-outline .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-outline .mdc-text-field--label-floating .mdc-notched-outline__notch{max-width:calc(100% - 24px)}.mat-mdc-select-min-line:empty::before{content:\" \";white-space:pre;width:1px;display:inline-block;visibility:hidden}.mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper{transform:var(--mat-select-arrow-transform, translateY(-8px))}"] }]
-        }], ctorParameters: () => [{ type: i1.ViewportRuler }, { type: i0.ChangeDetectorRef }, { type: i0.NgZone }, { type: i2.ErrorStateMatcher }, { type: i0.ElementRef }, { type: i3.Directionality, decorators: [{
-                    type: Optional
-                }] }, { type: i4.NgForm, decorators: [{
-                    type: Optional
-                }] }, { type: i4.FormGroupDirective, decorators: [{
-                    type: Optional
-                }] }, { type: i6.MatFormField, decorators: [{
-                    type: Optional
-                }, {
-                    type: Inject,
-                    args: [MAT_FORM_FIELD]
-                }] }, { type: i4.NgControl, decorators: [{
-                    type: Self
-                }, {
-                    type: Optional
-                }] }, { type: undefined, decorators: [{
-                    type: Attribute,
-                    args: ['tabindex']
-                }] }, { type: undefined, decorators: [{
-                    type: Inject,
-                    args: [MAT_SELECT_SCROLL_STRATEGY]
-                }] }, { type: i5.LiveAnnouncer }, { type: undefined, decorators: [{
-                    type: Optional
-                }, {
-                    type: Inject,
-                    args: [MAT_SELECT_CONFIG]
-                }] }], propDecorators: { options: [{
+        }], ctorParameters: () => [], propDecorators: { options: [{
                 type: ContentChildren,
                 args: [MatOption, { descendants: true }]
             }], optionGroups: [{

@@ -4,8 +4,6 @@ import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ChangeDetectorRef } from '@angular/core';
-import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
@@ -13,10 +11,8 @@ import * as i2 from '@angular/common';
 import * as i3 from '@angular/cdk/observers';
 import { InjectionToken } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 import { Signal } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
@@ -121,19 +117,19 @@ export declare const MAT_SUFFIX: InjectionToken<MatSuffix>;
 /** Single error message to be shown underneath the form-field. */
 export declare class MatError {
     id: string;
-    constructor(ariaLive: string, elementRef: ElementRef);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatError, [{ attribute: "aria-live"; }, null]>;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatError, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatError, "mat-error, [matError]", never, { "id": { "alias": "id"; "required": false; }; }, {}, never, never, true, never>;
 }
 
 /** Container for form controls that applies Material Design styling and behavior. */
 export declare class MatFormField implements FloatingLabelParent, AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
-    _elementRef: ElementRef;
+    _elementRef: ElementRef<any>;
     private _changeDetectorRef;
     private _dir;
     private _platform;
-    private _defaults?;
-    _animationMode?: string | undefined;
+    private _defaults;
+    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     _textField: ElementRef<HTMLElement>;
     _iconPrefixContainer: ElementRef<HTMLElement>;
     _textPrefixContainer: ElementRef<HTMLElement>;
@@ -199,17 +195,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _stateChanges;
     private _valueChanges;
     private _injector;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
-    /**
-     * @deprecated not needed, to be removed.
-     * @breaking-change 19.0.0 remove this param
-     */
-    _unusedNgZone: NgZone, _dir: Directionality, _platform: Platform, _defaults?: MatFormFieldDefaultOptions | undefined, _animationMode?: string | undefined, 
-    /**
-     * @deprecated not needed, to be removed.
-     * @breaking-change 17.0.0 remove this param
-     */
-    _unusedDocument?: any);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
@@ -297,7 +283,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _updateOutlineLabelOffset;
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDom;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, [null, null, null, null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatFormField, "mat-form-field", ["matFormField"], { "hideRequiredMarker": { "alias": "hideRequiredMarker"; "required": false; }; "color": { "alias": "color"; "required": false; }; "floatLabel": { "alias": "floatLabel"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "subscriptSizing": { "alias": "subscriptSizing"; "required": false; }; "hintLabel": { "alias": "hintLabel"; "required": false; }; }, {}, ["_labelChild", "_formFieldControl", "_prefixChildren", "_suffixChildren", "_errorChildren", "_hintChildren"], ["mat-label", "[matPrefix], [matIconPrefix]", "[matTextPrefix]", "*", "[matTextSuffix]", "[matSuffix], [matIconSuffix]", "mat-error, [matError]", "mat-hint:not([align='end'])", "mat-hint[align='end']"], true, never>;
 }
 
@@ -437,7 +423,7 @@ declare class MatFormFieldFloatingLabel implements OnDestroy {
     private _parent;
     /** The current resize event subscription. */
     private _resizeSubscription;
-    constructor(_elementRef: ElementRef<HTMLElement>);
+    constructor(...args: unknown[]);
     ngOnDestroy(): void;
     /** Gets the width of the label. Used for the outline notch. */
     getWidth(): number;
@@ -461,7 +447,7 @@ declare class MatFormFieldFloatingLabel implements OnDestroy {
  */
 declare class MatFormFieldLineRipple implements OnDestroy {
     private _elementRef;
-    constructor(_elementRef: ElementRef<HTMLElement>, ngZone: NgZone);
+    constructor(...args: unknown[]);
     activate(): void;
     deactivate(): void;
     private _handleTransitionEnd;
@@ -488,7 +474,7 @@ declare class MatFormFieldNotchedOutline implements AfterViewInit {
     /** Whether the notch should be opened. */
     open: boolean;
     _notch: ElementRef;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     _setNotchWidth(labelWidth: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldNotchedOutline, never>;

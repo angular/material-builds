@@ -1,7 +1,6 @@
-import * as i1 from '@angular/cdk/tree';
 import { CdkTreeNode, CdkTreeNodeDef, CdkNestedTreeNode, CDK_TREE_NODE_OUTLET_NODE, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTree, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
 import * as i0 from '@angular/core';
-import { numberAttribute, booleanAttribute, Directive, Attribute, Input, Inject, Optional, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { inject, HostAttributeToken, numberAttribute, booleanAttribute, Directive, Input, ViewContainerRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
@@ -50,17 +49,8 @@ class MatTreeNode extends CdkTreeNode {
     set disabled(value) {
         this.isDisabled = value;
     }
-    constructor(elementRef, tree, 
-    /**
-     * The tabindex of the tree node.
-     *
-     * @deprecated By default MatTreeNode manages focus using TreeKeyManager instead of tabIndex.
-     *   Recommend to avoid setting tabIndex directly to prevent TreeKeyManager form getting into
-     *   an unexpected state. Tabindex to be removed in a future version.
-     * @breaking-change 21.0.0 Remove this attribute.
-     */
-    tabIndex) {
-        super(elementRef, tree);
+    constructor() {
+        super();
         /**
          * The default tabindex of the tree node.
          *
@@ -70,6 +60,7 @@ class MatTreeNode extends CdkTreeNode {
          * @breaking-change 21.0.0 Remove this attribute.
          */
         this.defaultTabIndex = 0;
+        const tabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });
         this.tabIndexInputBinding = Number(tabIndex) || this.defaultTabIndex;
     }
     // This is a workaround for https://github.com/angular/angular/issues/23091
@@ -80,7 +71,7 @@ class MatTreeNode extends CdkTreeNode {
     ngOnDestroy() {
         super.ngOnDestroy();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatTreeNode, deps: [{ token: i0.ElementRef }, { token: i1.CdkTree }, { token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatTreeNode, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.3", type: MatTreeNode, isStandalone: true, selector: "mat-tree-node", inputs: { tabIndexInputBinding: ["tabIndex", "tabIndexInputBinding", (value) => (value == null ? 0 : numberAttribute(value))], disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { activation: "activation", expandedChange: "expandedChange" }, host: { listeners: { "click": "_focusItem()" }, properties: { "attr.aria-expanded": "_getAriaExpanded()", "attr.aria-level": "level + 1", "attr.aria-posinset": "_getPositionInSet()", "attr.aria-setsize": "_getSetSize()", "tabindex": "_getTabindexAttribute()" }, classAttribute: "mat-tree-node" }, providers: [{ provide: CdkTreeNode, useExisting: MatTreeNode }], exportAs: ["matTreeNode"], usesInheritance: true, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatTreeNode, decorators: [{
@@ -101,10 +92,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                     },
                     standalone: true,
                 }]
-        }], ctorParameters: () => [{ type: i0.ElementRef }, { type: i1.CdkTree }, { type: undefined, decorators: [{
-                    type: Attribute,
-                    args: ['tabindex']
-                }] }], propDecorators: { tabIndexInputBinding: [{
+        }], ctorParameters: () => [], propDecorators: { tabIndexInputBinding: [{
                 type: Input,
                 args: [{
                         transform: (value) => (value == null ? 0 : numberAttribute(value)),
@@ -158,13 +146,6 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
         // If the specified tabIndex value is null or undefined, fall back to the default value.
         this._tabIndex = value;
     }
-    constructor(elementRef, tree, differs, 
-    // Ignore tabindex attribute. MatTree manages its own active state using TreeKeyManager.
-    // Keeping tabIndex in constructor for backwards compatibility with trees created before
-    // introducing TreeKeyManager.
-    tabIndex) {
-        super(elementRef, tree, differs);
-    }
     // This is a workaround for https://github.com/angular/angular/issues/19145
     // In aot mode, the lifecycle hooks from parent class are not called.
     // TODO(tinayuangao): Remove when the angular issue #19145 is fixed
@@ -177,7 +158,7 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
     ngOnDestroy() {
         super.ngOnDestroy();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatNestedTreeNode, deps: [{ token: i0.ElementRef }, { token: i1.CdkTree }, { token: i0.IterableDiffers }, { token: 'tabindex', attribute: true }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatNestedTreeNode, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.3", type: MatNestedTreeNode, isStandalone: true, selector: "mat-nested-tree-node", inputs: { node: ["matNestedTreeNode", "node"], disabled: ["disabled", "disabled", booleanAttribute], tabIndex: ["tabIndex", "tabIndex", (value) => (value == null ? 0 : numberAttribute(value))] }, outputs: { activation: "activation", expandedChange: "expandedChange" }, host: { classAttribute: "mat-nested-tree-node" }, providers: [
             { provide: CdkNestedTreeNode, useExisting: MatNestedTreeNode },
             { provide: CdkTreeNode, useExisting: MatNestedTreeNode },
@@ -200,10 +181,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                     },
                     standalone: true,
                 }]
-        }], ctorParameters: () => [{ type: i0.ElementRef }, { type: i1.CdkTree }, { type: i0.IterableDiffers }, { type: undefined, decorators: [{
-                    type: Attribute,
-                    args: ['tabindex']
-                }] }], propDecorators: { node: [{
+        }], propDecorators: { node: [{
                 type: Input,
                 args: ['matNestedTreeNode']
             }], disabled: [{
@@ -257,11 +235,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
  * inside the outlet.
  */
 class MatTreeNodeOutlet {
-    constructor(viewContainer, _node) {
-        this.viewContainer = viewContainer;
-        this._node = _node;
+    constructor() {
+        this.viewContainer = inject(ViewContainerRef);
+        this._node = inject(CDK_TREE_NODE_OUTLET_NODE, { optional: true });
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatTreeNodeOutlet, deps: [{ token: i0.ViewContainerRef }, { token: CDK_TREE_NODE_OUTLET_NODE, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatTreeNodeOutlet, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.3", type: MatTreeNodeOutlet, isStandalone: true, selector: "[matTreeNodeOutlet]", providers: [
             {
                 provide: CdkTreeNodeOutlet,
@@ -281,12 +259,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                     ],
                     standalone: true,
                 }]
-        }], ctorParameters: () => [{ type: i0.ViewContainerRef }, { type: undefined, decorators: [{
-                    type: Inject,
-                    args: [CDK_TREE_NODE_OUTLET_NODE]
-                }, {
-                    type: Optional
-                }] }] });
+        }] });
 
 /**
  * Wrapper for the CdkTable with Material design styles.

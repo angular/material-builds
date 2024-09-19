@@ -165,7 +165,7 @@ export declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
     private _elementsWithExternalReferences?;
     /** Subscription to the current in-progress SVG icon request. */
     private _currentIconFetch;
-    constructor(_elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string, _location: MatIconLocation, _errorHandler: ErrorHandler, defaults?: MatIconDefaultOptions);
+    constructor(...args: unknown[]);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
@@ -206,7 +206,7 @@ export declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
     private _cacheChildrenWithExternalReferences;
     /** Sets a new SVG icon with a particular name. */
     private _updateSvgIcon;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, [null, null, { attribute: "aria-hidden"; }, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatIcon, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatIcon, "mat-icon", ["matIcon"], { "color": { "alias": "color"; "required": false; }; "inline": { "alias": "inline"; "required": false; }; "svgIcon": { "alias": "svgIcon"; "required": false; }; "fontSet": { "alias": "fontSet"; "required": false; }; "fontIcon": { "alias": "fontIcon"; "required": false; }; }, {}, never, ["*"], true, never>;
     static ngAcceptInputType_inline: unknown;
 }

@@ -9,12 +9,8 @@ import { CdkStepLabel } from '@angular/cdk/stepper';
 import { CdkStepper } from '@angular/cdk/stepper';
 import { CdkStepperNext } from '@angular/cdk/stepper';
 import { CdkStepperPrevious } from '@angular/cdk/stepper';
-import { ChangeDetectorRef } from '@angular/core';
-import { Directionality } from '@angular/cdk/bidi';
-import { ElementRef } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { EventEmitter } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
@@ -27,14 +23,12 @@ import { NgForm } from '@angular/forms';
 import { OnDestroy } from '@angular/core';
 import { Optional } from '@angular/core';
 import { QueryList } from '@angular/core';
-import { StepperOptions } from '@angular/cdk/stepper';
 import { StepperOrientation } from '@angular/cdk/stepper';
 import { StepState } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TemplateRef } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { ViewContainerRef } from '@angular/core';
 
 declare namespace i10 {
     export {
@@ -103,12 +97,11 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
     _lazyContent: MatStepContent;
     /** Currently-attached portal containing the lazy content. */
     _portal: TemplatePortal;
-    constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher, _viewContainerRef: ViewContainerRef, stepperOptions?: StepperOptions);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, [null, { skipSelf: true; }, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": { "alias": "color"; "required": false; }; }, {}, ["stepLabel", "_lazyContent"], ["*"], true, never>;
 }
 
@@ -117,7 +110,7 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher, After
  */
 export declare class MatStepContent {
     _template: TemplateRef<any>;
-    constructor(_template: TemplateRef<any>);
+    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never, never, true, never>;
 }
@@ -154,7 +147,7 @@ export declare class MatStepHeader extends CdkStepHeader implements AfterViewIni
      * https://material.angular.io/guide/theming#using-component-color-variants.
      */
     color: ThemePalette;
-    constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the step header. */
@@ -218,11 +211,11 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     private _animationDuration;
     /** Whether the stepper is rendering on the server. */
     protected _isServer: boolean;
-    constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>);
+    constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     _stepIsNavigable(index: number, step: MatStep): boolean;
     _getAnimationDuration(): string;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, [{ optional: true; }, null, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], ["*"], true, never>;
 }
 
@@ -242,7 +235,7 @@ export declare class MatStepperIcon {
     templateRef: TemplateRef<MatStepperIconContext>;
     /** Name of the icon to be overridden. */
     name: StepState;
-    constructor(templateRef: TemplateRef<MatStepperIconContext>);
+    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIcon, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": { "alias": "matStepperIcon"; "required": false; }; }, {}, never, never, true, never>;
 }

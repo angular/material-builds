@@ -56,8 +56,8 @@ export declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     readonly _ngZone: NgZone;
     readonly _cdr: ChangeDetectorRef;
     readonly _elementRef: ElementRef<HTMLElement>;
-    readonly _dir: Directionality;
-    readonly _globalRippleOptions?: RippleGlobalOptions | undefined;
+    readonly _dir: Directionality | null;
+    readonly _globalRippleOptions: RippleGlobalOptions | null;
     /** The active portion of the slider track. */
     _trackActive: ElementRef<HTMLElement>;
     /** The slider thumb(s). */
@@ -142,7 +142,7 @@ export declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     _hasAnimation: boolean;
     private _resizeTimer;
     private _platform;
-    constructor(_ngZone: NgZone, _cdr: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _dir: Directionality, _globalRippleOptions?: RippleGlobalOptions | undefined, animationMode?: string);
+    constructor(...args: unknown[]);
     /** The radius of the native slider's knob. AFAIK there is no way to avoid hardcoding this. */
     _knobRadius: number;
     _inputPadding: number;
@@ -210,7 +210,7 @@ export declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     _setTransition(withAnimation: boolean): void;
     /** Whether the given pointer event occurred within the bounds of the slider pointer's DOM Rect. */
     _isCursorOnSliderThumb(event: PointerEvent, rect: DOMRect): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlider, [null, null, null, { optional: true; }, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlider, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSlider, "mat-slider", ["matSlider"], { "disabled": { "alias": "disabled"; "required": false; }; "discrete": { "alias": "discrete"; "required": false; }; "showTickMarks": { "alias": "showTickMarks"; "required": false; }; "min": { "alias": "min"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "max": { "alias": "max"; "required": false; }; "step": { "alias": "step"; "required": false; }; "displayWith": { "alias": "displayWith"; "required": false; }; }, {}, ["_input", "_inputs"], ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_discrete: unknown;
@@ -252,7 +252,7 @@ declare interface _MatSlider {
     /** The radius of the visual slider's ripple. */
     _rippleRadius: number;
     /** The global configuration for `matRipple` instances. */
-    readonly _globalRippleOptions?: RippleGlobalOptions;
+    readonly _globalRippleOptions: RippleGlobalOptions | null;
     /** Whether animations have been disabled. */
     _noopAnimations: boolean;
     /** Whether or not the slider should use animations. */
@@ -320,7 +320,7 @@ export declare class MatSliderRangeThumb extends MatSliderThumb implements _MatS
     _isLeftThumb: boolean;
     /** Whether this slider corresponds to the input with greater value. */
     _isEndThumb: boolean;
-    constructor(_ngZone: NgZone, _slider: _MatSlider, _elementRef: ElementRef<HTMLInputElement>, _cdr: ChangeDetectorRef);
+    constructor(...args: unknown[]);
     _getDefaultValue(): number;
     _onInput(): void;
     _onNgControlValueChange(): void;
@@ -462,7 +462,7 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
      */
     protected _isControlInitialized: boolean;
     private _platform;
-    constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLInputElement>, _cdr: ChangeDetectorRef, _slider: _MatSlider);
+    constructor(...args: unknown[]);
     ngOnDestroy(): void;
     /** @docs-private */
     initProps(): void;
@@ -632,7 +632,7 @@ export declare class MatSliderVisualThumb implements _MatSliderVisualThumb, Afte
     /** The host native HTML input element. */
     _hostElement: HTMLElement;
     private _platform;
-    constructor(_cdr: ChangeDetectorRef, _ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _slider: _MatSlider);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     private _onPointerMove;

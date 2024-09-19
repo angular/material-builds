@@ -1,6 +1,5 @@
 import { AfterViewInit } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -14,7 +13,6 @@ import { NgZone } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 import { RippleConfig } from '@angular/material/core';
 import { RippleGlobalOptions } from '@angular/material/core';
@@ -150,14 +148,13 @@ export declare class MatListItem extends MatListItemBase {
     get activated(): boolean;
     set activated(activated: boolean);
     _activated: boolean;
-    constructor(element: ElementRef, ngZone: NgZone, listBase: MatListBase | null, platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
     /**
      * Determine the value of `aria-current`. Return 'page' if this item is an activated anchor tag.
      * Otherwise, return `null`. This method is safe to use with server-side rendering.
      */
     _getAriaCurrent(): string | null;
     protected _hasBothLeadingAndTrailing(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, [null, null, { optional: true; }, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": { "alias": "activated"; "required": false; }; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], true, never>;
 }
 
@@ -229,7 +226,7 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
      * @docs-private
      */
     get rippleDisabled(): boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _listBase: MatListBase | null, _platform: Platform, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Whether the list item has icons or avatars. */
@@ -263,7 +260,7 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
     private _inferLinesFromContent;
     /** Checks whether the list item has unscoped text content. */
     private _checkDomForUnscopedTextContent;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemBase, [null, null, { optional: true; }, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": { "alias": "lines"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, ["_avatars", "_icons"], never, true, never>;
 }
 
@@ -276,10 +273,10 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
  * correct MDC class to position the icon/avatar on the opposite side.
  */
 export declare class _MatListItemGraphicBase {
-    _listOption: ListOption;
-    constructor(_listOption: ListOption);
+    _listOption: ListOption | null;
+    constructor(...args: unknown[]);
     _isAlignedAtStart(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatListItemGraphicBase, [{ optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatListItemGraphicBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, true, never>;
 }
 
@@ -301,7 +298,7 @@ export declare class MatListItemIcon extends _MatListItemGraphicBase {
  */
 export declare class MatListItemLine {
     _elementRef: ElementRef<HTMLElement>;
-    constructor(_elementRef: ElementRef<HTMLElement>);
+    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemLine, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, true, never>;
 }
@@ -325,7 +322,7 @@ export declare class MatListItemMeta {
  */
 export declare class MatListItemTitle {
     _elementRef: ElementRef<HTMLElement>;
-    constructor(_elementRef: ElementRef<HTMLElement>);
+    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemTitle, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, true, never>;
 }
@@ -381,7 +378,6 @@ export declare class MatListOption extends MatListItemBase implements ListOption
      * clear the value of `selected` in the first cycle.
      */
     private _inputsInitialized;
-    constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, _selectionList: SelectionList, platform: Platform, _changeDetectorRef: ChangeDetectorRef, globalRippleOptions?: RippleGlobalOptions, animationMode?: string);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Toggles the selection state of the option. */
@@ -417,7 +413,7 @@ export declare class MatListOption extends MatListItemBase implements ListOption
     /** Sets the tabindex of the list option. */
     _setTabindex(value: number): void;
     protected _hasBothLeadingAndTrailing(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, [null, null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": { "alias": "togglePosition"; "required": false; }; "checkboxPosition": { "alias": "checkboxPosition"; "required": false; }; "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], true, never>;
 }
 
@@ -488,7 +484,7 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
     private readonly _changeDetectorRef;
-    constructor(_element: ElementRef<HTMLElement>, _ngZone: NgZone);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;

@@ -36,8 +36,8 @@ export declare const MAT_CARD_CONFIG: InjectionToken<MatCardConfig>;
  */
 export declare class MatCard {
     appearance: MatCardAppearance;
-    constructor(config?: MatCardConfig);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCard, [{ optional: true; }]>;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCard, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCard, "mat-card", ["matCard"], { "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, ["*"], true, never>;
 }
 

@@ -5,28 +5,19 @@ import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { ChangeDetectorRef } from '@angular/core';
-import { Directionality } from '@angular/cdk/bidi';
 import { DoCheck } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { FocusTrapFactory } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 import * as i2 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
-import { InteractivityChecker } from '@angular/cdk/a11y';
-import { NgZone } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 
 /** Options for where to set focus to automatically on dialog open */
 declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
@@ -77,7 +68,7 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
     private _ngZone;
     private readonly _interactivityChecker;
     private _doc;
-    _container?: MatDrawerContainer | undefined;
+    _container?: MatDrawerContainer | null | undefined;
     private _focusTrap;
     private _elementFocusedBeforeDrawerWasOpened;
     /** Whether the drawer is initialized. Used for disabling the initial animation. */
@@ -146,7 +137,7 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
     readonly _modeChanged: Subject<void>;
     private _injector;
     private _changeDetectorRef;
-    constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _interactivityChecker: InteractivityChecker, _doc: any, _container?: MatDrawerContainer | undefined);
+    constructor(...args: unknown[]);
     /**
      * Focuses the provided element. If the element is not focusable, it will add a tabIndex
      * attribute to forcefully focus it. The attribute is removed after focus is moved.
@@ -207,7 +198,7 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
      * started off as `end` and was changed to `start`.
      */
     private _updatePositionInParent;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawer, [null, null, null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawer, "mat-drawer", ["matDrawer"], { "position": { "alias": "position"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; "disableClose": { "alias": "disableClose"; "required": false; }; "autoFocus": { "alias": "autoFocus"; "required": false; }; "opened": { "alias": "opened"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "openedStart": "openedStart"; "_closedStream": "closed"; "closedStart": "closedStart"; "onPositionChanged": "positionChanged"; }, never, ["*"], true, never>;
 }
 
@@ -230,7 +221,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     private _element;
     private _ngZone;
     private _changeDetectorRef;
-    private _animationMode?;
+    private _animationMode;
     /** All drawers in the container. Includes drawers from inside nested containers. */
     _allDrawers: QueryList<MatDrawer>;
     /** Drawers that belong to this container. */
@@ -293,7 +284,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
     get scrollable(): CdkScrollable;
     private _injector;
-    constructor(_dir: Directionality, _element: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, viewportRuler: ViewportRuler, defaultAutosize?: boolean, _animationMode?: string | undefined);
+    constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */
@@ -330,14 +321,14 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     _isShowingBackdrop(): boolean;
     private _isDrawerOpen;
     private _drawerHasBackdrop;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContainer, [{ optional: true; }, null, null, null, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContainer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContainer, "mat-drawer-container", ["matDrawerContainer"], { "autosize": { "alias": "autosize"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; }, { "backdropClick": "backdropClick"; }, ["_content", "_allDrawers"], ["mat-drawer", "mat-drawer-content", "*"], true, never>;
 }
 
 export declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
     private _changeDetectorRef;
     _container: MatDrawerContainer;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _container: MatDrawerContainer, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, ngZone: NgZone);
+    constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContent, "mat-drawer-content", never, {}, {}, never, ["*"], true, never>;
@@ -380,7 +371,6 @@ export declare class MatSidenavContainer extends MatDrawerContainer {
 }
 
 export declare class MatSidenavContent extends MatDrawerContent {
-    constructor(changeDetectorRef: ChangeDetectorRef, container: MatSidenavContainer, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, ngZone: NgZone);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContent, "mat-sidenav-content", never, {}, {}, never, ["*"], true, never>;
 }

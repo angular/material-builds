@@ -4,11 +4,9 @@ import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
-import { ChangeDetectorRef } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
@@ -22,8 +20,6 @@ import { SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TemplateRef } from '@angular/core';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { ViewContainerRef } from '@angular/core';
 
 /** Time and timing curve for expansion panel animations. */
 export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
@@ -170,7 +166,7 @@ export declare class MatExpansionModule {
  */
 export declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
-    _animationMode: string;
+    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     protected _animationsDisabled: boolean;
     private _document;
     /** Whether the toggle indicator should be hidden. */
@@ -197,7 +193,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _portal: TemplatePortal;
     /** ID for the associated header element. Used for a11y labelling. */
     _headerId: string;
-    constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document: any, _animationMode: string, defaultOptions?: MatExpansionPanelDefaultOptions);
+    constructor(...args: unknown[]);
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
     /** Gets the expanded state string. */
@@ -217,7 +213,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     protected _animationStarted(event: AnimationEvent_2): void;
     /** Called when the expansion animation has finished. */
     protected _animationDone(event: AnimationEvent_2): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanel, [{ optional: true; skipSelf: true; }, null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanel, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "hideToggle": { "alias": "hideToggle"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, { "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], true, never>;
     static ngAcceptInputType_hideToggle: unknown;
 }
@@ -245,9 +241,9 @@ declare interface MatExpansionPanelBase extends CdkAccordionItem {
  */
 export declare class MatExpansionPanelContent {
     _template: TemplateRef<any>;
-    _expansionPanel?: MatExpansionPanelBase | undefined;
-    constructor(_template: TemplateRef<any>, _expansionPanel?: MatExpansionPanelBase | undefined);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, [null, { optional: true; }]>;
+    _expansionPanel: MatExpansionPanelBase | null;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, true, never>;
 }
 
@@ -280,9 +276,9 @@ export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy
     private _element;
     private _focusMonitor;
     private _changeDetectorRef;
-    _animationMode?: string | undefined;
+    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     private _parentChangeSubscription;
-    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, defaultOptions?: MatExpansionPanelDefaultOptions, _animationMode?: string | undefined, tabIndex?: string);
+    constructor(...args: unknown[]);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */
@@ -321,7 +317,7 @@ export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelHeader, [{ host: true; }, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelHeader, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "expandedHeight": { "alias": "expandedHeight"; "required": false; }; "collapsedHeight": { "alias": "collapsedHeight"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], true, never>;
     static ngAcceptInputType_tabIndex: unknown;
 }

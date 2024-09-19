@@ -2,7 +2,6 @@ import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
-import { Platform } from '@angular/cdk/platform';
 import { QueryList } from '@angular/core';
 
 declare namespace i2 {
@@ -14,8 +13,9 @@ declare namespace i2 {
 }
 
 export declare class MatToolbar implements AfterViewInit {
-    protected _elementRef: ElementRef;
+    protected _elementRef: ElementRef<any>;
     private _platform;
+    private _document;
     /**
      * Theme color of the toolbar. This API is supported in M2 themes only, it has
      * no effect in M3 themes.
@@ -24,10 +24,9 @@ export declare class MatToolbar implements AfterViewInit {
      * https://material.angular.io/guide/theming#using-component-color-variants.
      */
     color?: string | null;
-    private _document;
     /** Reference to all toolbar row elements that have been projected. */
     _toolbarRows: QueryList<MatToolbarRow>;
-    constructor(_elementRef: ElementRef, _platform: Platform, document?: any);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.

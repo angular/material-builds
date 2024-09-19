@@ -1,12 +1,9 @@
 import { AfterViewInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { AriaDescriber } from '@angular/cdk/a11y';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ChangeDetectorRef } from '@angular/core';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import * as i2 from '@angular/common';
@@ -14,7 +11,6 @@ import * as i3 from '@angular/cdk/overlay';
 import * as i4 from '@angular/material/core';
 import * as i6 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
-import { NgZone } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
@@ -22,10 +18,7 @@ import { OriginConnectionPosition } from '@angular/cdk/overlay';
 import { Overlay } from '@angular/cdk/overlay';
 import { OverlayConnectionPosition } from '@angular/cdk/overlay';
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
-import { ScrollDispatcher } from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { ViewContainerRef } from '@angular/core';
 
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
@@ -87,6 +80,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _ariaDescriber;
     private _focusMonitor;
     protected _dir: Directionality;
+    private _injector;
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
     _tooltipInstance: TooltipComponent | null;
@@ -157,8 +151,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _touchstartTimeout;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
-    private _injector;
-    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions, _document: any);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     /**
      * Dispose the tooltip when destroyed.
@@ -218,7 +211,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _disableNativeGesturesIfNecessary;
     /** Updates the tooltip's ARIA description based on it current state. */
     private _syncAriaDescription;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltip, [null, null, null, null, null, null, null, null, null, null, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltip, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTooltip, "[matTooltip]", ["matTooltip"], { "position": { "alias": "matTooltipPosition"; "required": false; }; "positionAtOrigin": { "alias": "matTooltipPositionAtOrigin"; "required": false; }; "disabled": { "alias": "matTooltipDisabled"; "required": false; }; "showDelay": { "alias": "matTooltipShowDelay"; "required": false; }; "hideDelay": { "alias": "matTooltipHideDelay"; "required": false; }; "touchGestures": { "alias": "matTooltipTouchGestures"; "required": false; }; "message": { "alias": "matTooltip"; "required": false; }; "tooltipClass": { "alias": "matTooltipClass"; "required": false; }; }, {}, never, never, true, never>;
 }
 
@@ -310,7 +303,7 @@ export declare class TooltipComponent implements OnDestroy {
     private readonly _showAnimation;
     /** Name of the hide animation and the class that toggles it. */
     private readonly _hideAnimation;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, animationMode?: string);
+    constructor(...args: unknown[]);
     /**
      * Shows the tooltip with an animation originating from the provided origin
      * @param delay Amount of milliseconds to the delay showing the tooltip.
@@ -355,7 +348,7 @@ export declare class TooltipComponent implements OnDestroy {
     private _finalizeAnimation;
     /** Toggles the visibility of the tooltip element. */
     private _toggleVisibility;
-    static ɵfac: i0.ɵɵFactoryDeclaration<TooltipComponent, [null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TooltipComponent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<TooltipComponent, "mat-tooltip-component", never, {}, {}, never, never, true, never>;
 }
 

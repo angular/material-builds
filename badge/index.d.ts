@@ -1,12 +1,8 @@
-import { AriaDescriber } from '@angular/cdk/a11y';
-import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import * as i2 from '@angular/material/core';
-import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Renderer2 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
 declare namespace i3 {
@@ -24,7 +20,7 @@ export declare class MatBadge implements OnInit, OnDestroy {
     private _elementRef;
     private _ariaDescriber;
     private _renderer;
-    private _animationMode?;
+    private _animationMode;
     /**
      * Theme color of the badge. This API is supported in M2 themes only, it
      * has no effect in M3 themes.
@@ -67,7 +63,7 @@ export declare class MatBadge implements OnInit, OnDestroy {
     /** InteractivityChecker to determine if the badge host is focusable. */
     private _interactivityChecker;
     private _document;
-    constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _ariaDescriber: AriaDescriber, _renderer: Renderer2, _animationMode?: string | undefined);
+    constructor(...args: unknown[]);
     /** Whether the badge is above the host or not */
     isAbove(): boolean;
     /** Whether the badge is after the host or not */
@@ -93,7 +89,7 @@ export declare class MatBadge implements OnInit, OnDestroy {
     private _setColor;
     /** Clears any existing badges that might be left over from server-side rendering. */
     private _clearExistingBadges;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatBadge, [null, null, null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBadge, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatBadge, "[matBadge]", never, { "color": { "alias": "matBadgeColor"; "required": false; }; "overlap": { "alias": "matBadgeOverlap"; "required": false; }; "disabled": { "alias": "matBadgeDisabled"; "required": false; }; "position": { "alias": "matBadgePosition"; "required": false; }; "content": { "alias": "matBadge"; "required": false; }; "description": { "alias": "matBadgeDescription"; "required": false; }; "size": { "alias": "matBadgeSize"; "required": false; }; "hidden": { "alias": "matBadgeHidden"; "required": false; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_overlap: unknown;
     static ngAcceptInputType_disabled: unknown;

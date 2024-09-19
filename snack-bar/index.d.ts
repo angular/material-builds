@@ -2,9 +2,7 @@ import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { BasePortalOutlet } from '@angular/cdk/portal';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
-import { ChangeDetectorRef } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/overlay';
@@ -18,14 +16,9 @@ import * as i2 from '@angular/cdk/portal';
 import * as i3 from '@angular/material/button';
 import * as i4 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
-import { Injector } from '@angular/core';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
-import { Overlay } from '@angular/cdk/overlay';
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
 import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TemplateRef } from '@angular/core';
@@ -86,7 +79,7 @@ export declare class MatSnackBar implements OnDestroy {
     /** Reference to the currently opened snackbar at *any* level. */
     get _openedSnackBarRef(): MatSnackBarRef<any> | null;
     set _openedSnackBarRef(value: MatSnackBarRef<any> | null);
-    constructor(_overlay: Overlay, _live: LiveAnnouncer, _injector: Injector, _breakpointObserver: BreakpointObserver, _parentSnackBar: MatSnackBar, _defaultConfig: MatSnackBarConfig);
+    constructor(...args: unknown[]);
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
@@ -136,7 +129,7 @@ export declare class MatSnackBar implements OnDestroy {
      * @param snackBarRef Reference to the snack bar.
      */
     private _createInjector;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBar, [null, null, null, null, { optional: true; skipSelf: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBar, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatSnackBar>;
 }
 
@@ -199,8 +192,7 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     private _elementRef;
     private _changeDetectorRef;
     private _platform;
-    /** The snack bar configuration. */
-    snackBarConfig: MatSnackBarConfig;
+    snackBarConfig: MatSnackBarConfig<any>;
     private _document;
     private _trackedModals;
     /** The number of milliseconds to wait before announcing the snack bar's content. */
@@ -234,9 +226,7 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     _role?: 'status' | 'alert';
     /** Unique ID of the aria-live element. */
     readonly _liveElementId: string;
-    constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _platform: Platform, 
-    /** The snack bar configuration. */
-    snackBarConfig: MatSnackBarConfig);
+    constructor(...args: unknown[]);
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this snack bar container. */
@@ -360,14 +350,8 @@ export declare type MatSnackBarVerticalPosition = 'top' | 'bottom';
 
 export declare class SimpleSnackBar implements TextOnlySnackBar {
     snackBarRef: MatSnackBarRef<SimpleSnackBar>;
-    data: {
-        message: string;
-        action: string;
-    };
-    constructor(snackBarRef: MatSnackBarRef<SimpleSnackBar>, data: {
-        message: string;
-        action: string;
-    });
+    data: any;
+    constructor(...args: unknown[]);
     /** Performs the action on the snack bar. */
     action(): void;
     /** If the action button should be shown. */

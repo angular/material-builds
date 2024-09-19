@@ -477,8 +477,8 @@ export declare class MatOptgroup {
     _labelId: string;
     /** Whether the group is in inert a11y mode. */
     _inert: boolean;
-    constructor(parent?: MatOptionParentComponent);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, [{ optional: true; }]>;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "label": { "alias": "label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], true, never>;
     static ngAcceptInputType_disabled: unknown;
 }
@@ -490,13 +490,13 @@ export declare class MatOption<T = any> implements FocusableOption, AfterViewChe
     private _element;
     _changeDetectorRef: ChangeDetectorRef;
     private _parent;
-    group: MatOptgroup;
+    group: MatOptgroup | null;
     private _selected;
     private _active;
     private _disabled;
     private _mostRecentViewValue;
     /** Whether the wrapping component is in multiple selection mode. */
-    get multiple(): boolean | undefined;
+    get multiple(): boolean | null | undefined;
     /** Whether or not the option is currently selected. */
     get selected(): boolean;
     /** The form value of the option. */
@@ -516,7 +516,7 @@ export declare class MatOption<T = any> implements FocusableOption, AfterViewChe
     _text: ElementRef<HTMLElement> | undefined;
     /** Emits when the state of the option changes and any parents have to be notified. */
     readonly _stateChanges: Subject<void>;
-    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
+    constructor(...args: unknown[]);
     /**
      * Whether or not the option is currently active and ready to be selected.
      * An active option displays styles as if it is focused, but the
@@ -564,7 +564,7 @@ export declare class MatOption<T = any> implements FocusableOption, AfterViewChe
     ngOnDestroy(): void;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, [null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatOption<any>, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], { "value": { "alias": "value"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "onSelectionChange": "onSelectionChange"; }, never, ["mat-icon", "*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
 }
@@ -614,7 +614,7 @@ export declare class MatOptionSelectionChange<T = any> {
  * @docs-private
  */
 export declare class MatPseudoCheckbox {
-    _animationMode?: string | undefined;
+    _animationMode?: "NoopAnimations" | "BrowserAnimations" | null | undefined;
     /** Display state of the checkbox. */
     state: MatPseudoCheckboxState;
     /** Whether the checkbox is disabled. */
@@ -624,8 +624,8 @@ export declare class MatPseudoCheckbox {
      * indicator inside a square box. 'minimal' appearance only renders the checkmark/mixedmark.
      */
     appearance: 'minimal' | 'full';
-    constructor(_animationMode?: string | undefined);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, [{ optional: true; }]>;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": { "alias": "state"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, never, true, never>;
 }
 
@@ -643,7 +643,7 @@ export declare type MatPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterm
 
 export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     private _elementRef;
-    private _animationMode?;
+    private _animationMode;
     /** Custom color for all ripples. */
     color: string;
     /** Whether the ripples should be visible outside the component's bounds. */
@@ -685,7 +685,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     private _globalOptions;
     /** @docs-private Whether ripple directive is initialized and the input bindings are set. */
     _isInitialized: boolean;
-    constructor(_elementRef: ElementRef<HTMLElement>, ngZone: NgZone, platform: Platform, globalOptions?: RippleGlobalOptions, _animationMode?: string | undefined, injector?: Injector);
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Fades out all currently showing ripple elements. */
@@ -718,7 +718,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * @param config Optional ripple configuration for the manual ripple.
      */
     launch(x: number, y: number, config?: RippleConfig): RippleRef;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, [null, null, null, { optional: true; }, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": { "alias": "matRippleColor"; "required": false; }; "unbounded": { "alias": "matRippleUnbounded"; "required": false; }; "centered": { "alias": "matRippleCentered"; "required": false; }; "radius": { "alias": "matRippleRadius"; "required": false; }; "animation": { "alias": "matRippleAnimation"; "required": false; }; "disabled": { "alias": "matRippleDisabled"; "required": false; }; "trigger": { "alias": "matRippleTrigger"; "required": false; }; }, {}, never, never, true, never>;
 }
 
@@ -780,12 +780,7 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
     useUtcForDisplay: boolean;
     /** The injected locale. */
     private readonly _matDateLocale;
-    constructor(
-    /**
-     * @deprecated Now injected via inject(), param to be removed.
-     * @breaking-change 18.0.0
-     */
-    matDateLocale?: string);
+    constructor(...args: unknown[]);
     getYear(date: Date): number;
     getMonth(date: Date): number;
     getDate(date: Date): number;
@@ -834,7 +829,7 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @returns A Date object with its UTC representation based on the passed in date info
      */
     private _format;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, [{ optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<NativeDateAdapter>;
 }
 

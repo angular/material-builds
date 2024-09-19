@@ -1,12 +1,9 @@
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Direction } from '@angular/cdk/bidi';
-import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
@@ -101,7 +98,7 @@ export declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy
     private _disabledInteractive;
     /** Event emitted when the group value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
-    constructor(toggleGroup: MatButtonToggleGroup, _changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _focusMonitor: FocusMonitor, defaultTabIndex: string, defaultOptions?: MatButtonToggleDefaultOptions);
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -119,7 +116,7 @@ export declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy
     _getButtonName(): string | null;
     /** Whether the toggle is in single selection mode. */
     isSingleSelector(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggle, [{ optional: true; }, null, null, null, { attribute: "tabindex"; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggle, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatButtonToggle, "mat-button-toggle", ["matButtonToggle"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; }, never, ["*"], true, never>;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_checked: unknown;
@@ -164,7 +161,7 @@ export declare interface MatButtonToggleDefaultOptions {
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
 export declare class MatButtonToggleGroup implements ControlValueAccessor, OnInit, AfterContentInit {
     private _changeDetector;
-    private _dir?;
+    private _dir;
     private _multiple;
     private _disabled;
     private _disabledInteractive;
@@ -225,7 +222,7 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     get hideMultipleSelectionIndicator(): boolean;
     set hideMultipleSelectionIndicator(value: boolean);
     private _hideMultipleSelectionIndicator;
-    constructor(_changeDetector: ChangeDetectorRef, defaultOptions?: MatButtonToggleDefaultOptions, _dir?: Directionality | undefined);
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     /**
@@ -266,7 +263,7 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     private _updateModelValue;
     /** Marks all of the child button toggles to be checked. */
     private _markButtonsForCheck;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleGroup, [null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleGroup, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonToggleGroup, "mat-button-toggle-group", ["matButtonToggleGroup"], { "appearance": { "alias": "appearance"; "required": false; }; "name": { "alias": "name"; "required": false; }; "vertical": { "alias": "vertical"; "required": false; }; "value": { "alias": "value"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "hideMultipleSelectionIndicator": { "alias": "hideMultipleSelectionIndicator"; "required": false; }; }, { "valueChange": "valueChange"; "change": "change"; }, ["_buttonToggles"], never, true, never>;
     static ngAcceptInputType_vertical: unknown;
     static ngAcceptInputType_multiple: unknown;

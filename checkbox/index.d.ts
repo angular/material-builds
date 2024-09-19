@@ -1,6 +1,5 @@
 import { AbstractControl } from '@angular/forms';
 import { AfterViewInit } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
 import { CheckboxRequiredValidator } from '@angular/forms';
 import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
@@ -9,7 +8,6 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i3 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
-import { NgZone } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { Provider } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
@@ -55,8 +53,8 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
     _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _ngZone;
-    _animationMode?: string | undefined;
-    private _options?;
+    _animationMode?: "NoopAnimations" | "BrowserAnimations" | null | undefined;
+    private _options;
     /** Focuses the checkbox. */
     focus(): void;
     /** Creates the change event that will be emitted by the checkbox. */
@@ -137,7 +135,7 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
     private _currentCheckState;
     private _controlValueAccessorChangeFn;
     private _validatorChangeFn;
-    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, tabIndex: string, _animationMode?: string | undefined, _options?: MatCheckboxDefaultOptions | undefined);
+    constructor(...args: unknown[]);
     ngOnChanges(changes: SimpleChanges): void;
     ngAfterViewInit(): void;
     /** Whether the checkbox is checked. */
@@ -193,7 +191,7 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
      *  bubbles when the label is clicked.
      */
     _preventBubblingFromLabel(event: MouseEvent): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, [null, null, null, { attribute: "tabindex"; }, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckbox, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCheckbox, "mat-checkbox", ["matCheckbox"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "ariaExpanded": { "alias": "aria-expanded"; "required": false; }; "ariaControls": { "alias": "aria-controls"; "required": false; }; "ariaOwns": { "alias": "aria-owns"; "required": false; }; "id": { "alias": "id"; "required": false; }; "required": { "alias": "required"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "indeterminate": { "alias": "indeterminate"; "required": false; }; }, { "change": "change"; "indeterminateChange": "indeterminateChange"; }, never, ["*"], true, never>;
     static ngAcceptInputType_ariaExpanded: unknown;
     static ngAcceptInputType_required: unknown;

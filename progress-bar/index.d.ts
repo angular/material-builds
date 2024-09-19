@@ -1,11 +1,9 @@
 import { AfterViewInit } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
-import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
@@ -39,8 +37,8 @@ export declare class MatProgressBar implements AfterViewInit, OnDestroy {
     readonly _elementRef: ElementRef<HTMLElement>;
     private _ngZone;
     private _changeDetectorRef;
-    _animationMode?: string | undefined;
-    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _animationMode?: string | undefined, defaults?: MatProgressBarDefaultOptions);
+    _animationMode?: "NoopAnimations" | "BrowserAnimations" | null | undefined;
+    constructor(...args: unknown[]);
     /** Flag that indicates whether NoopAnimations mode is set to true. */
     _isNoopAnimation: boolean;
     /**
@@ -88,7 +86,7 @@ export declare class MatProgressBar implements AfterViewInit, OnDestroy {
     _isIndeterminate(): boolean;
     /** Event handler for `transitionend` events. */
     private _transitionendHandler;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBar, [null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBar, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressBar, "mat-progress-bar", ["matProgressBar"], { "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "bufferValue": { "alias": "bufferValue"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; }, { "animationEnd": "animationEnd"; }, never, never, true, never>;
     static ngAcceptInputType_value: unknown;
     static ngAcceptInputType_bufferValue: unknown;

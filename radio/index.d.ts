@@ -1,11 +1,9 @@
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { DoCheck } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
@@ -15,7 +13,6 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { QueryList } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 declare namespace i3 {
     export {
@@ -49,11 +46,11 @@ export declare const MAT_RADIO_GROUP: InjectionToken<MatRadioGroup>;
 export declare const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any;
 
 export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, OnDestroy {
-    protected _elementRef: ElementRef;
+    protected _elementRef: ElementRef<any>;
     private _changeDetector;
     private _focusMonitor;
     private _radioDispatcher;
-    private _defaultOptions?;
+    private _defaultOptions;
     private _ngZone;
     private _uniqueId;
     /** The unique ID for the radio button. */
@@ -129,7 +126,7 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     /** Whether animations are disabled. */
     _noopAnimations: boolean;
     private _injector;
-    constructor(radioGroup: MatRadioGroup, _elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, animationMode?: string, _defaultOptions?: MatRadioDefaultOptions | undefined, tabIndex?: string);
+    constructor(...args: unknown[]);
     /** Focuses the radio button. */
     focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /**
@@ -155,7 +152,7 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     private _onInputClick;
     /** Gets the tabindex for the underlying input element. */
     private _updateTabIndex;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioButton, [{ optional: true; }, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioButton, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatRadioButton, "mat-radio-button", ["matRadioButton"], { "id": { "alias": "id"; "required": false; }; "name": { "alias": "name"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "value": { "alias": "value"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "required": { "alias": "required"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; }, never, ["*"], true, never>;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
@@ -266,7 +263,7 @@ export declare class MatRadioGroup implements AfterContentInit, OnDestroy, Contr
     get disabledInteractive(): boolean;
     set disabledInteractive(value: boolean);
     private _disabledInteractive;
-    constructor(_changeDetector: ChangeDetectorRef);
+    constructor(...args: unknown[]);
     /**
      * Initialize properties once content children are available.
      * This allows us to propagate relevant attributes to associated buttons.

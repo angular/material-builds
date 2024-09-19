@@ -1,8 +1,7 @@
 import * as i0 from '@angular/core';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Optional, Inject, Input, NgModule } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
-import * as i1 from '@angular/cdk/a11y';
-import { InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
+import { AriaDescriber, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
@@ -50,12 +49,12 @@ class MatBadge {
     set description(newDescription) {
         this._updateDescription(newDescription);
     }
-    constructor(_ngZone, _elementRef, _ariaDescriber, _renderer, _animationMode) {
-        this._ngZone = _ngZone;
-        this._elementRef = _elementRef;
-        this._ariaDescriber = _ariaDescriber;
-        this._renderer = _renderer;
-        this._animationMode = _animationMode;
+    constructor() {
+        this._ngZone = inject(NgZone);
+        this._elementRef = inject(ElementRef);
+        this._ariaDescriber = inject(AriaDescriber);
+        this._renderer = inject(Renderer2);
+        this._animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         this._color = 'primary';
         /** Whether the badge should overlap its contents or not */
         this.overlap = true;
@@ -73,10 +72,9 @@ class MatBadge {
         /** InteractivityChecker to determine if the badge host is focusable. */
         this._interactivityChecker = inject(InteractivityChecker);
         this._document = inject(DOCUMENT);
-        const styleLoader = inject(_CdkPrivateStyleLoader);
-        styleLoader.load(_MatBadgeStyleLoader);
+        inject(_CdkPrivateStyleLoader).load(_MatBadgeStyleLoader);
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            const nativeElement = _elementRef.nativeElement;
+            const nativeElement = this._elementRef.nativeElement;
             if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
                 throw Error('matBadge must be attached to an element node.');
             }
@@ -228,7 +226,7 @@ class MatBadge {
             }
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatBadge, deps: [{ token: i0.NgZone }, { token: i0.ElementRef }, { token: i1.AriaDescriber }, { token: i0.Renderer2 }, { token: ANIMATION_MODULE_TYPE, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatBadge, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
     static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.3", type: MatBadge, isStandalone: true, selector: "[matBadge]", inputs: { color: ["matBadgeColor", "color"], overlap: ["matBadgeOverlap", "overlap", booleanAttribute], disabled: ["matBadgeDisabled", "disabled", booleanAttribute], position: ["matBadgePosition", "position"], content: ["matBadge", "content"], description: ["matBadgeDescription", "description"], size: ["matBadgeSize", "size"], hidden: ["matBadgeHidden", "hidden", booleanAttribute] }, host: { properties: { "class.mat-badge-overlap": "overlap", "class.mat-badge-above": "isAbove()", "class.mat-badge-below": "!isAbove()", "class.mat-badge-before": "!isAfter()", "class.mat-badge-after": "isAfter()", "class.mat-badge-small": "size === \"small\"", "class.mat-badge-medium": "size === \"medium\"", "class.mat-badge-large": "size === \"large\"", "class.mat-badge-hidden": "hidden || !content", "class.mat-badge-disabled": "disabled" }, classAttribute: "mat-badge" }, ngImport: i0 }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatBadge, decorators: [{
@@ -250,12 +248,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                     },
                     standalone: true,
                 }]
-        }], ctorParameters: () => [{ type: i0.NgZone }, { type: i0.ElementRef }, { type: i1.AriaDescriber }, { type: i0.Renderer2 }, { type: undefined, decorators: [{
-                    type: Optional
-                }, {
-                    type: Inject,
-                    args: [ANIMATION_MODULE_TYPE]
-                }] }], propDecorators: { color: [{
+        }], ctorParameters: () => [], propDecorators: { color: [{
                 type: Input,
                 args: ['matBadgeColor']
             }], overlap: [{

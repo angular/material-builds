@@ -2,29 +2,23 @@ import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { Directionality } from '@angular/cdk/bidi';
 import { DoCheck } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { EventEmitter } from '@angular/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { Injector } from '@angular/core';
-import { MatFormField } from '@angular/material/form-field';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { NgControl } from '@angular/forms';
-import { NgForm } from '@angular/forms';
 import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { QueryList } from '@angular/core';
-import { RippleGlobalOptions } from '@angular/material/core';
 import { Subject } from 'rxjs';
 
 declare namespace i10 {
@@ -142,7 +136,7 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
     _elementRef: ElementRef<HTMLElement>;
     protected _ngZone: NgZone;
     private _focusMonitor;
-    private _globalRippleOptions?;
+    private _globalRippleOptions;
     protected _document: Document;
     /** Emits when the chip is focused. */
     readonly _onFocus: Subject<MatChipEvent>;
@@ -223,7 +217,7 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
      */
     private _rippleLoader;
     protected _injector: Injector;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _focusMonitor: FocusMonitor, _document: any, animationMode?: string, _globalRippleOptions?: RippleGlobalOptions | undefined);
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
@@ -251,7 +245,7 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
     _handlePrimaryActionInteraction(): void;
     /** Starts the focus monitoring process on the chip. */
     private _monitorFocus;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, [null, null, null, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "role": { "alias": "role"; "required": false; }; "id": { "alias": "id"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaDescription": { "alias": "aria-description"; "required": false; }; "value": { "alias": "value"; "required": false; }; "color": { "alias": "color"; "required": false; }; "removable": { "alias": "removable"; "required": false; }; "highlighted": { "alias": "highlighted"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "trailingIcon", "removeIcon", "_allLeadingIcons", "_allTrailingIcons", "_allRemoveIcons"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
     static ngAcceptInputType_removable: unknown;
     static ngAcceptInputType_highlighted: unknown;
@@ -293,12 +287,7 @@ declare class MatChipAction {
      * Determine the value of the tabindex attribute for this chip action.
      */
     protected _getTabindex(): string | null;
-    constructor(_elementRef: ElementRef<HTMLElement>, _parentChip: {
-        _handlePrimaryActionInteraction(): void;
-        remove(): void;
-        disabled: boolean;
-        _isEditing?: boolean;
-    });
+    constructor(...args: unknown[]);
     focus(): void;
     _handleClick(event: MouseEvent): void;
     _handleKeydown(event: KeyboardEvent): void;
@@ -327,7 +316,7 @@ export declare interface MatChipEditedEvent extends MatChipEvent {
 export declare class MatChipEditInput {
     private readonly _elementRef;
     private readonly _document;
-    constructor(_elementRef: ElementRef, _document: any);
+    constructor(...args: unknown[]);
     initialize(initialValue: string): void;
     getNativeElement(): HTMLElement;
     setValue(value: string): void;
@@ -439,7 +428,7 @@ export declare class MatChipGrid extends MatChipSet implements AfterContentInit,
     /** Whether the chip grid is in an error state. */
     get errorState(): boolean;
     set errorState(value: boolean);
-    constructor(elementRef: ElementRef, changeDetectorRef: ChangeDetectorRef, dir: Directionality, parentForm: NgForm, parentFormGroup: FormGroupDirective, defaultErrorStateMatcher: ErrorStateMatcher, ngControl: NgControl);
+    constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
     ngDoCheck(): void;
@@ -498,7 +487,7 @@ export declare class MatChipGrid extends MatChipSet implements AfterContentInit,
     private _propagateChanges;
     /** Mark the field as touched */
     private _markAsTouched;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipGrid, [null, null, { optional: true; }, { optional: true; }, { optional: true; }, null, { optional: true; self: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipGrid, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChipGrid, "mat-chip-grid", never, { "disabled": { "alias": "disabled"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "value": { "alias": "value"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, { "change": "change"; "valueChange": "valueChange"; }, ["_chips"], ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_required: unknown;
@@ -553,7 +542,7 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDe
     get empty(): boolean;
     /** The native input element to which this directive is attached. */
     readonly inputElement: HTMLInputElement;
-    constructor(_elementRef: ElementRef<HTMLInputElement>, defaultOptions: MatChipsDefaultOptions, formField?: MatFormField);
+    constructor(...args: unknown[]);
     ngOnChanges(): void;
     ngOnDestroy(): void;
     /** Utility method to make host definition/tests more clear. */
@@ -571,7 +560,7 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDe
     setDescribedByIds(ids: string[]): void;
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipInput, [null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipInput, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipGrid": { "alias": "matChipInputFor"; "required": false; }; "addOnBlur": { "alias": "matChipInputAddOnBlur"; "required": false; }; "separatorKeyCodes": { "alias": "matChipInputSeparatorKeyCodes"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, true, never>;
     static ngAcceptInputType_addOnBlur: unknown;
     static ngAcceptInputType_disabled: unknown;
@@ -834,7 +823,7 @@ export declare class MatChipRow extends MatChip implements AfterViewInit {
     /** The projected chip edit input. */
     contentEditInput?: MatChipEditInput;
     _isEditing: boolean;
-    constructor(changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef, ngZone: NgZone, focusMonitor: FocusMonitor, _document: any, animationMode?: string, globalRippleOptions?: RippleGlobalOptions, tabIndex?: string);
+    constructor(...args: unknown[]);
     _hasTrailingIcon(): boolean;
     /** Sends focus to the first gridcell when the user clicks anywhere inside the chip. */
     _handleFocus(): void;
@@ -848,7 +837,7 @@ export declare class MatChipRow extends MatChip implements AfterViewInit {
      * two values is guaranteed to be defined.
      */
     private _getEditInput;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRow, [null, null, null, null, null, { optional: true; }, { optional: true; }, { attribute: "tabindex"; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRow, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]", never, { "editable": { "alias": "editable"; "required": false; }; }, { "edited": "edited"; }, ["contentEditInput"], ["mat-chip-avatar, [matChipAvatar]", "[matChipEditInput]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
 }
 
@@ -918,7 +907,7 @@ export declare class MatChipSet implements AfterViewInit, OnDestroy {
     _chips: QueryList<MatChip>;
     /** Flat list of all the actions contained within the chips. */
     _chipActions: QueryList<MatChipAction>;
-    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
+    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Checks whether any of the chips is focused. */
@@ -965,7 +954,7 @@ export declare class MatChipSet implements AfterViewInit, OnDestroy {
      * if the currently-focused chip is destroyed.
      */
     private _redirectDestroyedChipFocus;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipSet, [null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipSet, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChipSet, "mat-chip-set", never, { "disabled": { "alias": "disabled"; "required": false; }; "role": { "alias": "role"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, ["_chips"], ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_tabIndex: unknown;

@@ -1,7 +1,5 @@
 import { AfterContentChecked } from '@angular/core';
 import { AfterContentInit } from '@angular/core';
-import { Directionality } from '@angular/cdk/bidi';
-import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { MatLine } from '@angular/material/core';
@@ -54,7 +52,7 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     private _tileStyler;
     /** Query list of tiles that are being rendered. */
     _tiles: QueryList<MatGridTile>;
-    constructor(_element: ElementRef<HTMLElement>, _dir: Directionality);
+    constructor(...args: unknown[]);
     /** Amount of columns in the grid list. */
     get cols(): number;
     set cols(value: NumberInput);
@@ -80,7 +78,7 @@ export declare class MatGridList implements MatGridListBase, OnInit, AfterConten
     private _layoutTiles;
     /** Sets style on the main grid-list element, given the style name and value. */
     _setListStyle(style: [string, string | null] | null): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridList, [null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridList, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": { "alias": "cols"; "required": false; }; "gutterSize": { "alias": "gutterSize"; "required": false; }; "rowHeight": { "alias": "rowHeight"; "required": false; }; }, {}, ["_tiles"], ["*"], true, never>;
 }
 
@@ -102,10 +100,10 @@ export declare class MatGridListModule {
 
 export declare class MatGridTile {
     private _element;
-    _gridList?: MatGridListBase | undefined;
+    _gridList?: MatGridListBase | null | undefined;
     _rowspan: number;
     _colspan: number;
-    constructor(_element: ElementRef<HTMLElement>, _gridList?: MatGridListBase | undefined);
+    constructor(...args: unknown[]);
     /** Amount of rows that the grid tile takes up. */
     get rowspan(): number;
     set rowspan(value: NumberInput);
@@ -117,7 +115,7 @@ export declare class MatGridTile {
      * "Changed after checked" errors that would occur with HostBinding.
      */
     _setStyle(property: string, value: any): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTile, [null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTile, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTile, "mat-grid-tile", ["matGridTile"], { "rowspan": { "alias": "rowspan"; "required": false; }; "colspan": { "alias": "colspan"; "required": false; }; }, {}, never, ["*"], true, never>;
 }
 
@@ -142,7 +140,7 @@ export declare class MatGridTileHeaderCssMatStyler {
 export declare class MatGridTileText implements AfterContentInit {
     private _element;
     _lines: QueryList<MatLine>;
-    constructor(_element: ElementRef<HTMLElement>);
+    constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileText, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTileText, "mat-grid-tile-header, mat-grid-tile-footer", never, {}, {}, ["_lines"], ["[mat-grid-avatar], [matGridAvatar]", "[mat-line], [matLine]", "*"], true, never>;

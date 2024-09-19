@@ -2,15 +2,9 @@ import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { ApplicationRef } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { ComponentFactoryResolver } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
-import { Directionality } from '@angular/cdk/bidi';
-import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/common';
@@ -18,8 +12,6 @@ import * as i2 from '@angular/material/core';
 import * as i3 from '@angular/cdk/overlay';
 import * as i8 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
-import { Injector } from '@angular/core';
-import { NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -28,7 +20,6 @@ import { QueryList } from '@angular/core';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { Subject } from 'rxjs';
 import { TemplateRef } from '@angular/core';
-import { ViewContainerRef } from '@angular/core';
 
 /**
  * @deprecated
@@ -104,7 +95,7 @@ export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
 
 export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
     private _elementRef;
-    private _changeDetectorRef?;
+    private _changeDetectorRef;
     private _keyManager;
     private _xPosition;
     private _yPosition;
@@ -190,12 +181,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
     readonly close: EventEmitter<MenuCloseReason>;
     readonly panelId: string;
     private _injector;
-    constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions, changeDetectorRef: ChangeDetectorRef);
-    /**
-     * @deprecated `_changeDetectorRef` to become a required parameter.
-     * @breaking-change 15.0.0
-     */
-    constructor(elementRef: ElementRef<HTMLElement>, ngZone: NgZone, defaultOptions: MatMenuDefaultOptions, changeDetectorRef?: ChangeDetectorRef);
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -273,17 +259,12 @@ export declare class MatMenuContent implements OnDestroy {
     private _injector;
     private _viewContainerRef;
     private _document;
-    private _changeDetectorRef?;
+    private _changeDetectorRef;
     private _portal;
     private _outlet;
     /** Emits when the menu content has been attached. */
     readonly _attached: Subject<void>;
-    constructor(template: TemplateRef<any>, componentFactoryResolver: ComponentFactoryResolver, appRef: ApplicationRef, injector: Injector, viewContainerRef: ViewContainerRef, document: any, changeDetectorRef: ChangeDetectorRef);
-    /**
-     * @deprecated `changeDetectorRef` is now a required parameter.
-     * @breaking-change 9.0.0
-     */
-    constructor(template: TemplateRef<any>, componentFactoryResolver: ComponentFactoryResolver, appRef: ApplicationRef, injector: Injector, viewContainerRef: ViewContainerRef, document: any, changeDetectorRef?: ChangeDetectorRef);
+    constructor(...args: unknown[]);
     /**
      * Attaches the content with a particular context.
      * @docs-private
@@ -320,10 +301,10 @@ export declare interface MatMenuDefaultOptions {
  */
 export declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
     private _elementRef;
-    private _document?;
-    private _focusMonitor?;
-    _parentMenu?: MatMenuPanel<MatMenuItem> | undefined;
-    private _changeDetectorRef?;
+    private _document;
+    private _focusMonitor;
+    _parentMenu?: MatMenuPanel<MatMenuItem> | null | undefined;
+    private _changeDetectorRef;
     /** ARIA role for the menu item. */
     role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
     /** Whether the menu item is disabled. */
@@ -338,12 +319,7 @@ export declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDe
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
-    constructor(elementRef: ElementRef<HTMLElement>, document: any, focusMonitor: FocusMonitor, parentMenu: MatMenuPanel<MatMenuItem> | undefined, changeDetectorRef: ChangeDetectorRef);
-    /**
-     * @deprecated `document`, `changeDetectorRef` and `focusMonitor` to become required.
-     * @breaking-change 12.0.0
-     */
-    constructor(elementRef: ElementRef<HTMLElement>, document?: any, focusMonitor?: FocusMonitor, parentMenu?: MatMenuPanel<MatMenuItem>, changeDetectorRef?: ChangeDetectorRef);
+    constructor(...args: unknown[]);
     /** Focuses the menu item. */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngAfterViewInit(): void;
@@ -361,7 +337,7 @@ export declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDe
     _setHighlighted(isHighlighted: boolean): void;
     _setTriggersSubmenu(triggersSubmenu: boolean): void;
     _hasFocus(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, [null, null, null, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_disableRipple: unknown;
@@ -414,15 +390,15 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _menuItemInstance;
     private _dir;
     private _focusMonitor;
-    private _ngZone?;
+    private _ngZone;
+    private _scrollStrategy;
+    private _changeDetectorRef;
     private _portal;
     private _overlayRef;
     private _menuOpen;
     private _closingActionsSubscription;
     private _hoverSubscription;
     private _menuCloseSubscription;
-    private _scrollStrategy;
-    private _changeDetectorRef;
     /**
      * We're specifically looking for a `MatMenu` here since the generic `MatMenuPanel`
      * interface lacks some functionality around nested menus and animations.
@@ -473,17 +449,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * @breaking-change 8.0.0
      */
     readonly onMenuClose: EventEmitter<void>;
-    constructor(overlay: Overlay, element: ElementRef<HTMLElement>, viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, menuItemInstance: MatMenuItem, dir: Directionality, focusMonitor: FocusMonitor, ngZone: NgZone);
-    /**
-     * @deprecated `focusMonitor` will become a required parameter.
-     * @breaking-change 8.0.0
-     */
-    constructor(overlay: Overlay, element: ElementRef<HTMLElement>, viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, menuItemInstance: MatMenuItem, dir: Directionality, focusMonitor?: FocusMonitor | null);
-    /**
-     * @deprecated `ngZone` will become a required parameter.
-     * @breaking-change 15.0.0
-     */
-    constructor(overlay: Overlay, element: ElementRef<HTMLElement>, viewContainerRef: ViewContainerRef, scrollStrategy: any, parentMenu: MatMenuPanel, menuItemInstance: MatMenuItem, dir: Directionality, focusMonitor: FocusMonitor);
+    constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */
@@ -551,7 +517,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _handleHover;
     /** Gets the portal that should be attached to the overlay. */
     private _getPortal;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTrigger, [null, null, null, null, { optional: true; }, { optional: true; self: true; }, { optional: true; }, null, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTrigger, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], { "_deprecatedMatMenuTriggerFor": { "alias": "mat-menu-trigger-for"; "required": false; }; "menu": { "alias": "matMenuTriggerFor"; "required": false; }; "menuData": { "alias": "matMenuTriggerData"; "required": false; }; "restoreFocus": { "alias": "matMenuTriggerRestoreFocus"; "required": false; }; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never, never, true, never>;
 }
 

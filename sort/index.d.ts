@@ -1,10 +1,6 @@
 import { AfterViewInit } from '@angular/core';
 import { AnimationTriggerMetadata } from '@angular/animations';
-import { AriaDescriber } from '@angular/cdk/a11y';
-import { ChangeDetectorRef } from '@angular/core';
-import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
@@ -162,18 +158,13 @@ export declare interface MatSortDefaultOptions {
  * column definition.
  */
 export declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, AfterViewInit {
-    /**
-     * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.
-     * @breaking-change 13.0.0
-     */
     _intl: MatSortHeaderIntl;
     private _changeDetectorRef;
     _sort: MatSort;
-    _columnDef: MatSortHeaderColumnDef;
+    _columnDef: MatSortHeaderColumnDef | null;
     private _focusMonitor;
     private _elementRef;
-    /** @breaking-change 14.0.0 _ariaDescriber will be required. */
-    private _ariaDescriber?;
+    private _ariaDescriber;
     private _rerenderSubscription;
     /**
      * The element with role="button" inside this component's view. We need this
@@ -217,14 +208,7 @@ export declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, Af
     private _sortActionDescription;
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
     disableClear: boolean;
-    constructor(
-    /**
-     * @deprecated `_intl` parameter isn't being used anymore and it'll be removed.
-     * @breaking-change 13.0.0
-     */
-    _intl: MatSortHeaderIntl, _changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _columnDef: MatSortHeaderColumnDef, _focusMonitor: FocusMonitor, _elementRef: ElementRef<HTMLElement>, 
-    /** @breaking-change 14.0.0 _ariaDescriber will be required. */
-    _ariaDescriber?: (AriaDescriber | null) | undefined, defaultOptions?: MatSortDefaultOptions);
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -273,7 +257,7 @@ export declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, Af
     private _updateSortActionDescription;
     /** Handles changes in the sorting state. */
     private _handleStateChanges;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, [null, null, { optional: true; }, { optional: true; }, null, null, { optional: true; }, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "id": { "alias": "mat-sort-header"; "required": false; }; "arrowPosition": { "alias": "arrowPosition"; "required": false; }; "start": { "alias": "start"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "sortActionDescription": { "alias": "sortActionDescription"; "required": false; }; "disableClear": { "alias": "disableClear"; "required": false; }; }, {}, never, ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_disableClear: unknown;

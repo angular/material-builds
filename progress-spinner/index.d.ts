@@ -39,7 +39,7 @@ export declare class MatProgressSpinner {
     private _defaultColor;
     /** The element of the determinate spinner. */
     _determinateCircle: ElementRef<HTMLElement>;
-    constructor(_elementRef: ElementRef<HTMLElement>, animationMode: string, defaults?: MatProgressSpinnerDefaultOptions);
+    constructor(...args: unknown[]);
     /**
      * Mode of the progress bar.
      *
@@ -70,7 +70,7 @@ export declare class MatProgressSpinner {
     _strokeDashOffset(): number | null;
     /** Stroke width of the circle in percent. */
     _circleStrokeWidth(): number;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, [null, { optional: true; }, null]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinner, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatProgressSpinner, "mat-progress-spinner, mat-spinner", ["matProgressSpinner"], { "color": { "alias": "color"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; "value": { "alias": "value"; "required": false; }; "diameter": { "alias": "diameter"; "required": false; }; "strokeWidth": { "alias": "strokeWidth"; "required": false; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_value: unknown;
     static ngAcceptInputType_diameter: unknown;
