@@ -1237,6 +1237,8 @@ class MatTabGroup {
         this._fitInkBarToContent = false;
         /** Whether tabs should be stretched to fill the header. */
         this.stretchTabs = true;
+        /** Alignment for tabs label. */
+        this.alignTabs = null;
         /** Whether the tab group should grow to the size of the active tab. */
         this.dynamicHeight = false;
         this._selectedIndex = null;
@@ -1285,6 +1287,8 @@ class MatTabGroup {
                 : false;
         this.stretchTabs =
             defaultConfig && defaultConfig.stretchTabs != null ? defaultConfig.stretchTabs : true;
+        this.alignTabs =
+            defaultConfig && defaultConfig.alignTabs != null ? defaultConfig.alignTabs : null;
     }
     /**
      * After the content is checked, this component knows what tabs have been defined
@@ -1500,7 +1504,7 @@ class MatTabGroup {
         }
     }
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: MatTabGroup, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.3", type: MatTabGroup, isStandalone: true, selector: "mat-tab-group", inputs: { color: "color", fitInkBarToContent: ["fitInkBarToContent", "fitInkBarToContent", booleanAttribute], stretchTabs: ["mat-stretch-tabs", "stretchTabs", booleanAttribute], dynamicHeight: ["dynamicHeight", "dynamicHeight", booleanAttribute], selectedIndex: ["selectedIndex", "selectedIndex", numberAttribute], headerPosition: "headerPosition", animationDuration: "animationDuration", contentTabIndex: ["contentTabIndex", "contentTabIndex", numberAttribute], disablePagination: ["disablePagination", "disablePagination", booleanAttribute], disableRipple: ["disableRipple", "disableRipple", booleanAttribute], preserveContent: ["preserveContent", "preserveContent", booleanAttribute], backgroundColor: "backgroundColor", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"] }, outputs: { selectedIndexChange: "selectedIndexChange", focusChange: "focusChange", animationDone: "animationDone", selectedTabChange: "selectedTabChange" }, host: { properties: { "class": "\"mat-\" + (color || \"primary\")", "class.mat-mdc-tab-group-dynamic-height": "dynamicHeight", "class.mat-mdc-tab-group-inverted-header": "headerPosition === \"below\"", "class.mat-mdc-tab-group-stretch-tabs": "stretchTabs", "style.--mat-tab-animation-duration": "animationDuration" }, classAttribute: "mat-mdc-tab-group" }, providers: [
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.3", type: MatTabGroup, isStandalone: true, selector: "mat-tab-group", inputs: { color: "color", fitInkBarToContent: ["fitInkBarToContent", "fitInkBarToContent", booleanAttribute], stretchTabs: ["mat-stretch-tabs", "stretchTabs", booleanAttribute], alignTabs: ["mat-align-tabs", "alignTabs"], dynamicHeight: ["dynamicHeight", "dynamicHeight", booleanAttribute], selectedIndex: ["selectedIndex", "selectedIndex", numberAttribute], headerPosition: "headerPosition", animationDuration: "animationDuration", contentTabIndex: ["contentTabIndex", "contentTabIndex", numberAttribute], disablePagination: ["disablePagination", "disablePagination", booleanAttribute], disableRipple: ["disableRipple", "disableRipple", booleanAttribute], preserveContent: ["preserveContent", "preserveContent", booleanAttribute], backgroundColor: "backgroundColor", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"] }, outputs: { selectedIndexChange: "selectedIndexChange", focusChange: "focusChange", animationDone: "animationDone", selectedTabChange: "selectedTabChange" }, host: { properties: { "class": "\"mat-\" + (color || \"primary\")", "class.mat-mdc-tab-group-dynamic-height": "dynamicHeight", "class.mat-mdc-tab-group-inverted-header": "headerPosition === \"below\"", "class.mat-mdc-tab-group-stretch-tabs": "stretchTabs", "attr.mat-align-tabs": "alignTabs", "style.--mat-tab-animation-duration": "animationDuration" }, classAttribute: "mat-mdc-tab-group" }, providers: [
             {
                 provide: MAT_TAB_GROUP,
                 useExisting: MatTabGroup,
@@ -1520,6 +1524,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
                         '[class.mat-mdc-tab-group-dynamic-height]': 'dynamicHeight',
                         '[class.mat-mdc-tab-group-inverted-header]': 'headerPosition === "below"',
                         '[class.mat-mdc-tab-group-stretch-tabs]': 'stretchTabs',
+                        '[attr.mat-align-tabs]': 'alignTabs',
                         '[style.--mat-tab-animation-duration]': 'animationDuration',
                     }, standalone: true, imports: [
                         MatTabHeader,
@@ -1546,6 +1551,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
             }], stretchTabs: [{
                 type: Input,
                 args: [{ alias: 'mat-stretch-tabs', transform: booleanAttribute }]
+            }], alignTabs: [{
+                type: Input,
+                args: [{ alias: 'mat-align-tabs' }]
             }], dynamicHeight: [{
                 type: Input,
                 args: [{ transform: booleanAttribute }]
