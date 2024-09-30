@@ -2,7 +2,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, isSignal, effect, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { Validators, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -101,11 +101,18 @@ class MatInput {
      * @docs-private
      */
     get value() {
-        return this._inputValueAccessor.value;
+        return this._signalBasedValueAccessor
+            ? this._signalBasedValueAccessor.value()
+            : this._inputValueAccessor.value;
     }
     set value(value) {
         if (value !== this.value) {
-            this._inputValueAccessor.value = value;
+            if (this._signalBasedValueAccessor) {
+                this._signalBasedValueAccessor.value.set(value);
+            }
+            else {
+                this._inputValueAccessor.value = value;
+            }
             this.stateChanges.next();
         }
     }
@@ -189,12 +196,22 @@ class MatInput {
         const parentForm = inject(NgForm, { optional: true });
         const parentFormGroup = inject(FormGroupDirective, { optional: true });
         const defaultErrorStateMatcher = inject(ErrorStateMatcher);
-        const inputValueAccessor = inject(MAT_INPUT_VALUE_ACCESSOR, { optional: true, self: true });
+        const accessor = inject(MAT_INPUT_VALUE_ACCESSOR, { optional: true, self: true });
         const element = this._elementRef.nativeElement;
         const nodeName = element.nodeName.toLowerCase();
-        // If no input value accessor was explicitly specified, use the element as the input value
-        // accessor.
-        this._inputValueAccessor = inputValueAccessor || element;
+        if (accessor) {
+            if (isSignal(accessor.value)) {
+                this._signalBasedValueAccessor = accessor;
+            }
+            else {
+                this._inputValueAccessor = accessor;
+            }
+        }
+        else {
+            // If no input value accessor was explicitly specified, use the element as the input value
+            // accessor.
+            this._inputValueAccessor = element;
+        }
         this._previousNativeValue = this.value;
         // Force setter to be called in case id was not specified.
         this.id = this.id;
@@ -216,6 +233,13 @@ class MatInput {
             this.controlType = element.multiple
                 ? 'mat-native-select-multiple'
                 : 'mat-native-select';
+        }
+        if (this._signalBasedValueAccessor) {
+            effect(() => {
+                // Read the value so the effect can register the dependency.
+                this._signalBasedValueAccessor.value();
+                this.stateChanges.next();
+            });
         }
     }
     ngAfterViewInit() {

@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, LOCALE_ID, Injectable, Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ANIMATION_MODULE_TYPE, NgZone, Injector, Input, booleanAttribute, ChangeDetectorRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, LOCALE_ID, Injectable, Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ANIMATION_MODULE_TYPE, NgZone, Injector, Input, booleanAttribute, ChangeDetectorRef, EventEmitter, isSignal, Output, ViewChild } from '@angular/core';
 import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
@@ -99,12 +99,61 @@ const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
 function MAT_DATE_LOCALE_FACTORY() {
     return inject(LOCALE_ID);
 }
+const NOT_IMPLEMENTED = 'Method not implemented';
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
 class DateAdapter {
     constructor() {
         this._localeChanges = new Subject();
         /** A stream that emits when the locale changes. */
         this.localeChanges = this._localeChanges;
+    }
+    /**
+     * Sets the time of one date to the time of another.
+     * @param target Date whose time will be set.
+     * @param hours New hours to set on the date object.
+     * @param minutes New minutes to set on the date object.
+     * @param seconds New seconds to set on the date object.
+     */
+    setTime(target, hours, minutes, seconds) {
+        throw new Error(NOT_IMPLEMENTED);
+    }
+    /**
+     * Gets the hours component of the given date.
+     * @param date The date to extract the hours from.
+     */
+    getHours(date) {
+        throw new Error(NOT_IMPLEMENTED);
+    }
+    /**
+     * Gets the minutes component of the given date.
+     * @param date The date to extract the minutes from.
+     */
+    getMinutes(date) {
+        throw new Error(NOT_IMPLEMENTED);
+    }
+    /**
+     * Gets the seconds component of the given date.
+     * @param date The date to extract the seconds from.
+     */
+    getSeconds(date) {
+        throw new Error(NOT_IMPLEMENTED);
+    }
+    /**
+     * Parses a date with a specific time from a user-provided value.
+     * @param value The value to parse.
+     * @param parseFormat The expected format of the value being parsed
+     *     (type is implementation-dependent).
+     */
+    parseTime(value, parseFormat) {
+        throw new Error(NOT_IMPLEMENTED);
+    }
+    /**
+     * Adds an amount of milliseconds to the specified date.
+     * @param date Date to which to add the milliseconds.
+     * @param amount Amount of milliseconds to add to the date.
+     */
+    addMilliseconds(date, amount) {
+        throw new Error(NOT_IMPLEMENTED);
     }
     /**
      * Given a potential date object, returns that same date object if it is
@@ -154,6 +203,18 @@ class DateAdapter {
             this.getDate(first) - this.getDate(second));
     }
     /**
+     * Compares the time values of two dates.
+     * @param first First date to compare.
+     * @param second Second date to compare.
+     * @returns 0 if the times are equal, a number less than 0 if the first time is earlier,
+     *     a number greater than 0 if the first time is later.
+     */
+    compareTime(first, second) {
+        return (this.getHours(first) - this.getHours(second) ||
+            this.getMinutes(first) - this.getMinutes(second) ||
+            this.getSeconds(first) - this.getSeconds(second));
+    }
+    /**
      * Checks if two dates are equal.
      * @param first The first date to check.
      * @param second The second date to check.
@@ -166,6 +227,24 @@ class DateAdapter {
             let secondValid = this.isValid(second);
             if (firstValid && secondValid) {
                 return !this.compareDate(first, second);
+            }
+            return firstValid == secondValid;
+        }
+        return first == second;
+    }
+    /**
+     * Checks if the times of two dates are equal.
+     * @param first The first date to check.
+     * @param second The second date to check.
+     * @returns Whether the times of the two dates are equal.
+     *     Null dates are considered equal to other null dates.
+     */
+    sameTime(first, second) {
+        if (first && second) {
+            const firstValid = this.isValid(first);
+            const secondValid = this.isValid(second);
+            if (firstValid && secondValid) {
+                return !this.compareTime(first, second);
             }
             return firstValid == secondValid;
         }
@@ -198,6 +277,18 @@ const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
  * because the regex will match strings with an out of bounds month, date, etc.
  */
 const ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
+/**
+ * Matches a time string. Supported formats:
+ * - {{hours}}:{{minutes}}
+ * - {{hours}}:{{minutes}}:{{seconds}}
+ * - {{hours}}:{{minutes}} AM/PM
+ * - {{hours}}:{{minutes}}:{{seconds}} AM/PM
+ * - {{hours}}.{{minutes}}
+ * - {{hours}}.{{minutes}}.{{seconds}}
+ * - {{hours}}.{{minutes}} AM/PM
+ * - {{hours}}.{{minutes}}.{{seconds}} AM/PM
+ */
+const TIME_REGEX = /(\d?\d)[:.](\d?\d)(?:[:.](\d?\d))?\s*(AM|PM)?/i;
 /** Creates an array and fills it with values. */
 function range(length, valueFunction) {
     const valuesArray = Array(length);
@@ -351,6 +442,92 @@ class NativeDateAdapter extends DateAdapter {
     invalid() {
         return new Date(NaN);
     }
+    setTime(target, hours, minutes, seconds) {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            if (!inRange(hours, 0, 23)) {
+                throw Error(`Invalid hours "${hours}". Hours value must be between 0 and 23.`);
+            }
+            if (!inRange(minutes, 0, 59)) {
+                throw Error(`Invalid minutes "${minutes}". Minutes value must be between 0 and 59.`);
+            }
+            if (!inRange(seconds, 0, 59)) {
+                throw Error(`Invalid seconds "${seconds}". Seconds value must be between 0 and 59.`);
+            }
+        }
+        const clone = this.clone(target);
+        clone.setHours(hours, minutes, seconds, 0);
+        return clone;
+    }
+    getHours(date) {
+        return date.getHours();
+    }
+    getMinutes(date) {
+        return date.getMinutes();
+    }
+    getSeconds(date) {
+        return date.getSeconds();
+    }
+    parseTime(userValue, parseFormat) {
+        if (typeof userValue !== 'string') {
+            return userValue instanceof Date ? new Date(userValue.getTime()) : null;
+        }
+        const value = userValue.trim();
+        if (value.length === 0) {
+            return null;
+        }
+        const today = this.today();
+        const base = this.toIso8601(today);
+        // JS is able to parse colon-separated times (including AM/PM) by
+        // appending it to a valid date string. Generate one from today's date.
+        let result = Date.parse(`${base} ${value}`);
+        // Some locales use a dot instead of a colon as a separator, try replacing it before parsing.
+        if (!result && value.includes('.')) {
+            result = Date.parse(`${base} ${value.replace(/\./g, ':')}`);
+        }
+        // Other locales add extra characters around the time, but are otherwise parseable
+        // (e.g. `00:05 ч.` in bg-BG). Try replacing all non-number and non-colon characters.
+        if (!result) {
+            const withoutExtras = value.replace(/[^0-9:(AM|PM)]/gi, '').trim();
+            if (withoutExtras.length > 0) {
+                result = Date.parse(`${base} ${withoutExtras}`);
+            }
+        }
+        // Some browser implementations of Date aren't very flexible with the time formats.
+        // E.g. Safari doesn't support AM/PM or padded numbers. As a final resort, we try
+        // parsing some of the more common time formats ourselves.
+        if (!result) {
+            const parsed = value.toUpperCase().match(TIME_REGEX);
+            if (parsed) {
+                let hours = parseInt(parsed[1]);
+                const minutes = parseInt(parsed[2]);
+                let seconds = parsed[3] == null ? undefined : parseInt(parsed[3]);
+                const amPm = parsed[4];
+                if (hours === 12) {
+                    hours = amPm === 'AM' ? 0 : hours;
+                }
+                else if (amPm === 'PM') {
+                    hours += 12;
+                }
+                if (inRange(hours, 0, 23) &&
+                    inRange(minutes, 0, 59) &&
+                    (seconds == null || inRange(seconds, 0, 59))) {
+                    return this.setTime(today, hours, minutes, seconds || 0);
+                }
+            }
+        }
+        if (result) {
+            const date = new Date(result);
+            // Firefox allows overflows in the time string, e.g. 25:00 gets parsed as the next day.
+            // Other browsers return invalid date objects in such cases so try to normalize it.
+            if (this.sameDate(today, date)) {
+                return date;
+            }
+        }
+        return this.invalid();
+    }
+    addMilliseconds(date, amount) {
+        return new Date(date.getTime() + amount);
+    }
     /** Creates a date but allows the month and date to overflow. */
     _createDateWithOverflow(year, month, date) {
         // Passing the year to the constructor causes year numbers <100 to be converted to 19xx.
@@ -393,16 +570,23 @@ class NativeDateAdapter extends DateAdapter {
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: NativeDateAdapter, decorators: [{
             type: Injectable
         }], ctorParameters: () => [] });
+/** Checks whether a number is within a certain range. */
+function inRange(value, min, max) {
+    return !isNaN(value) && value >= min && value <= max;
+}
 
 const MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
+        timeInput: null,
     },
     display: {
         dateInput: { year: 'numeric', month: 'numeric', day: 'numeric' },
+        timeInput: { hour: 'numeric', minute: 'numeric' },
         monthYearLabel: { year: 'numeric', month: 'short' },
         dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
         monthYearA11yLabel: { year: 'numeric', month: 'long' },
+        timeOptionLabel: { hour: 'numeric', minute: 'numeric' },
     },
 };
 
@@ -1278,7 +1462,9 @@ class MatOption {
     }
     /** Whether ripples for the option are disabled. */
     get disableRipple() {
-        return !!(this._parent && this._parent.disableRipple);
+        return this._signalDisableRipple
+            ? this._parent.disableRipple()
+            : !!this._parent?.disableRipple;
     }
     /** Whether to display checkmark for single-selection. */
     get hideSingleSelectionIndicator() {
@@ -1289,6 +1475,7 @@ class MatOption {
         this._changeDetectorRef = inject(ChangeDetectorRef);
         this._parent = inject(MAT_OPTION_PARENT_COMPONENT, { optional: true });
         this.group = inject(MAT_OPTGROUP, { optional: true });
+        this._signalDisableRipple = false;
         this._selected = false;
         this._active = false;
         this._disabled = false;
@@ -1300,6 +1487,7 @@ class MatOption {
         this.onSelectionChange = new EventEmitter();
         /** Emits when the state of the option changes and any parents have to be notified. */
         this._stateChanges = new Subject();
+        this._signalDisableRipple = !!this._parent && isSignal(this._parent.disableRipple);
     }
     /**
      * Whether or not the option is currently active and ready to be selected.

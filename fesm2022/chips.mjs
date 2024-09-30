@@ -989,16 +989,15 @@ class MatChipSet {
      * it back to the first chip, creating a focus trap, if it user tries to tab away.
      */
     _allowFocusEscape() {
-        if (this.tabIndex !== -1) {
-            const previousTabIndex = this.tabIndex;
-            this.tabIndex = -1;
-            this._changeDetectorRef.markForCheck();
+        const previous = this._elementRef.nativeElement.tabIndex;
+        if (previous !== -1) {
+            // Set the tabindex directly on the element, instead of going through
+            // the data binding, because we aren't guaranteed that change detection
+            // will run quickly enough to allow focus to escape.
+            this._elementRef.nativeElement.tabIndex = -1;
             // Note that this needs to be a `setTimeout`, because a `Promise.resolve`
             // doesn't allow enough time for the focus to escape.
-            setTimeout(() => {
-                this.tabIndex = previousTabIndex;
-                this._changeDetectorRef.markForCheck();
-            });
+            setTimeout(() => (this._elementRef.nativeElement.tabIndex = previous));
         }
     }
     /**
@@ -1704,8 +1703,14 @@ class MatChipGrid extends MatChipSet {
             // error if the input does something on focus (e.g. opens an autocomplete).
             Promise.resolve().then(() => this._chipInput.focus());
         }
-        else if (this._chips.length && this._keyManager.activeItemIndex !== 0) {
-            this._keyManager.setFirstItemActive();
+        else {
+            const activeItem = this._keyManager.activeItem;
+            if (activeItem) {
+                activeItem.focus();
+            }
+            else {
+                this._keyManager.setFirstItemActive();
+            }
         }
         this.stateChanges.next();
     }

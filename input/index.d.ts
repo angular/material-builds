@@ -20,6 +20,7 @@ import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Subject } from 'rxjs';
+import { WritableSignal } from '@angular/core';
 
 
 /** @docs-private */
@@ -43,7 +44,7 @@ export declare const MAT_INPUT_CONFIG: InjectionToken<MatInputConfig>;
  * value to them.
  */
 export declare const MAT_INPUT_VALUE_ACCESSOR: InjectionToken<{
-    value: any;
+    value: any | WritableSignal<any>;
 }>;
 
 export { MatError }
@@ -62,6 +63,7 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     protected _uid: string;
     protected _previousNativeValue: any;
     private _inputValueAccessor;
+    private _signalBasedValueAccessor?;
     private _previousPlaceholder;
     private _errorStateTracker;
     private _webkitBlinkWheelListenerAttached;

@@ -19,6 +19,7 @@ import { OnInit } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Provider } from '@angular/core';
 import { QueryList } from '@angular/core';
+import { Signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Version } from '@angular/core';
 
@@ -199,6 +200,42 @@ export declare abstract class DateAdapter<D, L = any> {
      */
     abstract invalid(): D;
     /**
+     * Sets the time of one date to the time of another.
+     * @param target Date whose time will be set.
+     * @param hours New hours to set on the date object.
+     * @param minutes New minutes to set on the date object.
+     * @param seconds New seconds to set on the date object.
+     */
+    setTime(target: D, hours: number, minutes: number, seconds: number): D;
+    /**
+     * Gets the hours component of the given date.
+     * @param date The date to extract the hours from.
+     */
+    getHours(date: D): number;
+    /**
+     * Gets the minutes component of the given date.
+     * @param date The date to extract the minutes from.
+     */
+    getMinutes(date: D): number;
+    /**
+     * Gets the seconds component of the given date.
+     * @param date The date to extract the seconds from.
+     */
+    getSeconds(date: D): number;
+    /**
+     * Parses a date with a specific time from a user-provided value.
+     * @param value The value to parse.
+     * @param parseFormat The expected format of the value being parsed
+     *     (type is implementation-dependent).
+     */
+    parseTime(value: any, parseFormat: any): D | null;
+    /**
+     * Adds an amount of milliseconds to the specified date.
+     * @param date Date to which to add the milliseconds.
+     * @param amount Amount of milliseconds to add to the date.
+     */
+    addMilliseconds(date: D, amount: number): D;
+    /**
      * Given a potential date object, returns that same date object if it is
      * a valid date, or `null` if it's not a valid date.
      * @param obj The object to check.
@@ -232,6 +269,14 @@ export declare abstract class DateAdapter<D, L = any> {
      */
     compareDate(first: D, second: D): number;
     /**
+     * Compares the time values of two dates.
+     * @param first First date to compare.
+     * @param second Second date to compare.
+     * @returns 0 if the times are equal, a number less than 0 if the first time is earlier,
+     *     a number greater than 0 if the first time is later.
+     */
+    compareTime(first: D, second: D): number;
+    /**
      * Checks if two dates are equal.
      * @param first The first date to check.
      * @param second The second date to check.
@@ -239,6 +284,14 @@ export declare abstract class DateAdapter<D, L = any> {
      *     Null dates are considered equal to other null dates.
      */
     sameDate(first: D | null, second: D | null): boolean;
+    /**
+     * Checks if the times of two dates are equal.
+     * @param first The first date to check.
+     * @param second The second date to check.
+     * @returns Whether the times of the two dates are equal.
+     *     Null dates are considered equal to other null dates.
+     */
+    sameTime(first: D | null, second: D | null): boolean;
     /**
      * Clamp the given date between min and max dates.
      * @param date The date to clamp.
@@ -414,6 +467,7 @@ export declare class MatCommonModule {
 export declare type MatDateFormats = {
     parse: {
         dateInput: any;
+        timeInput?: any;
     };
     display: {
         dateInput: any;
@@ -421,6 +475,8 @@ export declare type MatDateFormats = {
         monthYearLabel: any;
         dateA11yLabel: any;
         monthYearA11yLabel: any;
+        timeInput?: any;
+        timeOptionLabel?: any;
     };
 };
 
@@ -491,6 +547,7 @@ export declare class MatOption<T = any> implements FocusableOption, AfterViewChe
     _changeDetectorRef: ChangeDetectorRef;
     private _parent;
     group: MatOptgroup | null;
+    private _signalDisableRipple;
     private _selected;
     private _active;
     private _disabled;
@@ -581,7 +638,7 @@ export declare class MatOptionModule {
  * @docs-private
  */
 export declare interface MatOptionParentComponent {
-    disableRipple?: boolean;
+    disableRipple?: boolean | Signal<boolean>;
     multiple?: boolean;
     inertGroups?: boolean;
     hideSingleSelectionIndicator?: boolean;
@@ -809,6 +866,12 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
     isDateInstance(obj: any): obj is Date;
     isValid(date: Date): boolean;
     invalid(): Date;
+    setTime(target: Date, hours: number, minutes: number, seconds: number): Date;
+    getHours(date: Date): number;
+    getMinutes(date: Date): number;
+    getSeconds(date: Date): number;
+    parseTime(userValue: any, parseFormat?: any): Date | null;
+    addMilliseconds(date: Date, amount: number): Date;
     /** Creates a date but allows the month and date to overflow. */
     private _createDateWithOverflow;
     /**
