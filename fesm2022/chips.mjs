@@ -261,6 +261,13 @@ class MatChip {
     set value(value) {
         this._value = value;
     }
+    /** Whether the chip is disabled. */
+    get disabled() {
+        return this._disabled || this._chipListDisabled;
+    }
+    set disabled(value) {
+        this._disabled = value;
+    }
     /**
      * Reference to the MatRipple instance of the chip.
      * @deprecated Considered an implementation detail. To be removed.
@@ -300,6 +307,8 @@ class MatChip {
         this.ariaDescription = null;
         /** Id of a span that contains this chip's aria description. */
         this._ariaDescriptionId = `${this.id}-aria-description`;
+        /** Whether the chip list is disabled. */
+        this._chipListDisabled = false;
         /**
          * Determines whether or not the chip displays the remove styling and emits (removed) events.
          */
@@ -310,8 +319,7 @@ class MatChip {
         this.highlighted = false;
         /** Whether the ripple effect is disabled or not. */
         this.disableRipple = false;
-        /** Whether the chip is disabled. */
-        this.disabled = false;
+        this._disabled = false;
         /** Emitted when a chip is to be removed. */
         this.removed = new EventEmitter();
         /** Emitted when the chip is destroyed. */
@@ -1006,12 +1014,10 @@ class MatChipSet {
     }
     /** Syncs the chip-set's state with the individual chips. */
     _syncChipsState() {
-        if (this._chips) {
-            this._chips.forEach(chip => {
-                chip.disabled = this._disabled;
-                chip._changeDetectorRef.markForCheck();
-            });
-        }
+        this._chips?.forEach(chip => {
+            chip._chipListDisabled = this._disabled;
+            chip._changeDetectorRef.markForCheck();
+        });
     }
     /** Dummy method for subclasses to override. Base chip set cannot be focused. */
     focus() { }

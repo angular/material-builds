@@ -177,6 +177,8 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
     ariaDescription: string | null;
     /** Id of a span that contains this chip's aria description. */
     _ariaDescriptionId: string;
+    /** Whether the chip list is disabled. */
+    _chipListDisabled: boolean;
     private _textElement;
     /**
      * The value of the chip. Defaults to the content inside
@@ -204,7 +206,9 @@ export declare class MatChip implements OnInit, AfterViewInit, AfterContentInit,
     /** Whether the ripple effect is disabled or not. */
     disableRipple: boolean;
     /** Whether the chip is disabled. */
-    disabled: boolean;
+    get disabled(): boolean;
+    set disabled(value: boolean);
+    private _disabled;
     /** Emitted when a chip is to be removed. */
     readonly removed: EventEmitter<MatChipEvent>;
     /** Emitted when the chip is destroyed. */
