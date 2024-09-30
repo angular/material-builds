@@ -230,11 +230,11 @@ export declare abstract class DateAdapter<D, L = any> {
      */
     parseTime(value: any, parseFormat: any): D | null;
     /**
-     * Adds an amount of milliseconds to the specified date.
-     * @param date Date to which to add the milliseconds.
-     * @param amount Amount of milliseconds to add to the date.
+     * Adds an amount of seconds to the specified date.
+     * @param date Date to which to add the seconds.
+     * @param amount Amount of seconds to add to the date.
      */
-    addMilliseconds(date: D, amount: number): D;
+    addSeconds(date: D, amount: number): D;
     /**
      * Given a potential date object, returns that same date object if it is
      * a valid date, or `null` if it's not a valid date.
@@ -871,7 +871,7 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
     getMinutes(date: Date): number;
     getSeconds(date: Date): number;
     parseTime(userValue: any, parseFormat?: any): Date | null;
-    addMilliseconds(date: Date, amount: number): Date;
+    addSeconds(date: Date, amount: number): Date;
     /** Creates a date but allows the month and date to overflow. */
     private _createDateWithOverflow;
     /**

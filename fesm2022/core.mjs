@@ -148,11 +148,11 @@ class DateAdapter {
         throw new Error(NOT_IMPLEMENTED);
     }
     /**
-     * Adds an amount of milliseconds to the specified date.
-     * @param date Date to which to add the milliseconds.
-     * @param amount Amount of milliseconds to add to the date.
+     * Adds an amount of seconds to the specified date.
+     * @param date Date to which to add the seconds.
+     * @param amount Amount of seconds to add to the date.
      */
-    addMilliseconds(date, amount) {
+    addSeconds(date, amount) {
         throw new Error(NOT_IMPLEMENTED);
     }
     /**
@@ -536,8 +536,8 @@ class NativeDateAdapter extends DateAdapter {
         }
         return this.invalid();
     }
-    addMilliseconds(date, amount) {
-        return new Date(date.getTime() + amount);
+    addSeconds(date, amount) {
+        return new Date(date.getTime() + amount * 1000);
     }
     /** Creates a date but allows the month and date to overflow. */
     _createDateWithOverflow(year, month, date) {
