@@ -7,11 +7,12 @@ import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, afterNe
 import { MatButton, MatIconButton, MatButtonModule } from '@angular/material/button';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i1 from '@angular/material/core';
-import { DateAdapter, MAT_DATE_FORMATS, ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
+import { _StructuralStylesLoader, DateAdapter, MAT_DATE_FORMATS, ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { Directionality } from '@angular/cdk/bidi';
 import { normalizePassiveListenerOptions, Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { startWith, take, filter } from 'rxjs/operators';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
@@ -271,6 +272,7 @@ class MatCalendarBody {
         this._id = `mat-calendar-body-${calendarBodyId++}`;
         this._startDateLabelId = `${this._id}-start-date`;
         this._endDateLabelId = `${this._id}-end-date`;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         this._ngZone.runOutsideAngular(() => {
             const element = this._elementRef.nativeElement;
             // `touchmove` is active since we need to call `preventDefault`.

@@ -2,7 +2,8 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { MatRippleLoader, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { MatRippleLoader, _StructuralStylesLoader, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
 /** Injection token that can be used to provide the default options the button component. */
 const MAT_BUTTON_CONFIG = new InjectionToken('MAT_BUTTON_CONFIG');
@@ -86,6 +87,7 @@ class MatButtonBase {
         this._isFab = false;
         this._disableRipple = false;
         this._disabled = false;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const config = inject(MAT_BUTTON_CONFIG, { optional: true });
         const element = this._elementRef.nativeElement;
         const classList = element.classList;

@@ -3,7 +3,8 @@ import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import * as i0 from '@angular/core';
 import { forwardRef, InjectionToken, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, ElementRef, NgZone, Injector, ANIMATION_MODULE_TYPE, HostAttributeToken, numberAttribute, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { CommonModule } from '@angular/common';
 
 // Increasing integer for generating unique ids for radio components.
@@ -429,6 +430,7 @@ class MatRadioButton {
                 event.preventDefault();
             }
         };
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const radioGroup = inject(MAT_RADIO_GROUP, { optional: true });
         const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         const tabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });

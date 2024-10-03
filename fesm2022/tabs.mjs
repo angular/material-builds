@@ -1,8 +1,9 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, Injector, afterNextRender, numberAttribute, Output, ContentChildren, ComponentFactoryResolver, QueryList, forwardRef, HostAttributeToken, NgModule } from '@angular/core';
-import { MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, fromEvent, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { FocusKeyManager, CdkMonitorFocus, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
@@ -112,6 +113,7 @@ class MatTab {
          * Whether the tab is currently active.
          */
         this.isActive = false;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
     }
     ngOnChanges(changes) {
         if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {
@@ -1804,6 +1806,7 @@ class MatTabLink extends InkBarItem {
         this.tabIndex = 0;
         /** Unique id for the tab. */
         this.id = `mat-tab-link-${nextUniqueId++}`;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, {
             optional: true,
         });

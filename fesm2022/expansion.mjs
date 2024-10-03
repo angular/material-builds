@@ -2,7 +2,7 @@ import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, ANIMATION_MODULE_TYPE, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MatCommonModule } from '@angular/material/core';
 import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { startWith, filter, take } from 'rxjs/operators';
 import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
@@ -10,6 +10,7 @@ import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DOCUMENT } from '@angular/common';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
 /**
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
@@ -280,6 +281,7 @@ class MatExpansionPanelHeader {
         this._parentChangeSubscription = Subscription.EMPTY;
         /** Tab index of the header. */
         this.tabIndex = 0;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const panel = this.panel;
         const defaultOptions = inject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, { optional: true });
         const tabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });

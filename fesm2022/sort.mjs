@@ -4,7 +4,8 @@ import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
 import { ReplaySubject, Subject, merge } from 'rxjs';
 import { trigger, state, style, transition, animate, keyframes, query, animateChild } from '@angular/animations';
-import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
+import { AnimationDurations, AnimationCurves, _StructuralStylesLoader, MatCommonModule } from '@angular/material/core';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
 /** @docs-private */
 function getSortDuplicateSortableIdError(id) {
@@ -313,6 +314,7 @@ class MatSortHeader {
         // Without a description, the button's label comes from the sort header text content,
         // which doesn't give any indication that it performs a sorting operation.
         this._sortActionDescription = 'Sort';
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const defaultOptions = inject(MAT_SORT_DEFAULT_OPTIONS, {
             optional: true,
         });

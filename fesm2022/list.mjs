@@ -2,7 +2,8 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, Directive, Input, NgZone, ANIMATION_MODULE_TYPE, Injector, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, EventEmitter, Output, forwardRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
-import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule, MatPseudoCheckboxModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule, MatPseudoCheckboxModule } from '@angular/material/core';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { Subscription, merge, Subject } from 'rxjs';
 import { CdkObserveContent, ObserversModule } from '@angular/cdk/observers';
 import { NgTemplateOutlet, CommonModule } from '@angular/common';
@@ -246,6 +247,7 @@ class MatListItemBase {
         this._rippleRenderer = null;
         /** Whether the list item has unscoped text content. */
         this._hasUnscopedTextContent = false;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, {
             optional: true,
         });

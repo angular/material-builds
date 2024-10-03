@@ -5,7 +5,8 @@ import * as i0 from '@angular/core';
 import { InjectionToken, forwardRef, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, ContentChildren, Input, Output, ElementRef, HostAttributeToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatRipple, MatPseudoCheckbox, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MatRipple, MatPseudoCheckbox, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
 /**
  * Injection token that can be used to configure the
@@ -481,6 +482,7 @@ class MatButtonToggle {
         this._disabled = false;
         /** Event emitted when the group value changes. */
         this.change = new EventEmitter();
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const toggleGroup = inject(MAT_BUTTON_TOGGLE_GROUP, { optional: true });
         const defaultTabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });
         const defaultOptions = inject(MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, { optional: true });

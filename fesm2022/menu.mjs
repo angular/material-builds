@@ -5,7 +5,8 @@ import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, 
 import { Subject, merge, Subscription, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, takeUntil, filter, take, delay } from 'rxjs/operators';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { MatRipple, MatRippleModule, MatCommonModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MatRipple, MatRippleModule, MatCommonModule } from '@angular/material/core';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
@@ -43,6 +44,7 @@ class MatMenuItem {
         this._highlighted = false;
         /** Whether the menu item acts as a trigger for a sub-menu. */
         this._triggersSubmenu = false;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         this._parentMenu?.addItem?.(this);
     }
     /** Focuses the menu item. */

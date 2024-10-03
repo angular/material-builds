@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, LOCALE_ID, Injectable, Directive, Component, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, ANIMATION_MODULE_TYPE, NgZone, Injector, Input, booleanAttribute, ChangeDetectorRef, EventEmitter, isSignal, Output, ViewChild } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, LOCALE_ID, Injectable, Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, ElementRef, ANIMATION_MODULE_TYPE, NgZone, Injector, Input, booleanAttribute, ChangeDetectorRef, EventEmitter, isSignal, Output, ViewChild } from '@angular/core';
 import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
@@ -652,6 +652,19 @@ class ErrorStateMatcher {
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: ErrorStateMatcher, decorators: [{
             type: Injectable,
             args: [{ providedIn: 'root' }]
+        }] });
+
+/**
+ * Component used to load structural styles for focus indicators.
+ * @docs-private
+ */
+class _StructuralStylesLoader {
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: _StructuralStylesLoader, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.3", type: _StructuralStylesLoader, isStandalone: true, selector: "structural-styles", ngImport: i0, template: '', isInline: true, styles: [".mat-focus-indicator{position:relative}.mat-focus-indicator::before{top:0;left:0;right:0;bottom:0;position:absolute;box-sizing:border-box;pointer-events:none;display:var(--mat-focus-indicator-display, none);border-width:var(--mat-focus-indicator-border-width, 3px);border-style:var(--mat-focus-indicator-border-style, solid);border-color:var(--mat-focus-indicator-border-color, transparent);border-radius:var(--mat-focus-indicator-border-radius, 4px)}.mat-focus-indicator:focus::before{content:\"\"}@media(forced-colors: active){html{--mat-focus-indicator-display: block}}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", ngImport: i0, type: _StructuralStylesLoader, decorators: [{
+            type: Component,
+            args: [{ standalone: true, selector: 'structural-styles', encapsulation: ViewEncapsulation.None, template: '', changeDetection: ChangeDetectionStrategy.OnPush, styles: [".mat-focus-indicator{position:relative}.mat-focus-indicator::before{top:0;left:0;right:0;bottom:0;position:absolute;box-sizing:border-box;pointer-events:none;display:var(--mat-focus-indicator-display, none);border-width:var(--mat-focus-indicator-border-width, 3px);border-style:var(--mat-focus-indicator-border-style, solid);border-color:var(--mat-focus-indicator-border-color, transparent);border-radius:var(--mat-focus-indicator-border-radius, 4px)}.mat-focus-indicator:focus::before{content:\"\"}@media(forced-colors: active){html{--mat-focus-indicator-display: block}}"] }]
         }] });
 
 /**
@@ -1498,6 +1511,7 @@ class MatOption {
         this.onSelectionChange = new EventEmitter();
         /** Emits when the state of the option changes and any parents have to be notified. */
         this._stateChanges = new Subject();
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         this._signalDisableRipple = !!this._parent && isSignal(this._parent.disableRipple);
     }
     /**
@@ -1900,5 +1914,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.3", 
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, RippleState, ShowOnDirtyErrorStateMatcher, VERSION, _ErrorStateTracker, _MatInternalFormField, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, provideNativeDateAdapter, setLines };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, RippleState, ShowOnDirtyErrorStateMatcher, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, provideNativeDateAdapter, setLines };
 //# sourceMappingURL=core.mjs.map

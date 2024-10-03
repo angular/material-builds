@@ -1,7 +1,8 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, forwardRef, inject, ElementRef, ChangeDetectorRef, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, Directive, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
-import { MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
 /** Injection token to be used to override the default options for `mat-checkbox`. */
 const MAT_CHECKBOX_DEFAULT_OPTIONS = new InjectionToken('mat-checkbox-default-options', {
@@ -114,6 +115,7 @@ class MatCheckbox {
         this._checked = false;
         this._disabled = false;
         this._indeterminate = false;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const tabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });
         this._options = this._options || defaults;
         this.color = this._options.color || defaults.color;

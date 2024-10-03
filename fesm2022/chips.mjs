@@ -3,8 +3,9 @@ import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, UP_ARROW, DOWN_AR
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, NgZone, EventEmitter, Injector, ANIMATION_MODULE_TYPE, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, NgModule } from '@angular/core';
-import { MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleLoader, ErrorStateMatcher, _ErrorStateTracker, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleLoader, ErrorStateMatcher, _ErrorStateTracker, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, Validators, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
@@ -82,6 +83,7 @@ class MatChipAction {
          * Private API to allow focusing this chip when it is disabled.
          */
         this._allowFocusWhenDisabled = false;
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         if (this._elementRef.nativeElement.nodeName === 'BUTTON') {
             this._elementRef.nativeElement.setAttribute('type', 'button');
         }
@@ -317,6 +319,7 @@ class MatChip {
          */
         this._rippleLoader = inject(MatRippleLoader);
         this._injector = inject(Injector);
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         this._animationsDisabled = animationMode === 'NoopAnimations';
         this._monitorFocus();

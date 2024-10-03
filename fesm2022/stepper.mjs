@@ -3,10 +3,11 @@ import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkSt
 import { NgTemplateOutlet, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
 import { Directive, Injectable, Optional, SkipSelf, inject, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, TemplateRef, ViewContainerRef, ContentChild, QueryList, EventEmitter, ElementRef, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
-import { MatRipple, ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { _StructuralStylesLoader, MatRipple, ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Subject, Subscription } from 'rxjs';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { switchMap, map, startWith, takeUntil, distinctUntilChanged } from 'rxjs/operators';
 import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 import { Platform } from '@angular/cdk/platform';
@@ -61,6 +62,7 @@ class MatStepHeader extends CdkStepHeader {
         super();
         this._intl = inject(MatStepperIntl);
         this._focusMonitor = inject(FocusMonitor);
+        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const changeDetectorRef = inject(ChangeDetectorRef);
         this._intlSubscription = this._intl.changes.subscribe(() => changeDetectorRef.markForCheck());
     }

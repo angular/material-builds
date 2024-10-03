@@ -1090,6 +1090,15 @@ export declare class ShowOnDirtyErrorStateMatcher implements ErrorStateMatcher {
     static ɵprov: i0.ɵɵInjectableDeclaration<ShowOnDirtyErrorStateMatcher>;
 }
 
+/**
+ * Component used to load structural styles for focus indicators.
+ * @docs-private
+ */
+export declare class _StructuralStylesLoader {
+    static ɵfac: i0.ɵɵFactoryDeclaration<_StructuralStylesLoader, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<_StructuralStylesLoader, "structural-styles", never, {}, {}, never, never, true, never>;
+}
+
 
 /** Possible color palette values. */
 export declare type ThemePalette = 'primary' | 'accent' | 'warn' | undefined;
