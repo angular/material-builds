@@ -892,6 +892,11 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @returns A Date object with its UTC representation based on the passed in date info
      */
     private _format;
+    /**
+     * Attempts to parse a time string into a date object. Returns null if it cannot be parsed.
+     * @param value Time string to parse.
+     */
+    private _parseTimeString;
     static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<NativeDateAdapter>;
 }

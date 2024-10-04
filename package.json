@@ -319,6 +319,14 @@
       "types": "./tabs/testing/index.d.ts",
       "default": "./fesm2022/tabs/testing.mjs"
     },
+    "./timepicker": {
+      "types": "./timepicker/index.d.ts",
+      "default": "./fesm2022/timepicker.mjs"
+    },
+    "./timepicker/testing": {
+      "types": "./timepicker/testing/index.d.ts",
+      "default": "./fesm2022/timepicker/testing.mjs"
+    },
     "./toolbar": {
       "types": "./toolbar/index.d.ts",
       "default": "./fesm2022/toolbar.mjs"
