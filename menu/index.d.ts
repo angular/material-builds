@@ -254,7 +254,6 @@ export declare const matMenuAnimations: {
 /** Menu content that will be rendered lazily once the menu is opened. */
 export declare class MatMenuContent implements OnDestroy {
     private _template;
-    private _componentFactoryResolver;
     private _appRef;
     private _injector;
     private _viewContainerRef;

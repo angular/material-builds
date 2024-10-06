@@ -1,6 +1,5 @@
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
-import { ComponentFactoryResolver } from '@angular/core';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/overlay';
@@ -295,8 +294,12 @@ export declare class MatDialogConfig<D = any> {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation?: boolean;
-    /** Alternate `ComponentFactoryResolver` to use when resolving the associated component. */
-    componentFactoryResolver?: ComponentFactoryResolver;
+    /**
+     * Alternate `ComponentFactoryResolver` to use when resolving the associated component.
+     * @deprecated No longer used. Will be removed.
+     * @breaking-change 20.0.0
+     */
+    componentFactoryResolver?: unknown;
     /**
      * Duration of the enter animation in ms.
      * Should be a number, string type is deprecated.
