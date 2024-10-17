@@ -352,7 +352,7 @@ export declare abstract class MatFormFieldControl<T> {
     /** Handles a click on the control's container. */
     abstract onContainerClick(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldControl<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldControl<any>, never, never, {}, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFormFieldControl<any>, never, never, {}, {}, never, never, true, never>;
 }
 
 /**

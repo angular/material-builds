@@ -71,7 +71,7 @@ declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
     _haltDisabledEvents: (event: Event) => void;
     protected _getAriaDisabled(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchorBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAnchorBase, never, never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAnchorBase, never, never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_tabIndex: unknown;
 }
 
@@ -142,7 +142,7 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
     protected _getDisabledAttribute(): true | null;
     private _updateRippleDisabled;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "ariaDisabled": { "alias": "aria-disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "ariaDisabled": { "alias": "aria-disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_ariaDisabled: unknown;

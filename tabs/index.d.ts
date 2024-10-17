@@ -91,7 +91,7 @@ declare abstract class InkBarItem implements OnInit, OnDestroy {
      */
     private _appendInkBarElement;
     static ɵfac: i0.ɵɵFactoryDeclaration<InkBarItem, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<InkBarItem, never, never, { "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; }, {}, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<InkBarItem, never, never, { "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_fitInkBarToContent: unknown;
 }
 
@@ -341,7 +341,7 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
      */
     private _scrollTo;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatedTabHeader, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": { "alias": "disablePagination"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, never, never, false, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatPaginatedTabHeader, never, never, { "disablePagination": { "alias": "disablePagination"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; }, { "selectFocusedIndex": "selectFocusedIndex"; "indexFocused": "indexFocused"; }, never, never, true, never>;
     static ngAcceptInputType_disablePagination: unknown;
     static ngAcceptInputType_selectedIndex: unknown;
 }

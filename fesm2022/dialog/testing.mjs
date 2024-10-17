@@ -113,7 +113,6 @@ MatTestDialogOpener = MatTestDialogOpener_1 = __decorate([
         template: '',
         changeDetection: ChangeDetectionStrategy.OnPush,
         encapsulation: ViewEncapsulation.None,
-        standalone: true,
     }),
     __metadata("design:paramtypes", [])
 ], MatTestDialogOpener);
