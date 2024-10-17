@@ -2718,7 +2718,7 @@ function generateHighContrastOverrideMixinsSCSS(primaryPalette, secondaryPalette
     const overrides = getHighContrastOverides(primaryPalette, secondaryPalette, tertiaryPalette, neutralPalette, neutralVariantPalette, themeType === "dark");
     scss += "\n@mixin high-contrast-" + themeType + "-theme-overrides {\n";
     for (const [key, value] of overrides.entries()) {
-      scss += "  --mat-app-" + key + ": " + value + ";\n";
+      scss += "  --mat-sys-" + key + ": " + value + ";\n";
     }
     scss += "};\n";
   }
