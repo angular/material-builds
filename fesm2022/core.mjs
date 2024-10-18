@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { normalizePassiveListenerOptions, _getEventTarget, Platform } from '@angular/cdk/platform';
 import { coerceElement } from '@angular/cdk/coercion';
-import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 
@@ -1504,6 +1504,7 @@ class MatOption {
         /** Emits when the state of the option changes and any parents have to be notified. */
         this._stateChanges = new Subject();
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
+        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         this._signalDisableRipple = !!this._parent && isSignal(this._parent.disableRipple);
     }
     /**

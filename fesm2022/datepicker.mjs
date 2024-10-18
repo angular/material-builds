@@ -12,7 +12,7 @@ import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { Directionality } from '@angular/cdk/bidi';
 import { normalizePassiveListenerOptions, Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
-import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { startWith, take, filter } from 'rxjs/operators';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
@@ -917,6 +917,7 @@ class MatMonthView {
         this.dragEnded = new EventEmitter();
         /** Emits when any date is activated. */
         this.activeDateChange = new EventEmitter();
+        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             if (!this._dateAdapter) {
                 throw createMissingDateImplError('DateAdapter');
@@ -1885,6 +1886,7 @@ class MatCalendarHeader {
         this._dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
         this._id = `mat-calendar-header-${calendarHeaderId++}`;
         this._periodButtonLabelId = `${this._id}-period-label`;
+        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         const changeDetectorRef = inject(ChangeDetectorRef);
         this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
     }
@@ -2331,6 +2333,7 @@ class MatDatepickerContent {
         this._isAnimating = false;
         /** Portal with projected action buttons. */
         this._actionsPortal = null;
+        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         const intl = inject(MatDatepickerIntl);
         this._closeButtonText = intl.closeCalendarLabel;
     }

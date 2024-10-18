@@ -5,7 +5,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, NgZone, EventEmitter, Injector, ANIMATION_MODULE_TYPE, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, NgModule } from '@angular/core';
 import { _StructuralStylesLoader, MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleLoader, ErrorStateMatcher, _ErrorStateTracker, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
-import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, Validators, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
@@ -316,6 +316,7 @@ class MatChip {
         this._rippleLoader = inject(MatRippleLoader);
         this._injector = inject(Injector);
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
+        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         this._animationsDisabled = animationMode === 'NoopAnimations';
         this._monitorFocus();

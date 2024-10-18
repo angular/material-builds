@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, 
 import { MatCommonModule } from '@angular/material/core';
 import { AriaDescriber, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
-import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 
 let nextId = 0;
 const BADGE_CONTENT_CLASS = 'mat-badge-content';
@@ -73,6 +73,7 @@ class MatBadge {
         this._interactivityChecker = inject(InteractivityChecker);
         this._document = inject(DOCUMENT);
         inject(_CdkPrivateStyleLoader).load(_MatBadgeStyleLoader);
+        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             const nativeElement = this._elementRef.nativeElement;
             if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
