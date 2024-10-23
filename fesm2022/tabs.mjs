@@ -12,7 +12,7 @@ import * as i4 from '@angular/cdk/a11y';
 import { FocusKeyManager, CdkMonitorFocus } from '@angular/cdk/a11y';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
-import { takeUntil, debounceTime, startWith, switchMap, skip, filter, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntil, debounceTime, startWith, switchMap, skip, filter } from 'rxjs/operators';
 import { CdkObserveContent } from '@angular/cdk/observers';
 import { DOCUMENT } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -1081,13 +1081,7 @@ class MatTabBody {
                 changeDetectorRef.markForCheck();
             });
         }
-        // Ensure that we get unique animation events, because the `.done` callback can get
-        // invoked twice in some browsers. See https://github.com/angular/angular/issues/24084.
-        this._translateTabComplete
-            .pipe(distinctUntilChanged((x, y) => {
-            return x.fromState === y.fromState && x.toState === y.toState;
-        }))
-            .subscribe(event => {
+        this._translateTabComplete.subscribe(event => {
             // If the transition to the center is complete, emit an event.
             if (this._isCenterPosition(event.toState) && this._isCenterPosition(this._position)) {
                 this._onCentered.emit();
