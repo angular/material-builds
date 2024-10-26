@@ -9,7 +9,7 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import * as i2 from '@angular/cdk/a11y';
 import { Subject, Subscription } from 'rxjs';
 import * as i2$1 from '@angular/cdk/bidi';
-import { switchMap, map, startWith, takeUntil, distinctUntilChanged } from 'rxjs/operators';
+import { switchMap, map, startWith, takeUntil } from 'rxjs/operators';
 import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 import { Platform } from '@angular/cdk/platform';
 
@@ -336,13 +336,7 @@ class MatStepper extends CdkStepper {
         this.steps.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
             this._stateChanged();
         });
-        this._animationDone
-            .pipe(
-        // This needs a `distinctUntilChanged` in order to avoid emitting the same event twice due
-        // to a bug in animations where the `.done` callback gets invoked twice on some browsers.
-        // See https://github.com/angular/angular/issues/24084
-        distinctUntilChanged((x, y) => x.fromState === y.fromState && x.toState === y.toState), takeUntil(this._destroyed))
-            .subscribe(event => {
+        this._animationDone.pipe(takeUntil(this._destroyed)).subscribe(event => {
             if (event.toState === 'current') {
                 this.animationDone.emit();
             }
