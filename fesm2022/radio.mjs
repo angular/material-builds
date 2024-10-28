@@ -5,7 +5,6 @@ import { forwardRef, InjectionToken, inject, ChangeDetectorRef, EventEmitter, bo
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { CommonModule } from '@angular/common';
 
 // Increasing integer for generating unique ids for radio components.
 let nextUniqueId = 0;
@@ -661,13 +660,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 
 class MatRadioModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRadioModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRadioModule, imports: [MatCommonModule, CommonModule, MatRippleModule, MatRadioGroup, MatRadioButton], exports: [MatCommonModule, MatRadioGroup, MatRadioButton] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRadioModule, imports: [MatCommonModule, CommonModule, MatRippleModule, MatRadioButton, MatCommonModule] }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRadioModule, imports: [MatCommonModule, MatRippleModule, MatRadioGroup, MatRadioButton], exports: [MatCommonModule, MatRadioGroup, MatRadioButton] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRadioModule, imports: [MatCommonModule, MatRippleModule, MatRadioButton, MatCommonModule] }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRadioModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, CommonModule, MatRippleModule, MatRadioGroup, MatRadioButton],
+                    imports: [MatCommonModule, MatRippleModule, MatRadioGroup, MatRadioButton],
                     exports: [MatCommonModule, MatRadioGroup, MatRadioButton],
                 }]
         }] });

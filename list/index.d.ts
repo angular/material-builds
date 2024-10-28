@@ -5,9 +5,8 @@ import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/observers';
-import * as i11 from '@angular/material/divider';
-import * as i2 from '@angular/common';
-import * as i3 from '@angular/material/core';
+import * as i10 from '@angular/material/divider';
+import * as i2 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { NgZone } from '@angular/core';
 import { OnChanges } from '@angular/core';
@@ -21,18 +20,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SimpleChanges } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i10 {
-    export {
-        MatListItemTitle,
-        MatListItemLine,
-        MatListItemMeta,
-        _MatListItemGraphicBase,
-        MatListItemAvatar,
-        MatListItemIcon
-    }
-}
-
-declare namespace i4 {
+declare namespace i3 {
     export {
         MAT_LIST,
         MatList,
@@ -40,20 +28,20 @@ declare namespace i4 {
     }
 }
 
-declare namespace i5 {
+declare namespace i4 {
     export {
         MatActionList
     }
 }
 
-declare namespace i6 {
+declare namespace i5 {
     export {
         MAT_NAV_LIST,
         MatNavList
     }
 }
 
-declare namespace i7 {
+declare namespace i6 {
     export {
         MAT_SELECTION_LIST_VALUE_ACCESSOR,
         MatSelectionListChange,
@@ -61,7 +49,7 @@ declare namespace i7 {
     }
 }
 
-declare namespace i8 {
+declare namespace i7 {
     export {
         SELECTION_LIST,
         SelectionList,
@@ -69,9 +57,20 @@ declare namespace i8 {
     }
 }
 
-declare namespace i9 {
+declare namespace i8 {
     export {
         MatListSubheaderCssMatStyler
+    }
+}
+
+declare namespace i9 {
+    export {
+        MatListItemTitle,
+        MatListItemLine,
+        MatListItemMeta,
+        _MatListItemGraphicBase,
+        MatListItemAvatar,
+        MatListItemIcon
     }
 }
 
@@ -329,7 +328,7 @@ export declare class MatListItemTitle {
 
 export declare class MatListModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i1.ObserversModule, typeof i2.CommonModule, typeof i3.MatCommonModule, typeof i3.MatRippleModule, typeof i3.MatPseudoCheckboxModule, typeof i4.MatList, typeof i5.MatActionList, typeof i6.MatNavList, typeof i7.MatSelectionList, typeof i4.MatListItem, typeof i8.MatListOption, typeof i9.MatListSubheaderCssMatStyler, typeof i10.MatListItemAvatar, typeof i10.MatListItemIcon, typeof i10.MatListItemLine, typeof i10.MatListItemTitle, typeof i10.MatListItemMeta], [typeof i4.MatList, typeof i5.MatActionList, typeof i6.MatNavList, typeof i7.MatSelectionList, typeof i4.MatListItem, typeof i8.MatListOption, typeof i10.MatListItemAvatar, typeof i10.MatListItemIcon, typeof i9.MatListSubheaderCssMatStyler, typeof i11.MatDividerModule, typeof i10.MatListItemLine, typeof i10.MatListItemTitle, typeof i10.MatListItemMeta]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i1.ObserversModule, typeof i2.MatCommonModule, typeof i2.MatRippleModule, typeof i2.MatPseudoCheckboxModule, typeof i3.MatList, typeof i4.MatActionList, typeof i5.MatNavList, typeof i6.MatSelectionList, typeof i3.MatListItem, typeof i7.MatListOption, typeof i8.MatListSubheaderCssMatStyler, typeof i9.MatListItemAvatar, typeof i9.MatListItemIcon, typeof i9.MatListItemLine, typeof i9.MatListItemTitle, typeof i9.MatListItemMeta], [typeof i3.MatList, typeof i4.MatActionList, typeof i5.MatNavList, typeof i6.MatSelectionList, typeof i3.MatListItem, typeof i7.MatListOption, typeof i9.MatListItemAvatar, typeof i9.MatListItemIcon, typeof i8.MatListSubheaderCssMatStyler, typeof i10.MatDividerModule, typeof i9.MatListItemLine, typeof i9.MatListItemTitle, typeof i9.MatListItemMeta]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
 }
 

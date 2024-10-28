@@ -1,7 +1,6 @@
 import { CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
 import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal, CdkPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { NgClass, DOCUMENT, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
 import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import { MatButton, MatIconButton, MatButtonModule } from '@angular/material/button';
@@ -12,6 +11,7 @@ import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { Directionality } from '@angular/cdk/bidi';
 import { normalizePassiveListenerOptions, Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
+import { NgClass, DOCUMENT } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { startWith, take, filter } from 'rxjs/operators';
 import { coerceStringArray } from '@angular/cdk/coercion';
@@ -4361,8 +4361,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 
 class MatDatepickerModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, imports: [CommonModule,
-            MatButtonModule,
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, imports: [MatButtonModule,
             OverlayModule,
             A11yModule,
             PortalModule,
@@ -4403,8 +4402,7 @@ class MatDatepickerModule {
             MatDatepickerActions,
             MatDatepickerCancel,
             MatDatepickerApply] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, providers: [MatDatepickerIntl, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [CommonModule,
-            MatButtonModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, providers: [MatDatepickerIntl, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [MatButtonModule,
             OverlayModule,
             A11yModule,
             PortalModule,
@@ -4417,7 +4415,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             type: NgModule,
             args: [{
                     imports: [
-                        CommonModule,
                         MatButtonModule,
                         OverlayModule,
                         A11yModule,

@@ -17,13 +17,12 @@ import { FactoryProvider } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/common';
-import * as i2 from '@angular/material/button';
-import * as i20 from '@angular/cdk/scrolling';
-import * as i3 from '@angular/cdk/overlay';
-import * as i4 from '@angular/cdk/a11y';
-import * as i5 from '@angular/cdk/portal';
-import * as i6 from '@angular/material/core';
+import * as i1 from '@angular/material/button';
+import * as i19 from '@angular/cdk/scrolling';
+import * as i2 from '@angular/cdk/overlay';
+import * as i3 from '@angular/cdk/a11y';
+import * as i4 from '@angular/cdk/portal';
+import * as i5 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -117,46 +116,32 @@ declare function getActiveOffset<D>(dateAdapter: DateAdapter<D>, activeDate: D, 
 
 declare namespace i10 {
     export {
-        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
-        MAT_DATEPICKER_SCROLL_STRATEGY,
-        DatepickerDropdownPositionX,
-        DatepickerDropdownPositionY,
-        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
-        MatDatepickerContent,
-        MatDatepickerControl,
-        MatDatepickerPanel,
-        MatDatepickerBase
-    }
-}
-
-declare namespace i11 {
-    export {
         MAT_DATEPICKER_VALUE_ACCESSOR,
         MAT_DATEPICKER_VALIDATORS,
         MatDatepickerInput
     }
 }
 
-declare namespace i12 {
+declare namespace i11 {
     export {
         MatDatepickerToggleIcon,
         MatDatepickerToggle
     }
 }
 
-declare namespace i13 {
+declare namespace i12 {
     export {
         MatMonthView
     }
 }
 
-declare namespace i14 {
+declare namespace i13 {
     export {
         MatYearView
     }
 }
 
-declare namespace i15 {
+declare namespace i14 {
     export {
         isSameMultiYearView,
         getActiveOffset,
@@ -166,13 +151,13 @@ declare namespace i15 {
     }
 }
 
-declare namespace i16 {
+declare namespace i15 {
     export {
         MatDateRangeInput
     }
 }
 
-declare namespace i17 {
+declare namespace i16 {
     export {
         MatDateRangeInputParent,
         MAT_DATE_RANGE_INPUT_PARENT,
@@ -181,14 +166,14 @@ declare namespace i17 {
     }
 }
 
-declare namespace i18 {
+declare namespace i17 {
     export {
         MatDateRangePickerInput,
         MatDateRangePicker
     }
 }
 
-declare namespace i19 {
+declare namespace i18 {
     export {
         MatDatepickerApply,
         MatDatepickerCancel,
@@ -196,7 +181,7 @@ declare namespace i19 {
     }
 }
 
-declare namespace i7 {
+declare namespace i6 {
     export {
         MatCalendarView,
         MatCalendarHeader,
@@ -204,7 +189,7 @@ declare namespace i7 {
     }
 }
 
-declare namespace i8 {
+declare namespace i7 {
     export {
         MatCalendarCellCssClasses,
         MatCalendarCellClassFunction,
@@ -214,9 +199,23 @@ declare namespace i8 {
     }
 }
 
-declare namespace i9 {
+declare namespace i8 {
     export {
         MatDatepicker
+    }
+}
+
+declare namespace i9 {
+    export {
+        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
+        MAT_DATEPICKER_SCROLL_STRATEGY,
+        DatepickerDropdownPositionX,
+        DatepickerDropdownPositionY,
+        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
+        MatDatepickerContent,
+        MatDatepickerControl,
+        MatDatepickerPanel,
+        MatDatepickerBase
     }
 }
 
@@ -1148,7 +1147,7 @@ export declare class MatDatepickerIntl {
 
 export declare class MatDatepickerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof i1.CommonModule, typeof i2.MatButtonModule, typeof i3.OverlayModule, typeof i4.A11yModule, typeof i5.PortalModule, typeof i6.MatCommonModule, typeof i7.MatCalendar, typeof i8.MatCalendarBody, typeof i9.MatDatepicker, typeof i10.MatDatepickerContent, typeof i11.MatDatepickerInput, typeof i12.MatDatepickerToggle, typeof i12.MatDatepickerToggleIcon, typeof i13.MatMonthView, typeof i14.MatYearView, typeof i15.MatMultiYearView, typeof i7.MatCalendarHeader, typeof i16.MatDateRangeInput, typeof i17.MatStartDate, typeof i17.MatEndDate, typeof i18.MatDateRangePicker, typeof i19.MatDatepickerActions, typeof i19.MatDatepickerCancel, typeof i19.MatDatepickerApply], [typeof i20.CdkScrollableModule, typeof i7.MatCalendar, typeof i8.MatCalendarBody, typeof i9.MatDatepicker, typeof i10.MatDatepickerContent, typeof i11.MatDatepickerInput, typeof i12.MatDatepickerToggle, typeof i12.MatDatepickerToggleIcon, typeof i13.MatMonthView, typeof i14.MatYearView, typeof i15.MatMultiYearView, typeof i7.MatCalendarHeader, typeof i16.MatDateRangeInput, typeof i17.MatStartDate, typeof i17.MatEndDate, typeof i18.MatDateRangePicker, typeof i19.MatDatepickerActions, typeof i19.MatDatepickerCancel, typeof i19.MatDatepickerApply]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof i1.MatButtonModule, typeof i2.OverlayModule, typeof i3.A11yModule, typeof i4.PortalModule, typeof i5.MatCommonModule, typeof i6.MatCalendar, typeof i7.MatCalendarBody, typeof i8.MatDatepicker, typeof i9.MatDatepickerContent, typeof i10.MatDatepickerInput, typeof i11.MatDatepickerToggle, typeof i11.MatDatepickerToggleIcon, typeof i12.MatMonthView, typeof i13.MatYearView, typeof i14.MatMultiYearView, typeof i6.MatCalendarHeader, typeof i15.MatDateRangeInput, typeof i16.MatStartDate, typeof i16.MatEndDate, typeof i17.MatDateRangePicker, typeof i18.MatDatepickerActions, typeof i18.MatDatepickerCancel, typeof i18.MatDatepickerApply], [typeof i19.CdkScrollableModule, typeof i6.MatCalendar, typeof i7.MatCalendarBody, typeof i8.MatDatepicker, typeof i9.MatDatepickerContent, typeof i10.MatDatepickerInput, typeof i11.MatDatepickerToggle, typeof i11.MatDatepickerToggleIcon, typeof i12.MatMonthView, typeof i13.MatYearView, typeof i14.MatMultiYearView, typeof i6.MatCalendarHeader, typeof i15.MatDateRangeInput, typeof i16.MatStartDate, typeof i16.MatEndDate, typeof i17.MatDateRangePicker, typeof i18.MatDatepickerActions, typeof i18.MatDatepickerCancel, typeof i18.MatDatepickerApply]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDatepickerModule>;
 }
 

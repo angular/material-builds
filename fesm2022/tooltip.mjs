@@ -3,7 +3,7 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, ViewContainerRef, NgZone, Injector, afterNextRender, Directive, Input, ChangeDetectorRef, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
-import { DOCUMENT, NgClass, CommonModule } from '@angular/common';
+import { DOCUMENT, NgClass } from '@angular/common';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -926,13 +926,13 @@ const matTooltipAnimations = {
 
 class MatTooltipModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTooltipModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTooltipModule, imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent], exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule] }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTooltipModule, imports: [A11yModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent], exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [A11yModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule] }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTooltipModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent],
+                    imports: [A11yModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent],
                     exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule],
                     providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 }]

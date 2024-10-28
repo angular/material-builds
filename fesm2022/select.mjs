@@ -1,5 +1,4 @@
 import { Overlay, CdkOverlayOrigin, CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
-import { NgClass, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, ErrorStateMatcher, _ErrorStateTracker, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
@@ -15,6 +14,7 @@ import { Validators, NgControl, NgForm, FormGroupDirective } from '@angular/form
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, filter, map, distinctUntilChanged, takeUntil, take } from 'rxjs/operators';
 import { trigger, transition, query, animateChild, state, style, animate } from '@angular/animations';
+import { NgClass } from '@angular/common';
 
 /**
  * The following are all the animations for the mat-select component, with each
@@ -1179,21 +1179,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 
 class MatSelectModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSelectModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSelectModule, imports: [CommonModule,
-            OverlayModule,
-            MatOptionModule,
-            MatCommonModule,
-            MatSelect,
-            MatSelectTrigger], exports: [CdkScrollableModule,
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSelectModule, imports: [OverlayModule, MatOptionModule, MatCommonModule, MatSelect, MatSelectTrigger], exports: [CdkScrollableModule,
             MatFormFieldModule,
             MatSelect,
             MatSelectTrigger,
             MatOptionModule,
             MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSelectModule, providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER], imports: [CommonModule,
-            OverlayModule,
-            MatOptionModule,
-            MatCommonModule, CdkScrollableModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSelectModule, providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER], imports: [OverlayModule, MatOptionModule, MatCommonModule, CdkScrollableModule,
             MatFormFieldModule,
             MatOptionModule,
             MatCommonModule] }); }
@@ -1201,14 +1193,7 @@ class MatSelectModule {
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSelectModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        CommonModule,
-                        OverlayModule,
-                        MatOptionModule,
-                        MatCommonModule,
-                        MatSelect,
-                        MatSelectTrigger,
-                    ],
+                    imports: [OverlayModule, MatOptionModule, MatCommonModule, MatSelect, MatSelectTrigger],
                     exports: [
                         CdkScrollableModule,
                         MatFormFieldModule,

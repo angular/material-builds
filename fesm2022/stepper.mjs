@@ -1,12 +1,12 @@
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
-import { NgTemplateOutlet, CommonModule } from '@angular/common';
 import * as i0 from '@angular/core';
 import { Directive, Injectable, Optional, SkipSelf, inject, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, TemplateRef, ViewContainerRef, ContentChild, QueryList, EventEmitter, ElementRef, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
 import { _StructuralStylesLoader, MatRipple, ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Subject, Subscription } from 'rxjs';
+import { NgTemplateOutlet } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { switchMap, map, startWith, takeUntil } from 'rxjs/operators';
 import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
@@ -420,7 +420,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 class MatStepperModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatStepperModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
     static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatStepperModule, imports: [MatCommonModule,
-            CommonModule,
             PortalModule,
             CdkStepperModule,
             MatIconModule,
@@ -442,7 +441,6 @@ class MatStepperModule {
             MatStepperIcon,
             MatStepContent] }); }
     static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatStepperModule, providers: [MAT_STEPPER_INTL_PROVIDER, ErrorStateMatcher], imports: [MatCommonModule,
-            CommonModule,
             PortalModule,
             CdkStepperModule,
             MatIconModule,
@@ -455,7 +453,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             args: [{
                     imports: [
                         MatCommonModule,
-                        CommonModule,
                         PortalModule,
                         CdkStepperModule,
                         MatIconModule,

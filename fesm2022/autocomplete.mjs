@@ -2,7 +2,6 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, ViewContainerRef, NgZone, Injector, afterNextRender, NgModule } from '@angular/core';
 import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 export { MatOptgroup, MatOption } from '@angular/material/core';
-import { DOCUMENT, CommonModule } from '@angular/common';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
@@ -13,6 +12,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { ESCAPE, hasModifierKey, UP_ARROW, ENTER, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MAT_FORM_FIELD } from '@angular/material/form-field';
 import { startWith, switchMap, filter, map, tap, delay, take } from 'rxjs/operators';
@@ -1129,7 +1129,6 @@ class MatAutocompleteModule {
     static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatAutocompleteModule, imports: [OverlayModule,
             MatOptionModule,
             MatCommonModule,
-            CommonModule,
             MatAutocomplete,
             MatAutocompleteTrigger,
             MatAutocompleteOrigin], exports: [CdkScrollableModule,
@@ -1140,8 +1139,7 @@ class MatAutocompleteModule {
             MatAutocompleteOrigin] }); }
     static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatAutocompleteModule, providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [OverlayModule,
             MatOptionModule,
-            MatCommonModule,
-            CommonModule, CdkScrollableModule,
+            MatCommonModule, CdkScrollableModule,
             MatOptionModule,
             MatCommonModule] }); }
 }
@@ -1152,7 +1150,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
                         OverlayModule,
                         MatOptionModule,
                         MatCommonModule,
-                        CommonModule,
                         MatAutocomplete,
                         MatAutocompleteTrigger,
                         MatAutocompleteOrigin,
