@@ -1,11 +1,10 @@
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/common';
-import * as i3 from '@angular/material/core';
+import * as i2 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i2 {
+declare namespace i1 {
     export {
         MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
         ProgressSpinnerMode,
@@ -100,7 +99,7 @@ export declare interface MatProgressSpinnerDefaultOptions {
 
 export declare class MatProgressSpinnerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinnerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressSpinnerModule, never, [typeof i1.CommonModule, typeof i2.MatProgressSpinner, typeof i2.MatProgressSpinner], [typeof i2.MatProgressSpinner, typeof i2.MatProgressSpinner, typeof i3.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressSpinnerModule, never, [typeof i1.MatProgressSpinner, typeof i1.MatProgressSpinner], [typeof i1.MatProgressSpinner, typeof i1.MatProgressSpinner, typeof i2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressSpinnerModule>;
 }
 

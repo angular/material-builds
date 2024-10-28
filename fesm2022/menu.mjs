@@ -4,7 +4,7 @@ import { FocusMonitor, FocusKeyManager, isFakeTouchstartFromScreenReader, isFake
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject, merge, Subscription, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, takeUntil, filter, take, delay } from 'rxjs/operators';
-import { DOCUMENT, CommonModule } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { _StructuralStylesLoader, MatRipple, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
@@ -1167,8 +1167,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 
 class MatMenuModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMenuModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMenuModule, imports: [CommonModule,
-            MatRippleModule,
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMenuModule, imports: [MatRippleModule,
             MatCommonModule,
             OverlayModule,
             MatMenu,
@@ -1180,8 +1179,7 @@ class MatMenuModule {
             MatMenuItem,
             MatMenuContent,
             MatMenuTrigger] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMenuModule, providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [CommonModule,
-            MatRippleModule,
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMenuModule, providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [MatRippleModule,
             MatCommonModule,
             OverlayModule, CdkScrollableModule,
             MatCommonModule] }); }
@@ -1190,7 +1188,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             type: NgModule,
             args: [{
                     imports: [
-                        CommonModule,
                         MatRippleModule,
                         MatCommonModule,
                         OverlayModule,

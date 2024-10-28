@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, ANIMATION_MODULE_TYPE, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, NgModule } from '@angular/core';
-import { NgTemplateOutlet, CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
@@ -155,13 +155,13 @@ const MatSpinner = MatProgressSpinner;
 
 class MatProgressSpinnerModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatProgressSpinnerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatProgressSpinnerModule, imports: [CommonModule, MatProgressSpinner, MatSpinner], exports: [MatProgressSpinner, MatSpinner, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatProgressSpinnerModule, imports: [CommonModule, MatCommonModule] }); }
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatProgressSpinnerModule, imports: [MatProgressSpinner, MatSpinner], exports: [MatProgressSpinner, MatSpinner, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatProgressSpinnerModule, imports: [MatCommonModule] }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatProgressSpinnerModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [CommonModule, MatProgressSpinner, MatSpinner],
+                    imports: [MatProgressSpinner, MatSpinner],
                     exports: [MatProgressSpinner, MatSpinner, MatCommonModule],
                 }]
         }] });

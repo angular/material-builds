@@ -6,10 +6,9 @@ import { Directionality } from '@angular/cdk/bidi';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
-import * as i2 from '@angular/common';
-import * as i3 from '@angular/cdk/overlay';
-import * as i4 from '@angular/material/core';
-import * as i6 from '@angular/cdk/scrolling';
+import * as i2 from '@angular/cdk/overlay';
+import * as i3 from '@angular/material/core';
+import * as i5 from '@angular/cdk/scrolling';
 import { InjectionToken } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';
 import { Observable } from 'rxjs';
@@ -26,7 +25,7 @@ import { ScrollStrategy } from '@angular/cdk/overlay';
  */
 export declare function getMatTooltipInvalidPositionError(position: string): Error;
 
-declare namespace i5 {
+declare namespace i4 {
     export {
         getMatTooltipInvalidPositionError,
         MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
@@ -253,7 +252,7 @@ export declare interface MatTooltipDefaultOptions {
 
 export declare class MatTooltipModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltipModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTooltipModule, never, [typeof i1.A11yModule, typeof i2.CommonModule, typeof i3.OverlayModule, typeof i4.MatCommonModule, typeof i5.MatTooltip, typeof i5.TooltipComponent], [typeof i5.MatTooltip, typeof i5.TooltipComponent, typeof i4.MatCommonModule, typeof i6.CdkScrollableModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTooltipModule, never, [typeof i1.A11yModule, typeof i2.OverlayModule, typeof i3.MatCommonModule, typeof i4.MatTooltip, typeof i4.TooltipComponent], [typeof i4.MatTooltip, typeof i4.TooltipComponent, typeof i3.MatCommonModule, typeof i5.CdkScrollableModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTooltipModule>;
 }
 

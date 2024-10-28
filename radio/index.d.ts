@@ -7,14 +7,13 @@ import { EventEmitter } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
-import * as i2 from '@angular/common';
 import { InjectionToken } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { QueryList } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i3 {
+declare namespace i2 {
     export {
         MAT_RADIO_DEFAULT_OPTIONS_FACTORY,
         MatRadioChange,
@@ -312,7 +311,7 @@ export declare class MatRadioGroup implements AfterContentInit, OnDestroy, Contr
 
 export declare class MatRadioModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRadioModule, never, [typeof i1.MatCommonModule, typeof i2.CommonModule, typeof i1.MatRippleModule, typeof i3.MatRadioGroup, typeof i3.MatRadioButton], [typeof i1.MatCommonModule, typeof i3.MatRadioGroup, typeof i3.MatRadioButton]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRadioModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i2.MatRadioGroup, typeof i2.MatRadioButton], [typeof i1.MatCommonModule, typeof i2.MatRadioGroup, typeof i2.MatRadioButton]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRadioModule>;
 }
 

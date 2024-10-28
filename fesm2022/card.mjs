@@ -1,6 +1,5 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Directive, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 
 /** Injection token that can be used to provide the default options the card module. */
@@ -270,7 +269,7 @@ const CARD_DIRECTIVES = [
 ];
 class MatCardModule {
     static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCardModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, CommonModule, MatCard,
+    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, MatCard,
             MatCardActions,
             MatCardAvatar,
             MatCardContent,
@@ -297,12 +296,12 @@ class MatCardModule {
             MatCardTitle,
             MatCardTitleGroup,
             MatCardXlImage, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, CommonModule, MatCommonModule] }); }
+    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, MatCommonModule] }); }
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCardModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, CommonModule, ...CARD_DIRECTIVES],
+                    imports: [MatCommonModule, ...CARD_DIRECTIVES],
                     exports: [CARD_DIRECTIVES, MatCommonModule],
                 }]
         }] });
