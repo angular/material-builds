@@ -10,7 +10,7 @@ import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i3 from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { Subject, fromEvent, merge } from 'rxjs';
-import { filter, map, mapTo, takeUntil, distinctUntilChanged, take, startWith, debounceTime } from 'rxjs/operators';
+import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 /**
@@ -250,13 +250,7 @@ class MatDrawer {
                 event.preventDefault();
             }));
         });
-        // We need a Subject with distinctUntilChanged, because the `done` event
-        // fires twice on some browsers. See https://github.com/angular/angular/issues/24084
-        this._animationEnd
-            .pipe(distinctUntilChanged((x, y) => {
-            return x.fromState === y.fromState && x.toState === y.toState;
-        }))
-            .subscribe((event) => {
+        this._animationEnd.subscribe((event) => {
             const { fromState, toState } = event;
             if ((toState.indexOf('open') === 0 && fromState === 'void') ||
                 (toState === 'void' && fromState.indexOf('open') === 0)) {
