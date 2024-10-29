@@ -16,52 +16,95 @@ import { trigger, state, style, transition, group, animate, query, animateChild 
  * Configuration for opening a modal dialog with the MatDialog service.
  */
 class MatDialogConfig {
-    constructor() {
-        /** The ARIA role of the dialog element. */
-        this.role = 'dialog';
-        /** Custom class for the overlay pane. */
-        this.panelClass = '';
-        /** Whether the dialog has a backdrop. */
-        this.hasBackdrop = true;
-        /** Custom class for the backdrop. */
-        this.backdropClass = '';
-        /** Whether the user can use escape or clicking on the backdrop to close the modal. */
-        this.disableClose = false;
-        /** Width of the dialog. */
-        this.width = '';
-        /** Height of the dialog. */
-        this.height = '';
-        /** Data being injected into the child component. */
-        this.data = null;
-        /** ID of the element that describes the dialog. */
-        this.ariaDescribedBy = null;
-        /** ID of the element that labels the dialog. */
-        this.ariaLabelledBy = null;
-        /** Aria label to assign to the dialog element. */
-        this.ariaLabel = null;
-        /** Whether this is a modal dialog. Used to set the `aria-modal` attribute. */
-        this.ariaModal = true;
-        /**
-         * Where the dialog should focus on open.
-         * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
-         * AutoFocusTarget instead.
-         */
-        this.autoFocus = 'first-tabbable';
-        /**
-         * Whether the dialog should restore focus to the
-         * previously-focused element, after it's closed.
-         */
-        this.restoreFocus = true;
-        /** Whether to wait for the opening animation to finish before trapping focus. */
-        this.delayFocusTrap = true;
-        /**
-         * Whether the dialog should close when the user goes backwards/forwards in history.
-         * Note that this usually doesn't include clicking on links (unless the user is using
-         * the `HashLocationStrategy`).
-         */
-        this.closeOnNavigation = true;
-        // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
-    }
+    /**
+     * Where the attached component should live in Angular's *logical* component tree.
+     * This affects what is available for injection and the change detection order for the
+     * component instantiated inside of the dialog. This does not affect where the dialog
+     * content will be rendered.
+     */
+    viewContainerRef;
+    /**
+     * Injector used for the instantiation of the component to be attached. If provided,
+     * takes precedence over the injector indirectly provided by `ViewContainerRef`.
+     */
+    injector;
+    /** ID for the dialog. If omitted, a unique one will be generated. */
+    id;
+    /** The ARIA role of the dialog element. */
+    role = 'dialog';
+    /** Custom class for the overlay pane. */
+    panelClass = '';
+    /** Whether the dialog has a backdrop. */
+    hasBackdrop = true;
+    /** Custom class for the backdrop. */
+    backdropClass = '';
+    /** Whether the user can use escape or clicking on the backdrop to close the modal. */
+    disableClose = false;
+    /** Width of the dialog. */
+    width = '';
+    /** Height of the dialog. */
+    height = '';
+    /** Min-width of the dialog. If a number is provided, assumes pixel units. */
+    minWidth;
+    /** Min-height of the dialog. If a number is provided, assumes pixel units. */
+    minHeight;
+    /** Max-width of the dialog. If a number is provided, assumes pixel units. Defaults to 80vw. */
+    maxWidth;
+    /** Max-height of the dialog. If a number is provided, assumes pixel units. */
+    maxHeight;
+    /** Position overrides. */
+    position;
+    /** Data being injected into the child component. */
+    data = null;
+    /** Layout direction for the dialog's content. */
+    direction;
+    /** ID of the element that describes the dialog. */
+    ariaDescribedBy = null;
+    /** ID of the element that labels the dialog. */
+    ariaLabelledBy = null;
+    /** Aria label to assign to the dialog element. */
+    ariaLabel = null;
+    /** Whether this is a modal dialog. Used to set the `aria-modal` attribute. */
+    ariaModal = true;
+    /**
+     * Where the dialog should focus on open.
+     * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
+     * AutoFocusTarget instead.
+     */
+    autoFocus = 'first-tabbable';
+    /**
+     * Whether the dialog should restore focus to the
+     * previously-focused element, after it's closed.
+     */
+    restoreFocus = true;
+    /** Whether to wait for the opening animation to finish before trapping focus. */
+    delayFocusTrap = true;
+    /** Scroll strategy to be used for the dialog. */
+    scrollStrategy;
+    /**
+     * Whether the dialog should close when the user goes backwards/forwards in history.
+     * Note that this usually doesn't include clicking on links (unless the user is using
+     * the `HashLocationStrategy`).
+     */
+    closeOnNavigation = true;
+    /**
+     * Alternate `ComponentFactoryResolver` to use when resolving the associated component.
+     * @deprecated No longer used. Will be removed.
+     * @breaking-change 20.0.0
+     */
+    componentFactoryResolver;
+    /**
+     * Duration of the enter animation in ms.
+     * Should be a number, string type is deprecated.
+     * @breaking-change 17.0.0 Remove string signature.
+     */
+    enterAnimationDuration;
+    /**
+     * Duration of the exit animation in ms.
+     * Should be a number, string type is deprecated.
+     * @breaking-change 17.0.0 Remove string signature.
+     */
+    exitAnimationDuration;
 }
 
 /** Class added when the dialog is open. */
@@ -75,44 +118,25 @@ const OPEN_ANIMATION_DURATION = 150;
 /** Duration of the closing animation in milliseconds. */
 const CLOSE_ANIMATION_DURATION = 75;
 class MatDialogContainer extends CdkDialogContainer {
-    constructor() {
-        super(...arguments);
-        this._animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
-        /** Emits when an animation state changes. */
-        this._animationStateChanged = new EventEmitter();
-        /** Whether animations are enabled. */
-        this._animationsEnabled = this._animationMode !== 'NoopAnimations';
-        /** Number of actions projected in the dialog. */
-        this._actionSectionCount = 0;
-        /** Host element of the dialog container component. */
-        this._hostElement = this._elementRef.nativeElement;
-        /** Duration of the dialog open animation. */
-        this._enterAnimationDuration = this._animationsEnabled
-            ? parseCssTime(this._config.enterAnimationDuration) ?? OPEN_ANIMATION_DURATION
-            : 0;
-        /** Duration of the dialog close animation. */
-        this._exitAnimationDuration = this._animationsEnabled
-            ? parseCssTime(this._config.exitAnimationDuration) ?? CLOSE_ANIMATION_DURATION
-            : 0;
-        /** Current timer for dialog animations. */
-        this._animationTimer = null;
-        /**
-         * Completes the dialog open by clearing potential animation classes, trapping
-         * focus and emitting an opened event.
-         */
-        this._finishDialogOpen = () => {
-            this._clearAnimationClasses();
-            this._openAnimationDone(this._enterAnimationDuration);
-        };
-        /**
-         * Completes the dialog close by clearing potential animation classes, restoring
-         * focus and emitting a closed event.
-         */
-        this._finishDialogClose = () => {
-            this._clearAnimationClasses();
-            this._animationStateChanged.emit({ state: 'closed', totalTime: this._exitAnimationDuration });
-        };
-    }
+    _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
+    /** Emits when an animation state changes. */
+    _animationStateChanged = new EventEmitter();
+    /** Whether animations are enabled. */
+    _animationsEnabled = this._animationMode !== 'NoopAnimations';
+    /** Number of actions projected in the dialog. */
+    _actionSectionCount = 0;
+    /** Host element of the dialog container component. */
+    _hostElement = this._elementRef.nativeElement;
+    /** Duration of the dialog open animation. */
+    _enterAnimationDuration = this._animationsEnabled
+        ? parseCssTime(this._config.enterAnimationDuration) ?? OPEN_ANIMATION_DURATION
+        : 0;
+    /** Duration of the dialog close animation. */
+    _exitAnimationDuration = this._animationsEnabled
+        ? parseCssTime(this._config.exitAnimationDuration) ?? CLOSE_ANIMATION_DURATION
+        : 0;
+    /** Current timer for dialog animations. */
+    _animationTimer = null;
     _contentAttached() {
         // Delegate to the original dialog-container initialization (i.e. saving the
         // previous element, setting up the focus trap and moving focus to the container).
@@ -187,6 +211,22 @@ class MatDialogContainer extends CdkDialogContainer {
         this._actionSectionCount += delta;
         this._changeDetectorRef.markForCheck();
     }
+    /**
+     * Completes the dialog open by clearing potential animation classes, trapping
+     * focus and emitting an opened event.
+     */
+    _finishDialogOpen = () => {
+        this._clearAnimationClasses();
+        this._openAnimationDone(this._enterAnimationDuration);
+    };
+    /**
+     * Completes the dialog close by clearing potential animation classes, restoring
+     * focus and emitting a closed event.
+     */
+    _finishDialogClose = () => {
+        this._clearAnimationClasses();
+        this._animationStateChanged.emit({ state: 'closed', totalTime: this._exitAnimationDuration });
+    };
     /** Clears all dialog animation classes. */
     _clearAnimationClasses() {
         this._hostElement.classList.remove(OPENING_CLASS, CLOSING_CLASS);
@@ -244,8 +284,8 @@ class MatDialogContainer extends CdkDialogContainer {
         ref.location.nativeElement.classList.add('mat-mdc-dialog-component-host');
         return ref;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogContainer, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogContainer, isStandalone: true, selector: "mat-dialog-container", host: { attributes: { "tabindex": "-1" }, properties: { "attr.aria-modal": "_config.ariaModal", "id": "_config.id", "attr.role": "_config.role", "attr.aria-labelledby": "_config.ariaLabel ? null : _ariaLabelledByQueue[0]", "attr.aria-label": "_config.ariaLabel", "attr.aria-describedby": "_config.ariaDescribedBy || null", "class._mat-animation-noopable": "!_animationsEnabled", "class.mat-mdc-dialog-container-with-actions": "_actionSectionCount > 0" }, classAttribute: "mat-mdc-dialog-container mdc-dialog" }, usesInheritance: true, ngImport: i0, template: "<div class=\"mat-mdc-dialog-inner-container mdc-dialog__container\">\n  <div class=\"mat-mdc-dialog-surface mdc-dialog__surface\">\n    <ng-template cdkPortalOutlet />\n  </div>\n</div>\n", styles: [".mat-mdc-dialog-container{width:100%;height:100%;display:block;box-sizing:border-box;max-height:inherit;min-height:inherit;min-width:inherit;max-width:inherit;outline:0}.cdk-overlay-pane.mat-mdc-dialog-panel{max-width:var(--mat-dialog-container-max-width, 560px);min-width:var(--mat-dialog-container-min-width, 280px)}@media(max-width: 599px){.cdk-overlay-pane.mat-mdc-dialog-panel{max-width:var(--mat-dialog-container-small-max-width, calc(100vw - 32px))}}.mat-mdc-dialog-inner-container{display:flex;flex-direction:row;align-items:center;justify-content:space-around;box-sizing:border-box;height:100%;opacity:0;transition:opacity linear var(--mat-dialog-transition-duration, 0ms);max-height:inherit;min-height:inherit;min-width:inherit;max-width:inherit}.mdc-dialog--closing .mat-mdc-dialog-inner-container{transition:opacity 75ms linear;transform:none}.mdc-dialog--open .mat-mdc-dialog-inner-container{opacity:1}._mat-animation-noopable .mat-mdc-dialog-inner-container{transition:none}.mat-mdc-dialog-surface{display:flex;flex-direction:column;flex-grow:0;flex-shrink:0;box-sizing:border-box;width:100%;height:100%;position:relative;overflow-y:auto;outline:0;transform:scale(0.8);transition:transform var(--mat-dialog-transition-duration, 0ms) cubic-bezier(0, 0, 0.2, 1);max-height:inherit;min-height:inherit;min-width:inherit;max-width:inherit;box-shadow:var(--mat-dialog-container-elevation-shadow, none);border-radius:var(--mdc-dialog-container-shape, var(--mat-sys-corner-extra-large, 4px));background-color:var(--mdc-dialog-container-color, var(--mat-sys-surface, white))}[dir=rtl] .mat-mdc-dialog-surface{text-align:right}.mdc-dialog--open .mat-mdc-dialog-surface,.mdc-dialog--closing .mat-mdc-dialog-surface{transform:none}._mat-animation-noopable .mat-mdc-dialog-surface{transition:none}.mat-mdc-dialog-surface::before{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:2px solid rgba(0,0,0,0);border-radius:inherit;content:\"\";pointer-events:none}.mat-mdc-dialog-title{display:block;position:relative;flex-shrink:0;box-sizing:border-box;margin:0 0 1px;padding:var(--mat-dialog-headline-padding, 6px 24px 13px)}.mat-mdc-dialog-title::before{display:inline-block;width:0;height:40px;content:\"\";vertical-align:0}[dir=rtl] .mat-mdc-dialog-title{text-align:right}.mat-mdc-dialog-container .mat-mdc-dialog-title{color:var(--mdc-dialog-subhead-color, var(--mat-sys-on-surface, rgba(0, 0, 0, 0.87)));font-family:var(--mdc-dialog-subhead-font, var(--mat-sys-headline-small-font, inherit));line-height:var(--mdc-dialog-subhead-line-height, var(--mat-sys-headline-small-line-height, 1.5rem));font-size:var(--mdc-dialog-subhead-size, var(--mat-sys-headline-small-size, 1rem));font-weight:var(--mdc-dialog-subhead-weight, var(--mat-sys-headline-small-weight, 400));letter-spacing:var(--mdc-dialog-subhead-tracking, var(--mat-sys-headline-small-tracking, 0.03125em))}.mat-mdc-dialog-content{display:block;flex-grow:1;box-sizing:border-box;margin:0;overflow:auto;max-height:65vh}.mat-mdc-dialog-content>:first-child{margin-top:0}.mat-mdc-dialog-content>:last-child{margin-bottom:0}.mat-mdc-dialog-container .mat-mdc-dialog-content{color:var(--mdc-dialog-supporting-text-color, var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.6)));font-family:var(--mdc-dialog-supporting-text-font, var(--mat-sys-body-medium-font, inherit));line-height:var(--mdc-dialog-supporting-text-line-height, var(--mat-sys-body-medium-line-height, 1.5rem));font-size:var(--mdc-dialog-supporting-text-size, var(--mat-sys-body-medium-size, 1rem));font-weight:var(--mdc-dialog-supporting-text-weight, var(--mat-sys-body-medium-weight, 400));letter-spacing:var(--mdc-dialog-supporting-text-tracking, var(--mat-sys-body-medium-tracking, 0.03125em))}.mat-mdc-dialog-container .mat-mdc-dialog-content{padding:var(--mat-dialog-content-padding, 20px 24px)}.mat-mdc-dialog-container-with-actions .mat-mdc-dialog-content{padding:var(--mat-dialog-with-actions-content-padding, 20px 24px 0)}.mat-mdc-dialog-container .mat-mdc-dialog-title+.mat-mdc-dialog-content{padding-top:0}.mat-mdc-dialog-actions{display:flex;position:relative;flex-shrink:0;flex-wrap:wrap;align-items:center;justify-content:flex-end;box-sizing:border-box;min-height:52px;margin:0;padding:8px;border-top:1px solid rgba(0,0,0,0);padding:var(--mat-dialog-actions-padding, 16px 24px);justify-content:var(--mat-dialog-actions-alignment, flex-end)}@media(forced-colors: active){.mat-mdc-dialog-actions{border-top-color:CanvasText}}.mat-mdc-dialog-actions.mat-mdc-dialog-actions-align-start,.mat-mdc-dialog-actions[align=start]{justify-content:start}.mat-mdc-dialog-actions.mat-mdc-dialog-actions-align-center,.mat-mdc-dialog-actions[align=center]{justify-content:center}.mat-mdc-dialog-actions.mat-mdc-dialog-actions-align-end,.mat-mdc-dialog-actions[align=end]{justify-content:flex-end}.mat-mdc-dialog-actions .mat-button-base+.mat-button-base,.mat-mdc-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-mdc-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-mdc-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}.mat-mdc-dialog-component-host{display:contents}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogContainer, deps: null, target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogContainer, isStandalone: true, selector: "mat-dialog-container", host: { attributes: { "tabindex": "-1" }, properties: { "attr.aria-modal": "_config.ariaModal", "id": "_config.id", "attr.role": "_config.role", "attr.aria-labelledby": "_config.ariaLabel ? null : _ariaLabelledByQueue[0]", "attr.aria-label": "_config.ariaLabel", "attr.aria-describedby": "_config.ariaDescribedBy || null", "class._mat-animation-noopable": "!_animationsEnabled", "class.mat-mdc-dialog-container-with-actions": "_actionSectionCount > 0" }, classAttribute: "mat-mdc-dialog-container mdc-dialog" }, usesInheritance: true, ngImport: i0, template: "<div class=\"mat-mdc-dialog-inner-container mdc-dialog__container\">\n  <div class=\"mat-mdc-dialog-surface mdc-dialog__surface\">\n    <ng-template cdkPortalOutlet />\n  </div>\n</div>\n", styles: [".mat-mdc-dialog-container{width:100%;height:100%;display:block;box-sizing:border-box;max-height:inherit;min-height:inherit;min-width:inherit;max-width:inherit;outline:0}.cdk-overlay-pane.mat-mdc-dialog-panel{max-width:var(--mat-dialog-container-max-width, 560px);min-width:var(--mat-dialog-container-min-width, 280px)}@media(max-width: 599px){.cdk-overlay-pane.mat-mdc-dialog-panel{max-width:var(--mat-dialog-container-small-max-width, calc(100vw - 32px))}}.mat-mdc-dialog-inner-container{display:flex;flex-direction:row;align-items:center;justify-content:space-around;box-sizing:border-box;height:100%;opacity:0;transition:opacity linear var(--mat-dialog-transition-duration, 0ms);max-height:inherit;min-height:inherit;min-width:inherit;max-width:inherit}.mdc-dialog--closing .mat-mdc-dialog-inner-container{transition:opacity 75ms linear;transform:none}.mdc-dialog--open .mat-mdc-dialog-inner-container{opacity:1}._mat-animation-noopable .mat-mdc-dialog-inner-container{transition:none}.mat-mdc-dialog-surface{display:flex;flex-direction:column;flex-grow:0;flex-shrink:0;box-sizing:border-box;width:100%;height:100%;position:relative;overflow-y:auto;outline:0;transform:scale(0.8);transition:transform var(--mat-dialog-transition-duration, 0ms) cubic-bezier(0, 0, 0.2, 1);max-height:inherit;min-height:inherit;min-width:inherit;max-width:inherit;box-shadow:var(--mat-dialog-container-elevation-shadow, none);border-radius:var(--mdc-dialog-container-shape, var(--mat-sys-corner-extra-large, 4px));background-color:var(--mdc-dialog-container-color, var(--mat-sys-surface, white))}[dir=rtl] .mat-mdc-dialog-surface{text-align:right}.mdc-dialog--open .mat-mdc-dialog-surface,.mdc-dialog--closing .mat-mdc-dialog-surface{transform:none}._mat-animation-noopable .mat-mdc-dialog-surface{transition:none}.mat-mdc-dialog-surface::before{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:2px solid rgba(0,0,0,0);border-radius:inherit;content:\"\";pointer-events:none}.mat-mdc-dialog-title{display:block;position:relative;flex-shrink:0;box-sizing:border-box;margin:0 0 1px;padding:var(--mat-dialog-headline-padding, 6px 24px 13px)}.mat-mdc-dialog-title::before{display:inline-block;width:0;height:40px;content:\"\";vertical-align:0}[dir=rtl] .mat-mdc-dialog-title{text-align:right}.mat-mdc-dialog-container .mat-mdc-dialog-title{color:var(--mdc-dialog-subhead-color, var(--mat-sys-on-surface, rgba(0, 0, 0, 0.87)));font-family:var(--mdc-dialog-subhead-font, var(--mat-sys-headline-small-font, inherit));line-height:var(--mdc-dialog-subhead-line-height, var(--mat-sys-headline-small-line-height, 1.5rem));font-size:var(--mdc-dialog-subhead-size, var(--mat-sys-headline-small-size, 1rem));font-weight:var(--mdc-dialog-subhead-weight, var(--mat-sys-headline-small-weight, 400));letter-spacing:var(--mdc-dialog-subhead-tracking, var(--mat-sys-headline-small-tracking, 0.03125em))}.mat-mdc-dialog-content{display:block;flex-grow:1;box-sizing:border-box;margin:0;overflow:auto;max-height:65vh}.mat-mdc-dialog-content>:first-child{margin-top:0}.mat-mdc-dialog-content>:last-child{margin-bottom:0}.mat-mdc-dialog-container .mat-mdc-dialog-content{color:var(--mdc-dialog-supporting-text-color, var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.6)));font-family:var(--mdc-dialog-supporting-text-font, var(--mat-sys-body-medium-font, inherit));line-height:var(--mdc-dialog-supporting-text-line-height, var(--mat-sys-body-medium-line-height, 1.5rem));font-size:var(--mdc-dialog-supporting-text-size, var(--mat-sys-body-medium-size, 1rem));font-weight:var(--mdc-dialog-supporting-text-weight, var(--mat-sys-body-medium-weight, 400));letter-spacing:var(--mdc-dialog-supporting-text-tracking, var(--mat-sys-body-medium-tracking, 0.03125em))}.mat-mdc-dialog-container .mat-mdc-dialog-content{padding:var(--mat-dialog-content-padding, 20px 24px)}.mat-mdc-dialog-container-with-actions .mat-mdc-dialog-content{padding:var(--mat-dialog-with-actions-content-padding, 20px 24px 0)}.mat-mdc-dialog-container .mat-mdc-dialog-title+.mat-mdc-dialog-content{padding-top:0}.mat-mdc-dialog-actions{display:flex;position:relative;flex-shrink:0;flex-wrap:wrap;align-items:center;justify-content:flex-end;box-sizing:border-box;min-height:52px;margin:0;padding:8px;border-top:1px solid rgba(0,0,0,0);padding:var(--mat-dialog-actions-padding, 16px 24px);justify-content:var(--mat-dialog-actions-alignment, flex-end)}@media(forced-colors: active){.mat-mdc-dialog-actions{border-top-color:CanvasText}}.mat-mdc-dialog-actions.mat-mdc-dialog-actions-align-start,.mat-mdc-dialog-actions[align=start]{justify-content:start}.mat-mdc-dialog-actions.mat-mdc-dialog-actions-align-center,.mat-mdc-dialog-actions[align=center]{justify-content:center}.mat-mdc-dialog-actions.mat-mdc-dialog-actions-align-end,.mat-mdc-dialog-actions[align=end]{justify-content:flex-end}.mat-mdc-dialog-actions .mat-button-base+.mat-button-base,.mat-mdc-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-mdc-dialog-actions .mat-button-base+.mat-button-base,[dir=rtl] .mat-mdc-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}.mat-mdc-dialog-component-host{display:contents}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogContainer, decorators: [{
             type: Component,
@@ -298,15 +338,38 @@ var MatDialogState;
  * Reference to a dialog opened via the MatDialog service.
  */
 class MatDialogRef {
+    _ref;
+    _containerInstance;
+    /** The instance of component opened into the dialog. */
+    componentInstance;
+    /**
+     * `ComponentRef` of the component opened into the dialog. Will be
+     * null when the dialog is opened using a `TemplateRef`.
+     */
+    componentRef;
+    /** Whether the user is allowed to close the dialog. */
+    disableClose;
+    /** Unique ID for the dialog. */
+    id;
+    /** Subject for notifying the user that the dialog has finished opening. */
+    _afterOpened = new Subject();
+    /** Subject for notifying the user that the dialog has started closing. */
+    _beforeClosed = new Subject();
+    /** Result to be passed to afterClosed. */
+    _result;
+    /** Handle to the timeout that's running as a fallback in case the exit animation doesn't fire. */
+    _closeFallbackTimeout;
+    /** Current state of the dialog. */
+    _state = MatDialogState.OPEN;
+    // TODO(crisbeto): we shouldn't have to declare this property, because `DialogRef.close`
+    // already has a second `options` parameter that we can use. The problem is that internal tests
+    // have assertions like `expect(MatDialogRef.close).toHaveBeenCalledWith(foo)` which will break,
+    // because it'll be called with two arguments by things like `MatDialogClose`.
+    /** Interaction that caused the dialog to close. */
+    _closeInteractionType;
     constructor(_ref, config, _containerInstance) {
         this._ref = _ref;
         this._containerInstance = _containerInstance;
-        /** Subject for notifying the user that the dialog has finished opening. */
-        this._afterOpened = new Subject();
-        /** Subject for notifying the user that the dialog has started closing. */
-        this._beforeClosed = new Subject();
-        /** Current state of the dialog. */
-        this._state = MatDialogState.OPEN;
         this.disableClose = config.disableClose;
         this.id = _ref.id;
         // Used to target panels specifically tied to dialogs.
@@ -491,6 +554,18 @@ let uniqueId = 0;
  * Service to open Material Design modal dialogs.
  */
 class MatDialog {
+    _overlay = inject(Overlay);
+    _defaultOptions = inject(MAT_DIALOG_DEFAULT_OPTIONS, { optional: true });
+    _scrollStrategy = inject(MAT_DIALOG_SCROLL_STRATEGY);
+    _parentDialog = inject(MatDialog, { optional: true, skipSelf: true });
+    _dialog = inject(Dialog);
+    _openDialogsAtThisLevel = [];
+    _afterAllClosedAtThisLevel = new Subject();
+    _afterOpenedAtThisLevel = new Subject();
+    dialogConfigClass = MatDialogConfig;
+    _dialogRefConstructor;
+    _dialogContainerType;
+    _dialogDataToken;
     /** Keeps track of the currently-open dialogs. */
     get openDialogs() {
         return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogsAtThisLevel;
@@ -503,23 +578,14 @@ class MatDialog {
         const parent = this._parentDialog;
         return parent ? parent._getAfterAllClosed() : this._afterAllClosedAtThisLevel;
     }
+    /**
+     * Stream that emits when all open dialog have finished closing.
+     * Will emit on subscribe if there are no open dialogs to begin with.
+     */
+    afterAllClosed = defer(() => this.openDialogs.length
+        ? this._getAfterAllClosed()
+        : this._getAfterAllClosed().pipe(startWith(undefined)));
     constructor() {
-        this._overlay = inject(Overlay);
-        this._defaultOptions = inject(MAT_DIALOG_DEFAULT_OPTIONS, { optional: true });
-        this._scrollStrategy = inject(MAT_DIALOG_SCROLL_STRATEGY);
-        this._parentDialog = inject(MatDialog, { optional: true, skipSelf: true });
-        this._dialog = inject(Dialog);
-        this._openDialogsAtThisLevel = [];
-        this._afterAllClosedAtThisLevel = new Subject();
-        this._afterOpenedAtThisLevel = new Subject();
-        this.dialogConfigClass = MatDialogConfig;
-        /**
-         * Stream that emits when all open dialog have finished closing.
-         * Will emit on subscribe if there are no open dialogs to begin with.
-         */
-        this.afterAllClosed = defer(() => this.openDialogs.length
-            ? this._getAfterAllClosed()
-            : this._getAfterAllClosed().pipe(startWith(undefined)));
         this._dialogRefConstructor = MatDialogRef;
         this._dialogContainerType = MatDialogContainer;
         this._dialogDataToken = MAT_DIALOG_DATA;
@@ -605,8 +671,8 @@ class MatDialog {
             dialogs[i].close();
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialog, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialog, providedIn: 'root' }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialog, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialog, providedIn: 'root' });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialog, decorators: [{
             type: Injectable,
@@ -619,13 +685,17 @@ let dialogElementUid = 0;
  * Button that will close the current dialog.
  */
 class MatDialogClose {
-    constructor() {
-        this.dialogRef = inject(MatDialogRef, { optional: true });
-        this._elementRef = inject(ElementRef);
-        this._dialog = inject(MatDialog);
-        /** Default to "button" to prevents accidental form submits. */
-        this.type = 'button';
-    }
+    dialogRef = inject(MatDialogRef, { optional: true });
+    _elementRef = inject(ElementRef);
+    _dialog = inject(MatDialog);
+    /** Screen-reader label for the button. */
+    ariaLabel;
+    /** Default to "button" to prevents accidental form submits. */
+    type = 'button';
+    /** Dialog close input. */
+    dialogResult;
+    _matDialogClose;
+    constructor() { }
     ngOnInit() {
         if (!this.dialogRef) {
             // When this directive is included in a dialog via TemplateRef (rather than being
@@ -649,8 +719,8 @@ class MatDialogClose {
         // the FocusMonitor won't detect any origin change, and will always output `program`.
         _closeDialogVia(this.dialogRef, event.screenX === 0 && event.screenY === 0 ? 'keyboard' : 'mouse', this.dialogResult);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogClose, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogClose, isStandalone: true, selector: "[mat-dialog-close], [matDialogClose]", inputs: { ariaLabel: ["aria-label", "ariaLabel"], type: "type", dialogResult: ["mat-dialog-close", "dialogResult"], _matDialogClose: ["matDialogClose", "_matDialogClose"] }, host: { listeners: { "click": "_onButtonClick($event)" }, properties: { "attr.aria-label": "ariaLabel || null", "attr.type": "type" } }, exportAs: ["matDialogClose"], usesOnChanges: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogClose, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogClose, isStandalone: true, selector: "[mat-dialog-close], [matDialogClose]", inputs: { ariaLabel: ["aria-label", "ariaLabel"], type: "type", dialogResult: ["mat-dialog-close", "dialogResult"], _matDialogClose: ["matDialogClose", "_matDialogClose"] }, host: { listeners: { "click": "_onButtonClick($event)" }, properties: { "attr.aria-label": "ariaLabel || null", "attr.type": "type" } }, exportAs: ["matDialogClose"], usesOnChanges: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogClose, decorators: [{
             type: Directive,
@@ -676,11 +746,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
                 args: ['matDialogClose']
             }] } });
 class MatDialogLayoutSection {
-    constructor() {
-        this._dialogRef = inject(MatDialogRef, { optional: true });
-        this._elementRef = inject(ElementRef);
-        this._dialog = inject(MatDialog);
-    }
+    _dialogRef = inject(MatDialogRef, { optional: true });
+    _elementRef = inject(ElementRef);
+    _dialog = inject(MatDialog);
+    constructor() { }
     ngOnInit() {
         if (!this._dialogRef) {
             this._dialogRef = getClosestDialog(this._elementRef, this._dialog.openDialogs);
@@ -701,8 +770,8 @@ class MatDialogLayoutSection {
             });
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogLayoutSection, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogLayoutSection, isStandalone: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogLayoutSection, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogLayoutSection, isStandalone: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogLayoutSection, decorators: [{
             type: Directive
@@ -711,10 +780,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
 class MatDialogTitle extends MatDialogLayoutSection {
-    constructor() {
-        super(...arguments);
-        this.id = `mat-mdc-dialog-title-${dialogElementUid++}`;
-    }
+    id = `mat-mdc-dialog-title-${dialogElementUid++}`;
     _onAdd() {
         // Note: we null check the queue, because there are some internal
         // tests that are mocking out `MatDialogRef` incorrectly.
@@ -723,8 +789,8 @@ class MatDialogTitle extends MatDialogLayoutSection {
     _onRemove() {
         this._dialogRef?._containerInstance?._removeAriaLabelledBy?.(this.id);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogTitle, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogTitle, isStandalone: true, selector: "[mat-dialog-title], [matDialogTitle]", inputs: { id: "id" }, host: { properties: { "id": "id" }, classAttribute: "mat-mdc-dialog-title mdc-dialog__title" }, exportAs: ["matDialogTitle"], usesInheritance: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogTitle, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogTitle, isStandalone: true, selector: "[mat-dialog-title], [matDialogTitle]", inputs: { id: "id" }, host: { properties: { "id": "id" }, classAttribute: "mat-mdc-dialog-title mdc-dialog__title" }, exportAs: ["matDialogTitle"], usesInheritance: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogTitle, decorators: [{
             type: Directive,
@@ -743,8 +809,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
  * Scrollable content container of a dialog.
  */
 class MatDialogContent {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogContent, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogContent, isStandalone: true, selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]", host: { classAttribute: "mat-mdc-dialog-content mdc-dialog__content" }, hostDirectives: [{ directive: i1.CdkScrollable }], ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogContent, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogContent, isStandalone: true, selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]", host: { classAttribute: "mat-mdc-dialog-content mdc-dialog__content" }, hostDirectives: [{ directive: i1.CdkScrollable }], ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogContent, decorators: [{
             type: Directive,
@@ -759,14 +825,18 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
  * Stays fixed to the bottom when scrolling.
  */
 class MatDialogActions extends MatDialogLayoutSection {
+    /**
+     * Horizontal alignment of action buttons.
+     */
+    align;
     _onAdd() {
         this._dialogRef._containerInstance?._updateActionSectionCount?.(1);
     }
     _onRemove() {
         this._dialogRef._containerInstance?._updateActionSectionCount?.(-1);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogActions, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogActions, isStandalone: true, selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", inputs: { align: "align" }, host: { properties: { "class.mat-mdc-dialog-actions-align-start": "align === \"start\"", "class.mat-mdc-dialog-actions-align-center": "align === \"center\"", "class.mat-mdc-dialog-actions-align-end": "align === \"end\"" }, classAttribute: "mat-mdc-dialog-actions mdc-dialog__actions" }, usesInheritance: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogActions, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDialogActions, isStandalone: true, selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", inputs: { align: "align" }, host: { properties: { "class.mat-mdc-dialog-actions-align-start": "align === \"start\"", "class.mat-mdc-dialog-actions-align-center": "align === \"center\"", "class.mat-mdc-dialog-actions-align-end": "align === \"end\"" }, classAttribute: "mat-mdc-dialog-actions mdc-dialog__actions" }, usesInheritance: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogActions, decorators: [{
             type: Directive,
@@ -803,8 +873,8 @@ const DIRECTIVES = [
     MatDialogContent,
 ];
 class MatDialogModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogModule, imports: [DialogModule, OverlayModule, PortalModule, MatCommonModule, MatDialogContainer,
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogModule, imports: [DialogModule, OverlayModule, PortalModule, MatCommonModule, MatDialogContainer,
             MatDialogClose,
             MatDialogTitle,
             MatDialogActions,
@@ -812,8 +882,8 @@ class MatDialogModule {
             MatDialogClose,
             MatDialogTitle,
             MatDialogActions,
-            MatDialogContent] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogModule, providers: [MatDialog], imports: [DialogModule, OverlayModule, PortalModule, MatCommonModule, MatCommonModule] }); }
+            MatDialogContent] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogModule, providers: [MatDialog], imports: [DialogModule, OverlayModule, PortalModule, MatCommonModule, MatCommonModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDialogModule, decorators: [{
             type: NgModule,

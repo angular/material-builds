@@ -2,13 +2,10 @@ import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } 
 
 /** Harness for interacting with a `mat-option` in tests. */
 class MatOptionHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        /** Element containing the option's text. */
-        this._text = this.locatorFor('.mdc-list-item__primary-text');
-    }
     /** Selector used to locate option instances. */
-    static { this.hostSelector = '.mat-mdc-option'; }
+    static hostSelector = '.mat-mdc-option';
+    /** Element containing the option's text. */
+    _text = this.locatorFor('.mdc-list-item__primary-text');
     /**
      * Gets a `HarnessPredicate` that can be used to search for an option with specific attributes.
      * @param options Options for filtering which option instances are considered a match.
@@ -47,12 +44,9 @@ class MatOptionHarness extends ContentContainerComponentHarness {
 
 /** Harness for interacting with a `mat-optgroup` in tests. */
 class MatOptgroupHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._label = this.locatorFor('.mat-mdc-optgroup-label');
-    }
     /** Selector used to locate option group instances. */
-    static { this.hostSelector = '.mat-mdc-optgroup'; }
+    static hostSelector = '.mat-mdc-optgroup';
+    _label = this.locatorFor('.mat-mdc-optgroup-label');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a option group with specific
      * attributes.

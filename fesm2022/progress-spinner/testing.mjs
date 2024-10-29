@@ -4,7 +4,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 /** Harness for interacting with a MDC based mat-progress-spinner in tests. */
 class MatProgressSpinnerHarness extends ComponentHarness {
     /** The selector for the host element of a `MatProgressSpinner` instance. */
-    static { this.hostSelector = '.mat-mdc-progress-spinner'; }
+    static hostSelector = '.mat-mdc-progress-spinner';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a progress spinnner with specific
      * attributes.

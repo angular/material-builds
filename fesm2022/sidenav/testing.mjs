@@ -29,7 +29,7 @@ class MatDrawerHarnessBase extends ContentContainerComponentHarness {
 /** Harness for interacting with a standard mat-drawer in tests. */
 class MatDrawerHarness extends MatDrawerHarnessBase {
     /** The selector for the host element of a `MatDrawer` instance. */
-    static { this.hostSelector = '.mat-drawer'; }
+    static hostSelector = '.mat-drawer';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerHarness` that meets
      * certain criteria.
@@ -44,7 +44,7 @@ class MatDrawerHarness extends MatDrawerHarnessBase {
 /** Harness for interacting with a standard mat-drawer-content in tests. */
 class MatDrawerContentHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatDrawerContent` instance. */
-    static { this.hostSelector = '.mat-drawer-content'; }
+    static hostSelector = '.mat-drawer-content';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerContentHarness` that
      * meets certain criteria.
@@ -59,7 +59,7 @@ class MatDrawerContentHarness extends ContentContainerComponentHarness {
 /** Harness for interacting with a standard mat-drawer-container in tests. */
 class MatDrawerContainerHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatDrawerContainer` instance. */
-    static { this.hostSelector = '.mat-drawer-container'; }
+    static hostSelector = '.mat-drawer-container';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerContainerHarness` that
      * meets certain criteria.
@@ -85,7 +85,7 @@ class MatDrawerContainerHarness extends ContentContainerComponentHarness {
 /** Harness for interacting with a standard mat-sidenav-content in tests. */
 class MatSidenavContentHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatSidenavContent` instance. */
-    static { this.hostSelector = '.mat-sidenav-content'; }
+    static hostSelector = '.mat-sidenav-content';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavContentHarness` that
      * meets certain criteria.
@@ -100,7 +100,7 @@ class MatSidenavContentHarness extends ContentContainerComponentHarness {
 /** Harness for interacting with a standard mat-sidenav in tests. */
 class MatSidenavHarness extends MatDrawerHarnessBase {
     /** The selector for the host element of a `MatSidenav` instance. */
-    static { this.hostSelector = '.mat-sidenav'; }
+    static hostSelector = '.mat-sidenav';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavHarness` that meets
      * certain criteria.
@@ -119,7 +119,7 @@ class MatSidenavHarness extends MatDrawerHarnessBase {
 /** Harness for interacting with a standard mat-sidenav-container in tests. */
 class MatSidenavContainerHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatSidenavContainer` instance. */
-    static { this.hostSelector = '.mat-sidenav-container'; }
+    static hostSelector = '.mat-sidenav-container';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavContainerHarness` that
      * meets certain criteria.

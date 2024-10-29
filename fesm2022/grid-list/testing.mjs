@@ -9,14 +9,8 @@ var MatGridTileSection;
 })(MatGridTileSection || (MatGridTileSection = {}));
 /** Harness for interacting with a standard `MatGridTitle` in tests. */
 class MatGridTileHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._header = this.locatorForOptional(MatGridTileSection.HEADER);
-        this._footer = this.locatorForOptional(MatGridTileSection.FOOTER);
-        this._avatar = this.locatorForOptional('.mat-grid-avatar');
-    }
     /** The selector for the host element of a `MatGridTile` instance. */
-    static { this.hostSelector = '.mat-grid-tile'; }
+    static hostSelector = '.mat-grid-tile';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatGridTileHarness`
      * that meets certain criteria.
@@ -28,6 +22,9 @@ class MatGridTileHarness extends ContentContainerComponentHarness {
             .addOption('headerText', options.headerText, (harness, pattern) => HarnessPredicate.stringMatches(harness.getHeaderText(), pattern))
             .addOption('footerText', options.footerText, (harness, pattern) => HarnessPredicate.stringMatches(harness.getFooterText(), pattern));
     }
+    _header = this.locatorForOptional(MatGridTileSection.HEADER);
+    _footer = this.locatorForOptional(MatGridTileSection.FOOTER);
+    _avatar = this.locatorForOptional('.mat-grid-avatar');
     /** Gets the amount of rows that the grid-tile takes up. */
     async getRowspan() {
         return Number(await (await this.host()).getAttribute('rowspan'));
@@ -66,17 +63,8 @@ class MatGridTileHarness extends ContentContainerComponentHarness {
 
 /** Harness for interacting with a standard `MatGridList` in tests. */
 class MatGridListHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        /**
-         * Tile coordinator that is used by the "MatGridList" for computing
-         * positions of tiles. We leverage the coordinator to provide an API
-         * for retrieving tiles based on visual tile positions.
-         */
-        this._tileCoordinator = new ɵTileCoordinator();
-    }
     /** The selector for the host element of a `MatGridList` instance. */
-    static { this.hostSelector = '.mat-grid-list'; }
+    static hostSelector = '.mat-grid-list';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatGridListHarness`
      * that meets certain criteria.
@@ -86,6 +74,12 @@ class MatGridListHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatGridListHarness, options);
     }
+    /**
+     * Tile coordinator that is used by the "MatGridList" for computing
+     * positions of tiles. We leverage the coordinator to provide an API
+     * for retrieving tiles based on visual tile positions.
+     */
+    _tileCoordinator = new ɵTileCoordinator();
     /** Gets all tiles of the grid-list. */
     async getTiles(filters = {}) {
         return await this.locatorForAll(MatGridTileHarness.with(filters))();

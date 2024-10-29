@@ -100,62 +100,64 @@ let uniqueId = 0;
  * Intended to be used together with `MatTimepickerInput`.
  */
 class MatTimepicker {
+    _overlay = inject(Overlay);
+    _dir = inject(Directionality, { optional: true });
+    _viewContainerRef = inject(ViewContainerRef);
+    _injector = inject(Injector);
+    _defaultConfig = inject(MAT_TIMEPICKER_CONFIG, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
+    _isOpen = signal(false);
+    _activeDescendant = signal(null);
+    _input;
+    _overlayRef = null;
+    _portal = null;
+    _optionsCacheKey = null;
+    _localeChanges;
+    _onOpenRender = null;
+    _panelTemplate = viewChild.required('panelTemplate');
+    _timeOptions = [];
+    _options = viewChildren(MatOption);
+    _keyManager = new ActiveDescendantKeyManager(this._options, this._injector)
+        .withHomeAndEnd(true)
+        .withPageUpDown(true)
+        .withVerticalOrientation(true);
+    /**
+     * Interval between each option in the timepicker. The value can either be an amount of
+     * seconds (e.g. 90) or a number with a unit (e.g. 45m). Supported units are `s` for seconds,
+     * `m` for minutes or `h` for hours.
+     */
+    interval = input(parseInterval(this._defaultConfig?.interval || null), { transform: parseInterval });
+    /**
+     * Array of pre-defined options that the user can select from, as an alternative to using the
+     * `interval` input. An error will be thrown if both `options` and `interval` are specified.
+     */
+    options = input(null);
+    /** Whether the timepicker is open. */
+    isOpen = this._isOpen.asReadonly();
+    /** Emits when the user selects a time. */
+    selected = output();
+    /** Emits when the timepicker is opened. */
+    opened = output();
+    /** Emits when the timepicker is closed. */
+    closed = output();
+    /** ID of the active descendant option. */
+    activeDescendant = this._activeDescendant.asReadonly();
+    /** Unique ID of the timepicker's panel */
+    panelId = `mat-timepicker-panel-${uniqueId++}`;
+    /** Whether ripples within the timepicker should be disabled. */
+    disableRipple = input(this._defaultConfig?.disableRipple ?? false, {
+        transform: booleanAttribute,
+    });
+    /** ARIA label for the timepicker panel. */
+    ariaLabel = input(null, {
+        alias: 'aria-label',
+    });
+    /** ID of the label element for the timepicker panel. */
+    ariaLabelledby = input(null, {
+        alias: 'aria-labelledby',
+    });
     constructor() {
-        this._overlay = inject(Overlay);
-        this._dir = inject(Directionality, { optional: true });
-        this._viewContainerRef = inject(ViewContainerRef);
-        this._injector = inject(Injector);
-        this._defaultConfig = inject(MAT_TIMEPICKER_CONFIG, { optional: true });
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-        this._isOpen = signal(false);
-        this._activeDescendant = signal(null);
-        this._overlayRef = null;
-        this._portal = null;
-        this._optionsCacheKey = null;
-        this._onOpenRender = null;
-        this._panelTemplate = viewChild.required('panelTemplate');
-        this._timeOptions = [];
-        this._options = viewChildren(MatOption);
-        this._keyManager = new ActiveDescendantKeyManager(this._options, this._injector)
-            .withHomeAndEnd(true)
-            .withPageUpDown(true)
-            .withVerticalOrientation(true);
-        /**
-         * Interval between each option in the timepicker. The value can either be an amount of
-         * seconds (e.g. 90) or a number with a unit (e.g. 45m). Supported units are `s` for seconds,
-         * `m` for minutes or `h` for hours.
-         */
-        this.interval = input(parseInterval(this._defaultConfig?.interval || null), { transform: parseInterval });
-        /**
-         * Array of pre-defined options that the user can select from, as an alternative to using the
-         * `interval` input. An error will be thrown if both `options` and `interval` are specified.
-         */
-        this.options = input(null);
-        /** Whether the timepicker is open. */
-        this.isOpen = this._isOpen.asReadonly();
-        /** Emits when the user selects a time. */
-        this.selected = output();
-        /** Emits when the timepicker is opened. */
-        this.opened = output();
-        /** Emits when the timepicker is closed. */
-        this.closed = output();
-        /** ID of the active descendant option. */
-        this.activeDescendant = this._activeDescendant.asReadonly();
-        /** Unique ID of the timepicker's panel */
-        this.panelId = `mat-timepicker-panel-${uniqueId++}`;
-        /** Whether ripples within the timepicker should be disabled. */
-        this.disableRipple = input(this._defaultConfig?.disableRipple ?? false, {
-            transform: booleanAttribute,
-        });
-        /** ARIA label for the timepicker panel. */
-        this.ariaLabel = input(null, {
-            alias: 'aria-label',
-        });
-        /** ID of the label element for the timepicker panel. */
-        this.ariaLabelledby = input(null, {
-            alias: 'aria-labelledby',
-        });
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             validateAdapter(this._dateAdapter, this._dateFormats);
             effect(() => {
@@ -382,8 +384,8 @@ class MatTimepicker {
             }
         });
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepicker, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatTimepicker, isStandalone: true, selector: "mat-timepicker", inputs: { interval: { classPropertyName: "interval", publicName: "interval", isSignal: true, isRequired: false, transformFunction: null }, options: { classPropertyName: "options", publicName: "options", isSignal: true, isRequired: false, transformFunction: null }, disableRipple: { classPropertyName: "disableRipple", publicName: "disableRipple", isSignal: true, isRequired: false, transformFunction: null }, ariaLabel: { classPropertyName: "ariaLabel", publicName: "aria-label", isSignal: true, isRequired: false, transformFunction: null }, ariaLabelledby: { classPropertyName: "ariaLabelledby", publicName: "aria-labelledby", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { selected: "selected", opened: "opened", closed: "closed" }, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepicker, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatTimepicker, isStandalone: true, selector: "mat-timepicker", inputs: { interval: { classPropertyName: "interval", publicName: "interval", isSignal: true, isRequired: false, transformFunction: null }, options: { classPropertyName: "options", publicName: "options", isSignal: true, isRequired: false, transformFunction: null }, disableRipple: { classPropertyName: "disableRipple", publicName: "disableRipple", isSignal: true, isRequired: false, transformFunction: null }, ariaLabel: { classPropertyName: "ariaLabel", publicName: "aria-label", isSignal: true, isRequired: false, transformFunction: null }, ariaLabelledby: { classPropertyName: "ariaLabelledby", publicName: "aria-labelledby", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { selected: "selected", opened: "opened", closed: "closed" }, providers: [
             {
                 provide: MAT_OPTION_PARENT_COMPONENT,
                 useExisting: MatTimepicker,
@@ -399,7 +401,7 @@ class MatTimepicker {
                 ]),
                 transition(':leave', [animate('0.075s linear', style({ opacity: 0 }))]),
             ]),
-        ], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+        ], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepicker, decorators: [{
             type: Component,
@@ -434,62 +436,64 @@ function scrollOptionIntoView(option, position) {
  * Input that can be used to enter time and connect to a `mat-timepicker`.
  */
 class MatTimepickerInput {
+    _elementRef = inject(ElementRef);
+    _document = inject(DOCUMENT);
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
+    _formField = inject(MAT_FORM_FIELD, { optional: true });
+    _onChange;
+    _onTouched;
+    _validatorOnChange;
+    _accessorDisabled = signal(false);
+    _localeSubscription;
+    _timepickerSubscription;
+    _validator;
+    _lastValueValid = false;
+    _lastValidDate = null;
+    /** Value of the `aria-activedescendant` attribute. */
+    _ariaActiveDescendant = computed(() => {
+        const timepicker = this.timepicker();
+        const isOpen = timepicker.isOpen();
+        const activeDescendant = timepicker.activeDescendant();
+        return isOpen && activeDescendant ? activeDescendant : null;
+    });
+    /** Value of the `aria-expanded` attribute. */
+    _ariaExpanded = computed(() => this.timepicker().isOpen() + '');
+    /** Value of the `aria-controls` attribute. */
+    _ariaControls = computed(() => {
+        const timepicker = this.timepicker();
+        return timepicker.isOpen() ? timepicker.panelId : null;
+    });
+    /** Current value of the input. */
+    value = model(null);
+    /** Timepicker that the input is associated with. */
+    timepicker = input.required({
+        alias: 'matTimepicker',
+    });
+    /**
+     * Minimum time that can be selected or typed in. Can be either
+     * a date object (only time will be used) or a valid time string.
+     */
+    min = input(null, {
+        alias: 'matTimepickerMin',
+        transform: (value) => this._transformDateInput(value),
+    });
+    /**
+     * Maximum time that can be selected or typed in. Can be either
+     * a date object (only time will be used) or a valid time string.
+     */
+    max = input(null, {
+        alias: 'matTimepickerMax',
+        transform: (value) => this._transformDateInput(value),
+    });
+    /** Whether the input is disabled. */
+    disabled = computed(() => this.disabledInput() || this._accessorDisabled());
+    /** Whether the input should be disabled through the template. */
+    disabledInput = input(false, {
+        transform: booleanAttribute,
+        alias: 'disabled',
+    });
     constructor() {
-        this._elementRef = inject(ElementRef);
-        this._document = inject(DOCUMENT);
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-        this._formField = inject(MAT_FORM_FIELD, { optional: true });
-        this._accessorDisabled = signal(false);
-        this._lastValueValid = false;
-        this._lastValidDate = null;
-        /** Value of the `aria-activedescendant` attribute. */
-        this._ariaActiveDescendant = computed(() => {
-            const timepicker = this.timepicker();
-            const isOpen = timepicker.isOpen();
-            const activeDescendant = timepicker.activeDescendant();
-            return isOpen && activeDescendant ? activeDescendant : null;
-        });
-        /** Value of the `aria-expanded` attribute. */
-        this._ariaExpanded = computed(() => this.timepicker().isOpen() + '');
-        /** Value of the `aria-controls` attribute. */
-        this._ariaControls = computed(() => {
-            const timepicker = this.timepicker();
-            return timepicker.isOpen() ? timepicker.panelId : null;
-        });
-        /** Current value of the input. */
-        this.value = model(null);
-        /** Timepicker that the input is associated with. */
-        this.timepicker = input.required({
-            alias: 'matTimepicker',
-        });
-        /**
-         * Minimum time that can be selected or typed in. Can be either
-         * a date object (only time will be used) or a valid time string.
-         */
-        this.min = input(null, {
-            alias: 'matTimepickerMin',
-            transform: (value) => this._transformDateInput(value),
-        });
-        /**
-         * Maximum time that can be selected or typed in. Can be either
-         * a date object (only time will be used) or a valid time string.
-         */
-        this.max = input(null, {
-            alias: 'matTimepickerMax',
-            transform: (value) => this._transformDateInput(value),
-        });
-        /** Whether the input is disabled. */
-        this.disabled = computed(() => this.disabledInput() || this._accessorDisabled());
-        /** Whether the input should be disabled through the template. */
-        this.disabledInput = input(false, {
-            transform: booleanAttribute,
-            alias: 'disabled',
-        });
-        /** Handles clicks on the input or the containing form field. */
-        this._handleClick = () => {
-            this.timepicker().open();
-        };
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             validateAdapter(this._dateAdapter, this._dateFormats);
         }
@@ -565,6 +569,10 @@ class MatTimepickerInput {
     _getLabelId() {
         return this._formField?.getLabelId() || null;
     }
+    /** Handles clicks on the input or the containing form field. */
+    _handleClick = () => {
+        this.timepicker().open();
+    };
     /** Handles the `input` event. */
     _handleInput(value) {
         const currentValue = this.value();
@@ -716,8 +724,8 @@ class MatTimepickerInput {
             },
         ]);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerInput, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "17.1.0", version: "19.0.0-next.10", type: MatTimepickerInput, isStandalone: true, selector: "input[matTimepicker]", inputs: { value: { classPropertyName: "value", publicName: "value", isSignal: true, isRequired: false, transformFunction: null }, timepicker: { classPropertyName: "timepicker", publicName: "matTimepicker", isSignal: true, isRequired: true, transformFunction: null }, min: { classPropertyName: "min", publicName: "matTimepickerMin", isSignal: true, isRequired: false, transformFunction: null }, max: { classPropertyName: "max", publicName: "matTimepickerMax", isSignal: true, isRequired: false, transformFunction: null }, disabledInput: { classPropertyName: "disabledInput", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { value: "valueChange" }, host: { attributes: { "role": "combobox", "type": "text", "aria-haspopup": "listbox" }, listeners: { "blur": "_handleBlur()", "input": "_handleInput($event.target.value)", "keydown": "_handleKeydown($event)" }, properties: { "attr.aria-activedescendant": "_ariaActiveDescendant()", "attr.aria-expanded": "_ariaExpanded()", "attr.aria-controls": "_ariaControls()", "attr.mat-timepicker-id": "timepicker()?.panelId", "disabled": "disabled()" }, classAttribute: "mat-timepicker-input" }, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerInput, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "17.1.0", version: "19.0.0-next.10", type: MatTimepickerInput, isStandalone: true, selector: "input[matTimepicker]", inputs: { value: { classPropertyName: "value", publicName: "value", isSignal: true, isRequired: false, transformFunction: null }, timepicker: { classPropertyName: "timepicker", publicName: "matTimepicker", isSignal: true, isRequired: true, transformFunction: null }, min: { classPropertyName: "min", publicName: "matTimepickerMin", isSignal: true, isRequired: false, transformFunction: null }, max: { classPropertyName: "max", publicName: "matTimepickerMax", isSignal: true, isRequired: false, transformFunction: null }, disabledInput: { classPropertyName: "disabledInput", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { value: "valueChange" }, host: { attributes: { "role": "combobox", "type": "text", "aria-haspopup": "listbox" }, listeners: { "blur": "_handleBlur()", "input": "_handleInput($event.target.value)", "keydown": "_handleKeydown($event)" }, properties: { "attr.aria-activedescendant": "_ariaActiveDescendant()", "attr.aria-expanded": "_ariaExpanded()", "attr.aria-controls": "_ariaControls()", "attr.mat-timepicker-id": "timepicker()?.panelId", "disabled": "disabled()" }, classAttribute: "mat-timepicker-input" }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: MatTimepickerInput,
@@ -732,7 +740,7 @@ class MatTimepickerInput {
                 provide: MAT_INPUT_VALUE_ACCESSOR,
                 useExisting: MatTimepickerInput,
             },
-        ], exportAs: ["matTimepickerInput"], ngImport: i0 }); }
+        ], exportAs: ["matTimepickerInput"], ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerInput, decorators: [{
             type: Directive,
@@ -774,31 +782,29 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 
 /** Button that can be used to open a `mat-timepicker`. */
 class MatTimepickerToggle {
-    constructor() {
-        this._defaultConfig = inject(MAT_TIMEPICKER_CONFIG, { optional: true });
-        this._defaultTabIndex = (() => {
-            const value = inject(new HostAttributeToken('tabindex'), { optional: true });
-            const parsed = Number(value);
-            return isNaN(parsed) ? null : parsed;
-        })();
-        /** Timepicker instance that the button will toggle. */
-        this.timepicker = input.required({
-            alias: 'for',
-        });
-        /** Screen-reader label for the button. */
-        this.ariaLabel = input(undefined, {
-            alias: 'aria-label',
-        });
-        /** Whether the toggle button is disabled. */
-        this.disabled = input(false, {
-            transform: booleanAttribute,
-            alias: 'disabled',
-        });
-        /** Tabindex for the toggle. */
-        this.tabIndex = input(this._defaultTabIndex);
-        /** Whether ripples on the toggle should be disabled. */
-        this.disableRipple = input(this._defaultConfig?.disableRipple ?? false, { transform: booleanAttribute });
-    }
+    _defaultConfig = inject(MAT_TIMEPICKER_CONFIG, { optional: true });
+    _defaultTabIndex = (() => {
+        const value = inject(new HostAttributeToken('tabindex'), { optional: true });
+        const parsed = Number(value);
+        return isNaN(parsed) ? null : parsed;
+    })();
+    /** Timepicker instance that the button will toggle. */
+    timepicker = input.required({
+        alias: 'for',
+    });
+    /** Screen-reader label for the button. */
+    ariaLabel = input(undefined, {
+        alias: 'aria-label',
+    });
+    /** Whether the toggle button is disabled. */
+    disabled = input(false, {
+        transform: booleanAttribute,
+        alias: 'disabled',
+    });
+    /** Tabindex for the toggle. */
+    tabIndex = input(this._defaultTabIndex);
+    /** Whether ripples on the toggle should be disabled. */
+    disableRipple = input(this._defaultConfig?.disableRipple ?? false, { transform: booleanAttribute });
     /** Opens the connected timepicker. */
     _open(event) {
         if (this.timepicker() && !this.disabled()) {
@@ -806,8 +812,8 @@ class MatTimepickerToggle {
             event.stopPropagation();
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerToggle, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "19.0.0-next.10", type: MatTimepickerToggle, isStandalone: true, selector: "mat-timepicker-toggle", inputs: { timepicker: { classPropertyName: "timepicker", publicName: "for", isSignal: true, isRequired: true, transformFunction: null }, ariaLabel: { classPropertyName: "ariaLabel", publicName: "aria-label", isSignal: true, isRequired: false, transformFunction: null }, disabled: { classPropertyName: "disabled", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null }, tabIndex: { classPropertyName: "tabIndex", publicName: "tabIndex", isSignal: true, isRequired: false, transformFunction: null }, disableRipple: { classPropertyName: "disableRipple", publicName: "disableRipple", isSignal: true, isRequired: false, transformFunction: null } }, host: { listeners: { "click": "_open($event)" }, properties: { "attr.tabindex": "null" }, classAttribute: "mat-timepicker-toggle" }, exportAs: ["matTimepickerToggle"], ngImport: i0, template: "<button\n  mat-icon-button\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"ariaLabel()\"\n  [attr.aria-expanded]=\"timepicker().isOpen()\"\n  [attr.tabindex]=\"disabled() ? -1 : tabIndex()\"\n  [disabled]=\"disabled()\"\n  [disableRipple]=\"disableRipple()\">\n\n  <ng-content select=\"[matTimepickerToggleIcon]\">\n    <svg\n      class=\"mat-timepicker-toggle-default-icon\"\n      height=\"24px\"\n      width=\"24px\"\n      viewBox=\"0 -960 960 960\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z\"/>\n    </svg>\n  </ng-content>\n</button>\n", dependencies: [{ kind: "component", type: MatIconButton, selector: "button[mat-icon-button]", exportAs: ["matButton"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerToggle, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "19.0.0-next.10", type: MatTimepickerToggle, isStandalone: true, selector: "mat-timepicker-toggle", inputs: { timepicker: { classPropertyName: "timepicker", publicName: "for", isSignal: true, isRequired: true, transformFunction: null }, ariaLabel: { classPropertyName: "ariaLabel", publicName: "aria-label", isSignal: true, isRequired: false, transformFunction: null }, disabled: { classPropertyName: "disabled", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null }, tabIndex: { classPropertyName: "tabIndex", publicName: "tabIndex", isSignal: true, isRequired: false, transformFunction: null }, disableRipple: { classPropertyName: "disableRipple", publicName: "disableRipple", isSignal: true, isRequired: false, transformFunction: null } }, host: { listeners: { "click": "_open($event)" }, properties: { "attr.tabindex": "null" }, classAttribute: "mat-timepicker-toggle" }, exportAs: ["matTimepickerToggle"], ngImport: i0, template: "<button\n  mat-icon-button\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"ariaLabel()\"\n  [attr.aria-expanded]=\"timepicker().isOpen()\"\n  [attr.tabindex]=\"disabled() ? -1 : tabIndex()\"\n  [disabled]=\"disabled()\"\n  [disableRipple]=\"disableRipple()\">\n\n  <ng-content select=\"[matTimepickerToggleIcon]\">\n    <svg\n      class=\"mat-timepicker-toggle-default-icon\"\n      height=\"24px\"\n      width=\"24px\"\n      viewBox=\"0 -960 960 960\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z\"/>\n    </svg>\n  </ng-content>\n</button>\n", dependencies: [{ kind: "component", type: MatIconButton, selector: "button[mat-icon-button]", exportAs: ["matButton"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerToggle, decorators: [{
             type: Component,
@@ -822,9 +828,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
         }] });
 
 class MatTimepickerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerModule, imports: [MatTimepicker, MatTimepickerInput, MatTimepickerToggle], exports: [CdkScrollableModule, MatTimepicker, MatTimepickerInput, MatTimepickerToggle] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerModule, imports: [MatTimepicker, MatTimepickerToggle, CdkScrollableModule] }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerModule, imports: [MatTimepicker, MatTimepickerInput, MatTimepickerToggle], exports: [CdkScrollableModule, MatTimepicker, MatTimepickerInput, MatTimepickerToggle] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerModule, imports: [MatTimepicker, MatTimepickerToggle, CdkScrollableModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatTimepickerModule, decorators: [{
             type: NgModule,

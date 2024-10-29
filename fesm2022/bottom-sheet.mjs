@@ -32,12 +32,15 @@ const matBottomSheetAnimations = {
  * @docs-private
  */
 class MatBottomSheetContainer extends CdkDialogContainer {
+    _breakpointSubscription;
+    /** The state of the bottom sheet animations. */
+    _animationState = 'void';
+    /** Emits whenever the state of the animation changes. */
+    _animationStateChanged = new EventEmitter();
+    /** Whether the component has been destroyed. */
+    _destroyed;
     constructor() {
         super();
-        /** The state of the bottom sheet animations. */
-        this._animationState = 'void';
-        /** Emits whenever the state of the animation changes. */
-        this._animationStateChanged = new EventEmitter();
         const breakpointObserver = inject(BreakpointObserver);
         this._breakpointSubscription = breakpointObserver
             .observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
@@ -78,8 +81,8 @@ class MatBottomSheetContainer extends CdkDialogContainer {
         this._animationStateChanged.emit(event);
     }
     _captureInitialFocus() { }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetContainer, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatBottomSheetContainer, isStandalone: true, selector: "mat-bottom-sheet-container", host: { attributes: { "tabindex": "-1" }, listeners: { "@state.start": "_onAnimationStart($event)", "@state.done": "_onAnimationDone($event)" }, properties: { "attr.role": "_config.role", "attr.aria-modal": "_config.ariaModal", "attr.aria-label": "_config.ariaLabel", "@state": "_animationState" }, classAttribute: "mat-bottom-sheet-container" }, usesInheritance: true, ngImport: i0, template: "<ng-template cdkPortalOutlet></ng-template>\r\n", styles: [".mat-bottom-sheet-container{box-shadow:0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto;background:var(--mat-bottom-sheet-container-background-color, var(--mat-sys-surface-container-low));color:var(--mat-bottom-sheet-container-text-color, var(--mat-sys-on-surface));font-family:var(--mat-bottom-sheet-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-bottom-sheet-container-text-size, var(--mat-sys-body-large-size));line-height:var(--mat-bottom-sheet-container-text-line-height, var(--mat-sys-body-large-line-height));font-weight:var(--mat-bottom-sheet-container-text-weight, var(--mat-sys-body-large-weight));letter-spacing:var(--mat-bottom-sheet-container-text-tracking, var(--mat-sys-body-large-tracking))}@media(forced-colors: active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:var(--mat-bottom-sheet-container-shape, 28px);border-top-right-radius:var(--mat-bottom-sheet-container-shape, 28px)}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], animations: [matBottomSheetAnimations.bottomSheetState], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetContainer, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatBottomSheetContainer, isStandalone: true, selector: "mat-bottom-sheet-container", host: { attributes: { "tabindex": "-1" }, listeners: { "@state.start": "_onAnimationStart($event)", "@state.done": "_onAnimationDone($event)" }, properties: { "attr.role": "_config.role", "attr.aria-modal": "_config.ariaModal", "attr.aria-label": "_config.ariaLabel", "@state": "_animationState" }, classAttribute: "mat-bottom-sheet-container" }, usesInheritance: true, ngImport: i0, template: "<ng-template cdkPortalOutlet></ng-template>\r\n", styles: [".mat-bottom-sheet-container{box-shadow:0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto;background:var(--mat-bottom-sheet-container-background-color, var(--mat-sys-surface-container-low));color:var(--mat-bottom-sheet-container-text-color, var(--mat-sys-on-surface));font-family:var(--mat-bottom-sheet-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-bottom-sheet-container-text-size, var(--mat-sys-body-large-size));line-height:var(--mat-bottom-sheet-container-text-line-height, var(--mat-sys-body-large-line-height));font-weight:var(--mat-bottom-sheet-container-text-weight, var(--mat-sys-body-large-weight));letter-spacing:var(--mat-bottom-sheet-container-text-tracking, var(--mat-sys-body-large-tracking))}@media(forced-colors: active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:var(--mat-bottom-sheet-container-shape, 28px);border-top-right-radius:var(--mat-bottom-sheet-container-shape, 28px)}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], animations: [matBottomSheetAnimations.bottomSheetState], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetContainer, decorators: [{
             type: Component,
@@ -101,44 +104,53 @@ const MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
  * Configuration used when opening a bottom sheet.
  */
 class MatBottomSheetConfig {
-    constructor() {
-        /** Data being injected into the child component. */
-        this.data = null;
-        /** Whether the bottom sheet has a backdrop. */
-        this.hasBackdrop = true;
-        /** Whether the user can use escape or clicking outside to close the bottom sheet. */
-        this.disableClose = false;
-        /** Aria label to assign to the bottom sheet element. */
-        this.ariaLabel = null;
-        /** Whether this is a modal bottom sheet. Used to set the `aria-modal` attribute. */
-        this.ariaModal = true;
-        /**
-         * Whether the bottom sheet should close when the user goes backwards/forwards in history.
-         * Note that this usually doesn't include clicking on links (unless the user is using
-         * the `HashLocationStrategy`).
-         */
-        this.closeOnNavigation = true;
-        // Note that this is set to 'dialog' by default, because while the a11y recommendations
-        // are to focus the first focusable element, doing so prevents screen readers from reading out the
-        // rest of the bottom sheet content.
-        /**
-         * Where the bottom sheet should focus on open.
-         * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
-         * AutoFocusTarget instead.
-         */
-        this.autoFocus = 'dialog';
-        /**
-         * Whether the bottom sheet should restore focus to the
-         * previously-focused element, after it's closed.
-         */
-        this.restoreFocus = true;
-    }
+    /** The view container to place the overlay for the bottom sheet into. */
+    viewContainerRef;
+    /** Extra CSS classes to be added to the bottom sheet container. */
+    panelClass;
+    /** Text layout direction for the bottom sheet. */
+    direction;
+    /** Data being injected into the child component. */
+    data = null;
+    /** Whether the bottom sheet has a backdrop. */
+    hasBackdrop = true;
+    /** Custom class for the backdrop. */
+    backdropClass;
+    /** Whether the user can use escape or clicking outside to close the bottom sheet. */
+    disableClose = false;
+    /** Aria label to assign to the bottom sheet element. */
+    ariaLabel = null;
+    /** Whether this is a modal bottom sheet. Used to set the `aria-modal` attribute. */
+    ariaModal = true;
+    /**
+     * Whether the bottom sheet should close when the user goes backwards/forwards in history.
+     * Note that this usually doesn't include clicking on links (unless the user is using
+     * the `HashLocationStrategy`).
+     */
+    closeOnNavigation = true;
+    // Note that this is set to 'dialog' by default, because while the a11y recommendations
+    // are to focus the first focusable element, doing so prevents screen readers from reading out the
+    // rest of the bottom sheet content.
+    /**
+     * Where the bottom sheet should focus on open.
+     * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
+     * AutoFocusTarget instead.
+     */
+    autoFocus = 'dialog';
+    /**
+     * Whether the bottom sheet should restore focus to the
+     * previously-focused element, after it's closed.
+     */
+    restoreFocus = true;
+    /** Scroll strategy to be used for the bottom sheet. */
+    scrollStrategy;
 }
 
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
  */
 class MatBottomSheetRef {
+    _ref;
     /** Instance of the component making up the content of the bottom sheet. */
     get instance() {
         return this._ref.componentInstance;
@@ -150,10 +162,21 @@ class MatBottomSheetRef {
     get componentRef() {
         return this._ref.componentRef;
     }
+    /**
+     * Instance of the component into which the bottom sheet content is projected.
+     * @docs-private
+     */
+    containerInstance;
+    /** Whether the user is allowed to close the bottom sheet. */
+    disableClose;
+    /** Subject for notifying the user that the bottom sheet has opened and appeared. */
+    _afterOpened = new Subject();
+    /** Result to be passed down to the `afterDismissed` stream. */
+    _result;
+    /** Handle to the timeout that's running as a fallback in case the exit animation doesn't fire. */
+    _closeFallbackTimeout;
     constructor(_ref, config, containerInstance) {
         this._ref = _ref;
-        /** Subject for notifying the user that the bottom sheet has opened and appeared. */
-        this._afterOpened = new Subject();
         this.containerInstance = containerInstance;
         this.disableClose = config.disableClose;
         // Emit when opening animation completes
@@ -235,6 +258,13 @@ const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-de
  * Service to trigger Material Design bottom sheets.
  */
 class MatBottomSheet {
+    _overlay = inject(Overlay);
+    _parentBottomSheet = inject(MatBottomSheet, { optional: true, skipSelf: true });
+    _defaultOptions = inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, {
+        optional: true,
+    });
+    _bottomSheetRefAtThisLevel = null;
+    _dialog = inject(Dialog);
     /** Reference to the currently opened bottom sheet. */
     get _openedBottomSheetRef() {
         const parent = this._parentBottomSheet;
@@ -248,15 +278,7 @@ class MatBottomSheet {
             this._bottomSheetRefAtThisLevel = value;
         }
     }
-    constructor() {
-        this._overlay = inject(Overlay);
-        this._parentBottomSheet = inject(MatBottomSheet, { optional: true, skipSelf: true });
-        this._defaultOptions = inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, {
-            optional: true,
-        });
-        this._bottomSheetRefAtThisLevel = null;
-        this._dialog = inject(Dialog);
-    }
+    constructor() { }
     open(componentOrTemplateRef, config) {
         const _config = { ...(this._defaultOptions || new MatBottomSheetConfig()), ...config };
         let ref;
@@ -313,8 +335,8 @@ class MatBottomSheet {
             this._bottomSheetRefAtThisLevel.dismiss();
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheet, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheet, providedIn: 'root' }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheet, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheet, providedIn: 'root' });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheet, decorators: [{
             type: Injectable,
@@ -322,9 +344,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
         }], ctorParameters: () => [] });
 
 class MatBottomSheetModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetModule, imports: [DialogModule, MatCommonModule, PortalModule, MatBottomSheetContainer], exports: [MatBottomSheetContainer, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetModule, providers: [MatBottomSheet], imports: [DialogModule, MatCommonModule, PortalModule, MatCommonModule] }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetModule, imports: [DialogModule, MatCommonModule, PortalModule, MatBottomSheetContainer], exports: [MatBottomSheetContainer, MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetModule, providers: [MatBottomSheet], imports: [DialogModule, MatCommonModule, PortalModule, MatCommonModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatBottomSheetModule, decorators: [{
             type: NgModule,

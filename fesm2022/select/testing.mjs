@@ -4,15 +4,12 @@ import { MatFormFieldControlHarness } from '@angular/material/form-field/testing
 
 /** Harness for interacting with a mat-select in tests. */
 class MatSelectHarness extends MatFormFieldControlHarness {
-    constructor() {
-        super(...arguments);
-        this._prefix = 'mat-mdc';
-        this._optionClass = MatOptionHarness;
-        this._optionGroupClass = MatOptgroupHarness;
-        this._documentRootLocator = this.documentRootLocatorFactory();
-        this._backdrop = this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
-    }
-    static { this.hostSelector = '.mat-mdc-select'; }
+    static hostSelector = '.mat-mdc-select';
+    _prefix = 'mat-mdc';
+    _optionClass = MatOptionHarness;
+    _optionGroupClass = MatOptgroupHarness;
+    _documentRootLocator = this.documentRootLocatorFactory();
+    _backdrop = this._documentRootLocator.locatorFor('.cdk-overlay-backdrop');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a select with specific attributes.
      * @param options Options for filtering which select instances are considered a match.

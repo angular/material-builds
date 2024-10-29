@@ -3,13 +3,10 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a standard mat-button-toggle in tests. */
 class MatButtonToggleHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._label = this.locatorFor('.mat-button-toggle-label-content');
-        this._button = this.locatorFor('.mat-button-toggle-button');
-    }
     /** The selector for the host element of a `MatButton` instance. */
-    static { this.hostSelector = '.mat-button-toggle'; }
+    static hostSelector = '.mat-button-toggle';
+    _label = this.locatorFor('.mat-button-toggle-label-content');
+    _button = this.locatorFor('.mat-button-toggle-button');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatButtonToggleHarness` that meets
      * certain criteria.
@@ -100,7 +97,7 @@ class MatButtonToggleHarness extends ComponentHarness {
 /** Harness for interacting with a standard mat-button-toggle in tests. */
 class MatButtonToggleGroupHarness extends ComponentHarness {
     /** The selector for the host element of a `MatButton` instance. */
-    static { this.hostSelector = '.mat-button-toggle-group'; }
+    static hostSelector = '.mat-button-toggle-group';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatButtonToggleGroupHarness`
      * that meets certain criteria.

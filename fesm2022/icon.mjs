@@ -85,6 +85,10 @@ function getMatIconFailedToSanitizeLiteralError(literal) {
  * @docs-private
  */
 class SvgIconConfig {
+    url;
+    svgText;
+    options;
+    svgElement;
     constructor(url, svgText, options) {
         this.url = url;
         this.svgText = svgText;
@@ -99,33 +103,37 @@ class SvgIconConfig {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 class MatIconRegistry {
+    _httpClient;
+    _sanitizer;
+    _errorHandler;
+    _document;
+    /**
+     * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
+     */
+    _svgIconConfigs = new Map();
+    /**
+     * SvgIconConfig objects and cached SVG elements for icon sets, keyed by namespace.
+     * Multiple icon sets can be registered under the same namespace.
+     */
+    _iconSetConfigs = new Map();
+    /** Cache for icons loaded by direct URLs. */
+    _cachedIconsByUrl = new Map();
+    /** In-progress icon fetches. Used to coalesce multiple requests to the same URL. */
+    _inProgressUrlFetches = new Map();
+    /** Map from font identifiers to their CSS class names. Used for icon fonts. */
+    _fontCssClassesByAlias = new Map();
+    /** Registered icon resolver functions. */
+    _resolvers = [];
+    /**
+     * The CSS classes to apply when an `<mat-icon>` component has no icon name, url, or font
+     * specified. The default 'material-icons' value assumes that the material icon font has been
+     * loaded as described at https://google.github.io/material-design-icons/#icon-font-for-the-web
+     */
+    _defaultFontSetClass = ['material-icons', 'mat-ligature-font'];
     constructor(_httpClient, _sanitizer, document, _errorHandler) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
         this._errorHandler = _errorHandler;
-        /**
-         * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
-         */
-        this._svgIconConfigs = new Map();
-        /**
-         * SvgIconConfig objects and cached SVG elements for icon sets, keyed by namespace.
-         * Multiple icon sets can be registered under the same namespace.
-         */
-        this._iconSetConfigs = new Map();
-        /** Cache for icons loaded by direct URLs. */
-        this._cachedIconsByUrl = new Map();
-        /** In-progress icon fetches. Used to coalesce multiple requests to the same URL. */
-        this._inProgressUrlFetches = new Map();
-        /** Map from font identifiers to their CSS class names. Used for icon fonts. */
-        this._fontCssClassesByAlias = new Map();
-        /** Registered icon resolver functions. */
-        this._resolvers = [];
-        /**
-         * The CSS classes to apply when an `<mat-icon>` component has no icon name, url, or font
-         * specified. The default 'material-icons' value assumes that the material icon font has been
-         * loaded as described at https://google.github.io/material-design-icons/#icon-font-for-the-web
-         */
-        this._defaultFontSetClass = ['material-icons', 'mat-ligature-font'];
         this._document = document;
     }
     /**
@@ -577,8 +585,8 @@ class MatIconRegistry {
         }
         return undefined;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconRegistry, deps: [{ token: i1.HttpClient, optional: true }, { token: i2.DomSanitizer }, { token: DOCUMENT, optional: true }, { token: i0.ErrorHandler }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconRegistry, providedIn: 'root' }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconRegistry, deps: [{ token: i1.HttpClient, optional: true }, { token: i2.DomSanitizer }, { token: DOCUMENT, optional: true }, { token: i0.ErrorHandler }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconRegistry, providedIn: 'root' });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconRegistry, decorators: [{
             type: Injectable,
@@ -693,6 +701,11 @@ const funcIriPattern = /^url\(['"]?#(.*?)['"]?\)$/;
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
 class MatIcon {
+    _elementRef = inject(ElementRef);
+    _iconRegistry = inject(MatIconRegistry);
+    _location = inject(MAT_ICON_LOCATION);
+    _errorHandler = inject(ErrorHandler);
+    _defaultColor;
     /**
      * Theme color of the icon. This API is supported in M2 themes only, it
      * has no effect in M3 themes.
@@ -706,6 +719,12 @@ class MatIcon {
     set color(value) {
         this._color = value;
     }
+    _color;
+    /**
+     * Whether the icon should be inlined, automatically sizing the icon to match the font size of
+     * the element the icon is contained in.
+     */
+    inline = false;
     /** Name of the icon in the SVG icon set. */
     get svgIcon() {
         return this._svgIcon;
@@ -721,6 +740,7 @@ class MatIcon {
             this._svgIcon = value;
         }
     }
+    _svgIcon;
     /** Font set that the icon is a part of. */
     get fontSet() {
         return this._fontSet;
@@ -732,6 +752,7 @@ class MatIcon {
             this._updateFontIconClasses();
         }
     }
+    _fontSet;
     /** Name of an icon within a font set. */
     get fontIcon() {
         return this._fontIcon;
@@ -743,19 +764,18 @@ class MatIcon {
             this._updateFontIconClasses();
         }
     }
+    _fontIcon;
+    _previousFontSetClass = [];
+    _previousFontIconClass;
+    _svgName;
+    _svgNamespace;
+    /** Keeps track of the current page path. */
+    _previousPath;
+    /** Keeps track of the elements and attributes that we've prefixed with the current path. */
+    _elementsWithExternalReferences;
+    /** Subscription to the current in-progress SVG icon request. */
+    _currentIconFetch = Subscription.EMPTY;
     constructor() {
-        this._elementRef = inject(ElementRef);
-        this._iconRegistry = inject(MatIconRegistry);
-        this._location = inject(MAT_ICON_LOCATION);
-        this._errorHandler = inject(ErrorHandler);
-        /**
-         * Whether the icon should be inlined, automatically sizing the icon to match the font size of
-         * the element the icon is contained in.
-         */
-        this.inline = false;
-        this._previousFontSetClass = [];
-        /** Subscription to the current in-progress SVG icon request. */
-        this._currentIconFetch = Subscription.EMPTY;
         const ariaHidden = inject(new HostAttributeToken('aria-hidden'), { optional: true });
         const defaults = inject(MAT_ICON_DEFAULT_OPTIONS, { optional: true });
         if (defaults) {
@@ -947,8 +967,8 @@ class MatIcon {
             });
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIcon, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatIcon, isStandalone: true, selector: "mat-icon", inputs: { color: "color", inline: ["inline", "inline", booleanAttribute], svgIcon: "svgIcon", fontSet: "fontSet", fontIcon: "fontIcon" }, host: { attributes: { "role": "img" }, properties: { "class": "color ? \"mat-\" + color : \"\"", "attr.data-mat-icon-type": "_usingFontIcon() ? \"font\" : \"svg\"", "attr.data-mat-icon-name": "_svgName || fontIcon", "attr.data-mat-icon-namespace": "_svgNamespace || fontSet", "attr.fontIcon": "_usingFontIcon() ? fontIcon : null", "class.mat-icon-inline": "inline", "class.mat-icon-no-color": "color !== \"primary\" && color !== \"accent\" && color !== \"warn\"" }, classAttribute: "mat-icon notranslate" }, exportAs: ["matIcon"], ngImport: i0, template: '<ng-content></ng-content>', isInline: true, styles: ["mat-icon,mat-icon.mat-primary,mat-icon.mat-accent,mat-icon.mat-warn{color:var(--mat-icon-color, inherit)}.mat-icon{-webkit-user-select:none;user-select:none;background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px;overflow:hidden}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-icon.mat-ligature-font[fontIcon]::before{content:attr(fontIcon)}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIcon, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatIcon, isStandalone: true, selector: "mat-icon", inputs: { color: "color", inline: ["inline", "inline", booleanAttribute], svgIcon: "svgIcon", fontSet: "fontSet", fontIcon: "fontIcon" }, host: { attributes: { "role": "img" }, properties: { "class": "color ? \"mat-\" + color : \"\"", "attr.data-mat-icon-type": "_usingFontIcon() ? \"font\" : \"svg\"", "attr.data-mat-icon-name": "_svgName || fontIcon", "attr.data-mat-icon-namespace": "_svgNamespace || fontSet", "attr.fontIcon": "_usingFontIcon() ? fontIcon : null", "class.mat-icon-inline": "inline", "class.mat-icon-no-color": "color !== \"primary\" && color !== \"accent\" && color !== \"warn\"" }, classAttribute: "mat-icon notranslate" }, exportAs: ["matIcon"], ngImport: i0, template: '<ng-content></ng-content>', isInline: true, styles: ["mat-icon,mat-icon.mat-primary,mat-icon.mat-accent,mat-icon.mat-warn{color:var(--mat-icon-color, inherit)}.mat-icon{-webkit-user-select:none;user-select:none;background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px;overflow:hidden}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-icon.mat-ligature-font[fontIcon]::before{content:attr(fontIcon)}[dir=rtl] .mat-icon-rtl-mirror{transform:scale(-1, 1)}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIcon, decorators: [{
             type: Component,
@@ -977,9 +997,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             }] } });
 
 class MatIconModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconModule, imports: [MatCommonModule, MatIcon], exports: [MatIcon, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconModule, imports: [MatCommonModule, MatCommonModule] }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconModule, imports: [MatCommonModule, MatIcon], exports: [MatIcon, MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconModule, imports: [MatCommonModule, MatCommonModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatIconModule, decorators: [{
             type: NgModule,

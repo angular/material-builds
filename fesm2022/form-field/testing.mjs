@@ -6,7 +6,7 @@ import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/ma
 
 /** Harness for interacting with a `mat-error` in tests. */
 class MatErrorHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-form-field-error'; }
+    static hostSelector = '.mat-mdc-form-field-error';
     /**
      * Gets a `HarnessPredicate` that can be used to search for an error with specific
      * attributes.
@@ -26,20 +26,17 @@ class MatErrorHarness extends ComponentHarness {
 }
 
 class MatFormFieldHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._prefixContainer = this.locatorForOptional('.mat-mdc-form-field-text-prefix');
-        this._suffixContainer = this.locatorForOptional('.mat-mdc-form-field-text-suffix');
-        this._label = this.locatorForOptional('.mdc-floating-label');
-        this._hints = this.locatorForAll('.mat-mdc-form-field-hint');
-        this._inputControl = this.locatorForOptional(MatInputHarness);
-        this._selectControl = this.locatorForOptional(MatSelectHarness);
-        this._datepickerInputControl = this.locatorForOptional(MatDatepickerInputHarness);
-        this._dateRangeInputControl = this.locatorForOptional(MatDateRangeInputHarness);
-        this._textField = this.locatorFor('.mat-mdc-text-field-wrapper');
-        this._errorHarness = MatErrorHarness;
-    }
-    static { this.hostSelector = '.mat-mdc-form-field'; }
+    _prefixContainer = this.locatorForOptional('.mat-mdc-form-field-text-prefix');
+    _suffixContainer = this.locatorForOptional('.mat-mdc-form-field-text-suffix');
+    _label = this.locatorForOptional('.mdc-floating-label');
+    _hints = this.locatorForAll('.mat-mdc-form-field-hint');
+    _inputControl = this.locatorForOptional(MatInputHarness);
+    _selectControl = this.locatorForOptional(MatSelectHarness);
+    _datepickerInputControl = this.locatorForOptional(MatDatepickerInputHarness);
+    _dateRangeInputControl = this.locatorForOptional(MatDateRangeInputHarness);
+    _textField = this.locatorFor('.mat-mdc-text-field-wrapper');
+    _errorHarness = MatErrorHarness;
+    static hostSelector = '.mat-mdc-form-field';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a form field with specific
      * attributes.

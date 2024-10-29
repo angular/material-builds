@@ -4,8 +4,8 @@ import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk
 /** Harness for interacting with a mat-button in tests. */
 class MatButtonHarness extends ContentContainerComponentHarness {
     // TODO(jelbourn) use a single class, like `.mat-button-base`
-    static { this.hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button],
-                         [mat-icon-button], [mat-stroked-button], [mat-fab], [mat-mini-fab]`; }
+    static hostSelector = `[mat-button], [mat-raised-button], [mat-flat-button],
+                         [mat-icon-button], [mat-stroked-button], [mat-fab], [mat-mini-fab]`;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a button with specific attributes.
      * @param options Options for narrowing the search:

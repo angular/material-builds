@@ -28,6 +28,19 @@ function getSortInvalidDirectionError(direction) {
 const MAT_SORT_DEFAULT_OPTIONS = new InjectionToken('MAT_SORT_DEFAULT_OPTIONS');
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
 class MatSort {
+    _defaultOptions;
+    _initializedStream = new ReplaySubject(1);
+    /** Collection of all registered sortables that this directive manages. */
+    sortables = new Map();
+    /** Used to notify any child components listening to state changes. */
+    _stateChanges = new Subject();
+    /** The id of the most recently sorted MatSortable. */
+    active;
+    /**
+     * The direction to set when an MatSortable is initially sorted.
+     * May be overridden by the MatSortable's sort start.
+     */
+    start = 'asc';
     /** The sort direction of the currently active MatSortable. */
     get direction() {
         return this._direction;
@@ -41,25 +54,20 @@ class MatSort {
         }
         this._direction = direction;
     }
+    _direction = '';
+    /**
+     * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
+     * May be overridden by the MatSortable's disable clear input.
+     */
+    disableClear;
+    /** Whether the sortable is disabled. */
+    disabled = false;
+    /** Event emitted when the user changes either the active sort or sort direction. */
+    sortChange = new EventEmitter();
+    /** Emits when the paginator is initialized. */
+    initialized = this._initializedStream;
     constructor(_defaultOptions) {
         this._defaultOptions = _defaultOptions;
-        this._initializedStream = new ReplaySubject(1);
-        /** Collection of all registered sortables that this directive manages. */
-        this.sortables = new Map();
-        /** Used to notify any child components listening to state changes. */
-        this._stateChanges = new Subject();
-        /**
-         * The direction to set when an MatSortable is initially sorted.
-         * May be overridden by the MatSortable's sort start.
-         */
-        this.start = 'asc';
-        this._direction = '';
-        /** Whether the sortable is disabled. */
-        this.disabled = false;
-        /** Event emitted when the user changes either the active sort or sort direction. */
-        this.sortChange = new EventEmitter();
-        /** Emits when the paginator is initialized. */
-        this.initialized = this._initializedStream;
     }
     /**
      * Register function to be used by the contained MatSortables. Adds the MatSortable to the
@@ -119,8 +127,8 @@ class MatSort {
         this._stateChanges.complete();
         this._initializedStream.complete();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSort, deps: [{ token: MAT_SORT_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatSort, isStandalone: true, selector: "[matSort]", inputs: { active: ["matSortActive", "active"], start: ["matSortStart", "start"], direction: ["matSortDirection", "direction"], disableClear: ["matSortDisableClear", "disableClear", booleanAttribute], disabled: ["matSortDisabled", "disabled", booleanAttribute] }, outputs: { sortChange: "matSortChange" }, host: { classAttribute: "mat-sort" }, exportAs: ["matSort"], usesOnChanges: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSort, deps: [{ token: MAT_SORT_DEFAULT_OPTIONS, optional: true }], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatSort, isStandalone: true, selector: "[matSort]", inputs: { active: ["matSortActive", "active"], start: ["matSortStart", "start"], direction: ["matSortDirection", "direction"], disableClear: ["matSortDisableClear", "disableClear", booleanAttribute], disabled: ["matSortDisabled", "disabled", booleanAttribute] }, outputs: { sortChange: "matSortChange" }, host: { classAttribute: "mat-sort" }, exportAs: ["matSort"], usesOnChanges: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSort, decorators: [{
             type: Directive,
@@ -232,15 +240,13 @@ const matSortAnimations = {
  * include it in a custom provider.
  */
 class MatSortHeaderIntl {
-    constructor() {
-        /**
-         * Stream that emits whenever the labels here are changed. Use this to notify
-         * components if the labels have changed after initialization.
-         */
-        this.changes = new Subject();
-    }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortHeaderIntl, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortHeaderIntl, providedIn: 'root' }); }
+    /**
+     * Stream that emits whenever the labels here are changed. Use this to notify
+     * components if the labels have changed after initialization.
+     */
+    changes = new Subject();
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortHeaderIntl, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortHeaderIntl, providedIn: 'root' });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortHeaderIntl, decorators: [{
             type: Injectable,
@@ -268,6 +274,49 @@ const MAT_SORT_HEADER_INTL_PROVIDER = {
  * column definition.
  */
 class MatSortHeader {
+    _intl = inject(MatSortHeaderIntl);
+    _changeDetectorRef = inject(ChangeDetectorRef);
+    _sort = inject(MatSort, { optional: true });
+    _columnDef = inject('MAT_SORT_HEADER_COLUMN_DEF', {
+        optional: true,
+    });
+    _focusMonitor = inject(FocusMonitor);
+    _elementRef = inject(ElementRef);
+    _ariaDescriber = inject(AriaDescriber, { optional: true });
+    _rerenderSubscription;
+    /**
+     * The element with role="button" inside this component's view. We need this
+     * in order to apply a description with AriaDescriber.
+     */
+    _sortButton;
+    /**
+     * Flag set to true when the indicator should be displayed while the sort is not active. Used to
+     * provide an affordance that the header is sortable by showing on focus and hover.
+     */
+    _showIndicatorHint = false;
+    /**
+     * The view transition state of the arrow (translation/ opacity) - indicates its `from` and `to`
+     * position through the animation. If animations are currently disabled, the fromState is removed
+     * so that there is no animation displayed.
+     */
+    _viewState = {};
+    /** The direction the arrow should be facing according to the current state. */
+    _arrowDirection = '';
+    /**
+     * Whether the view state animation should show the transition between the `from` and `to` states.
+     */
+    _disableViewStateAnimation = false;
+    /**
+     * ID of this sort header. If used within the context of a CdkColumnDef, this will default to
+     * the column's name.
+     */
+    id;
+    /** Sets the position of the arrow that displays when sorted. */
+    arrowPosition = 'after';
+    /** Overrides the sort start value of the containing MatSort for this MatSortable. */
+    start;
+    /** whether the sort header is disabled. */
+    disabled = false;
     /**
      * Description applied to MatSortHeader's button element with aria-describedby. This text should
      * describe the action that will occur when the user clicks the sort header.
@@ -278,41 +327,13 @@ class MatSortHeader {
     set sortActionDescription(value) {
         this._updateSortActionDescription(value);
     }
+    // Default the action description to "Sort" because it's better than nothing.
+    // Without a description, the button's label comes from the sort header text content,
+    // which doesn't give any indication that it performs a sorting operation.
+    _sortActionDescription = 'Sort';
+    /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
+    disableClear;
     constructor() {
-        this._intl = inject(MatSortHeaderIntl);
-        this._changeDetectorRef = inject(ChangeDetectorRef);
-        this._sort = inject(MatSort, { optional: true });
-        this._columnDef = inject('MAT_SORT_HEADER_COLUMN_DEF', {
-            optional: true,
-        });
-        this._focusMonitor = inject(FocusMonitor);
-        this._elementRef = inject(ElementRef);
-        this._ariaDescriber = inject(AriaDescriber, { optional: true });
-        /**
-         * Flag set to true when the indicator should be displayed while the sort is not active. Used to
-         * provide an affordance that the header is sortable by showing on focus and hover.
-         */
-        this._showIndicatorHint = false;
-        /**
-         * The view transition state of the arrow (translation/ opacity) - indicates its `from` and `to`
-         * position through the animation. If animations are currently disabled, the fromState is removed
-         * so that there is no animation displayed.
-         */
-        this._viewState = {};
-        /** The direction the arrow should be facing according to the current state. */
-        this._arrowDirection = '';
-        /**
-         * Whether the view state animation should show the transition between the `from` and `to` states.
-         */
-        this._disableViewStateAnimation = false;
-        /** Sets the position of the arrow that displays when sorted. */
-        this.arrowPosition = 'after';
-        /** whether the sort header is disabled. */
-        this.disabled = false;
-        // Default the action description to "Sort" because it's better than nothing.
-        // Without a description, the button's label comes from the sort header text content,
-        // which doesn't give any indication that it performs a sorting operation.
-        this._sortActionDescription = 'Sort';
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const defaultOptions = inject(MAT_SORT_DEFAULT_OPTIONS, {
             optional: true,
@@ -493,15 +514,15 @@ class MatSortHeader {
             this._changeDetectorRef.markForCheck();
         });
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortHeader, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatSortHeader, isStandalone: true, selector: "[mat-sort-header]", inputs: { id: ["mat-sort-header", "id"], arrowPosition: "arrowPosition", start: "start", disabled: ["disabled", "disabled", booleanAttribute], sortActionDescription: "sortActionDescription", disableClear: ["disableClear", "disableClear", booleanAttribute] }, host: { listeners: { "click": "_handleClick()", "keydown": "_handleKeydown($event)", "mouseenter": "_setIndicatorHintVisible(true)", "mouseleave": "_setIndicatorHintVisible(false)" }, properties: { "attr.aria-sort": "_getAriaSortAttribute()", "class.mat-sort-header-disabled": "_isDisabled()" }, classAttribute: "mat-sort-header" }, exportAs: ["matSortHeader"], ngImport: i0, template: "<!--\n  We set the `tabindex` on an element inside the table header, rather than the header itself,\n  because of a bug in NVDA where having a `tabindex` on a `th` breaks keyboard navigation in the\n  table (see https://github.com/nvaccess/nvda/issues/7718). This allows for the header to both\n  be focusable, and have screen readers read out its `aria-sort` state. We prefer this approach\n  over having a button with an `aria-label` inside the header, because the button's `aria-label`\n  will be read out as the user is navigating the table's cell (see #13012).\n\n  The approach is based off of: https://dequeuniversity.com/library/aria/tables/sf-sortable-grid\n-->\n<div class=\"mat-sort-header-container mat-focus-indicator\"\n     [class.mat-sort-header-sorted]=\"_isSorted()\"\n     [class.mat-sort-header-position-before]=\"arrowPosition === 'before'\"\n     [attr.tabindex]=\"_isDisabled() ? null : 0\"\n     [attr.role]=\"_isDisabled() ? null : 'button'\">\n\n  <!--\n    TODO(crisbeto): this div isn't strictly necessary, but we have to keep it due to a large\n    number of screenshot diff failures. It should be removed eventually. Note that the difference\n    isn't visible with a shorter header, but once it breaks up into multiple lines, this element\n    causes it to be center-aligned, whereas removing it will keep the text to the left.\n  -->\n  <div class=\"mat-sort-header-content\">\n    <ng-content></ng-content>\n  </div>\n\n  <!-- Disable animations while a current animation is running -->\n  @if (_renderArrow()) {\n    <div class=\"mat-sort-header-arrow\"\n        [@arrowOpacity]=\"_getArrowViewState()\"\n        [@arrowPosition]=\"_getArrowViewState()\"\n        [@allowChildren]=\"_getArrowDirectionState()\"\n        (@arrowPosition.start)=\"_disableViewStateAnimation = true\"\n        (@arrowPosition.done)=\"_disableViewStateAnimation = false\">\n      <div class=\"mat-sort-header-stem\"></div>\n      <div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\">\n        <div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div>\n        <div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div>\n        <div class=\"mat-sort-header-pointer-middle\"></div>\n      </div>\n    </div>\n  }\n</div>\n", styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center;letter-spacing:normal;outline:0}[mat-sort-header].cdk-keyboard-focused .mat-sort-header-container,[mat-sort-header].cdk-program-focused .mat-sort-header-container{border-bottom:solid 1px currentColor}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-container::before{margin:calc(calc(var(--mat-focus-indicator-border-width, 3px) + 2px)*-1)}.mat-sort-header-content{text-align:center;display:flex;align-items:center}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;color:var(--mat-sort-arrow-color, var(--mat-sys-on-surface));opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}@media(forced-colors: active){.mat-sort-header-stem{width:0;border-left:solid 2px}}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}@media(forced-colors: active){.mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}@media(forced-colors: active){.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"], animations: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortHeader, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatSortHeader, isStandalone: true, selector: "[mat-sort-header]", inputs: { id: ["mat-sort-header", "id"], arrowPosition: "arrowPosition", start: "start", disabled: ["disabled", "disabled", booleanAttribute], sortActionDescription: "sortActionDescription", disableClear: ["disableClear", "disableClear", booleanAttribute] }, host: { listeners: { "click": "_handleClick()", "keydown": "_handleKeydown($event)", "mouseenter": "_setIndicatorHintVisible(true)", "mouseleave": "_setIndicatorHintVisible(false)" }, properties: { "attr.aria-sort": "_getAriaSortAttribute()", "class.mat-sort-header-disabled": "_isDisabled()" }, classAttribute: "mat-sort-header" }, exportAs: ["matSortHeader"], ngImport: i0, template: "<!--\n  We set the `tabindex` on an element inside the table header, rather than the header itself,\n  because of a bug in NVDA where having a `tabindex` on a `th` breaks keyboard navigation in the\n  table (see https://github.com/nvaccess/nvda/issues/7718). This allows for the header to both\n  be focusable, and have screen readers read out its `aria-sort` state. We prefer this approach\n  over having a button with an `aria-label` inside the header, because the button's `aria-label`\n  will be read out as the user is navigating the table's cell (see #13012).\n\n  The approach is based off of: https://dequeuniversity.com/library/aria/tables/sf-sortable-grid\n-->\n<div class=\"mat-sort-header-container mat-focus-indicator\"\n     [class.mat-sort-header-sorted]=\"_isSorted()\"\n     [class.mat-sort-header-position-before]=\"arrowPosition === 'before'\"\n     [attr.tabindex]=\"_isDisabled() ? null : 0\"\n     [attr.role]=\"_isDisabled() ? null : 'button'\">\n\n  <!--\n    TODO(crisbeto): this div isn't strictly necessary, but we have to keep it due to a large\n    number of screenshot diff failures. It should be removed eventually. Note that the difference\n    isn't visible with a shorter header, but once it breaks up into multiple lines, this element\n    causes it to be center-aligned, whereas removing it will keep the text to the left.\n  -->\n  <div class=\"mat-sort-header-content\">\n    <ng-content></ng-content>\n  </div>\n\n  <!-- Disable animations while a current animation is running -->\n  @if (_renderArrow()) {\n    <div class=\"mat-sort-header-arrow\"\n        [@arrowOpacity]=\"_getArrowViewState()\"\n        [@arrowPosition]=\"_getArrowViewState()\"\n        [@allowChildren]=\"_getArrowDirectionState()\"\n        (@arrowPosition.start)=\"_disableViewStateAnimation = true\"\n        (@arrowPosition.done)=\"_disableViewStateAnimation = false\">\n      <div class=\"mat-sort-header-stem\"></div>\n      <div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\">\n        <div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div>\n        <div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div>\n        <div class=\"mat-sort-header-pointer-middle\"></div>\n      </div>\n    </div>\n  }\n</div>\n", styles: [".mat-sort-header-container{display:flex;cursor:pointer;align-items:center;letter-spacing:normal;outline:0}[mat-sort-header].cdk-keyboard-focused .mat-sort-header-container,[mat-sort-header].cdk-program-focused .mat-sort-header-container{border-bottom:solid 1px currentColor}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-container::before{margin:calc(calc(var(--mat-focus-indicator-border-width, 3px) + 2px)*-1)}.mat-sort-header-content{text-align:center;display:flex;align-items:center}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;position:relative;display:flex;color:var(--mat-sort-arrow-color, var(--mat-sys-on-surface));opacity:0}.mat-sort-header-arrow,[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow{margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow,[dir=rtl] .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}@media(forced-colors: active){.mat-sort-header-stem{width:0;border-left:solid 2px}}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}@media(forced-colors: active){.mat-sort-header-pointer-middle{width:0;height:0;border-top:solid 2px;border-left:solid 2px}}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}@media(forced-colors: active){.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{width:0;height:0;border-left:solid 6px;border-top:solid 2px}}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"], animations: [
             matSortAnimations.indicator,
             matSortAnimations.leftPointer,
             matSortAnimations.rightPointer,
             matSortAnimations.arrowOpacity,
             matSortAnimations.arrowPosition,
             matSortAnimations.allowChildren,
-        ], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+        ], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortHeader, decorators: [{
             type: Component,
@@ -539,9 +560,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             }] } });
 
 class MatSortModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortModule, imports: [MatCommonModule, MatSort, MatSortHeader], exports: [MatSort, MatSortHeader] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortModule, providers: [MAT_SORT_HEADER_INTL_PROVIDER], imports: [MatCommonModule] }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortModule, imports: [MatCommonModule, MatSort, MatSortHeader], exports: [MatSort, MatSortHeader] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortModule, providers: [MAT_SORT_HEADER_INTL_PROVIDER], imports: [MatCommonModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSortModule, decorators: [{
             type: NgModule,

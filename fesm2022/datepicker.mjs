@@ -29,47 +29,45 @@ function createMissingDateImplError(provider) {
 
 /** Datepicker data that requires internationalization. */
 class MatDatepickerIntl {
-    constructor() {
-        /**
-         * Stream that emits whenever the labels here are changed. Use this to notify
-         * components if the labels have changed after initialization.
-         */
-        this.changes = new Subject();
-        /** A label for the calendar popup (used by screen readers). */
-        this.calendarLabel = 'Calendar';
-        /** A label for the button used to open the calendar popup (used by screen readers). */
-        this.openCalendarLabel = 'Open calendar';
-        /** Label for the button used to close the calendar popup. */
-        this.closeCalendarLabel = 'Close calendar';
-        /** A label for the previous month button (used by screen readers). */
-        this.prevMonthLabel = 'Previous month';
-        /** A label for the next month button (used by screen readers). */
-        this.nextMonthLabel = 'Next month';
-        /** A label for the previous year button (used by screen readers). */
-        this.prevYearLabel = 'Previous year';
-        /** A label for the next year button (used by screen readers). */
-        this.nextYearLabel = 'Next year';
-        /** A label for the previous multi-year button (used by screen readers). */
-        this.prevMultiYearLabel = 'Previous 24 years';
-        /** A label for the next multi-year button (used by screen readers). */
-        this.nextMultiYearLabel = 'Next 24 years';
-        /** A label for the 'switch to month view' button (used by screen readers). */
-        this.switchToMonthViewLabel = 'Choose date';
-        /** A label for the 'switch to year view' button (used by screen readers). */
-        this.switchToMultiYearViewLabel = 'Choose month and year';
-        /**
-         * A label for the first date of a range of dates (used by screen readers).
-         * @deprecated Provide your own internationalization string.
-         * @breaking-change 17.0.0
-         */
-        this.startDateLabel = 'Start date';
-        /**
-         * A label for the last date of a range of dates (used by screen readers).
-         * @deprecated Provide your own internationalization string.
-         * @breaking-change 17.0.0
-         */
-        this.endDateLabel = 'End date';
-    }
+    /**
+     * Stream that emits whenever the labels here are changed. Use this to notify
+     * components if the labels have changed after initialization.
+     */
+    changes = new Subject();
+    /** A label for the calendar popup (used by screen readers). */
+    calendarLabel = 'Calendar';
+    /** A label for the button used to open the calendar popup (used by screen readers). */
+    openCalendarLabel = 'Open calendar';
+    /** Label for the button used to close the calendar popup. */
+    closeCalendarLabel = 'Close calendar';
+    /** A label for the previous month button (used by screen readers). */
+    prevMonthLabel = 'Previous month';
+    /** A label for the next month button (used by screen readers). */
+    nextMonthLabel = 'Next month';
+    /** A label for the previous year button (used by screen readers). */
+    prevYearLabel = 'Previous year';
+    /** A label for the next year button (used by screen readers). */
+    nextYearLabel = 'Next year';
+    /** A label for the previous multi-year button (used by screen readers). */
+    prevMultiYearLabel = 'Previous 24 years';
+    /** A label for the next multi-year button (used by screen readers). */
+    nextMultiYearLabel = 'Next 24 years';
+    /** A label for the 'switch to month view' button (used by screen readers). */
+    switchToMonthViewLabel = 'Choose date';
+    /** A label for the 'switch to year view' button (used by screen readers). */
+    switchToMultiYearViewLabel = 'Choose month and year';
+    /**
+     * A label for the first date of a range of dates (used by screen readers).
+     * @deprecated Provide your own internationalization string.
+     * @breaking-change 17.0.0
+     */
+    startDateLabel = 'Start date';
+    /**
+     * A label for the last date of a range of dates (used by screen readers).
+     * @deprecated Provide your own internationalization string.
+     * @breaking-change 17.0.0
+     */
+    endDateLabel = 'End date';
     /** Formats a range of years (used for visuals). */
     formatYearRange(start, end) {
         return `${start} \u2013 ${end}`;
@@ -78,8 +76,8 @@ class MatDatepickerIntl {
     formatYearRangeLabel(start, end) {
         return `${start} to ${end}`;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerIntl, deps: [], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerIntl, providedIn: 'root' }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerIntl, deps: [], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerIntl, providedIn: 'root' });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerIntl, decorators: [{
             type: Injectable,
@@ -92,6 +90,14 @@ let uniqueIdCounter$1 = 0;
  * @docs-private
  */
 class MatCalendarCell {
+    value;
+    displayValue;
+    ariaLabel;
+    enabled;
+    cssClasses;
+    compareValue;
+    rawValue;
+    id = uniqueIdCounter$1++;
     constructor(value, displayValue, ariaLabel, enabled, cssClasses = {}, compareValue = value, rawValue) {
         this.value = value;
         this.displayValue = displayValue;
@@ -100,7 +106,6 @@ class MatCalendarCell {
         this.cssClasses = cssClasses;
         this.compareValue = compareValue;
         this.rawValue = rawValue;
-        this.id = uniqueIdCounter$1++;
     }
 }
 let calendarBodyId = 1;
@@ -121,157 +126,83 @@ const passiveEventOptions = normalizePassiveListenerOptions({ passive: true });
  * @docs-private
  */
 class MatCalendarBody {
+    _elementRef = inject(ElementRef);
+    _ngZone = inject(NgZone);
+    _platform = inject(Platform);
+    /**
+     * Used to skip the next focus event when rendering the preview range.
+     * We need a flag like this, because some browsers fire focus events asynchronously.
+     */
+    _skipNextFocus;
+    /**
+     * Used to focus the active cell after change detection has run.
+     */
+    _focusActiveCellAfterViewChecked = false;
+    /** The label for the table. (e.g. "Jan 2017"). */
+    label;
+    /** The cells to display in the table. */
+    rows;
+    /** The value in the table that corresponds to today. */
+    todayValue;
+    /** Start value of the selected date range. */
+    startValue;
+    /** End value of the selected date range. */
+    endValue;
+    /** The minimum number of free cells needed to fit the label in the first row. */
+    labelMinRequiredCells;
+    /** The number of columns in the table. */
+    numCols = 7;
+    /** The cell number of the active cell in the table. */
+    activeCell = 0;
     ngAfterViewChecked() {
         if (this._focusActiveCellAfterViewChecked) {
             this._focusActiveCell();
             this._focusActiveCellAfterViewChecked = false;
         }
     }
+    /** Whether a range is being selected. */
+    isRange = false;
+    /**
+     * The aspect ratio (width / height) to use for the cells in the table. This aspect ratio will be
+     * maintained even as the table resizes.
+     */
+    cellAspectRatio = 1;
+    /** Start of the comparison range. */
+    comparisonStart;
+    /** End of the comparison range. */
+    comparisonEnd;
+    /** Start of the preview range. */
+    previewStart = null;
+    /** End of the preview range. */
+    previewEnd = null;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName;
+    /** Emits when a new value is selected. */
+    selectedValueChange = new EventEmitter();
+    /** Emits when the preview has changed as a result of a user action. */
+    previewChange = new EventEmitter();
+    activeDateChange = new EventEmitter();
+    /** Emits the date at the possible start of a drag event. */
+    dragStarted = new EventEmitter();
+    /** Emits the date at the conclusion of a drag, or null if mouse was not released on a date. */
+    dragEnded = new EventEmitter();
+    /** The number of blank cells to put at the beginning for the first row. */
+    _firstRowOffset;
+    /** Padding for the individual date cells. */
+    _cellPadding;
+    /** Width of an individual cell. */
+    _cellWidth;
+    _didDragSinceMouseDown = false;
+    _injector = inject(Injector);
+    /**
+     * Tracking function for rows based on their identity. Ideally we would use some sort of
+     * key on the row, but that would require a breaking change for the `rows` input. We don't
+     * use the built-in identity tracking, because it logs warnings.
+     */
+    _trackRow = (row) => row;
     constructor() {
-        this._elementRef = inject(ElementRef);
-        this._ngZone = inject(NgZone);
-        this._platform = inject(Platform);
-        /**
-         * Used to focus the active cell after change detection has run.
-         */
-        this._focusActiveCellAfterViewChecked = false;
-        /** The number of columns in the table. */
-        this.numCols = 7;
-        /** The cell number of the active cell in the table. */
-        this.activeCell = 0;
-        /** Whether a range is being selected. */
-        this.isRange = false;
-        /**
-         * The aspect ratio (width / height) to use for the cells in the table. This aspect ratio will be
-         * maintained even as the table resizes.
-         */
-        this.cellAspectRatio = 1;
-        /** Start of the preview range. */
-        this.previewStart = null;
-        /** End of the preview range. */
-        this.previewEnd = null;
-        /** Emits when a new value is selected. */
-        this.selectedValueChange = new EventEmitter();
-        /** Emits when the preview has changed as a result of a user action. */
-        this.previewChange = new EventEmitter();
-        this.activeDateChange = new EventEmitter();
-        /** Emits the date at the possible start of a drag event. */
-        this.dragStarted = new EventEmitter();
-        /** Emits the date at the conclusion of a drag, or null if mouse was not released on a date. */
-        this.dragEnded = new EventEmitter();
-        this._didDragSinceMouseDown = false;
-        this._injector = inject(Injector);
-        /**
-         * Tracking function for rows based on their identity. Ideally we would use some sort of
-         * key on the row, but that would require a breaking change for the `rows` input. We don't
-         * use the built-in identity tracking, because it logs warnings.
-         */
-        this._trackRow = (row) => row;
-        /**
-         * Event handler for when the user enters an element
-         * inside the calendar body (e.g. by hovering in or focus).
-         */
-        this._enterHandler = (event) => {
-            if (this._skipNextFocus && event.type === 'focus') {
-                this._skipNextFocus = false;
-                return;
-            }
-            // We only need to hit the zone when we're selecting a range.
-            if (event.target && this.isRange) {
-                const cell = this._getCellFromElement(event.target);
-                if (cell) {
-                    this._ngZone.run(() => this.previewChange.emit({ value: cell.enabled ? cell : null, event }));
-                }
-            }
-        };
-        this._touchmoveHandler = (event) => {
-            if (!this.isRange)
-                return;
-            const target = getActualTouchTarget(event);
-            const cell = target ? this._getCellFromElement(target) : null;
-            if (target !== event.target) {
-                this._didDragSinceMouseDown = true;
-            }
-            // If the initial target of the touch is a date cell, prevent default so
-            // that the move is not handled as a scroll.
-            if (getCellElement(event.target)) {
-                event.preventDefault();
-            }
-            this._ngZone.run(() => this.previewChange.emit({ value: cell?.enabled ? cell : null, event }));
-        };
-        /**
-         * Event handler for when the user's pointer leaves an element
-         * inside the calendar body (e.g. by hovering out or blurring).
-         */
-        this._leaveHandler = (event) => {
-            // We only need to hit the zone when we're selecting a range.
-            if (this.previewEnd !== null && this.isRange) {
-                if (event.type !== 'blur') {
-                    this._didDragSinceMouseDown = true;
-                }
-                // Only reset the preview end value when leaving cells. This looks better, because
-                // we have a gap between the cells and the rows and we don't want to remove the
-                // range just for it to show up again when the user moves a few pixels to the side.
-                if (event.target &&
-                    this._getCellFromElement(event.target) &&
-                    !(event.relatedTarget &&
-                        this._getCellFromElement(event.relatedTarget))) {
-                    this._ngZone.run(() => this.previewChange.emit({ value: null, event }));
-                }
-            }
-        };
-        /**
-         * Triggered on mousedown or touchstart on a date cell.
-         * Respsonsible for starting a drag sequence.
-         */
-        this._mousedownHandler = (event) => {
-            if (!this.isRange)
-                return;
-            this._didDragSinceMouseDown = false;
-            // Begin a drag if a cell within the current range was targeted.
-            const cell = event.target && this._getCellFromElement(event.target);
-            if (!cell || !this._isInRange(cell.compareValue)) {
-                return;
-            }
-            this._ngZone.run(() => {
-                this.dragStarted.emit({
-                    value: cell.rawValue,
-                    event,
-                });
-            });
-        };
-        /** Triggered on mouseup anywhere. Respsonsible for ending a drag sequence. */
-        this._mouseupHandler = (event) => {
-            if (!this.isRange)
-                return;
-            const cellElement = getCellElement(event.target);
-            if (!cellElement) {
-                // Mouseup happened outside of datepicker. Cancel drag.
-                this._ngZone.run(() => {
-                    this.dragEnded.emit({ value: null, event });
-                });
-                return;
-            }
-            if (cellElement.closest('.mat-calendar-body') !== this._elementRef.nativeElement) {
-                // Mouseup happened inside a different month instance.
-                // Allow it to handle the event.
-                return;
-            }
-            this._ngZone.run(() => {
-                const cell = this._getCellFromElement(cellElement);
-                this.dragEnded.emit({ value: cell?.rawValue ?? null, event });
-            });
-        };
-        /** Triggered on touchend anywhere. Respsonsible for ending a drag sequence. */
-        this._touchendHandler = (event) => {
-            const target = getActualTouchTarget(event);
-            if (target) {
-                this._mouseupHandler({ target });
-            }
-        };
-        this._id = `mat-calendar-body-${calendarBodyId++}`;
-        this._startDateLabelId = `${this._id}-start-date`;
-        this._endDateLabelId = `${this._id}-end-date`;
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         this._ngZone.runOutsideAngular(() => {
             const element = this._elementRef.nativeElement;
@@ -475,6 +406,108 @@ class MatCalendarBody {
         }
         return null;
     }
+    /**
+     * Event handler for when the user enters an element
+     * inside the calendar body (e.g. by hovering in or focus).
+     */
+    _enterHandler = (event) => {
+        if (this._skipNextFocus && event.type === 'focus') {
+            this._skipNextFocus = false;
+            return;
+        }
+        // We only need to hit the zone when we're selecting a range.
+        if (event.target && this.isRange) {
+            const cell = this._getCellFromElement(event.target);
+            if (cell) {
+                this._ngZone.run(() => this.previewChange.emit({ value: cell.enabled ? cell : null, event }));
+            }
+        }
+    };
+    _touchmoveHandler = (event) => {
+        if (!this.isRange)
+            return;
+        const target = getActualTouchTarget(event);
+        const cell = target ? this._getCellFromElement(target) : null;
+        if (target !== event.target) {
+            this._didDragSinceMouseDown = true;
+        }
+        // If the initial target of the touch is a date cell, prevent default so
+        // that the move is not handled as a scroll.
+        if (getCellElement(event.target)) {
+            event.preventDefault();
+        }
+        this._ngZone.run(() => this.previewChange.emit({ value: cell?.enabled ? cell : null, event }));
+    };
+    /**
+     * Event handler for when the user's pointer leaves an element
+     * inside the calendar body (e.g. by hovering out or blurring).
+     */
+    _leaveHandler = (event) => {
+        // We only need to hit the zone when we're selecting a range.
+        if (this.previewEnd !== null && this.isRange) {
+            if (event.type !== 'blur') {
+                this._didDragSinceMouseDown = true;
+            }
+            // Only reset the preview end value when leaving cells. This looks better, because
+            // we have a gap between the cells and the rows and we don't want to remove the
+            // range just for it to show up again when the user moves a few pixels to the side.
+            if (event.target &&
+                this._getCellFromElement(event.target) &&
+                !(event.relatedTarget &&
+                    this._getCellFromElement(event.relatedTarget))) {
+                this._ngZone.run(() => this.previewChange.emit({ value: null, event }));
+            }
+        }
+    };
+    /**
+     * Triggered on mousedown or touchstart on a date cell.
+     * Respsonsible for starting a drag sequence.
+     */
+    _mousedownHandler = (event) => {
+        if (!this.isRange)
+            return;
+        this._didDragSinceMouseDown = false;
+        // Begin a drag if a cell within the current range was targeted.
+        const cell = event.target && this._getCellFromElement(event.target);
+        if (!cell || !this._isInRange(cell.compareValue)) {
+            return;
+        }
+        this._ngZone.run(() => {
+            this.dragStarted.emit({
+                value: cell.rawValue,
+                event,
+            });
+        });
+    };
+    /** Triggered on mouseup anywhere. Respsonsible for ending a drag sequence. */
+    _mouseupHandler = (event) => {
+        if (!this.isRange)
+            return;
+        const cellElement = getCellElement(event.target);
+        if (!cellElement) {
+            // Mouseup happened outside of datepicker. Cancel drag.
+            this._ngZone.run(() => {
+                this.dragEnded.emit({ value: null, event });
+            });
+            return;
+        }
+        if (cellElement.closest('.mat-calendar-body') !== this._elementRef.nativeElement) {
+            // Mouseup happened inside a different month instance.
+            // Allow it to handle the event.
+            return;
+        }
+        this._ngZone.run(() => {
+            const cell = this._getCellFromElement(cellElement);
+            this.dragEnded.emit({ value: cell?.rawValue ?? null, event });
+        });
+    };
+    /** Triggered on touchend anywhere. Respsonsible for ending a drag sequence. */
+    _touchendHandler = (event) => {
+        const target = getActualTouchTarget(event);
+        if (target) {
+            this._mouseupHandler({ target });
+        }
+    };
     /** Finds the MatCalendarCell that corresponds to a DOM node. */
     _getCellFromElement(element) {
         const cell = getCellElement(element);
@@ -487,8 +520,11 @@ class MatCalendarBody {
         }
         return null;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendarBody, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatCalendarBody, isStandalone: true, selector: "[mat-calendar-body]", inputs: { label: "label", rows: "rows", todayValue: "todayValue", startValue: "startValue", endValue: "endValue", labelMinRequiredCells: "labelMinRequiredCells", numCols: "numCols", activeCell: "activeCell", isRange: "isRange", cellAspectRatio: "cellAspectRatio", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd", previewStart: "previewStart", previewEnd: "previewEnd", startDateAccessibleName: "startDateAccessibleName", endDateAccessibleName: "endDateAccessibleName" }, outputs: { selectedValueChange: "selectedValueChange", previewChange: "previewChange", activeDateChange: "activeDateChange", dragStarted: "dragStarted", dragEnded: "dragEnded" }, host: { classAttribute: "mat-calendar-body" }, exportAs: ["matCalendarBody"], usesOnChanges: true, ngImport: i0, template: "<!--\n  If there's not enough space in the first row, create a separate label row. We mark this row as\n  aria-hidden because we don't want it to be read out as one of the weeks in the month.\n-->\n@if (_firstRowOffset < labelMinRequiredCells) {\n  <tr aria-hidden=\"true\">\n    <td class=\"mat-calendar-body-label\"\n        [attr.colspan]=\"numCols\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\">\n      {{label}}\n    </td>\n  </tr>\n}\n\n<!-- Create the first row separately so we can include a special spacer cell. -->\n@for (row of rows; track _trackRow(row); let rowIndex = $index) {\n  <tr role=\"row\">\n    <!--\n      This cell is purely decorative, but we can't put `aria-hidden` or `role=\"presentation\"` on it,\n      because it throws off the week days for the rest of the row on NVDA. The aspect ratio of the\n      table cells is maintained by setting the top and bottom padding as a percentage of the width\n      (a variant of the trick described here: https://www.w3schools.com/howto/howto_css_aspect_ratio.asp).\n    -->\n    @if (rowIndex === 0 && _firstRowOffset) {\n      <td\n        class=\"mat-calendar-body-label\"\n        [attr.colspan]=\"_firstRowOffset\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\">\n        {{_firstRowOffset >= labelMinRequiredCells ? label : ''}}\n      </td>\n    }\n    <!--\n      Each gridcell in the calendar contains a button, which signals to assistive technology that the\n      cell is interactable, as well as the selection state via `aria-pressed`. See #23476 for\n      background.\n    -->\n    @for (item of row; track item.id; let colIndex = $index) {\n      <td\n        role=\"gridcell\"\n        class=\"mat-calendar-body-cell-container\"\n        [style.width]=\"_cellWidth\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\"\n        [attr.data-mat-row]=\"rowIndex\"\n        [attr.data-mat-col]=\"colIndex\"\n      >\n        <button\n            type=\"button\"\n            class=\"mat-calendar-body-cell\"\n            [ngClass]=\"item.cssClasses\"\n            [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\"\n            [class.mat-calendar-body-disabled]=\"!item.enabled\"\n            [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\"\n            [class.mat-calendar-body-range-start]=\"_isRangeStart(item.compareValue)\"\n            [class.mat-calendar-body-range-end]=\"_isRangeEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-range]=\"_isInRange(item.compareValue)\"\n            [class.mat-calendar-body-comparison-bridge-start]=\"_isComparisonBridgeStart(item.compareValue, rowIndex, colIndex)\"\n            [class.mat-calendar-body-comparison-bridge-end]=\"_isComparisonBridgeEnd(item.compareValue, rowIndex, colIndex)\"\n            [class.mat-calendar-body-comparison-start]=\"_isComparisonStart(item.compareValue)\"\n            [class.mat-calendar-body-comparison-end]=\"_isComparisonEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-comparison-range]=\"_isInComparisonRange(item.compareValue)\"\n            [class.mat-calendar-body-preview-start]=\"_isPreviewStart(item.compareValue)\"\n            [class.mat-calendar-body-preview-end]=\"_isPreviewEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-preview]=\"_isInPreview(item.compareValue)\"\n            [attr.aria-label]=\"item.ariaLabel\"\n            [attr.aria-disabled]=\"!item.enabled || null\"\n            [attr.aria-pressed]=\"_isSelected(item.compareValue)\"\n            [attr.aria-current]=\"todayValue === item.compareValue ? 'date' : null\"\n            [attr.aria-describedby]=\"_getDescribedby(item.compareValue)\"\n            (click)=\"_cellClicked(item, $event)\"\n            (focus)=\"_emitActiveDateChange(item, $event)\">\n            <span class=\"mat-calendar-body-cell-content mat-focus-indicator\"\n              [class.mat-calendar-body-selected]=\"_isSelected(item.compareValue)\"\n              [class.mat-calendar-body-comparison-identical]=\"_isComparisonIdentical(item.compareValue)\"\n              [class.mat-calendar-body-today]=\"todayValue === item.compareValue\">\n              {{item.displayValue}}\n            </span>\n            <span class=\"mat-calendar-body-cell-preview\" aria-hidden=\"true\"></span>\n        </button>\n      </td>\n    }\n  </tr>\n}\n\n<span [id]=\"_startDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{startDateAccessibleName}}\n</span>\n<span [id]=\"_endDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{endDateAccessibleName}}\n</span>\n", styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){border-color:var(--mat-datepicker-calendar-date-today-outline-color, var(--mat-sys-primary))}.mat-calendar-body-label{height:0;line-height:0;text-align:start;padding-left:4.7142857143%;padding-right:4.7142857143%;font-size:var(--mat-datepicker-calendar-body-label-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-body-label-text-weight, var(--mat-sys-title-small-weight));color:var(--mat-datepicker-calendar-body-label-text-color, var(--mat-sys-on-surface))}.mat-calendar-body-hidden-label{display:none}.mat-calendar-body-cell-container{position:relative;height:0;line-height:0}.mat-calendar-body-cell{position:absolute;top:0;left:0;width:100%;height:100%;background:none;text-align:center;outline:none;font-family:inherit;margin:0;font-family:var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));font-size:var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));-webkit-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-calendar-body-cell::-moz-focus-inner{border:0}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-cell-preview{content:\"\";position:absolute;top:5%;left:0;z-index:0;box-sizing:border-box;display:block;height:90%;width:100%}.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-start::after,.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,.mat-calendar-body-comparison-start::after,.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:5%;width:95%;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,[dir=rtl] .mat-calendar-body-comparison-start::after,[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:0;border-radius:0;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,.mat-calendar-body-comparison-end::after,.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,[dir=rtl] .mat-calendar-body-comparison-end::after,[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{left:5%;border-radius:0;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after{width:90%}.mat-calendar-body-in-preview{color:var(--mat-datepicker-calendar-date-preview-state-outline-color, var(--mat-sys-primary))}.mat-calendar-body-in-preview .mat-calendar-body-cell-preview{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:0;border-right:dashed 1px}.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:0;border-left:dashed 1px}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){color:var(--mat-datepicker-calendar-date-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-calendar-body-disabled>.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){border-color:var(--mat-datepicker-calendar-date-today-disabled-state-outline-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}@media(forced-colors: active){.mat-calendar-body-disabled{opacity:.5}}.mat-calendar-body-cell-content{top:5%;left:5%;z-index:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px;color:var(--mat-datepicker-calendar-date-text-color, var(--mat-sys-on-surface));border-color:var(--mat-datepicker-calendar-date-outline-color, transparent)}.mat-calendar-body-cell-content.mat-focus-indicator{position:absolute}@media(forced-colors: active){.mat-calendar-body-cell-content{border:none}}.cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical),.cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color:var(--mat-datepicker-calendar-date-focus-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}@media(hover: hover){.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color:var(--mat-datepicker-calendar-date-hover-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}}.mat-calendar-body-selected{background-color:var(--mat-datepicker-calendar-date-selected-state-background-color, var(--mat-sys-primary));color:var(--mat-datepicker-calendar-date-selected-state-text-color, var(--mat-sys-on-primary))}.mat-calendar-body-disabled>.mat-calendar-body-selected{background-color:var(--mat-datepicker-calendar-date-selected-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-calendar-body-selected.mat-calendar-body-today{box-shadow:inset 0 0 0 1px var(--mat-datepicker-calendar-date-today-selected-state-outline-color, var(--mat-sys-primary))}.mat-calendar-body-in-range::before{background:var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container))}.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range::before{background:var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container))}.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range::before{background:var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container))}.mat-calendar-body-comparison-bridge-start::before,[dir=rtl] .mat-calendar-body-comparison-bridge-end::before{background:linear-gradient(to right, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%)}.mat-calendar-body-comparison-bridge-end::before,[dir=rtl] .mat-calendar-body-comparison-bridge-start::before{background:linear-gradient(to left, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%)}.mat-calendar-body-in-range>.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range.mat-calendar-body-in-range::after{background:var(--mat-datepicker-calendar-date-in-overlap-range-state-background-color, var(--mat-sys-secondary-container))}.mat-calendar-body-comparison-identical.mat-calendar-body-selected,.mat-calendar-body-in-comparison-range>.mat-calendar-body-selected{background:var(--mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color, var(--mat-sys-secondary))}@media(forced-colors: active){.mat-datepicker-popup:not(:empty),.mat-calendar-body-cell:not(.mat-calendar-body-in-range) .mat-calendar-body-selected{outline:solid 1px}.mat-calendar-body-today{outline:dotted 1px}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-selected{background:none}.mat-calendar-body-in-range::before,.mat-calendar-body-comparison-bridge-start::before,.mat-calendar-body-comparison-bridge-end::before{border-top:solid 1px;border-bottom:solid 1px}.mat-calendar-body-range-start::before{border-left:solid 1px}[dir=rtl] .mat-calendar-body-range-start::before{border-left:0;border-right:solid 1px}.mat-calendar-body-range-end::before{border-right:solid 1px}[dir=rtl] .mat-calendar-body-range-end::before{border-right:0;border-left:solid 1px}.mat-calendar-body-in-comparison-range::before{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-comparison-start::before{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-comparison-start::before{border-left:0;border-right:dashed 1px}.mat-calendar-body-comparison-end::before{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-comparison-end::before{border-right:0;border-left:dashed 1px}}"], dependencies: [{ kind: "directive", type: NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    _id = `mat-calendar-body-${calendarBodyId++}`;
+    _startDateLabelId = `${this._id}-start-date`;
+    _endDateLabelId = `${this._id}-end-date`;
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendarBody, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatCalendarBody, isStandalone: true, selector: "[mat-calendar-body]", inputs: { label: "label", rows: "rows", todayValue: "todayValue", startValue: "startValue", endValue: "endValue", labelMinRequiredCells: "labelMinRequiredCells", numCols: "numCols", activeCell: "activeCell", isRange: "isRange", cellAspectRatio: "cellAspectRatio", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd", previewStart: "previewStart", previewEnd: "previewEnd", startDateAccessibleName: "startDateAccessibleName", endDateAccessibleName: "endDateAccessibleName" }, outputs: { selectedValueChange: "selectedValueChange", previewChange: "previewChange", activeDateChange: "activeDateChange", dragStarted: "dragStarted", dragEnded: "dragEnded" }, host: { classAttribute: "mat-calendar-body" }, exportAs: ["matCalendarBody"], usesOnChanges: true, ngImport: i0, template: "<!--\n  If there's not enough space in the first row, create a separate label row. We mark this row as\n  aria-hidden because we don't want it to be read out as one of the weeks in the month.\n-->\n@if (_firstRowOffset < labelMinRequiredCells) {\n  <tr aria-hidden=\"true\">\n    <td class=\"mat-calendar-body-label\"\n        [attr.colspan]=\"numCols\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\">\n      {{label}}\n    </td>\n  </tr>\n}\n\n<!-- Create the first row separately so we can include a special spacer cell. -->\n@for (row of rows; track _trackRow(row); let rowIndex = $index) {\n  <tr role=\"row\">\n    <!--\n      This cell is purely decorative, but we can't put `aria-hidden` or `role=\"presentation\"` on it,\n      because it throws off the week days for the rest of the row on NVDA. The aspect ratio of the\n      table cells is maintained by setting the top and bottom padding as a percentage of the width\n      (a variant of the trick described here: https://www.w3schools.com/howto/howto_css_aspect_ratio.asp).\n    -->\n    @if (rowIndex === 0 && _firstRowOffset) {\n      <td\n        class=\"mat-calendar-body-label\"\n        [attr.colspan]=\"_firstRowOffset\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\">\n        {{_firstRowOffset >= labelMinRequiredCells ? label : ''}}\n      </td>\n    }\n    <!--\n      Each gridcell in the calendar contains a button, which signals to assistive technology that the\n      cell is interactable, as well as the selection state via `aria-pressed`. See #23476 for\n      background.\n    -->\n    @for (item of row; track item.id; let colIndex = $index) {\n      <td\n        role=\"gridcell\"\n        class=\"mat-calendar-body-cell-container\"\n        [style.width]=\"_cellWidth\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\"\n        [attr.data-mat-row]=\"rowIndex\"\n        [attr.data-mat-col]=\"colIndex\"\n      >\n        <button\n            type=\"button\"\n            class=\"mat-calendar-body-cell\"\n            [ngClass]=\"item.cssClasses\"\n            [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\"\n            [class.mat-calendar-body-disabled]=\"!item.enabled\"\n            [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\"\n            [class.mat-calendar-body-range-start]=\"_isRangeStart(item.compareValue)\"\n            [class.mat-calendar-body-range-end]=\"_isRangeEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-range]=\"_isInRange(item.compareValue)\"\n            [class.mat-calendar-body-comparison-bridge-start]=\"_isComparisonBridgeStart(item.compareValue, rowIndex, colIndex)\"\n            [class.mat-calendar-body-comparison-bridge-end]=\"_isComparisonBridgeEnd(item.compareValue, rowIndex, colIndex)\"\n            [class.mat-calendar-body-comparison-start]=\"_isComparisonStart(item.compareValue)\"\n            [class.mat-calendar-body-comparison-end]=\"_isComparisonEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-comparison-range]=\"_isInComparisonRange(item.compareValue)\"\n            [class.mat-calendar-body-preview-start]=\"_isPreviewStart(item.compareValue)\"\n            [class.mat-calendar-body-preview-end]=\"_isPreviewEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-preview]=\"_isInPreview(item.compareValue)\"\n            [attr.aria-label]=\"item.ariaLabel\"\n            [attr.aria-disabled]=\"!item.enabled || null\"\n            [attr.aria-pressed]=\"_isSelected(item.compareValue)\"\n            [attr.aria-current]=\"todayValue === item.compareValue ? 'date' : null\"\n            [attr.aria-describedby]=\"_getDescribedby(item.compareValue)\"\n            (click)=\"_cellClicked(item, $event)\"\n            (focus)=\"_emitActiveDateChange(item, $event)\">\n            <span class=\"mat-calendar-body-cell-content mat-focus-indicator\"\n              [class.mat-calendar-body-selected]=\"_isSelected(item.compareValue)\"\n              [class.mat-calendar-body-comparison-identical]=\"_isComparisonIdentical(item.compareValue)\"\n              [class.mat-calendar-body-today]=\"todayValue === item.compareValue\">\n              {{item.displayValue}}\n            </span>\n            <span class=\"mat-calendar-body-cell-preview\" aria-hidden=\"true\"></span>\n        </button>\n      </td>\n    }\n  </tr>\n}\n\n<span [id]=\"_startDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{startDateAccessibleName}}\n</span>\n<span [id]=\"_endDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{endDateAccessibleName}}\n</span>\n", styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){border-color:var(--mat-datepicker-calendar-date-today-outline-color, var(--mat-sys-primary))}.mat-calendar-body-label{height:0;line-height:0;text-align:start;padding-left:4.7142857143%;padding-right:4.7142857143%;font-size:var(--mat-datepicker-calendar-body-label-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-body-label-text-weight, var(--mat-sys-title-small-weight));color:var(--mat-datepicker-calendar-body-label-text-color, var(--mat-sys-on-surface))}.mat-calendar-body-hidden-label{display:none}.mat-calendar-body-cell-container{position:relative;height:0;line-height:0}.mat-calendar-body-cell{position:absolute;top:0;left:0;width:100%;height:100%;background:none;text-align:center;outline:none;font-family:inherit;margin:0;font-family:var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));font-size:var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));-webkit-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-calendar-body-cell::-moz-focus-inner{border:0}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-cell-preview{content:\"\";position:absolute;top:5%;left:0;z-index:0;box-sizing:border-box;display:block;height:90%;width:100%}.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-start::after,.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,.mat-calendar-body-comparison-start::after,.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:5%;width:95%;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,[dir=rtl] .mat-calendar-body-comparison-start::after,[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:0;border-radius:0;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,.mat-calendar-body-comparison-end::after,.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,[dir=rtl] .mat-calendar-body-comparison-end::after,[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{left:5%;border-radius:0;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after{width:90%}.mat-calendar-body-in-preview{color:var(--mat-datepicker-calendar-date-preview-state-outline-color, var(--mat-sys-primary))}.mat-calendar-body-in-preview .mat-calendar-body-cell-preview{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:0;border-right:dashed 1px}.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:0;border-left:dashed 1px}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){color:var(--mat-datepicker-calendar-date-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-calendar-body-disabled>.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){border-color:var(--mat-datepicker-calendar-date-today-disabled-state-outline-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}@media(forced-colors: active){.mat-calendar-body-disabled{opacity:.5}}.mat-calendar-body-cell-content{top:5%;left:5%;z-index:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px;color:var(--mat-datepicker-calendar-date-text-color, var(--mat-sys-on-surface));border-color:var(--mat-datepicker-calendar-date-outline-color, transparent)}.mat-calendar-body-cell-content.mat-focus-indicator{position:absolute}@media(forced-colors: active){.mat-calendar-body-cell-content{border:none}}.cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical),.cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color:var(--mat-datepicker-calendar-date-focus-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}@media(hover: hover){.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color:var(--mat-datepicker-calendar-date-hover-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}}.mat-calendar-body-selected{background-color:var(--mat-datepicker-calendar-date-selected-state-background-color, var(--mat-sys-primary));color:var(--mat-datepicker-calendar-date-selected-state-text-color, var(--mat-sys-on-primary))}.mat-calendar-body-disabled>.mat-calendar-body-selected{background-color:var(--mat-datepicker-calendar-date-selected-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-calendar-body-selected.mat-calendar-body-today{box-shadow:inset 0 0 0 1px var(--mat-datepicker-calendar-date-today-selected-state-outline-color, var(--mat-sys-primary))}.mat-calendar-body-in-range::before{background:var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container))}.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range::before{background:var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container))}.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range::before{background:var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container))}.mat-calendar-body-comparison-bridge-start::before,[dir=rtl] .mat-calendar-body-comparison-bridge-end::before{background:linear-gradient(to right, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%)}.mat-calendar-body-comparison-bridge-end::before,[dir=rtl] .mat-calendar-body-comparison-bridge-start::before{background:linear-gradient(to left, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%)}.mat-calendar-body-in-range>.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range.mat-calendar-body-in-range::after{background:var(--mat-datepicker-calendar-date-in-overlap-range-state-background-color, var(--mat-sys-secondary-container))}.mat-calendar-body-comparison-identical.mat-calendar-body-selected,.mat-calendar-body-in-comparison-range>.mat-calendar-body-selected{background:var(--mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color, var(--mat-sys-secondary))}@media(forced-colors: active){.mat-datepicker-popup:not(:empty),.mat-calendar-body-cell:not(.mat-calendar-body-in-range) .mat-calendar-body-selected{outline:solid 1px}.mat-calendar-body-today{outline:dotted 1px}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-selected{background:none}.mat-calendar-body-in-range::before,.mat-calendar-body-comparison-bridge-start::before,.mat-calendar-body-comparison-bridge-end::before{border-top:solid 1px;border-bottom:solid 1px}.mat-calendar-body-range-start::before{border-left:solid 1px}[dir=rtl] .mat-calendar-body-range-start::before{border-left:0;border-right:solid 1px}.mat-calendar-body-range-end::before{border-right:solid 1px}[dir=rtl] .mat-calendar-body-range-end::before{border-right:0;border-left:solid 1px}.mat-calendar-body-in-comparison-range::before{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-comparison-start::before{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-comparison-start::before{border-left:0;border-right:dashed 1px}.mat-calendar-body-comparison-end::before{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-comparison-end::before{border-right:0;border-left:dashed 1px}}"], dependencies: [{ kind: "directive", type: NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendarBody, decorators: [{
             type: Component,
@@ -587,6 +623,14 @@ function getActualTouchTarget(event) {
 
 /** A class representing a range of dates. */
 class DateRange {
+    start;
+    end;
+    /**
+     * Ensures that objects with a `start` and `end` property can't be assigned to a variable that
+     * expects a `DateRange`
+     */
+    // tslint:disable-next-line:no-unused-variable
+    _disableStructuralEquivalency;
     constructor(
     /** The start date of the range. */
     start, 
@@ -601,14 +645,16 @@ class DateRange {
  * @docs-private
  */
 class MatDateSelectionModel {
+    selection;
+    _adapter;
+    _selectionChanged = new Subject();
+    /** Emits when the selection has changed. */
+    selectionChanged = this._selectionChanged;
     constructor(
     /** The current selection. */
     selection, _adapter) {
         this.selection = selection;
         this._adapter = _adapter;
-        this._selectionChanged = new Subject();
-        /** Emits when the selection has changed. */
-        this.selectionChanged = this._selectionChanged;
         this.selection = selection;
     }
     /**
@@ -627,8 +673,8 @@ class MatDateSelectionModel {
     _isValidDateInstance(date) {
         return this._adapter.isDateInstance(date) && this._adapter.isValid(date);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateSelectionModel, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateSelectionModel }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateSelectionModel, deps: "invalid", target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateSelectionModel });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateSelectionModel, decorators: [{
             type: Injectable
@@ -665,8 +711,8 @@ class MatSingleDateSelectionModel extends MatDateSelectionModel {
         clone.updateSelection(this.selection, this);
         return clone;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSingleDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSingleDateSelectionModel }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSingleDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSingleDateSelectionModel });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatSingleDateSelectionModel, decorators: [{
             type: Injectable
@@ -728,8 +774,8 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
         clone.updateSelection(this.selection, this);
         return clone;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRangeDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRangeDateSelectionModel }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRangeDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRangeDateSelectionModel });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatRangeDateSelectionModel, decorators: [{
             type: Injectable
@@ -765,6 +811,7 @@ const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER = {
 const MAT_DATE_RANGE_SELECTION_STRATEGY = new InjectionToken('MAT_DATE_RANGE_SELECTION_STRATEGY');
 /** Provides the default date range selection behavior. */
 class DefaultMatCalendarRangeStrategy {
+    _dateAdapter;
     constructor(_dateAdapter) {
         this._dateAdapter = _dateAdapter;
     }
@@ -829,8 +876,8 @@ class DefaultMatCalendarRangeStrategy {
         }
         return new DateRange(start, end);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: DefaultMatCalendarRangeStrategy, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable }); }
-    static { this.ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: DefaultMatCalendarRangeStrategy }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: DefaultMatCalendarRangeStrategy, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: DefaultMatCalendarRangeStrategy });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: DefaultMatCalendarRangeStrategy, decorators: [{
             type: Injectable
@@ -853,6 +900,14 @@ let uniqueIdCounter = 0;
  * @docs-private
  */
 class MatMonthView {
+    _changeDetectorRef = inject(ChangeDetectorRef);
+    _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dir = inject(Directionality, { optional: true });
+    _rangeStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, { optional: true });
+    _rerenderSubscription = Subscription.EMPTY;
+    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
+    _selectionKeyPressed;
     /**
      * The date to display in this month view (everything other than the month and year is ignored).
      */
@@ -868,6 +923,7 @@ class MatMonthView {
             this._init();
         }
     }
+    _activeDate;
     /** The currently selected date. */
     get selected() {
         return this._selected;
@@ -881,6 +937,7 @@ class MatMonthView {
         }
         this._setRanges(this._selected);
     }
+    _selected;
     /** The minimum selectable date. */
     get minDate() {
         return this._minDate;
@@ -888,6 +945,7 @@ class MatMonthView {
     set minDate(value) {
         this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _minDate;
     /** The maximum selectable date. */
     get maxDate() {
         return this._maxDate;
@@ -895,28 +953,61 @@ class MatMonthView {
     set maxDate(value) {
         this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _maxDate;
+    /** Function used to filter which dates are selectable. */
+    dateFilter;
+    /** Function that can be used to add custom CSS classes to dates. */
+    dateClass;
+    /** Start of the comparison range. */
+    comparisonStart;
+    /** End of the comparison range. */
+    comparisonEnd;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName;
+    /** Origin of active drag, or null when dragging is not active. */
+    activeDrag = null;
+    /** Emits when a new date is selected. */
+    selectedChange = new EventEmitter();
+    /** Emits when any date is selected. */
+    _userSelection = new EventEmitter();
+    /** Emits when the user initiates a date range drag via mouse or touch. */
+    dragStarted = new EventEmitter();
+    /**
+     * Emits when the user completes or cancels a date range drag.
+     * Emits null when the drag was canceled or the newly selected date range if completed.
+     */
+    dragEnded = new EventEmitter();
+    /** Emits when any date is activated. */
+    activeDateChange = new EventEmitter();
+    /** The body of calendar table */
+    _matCalendarBody;
+    /** The label for this month (e.g. "January 2017"). */
+    _monthLabel;
+    /** Grid of calendar cells representing the dates of the month. */
+    _weeks;
+    /** The number of blank cells in the first row before the 1st of the month. */
+    _firstWeekOffset;
+    /** Start value of the currently-shown date range. */
+    _rangeStart;
+    /** End value of the currently-shown date range. */
+    _rangeEnd;
+    /** Start value of the currently-shown comparison date range. */
+    _comparisonRangeStart;
+    /** End value of the currently-shown comparison date range. */
+    _comparisonRangeEnd;
+    /** Start of the preview range. */
+    _previewStart;
+    /** End of the preview range. */
+    _previewEnd;
+    /** Whether the user is currently selecting a range of dates. */
+    _isRange;
+    /** The date of the month that today falls on. Null if today is in another month. */
+    _todayDate;
+    /** The names of the weekdays. */
+    _weekdays;
     constructor() {
-        this._changeDetectorRef = inject(ChangeDetectorRef);
-        this._dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dir = inject(Directionality, { optional: true });
-        this._rangeStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, { optional: true });
-        this._rerenderSubscription = Subscription.EMPTY;
-        /** Origin of active drag, or null when dragging is not active. */
-        this.activeDrag = null;
-        /** Emits when a new date is selected. */
-        this.selectedChange = new EventEmitter();
-        /** Emits when any date is selected. */
-        this._userSelection = new EventEmitter();
-        /** Emits when the user initiates a date range drag via mouse or touch. */
-        this.dragStarted = new EventEmitter();
-        /**
-         * Emits when the user completes or cancels a date range drag.
-         * Emits null when the drag was canceled or the newly selected date range if completed.
-         */
-        this.dragEnded = new EventEmitter();
-        /** Emits when any date is activated. */
-        this.activeDateChange = new EventEmitter();
         inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             if (!this._dateAdapter) {
@@ -1230,8 +1321,8 @@ class MatMonthView {
     _clearPreview() {
         this._previewStart = this._previewEnd = null;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMonthView, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatMonthView, isStandalone: true, selector: "mat-month-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd", startDateAccessibleName: "startDateAccessibleName", endDateAccessibleName: "endDateAccessibleName", activeDrag: "activeDrag" }, outputs: { selectedChange: "selectedChange", _userSelection: "_userSelection", dragStarted: "dragStarted", dragEnded: "dragEnded", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matMonthView"], usesOnChanges: true, ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead class=\"mat-calendar-table-header\">\n    <tr>\n      @for (day of _weekdays; track day.id) {\n        <th scope=\"col\">\n          <span class=\"cdk-visually-hidden\">{{day.long}}</span>\n          <span aria-hidden=\"true\">{{day.narrow}}</span>\n        </th>\n      }\n    </tr>\n    <tr aria-hidden=\"true\"><th class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_monthLabel\"\n         [rows]=\"_weeks\"\n         [todayValue]=\"_todayDate!\"\n         [startValue]=\"_rangeStart!\"\n         [endValue]=\"_rangeEnd!\"\n         [comparisonStart]=\"_comparisonRangeStart\"\n         [comparisonEnd]=\"_comparisonRangeEnd\"\n         [previewStart]=\"_previewStart\"\n         [previewEnd]=\"_previewEnd\"\n         [isRange]=\"_isRange\"\n         [labelMinRequiredCells]=\"3\"\n         [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\"\n         [startDateAccessibleName]=\"startDateAccessibleName\"\n         [endDateAccessibleName]=\"endDateAccessibleName\"\n         (selectedValueChange)=\"_dateSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (previewChange)=\"_previewChanged($event)\"\n         (dragStarted)=\"dragStarted.emit($event)\"\n         (dragEnded)=\"_dragEnded($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMonthView, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatMonthView, isStandalone: true, selector: "mat-month-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd", startDateAccessibleName: "startDateAccessibleName", endDateAccessibleName: "endDateAccessibleName", activeDrag: "activeDrag" }, outputs: { selectedChange: "selectedChange", _userSelection: "_userSelection", dragStarted: "dragStarted", dragEnded: "dragEnded", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matMonthView"], usesOnChanges: true, ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead class=\"mat-calendar-table-header\">\n    <tr>\n      @for (day of _weekdays; track day.id) {\n        <th scope=\"col\">\n          <span class=\"cdk-visually-hidden\">{{day.long}}</span>\n          <span aria-hidden=\"true\">{{day.narrow}}</span>\n        </th>\n      }\n    </tr>\n    <tr aria-hidden=\"true\"><th class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_monthLabel\"\n         [rows]=\"_weeks\"\n         [todayValue]=\"_todayDate!\"\n         [startValue]=\"_rangeStart!\"\n         [endValue]=\"_rangeEnd!\"\n         [comparisonStart]=\"_comparisonRangeStart\"\n         [comparisonEnd]=\"_comparisonRangeEnd\"\n         [previewStart]=\"_previewStart\"\n         [previewEnd]=\"_previewEnd\"\n         [isRange]=\"_isRange\"\n         [labelMinRequiredCells]=\"3\"\n         [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\"\n         [startDateAccessibleName]=\"startDateAccessibleName\"\n         [endDateAccessibleName]=\"endDateAccessibleName\"\n         (selectedValueChange)=\"_dateSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (previewChange)=\"_previewChanged($event)\"\n         (dragStarted)=\"dragStarted.emit($event)\"\n         (dragEnded)=\"_dragEnded($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMonthView, decorators: [{
             type: Component,
@@ -1280,6 +1371,12 @@ const yearsPerRow = 4;
  * @docs-private
  */
 class MatMultiYearView {
+    _changeDetectorRef = inject(ChangeDetectorRef);
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dir = inject(Directionality, { optional: true });
+    _rerenderSubscription = Subscription.EMPTY;
+    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
+    _selectionKeyPressed;
     /** The date to display in this multi-year view (everything other than the year is ignored). */
     get activeDate() {
         return this._activeDate;
@@ -1293,6 +1390,7 @@ class MatMultiYearView {
             this._init();
         }
     }
+    _activeDate;
     /** The currently selected date. */
     get selected() {
         return this._selected;
@@ -1306,6 +1404,7 @@ class MatMultiYearView {
         }
         this._setSelectedYear(value);
     }
+    _selected;
     /** The minimum selectable date. */
     get minDate() {
         return this._minDate;
@@ -1313,6 +1412,7 @@ class MatMultiYearView {
     set minDate(value) {
         this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _minDate;
     /** The maximum selectable date. */
     get maxDate() {
         return this._maxDate;
@@ -1320,17 +1420,26 @@ class MatMultiYearView {
     set maxDate(value) {
         this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _maxDate;
+    /** A function used to filter which dates are selectable. */
+    dateFilter;
+    /** Function that can be used to add custom CSS classes to date cells. */
+    dateClass;
+    /** Emits when a new year is selected. */
+    selectedChange = new EventEmitter();
+    /** Emits the selected year. This doesn't imply a change on the selected date */
+    yearSelected = new EventEmitter();
+    /** Emits when any date is activated. */
+    activeDateChange = new EventEmitter();
+    /** The body of calendar table */
+    _matCalendarBody;
+    /** Grid of calendar cells representing the currently displayed years. */
+    _years;
+    /** The year that today falls on. */
+    _todayYear;
+    /** The year of the selected date. Null if the selected date is null. */
+    _selectedYear;
     constructor() {
-        this._changeDetectorRef = inject(ChangeDetectorRef);
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dir = inject(Directionality, { optional: true });
-        this._rerenderSubscription = Subscription.EMPTY;
-        /** Emits when a new year is selected. */
-        this.selectedChange = new EventEmitter();
-        /** Emits the selected year. This doesn't imply a change on the selected date */
-        this.yearSelected = new EventEmitter();
-        /** Emits when any date is activated. */
-        this.activeDateChange = new EventEmitter();
         if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -1516,8 +1625,8 @@ class MatMultiYearView {
             this._selectedYear = this._dateAdapter.getYear(value);
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMultiYearView, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatMultiYearView, isStandalone: true, selector: "mat-multi-year-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass" }, outputs: { selectedChange: "selectedChange", yearSelected: "yearSelected", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matMultiYearView"], ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [rows]=\"_years\"\n         [todayValue]=\"_todayYear\"\n         [startValue]=\"_selectedYear!\"\n         [endValue]=\"_selectedYear!\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_getActiveCell()\"\n         (selectedValueChange)=\"_yearSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMultiYearView, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatMultiYearView, isStandalone: true, selector: "mat-multi-year-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass" }, outputs: { selectedChange: "selectedChange", yearSelected: "yearSelected", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matMultiYearView"], ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [rows]=\"_years\"\n         [todayValue]=\"_todayYear\"\n         [startValue]=\"_selectedYear!\"\n         [endValue]=\"_selectedYear!\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_getActiveCell()\"\n         (selectedValueChange)=\"_yearSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatMultiYearView, decorators: [{
             type: Component,
@@ -1585,6 +1694,13 @@ function euclideanModulo(a, b) {
  * @docs-private
  */
 class MatYearView {
+    _changeDetectorRef = inject(ChangeDetectorRef);
+    _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dir = inject(Directionality, { optional: true });
+    _rerenderSubscription = Subscription.EMPTY;
+    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
+    _selectionKeyPressed;
     /** The date to display in this year view (everything other than the year is ignored). */
     get activeDate() {
         return this._activeDate;
@@ -1598,6 +1714,7 @@ class MatYearView {
             this._init();
         }
     }
+    _activeDate;
     /** The currently selected date. */
     get selected() {
         return this._selected;
@@ -1611,6 +1728,7 @@ class MatYearView {
         }
         this._setSelectedMonth(value);
     }
+    _selected;
     /** The minimum selectable date. */
     get minDate() {
         return this._minDate;
@@ -1618,6 +1736,7 @@ class MatYearView {
     set minDate(value) {
         this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _minDate;
     /** The maximum selectable date. */
     get maxDate() {
         return this._maxDate;
@@ -1625,18 +1744,31 @@ class MatYearView {
     set maxDate(value) {
         this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _maxDate;
+    /** A function used to filter which dates are selectable. */
+    dateFilter;
+    /** Function that can be used to add custom CSS classes to date cells. */
+    dateClass;
+    /** Emits when a new month is selected. */
+    selectedChange = new EventEmitter();
+    /** Emits the selected month. This doesn't imply a change on the selected date */
+    monthSelected = new EventEmitter();
+    /** Emits when any date is activated. */
+    activeDateChange = new EventEmitter();
+    /** The body of calendar table */
+    _matCalendarBody;
+    /** Grid of calendar cells representing the months of the year. */
+    _months;
+    /** The label for this year (e.g. "2017"). */
+    _yearLabel;
+    /** The month in this year that today falls on. Null if today is in a different year. */
+    _todayMonth;
+    /**
+     * The month in this year that the selected Date falls on.
+     * Null if the selected Date is in a different year.
+     */
+    _selectedMonth;
     constructor() {
-        this._changeDetectorRef = inject(ChangeDetectorRef);
-        this._dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dir = inject(Directionality, { optional: true });
-        this._rerenderSubscription = Subscription.EMPTY;
-        /** Emits when a new month is selected. */
-        this.selectedChange = new EventEmitter();
-        /** Emits the selected month. This doesn't imply a change on the selected date */
-        this.monthSelected = new EventEmitter();
-        /** Emits when any date is activated. */
-        this.activeDateChange = new EventEmitter();
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             if (!this._dateAdapter) {
                 throw createMissingDateImplError('DateAdapter');
@@ -1847,8 +1979,8 @@ class MatYearView {
             this._selectedMonth = this._getMonthInCurrentYear(value);
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatYearView, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatYearView, isStandalone: true, selector: "mat-year-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass" }, outputs: { selectedChange: "selectedChange", monthSelected: "monthSelected", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matYearView"], ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_yearLabel\"\n         [rows]=\"_months\"\n         [todayValue]=\"_todayMonth!\"\n         [startValue]=\"_selectedMonth!\"\n         [endValue]=\"_selectedMonth!\"\n         [labelMinRequiredCells]=\"2\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_dateAdapter.getMonth(activeDate)\"\n         (selectedValueChange)=\"_monthSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatYearView, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatYearView, isStandalone: true, selector: "mat-year-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass" }, outputs: { selectedChange: "selectedChange", monthSelected: "monthSelected", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matYearView"], ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_yearLabel\"\n         [rows]=\"_months\"\n         [todayValue]=\"_todayMonth!\"\n         [startValue]=\"_selectedMonth!\"\n         [endValue]=\"_selectedMonth!\"\n         [labelMinRequiredCells]=\"2\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_dateAdapter.getMonth(activeDate)\"\n         (selectedValueChange)=\"_monthSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatYearView, decorators: [{
             type: Component,
@@ -1879,13 +2011,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 let calendarHeaderId = 1;
 /** Default header for MatCalendar */
 class MatCalendarHeader {
+    _intl = inject(MatDatepickerIntl);
+    calendar = inject(MatCalendar);
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     constructor() {
-        this._intl = inject(MatDatepickerIntl);
-        this.calendar = inject(MatCalendar);
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-        this._id = `mat-calendar-header-${calendarHeaderId++}`;
-        this._periodButtonLabelId = `${this._id}-period-label`;
         inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         const changeDetectorRef = inject(ChangeDetectorRef);
         this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
@@ -1996,8 +2126,10 @@ class MatCalendarHeader {
         const maxYearLabel = this._dateAdapter.getYearName(this._dateAdapter.createDate(maxYearOfPage, 0, 1));
         return [minYearLabel, maxYearLabel];
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendarHeader, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatCalendarHeader, isStandalone: true, selector: "mat-calendar-header", exportAs: ["matCalendarHeader"], ngImport: i0, template: "<div class=\"mat-calendar-header\">\n  <div class=\"mat-calendar-controls\">\n    <!-- [Firefox Issue: https://bugzilla.mozilla.org/show_bug.cgi?id=1880533]\n      Relocated label next to related button and made visually hidden via cdk-visually-hidden\n      to enable label to appear in a11y tree for SR when using Firefox -->\n    <span [id]=\"_periodButtonLabelId\" class=\"cdk-visually-hidden\" aria-live=\"polite\">{{periodButtonDescription}}</span>\n    <button mat-button type=\"button\" class=\"mat-calendar-period-button\"\n            (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\"\n            [attr.aria-describedby]=\"_periodButtonLabelId\">\n      <span aria-hidden=\"true\">{{periodButtonText}}</span>\n      <svg class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView !== 'month'\"\n           viewBox=\"0 0 10 5\" focusable=\"false\" aria-hidden=\"true\">\n           <polygon points=\"0,0 5,5 10,0\"/>\n      </svg>\n    </button>\n\n    <div class=\"mat-calendar-spacer\"></div>\n\n    <ng-content></ng-content>\n\n    <button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\"\n            [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\"\n            [attr.aria-label]=\"prevButtonLabel\">\n    </button>\n\n    <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\"\n            [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\"\n            [attr.aria-label]=\"nextButtonLabel\">\n    </button>\n  </div>\n</div>\n", dependencies: [{ kind: "component", type: MatButton, selector: "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", exportAs: ["matButton"] }, { kind: "component", type: MatIconButton, selector: "button[mat-icon-button]", exportAs: ["matButton"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    _id = `mat-calendar-header-${calendarHeaderId++}`;
+    _periodButtonLabelId = `${this._id}-period-label`;
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendarHeader, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatCalendarHeader, isStandalone: true, selector: "mat-calendar-header", exportAs: ["matCalendarHeader"], ngImport: i0, template: "<div class=\"mat-calendar-header\">\n  <div class=\"mat-calendar-controls\">\n    <!-- [Firefox Issue: https://bugzilla.mozilla.org/show_bug.cgi?id=1880533]\n      Relocated label next to related button and made visually hidden via cdk-visually-hidden\n      to enable label to appear in a11y tree for SR when using Firefox -->\n    <span [id]=\"_periodButtonLabelId\" class=\"cdk-visually-hidden\" aria-live=\"polite\">{{periodButtonDescription}}</span>\n    <button mat-button type=\"button\" class=\"mat-calendar-period-button\"\n            (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\"\n            [attr.aria-describedby]=\"_periodButtonLabelId\">\n      <span aria-hidden=\"true\">{{periodButtonText}}</span>\n      <svg class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView !== 'month'\"\n           viewBox=\"0 0 10 5\" focusable=\"false\" aria-hidden=\"true\">\n           <polygon points=\"0,0 5,5 10,0\"/>\n      </svg>\n    </button>\n\n    <div class=\"mat-calendar-spacer\"></div>\n\n    <ng-content></ng-content>\n\n    <button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\"\n            [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\"\n            [attr.aria-label]=\"prevButtonLabel\">\n    </button>\n\n    <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\"\n            [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\"\n            [attr.aria-label]=\"nextButtonLabel\">\n    </button>\n  </div>\n</div>\n", dependencies: [{ kind: "component", type: MatButton, selector: "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", exportAs: ["matButton"] }, { kind: "component", type: MatIconButton, selector: "button[mat-icon-button]", exportAs: ["matButton"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendarHeader, decorators: [{
             type: Component,
@@ -2005,6 +2137,20 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
         }], ctorParameters: () => [] });
 /** A calendar that is used as part of the datepicker. */
 class MatCalendar {
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
+    _changeDetectorRef = inject(ChangeDetectorRef);
+    /** An input indicating the type of the header component, if set. */
+    headerComponent;
+    /** A portal containing the header component type for this calendar. */
+    _calendarHeaderPortal;
+    _intlChanges;
+    /**
+     * Used for scheduling that focus should be moved to the active cell on the next tick.
+     * We need to schedule it, rather than do it immediately, because we have to wait
+     * for Angular to re-evaluate the view children.
+     */
+    _moveFocusOnNextTick = false;
     /** A date representing the period (month or year) to start the calendar in. */
     get startAt() {
         return this._startAt;
@@ -2012,6 +2158,9 @@ class MatCalendar {
     set startAt(value) {
         this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _startAt;
+    /** Whether the calendar should be started in month or year view. */
+    startView = 'month';
     /** The currently selected date. */
     get selected() {
         return this._selected;
@@ -2024,6 +2173,7 @@ class MatCalendar {
             this._selected = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
         }
     }
+    _selected;
     /** The minimum selectable date. */
     get minDate() {
         return this._minDate;
@@ -2031,6 +2181,7 @@ class MatCalendar {
     set minDate(value) {
         this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _minDate;
     /** The maximum selectable date. */
     get maxDate() {
         return this._maxDate;
@@ -2038,6 +2189,45 @@ class MatCalendar {
     set maxDate(value) {
         this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _maxDate;
+    /** Function used to filter which dates are selectable. */
+    dateFilter;
+    /** Function that can be used to add custom CSS classes to dates. */
+    dateClass;
+    /** Start of the comparison range. */
+    comparisonStart;
+    /** End of the comparison range. */
+    comparisonEnd;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName;
+    /** Emits when the currently selected date changes. */
+    selectedChange = new EventEmitter();
+    /**
+     * Emits the year chosen in multiyear view.
+     * This doesn't imply a change on the selected date.
+     */
+    yearSelected = new EventEmitter();
+    /**
+     * Emits the month chosen in year view.
+     * This doesn't imply a change on the selected date.
+     */
+    monthSelected = new EventEmitter();
+    /**
+     * Emits when the current view changes.
+     */
+    viewChanged = new EventEmitter(true);
+    /** Emits when any date is selected. */
+    _userSelection = new EventEmitter();
+    /** Emits a new date range value when the user completes a drag drop operation. */
+    _userDragDrop = new EventEmitter();
+    /** Reference to the current month view component. */
+    monthView;
+    /** Reference to the current year view component. */
+    yearView;
+    /** Reference to the current multi-year view component. */
+    multiYearView;
     /**
      * The current active date. This determines which time period is shown and which date is
      * highlighted when using keyboard navigation.
@@ -2050,6 +2240,7 @@ class MatCalendar {
         this.stateChanges.next();
         this._changeDetectorRef.markForCheck();
     }
+    _clampedActiveDate;
     /** Whether the calendar is in month view. */
     get currentView() {
         return this._currentView;
@@ -2063,44 +2254,14 @@ class MatCalendar {
             this.viewChanged.emit(viewChangedResult);
         }
     }
+    _currentView;
+    /** Origin of active drag, or null when dragging is not active. */
+    _activeDrag = null;
+    /**
+     * Emits whenever there is a state change that the header may need to respond to.
+     */
+    stateChanges = new Subject();
     constructor() {
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-        this._changeDetectorRef = inject(ChangeDetectorRef);
-        /**
-         * Used for scheduling that focus should be moved to the active cell on the next tick.
-         * We need to schedule it, rather than do it immediately, because we have to wait
-         * for Angular to re-evaluate the view children.
-         */
-        this._moveFocusOnNextTick = false;
-        /** Whether the calendar should be started in month or year view. */
-        this.startView = 'month';
-        /** Emits when the currently selected date changes. */
-        this.selectedChange = new EventEmitter();
-        /**
-         * Emits the year chosen in multiyear view.
-         * This doesn't imply a change on the selected date.
-         */
-        this.yearSelected = new EventEmitter();
-        /**
-         * Emits the month chosen in year view.
-         * This doesn't imply a change on the selected date.
-         */
-        this.monthSelected = new EventEmitter();
-        /**
-         * Emits when the current view changes.
-         */
-        this.viewChanged = new EventEmitter(true);
-        /** Emits when any date is selected. */
-        this._userSelection = new EventEmitter();
-        /** Emits a new date range value when the user completes a drag drop operation. */
-        this._userDragDrop = new EventEmitter();
-        /** Origin of active drag, or null when dragging is not active. */
-        this._activeDrag = null;
-        /**
-         * Emits whenever there is a state change that the header may need to respond to.
-         */
-        this.stateChanges = new Subject();
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             if (!this._dateAdapter) {
                 throw createMissingDateImplError('DateAdapter');
@@ -2210,8 +2371,8 @@ class MatCalendar {
         // only the first component type. See https://github.com/angular/components/issues/22996.
         return this.monthView || this.yearView || this.multiYearView;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendar, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatCalendar, isStandalone: true, selector: "mat-calendar", inputs: { headerComponent: "headerComponent", startAt: "startAt", startView: "startView", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd", startDateAccessibleName: "startDateAccessibleName", endDateAccessibleName: "endDateAccessibleName" }, outputs: { selectedChange: "selectedChange", yearSelected: "yearSelected", monthSelected: "monthSelected", viewChanged: "viewChanged", _userSelection: "_userSelection", _userDragDrop: "_userDragDrop" }, host: { classAttribute: "mat-calendar" }, providers: [MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER], viewQueries: [{ propertyName: "monthView", first: true, predicate: MatMonthView, descendants: true }, { propertyName: "yearView", first: true, predicate: MatYearView, descendants: true }, { propertyName: "multiYearView", first: true, predicate: MatMultiYearView, descendants: true }], exportAs: ["matCalendar"], usesOnChanges: true, ngImport: i0, template: "<ng-template [cdkPortalOutlet]=\"_calendarHeaderPortal\"></ng-template>\n\n<div class=\"mat-calendar-content\" cdkMonitorSubtreeFocus tabindex=\"-1\">\n  @switch (currentView) {\n    @case ('month') {\n        <mat-month-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            [comparisonStart]=\"comparisonStart\"\n            [comparisonEnd]=\"comparisonEnd\"\n            [startDateAccessibleName]=\"startDateAccessibleName\"\n            [endDateAccessibleName]=\"endDateAccessibleName\"\n            (_userSelection)=\"_dateSelected($event)\"\n            (dragStarted)=\"_dragStarted($event)\"\n            (dragEnded)=\"_dragEnded($event)\"\n            [activeDrag]=\"_activeDrag\"></mat-month-view>\n    }\n\n    @case ('year') {\n        <mat-year-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            (monthSelected)=\"_monthSelectedInYearView($event)\"\n            (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view>\n    }\n\n    @case ('multi-year') {\n        <mat-multi-year-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            (yearSelected)=\"_yearSelectedInMultiYearView($event)\"\n            (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view>\n    }\n  }\n</div>\n", styles: [".mat-calendar{display:block;line-height:normal;font-family:var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));font-size:var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size))}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:none}.mat-calendar-controls{display:flex;align-items:center;margin:5% calc(4.7142857143% - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0;margin:0 8px;font-size:var(--mat-datepicker-calendar-period-button-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-period-button-text-weight, var(--mat-sys-title-small-weight));--mdc-text-button-label-text-color:var(--mat-datepicker-calendar-period-button-text-color, var(--mat-sys-on-surface-variant))}.mat-calendar-arrow{display:inline-block;width:10px;height:5px;margin:0 0 0 5px;vertical-align:middle;fill:var(--mat-datepicker-calendar-period-button-icon-color, var(--mat-sys-on-surface-variant))}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}@media(forced-colors: active){.mat-calendar-arrow{fill:CanvasText}}.mat-calendar-previous-button,.mat-calendar-next-button{position:relative}.mat-datepicker-content .mat-calendar-previous-button:not(.mat-mdc-button-disabled),.mat-datepicker-content .mat-calendar-next-button:not(.mat-mdc-button-disabled){color:var(--mat-datepicker-calendar-navigation-button-icon-color, var(--mat-sys-on-surface-variant))}.mat-calendar-previous-button::after,.mat-calendar-next-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:\"\";margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-previous-button,[dir=rtl] .mat-calendar-next-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0;color:var(--mat-datepicker-calendar-header-text-color, var(--mat-sys-on-surface-variant));font-size:var(--mat-datepicker-calendar-header-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-header-text-weight, var(--mat-sys-title-small-weight))}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:\"\";position:absolute;top:0;left:-8px;right:-8px;height:1px;background:var(--mat-datepicker-calendar-header-divider-color, transparent)}.mat-calendar-body-cell-content::before{margin:calc(calc(var(--mat-focus-indicator-border-width, 3px) + 3px)*-1)}.mat-calendar-body-cell:focus .mat-focus-indicator::before{content:\"\"}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }, { kind: "directive", type: CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"], exportAs: ["cdkMonitorFocus"] }, { kind: "component", type: MatMonthView, selector: "mat-month-view", inputs: ["activeDate", "selected", "minDate", "maxDate", "dateFilter", "dateClass", "comparisonStart", "comparisonEnd", "startDateAccessibleName", "endDateAccessibleName", "activeDrag"], outputs: ["selectedChange", "_userSelection", "dragStarted", "dragEnded", "activeDateChange"], exportAs: ["matMonthView"] }, { kind: "component", type: MatYearView, selector: "mat-year-view", inputs: ["activeDate", "selected", "minDate", "maxDate", "dateFilter", "dateClass"], outputs: ["selectedChange", "monthSelected", "activeDateChange"], exportAs: ["matYearView"] }, { kind: "component", type: MatMultiYearView, selector: "mat-multi-year-view", inputs: ["activeDate", "selected", "minDate", "maxDate", "dateFilter", "dateClass"], outputs: ["selectedChange", "yearSelected", "activeDateChange"], exportAs: ["matMultiYearView"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendar, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatCalendar, isStandalone: true, selector: "mat-calendar", inputs: { headerComponent: "headerComponent", startAt: "startAt", startView: "startView", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd", startDateAccessibleName: "startDateAccessibleName", endDateAccessibleName: "endDateAccessibleName" }, outputs: { selectedChange: "selectedChange", yearSelected: "yearSelected", monthSelected: "monthSelected", viewChanged: "viewChanged", _userSelection: "_userSelection", _userDragDrop: "_userDragDrop" }, host: { classAttribute: "mat-calendar" }, providers: [MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER], viewQueries: [{ propertyName: "monthView", first: true, predicate: MatMonthView, descendants: true }, { propertyName: "yearView", first: true, predicate: MatYearView, descendants: true }, { propertyName: "multiYearView", first: true, predicate: MatMultiYearView, descendants: true }], exportAs: ["matCalendar"], usesOnChanges: true, ngImport: i0, template: "<ng-template [cdkPortalOutlet]=\"_calendarHeaderPortal\"></ng-template>\n\n<div class=\"mat-calendar-content\" cdkMonitorSubtreeFocus tabindex=\"-1\">\n  @switch (currentView) {\n    @case ('month') {\n        <mat-month-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            [comparisonStart]=\"comparisonStart\"\n            [comparisonEnd]=\"comparisonEnd\"\n            [startDateAccessibleName]=\"startDateAccessibleName\"\n            [endDateAccessibleName]=\"endDateAccessibleName\"\n            (_userSelection)=\"_dateSelected($event)\"\n            (dragStarted)=\"_dragStarted($event)\"\n            (dragEnded)=\"_dragEnded($event)\"\n            [activeDrag]=\"_activeDrag\"></mat-month-view>\n    }\n\n    @case ('year') {\n        <mat-year-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            (monthSelected)=\"_monthSelectedInYearView($event)\"\n            (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view>\n    }\n\n    @case ('multi-year') {\n        <mat-multi-year-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            (yearSelected)=\"_yearSelectedInMultiYearView($event)\"\n            (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view>\n    }\n  }\n</div>\n", styles: [".mat-calendar{display:block;line-height:normal;font-family:var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));font-size:var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size))}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:none}.mat-calendar-controls{display:flex;align-items:center;margin:5% calc(4.7142857143% - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0;margin:0 8px;font-size:var(--mat-datepicker-calendar-period-button-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-period-button-text-weight, var(--mat-sys-title-small-weight));--mdc-text-button-label-text-color:var(--mat-datepicker-calendar-period-button-text-color, var(--mat-sys-on-surface-variant))}.mat-calendar-arrow{display:inline-block;width:10px;height:5px;margin:0 0 0 5px;vertical-align:middle;fill:var(--mat-datepicker-calendar-period-button-icon-color, var(--mat-sys-on-surface-variant))}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}@media(forced-colors: active){.mat-calendar-arrow{fill:CanvasText}}.mat-calendar-previous-button,.mat-calendar-next-button{position:relative}.mat-datepicker-content .mat-calendar-previous-button:not(.mat-mdc-button-disabled),.mat-datepicker-content .mat-calendar-next-button:not(.mat-mdc-button-disabled){color:var(--mat-datepicker-calendar-navigation-button-icon-color, var(--mat-sys-on-surface-variant))}.mat-calendar-previous-button::after,.mat-calendar-next-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:\"\";margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-previous-button,[dir=rtl] .mat-calendar-next-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0;color:var(--mat-datepicker-calendar-header-text-color, var(--mat-sys-on-surface-variant));font-size:var(--mat-datepicker-calendar-header-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-header-text-weight, var(--mat-sys-title-small-weight))}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:\"\";position:absolute;top:0;left:-8px;right:-8px;height:1px;background:var(--mat-datepicker-calendar-header-divider-color, transparent)}.mat-calendar-body-cell-content::before{margin:calc(calc(var(--mat-focus-indicator-border-width, 3px) + 3px)*-1)}.mat-calendar-body-cell:focus .mat-focus-indicator::before{content:\"\"}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }, { kind: "directive", type: CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"], exportAs: ["cdkMonitorFocus"] }, { kind: "component", type: MatMonthView, selector: "mat-month-view", inputs: ["activeDate", "selected", "minDate", "maxDate", "dateFilter", "dateClass", "comparisonStart", "comparisonEnd", "startDateAccessibleName", "endDateAccessibleName", "activeDrag"], outputs: ["selectedChange", "_userSelection", "dragStarted", "dragEnded", "activeDateChange"], exportAs: ["matMonthView"] }, { kind: "component", type: MatYearView, selector: "mat-year-view", inputs: ["activeDate", "selected", "minDate", "maxDate", "dateFilter", "dateClass"], outputs: ["selectedChange", "monthSelected", "activeDateChange"], exportAs: ["matYearView"] }, { kind: "component", type: MatMultiYearView, selector: "mat-multi-year-view", inputs: ["activeDate", "selected", "minDate", "maxDate", "dateFilter", "dateClass"], outputs: ["selectedChange", "yearSelected", "activeDateChange"], exportAs: ["matMultiYearView"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatCalendar, decorators: [{
             type: Component,
@@ -2320,19 +2481,50 @@ const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  * @docs-private
  */
 class MatDatepickerContent {
+    _elementRef = inject(ElementRef);
+    _changeDetectorRef = inject(ChangeDetectorRef);
+    _globalModel = inject(MatDateSelectionModel);
+    _dateAdapter = inject(DateAdapter);
+    _rangeSelectionStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, { optional: true });
+    _subscriptions = new Subscription();
+    _model;
+    /** Reference to the internal calendar component. */
+    _calendar;
+    /**
+     * Theme color of the internal calendar. This API is supported in M2 themes
+     * only, it has no effect in M3 themes.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/theming#using-component-color-variants.
+     */
+    color;
+    /** Reference to the datepicker that created the overlay. */
+    datepicker;
+    /** Start of the comparison range. */
+    comparisonStart;
+    /** End of the comparison range. */
+    comparisonEnd;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName;
+    /** Whether the datepicker is above or below the input. */
+    _isAbove;
+    /** Current state of the animation. */
+    _animationState;
+    /** Emits when an animation has finished. */
+    _animationDone = new Subject();
+    /** Whether there is an in-progress animation. */
+    _isAnimating = false;
+    /** Text for the close button. */
+    _closeButtonText;
+    /** Whether the close button currently has focus. */
+    _closeButtonFocused;
+    /** Portal with projected action buttons. */
+    _actionsPortal = null;
+    /** Id of the label for the `role="dialog"` element. */
+    _dialogLabelId;
     constructor() {
-        this._elementRef = inject(ElementRef);
-        this._changeDetectorRef = inject(ChangeDetectorRef);
-        this._globalModel = inject(MatDateSelectionModel);
-        this._dateAdapter = inject(DateAdapter);
-        this._rangeSelectionStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, { optional: true });
-        this._subscriptions = new Subscription();
-        /** Emits when an animation has finished. */
-        this._animationDone = new Subject();
-        /** Whether there is an in-progress animation. */
-        this._isAnimating = false;
-        /** Portal with projected action buttons. */
-        this._actionsPortal = null;
         inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         const intl = inject(MatDatepickerIntl);
         this._closeButtonText = intl.closeCalendarLabel;
@@ -2411,8 +2603,8 @@ class MatDatepickerContent {
             this._changeDetectorRef.detectChanges();
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerContent, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerContent, isStandalone: true, selector: "mat-datepicker-content", inputs: { color: "color" }, host: { listeners: { "@transformPanel.start": "_handleAnimationEvent($event)", "@transformPanel.done": "_handleAnimationEvent($event)" }, properties: { "class": "color ? \"mat-\" + color : \"\"", "@transformPanel": "_animationState", "class.mat-datepicker-content-touch": "datepicker.touchUi" }, classAttribute: "mat-datepicker-content" }, viewQueries: [{ propertyName: "_calendar", first: true, predicate: MatCalendar, descendants: true }], exportAs: ["matDatepickerContent"], ngImport: i0, template: "<div\n  cdkTrapFocus\n  role=\"dialog\"\n  [attr.aria-modal]=\"true\"\n  [attr.aria-labelledby]=\"_dialogLabelId ?? undefined\"\n  class=\"mat-datepicker-content-container\"\n  [class.mat-datepicker-content-container-with-custom-header]=\"datepicker.calendarHeaderComponent\"\n  [class.mat-datepicker-content-container-with-actions]=\"_actionsPortal\">\n  <mat-calendar\n    [id]=\"datepicker.id\"\n    [class]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    [startDateAccessibleName]=\"startDateAccessibleName\"\n    [endDateAccessibleName]=\"endDateAccessibleName\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\"\n    (_userDragDrop)=\"_handleUserDragDrop($event)\"></mat-calendar>\n\n  <ng-template [cdkPortalOutlet]=\"_actionsPortal\"></ng-template>\n\n  <!-- Invisible close button for screen reader users. -->\n  <button\n    type=\"button\"\n    mat-raised-button\n    [color]=\"color || 'primary'\"\n    class=\"mat-datepicker-close-button\"\n    [class.cdk-visually-hidden]=\"!_closeButtonFocused\"\n    (focus)=\"_closeButtonFocused = true\"\n    (blur)=\"_closeButtonFocused = false\"\n    (click)=\"datepicker.close()\">{{ _closeButtonText }}</button>\n</div>\n", styles: [".mat-datepicker-content{display:block;border-radius:4px;background-color:var(--mat-datepicker-calendar-container-background-color, var(--mat-sys-surface-container-high));color:var(--mat-datepicker-calendar-container-text-color, var(--mat-sys-on-surface));box-shadow:var(--mat-datepicker-calendar-container-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));border-radius:var(--mat-datepicker-calendar-container-shape, var(--mat-sys-corner-large))}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content .mat-datepicker-content-container-with-custom-header .mat-calendar{height:auto}.mat-datepicker-content .mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}.ng-animating .mat-datepicker-content .mat-datepicker-close-button{display:none}.mat-datepicker-content-container{display:flex;flex-direction:column;justify-content:space-between}.mat-datepicker-content-touch{display:block;max-height:80vh;box-shadow:var(--mat-datepicker-calendar-container-touch-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));border-radius:var(--mat-datepicker-calendar-container-touch-shape, var(--mat-sys-corner-extra-large));position:relative;overflow:visible}.mat-datepicker-content-touch .mat-datepicker-content-container{min-height:312px;max-height:788px;min-width:250px;max-width:750px}.mat-datepicker-content-touch .mat-calendar{width:100%;height:auto}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-datepicker-content-container{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-datepicker-content-container{width:80vw;height:100vw}.mat-datepicker-content-touch .mat-datepicker-content-container-with-actions{height:115vw}}"], dependencies: [{ kind: "directive", type: CdkTrapFocus, selector: "[cdkTrapFocus]", inputs: ["cdkTrapFocus", "cdkTrapFocusAutoCapture"], exportAs: ["cdkTrapFocus"] }, { kind: "component", type: MatCalendar, selector: "mat-calendar", inputs: ["headerComponent", "startAt", "startView", "selected", "minDate", "maxDate", "dateFilter", "dateClass", "comparisonStart", "comparisonEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedChange", "yearSelected", "monthSelected", "viewChanged", "_userSelection", "_userDragDrop"], exportAs: ["matCalendar"] }, { kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }, { kind: "component", type: MatButton, selector: "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", exportAs: ["matButton"] }], animations: [matDatepickerAnimations.transformPanel, matDatepickerAnimations.fadeInCalendar], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerContent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerContent, isStandalone: true, selector: "mat-datepicker-content", inputs: { color: "color" }, host: { listeners: { "@transformPanel.start": "_handleAnimationEvent($event)", "@transformPanel.done": "_handleAnimationEvent($event)" }, properties: { "class": "color ? \"mat-\" + color : \"\"", "@transformPanel": "_animationState", "class.mat-datepicker-content-touch": "datepicker.touchUi" }, classAttribute: "mat-datepicker-content" }, viewQueries: [{ propertyName: "_calendar", first: true, predicate: MatCalendar, descendants: true }], exportAs: ["matDatepickerContent"], ngImport: i0, template: "<div\n  cdkTrapFocus\n  role=\"dialog\"\n  [attr.aria-modal]=\"true\"\n  [attr.aria-labelledby]=\"_dialogLabelId ?? undefined\"\n  class=\"mat-datepicker-content-container\"\n  [class.mat-datepicker-content-container-with-custom-header]=\"datepicker.calendarHeaderComponent\"\n  [class.mat-datepicker-content-container-with-actions]=\"_actionsPortal\">\n  <mat-calendar\n    [id]=\"datepicker.id\"\n    [class]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [@fadeInCalendar]=\"'enter'\"\n    [startDateAccessibleName]=\"startDateAccessibleName\"\n    [endDateAccessibleName]=\"endDateAccessibleName\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\"\n    (_userDragDrop)=\"_handleUserDragDrop($event)\"></mat-calendar>\n\n  <ng-template [cdkPortalOutlet]=\"_actionsPortal\"></ng-template>\n\n  <!-- Invisible close button for screen reader users. -->\n  <button\n    type=\"button\"\n    mat-raised-button\n    [color]=\"color || 'primary'\"\n    class=\"mat-datepicker-close-button\"\n    [class.cdk-visually-hidden]=\"!_closeButtonFocused\"\n    (focus)=\"_closeButtonFocused = true\"\n    (blur)=\"_closeButtonFocused = false\"\n    (click)=\"datepicker.close()\">{{ _closeButtonText }}</button>\n</div>\n", styles: [".mat-datepicker-content{display:block;border-radius:4px;background-color:var(--mat-datepicker-calendar-container-background-color, var(--mat-sys-surface-container-high));color:var(--mat-datepicker-calendar-container-text-color, var(--mat-sys-on-surface));box-shadow:var(--mat-datepicker-calendar-container-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));border-radius:var(--mat-datepicker-calendar-container-shape, var(--mat-sys-corner-large))}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content .mat-datepicker-content-container-with-custom-header .mat-calendar{height:auto}.mat-datepicker-content .mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}.ng-animating .mat-datepicker-content .mat-datepicker-close-button{display:none}.mat-datepicker-content-container{display:flex;flex-direction:column;justify-content:space-between}.mat-datepicker-content-touch{display:block;max-height:80vh;box-shadow:var(--mat-datepicker-calendar-container-touch-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));border-radius:var(--mat-datepicker-calendar-container-touch-shape, var(--mat-sys-corner-extra-large));position:relative;overflow:visible}.mat-datepicker-content-touch .mat-datepicker-content-container{min-height:312px;max-height:788px;min-width:250px;max-width:750px}.mat-datepicker-content-touch .mat-calendar{width:100%;height:auto}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-datepicker-content-container{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-datepicker-content-container{width:80vw;height:100vw}.mat-datepicker-content-touch .mat-datepicker-content-container-with-actions{height:115vw}}"], dependencies: [{ kind: "directive", type: CdkTrapFocus, selector: "[cdkTrapFocus]", inputs: ["cdkTrapFocus", "cdkTrapFocusAutoCapture"], exportAs: ["cdkTrapFocus"] }, { kind: "component", type: MatCalendar, selector: "mat-calendar", inputs: ["headerComponent", "startAt", "startView", "selected", "minDate", "maxDate", "dateFilter", "dateClass", "comparisonStart", "comparisonEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedChange", "yearSelected", "monthSelected", "viewChanged", "_userSelection", "_userDragDrop"], exportAs: ["matCalendar"] }, { kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }, { kind: "component", type: MatButton, selector: "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", exportAs: ["matButton"] }], animations: [matDatepickerAnimations.transformPanel, matDatepickerAnimations.fadeInCalendar], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerContent, decorators: [{
             type: Component,
@@ -2432,6 +2624,16 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             }] } });
 /** Base class for a datepicker. */
 class MatDatepickerBase {
+    _overlay = inject(Overlay);
+    _viewContainerRef = inject(ViewContainerRef);
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dir = inject(Directionality, { optional: true });
+    _model = inject(MatDateSelectionModel);
+    _scrollStrategy = inject(MAT_DATEPICKER_SCROLL_STRATEGY);
+    _inputStateChanges = Subscription.EMPTY;
+    _document = inject(DOCUMENT);
+    /** An input indicating the type of the custom header component for the calendar, if set. */
+    calendarHeaderComponent;
     /** The date to open the calendar to initially. */
     get startAt() {
         // If an explicit startAt is set we start there, otherwise we start at whatever the currently
@@ -2441,6 +2643,9 @@ class MatDatepickerBase {
     set startAt(value) {
         this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
+    _startAt;
+    /** The view that the calendar should start in. */
+    startView = 'month';
     /**
      * Theme color of the datepicker's calendar. This API is supported in M2 themes only, it
      * has no effect in M3 themes.
@@ -2454,6 +2659,12 @@ class MatDatepickerBase {
     set color(value) {
         this._color = value;
     }
+    _color;
+    /**
+     * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
+     * than a dropdown and elements have more padding to allow for bigger touch targets.
+     */
+    touchUi = false;
     /** Whether the datepicker pop-up should be disabled. */
     get disabled() {
         return this._disabled === undefined && this.datepickerInput
@@ -2466,6 +2677,37 @@ class MatDatepickerBase {
             this.stateChanges.next(undefined);
         }
     }
+    _disabled;
+    /** Preferred position of the datepicker in the X axis. */
+    xPosition = 'start';
+    /** Preferred position of the datepicker in the Y axis. */
+    yPosition = 'below';
+    /**
+     * Whether to restore focus to the previously-focused element when the calendar is closed.
+     * Note that automatic focus restoration is an accessibility feature and it is recommended that
+     * you provide your own equivalent, if you decide to turn it off.
+     */
+    restoreFocus = true;
+    /**
+     * Emits selected year in multiyear view.
+     * This doesn't imply a change on the selected date.
+     */
+    yearSelected = new EventEmitter();
+    /**
+     * Emits selected month in year view.
+     * This doesn't imply a change on the selected date.
+     */
+    monthSelected = new EventEmitter();
+    /**
+     * Emits when the current view changes.
+     */
+    viewChanged = new EventEmitter(true);
+    /** Function that can be used to add custom CSS classes to dates. */
+    dateClass;
+    /** Emits when the datepicker has been opened. */
+    openedStream = new EventEmitter();
+    /** Emits when the datepicker has been closed. */
+    closedStream = new EventEmitter();
     /** Classes to be passed to the date picker panel. */
     get panelClass() {
         return this._panelClass;
@@ -2473,6 +2715,7 @@ class MatDatepickerBase {
     set panelClass(value) {
         this._panelClass = coerceStringArray(value);
     }
+    _panelClass;
     /** Whether the calendar is open. */
     get opened() {
         return this._opened;
@@ -2485,6 +2728,9 @@ class MatDatepickerBase {
             this.close();
         }
     }
+    _opened = false;
+    /** The id for the datepicker calendar. */
+    id = `mat-datepicker-${datepickerUid++}`;
     /** The minimum selectable date. */
     _getMinDate() {
         return this.datepickerInput && this.datepickerInput.min;
@@ -2496,61 +2742,23 @@ class MatDatepickerBase {
     _getDateFilter() {
         return this.datepickerInput && this.datepickerInput.dateFilter;
     }
+    /** A reference to the overlay into which we've rendered the calendar. */
+    _overlayRef;
+    /** Reference to the component instance rendered in the overlay. */
+    _componentRef;
+    /** The element that was focused before the datepicker was opened. */
+    _focusedElementBeforeOpen = null;
+    /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
+    _backdropHarnessClass = `${this.id}-backdrop`;
+    /** Currently-registered actions portal. */
+    _actionsPortal;
+    /** The input element this datepicker is associated with. */
+    datepickerInput;
+    /** Emits when the datepicker's state changes. */
+    stateChanges = new Subject();
+    _injector = inject(Injector);
+    _changeDetectorRef = inject(ChangeDetectorRef);
     constructor() {
-        this._overlay = inject(Overlay);
-        this._viewContainerRef = inject(ViewContainerRef);
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dir = inject(Directionality, { optional: true });
-        this._model = inject(MatDateSelectionModel);
-        this._scrollStrategy = inject(MAT_DATEPICKER_SCROLL_STRATEGY);
-        this._inputStateChanges = Subscription.EMPTY;
-        this._document = inject(DOCUMENT);
-        /** The view that the calendar should start in. */
-        this.startView = 'month';
-        /**
-         * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
-         * than a dropdown and elements have more padding to allow for bigger touch targets.
-         */
-        this.touchUi = false;
-        /** Preferred position of the datepicker in the X axis. */
-        this.xPosition = 'start';
-        /** Preferred position of the datepicker in the Y axis. */
-        this.yPosition = 'below';
-        /**
-         * Whether to restore focus to the previously-focused element when the calendar is closed.
-         * Note that automatic focus restoration is an accessibility feature and it is recommended that
-         * you provide your own equivalent, if you decide to turn it off.
-         */
-        this.restoreFocus = true;
-        /**
-         * Emits selected year in multiyear view.
-         * This doesn't imply a change on the selected date.
-         */
-        this.yearSelected = new EventEmitter();
-        /**
-         * Emits selected month in year view.
-         * This doesn't imply a change on the selected date.
-         */
-        this.monthSelected = new EventEmitter();
-        /**
-         * Emits when the current view changes.
-         */
-        this.viewChanged = new EventEmitter(true);
-        /** Emits when the datepicker has been opened. */
-        this.openedStream = new EventEmitter();
-        /** Emits when the datepicker has been closed. */
-        this.closedStream = new EventEmitter();
-        this._opened = false;
-        /** The id for the datepicker calendar. */
-        this.id = `mat-datepicker-${datepickerUid++}`;
-        /** The element that was focused before the datepicker was opened. */
-        this._focusedElementBeforeOpen = null;
-        /** Unique class that will be added to the backdrop so that the test harnesses can look it up. */
-        this._backdropHarnessClass = `${this.id}-backdrop`;
-        /** Emits when the datepicker's state changes. */
-        this.stateChanges = new Subject();
-        this._injector = inject(Injector);
-        this._changeDetectorRef = inject(ChangeDetectorRef);
         if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -2814,8 +3022,8 @@ class MatDatepickerBase {
                     ctrlShiftMetaModifiers.every((modifier) => !hasModifierKey(event, modifier))));
         })));
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerBase, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatDatepickerBase, isStandalone: true, inputs: { calendarHeaderComponent: "calendarHeaderComponent", startAt: "startAt", startView: "startView", color: "color", touchUi: ["touchUi", "touchUi", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], xPosition: "xPosition", yPosition: "yPosition", restoreFocus: ["restoreFocus", "restoreFocus", booleanAttribute], dateClass: "dateClass", panelClass: "panelClass", opened: ["opened", "opened", booleanAttribute] }, outputs: { yearSelected: "yearSelected", monthSelected: "monthSelected", viewChanged: "viewChanged", openedStream: "opened", closedStream: "closed" }, usesOnChanges: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerBase, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatDatepickerBase, isStandalone: true, inputs: { calendarHeaderComponent: "calendarHeaderComponent", startAt: "startAt", startView: "startView", color: "color", touchUi: ["touchUi", "touchUi", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], xPosition: "xPosition", yPosition: "yPosition", restoreFocus: ["restoreFocus", "restoreFocus", booleanAttribute], dateClass: "dateClass", panelClass: "panelClass", opened: ["opened", "opened", booleanAttribute] }, outputs: { yearSelected: "yearSelected", monthSelected: "monthSelected", viewChanged: "viewChanged", openedStream: "opened", closedStream: "closed" }, usesOnChanges: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerBase, decorators: [{
             type: Directive
@@ -2866,11 +3074,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 // if angular adds support for `exportAs: '$implicit'` on directives.
 /** Component responsible for managing the datepicker popup/dialog. */
 class MatDatepicker extends MatDatepickerBase {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepicker, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepicker, isStandalone: true, selector: "mat-datepicker", providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepicker, deps: null, target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepicker, isStandalone: true, selector: "mat-datepicker", providers: [
             MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER,
             { provide: MatDatepickerBase, useExisting: MatDatepicker },
-        ], exportAs: ["matDatepicker"], usesInheritance: true, ngImport: i0, template: '', isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+        ], exportAs: ["matDatepicker"], usesInheritance: true, ngImport: i0, template: '', isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepicker, decorators: [{
             type: Component,
@@ -2893,6 +3101,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
  */
 class MatDatepickerInputEvent {
+    target;
+    targetElement;
+    /** The new value for the target datepicker input. */
+    value;
     constructor(
     /** Reference to the datepicker input component that emitted the event. */
     target, 
@@ -2905,6 +3117,11 @@ class MatDatepickerInputEvent {
 }
 /** Base class for datepicker inputs. */
 class MatDatepickerInputBase {
+    _elementRef = inject(ElementRef);
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
+    /** Whether the component has been initialized. */
+    _isInitialized;
     /** The value of the input. */
     get value() {
         return this._model ? this._getValueFromModel(this._model.selection) : this._pendingValue;
@@ -2912,6 +3129,7 @@ class MatDatepickerInputBase {
     set value(value) {
         this._assignValueProgrammatically(value);
     }
+    _model;
     /** Whether the datepicker-input is disabled. */
     get disabled() {
         return !!this._disabled || this._parentDisabled();
@@ -2934,6 +3152,53 @@ class MatDatepickerInputBase {
             element.blur();
         }
     }
+    _disabled;
+    /** Emits when a `change` event is fired on this `<input>`. */
+    dateChange = new EventEmitter();
+    /** Emits when an `input` event is fired on this `<input>`. */
+    dateInput = new EventEmitter();
+    /** Emits when the internal state has changed */
+    stateChanges = new Subject();
+    _onTouched = () => { };
+    _validatorOnChange = () => { };
+    _cvaOnChange = () => { };
+    _valueChangesSubscription = Subscription.EMPTY;
+    _localeSubscription = Subscription.EMPTY;
+    /**
+     * Since the value is kept on the model which is assigned in an Input,
+     * we might get a value before we have a model. This property keeps track
+     * of the value until we have somewhere to assign it.
+     */
+    _pendingValue;
+    /** The form control validator for whether the input parses. */
+    _parseValidator = () => {
+        return this._lastValueValid
+            ? null
+            : { 'matDatepickerParse': { 'text': this._elementRef.nativeElement.value } };
+    };
+    /** The form control validator for the date filter. */
+    _filterValidator = (control) => {
+        const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+        return !controlValue || this._matchesFilter(controlValue)
+            ? null
+            : { 'matDatepickerFilter': true };
+    };
+    /** The form control validator for the min date. */
+    _minValidator = (control) => {
+        const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+        const min = this._getMinDate();
+        return !min || !controlValue || this._dateAdapter.compareDate(min, controlValue) <= 0
+            ? null
+            : { 'matDatepickerMin': { 'min': min, 'actual': controlValue } };
+    };
+    /** The form control validator for the max date. */
+    _maxValidator = (control) => {
+        const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+        const max = this._getMaxDate();
+        return !max || !controlValue || this._dateAdapter.compareDate(max, controlValue) >= 0
+            ? null
+            : { 'matDatepickerMax': { 'max': max, 'actual': controlValue } };
+    };
     /** Gets the base validator functions. */
     _getValidators() {
         return [this._parseValidator, this._minValidator, this._maxValidator, this._filterValidator];
@@ -2957,52 +3222,9 @@ class MatDatepickerInputBase {
             }
         });
     }
+    /** Whether the last value set on the input was valid. */
+    _lastValueValid = false;
     constructor() {
-        this._elementRef = inject(ElementRef);
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-        /** Emits when a `change` event is fired on this `<input>`. */
-        this.dateChange = new EventEmitter();
-        /** Emits when an `input` event is fired on this `<input>`. */
-        this.dateInput = new EventEmitter();
-        /** Emits when the internal state has changed */
-        this.stateChanges = new Subject();
-        this._onTouched = () => { };
-        this._validatorOnChange = () => { };
-        this._cvaOnChange = () => { };
-        this._valueChangesSubscription = Subscription.EMPTY;
-        this._localeSubscription = Subscription.EMPTY;
-        /** The form control validator for whether the input parses. */
-        this._parseValidator = () => {
-            return this._lastValueValid
-                ? null
-                : { 'matDatepickerParse': { 'text': this._elementRef.nativeElement.value } };
-        };
-        /** The form control validator for the date filter. */
-        this._filterValidator = (control) => {
-            const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-            return !controlValue || this._matchesFilter(controlValue)
-                ? null
-                : { 'matDatepickerFilter': true };
-        };
-        /** The form control validator for the min date. */
-        this._minValidator = (control) => {
-            const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-            const min = this._getMinDate();
-            return !min || !controlValue || this._dateAdapter.compareDate(min, controlValue) <= 0
-                ? null
-                : { 'matDatepickerMin': { 'min': min, 'actual': controlValue } };
-        };
-        /** The form control validator for the max date. */
-        this._maxValidator = (control) => {
-            const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-            const max = this._getMaxDate();
-            return !max || !controlValue || this._dateAdapter.compareDate(max, controlValue) >= 0
-                ? null
-                : { 'matDatepickerMax': { 'max': max, 'actual': controlValue } };
-        };
-        /** Whether the last value set on the input was valid. */
-        this._lastValueValid = false;
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             if (!this._dateAdapter) {
                 throw createMissingDateImplError('DateAdapter');
@@ -3141,8 +3363,8 @@ class MatDatepickerInputBase {
         const filter = this._getDateFilter();
         return !filter || filter(value);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerInputBase, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatDatepickerInputBase, isStandalone: true, inputs: { value: "value", disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { dateChange: "dateChange", dateInput: "dateInput" }, usesOnChanges: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerInputBase, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatDatepickerInputBase, isStandalone: true, inputs: { value: "value", disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { dateChange: "dateChange", dateInput: "dateInput" }, usesOnChanges: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerInputBase, decorators: [{
             type: Directive
@@ -3190,6 +3412,9 @@ const MAT_DATEPICKER_VALIDATORS = {
 };
 /** Directive used to connect an input to a MatDatepicker. */
 class MatDatepickerInput extends MatDatepickerInputBase {
+    _formField = inject(MAT_FORM_FIELD, { optional: true });
+    _closedSubscription = Subscription.EMPTY;
+    _openedSubscription = Subscription.EMPTY;
     /** The datepicker that this input is associated with. */
     set matDatepicker(datepicker) {
         if (datepicker) {
@@ -3205,6 +3430,9 @@ class MatDatepickerInput extends MatDatepickerInputBase {
             this._registerModel(datepicker.registerInput(this));
         }
     }
+    _datepicker;
+    /** The id of the panel owned by this input. */
+    _ariaOwns = signal(null);
     /** The minimum valid date. */
     get min() {
         return this._min;
@@ -3216,6 +3444,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
             this._validatorOnChange();
         }
     }
+    _min;
     /** The maximum valid date. */
     get max() {
         return this._max;
@@ -3227,6 +3456,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
             this._validatorOnChange();
         }
     }
+    _max;
     /** Function that can be used to filter out dates within the datepicker. */
     get dateFilter() {
         return this._dateFilter;
@@ -3238,13 +3468,11 @@ class MatDatepickerInput extends MatDatepickerInputBase {
             this._validatorOnChange();
         }
     }
+    _dateFilter;
+    /** The combined form control validator for this input. */
+    _validator;
     constructor() {
         super();
-        this._formField = inject(MAT_FORM_FIELD, { optional: true });
-        this._closedSubscription = Subscription.EMPTY;
-        this._openedSubscription = Subscription.EMPTY;
-        /** The id of the panel owned by this input. */
-        this._ariaOwns = signal(null);
         this._validator = Validators.compose(super._getValidators());
     }
     /**
@@ -3303,12 +3531,12 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     _shouldHandleChangeEvent(event) {
         return event.source !== this;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerInput, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerInput, isStandalone: true, selector: "input[matDatepicker]", inputs: { matDatepicker: "matDatepicker", min: "min", max: "max", dateFilter: ["matDatepickerFilter", "dateFilter"] }, host: { listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "blur": "_onBlur()", "keydown": "_onKeydown($event)" }, properties: { "attr.aria-haspopup": "_datepicker ? \"dialog\" : null", "attr.aria-owns": "_ariaOwns()", "attr.min": "min ? _dateAdapter.toIso8601(min) : null", "attr.max": "max ? _dateAdapter.toIso8601(max) : null", "attr.data-mat-calendar": "_datepicker ? _datepicker.id : null", "disabled": "disabled" }, classAttribute: "mat-datepicker-input" }, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerInput, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerInput, isStandalone: true, selector: "input[matDatepicker]", inputs: { matDatepicker: "matDatepicker", min: "min", max: "max", dateFilter: ["matDatepickerFilter", "dateFilter"] }, host: { listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "blur": "_onBlur()", "keydown": "_onKeydown($event)" }, properties: { "attr.aria-haspopup": "_datepicker ? \"dialog\" : null", "attr.aria-owns": "_ariaOwns()", "attr.min": "min ? _dateAdapter.toIso8601(min) : null", "attr.max": "max ? _dateAdapter.toIso8601(max) : null", "attr.data-mat-calendar": "_datepicker ? _datepicker.id : null", "disabled": "disabled" }, classAttribute: "mat-datepicker-input" }, providers: [
             MAT_DATEPICKER_VALUE_ACCESSOR,
             MAT_DATEPICKER_VALIDATORS,
             { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
-        ], exportAs: ["matDatepickerInput"], usesInheritance: true, ngImport: i0 }); }
+        ], exportAs: ["matDatepickerInput"], usesInheritance: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerInput, decorators: [{
             type: Directive,
@@ -3349,8 +3577,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 
 /** Can be used to override the icon of a `matDatepickerToggle`. */
 class MatDatepickerToggleIcon {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerToggleIcon, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerToggleIcon, isStandalone: true, selector: "[matDatepickerToggleIcon]", ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerToggleIcon, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerToggleIcon, isStandalone: true, selector: "[matDatepickerToggleIcon]", ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerToggleIcon, decorators: [{
             type: Directive,
@@ -3359,6 +3587,15 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
                 }]
         }] });
 class MatDatepickerToggle {
+    _intl = inject(MatDatepickerIntl);
+    _changeDetectorRef = inject(ChangeDetectorRef);
+    _stateChanges = Subscription.EMPTY;
+    /** Datepicker instance that the button will toggle. */
+    datepicker;
+    /** Tabindex for the toggle. */
+    tabIndex;
+    /** Screen-reader label for the button. */
+    ariaLabel;
     /** Whether the toggle button is disabled. */
     get disabled() {
         if (this._disabled === undefined && this.datepicker) {
@@ -3369,10 +3606,14 @@ class MatDatepickerToggle {
     set disabled(value) {
         this._disabled = value;
     }
+    _disabled;
+    /** Whether ripples on the toggle should be disabled. */
+    disableRipple;
+    /** Custom icon set by the consumer. */
+    _customIcon;
+    /** Underlying button element. */
+    _button;
     constructor() {
-        this._intl = inject(MatDatepickerIntl);
-        this._changeDetectorRef = inject(ChangeDetectorRef);
-        this._stateChanges = Subscription.EMPTY;
         const defaultTabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });
         const parsedTabIndex = Number(defaultTabIndex);
         this.tabIndex = parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;
@@ -3405,8 +3646,8 @@ class MatDatepickerToggle {
         this._stateChanges.unsubscribe();
         this._stateChanges = merge(this._intl.changes, datepickerStateChanged, inputStateChanged, datepickerToggled).subscribe(() => this._changeDetectorRef.markForCheck());
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerToggle, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatDatepickerToggle, isStandalone: true, selector: "mat-datepicker-toggle", inputs: { datepicker: ["for", "datepicker"], tabIndex: "tabIndex", ariaLabel: ["aria-label", "ariaLabel"], disabled: ["disabled", "disabled", booleanAttribute], disableRipple: "disableRipple" }, host: { listeners: { "click": "_open($event)" }, properties: { "attr.tabindex": "null", "class.mat-datepicker-toggle-active": "datepicker && datepicker.opened", "class.mat-accent": "datepicker && datepicker.color === \"accent\"", "class.mat-warn": "datepicker && datepicker.color === \"warn\"", "attr.data-mat-calendar": "datepicker ? datepicker.id : null" }, classAttribute: "mat-datepicker-toggle" }, queries: [{ propertyName: "_customIcon", first: true, predicate: MatDatepickerToggleIcon, descendants: true }], viewQueries: [{ propertyName: "_button", first: true, predicate: ["button"], descendants: true }], exportAs: ["matDatepickerToggle"], usesOnChanges: true, ngImport: i0, template: "<button\n  #button\n  mat-icon-button\n  type=\"button\"\n  [attr.aria-haspopup]=\"datepicker ? 'dialog' : null\"\n  [attr.aria-label]=\"ariaLabel || _intl.openCalendarLabel\"\n  [attr.tabindex]=\"disabled ? -1 : tabIndex\"\n  [disabled]=\"disabled\"\n  [disableRipple]=\"disableRipple\">\n\n  @if (!_customIcon) {\n    <svg\n      class=\"mat-datepicker-toggle-default-icon\"\n      viewBox=\"0 0 24 24\"\n      width=\"24px\"\n      height=\"24px\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/>\n    </svg>\n  }\n\n  <ng-content select=\"[matDatepickerToggleIcon]\"></ng-content>\n</button>\n", styles: [".mat-datepicker-toggle{pointer-events:auto;color:var(--mat-datepicker-toggle-icon-color, var(--mat-sys-on-surface-variant))}.mat-datepicker-toggle-active{color:var(--mat-datepicker-toggle-active-state-icon-color, var(--mat-sys-on-surface-variant))}@media(forced-colors: active){.mat-datepicker-toggle-default-icon{color:CanvasText}}"], dependencies: [{ kind: "component", type: MatIconButton, selector: "button[mat-icon-button]", exportAs: ["matButton"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerToggle, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "19.0.0-next.10", type: MatDatepickerToggle, isStandalone: true, selector: "mat-datepicker-toggle", inputs: { datepicker: ["for", "datepicker"], tabIndex: "tabIndex", ariaLabel: ["aria-label", "ariaLabel"], disabled: ["disabled", "disabled", booleanAttribute], disableRipple: "disableRipple" }, host: { listeners: { "click": "_open($event)" }, properties: { "attr.tabindex": "null", "class.mat-datepicker-toggle-active": "datepicker && datepicker.opened", "class.mat-accent": "datepicker && datepicker.color === \"accent\"", "class.mat-warn": "datepicker && datepicker.color === \"warn\"", "attr.data-mat-calendar": "datepicker ? datepicker.id : null" }, classAttribute: "mat-datepicker-toggle" }, queries: [{ propertyName: "_customIcon", first: true, predicate: MatDatepickerToggleIcon, descendants: true }], viewQueries: [{ propertyName: "_button", first: true, predicate: ["button"], descendants: true }], exportAs: ["matDatepickerToggle"], usesOnChanges: true, ngImport: i0, template: "<button\n  #button\n  mat-icon-button\n  type=\"button\"\n  [attr.aria-haspopup]=\"datepicker ? 'dialog' : null\"\n  [attr.aria-label]=\"ariaLabel || _intl.openCalendarLabel\"\n  [attr.tabindex]=\"disabled ? -1 : tabIndex\"\n  [disabled]=\"disabled\"\n  [disableRipple]=\"disableRipple\">\n\n  @if (!_customIcon) {\n    <svg\n      class=\"mat-datepicker-toggle-default-icon\"\n      viewBox=\"0 0 24 24\"\n      width=\"24px\"\n      height=\"24px\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/>\n    </svg>\n  }\n\n  <ng-content select=\"[matDatepickerToggleIcon]\"></ng-content>\n</button>\n", styles: [".mat-datepicker-toggle{pointer-events:auto;color:var(--mat-datepicker-toggle-icon-color, var(--mat-sys-on-surface-variant))}.mat-datepicker-toggle-active{color:var(--mat-datepicker-toggle-active-state-icon-color, var(--mat-sys-on-surface-variant))}@media(forced-colors: active){.mat-datepicker-toggle-default-icon{color:CanvasText}}"], dependencies: [{ kind: "component", type: MatIconButton, selector: "button[mat-icon-button]", exportAs: ["matButton"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerToggle, decorators: [{
             type: Component,
@@ -3605,6 +3846,19 @@ const MAT_DATE_RANGE_INPUT_PARENT = new InjectionToken('MAT_DATE_RANGE_INPUT_PAR
  * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
  */
 class MatDateRangeInputPartBase extends MatDatepickerInputBase {
+    _rangeInput = inject(MAT_DATE_RANGE_INPUT_PARENT);
+    _elementRef = inject(ElementRef);
+    _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+    _injector = inject(Injector);
+    _parentForm = inject(NgForm, { optional: true });
+    _parentFormGroup = inject(FormGroupDirective, { optional: true });
+    /**
+     * Form control bound to this input part.
+     * @docs-private
+     */
+    ngControl;
+    _dir = inject(Directionality, { optional: true });
+    _errorStateTracker;
     /** Object used to control when error messages are shown. */
     get errorStateMatcher() {
         return this._errorStateTracker.matcher;
@@ -3621,13 +3875,6 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
     }
     constructor() {
         super();
-        this._rangeInput = inject(MAT_DATE_RANGE_INPUT_PARENT);
-        this._elementRef = inject(ElementRef);
-        this._defaultErrorStateMatcher = inject(ErrorStateMatcher);
-        this._injector = inject(Injector);
-        this._parentForm = inject(NgForm, { optional: true });
-        this._parentFormGroup = inject(FormGroupDirective, { optional: true });
-        this._dir = inject(Directionality, { optional: true });
         this._errorStateTracker = new _ErrorStateTracker(this._defaultErrorStateMatcher, null, this._parentFormGroup, this._parentForm, this.stateChanges);
     }
     ngOnInit() {
@@ -3711,8 +3958,8 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
     _getAccessibleName() {
         return _computeAriaAccessibleName(this._elementRef.nativeElement);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangeInputPartBase, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDateRangeInputPartBase, isStandalone: true, inputs: { errorStateMatcher: "errorStateMatcher" }, usesInheritance: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangeInputPartBase, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDateRangeInputPartBase, isStandalone: true, inputs: { errorStateMatcher: "errorStateMatcher" }, usesInheritance: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangeInputPartBase, decorators: [{
             type: Directive
@@ -3721,18 +3968,15 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             }] } });
 /** Input for entering the start date in a `mat-date-range-input`. */
 class MatStartDate extends MatDateRangeInputPartBase {
-    constructor() {
-        super(...arguments);
-        /** Validator that checks that the start date isn't after the end date. */
-        this._startValidator = (control) => {
-            const start = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-            const end = this._model ? this._model.selection.end : null;
-            return !start || !end || this._dateAdapter.compareDate(start, end) <= 0
-                ? null
-                : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
-        };
-        this._validator = Validators.compose([...super._getValidators(), this._startValidator]);
-    }
+    /** Validator that checks that the start date isn't after the end date. */
+    _startValidator = (control) => {
+        const start = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+        const end = this._model ? this._model.selection.end : null;
+        return !start || !end || this._dateAdapter.compareDate(start, end) <= 0
+            ? null
+            : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
+    };
+    _validator = Validators.compose([...super._getValidators(), this._startValidator]);
     _getValueFromModel(modelValue) {
         return modelValue.start;
     }
@@ -3775,11 +4019,11 @@ class MatStartDate extends MatDateRangeInputPartBase {
             super._onKeydown(event);
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatStartDate, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatStartDate, isStandalone: true, selector: "input[matStartDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatStartDate, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatStartDate, isStandalone: true, selector: "input[matStartDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
             { provide: NG_VALUE_ACCESSOR, useExisting: MatStartDate, multi: true },
             { provide: NG_VALIDATORS, useExisting: MatStartDate, multi: true },
-        ], usesInheritance: true, ngImport: i0 }); }
+        ], usesInheritance: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatStartDate, decorators: [{
             type: Directive,
@@ -3811,18 +4055,15 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
         }] });
 /** Input for entering the end date in a `mat-date-range-input`. */
 class MatEndDate extends MatDateRangeInputPartBase {
-    constructor() {
-        super(...arguments);
-        /** Validator that checks that the end date isn't before the start date. */
-        this._endValidator = (control) => {
-            const end = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-            const start = this._model ? this._model.selection.start : null;
-            return !end || !start || this._dateAdapter.compareDate(end, start) >= 0
-                ? null
-                : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
-        };
-        this._validator = Validators.compose([...super._getValidators(), this._endValidator]);
-    }
+    /** Validator that checks that the end date isn't before the start date. */
+    _endValidator = (control) => {
+        const end = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+        const start = this._model ? this._model.selection.start : null;
+        return !end || !start || this._dateAdapter.compareDate(end, start) >= 0
+            ? null
+            : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
+    };
+    _validator = Validators.compose([...super._getValidators(), this._endValidator]);
     _getValueFromModel(modelValue) {
         return modelValue.end;
     }
@@ -3870,11 +4111,11 @@ class MatEndDate extends MatDateRangeInputPartBase {
             super._onKeydown(event);
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatEndDate, deps: null, target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatEndDate, isStandalone: true, selector: "input[matEndDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-end-date mat-date-range-input-inner" }, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatEndDate, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatEndDate, isStandalone: true, selector: "input[matEndDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-end-date mat-date-range-input-inner" }, providers: [
             { provide: NG_VALUE_ACCESSOR, useExisting: MatEndDate, multi: true },
             { provide: NG_VALIDATORS, useExisting: MatEndDate, multi: true },
-        ], usesInheritance: true, ngImport: i0 }); }
+        ], usesInheritance: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatEndDate, decorators: [{
             type: Directive,
@@ -3907,14 +4148,26 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 
 let nextUniqueId = 0;
 class MatDateRangeInput {
+    _changeDetectorRef = inject(ChangeDetectorRef);
+    _elementRef = inject(ElementRef);
+    _dateAdapter = inject(DateAdapter, { optional: true });
+    _formField = inject(MAT_FORM_FIELD, { optional: true });
+    _closedSubscription = Subscription.EMPTY;
+    _openedSubscription = Subscription.EMPTY;
     /** Current value of the range input. */
     get value() {
         return this._model ? this._model.selection : null;
     }
+    /** Unique ID for the group. */
+    id = `mat-date-range-input-${nextUniqueId++}`;
+    /** Whether the control is focused. */
+    focused = false;
     /** Whether the control's label should float. */
     get shouldLabelFloat() {
         return this.focused || !this.empty;
     }
+    /** Name of the form control. */
+    controlType = 'mat-date-range-input';
     /**
      * Implemented as a part of `MatFormFieldControl`.
      * Set the placeholder attribute on `matStartDate` and `matEndDate`.
@@ -3947,6 +4200,9 @@ class MatDateRangeInput {
             this._registerModel(this._model);
         }
     }
+    _rangePicker;
+    /** The id of the panel owned by this input. */
+    _ariaOwns = signal(null);
     /** Whether the input is required. */
     get required() {
         return (this._required ??
@@ -3958,6 +4214,7 @@ class MatDateRangeInput {
     set required(value) {
         this._required = value;
     }
+    _required;
     /** Function that can be used to filter out dates within the date range picker. */
     get dateFilter() {
         return this._dateFilter;
@@ -3975,6 +4232,7 @@ class MatDateRangeInput {
             end._validatorOnChange();
         }
     }
+    _dateFilter;
     /** The minimum valid date. */
     get min() {
         return this._min;
@@ -3986,6 +4244,7 @@ class MatDateRangeInput {
             this._revalidate();
         }
     }
+    _min;
     /** The maximum valid date. */
     get max() {
         return this._max;
@@ -3997,6 +4256,7 @@ class MatDateRangeInput {
             this._revalidate();
         }
     }
+    _max;
     /** Whether the input is disabled. */
     get disabled() {
         return this._startInput && this._endInput
@@ -4009,6 +4269,7 @@ class MatDateRangeInput {
             this.stateChanges.next(undefined);
         }
     }
+    _groupDisabled = false;
     /** Whether the input is in an error state. */
     get errorState() {
         if (this._startInput && this._endInput) {
@@ -4022,37 +4283,32 @@ class MatDateRangeInput {
         const endEmpty = this._endInput ? this._endInput.isEmpty() : false;
         return startEmpty && endEmpty;
     }
+    /** Value for the `aria-describedby` attribute of the inputs. */
+    _ariaDescribedBy = null;
+    /** Date selection model currently registered with the input. */
+    _model;
+    /** Separator text to be shown between the inputs. */
+    separator = '–';
+    /** Start of the comparison range that should be shown in the calendar. */
+    comparisonStart = null;
+    /** End of the comparison range that should be shown in the calendar. */
+    comparisonEnd = null;
+    _startInput;
+    _endInput;
+    /**
+     * Implemented as a part of `MatFormFieldControl`.
+     * TODO(crisbeto): change type to `AbstractControlDirective` after #18206 lands.
+     * @docs-private
+     */
+    ngControl;
+    /** Emits when the input's state has changed. */
+    stateChanges = new Subject();
+    /**
+     * Disable the automatic labeling to avoid issues like #27241.
+     * @docs-private
+     */
+    disableAutomaticLabeling = true;
     constructor() {
-        this._changeDetectorRef = inject(ChangeDetectorRef);
-        this._elementRef = inject(ElementRef);
-        this._dateAdapter = inject(DateAdapter, { optional: true });
-        this._formField = inject(MAT_FORM_FIELD, { optional: true });
-        this._closedSubscription = Subscription.EMPTY;
-        this._openedSubscription = Subscription.EMPTY;
-        /** Unique ID for the group. */
-        this.id = `mat-date-range-input-${nextUniqueId++}`;
-        /** Whether the control is focused. */
-        this.focused = false;
-        /** Name of the form control. */
-        this.controlType = 'mat-date-range-input';
-        /** The id of the panel owned by this input. */
-        this._ariaOwns = signal(null);
-        this._groupDisabled = false;
-        /** Value for the `aria-describedby` attribute of the inputs. */
-        this._ariaDescribedBy = null;
-        /** Separator text to be shown between the inputs. */
-        this.separator = '–';
-        /** Start of the comparison range that should be shown in the calendar. */
-        this.comparisonStart = null;
-        /** End of the comparison range that should be shown in the calendar. */
-        this.comparisonEnd = null;
-        /** Emits when the input's state has changed. */
-        this.stateChanges = new Subject();
-        /**
-         * Disable the automatic labeling to avoid issues like #27241.
-         * @docs-private
-         */
-        this.disableAutomaticLabeling = true;
         if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -4193,11 +4449,11 @@ class MatDateRangeInput {
     _isTargetRequired(target) {
         return target?.ngControl?.control?.hasValidator(Validators.required);
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangeInput, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatDateRangeInput, isStandalone: true, selector: "mat-date-range-input", inputs: { rangePicker: "rangePicker", required: ["required", "required", booleanAttribute], dateFilter: "dateFilter", min: "min", max: "max", disabled: ["disabled", "disabled", booleanAttribute], separator: "separator", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd" }, host: { attributes: { "role": "group" }, properties: { "class.mat-date-range-input-hide-placeholders": "_shouldHidePlaceholders()", "class.mat-date-range-input-required": "required", "attr.id": "id", "attr.aria-labelledby": "_getAriaLabelledby()", "attr.aria-describedby": "_ariaDescribedBy", "attr.data-mat-calendar": "rangePicker ? rangePicker.id : null" }, classAttribute: "mat-date-range-input" }, providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangeInput, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatDateRangeInput, isStandalone: true, selector: "mat-date-range-input", inputs: { rangePicker: "rangePicker", required: ["required", "required", booleanAttribute], dateFilter: "dateFilter", min: "min", max: "max", disabled: ["disabled", "disabled", booleanAttribute], separator: "separator", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd" }, host: { attributes: { "role": "group" }, properties: { "class.mat-date-range-input-hide-placeholders": "_shouldHidePlaceholders()", "class.mat-date-range-input-required": "required", "attr.id": "id", "attr.aria-labelledby": "_getAriaLabelledby()", "attr.aria-describedby": "_ariaDescribedBy", "attr.data-mat-calendar": "rangePicker ? rangePicker.id : null" }, classAttribute: "mat-date-range-input" }, providers: [
             { provide: MatFormFieldControl, useExisting: MatDateRangeInput },
             { provide: MAT_DATE_RANGE_INPUT_PARENT, useExisting: MatDateRangeInput },
-        ], queries: [{ propertyName: "_startInput", first: true, predicate: MatStartDate, descendants: true }, { propertyName: "_endInput", first: true, predicate: MatEndDate, descendants: true }], exportAs: ["matDateRangeInput"], usesOnChanges: true, ngImport: i0, template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('start')}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-wrapper mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('end')}}</span>\n  </div>\n</div>\n\n", styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{transition:opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);margin:0 4px;color:var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface))}.mat-form-field-disabled .mat-date-range-input-separator{color:var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}._mat-animation-noopable .mat-date-range-input-separator{transition:none}.mat-date-range-input-separator-hidden{-webkit-user-select:none;user-select:none;opacity:0;transition:none}.mat-date-range-input-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-end-wrapper{flex-grow:1}.mat-date-range-input-inner{position:absolute;top:0;left:0;font:inherit;background:rgba(0,0,0,0);color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%;height:100%}.mat-date-range-input-inner:-moz-ui-invalid{box-shadow:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner[disabled]{color:var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{opacity:0}}._mat-animation-noopable .mat-date-range-input-inner::placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder{transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix{width:200px}"], dependencies: [{ kind: "directive", type: CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"], exportAs: ["cdkMonitorFocus"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+        ], queries: [{ propertyName: "_startInput", first: true, predicate: MatStartDate, descendants: true }, { propertyName: "_endInput", first: true, predicate: MatEndDate, descendants: true }], exportAs: ["matDateRangeInput"], usesOnChanges: true, ngImport: i0, template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('start')}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-wrapper mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('end')}}</span>\n  </div>\n</div>\n\n", styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{transition:opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);margin:0 4px;color:var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface))}.mat-form-field-disabled .mat-date-range-input-separator{color:var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}._mat-animation-noopable .mat-date-range-input-separator{transition:none}.mat-date-range-input-separator-hidden{-webkit-user-select:none;user-select:none;opacity:0;transition:none}.mat-date-range-input-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-end-wrapper{flex-grow:1}.mat-date-range-input-inner{position:absolute;top:0;left:0;font:inherit;background:rgba(0,0,0,0);color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%;height:100%}.mat-date-range-input-inner:-moz-ui-invalid{box-shadow:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner[disabled]{color:var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{opacity:0}}._mat-animation-noopable .mat-date-range-input-inner::placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder{transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix{width:200px}"], dependencies: [{ kind: "directive", type: CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"], exportAs: ["cdkMonitorFocus"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangeInput, decorators: [{
             type: Component,
@@ -4259,12 +4515,12 @@ class MatDateRangePicker extends MatDatepickerBase {
             instance.endDateAccessibleName = input._getEndDateAccessibleName();
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangePicker, deps: null, target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDateRangePicker, isStandalone: true, selector: "mat-date-range-picker", providers: [
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangePicker, deps: null, target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDateRangePicker, isStandalone: true, selector: "mat-date-range-picker", providers: [
             MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER,
             MAT_CALENDAR_RANGE_STRATEGY_PROVIDER,
             { provide: MatDatepickerBase, useExisting: MatDateRangePicker },
-        ], exportAs: ["matDateRangePicker"], usesInheritance: true, ngImport: i0, template: '', isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+        ], exportAs: ["matDateRangePicker"], usesInheritance: true, ngImport: i0, template: '', isInline: true, changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDateRangePicker, decorators: [{
             type: Component,
@@ -4284,15 +4540,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
 
 /** Button that will close the datepicker and assign the current selection to the data model. */
 class MatDatepickerApply {
-    constructor() {
-        this._datepicker = inject(MatDatepickerBase);
-    }
+    _datepicker = inject(MatDatepickerBase);
+    constructor() { }
     _applySelection() {
         this._datepicker._applyPendingSelection();
         this._datepicker.close();
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerApply, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerApply, isStandalone: true, selector: "[matDatepickerApply], [matDateRangePickerApply]", host: { listeners: { "click": "_applySelection()" } }, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerApply, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerApply, isStandalone: true, selector: "[matDatepickerApply], [matDateRangePickerApply]", host: { listeners: { "click": "_applySelection()" } }, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerApply, decorators: [{
             type: Directive,
@@ -4303,11 +4558,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
         }], ctorParameters: () => [] });
 /** Button that will close the datepicker and discard the current selection. */
 class MatDatepickerCancel {
-    constructor() {
-        this._datepicker = inject(MatDatepickerBase);
-    }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerCancel, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerCancel, isStandalone: true, selector: "[matDatepickerCancel], [matDateRangePickerCancel]", host: { listeners: { "click": "_datepicker.close()" } }, ngImport: i0 }); }
+    _datepicker = inject(MatDatepickerBase);
+    constructor() { }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerCancel, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerCancel, isStandalone: true, selector: "[matDatepickerCancel], [matDateRangePickerCancel]", host: { listeners: { "click": "_datepicker.close()" } }, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerCancel, decorators: [{
             type: Directive,
@@ -4321,10 +4575,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
  * to the bottom of a datepicker or date range picker.
  */
 class MatDatepickerActions {
-    constructor() {
-        this._datepicker = inject(MatDatepickerBase);
-        this._viewContainerRef = inject(ViewContainerRef);
-    }
+    _datepicker = inject(MatDatepickerBase);
+    _viewContainerRef = inject(ViewContainerRef);
+    _template;
+    _portal;
+    constructor() { }
     ngAfterViewInit() {
         this._portal = new TemplatePortal(this._template, this._viewContainerRef);
         this._datepicker.registerActions(this._portal);
@@ -4336,14 +4591,14 @@ class MatDatepickerActions {
             this._portal?.detach();
         }
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerActions, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
-    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerActions, isStandalone: true, selector: "mat-datepicker-actions, mat-date-range-picker-actions", viewQueries: [{ propertyName: "_template", first: true, predicate: TemplateRef, descendants: true }], ngImport: i0, template: `
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerActions, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.0.0-next.10", type: MatDatepickerActions, isStandalone: true, selector: "mat-datepicker-actions, mat-date-range-picker-actions", viewQueries: [{ propertyName: "_template", first: true, predicate: TemplateRef, descendants: true }], ngImport: i0, template: `
     <ng-template>
       <div class="mat-datepicker-actions">
         <ng-content></ng-content>
       </div>
     </ng-template>
-  `, isInline: true, styles: [".mat-datepicker-actions{display:flex;justify-content:flex-end;align-items:center;padding:0 8px 8px 8px}.mat-datepicker-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-datepicker-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None }); }
+  `, isInline: true, styles: [".mat-datepicker-actions{display:flex;justify-content:flex-end;align-items:center;padding:0 8px 8px 8px}.mat-datepicker-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-datepicker-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerActions, decorators: [{
             type: Component,
@@ -4360,8 +4615,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             }] } });
 
 class MatDatepickerModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, imports: [MatButtonModule,
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, imports: [MatButtonModule,
             OverlayModule,
             A11yModule,
             PortalModule,
@@ -4401,15 +4656,15 @@ class MatDatepickerModule {
             MatDateRangePicker,
             MatDatepickerActions,
             MatDatepickerCancel,
-            MatDatepickerApply] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, providers: [MatDatepickerIntl, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [MatButtonModule,
+            MatDatepickerApply] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, providers: [MatDatepickerIntl, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [MatButtonModule,
             OverlayModule,
             A11yModule,
             PortalModule,
             MatCommonModule,
             MatDatepickerContent,
             MatDatepickerToggle,
-            MatCalendarHeader, CdkScrollableModule] }); }
+            MatCalendarHeader, CdkScrollableModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatDatepickerModule, decorators: [{
             type: NgModule,

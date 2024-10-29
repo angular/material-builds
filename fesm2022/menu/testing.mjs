@@ -3,12 +3,9 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a mat-menu in tests. */
 class MatMenuHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._documentRootLocator = this.documentRootLocatorFactory();
-    }
+    _documentRootLocator = this.documentRootLocatorFactory();
     /** The selector for the host element of a `MatMenu` instance. */
-    static { this.hostSelector = '.mat-mdc-menu-trigger'; }
+    static hostSelector = '.mat-mdc-menu-trigger';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a menu with specific attributes.
      * @param options Options for filtering which menu instances are considered a match.
@@ -109,7 +106,7 @@ class MatMenuHarness extends ContentContainerComponentHarness {
 }
 class MatMenuItemHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatMenuItem` instance. */
-    static { this.hostSelector = '.mat-mdc-menu-item'; }
+    static hostSelector = '.mat-mdc-menu-item';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a menu item with specific attributes.
      * @param options Options for filtering which menu item instances are considered a match.

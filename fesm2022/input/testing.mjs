@@ -7,7 +7,7 @@ class MatInputHarness extends MatFormFieldControlHarness {
     // TODO: We do not want to handle `select` elements with `matNativeControl` because
     // not all methods of this harness work reasonably for native select elements.
     // For more details. See: https://github.com/angular/components/pull/18221.
-    static { this.hostSelector = '[matInput], input[matNativeControl], textarea[matNativeControl]'; }
+    static hostSelector = '[matInput], input[matNativeControl], textarea[matNativeControl]';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatInputHarness` that meets
      * certain criteria.
@@ -114,7 +114,7 @@ class MatInputHarness extends MatFormFieldControlHarness {
 /** Harness for interacting with a native `option` in tests. */
 class MatNativeOptionHarness extends ComponentHarness {
     /** Selector used to locate option instances. */
-    static { this.hostSelector = 'select[matNativeControl] option'; }
+    static hostSelector = 'select[matNativeControl] option';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatNativeOptionHarness` that meets
      * certain criteria.
@@ -147,7 +147,7 @@ class MatNativeOptionHarness extends ComponentHarness {
 
 /** Harness for interacting with a native `select` in tests. */
 class MatNativeSelectHarness extends MatFormFieldControlHarness {
-    static { this.hostSelector = 'select[matNativeControl]'; }
+    static hostSelector = 'select[matNativeControl]';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatNativeSelectHarness` that meets
      * certain criteria.

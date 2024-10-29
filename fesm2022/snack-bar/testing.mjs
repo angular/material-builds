@@ -2,16 +2,13 @@ import { ContentContainerComponentHarness, HarnessPredicate, parallel } from '@a
 
 /** Harness for interacting with a mat-snack-bar in tests. */
 class MatSnackBarHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._messageSelector = '.mdc-snackbar__label';
-        this._actionButtonSelector = '.mat-mdc-snack-bar-action';
-        this._snackBarLiveRegion = this.locatorFor('[aria-live]');
-    }
     // Developers can provide a custom component or template for the
     // snackbar. The canonical snack-bar parent is the "MatSnackBarContainer".
     /** The selector for the host element of a `MatSnackBar` instance. */
-    static { this.hostSelector = '.mat-mdc-snack-bar-container:not([mat-exit])'; }
+    static hostSelector = '.mat-mdc-snack-bar-container:not([mat-exit])';
+    _messageSelector = '.mdc-snackbar__label';
+    _actionButtonSelector = '.mat-mdc-snack-bar-action';
+    _snackBarLiveRegion = this.locatorFor('[aria-live]');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatSnackBarHarness` that meets
      * certain criteria.

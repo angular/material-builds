@@ -1,9 +1,9 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
+import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
 import { AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, isSignal, effect, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
-import { Validators, NgControl, NgForm, FormGroupDirective } from '@angular/forms';
+import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
@@ -38,6 +38,48 @@ let nextUniqueId = 0;
 /** Injection token that can be used to provide the default options for the input. */
 const MAT_INPUT_CONFIG = new InjectionToken('MAT_INPUT_CONFIG');
 class MatInput {
+    _elementRef = inject(ElementRef);
+    _platform = inject(Platform);
+    ngControl = inject(NgControl, { optional: true, self: true });
+    _autofillMonitor = inject(AutofillMonitor);
+    _ngZone = inject(NgZone);
+    _formField = inject(MAT_FORM_FIELD, { optional: true });
+    _uid = `mat-input-${nextUniqueId++}`;
+    _previousNativeValue;
+    _inputValueAccessor;
+    _signalBasedValueAccessor;
+    _previousPlaceholder;
+    _errorStateTracker;
+    _webkitBlinkWheelListenerAttached = false;
+    _config = inject(MAT_INPUT_CONFIG, { optional: true });
+    /** Whether the component is being rendered on the server. */
+    _isServer;
+    /** Whether the component is a native html select. */
+    _isNativeSelect;
+    /** Whether the component is a textarea. */
+    _isTextarea;
+    /** Whether the input is inside of a form field. */
+    _isInFormField;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    focused = false;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    stateChanges = new Subject();
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    controlType = 'mat-input';
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    autofilled = false;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -54,6 +96,7 @@ class MatInput {
             this.stateChanges.next();
         }
     }
+    _disabled = false;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -64,6 +107,17 @@ class MatInput {
     set id(value) {
         this._id = value || this._uid;
     }
+    _id;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    placeholder;
+    /**
+     * Name of the input.
+     * @docs-private
+     */
+    name;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -74,6 +128,7 @@ class MatInput {
     set required(value) {
         this._required = coerceBooleanProperty(value);
     }
+    _required;
     /** Input type of the element. */
     get type() {
         return this._type;
@@ -89,6 +144,7 @@ class MatInput {
         }
         this._ensureWheelDefaultBehavior();
     }
+    _type = 'text';
     /** An object used to control when error messages are shown. */
     get errorStateMatcher() {
         return this._errorStateTracker.matcher;
@@ -96,6 +152,11 @@ class MatInput {
     set errorStateMatcher(value) {
         this._errorStateTracker.matcher = value;
     }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    userAriaDescribedBy;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -123,6 +184,9 @@ class MatInput {
     set readonly(value) {
         this._readonly = coerceBooleanProperty(value);
     }
+    _readonly = false;
+    /** Whether the input should remain interactive when it is disabled. */
+    disabledInteractive;
     /** Whether the input is in an error state. */
     get errorState() {
         return this._errorStateTracker.errorState;
@@ -130,69 +194,15 @@ class MatInput {
     set errorState(value) {
         this._errorStateTracker.errorState = value;
     }
+    _neverEmptyInputTypes = [
+        'date',
+        'datetime',
+        'datetime-local',
+        'month',
+        'time',
+        'week',
+    ].filter(t => getSupportedInputTypes().has(t));
     constructor() {
-        this._elementRef = inject(ElementRef);
-        this._platform = inject(Platform);
-        this.ngControl = inject(NgControl, { optional: true, self: true });
-        this._autofillMonitor = inject(AutofillMonitor);
-        this._ngZone = inject(NgZone);
-        this._formField = inject(MAT_FORM_FIELD, { optional: true });
-        this._uid = `mat-input-${nextUniqueId++}`;
-        this._webkitBlinkWheelListenerAttached = false;
-        this._config = inject(MAT_INPUT_CONFIG, { optional: true });
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * @docs-private
-         */
-        this.focused = false;
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * @docs-private
-         */
-        this.stateChanges = new Subject();
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * @docs-private
-         */
-        this.controlType = 'mat-input';
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * @docs-private
-         */
-        this.autofilled = false;
-        this._disabled = false;
-        this._type = 'text';
-        this._readonly = false;
-        this._neverEmptyInputTypes = [
-            'date',
-            'datetime',
-            'datetime-local',
-            'month',
-            'time',
-            'week',
-        ].filter(t => getSupportedInputTypes().has(t));
-        this._iOSKeyupListener = (event) => {
-            const el = event.target;
-            // Note: We specifically check for 0, rather than `!el.selectionStart`, because the two
-            // indicate different things. If the value is 0, it means that the caret is at the start
-            // of the input, whereas a value of `null` means that the input doesn't support
-            // manipulating the selection range. Inputs that don't support setting the selection range
-            // will throw an error so we want to avoid calling `setSelectionRange` on them. See:
-            // https://html.spec.whatwg.org/multipage/input.html#do-not-apply
-            if (!el.value && el.selectionStart === 0 && el.selectionEnd === 0) {
-                // Note: Just setting `0, 0` doesn't fix the issue. Setting
-                // `1, 1` fixes it for the first time that you type text and
-                // then hold delete. Toggling to `1, 1` and then back to
-                // `0, 0` seems to completely fix it.
-                el.setSelectionRange(1, 1);
-                el.setSelectionRange(0, 0);
-            }
-        };
-        this._webkitBlinkWheelListener = () => {
-            // This is a noop function and is used to enable mouse wheel input
-            // on number inputs
-            // on blink and webkit browsers.
-        };
         const parentForm = inject(NgForm, { optional: true });
         const parentFormGroup = inject(FormGroupDirective, { optional: true });
         const defaultErrorStateMatcher = inject(ErrorStateMatcher);
@@ -428,6 +438,28 @@ class MatInput {
         const element = this._elementRef.nativeElement;
         return this._isNativeSelect && (element.multiple || element.size > 1);
     }
+    _iOSKeyupListener = (event) => {
+        const el = event.target;
+        // Note: We specifically check for 0, rather than `!el.selectionStart`, because the two
+        // indicate different things. If the value is 0, it means that the caret is at the start
+        // of the input, whereas a value of `null` means that the input doesn't support
+        // manipulating the selection range. Inputs that don't support setting the selection range
+        // will throw an error so we want to avoid calling `setSelectionRange` on them. See:
+        // https://html.spec.whatwg.org/multipage/input.html#do-not-apply
+        if (!el.value && el.selectionStart === 0 && el.selectionEnd === 0) {
+            // Note: Just setting `0, 0` doesn't fix the issue. Setting
+            // `1, 1` fixes it for the first time that you type text and
+            // then hold delete. Toggling to `1, 1` and then back to
+            // `0, 0` seems to completely fix it.
+            el.setSelectionRange(1, 1);
+            el.setSelectionRange(0, 0);
+        }
+    };
+    _webkitBlinkWheelListener = () => {
+        // This is a noop function and is used to enable mouse wheel input
+        // on number inputs
+        // on blink and webkit browsers.
+    };
     /**
      * In blink and webkit browsers a focused number input does not increment or decrement its value
      * on mouse wheel interaction unless a wheel event listener is attached to it or one of its ancestors or a passive wheel listener is attached somewhere in the DOM.
@@ -460,8 +492,8 @@ class MatInput {
         }
         return null;
     }
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInput, deps: [], target: i0.ɵɵFactoryTarget.Directive }); }
-    static { this.ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatInput, isStandalone: true, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute] }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mat-mdc-input-disabled-interactive": "disabledInteractive", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled && !disabledInteractive", "required": "required", "attr.name": "name || null", "attr.readonly": "_getReadonlyAttribute()", "attr.aria-disabled": "disabled && disabledInteractive ? \"true\" : null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesOnChanges: true, ngImport: i0 }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInput, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.0.0-next.10", type: MatInput, isStandalone: true, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute] }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mat-mdc-input-disabled-interactive": "disabledInteractive", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled && !disabledInteractive", "required": "required", "attr.name": "name || null", "attr.readonly": "_getReadonlyAttribute()", "attr.aria-disabled": "disabled && disabledInteractive ? \"true\" : null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesOnChanges: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInput, decorators: [{
             type: Directive,
@@ -528,9 +560,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10",
             }] } });
 
 class MatInputModule {
-    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule }); }
-    static { this.ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatInput], exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule] }); }
-    static { this.ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatFormFieldModule, TextFieldModule, MatCommonModule] }); }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatInput], exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatFormFieldModule, TextFieldModule, MatCommonModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-next.10", ngImport: i0, type: MatInputModule, decorators: [{
             type: NgModule,

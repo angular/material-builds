@@ -2,7 +2,7 @@ import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness, T
 
 /** Harness for interacting with a standard Material chip avatar in tests. */
 class MatChipAvatarHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-chip-avatar'; }
+    static hostSelector = '.mat-mdc-chip-avatar';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip avatar with specific
      * attributes.
@@ -16,7 +16,7 @@ class MatChipAvatarHarness extends ComponentHarness {
 
 /** Harness for interacting with a standard Material chip remove button in tests. */
 class MatChipRemoveHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-chip-remove'; }
+    static hostSelector = '.mat-mdc-chip-remove';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip remove with specific
      * attributes.
@@ -34,11 +34,8 @@ class MatChipRemoveHarness extends ComponentHarness {
 
 /** Harness for interacting with a mat-chip in tests. */
 class MatChipHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._primaryAction = this.locatorFor('.mdc-evolution-chip__action--primary');
-    }
-    static { this.hostSelector = '.mat-mdc-basic-chip, .mat-mdc-chip'; }
+    _primaryAction = this.locatorFor('.mdc-evolution-chip__action--primary');
+    static hostSelector = '.mat-mdc-basic-chip, .mat-mdc-chip';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip with specific attributes.
      * @param options Options for narrowing the search.
@@ -86,7 +83,7 @@ class MatChipHarness extends ContentContainerComponentHarness {
 
 /** Harness for interacting with a grid's chip input in tests. */
 class MatChipInputHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-chip-input'; }
+    static hostSelector = '.mat-mdc-chip-input';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip input with specific
      * attributes.
@@ -163,7 +160,7 @@ class MatChipInputHarness extends ComponentHarness {
 
 /** Harness for interacting with a mat-chip-option in tests. */
 class MatChipOptionHarness extends MatChipHarness {
-    static { this.hostSelector = '.mat-mdc-chip-option'; }
+    static hostSelector = '.mat-mdc-chip-option';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip option with specific
      * attributes.
@@ -199,7 +196,7 @@ class MatChipOptionHarness extends MatChipHarness {
 
 /** Harness for interacting with a mat-chip-listbox in tests. */
 class MatChipListboxHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-chip-listbox'; }
+    static hostSelector = '.mat-mdc-chip-listbox';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip listbox with specific
      * attributes.
@@ -251,7 +248,7 @@ class MatChipListboxHarness extends ComponentHarness {
 
 /** Harness for interacting with an editable chip's input in tests. */
 class MatChipEditInputHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-chip-edit-input'; }
+    static hostSelector = '.mat-chip-edit-input';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip edit input with specific
      * attributes.
@@ -276,7 +273,7 @@ class MatChipEditInputHarness extends ComponentHarness {
 
 /** Harness for interacting with a mat-chip-row in tests. */
 class MatChipRowHarness extends MatChipHarness {
-    static { this.hostSelector = '.mat-mdc-chip-row'; }
+    static hostSelector = '.mat-mdc-chip-row';
     /** Whether the chip is editable. */
     async isEditable() {
         return (await this.host()).hasClass('mat-mdc-chip-editable');
@@ -306,7 +303,7 @@ class MatChipRowHarness extends MatChipHarness {
 
 /** Harness for interacting with a mat-chip-grid in tests. */
 class MatChipGridHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-chip-grid'; }
+    static hostSelector = '.mat-mdc-chip-grid';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip grid with specific attributes.
      * @param options Options for filtering which chip grid instances are considered a match.
@@ -341,7 +338,7 @@ class MatChipGridHarness extends ComponentHarness {
 
 /** Harness for interacting with a mat-chip-set in tests. */
 class MatChipSetHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-chip-set'; }
+    static hostSelector = '.mat-mdc-chip-set';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip set with specific attributes.
      * @param options Options for filtering which chip set instances are considered a match.

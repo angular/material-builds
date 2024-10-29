@@ -3,7 +3,7 @@ import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness } 
 /** Harness for interacting with a standard Angular Material step in tests. */
 class MatStepHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatStep` instance. */
-    static { this.hostSelector = '.mat-step-header'; }
+    static hostSelector = '.mat-step-header';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatStepHarness` that meets
      * certain criteria.
@@ -92,7 +92,7 @@ var StepperOrientation;
 /** Harness for interacting with a standard Material stepper in tests. */
 class MatStepperHarness extends ComponentHarness {
     /** The selector for the host element of a `MatStepper` instance. */
-    static { this.hostSelector = '.mat-stepper-horizontal, .mat-stepper-vertical'; }
+    static hostSelector = '.mat-stepper-horizontal, .mat-stepper-vertical';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatStepperHarness` that meets
      * certain criteria.
@@ -144,7 +144,7 @@ class StepperButtonHarness extends ComponentHarness {
 /** Harness for interacting with a standard Angular Material stepper next button in tests. */
 class MatStepperNextHarness extends StepperButtonHarness {
     /** The selector for the host element of a `MatStep` instance. */
-    static { this.hostSelector = '.mat-stepper-next'; }
+    static hostSelector = '.mat-stepper-next';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatStepperNextHarness` that meets
      * certain criteria.
@@ -158,7 +158,7 @@ class MatStepperNextHarness extends StepperButtonHarness {
 /** Harness for interacting with a standard Angular Material stepper previous button in tests. */
 class MatStepperPreviousHarness extends StepperButtonHarness {
     /** The selector for the host element of a `MatStep` instance. */
-    static { this.hostSelector = '.mat-stepper-previous'; }
+    static hostSelector = '.mat-stepper-previous';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatStepperPreviousHarness`
      * that meets certain criteria.

@@ -10,13 +10,8 @@ var MatCardSection;
 })(MatCardSection || (MatCardSection = {}));
 /** Harness for interacting with a mat-card in tests. */
 class MatCardHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._title = this.locatorForOptional('.mat-mdc-card-title');
-        this._subtitle = this.locatorForOptional('.mat-mdc-card-subtitle');
-    }
     /** The selector for the host element of a `MatCard` instance. */
-    static { this.hostSelector = '.mat-mdc-card'; }
+    static hostSelector = '.mat-mdc-card';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a card with specific attributes.
      * @param options Options for filtering which card instances are considered a match.
@@ -28,6 +23,8 @@ class MatCardHarness extends ContentContainerComponentHarness {
             .addOption('title', options.title, (harness, title) => HarnessPredicate.stringMatches(harness.getTitleText(), title))
             .addOption('subtitle', options.subtitle, (harness, subtitle) => HarnessPredicate.stringMatches(harness.getSubtitleText(), subtitle));
     }
+    _title = this.locatorForOptional('.mat-mdc-card-title');
+    _subtitle = this.locatorForOptional('.mat-mdc-card-subtitle');
     /** Gets all of the card's content as text. */
     async getText() {
         return (await this.host()).text();

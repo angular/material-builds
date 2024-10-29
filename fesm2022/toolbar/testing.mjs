@@ -7,11 +7,8 @@ var MatToolbarSection;
 })(MatToolbarSection || (MatToolbarSection = {}));
 /** Harness for interacting with a standard mat-toolbar in tests. */
 class MatToolbarHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._getRows = this.locatorForAll(MatToolbarSection.ROW);
-    }
-    static { this.hostSelector = '.mat-toolbar'; }
+    static hostSelector = '.mat-toolbar';
+    _getRows = this.locatorForAll(MatToolbarSection.ROW);
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatToolbarHarness` that meets
      * certain criteria.
