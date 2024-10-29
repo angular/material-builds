@@ -4,7 +4,7 @@ import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@an
 class MatBottomSheetHarness extends ContentContainerComponentHarness {
     // Developers can provide a custom component or template for the
     // bottom sheet. The canonical parent is the ".mat-bottom-sheet-container".
-    static { this.hostSelector = '.mat-bottom-sheet-container'; }
+    static hostSelector = '.mat-bottom-sheet-container';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a bottom sheet with
      * specific attributes.

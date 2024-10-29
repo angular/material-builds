@@ -76,12 +76,9 @@ class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
 
 /** Harness for interacting with a standard Material calendar cell in tests. */
 class MatCalendarCellHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        /** Reference to the inner content element inside the cell. */
-        this._content = this.locatorFor('.mat-calendar-body-cell-content');
-    }
-    static { this.hostSelector = '.mat-calendar-body-cell'; }
+    static hostSelector = '.mat-calendar-body-cell';
+    /** Reference to the inner content element inside the cell. */
+    _content = this.locatorFor('.mat-calendar-body-cell-content');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatCalendarCellHarness`
      * that meets certain criteria.
@@ -213,12 +210,9 @@ var CalendarView;
 })(CalendarView || (CalendarView = {}));
 /** Harness for interacting with a standard Material calendar in tests. */
 class MatCalendarHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        /** Queries for the calendar's period toggle button. */
-        this._periodButton = this.locatorFor('.mat-calendar-period-button');
-    }
-    static { this.hostSelector = '.mat-calendar'; }
+    static hostSelector = '.mat-calendar';
+    /** Queries for the calendar's period toggle button. */
+    _periodButton = this.locatorFor('.mat-calendar-period-button');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatCalendarHarness`
      * that meets certain criteria.
@@ -336,7 +330,7 @@ async function getCalendar(filter, host, documentLocator) {
 
 /** Harness for interacting with a standard Material datepicker inputs in tests. */
 class MatDatepickerInputHarness extends MatDatepickerInputHarnessBase {
-    static { this.hostSelector = '.mat-datepicker-input'; }
+    static hostSelector = '.mat-datepicker-input';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDatepickerInputHarness`
      * that meets certain criteria.
@@ -384,12 +378,9 @@ class MatDatepickerInputHarness extends MatDatepickerInputHarnessBase {
 
 /** Harness for interacting with a standard Material datepicker toggle in tests. */
 class MatDatepickerToggleHarness extends DatepickerTriggerHarnessBase {
-    constructor() {
-        super(...arguments);
-        /** The clickable button inside the toggle. */
-        this._button = this.locatorFor('button');
-    }
-    static { this.hostSelector = '.mat-datepicker-toggle'; }
+    static hostSelector = '.mat-datepicker-toggle';
+    /** The clickable button inside the toggle. */
+    _button = this.locatorFor('button');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDatepickerToggleHarness` that
      * meets certain criteria.
@@ -415,7 +406,7 @@ class MatDatepickerToggleHarness extends DatepickerTriggerHarnessBase {
 
 /** Harness for interacting with a standard Material date range start input in tests. */
 class MatStartDateHarness extends MatDatepickerInputHarnessBase {
-    static { this.hostSelector = '.mat-start-date'; }
+    static hostSelector = '.mat-start-date';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatStartDateHarness`
      * that meets certain criteria.
@@ -428,7 +419,7 @@ class MatStartDateHarness extends MatDatepickerInputHarnessBase {
 }
 /** Harness for interacting with a standard Material date range end input in tests. */
 class MatEndDateHarness extends MatDatepickerInputHarnessBase {
-    static { this.hostSelector = '.mat-end-date'; }
+    static hostSelector = '.mat-end-date';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatEndDateHarness`
      * that meets certain criteria.
@@ -441,7 +432,7 @@ class MatEndDateHarness extends MatDatepickerInputHarnessBase {
 }
 /** Harness for interacting with a standard Material date range input in tests. */
 class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
-    static { this.hostSelector = '.mat-date-range-input'; }
+    static hostSelector = '.mat-date-range-input';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDateRangeInputHarness`
      * that meets certain criteria.

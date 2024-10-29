@@ -21,7 +21,7 @@ function getListItemPredicate(harnessType, options) {
 }
 /** Harness for interacting with a list subheader. */
 class MatSubheaderHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-subheader'; }
+    static hostSelector = '.mat-mdc-subheader';
     static with(options = {}) {
         return new HarnessPredicate(MatSubheaderHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
     }
@@ -47,14 +47,11 @@ var MatListItemType;
  * @docs-private
  */
 class MatListItemHarnessBase extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._lines = this.locatorForAll('.mat-mdc-list-item-line');
-        this._primaryText = this.locatorFor('.mdc-list-item__primary-text');
-        this._avatar = this.locatorForOptional('.mat-mdc-list-item-avatar');
-        this._icon = this.locatorForOptional('.mat-mdc-list-item-icon');
-        this._unscopedTextContent = this.locatorFor('.mat-mdc-list-item-unscoped-content');
-    }
+    _lines = this.locatorForAll('.mat-mdc-list-item-line');
+    _primaryText = this.locatorFor('.mdc-list-item__primary-text');
+    _avatar = this.locatorForOptional('.mat-mdc-list-item-avatar');
+    _icon = this.locatorForOptional('.mat-mdc-list-item-icon');
+    _unscopedTextContent = this.locatorFor('.mat-mdc-list-item-unscoped-content');
     /** Gets the type of the list item, currently describing how many lines there are. */
     async getType() {
         const host = await this.host();
@@ -163,6 +160,7 @@ class MatListItemHarnessBase extends ContentContainerComponentHarness {
  * @docs-private
  */
 class MatListHarnessBase extends ComponentHarness {
+    _itemHarness;
     /**
      * Gets a list of harnesses representing the items in this list.
      * @param filters Optional filters used to narrow which harnesses are included
@@ -242,12 +240,8 @@ class MatListHarnessBase extends ComponentHarness {
 
 /** Harness for interacting with a action-list in tests. */
 class MatActionListHarness extends MatListHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemHarness = MatActionListItemHarness;
-    }
     /** The selector for the host element of a `MatActionList` instance. */
-    static { this.hostSelector = '.mat-mdc-action-list'; }
+    static hostSelector = '.mat-mdc-action-list';
     /**
      * Gets a `HarnessPredicate` that can be used to search for an action list with specific
      * attributes.
@@ -257,11 +251,12 @@ class MatActionListHarness extends MatListHarnessBase {
     static with(options = {}) {
         return new HarnessPredicate(this, options);
     }
+    _itemHarness = MatActionListItemHarness;
 }
 /** Harness for interacting with an action list item. */
 class MatActionListItemHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
-    static { this.hostSelector = `${MatActionListHarness.hostSelector} .mat-mdc-list-item`; }
+    static hostSelector = `${MatActionListHarness.hostSelector} .mat-mdc-list-item`;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a list item with specific
      * attributes.
@@ -291,12 +286,8 @@ class MatActionListItemHarness extends MatListItemHarnessBase {
 
 /** Harness for interacting with a list in tests. */
 class MatListHarness extends MatListHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemHarness = MatListItemHarness;
-    }
     /** The selector for the host element of a `MatList` instance. */
-    static { this.hostSelector = '.mat-mdc-list'; }
+    static hostSelector = '.mat-mdc-list';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a list with specific attributes.
      * @param options Options for filtering which list instances are considered a match.
@@ -305,11 +296,12 @@ class MatListHarness extends MatListHarnessBase {
     static with(options = {}) {
         return new HarnessPredicate(this, options);
     }
+    _itemHarness = MatListItemHarness;
 }
 /** Harness for interacting with a list item. */
 class MatListItemHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
-    static { this.hostSelector = `${MatListHarness.hostSelector} .mat-mdc-list-item`; }
+    static hostSelector = `${MatListHarness.hostSelector} .mat-mdc-list-item`;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a list item with specific attributes.
      * @param options Options for filtering which list item instances are considered a match.
@@ -322,12 +314,8 @@ class MatListItemHarness extends MatListItemHarnessBase {
 
 /** Harness for interacting with a mat-nav-list in tests. */
 class MatNavListHarness extends MatListHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemHarness = MatNavListItemHarness;
-    }
     /** The selector for the host element of a `MatNavList` instance. */
-    static { this.hostSelector = '.mat-mdc-nav-list'; }
+    static hostSelector = '.mat-mdc-nav-list';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a nav list with specific
      * attributes.
@@ -337,11 +325,12 @@ class MatNavListHarness extends MatListHarnessBase {
     static with(options = {}) {
         return new HarnessPredicate(this, options);
     }
+    _itemHarness = MatNavListItemHarness;
 }
 /** Harness for interacting with a nav-list item. */
 class MatNavListItemHarness extends MatListItemHarnessBase {
     /** The selector for the host element of a `MatListItem` instance. */
-    static { this.hostSelector = `${MatNavListHarness.hostSelector} .mat-mdc-list-item`; }
+    static hostSelector = `${MatNavListHarness.hostSelector} .mat-mdc-list-item`;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a nav list item with specific
      * attributes.
@@ -381,12 +370,8 @@ class MatNavListItemHarness extends MatListItemHarnessBase {
 
 /** Harness for interacting with a selection-list in tests. */
 class MatSelectionListHarness extends MatListHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._itemHarness = MatListOptionHarness;
-    }
     /** The selector for the host element of a `MatSelectionList` instance. */
-    static { this.hostSelector = '.mat-mdc-selection-list'; }
+    static hostSelector = '.mat-mdc-selection-list';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a selection list with specific
      * attributes.
@@ -396,6 +381,7 @@ class MatSelectionListHarness extends MatListHarnessBase {
     static with(options = {}) {
         return new HarnessPredicate(this, options);
     }
+    _itemHarness = MatListOptionHarness;
     /** Whether the selection list is disabled. */
     async isDisabled() {
         return (await (await this.host()).getAttribute('aria-disabled')) === 'true';
@@ -427,13 +413,8 @@ class MatSelectionListHarness extends MatListHarnessBase {
 }
 /** Harness for interacting with a list option. */
 class MatListOptionHarness extends MatListItemHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._beforeCheckbox = this.locatorForOptional('.mdc-list-item__start .mdc-checkbox');
-        this._beforeRadio = this.locatorForOptional('.mdc-list-item__start .mdc-radio');
-    }
     /** The selector for the host element of a `MatListOption` instance. */
-    static { this.hostSelector = '.mat-mdc-list-option'; }
+    static hostSelector = '.mat-mdc-list-option';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a list option with specific
      * attributes.
@@ -443,6 +424,8 @@ class MatListOptionHarness extends MatListItemHarnessBase {
     static with(options = {}) {
         return getListItemPredicate(this, options).addOption('is selected', options.selected, async (harness, selected) => (await harness.isSelected()) === selected);
     }
+    _beforeCheckbox = this.locatorForOptional('.mdc-list-item__start .mdc-checkbox');
+    _beforeRadio = this.locatorForOptional('.mdc-list-item__start .mdc-radio');
     /** Gets the position of the checkbox relative to the list option content. */
     async getCheckboxPosition() {
         return (await this._beforeCheckbox()) !== null ? 'before' : 'after';

@@ -4,20 +4,17 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a mat-paginator in tests. */
 class MatPaginatorHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._nextButton = this.locatorFor('.mat-mdc-paginator-navigation-next');
-        this._previousButton = this.locatorFor('.mat-mdc-paginator-navigation-previous');
-        this._firstPageButton = this.locatorForOptional('.mat-mdc-paginator-navigation-first');
-        this._lastPageButton = this.locatorForOptional('.mat-mdc-paginator-navigation-last');
-        this._select = this.locatorForOptional(MatSelectHarness.with({
-            ancestor: '.mat-mdc-paginator-page-size',
-        }));
-        this._pageSizeFallback = this.locatorFor('.mat-mdc-paginator-page-size-value');
-        this._rangeLabel = this.locatorFor('.mat-mdc-paginator-range-label');
-    }
     /** Selector used to find paginator instances. */
-    static { this.hostSelector = '.mat-mdc-paginator'; }
+    static hostSelector = '.mat-mdc-paginator';
+    _nextButton = this.locatorFor('.mat-mdc-paginator-navigation-next');
+    _previousButton = this.locatorFor('.mat-mdc-paginator-navigation-previous');
+    _firstPageButton = this.locatorForOptional('.mat-mdc-paginator-navigation-first');
+    _lastPageButton = this.locatorForOptional('.mat-mdc-paginator-navigation-last');
+    _select = this.locatorForOptional(MatSelectHarness.with({
+        ancestor: '.mat-mdc-paginator-page-size',
+    }));
+    _pageSizeFallback = this.locatorFor('.mat-mdc-paginator-page-size-value');
+    _rangeLabel = this.locatorFor('.mat-mdc-paginator-range-label');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a paginator with specific attributes.
      * @param options Options for filtering which paginator instances are considered a match.

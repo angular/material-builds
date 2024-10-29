@@ -3,7 +3,7 @@ import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, p
 /** Harness for interacting with an Angular Material tab in tests. */
 class MatTabHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatTab` instance. */
-    static { this.hostSelector = '.mat-mdc-tab'; }
+    static hostSelector = '.mat-mdc-tab';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tab with specific attributes.
      * @param options Options for filtering which tab instances are considered a match.
@@ -61,7 +61,7 @@ class MatTabHarness extends ContentContainerComponentHarness {
 /** Harness for interacting with a mat-tab-group in tests. */
 class MatTabGroupHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabGroup` instance. */
-    static { this.hostSelector = '.mat-mdc-tab-group'; }
+    static hostSelector = '.mat-mdc-tab-group';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tab group with specific attributes.
      * @param options Options for filtering which tab group instances are considered a match.
@@ -108,7 +108,7 @@ class MatTabGroupHarness extends ComponentHarness {
 /** Harness for interacting with a Angular Material tab link in tests. */
 class MatTabLinkHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabLink` instance. */
-    static { this.hostSelector = '.mat-mdc-tab-link'; }
+    static hostSelector = '.mat-mdc-tab-link';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tab link with specific attributes.
      * @param options Options for filtering which tab link instances are considered a match.
@@ -140,7 +140,7 @@ class MatTabLinkHarness extends ComponentHarness {
 /** Harness for interacting with a standard mat-tab-nav-panel in tests. */
 class MatTabNavPanelHarness extends ContentContainerComponentHarness {
     /** The selector for the host element of a `MatTabNavPanel` instance. */
-    static { this.hostSelector = '.mat-mdc-tab-nav-panel'; }
+    static hostSelector = '.mat-mdc-tab-nav-panel';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tab nav panel with specific
      * attributes.
@@ -159,7 +159,7 @@ class MatTabNavPanelHarness extends ContentContainerComponentHarness {
 /** Harness for interacting with a mat-tab-nav-bar in tests. */
 class MatTabNavBarHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabNavBar` instance. */
-    static { this.hostSelector = '.mat-mdc-tab-nav-bar'; }
+    static hostSelector = '.mat-mdc-tab-nav-bar';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tab nav bar with specific
      * attributes.

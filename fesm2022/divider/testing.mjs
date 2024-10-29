@@ -2,7 +2,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /** Harness for interacting with a `mat-divider`. */
 class MatDividerHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-divider'; }
+    static hostSelector = '.mat-divider';
     static with(options = {}) {
         return new HarnessPredicate(MatDividerHarness, options);
     }

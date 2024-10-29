@@ -2,11 +2,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /** Harness for interacting with a standard Material badge in tests. */
 class MatBadgeHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._badgeElement = this.locatorFor('.mat-badge-content');
-    }
-    static { this.hostSelector = '.mat-badge'; }
+    static hostSelector = '.mat-badge';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a badge with specific attributes.
      * @param options Options for narrowing the search:
@@ -16,6 +12,7 @@ class MatBadgeHarness extends ComponentHarness {
     static with(options = {}) {
         return new HarnessPredicate(MatBadgeHarness, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text));
     }
+    _badgeElement = this.locatorFor('.mat-badge-content');
     /** Gets a promise for the badge text. */
     async getText() {
         return (await this._badgeElement()).text();

@@ -10,7 +10,7 @@ var ThumbPosition;
 
 /** Harness for interacting with a thumb inside of a Material slider in tests. */
 class MatSliderThumbHarness extends ComponentHarness {
-    static { this.hostSelector = 'input[matSliderThumb], input[matSliderStartThumb], input[matSliderEndThumb]'; }
+    static hostSelector = 'input[matSliderThumb], input[matSliderStartThumb], input[matSliderEndThumb]';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a slider thumb with specific attributes.
      * @param options Options for filtering which thumb instances are considered a match.
@@ -95,7 +95,7 @@ class MatSliderThumbHarness extends ComponentHarness {
 
 /** Harness for interacting with a MDC mat-slider in tests. */
 class MatSliderHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-mdc-slider'; }
+    static hostSelector = '.mat-mdc-slider';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a slider with specific attributes.
      * @param options Options for filtering which input instances are considered a match.

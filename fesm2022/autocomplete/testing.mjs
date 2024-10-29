@@ -3,12 +3,9 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
 
 class MatAutocompleteHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._documentRootLocator = this.documentRootLocatorFactory();
-    }
+    _documentRootLocator = this.documentRootLocatorFactory();
     /** The selector for the host element of a `MatAutocomplete` instance. */
-    static { this.hostSelector = '.mat-mdc-autocomplete-trigger'; }
+    static hostSelector = '.mat-mdc-autocomplete-trigger';
     /**
      * Gets a `HarnessPredicate` that can be used to search for an autocomplete with specific
      * attributes.

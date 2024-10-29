@@ -2,11 +2,8 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /** Harness for interacting with a standard Angular Material sort header in tests. */
 class MatSortHeaderHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._container = this.locatorFor('.mat-sort-header-container');
-    }
-    static { this.hostSelector = '.mat-sort-header'; }
+    static hostSelector = '.mat-sort-header';
+    _container = this.locatorFor('.mat-sort-header-container');
     /**
      * Gets a `HarnessPredicate` that can be used to
      * search for a sort header with specific attributes.
@@ -50,7 +47,7 @@ class MatSortHeaderHarness extends ComponentHarness {
 
 /** Harness for interacting with a standard `mat-sort` in tests. */
 class MatSortHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-sort'; }
+    static hostSelector = '.mat-sort';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `mat-sort` with specific attributes.
      * @param options Options for narrowing the search.

@@ -3,13 +3,10 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a mat-checkbox in tests. */
 class MatCheckboxHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._input = this.locatorFor('input');
-        this._label = this.locatorFor('label');
-        this._inputContainer = this.locatorFor('.mdc-checkbox');
-    }
-    static { this.hostSelector = '.mat-mdc-checkbox'; }
+    static hostSelector = '.mat-mdc-checkbox';
+    _input = this.locatorFor('input');
+    _label = this.locatorFor('label');
+    _inputContainer = this.locatorFor('.mdc-checkbox');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a checkbox with specific attributes.
      * @param options Options for narrowing the search:

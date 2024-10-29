@@ -3,12 +3,9 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 
 /** Harness for interacting with a standard Angular Material tree node. */
 class MatTreeNodeHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._toggle = this.locatorForOptional('[matTreeNodeToggle]');
-    }
     /** The selector of the host element of a `MatTreeNode` instance. */
-    static { this.hostSelector = '.mat-tree-node, .mat-nested-tree-node'; }
+    static hostSelector = '.mat-tree-node, .mat-nested-tree-node';
+    _toggle = this.locatorForOptional('[matTreeNodeToggle]');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tree node with specific attributes.
      * @param options Options for narrowing the search
@@ -68,7 +65,7 @@ function getNodePredicate(type, options) {
 /** Harness for interacting with a standard mat-tree in tests. */
 class MatTreeHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTableHarness` instance. */
-    static { this.hostSelector = '.mat-tree'; }
+    static hostSelector = '.mat-tree';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tree with specific attributes.
      * @param options Options for narrowing the search

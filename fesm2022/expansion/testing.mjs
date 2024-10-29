@@ -10,15 +10,12 @@ var MatExpansionPanelSection;
 })(MatExpansionPanelSection || (MatExpansionPanelSection = {}));
 /** Harness for interacting with a standard mat-expansion-panel in tests. */
 class MatExpansionPanelHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._header = this.locatorFor(MatExpansionPanelSection.HEADER);
-        this._title = this.locatorForOptional(MatExpansionPanelSection.TITLE);
-        this._description = this.locatorForOptional(MatExpansionPanelSection.DESCRIPTION);
-        this._expansionIndicator = this.locatorForOptional('.mat-expansion-indicator');
-        this._content = this.locatorFor(MatExpansionPanelSection.CONTENT);
-    }
-    static { this.hostSelector = '.mat-expansion-panel'; }
+    static hostSelector = '.mat-expansion-panel';
+    _header = this.locatorFor(MatExpansionPanelSection.HEADER);
+    _title = this.locatorForOptional(MatExpansionPanelSection.TITLE);
+    _description = this.locatorForOptional(MatExpansionPanelSection.DESCRIPTION);
+    _expansionIndicator = this.locatorForOptional('.mat-expansion-indicator');
+    _content = this.locatorFor(MatExpansionPanelSection.CONTENT);
     /**
      * Gets a `HarnessPredicate` that can be used to search for an expansion-panel
      * with specific attributes.
@@ -122,7 +119,7 @@ class MatExpansionPanelHarness extends ContentContainerComponentHarness {
 
 /** Harness for interacting with a standard mat-accordion in tests. */
 class MatAccordionHarness extends ComponentHarness {
-    static { this.hostSelector = '.mat-accordion'; }
+    static hostSelector = '.mat-accordion';
     /**
      * Gets a `HarnessPredicate` that can be used to search for an accordion
      * with specific attributes.

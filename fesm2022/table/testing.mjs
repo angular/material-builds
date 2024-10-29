@@ -30,7 +30,7 @@ class _MatCellHarnessBase extends ContentContainerComponentHarness {
 /** Harness for interacting with an Angular Material table cell. */
 class MatCellHarness extends _MatCellHarnessBase {
     /** The selector for the host element of a `MatCellHarness` instance. */
-    static { this.hostSelector = '.mat-mdc-cell'; }
+    static hostSelector = '.mat-mdc-cell';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table cell with specific attributes.
      * @param options Options for narrowing the search
@@ -43,7 +43,7 @@ class MatCellHarness extends _MatCellHarnessBase {
 /** Harness for interacting with an Angular Material table header cell. */
 class MatHeaderCellHarness extends _MatCellHarnessBase {
     /** The selector for the host element of a `MatHeaderCellHarness` instance. */
-    static { this.hostSelector = '.mat-mdc-header-cell'; }
+    static hostSelector = '.mat-mdc-header-cell';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table header cell with specific
      * attributes.
@@ -57,7 +57,7 @@ class MatHeaderCellHarness extends _MatCellHarnessBase {
 /** Harness for interacting with an Angular Material table footer cell. */
 class MatFooterCellHarness extends _MatCellHarnessBase {
     /** The selector for the host element of a `MatFooterCellHarness` instance. */
-    static { this.hostSelector = '.mat-mdc-footer-cell'; }
+    static hostSelector = '.mat-mdc-footer-cell';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table footer cell with specific
      * attributes.
@@ -92,12 +92,9 @@ class _MatRowHarnessBase extends ComponentHarness {
 }
 /** Harness for interacting with an Angular Material table row. */
 class MatRowHarness extends _MatRowHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._cellHarness = MatCellHarness;
-    }
     /** The selector for the host element of a `MatRowHarness` instance. */
-    static { this.hostSelector = '.mat-mdc-row'; }
+    static hostSelector = '.mat-mdc-row';
+    _cellHarness = MatCellHarness;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table row with specific attributes.
      * @param options Options for narrowing the search
@@ -109,12 +106,9 @@ class MatRowHarness extends _MatRowHarnessBase {
 }
 /** Harness for interacting with an Angular Material table header row. */
 class MatHeaderRowHarness extends _MatRowHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._cellHarness = MatHeaderCellHarness;
-    }
     /** The selector for the host element of a `MatHeaderRowHarness` instance. */
-    static { this.hostSelector = '.mat-mdc-header-row'; }
+    static hostSelector = '.mat-mdc-header-row';
+    _cellHarness = MatHeaderCellHarness;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table header row with specific
      * attributes.
@@ -127,12 +121,9 @@ class MatHeaderRowHarness extends _MatRowHarnessBase {
 }
 /** Harness for interacting with an Angular Material table footer row. */
 class MatFooterRowHarness extends _MatRowHarnessBase {
-    constructor() {
-        super(...arguments);
-        this._cellHarness = MatFooterCellHarness;
-    }
     /** The selector for the host element of a `MatFooterRowHarness` instance. */
-    static { this.hostSelector = '.mat-mdc-footer-row'; }
+    static hostSelector = '.mat-mdc-footer-row';
+    _cellHarness = MatFooterCellHarness;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table footer row cell with specific
      * attributes.
@@ -146,14 +137,11 @@ class MatFooterRowHarness extends _MatRowHarnessBase {
 
 /** Harness for interacting with a mat-table in tests. */
 class MatTableHarness extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._headerRowHarness = MatHeaderRowHarness;
-        this._rowHarness = MatRowHarness;
-        this._footerRowHarness = MatFooterRowHarness;
-    }
     /** The selector for the host element of a `MatTableHarness` instance. */
-    static { this.hostSelector = '.mat-mdc-table'; }
+    static hostSelector = '.mat-mdc-table';
+    _headerRowHarness = MatHeaderRowHarness;
+    _rowHarness = MatRowHarness;
+    _footerRowHarness = MatFooterRowHarness;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table with specific attributes.
      * @param options Options for narrowing the search

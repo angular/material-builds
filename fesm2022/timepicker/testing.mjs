@@ -3,11 +3,8 @@ import { MatOptionHarness } from '@angular/material/core/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 class MatTimepickerHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._documentRootLocator = this.documentRootLocatorFactory();
-    }
-    static { this.hostSelector = 'mat-timepicker'; }
+    _documentRootLocator = this.documentRootLocatorFactory();
+    static hostSelector = 'mat-timepicker';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a timepicker with specific
      * attributes.
@@ -49,11 +46,8 @@ class MatTimepickerHarness extends ComponentHarness {
 
 /** Harness for interacting with a standard Material timepicker inputs in tests. */
 class MatTimepickerInputHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._documentRootLocator = this.documentRootLocatorFactory();
-    }
-    static { this.hostSelector = '.mat-timepicker-input'; }
+    _documentRootLocator = this.documentRootLocatorFactory();
+    static hostSelector = '.mat-timepicker-input';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatTimepickerInputHarness`
      * that meets certain criteria.
@@ -156,12 +150,9 @@ class MatTimepickerInputHarness extends ComponentHarness {
 
 /** Harness for interacting with a standard Material timepicker toggle in tests. */
 class MatTimepickerToggleHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        /** The clickable button inside the toggle. */
-        this._button = this.locatorFor('button');
-    }
-    static { this.hostSelector = '.mat-timepicker-toggle'; }
+    static hostSelector = '.mat-timepicker-toggle';
+    /** The clickable button inside the toggle. */
+    _button = this.locatorFor('button');
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatTimepickerToggleHarness` that
      * meets certain criteria.

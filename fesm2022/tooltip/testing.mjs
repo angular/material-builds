@@ -2,15 +2,12 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /** Harness for interacting with a mat-tooltip in tests. */
 class MatTooltipHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-mdc-tooltip');
-        this._hiddenClass = 'mat-mdc-tooltip-hide';
-        this._disabledClass = 'mat-mdc-tooltip-disabled';
-        this._showAnimationName = 'mat-mdc-tooltip-show';
-        this._hideAnimationName = 'mat-mdc-tooltip-hide';
-    }
-    static { this.hostSelector = '.mat-mdc-tooltip-trigger'; }
+    static hostSelector = '.mat-mdc-tooltip-trigger';
+    _optionalPanel = this.documentRootLocatorFactory().locatorForOptional('.mat-mdc-tooltip');
+    _hiddenClass = 'mat-mdc-tooltip-hide';
+    _disabledClass = 'mat-mdc-tooltip-disabled';
+    _showAnimationName = 'mat-mdc-tooltip-show';
+    _hideAnimationName = 'mat-mdc-tooltip-hide';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tooltip trigger with specific
      * attributes.

@@ -15,14 +15,8 @@ var MatDialogSection;
 class MatDialogHarness
 // @breaking-change 14.0.0 change generic type to MatDialogSection.
  extends ContentContainerComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._title = this.locatorForOptional(MatDialogSection.TITLE);
-        this._content = this.locatorForOptional(MatDialogSection.CONTENT);
-        this._actions = this.locatorForOptional(MatDialogSection.ACTIONS);
-    }
     /** The selector for the host element of a `MatDialog` instance. */
-    static { this.hostSelector = '.mat-mdc-dialog-container'; }
+    static hostSelector = '.mat-mdc-dialog-container';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a dialog with specific attributes.
      * @param options Options for filtering which dialog instances are considered a match.
@@ -31,6 +25,9 @@ class MatDialogHarness
     static with(options = {}) {
         return new HarnessPredicate(this, options);
     }
+    _title = this.locatorForOptional(MatDialogSection.TITLE);
+    _content = this.locatorForOptional(MatDialogSection.CONTENT);
+    _actions = this.locatorForOptional(MatDialogSection.ACTIONS);
     /** Gets the id of the dialog. */
     async getId() {
         const id = await (await this.host()).getAttribute('id');
@@ -84,6 +81,17 @@ var MatTestDialogOpener_1;
 /** Test component that immediately opens a dialog when bootstrapped. */
 let MatTestDialogOpener = class MatTestDialogOpener {
     static { MatTestDialogOpener_1 = this; }
+    dialog = inject(MatDialog);
+    /** Component that should be opened with the MatDialog `open` method. */
+    static component;
+    /** Config that should be provided to the MatDialog `open` method. */
+    static config;
+    /** MatDialogRef returned from the MatDialog `open` method. */
+    dialogRef;
+    /** Data passed to the `MatDialog` close method. */
+    closedResult;
+    _afterClosedSubscription;
+    _ngZone = inject(NgZone);
     /** Static method that prepares this class to open the provided component. */
     static withComponent(component, config) {
         MatTestDialogOpener_1.component = component;
@@ -91,8 +99,6 @@ let MatTestDialogOpener = class MatTestDialogOpener {
         return MatTestDialogOpener_1;
     }
     constructor() {
-        this.dialog = inject(MatDialog);
-        this._ngZone = inject(NgZone);
         if (!MatTestDialogOpener_1.component) {
             throw new Error(`MatTestDialogOpener does not have a component provided.`);
         }

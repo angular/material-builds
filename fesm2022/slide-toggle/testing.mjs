@@ -3,12 +3,9 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a mat-slide-toggle in tests. */
 class MatSlideToggleHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._label = this.locatorFor('label');
-        this._nativeElement = this.locatorFor('button');
-    }
-    static { this.hostSelector = '.mat-mdc-slide-toggle'; }
+    _label = this.locatorFor('label');
+    _nativeElement = this.locatorFor('button');
+    static hostSelector = '.mat-mdc-slide-toggle';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a slide-toggle w/ specific attributes.
      * @param options Options for narrowing the search:

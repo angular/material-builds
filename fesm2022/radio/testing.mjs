@@ -3,12 +3,9 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /** Harness for interacting with a mat-radio-group in tests. */
 class MatRadioGroupHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._buttonClass = MatRadioButtonHarness;
-    }
     /** The selector for the host element of a `MatRadioGroup` instance. */
-    static { this.hostSelector = '.mat-mdc-radio-group'; }
+    static hostSelector = '.mat-mdc-radio-group';
+    _buttonClass = MatRadioButtonHarness;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a radio group with specific
      * attributes.
@@ -137,14 +134,8 @@ class MatRadioGroupHarness extends ComponentHarness {
 }
 /** Harness for interacting with a mat-radio-button in tests. */
 class MatRadioButtonHarness extends ComponentHarness {
-    constructor() {
-        super(...arguments);
-        this._textLabel = this.locatorFor('label');
-        this._clickLabel = this._textLabel;
-        this._input = this.locatorFor('input');
-    }
     /** The selector for the host element of a `MatRadioButton` instance. */
-    static { this.hostSelector = '.mat-mdc-radio-button'; }
+    static hostSelector = '.mat-mdc-radio-button';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a radio button with specific
      * attributes.
@@ -157,6 +148,9 @@ class MatRadioButtonHarness extends ComponentHarness {
             .addOption('name', options.name, async (harness, name) => (await harness.getName()) === name)
             .addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked);
     }
+    _textLabel = this.locatorFor('label');
+    _clickLabel = this._textLabel;
+    _input = this.locatorFor('input');
     /** Whether the radio-button is checked. */
     async isChecked() {
         const checked = (await this._input()).getProperty('checked');
