@@ -72,7 +72,7 @@ declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
     ngOnInit(): void;
     ngOnDestroy(): void;
     _haltDisabledEvents: (event: Event) => void;
-    protected _getAriaDisabled(): boolean;
+    protected _getAriaDisabled(): boolean | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchorBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatAnchorBase, never, never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, false, never>;
     static ngAcceptInputType_tabIndex: unknown;
