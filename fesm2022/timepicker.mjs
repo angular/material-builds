@@ -448,7 +448,7 @@ class MatTimepickerInput {
     _localeSubscription;
     _timepickerSubscription;
     _validator;
-    _lastValueValid = false;
+    _lastValueValid = true;
     _lastValidDate = null;
     /** Value of the `aria-activedescendant` attribute. */
     _ariaActiveDescendant = computed(() => {
