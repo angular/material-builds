@@ -7,6 +7,7 @@ import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { Subject, merge, defer } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
+import { _IdGenerator } from '@angular/cdk/a11y';
 import * as i1 from '@angular/cdk/scrolling';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatCommonModule } from '@angular/material/core';
@@ -548,8 +549,6 @@ const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     deps: [Overlay],
     useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
-// Counter for unique dialog ids.
-let uniqueId = 0;
 /**
  * Service to open Material Design modal dialogs.
  */
@@ -558,6 +557,7 @@ class MatDialog {
     _defaultOptions = inject(MAT_DIALOG_DEFAULT_OPTIONS, { optional: true });
     _scrollStrategy = inject(MAT_DIALOG_SCROLL_STRATEGY);
     _parentDialog = inject(MatDialog, { optional: true, skipSelf: true });
+    _idGenerator = inject(_IdGenerator);
     _dialog = inject(Dialog);
     _openDialogsAtThisLevel = [];
     _afterAllClosedAtThisLevel = new Subject();
@@ -593,7 +593,7 @@ class MatDialog {
     open(componentOrTemplateRef, config) {
         let dialogRef;
         config = { ...(this._defaultOptions || new MatDialogConfig()), ...config };
-        config.id = config.id || `mat-mdc-dialog-${uniqueId++}`;
+        config.id = config.id || this._idGenerator.getId('mat-mdc-dialog-');
         config.scrollStrategy = config.scrollStrategy || this._scrollStrategy();
         const cdkRef = this._dialog.open(componentOrTemplateRef, {
             ...config,
@@ -679,8 +679,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
             args: [{ providedIn: 'root' }]
         }], ctorParameters: () => [] });
 
-/** Counter used to generate unique IDs for dialog elements. */
-let dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
  */
@@ -780,7 +778,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
 class MatDialogTitle extends MatDialogLayoutSection {
-    id = `mat-mdc-dialog-title-${dialogElementUid++}`;
+    id = inject(_IdGenerator).getId('mat-mdc-dialog-title-');
     _onAdd() {
         // Note: we null check the queue, because there are some internal
         // tests that are mocking out `MatDialogRef` incorrectly.

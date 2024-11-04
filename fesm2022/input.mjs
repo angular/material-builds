@@ -3,6 +3,7 @@ import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
 import { AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, isSignal, effect, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { _IdGenerator } from '@angular/cdk/a11y';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -34,7 +35,6 @@ const MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit',
 ];
-let nextUniqueId = 0;
 /** Injection token that can be used to provide the default options for the input. */
 const MAT_INPUT_CONFIG = new InjectionToken('MAT_INPUT_CONFIG');
 class MatInput {
@@ -44,7 +44,7 @@ class MatInput {
     _autofillMonitor = inject(AutofillMonitor);
     _ngZone = inject(NgZone);
     _formField = inject(MAT_FORM_FIELD, { optional: true });
-    _uid = `mat-input-${nextUniqueId++}`;
+    _uid = inject(_IdGenerator).getId('mat-input-');
     _previousNativeValue;
     _inputValueAccessor;
     _signalBasedValueAccessor;

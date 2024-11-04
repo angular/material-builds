@@ -4,7 +4,7 @@ import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectio
 export { MatOptgroup, MatOption } from '@angular/material/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
+import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { Platform, _getEventTarget } from '@angular/cdk/platform';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
 import { Subscription, Subject, merge, of, defer, fromEvent, Observable } from 'rxjs';
@@ -33,11 +33,6 @@ const panelAnimation = trigger('panelAnimation', [
     transition(':leave, visible => hidden', [animate('0.075s linear', style({ opacity: 0 }))]),
 ]);
 
-/**
- * Autocomplete IDs need to be unique across components, so this counter exists outside of
- * the component definition.
- */
-let _uniqueAutocompleteIdCounter = 0;
 /** Event object that is emitted when an autocomplete option is selected. */
 class MatAutocompleteSelectedEvent {
     source;
@@ -164,7 +159,7 @@ class MatAutocomplete {
         }
     }
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
-    id = `mat-autocomplete-${_uniqueAutocompleteIdCounter++}`;
+    id = inject(_IdGenerator).getId('mat-autocomplete-');
     /**
      * Tells any descendant `mat-optgroup` to use the inert a11y pattern.
      * @docs-private

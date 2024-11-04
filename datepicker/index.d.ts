@@ -454,6 +454,10 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     _cellPadding: string;
     /** Width of an individual cell. */
     _cellWidth: string;
+    /** ID for the start date label. */
+    _startDateLabelId: string;
+    /** ID for the end date label. */
+    _endDateLabelId: string;
     private _didDragSinceMouseDown;
     private _injector;
     /**
@@ -554,9 +558,6 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     private _touchendHandler;
     /** Finds the MatCalendarCell that corresponds to a DOM node. */
     private _getCellFromElement;
-    private _id;
-    _startDateLabelId: string;
-    _endDateLabelId: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarBody<any>, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody<any>, "[mat-calendar-body]", ["matCalendarBody"], { "label": { "alias": "label"; "required": false; }; "rows": { "alias": "rows"; "required": false; }; "todayValue": { "alias": "todayValue"; "required": false; }; "startValue": { "alias": "startValue"; "required": false; }; "endValue": { "alias": "endValue"; "required": false; }; "labelMinRequiredCells": { "alias": "labelMinRequiredCells"; "required": false; }; "numCols": { "alias": "numCols"; "required": false; }; "activeCell": { "alias": "activeCell"; "required": false; }; "isRange": { "alias": "isRange"; "required": false; }; "cellAspectRatio": { "alias": "cellAspectRatio"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "previewStart": { "alias": "previewStart"; "required": false; }; "previewEnd": { "alias": "previewEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; }, never, never, true, never>;
 }
@@ -620,7 +621,6 @@ export declare class MatCalendarHeader<D> {
      * for the minimum year, and the second string is the formatted label for the maximum year.
      */
     private _formatMinAndMaxYearLabels;
-    private _id;
     _periodButtonLabelId: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarHeader<any>, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarHeader<any>, "mat-calendar-header", ["matCalendarHeader"], {}, {}, never, ["*"], true, never>;

@@ -1,11 +1,10 @@
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
-import { AriaDescriber, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
+import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 
-let nextId = 0;
 const BADGE_CONTENT_CLASS = 'mat-badge-content';
 /**
  * Component used to load the structural styles of the badge.
@@ -26,6 +25,7 @@ class MatBadge {
     _ariaDescriber = inject(AriaDescriber);
     _renderer = inject(Renderer2);
     _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
+    _idGenerator = inject(_IdGenerator);
     /**
      * Theme color of the badge. This API is supported in M2 themes only, it
      * has no effect in M3 themes.
@@ -70,8 +70,6 @@ class MatBadge {
     size = 'medium';
     /** Whether the badge is hidden. */
     hidden;
-    /** Unique id for the badge */
-    _id = nextId++;
     /** Visible badge element. */
     _badgeElement;
     /** Inline badge description. Used when the badge is applied to non-interactive host elements. */
@@ -146,7 +144,7 @@ class MatBadge {
     _createBadgeElement() {
         const badgeElement = this._renderer.createElement('span');
         const activeClass = 'mat-badge-active';
-        badgeElement.setAttribute('id', `mat-badge-content-${this._id}`);
+        badgeElement.setAttribute('id', this._idGenerator.getId('mat-badge-content-'));
         // The badge is aria-hidden because we don't want it to appear in the page's navigation
         // flow. Instead, we use the badge to describe the decorated element with aria-describedby.
         badgeElement.setAttribute('aria-hidden', 'true');

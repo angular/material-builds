@@ -1,3 +1,4 @@
+import { _IdGenerator } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, forwardRef, inject, ElementRef, ChangeDetectorRef, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, Directive, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
@@ -49,8 +50,6 @@ class MatCheckboxChange {
     /** The new `checked` value of the checkbox. */
     checked;
 }
-// Increasing integer for generating unique ids for checkbox components.
-let nextUniqueId = 0;
 // Default checkbox configuration.
 const defaults = MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY();
 class MatCheckbox {
@@ -160,7 +159,7 @@ class MatCheckbox {
         this._options = this._options || defaults;
         this.color = this._options.color || defaults.color;
         this.tabIndex = tabIndex == null ? 0 : parseInt(tabIndex) || 0;
-        this.id = this._uniqueId = `mat-mdc-checkbox-${++nextUniqueId}`;
+        this.id = this._uniqueId = inject(_IdGenerator).getId('mat-mdc-checkbox-');
         this.disabledInteractive = this._options?.disabledInteractive ?? false;
     }
     ngOnChanges(changes) {

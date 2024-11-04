@@ -95,6 +95,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     protected _changeDetectorRef: ChangeDetectorRef;
     readonly _elementRef: ElementRef<any>;
     private _dir;
+    private _idGenerator;
     protected _parentFormField: MatFormField | null;
     ngControl: NgControl;
     private _liveAnnouncer;

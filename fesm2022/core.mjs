@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { Version, InjectionToken, inject, NgModule, LOCALE_ID, Injectable, Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, ElementRef, ANIMATION_MODULE_TYPE, NgZone, Injector, Input, booleanAttribute, ChangeDetectorRef, EventEmitter, isSignal, Output, ViewChild } from '@angular/core';
-import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
+import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader, _IdGenerator } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -1447,8 +1447,6 @@ const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPON
 //    won't read out the description at all.
 // 3. `<mat-option aria-labelledby="optionLabel groupLabel"` - This works on Chrome, but Safari
 //     doesn't read out the text at all. Furthermore, on
-// Counter for unique group ids.
-let _uniqueOptgroupIdCounter = 0;
 /**
  * Injection token that can be used to reference instances of `MatOptgroup`. It serves as
  * alternative token to the actual `MatOptgroup` class which could cause unnecessary
@@ -1464,7 +1462,7 @@ class MatOptgroup {
     /** whether the option group is disabled. */
     disabled = false;
     /** Unique id for the underlying label. */
-    _labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
+    _labelId = inject(_IdGenerator).getId('mat-optgroup-label-');
     /** Whether the group is in inert a11y mode. */
     _inert;
     constructor() {
@@ -1489,11 +1487,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
                 args: [{ transform: booleanAttribute }]
             }] } });
 
-/**
- * Option IDs need to be unique across components, so this counter exists outside of
- * the component definition.
- */
-let _uniqueIdCounter = 0;
 /** Event object emitted by MatOption when selected or deselected. */
 class MatOptionSelectionChange {
     source;
@@ -1531,7 +1524,7 @@ class MatOption {
     /** The form value of the option. */
     value;
     /** The unique ID of the option. */
-    id = `mat-option-${_uniqueIdCounter++}`;
+    id = inject(_IdGenerator).getId('mat-option-');
     /** Whether the option is disabled. */
     get disabled() {
         return (this.group && this.group.disabled) || this._disabled;

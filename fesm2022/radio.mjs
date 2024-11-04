@@ -1,4 +1,4 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { _IdGenerator, FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import * as i0 from '@angular/core';
 import { forwardRef, InjectionToken, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, ElementRef, NgZone, Injector, ANIMATION_MODULE_TYPE, HostAttributeToken, numberAttribute, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
@@ -6,8 +6,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
-// Increasing integer for generating unique ids for radio components.
-let nextUniqueId = 0;
 /** Change event object emitted by radio button and radio group. */
 class MatRadioChange {
     source;
@@ -55,7 +53,7 @@ class MatRadioGroup {
     /** Selected value for the radio group. */
     _value = null;
     /** The HTML name attribute applied to radio buttons in this group. */
-    _name = `mat-radio-group-${nextUniqueId++}`;
+    _name = inject(_IdGenerator).getId('mat-radio-group-');
     /** The currently selected radio button. Should match value. */
     _selected = null;
     /** Whether the `value` has been set to its initial value. */
@@ -317,7 +315,7 @@ class MatRadioButton {
         optional: true,
     });
     _ngZone = inject(NgZone);
-    _uniqueId = `mat-radio-${++nextUniqueId}`;
+    _uniqueId = inject(_IdGenerator).getId('mat-radio-');
     /** The unique ID for the radio button. */
     id = this._uniqueId;
     /** Analog to HTML 'name' attribute used to group radios for unique selection. */

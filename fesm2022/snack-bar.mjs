@@ -5,8 +5,8 @@ import { Subject } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
+import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators';
@@ -225,7 +225,6 @@ const matSnackBarAnimations = {
     ]),
 };
 
-let uniqueId = 0;
 /**
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
@@ -268,7 +267,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
      */
     _role;
     /** Unique ID of the aria-live element. */
-    _liveElementId = `mat-snack-bar-container-live-${uniqueId++}`;
+    _liveElementId = inject(_IdGenerator).getId('mat-snack-bar-container-live-');
     constructor() {
         super();
         const config = this.snackBarConfig;

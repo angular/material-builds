@@ -7,7 +7,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { _getEventTarget } from '@angular/cdk/platform';
 import { TAB, ESCAPE, hasModifierKey, ENTER, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, _IdGenerator } from '@angular/cdk/a11y';
 import { Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { MAT_FORM_FIELD } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
@@ -93,8 +93,6 @@ function validateAdapter(adapter, formats) {
     }
 }
 
-/** Counter used to generate unique IDs. */
-let uniqueId = 0;
 /**
  * Renders out a listbox that can be used to select a time of day.
  * Intended to be used together with `MatTimepickerInput`.
@@ -144,7 +142,7 @@ class MatTimepicker {
     /** ID of the active descendant option. */
     activeDescendant = this._activeDescendant.asReadonly();
     /** Unique ID of the timepicker's panel */
-    panelId = `mat-timepicker-panel-${uniqueId++}`;
+    panelId = inject(_IdGenerator).getId('mat-timepicker-panel-');
     /** Whether ripples within the timepicker should be disabled. */
     disableRipple = input(this._defaultConfig?.disableRipple ?? false, {
         transform: booleanAttribute,

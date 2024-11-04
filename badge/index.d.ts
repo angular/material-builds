@@ -21,6 +21,7 @@ export declare class MatBadge implements OnInit, OnDestroy {
     private _ariaDescriber;
     private _renderer;
     private _animationMode;
+    private _idGenerator;
     /**
      * Theme color of the badge. This API is supported in M2 themes only, it
      * has no effect in M3 themes.
@@ -52,8 +53,6 @@ export declare class MatBadge implements OnInit, OnDestroy {
     size: MatBadgeSize;
     /** Whether the badge is hidden. */
     hidden: boolean;
-    /** Unique id for the badge */
-    _id: number;
     /** Visible badge element. */
     private _badgeElement;
     /** Inline badge description. Used when the badge is applied to non-interactive host elements. */

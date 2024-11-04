@@ -1,4 +1,4 @@
-import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusMonitor, _IdGenerator, FocusKeyManager } from '@angular/cdk/a11y';
 import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
@@ -226,7 +226,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
                 }]
         }] });
 
-let uid = 0;
 /**
  * Material design styled Chip base component. Used inside the MatChipSet component.
  *
@@ -267,7 +266,7 @@ class MatChip {
         return this._hasFocusInternal;
     }
     /** A unique id for the chip. If none is supplied, it will be auto-generated. */
-    id = `mat-mdc-chip-${uid++}`;
+    id = inject(_IdGenerator).getId('mat-mdc-chip-');
     // TODO(#26104): Consider deprecating and using `_computeAriaAccessibleName` instead.
     // `ariaLabel` may be unnecessary, and `_computeAriaAccessibleName` only supports
     // datepicker's use case.
@@ -1945,8 +1944,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
                     }]
             }] } });
 
-// Increasing integer for generating unique ids.
-let nextUniqueId = 0;
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of a `<mat-chip-grid>`.
@@ -1981,7 +1978,7 @@ class MatChipInput {
     /** The input's placeholder text. */
     placeholder = '';
     /** Unique id for the input. */
-    id = `mat-mdc-chip-list-input-${nextUniqueId++}`;
+    id = inject(_IdGenerator).getId('mat-mdc-chip-list-input-');
     /** Whether the input is disabled. */
     get disabled() {
         return this._disabled || (this._chipGrid && this._chipGrid.disabled);
