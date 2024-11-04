@@ -1,4 +1,4 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { _IdGenerator, FocusMonitor } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW, UP_ARROW, ENTER, SPACE } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
@@ -39,8 +39,6 @@ const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     useExisting: forwardRef(() => MatButtonToggleGroup),
     multi: true,
 };
-// Counter used to generate unique IDs.
-let uniqueIdCounter = 0;
 /** Change event object emitted by button toggle. */
 class MatButtonToggleChange {
     source;
@@ -88,7 +86,7 @@ class MatButtonToggleGroup {
         this._name = value;
         this._markButtonsForCheck();
     }
-    _name = `mat-button-toggle-group-${uniqueIdCounter++}`;
+    _name = inject(_IdGenerator).getId('mat-button-toggle-group-');
     /** Whether the toggle group is vertical. */
     vertical;
     /** Value of the toggle group. */
@@ -443,6 +441,7 @@ class MatButtonToggle {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _elementRef = inject(ElementRef);
     _focusMonitor = inject(FocusMonitor);
+    _idGenerator = inject(_IdGenerator);
     _checked = false;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
@@ -532,7 +531,7 @@ class MatButtonToggle {
     }
     ngOnInit() {
         const group = this.buttonToggleGroup;
-        this.id = this.id || `mat-button-toggle-${uniqueIdCounter++}`;
+        this.id = this.id || this._idGenerator.getId('mat-button-toggle-');
         if (group) {
             if (group._isPrechecked(this)) {
                 this.checked = true;

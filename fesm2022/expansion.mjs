@@ -3,7 +3,7 @@ import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/port
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, ANIMATION_MODULE_TYPE, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { _StructuralStylesLoader, MatCommonModule } from '@angular/material/core';
-import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
+import { _IdGenerator, FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { startWith, filter, take } from 'rxjs/operators';
 import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
@@ -85,8 +85,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
                 }]
         }], ctorParameters: () => [] });
 
-/** Counter for generating unique element ids. */
-let uniqueId = 0;
 /**
  * Injection token that can be used to configure the default
  * options for the expansion panel component.
@@ -132,7 +130,7 @@ class MatExpansionPanel extends CdkAccordionItem {
     /** Portal holding the user's content. */
     _portal;
     /** ID for the associated header element. Used for a11y labelling. */
-    _headerId = `mat-expansion-panel-header-${uniqueId++}`;
+    _headerId = inject(_IdGenerator).getId('mat-expansion-panel-header-');
     constructor() {
         super();
         const defaultOptions = inject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, { optional: true });

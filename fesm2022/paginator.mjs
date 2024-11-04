@@ -1,9 +1,10 @@
 import * as i0 from '@angular/core';
-import { Injectable, Optional, SkipSelf, InjectionToken, numberAttribute, EventEmitter, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Input, Output, NgModule } from '@angular/core';
+import { Injectable, Optional, SkipSelf, InjectionToken, inject, numberAttribute, EventEmitter, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Inject, Input, Output, NgModule } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
 import { MatIconButton, MatButtonModule } from '@angular/material/button';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { _IdGenerator } from '@angular/cdk/a11y';
 import { MatOption } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 
@@ -78,7 +79,6 @@ class PageEvent {
 }
 /** Injection token that can be used to provide the default options for the paginator module. */
 const MAT_PAGINATOR_DEFAULT_OPTIONS = new InjectionToken('MAT_PAGINATOR_DEFAULT_OPTIONS');
-let nextUniqueId = 0;
 /**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
@@ -90,7 +90,7 @@ class MatPaginator {
     /** If set, styles the "page size" form field with the designated style. */
     _formFieldAppearance;
     /** ID for the DOM node containing the paginator's items per page label. */
-    _pageSizeLabelId = `mat-paginator-page-size-label-${nextUniqueId++}`;
+    _pageSizeLabelId = inject(_IdGenerator).getId('mat-paginator-page-size-label-');
     _intlChanges;
     _isInitialized = false;
     _initializedStream = new ReplaySubject(1);

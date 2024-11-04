@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, forwardRef, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, Input, Output, Directive, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, _IdGenerator } from '@angular/cdk/a11y';
 import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
@@ -33,8 +33,6 @@ class MatSlideToggleChange {
         this.checked = checked;
     }
 }
-// Increasing integer for generating unique ids for slide-toggle components.
-let nextUniqueId = 0;
 class MatSlideToggle {
     _elementRef = inject(ElementRef);
     _focusMonitor = inject(FocusMonitor);
@@ -126,7 +124,7 @@ class MatSlideToggle {
         this.tabIndex = tabIndex == null ? 0 : parseInt(tabIndex) || 0;
         this.color = defaults.color || 'accent';
         this._noopAnimations = animationMode === 'NoopAnimations';
-        this.id = this._uniqueId = `mat-mdc-slide-toggle-${++nextUniqueId}`;
+        this.id = this._uniqueId = inject(_IdGenerator).getId('mat-mdc-slide-toggle-');
         this.hideIcon = defaults.hideIcon ?? false;
         this.disabledInteractive = defaults.disabledInteractive ?? false;
         this._labelId = this._uniqueId + '-label';

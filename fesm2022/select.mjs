@@ -6,7 +6,7 @@ export { MatOptgroup, MatOption } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
-import { LiveAnnouncer, removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { _IdGenerator, LiveAnnouncer, removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, A } from '@angular/cdk/keycodes';
@@ -74,7 +74,6 @@ function getMatSelectNonFunctionValueError() {
     return Error('`compareWith` must be a function.');
 }
 
-let nextUniqueId = 0;
 /** Injection token that determines the scroll handling while a select is open. */
 const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strategy', {
     providedIn: 'root',
@@ -119,6 +118,7 @@ class MatSelect {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _elementRef = inject(ElementRef);
     _dir = inject(Directionality, { optional: true });
+    _idGenerator = inject(_IdGenerator);
     _parentFormField = inject(MAT_FORM_FIELD, { optional: true });
     ngControl = inject(NgControl, { self: true, optional: true });
     _liveAnnouncer = inject(LiveAnnouncer);
@@ -198,7 +198,7 @@ class MatSelect {
     /** Comparison function to specify which option is displayed. Defaults to object equality. */
     _compareWith = (o1, o2) => o1 === o2;
     /** Unique id for this input. */
-    _uid = `mat-select-${nextUniqueId++}`;
+    _uid = this._idGenerator.getId('mat-select-');
     /** Current `aria-labelledby` value for the select trigger. */
     _triggerAriaLabelledBy = null;
     /**
@@ -239,7 +239,7 @@ class MatSelect {
     /** `View -> model callback called when select has been touched` */
     _onTouched = () => { };
     /** ID for the DOM node containing the select's value. */
-    _valueId = `mat-select-value-${nextUniqueId++}`;
+    _valueId = this._idGenerator.getId('mat-select-value-');
     /** Emits when the panel element is finished transforming in. */
     _panelDoneAnimatingStream = new Subject();
     /** Strategy that will be used to handle scrolling while the select panel is open. */

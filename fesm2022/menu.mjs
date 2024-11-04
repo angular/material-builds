@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, ChangeDetectorRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, afterNextRender, ContentChildren, ViewChild, ContentChild, Output, NgZone, NgModule } from '@angular/core';
-import { FocusMonitor, FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
+import { FocusMonitor, _IdGenerator, FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject, merge, Subscription, of, asapScheduler } from 'rxjs';
 import { startWith, switchMap, takeUntil, filter, take, delay } from 'rxjs/operators';
@@ -295,7 +295,6 @@ const fadeInItems = matMenuAnimations.fadeInItems;
  */
 const transformMenu = matMenuAnimations.transformMenu;
 
-let menuPanelUid = 0;
 /** Injection token to be used to override the default options for `mat-menu`. */
 const MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
@@ -432,7 +431,7 @@ class MatMenu {
      * @breaking-change 8.0.0
      */
     close = this.closed;
-    panelId = `mat-menu-panel-${menuPanelUid++}`;
+    panelId = inject(_IdGenerator).getId('mat-menu-panel-');
     _injector = inject(Injector);
     constructor() {
         const defaultOptions = inject(MAT_MENU_DEFAULT_OPTIONS);

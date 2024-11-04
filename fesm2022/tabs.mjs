@@ -4,7 +4,7 @@ import { _StructuralStylesLoader, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommo
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, fromEvent, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { FocusKeyManager, CdkMonitorFocus, FocusMonitor } from '@angular/cdk/a11y';
+import { FocusKeyManager, _IdGenerator, CdkMonitorFocus, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
@@ -1176,8 +1176,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
                 type: Input
             }] } });
 
-/** Used to generate unique ID's for each tab component */
-let nextId = 0;
 /** Boolean constant that determines whether the tab group supports the `backgroundColor` input */
 const ENABLE_BACKGROUND_INPUT = true;
 /**
@@ -1318,7 +1316,7 @@ class MatTabGroup {
     _isServer = !inject(Platform).isBrowser;
     constructor() {
         const defaultConfig = inject(MAT_TABS_CONFIG, { optional: true });
-        this._groupId = nextId++;
+        this._groupId = inject(_IdGenerator).getId('mat-tab-group-');
         this.animationDuration =
             defaultConfig && defaultConfig.animationDuration ? defaultConfig.animationDuration : '500ms';
         this.disablePagination =
@@ -1502,11 +1500,11 @@ class MatTabGroup {
     }
     /** Returns a unique id for each tab label element */
     _getTabLabelId(i) {
-        return `mat-tab-label-${this._groupId}-${i}`;
+        return `${this._groupId}-label-${i}`;
     }
     /** Returns a unique id for each tab content element */
     _getTabContentId(i) {
-        return `mat-tab-content-${this._groupId}-${i}`;
+        return `${this._groupId}-content-${i}`;
     }
     /**
      * Sets the height of the body wrapper to the height of the activating tab if dynamic
@@ -1651,8 +1649,6 @@ class MatTabChangeEvent {
     tab;
 }
 
-// Increasing integer for generating unique ids for tab nav components.
-let nextUniqueId = 0;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -1878,7 +1874,7 @@ class MatTabLink extends InkBarItem {
             !!this.rippleConfig.disabled);
     }
     /** Unique id for the tab. */
-    id = `mat-tab-link-${nextUniqueId++}`;
+    id = inject(_IdGenerator).getId('mat-tab-link-');
     constructor() {
         super();
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
@@ -1999,7 +1995,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
  */
 class MatTabNavPanel {
     /** Unique id for the tab panel. */
-    id = `mat-tab-nav-panel-${nextUniqueId++}`;
+    id = inject(_IdGenerator).getId('mat-tab-nav-panel-');
     /** Id of the active tab in the nav bar. */
     _activeTabId;
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-rc.0", ngImport: i0, type: MatTabNavPanel, deps: [], target: i0.ɵɵFactoryTarget.Component });

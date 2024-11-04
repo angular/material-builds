@@ -1,5 +1,6 @@
 import * as i0 from '@angular/core';
 import { Directive, InjectionToken, inject, HostAttributeToken, ElementRef, Input, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ChangeDetectorRef, ANIMATION_MODULE_TYPE, contentChild, Injector, computed, afterRender, ContentChild, ContentChildren, NgModule } from '@angular/core';
+import { _IdGenerator } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
@@ -23,7 +24,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
                 }]
         }] });
 
-let nextUniqueId$2 = 0;
 /**
  * Injection token that can be used to reference instances of `MatError`. It serves as
  * alternative token to the actual `MatError` class which could cause unnecessary
@@ -32,7 +32,7 @@ let nextUniqueId$2 = 0;
 const MAT_ERROR = new InjectionToken('MatError');
 /** Single error message to be shown underneath the form-field. */
 class MatError {
-    id = `mat-mdc-error-${nextUniqueId$2++}`;
+    id = inject(_IdGenerator).getId('mat-mdc-error-');
     constructor() {
         const ariaLive = inject(new HostAttributeToken('aria-live'), { optional: true });
         // If no aria-live value is set add 'polite' as a default. This is preferred over setting
@@ -60,13 +60,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0-rc.0", ng
                 type: Input
             }] } });
 
-let nextUniqueId$1 = 0;
 /** Hint text to be shown underneath the form field control. */
 class MatHint {
     /** Whether to align the hint label at the start or end of the line. */
     align = 'start';
     /** Unique ID for the hint. Used for the aria-describedby on the form field control. */
-    id = `mat-mdc-hint-${nextUniqueId$1++}`;
+    id = inject(_IdGenerator).getId('mat-mdc-hint-');
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0-rc.0", ngImport: i0, type: MatHint, deps: [], target: i0.ɵɵFactoryTarget.Directive });
     static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0-rc.0", type: MatHint, isStandalone: true, selector: "mat-hint", inputs: { align: "align", id: "id" }, host: { properties: { "class.mat-mdc-form-field-hint-end": "align === \"end\"", "id": "id", "attr.align": "null" }, classAttribute: "mat-mdc-form-field-hint mat-mdc-form-field-bottom-align" }, ngImport: i0 });
 }
@@ -466,7 +465,6 @@ const MAT_FORM_FIELD = new InjectionToken('MatFormField');
  * default options for all form field within an app.
  */
 const MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
-let nextUniqueId = 0;
 /** Default appearance used by the form field. */
 const DEFAULT_APPEARANCE = 'fill';
 /**
@@ -488,6 +486,7 @@ class MatFormField {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _dir = inject(Directionality);
     _platform = inject(Platform);
+    _idGenerator = inject(_IdGenerator);
     _defaults = inject(MAT_FORM_FIELD_DEFAULT_OPTIONS, {
         optional: true,
     });
@@ -584,9 +583,9 @@ class MatFormField {
     _hasIconSuffix = false;
     _hasTextSuffix = false;
     // Unique id for the internal form field label.
-    _labelId = `mat-mdc-form-field-label-${nextUniqueId++}`;
+    _labelId = this._idGenerator.getId('mat-mdc-form-field-label-');
     // Unique id for the hint label.
-    _hintLabelId = `mat-mdc-hint-${nextUniqueId++}`;
+    _hintLabelId = this._idGenerator.getId('mat-mdc-hint-');
     /** State of the mat-hint and mat-error animations. */
     _subscriptAnimationState = '';
     /** Gets the current form field control */

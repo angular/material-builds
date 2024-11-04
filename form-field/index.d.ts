@@ -127,6 +127,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _changeDetectorRef;
     private _dir;
     private _platform;
+    private _idGenerator;
     private _defaults;
     _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     _textField: ElementRef<HTMLElement>;

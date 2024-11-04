@@ -125,6 +125,7 @@ export declare class MatDialog implements OnDestroy {
     private _defaultOptions;
     private _scrollStrategy;
     private _parentDialog;
+    private _idGenerator;
     protected _dialog: Dialog;
     private readonly _openDialogsAtThisLevel;
     private readonly _afterAllClosedAtThisLevel;
