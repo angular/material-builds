@@ -99,9 +99,6 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
     private _xPosition;
     private _yPosition;
     private _firstItemFocusRef?;
-    private _previousElevation;
-    private _elevationPrefix;
-    private _baseElevation;
     /** All items inside the menu. Includes items nested inside another menu. */
     _allItems: QueryList<MatMenuItem>;
     /** Only the direct descendant menu items. */
@@ -207,10 +204,10 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      */
     resetActiveItem(): void;
     /**
-     * Sets the menu panel elevation.
-     * @param depth Number of parent menus that come before the menu.
+     * @deprecated No longer used and will be removed.
+     * @breaking-change 21.0.0
      */
-    setElevation(depth: number): void;
+    setElevation(_depth: number): void;
     /**
      * Adds classes to the menu panel based on its position. Can be used by
      * consumers to add specific styling based on the position.
@@ -362,6 +359,10 @@ export declare interface MatMenuPanel<T = any> {
     focusFirstItem: (origin?: FocusOrigin) => void;
     resetActiveItem: () => void;
     setPositionClasses?: (x: MenuPositionX, y: MenuPositionY) => void;
+    /**
+     * @deprecated No longer used and will be removed.
+     * @breaking-change 21.0.0
+     */
     setElevation?(depth: number): void;
     lazyContent?: MatMenuContent;
     backdropClass?: string;
@@ -478,8 +479,6 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * the menu was opened via the keyboard.
      */
     private _initMenu;
-    /** Updates the menu elevation based on the amount of parent menus that it has. */
-    private _setMenuElevation;
     private _setIsMenuOpen;
     /**
      * This method creates the overlay from the provided menu's template and saves its
