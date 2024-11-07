@@ -7278,6 +7278,94 @@ var require_mat_core_removal = __commonJS({
   }
 });
 
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/explicit-system-variable-prefix.js
+var require_explicit_system_variable_prefix = __commonJS({
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/explicit-system-variable-prefix.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.ExplicitSystemVariablePrefixMigration = void 0;
+    var schematics_1 = require("@angular/cdk/schematics");
+    var ExplicitSystemVariablePrefixMigration2 = class extends schematics_1.Migration {
+      constructor() {
+        super(...arguments);
+        __publicField(this, "enabled", true);
+      }
+      visitStylesheet(stylesheet) {
+        if (!stylesheet.filePath.endsWith(".scss")) {
+          return;
+        }
+        const content = this.fileSystem.read(stylesheet.filePath);
+        if (!content || !content.includes("@angular/material")) {
+          return;
+        }
+        const changes = this._getChanges(content);
+        if (changes.length > 0) {
+          const update = this.fileSystem.edit(stylesheet.filePath);
+          for (let i = changes.length - 1; i > -1; i--) {
+            update.insertRight(changes[i].start, changes[i].text);
+          }
+          this.fileSystem.commitEdits();
+        }
+      }
+      _getChanges(content) {
+        const key = "use-system-variables";
+        const prefixKey = "system-variables-prefix";
+        const changes = [];
+        let index = content.indexOf(key);
+        while (index > -1) {
+          const colonIndex = content.indexOf(":", index);
+          const valueEnd = colonIndex === -1 ? -1 : this._getValueEnd(content, colonIndex);
+          if (valueEnd === -1) {
+            index = content.indexOf(key, index + key.length);
+            continue;
+          }
+          const value = content.slice(colonIndex + 1, valueEnd + 1).trim();
+          if (value.startsWith("true") && !this._hasSystemPrefix(content, index, prefixKey)) {
+            changes.push({
+              start: this._getInsertIndex(content, valueEnd),
+              text: `${value.endsWith(",") ? "" : ","}
+    ${prefixKey}: sys,`
+            });
+          }
+          index = content.indexOf(key, valueEnd);
+        }
+        return changes;
+      }
+      _getValueEnd(content, startIndex) {
+        for (let i = startIndex + 1; i < content.length; i++) {
+          const char = content[i];
+          if (char === "," || char === "\n" || char === ")") {
+            return i;
+          }
+        }
+        return -1;
+      }
+      _getInsertIndex(content, valueEnd) {
+        for (let i = valueEnd; i < content.length; i++) {
+          if (content[i] === "\n") {
+            return i;
+          } else if (content[i] === ")") {
+            return i;
+          }
+        }
+        return valueEnd;
+      }
+      _hasSystemPrefix(content, keyIndex, prefixKey) {
+        const mapEnd = content.indexOf(")", keyIndex);
+        if (mapEnd > -1) {
+          for (let i = keyIndex; i > -1; i--) {
+            if (content[i] === "(") {
+              return content.slice(i, mapEnd).includes(prefixKey);
+            }
+          }
+        }
+        return false;
+      }
+    };
+    exports.ExplicitSystemVariablePrefixMigration = ExplicitSystemVariablePrefixMigration2;
+  }
+});
+
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/index.mjs
 var ng_update_exports = {};
 __export(ng_update_exports, {
@@ -7287,7 +7375,11 @@ module.exports = __toCommonJS(ng_update_exports);
 var import_schematics = require("@angular/cdk/schematics");
 var import_upgrade_data = __toESM(require_upgrade_data(), 1);
 var import_mat_core_removal = __toESM(require_mat_core_removal(), 1);
-var materialMigrations = [import_mat_core_removal.MatCoreMigration];
+var import_explicit_system_variable_prefix = __toESM(require_explicit_system_variable_prefix(), 1);
+var materialMigrations = [
+  import_mat_core_removal.MatCoreMigration,
+  import_explicit_system_variable_prefix.ExplicitSystemVariablePrefixMigration
+];
 function updateToV19() {
   return (0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V19, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete);
 }
