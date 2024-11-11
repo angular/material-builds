@@ -144,6 +144,12 @@ class MatBottomSheetConfig {
     restoreFocus = true;
     /** Scroll strategy to be used for the bottom sheet. */
     scrollStrategy;
+    /** Height for the bottom sheet. */
+    height = '';
+    /** Minimum height for the bottom sheet. If a number is provided, assumes pixel units. */
+    minHeight;
+    /** Maximum height for the bottom sheet. If a number is provided, assumes pixel units. */
+    maxHeight;
 }
 
 /**
