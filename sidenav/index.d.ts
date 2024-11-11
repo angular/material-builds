@@ -326,10 +326,13 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
 }
 
 export declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
+    private _platform;
     private _changeDetectorRef;
     _container: MatDrawerContainer;
     constructor(...args: unknown[]);
     ngAfterContentInit(): void;
+    /** Determines whether the content element should be hidden from the user. */
+    protected _shouldBeHidden(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContent, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContent, "mat-drawer-content", never, {}, {}, never, ["*"], true, never>;
 }
