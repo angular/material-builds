@@ -11,7 +11,7 @@ import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 
 /** Current version of Angular Material. */
-const VERSION = new Version('19.0.0-rc.1');
+const VERSION = new Version('19.0.0-rc.2');
 
 /** @docs-private */
 class AnimationCurves {
