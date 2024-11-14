@@ -1,4 +1,4 @@
-import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
+import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Harness for interacting with a mat-menu in tests. */
@@ -49,7 +49,7 @@ class MatMenuHarness extends ContentContainerComponentHarness {
     async close() {
         const panel = await this._getMenuPanel();
         if (panel) {
-            return panel.sendKeys(TestKey.ESCAPE);
+            return panel.click();
         }
     }
     /**
