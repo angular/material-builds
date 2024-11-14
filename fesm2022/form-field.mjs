@@ -6,7 +6,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { NgTemplateOutlet } from '@angular/common';
 import { Subscription, Subject, merge } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { startWith, map, pairwise, filter, takeUntil } from 'rxjs/operators';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ObserversModule } from '@angular/cdk/observers';
@@ -602,6 +602,7 @@ class MatFormField {
     _previousControl = null;
     _stateChanges;
     _valueChanges;
+    _describedByChanges;
     _injector = inject(Injector);
     constructor() {
         const defaults = this._defaults;
@@ -641,6 +642,7 @@ class MatFormField {
     ngOnDestroy() {
         this._stateChanges?.unsubscribe();
         this._valueChanges?.unsubscribe();
+        this._describedByChanges?.unsubscribe();
         this._destroyed.next();
         this._destroyed.complete();
     }
@@ -683,9 +685,15 @@ class MatFormField {
         this._stateChanges?.unsubscribe();
         this._stateChanges = control.stateChanges.subscribe(() => {
             this._updateFocusState();
-            this._syncDescribedByIds();
             this._changeDetectorRef.markForCheck();
         });
+        // Updating the `aria-describedby` touches the DOM. Only do it if it actually needs to change.
+        this._describedByChanges?.unsubscribe();
+        this._describedByChanges = control.stateChanges
+            .pipe(startWith([undefined, undefined]), map(() => [control.errorState, control.userAriaDescribedBy]), pairwise(), filter(([[prevErrorState, prevDescribedBy], [currentErrorState, currentDescribedBy]]) => {
+            return prevErrorState !== currentErrorState || prevDescribedBy !== currentDescribedBy;
+        }))
+            .subscribe(() => this._syncDescribedByIds());
         this._valueChanges?.unsubscribe();
         // Run change detection if the value changes.
         if (control.ngControl && control.ngControl.valueChanges) {

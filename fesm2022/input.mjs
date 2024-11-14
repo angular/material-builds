@@ -52,6 +52,8 @@ class MatInput {
     _errorStateTracker;
     _webkitBlinkWheelListenerAttached = false;
     _config = inject(MAT_INPUT_CONFIG, { optional: true });
+    /** `aria-describedby` IDs assigned by the form field. */
+    _formFieldDescribedBy;
     /** Whether the component is being rendered on the server. */
     _isServer;
     /** Whether the component is a native html select. */
@@ -414,11 +416,26 @@ class MatInput {
      * @docs-private
      */
     setDescribedByIds(ids) {
-        if (ids.length) {
-            this._elementRef.nativeElement.setAttribute('aria-describedby', ids.join(' '));
+        const element = this._elementRef.nativeElement;
+        const existingDescribedBy = element.getAttribute('aria-describedby');
+        let toAssign;
+        // In some cases there might be some `aria-describedby` IDs that were assigned directly,
+        // like by the `AriaDescriber` (see #30011). Attempt to preserve them by taking the previous
+        // attribute value and filtering out the IDs that came from the previous `setDescribedByIds`
+        // call. Note the `|| ids` here allows us to avoid duplicating IDs on the first render.
+        if (existingDescribedBy) {
+            const exclude = this._formFieldDescribedBy || ids;
+            toAssign = ids.concat(existingDescribedBy.split(' ').filter(id => id && !exclude.includes(id)));
         }
         else {
-            this._elementRef.nativeElement.removeAttribute('aria-describedby');
+            toAssign = ids;
+        }
+        this._formFieldDescribedBy = ids;
+        if (toAssign.length) {
+            element.setAttribute('aria-describedby', toAssign.join(' '));
+        }
+        else {
+            element.removeAttribute('aria-describedby');
         }
     }
     /**
