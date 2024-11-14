@@ -68,6 +68,8 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     private _errorStateTracker;
     private _webkitBlinkWheelListenerAttached;
     private _config;
+    /** `aria-describedby` IDs assigned by the form field. */
+    private _formFieldDescribedBy;
     /** Whether the component is being rendered on the server. */
     readonly _isServer: boolean;
     /** Whether the component is a native html select. */

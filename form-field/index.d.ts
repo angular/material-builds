@@ -194,6 +194,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _previousControl;
     private _stateChanges;
     private _valueChanges;
+    private _describedByChanges;
     private _injector;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
