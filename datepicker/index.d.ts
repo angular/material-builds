@@ -394,6 +394,7 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     private _elementRef;
     private _ngZone;
     private _platform;
+    private _intl;
     /**
      * Used to skip the next focus event when rendering the preview range.
      * We need a flag like this, because some browsers fire focus events asynchronously.
@@ -458,8 +459,13 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     _startDateLabelId: string;
     /** ID for the end date label. */
     _endDateLabelId: string;
+    /** ID for the comparison start date label. */
+    _comparisonStartDateLabelId: string;
+    /** ID for the comparison end date label. */
+    _comparisonEndDateLabelId: string;
     private _didDragSinceMouseDown;
     private _injector;
+    comparisonDateAccessibleName: string;
     /**
      * Tracking function for rows based on their identity. Ideally we would use some sort of
      * key on the row, but that would require a breaking change for the `rows` input. We don't
@@ -1137,6 +1143,10 @@ export declare class MatDatepickerIntl {
      * @breaking-change 17.0.0
      */
     endDateLabel: string;
+    /**
+     * A label for the Comparison date of a range of dates (used by screen readers).
+     */
+    comparisonDateLabel: string;
     /** Formats a range of years (used for visuals). */
     formatYearRange(start: string, end: string): string;
     /** Formats a label for a range of years (used by screen readers). */
