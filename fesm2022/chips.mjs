@@ -1591,6 +1591,7 @@ class MatChipGrid extends MatChipSet {
     set disabled(value) {
         this._disabled = value;
         this._syncChipsState();
+        this.stateChanges.next();
     }
     /**
      * Implemented as part of MatFormFieldControl.
