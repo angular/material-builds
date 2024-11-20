@@ -54,6 +54,7 @@ export declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy
     private _elementRef;
     private _focusMonitor;
     private _idGenerator;
+    private _animationMode;
     private _checked;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
