@@ -178,8 +178,11 @@ export declare class MatTimepickerInput<D> implements ControlValueAccessor, Vali
     readonly max: InputSignalWithTransform<D | null, unknown>;
     /** Whether the input is disabled. */
     readonly disabled: Signal<boolean>;
-    /** Whether the input should be disabled through the template. */
-    protected readonly disabledInput: InputSignalWithTransform<boolean, unknown>;
+    /**
+     * Whether the input should be disabled through the template.
+     * @docs-private
+     */
+    readonly disabledInput: InputSignalWithTransform<boolean, unknown>;
     constructor();
     /**
      * Implemented as a part of `ControlValueAccessor`.

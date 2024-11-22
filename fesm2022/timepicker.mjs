@@ -486,7 +486,10 @@ class MatTimepickerInput {
     });
     /** Whether the input is disabled. */
     disabled = computed(() => this.disabledInput() || this._accessorDisabled());
-    /** Whether the input should be disabled through the template. */
+    /**
+     * Whether the input should be disabled through the template.
+     * @docs-private
+     */
     disabledInput = input(false, {
         transform: booleanAttribute,
         alias: 'disabled',
