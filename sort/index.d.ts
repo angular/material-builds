@@ -10,6 +10,7 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Optional } from '@angular/core';
 import { Subject } from 'rxjs';
+import { WritableSignal } from '@angular/core';
 
 /**
  * Valid positions for the arrow to be in for its opacity and translation. If the state is a
@@ -18,6 +19,8 @@ import { Subject } from 'rxjs';
  * be fully opaque in the center.
  *
  * @docs-private
+ * @deprecated No longer being used, to be removed.
+ * @breaking-change 21.0.0
  */
 export declare type ArrowViewState = SortDirection | 'hint' | 'active';
 
@@ -25,6 +28,8 @@ export declare type ArrowViewState = SortDirection | 'hint' | 'active';
  * States describing the arrow's animated position (animating fromState to toState).
  * If the fromState is not defined, there will be no animated transition to the toState.
  * @docs-private
+ * @deprecated No longer being used, to be removed.
+ * @breaking-change 21.0.0
  */
 export declare interface ArrowViewStateTransition {
     fromState?: ArrowViewState;
@@ -130,6 +135,8 @@ export declare interface MatSortable {
 /**
  * Animations used by MatSort.
  * @docs-private
+ * @deprecated No longer being used, to be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matSortAnimations: {
     readonly indicator: AnimationTriggerMetadata;
@@ -159,35 +166,24 @@ export declare interface MatSortDefaultOptions {
  */
 export declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, AfterViewInit {
     _intl: MatSortHeaderIntl;
-    private _changeDetectorRef;
     _sort: MatSort;
     _columnDef: MatSortHeaderColumnDef | null;
+    private _changeDetectorRef;
     private _focusMonitor;
     private _elementRef;
     private _ariaDescriber;
-    private _rerenderSubscription;
+    private _renderChanges;
+    protected _animationModule: "NoopAnimations" | "BrowserAnimations" | null;
+    /**
+     * Indicates which state was just cleared from the sort header.
+     * Will be reset on the next interaction. Used for coordinating animations.
+     */
+    protected _recentlyCleared: WritableSignal<SortDirection | null>;
     /**
      * The element with role="button" inside this component's view. We need this
      * in order to apply a description with AriaDescriber.
      */
     private _sortButton;
-    /**
-     * Flag set to true when the indicator should be displayed while the sort is not active. Used to
-     * provide an affordance that the header is sortable by showing on focus and hover.
-     */
-    _showIndicatorHint: boolean;
-    /**
-     * The view transition state of the arrow (translation/ opacity) - indicates its `from` and `to`
-     * position through the animation. If animations are currently disabled, the fromState is removed
-     * so that there is no animation displayed.
-     */
-    _viewState: ArrowViewStateTransition;
-    /** The direction the arrow should be facing according to the current state. */
-    _arrowDirection: SortDirection;
-    /**
-     * Whether the view state animation should show the transition between the `from` and `to` states.
-     */
-    _disableViewStateAnimation: boolean;
     /**
      * ID of this sort header. If used within the context of a CdkColumnDef, this will default to
      * the column's name.
@@ -212,38 +208,11 @@ export declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, Af
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    /**
-     * Sets the "hint" state such that the arrow will be semi-transparently displayed as a hint to the
-     * user showing what the active sort will become. If set to false, the arrow will fade away.
-     */
-    _setIndicatorHintVisible(visible: boolean): void;
-    /**
-     * Sets the animation transition view state for the arrow's position and opacity. If the
-     * `disableViewStateAnimation` flag is set to true, the `fromState` will be ignored so that
-     * no animation appears.
-     */
-    _setAnimationTransitionState(viewState: ArrowViewStateTransition): void;
     /** Triggers the sort on this sort header and removes the indicator hint. */
     _toggleOnInteraction(): void;
-    _handleClick(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
     _isSorted(): boolean;
-    /** Returns the animation state for the arrow direction (indicator and pointers). */
-    _getArrowDirectionState(): string;
-    /** Returns the arrow position state (opacity, translation). */
-    _getArrowViewState(): string;
-    /**
-     * Updates the direction the arrow should be pointing. If it is not sorted, the arrow should be
-     * facing the start direction. Otherwise if it is sorted, the arrow should point in the currently
-     * active sorted direction. The reason this is updated through a function is because the direction
-     * should only be changed at specific times - when deactivated but the hint is displayed and when
-     * the sort is active and the direction changes. Otherwise the arrow's direction should linger
-     * in cases such as the sort becoming deactivated but we want to animate the arrow away while
-     * preserving its direction, even though the next sort direction is actually different and should
-     * only be changed once the arrow displays again (hint or activation).
-     */
-    _updateArrowDirection(): void;
     _isDisabled(): boolean;
     /**
      * Gets the aria-sort attribute that should be applied to this sort header. If this header
@@ -255,8 +224,6 @@ export declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, Af
     /** Whether the arrow inside the sort header should be rendered. */
     _renderArrow(): boolean;
     private _updateSortActionDescription;
-    /** Handles changes in the sorting state. */
-    private _handleStateChanges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeader, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSortHeader, "[mat-sort-header]", ["matSortHeader"], { "id": { "alias": "mat-sort-header"; "required": false; }; "arrowPosition": { "alias": "arrowPosition"; "required": false; }; "start": { "alias": "start"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "sortActionDescription": { "alias": "sortActionDescription"; "required": false; }; "disableClear": { "alias": "disableClear"; "required": false; }; }, {}, never, ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
