@@ -7220,6 +7220,7 @@ var require_mat_core_removal = __commonJS({
     var postcss = tslib_1.__importStar(require_postcss());
     var scss = tslib_1.__importStar(require_scss_syntax());
     var schematics_1 = require("@angular/cdk/schematics");
+    var MATERIAL_IMPORT_PATH = "@angular/material";
     var MatCoreMigration2 = class extends schematics_1.Migration {
       constructor() {
         super(...arguments);
@@ -7229,16 +7230,24 @@ var require_mat_core_removal = __commonJS({
       init() {
       }
       visitStylesheet(stylesheet) {
-        const processor = new postcss.Processor([
-          {
-            postcssPlugin: "mat-core-removal-v19-plugin",
-            AtRule: {
-              use: (node) => this._getNamespace(node),
-              include: (node) => this._handleAtInclude(node, stylesheet.filePath)
+        if (!stylesheet.content.includes(MATERIAL_IMPORT_PATH)) {
+          return;
+        }
+        try {
+          const processor = new postcss.Processor([
+            {
+              postcssPlugin: "mat-core-removal-v19-plugin",
+              AtRule: {
+                use: (node) => this._getNamespace(node),
+                include: (node) => this._handleAtInclude(node, stylesheet.filePath)
+              }
             }
-          }
-        ]);
-        processor.process(stylesheet.content, { syntax: scss }).sync();
+          ]);
+          processor.process(stylesheet.content, { syntax: scss }).sync();
+        } catch (e) {
+          this.logger.warn(`Failed to migrate usages of mat.core in ${stylesheet.filePath} due to error:`);
+          this.logger.warn(e + "");
+        }
       }
       _handleAtInclude(node, filePath) {
         var _a, _b;
@@ -7265,7 +7274,7 @@ var require_mat_core_removal = __commonJS({
         return false;
       }
       _getNamespace(node) {
-        if (!this._namespace && node.params.startsWith("@angular/material", 1)) {
+        if (!this._namespace && node.params.startsWith(MATERIAL_IMPORT_PATH, 1)) {
           this._namespace = node.params.split(/\s+/)[2] || "material";
         }
       }
