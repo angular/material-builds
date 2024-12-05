@@ -1,6 +1,5 @@
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
@@ -148,6 +147,8 @@ export declare type MatAccordionTogglePosition = 'before' | 'after';
  * Angular Bug: https://github.com/angular/angular/issues/18847
  *
  * @docs-private
+ * @deprecated No longer being used, to be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matExpansionAnimations: {
     readonly indicatorRotate: AnimationTriggerMetadata;
@@ -166,9 +167,10 @@ export declare class MatExpansionModule {
  */
 export declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
-    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
-    protected _animationsDisabled: boolean;
+    private readonly _animationsDisabled;
     private _document;
+    private _ngZone;
+    private _elementRef;
     /** Whether the toggle indicator should be hidden. */
     get hideToggle(): boolean;
     set hideToggle(value: boolean);
@@ -189,6 +191,8 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _lazyContent: MatExpansionPanelContent;
     /** Element containing the panel's user-provided content. */
     _body: ElementRef<HTMLElement>;
+    /** Element wrapping the panel body. */
+    protected _bodyWrapper: ElementRef<HTMLElement> | undefined;
     /** Portal holding the user's content. */
     _portal: TemplatePortal;
     /** ID for the associated header element. Used for a11y labelling. */
@@ -209,10 +213,8 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     ngOnDestroy(): void;
     /** Checks whether the expansion panel's content contains the currently-focused element. */
     _containsFocus(): boolean;
-    /** Called when the expansion animation has started. */
-    protected _animationStarted(event: AnimationEvent_2): void;
-    /** Called when the expansion animation has finished. */
-    protected _animationDone(event: AnimationEvent_2): void;
+    private _transitionEndListener;
+    protected _setupAnimationEvents(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanel, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "hideToggle": { "alias": "hideToggle"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, { "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], true, never>;
     static ngAcceptInputType_hideToggle: unknown;
@@ -276,7 +278,6 @@ export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy
     private _element;
     private _focusMonitor;
     private _changeDetectorRef;
-    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     private _parentChangeSubscription;
     constructor(...args: unknown[]);
     /** Height of the header while the panel is expanded. */
