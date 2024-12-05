@@ -74,7 +74,7 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     set value(value: any);
     /** Whether the label should appear after or before the radio button. Defaults to 'after' */
     get labelPosition(): 'before' | 'after';
-    set labelPosition(value: 'before' | 'after');
+    set labelPosition(value: "before" | "after");
     private _labelPosition;
     /** Whether the radio button is disabled. */
     get disabled(): boolean;
@@ -236,7 +236,7 @@ export declare class MatRadioGroup implements AfterContentInit, OnDestroy, Contr
     set name(value: string);
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
     get labelPosition(): 'before' | 'after';
-    set labelPosition(v: 'before' | 'after');
+    set labelPosition(v: "before" | "after");
     /**
      * Value for the radio-group. Should equal the value of the selected radio button if there is
      * a corresponding radio button with a matching value. If there is not such a corresponding
