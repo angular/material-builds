@@ -93,6 +93,8 @@ export declare class MatTimepicker<D> implements OnDestroy, MatOptionParentCompo
     readonly ariaLabel: InputSignal<string | null>;
     /** ID of the label element for the timepicker panel. */
     readonly ariaLabelledby: InputSignal<string | null>;
+    /** Whether the timepicker is currently disabled. */
+    readonly disabled: Signal<boolean>;
     constructor();
     /** Opens the timepicker. */
     open(): void;
@@ -281,6 +283,7 @@ export declare interface MatTimepickerSelected<D> {
 export declare class MatTimepickerToggle<D> {
     private _defaultConfig;
     private _defaultTabIndex;
+    protected _isDisabled: Signal<boolean>;
     /** Timepicker instance that the button will toggle. */
     readonly timepicker: InputSignal<MatTimepicker<D>>;
     /** Screen-reader label for the button. */
