@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ViewContainerRef, Injector, signal, viewChild, viewChildren, input, output, booleanAttribute, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, computed, model, Directive, HostAttributeToken, NgModule } from '@angular/core';
+import { InjectionToken, inject, ViewContainerRef, Injector, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Directive, HostAttributeToken, NgModule } from '@angular/core';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
 import { DateAdapter, MAT_DATE_FORMATS, MatOption, MAT_OPTION_PARENT_COMPONENT } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
@@ -107,7 +107,7 @@ class MatTimepicker {
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     _isOpen = signal(false);
     _activeDescendant = signal(null);
-    _input;
+    _input = signal(null);
     _overlayRef = null;
     _portal = null;
     _optionsCacheKey = null;
@@ -155,6 +155,8 @@ class MatTimepicker {
     ariaLabelledby = input(null, {
         alias: 'aria-labelledby',
     });
+    /** Whether the timepicker is currently disabled. */
+    disabled = computed(() => !!this._input()?.disabled());
     constructor() {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             validateAdapter(this._dateAdapter, this._dateFormats);
@@ -178,26 +180,27 @@ class MatTimepicker {
     }
     /** Opens the timepicker. */
     open() {
-        if (!this._input) {
+        const input = this._input();
+        if (!input) {
             return;
         }
         // Focus should already be on the input, but this call is in case the timepicker is opened
         // programmatically. We need to call this even if the timepicker is already open, because
         // the user might be clicking the toggle.
-        this._input.focus();
+        input.focus();
         if (this._isOpen()) {
             return;
         }
         this._isOpen.set(true);
         this._generateOptions();
         const overlayRef = this._getOverlayRef();
-        overlayRef.updateSize({ width: this._input.getOverlayOrigin().nativeElement.offsetWidth });
+        overlayRef.updateSize({ width: input.getOverlayOrigin().nativeElement.offsetWidth });
         this._portal ??= new TemplatePortal(this._panelTemplate(), this._viewContainerRef);
         overlayRef.attach(this._portal);
         this._onOpenRender?.destroy();
         this._onOpenRender = afterNextRender(() => {
             const options = this._options();
-            this._syncSelectedState(this._input.value(), options, options[0]);
+            this._syncSelectedState(input.value(), options, options[0]);
             this._onOpenRender = null;
         }, { injector: this._injector });
         this.opened.emit();
@@ -212,10 +215,11 @@ class MatTimepicker {
     }
     /** Registers an input with the timepicker. */
     registerInput(input) {
-        if (this._input && input !== this._input && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+        const currentInput = this._input();
+        if (currentInput && input !== currentInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw new Error('MatTimepicker can only be registered with one input at a time');
         }
-        this._input = input;
+        this._input.set(input);
     }
     ngOnDestroy() {
         this._keyManager.destroy();
@@ -227,14 +231,14 @@ class MatTimepicker {
     _selectValue(value) {
         this.close();
         this.selected.emit({ value, source: this });
-        this._input.focus();
+        this._input()?.focus();
     }
     /** Gets the value of the `aria-labelledby` attribute. */
     _getAriaLabelledby() {
         if (this.ariaLabel()) {
             return null;
         }
-        return this.ariaLabelledby() || this._input?._getLabelId() || null;
+        return this.ariaLabelledby() || this._input()?._getLabelId() || null;
     }
     /** Creates an overlay reference for the timepicker panel. */
     _getOverlayRef() {
@@ -243,7 +247,7 @@ class MatTimepicker {
         }
         const positionStrategy = this._overlay
             .position()
-            .flexibleConnectedTo(this._input.getOverlayOrigin())
+            .flexibleConnectedTo(this._input().getOverlayOrigin())
             .withFlexibleDimensions(false)
             .withPush(false)
             .withTransformOriginOn('.mat-timepicker-panel')
@@ -273,8 +277,8 @@ class MatTimepicker {
         });
         this._overlayRef.outsidePointerEvents().subscribe(event => {
             const target = _getEventTarget(event);
-            const origin = this._input.getOverlayOrigin().nativeElement;
-            if (target && target !== origin && !origin.contains(target)) {
+            const origin = this._input()?.getOverlayOrigin().nativeElement;
+            if (target && origin && target !== origin && !origin.contains(target)) {
                 this.close();
             }
         });
@@ -289,10 +293,11 @@ class MatTimepicker {
             this._timeOptions = options;
         }
         else {
+            const input = this._input();
             const adapter = this._dateAdapter;
             const timeFormat = this._dateFormats.display.timeInput;
-            const min = this._input.min() || adapter.setTime(adapter.today(), 0, 0, 0);
-            const max = this._input.max() || adapter.setTime(adapter.today(), 23, 59, 0);
+            const min = input?.min() || adapter.setTime(adapter.today(), 0, 0, 0);
+            const max = input?.max() || adapter.setTime(adapter.today(), 23, 59, 0);
             const cacheKey = interval + '/' + adapter.format(min, timeFormat) + '/' + adapter.format(max, timeFormat);
             // Don't re-generate the options if the inputs haven't changed.
             if (cacheKey !== this._optionsCacheKey) {
@@ -375,10 +380,10 @@ class MatTimepicker {
      */
     _handleInputStateChanges() {
         effect(() => {
-            const value = this._input?.value();
+            const input = this._input();
             const options = this._options();
-            if (this._isOpen()) {
-                this._syncSelectedState(value, options, null);
+            if (this._isOpen() && input) {
+                this._syncSelectedState(input.value(), options, null);
             }
         });
     }
@@ -388,7 +393,7 @@ class MatTimepicker {
                 provide: MAT_OPTION_PARENT_COMPONENT,
                 useExisting: MatTimepicker,
             },
-        ], viewQueries: [{ propertyName: "_panelTemplate", first: true, predicate: ["panelTemplate"], descendants: true, isSignal: true }, { propertyName: "_options", predicate: MatOption, descendants: true, isSignal: true }], exportAs: ["matTimepicker"], ngImport: i0, template: "<ng-template #panelTemplate>\n  <div\n    role=\"listbox\"\n    class=\"mat-timepicker-panel\"\n    [attr.aria-label]=\"ariaLabel() || null\"\n    [attr.aria-labelledby]=\"_getAriaLabelledby()\"\n    [id]=\"panelId\"\n    @panel>\n    @for (option of _timeOptions; track option.value) {\n      <mat-option\n        [value]=\"option.value\"\n        (onSelectionChange)=\"_selectValue(option.value)\">{{option.label}}</mat-option>\n    }\n  </div>\n</ng-template>\n", styles: ["mat-timepicker{display:none}.mat-timepicker-panel{width:100%;max-height:256px;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;border-bottom-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-bottom-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));box-shadow:var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));background-color:var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container))}@media(forced-colors: active){.mat-timepicker-panel{outline:solid 1px}}.mat-timepicker-above .mat-timepicker-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-top-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small))}.mat-timepicker-input:read-only{cursor:pointer}@media(forced-colors: active){.mat-timepicker-toggle-default-icon{color:CanvasText}}"], dependencies: [{ kind: "component", type: MatOption, selector: "mat-option", inputs: ["value", "id", "disabled"], outputs: ["onSelectionChange"], exportAs: ["matOption"] }], animations: [
+        ], viewQueries: [{ propertyName: "_panelTemplate", first: true, predicate: ["panelTemplate"], descendants: true, isSignal: true }, { propertyName: "_options", predicate: MatOption, descendants: true, isSignal: true }], exportAs: ["matTimepicker"], ngImport: i0, template: "<ng-template #panelTemplate>\n  <div\n    role=\"listbox\"\n    class=\"mat-timepicker-panel\"\n    [attr.aria-label]=\"ariaLabel() || null\"\n    [attr.aria-labelledby]=\"_getAriaLabelledby()\"\n    [id]=\"panelId\"\n    @panel>\n    @for (option of _timeOptions; track option.value) {\n      <mat-option\n        [value]=\"option.value\"\n        (onSelectionChange)=\"_selectValue(option.value)\">{{option.label}}</mat-option>\n    }\n  </div>\n</ng-template>\n", styles: ["mat-timepicker{display:none}.mat-timepicker-panel{width:100%;max-height:256px;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;border-bottom-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-bottom-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));box-shadow:var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));background-color:var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container))}@media(forced-colors: active){.mat-timepicker-panel{outline:solid 1px}}.mat-timepicker-above .mat-timepicker-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-top-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small))}.mat-timepicker-input[readonly]{cursor:pointer}@media(forced-colors: active){.mat-timepicker-toggle-default-icon{color:CanvasText}}"], dependencies: [{ kind: "component", type: MatOption, selector: "mat-option", inputs: ["value", "id", "disabled"], outputs: ["onSelectionChange"], exportAs: ["matOption"] }], animations: [
             trigger('panel', [
                 state('void', style({ opacity: 0, transform: 'scaleY(0.8)' })),
                 transition(':enter', [
@@ -419,7 +424,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImpor
                             ]),
                             transition(':leave', [animate('0.075s linear', style({ opacity: 0 }))]),
                         ]),
-                    ], template: "<ng-template #panelTemplate>\n  <div\n    role=\"listbox\"\n    class=\"mat-timepicker-panel\"\n    [attr.aria-label]=\"ariaLabel() || null\"\n    [attr.aria-labelledby]=\"_getAriaLabelledby()\"\n    [id]=\"panelId\"\n    @panel>\n    @for (option of _timeOptions; track option.value) {\n      <mat-option\n        [value]=\"option.value\"\n        (onSelectionChange)=\"_selectValue(option.value)\">{{option.label}}</mat-option>\n    }\n  </div>\n</ng-template>\n", styles: ["mat-timepicker{display:none}.mat-timepicker-panel{width:100%;max-height:256px;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;border-bottom-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-bottom-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));box-shadow:var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));background-color:var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container))}@media(forced-colors: active){.mat-timepicker-panel{outline:solid 1px}}.mat-timepicker-above .mat-timepicker-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-top-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small))}.mat-timepicker-input:read-only{cursor:pointer}@media(forced-colors: active){.mat-timepicker-toggle-default-icon{color:CanvasText}}"] }]
+                    ], template: "<ng-template #panelTemplate>\n  <div\n    role=\"listbox\"\n    class=\"mat-timepicker-panel\"\n    [attr.aria-label]=\"ariaLabel() || null\"\n    [attr.aria-labelledby]=\"_getAriaLabelledby()\"\n    [id]=\"panelId\"\n    @panel>\n    @for (option of _timeOptions; track option.value) {\n      <mat-option\n        [value]=\"option.value\"\n        (onSelectionChange)=\"_selectValue(option.value)\">{{option.label}}</mat-option>\n    }\n  </div>\n</ng-template>\n", styles: ["mat-timepicker{display:none}.mat-timepicker-panel{width:100%;max-height:256px;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;border-bottom-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-bottom-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));box-shadow:var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));background-color:var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container))}@media(forced-colors: active){.mat-timepicker-panel{outline:solid 1px}}.mat-timepicker-above .mat-timepicker-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-top-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small))}.mat-timepicker-input[readonly]{cursor:pointer}@media(forced-colors: active){.mat-timepicker-toggle-default-icon{color:CanvasText}}"] }]
         }], ctorParameters: () => [] });
 /**
  * Scrolls an option into view.
@@ -572,7 +577,9 @@ class MatTimepickerInput {
     }
     /** Handles clicks on the input or the containing form field. */
     _handleClick = () => {
-        this.timepicker().open();
+        if (!this.disabled()) {
+            this.timepicker().open();
+        }
     };
     /** Handles the `input` event. */
     _handleInput(value) {
@@ -601,7 +608,7 @@ class MatTimepickerInput {
     /** Handles the `keydown` event. */
     _handleKeydown(event) {
         // All keyboard events while open are handled through the timepicker.
-        if (this.timepicker().isOpen()) {
+        if (this.timepicker().isOpen() || this.disabled()) {
             return;
         }
         if (event.keyCode === ESCAPE && !hasModifierKey(event) && this.value() !== null) {
@@ -609,7 +616,7 @@ class MatTimepickerInput {
             this.value.set(null);
             this._formatValue(null);
         }
-        else if ((event.keyCode === DOWN_ARROW || event.keyCode === UP_ARROW) && !this.disabled()) {
+        else if (event.keyCode === DOWN_ARROW || event.keyCode === UP_ARROW) {
             event.preventDefault();
             this.timepicker().open();
         }
@@ -789,6 +796,10 @@ class MatTimepickerToggle {
         const parsed = Number(value);
         return isNaN(parsed) ? null : parsed;
     })();
+    _isDisabled = computed(() => {
+        const timepicker = this.timepicker();
+        return this.disabled() || timepicker.disabled();
+    });
     /** Timepicker instance that the button will toggle. */
     timepicker = input.required({
         alias: 'for',
@@ -808,13 +819,13 @@ class MatTimepickerToggle {
     disableRipple = input(this._defaultConfig?.disableRipple ?? false, { transform: booleanAttribute });
     /** Opens the connected timepicker. */
     _open(event) {
-        if (this.timepicker() && !this.disabled()) {
+        if (this.timepicker() && !this._isDisabled()) {
             this.timepicker().open();
             event.stopPropagation();
         }
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: MatTimepickerToggle, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "19.0.0", type: MatTimepickerToggle, isStandalone: true, selector: "mat-timepicker-toggle", inputs: { timepicker: { classPropertyName: "timepicker", publicName: "for", isSignal: true, isRequired: true, transformFunction: null }, ariaLabel: { classPropertyName: "ariaLabel", publicName: "aria-label", isSignal: true, isRequired: false, transformFunction: null }, disabled: { classPropertyName: "disabled", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null }, tabIndex: { classPropertyName: "tabIndex", publicName: "tabIndex", isSignal: true, isRequired: false, transformFunction: null }, disableRipple: { classPropertyName: "disableRipple", publicName: "disableRipple", isSignal: true, isRequired: false, transformFunction: null } }, host: { listeners: { "click": "_open($event)" }, properties: { "attr.tabindex": "null" }, classAttribute: "mat-timepicker-toggle" }, exportAs: ["matTimepickerToggle"], ngImport: i0, template: "<button\n  mat-icon-button\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"ariaLabel()\"\n  [attr.aria-expanded]=\"timepicker().isOpen()\"\n  [attr.tabindex]=\"disabled() ? -1 : tabIndex()\"\n  [disabled]=\"disabled()\"\n  [disableRipple]=\"disableRipple()\">\n\n  <ng-content select=\"[matTimepickerToggleIcon]\">\n    <svg\n      class=\"mat-timepicker-toggle-default-icon\"\n      height=\"24px\"\n      width=\"24px\"\n      viewBox=\"0 -960 960 960\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z\"/>\n    </svg>\n  </ng-content>\n</button>\n", dependencies: [{ kind: "component", type: MatIconButton, selector: "button[mat-icon-button]", exportAs: ["matButton"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.1.0", version: "19.0.0", type: MatTimepickerToggle, isStandalone: true, selector: "mat-timepicker-toggle", inputs: { timepicker: { classPropertyName: "timepicker", publicName: "for", isSignal: true, isRequired: true, transformFunction: null }, ariaLabel: { classPropertyName: "ariaLabel", publicName: "aria-label", isSignal: true, isRequired: false, transformFunction: null }, disabled: { classPropertyName: "disabled", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null }, tabIndex: { classPropertyName: "tabIndex", publicName: "tabIndex", isSignal: true, isRequired: false, transformFunction: null }, disableRipple: { classPropertyName: "disableRipple", publicName: "disableRipple", isSignal: true, isRequired: false, transformFunction: null } }, host: { listeners: { "click": "_open($event)" }, properties: { "attr.tabindex": "null" }, classAttribute: "mat-timepicker-toggle" }, exportAs: ["matTimepickerToggle"], ngImport: i0, template: "<button\n  mat-icon-button\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"ariaLabel()\"\n  [attr.aria-expanded]=\"timepicker().isOpen()\"\n  [attr.tabindex]=\"_isDisabled() ? -1 : tabIndex()\"\n  [disabled]=\"_isDisabled()\"\n  [disableRipple]=\"disableRipple()\">\n\n  <ng-content select=\"[matTimepickerToggleIcon]\">\n    <svg\n      class=\"mat-timepicker-toggle-default-icon\"\n      height=\"24px\"\n      width=\"24px\"\n      viewBox=\"0 -960 960 960\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z\"/>\n    </svg>\n  </ng-content>\n</button>\n", dependencies: [{ kind: "component", type: MatIconButton, selector: "button[mat-icon-button]", exportAs: ["matButton"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: MatTimepickerToggle, decorators: [{
             type: Component,
@@ -825,7 +836,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImpor
                         // `stopPropagation` on it without affecting the user's `click` handlers. We need to stop
                         // it so that the input doesn't get focused automatically by the form field (See #21836).
                         '(click)': '_open($event)',
-                    }, exportAs: 'matTimepickerToggle', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, imports: [MatIconButton], template: "<button\n  mat-icon-button\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"ariaLabel()\"\n  [attr.aria-expanded]=\"timepicker().isOpen()\"\n  [attr.tabindex]=\"disabled() ? -1 : tabIndex()\"\n  [disabled]=\"disabled()\"\n  [disableRipple]=\"disableRipple()\">\n\n  <ng-content select=\"[matTimepickerToggleIcon]\">\n    <svg\n      class=\"mat-timepicker-toggle-default-icon\"\n      height=\"24px\"\n      width=\"24px\"\n      viewBox=\"0 -960 960 960\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z\"/>\n    </svg>\n  </ng-content>\n</button>\n" }]
+                    }, exportAs: 'matTimepickerToggle', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, imports: [MatIconButton], template: "<button\n  mat-icon-button\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"ariaLabel()\"\n  [attr.aria-expanded]=\"timepicker().isOpen()\"\n  [attr.tabindex]=\"_isDisabled() ? -1 : tabIndex()\"\n  [disabled]=\"_isDisabled()\"\n  [disableRipple]=\"disableRipple()\">\n\n  <ng-content select=\"[matTimepickerToggleIcon]\">\n    <svg\n      class=\"mat-timepicker-toggle-default-icon\"\n      height=\"24px\"\n      width=\"24px\"\n      viewBox=\"0 -960 960 960\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z\"/>\n    </svg>\n  </ng-content>\n</button>\n" }]
         }] });
 
 class MatTimepickerModule {

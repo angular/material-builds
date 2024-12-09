@@ -126,6 +126,14 @@ export declare class MatPaginator implements OnInit, OnDestroy {
     private _updateDisplayedPageSizeOptions;
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
     private _emitPageEvent;
+    /** Navigates to a specific page index. */
+    private _navigate;
+    /**
+     * Callback invoked when one of the navigation buttons is called.
+     * @param targetIndex Index to which the paginator should navigate.
+     * @param isDisabled Whether the button is disabled.
+     */
+    protected _buttonClicked(targetIndex: number, isDisabled: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, [null, null, { optional: true; }]>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "color": { "alias": "color"; "required": false; }; "pageIndex": { "alias": "pageIndex"; "required": false; }; "length": { "alias": "length"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "pageSizeOptions": { "alias": "pageSizeOptions"; "required": false; }; "hidePageSize": { "alias": "hidePageSize"; "required": false; }; "showFirstLastButtons": { "alias": "showFirstLastButtons"; "required": false; }; "selectConfig": { "alias": "selectConfig"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "page": "page"; }, never, never, true, never>;
     static ngAcceptInputType_pageIndex: unknown;
