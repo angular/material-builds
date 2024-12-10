@@ -100,6 +100,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     ngControl: NgControl;
     private _liveAnnouncer;
     protected _defaultOptions: MatSelectConfig | null;
+    private _initialized;
     /** All of the defined select options. */
     options: QueryList<MatOption>;
     /** All of the defined groups of options. */
@@ -249,7 +250,13 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
      * If set to null or an empty string, the panel will grow to match the longest option's text.
      */
     panelWidth: string | number | null;
-    private _initialized;
+    /**
+     * By default selecting an option with a `null` or `undefined` value will reset the select's
+     * value. Enable this option if the reset behavior doesn't match your requirements and instead
+     * the nullable options should become selected. The value of this input can be controlled app-wide
+     * using the `MAT_SELECT_CONFIG` injection token.
+     */
+    canSelectNullableOptions: boolean;
     /** Combined stream of all of the child options' change events. */
     readonly optionSelectionChanges: Observable<MatOptionSelectionChange>;
     /** Event emitted when the select panel has been toggled. */
@@ -427,7 +434,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
      */
     get shouldLabelFloat(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelect, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disableOptionCentering": { "alias": "disableOptionCentering"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "value": { "alias": "value"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "typeaheadDebounceInterval": { "alias": "typeaheadDebounceInterval"; "required": false; }; "sortComparator": { "alias": "sortComparator"; "required": false; }; "id": { "alias": "id"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSelect, "mat-select", ["matSelect"], { "userAriaDescribedBy": { "alias": "aria-describedby"; "required": false; }; "panelClass": { "alias": "panelClass"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "required": { "alias": "required"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "disableOptionCentering": { "alias": "disableOptionCentering"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "value": { "alias": "value"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; "typeaheadDebounceInterval": { "alias": "typeaheadDebounceInterval"; "required": false; }; "sortComparator": { "alias": "sortComparator"; "required": false; }; "id": { "alias": "id"; "required": false; }; "panelWidth": { "alias": "panelWidth"; "required": false; }; "canSelectNullableOptions": { "alias": "canSelectNullableOptions"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "_closedStream": "closed"; "selectionChange": "selectionChange"; "valueChange": "valueChange"; }, ["customTrigger", "options", "optionGroups"], ["mat-select-trigger", "*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
@@ -436,6 +443,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     static ngAcceptInputType_multiple: unknown;
     static ngAcceptInputType_disableOptionCentering: unknown;
     static ngAcceptInputType_typeaheadDebounceInterval: unknown;
+    static ngAcceptInputType_canSelectNullableOptions: unknown;
 }
 
 /**
@@ -482,6 +490,11 @@ export declare interface MatSelectConfig {
      * If set to null or an empty string, the panel will grow to match the longest option's text.
      */
     panelWidth?: string | number | null;
+    /**
+     * Whether nullable options can be selected by default.
+     * See `MatSelect.canSelectNullableOptions` for more information.
+     */
+    canSelectNullableOptions?: boolean;
 }
 
 export declare class MatSelectModule {
