@@ -514,6 +514,12 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _handleHover;
     /** Gets the portal that should be attached to the overlay. */
     private _getPortal;
+    /**
+     * Determines whether the trigger owns a specific menu panel, at the current point in time.
+     * This allows us to distinguish the case where the same panel is passed into multiple triggers
+     * and multiple are open at a time.
+     */
+    private _ownsMenu;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTrigger, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], { "_deprecatedMatMenuTriggerFor": { "alias": "mat-menu-trigger-for"; "required": false; }; "menu": { "alias": "matMenuTriggerFor"; "required": false; }; "menuData": { "alias": "matMenuTriggerData"; "required": false; }; "restoreFocus": { "alias": "matMenuTriggerRestoreFocus"; "required": false; }; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never, never, true, never>;
 }
