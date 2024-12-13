@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, Renderer2, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { MatRippleLoader, _StructuralStylesLoader, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -198,15 +198,17 @@ const MAT_ANCHOR_HOST = {
  * Anchor button base.
  */
 class MatAnchorBase extends MatButtonBase {
+    _renderer = inject(Renderer2);
+    _cleanupClick;
     tabIndex;
     ngOnInit() {
         this._ngZone.runOutsideAngular(() => {
-            this._elementRef.nativeElement.addEventListener('click', this._haltDisabledEvents);
+            this._cleanupClick = this._renderer.listen(this._elementRef.nativeElement, 'click', this._haltDisabledEvents);
         });
     }
     ngOnDestroy() {
         super.ngOnDestroy();
-        this._elementRef.nativeElement.removeEventListener('click', this._haltDisabledEvents);
+        this._cleanupClick?.();
     }
     _haltDisabledEvents = (event) => {
         // A disabled button shouldn't apply any actions

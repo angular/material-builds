@@ -66,6 +66,7 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
     private _focusMonitor;
     private _platform;
     private _ngZone;
+    private _renderer;
     private readonly _interactivityChecker;
     private _doc;
     _container?: MatDrawerContainer | null | undefined;

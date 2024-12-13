@@ -2,7 +2,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
 import { AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, isSignal, effect, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, Renderer2, isSignal, effect, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
@@ -44,14 +44,16 @@ class MatInput {
     _autofillMonitor = inject(AutofillMonitor);
     _ngZone = inject(NgZone);
     _formField = inject(MAT_FORM_FIELD, { optional: true });
+    _renderer = inject(Renderer2);
     _uid = inject(_IdGenerator).getId('mat-input-');
     _previousNativeValue;
     _inputValueAccessor;
     _signalBasedValueAccessor;
     _previousPlaceholder;
     _errorStateTracker;
-    _webkitBlinkWheelListenerAttached = false;
     _config = inject(MAT_INPUT_CONFIG, { optional: true });
+    _cleanupIosKeyup;
+    _cleanupWebkitWheel;
     /** `aria-describedby` IDs assigned by the form field. */
     _formFieldDescribedBy;
     /** Whether the component is being rendered on the server. */
@@ -136,6 +138,7 @@ class MatInput {
         return this._type;
     }
     set type(value) {
+        const prevType = this._type;
         this._type = value || 'text';
         this._validateType();
         // When using Angular inputs, developers are no longer able to set the properties on the native
@@ -144,7 +147,9 @@ class MatInput {
         if (!this._isTextarea && getSupportedInputTypes().has(this._type)) {
             this._elementRef.nativeElement.type = this._type;
         }
-        this._ensureWheelDefaultBehavior();
+        if (this._type !== prevType) {
+            this._ensureWheelDefaultBehavior();
+        }
     }
     _type = 'text';
     /** An object used to control when error messages are shown. */
@@ -232,7 +237,7 @@ class MatInput {
         // exists on iOS, we only bother to install the listener on iOS.
         if (this._platform.IOS) {
             this._ngZone.runOutsideAngular(() => {
-                element.addEventListener('keyup', this._iOSKeyupListener);
+                this._cleanupIosKeyup = this._renderer.listen(element, 'keyup', this._iOSKeyupListener);
             });
         }
         this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, this.ngControl, parentFormGroup, parentForm, this.stateChanges);
@@ -270,12 +275,8 @@ class MatInput {
         if (this._platform.isBrowser) {
             this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
         }
-        if (this._platform.IOS) {
-            this._elementRef.nativeElement.removeEventListener('keyup', this._iOSKeyupListener);
-        }
-        if (this._webkitBlinkWheelListenerAttached) {
-            this._elementRef.nativeElement.removeEventListener('wheel', this._webkitBlinkWheelListener);
-        }
+        this._cleanupIosKeyup?.();
+        this._cleanupWebkitWheel?.();
     }
     ngDoCheck() {
         if (this.ngControl) {
@@ -479,24 +480,17 @@ class MatInput {
     };
     /**
      * In blink and webkit browsers a focused number input does not increment or decrement its value
-     * on mouse wheel interaction unless a wheel event listener is attached to it or one of its ancestors or a passive wheel listener is attached somewhere in the DOM.
-     * For example: Hitting a tooltip once enables the mouse wheel input for all number inputs as long as it exists.
-     * In order to get reliable and intuitive behavior we apply a wheel event on our own
-     * thus making sure increment and decrement by mouse wheel works every time.
+     * on mouse wheel interaction unless a wheel event listener is attached to it or one of its
+     * ancestors or a passive wheel listener is attached somewhere in the DOM. For example: Hitting
+     * a tooltip once enables the mouse wheel input for all number inputs as long as it exists. In
+     * order to get reliable and intuitive behavior we apply a wheel event on our own thus making
+     * sure increment and decrement by mouse wheel works every time.
      * @docs-private
      */
     _ensureWheelDefaultBehavior() {
-        if (!this._webkitBlinkWheelListenerAttached &&
-            this._type === 'number' &&
-            (this._platform.BLINK || this._platform.WEBKIT)) {
-            this._ngZone.runOutsideAngular(() => {
-                this._elementRef.nativeElement.addEventListener('wheel', this._webkitBlinkWheelListener);
-            });
-            this._webkitBlinkWheelListenerAttached = true;
-        }
-        if (this._webkitBlinkWheelListenerAttached && this._type !== 'number') {
-            this._elementRef.nativeElement.removeEventListener('wheel', this._webkitBlinkWheelListener);
-            this._webkitBlinkWheelListenerAttached = true;
+        this._cleanupWebkitWheel?.();
+        if (this._type === 'number' && (this._platform.BLINK || this._platform.WEBKIT)) {
+            this._cleanupWebkitWheel = this._renderer.listen(this._elementRef.nativeElement, 'wheel', this._webkitBlinkWheelListener);
         }
     }
     /** Gets the value to set on the `readonly` attribute. */

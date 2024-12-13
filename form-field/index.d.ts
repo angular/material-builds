@@ -448,6 +448,7 @@ declare class MatFormFieldFloatingLabel implements OnDestroy {
  */
 declare class MatFormFieldLineRipple implements OnDestroy {
     private _elementRef;
+    private _cleanupTransitionEnd;
     constructor(...args: unknown[]);
     activate(): void;
     deactivate(): void;

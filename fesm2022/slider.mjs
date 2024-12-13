@@ -1,7 +1,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, NgZone, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, signal, Directive, Output, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, signal, Directive, Output, NgModule } from '@angular/core';
 import { RippleState, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, _StructuralStylesLoader, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -72,6 +72,8 @@ class MatSliderVisualThumb {
     _cdr = inject(ChangeDetectorRef);
     _ngZone = inject(NgZone);
     _slider = inject(MAT_SLIDER);
+    _renderer = inject(Renderer2);
+    _listenerCleanups;
     /** Whether the slider displays a numeric value label upon pressing the thumb. */
     discrete;
     /** Indicates which slider thumb this input corresponds to. */
@@ -118,24 +120,19 @@ class MatSliderVisualThumb {
         // of the NgZone to prevent Angular from needlessly running change detection.
         this._ngZone.runOutsideAngular(() => {
             const input = this._sliderInputEl;
-            input.addEventListener('pointermove', this._onPointerMove);
-            input.addEventListener('pointerdown', this._onDragStart);
-            input.addEventListener('pointerup', this._onDragEnd);
-            input.addEventListener('pointerleave', this._onMouseLeave);
-            input.addEventListener('focus', this._onFocus);
-            input.addEventListener('blur', this._onBlur);
+            const renderer = this._renderer;
+            this._listenerCleanups = [
+                renderer.listen(input, 'pointermove', this._onPointerMove),
+                renderer.listen(input, 'pointerdown', this._onDragStart),
+                renderer.listen(input, 'pointerup', this._onDragEnd),
+                renderer.listen(input, 'pointerleave', this._onMouseLeave),
+                renderer.listen(input, 'focus', this._onFocus),
+                renderer.listen(input, 'blur', this._onBlur),
+            ];
         });
     }
     ngOnDestroy() {
-        const input = this._sliderInputEl;
-        if (input) {
-            input.removeEventListener('pointermove', this._onPointerMove);
-            input.removeEventListener('pointerdown', this._onDragStart);
-            input.removeEventListener('pointerup', this._onDragEnd);
-            input.removeEventListener('pointerleave', this._onMouseLeave);
-            input.removeEventListener('focus', this._onFocus);
-            input.removeEventListener('blur', this._onBlur);
-        }
+        this._listenerCleanups?.forEach(cleanup => cleanup());
     }
     _onPointerMove = (event) => {
         if (this._sliderInput._isFocused) {
@@ -1092,6 +1089,8 @@ class MatSliderThumb {
     _elementRef = inject(ElementRef);
     _cdr = inject(ChangeDetectorRef);
     _slider = inject(MAT_SLIDER);
+    _platform = inject(Platform);
+    _listenerCleanups;
     get value() {
         return numberAttribute(this._hostElement.value, 0);
     }
@@ -1247,18 +1246,18 @@ class MatSliderThumb {
      * See https://github.com/angular/angular/issues/14988.
      */
     _isControlInitialized = false;
-    _platform = inject(Platform);
     constructor() {
+        const renderer = inject(Renderer2);
         this._ngZone.runOutsideAngular(() => {
-            this._hostElement.addEventListener('pointerdown', this._onPointerDown.bind(this));
-            this._hostElement.addEventListener('pointermove', this._onPointerMove.bind(this));
-            this._hostElement.addEventListener('pointerup', this._onPointerUp.bind(this));
+            this._listenerCleanups = [
+                renderer.listen(this._hostElement, 'pointerdown', this._onPointerDown.bind(this)),
+                renderer.listen(this._hostElement, 'pointermove', this._onPointerMove.bind(this)),
+                renderer.listen(this._hostElement, 'pointerup', this._onPointerUp.bind(this)),
+            ];
         });
     }
     ngOnDestroy() {
-        this._hostElement.removeEventListener('pointerdown', this._onPointerDown);
-        this._hostElement.removeEventListener('pointermove', this._onPointerMove);
-        this._hostElement.removeEventListener('pointerup', this._onPointerUp);
+        this._listenerCleanups.forEach(cleanup => cleanup());
         this._destroyed.next();
         this._destroyed.complete();
         this.dragStart.complete();

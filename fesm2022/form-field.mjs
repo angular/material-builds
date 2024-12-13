@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Directive, InjectionToken, inject, HostAttributeToken, ElementRef, Input, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ChangeDetectorRef, ANIMATION_MODULE_TYPE, contentChild, Injector, computed, afterRender, ContentChild, ContentChildren, NgModule } from '@angular/core';
+import { Directive, InjectionToken, inject, HostAttributeToken, ElementRef, Input, NgZone, Renderer2, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ChangeDetectorRef, ANIMATION_MODULE_TYPE, contentChild, Injector, computed, afterRender, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -275,10 +275,12 @@ const DEACTIVATING_CLASS = 'mdc-line-ripple--deactivating';
  */
 class MatFormFieldLineRipple {
     _elementRef = inject(ElementRef);
+    _cleanupTransitionEnd;
     constructor() {
         const ngZone = inject(NgZone);
+        const renderer = inject(Renderer2);
         ngZone.runOutsideAngular(() => {
-            this._elementRef.nativeElement.addEventListener('transitionend', this._handleTransitionEnd);
+            this._cleanupTransitionEnd = renderer.listen(this._elementRef.nativeElement, 'transitionend', this._handleTransitionEnd);
         });
     }
     activate() {
@@ -297,7 +299,7 @@ class MatFormFieldLineRipple {
         }
     };
     ngOnDestroy() {
-        this._elementRef.nativeElement.removeEventListener('transitionend', this._handleTransitionEnd);
+        this._cleanupTransitionEnd();
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: MatFormFieldLineRipple, deps: [], target: i0.ɵɵFactoryTarget.Directive });
     static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.0.0", type: MatFormFieldLineRipple, isStandalone: true, selector: "div[matFormFieldLineRipple]", host: { classAttribute: "mdc-line-ripple" }, ngImport: i0 });

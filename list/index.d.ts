@@ -442,8 +442,10 @@ export declare class MatNavList extends MatListBase {
 export declare class MatSelectionList extends MatListBase implements SelectionList, ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
     _element: ElementRef<HTMLElement>;
     private _ngZone;
+    private _renderer;
     private _initialized;
     private _keyManager;
+    private _listenerCleanups;
     /** Emits when the list has been destroyed. */
     private _destroyed;
     /** Whether the list has been destroyed. */

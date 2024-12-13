@@ -65,6 +65,8 @@ export declare class MatAnchor extends MatAnchorBase {
  * Anchor button base.
  */
 declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
+    private _renderer;
+    private _cleanupClick;
     tabIndex: number;
     ngOnInit(): void;
     ngOnDestroy(): void;

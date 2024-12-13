@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, ViewContainerRef, NgZone, Injector, afterNextRender, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, Injector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
 import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 export { MatOptgroup, MatOption } from '@angular/material/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -7,7 +7,7 @@ import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { Platform, _getEventTarget } from '@angular/cdk/platform';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
-import { Subscription, Subject, merge, of, defer, fromEvent, Observable } from 'rxjs';
+import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, ESCAPE, ENTER, UP_ARROW, DOWN_ARROW, TAB } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -356,6 +356,7 @@ const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 };
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
 class MatAutocompleteTrigger {
+    _injector = inject(Injector);
     _element = inject(ElementRef);
     _overlay = inject(Overlay);
     _viewContainerRef = inject(ViewContainerRef);
@@ -365,13 +366,16 @@ class MatAutocompleteTrigger {
     _formField = inject(MAT_FORM_FIELD, { optional: true, host: true });
     _document = inject(DOCUMENT);
     _viewportRuler = inject(ViewportRuler);
+    _scrollStrategy = inject(MAT_AUTOCOMPLETE_SCROLL_STRATEGY);
+    _renderer = inject(Renderer2);
     _defaults = inject(MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, { optional: true });
     _overlayRef;
     _portal;
     _componentDestroyed = false;
-    _scrollStrategy = inject(MAT_AUTOCOMPLETE_SCROLL_STRATEGY);
+    _initialized = new Subject();
     _keydownSubscription;
     _outsideClickSubscription;
+    _cleanupWindowBlur;
     /** Old value of the native input. Used to work around issues with the `input` event on IE. */
     _previousValue;
     /** Value of the input element when the panel was attached (even if there are no options). */
@@ -444,18 +448,13 @@ class MatAutocompleteTrigger {
      * act as a regular input and the user won't be able to open the panel.
      */
     autocompleteDisabled;
-    _initialized = new Subject();
-    _injector = inject(Injector);
     constructor() { }
     /** Class to apply to the panel when it's above the input. */
     _aboveClass = 'mat-mdc-autocomplete-panel-above';
     ngAfterViewInit() {
         this._initialized.next();
         this._initialized.complete();
-        const window = this._getWindow();
-        if (typeof window !== 'undefined') {
-            this._zone.runOutsideAngular(() => window.addEventListener('blur', this._windowBlurHandler));
-        }
+        this._cleanupWindowBlur = this._renderer.listen('window', 'blur', this._windowBlurHandler);
     }
     ngOnChanges(changes) {
         if (changes['position'] && this._positionStrategy) {
@@ -466,10 +465,7 @@ class MatAutocompleteTrigger {
         }
     }
     ngOnDestroy() {
-        const window = this._getWindow();
-        if (typeof window !== 'undefined') {
-            window.removeEventListener('blur', this._windowBlurHandler);
-        }
+        this._cleanupWindowBlur?.();
         this._handsetLandscapeSubscription.unsubscribe();
         this._viewportSubscription.unsubscribe();
         this._componentDestroyed = true;
@@ -567,26 +563,38 @@ class MatAutocompleteTrigger {
     }
     /** Stream of clicks outside of the autocomplete panel. */
     _getOutsideClickStream() {
-        return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'auxclick'), fromEvent(this._document, 'touchend')).pipe(filter(event => {
-            // If we're in the Shadow DOM, the event target will be the shadow root, so we have to
-            // fall back to check the first element in the path of the click event.
-            const clickTarget = _getEventTarget(event);
-            const formField = this._formField
-                ? this._formField.getConnectedOverlayOrigin().nativeElement
-                : null;
-            const customOrigin = this.connectedTo ? this.connectedTo.elementRef.nativeElement : null;
-            return (this._overlayAttached &&
-                clickTarget !== this._element.nativeElement &&
-                // Normally focus moves inside `mousedown` so this condition will almost always be
-                // true. Its main purpose is to handle the case where the input is focused from an
-                // outside click which propagates up to the `body` listener within the same sequence
-                // and causes the panel to close immediately (see #3106).
-                this._document.activeElement !== this._element.nativeElement &&
-                (!formField || !formField.contains(clickTarget)) &&
-                (!customOrigin || !customOrigin.contains(clickTarget)) &&
-                !!this._overlayRef &&
-                !this._overlayRef.overlayElement.contains(clickTarget));
-        }));
+        return new Observable(observer => {
+            const listener = (event) => {
+                // If we're in the Shadow DOM, the event target will be the shadow root, so we have to
+                // fall back to check the first element in the path of the click event.
+                const clickTarget = _getEventTarget(event);
+                const formField = this._formField
+                    ? this._formField.getConnectedOverlayOrigin().nativeElement
+                    : null;
+                const customOrigin = this.connectedTo ? this.connectedTo.elementRef.nativeElement : null;
+                if (this._overlayAttached &&
+                    clickTarget !== this._element.nativeElement &&
+                    // Normally focus moves inside `mousedown` so this condition will almost always be
+                    // true. Its main purpose is to handle the case where the input is focused from an
+                    // outside click which propagates up to the `body` listener within the same sequence
+                    // and causes the panel to close immediately (see #3106).
+                    this._document.activeElement !== this._element.nativeElement &&
+                    (!formField || !formField.contains(clickTarget)) &&
+                    (!customOrigin || !customOrigin.contains(clickTarget)) &&
+                    !!this._overlayRef &&
+                    !this._overlayRef.overlayElement.contains(clickTarget)) {
+                    observer.next(event);
+                }
+            };
+            const cleanups = [
+                this._renderer.listen('document', 'click', listener),
+                this._renderer.listen('document', 'auxclick', listener),
+                this._renderer.listen('document', 'touchend', listener),
+            ];
+            return () => {
+                cleanups.forEach(current => current());
+            };
+        });
     }
     // Implemented as part of ControlValueAccessor.
     writeValue(value) {
@@ -1074,10 +1082,6 @@ class MatAutocompleteTrigger {
     _canOpen() {
         const element = this._element.nativeElement;
         return !element.readOnly && !element.disabled && !this.autocompleteDisabled;
-    }
-    /** Use defaultView of injected document if available or fallback to global window reference */
-    _getWindow() {
-        return this._document?.defaultView || window;
     }
     /** Scrolls to a particular option in the list. */
     _scrollToOption(index) {

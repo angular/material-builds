@@ -60,14 +60,16 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     private _autofillMonitor;
     private _ngZone;
     protected _formField?: MatFormField | null | undefined;
+    private _renderer;
     protected _uid: string;
     protected _previousNativeValue: any;
     private _inputValueAccessor;
     private _signalBasedValueAccessor?;
     private _previousPlaceholder;
     private _errorStateTracker;
-    private _webkitBlinkWheelListenerAttached;
     private _config;
+    private _cleanupIosKeyup;
+    private _cleanupWebkitWheel;
     /** `aria-describedby` IDs assigned by the form field. */
     private _formFieldDescribedBy;
     /** Whether the component is being rendered on the server. */
@@ -207,10 +209,11 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     private _webkitBlinkWheelListener;
     /**
      * In blink and webkit browsers a focused number input does not increment or decrement its value
-     * on mouse wheel interaction unless a wheel event listener is attached to it or one of its ancestors or a passive wheel listener is attached somewhere in the DOM.
-     * For example: Hitting a tooltip once enables the mouse wheel input for all number inputs as long as it exists.
-     * In order to get reliable and intuitive behavior we apply a wheel event on our own
-     * thus making sure increment and decrement by mouse wheel works every time.
+     * on mouse wheel interaction unless a wheel event listener is attached to it or one of its
+     * ancestors or a passive wheel listener is attached somewhere in the DOM. For example: Hitting
+     * a tooltip once enables the mouse wheel input for all number inputs as long as it exists. In
+     * order to get reliable and intuitive behavior we apply a wheel event on our own thus making
+     * sure increment and decrement by mouse wheel works every time.
      * @docs-private
      */
     private _ensureWheelDefaultBehavior;
