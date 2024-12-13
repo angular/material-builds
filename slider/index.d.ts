@@ -374,6 +374,8 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
     readonly _elementRef: ElementRef<HTMLInputElement>;
     readonly _cdr: ChangeDetectorRef;
     protected _slider: _MatSlider;
+    private _platform;
+    private _listenerCleanups;
     get value(): number;
     set value(value: number);
     /**
@@ -461,7 +463,6 @@ export declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, Contr
      * See https://github.com/angular/angular/issues/14988.
      */
     protected _isControlInitialized: boolean;
-    private _platform;
     constructor(...args: unknown[]);
     ngOnDestroy(): void;
     /** @docs-private */
@@ -601,6 +602,8 @@ export declare class MatSliderVisualThumb implements _MatSliderVisualThumb, Afte
     readonly _cdr: ChangeDetectorRef;
     private readonly _ngZone;
     private _slider;
+    private _renderer;
+    private _listenerCleanups;
     /** Whether the slider displays a numeric value label upon pressing the thumb. */
     discrete: boolean;
     /** Indicates which slider thumb this input corresponds to. */

@@ -51,7 +51,9 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     private _radioDispatcher;
     private _defaultOptions;
     private _ngZone;
+    private _renderer;
     private _uniqueId;
+    private _cleanupClick;
     /** The unique ID for the radio button. */
     id: string;
     /** Analog to HTML 'name' attribute used to group radios for unique selection. */

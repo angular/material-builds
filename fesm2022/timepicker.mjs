@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ViewContainerRef, Injector, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Directive, HostAttributeToken, NgModule } from '@angular/core';
+import { InjectionToken, inject, ViewContainerRef, Injector, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
 import { trigger, state, style, transition, group, animate } from '@angular/animations';
 import { DateAdapter, MAT_DATE_FORMATS, MatOption, MAT_OPTION_PARENT_COMPONENT } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
@@ -447,6 +447,7 @@ class MatTimepickerInput {
     _onChange;
     _onTouched;
     _validatorOnChange;
+    _cleanupClick;
     _accessorDisabled = signal(false);
     _localeSubscription;
     _timepickerSubscription;
@@ -503,6 +504,7 @@ class MatTimepickerInput {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             validateAdapter(this._dateAdapter, this._dateFormats);
         }
+        const renderer = inject(Renderer2);
         this._validator = this._getValidator();
         this._respondToValueChanges();
         this._respondToMinMaxChanges();
@@ -514,7 +516,7 @@ class MatTimepickerInput {
         });
         // Bind the click listener manually to the overlay origin, because we want the entire
         // form field to be clickable, if the timepicker is used in `mat-form-field`.
-        this.getOverlayOrigin().nativeElement.addEventListener('click', this._handleClick);
+        this._cleanupClick = renderer.listen(this.getOverlayOrigin().nativeElement, 'click', this._handleClick);
     }
     /**
      * Implemented as a part of `ControlValueAccessor`.
@@ -571,7 +573,7 @@ class MatTimepickerInput {
         this._elementRef.nativeElement.focus();
     }
     ngOnDestroy() {
-        this.getOverlayOrigin().nativeElement.removeEventListener('click', this._handleClick);
+        this._cleanupClick();
         this._timepickerSubscription?.unsubscribe();
         this._localeSubscription.unsubscribe();
     }

@@ -1,7 +1,7 @@
 import { _IdGenerator, FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import * as i0 from '@angular/core';
-import { forwardRef, InjectionToken, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, ElementRef, NgZone, Injector, ANIMATION_MODULE_TYPE, HostAttributeToken, numberAttribute, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { forwardRef, InjectionToken, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, ElementRef, NgZone, Renderer2, Injector, ANIMATION_MODULE_TYPE, HostAttributeToken, numberAttribute, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
@@ -315,7 +315,9 @@ class MatRadioButton {
         optional: true,
     });
     _ngZone = inject(NgZone);
+    _renderer = inject(Renderer2);
     _uniqueId = inject(_IdGenerator).getId('mat-radio-');
+    _cleanupClick;
     /** The unique ID for the radio button. */
     id = this._uniqueId;
     /** Analog to HTML 'name' attribute used to group radios for unique selection. */
@@ -513,12 +515,11 @@ class MatRadioButton {
         // 1. Its logic is completely DOM-related so we can avoid some change detections.
         // 2. There appear to be some internal tests that break when this triggers a change detection.
         this._ngZone.runOutsideAngular(() => {
-            this._inputElement.nativeElement.addEventListener('click', this._onInputClick);
+            this._cleanupClick = this._renderer.listen(this._inputElement.nativeElement, 'click', this._onInputClick);
         });
     }
     ngOnDestroy() {
-        // We need to null check in case the button was destroyed before `ngAfterViewInit`.
-        this._inputElement?.nativeElement.removeEventListener('click', this._onInputClick);
+        this._cleanupClick?.();
         this._focusMonitor.stopMonitoring(this._elementRef);
         this._removeUniqueSelectionListener();
     }

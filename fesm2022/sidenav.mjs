@@ -1,6 +1,6 @@
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, ANIMATION_MODULE_TYPE, QueryList, AfterRenderPhase, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, ANIMATION_MODULE_TYPE, QueryList, AfterRenderPhase, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { FocusTrapFactory, FocusMonitor, InteractivityChecker } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -125,6 +125,7 @@ class MatDrawer {
     _focusMonitor = inject(FocusMonitor);
     _platform = inject(Platform);
     _ngZone = inject(NgZone);
+    _renderer = inject(Renderer2);
     _interactivityChecker = inject(InteractivityChecker);
     _doc = inject(DOCUMENT, { optional: true });
     _container = inject(MAT_DRAWER_CONTAINER, { optional: true });
@@ -292,12 +293,12 @@ class MatDrawer {
             // The tabindex attribute should be removed to avoid navigating to that element again
             this._ngZone.runOutsideAngular(() => {
                 const callback = () => {
-                    element.removeEventListener('blur', callback);
-                    element.removeEventListener('mousedown', callback);
+                    cleanupBlur();
+                    cleanupMousedown();
                     element.removeAttribute('tabindex');
                 };
-                element.addEventListener('blur', callback);
-                element.addEventListener('mousedown', callback);
+                const cleanupBlur = this._renderer.listen(element, 'blur', callback);
+                const cleanupMousedown = this._renderer.listen(element, 'mousedown', callback);
             });
         }
         element.focus(options);

@@ -1,7 +1,7 @@
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, ANIMATION_MODULE_TYPE, NgZone, ElementRef, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, ANIMATION_MODULE_TYPE, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { _StructuralStylesLoader, MatCommonModule } from '@angular/material/core';
 import { _IdGenerator, FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { startWith, filter, take } from 'rxjs/operators';
@@ -57,6 +57,8 @@ class MatExpansionPanel extends CdkAccordionItem {
     _document = inject(DOCUMENT);
     _ngZone = inject(NgZone);
     _elementRef = inject(ElementRef);
+    _renderer = inject(Renderer2);
+    _cleanupTransitionEnd;
     /** Whether the toggle indicator should be hidden. */
     get hideToggle() {
         return this._hideToggle || (this.accordion && this.accordion.hideToggle);
@@ -138,7 +140,7 @@ class MatExpansionPanel extends CdkAccordionItem {
     }
     ngOnDestroy() {
         super.ngOnDestroy();
-        this._bodyWrapper?.nativeElement.removeEventListener('transitionend', this._transitionEndListener);
+        this._cleanupTransitionEnd?.();
         this._inputChanges.complete();
     }
     /** Checks whether the expansion panel's content contains the currently-focused element. */
@@ -173,7 +175,7 @@ class MatExpansionPanel extends CdkAccordionItem {
             else {
                 setTimeout(() => {
                     const element = this._elementRef.nativeElement;
-                    element.addEventListener('transitionend', this._transitionEndListener);
+                    this._cleanupTransitionEnd = this._renderer.listen(element, 'transitionend', this._transitionEndListener);
                     element.classList.add('mat-expansion-panel-animations-enabled');
                 }, 200);
             }

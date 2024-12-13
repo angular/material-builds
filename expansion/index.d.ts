@@ -171,6 +171,8 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     private _document;
     private _ngZone;
     private _elementRef;
+    private _renderer;
+    private _cleanupTransitionEnd;
     /** Whether the toggle indicator should be hidden. */
     get hideToggle(): boolean;
     set hideToggle(value: boolean);

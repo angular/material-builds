@@ -152,6 +152,7 @@ export declare class MatTimepickerInput<D> implements ControlValueAccessor, Vali
     private _onChange;
     private _onTouched;
     private _validatorOnChange;
+    private _cleanupClick;
     private _accessorDisabled;
     private _localeSubscription;
     private _timepickerSubscription;

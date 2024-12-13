@@ -248,6 +248,7 @@ export declare class MatAutocompleteSelectedEvent {
 
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
 export declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
+    private _injector;
     private _element;
     private _overlay;
     private _viewContainerRef;
@@ -257,13 +258,16 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _formField;
     private _document;
     private _viewportRuler;
+    private _scrollStrategy;
+    private _renderer;
     private _defaults;
     private _overlayRef;
     private _portal;
     private _componentDestroyed;
-    private _scrollStrategy;
+    private _initialized;
     private _keydownSubscription;
     private _outsideClickSubscription;
+    private _cleanupWindowBlur;
     /** Old value of the native input. Used to work around issues with the `input` event on IE. */
     private _previousValue;
     /** Value of the input element when the panel was attached (even if there are no options). */
@@ -330,8 +334,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
      * act as a regular input and the user won't be able to open the panel.
      */
     autocompleteDisabled: boolean;
-    private _initialized;
-    private _injector;
     constructor(...args: unknown[]);
     /** Class to apply to the panel when it's above the input. */
     private _aboveClass;
@@ -428,8 +430,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     private _resetActiveItem;
     /** Determines whether the panel can be opened. */
     private _canOpen;
-    /** Use defaultView of injected document if available or fallback to global window reference */
-    private _getWindow;
     /** Scrolls to a particular option in the list. */
     private _scrollToOption;
     /**

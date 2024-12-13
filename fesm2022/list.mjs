@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, Directive, Input, NgZone, ANIMATION_MODULE_TYPE, Injector, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, EventEmitter, Output, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, Directive, Input, NgZone, ANIMATION_MODULE_TYPE, Injector, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, EventEmitter, Output, forwardRef, Renderer2, NgModule } from '@angular/core';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { _StructuralStylesLoader, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule, MatPseudoCheckboxModule } from '@angular/material/core';
@@ -838,8 +838,10 @@ class MatSelectionListChange {
 class MatSelectionList extends MatListBase {
     _element = inject(ElementRef);
     _ngZone = inject(NgZone);
+    _renderer = inject(Renderer2);
     _initialized = false;
     _keyManager;
+    _listenerCleanups;
     /** Emits when the list has been destroyed. */
     _destroyed = new Subject();
     /** Whether the list has been destroyed. */
@@ -906,8 +908,10 @@ class MatSelectionList extends MatListBase {
         // These events are bound outside the zone, because they don't change
         // any change-detected properties and they can trigger timeouts.
         this._ngZone.runOutsideAngular(() => {
-            this._element.nativeElement.addEventListener('focusin', this._handleFocusin);
-            this._element.nativeElement.addEventListener('focusout', this._handleFocusout);
+            this._listenerCleanups = [
+                this._renderer.listen(this._element.nativeElement, 'focusin', this._handleFocusin),
+                this._renderer.listen(this._element.nativeElement, 'focusout', this._handleFocusout),
+            ];
         });
         if (this._value) {
             this._setOptionsFromValues(this._value);
@@ -926,8 +930,7 @@ class MatSelectionList extends MatListBase {
     }
     ngOnDestroy() {
         this._keyManager?.destroy();
-        this._element.nativeElement.removeEventListener('focusin', this._handleFocusin);
-        this._element.nativeElement.removeEventListener('focusout', this._handleFocusout);
+        this._listenerCleanups?.forEach(current => current());
         this._destroyed.next();
         this._destroyed.complete();
         this._isDestroyed = true;
