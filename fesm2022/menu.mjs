@@ -1,18 +1,18 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, afterNextRender, ContentChildren, ViewChild, ContentChild, Output, NgZone, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, ANIMATION_MODULE_TYPE, afterNextRender, ContentChildren, ViewChild, ContentChild, Output, NgZone, NgModule } from '@angular/core';
 import { FocusMonitor, _IdGenerator, FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject, merge, Subscription, of } from 'rxjs';
-import { startWith, switchMap, takeUntil, filter } from 'rxjs/operators';
+import { startWith, switchMap, takeUntil, take, filter } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { _StructuralStylesLoader, MatRipple, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 /**
  * Injection token used to provide the parent menu to menu-specific components.
@@ -241,59 +241,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImpor
                 }]
         }], ctorParameters: () => [] });
 
-/**
- * Animations used by the mat-menu component.
- * Animation duration and timing values are based on:
- * https://material.io/guidelines/components/menus.html#menus-usage
- * @docs-private
- */
-const matMenuAnimations = {
-    /**
-     * This animation controls the menu panel's entry and exit from the page.
-     *
-     * When the menu panel is added to the DOM, it scales in and fades in its border.
-     *
-     * When the menu panel is removed from the DOM, it simply fades out after a brief
-     * delay to display the ripple.
-     */
-    transformMenu: trigger('transformMenu', [
-        state('void', style({
-            opacity: 0,
-            transform: 'scale(0.8)',
-        })),
-        transition('void => enter', animate('120ms cubic-bezier(0, 0, 0.2, 1)', style({
-            opacity: 1,
-            transform: 'scale(1)',
-        }))),
-        transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 }))),
-    ]),
-    /**
-     * This animation fades in the background color and content of the menu panel
-     * after its containing element is scaled in.
-     */
-    fadeInItems: trigger('fadeInItems', [
-        // TODO(crisbeto): this is inside the `transformMenu`
-        // now. Remove next time we do breaking changes.
-        state('showing', style({ opacity: 1 })),
-        transition('void => *', [
-            style({ opacity: 0 }),
-            animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-        ]),
-    ]),
-};
-/**
- * @deprecated
- * @breaking-change 8.0.0
- * @docs-private
- */
-const fadeInItems = matMenuAnimations.fadeInItems;
-/**
- * @deprecated
- * @breaking-change 8.0.0
- * @docs-private
- */
-const transformMenu = matMenuAnimations.transformMenu;
-
 /** Injection token to be used to override the default options for `mat-menu`. */
 const MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
@@ -308,13 +255,21 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
         backdropClass: 'cdk-overlay-transparent-backdrop',
     };
 }
+/** Name of the enter animation `@keyframes`. */
+const ENTER_ANIMATION = '_mat-menu-enter';
+/** Name of the exit animation `@keyframes`. */
+const EXIT_ANIMATION = '_mat-menu-exit';
 class MatMenu {
     _elementRef = inject(ElementRef);
     _changeDetectorRef = inject(ChangeDetectorRef);
+    _injector = inject(Injector);
     _keyManager;
     _xPosition;
     _yPosition;
     _firstItemFocusRef;
+    _exitFallbackTimeout;
+    /** Whether animations are currently disabled. */
+    _animationsDisabled;
     /** All items inside the menu. Includes items nested inside another menu. */
     _allItems;
     /** Only the direct descendant menu items. */
@@ -326,7 +281,7 @@ class MatMenu {
     /** Emits whenever an animation on the menu completes. */
     _animationDone = new Subject();
     /** Whether the menu is animating. */
-    _isAnimating;
+    _isAnimating = false;
     /** Parent menu of the current menu panel. */
     parentMenu;
     /** Layout direction of the menu. */
@@ -428,7 +383,6 @@ class MatMenu {
      */
     close = this.closed;
     panelId = inject(_IdGenerator).getId('mat-menu-panel-');
-    _injector = inject(Injector);
     constructor() {
         const defaultOptions = inject(MAT_MENU_DEFAULT_OPTIONS);
         this.overlayPanelClass = defaultOptions.overlayPanelClass || '';
@@ -437,6 +391,7 @@ class MatMenu {
         this.backdropClass = defaultOptions.backdropClass;
         this.overlapTrigger = defaultOptions.overlapTrigger;
         this.hasBackdrop = defaultOptions.hasBackdrop;
+        this._animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
     }
     ngOnInit() {
         this.setPositionClasses();
@@ -476,6 +431,7 @@ class MatMenu {
         this._directDescendantItems.destroy();
         this.closed.complete();
         this._firstItemFocusRef?.destroy();
+        clearTimeout(this._exitFallbackTimeout);
     }
     /** Stream that emits whenever the hovered menu item changes. */
     _hovered() {
@@ -534,14 +490,7 @@ class MatMenu {
         // Wait for `afterNextRender` to ensure iOS VoiceOver screen reader focuses the first item (#24735).
         this._firstItemFocusRef?.destroy();
         this._firstItemFocusRef = afterNextRender(() => {
-            let menuPanel = null;
-            if (this._directDescendantItems.length) {
-                // Because the `mat-menuPanel` is at the DOM insertion point, not inside the overlay, we don't
-                // have a nice way of getting a hold of the menuPanel panel. We can't use a `ViewChild` either
-                // because the panel is inside an `ng-template`. We work around it by starting from one of
-                // the items and walking up the DOM.
-                menuPanel = this._directDescendantItems.first._getHostElement().closest('[role="menu"]');
-            }
+            const menuPanel = this._resolvePanel();
             // If an item in the menuPanel is already focused, avoid overriding the focus.
             if (!menuPanel || !menuPanel.contains(document.activeElement)) {
                 const manager = this._keyManager;
@@ -584,32 +533,52 @@ class MatMenu {
         };
         this._changeDetectorRef.markForCheck();
     }
-    /** Starts the enter animation. */
-    _startAnimation() {
-        // @breaking-change 8.0.0 Combine with _resetAnimation.
-        this._panelAnimationState = 'enter';
-    }
-    /** Resets the panel animation to its initial state. */
-    _resetAnimation() {
-        // @breaking-change 8.0.0 Combine with _startAnimation.
-        this._panelAnimationState = 'void';
-    }
     /** Callback that is invoked when the panel animation completes. */
-    _onAnimationDone(event) {
-        this._animationDone.next(event);
-        this._isAnimating = false;
-    }
-    _onAnimationStart(event) {
-        this._isAnimating = true;
-        // Scroll the content element to the top as soon as the animation starts. This is necessary,
-        // because we move focus to the first item while it's still being animated, which can throw
-        // the browser off when it determines the scroll position. Alternatively we can move focus
-        // when the animation is done, however moving focus asynchronously will interrupt screen
-        // readers which are in the process of reading out the menu already. We take the `element`
-        // from the `event` since we can't use a `ViewChild` to access the pane.
-        if (event.toState === 'enter' && this._keyManager.activeItemIndex === 0) {
-            event.element.scrollTop = 0;
+    _onAnimationDone(state) {
+        const isExit = state === EXIT_ANIMATION;
+        if (isExit || state === ENTER_ANIMATION) {
+            if (isExit) {
+                clearTimeout(this._exitFallbackTimeout);
+                this._exitFallbackTimeout = undefined;
+            }
+            this._animationDone.next(isExit ? 'void' : 'enter');
+            this._isAnimating = false;
         }
+    }
+    _onAnimationStart(state) {
+        if (state === ENTER_ANIMATION || state === EXIT_ANIMATION) {
+            this._isAnimating = true;
+        }
+    }
+    _setIsOpen(isOpen) {
+        this._panelAnimationState = isOpen ? 'enter' : 'void';
+        if (isOpen) {
+            if (this._keyManager.activeItemIndex === 0) {
+                // Scroll the content element to the top as soon as the animation starts. This is necessary,
+                // because we move focus to the first item while it's still being animated, which can throw
+                // the browser off when it determines the scroll position. Alternatively we can move focus
+                // when the animation is done, however moving focus asynchronously will interrupt screen
+                // readers which are in the process of reading out the menu already. We take the `element`
+                // from the `event` since we can't use a `ViewChild` to access the pane.
+                const menuPanel = this._resolvePanel();
+                if (menuPanel) {
+                    menuPanel.scrollTop = 0;
+                }
+            }
+        }
+        else if (!this._animationsDisabled) {
+            // Some apps do `* { animation: none !important; }` in tests which will prevent the
+            // `animationend` event from firing. Since the exit animation is loading-bearing for
+            // removing the content from the DOM, add a fallback timer.
+            this._exitFallbackTimeout = setTimeout(() => this._onAnimationDone(EXIT_ANIMATION), 200);
+        }
+        // Animation events won't fire when animations are disabled so we simulate them.
+        if (this._animationsDisabled) {
+            setTimeout(() => {
+                this._onAnimationDone(isOpen ? ENTER_ANIMATION : EXIT_ANIMATION);
+            });
+        }
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Sets up a stream that will keep track of any newly-added menu items and will update the list
@@ -625,8 +594,20 @@ class MatMenu {
             this._directDescendantItems.notifyOnChanges();
         });
     }
+    /** Gets the menu panel DOM node. */
+    _resolvePanel() {
+        let menuPanel = null;
+        if (this._directDescendantItems.length) {
+            // Because the `mat-menuPanel` is at the DOM insertion point, not inside the overlay, we don't
+            // have a nice way of getting a hold of the menuPanel panel. We can't use a `ViewChild` either
+            // because the panel is inside an `ng-template`. We work around it by starting from one of
+            // the items and walking up the DOM.
+            menuPanel = this._directDescendantItems.first._getHostElement().closest('[role="menu"]');
+        }
+        return menuPanel;
+    }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: MatMenu, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "19.0.0", type: MatMenu, isStandalone: true, selector: "mat-menu", inputs: { backdropClass: "backdropClass", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"], xPosition: "xPosition", yPosition: "yPosition", overlapTrigger: ["overlapTrigger", "overlapTrigger", booleanAttribute], hasBackdrop: ["hasBackdrop", "hasBackdrop", (value) => (value == null ? null : booleanAttribute(value))], panelClass: ["class", "panelClass"], classList: "classList" }, outputs: { closed: "closed", close: "close" }, host: { properties: { "attr.aria-label": "null", "attr.aria-labelledby": "null", "attr.aria-describedby": "null" } }, providers: [{ provide: MAT_MENU_PANEL, useExisting: MatMenu }], queries: [{ propertyName: "lazyContent", first: true, predicate: MAT_MENU_CONTENT, descendants: true }, { propertyName: "_allItems", predicate: MatMenuItem, descendants: true }, { propertyName: "items", predicate: MatMenuItem }], viewQueries: [{ propertyName: "templateRef", first: true, predicate: TemplateRef, descendants: true }], exportAs: ["matMenu"], ngImport: i0, template: "<ng-template>\n  <div\n    class=\"mat-mdc-menu-panel\"\n    [id]=\"panelId\"\n    [class]=\"_classList\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-mdc-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n", styles: ["mat-menu{display:none}.mat-mdc-menu-content{margin:0;padding:8px 0;outline:0}.mat-mdc-menu-content,.mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;flex:1;white-space:normal;font-family:var(--mat-menu-item-label-text-font, var(--mat-sys-label-large-font));line-height:var(--mat-menu-item-label-text-line-height, var(--mat-sys-label-large-line-height));font-size:var(--mat-menu-item-label-text-size, var(--mat-sys-label-large-size));letter-spacing:var(--mat-menu-item-label-text-tracking, var(--mat-sys-label-large-tracking));font-weight:var(--mat-menu-item-label-text-weight, var(--mat-sys-label-large-weight))}.mat-mdc-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;box-sizing:border-box;outline:0;border-radius:var(--mat-menu-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mat-menu-container-color, var(--mat-sys-surface-container));box-shadow:var(--mat-menu-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));will-change:transform,opacity}.mat-mdc-menu-panel.ng-animating{pointer-events:none}.mat-mdc-menu-panel.ng-animating:has(.mat-mdc-menu-content:empty){display:none}@media(forced-colors: active){.mat-mdc-menu-panel{outline:solid 1px}}.mat-mdc-menu-panel .mat-divider{color:var(--mat-menu-divider-color, var(--mat-sys-surface-variant));margin-bottom:var(--mat-menu-divider-bottom-spacing, 8px);margin-top:var(--mat-menu-divider-top-spacing, 8px)}.mat-mdc-menu-item{display:flex;position:relative;align-items:center;justify-content:flex-start;overflow:hidden;padding:0;cursor:pointer;width:100%;text-align:left;box-sizing:border-box;color:inherit;font-size:inherit;background:none;text-decoration:none;margin:0;min-height:48px;padding-left:var(--mat-menu-item-leading-spacing, 12px);padding-right:var(--mat-menu-item-trailing-spacing, 12px);-webkit-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-mdc-menu-item::-moz-focus-inner{border:0}[dir=rtl] .mat-mdc-menu-item{padding-left:var(--mat-menu-item-trailing-spacing, 12px);padding-right:var(--mat-menu-item-leading-spacing, 12px)}.mat-mdc-menu-item:has(.material-icons,mat-icon,[matButtonIcon]){padding-left:var(--mat-menu-item-with-icon-leading-spacing, 12px);padding-right:var(--mat-menu-item-with-icon-trailing-spacing, 12px)}[dir=rtl] .mat-mdc-menu-item:has(.material-icons,mat-icon,[matButtonIcon]){padding-left:var(--mat-menu-item-with-icon-trailing-spacing, 12px);padding-right:var(--mat-menu-item-with-icon-leading-spacing, 12px)}.mat-mdc-menu-item,.mat-mdc-menu-item:visited,.mat-mdc-menu-item:link{color:var(--mat-menu-item-label-text-color, var(--mat-sys-on-surface))}.mat-mdc-menu-item .mat-icon-no-color,.mat-mdc-menu-item .mat-mdc-menu-submenu-icon{color:var(--mat-menu-item-icon-color, var(--mat-sys-on-surface-variant))}.mat-mdc-menu-item[disabled]{cursor:default;opacity:.38}.mat-mdc-menu-item[disabled]::after{display:block;position:absolute;content:\"\";top:0;left:0;bottom:0;right:0}.mat-mdc-menu-item:focus{outline:0}.mat-mdc-menu-item .mat-icon{flex-shrink:0;margin-right:var(--mat-menu-item-spacing, 12px);height:var(--mat-menu-item-icon-size, 24px);width:var(--mat-menu-item-icon-size, 24px)}[dir=rtl] .mat-mdc-menu-item{text-align:right}[dir=rtl] .mat-mdc-menu-item .mat-icon{margin-right:0;margin-left:var(--mat-menu-item-spacing, 12px)}.mat-mdc-menu-item:not([disabled]):hover{background-color:var(--mat-menu-item-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}.mat-mdc-menu-item:not([disabled]).cdk-program-focused,.mat-mdc-menu-item:not([disabled]).cdk-keyboard-focused,.mat-mdc-menu-item:not([disabled]).mat-mdc-menu-item-highlighted{background-color:var(--mat-menu-item-focus-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}@media(forced-colors: active){.mat-mdc-menu-item{margin-top:1px}}.mat-mdc-menu-submenu-icon{width:var(--mat-menu-item-icon-size, 24px);height:10px;fill:currentColor;padding-left:var(--mat-menu-item-spacing, 12px)}[dir=rtl] .mat-mdc-menu-submenu-icon{padding-right:var(--mat-menu-item-spacing, 12px);padding-left:0}[dir=rtl] .mat-mdc-menu-submenu-icon polygon{transform:scaleX(-1);transform-origin:center}@media(forced-colors: active){.mat-mdc-menu-submenu-icon{fill:CanvasText}}.mat-mdc-menu-item .mat-mdc-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"], animations: [matMenuAnimations.transformMenu, matMenuAnimations.fadeInItems], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "19.0.0", type: MatMenu, isStandalone: true, selector: "mat-menu", inputs: { backdropClass: "backdropClass", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"], xPosition: "xPosition", yPosition: "yPosition", overlapTrigger: ["overlapTrigger", "overlapTrigger", booleanAttribute], hasBackdrop: ["hasBackdrop", "hasBackdrop", (value) => (value == null ? null : booleanAttribute(value))], panelClass: ["class", "panelClass"], classList: "classList" }, outputs: { closed: "closed", close: "close" }, host: { properties: { "attr.aria-label": "null", "attr.aria-labelledby": "null", "attr.aria-describedby": "null" } }, providers: [{ provide: MAT_MENU_PANEL, useExisting: MatMenu }], queries: [{ propertyName: "lazyContent", first: true, predicate: MAT_MENU_CONTENT, descendants: true }, { propertyName: "_allItems", predicate: MatMenuItem, descendants: true }, { propertyName: "items", predicate: MatMenuItem }], viewQueries: [{ propertyName: "templateRef", first: true, predicate: TemplateRef, descendants: true }], exportAs: ["matMenu"], ngImport: i0, template: "<ng-template>\n  <div\n    class=\"mat-mdc-menu-panel\"\n    [id]=\"panelId\"\n    [class]=\"_classList\"\n    [class.mat-menu-panel-animations-disabled]=\"_animationsDisabled\"\n    [class.mat-menu-panel-exit-animation]=\"_panelAnimationState === 'void'\"\n    [class.mat-menu-panel-animating]=\"_isAnimating\"\n    (click)=\"closed.emit('click')\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    (animationstart)=\"_onAnimationStart($event.animationName)\"\n    (animationend)=\"_onAnimationDone($event.animationName)\"\n    (animationcancel)=\"_onAnimationDone($event.animationName)\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-mdc-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n", styles: ["mat-menu{display:none}.mat-mdc-menu-content{margin:0;padding:8px 0;outline:0}.mat-mdc-menu-content,.mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;flex:1;white-space:normal;font-family:var(--mat-menu-item-label-text-font, var(--mat-sys-label-large-font));line-height:var(--mat-menu-item-label-text-line-height, var(--mat-sys-label-large-line-height));font-size:var(--mat-menu-item-label-text-size, var(--mat-sys-label-large-size));letter-spacing:var(--mat-menu-item-label-text-tracking, var(--mat-sys-label-large-tracking));font-weight:var(--mat-menu-item-label-text-weight, var(--mat-sys-label-large-weight))}@keyframes _mat-menu-enter{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:none}}@keyframes _mat-menu-exit{from{opacity:1}to{opacity:0}}.mat-mdc-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;box-sizing:border-box;outline:0;animation:_mat-menu-enter 120ms cubic-bezier(0, 0, 0.2, 1);border-radius:var(--mat-menu-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mat-menu-container-color, var(--mat-sys-surface-container));box-shadow:var(--mat-menu-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));will-change:transform,opacity}.mat-mdc-menu-panel.mat-menu-panel-exit-animation{animation:_mat-menu-exit 100ms 25ms linear forwards}.mat-mdc-menu-panel.mat-menu-panel-animations-disabled{animation:none}.mat-mdc-menu-panel.mat-menu-panel-animating{pointer-events:none}.mat-mdc-menu-panel.mat-menu-panel-animating:has(.mat-mdc-menu-content:empty){display:none}@media(forced-colors: active){.mat-mdc-menu-panel{outline:solid 1px}}.mat-mdc-menu-panel .mat-divider{color:var(--mat-menu-divider-color, var(--mat-sys-surface-variant));margin-bottom:var(--mat-menu-divider-bottom-spacing, 8px);margin-top:var(--mat-menu-divider-top-spacing, 8px)}.mat-mdc-menu-item{display:flex;position:relative;align-items:center;justify-content:flex-start;overflow:hidden;padding:0;cursor:pointer;width:100%;text-align:left;box-sizing:border-box;color:inherit;font-size:inherit;background:none;text-decoration:none;margin:0;min-height:48px;padding-left:var(--mat-menu-item-leading-spacing, 12px);padding-right:var(--mat-menu-item-trailing-spacing, 12px);-webkit-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-mdc-menu-item::-moz-focus-inner{border:0}[dir=rtl] .mat-mdc-menu-item{padding-left:var(--mat-menu-item-trailing-spacing, 12px);padding-right:var(--mat-menu-item-leading-spacing, 12px)}.mat-mdc-menu-item:has(.material-icons,mat-icon,[matButtonIcon]){padding-left:var(--mat-menu-item-with-icon-leading-spacing, 12px);padding-right:var(--mat-menu-item-with-icon-trailing-spacing, 12px)}[dir=rtl] .mat-mdc-menu-item:has(.material-icons,mat-icon,[matButtonIcon]){padding-left:var(--mat-menu-item-with-icon-trailing-spacing, 12px);padding-right:var(--mat-menu-item-with-icon-leading-spacing, 12px)}.mat-mdc-menu-item,.mat-mdc-menu-item:visited,.mat-mdc-menu-item:link{color:var(--mat-menu-item-label-text-color, var(--mat-sys-on-surface))}.mat-mdc-menu-item .mat-icon-no-color,.mat-mdc-menu-item .mat-mdc-menu-submenu-icon{color:var(--mat-menu-item-icon-color, var(--mat-sys-on-surface-variant))}.mat-mdc-menu-item[disabled]{cursor:default;opacity:.38}.mat-mdc-menu-item[disabled]::after{display:block;position:absolute;content:\"\";top:0;left:0;bottom:0;right:0}.mat-mdc-menu-item:focus{outline:0}.mat-mdc-menu-item .mat-icon{flex-shrink:0;margin-right:var(--mat-menu-item-spacing, 12px);height:var(--mat-menu-item-icon-size, 24px);width:var(--mat-menu-item-icon-size, 24px)}[dir=rtl] .mat-mdc-menu-item{text-align:right}[dir=rtl] .mat-mdc-menu-item .mat-icon{margin-right:0;margin-left:var(--mat-menu-item-spacing, 12px)}.mat-mdc-menu-item:not([disabled]):hover{background-color:var(--mat-menu-item-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}.mat-mdc-menu-item:not([disabled]).cdk-program-focused,.mat-mdc-menu-item:not([disabled]).cdk-keyboard-focused,.mat-mdc-menu-item:not([disabled]).mat-mdc-menu-item-highlighted{background-color:var(--mat-menu-item-focus-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}@media(forced-colors: active){.mat-mdc-menu-item{margin-top:1px}}.mat-mdc-menu-submenu-icon{width:var(--mat-menu-item-icon-size, 24px);height:10px;fill:currentColor;padding-left:var(--mat-menu-item-spacing, 12px)}[dir=rtl] .mat-mdc-menu-submenu-icon{padding-right:var(--mat-menu-item-spacing, 12px);padding-left:0}[dir=rtl] .mat-mdc-menu-submenu-icon polygon{transform:scaleX(-1);transform-origin:center}@media(forced-colors: active){.mat-mdc-menu-submenu-icon{fill:CanvasText}}.mat-mdc-menu-item .mat-mdc-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImport: i0, type: MatMenu, decorators: [{
             type: Component,
@@ -634,7 +615,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImpor
                         '[attr.aria-label]': 'null',
                         '[attr.aria-labelledby]': 'null',
                         '[attr.aria-describedby]': 'null',
-                    }, animations: [matMenuAnimations.transformMenu, matMenuAnimations.fadeInItems], providers: [{ provide: MAT_MENU_PANEL, useExisting: MatMenu }], template: "<ng-template>\n  <div\n    class=\"mat-mdc-menu-panel\"\n    [id]=\"panelId\"\n    [class]=\"_classList\"\n    (click)=\"closed.emit('click')\"\n    [@transformMenu]=\"_panelAnimationState\"\n    (@transformMenu.start)=\"_onAnimationStart($event)\"\n    (@transformMenu.done)=\"_onAnimationDone($event)\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-mdc-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n", styles: ["mat-menu{display:none}.mat-mdc-menu-content{margin:0;padding:8px 0;outline:0}.mat-mdc-menu-content,.mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;flex:1;white-space:normal;font-family:var(--mat-menu-item-label-text-font, var(--mat-sys-label-large-font));line-height:var(--mat-menu-item-label-text-line-height, var(--mat-sys-label-large-line-height));font-size:var(--mat-menu-item-label-text-size, var(--mat-sys-label-large-size));letter-spacing:var(--mat-menu-item-label-text-tracking, var(--mat-sys-label-large-tracking));font-weight:var(--mat-menu-item-label-text-weight, var(--mat-sys-label-large-weight))}.mat-mdc-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;box-sizing:border-box;outline:0;border-radius:var(--mat-menu-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mat-menu-container-color, var(--mat-sys-surface-container));box-shadow:var(--mat-menu-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));will-change:transform,opacity}.mat-mdc-menu-panel.ng-animating{pointer-events:none}.mat-mdc-menu-panel.ng-animating:has(.mat-mdc-menu-content:empty){display:none}@media(forced-colors: active){.mat-mdc-menu-panel{outline:solid 1px}}.mat-mdc-menu-panel .mat-divider{color:var(--mat-menu-divider-color, var(--mat-sys-surface-variant));margin-bottom:var(--mat-menu-divider-bottom-spacing, 8px);margin-top:var(--mat-menu-divider-top-spacing, 8px)}.mat-mdc-menu-item{display:flex;position:relative;align-items:center;justify-content:flex-start;overflow:hidden;padding:0;cursor:pointer;width:100%;text-align:left;box-sizing:border-box;color:inherit;font-size:inherit;background:none;text-decoration:none;margin:0;min-height:48px;padding-left:var(--mat-menu-item-leading-spacing, 12px);padding-right:var(--mat-menu-item-trailing-spacing, 12px);-webkit-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-mdc-menu-item::-moz-focus-inner{border:0}[dir=rtl] .mat-mdc-menu-item{padding-left:var(--mat-menu-item-trailing-spacing, 12px);padding-right:var(--mat-menu-item-leading-spacing, 12px)}.mat-mdc-menu-item:has(.material-icons,mat-icon,[matButtonIcon]){padding-left:var(--mat-menu-item-with-icon-leading-spacing, 12px);padding-right:var(--mat-menu-item-with-icon-trailing-spacing, 12px)}[dir=rtl] .mat-mdc-menu-item:has(.material-icons,mat-icon,[matButtonIcon]){padding-left:var(--mat-menu-item-with-icon-trailing-spacing, 12px);padding-right:var(--mat-menu-item-with-icon-leading-spacing, 12px)}.mat-mdc-menu-item,.mat-mdc-menu-item:visited,.mat-mdc-menu-item:link{color:var(--mat-menu-item-label-text-color, var(--mat-sys-on-surface))}.mat-mdc-menu-item .mat-icon-no-color,.mat-mdc-menu-item .mat-mdc-menu-submenu-icon{color:var(--mat-menu-item-icon-color, var(--mat-sys-on-surface-variant))}.mat-mdc-menu-item[disabled]{cursor:default;opacity:.38}.mat-mdc-menu-item[disabled]::after{display:block;position:absolute;content:\"\";top:0;left:0;bottom:0;right:0}.mat-mdc-menu-item:focus{outline:0}.mat-mdc-menu-item .mat-icon{flex-shrink:0;margin-right:var(--mat-menu-item-spacing, 12px);height:var(--mat-menu-item-icon-size, 24px);width:var(--mat-menu-item-icon-size, 24px)}[dir=rtl] .mat-mdc-menu-item{text-align:right}[dir=rtl] .mat-mdc-menu-item .mat-icon{margin-right:0;margin-left:var(--mat-menu-item-spacing, 12px)}.mat-mdc-menu-item:not([disabled]):hover{background-color:var(--mat-menu-item-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}.mat-mdc-menu-item:not([disabled]).cdk-program-focused,.mat-mdc-menu-item:not([disabled]).cdk-keyboard-focused,.mat-mdc-menu-item:not([disabled]).mat-mdc-menu-item-highlighted{background-color:var(--mat-menu-item-focus-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}@media(forced-colors: active){.mat-mdc-menu-item{margin-top:1px}}.mat-mdc-menu-submenu-icon{width:var(--mat-menu-item-icon-size, 24px);height:10px;fill:currentColor;padding-left:var(--mat-menu-item-spacing, 12px)}[dir=rtl] .mat-mdc-menu-submenu-icon{padding-right:var(--mat-menu-item-spacing, 12px);padding-left:0}[dir=rtl] .mat-mdc-menu-submenu-icon polygon{transform:scaleX(-1);transform-origin:center}@media(forced-colors: active){.mat-mdc-menu-submenu-icon{fill:CanvasText}}.mat-mdc-menu-item .mat-mdc-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"] }]
+                    }, providers: [{ provide: MAT_MENU_PANEL, useExisting: MatMenu }], template: "<ng-template>\n  <div\n    class=\"mat-mdc-menu-panel\"\n    [id]=\"panelId\"\n    [class]=\"_classList\"\n    [class.mat-menu-panel-animations-disabled]=\"_animationsDisabled\"\n    [class.mat-menu-panel-exit-animation]=\"_panelAnimationState === 'void'\"\n    [class.mat-menu-panel-animating]=\"_isAnimating\"\n    (click)=\"closed.emit('click')\"\n    tabindex=\"-1\"\n    role=\"menu\"\n    (animationstart)=\"_onAnimationStart($event.animationName)\"\n    (animationend)=\"_onAnimationDone($event.animationName)\"\n    (animationcancel)=\"_onAnimationDone($event.animationName)\"\n    [attr.aria-label]=\"ariaLabel || null\"\n    [attr.aria-labelledby]=\"ariaLabelledby || null\"\n    [attr.aria-describedby]=\"ariaDescribedby || null\">\n    <div class=\"mat-mdc-menu-content\">\n      <ng-content></ng-content>\n    </div>\n  </div>\n</ng-template>\n", styles: ["mat-menu{display:none}.mat-mdc-menu-content{margin:0;padding:8px 0;outline:0}.mat-mdc-menu-content,.mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;flex:1;white-space:normal;font-family:var(--mat-menu-item-label-text-font, var(--mat-sys-label-large-font));line-height:var(--mat-menu-item-label-text-line-height, var(--mat-sys-label-large-line-height));font-size:var(--mat-menu-item-label-text-size, var(--mat-sys-label-large-size));letter-spacing:var(--mat-menu-item-label-text-tracking, var(--mat-sys-label-large-tracking));font-weight:var(--mat-menu-item-label-text-weight, var(--mat-sys-label-large-weight))}@keyframes _mat-menu-enter{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:none}}@keyframes _mat-menu-exit{from{opacity:1}to{opacity:0}}.mat-mdc-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;box-sizing:border-box;outline:0;animation:_mat-menu-enter 120ms cubic-bezier(0, 0, 0.2, 1);border-radius:var(--mat-menu-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mat-menu-container-color, var(--mat-sys-surface-container));box-shadow:var(--mat-menu-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));will-change:transform,opacity}.mat-mdc-menu-panel.mat-menu-panel-exit-animation{animation:_mat-menu-exit 100ms 25ms linear forwards}.mat-mdc-menu-panel.mat-menu-panel-animations-disabled{animation:none}.mat-mdc-menu-panel.mat-menu-panel-animating{pointer-events:none}.mat-mdc-menu-panel.mat-menu-panel-animating:has(.mat-mdc-menu-content:empty){display:none}@media(forced-colors: active){.mat-mdc-menu-panel{outline:solid 1px}}.mat-mdc-menu-panel .mat-divider{color:var(--mat-menu-divider-color, var(--mat-sys-surface-variant));margin-bottom:var(--mat-menu-divider-bottom-spacing, 8px);margin-top:var(--mat-menu-divider-top-spacing, 8px)}.mat-mdc-menu-item{display:flex;position:relative;align-items:center;justify-content:flex-start;overflow:hidden;padding:0;cursor:pointer;width:100%;text-align:left;box-sizing:border-box;color:inherit;font-size:inherit;background:none;text-decoration:none;margin:0;min-height:48px;padding-left:var(--mat-menu-item-leading-spacing, 12px);padding-right:var(--mat-menu-item-trailing-spacing, 12px);-webkit-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-mdc-menu-item::-moz-focus-inner{border:0}[dir=rtl] .mat-mdc-menu-item{padding-left:var(--mat-menu-item-trailing-spacing, 12px);padding-right:var(--mat-menu-item-leading-spacing, 12px)}.mat-mdc-menu-item:has(.material-icons,mat-icon,[matButtonIcon]){padding-left:var(--mat-menu-item-with-icon-leading-spacing, 12px);padding-right:var(--mat-menu-item-with-icon-trailing-spacing, 12px)}[dir=rtl] .mat-mdc-menu-item:has(.material-icons,mat-icon,[matButtonIcon]){padding-left:var(--mat-menu-item-with-icon-trailing-spacing, 12px);padding-right:var(--mat-menu-item-with-icon-leading-spacing, 12px)}.mat-mdc-menu-item,.mat-mdc-menu-item:visited,.mat-mdc-menu-item:link{color:var(--mat-menu-item-label-text-color, var(--mat-sys-on-surface))}.mat-mdc-menu-item .mat-icon-no-color,.mat-mdc-menu-item .mat-mdc-menu-submenu-icon{color:var(--mat-menu-item-icon-color, var(--mat-sys-on-surface-variant))}.mat-mdc-menu-item[disabled]{cursor:default;opacity:.38}.mat-mdc-menu-item[disabled]::after{display:block;position:absolute;content:\"\";top:0;left:0;bottom:0;right:0}.mat-mdc-menu-item:focus{outline:0}.mat-mdc-menu-item .mat-icon{flex-shrink:0;margin-right:var(--mat-menu-item-spacing, 12px);height:var(--mat-menu-item-icon-size, 24px);width:var(--mat-menu-item-icon-size, 24px)}[dir=rtl] .mat-mdc-menu-item{text-align:right}[dir=rtl] .mat-mdc-menu-item .mat-icon{margin-right:0;margin-left:var(--mat-menu-item-spacing, 12px)}.mat-mdc-menu-item:not([disabled]):hover{background-color:var(--mat-menu-item-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}.mat-mdc-menu-item:not([disabled]).cdk-program-focused,.mat-mdc-menu-item:not([disabled]).cdk-keyboard-focused,.mat-mdc-menu-item:not([disabled]).mat-mdc-menu-item-highlighted{background-color:var(--mat-menu-item-focus-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}@media(forced-colors: active){.mat-mdc-menu-item{margin-top:1px}}.mat-mdc-menu-submenu-icon{width:var(--mat-menu-item-icon-size, 24px);height:10px;fill:currentColor;padding-left:var(--mat-menu-item-spacing, 12px)}[dir=rtl] .mat-mdc-menu-submenu-icon{padding-right:var(--mat-menu-item-spacing, 12px);padding-left:0}[dir=rtl] .mat-mdc-menu-submenu-icon polygon{transform:scaleX(-1);transform-origin:center}@media(forced-colors: active){.mat-mdc-menu-submenu-icon{fill:CanvasText}}.mat-mdc-menu-item .mat-mdc-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"] }]
         }], ctorParameters: () => [], propDecorators: { _allItems: [{
                 type: ContentChildren,
                 args: [MatMenuItem, { descendants: true }]
@@ -724,6 +705,7 @@ class MatMenuTrigger {
     _closingActionsSubscription = Subscription.EMPTY;
     _hoverSubscription = Subscription.EMPTY;
     _menuCloseSubscription = Subscription.EMPTY;
+    _pendingRemoval;
     /**
      * We're specifically looking for a `MatMenu` here since the generic `MatMenuPanel`
      * interface lacks some functionality around nested menus and animations.
@@ -820,6 +802,7 @@ class MatMenuTrigger {
             PANELS_TO_TRIGGERS.delete(this.menu);
         }
         this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
+        this._pendingRemoval?.unsubscribe();
         this._menuCloseSubscription.unsubscribe();
         this._closingActionsSubscription.unsubscribe();
         this._hoverSubscription.unsubscribe();
@@ -850,20 +833,33 @@ class MatMenuTrigger {
         if (this._menuOpen || !menu) {
             return;
         }
+        this._pendingRemoval?.unsubscribe();
+        const previousTrigger = PANELS_TO_TRIGGERS.get(menu);
+        PANELS_TO_TRIGGERS.set(menu, this);
+        // If the same menu is currently attached to another trigger,
+        // we need to close it so it doesn't end up in a broken state.
+        if (previousTrigger && previousTrigger !== this) {
+            previousTrigger.closeMenu();
+        }
         const overlayRef = this._createOverlay(menu);
         const overlayConfig = overlayRef.getConfig();
         const positionStrategy = overlayConfig.positionStrategy;
         this._setPosition(menu, positionStrategy);
         overlayConfig.hasBackdrop =
             menu.hasBackdrop == null ? !this.triggersSubmenu() : menu.hasBackdrop;
-        overlayRef.attach(this._getPortal(menu));
-        if (menu.lazyContent) {
-            menu.lazyContent.attach(this.menuData);
+        // We need the `hasAttached` check for the case where the user kicked off a removal animation,
+        // but re-entered the menu. Re-attaching the same portal will trigger an error otherwise.
+        if (!overlayRef.hasAttached()) {
+            overlayRef.attach(this._getPortal(menu));
+            menu.lazyContent?.attach(this.menuData);
         }
         this._closingActionsSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
-        this._initMenu(menu);
+        menu.parentMenu = this.triggersSubmenu() ? this._parentMaterialMenu : undefined;
+        menu.direction = this.dir;
+        menu.focusFirstItem(this._openedBy || 'program');
+        this._setIsMenuOpen(true);
         if (menu instanceof MatMenu) {
-            menu._startAnimation();
+            menu._setIsOpen(true);
             menu._directDescendantItems.changes.pipe(takeUntil(menu.close)).subscribe(() => {
                 // Re-adjust the position without locking when the amount of items
                 // changes so that the overlay is allowed to pick a new optimal position.
@@ -896,11 +892,25 @@ class MatMenuTrigger {
     }
     /** Closes the menu and does the necessary cleanup. */
     _destroyMenu(reason) {
-        if (!this._overlayRef || !this.menuOpen) {
+        const overlayRef = this._overlayRef;
+        const menu = this._menu;
+        if (!overlayRef || !this.menuOpen) {
             return;
         }
         this._closingActionsSubscription.unsubscribe();
-        this._overlayRef.detach();
+        this._pendingRemoval?.unsubscribe();
+        // Note that we don't wait for the animation to finish if another trigger took
+        // over the menu, because the panel will end up empty which looks glitchy.
+        if (menu instanceof MatMenu && this._ownsMenu(menu)) {
+            this._pendingRemoval = menu._animationDone.pipe(take(1)).subscribe(() => overlayRef.detach());
+            menu._setIsOpen(false);
+        }
+        else {
+            overlayRef.detach();
+        }
+        if (menu && this._ownsMenu(menu)) {
+            PANELS_TO_TRIGGERS.delete(menu);
+        }
         // Always restore focus if the user is navigating using the keyboard or the menu was opened
         // programmatically. We don't restore for non-root triggers, because it can prevent focus
         // from making it back to the root trigger when closing a long chain of menus by clicking
@@ -910,26 +920,6 @@ class MatMenuTrigger {
         }
         this._openedBy = undefined;
         this._setIsMenuOpen(false);
-        if (this.menu && this._ownsMenu(this.menu)) {
-            PANELS_TO_TRIGGERS.delete(this.menu);
-        }
-    }
-    /**
-     * This method sets the menu state to open and focuses the first item if
-     * the menu was opened via the keyboard.
-     */
-    _initMenu(menu) {
-        const previousTrigger = PANELS_TO_TRIGGERS.get(menu);
-        // If the same menu is currently attached to another trigger,
-        // we need to close it so it doesn't end up in a broken state.
-        if (previousTrigger && previousTrigger !== this) {
-            previousTrigger.closeMenu();
-        }
-        PANELS_TO_TRIGGERS.set(menu, this);
-        menu.parentMenu = this.triggersSubmenu() ? this._parentMaterialMenu : undefined;
-        menu.direction = this.dir;
-        menu.focusFirstItem(this._openedBy || 'program');
-        this._setIsMenuOpen(true);
     }
     // set state rather than toggle to support triggers sharing a menu
     _setIsMenuOpen(isOpen) {
@@ -1203,6 +1193,61 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.0.0", ngImpor
                     providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 }]
         }] });
+
+/**
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+const matMenuAnimations = {
+    /**
+     * This animation controls the menu panel's entry and exit from the page.
+     *
+     * When the menu panel is added to the DOM, it scales in and fades in its border.
+     *
+     * When the menu panel is removed from the DOM, it simply fades out after a brief
+     * delay to display the ripple.
+     */
+    transformMenu: trigger('transformMenu', [
+        state('void', style({
+            opacity: 0,
+            transform: 'scale(0.8)',
+        })),
+        transition('void => enter', animate('120ms cubic-bezier(0, 0, 0.2, 1)', style({
+            opacity: 1,
+            transform: 'scale(1)',
+        }))),
+        transition('* => void', animate('100ms 25ms linear', style({ opacity: 0 }))),
+    ]),
+    /**
+     * This animation fades in the background color and content of the menu panel
+     * after its containing element is scaled in.
+     */
+    fadeInItems: trigger('fadeInItems', [
+        // TODO(crisbeto): this is inside the `transformMenu`
+        // now. Remove next time we do breaking changes.
+        state('showing', style({ opacity: 1 })),
+        transition('void => *', [
+            style({ opacity: 0 }),
+            animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+        ]),
+    ]),
+};
+/**
+ * @deprecated
+ * @breaking-change 8.0.0
+ * @docs-private
+ */
+const fadeInItems = matMenuAnimations.fadeInItems;
+/**
+ * @deprecated
+ * @breaking-change 8.0.0
+ * @docs-private
+ */
+const transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * Generated bundle index. Do not edit.
