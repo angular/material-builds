@@ -1,6 +1,5 @@
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { Direction } from '@angular/cdk/bidi';
 import { EventEmitter } from '@angular/core';
@@ -95,10 +94,14 @@ export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
 export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
     private _elementRef;
     private _changeDetectorRef;
+    private _injector;
     private _keyManager;
     private _xPosition;
     private _yPosition;
     private _firstItemFocusRef?;
+    private _exitFallbackTimeout;
+    /** Whether animations are currently disabled. */
+    protected _animationsDisabled: boolean;
     /** All items inside the menu. Includes items nested inside another menu. */
     _allItems: QueryList<MatMenuItem>;
     /** Only the direct descendant menu items. */
@@ -110,7 +113,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
     /** Current state of the panel animation. */
     _panelAnimationState: 'void' | 'enter';
     /** Emits whenever an animation on the menu completes. */
-    readonly _animationDone: Subject<AnimationEvent_2>;
+    readonly _animationDone: Subject<"void" | "enter">;
     /** Whether the menu is animating. */
     _isAnimating: boolean;
     /** Parent menu of the current menu panel. */
@@ -176,7 +179,6 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      */
     readonly close: EventEmitter<MenuCloseReason>;
     readonly panelId: string;
-    private _injector;
     constructor(...args: unknown[]);
     ngOnInit(): void;
     ngAfterContentInit(): void;
@@ -216,13 +218,10 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      * @docs-private
      */
     setPositionClasses(posX?: MenuPositionX, posY?: MenuPositionY): void;
-    /** Starts the enter animation. */
-    _startAnimation(): void;
-    /** Resets the panel animation to its initial state. */
-    _resetAnimation(): void;
     /** Callback that is invoked when the panel animation completes. */
-    _onAnimationDone(event: AnimationEvent_2): void;
-    _onAnimationStart(event: AnimationEvent_2): void;
+    protected _onAnimationDone(state: string): void;
+    protected _onAnimationStart(state: string): void;
+    _setIsOpen(isOpen: boolean): void;
     /**
      * Sets up a stream that will keep track of any newly-added menu items and will update the list
      * of direct descendants. We collect the descendants this way, because `_allItems` can include
@@ -230,6 +229,8 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      * when it comes to maintaining the item order.
      */
     private _updateDirectDescendants;
+    /** Gets the menu panel DOM node. */
+    private _resolvePanel;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenu, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatMenu, "mat-menu", ["matMenu"], { "backdropClass": { "alias": "backdropClass"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "xPosition": { "alias": "xPosition"; "required": false; }; "yPosition": { "alias": "yPosition"; "required": false; }; "overlapTrigger": { "alias": "overlapTrigger"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; "panelClass": { "alias": "class"; "required": false; }; "classList": { "alias": "classList"; "required": false; }; }, { "closed": "closed"; "close": "close"; }, ["lazyContent", "_allItems", "items"], ["*"], true, never>;
     static ngAcceptInputType_overlapTrigger: unknown;
@@ -241,6 +242,8 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matMenuAnimations: {
     readonly transformMenu: AnimationTriggerMetadata;
@@ -398,6 +401,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _closingActionsSubscription;
     private _hoverSubscription;
     private _menuCloseSubscription;
+    private _pendingRemoval;
     /**
      * We're specifically looking for a `MatMenu` here since the generic `MatMenuPanel`
      * interface lacks some functionality around nested menus and animations.
@@ -474,11 +478,6 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     updatePosition(): void;
     /** Closes the menu and does the necessary cleanup. */
     private _destroyMenu;
-    /**
-     * This method sets the menu state to open and focuses the first item if
-     * the menu was opened via the keyboard.
-     */
-    private _initMenu;
     private _setIsMenuOpen;
     /**
      * This method creates the overlay from the provided menu's template and saves its
