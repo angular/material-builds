@@ -1075,7 +1075,7 @@ class MatSelectionList extends MatListBase {
         else if (event.keyCode === A &&
             this.multiple &&
             !this._keyManager.isTyping() &&
-            hasModifierKey(event, 'ctrlKey')) {
+            hasModifierKey(event, 'ctrlKey', 'metaKey')) {
             const shouldSelect = this.options.some(option => !option.disabled && !option.selected);
             event.preventDefault();
             this._emitChangeEvent(this._setAllOptionsSelected(shouldSelect, true));
