@@ -80,6 +80,8 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _focusMonitor;
     protected _dir: Directionality;
     private _injector;
+    private _document;
+    private _renderer;
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
     _tooltipInstance: TooltipComponent | null;
@@ -142,10 +144,8 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     set tooltipClass(value: string | string[] | Set<string> | {
         [key: string]: any;
     });
-    /** Manually-bound passive event listeners. */
-    private readonly _passiveListeners;
-    /** Reference to the current document. */
-    private _document;
+    /** Cleanup functions for manually-bound events. */
+    private readonly _eventCleanups;
     /** Timer started at the last `touchstart` event. */
     private _touchstartTimeout;
     /** Emits when the component is destroyed. */
@@ -202,7 +202,6 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     /** Binds the pointer events to the tooltip trigger. */
     private _setupPointerEnterEventsIfNeeded;
     private _setupPointerExitEventsIfNeeded;
-    private _addListeners;
     private _platformSupportsMouseEvents;
     /** Listener for the `wheel` event on the element. */
     private _wheelListener;

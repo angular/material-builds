@@ -395,6 +395,7 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     private _ngZone;
     private _platform;
     private _intl;
+    private _eventCleanups;
     /**
      * Used to skip the next focus event when rendering the preview range.
      * We need a flag like this, because some browsers fire focus events asynchronously.

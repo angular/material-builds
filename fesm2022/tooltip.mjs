@@ -2,9 +2,9 @@ import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ViewContainerRef, NgZone, Injector, afterNextRender, Directive, Input, ChangeDetectorRef, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ViewContainerRef, NgZone, Injector, Renderer2, afterNextRender, Directive, Input, ChangeDetectorRef, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { DOCUMENT, NgClass } from '@angular/common';
-import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
+import { Platform, _bindEventWithOptions } from '@angular/cdk/platform';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
@@ -62,7 +62,7 @@ const MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-opti
 const TOOLTIP_PANEL_CLASS = 'mat-mdc-tooltip-panel';
 const PANEL_CLASS = 'tooltip-panel';
 /** Options used to bind passive event listeners. */
-const passiveListenerOptions = normalizePassiveListenerOptions({ passive: true });
+const passiveListenerOptions = { passive: true };
 // These constants were taken from MDC's `numbers` object. We can't import them from MDC,
 // because they have some top-level references to `window` which break during SSR.
 const MIN_VIEWPORT_TOOLTIP_THRESHOLD = 8;
@@ -86,6 +86,8 @@ class MatTooltip {
     _focusMonitor = inject(FocusMonitor);
     _dir = inject(Directionality);
     _injector = inject(Injector);
+    _document = inject(DOCUMENT);
+    _renderer = inject(Renderer2);
     _defaultOptions = inject(MAT_TOOLTIP_DEFAULT_OPTIONS, {
         optional: true,
     });
@@ -212,10 +214,8 @@ class MatTooltip {
             this._setTooltipClass(this._tooltipClass);
         }
     }
-    /** Manually-bound passive event listeners. */
-    _passiveListeners = [];
-    /** Reference to the current document. */
-    _document = inject(DOCUMENT);
+    /** Cleanup functions for manually-bound events. */
+    _eventCleanups = [];
     /** Timer started at the last `touchstart` event. */
     _touchstartTimeout = null;
     /** Emits when the component is destroyed. */
@@ -275,11 +275,8 @@ class MatTooltip {
             this._overlayRef.dispose();
             this._tooltipInstance = null;
         }
-        // Clean up the event listeners set in the constructor
-        this._passiveListeners.forEach(([event, listener]) => {
-            nativeElement.removeEventListener(event, listener, passiveListenerOptions);
-        });
-        this._passiveListeners.length = 0;
+        this._eventCleanups.forEach(cleanup => cleanup());
+        this._eventCleanups.length = 0;
         this._destroyed.next();
         this._destroyed.complete();
         this._ariaDescriber.removeDescription(nativeElement, this.message, 'tooltip');
@@ -557,66 +554,54 @@ class MatTooltip {
     /** Binds the pointer events to the tooltip trigger. */
     _setupPointerEnterEventsIfNeeded() {
         // Optimization: Defer hooking up events if there's no message or the tooltip is disabled.
-        if (this._disabled ||
-            !this.message ||
-            !this._viewInitialized ||
-            this._passiveListeners.length) {
+        if (this._disabled || !this.message || !this._viewInitialized || this._eventCleanups.length) {
             return;
         }
+        const element = this._elementRef.nativeElement;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (this._platformSupportsMouseEvents()) {
-            this._passiveListeners.push([
-                'mouseenter',
-                event => {
-                    this._setupPointerExitEventsIfNeeded();
-                    let point = undefined;
-                    if (event.x !== undefined && event.y !== undefined) {
-                        point = event;
-                    }
-                    this.show(undefined, point);
-                },
-            ]);
+            this._eventCleanups.push(_bindEventWithOptions(this._renderer, element, 'mouseenter', (event) => {
+                this._setupPointerExitEventsIfNeeded();
+                let point = undefined;
+                if (event.x !== undefined && event.y !== undefined) {
+                    point = event;
+                }
+                this.show(undefined, point);
+            }, passiveListenerOptions));
         }
         else if (this.touchGestures !== 'off') {
             this._disableNativeGesturesIfNecessary();
-            this._passiveListeners.push([
-                'touchstart',
-                event => {
-                    const touch = event.targetTouches?.[0];
-                    const origin = touch ? { x: touch.clientX, y: touch.clientY } : undefined;
-                    // Note that it's important that we don't `preventDefault` here,
-                    // because it can prevent click events from firing on the element.
-                    this._setupPointerExitEventsIfNeeded();
-                    if (this._touchstartTimeout) {
-                        clearTimeout(this._touchstartTimeout);
-                    }
-                    const DEFAULT_LONGPRESS_DELAY = 500;
-                    this._touchstartTimeout = setTimeout(() => {
-                        this._touchstartTimeout = null;
-                        this.show(undefined, origin);
-                    }, this._defaultOptions?.touchLongPressShowDelay ?? DEFAULT_LONGPRESS_DELAY);
-                },
-            ]);
+            this._eventCleanups.push(_bindEventWithOptions(this._renderer, element, 'touchstart', (event) => {
+                const touch = event.targetTouches?.[0];
+                const origin = touch ? { x: touch.clientX, y: touch.clientY } : undefined;
+                // Note that it's important that we don't `preventDefault` here,
+                // because it can prevent click events from firing on the element.
+                this._setupPointerExitEventsIfNeeded();
+                if (this._touchstartTimeout) {
+                    clearTimeout(this._touchstartTimeout);
+                }
+                const DEFAULT_LONGPRESS_DELAY = 500;
+                this._touchstartTimeout = setTimeout(() => {
+                    this._touchstartTimeout = null;
+                    this.show(undefined, origin);
+                }, this._defaultOptions?.touchLongPressShowDelay ?? DEFAULT_LONGPRESS_DELAY);
+            }, passiveListenerOptions));
         }
-        this._addListeners(this._passiveListeners);
     }
     _setupPointerExitEventsIfNeeded() {
         if (this._pointerExitEventsInitialized) {
             return;
         }
         this._pointerExitEventsInitialized = true;
-        const exitListeners = [];
+        const element = this._elementRef.nativeElement;
         if (this._platformSupportsMouseEvents()) {
-            exitListeners.push([
-                'mouseleave',
-                event => {
-                    const newTarget = event.relatedTarget;
-                    if (!newTarget || !this._overlayRef?.overlayElement.contains(newTarget)) {
-                        this.hide();
-                    }
-                },
-            ], ['wheel', event => this._wheelListener(event)]);
+            this._eventCleanups.push(_bindEventWithOptions(this._renderer, element, 'mouseleave', (event) => {
+                const newTarget = event.relatedTarget;
+                if (!newTarget || !this._overlayRef?.overlayElement.contains(newTarget)) {
+                    this.hide();
+                }
+            }, passiveListenerOptions), _bindEventWithOptions(this._renderer, element, 'wheel', event => this._wheelListener(event), passiveListenerOptions));
         }
         else if (this.touchGestures !== 'off') {
             this._disableNativeGesturesIfNecessary();
@@ -626,15 +611,8 @@ class MatTooltip {
                 }
                 this.hide(this._defaultOptions?.touchendHideDelay);
             };
-            exitListeners.push(['touchend', touchendListener], ['touchcancel', touchendListener]);
+            this._eventCleanups.push(_bindEventWithOptions(this._renderer, element, 'touchend', touchendListener, passiveListenerOptions), _bindEventWithOptions(this._renderer, element, 'touchcancel', touchendListener, passiveListenerOptions));
         }
-        this._addListeners(exitListeners);
-        this._passiveListeners.push(...exitListeners);
-    }
-    _addListeners(listeners) {
-        listeners.forEach(([event, listener]) => {
-            this._elementRef.nativeElement.addEventListener(event, listener, passiveListenerOptions);
-        });
     }
     _platformSupportsMouseEvents() {
         return !this._platform.IOS && !this._platform.ANDROID;
@@ -697,10 +675,10 @@ class MatTooltip {
             });
         });
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.2", ngImport: i0, type: MatTooltip, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.2", type: MatTooltip, isStandalone: true, selector: "[matTooltip]", inputs: { position: ["matTooltipPosition", "position"], positionAtOrigin: ["matTooltipPositionAtOrigin", "positionAtOrigin"], disabled: ["matTooltipDisabled", "disabled"], showDelay: ["matTooltipShowDelay", "showDelay"], hideDelay: ["matTooltipHideDelay", "hideDelay"], touchGestures: ["matTooltipTouchGestures", "touchGestures"], message: ["matTooltip", "message"], tooltipClass: ["matTooltipClass", "tooltipClass"] }, host: { properties: { "class.mat-mdc-tooltip-disabled": "disabled" }, classAttribute: "mat-mdc-tooltip-trigger" }, exportAs: ["matTooltip"], ngImport: i0 });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatTooltip, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.3", type: MatTooltip, isStandalone: true, selector: "[matTooltip]", inputs: { position: ["matTooltipPosition", "position"], positionAtOrigin: ["matTooltipPositionAtOrigin", "positionAtOrigin"], disabled: ["matTooltipDisabled", "disabled"], showDelay: ["matTooltipShowDelay", "showDelay"], hideDelay: ["matTooltipHideDelay", "hideDelay"], touchGestures: ["matTooltipTouchGestures", "touchGestures"], message: ["matTooltip", "message"], tooltipClass: ["matTooltipClass", "tooltipClass"] }, host: { properties: { "class.mat-mdc-tooltip-disabled": "disabled" }, classAttribute: "mat-mdc-tooltip-trigger" }, exportAs: ["matTooltip"], ngImport: i0 });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.2", ngImport: i0, type: MatTooltip, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatTooltip, decorators: [{
             type: Directive,
             args: [{
                     selector: '[matTooltip]',
@@ -914,10 +892,10 @@ class TooltipComponent {
             this._finalizeAnimation(isVisible);
         }
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.2", ngImport: i0, type: TooltipComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.1.0-next.2", type: TooltipComponent, isStandalone: true, selector: "mat-tooltip-component", host: { attributes: { "aria-hidden": "true" }, listeners: { "mouseleave": "_handleMouseLeave($event)" } }, viewQueries: [{ propertyName: "_tooltip", first: true, predicate: ["tooltip"], descendants: true, static: true }], ngImport: i0, template: "<div\n  #tooltip\n  class=\"mdc-tooltip mat-mdc-tooltip\"\n  [ngClass]=\"tooltipClass\"\n  (animationend)=\"_handleAnimationEnd($event)\"\n  [class.mdc-tooltip--multiline]=\"_isMultiline\">\n  <div class=\"mat-mdc-tooltip-surface mdc-tooltip__surface\">{{message}}</div>\n</div>\n", styles: [".mat-mdc-tooltip{position:relative;transform:scale(0);display:inline-flex}.mat-mdc-tooltip::before{content:\"\";top:0;right:0;bottom:0;left:0;z-index:-1;position:absolute}.mat-mdc-tooltip-panel-below .mat-mdc-tooltip::before{top:-8px}.mat-mdc-tooltip-panel-above .mat-mdc-tooltip::before{bottom:-8px}.mat-mdc-tooltip-panel-right .mat-mdc-tooltip::before{left:-8px}.mat-mdc-tooltip-panel-left .mat-mdc-tooltip::before{right:-8px}.mat-mdc-tooltip._mat-animation-noopable{animation:none;transform:scale(1)}.mat-mdc-tooltip-surface{word-break:normal;overflow-wrap:anywhere;padding:4px 8px;min-width:40px;max-width:200px;min-height:24px;max-height:40vh;box-sizing:border-box;overflow:hidden;text-align:center;will-change:transform,opacity;background-color:var(--mdc-plain-tooltip-container-color, var(--mat-sys-inverse-surface));color:var(--mdc-plain-tooltip-supporting-text-color, var(--mat-sys-inverse-on-surface));border-radius:var(--mdc-plain-tooltip-container-shape, var(--mat-sys-corner-extra-small));font-family:var(--mdc-plain-tooltip-supporting-text-font, var(--mat-sys-body-small-font));font-size:var(--mdc-plain-tooltip-supporting-text-size, var(--mat-sys-body-small-size));font-weight:var(--mdc-plain-tooltip-supporting-text-weight, var(--mat-sys-body-small-weight));line-height:var(--mdc-plain-tooltip-supporting-text-line-height, var(--mat-sys-body-small-line-height));letter-spacing:var(--mdc-plain-tooltip-supporting-text-tracking, var(--mat-sys-body-small-tracking))}.mat-mdc-tooltip-surface::before{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:1px solid rgba(0,0,0,0);border-radius:inherit;content:\"\";pointer-events:none}.mdc-tooltip--multiline .mat-mdc-tooltip-surface{text-align:left}[dir=rtl] .mdc-tooltip--multiline .mat-mdc-tooltip-surface{text-align:right}.mat-mdc-tooltip-panel{line-height:normal}.mat-mdc-tooltip-panel.mat-mdc-tooltip-panel-non-interactive{pointer-events:none}@keyframes mat-mdc-tooltip-show{0%{opacity:0;transform:scale(0.8)}100%{opacity:1;transform:scale(1)}}@keyframes mat-mdc-tooltip-hide{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(0.8)}}.mat-mdc-tooltip-show{animation:mat-mdc-tooltip-show 150ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-mdc-tooltip-hide{animation:mat-mdc-tooltip-hide 75ms cubic-bezier(0.4, 0, 1, 1) forwards}"], dependencies: [{ kind: "directive", type: NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: TooltipComponent, deps: [], target: i0.ɵɵFactoryTarget.Component });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.1.0-next.3", type: TooltipComponent, isStandalone: true, selector: "mat-tooltip-component", host: { attributes: { "aria-hidden": "true" }, listeners: { "mouseleave": "_handleMouseLeave($event)" } }, viewQueries: [{ propertyName: "_tooltip", first: true, predicate: ["tooltip"], descendants: true, static: true }], ngImport: i0, template: "<div\n  #tooltip\n  class=\"mdc-tooltip mat-mdc-tooltip\"\n  [ngClass]=\"tooltipClass\"\n  (animationend)=\"_handleAnimationEnd($event)\"\n  [class.mdc-tooltip--multiline]=\"_isMultiline\">\n  <div class=\"mat-mdc-tooltip-surface mdc-tooltip__surface\">{{message}}</div>\n</div>\n", styles: [".mat-mdc-tooltip{position:relative;transform:scale(0);display:inline-flex}.mat-mdc-tooltip::before{content:\"\";top:0;right:0;bottom:0;left:0;z-index:-1;position:absolute}.mat-mdc-tooltip-panel-below .mat-mdc-tooltip::before{top:-8px}.mat-mdc-tooltip-panel-above .mat-mdc-tooltip::before{bottom:-8px}.mat-mdc-tooltip-panel-right .mat-mdc-tooltip::before{left:-8px}.mat-mdc-tooltip-panel-left .mat-mdc-tooltip::before{right:-8px}.mat-mdc-tooltip._mat-animation-noopable{animation:none;transform:scale(1)}.mat-mdc-tooltip-surface{word-break:normal;overflow-wrap:anywhere;padding:4px 8px;min-width:40px;max-width:200px;min-height:24px;max-height:40vh;box-sizing:border-box;overflow:hidden;text-align:center;will-change:transform,opacity;background-color:var(--mdc-plain-tooltip-container-color, var(--mat-sys-inverse-surface));color:var(--mdc-plain-tooltip-supporting-text-color, var(--mat-sys-inverse-on-surface));border-radius:var(--mdc-plain-tooltip-container-shape, var(--mat-sys-corner-extra-small));font-family:var(--mdc-plain-tooltip-supporting-text-font, var(--mat-sys-body-small-font));font-size:var(--mdc-plain-tooltip-supporting-text-size, var(--mat-sys-body-small-size));font-weight:var(--mdc-plain-tooltip-supporting-text-weight, var(--mat-sys-body-small-weight));line-height:var(--mdc-plain-tooltip-supporting-text-line-height, var(--mat-sys-body-small-line-height));letter-spacing:var(--mdc-plain-tooltip-supporting-text-tracking, var(--mat-sys-body-small-tracking))}.mat-mdc-tooltip-surface::before{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:1px solid rgba(0,0,0,0);border-radius:inherit;content:\"\";pointer-events:none}.mdc-tooltip--multiline .mat-mdc-tooltip-surface{text-align:left}[dir=rtl] .mdc-tooltip--multiline .mat-mdc-tooltip-surface{text-align:right}.mat-mdc-tooltip-panel{line-height:normal}.mat-mdc-tooltip-panel.mat-mdc-tooltip-panel-non-interactive{pointer-events:none}@keyframes mat-mdc-tooltip-show{0%{opacity:0;transform:scale(0.8)}100%{opacity:1;transform:scale(1)}}@keyframes mat-mdc-tooltip-hide{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(0.8)}}.mat-mdc-tooltip-show{animation:mat-mdc-tooltip-show 150ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-mdc-tooltip-hide{animation:mat-mdc-tooltip-hide 75ms cubic-bezier(0.4, 0, 1, 1) forwards}"], dependencies: [{ kind: "directive", type: NgClass, selector: "[ngClass]", inputs: ["class", "ngClass"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.2", ngImport: i0, type: TooltipComponent, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: TooltipComponent, decorators: [{
             type: Component,
             args: [{ selector: 'mat-tooltip-component', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, host: {
                         '(mouseleave)': '_handleMouseLeave($event)',
@@ -949,11 +927,11 @@ const matTooltipAnimations = {
 };
 
 class MatTooltipModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.2", ngImport: i0, type: MatTooltipModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.1.0-next.2", ngImport: i0, type: MatTooltipModule, imports: [A11yModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent], exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.1.0-next.2", ngImport: i0, type: MatTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [A11yModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatTooltipModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatTooltipModule, imports: [A11yModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent], exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [A11yModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.2", ngImport: i0, type: MatTooltipModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatTooltipModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [A11yModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent],

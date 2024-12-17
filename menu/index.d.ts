@@ -395,6 +395,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _ngZone;
     private _scrollStrategy;
     private _changeDetectorRef;
+    private _cleanupTouchstart;
     private _portal;
     private _overlayRef;
     private _menuOpen;
@@ -412,11 +413,6 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * Used to offset sub-menus to compensate for the padding.
      */
     private _parentInnerPadding;
-    /**
-     * Handles touch start events on the trigger.
-     * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
-     */
-    private _handleTouchStart;
     _openedBy: Exclude<FocusOrigin, 'program' | null> | undefined;
     /**
      * @deprecated
