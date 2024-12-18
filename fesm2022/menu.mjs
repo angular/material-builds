@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, ANIMATION_MODULE_TYPE, afterNextRender, ContentChildren, ViewChild, ContentChild, Output, NgZone, Renderer2, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, ANIMATION_MODULE_TYPE, afterNextRender, ContentChildren, ViewChild, ContentChild, Output, NgZone, NgModule } from '@angular/core';
 import { FocusMonitor, _IdGenerator, FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject, merge, Subscription, of } from 'rxjs';
@@ -10,7 +10,7 @@ import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { _bindEventWithOptions } from '@angular/cdk/platform';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -679,7 +679,7 @@ const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 };
 /** Options for binding a passive event listener. */
-const passiveEventListenerOptions = { passive: true };
+const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 /**
  * Default top padding of the menu panel.
  * @deprecated No longer being used. Will be removed.
@@ -699,7 +699,6 @@ class MatMenuTrigger {
     _ngZone = inject(NgZone);
     _scrollStrategy = inject(MAT_MENU_SCROLL_STRATEGY);
     _changeDetectorRef = inject(ChangeDetectorRef);
-    _cleanupTouchstart;
     _portal;
     _overlayRef = null;
     _menuOpen = false;
@@ -717,6 +716,15 @@ class MatMenuTrigger {
      * Used to offset sub-menus to compensate for the padding.
      */
     _parentInnerPadding;
+    /**
+     * Handles touch start events on the trigger.
+     * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
+     */
+    _handleTouchStart = (event) => {
+        if (!isFakeTouchstartFromScreenReader(event)) {
+            this._openedBy = 'touch';
+        }
+    };
     // Tracking input type is necessary so it's possible to only auto-focus
     // the first item of the list when the menu is opened via the keyboard
     _openedBy = undefined;
@@ -783,13 +791,8 @@ class MatMenuTrigger {
     onMenuClose = this.menuClosed;
     constructor() {
         const parentMenu = inject(MAT_MENU_PANEL, { optional: true });
-        const renderer = inject(Renderer2);
         this._parentMaterialMenu = parentMenu instanceof MatMenu ? parentMenu : undefined;
-        this._cleanupTouchstart = _bindEventWithOptions(renderer, this._element.nativeElement, 'touchstart', (event) => {
-            if (!isFakeTouchstartFromScreenReader(event)) {
-                this._openedBy = 'touch';
-            }
-        }, passiveEventListenerOptions);
+        this._element.nativeElement.addEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
     }
     ngAfterContentInit() {
         this._handleHover();
@@ -798,7 +801,7 @@ class MatMenuTrigger {
         if (this.menu && this._ownsMenu(this.menu)) {
             PANELS_TO_TRIGGERS.delete(this.menu);
         }
-        this._cleanupTouchstart();
+        this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart, passiveEventListenerOptions);
         this._pendingRemoval?.unsubscribe();
         this._menuCloseSubscription.unsubscribe();
         this._closingActionsSubscription.unsubscribe();

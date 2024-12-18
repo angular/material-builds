@@ -2,9 +2,9 @@ import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ViewContainerRef, NgZone, Injector, Renderer2, afterNextRender, Directive, Input, ChangeDetectorRef, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ViewContainerRef, NgZone, Injector, afterNextRender, Directive, Input, ChangeDetectorRef, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { DOCUMENT, NgClass } from '@angular/common';
-import { Platform, _bindEventWithOptions } from '@angular/cdk/platform';
+import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
@@ -62,7 +62,7 @@ const MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-opti
 const TOOLTIP_PANEL_CLASS = 'mat-mdc-tooltip-panel';
 const PANEL_CLASS = 'tooltip-panel';
 /** Options used to bind passive event listeners. */
-const passiveListenerOptions = { passive: true };
+const passiveListenerOptions = normalizePassiveListenerOptions({ passive: true });
 // These constants were taken from MDC's `numbers` object. We can't import them from MDC,
 // because they have some top-level references to `window` which break during SSR.
 const MIN_VIEWPORT_TOOLTIP_THRESHOLD = 8;
@@ -86,8 +86,6 @@ class MatTooltip {
     _focusMonitor = inject(FocusMonitor);
     _dir = inject(Directionality);
     _injector = inject(Injector);
-    _document = inject(DOCUMENT);
-    _renderer = inject(Renderer2);
     _defaultOptions = inject(MAT_TOOLTIP_DEFAULT_OPTIONS, {
         optional: true,
     });
@@ -214,8 +212,10 @@ class MatTooltip {
             this._setTooltipClass(this._tooltipClass);
         }
     }
-    /** Cleanup functions for manually-bound events. */
-    _eventCleanups = [];
+    /** Manually-bound passive event listeners. */
+    _passiveListeners = [];
+    /** Reference to the current document. */
+    _document = inject(DOCUMENT);
     /** Timer started at the last `touchstart` event. */
     _touchstartTimeout = null;
     /** Emits when the component is destroyed. */
@@ -275,8 +275,11 @@ class MatTooltip {
             this._overlayRef.dispose();
             this._tooltipInstance = null;
         }
-        this._eventCleanups.forEach(cleanup => cleanup());
-        this._eventCleanups.length = 0;
+        // Clean up the event listeners set in the constructor
+        this._passiveListeners.forEach(([event, listener]) => {
+            nativeElement.removeEventListener(event, listener, passiveListenerOptions);
+        });
+        this._passiveListeners.length = 0;
         this._destroyed.next();
         this._destroyed.complete();
         this._ariaDescriber.removeDescription(nativeElement, this.message, 'tooltip');
@@ -554,54 +557,66 @@ class MatTooltip {
     /** Binds the pointer events to the tooltip trigger. */
     _setupPointerEnterEventsIfNeeded() {
         // Optimization: Defer hooking up events if there's no message or the tooltip is disabled.
-        if (this._disabled || !this.message || !this._viewInitialized || this._eventCleanups.length) {
+        if (this._disabled ||
+            !this.message ||
+            !this._viewInitialized ||
+            this._passiveListeners.length) {
             return;
         }
-        const element = this._elementRef.nativeElement;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (this._platformSupportsMouseEvents()) {
-            this._eventCleanups.push(_bindEventWithOptions(this._renderer, element, 'mouseenter', (event) => {
-                this._setupPointerExitEventsIfNeeded();
-                let point = undefined;
-                if (event.x !== undefined && event.y !== undefined) {
-                    point = event;
-                }
-                this.show(undefined, point);
-            }, passiveListenerOptions));
+            this._passiveListeners.push([
+                'mouseenter',
+                event => {
+                    this._setupPointerExitEventsIfNeeded();
+                    let point = undefined;
+                    if (event.x !== undefined && event.y !== undefined) {
+                        point = event;
+                    }
+                    this.show(undefined, point);
+                },
+            ]);
         }
         else if (this.touchGestures !== 'off') {
             this._disableNativeGesturesIfNecessary();
-            this._eventCleanups.push(_bindEventWithOptions(this._renderer, element, 'touchstart', (event) => {
-                const touch = event.targetTouches?.[0];
-                const origin = touch ? { x: touch.clientX, y: touch.clientY } : undefined;
-                // Note that it's important that we don't `preventDefault` here,
-                // because it can prevent click events from firing on the element.
-                this._setupPointerExitEventsIfNeeded();
-                if (this._touchstartTimeout) {
-                    clearTimeout(this._touchstartTimeout);
-                }
-                const DEFAULT_LONGPRESS_DELAY = 500;
-                this._touchstartTimeout = setTimeout(() => {
-                    this._touchstartTimeout = null;
-                    this.show(undefined, origin);
-                }, this._defaultOptions?.touchLongPressShowDelay ?? DEFAULT_LONGPRESS_DELAY);
-            }, passiveListenerOptions));
+            this._passiveListeners.push([
+                'touchstart',
+                event => {
+                    const touch = event.targetTouches?.[0];
+                    const origin = touch ? { x: touch.clientX, y: touch.clientY } : undefined;
+                    // Note that it's important that we don't `preventDefault` here,
+                    // because it can prevent click events from firing on the element.
+                    this._setupPointerExitEventsIfNeeded();
+                    if (this._touchstartTimeout) {
+                        clearTimeout(this._touchstartTimeout);
+                    }
+                    const DEFAULT_LONGPRESS_DELAY = 500;
+                    this._touchstartTimeout = setTimeout(() => {
+                        this._touchstartTimeout = null;
+                        this.show(undefined, origin);
+                    }, this._defaultOptions?.touchLongPressShowDelay ?? DEFAULT_LONGPRESS_DELAY);
+                },
+            ]);
         }
+        this._addListeners(this._passiveListeners);
     }
     _setupPointerExitEventsIfNeeded() {
         if (this._pointerExitEventsInitialized) {
             return;
         }
         this._pointerExitEventsInitialized = true;
-        const element = this._elementRef.nativeElement;
+        const exitListeners = [];
         if (this._platformSupportsMouseEvents()) {
-            this._eventCleanups.push(_bindEventWithOptions(this._renderer, element, 'mouseleave', (event) => {
-                const newTarget = event.relatedTarget;
-                if (!newTarget || !this._overlayRef?.overlayElement.contains(newTarget)) {
-                    this.hide();
-                }
-            }, passiveListenerOptions), _bindEventWithOptions(this._renderer, element, 'wheel', event => this._wheelListener(event), passiveListenerOptions));
+            exitListeners.push([
+                'mouseleave',
+                event => {
+                    const newTarget = event.relatedTarget;
+                    if (!newTarget || !this._overlayRef?.overlayElement.contains(newTarget)) {
+                        this.hide();
+                    }
+                },
+            ], ['wheel', event => this._wheelListener(event)]);
         }
         else if (this.touchGestures !== 'off') {
             this._disableNativeGesturesIfNecessary();
@@ -611,8 +626,15 @@ class MatTooltip {
                 }
                 this.hide(this._defaultOptions?.touchendHideDelay);
             };
-            this._eventCleanups.push(_bindEventWithOptions(this._renderer, element, 'touchend', touchendListener, passiveListenerOptions), _bindEventWithOptions(this._renderer, element, 'touchcancel', touchendListener, passiveListenerOptions));
+            exitListeners.push(['touchend', touchendListener], ['touchcancel', touchendListener]);
         }
+        this._addListeners(exitListeners);
+        this._passiveListeners.push(...exitListeners);
+    }
+    _addListeners(listeners) {
+        listeners.forEach(([event, listener]) => {
+            this._elementRef.nativeElement.addEventListener(event, listener, passiveListenerOptions);
+        });
     }
     _platformSupportsMouseEvents() {
         return !this._platform.IOS && !this._platform.ANDROID;

@@ -2,7 +2,7 @@ import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angula
 import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal, CdkPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import { MatButton, MatIconButton, MatButtonModule } from '@angular/material/button';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i1 from '@angular/material/core';
@@ -10,7 +10,7 @@ import { _StructuralStylesLoader, DateAdapter, MAT_DATE_FORMATS, ErrorStateMatch
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { Directionality } from '@angular/cdk/bidi';
-import { Platform, _bindEventWithOptions, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
+import { normalizePassiveListenerOptions, Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { NgClass, DOCUMENT } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { startWith, take, filter } from 'rxjs/operators';
@@ -113,17 +113,17 @@ class MatCalendarCell {
     }
 }
 /** Event options that can be used to bind an active, capturing event. */
-const activeCapturingEventOptions = {
+const activeCapturingEventOptions = normalizePassiveListenerOptions({
     passive: false,
     capture: true,
-};
+});
 /** Event options that can be used to bind a passive, capturing event. */
-const passiveCapturingEventOptions = {
+const passiveCapturingEventOptions = normalizePassiveListenerOptions({
     passive: true,
     capture: true,
-};
+});
 /** Event options that can be used to bind a passive, non-capturing event. */
-const passiveEventOptions = { passive: true };
+const passiveEventOptions = normalizePassiveListenerOptions({ passive: true });
 /**
  * An internal component used to display calendar data in a table.
  * @docs-private
@@ -133,7 +133,6 @@ class MatCalendarBody {
     _ngZone = inject(NgZone);
     _platform = inject(Platform);
     _intl = inject(MatDatepickerIntl);
-    _eventCleanups;
     /**
      * Used to skip the next focus event when rendering the preview range.
      * We need a flag like this, because some browsers fire focus events asynchronously.
@@ -217,7 +216,6 @@ class MatCalendarBody {
      */
     _trackRow = (row) => row;
     constructor() {
-        const renderer = inject(Renderer2);
         const idGenerator = inject(_IdGenerator);
         this._startDateLabelId = idGenerator.getId('mat-calendar-body-start-');
         this._endDateLabelId = idGenerator.getId('mat-calendar-body-end-');
@@ -226,20 +224,18 @@ class MatCalendarBody {
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         this._ngZone.runOutsideAngular(() => {
             const element = this._elementRef.nativeElement;
-            const cleanups = [
-                // `touchmove` is active since we need to call `preventDefault`.
-                _bindEventWithOptions(renderer, element, 'touchmove', this._touchmoveHandler, activeCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'mouseenter', this._enterHandler, passiveCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'focus', this._enterHandler, passiveCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'mouseleave', this._leaveHandler, passiveCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'blur', this._leaveHandler, passiveCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'mousedown', this._mousedownHandler, passiveEventOptions),
-                _bindEventWithOptions(renderer, element, 'touchstart', this._mousedownHandler, passiveEventOptions),
-            ];
+            // `touchmove` is active since we need to call `preventDefault`.
+            element.addEventListener('touchmove', this._touchmoveHandler, activeCapturingEventOptions);
+            element.addEventListener('mouseenter', this._enterHandler, passiveCapturingEventOptions);
+            element.addEventListener('focus', this._enterHandler, passiveCapturingEventOptions);
+            element.addEventListener('mouseleave', this._leaveHandler, passiveCapturingEventOptions);
+            element.addEventListener('blur', this._leaveHandler, passiveCapturingEventOptions);
+            element.addEventListener('mousedown', this._mousedownHandler, passiveEventOptions);
+            element.addEventListener('touchstart', this._mousedownHandler, passiveEventOptions);
             if (this._platform.isBrowser) {
-                cleanups.push(renderer.listen('window', 'mouseup', this._mouseupHandler), renderer.listen('window', 'touchend', this._touchendHandler));
+                window.addEventListener('mouseup', this._mouseupHandler);
+                window.addEventListener('touchend', this._touchendHandler);
             }
-            this._eventCleanups = cleanups;
         });
     }
     /** Called when a cell is clicked. */
@@ -276,7 +272,18 @@ class MatCalendarBody {
         }
     }
     ngOnDestroy() {
-        this._eventCleanups.forEach(cleanup => cleanup());
+        const element = this._elementRef.nativeElement;
+        element.removeEventListener('touchmove', this._touchmoveHandler, activeCapturingEventOptions);
+        element.removeEventListener('mouseenter', this._enterHandler, passiveCapturingEventOptions);
+        element.removeEventListener('focus', this._enterHandler, passiveCapturingEventOptions);
+        element.removeEventListener('mouseleave', this._leaveHandler, passiveCapturingEventOptions);
+        element.removeEventListener('blur', this._leaveHandler, passiveCapturingEventOptions);
+        element.removeEventListener('mousedown', this._mousedownHandler, passiveEventOptions);
+        element.removeEventListener('touchstart', this._mousedownHandler, passiveEventOptions);
+        if (this._platform.isBrowser) {
+            window.removeEventListener('mouseup', this._mouseupHandler);
+            window.removeEventListener('touchend', this._touchendHandler);
+        }
     }
     /** Returns whether a cell is active. */
     _isActiveCell(rowIndex, colIndex) {

@@ -1,10 +1,10 @@
 import * as i0 from '@angular/core';
-import { Version, InjectionToken, inject, NgModule, LOCALE_ID, Injectable, Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, ElementRef, ANIMATION_MODULE_TYPE, NgZone, Injector, Input, booleanAttribute, ChangeDetectorRef, EventEmitter, isSignal, Output, ViewChild, RendererFactory2 } from '@angular/core';
+import { Version, InjectionToken, inject, NgModule, LOCALE_ID, Injectable, Component, ViewEncapsulation, ChangeDetectionStrategy, Directive, ElementRef, ANIMATION_MODULE_TYPE, NgZone, Injector, Input, booleanAttribute, ChangeDetectorRef, EventEmitter, isSignal, Output, ViewChild } from '@angular/core';
 import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader, _IdGenerator } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { normalizePassiveListenerOptions, _getEventTarget, Platform, _bindEventWithOptions } from '@angular/cdk/platform';
+import { normalizePassiveListenerOptions, _getEventTarget, Platform } from '@angular/cdk/platform';
 import { coerceElement } from '@angular/cdk/coercion';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
@@ -1796,18 +1796,18 @@ const matRippleDisabled = 'mat-ripple-loader-disabled';
  * @docs-private
  */
 class MatRippleLoader {
-    _document = inject(DOCUMENT);
+    _document = inject(DOCUMENT, { optional: true });
     _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
     _globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, { optional: true });
     _platform = inject(Platform);
     _ngZone = inject(NgZone);
     _injector = inject(Injector);
-    _eventCleanups;
     _hosts = new Map();
     constructor() {
-        const renderer = inject(RendererFactory2).createRenderer(null, null);
-        this._eventCleanups = this._ngZone.runOutsideAngular(() => {
-            return rippleInteractionEvents.map(name => _bindEventWithOptions(renderer, this._document, name, this._onInteraction, eventListenerOptions));
+        this._ngZone.runOutsideAngular(() => {
+            for (const event of rippleInteractionEvents) {
+                this._document?.addEventListener(event, this._onInteraction, eventListenerOptions);
+            }
         });
     }
     ngOnDestroy() {
@@ -1815,7 +1815,9 @@ class MatRippleLoader {
         for (const host of hosts) {
             this.destroyRipple(host);
         }
-        this._eventCleanups.forEach(cleanup => cleanup());
+        for (const event of rippleInteractionEvents) {
+            this._document?.removeEventListener(event, this._onInteraction, eventListenerOptions);
+        }
     }
     /**
      * Configures the ripple that will be rendered by the ripple loader.
