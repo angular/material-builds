@@ -212,7 +212,7 @@ export declare interface MatAutocompleteDefaultOptions {
     requireSelection?: boolean;
     /** Class or list of classes to be applied to the autocomplete's overlay panel. */
     overlayPanelClass?: string | string[];
-    /** Whether icon indicators should be hidden for single-selection. */
+    /** Wheter icon indicators should be hidden for single-selection. */
     hideSingleSelectionIndicator?: boolean;
 }
 
