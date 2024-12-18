@@ -1,16 +1,16 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, Injector, afterNextRender, numberAttribute, Output, ContentChildren, QueryList, forwardRef, HostAttributeToken, NgModule } from '@angular/core';
+import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, NgZone, Injector, Renderer2, ANIMATION_MODULE_TYPE, EventEmitter, afterNextRender, numberAttribute, Output, ContentChildren, QueryList, forwardRef, HostAttributeToken, NgModule } from '@angular/core';
 import { _StructuralStylesLoader, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
-import { Subject, fromEvent, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
+import { Subject, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { FocusKeyManager, _IdGenerator, CdkMonitorFocus, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
-import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
+import { Platform, _bindEventWithOptions } from '@angular/cdk/platform';
 import { ViewportRuler, CdkScrollable } from '@angular/cdk/scrolling';
-import { takeUntil, debounceTime, startWith, switchMap, skip, filter } from 'rxjs/operators';
+import { debounceTime, takeUntil, startWith, switchMap, skip, filter } from 'rxjs/operators';
 import { CdkObserveContent } from '@angular/cdk/observers';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -365,9 +365,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", 
             }] } });
 
 /** Config used to bind passive event listeners */
-const passiveEventListenerOptions = normalizePassiveListenerOptions({
+const passiveEventListenerOptions = {
     passive: true,
-});
+};
 /**
  * Amount of milliseconds to wait before starting to scroll the header automatically.
  * Set a little conservatively in order to handle fake events dispatched on touch devices.
@@ -389,7 +389,11 @@ class MatPaginatedTabHeader {
     _dir = inject(Directionality, { optional: true });
     _ngZone = inject(NgZone);
     _platform = inject(Platform);
+    _sharedResizeObserver = inject(SharedResizeObserver);
+    _injector = inject(Injector);
+    _renderer = inject(Renderer2);
     _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
+    _eventCleanups;
     /** The distance in pixels that the tab labels should be translated to the left. */
     _scrollDistance = 0;
     /** Whether the header should scroll to the selected index after the view has been checked. */
@@ -439,28 +443,15 @@ class MatPaginatedTabHeader {
     selectFocusedIndex = new EventEmitter();
     /** Event emitted when a label is focused. */
     indexFocused = new EventEmitter();
-    _sharedResizeObserver = inject(SharedResizeObserver);
-    _injector = inject(Injector);
     constructor() {
         // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
-        this._ngZone.runOutsideAngular(() => {
-            fromEvent(this._elementRef.nativeElement, 'mouseleave')
-                .pipe(takeUntil(this._destroyed))
-                .subscribe(() => this._stopInterval());
-        });
+        this._eventCleanups = this._ngZone.runOutsideAngular(() => [
+            this._renderer.listen(this._elementRef.nativeElement, 'mouseleave', () => this._stopInterval()),
+        ]);
     }
     ngAfterViewInit() {
         // We need to handle these events manually, because we want to bind passive event listeners.
-        fromEvent(this._previousPaginator.nativeElement, 'touchstart', passiveEventListenerOptions)
-            .pipe(takeUntil(this._destroyed))
-            .subscribe(() => {
-            this._handlePaginatorPress('before');
-        });
-        fromEvent(this._nextPaginator.nativeElement, 'touchstart', passiveEventListenerOptions)
-            .pipe(takeUntil(this._destroyed))
-            .subscribe(() => {
-            this._handlePaginatorPress('after');
-        });
+        this._eventCleanups.push(_bindEventWithOptions(this._renderer, this._previousPaginator.nativeElement, 'touchstart', () => this._handlePaginatorPress('before'), passiveEventListenerOptions), _bindEventWithOptions(this._renderer, this._nextPaginator.nativeElement, 'touchstart', () => this._handlePaginatorPress('after'), passiveEventListenerOptions));
     }
     ngAfterContentInit() {
         const dirChange = this._dir ? this._dir.change : of('ltr');
@@ -559,6 +550,7 @@ class MatPaginatedTabHeader {
         }
     }
     ngOnDestroy() {
+        this._eventCleanups.forEach(cleanup => cleanup());
         this._keyManager?.destroy();
         this._destroyed.next();
         this._destroyed.complete();

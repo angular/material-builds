@@ -181,7 +181,11 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     private _dir;
     private _ngZone;
     private _platform;
+    private _sharedResizeObserver;
+    private _injector;
+    private _renderer;
     _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
+    private _eventCleanups;
     abstract _items: QueryList<MatPaginatedTabHeaderItem>;
     abstract _inkBar: {
         hide: () => void;
@@ -230,8 +234,6 @@ export declare abstract class MatPaginatedTabHeader implements AfterContentCheck
     readonly selectFocusedIndex: EventEmitter<number>;
     /** Event emitted when a label is focused. */
     readonly indexFocused: EventEmitter<number>;
-    private _sharedResizeObserver;
-    private _injector;
     constructor(...args: unknown[]);
     /** Called when the user has selected an item via the keyboard. */
     protected abstract _itemSelected(event: KeyboardEvent): void;
