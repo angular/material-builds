@@ -133,7 +133,7 @@ declare abstract class MatListBase {
 
 /** Object that can be used to configure the default options for the list module. */
 export declare interface MatListConfig {
-    /** Wheter icon indicators should be hidden for single-selection. */
+    /** Whether icon indicators should be hidden for single-selection. */
     hideSingleSelectionIndicator?: boolean;
 }
 

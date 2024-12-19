@@ -483,7 +483,7 @@ export declare interface MatSelectConfig {
     typeaheadDebounceInterval?: number;
     /** Class or list of classes to be applied to the menu's overlay panel. */
     overlayPanelClass?: string | string[];
-    /** Wheter icon indicators should be hidden for single-selection. */
+    /** Whether icon indicators should be hidden for single-selection. */
     hideSingleSelectionIndicator?: boolean;
     /**
      * Width of the panel. If set to `auto`, the panel will match the trigger width.
