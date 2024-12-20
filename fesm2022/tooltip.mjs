@@ -104,6 +104,7 @@ class MatTooltip {
     _currentPosition;
     _cssClassPrefix = 'mat-mdc';
     _ariaDescriptionPending;
+    _dirSubscribed = false;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     get position() {
         return this._position;
@@ -238,11 +239,6 @@ class MatTooltip {
                 this.tooltipClass = defaultOptions.tooltipClass;
             }
         }
-        this._dir.change.pipe(takeUntil(this._destroyed)).subscribe(() => {
-            if (this._overlayRef) {
-                this._updatePosition(this._overlayRef);
-            }
-        });
         this._viewportMargin = MIN_VIEWPORT_TOOLTIP_THRESHOLD;
     }
     ngAfterViewInit() {
@@ -383,6 +379,14 @@ class MatTooltip {
         });
         if (this._defaultOptions?.disableTooltipInteractivity) {
             this._overlayRef.addPanelClass(`${this._cssClassPrefix}-tooltip-panel-non-interactive`);
+        }
+        if (!this._dirSubscribed) {
+            this._dirSubscribed = true;
+            this._dir.change.pipe(takeUntil(this._destroyed)).subscribe(() => {
+                if (this._overlayRef) {
+                    this._updatePosition(this._overlayRef);
+                }
+            });
         }
         return this._overlayRef;
     }
