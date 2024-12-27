@@ -609,7 +609,9 @@ class MatTimepickerInput {
         if (value && this._isValid(value)) {
             this._formatValue(value);
         }
-        this._onTouched?.();
+        if (!this.timepicker().isOpen()) {
+            this._onTouched?.();
+        }
     }
     /** Handles the `keydown` event. */
     _handleKeydown(event) {
