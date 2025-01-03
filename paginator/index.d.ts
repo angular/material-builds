@@ -1,4 +1,3 @@
-import { ChangeDetectorRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/button';
@@ -89,7 +88,8 @@ export declare class MatPaginator implements OnInit, OnDestroy {
     _displayedPageSizeOptions: number[];
     /** Emits when the paginator is initialized. */
     initialized: Observable<void>;
-    constructor(_intl: MatPaginatorIntl, _changeDetectorRef: ChangeDetectorRef, defaults?: MatPaginatorDefaultOptions);
+    /** Inserted by Angular inject() migration for backwards compatibility */
+    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Advances to the next page if it exists. */
@@ -134,7 +134,7 @@ export declare class MatPaginator implements OnInit, OnDestroy {
      * @param isDisabled Whether the button is disabled.
      */
     protected _buttonClicked(targetIndex: number, isDisabled: boolean): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, [null, null, { optional: true; }]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginator, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatPaginator, "mat-paginator", ["matPaginator"], { "color": { "alias": "color"; "required": false; }; "pageIndex": { "alias": "pageIndex"; "required": false; }; "length": { "alias": "length"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "pageSizeOptions": { "alias": "pageSizeOptions"; "required": false; }; "hidePageSize": { "alias": "hidePageSize"; "required": false; }; "showFirstLastButtons": { "alias": "showFirstLastButtons"; "required": false; }; "selectConfig": { "alias": "selectConfig"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "page": "page"; }, never, never, true, never>;
     static ngAcceptInputType_pageIndex: unknown;
     static ngAcceptInputType_length: unknown;
