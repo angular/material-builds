@@ -16,7 +16,7 @@ import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/priv
 import { startWith, take, filter } from 'rxjs/operators';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
-import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, NgForm, FormGroupDirective, NgControl, ControlContainer } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { MAT_FORM_FIELD, MatFormFieldControl } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 
@@ -3707,467 +3707,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", 
                 args: ['button']
             }] } });
 
-// This file contains the `_computeAriaAccessibleName` function, which computes what the *expected*
-// ARIA accessible name would be for a given element. Implements a subset of ARIA specification
-// [Accessible Name and Description Computation 1.2](https://www.w3.org/TR/accname-1.2/).
-//
-// Specification accname-1.2 can be summarized by returning the result of the first method
-// available.
-//
-//  1. `aria-labelledby` attribute
-//     ```
-//       <!-- example using aria-labelledby-->
-//       <label id='label-id'>Start Date</label>
-//       <input aria-labelledby='label-id'/>
-//     ```
-//  2. `aria-label` attribute (e.g. `<input aria-label="Departure"/>`)
-//  3. Label with `for`/`id`
-//     ```
-//       <!-- example using for/id -->
-//       <label for="current-node">Label</label>
-//       <input id="current-node"/>
-//     ```
-//  4. `placeholder` attribute (e.g. `<input placeholder="06/03/1990"/>`)
-//  5. `title` attribute (e.g. `<input title="Check-In"/>`)
-//  6. text content
-//     ```
-//       <!-- example using text content -->
-//       <label for="current-node"><span>Departure</span> Date</label>
-//       <input id="current-node"/>
-//     ```
-/**
- * Computes the *expected* ARIA accessible name for argument element based on [accname-1.2
- * specification](https://www.w3.org/TR/accname-1.2/). Implements a subset of accname-1.2,
- * and should only be used for the Datepicker's specific use case.
- *
- * Intended use:
- * This is not a general use implementation. Only implements the parts of accname-1.2 that are
- * required for the Datepicker's specific use case. This function is not intended for any other
- * use.
- *
- * Limitations:
- *  - Only covers the needs of `matStartDate` and `matEndDate`. Does not support other use cases.
- *  - See NOTES's in implementation for specific details on what parts of the accname-1.2
- *  specification are not implemented.
- *
- *  @param element {HTMLInputElement} native &lt;input/&gt; element of `matStartDate` or
- *  `matEndDate` component. Corresponds to the 'Root Element' from accname-1.2
- *
- *  @return expected ARIA accessible name of argument &lt;input/&gt;
- */
-function _computeAriaAccessibleName(element) {
-    return _computeAriaAccessibleNameInternal(element, true);
-}
-/**
- * Determine if argument node is an Element based on `nodeType` property. This function is safe to
- * use with server-side rendering.
- */
-function ssrSafeIsElement(node) {
-    return node.nodeType === Node.ELEMENT_NODE;
-}
-/**
- * Determine if argument node is an HTMLInputElement based on `nodeName` property. This funciton is
- * safe to use with server-side rendering.
- */
-function ssrSafeIsHTMLInputElement(node) {
-    return node.nodeName === 'INPUT';
-}
-/**
- * Determine if argument node is an HTMLTextAreaElement based on `nodeName` property. This
- * funciton is safe to use with server-side rendering.
- */
-function ssrSafeIsHTMLTextAreaElement(node) {
-    return node.nodeName === 'TEXTAREA';
-}
-/**
- * Calculate the expected ARIA accessible name for given DOM Node. Given DOM Node may be either the
- * "Root node" passed to `_computeAriaAccessibleName` or "Current node" as result of recursion.
- *
- * @return the accessible name of argument DOM Node
- *
- * @param currentNode node to determine accessible name of
- * @param isDirectlyReferenced true if `currentNode` is the root node to calculate ARIA accessible
- * name of. False if it is a result of recursion.
- */
-function _computeAriaAccessibleNameInternal(currentNode, isDirectlyReferenced) {
-    // NOTE: this differs from accname-1.2 specification.
-    //  - Does not implement Step 1. of accname-1.2: '''If `currentNode`'s role prohibits naming,
-    //    return the empty string ("")'''.
-    //  - Does not implement Step 2.A. of accname-1.2: '''if current node is hidden and not directly
-    //    referenced by aria-labelledby... return the empty string.'''
-    // acc-name-1.2 Step 2.B.: aria-labelledby
-    if (ssrSafeIsElement(currentNode) && isDirectlyReferenced) {
-        const labelledbyIds = currentNode.getAttribute?.('aria-labelledby')?.split(/\s+/g) || [];
-        const validIdRefs = labelledbyIds.reduce((validIds, id) => {
-            const elem = document.getElementById(id);
-            if (elem) {
-                validIds.push(elem);
-            }
-            return validIds;
-        }, []);
-        if (validIdRefs.length) {
-            return validIdRefs
-                .map(idRef => {
-                return _computeAriaAccessibleNameInternal(idRef, false);
-            })
-                .join(' ');
-        }
-    }
-    // acc-name-1.2 Step 2.C.: aria-label
-    if (ssrSafeIsElement(currentNode)) {
-        const ariaLabel = currentNode.getAttribute('aria-label')?.trim();
-        if (ariaLabel) {
-            return ariaLabel;
-        }
-    }
-    // acc-name-1.2 Step 2.D. attribute or element that defines a text alternative
-    //
-    // NOTE: this differs from accname-1.2 specification.
-    // Only implements Step 2.D. for `<label>`,`<input/>`, and `<textarea/>` element. Does not
-    // implement other elements that have an attribute or element that defines a text alternative.
-    if (ssrSafeIsHTMLInputElement(currentNode) || ssrSafeIsHTMLTextAreaElement(currentNode)) {
-        // use label with a `for` attribute referencing the current node
-        if (currentNode.labels?.length) {
-            return Array.from(currentNode.labels)
-                .map(x => _computeAriaAccessibleNameInternal(x, false))
-                .join(' ');
-        }
-        // use placeholder if available
-        const placeholder = currentNode.getAttribute('placeholder')?.trim();
-        if (placeholder) {
-            return placeholder;
-        }
-        // use title if available
-        const title = currentNode.getAttribute('title')?.trim();
-        if (title) {
-            return title;
-        }
-    }
-    // NOTE: this differs from accname-1.2 specification.
-    //  - does not implement acc-name-1.2 Step 2.E.: '''if the current node is a control embedded
-    //     within the label... then include the embedded control as part of the text alternative in
-    //     the following manner...'''. Step 2E applies to embedded controls such as textbox, listbox,
-    //     range, etc.
-    //  - does not implement acc-name-1.2 step 2.F.: check that '''role allows name from content''',
-    //    which applies to `currentNode` and its children.
-    //  - does not implement acc-name-1.2 Step 2.F.ii.: '''Check for CSS generated textual content'''
-    //    (e.g. :before and :after).
-    //  - does not implement acc-name-1.2 Step 2.I.: '''if the current node has a Tooltip attribute,
-    //    return its value'''
-    // Return text content with whitespace collapsed into a single space character. Accomplish
-    // acc-name-1.2 steps 2F, 2G, and 2H.
-    return (currentNode.textContent || '').replace(/\s+/g, ' ').trim();
-}
-
-/**
- * Used to provide the date range input wrapper component
- * to the parts without circular dependencies.
- */
-const MAT_DATE_RANGE_INPUT_PARENT = new InjectionToken('MAT_DATE_RANGE_INPUT_PARENT');
-/**
- * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
- */
-class MatDateRangeInputPartBase extends MatDatepickerInputBase {
-    _rangeInput = inject(MAT_DATE_RANGE_INPUT_PARENT);
-    _elementRef = inject(ElementRef);
-    _defaultErrorStateMatcher = inject(ErrorStateMatcher);
-    _injector = inject(Injector);
-    _parentForm = inject(NgForm, { optional: true });
-    _parentFormGroup = inject(FormGroupDirective, { optional: true });
-    /**
-     * Form control bound to this input part.
-     * @docs-private
-     */
-    ngControl;
-    _dir = inject(Directionality, { optional: true });
-    _errorStateTracker;
-    /** Object used to control when error messages are shown. */
-    get errorStateMatcher() {
-        return this._errorStateTracker.matcher;
-    }
-    set errorStateMatcher(value) {
-        this._errorStateTracker.matcher = value;
-    }
-    /** Whether the input is in an error state. */
-    get errorState() {
-        return this._errorStateTracker.errorState;
-    }
-    set errorState(value) {
-        this._errorStateTracker.errorState = value;
-    }
-    constructor() {
-        super();
-        this._errorStateTracker = new _ErrorStateTracker(this._defaultErrorStateMatcher, null, this._parentFormGroup, this._parentForm, this.stateChanges);
-    }
-    ngOnInit() {
-        // We need the date input to provide itself as a `ControlValueAccessor` and a `Validator`, while
-        // injecting its `NgControl` so that the error state is handled correctly. This introduces a
-        // circular dependency, because both `ControlValueAccessor` and `Validator` depend on the input
-        // itself. Usually we can work around it for the CVA, but there's no API to do it for the
-        // validator. We work around it here by injecting the `NgControl` in `ngOnInit`, after
-        // everything has been resolved.
-        const ngControl = this._injector.get(NgControl, null, { optional: true, self: true });
-        if (ngControl) {
-            this.ngControl = ngControl;
-            this._errorStateTracker.ngControl = ngControl;
-        }
-    }
-    ngDoCheck() {
-        if (this.ngControl) {
-            // We need to re-evaluate this on every change detection cycle, because there are some
-            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
-            // that whatever logic is in here has to be super lean or we risk destroying the performance.
-            this.updateErrorState();
-        }
-    }
-    /** Gets whether the input is empty. */
-    isEmpty() {
-        return this._elementRef.nativeElement.value.length === 0;
-    }
-    /** Gets the placeholder of the input. */
-    _getPlaceholder() {
-        return this._elementRef.nativeElement.placeholder;
-    }
-    /** Focuses the input. */
-    focus() {
-        this._elementRef.nativeElement.focus();
-    }
-    /** Gets the value that should be used when mirroring the input's size. */
-    getMirrorValue() {
-        const element = this._elementRef.nativeElement;
-        const value = element.value;
-        return value.length > 0 ? value : element.placeholder;
-    }
-    /** Refreshes the error state of the input. */
-    updateErrorState() {
-        this._errorStateTracker.updateErrorState();
-    }
-    /** Handles `input` events on the input element. */
-    _onInput(value) {
-        super._onInput(value);
-        this._rangeInput._handleChildValueChange();
-    }
-    /** Opens the datepicker associated with the input. */
-    _openPopup() {
-        this._rangeInput._openDatepicker();
-    }
-    /** Gets the minimum date from the range input. */
-    _getMinDate() {
-        return this._rangeInput.min;
-    }
-    /** Gets the maximum date from the range input. */
-    _getMaxDate() {
-        return this._rangeInput.max;
-    }
-    /** Gets the date filter function from the range input. */
-    _getDateFilter() {
-        return this._rangeInput.dateFilter;
-    }
-    _parentDisabled() {
-        return this._rangeInput._groupDisabled;
-    }
-    _shouldHandleChangeEvent({ source }) {
-        return source !== this._rangeInput._startInput && source !== this._rangeInput._endInput;
-    }
-    _assignValueProgrammatically(value) {
-        super._assignValueProgrammatically(value);
-        const opposite = (this === this._rangeInput._startInput
-            ? this._rangeInput._endInput
-            : this._rangeInput._startInput);
-        opposite?._validatorOnChange();
-    }
-    /** return the ARIA accessible name of the input element */
-    _getAccessibleName() {
-        return _computeAriaAccessibleName(this._elementRef.nativeElement);
-    }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatDateRangeInputPartBase, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.3", type: MatDateRangeInputPartBase, isStandalone: true, inputs: { errorStateMatcher: "errorStateMatcher" }, usesInheritance: true, ngImport: i0 });
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatDateRangeInputPartBase, decorators: [{
-            type: Directive
-        }], ctorParameters: () => [], propDecorators: { errorStateMatcher: [{
-                type: Input
-            }] } });
-/** Input for entering the start date in a `mat-date-range-input`. */
-class MatStartDate extends MatDateRangeInputPartBase {
-    /** Validator that checks that the start date isn't after the end date. */
-    _startValidator = (control) => {
-        const start = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-        const end = this._model ? this._model.selection.end : null;
-        return !start || !end || this._dateAdapter.compareDate(start, end) <= 0
-            ? null
-            : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
-    };
-    _validator = Validators.compose([...super._getValidators(), this._startValidator]);
-    _getValueFromModel(modelValue) {
-        return modelValue.start;
-    }
-    _shouldHandleChangeEvent(change) {
-        if (!super._shouldHandleChangeEvent(change)) {
-            return false;
-        }
-        else {
-            return !change.oldValue?.start
-                ? !!change.selection.start
-                : !change.selection.start ||
-                    !!this._dateAdapter.compareDate(change.oldValue.start, change.selection.start);
-        }
-    }
-    _assignValueToModel(value) {
-        if (this._model) {
-            const range = new DateRange(value, this._model.selection.end);
-            this._model.updateSelection(range, this);
-        }
-    }
-    _formatValue(value) {
-        super._formatValue(value);
-        // Any time the input value is reformatted we need to tell the parent.
-        this._rangeInput._handleChildValueChange();
-    }
-    _onKeydown(event) {
-        const endInput = this._rangeInput._endInput;
-        const element = this._elementRef.nativeElement;
-        const isLtr = this._dir?.value !== 'rtl';
-        // If the user hits RIGHT (LTR) when at the end of the input (and no
-        // selection), move the cursor to the start of the end input.
-        if (((event.keyCode === RIGHT_ARROW && isLtr) || (event.keyCode === LEFT_ARROW && !isLtr)) &&
-            element.selectionStart === element.value.length &&
-            element.selectionEnd === element.value.length) {
-            event.preventDefault();
-            endInput._elementRef.nativeElement.setSelectionRange(0, 0);
-            endInput.focus();
-        }
-        else {
-            super._onKeydown(event);
-        }
-    }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatStartDate, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.3", type: MatStartDate, isStandalone: true, selector: "input[matStartDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
-            { provide: NG_VALUE_ACCESSOR, useExisting: MatStartDate, multi: true },
-            { provide: NG_VALIDATORS, useExisting: MatStartDate, multi: true },
-        ], usesInheritance: true, ngImport: i0 });
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatStartDate, decorators: [{
-            type: Directive,
-            args: [{
-                    selector: 'input[matStartDate]',
-                    host: {
-                        'class': 'mat-start-date mat-date-range-input-inner',
-                        '[disabled]': 'disabled',
-                        '(input)': '_onInput($event.target.value)',
-                        '(change)': '_onChange()',
-                        '(keydown)': '_onKeydown($event)',
-                        '[attr.aria-haspopup]': '_rangeInput.rangePicker ? "dialog" : null',
-                        '[attr.aria-owns]': `_rangeInput._ariaOwns
-        ? _rangeInput._ariaOwns()
-        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null`,
-                        '[attr.min]': '_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null',
-                        '[attr.max]': '_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null',
-                        '(blur)': '_onBlur()',
-                        'type': 'text',
-                    },
-                    providers: [
-                        { provide: NG_VALUE_ACCESSOR, useExisting: MatStartDate, multi: true },
-                        { provide: NG_VALIDATORS, useExisting: MatStartDate, multi: true },
-                    ],
-                    // These need to be specified explicitly, because some tooling doesn't
-                    // seem to pick them up from the base class. See #20932.
-                    outputs: ['dateChange', 'dateInput'],
-                }]
-        }] });
-/** Input for entering the end date in a `mat-date-range-input`. */
-class MatEndDate extends MatDateRangeInputPartBase {
-    /** Validator that checks that the end date isn't before the start date. */
-    _endValidator = (control) => {
-        const end = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-        const start = this._model ? this._model.selection.start : null;
-        return !end || !start || this._dateAdapter.compareDate(end, start) >= 0
-            ? null
-            : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
-    };
-    _validator = Validators.compose([...super._getValidators(), this._endValidator]);
-    _getValueFromModel(modelValue) {
-        return modelValue.end;
-    }
-    _shouldHandleChangeEvent(change) {
-        if (!super._shouldHandleChangeEvent(change)) {
-            return false;
-        }
-        else {
-            return !change.oldValue?.end
-                ? !!change.selection.end
-                : !change.selection.end ||
-                    !!this._dateAdapter.compareDate(change.oldValue.end, change.selection.end);
-        }
-    }
-    _assignValueToModel(value) {
-        if (this._model) {
-            const range = new DateRange(this._model.selection.start, value);
-            this._model.updateSelection(range, this);
-        }
-    }
-    _moveCaretToEndOfStartInput() {
-        const startInput = this._rangeInput._startInput._elementRef.nativeElement;
-        const value = startInput.value;
-        if (value.length > 0) {
-            startInput.setSelectionRange(value.length, value.length);
-        }
-        startInput.focus();
-    }
-    _onKeydown(event) {
-        const element = this._elementRef.nativeElement;
-        const isLtr = this._dir?.value !== 'rtl';
-        // If the user is pressing backspace on an empty end input, move focus back to the start.
-        if (event.keyCode === BACKSPACE && !element.value) {
-            this._moveCaretToEndOfStartInput();
-        }
-        // If the user hits LEFT (LTR) when at the start of the input (and no
-        // selection), move the cursor to the end of the start input.
-        else if (((event.keyCode === LEFT_ARROW && isLtr) || (event.keyCode === RIGHT_ARROW && !isLtr)) &&
-            element.selectionStart === 0 &&
-            element.selectionEnd === 0) {
-            event.preventDefault();
-            this._moveCaretToEndOfStartInput();
-        }
-        else {
-            super._onKeydown(event);
-        }
-    }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatEndDate, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.3", type: MatEndDate, isStandalone: true, selector: "input[matEndDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-end-date mat-date-range-input-inner" }, providers: [
-            { provide: NG_VALUE_ACCESSOR, useExisting: MatEndDate, multi: true },
-            { provide: NG_VALIDATORS, useExisting: MatEndDate, multi: true },
-        ], usesInheritance: true, ngImport: i0 });
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatEndDate, decorators: [{
-            type: Directive,
-            args: [{
-                    selector: 'input[matEndDate]',
-                    host: {
-                        'class': 'mat-end-date mat-date-range-input-inner',
-                        '[disabled]': 'disabled',
-                        '(input)': '_onInput($event.target.value)',
-                        '(change)': '_onChange()',
-                        '(keydown)': '_onKeydown($event)',
-                        '[attr.aria-haspopup]': '_rangeInput.rangePicker ? "dialog" : null',
-                        '[attr.aria-owns]': `_rangeInput._ariaOwns
-        ? _rangeInput._ariaOwns()
-        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null`,
-                        '[attr.min]': '_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null',
-                        '[attr.max]': '_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null',
-                        '(blur)': '_onBlur()',
-                        'type': 'text',
-                    },
-                    providers: [
-                        { provide: NG_VALUE_ACCESSOR, useExisting: MatEndDate, multi: true },
-                        { provide: NG_VALIDATORS, useExisting: MatEndDate, multi: true },
-                    ],
-                    // These need to be specified explicitly, because some tooling doesn't
-                    // seem to pick them up from the base class. See #20932.
-                    outputs: ['dateChange', 'dateInput'],
-                }]
-        }] });
-
 class MatDateRangeInput {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _elementRef = inject(ElementRef);
@@ -4175,6 +3714,8 @@ class MatDateRangeInput {
     _formField = inject(MAT_FORM_FIELD, { optional: true });
     _closedSubscription = Subscription.EMPTY;
     _openedSubscription = Subscription.EMPTY;
+    _startInput;
+    _endInput;
     /** Current value of the range input. */
     get value() {
         return this._model ? this._model.selection : null;
@@ -4314,8 +3855,6 @@ class MatDateRangeInput {
     comparisonStart = null;
     /** End of the comparison range that should be shown in the calendar. */
     comparisonEnd = null;
-    _startInput;
-    _endInput;
     /**
      * Implemented as a part of `MatFormFieldControl`.
      * TODO(crisbeto): change type to `AbstractControlDirective` after #18206 lands.
@@ -4471,10 +4010,7 @@ class MatDateRangeInput {
         return target?.ngControl?.control?.hasValidator(Validators.required);
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatDateRangeInput, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "19.1.0-next.3", type: MatDateRangeInput, isStandalone: true, selector: "mat-date-range-input", inputs: { rangePicker: "rangePicker", required: ["required", "required", booleanAttribute], dateFilter: "dateFilter", min: "min", max: "max", disabled: ["disabled", "disabled", booleanAttribute], separator: "separator", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd" }, host: { attributes: { "role": "group" }, properties: { "class.mat-date-range-input-hide-placeholders": "_shouldHidePlaceholders()", "class.mat-date-range-input-required": "required", "attr.id": "id", "attr.aria-labelledby": "_getAriaLabelledby()", "attr.aria-describedby": "_ariaDescribedBy", "attr.data-mat-calendar": "rangePicker ? rangePicker.id : null" }, classAttribute: "mat-date-range-input" }, providers: [
-            { provide: MatFormFieldControl, useExisting: MatDateRangeInput },
-            { provide: MAT_DATE_RANGE_INPUT_PARENT, useExisting: MatDateRangeInput },
-        ], queries: [{ propertyName: "_startInput", first: true, predicate: MatStartDate, descendants: true }, { propertyName: "_endInput", first: true, predicate: MatEndDate, descendants: true }], exportAs: ["matDateRangeInput"], usesOnChanges: true, ngImport: i0, template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('start')}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-wrapper mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('end')}}</span>\n  </div>\n</div>\n\n", styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{transition:opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);margin:0 4px;color:var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface))}.mat-form-field-disabled .mat-date-range-input-separator{color:var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}._mat-animation-noopable .mat-date-range-input-separator{transition:none}.mat-date-range-input-separator-hidden{-webkit-user-select:none;user-select:none;opacity:0;transition:none}.mat-date-range-input-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-end-wrapper{flex-grow:1}.mat-date-range-input-inner{position:absolute;top:0;left:0;font:inherit;background:rgba(0,0,0,0);color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%;height:100%}.mat-date-range-input-inner:-moz-ui-invalid{box-shadow:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner[disabled]{color:var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{opacity:0}}._mat-animation-noopable .mat-date-range-input-inner::placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder{transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix{width:200px}"], dependencies: [{ kind: "directive", type: CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"], exportAs: ["cdkMonitorFocus"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "19.1.0-next.3", type: MatDateRangeInput, isStandalone: true, selector: "mat-date-range-input", inputs: { rangePicker: "rangePicker", required: ["required", "required", booleanAttribute], dateFilter: "dateFilter", min: "min", max: "max", disabled: ["disabled", "disabled", booleanAttribute], separator: "separator", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd" }, host: { attributes: { "role": "group" }, properties: { "class.mat-date-range-input-hide-placeholders": "_shouldHidePlaceholders()", "class.mat-date-range-input-required": "required", "attr.id": "id", "attr.aria-labelledby": "_getAriaLabelledby()", "attr.aria-describedby": "_ariaDescribedBy", "attr.data-mat-calendar": "rangePicker ? rangePicker.id : null" }, classAttribute: "mat-date-range-input" }, providers: [{ provide: MatFormFieldControl, useExisting: MatDateRangeInput }], exportAs: ["matDateRangeInput"], usesOnChanges: true, ngImport: i0, template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('start')}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-wrapper mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('end')}}</span>\n  </div>\n</div>\n\n", styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{transition:opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);margin:0 4px;color:var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface))}.mat-form-field-disabled .mat-date-range-input-separator{color:var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}._mat-animation-noopable .mat-date-range-input-separator{transition:none}.mat-date-range-input-separator-hidden{-webkit-user-select:none;user-select:none;opacity:0;transition:none}.mat-date-range-input-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-end-wrapper{flex-grow:1}.mat-date-range-input-inner{position:absolute;top:0;left:0;font:inherit;background:rgba(0,0,0,0);color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%;height:100%}.mat-date-range-input-inner:-moz-ui-invalid{box-shadow:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner[disabled]{color:var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{opacity:0}}._mat-animation-noopable .mat-date-range-input-inner::placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder{transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix{width:200px}"], dependencies: [{ kind: "directive", type: CdkMonitorFocus, selector: "[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]", outputs: ["cdkFocusChange"], exportAs: ["cdkMonitorFocus"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatDateRangeInput, decorators: [{
             type: Component,
@@ -4489,10 +4025,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", 
                         // Used by the test harness to tie this input to its calendar. We can't depend on
                         // `aria-owns` for this, because it's only defined while the calendar is open.
                         '[attr.data-mat-calendar]': 'rangePicker ? rangePicker.id : null',
-                    }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, providers: [
-                        { provide: MatFormFieldControl, useExisting: MatDateRangeInput },
-                        { provide: MAT_DATE_RANGE_INPUT_PARENT, useExisting: MatDateRangeInput },
-                    ], imports: [CdkMonitorFocus], template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('start')}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-wrapper mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('end')}}</span>\n  </div>\n</div>\n\n", styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{transition:opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);margin:0 4px;color:var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface))}.mat-form-field-disabled .mat-date-range-input-separator{color:var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}._mat-animation-noopable .mat-date-range-input-separator{transition:none}.mat-date-range-input-separator-hidden{-webkit-user-select:none;user-select:none;opacity:0;transition:none}.mat-date-range-input-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-end-wrapper{flex-grow:1}.mat-date-range-input-inner{position:absolute;top:0;left:0;font:inherit;background:rgba(0,0,0,0);color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%;height:100%}.mat-date-range-input-inner:-moz-ui-invalid{box-shadow:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner[disabled]{color:var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{opacity:0}}._mat-animation-noopable .mat-date-range-input-inner::placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder{transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix{width:200px}"] }]
+                    }, changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, providers: [{ provide: MatFormFieldControl, useExisting: MatDateRangeInput }], imports: [CdkMonitorFocus], template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('start')}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-wrapper mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('end')}}</span>\n  </div>\n</div>\n\n", styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{transition:opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);margin:0 4px;color:var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface))}.mat-form-field-disabled .mat-date-range-input-separator{color:var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}._mat-animation-noopable .mat-date-range-input-separator{transition:none}.mat-date-range-input-separator-hidden{-webkit-user-select:none;user-select:none;opacity:0;transition:none}.mat-date-range-input-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-end-wrapper{flex-grow:1}.mat-date-range-input-inner{position:absolute;top:0;left:0;font:inherit;background:rgba(0,0,0,0);color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%;height:100%}.mat-date-range-input-inner:-moz-ui-invalid{box-shadow:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner[disabled]{color:var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{opacity:0}}._mat-animation-noopable .mat-date-range-input-inner::placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder{transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix{width:200px}"] }]
         }], ctorParameters: () => [], propDecorators: { rangePicker: [{
                 type: Input
             }], required: [{
@@ -4513,13 +4046,472 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", 
                 type: Input
             }], comparisonEnd: [{
                 type: Input
-            }], _startInput: [{
-                type: ContentChild,
-                args: [MatStartDate]
-            }], _endInput: [{
-                type: ContentChild,
-                args: [MatEndDate]
             }] } });
+
+// This file contains the `_computeAriaAccessibleName` function, which computes what the *expected*
+// ARIA accessible name would be for a given element. Implements a subset of ARIA specification
+// [Accessible Name and Description Computation 1.2](https://www.w3.org/TR/accname-1.2/).
+//
+// Specification accname-1.2 can be summarized by returning the result of the first method
+// available.
+//
+//  1. `aria-labelledby` attribute
+//     ```
+//       <!-- example using aria-labelledby-->
+//       <label id='label-id'>Start Date</label>
+//       <input aria-labelledby='label-id'/>
+//     ```
+//  2. `aria-label` attribute (e.g. `<input aria-label="Departure"/>`)
+//  3. Label with `for`/`id`
+//     ```
+//       <!-- example using for/id -->
+//       <label for="current-node">Label</label>
+//       <input id="current-node"/>
+//     ```
+//  4. `placeholder` attribute (e.g. `<input placeholder="06/03/1990"/>`)
+//  5. `title` attribute (e.g. `<input title="Check-In"/>`)
+//  6. text content
+//     ```
+//       <!-- example using text content -->
+//       <label for="current-node"><span>Departure</span> Date</label>
+//       <input id="current-node"/>
+//     ```
+/**
+ * Computes the *expected* ARIA accessible name for argument element based on [accname-1.2
+ * specification](https://www.w3.org/TR/accname-1.2/). Implements a subset of accname-1.2,
+ * and should only be used for the Datepicker's specific use case.
+ *
+ * Intended use:
+ * This is not a general use implementation. Only implements the parts of accname-1.2 that are
+ * required for the Datepicker's specific use case. This function is not intended for any other
+ * use.
+ *
+ * Limitations:
+ *  - Only covers the needs of `matStartDate` and `matEndDate`. Does not support other use cases.
+ *  - See NOTES's in implementation for specific details on what parts of the accname-1.2
+ *  specification are not implemented.
+ *
+ *  @param element {HTMLInputElement} native &lt;input/&gt; element of `matStartDate` or
+ *  `matEndDate` component. Corresponds to the 'Root Element' from accname-1.2
+ *
+ *  @return expected ARIA accessible name of argument &lt;input/&gt;
+ */
+function _computeAriaAccessibleName(element) {
+    return _computeAriaAccessibleNameInternal(element, true);
+}
+/**
+ * Determine if argument node is an Element based on `nodeType` property. This function is safe to
+ * use with server-side rendering.
+ */
+function ssrSafeIsElement(node) {
+    return node.nodeType === Node.ELEMENT_NODE;
+}
+/**
+ * Determine if argument node is an HTMLInputElement based on `nodeName` property. This funciton is
+ * safe to use with server-side rendering.
+ */
+function ssrSafeIsHTMLInputElement(node) {
+    return node.nodeName === 'INPUT';
+}
+/**
+ * Determine if argument node is an HTMLTextAreaElement based on `nodeName` property. This
+ * funciton is safe to use with server-side rendering.
+ */
+function ssrSafeIsHTMLTextAreaElement(node) {
+    return node.nodeName === 'TEXTAREA';
+}
+/**
+ * Calculate the expected ARIA accessible name for given DOM Node. Given DOM Node may be either the
+ * "Root node" passed to `_computeAriaAccessibleName` or "Current node" as result of recursion.
+ *
+ * @return the accessible name of argument DOM Node
+ *
+ * @param currentNode node to determine accessible name of
+ * @param isDirectlyReferenced true if `currentNode` is the root node to calculate ARIA accessible
+ * name of. False if it is a result of recursion.
+ */
+function _computeAriaAccessibleNameInternal(currentNode, isDirectlyReferenced) {
+    // NOTE: this differs from accname-1.2 specification.
+    //  - Does not implement Step 1. of accname-1.2: '''If `currentNode`'s role prohibits naming,
+    //    return the empty string ("")'''.
+    //  - Does not implement Step 2.A. of accname-1.2: '''if current node is hidden and not directly
+    //    referenced by aria-labelledby... return the empty string.'''
+    // acc-name-1.2 Step 2.B.: aria-labelledby
+    if (ssrSafeIsElement(currentNode) && isDirectlyReferenced) {
+        const labelledbyIds = currentNode.getAttribute?.('aria-labelledby')?.split(/\s+/g) || [];
+        const validIdRefs = labelledbyIds.reduce((validIds, id) => {
+            const elem = document.getElementById(id);
+            if (elem) {
+                validIds.push(elem);
+            }
+            return validIds;
+        }, []);
+        if (validIdRefs.length) {
+            return validIdRefs
+                .map(idRef => {
+                return _computeAriaAccessibleNameInternal(idRef, false);
+            })
+                .join(' ');
+        }
+    }
+    // acc-name-1.2 Step 2.C.: aria-label
+    if (ssrSafeIsElement(currentNode)) {
+        const ariaLabel = currentNode.getAttribute('aria-label')?.trim();
+        if (ariaLabel) {
+            return ariaLabel;
+        }
+    }
+    // acc-name-1.2 Step 2.D. attribute or element that defines a text alternative
+    //
+    // NOTE: this differs from accname-1.2 specification.
+    // Only implements Step 2.D. for `<label>`,`<input/>`, and `<textarea/>` element. Does not
+    // implement other elements that have an attribute or element that defines a text alternative.
+    if (ssrSafeIsHTMLInputElement(currentNode) || ssrSafeIsHTMLTextAreaElement(currentNode)) {
+        // use label with a `for` attribute referencing the current node
+        if (currentNode.labels?.length) {
+            return Array.from(currentNode.labels)
+                .map(x => _computeAriaAccessibleNameInternal(x, false))
+                .join(' ');
+        }
+        // use placeholder if available
+        const placeholder = currentNode.getAttribute('placeholder')?.trim();
+        if (placeholder) {
+            return placeholder;
+        }
+        // use title if available
+        const title = currentNode.getAttribute('title')?.trim();
+        if (title) {
+            return title;
+        }
+    }
+    // NOTE: this differs from accname-1.2 specification.
+    //  - does not implement acc-name-1.2 Step 2.E.: '''if the current node is a control embedded
+    //     within the label... then include the embedded control as part of the text alternative in
+    //     the following manner...'''. Step 2E applies to embedded controls such as textbox, listbox,
+    //     range, etc.
+    //  - does not implement acc-name-1.2 step 2.F.: check that '''role allows name from content''',
+    //    which applies to `currentNode` and its children.
+    //  - does not implement acc-name-1.2 Step 2.F.ii.: '''Check for CSS generated textual content'''
+    //    (e.g. :before and :after).
+    //  - does not implement acc-name-1.2 Step 2.I.: '''if the current node has a Tooltip attribute,
+    //    return its value'''
+    // Return text content with whitespace collapsed into a single space character. Accomplish
+    // acc-name-1.2 steps 2F, 2G, and 2H.
+    return (currentNode.textContent || '').replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
+ */
+class MatDateRangeInputPartBase extends MatDatepickerInputBase {
+    _rangeInput = inject(MatDateRangeInput);
+    _elementRef = inject(ElementRef);
+    _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+    _injector = inject(Injector);
+    _parentForm = inject(NgForm, { optional: true });
+    _parentFormGroup = inject(FormGroupDirective, { optional: true });
+    /**
+     * Form control bound to this input part.
+     * @docs-private
+     */
+    ngControl;
+    _dir = inject(Directionality, { optional: true });
+    _errorStateTracker;
+    /** Object used to control when error messages are shown. */
+    get errorStateMatcher() {
+        return this._errorStateTracker.matcher;
+    }
+    set errorStateMatcher(value) {
+        this._errorStateTracker.matcher = value;
+    }
+    /** Whether the input is in an error state. */
+    get errorState() {
+        return this._errorStateTracker.errorState;
+    }
+    set errorState(value) {
+        this._errorStateTracker.errorState = value;
+    }
+    constructor() {
+        super();
+        this._errorStateTracker = new _ErrorStateTracker(this._defaultErrorStateMatcher, null, this._parentFormGroup, this._parentForm, this.stateChanges);
+    }
+    ngOnInit() {
+        // We need the date input to provide itself as a `ControlValueAccessor` and a `Validator`, while
+        // injecting its `NgControl` so that the error state is handled correctly. This introduces a
+        // circular dependency, because both `ControlValueAccessor` and `Validator` depend on the input
+        // itself. Usually we can work around it for the CVA, but there's no API to do it for the
+        // validator. We work around it here by injecting the `NgControl` in `ngOnInit`, after
+        // everything has been resolved.
+        const ngControl = this._injector.get(NgControl, null, { optional: true, self: true });
+        if (ngControl) {
+            this.ngControl = ngControl;
+            this._errorStateTracker.ngControl = ngControl;
+        }
+    }
+    ngAfterContentInit() {
+        this._register();
+    }
+    ngDoCheck() {
+        if (this.ngControl) {
+            // We need to re-evaluate this on every change detection cycle, because there are some
+            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+            // that whatever logic is in here has to be super lean or we risk destroying the performance.
+            this.updateErrorState();
+        }
+    }
+    /** Gets whether the input is empty. */
+    isEmpty() {
+        return this._elementRef.nativeElement.value.length === 0;
+    }
+    /** Gets the placeholder of the input. */
+    _getPlaceholder() {
+        return this._elementRef.nativeElement.placeholder;
+    }
+    /** Focuses the input. */
+    focus() {
+        this._elementRef.nativeElement.focus();
+    }
+    /** Gets the value that should be used when mirroring the input's size. */
+    getMirrorValue() {
+        const element = this._elementRef.nativeElement;
+        const value = element.value;
+        return value.length > 0 ? value : element.placeholder;
+    }
+    /** Refreshes the error state of the input. */
+    updateErrorState() {
+        this._errorStateTracker.updateErrorState();
+    }
+    /** Handles `input` events on the input element. */
+    _onInput(value) {
+        super._onInput(value);
+        this._rangeInput._handleChildValueChange();
+    }
+    /** Opens the datepicker associated with the input. */
+    _openPopup() {
+        this._rangeInput._openDatepicker();
+    }
+    /** Gets the minimum date from the range input. */
+    _getMinDate() {
+        return this._rangeInput.min;
+    }
+    /** Gets the maximum date from the range input. */
+    _getMaxDate() {
+        return this._rangeInput.max;
+    }
+    /** Gets the date filter function from the range input. */
+    _getDateFilter() {
+        return this._rangeInput.dateFilter;
+    }
+    _parentDisabled() {
+        return this._rangeInput._groupDisabled;
+    }
+    _shouldHandleChangeEvent({ source }) {
+        return source !== this._rangeInput._startInput && source !== this._rangeInput._endInput;
+    }
+    _assignValueProgrammatically(value) {
+        super._assignValueProgrammatically(value);
+        const opposite = (this === this._rangeInput._startInput
+            ? this._rangeInput._endInput
+            : this._rangeInput._startInput);
+        opposite?._validatorOnChange();
+    }
+    /** return the ARIA accessible name of the input element */
+    _getAccessibleName() {
+        return _computeAriaAccessibleName(this._elementRef.nativeElement);
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatDateRangeInputPartBase, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.3", type: MatDateRangeInputPartBase, isStandalone: true, inputs: { errorStateMatcher: "errorStateMatcher" }, usesInheritance: true, ngImport: i0 });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatDateRangeInputPartBase, decorators: [{
+            type: Directive
+        }], ctorParameters: () => [], propDecorators: { errorStateMatcher: [{
+                type: Input
+            }] } });
+/** Input for entering the start date in a `mat-date-range-input`. */
+class MatStartDate extends MatDateRangeInputPartBase {
+    /** Validator that checks that the start date isn't after the end date. */
+    _startValidator = (control) => {
+        const start = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+        const end = this._model ? this._model.selection.end : null;
+        return !start || !end || this._dateAdapter.compareDate(start, end) <= 0
+            ? null
+            : { 'matStartDateInvalid': { 'end': end, 'actual': start } };
+    };
+    _validator = Validators.compose([...super._getValidators(), this._startValidator]);
+    _register() {
+        this._rangeInput._startInput = this;
+    }
+    _getValueFromModel(modelValue) {
+        return modelValue.start;
+    }
+    _shouldHandleChangeEvent(change) {
+        if (!super._shouldHandleChangeEvent(change)) {
+            return false;
+        }
+        else {
+            return !change.oldValue?.start
+                ? !!change.selection.start
+                : !change.selection.start ||
+                    !!this._dateAdapter.compareDate(change.oldValue.start, change.selection.start);
+        }
+    }
+    _assignValueToModel(value) {
+        if (this._model) {
+            const range = new DateRange(value, this._model.selection.end);
+            this._model.updateSelection(range, this);
+        }
+    }
+    _formatValue(value) {
+        super._formatValue(value);
+        // Any time the input value is reformatted we need to tell the parent.
+        this._rangeInput._handleChildValueChange();
+    }
+    _onKeydown(event) {
+        const endInput = this._rangeInput._endInput;
+        const element = this._elementRef.nativeElement;
+        const isLtr = this._dir?.value !== 'rtl';
+        // If the user hits RIGHT (LTR) when at the end of the input (and no
+        // selection), move the cursor to the start of the end input.
+        if (((event.keyCode === RIGHT_ARROW && isLtr) || (event.keyCode === LEFT_ARROW && !isLtr)) &&
+            element.selectionStart === element.value.length &&
+            element.selectionEnd === element.value.length) {
+            event.preventDefault();
+            endInput._elementRef.nativeElement.setSelectionRange(0, 0);
+            endInput.focus();
+        }
+        else {
+            super._onKeydown(event);
+        }
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatStartDate, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.3", type: MatStartDate, isStandalone: true, selector: "input[matStartDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
+            { provide: NG_VALUE_ACCESSOR, useExisting: MatStartDate, multi: true },
+            { provide: NG_VALIDATORS, useExisting: MatStartDate, multi: true },
+        ], usesInheritance: true, ngImport: i0 });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatStartDate, decorators: [{
+            type: Directive,
+            args: [{
+                    selector: 'input[matStartDate]',
+                    host: {
+                        'class': 'mat-start-date mat-date-range-input-inner',
+                        '[disabled]': 'disabled',
+                        '(input)': '_onInput($event.target.value)',
+                        '(change)': '_onChange()',
+                        '(keydown)': '_onKeydown($event)',
+                        '[attr.aria-haspopup]': '_rangeInput.rangePicker ? "dialog" : null',
+                        '[attr.aria-owns]': `_rangeInput._ariaOwns
+        ? _rangeInput._ariaOwns()
+        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null`,
+                        '[attr.min]': '_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null',
+                        '[attr.max]': '_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null',
+                        '(blur)': '_onBlur()',
+                        'type': 'text',
+                    },
+                    providers: [
+                        { provide: NG_VALUE_ACCESSOR, useExisting: MatStartDate, multi: true },
+                        { provide: NG_VALIDATORS, useExisting: MatStartDate, multi: true },
+                    ],
+                    // These need to be specified explicitly, because some tooling doesn't
+                    // seem to pick them up from the base class. See #20932.
+                    outputs: ['dateChange', 'dateInput'],
+                }]
+        }] });
+/** Input for entering the end date in a `mat-date-range-input`. */
+class MatEndDate extends MatDateRangeInputPartBase {
+    /** Validator that checks that the end date isn't before the start date. */
+    _endValidator = (control) => {
+        const end = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+        const start = this._model ? this._model.selection.start : null;
+        return !end || !start || this._dateAdapter.compareDate(end, start) >= 0
+            ? null
+            : { 'matEndDateInvalid': { 'start': start, 'actual': end } };
+    };
+    _register() {
+        this._rangeInput._endInput = this;
+    }
+    _validator = Validators.compose([...super._getValidators(), this._endValidator]);
+    _getValueFromModel(modelValue) {
+        return modelValue.end;
+    }
+    _shouldHandleChangeEvent(change) {
+        if (!super._shouldHandleChangeEvent(change)) {
+            return false;
+        }
+        else {
+            return !change.oldValue?.end
+                ? !!change.selection.end
+                : !change.selection.end ||
+                    !!this._dateAdapter.compareDate(change.oldValue.end, change.selection.end);
+        }
+    }
+    _assignValueToModel(value) {
+        if (this._model) {
+            const range = new DateRange(this._model.selection.start, value);
+            this._model.updateSelection(range, this);
+        }
+    }
+    _moveCaretToEndOfStartInput() {
+        const startInput = this._rangeInput._startInput._elementRef.nativeElement;
+        const value = startInput.value;
+        if (value.length > 0) {
+            startInput.setSelectionRange(value.length, value.length);
+        }
+        startInput.focus();
+    }
+    _onKeydown(event) {
+        const element = this._elementRef.nativeElement;
+        const isLtr = this._dir?.value !== 'rtl';
+        // If the user is pressing backspace on an empty end input, move focus back to the start.
+        if (event.keyCode === BACKSPACE && !element.value) {
+            this._moveCaretToEndOfStartInput();
+        }
+        // If the user hits LEFT (LTR) when at the start of the input (and no
+        // selection), move the cursor to the end of the start input.
+        else if (((event.keyCode === LEFT_ARROW && isLtr) || (event.keyCode === RIGHT_ARROW && !isLtr)) &&
+            element.selectionStart === 0 &&
+            element.selectionEnd === 0) {
+            event.preventDefault();
+            this._moveCaretToEndOfStartInput();
+        }
+        else {
+            super._onKeydown(event);
+        }
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatEndDate, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.3", type: MatEndDate, isStandalone: true, selector: "input[matEndDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-end-date mat-date-range-input-inner" }, providers: [
+            { provide: NG_VALUE_ACCESSOR, useExisting: MatEndDate, multi: true },
+            { provide: NG_VALIDATORS, useExisting: MatEndDate, multi: true },
+        ], usesInheritance: true, ngImport: i0 });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatEndDate, decorators: [{
+            type: Directive,
+            args: [{
+                    selector: 'input[matEndDate]',
+                    host: {
+                        'class': 'mat-end-date mat-date-range-input-inner',
+                        '[disabled]': 'disabled',
+                        '(input)': '_onInput($event.target.value)',
+                        '(change)': '_onChange()',
+                        '(keydown)': '_onKeydown($event)',
+                        '[attr.aria-haspopup]': '_rangeInput.rangePicker ? "dialog" : null',
+                        '[attr.aria-owns]': `_rangeInput._ariaOwns
+        ? _rangeInput._ariaOwns()
+        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null`,
+                        '[attr.min]': '_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null',
+                        '[attr.max]': '_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null',
+                        '(blur)': '_onBlur()',
+                        'type': 'text',
+                    },
+                    providers: [
+                        { provide: NG_VALUE_ACCESSOR, useExisting: MatEndDate, multi: true },
+                        { provide: NG_VALIDATORS, useExisting: MatEndDate, multi: true },
+                    ],
+                    // These need to be specified explicitly, because some tooling doesn't
+                    // seem to pick them up from the base class. See #20932.
+                    outputs: ['dateChange', 'dateInput'],
+                }]
+        }] });
 
 // TODO(mmalerba): We use a component instead of a directive here so the user can use implicit
 // template reference variables (e.g. #d vs #d="matDateRangePicker"). We can change this to a

@@ -35,7 +35,6 @@ import { OnInit } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { Portal } from '@angular/cdk/portal';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { Signal } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -159,8 +158,6 @@ declare namespace i15 {
 
 declare namespace i16 {
     export {
-        MatDateRangeInputParent,
-        MAT_DATE_RANGE_INPUT_PARENT,
         MatStartDate,
         MatEndDate
     }
@@ -220,12 +217,6 @@ declare namespace i9 {
 }
 
 declare function isSameMultiYearView<D>(dateAdapter: DateAdapter<D>, date1: D, date2: D, minDate: D | null, maxDate: D | null): boolean;
-
-/**
- * Used to provide the date range input wrapper component
- * to the parts without circular dependencies.
- */
-declare const MAT_DATE_RANGE_INPUT_PARENT: InjectionToken<MatDateRangeInputParent<unknown>>;
 
 /** Injection token used to customize the date range selection behavior. */
 export declare const MAT_DATE_RANGE_SELECTION_STRATEGY: InjectionToken<MatDateRangeSelectionStrategy<any>>;
@@ -1228,13 +1219,15 @@ export declare class MatDatepickerToggleIcon {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never, never, true, never>;
 }
 
-export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangeInputParent<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
+export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _dateAdapter;
     private _formField;
     private _closedSubscription;
     private _openedSubscription;
+    _startInput: MatStartDate<D>;
+    _endInput: MatEndDate<D>;
     /** Current value of the range input. */
     get value(): DateRange<D> | null;
     /** Unique ID for the group. */
@@ -1291,8 +1284,6 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     comparisonStart: D | null;
     /** End of the comparison range that should be shown in the calendar. */
     comparisonEnd: D | null;
-    _startInput: MatStartDate<D>;
-    _endInput: MatEndDate<D>;
     /**
      * Implemented as a part of `MatFormFieldControl`.
      * TODO(crisbeto): change type to `AbstractControlDirective` after #18206 lands.
@@ -1351,34 +1342,16 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     /** Checks whether a specific range input directive is required. */
     private _isTargetRequired;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInput<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangeInput<any>, "mat-date-range-input", ["matDateRangeInput"], { "rangePicker": { "alias": "rangePicker"; "required": false; }; "required": { "alias": "required"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "separator": { "alias": "separator"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; }, {}, ["_startInput", "_endInput"], ["input[matStartDate]", "input[matEndDate]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangeInput<any>, "mat-date-range-input", ["matDateRangeInput"], { "rangePicker": { "alias": "rangePicker"; "required": false; }; "required": { "alias": "required"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "separator": { "alias": "separator"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; }, {}, never, ["input[matStartDate]", "input[matEndDate]"], true, never>;
     static ngAcceptInputType_required: unknown;
     static ngAcceptInputType_disabled: unknown;
-}
-
-/** Parent component that should be wrapped around `MatStartDate` and `MatEndDate`. */
-declare interface MatDateRangeInputParent<D> {
-    id: string;
-    min: D | null;
-    max: D | null;
-    dateFilter: DateFilterFn<D>;
-    rangePicker: {
-        opened: boolean;
-        id: string;
-    };
-    _ariaOwns?: Signal<string | null>;
-    _startInput: MatDateRangeInputPartBase<D>;
-    _endInput: MatDateRangeInputPartBase<D>;
-    _groupDisabled: boolean;
-    _handleChildValueChange(): void;
-    _openDatepicker(): void;
 }
 
 /**
  * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
  */
-declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBase<DateRange<D>> implements OnInit, DoCheck {
-    _rangeInput: MatDateRangeInputParent<D>;
+declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBase<DateRange<D>> implements OnInit, AfterContentInit, DoCheck {
+    _rangeInput: MatDateRangeInput<D>;
     _elementRef: ElementRef<HTMLInputElement>;
     _defaultErrorStateMatcher: ErrorStateMatcher;
     private _injector;
@@ -1392,6 +1365,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected abstract _validator: ValidatorFn | null;
     protected abstract _assignValueToModel(value: D | null): void;
     protected abstract _getValueFromModel(modelValue: DateRange<D>): D | null;
+    protected abstract _register(): void;
     protected readonly _dir: Directionality | null;
     private _errorStateTracker;
     /** Object used to control when error messages are shown. */
@@ -1402,6 +1376,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     set errorState(value: boolean);
     constructor(...args: unknown[]);
     ngOnInit(): void;
+    ngAfterContentInit(): void;
     ngDoCheck(): void;
     /** Gets whether the input is empty. */
     isEmpty(): boolean;
@@ -1522,6 +1497,7 @@ export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSe
 export declare class MatEndDate<D> extends MatDateRangeInputPartBase<D> {
     /** Validator that checks that the end date isn't before the start date. */
     private _endValidator;
+    protected _register(): void;
     protected _validator: ValidatorFn | null;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
@@ -1829,6 +1805,7 @@ export declare class MatStartDate<D> extends MatDateRangeInputPartBase<D> {
     /** Validator that checks that the start date isn't after the end date. */
     private _startValidator;
     protected _validator: ValidatorFn | null;
+    protected _register(): void;
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
