@@ -1,7 +1,5 @@
-import { AfterContentChecked } from '@angular/core';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CdkScrollable } from '@angular/cdk/scrolling';
@@ -60,7 +58,7 @@ export declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
-export declare class MatDrawer implements AfterViewInit, AfterContentChecked, OnDestroy {
+export declare class MatDrawer implements AfterViewInit, OnDestroy {
     private _elementRef;
     private _focusTrapFactory;
     private _focusMonitor;
@@ -72,8 +70,7 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
     _container?: MatDrawerContainer | null | undefined;
     private _focusTrap;
     private _elementFocusedBeforeDrawerWasOpened;
-    /** Whether the drawer is initialized. Used for disabling the initial animation. */
-    private _enableAnimations;
+    private _eventCleanups;
     /** Whether the view of the component has been attached. */
     private _isAttached;
     /** Anchor node used to restore the drawer to its initial position. */
@@ -110,11 +107,9 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
     /** Emits whenever the drawer has started animating. */
-    readonly _animationStarted: Subject<AnimationEvent_2>;
+    readonly _animationStarted: Subject<unknown>;
     /** Emits whenever the drawer is done animating. */
-    readonly _animationEnd: Subject<AnimationEvent_2>;
-    /** Current state of the sidenav animation. */
-    _animationState: 'open-instant' | 'open' | 'void';
+    readonly _animationEnd: Subject<unknown>;
     /** Event emitted when the drawer open state is changed. */
     readonly openedChange: EventEmitter<boolean>;
     /** Event emitted when the drawer has been opened. */
@@ -163,7 +158,6 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
     /** Whether focus is currently within the drawer. */
     private _isFocusWithinDrawer;
     ngAfterViewInit(): void;
-    ngAfterContentChecked(): void;
     ngOnDestroy(): void;
     /**
      * Open the drawer.
@@ -189,6 +183,8 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
      * @param focusOrigin Origin to use when restoring focus.
      */
     private _setOpen;
+    /** Toggles whether the drawer is currently animating. */
+    private _setIsAnimating;
     _getWidth(): number;
     /** Updates the enabled state of the focus trap. */
     private _updateFocusTrapState;
@@ -199,6 +195,8 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
      * started off as `end` and was changed to `start`.
      */
     private _updatePositionInParent;
+    /** Event handler for animation events. */
+    private _handleTransitionEvent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawer, "mat-drawer", ["matDrawer"], { "position": { "alias": "position"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; "disableClose": { "alias": "disableClose"; "required": false; }; "autoFocus": { "alias": "autoFocus"; "required": false; }; "opened": { "alias": "opened"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "openedStart": "openedStart"; "_closedStream": "closed"; "closedStart": "closedStart"; "onPositionChanged": "positionChanged"; }, never, ["*"], true, never>;
 }
@@ -206,6 +204,8 @@ export declare class MatDrawer implements AfterViewInit, AfterContentChecked, On
 /**
  * Animations used by the Material drawers.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matDrawerAnimations: {
     readonly transformDrawer: AnimationTriggerMetadata;
@@ -223,6 +223,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     private _ngZone;
     private _changeDetectorRef;
     private _animationMode;
+    _transitionsEnabled: boolean;
     /** All drawers in the container. Includes drawers from inside nested containers. */
     _allDrawers: QueryList<MatDrawer>;
     /** Drawers that belong to this container. */
