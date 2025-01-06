@@ -221,6 +221,8 @@ class MatTooltip {
     _touchstartTimeout = null;
     /** Emits when the component is destroyed. */
     _destroyed = new Subject();
+    /** Whether ngOnDestroyed has been called. */
+    _isDestroyed = false;
     constructor() {
         const defaultOptions = this._defaultOptions;
         if (defaultOptions) {
@@ -278,6 +280,7 @@ class MatTooltip {
         this._passiveListeners.length = 0;
         this._destroyed.next();
         this._destroyed.complete();
+        this._isDestroyed = true;
         this._ariaDescriber.removeDescription(nativeElement, this.message, 'tooltip');
         this._focusMonitor.stopMonitoring(nativeElement);
     }
@@ -688,18 +691,20 @@ class MatTooltip {
         }
         this._ariaDescriptionPending = true;
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, oldMessage, 'tooltip');
-        this._ngZone.runOutsideAngular(() => {
-            // The `AriaDescriber` has some functionality that avoids adding a description if it's the
-            // same as the `aria-label` of an element, however we can't know whether the tooltip trigger
-            // has a data-bound `aria-label` or when it'll be set for the first time. We can avoid the
-            // issue by deferring the description by a tick so Angular has time to set the `aria-label`.
-            Promise.resolve().then(() => {
-                this._ariaDescriptionPending = false;
-                if (this.message && !this.disabled) {
-                    this._ariaDescriber.describe(this._elementRef.nativeElement, this.message, 'tooltip');
-                }
-            });
-        });
+        // The `AriaDescriber` has some functionality that avoids adding a description if it's the
+        // same as the `aria-label` of an element, however we can't know whether the tooltip trigger
+        // has a data-bound `aria-label` or when it'll be set for the first time. We can avoid the
+        // issue by deferring the description by a tick so Angular has time to set the `aria-label`.
+        if (!this._isDestroyed) {
+            afterNextRender({
+                write: () => {
+                    this._ariaDescriptionPending = false;
+                    if (this.message && !this.disabled) {
+                        this._ariaDescriber.describe(this._elementRef.nativeElement, this.message, 'tooltip');
+                    }
+                },
+            }, { injector: this._injector });
+        }
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.0-next.3", ngImport: i0, type: MatTooltip, deps: [], target: i0.ɵɵFactoryTarget.Directive });
     static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "19.1.0-next.3", type: MatTooltip, isStandalone: true, selector: "[matTooltip]", inputs: { position: ["matTooltipPosition", "position"], positionAtOrigin: ["matTooltipPositionAtOrigin", "positionAtOrigin"], disabled: ["matTooltipDisabled", "disabled"], showDelay: ["matTooltipShowDelay", "showDelay"], hideDelay: ["matTooltipHideDelay", "hideDelay"], touchGestures: ["matTooltipTouchGestures", "touchGestures"], message: ["matTooltip", "message"], tooltipClass: ["matTooltipClass", "tooltipClass"] }, host: { properties: { "class.mat-mdc-tooltip-disabled": "disabled" }, classAttribute: "mat-mdc-tooltip-trigger" }, exportAs: ["matTooltip"], ngImport: i0 });
