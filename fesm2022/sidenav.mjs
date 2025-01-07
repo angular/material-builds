@@ -1,6 +1,6 @@
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, ANIMATION_MODULE_TYPE, QueryList, AfterRenderPhase, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, ANIMATION_MODULE_TYPE, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { FocusTrapFactory, FocusMonitor, InteractivityChecker } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -771,27 +771,20 @@ class MatDrawerContainer {
      * re-validate drawers when the position changes.
      */
     _watchDrawerPosition(drawer) {
-        if (!drawer) {
-            return;
-        }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
         drawer.onPositionChanged.pipe(takeUntil(this._drawers.changes)).subscribe(() => {
-            afterNextRender(() => {
-                this._validateDrawers();
-            }, { injector: this._injector, phase: AfterRenderPhase.Read });
+            afterNextRender({ read: () => this._validateDrawers() }, { injector: this._injector });
         });
     }
     /** Subscribes to changes in drawer mode so we can run change detection. */
     _watchDrawerMode(drawer) {
-        if (drawer) {
-            drawer._modeChanged
-                .pipe(takeUntil(merge(this._drawers.changes, this._destroyed)))
-                .subscribe(() => {
-                this.updateContentMargins();
-                this._changeDetectorRef.markForCheck();
-            });
-        }
+        drawer._modeChanged
+            .pipe(takeUntil(merge(this._drawers.changes, this._destroyed)))
+            .subscribe(() => {
+            this.updateContentMargins();
+            this._changeDetectorRef.markForCheck();
+        });
     }
     /** Toggles the 'mat-drawer-opened' class on the main 'mat-drawer-container' element. */
     _setContainerClass(isAdd) {
