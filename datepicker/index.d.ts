@@ -695,10 +695,10 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     startView: 'month' | 'year' | 'multi-year';
     /**
      * Theme color of the datepicker's calendar. This API is supported in M2 themes only, it
-     * has no effect in M3 themes.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     get color(): ThemePalette;
     set color(value: ThemePalette);
@@ -855,10 +855,10 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     _calendar: MatCalendar<D>;
     /**
      * Theme color of the internal calendar. This API is supported in M2 themes
-     * only, it has no effect in M3 themes.
+     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
     /** Reference to the datepicker that created the overlay. */
@@ -1158,10 +1158,10 @@ export declare interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S
     closedStream: EventEmitter<void>;
     /**
      * Color palette to use on the datepicker's calendar. This API is supported in M2 themes only, it
-     * has no effect in M3 themes.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
     /** The input element the datepicker is associated with. */
