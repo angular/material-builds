@@ -2514,10 +2514,10 @@ class MatDatepickerContent {
     _calendar;
     /**
      * Theme color of the internal calendar. This API is supported in M2 themes
-     * only, it has no effect in M3 themes.
+     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /** Reference to the datepicker that created the overlay. */
@@ -2670,10 +2670,10 @@ class MatDatepickerBase {
     startView = 'month';
     /**
      * Theme color of the datepicker's calendar. This API is supported in M2 themes only, it
-     * has no effect in M3 themes.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     get color() {
         return (this._color || (this.datepickerInput ? this.datepickerInput.getThemePalette() : undefined));

@@ -86,10 +86,10 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
     set required(value: boolean);
     /**
      * Theme color of the radio button. This API is supported in M2 themes only, it
-     * has no effect in M3 themes.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/radio/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     get color(): ThemePalette;
     set color(newValue: ThemePalette);
@@ -179,10 +179,10 @@ export declare class MatRadioChange {
 export declare interface MatRadioDefaultOptions {
     /**
      * Theme color of the radio button. This API is supported in M2 themes only, it
-     * has no effect in M3 themes.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/radio/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
     /** Whether disabled radio buttons should be interactive. */
@@ -227,10 +227,10 @@ export declare class MatRadioGroup implements AfterContentInit, OnDestroy, Contr
     _radios: QueryList<MatRadioButton>;
     /**
      * Theme color of the radio buttons in the group. This API is supported in M2
-     * themes only, it has no effect in M3 themes.
+     * themes only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/radio/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
     /** Name of the radio button group. All radio buttons inside this group will use this name. */

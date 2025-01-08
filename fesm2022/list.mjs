@@ -543,10 +543,11 @@ class MatListOption extends MatListItemBase {
     }
     /**
      * Theme color of the list option. This sets the color of the checkbox/radio.
-     * This API is supported in M2 themes only, it has no effect in M3 themes.
+     * This API is supported in M2 themes only, it has no effect in M3 themes. For color customization
+     * in M3, see https://material.angular.io/components/list/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     get color() {
         return this._color || this._selectionList.color;
@@ -854,10 +855,10 @@ class MatSelectionList extends MatListBase {
     /**
      * Theme color of the selection list. This sets the checkbox color for all
      * list options. This API is supported in M2 themes only, it has no effect in
-     * M3 themes.
+     * M3 themes. For color customization in M3, see https://material.angular.io/components/list/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/theming#using-component-color-variants.
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color = 'accent';
     /**
