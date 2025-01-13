@@ -819,7 +819,7 @@ export declare class MatTabLink extends InkBarItem implements AfterViewInit, OnD
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MatTabNav extends MatPaginatedTabHeader implements AfterContentChecked, AfterContentInit, OnDestroy, AfterViewInit {
+export declare class MatTabNav extends MatPaginatedTabHeader implements AfterContentInit, AfterViewInit {
     /** Whether the ink bar should fit its width to the size of the tab label content. */
     get fitInkBarToContent(): boolean;
     set fitInkBarToContent(value: boolean);
