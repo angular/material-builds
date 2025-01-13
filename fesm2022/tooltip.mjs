@@ -944,6 +944,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.0-rc.0", ng
 /**
  * Animations used by MatTooltip.
  * @docs-private
+ * @deprecated No longer being used, to be removed.
+ * @breaking-change 21.0.0
  */
 const matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
