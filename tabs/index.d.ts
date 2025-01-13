@@ -1,7 +1,6 @@
 import { AfterContentChecked } from '@angular/core';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { BehaviorSubject } from 'rxjs';
 import { CdkPortal } from '@angular/cdk/portal';
@@ -424,14 +423,21 @@ export declare class MatTab implements OnInit, OnChanges, OnDestroy {
 export declare class MatTabBody implements OnInit, OnDestroy {
     private _elementRef;
     private _dir;
+    private _ngZone;
+    private _injector;
+    private _renderer;
+    private _animationsModule;
+    private _eventCleanups?;
+    private _initialized;
+    private _fallbackTimer;
     /** Current position of the tab-body in the tab-group. Zero means that the tab is visible. */
     private _positionIndex;
     /** Subscription to the directionality change observable. */
     private _dirChangeSubscription;
-    /** Tab body position state. Used by the animation trigger for the current state. */
+    /** Current position of the body within the tab group. */
     _position: MatTabBodyPositionState;
-    /** Emits when an animation on the tab is complete. */
-    readonly _translateTabComplete: Subject<AnimationEvent_2>;
+    /** Previous position of the body. */
+    protected _previousPosition: MatTabBodyPositionState | undefined;
     /** Event emitted when the tab begins to animate towards the center as the active tab. */
     readonly _onCentering: EventEmitter<number>;
     /** Event emitted before the centering of the tab begins. */
@@ -441,11 +447,11 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     /** Event emitted when the tab completes its animation towards the center. */
     readonly _onCentered: EventEmitter<void>;
     /** The portal host inside of this container into which the tab body content will be loaded. */
-    _portalHost: CdkPortalOutlet;
+    _portalHost: MatTabBodyPortal;
+    /** Element in which the content is rendered. */
+    _contentElement: ElementRef<HTMLElement> | undefined;
     /** The tab body content to display. */
     _content: TemplatePortal;
-    /** Position that will be used when the tab is immediately becoming visible after creation. */
-    origin: number | null;
     /** Duration for the tab's animation. */
     animationDuration: string;
     /** Whether the tab's content should be kept in the DOM while it's off-screen. */
@@ -453,26 +459,28 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     set position(position: number);
     constructor(...args: unknown[]);
-    /**
-     * After initialized, check if the content is centered and has an origin. If so, set the
-     * special position states that transition the tab from the left or right before centering.
-     */
     ngOnInit(): void;
     ngOnDestroy(): void;
-    _onTranslateTabStarted(event: AnimationEvent_2): void;
+    /** Sets up the transition events. */
+    private _bindTransitionEvents;
+    /** Called when a transition has started. */
+    private _transitionStarted;
+    /** Called when a transition is done. */
+    private _transitionDone;
+    /** Sets the active styling on the tab body based on its current position. */
+    _setActiveClass(isActive: boolean): void;
     /** The text direction of the containing app. */
     _getLayoutDirection(): Direction;
     /** Whether the provided position state is considered center, regardless of origin. */
-    _isCenterPosition(position: MatTabBodyPositionState | string): boolean;
+    _isCenterPosition(): boolean;
     /** Computes the position state that will be used for the tab-body animation trigger. */
     private _computePositionAnimationState;
-    /**
-     * Computes the position state based on the specified origin position. This is used if the
-     * tab is becoming visible immediately after creation.
-     */
-    private _computePositionFromOrigin;
+    /** Simulates the body's transition events in an environment where they might not fire. */
+    private _simulateTransitionEvents;
+    /** Whether animations are disabled for the tab group. */
+    private _animationsDisabled;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabBody, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabBody, "mat-tab-body", never, { "_content": { "alias": "content"; "required": false; }; "origin": { "alias": "origin"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; "preserveContent": { "alias": "preserveContent"; "required": false; }; "position": { "alias": "position"; "required": false; }; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_afterLeavingCenter": "_afterLeavingCenter"; "_onCentered": "_onCentered"; }, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTabBody, "mat-tab-body", never, { "_content": { "alias": "content"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; "preserveContent": { "alias": "preserveContent"; "required": false; }; "position": { "alias": "position"; "required": false; }; }, { "_onCentering": "_onCentering"; "_beforeCentering": "_beforeCentering"; "_onCentered": "_onCentered"; }, never, never, true, never>;
 }
 
 /**
@@ -480,6 +488,9 @@ export declare class MatTabBody implements OnInit, OnDestroy {
  * began to the left or right of the prior selected index. For example, if the selected index was
  * set to 1, and a new tab is created and selected at index 2, then the tab body would have an
  * origin of right because its index was greater than the prior selected index.
+ *
+ * @deprecated No longer being used. Will be removed.
+ * @breaking-change 21.0.0
  */
 export declare type MatTabBodyOriginState = 'left' | 'right';
 
@@ -511,8 +522,11 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
  * In the case of a new tab body that should immediately be centered with an animating transition,
  * then left-origin-center or right-origin-center can be used, which will use left or right as its
  * pseudo-prior state.
+ *
+ * @deprecated Will stop being exported.
+ * @breaking-change 21.0.0
  */
-export declare type MatTabBodyPositionState = 'left' | 'center' | 'right' | 'left-origin-center' | 'right-origin-center';
+export declare type MatTabBodyPositionState = 'left' | 'center' | 'right';
 
 /** A simple change event emitted on focus or selection changes. */
 export declare class MatTabChangeEvent {
@@ -535,15 +549,20 @@ export declare class MatTabContent {
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://material.io/design/components/tabs.html
  */
-export declare class MatTabGroup implements AfterContentInit, AfterContentChecked, OnDestroy {
+export declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
     readonly _elementRef: ElementRef<any>;
     private _changeDetectorRef;
+    private _ngZone;
+    private _tabsSubscription;
+    private _tabLabelSubscription;
+    private _tabBodySubscription;
     _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     /**
      * All tabs inside the tab group. This includes tabs that belong to groups that are nested
      * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
      */
     _allTabs: QueryList<MatTab>;
+    _tabBodies: QueryList<MatTabBody> | undefined;
     _tabBodyWrapper: ElementRef;
     _tabHeader: MatTabHeader;
     /** All of the tabs that belong to the group. */
@@ -554,10 +573,6 @@ export declare class MatTabGroup implements AfterContentInit, AfterContentChecke
     private _lastFocusedTabIndex;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
     private _tabBodyWrapperHeight;
-    /** Subscription to tabs being added/removed. */
-    private _tabsSubscription;
-    /** Subscription to changes in the tab labels. */
-    private _tabLabelSubscription;
     /**
      * Theme color of the tab group. This API is supported in M2 themes only, it
      * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/tabs/styling.
@@ -645,6 +660,7 @@ export declare class MatTabGroup implements AfterContentInit, AfterContentChecke
      */
     ngAfterContentChecked(): void;
     ngAfterContentInit(): void;
+    ngAfterViewInit(): void;
     /** Listens to changes in all of the tabs. */
     private _subscribeToAllTabChanges;
     ngOnDestroy(): void;
@@ -691,6 +707,11 @@ export declare class MatTabGroup implements AfterContentInit, AfterContentChecke
     _getTabIndex(index: number): number;
     /** Callback for when the focused state of a tab has changed. */
     _tabFocusChanged(focusOrigin: FocusOrigin, index: number): void;
+    /**
+     * Callback invoked when the centered state of a tab body changes.
+     * @param isCenter Whether the tab will be in the center.
+     */
+    protected _bodyCentered(isCenter: boolean): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabGroup, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTabGroup, "mat-tab-group", ["matTabGroup"], { "color": { "alias": "color"; "required": false; }; "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; "stretchTabs": { "alias": "mat-stretch-tabs"; "required": false; }; "alignTabs": { "alias": "mat-align-tabs"; "required": false; }; "dynamicHeight": { "alias": "dynamicHeight"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; "contentTabIndex": { "alias": "contentTabIndex"; "required": false; }; "disablePagination": { "alias": "disablePagination"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "preserveContent": { "alias": "preserveContent"; "required": false; }; "backgroundColor": { "alias": "backgroundColor"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; }, { "selectedIndexChange": "selectedIndexChange"; "focusChange": "focusChange"; "animationDone": "animationDone"; "selectedTabChange": "selectedTabChange"; }, ["_allTabs"], ["*"], true, never>;
     static ngAcceptInputType_fitInkBarToContent: unknown;
@@ -894,6 +915,8 @@ export declare class MatTabNavPanel {
 /**
  * Animations used by the Material tabs.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0.
  */
 export declare const matTabsAnimations: {
     readonly translateTab: AnimationTriggerMetadata;
