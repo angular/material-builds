@@ -1737,9 +1737,9 @@ class MatTabNav extends MatPaginatedTabHeader {
         this._inkBar = new MatInkBar(this._items);
         // We need this to run before the `changes` subscription in parent to ensure that the
         // selectedIndex is up-to-date by the time the super class starts looking for it.
-        this._items.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
-            this.updateActiveLink();
-        });
+        this._items.changes
+            .pipe(startWith(null), takeUntil(this._destroyed))
+            .subscribe(() => this.updateActiveLink());
         super.ngAfterContentInit();
     }
     ngAfterViewInit() {
@@ -1764,9 +1764,7 @@ class MatTabNav extends MatPaginatedTabHeader {
                 return;
             }
         }
-        // The ink bar should hide itself if no items are active.
         this.selectedIndex = -1;
-        this._inkBar.hide();
     }
     _getRole() {
         return this.tabPanel ? 'tablist' : this._elementRef.nativeElement.getAttribute('role');
