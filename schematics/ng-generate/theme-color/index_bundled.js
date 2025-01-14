@@ -2613,7 +2613,7 @@ function getMaterialDynamicScheme(primaryPalette, secondaryPalette, tertiaryPale
     neutralVariantPalette
   });
 }
-function getColorPalettes(primaryColor, secondaryColor, tertiaryColor, neutralColor) {
+function getColorPalettes(primaryColor, secondaryColor, tertiaryColor, neutralColor, neutralVariantColor, errorColor) {
   const primaryColorHct = getHctFromHex(primaryColor);
   const primaryPalette = TonalPalette.fromHct(primaryColorHct);
   let secondaryPalette;
@@ -2634,16 +2634,26 @@ function getColorPalettes(primaryColor, secondaryColor, tertiaryColor, neutralCo
   } else {
     neutralPalette = TonalPalette.fromHueAndChroma(primaryColorHct.hue, primaryColorHct.chroma / 8);
   }
-  const neutralVariantPalette = TonalPalette.fromHueAndChroma(primaryColorHct.hue, primaryColorHct.chroma / 8 + 4);
-  const errorPalette = getMaterialDynamicScheme(
-    primaryPalette,
-    secondaryPalette,
-    tertiaryPalette,
-    neutralPalette,
-    neutralVariantPalette,
-    false,
-    0
-  ).errorPalette;
+  let neutralVariantPalette;
+  if (neutralVariantColor) {
+    neutralVariantPalette = TonalPalette.fromHct(getHctFromHex(neutralVariantColor));
+  } else {
+    neutralVariantPalette = TonalPalette.fromHueAndChroma(primaryColorHct.hue, primaryColorHct.chroma / 8 + 4);
+  }
+  let errorPalette;
+  if (errorColor) {
+    errorPalette = TonalPalette.fromHct(getHctFromHex(errorColor));
+  } else {
+    errorPalette = getMaterialDynamicScheme(
+      primaryPalette,
+      secondaryPalette,
+      tertiaryPalette,
+      neutralPalette,
+      neutralVariantPalette,
+      false,
+      0
+    ).errorPalette;
+  }
   return {
     primary: primaryPalette,
     secondary: secondaryPalette,
@@ -3019,7 +3029,7 @@ function createThemeFile(content, tree, directory, isScss = true) {
   const filePath = directory ? directory + fileName : fileName;
   tree.create(filePath, content);
 }
-function getColorComment(primaryColor, secondaryColor, tertiaryColor, neutralColor) {
+function getColorComment(primaryColor, secondaryColor, tertiaryColor, neutralColor, neutralVariantColor, errorColor) {
   let colorComment = "Color palettes are generated from primary: " + primaryColor;
   if (secondaryColor) {
     colorComment += ", secondary: " + secondaryColor;
@@ -3030,12 +3040,18 @@ function getColorComment(primaryColor, secondaryColor, tertiaryColor, neutralCol
   if (neutralColor) {
     colorComment += ", neutral: " + neutralColor;
   }
+  if (neutralVariantColor) {
+    colorComment += ", neutral variant: " + neutralVariantColor;
+  }
+  if (errorColor) {
+    colorComment += ", error: " + errorColor;
+  }
   return colorComment;
 }
 function theme_color_default(options) {
   return (tree, context) => __async(this, null, function* () {
-    const colorComment = getColorComment(options.primaryColor, options.secondaryColor, options.tertiaryColor, options.neutralColor);
-    const colorPalettes = getColorPalettes(options.primaryColor, options.secondaryColor, options.tertiaryColor, options.neutralColor);
+    const colorComment = getColorComment(options.primaryColor, options.secondaryColor, options.tertiaryColor, options.neutralColor, options.neutralVariantColor, options.errorColor);
+    const colorPalettes = getColorPalettes(options.primaryColor, options.secondaryColor, options.tertiaryColor, options.neutralColor, options.neutralVariantColor, options.errorColor);
     let lightHighContrastColorScheme;
     let darkHighContrastColorScheme;
     if (options.includeHighContrast) {
@@ -3057,6 +3073,10 @@ function theme_color_default(options) {
         true,
         1
       );
+      if (options.errorColor) {
+        lightHighContrastColorScheme.errorPalette = colorPalettes.error;
+        darkHighContrastColorScheme.errorPalette = colorPalettes.error;
+      }
     }
     if (options.isScss) {
       let themeScss = generateSCSSTheme(colorPalettes, colorComment);
@@ -3086,6 +3106,10 @@ function theme_color_default(options) {
         true,
         0
       );
+      if (options.errorColor) {
+        lightColorScheme.errorPalette = colorPalettes.error;
+        darkColorScheme.errorPalette = colorPalettes.error;
+      }
       themeCss += getAllSysVariablesCSS(lightColorScheme, darkColorScheme);
       if (options.includeHighContrast) {
         themeCss += getHighContrastOverridesCSS(lightHighContrastColorScheme, darkHighContrastColorScheme);
