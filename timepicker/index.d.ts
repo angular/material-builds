@@ -289,6 +289,10 @@ export declare class MatTimepickerToggle<D> {
     readonly timepicker: InputSignal<MatTimepicker<D>>;
     /** Screen-reader label for the button. */
     readonly ariaLabel: InputSignal<string | undefined>;
+    /** Screen-reader labelled by id for the button. */
+    readonly ariaLabelledby: InputSignal<string | undefined>;
+    /** Default aria-label for the toggle if none is provided. */
+    private readonly _defaultAriaLabel;
     /** Whether the toggle button is disabled. */
     readonly disabled: InputSignalWithTransform<boolean, unknown>;
     /** Tabindex for the toggle. */
@@ -297,8 +301,13 @@ export declare class MatTimepickerToggle<D> {
     readonly disableRipple: InputSignalWithTransform<boolean, unknown>;
     /** Opens the connected timepicker. */
     protected _open(event: Event): void;
+    /**
+     * Checks for ariaLabelledby and if empty uses custom
+     * aria-label or defaultAriaLabel if neither is provided.
+     */
+    getAriaLabel(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerToggle<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTimepickerToggle<any>, "mat-timepicker-toggle", ["matTimepickerToggle"], { "timepicker": { "alias": "for"; "required": true; "isSignal": true; }; "ariaLabel": { "alias": "aria-label"; "required": false; "isSignal": true; }; "disabled": { "alias": "disabled"; "required": false; "isSignal": true; }; "tabIndex": { "alias": "tabIndex"; "required": false; "isSignal": true; }; "disableRipple": { "alias": "disableRipple"; "required": false; "isSignal": true; }; }, {}, never, ["[matTimepickerToggleIcon]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTimepickerToggle<any>, "mat-timepicker-toggle", ["matTimepickerToggle"], { "timepicker": { "alias": "for"; "required": true; "isSignal": true; }; "ariaLabel": { "alias": "aria-label"; "required": false; "isSignal": true; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; "isSignal": true; }; "disabled": { "alias": "disabled"; "required": false; "isSignal": true; }; "tabIndex": { "alias": "tabIndex"; "required": false; "isSignal": true; }; "disableRipple": { "alias": "disableRipple"; "required": false; "isSignal": true; }; }, {}, never, ["[matTimepickerToggleIcon]"], true, never>;
 }
 
 export { }
