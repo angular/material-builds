@@ -8,7 +8,6 @@ import { MatRippleLoader } from '@angular/material/core';
 import { NgZone } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { ThemePalette } from '@angular/material/core';
 
 declare namespace i2 {
@@ -94,7 +93,6 @@ export declare class MatButton extends MatButtonBase {
 /** Base class for all buttons.  */
 declare class MatButtonBase implements AfterViewInit, OnDestroy {
     _elementRef: ElementRef<any>;
-    _platform: Platform;
     _ngZone: NgZone;
     _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     private readonly _focusMonitor;

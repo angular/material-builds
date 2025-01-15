@@ -1,7 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, Renderer2, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Platform } from '@angular/cdk/platform';
 import { MatRippleLoader, _StructuralStylesLoader, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
@@ -57,7 +56,6 @@ const HOST_SELECTOR_MDC_CLASS_PAIR = [
 /** Base class for all buttons.  */
 class MatButtonBase {
     _elementRef = inject(ElementRef);
-    _platform = inject(Platform);
     _ngZone = inject(NgZone);
     _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
     _focusMonitor = inject(FocusMonitor);
