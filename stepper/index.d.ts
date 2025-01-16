@@ -1,7 +1,6 @@
 import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkStep } from '@angular/cdk/stepper';
 import { CdkStepHeader } from '@angular/cdk/stepper';
@@ -9,6 +8,7 @@ import { CdkStepLabel } from '@angular/cdk/stepper';
 import { CdkStepper } from '@angular/cdk/stepper';
 import { CdkStepperNext } from '@angular/cdk/stepper';
 import { CdkStepperPrevious } from '@angular/cdk/stepper';
+import { ElementRef } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { EventEmitter } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
@@ -28,6 +28,7 @@ import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TemplateRef } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { WritableSignal } from '@angular/core';
 
 declare namespace i10 {
     export {
@@ -169,9 +170,16 @@ export declare class MatStepLabel extends CdkStepLabel {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepLabel, "[matStepLabel]", never, {}, {}, never, never, true, never>;
 }
 
-export declare class MatStepper extends CdkStepper implements AfterContentInit {
+export declare class MatStepper extends CdkStepper implements AfterViewInit, AfterContentInit, OnDestroy {
+    private _ngZone;
+    private _renderer;
+    private _animationsModule;
+    private _cleanupTransition;
+    protected _isAnimating: WritableSignal<boolean>;
     /** The list of step headers of the steps in the stepper. */
     _stepHeader: QueryList<MatStepHeader>;
+    /** Elements hosting the step animations. */
+    _animatedContainers: QueryList<ElementRef>;
     /** Full list of steps inside the stepper, including inside nested steppers. */
     _steps: QueryList<MatStep>;
     /** Steps that belong to the current stepper, excluding ones from nested steppers. */
@@ -202,8 +210,6 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     headerPosition: 'top' | 'bottom';
     /** Consumer-specified template-refs to be used to override the header icons. */
     _iconOverrides: Record<string, TemplateRef<MatStepperIconContext>>;
-    /** Stream of animation `done` events when the body expands/collapses. */
-    readonly _animationDone: Subject<AnimationEvent_2>;
     /** Duration for the animation. Will be normalized to milliseconds if no units are set. */
     get animationDuration(): string;
     set animationDuration(value: string);
@@ -212,8 +218,12 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     protected _isServer: boolean;
     constructor(...args: unknown[]);
     ngAfterContentInit(): void;
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
     _stepIsNavigable(index: number, step: MatStep): boolean;
     _getAnimationDuration(): string;
+    private _handleTransitionend;
+    private _onAnimationDone;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], ["*"], true, never>;
 }
@@ -221,6 +231,8 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
 /**
  * Animations used by the Material steppers.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matStepperAnimations: {
     readonly horizontalStepTransition: AnimationTriggerMetadata;
