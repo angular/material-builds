@@ -690,7 +690,8 @@ class MatSlider {
     /** Returns the translateX positioning for a tick mark based on it's index. */
     _calcTickMarkTransform(index) {
         // TODO(wagnermaciel): See if we can avoid doing this and just using flex to position these.
-        const translateX = index * (this._tickMarkTrackWidth / (this._tickMarks.length - 1));
+        const offset = index * (this._tickMarkTrackWidth / (this._tickMarks.length - 1));
+        const translateX = this._isRtl ? this._cachedWidth - 6 - offset : offset;
         return `translateX(${translateX}px`;
     }
     // Handlers for updating the slider ui.
@@ -851,7 +852,7 @@ class MatSlider {
         const step = this._step && this._step > 0 ? this._step : 1;
         const maxValue = Math.floor(this.max / step) * step;
         const percentage = (maxValue - this.min) / (this.max - this.min);
-        this._tickMarkTrackWidth = this._cachedWidth * percentage - 6;
+        this._tickMarkTrackWidth = (this._cachedWidth - 6) * percentage;
     }
     // Track active update conditions
     //
@@ -930,9 +931,6 @@ class MatSlider {
         }
         const step = this.step > 0 ? this.step : 1;
         this._isRange ? this._updateTickMarkUIRange(step) : this._updateTickMarkUINonRange(step);
-        if (this._isRtl) {
-            this._tickMarks.reverse();
-        }
     }
     _updateTickMarkUINonRange(step) {
         const value = this._getValue();
