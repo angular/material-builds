@@ -248,7 +248,7 @@ export declare class MatAutocompleteSelectedEvent {
 
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
 export declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
-    private _injector;
+    private _environmentInjector;
     private _element;
     private _overlay;
     private _viewContainerRef;
