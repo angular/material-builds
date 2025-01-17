@@ -1,11 +1,11 @@
 import { FocusMonitor, _IdGenerator, FocusKeyManager } from '@angular/cdk/a11y';
 import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
+import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, NgZone, EventEmitter, Injector, ANIMATION_MODULE_TYPE, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, QueryList, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, NgZone, EventEmitter, Injector, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
 import { _StructuralStylesLoader, MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleLoader, ErrorStateMatcher, _ErrorStateTracker, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
-import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
@@ -463,11 +463,10 @@ class MatChip {
                 else {
                     // When animations are enabled, Angular may end up removing the chip from the DOM a little
                     // earlier than usual, causing it to be blurred and throwing off the logic in the chip list
-                    // that moves focus not the next item. To work around the issue, we defer marking the chip
+                    // that moves focus to the next item. To work around the issue, we defer marking the chip
                     // as not focused until after the next render.
-                    afterNextRender(() => this._ngZone.run(() => this._onBlur.next({ chip: this })), {
-                        injector: this._injector,
-                    });
+                    this._changeDetectorRef.markForCheck();
+                    setTimeout(() => this._ngZone.run(() => this._onBlur.next({ chip: this })));
                 }
             }
         });
