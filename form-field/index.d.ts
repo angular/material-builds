@@ -128,8 +128,9 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _dir;
     private _platform;
     private _idGenerator;
+    private _ngZone;
+    private _injector;
     private _defaults;
-    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     _textField: ElementRef<HTMLElement>;
     _iconPrefixContainer: ElementRef<HTMLElement>;
     _textPrefixContainer: ElementRef<HTMLElement>;
@@ -182,8 +183,6 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     _hasTextSuffix: boolean;
     readonly _labelId: string;
     readonly _hintLabelId: string;
-    /** State of the mat-hint and mat-error animations. */
-    _subscriptAnimationState: string;
     /** Gets the current form field control */
     get _control(): MatFormFieldControl_2<any>;
     set _control(value: MatFormFieldControl_2<any>);
@@ -195,7 +194,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _stateChanges;
     private _valueChanges;
     private _describedByChanges;
-    private _injector;
+    protected readonly _animationsDisabled: boolean;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
@@ -291,6 +290,8 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
 /**
  * Animations used by the MatFormField.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matFormFieldAnimations: {
     readonly transitionMessages: AnimationTriggerMetadata;
