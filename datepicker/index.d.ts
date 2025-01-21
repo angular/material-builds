@@ -2,7 +2,6 @@ import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewChecked } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
@@ -660,6 +659,8 @@ export declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
 /**
  * Animations used by the Material datepicker.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matDatepickerAnimations: {
     readonly transformPanel: AnimationTriggerMetadata;
@@ -843,14 +844,18 @@ export declare class MatDatepickerCancel {
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> implements OnInit, AfterViewInit, OnDestroy {
-    protected _elementRef: ElementRef<any>;
+export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> implements AfterViewInit, OnDestroy {
+    protected _elementRef: ElementRef<HTMLElement>;
+    protected _animationsDisabled: boolean;
     private _changeDetectorRef;
     private _globalModel;
     private _dateAdapter;
+    private _ngZone;
     private _rangeSelectionStrategy;
-    private _subscriptions;
+    private _stateChanges;
     private _model;
+    private _eventCleanups;
+    private _animationFallback;
     /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
     /**
@@ -873,8 +878,6 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     endDateAccessibleName: string | null;
     /** Whether the datepicker is above or below the input. */
     _isAbove: boolean;
-    /** Current state of the animation. */
-    _animationState: 'enter-dropdown' | 'enter-dialog' | 'void';
     /** Emits when an animation has finished. */
     readonly _animationDone: Subject<void>;
     /** Whether there is an in-progress animation. */
@@ -888,13 +891,12 @@ export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>
     /** Id of the label for the `role="dialog"` element. */
     _dialogLabelId: string | null;
     constructor(...args: unknown[]);
-    ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;
     _handleUserDragDrop(event: MatCalendarUserEvent<DateRange<D>>): void;
     _startExitAnimation(): void;
-    _handleAnimationEvent(event: AnimationEvent_2): void;
+    private _handleAnimationEvent;
     _getSelected(): D | DateRange<D> | null;
     /** Applies the current pending selection to the global model. */
     _applyPendingSelection(): void;
