@@ -1,7 +1,6 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -87,9 +86,8 @@ export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     protected _defaults: MatAutocompleteDefaultOptions;
+    protected _animationsDisabled: boolean;
     private _activeOptionChanges;
-    /** Emits when the panel animation is done. Null if the panel doesn't animate. */
-    _animationDone: EventEmitter<AnimationEvent_2>;
     /** Manages active item in option list based on key events. */
     _keyManager: ActiveDescendantKeyManager<MatOption>;
     /** Whether the autocomplete panel should be visible, depending on option length. */
