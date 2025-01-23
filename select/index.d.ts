@@ -96,11 +96,15 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     readonly _elementRef: ElementRef<any>;
     private _dir;
     private _idGenerator;
+    private _renderer;
+    private _ngZone;
     protected _parentFormField: MatFormField | null;
     ngControl: NgControl;
     private _liveAnnouncer;
     protected _defaultOptions: MatSelectConfig | null;
+    protected _animationsDisabled: boolean;
     private _initialized;
+    private _cleanupDetach;
     /** All of the defined select options. */
     options: QueryList<MatOption>;
     /** All of the defined groups of options. */
@@ -169,8 +173,6 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     _onTouched: () => void;
     /** ID for the DOM node containing the select's value. */
     _valueId: string;
-    /** Emits when the panel element is finished transforming in. */
-    readonly _panelDoneAnimatingStream: Subject<string>;
     /** Strategy that will be used to handle scrolling while the select panel is open. */
     _scrollStrategy: ScrollStrategy;
     _overlayPanelClass: string | string[];
@@ -313,6 +315,8 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     private _clearFromModal;
     /** Closes the overlay panel and focuses the host element. */
     close(): void;
+    /** Triggers the exit animation and detaches the overlay at the end. */
+    private _exitAndDetach;
     /**
      * Sets the select's value. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
@@ -359,16 +363,14 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     private _handleClosedKeydown;
     /** Handles keyboard events when the selected is open. */
     private _handleOpenKeydown;
+    /** Handles keyboard events coming from the overlay. */
+    protected _handleOverlayKeydown(event: KeyboardEvent): void;
     _onFocus(): void;
     /**
      * Calls the touched callback only if the panel is closed. Otherwise, the trigger will
      * "blur" to the panel when it opens, causing a false positive.
      */
     _onBlur(): void;
-    /**
-     * Callback that is invoked when the overlay panel has been attached.
-     */
-    _onAttached(): void;
     /** Returns the theme to be used on the panel. */
     _getPanelTheme(): string;
     /** Whether the select has a value. */
@@ -416,8 +418,6 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     _getAriaActiveDescendant(): string | null;
     /** Gets the aria-labelledby of the select component trigger. */
     private _getTriggerAriaLabelledby;
-    /** Called when the overlay panel is done animating. */
-    protected _panelDoneAnimating(isOpen: boolean): void;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -452,6 +452,8 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matSelectAnimations: {
     /**
