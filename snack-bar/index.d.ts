@@ -1,4 +1,3 @@
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { BasePortalOutlet } from '@angular/cdk/portal';
@@ -148,6 +147,8 @@ export declare class MatSnackBarActions {
 /**
  * Animations used by the Material snack bar.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matSnackBarAnimations: {
     readonly snackBarState: AnimationTriggerMetadata;
@@ -192,9 +193,14 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     private _elementRef;
     private _changeDetectorRef;
     private _platform;
+    private _rendersRef;
+    protected _animationsDisabled: boolean;
     snackBarConfig: MatSnackBarConfig<any>;
     private _document;
     private _trackedModals;
+    private _enterFallback;
+    private _exitFallback;
+    private _renders;
     /** The number of milliseconds to wait before announcing the snack bar's content. */
     private readonly _announceDelay;
     /** The timeout for announcing the snack bar's content. */
@@ -238,17 +244,13 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      */
     attachDomPortal: (portal: DomPortal) => void;
     /** Handle end of animations, updating the state of the snackbar. */
-    onAnimationEnd(event: AnimationEvent_2): void;
+    onAnimationEnd(animationName: string): void;
     /** Begin animation of snack bar entrance into view. */
     enter(): void;
     /** Begin animation of the snack bar exiting from view. */
     exit(): Observable<void>;
     /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
     ngOnDestroy(): void;
-    /**
-     * Removes the element in a microtask. Helps prevent errors where we end up
-     * removing an element which is in the middle of an animation.
-     */
     private _completeExit;
     /**
      * Called after the portal contents have been attached. Can be

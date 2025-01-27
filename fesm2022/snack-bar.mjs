@@ -1,16 +1,16 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, ViewChild, Injector, TemplateRef, Injectable, NgModule } from '@angular/core';
+import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, ANIMATION_MODULE_TYPE, afterRender, ViewChild, Injector, TemplateRef, Injectable, NgModule } from '@angular/core';
 import { MatButton, MatButtonModule } from '@angular/material/button';
-import { Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
+import { take, takeUntil } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { takeUntil } from 'rxjs/operators';
 import { MatCommonModule } from '@angular/material/core';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 /** Maximum amount of milliseconds that can be passed into setTimeout. */
 const MAX_TIMEOUT = Math.pow(2, 31) - 1;
@@ -203,28 +203,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImpor
                     }, template: "<div matSnackBarLabel>\n  {{data.message}}\n</div>\n\n@if (hasAction) {\n  <div matSnackBarActions>\n    <button mat-button matSnackBarAction (click)=\"action()\">\n      {{data.action}}\n    </button>\n  </div>\n}\n", styles: [".mat-mdc-simple-snack-bar{display:flex}"] }]
         }], ctorParameters: () => [] });
 
-/**
- * Animations used by the Material snack bar.
- * @docs-private
- */
-const matSnackBarAnimations = {
-    /** Animation that shows and hides a snack bar. */
-    snackBarState: trigger('state', [
-        state('void, hidden', style({
-            transform: 'scale(0.8)',
-            opacity: 0,
-        })),
-        state('visible', style({
-            transform: 'scale(1)',
-            opacity: 1,
-        })),
-        transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
-        transition('* => void, * => hidden', animate('75ms cubic-bezier(0.4, 0.0, 1, 1)', style({
-            opacity: 0,
-        }))),
-    ]),
-};
-
+const ENTER_ANIMATION = '_mat-snack-bar-enter';
+const EXIT_ANIMATION = '_mat-snack-bar-exit';
 /**
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
@@ -234,9 +214,14 @@ class MatSnackBarContainer extends BasePortalOutlet {
     _elementRef = inject(ElementRef);
     _changeDetectorRef = inject(ChangeDetectorRef);
     _platform = inject(Platform);
+    _rendersRef;
+    _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
     snackBarConfig = inject(MatSnackBarConfig);
     _document = inject(DOCUMENT);
     _trackedModals = new Set();
+    _enterFallback;
+    _exitFallback;
+    _renders = new Subject();
     /** The number of milliseconds to wait before announcing the snack bar's content. */
     _announceDelay = 150;
     /** The timeout for announcing the snack bar's content. */
@@ -292,6 +277,10 @@ class MatSnackBarContainer extends BasePortalOutlet {
                 this._role = 'alert';
             }
         }
+        // Note: ideally we'd just do an `afterNextRender` in the places where we need to delay
+        // something, however in some cases (TestBed teardown) the injector can be destroyed at an
+        // unexpected time, causing the `afterRender` to fail.
+        this._rendersRef = afterRender(() => this._renders.next(), { manualCleanup: true });
     }
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal(portal) {
@@ -319,18 +308,15 @@ class MatSnackBarContainer extends BasePortalOutlet {
         return result;
     };
     /** Handle end of animations, updating the state of the snackbar. */
-    onAnimationEnd(event) {
-        const { fromState, toState } = event;
-        if ((toState === 'void' && fromState !== 'void') || toState === 'hidden') {
+    onAnimationEnd(animationName) {
+        if (animationName === EXIT_ANIMATION) {
             this._completeExit();
         }
-        if (toState === 'visible') {
-            // Note: we shouldn't use `this` inside the zone callback,
-            // because it can cause a memory leak.
-            const onEnter = this._onEnter;
+        else if (animationName === ENTER_ANIMATION) {
+            clearTimeout(this._enterFallback);
             this._ngZone.run(() => {
-                onEnter.next();
-                onEnter.complete();
+                this._onEnter.next();
+                this._onEnter.complete();
             });
         }
     }
@@ -343,10 +329,27 @@ class MatSnackBarContainer extends BasePortalOutlet {
             this._changeDetectorRef.markForCheck();
             this._changeDetectorRef.detectChanges();
             this._screenReaderAnnounce();
+            if (this._animationsDisabled) {
+                this._renders.pipe(take(1)).subscribe(() => {
+                    this._ngZone.run(() => queueMicrotask(() => this.onAnimationEnd(ENTER_ANIMATION)));
+                });
+            }
+            else {
+                clearTimeout(this._enterFallback);
+                this._enterFallback = setTimeout(() => {
+                    // The snack bar will stay invisible if it fails to animate. Add a fallback class so it
+                    // becomes visible. This can happen in some apps that do `* {animation: none !important}`.
+                    this._elementRef.nativeElement.classList.add('mat-snack-bar-fallback-visible');
+                    this.onAnimationEnd(ENTER_ANIMATION);
+                }, 200);
+            }
         }
     }
     /** Begin animation of the snack bar exiting from view. */
     exit() {
+        if (this._destroyed) {
+            return of(undefined);
+        }
         // It's common for snack bars to be opened by random outside calls like HTTP requests or
         // errors. Run inside the NgZone to ensure that it functions correctly.
         this._ngZone.run(() => {
@@ -362,6 +365,15 @@ class MatSnackBarContainer extends BasePortalOutlet {
             // If the snack bar hasn't been announced by the time it exits it wouldn't have been open
             // long enough to visually read it either, so clear the timeout for announcing.
             clearTimeout(this._announceTimeoutId);
+            if (this._animationsDisabled) {
+                this._renders.pipe(take(1)).subscribe(() => {
+                    this._ngZone.run(() => queueMicrotask(() => this.onAnimationEnd(EXIT_ANIMATION)));
+                });
+            }
+            else {
+                clearTimeout(this._exitFallback);
+                this._exitFallback = setTimeout(() => this.onAnimationEnd(EXIT_ANIMATION), 200);
+            }
         });
         return this._onExit;
     }
@@ -370,12 +382,11 @@ class MatSnackBarContainer extends BasePortalOutlet {
         this._destroyed = true;
         this._clearFromModals();
         this._completeExit();
+        this._renders.complete();
+        this._rendersRef.destroy();
     }
-    /**
-     * Removes the element in a microtask. Helps prevent errors where we end up
-     * removing an element which is in the middle of an animation.
-     */
     _completeExit() {
+        clearTimeout(this._exitFallback);
         queueMicrotask(() => {
             this._onExit.next();
             this._onExit.complete();
@@ -458,40 +469,48 @@ class MatSnackBarContainer extends BasePortalOutlet {
      * announce it.
      */
     _screenReaderAnnounce() {
-        if (!this._announceTimeoutId) {
-            this._ngZone.runOutsideAngular(() => {
-                this._announceTimeoutId = setTimeout(() => {
-                    const inertElement = this._elementRef.nativeElement.querySelector('[aria-hidden]');
-                    const liveElement = this._elementRef.nativeElement.querySelector('[aria-live]');
-                    if (inertElement && liveElement) {
-                        // If an element in the snack bar content is focused before being moved
-                        // track it and restore focus after moving to the live region.
-                        let focusedElement = null;
-                        if (this._platform.isBrowser &&
-                            document.activeElement instanceof HTMLElement &&
-                            inertElement.contains(document.activeElement)) {
-                            focusedElement = document.activeElement;
-                        }
-                        inertElement.removeAttribute('aria-hidden');
-                        liveElement.appendChild(inertElement);
-                        focusedElement?.focus();
-                        this._onAnnounce.next();
-                        this._onAnnounce.complete();
-                    }
-                }, this._announceDelay);
-            });
+        if (this._announceTimeoutId) {
+            return;
         }
+        this._ngZone.runOutsideAngular(() => {
+            this._announceTimeoutId = setTimeout(() => {
+                if (this._destroyed) {
+                    return;
+                }
+                const element = this._elementRef.nativeElement;
+                const inertElement = element.querySelector('[aria-hidden]');
+                const liveElement = element.querySelector('[aria-live]');
+                if (inertElement && liveElement) {
+                    // If an element in the snack bar content is focused before being moved
+                    // track it and restore focus after moving to the live region.
+                    let focusedElement = null;
+                    if (this._platform.isBrowser &&
+                        document.activeElement instanceof HTMLElement &&
+                        inertElement.contains(document.activeElement)) {
+                        focusedElement = document.activeElement;
+                    }
+                    inertElement.removeAttribute('aria-hidden');
+                    liveElement.appendChild(inertElement);
+                    focusedElement?.focus();
+                    this._onAnnounce.next();
+                    this._onAnnounce.complete();
+                }
+            }, this._announceDelay);
+        });
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: MatSnackBarContainer, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.1.3", type: MatSnackBarContainer, isStandalone: true, selector: "mat-snack-bar-container", host: { listeners: { "@state.done": "onAnimationEnd($event)" }, properties: { "@state": "_animationState" }, classAttribute: "mdc-snackbar mat-mdc-snack-bar-container" }, viewQueries: [{ propertyName: "_portalOutlet", first: true, predicate: CdkPortalOutlet, descendants: true, static: true }, { propertyName: "_label", first: true, predicate: ["label"], descendants: true, static: true }], usesInheritance: true, ngImport: i0, template: "<div class=\"mdc-snackbar__surface mat-mdc-snackbar-surface\">\n  <!--\n    This outer label wrapper will have the class `mdc-snackbar__label` applied if\n    the attached template/component does not contain it.\n  -->\n  <div class=\"mat-mdc-snack-bar-label\" #label>\n    <!-- Initialy holds the snack bar content, will be empty after announcing to screen readers. -->\n    <div aria-hidden=\"true\">\n      <ng-template cdkPortalOutlet />\n    </div>\n\n    <!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n    <div [attr.aria-live]=\"_live\" [attr.role]=\"_role\" [attr.id]=\"_liveElementId\"></div>\n  </div>\n</div>\n", styles: [".mat-mdc-snack-bar-container{display:flex;align-items:center;justify-content:center;box-sizing:border-box;-webkit-tap-highlight-color:rgba(0,0,0,0);margin:8px}.mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container{width:100vw}.mat-mdc-snackbar-surface{box-shadow:0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);display:flex;align-items:center;justify-content:flex-start;box-sizing:border-box;padding-left:0;padding-right:8px}[dir=rtl] .mat-mdc-snackbar-surface{padding-right:0;padding-left:8px}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{min-width:344px;max-width:672px}.mat-mdc-snack-bar-handset .mat-mdc-snackbar-surface{width:100%;min-width:0}@media(forced-colors: active){.mat-mdc-snackbar-surface{outline:solid 1px}}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{color:var(--mdc-snackbar-supporting-text-color, var(--mat-sys-inverse-on-surface));border-radius:var(--mdc-snackbar-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mdc-snackbar-container-color, var(--mat-sys-inverse-surface))}.mdc-snackbar__label{width:100%;flex-grow:1;box-sizing:border-box;margin:0;padding:14px 8px 14px 16px}[dir=rtl] .mdc-snackbar__label{padding-left:8px;padding-right:16px}.mat-mdc-snack-bar-container .mdc-snackbar__label{font-family:var(--mdc-snackbar-supporting-text-font, var(--mat-sys-body-medium-font));font-size:var(--mdc-snackbar-supporting-text-size, var(--mat-sys-body-medium-size));font-weight:var(--mdc-snackbar-supporting-text-weight, var(--mat-sys-body-medium-weight));line-height:var(--mdc-snackbar-supporting-text-line-height, var(--mat-sys-body-medium-line-height))}.mat-mdc-snack-bar-actions{display:flex;flex-shrink:0;align-items:center;box-sizing:border-box}.mat-mdc-snack-bar-handset,.mat-mdc-snack-bar-container,.mat-mdc-snack-bar-label{flex:1 1 auto}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled).mat-unthemed{color:var(--mat-snack-bar-button-color, var(--mat-sys-inverse-primary))}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled){--mat-text-button-state-layer-color:currentColor;--mat-text-button-ripple-color:currentColor}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) .mat-ripple-element{opacity:.1}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], animations: [matSnackBarAnimations.snackBarState], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.1.3", type: MatSnackBarContainer, isStandalone: true, selector: "mat-snack-bar-container", host: { listeners: { "animationend": "onAnimationEnd($event.animationName)", "animationcancel": "onAnimationEnd($event.animationName)" }, properties: { "class.mat-snack-bar-container-enter": "_animationState === \"visible\"", "class.mat-snack-bar-container-exit": "_animationState === \"hidden\"", "class.mat-snack-bar-container-animations-enabled": "!_animationsDisabled" }, classAttribute: "mdc-snackbar mat-mdc-snack-bar-container" }, viewQueries: [{ propertyName: "_portalOutlet", first: true, predicate: CdkPortalOutlet, descendants: true, static: true }, { propertyName: "_label", first: true, predicate: ["label"], descendants: true, static: true }], usesInheritance: true, ngImport: i0, template: "<div class=\"mdc-snackbar__surface mat-mdc-snackbar-surface\">\n  <!--\n    This outer label wrapper will have the class `mdc-snackbar__label` applied if\n    the attached template/component does not contain it.\n  -->\n  <div class=\"mat-mdc-snack-bar-label\" #label>\n    <!-- Initialy holds the snack bar content, will be empty after announcing to screen readers. -->\n    <div aria-hidden=\"true\">\n      <ng-template cdkPortalOutlet />\n    </div>\n\n    <!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n    <div [attr.aria-live]=\"_live\" [attr.role]=\"_role\" [attr.id]=\"_liveElementId\"></div>\n  </div>\n</div>\n", styles: ["@keyframes _mat-snack-bar-enter{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}@keyframes _mat-snack-bar-exit{from{opacity:1}to{opacity:0}}.mat-mdc-snack-bar-container{display:flex;align-items:center;justify-content:center;box-sizing:border-box;-webkit-tap-highlight-color:rgba(0,0,0,0);margin:8px}.mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container{width:100vw}.mat-snack-bar-container-animations-enabled{opacity:0}.mat-snack-bar-container-animations-enabled.mat-snack-bar-fallback-visible{opacity:1}.mat-snack-bar-container-animations-enabled.mat-snack-bar-container-enter{animation:_mat-snack-bar-enter 150ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-snack-bar-container-animations-enabled.mat-snack-bar-container-exit{animation:_mat-snack-bar-exit 75ms cubic-bezier(0.4, 0, 1, 1) forwards}.mat-mdc-snackbar-surface{box-shadow:0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);display:flex;align-items:center;justify-content:flex-start;box-sizing:border-box;padding-left:0;padding-right:8px}[dir=rtl] .mat-mdc-snackbar-surface{padding-right:0;padding-left:8px}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{min-width:344px;max-width:672px}.mat-mdc-snack-bar-handset .mat-mdc-snackbar-surface{width:100%;min-width:0}@media(forced-colors: active){.mat-mdc-snackbar-surface{outline:solid 1px}}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{color:var(--mdc-snackbar-supporting-text-color, var(--mat-sys-inverse-on-surface));border-radius:var(--mdc-snackbar-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mdc-snackbar-container-color, var(--mat-sys-inverse-surface))}.mdc-snackbar__label{width:100%;flex-grow:1;box-sizing:border-box;margin:0;padding:14px 8px 14px 16px}[dir=rtl] .mdc-snackbar__label{padding-left:8px;padding-right:16px}.mat-mdc-snack-bar-container .mdc-snackbar__label{font-family:var(--mdc-snackbar-supporting-text-font, var(--mat-sys-body-medium-font));font-size:var(--mdc-snackbar-supporting-text-size, var(--mat-sys-body-medium-size));font-weight:var(--mdc-snackbar-supporting-text-weight, var(--mat-sys-body-medium-weight));line-height:var(--mdc-snackbar-supporting-text-line-height, var(--mat-sys-body-medium-line-height))}.mat-mdc-snack-bar-actions{display:flex;flex-shrink:0;align-items:center;box-sizing:border-box}.mat-mdc-snack-bar-handset,.mat-mdc-snack-bar-container,.mat-mdc-snack-bar-label{flex:1 1 auto}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled).mat-unthemed{color:var(--mat-snack-bar-button-color, var(--mat-sys-inverse-primary))}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled){--mat-text-button-state-layer-color:currentColor;--mat-text-button-ripple-color:currentColor}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) .mat-ripple-element{opacity:.1}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: MatSnackBarContainer, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-snack-bar-container', changeDetection: ChangeDetectionStrategy.Default, encapsulation: ViewEncapsulation.None, animations: [matSnackBarAnimations.snackBarState], imports: [CdkPortalOutlet], host: {
+            args: [{ selector: 'mat-snack-bar-container', changeDetection: ChangeDetectionStrategy.Default, encapsulation: ViewEncapsulation.None, imports: [CdkPortalOutlet], host: {
                         'class': 'mdc-snackbar mat-mdc-snack-bar-container',
-                        '[@state]': '_animationState',
-                        '(@state.done)': 'onAnimationEnd($event)',
-                    }, template: "<div class=\"mdc-snackbar__surface mat-mdc-snackbar-surface\">\n  <!--\n    This outer label wrapper will have the class `mdc-snackbar__label` applied if\n    the attached template/component does not contain it.\n  -->\n  <div class=\"mat-mdc-snack-bar-label\" #label>\n    <!-- Initialy holds the snack bar content, will be empty after announcing to screen readers. -->\n    <div aria-hidden=\"true\">\n      <ng-template cdkPortalOutlet />\n    </div>\n\n    <!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n    <div [attr.aria-live]=\"_live\" [attr.role]=\"_role\" [attr.id]=\"_liveElementId\"></div>\n  </div>\n</div>\n", styles: [".mat-mdc-snack-bar-container{display:flex;align-items:center;justify-content:center;box-sizing:border-box;-webkit-tap-highlight-color:rgba(0,0,0,0);margin:8px}.mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container{width:100vw}.mat-mdc-snackbar-surface{box-shadow:0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);display:flex;align-items:center;justify-content:flex-start;box-sizing:border-box;padding-left:0;padding-right:8px}[dir=rtl] .mat-mdc-snackbar-surface{padding-right:0;padding-left:8px}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{min-width:344px;max-width:672px}.mat-mdc-snack-bar-handset .mat-mdc-snackbar-surface{width:100%;min-width:0}@media(forced-colors: active){.mat-mdc-snackbar-surface{outline:solid 1px}}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{color:var(--mdc-snackbar-supporting-text-color, var(--mat-sys-inverse-on-surface));border-radius:var(--mdc-snackbar-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mdc-snackbar-container-color, var(--mat-sys-inverse-surface))}.mdc-snackbar__label{width:100%;flex-grow:1;box-sizing:border-box;margin:0;padding:14px 8px 14px 16px}[dir=rtl] .mdc-snackbar__label{padding-left:8px;padding-right:16px}.mat-mdc-snack-bar-container .mdc-snackbar__label{font-family:var(--mdc-snackbar-supporting-text-font, var(--mat-sys-body-medium-font));font-size:var(--mdc-snackbar-supporting-text-size, var(--mat-sys-body-medium-size));font-weight:var(--mdc-snackbar-supporting-text-weight, var(--mat-sys-body-medium-weight));line-height:var(--mdc-snackbar-supporting-text-line-height, var(--mat-sys-body-medium-line-height))}.mat-mdc-snack-bar-actions{display:flex;flex-shrink:0;align-items:center;box-sizing:border-box}.mat-mdc-snack-bar-handset,.mat-mdc-snack-bar-container,.mat-mdc-snack-bar-label{flex:1 1 auto}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled).mat-unthemed{color:var(--mat-snack-bar-button-color, var(--mat-sys-inverse-primary))}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled){--mat-text-button-state-layer-color:currentColor;--mat-text-button-ripple-color:currentColor}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) .mat-ripple-element{opacity:.1}"] }]
+                        '[class.mat-snack-bar-container-enter]': '_animationState === "visible"',
+                        '[class.mat-snack-bar-container-exit]': '_animationState === "hidden"',
+                        '[class.mat-snack-bar-container-animations-enabled]': '!_animationsDisabled',
+                        '(animationend)': 'onAnimationEnd($event.animationName)',
+                        '(animationcancel)': 'onAnimationEnd($event.animationName)',
+                    }, template: "<div class=\"mdc-snackbar__surface mat-mdc-snackbar-surface\">\n  <!--\n    This outer label wrapper will have the class `mdc-snackbar__label` applied if\n    the attached template/component does not contain it.\n  -->\n  <div class=\"mat-mdc-snack-bar-label\" #label>\n    <!-- Initialy holds the snack bar content, will be empty after announcing to screen readers. -->\n    <div aria-hidden=\"true\">\n      <ng-template cdkPortalOutlet />\n    </div>\n\n    <!-- Will receive the snack bar content from the non-live div, move will happen a short delay after opening -->\n    <div [attr.aria-live]=\"_live\" [attr.role]=\"_role\" [attr.id]=\"_liveElementId\"></div>\n  </div>\n</div>\n", styles: ["@keyframes _mat-snack-bar-enter{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}@keyframes _mat-snack-bar-exit{from{opacity:1}to{opacity:0}}.mat-mdc-snack-bar-container{display:flex;align-items:center;justify-content:center;box-sizing:border-box;-webkit-tap-highlight-color:rgba(0,0,0,0);margin:8px}.mat-mdc-snack-bar-handset .mat-mdc-snack-bar-container{width:100vw}.mat-snack-bar-container-animations-enabled{opacity:0}.mat-snack-bar-container-animations-enabled.mat-snack-bar-fallback-visible{opacity:1}.mat-snack-bar-container-animations-enabled.mat-snack-bar-container-enter{animation:_mat-snack-bar-enter 150ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-snack-bar-container-animations-enabled.mat-snack-bar-container-exit{animation:_mat-snack-bar-exit 75ms cubic-bezier(0.4, 0, 1, 1) forwards}.mat-mdc-snackbar-surface{box-shadow:0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);display:flex;align-items:center;justify-content:flex-start;box-sizing:border-box;padding-left:0;padding-right:8px}[dir=rtl] .mat-mdc-snackbar-surface{padding-right:0;padding-left:8px}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{min-width:344px;max-width:672px}.mat-mdc-snack-bar-handset .mat-mdc-snackbar-surface{width:100%;min-width:0}@media(forced-colors: active){.mat-mdc-snackbar-surface{outline:solid 1px}}.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface{color:var(--mdc-snackbar-supporting-text-color, var(--mat-sys-inverse-on-surface));border-radius:var(--mdc-snackbar-container-shape, var(--mat-sys-corner-extra-small));background-color:var(--mdc-snackbar-container-color, var(--mat-sys-inverse-surface))}.mdc-snackbar__label{width:100%;flex-grow:1;box-sizing:border-box;margin:0;padding:14px 8px 14px 16px}[dir=rtl] .mdc-snackbar__label{padding-left:8px;padding-right:16px}.mat-mdc-snack-bar-container .mdc-snackbar__label{font-family:var(--mdc-snackbar-supporting-text-font, var(--mat-sys-body-medium-font));font-size:var(--mdc-snackbar-supporting-text-size, var(--mat-sys-body-medium-size));font-weight:var(--mdc-snackbar-supporting-text-weight, var(--mat-sys-body-medium-weight));line-height:var(--mdc-snackbar-supporting-text-line-height, var(--mat-sys-body-medium-line-height))}.mat-mdc-snack-bar-actions{display:flex;flex-shrink:0;align-items:center;box-sizing:border-box}.mat-mdc-snack-bar-handset,.mat-mdc-snack-bar-container,.mat-mdc-snack-bar-label{flex:1 1 auto}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled).mat-unthemed{color:var(--mat-snack-bar-button-color, var(--mat-sys-inverse-primary))}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled){--mat-text-button-state-layer-color:currentColor;--mat-text-button-ripple-color:currentColor}.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) .mat-ripple-element{opacity:.1}"] }]
         }], ctorParameters: () => [], propDecorators: { _portalOutlet: [{
                 type: ViewChild,
                 args: [CdkPortalOutlet, { static: true }]
@@ -664,6 +683,10 @@ class MatSnackBar {
                 this._live.clear();
             }
         });
+        // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
+        if (config.duration && config.duration > 0) {
+            snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter(config.duration));
+        }
         if (this._openedSnackBarRef) {
             // If a snack bar is already in view, dismiss it and enter the
             // new snack bar after exit animation is complete.
@@ -675,10 +698,6 @@ class MatSnackBar {
         else {
             // If no snack bar is in view, enter the new snack bar.
             snackBarRef.containerInstance.enter();
-        }
-        // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
-        if (config.duration && config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter(config.duration));
         }
     }
     /**
@@ -766,6 +785,30 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImpor
                     providers: [MatSnackBar],
                 }]
         }] });
+
+/**
+ * Animations used by the Material snack bar.
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+const matSnackBarAnimations = {
+    /** Animation that shows and hides a snack bar. */
+    snackBarState: trigger('state', [
+        state('void, hidden', style({
+            transform: 'scale(0.8)',
+            opacity: 0,
+        })),
+        state('visible', style({
+            transform: 'scale(1)',
+            opacity: 1,
+        })),
+        transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
+        transition('* => void, * => hidden', animate('75ms cubic-bezier(0.4, 0.0, 1, 1)', style({
+            opacity: 0,
+        }))),
+    ]),
+};
 
 /**
  * Generated bundle index. Do not edit.
