@@ -1,4 +1,3 @@
-import { AnimationEvent as AnimationEvent_2 } from '@angular/animations';
 import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
 import { ComponentRef } from '@angular/core';
@@ -69,7 +68,11 @@ export declare class MatBottomSheet implements OnDestroy {
     static ɵprov: i0.ɵɵInjectableDeclaration<MatBottomSheet>;
 }
 
-/** Animations used by the Material bottom sheet. */
+/**
+ * Animations used by the Material bottom sheet.
+ * @deprecated No longer used. Will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare const matBottomSheetAnimations: {
     readonly bottomSheetState: AnimationTriggerMetadata;
 };
@@ -129,10 +132,14 @@ export declare class MatBottomSheetConfig<D = any> {
  */
 export declare class MatBottomSheetContainer extends CdkDialogContainer implements OnDestroy {
     private _breakpointSubscription;
+    protected _animationsDisabled: boolean;
     /** The state of the bottom sheet animations. */
     _animationState: 'void' | 'visible' | 'hidden';
     /** Emits whenever the state of the animation changes. */
-    _animationStateChanged: EventEmitter<AnimationEvent_2>;
+    _animationStateChanged: EventEmitter<{
+        toState: "visible" | "hidden";
+        phase: "start" | "done";
+    }>;
     /** Whether the component has been destroyed. */
     private _destroyed;
     constructor(...args: unknown[]);
@@ -141,8 +148,8 @@ export declare class MatBottomSheetContainer extends CdkDialogContainer implemen
     /** Begin animation of the bottom sheet exiting from view. */
     exit(): void;
     ngOnDestroy(): void;
-    _onAnimationDone(event: AnimationEvent_2): void;
-    _onAnimationStart(event: AnimationEvent_2): void;
+    private _simulateAnimation;
+    protected _handleAnimationEvent(isStart: boolean, animationName: string): void;
     protected _captureInitialFocus(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, true, never>;

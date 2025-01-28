@@ -1,38 +1,24 @@
 import { CdkDialogContainer, Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { EventEmitter, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injectable, NgModule } from '@angular/core';
-import { AnimationDurations, AnimationCurves, MatCommonModule } from '@angular/material/core';
+import { inject, ANIMATION_MODULE_TYPE, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injectable, NgModule } from '@angular/core';
+import { MatCommonModule } from '@angular/material/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 import { Overlay } from '@angular/cdk/overlay';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { trigger, state, style, transition, group, animate, query, animateChild } from '@angular/animations';
 
-/** Animations used by the Material bottom sheet. */
-const matBottomSheetAnimations = {
-    /** Animation that shows and hides a bottom sheet. */
-    bottomSheetState: trigger('state', [
-        state('void, hidden', style({ transform: 'translateY(100%)' })),
-        state('visible', style({ transform: 'translateY(0%)' })),
-        transition('visible => void, visible => hidden', group([
-            animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.ACCELERATION_CURVE}`),
-            query('@*', animateChild(), { optional: true }),
-        ])),
-        transition('void => visible', group([
-            animate(`${AnimationDurations.EXITING} ${AnimationCurves.DECELERATION_CURVE}`),
-            query('@*', animateChild(), { optional: true }),
-        ])),
-    ]),
-};
-
+const ENTER_ANIMATION = '_mat-bottom-sheet-enter';
+const EXIT_ANIMATION = '_mat-bottom-sheet-exit';
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * @docs-private
  */
 class MatBottomSheetContainer extends CdkDialogContainer {
     _breakpointSubscription;
+    _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
     /** The state of the bottom sheet animations. */
     _animationState = 'void';
     /** Emits whenever the state of the animation changes. */
@@ -57,13 +43,20 @@ class MatBottomSheetContainer extends CdkDialogContainer {
             this._animationState = 'visible';
             this._changeDetectorRef.markForCheck();
             this._changeDetectorRef.detectChanges();
+            if (this._animationsDisabled) {
+                this._simulateAnimation(ENTER_ANIMATION);
+            }
         }
     }
     /** Begin animation of the bottom sheet exiting from view. */
     exit() {
         if (!this._destroyed) {
+            this._elementRef.nativeElement.setAttribute('mat-exit', '');
             this._animationState = 'hidden';
             this._changeDetectorRef.markForCheck();
+            if (this._animationsDisabled) {
+                this._simulateAnimation(EXIT_ANIMATION);
+            }
         }
     }
     ngOnDestroy() {
@@ -71,31 +64,44 @@ class MatBottomSheetContainer extends CdkDialogContainer {
         this._breakpointSubscription.unsubscribe();
         this._destroyed = true;
     }
-    _onAnimationDone(event) {
-        if (event.toState === 'visible') {
+    _simulateAnimation(name) {
+        this._ngZone.run(() => {
+            this._handleAnimationEvent(true, name);
+            setTimeout(() => this._handleAnimationEvent(false, name));
+        });
+    }
+    _handleAnimationEvent(isStart, animationName) {
+        const isEnter = animationName === ENTER_ANIMATION;
+        const isExit = animationName === EXIT_ANIMATION;
+        if (isEnter) {
             this._trapFocus();
         }
-        this._animationStateChanged.emit(event);
-    }
-    _onAnimationStart(event) {
-        this._animationStateChanged.emit(event);
+        if (isEnter || isExit) {
+            this._animationStateChanged.emit({
+                toState: isEnter ? 'visible' : 'hidden',
+                phase: isStart ? 'start' : 'done',
+            });
+        }
     }
     _captureInitialFocus() { }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: MatBottomSheetContainer, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.1.3", type: MatBottomSheetContainer, isStandalone: true, selector: "mat-bottom-sheet-container", host: { attributes: { "tabindex": "-1" }, listeners: { "@state.start": "_onAnimationStart($event)", "@state.done": "_onAnimationDone($event)" }, properties: { "attr.role": "_config.role", "attr.aria-modal": "_config.ariaModal", "attr.aria-label": "_config.ariaLabel", "@state": "_animationState" }, classAttribute: "mat-bottom-sheet-container" }, usesInheritance: true, ngImport: i0, template: "<ng-template cdkPortalOutlet></ng-template>\r\n", styles: [".mat-bottom-sheet-container{box-shadow:0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto;background:var(--mat-bottom-sheet-container-background-color, var(--mat-sys-surface-container-low));color:var(--mat-bottom-sheet-container-text-color, var(--mat-sys-on-surface));font-family:var(--mat-bottom-sheet-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-bottom-sheet-container-text-size, var(--mat-sys-body-large-size));line-height:var(--mat-bottom-sheet-container-text-line-height, var(--mat-sys-body-large-line-height));font-weight:var(--mat-bottom-sheet-container-text-weight, var(--mat-sys-body-large-weight));letter-spacing:var(--mat-bottom-sheet-container-text-tracking, var(--mat-sys-body-large-tracking))}@media(forced-colors: active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:var(--mat-bottom-sheet-container-shape, 28px);border-top-right-radius:var(--mat-bottom-sheet-container-shape, 28px)}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], animations: [matBottomSheetAnimations.bottomSheetState], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.1.3", type: MatBottomSheetContainer, isStandalone: true, selector: "mat-bottom-sheet-container", host: { attributes: { "tabindex": "-1" }, listeners: { "animationstart": "_handleAnimationEvent(true, $event.animationName)", "animationend": "_handleAnimationEvent(false, $event.animationName)", "animationcancel": "_handleAnimationEvent(false, $event.animationName)" }, properties: { "class.mat-bottom-sheet-container-animations-enabled": "!_animationsDisabled", "class.mat-bottom-sheet-container-enter": "_animationState === \"visible\"", "class.mat-bottom-sheet-container-exit": "_animationState === \"hidden\"", "attr.role": "_config.role", "attr.aria-modal": "_config.ariaModal", "attr.aria-label": "_config.ariaLabel" }, classAttribute: "mat-bottom-sheet-container" }, usesInheritance: true, ngImport: i0, template: "<ng-template cdkPortalOutlet></ng-template>\r\n", styles: ["@keyframes _mat-bottom-sheet-enter{from{transform:translateY(100%)}to{transform:none}}@keyframes _mat-bottom-sheet-exit{from{transform:none}to{transform:translateY(100%)}}.mat-bottom-sheet-container{box-shadow:0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto;position:relative;background:var(--mat-bottom-sheet-container-background-color, var(--mat-sys-surface-container-low));color:var(--mat-bottom-sheet-container-text-color, var(--mat-sys-on-surface));font-family:var(--mat-bottom-sheet-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-bottom-sheet-container-text-size, var(--mat-sys-body-large-size));line-height:var(--mat-bottom-sheet-container-text-line-height, var(--mat-sys-body-large-line-height));font-weight:var(--mat-bottom-sheet-container-text-weight, var(--mat-sys-body-large-weight));letter-spacing:var(--mat-bottom-sheet-container-text-tracking, var(--mat-sys-body-large-tracking))}@media(forced-colors: active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-animations-enabled{transform:translateY(100%)}.mat-bottom-sheet-container-animations-enabled.mat-bottom-sheet-container-enter{animation:_mat-bottom-sheet-enter 195ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-bottom-sheet-container-animations-enabled.mat-bottom-sheet-container-exit{animation:_mat-bottom-sheet-exit 375ms cubic-bezier(0.4, 0, 1, 1) backwards}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:var(--mat-bottom-sheet-container-shape, 28px);border-top-right-radius:var(--mat-bottom-sheet-container-shape, 28px)}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImport: i0, type: MatBottomSheetContainer, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-bottom-sheet-container', changeDetection: ChangeDetectionStrategy.Default, encapsulation: ViewEncapsulation.None, animations: [matBottomSheetAnimations.bottomSheetState], host: {
+            args: [{ selector: 'mat-bottom-sheet-container', changeDetection: ChangeDetectionStrategy.Default, encapsulation: ViewEncapsulation.None, host: {
                         'class': 'mat-bottom-sheet-container',
+                        '[class.mat-bottom-sheet-container-animations-enabled]': '!_animationsDisabled',
+                        '[class.mat-bottom-sheet-container-enter]': '_animationState === "visible"',
+                        '[class.mat-bottom-sheet-container-exit]': '_animationState === "hidden"',
                         'tabindex': '-1',
                         '[attr.role]': '_config.role',
                         '[attr.aria-modal]': '_config.ariaModal',
                         '[attr.aria-label]': '_config.ariaLabel',
-                        '[@state]': '_animationState',
-                        '(@state.start)': '_onAnimationStart($event)',
-                        '(@state.done)': '_onAnimationDone($event)',
-                    }, imports: [CdkPortalOutlet], template: "<ng-template cdkPortalOutlet></ng-template>\r\n", styles: [".mat-bottom-sheet-container{box-shadow:0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto;background:var(--mat-bottom-sheet-container-background-color, var(--mat-sys-surface-container-low));color:var(--mat-bottom-sheet-container-text-color, var(--mat-sys-on-surface));font-family:var(--mat-bottom-sheet-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-bottom-sheet-container-text-size, var(--mat-sys-body-large-size));line-height:var(--mat-bottom-sheet-container-text-line-height, var(--mat-sys-body-large-line-height));font-weight:var(--mat-bottom-sheet-container-text-weight, var(--mat-sys-body-large-weight));letter-spacing:var(--mat-bottom-sheet-container-text-tracking, var(--mat-sys-body-large-tracking))}@media(forced-colors: active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:var(--mat-bottom-sheet-container-shape, 28px);border-top-right-radius:var(--mat-bottom-sheet-container-shape, 28px)}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"] }]
+                        '(animationstart)': '_handleAnimationEvent(true, $event.animationName)',
+                        '(animationend)': '_handleAnimationEvent(false, $event.animationName)',
+                        '(animationcancel)': '_handleAnimationEvent(false, $event.animationName)',
+                    }, imports: [CdkPortalOutlet], template: "<ng-template cdkPortalOutlet></ng-template>\r\n", styles: ["@keyframes _mat-bottom-sheet-enter{from{transform:translateY(100%)}to{transform:none}}@keyframes _mat-bottom-sheet-exit{from{transform:none}to{transform:translateY(100%)}}.mat-bottom-sheet-container{box-shadow:0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto;position:relative;background:var(--mat-bottom-sheet-container-background-color, var(--mat-sys-surface-container-low));color:var(--mat-bottom-sheet-container-text-color, var(--mat-sys-on-surface));font-family:var(--mat-bottom-sheet-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-bottom-sheet-container-text-size, var(--mat-sys-body-large-size));line-height:var(--mat-bottom-sheet-container-text-line-height, var(--mat-sys-body-large-line-height));font-weight:var(--mat-bottom-sheet-container-text-weight, var(--mat-sys-body-large-weight));letter-spacing:var(--mat-bottom-sheet-container-text-tracking, var(--mat-sys-body-large-tracking))}@media(forced-colors: active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-animations-enabled{transform:translateY(100%)}.mat-bottom-sheet-container-animations-enabled.mat-bottom-sheet-container-enter{animation:_mat-bottom-sheet-enter 195ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-bottom-sheet-container-animations-enabled.mat-bottom-sheet-container-exit{animation:_mat-bottom-sheet-exit 375ms cubic-bezier(0.4, 0, 1, 1) backwards}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:var(--mat-bottom-sheet-container-shape, 28px);border-top-right-radius:var(--mat-bottom-sheet-container-shape, 28px)}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"] }]
         }], ctorParameters: () => [] });
 
 /** Injection token that can be used to access the data that was passed in to a bottom sheet. */
@@ -187,14 +193,14 @@ class MatBottomSheetRef {
         this.disableClose = config.disableClose;
         // Emit when opening animation completes
         containerInstance._animationStateChanged
-            .pipe(filter(event => event.phaseName === 'done' && event.toState === 'visible'), take(1))
+            .pipe(filter(event => event.phase === 'done' && event.toState === 'visible'), take(1))
             .subscribe(() => {
             this._afterOpened.next();
             this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
         containerInstance._animationStateChanged
-            .pipe(filter(event => event.phaseName === 'done' && event.toState === 'hidden'), take(1))
+            .pipe(filter(event => event.phase === 'done' && event.toState === 'hidden'), take(1))
             .subscribe(() => {
             clearTimeout(this._closeFallbackTimeout);
             this._ref.close(this._result);
@@ -220,16 +226,14 @@ class MatBottomSheetRef {
         }
         // Transition the backdrop in parallel to the bottom sheet.
         this.containerInstance._animationStateChanged
-            .pipe(filter(event => event.phaseName === 'start'), take(1))
-            .subscribe(event => {
+            .pipe(filter(event => event.phase === 'start'), take(1))
+            .subscribe(() => {
             // The logic that disposes of the overlay depends on the exit animation completing, however
             // it isn't guaranteed if the parent view is destroyed while it's running. Add a fallback
             // timeout which will clean everything up if the animation hasn't fired within the specified
             // amount of time plus 100ms. We don't need to run this outside the NgZone, because for the
             // vast majority of cases the timeout will have been cleared before it has fired.
-            this._closeFallbackTimeout = setTimeout(() => {
-                this._ref.close(this._result);
-            }, event.totalTime + 100);
+            this._closeFallbackTimeout = setTimeout(() => this._ref.close(this._result), 500);
             this._ref.overlayRef.detachBackdrop();
         });
         this._result = result;
@@ -362,6 +366,27 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImpor
                     providers: [MatBottomSheet],
                 }]
         }] });
+
+/**
+ * Animations used by the Material bottom sheet.
+ * @deprecated No longer used. Will be removed.
+ * @breaking-change 21.0.0
+ */
+const matBottomSheetAnimations = {
+    /** Animation that shows and hides a bottom sheet. */
+    bottomSheetState: trigger('state', [
+        state('void, hidden', style({ transform: 'translateY(100%)' })),
+        state('visible', style({ transform: 'translateY(0%)' })),
+        transition('visible => void, visible => hidden', group([
+            animate('375ms cubic-bezier(0.4, 0, 1, 1)'),
+            query('@*', animateChild(), { optional: true }),
+        ])),
+        transition('void => visible', group([
+            animate('195ms cubic-bezier(0, 0, 0.2, 1)'),
+            query('@*', animateChild(), { optional: true }),
+        ])),
+    ]),
+};
 
 /**
  * Generated bundle index. Do not edit.
