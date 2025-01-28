@@ -52,6 +52,7 @@ export declare class MatTimepicker<D> implements OnDestroy, MatOptionParentCompo
     private _defaultConfig;
     private _dateAdapter;
     private _dateFormats;
+    protected _animationsDisabled: boolean;
     private _isOpen;
     private _activeDescendant;
     private _input;
@@ -104,9 +105,11 @@ export declare class MatTimepicker<D> implements OnDestroy, MatOptionParentCompo
     registerInput(input: MatTimepickerInput<D>): void;
     ngOnDestroy(): void;
     /** Selects a specific time value. */
-    protected _selectValue(value: D): void;
+    protected _selectValue(option: MatOption<D>): void;
     /** Gets the value of the `aria-labelledby` attribute. */
     protected _getAriaLabelledby(): string | null;
+    /** Handles animation events coming from the panel. */
+    protected _handleAnimationEnd(event: AnimationEvent): void;
     /** Creates an overlay reference for the timepicker panel. */
     private _getOverlayRef;
     /** Generates the list of options from which the user can select.. */
