@@ -65,8 +65,12 @@ class MatDialogConfig {
     ariaLabelledBy = null;
     /** Aria label to assign to the dialog element. */
     ariaLabel = null;
-    /** Whether this is a modal dialog. Used to set the `aria-modal` attribute. */
-    ariaModal = true;
+    /**
+     * Whether this is a modal dialog. Used to set the `aria-modal` attribute. Off by default,
+     * because it can interfere with other overlay-based components (e.g. `mat-select`) and because
+     * it is redundant since the dialog marks all outside content as `aria-hidden` anyway.
+     */
+    ariaModal = false;
     /**
      * Where the dialog should focus on open.
      * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or

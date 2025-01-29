@@ -126,8 +126,12 @@ class MatBottomSheetConfig {
     disableClose = false;
     /** Aria label to assign to the bottom sheet element. */
     ariaLabel = null;
-    /** Whether this is a modal bottom sheet. Used to set the `aria-modal` attribute. */
-    ariaModal = true;
+    /**
+     * Whether this is a modal dialog. Used to set the `aria-modal` attribute. Off by default,
+     * because it can interfere with other overlay-based components (e.g. `mat-select`) and because
+     * it is redundant since the dialog marks all outside content as `aria-hidden` anyway.
+     */
+    ariaModal = false;
     /**
      * Whether the bottom sheet should close when the user goes backwards/forwards in history.
      * Note that this usually doesn't include clicking on links (unless the user is using
