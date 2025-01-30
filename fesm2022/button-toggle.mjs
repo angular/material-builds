@@ -1,12 +1,12 @@
 import { _IdGenerator, FocusMonitor } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW, UP_ARROW, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import * as i0 from '@angular/core';
 import { InjectionToken, forwardRef, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, ContentChildren, Input, Output, ElementRef, ANIMATION_MODULE_TYPE, HostAttributeToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
-import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { _StructuralStylesLoader, MatRipple, MatPseudoCheckbox, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
 /**
  * Injection token that can be used to configure the
@@ -361,7 +361,7 @@ class MatButtonToggleGroup {
     /** Selects a value if there's a toggle that corresponds to it. */
     _selectValue(value, toggles) {
         for (const toggle of toggles) {
-            if (toggle.value != null && toggle.value === value) {
+            if (toggle.value === value) {
                 toggle.checked = true;
                 this._selectionModel.select(toggle);
                 if (!this.multiple) {
