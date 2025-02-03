@@ -1,7 +1,6 @@
 import { AfterContentChecked } from '@angular/core';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { BehaviorSubject } from 'rxjs';
 import { CdkPortal } from '@angular/cdk/portal';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
@@ -919,7 +918,7 @@ export declare class MatTabNavPanel {
  * @breaking-change 21.0.0.
  */
 export declare const matTabsAnimations: {
-    readonly translateTab: AnimationTriggerMetadata;
+    readonly translateTab: any;
 };
 
 /** Object that can be used to configure the default options for the tabs module. */

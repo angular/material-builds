@@ -1,6 +1,5 @@
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkAccordion } from '@angular/cdk/accordion';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { ElementRef } from '@angular/core';
@@ -20,7 +19,11 @@ import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { TemplateRef } from '@angular/core';
 
-/** Time and timing curve for expansion panel animations. */
+/**
+ * Time and timing curve for expansion panel animations.
+ * @deprecated No longer used. Will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
 
 declare namespace i4 {
@@ -151,8 +154,8 @@ export declare type MatAccordionTogglePosition = 'before' | 'after';
  * @breaking-change 21.0.0
  */
 export declare const matExpansionAnimations: {
-    readonly indicatorRotate: AnimationTriggerMetadata;
-    readonly bodyExpansion: AnimationTriggerMetadata;
+    readonly indicatorRotate: any;
+    readonly bodyExpansion: any;
 };
 
 export declare class MatExpansionModule {

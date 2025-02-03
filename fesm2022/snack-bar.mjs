@@ -10,7 +10,6 @@ import { take, takeUntil } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { MatCommonModule } from '@angular/material/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 
 /** Maximum amount of milliseconds that can be passed into setTimeout. */
 const MAX_TIMEOUT = Math.pow(2, 31) - 1;
@@ -793,21 +792,67 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImpor
  * @breaking-change 21.0.0
  */
 const matSnackBarAnimations = {
+    // Represents
+    // trigger('state', [
+    //   state(
+    //     'void, hidden',
+    //     style({
+    //       transform: 'scale(0.8)',
+    //       opacity: 0,
+    //     }),
+    //   ),
+    //   state(
+    //     'visible',
+    //     style({
+    //       transform: 'scale(1)',
+    //       opacity: 1,
+    //     }),
+    //   ),
+    //   transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
+    //   transition(
+    //     '* => void, * => hidden',
+    //     animate(
+    //       '75ms cubic-bezier(0.4, 0.0, 1, 1)',
+    //       style({
+    //         opacity: 0,
+    //       }),
+    //     ),
+    //   ),
+    // ])
     /** Animation that shows and hides a snack bar. */
-    snackBarState: trigger('state', [
-        state('void, hidden', style({
-            transform: 'scale(0.8)',
-            opacity: 0,
-        })),
-        state('visible', style({
-            transform: 'scale(1)',
-            opacity: 1,
-        })),
-        transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
-        transition('* => void, * => hidden', animate('75ms cubic-bezier(0.4, 0.0, 1, 1)', style({
-            opacity: 0,
-        }))),
-    ]),
+    snackBarState: {
+        type: 7,
+        name: 'state',
+        'definitions': [
+            {
+                type: 0,
+                name: 'void, hidden',
+                styles: { type: 6, styles: { transform: 'scale(0.8)', opacity: 0 }, offset: null },
+            },
+            {
+                type: 0,
+                name: 'visible',
+                styles: { type: 6, styles: { transform: 'scale(1)', opacity: 1 }, offset: null },
+            },
+            {
+                type: 1,
+                expr: '* => visible',
+                animation: { type: 4, styles: null, timings: '150ms cubic-bezier(0, 0, 0.2, 1)' },
+                options: null,
+            },
+            {
+                type: 1,
+                expr: '* => void, * => hidden',
+                animation: {
+                    type: 4,
+                    styles: { type: 6, styles: { opacity: 0 }, offset: null },
+                    timings: '75ms cubic-bezier(0.4, 0.0, 1, 1)',
+                },
+                options: null,
+            },
+        ],
+        options: {},
+    },
 };
 
 /**

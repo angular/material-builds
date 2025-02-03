@@ -1,4 +1,3 @@
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef } from '@angular/core';
@@ -43,6 +42,8 @@ export declare function _closeDialogVia<R>(ref: MatDialogRef<R>, interactionType
 /**
  * Default parameters for the animation for backwards compatibility.
  * @docs-private
+ * @deprecated Will stop being exported.
+ * @breaking-change 21.0.0
  */
 export declare const _defaultParams: {
     params: {
@@ -193,9 +194,11 @@ export declare class MatDialogActions extends MatDialogLayoutSection {
 /**
  * Animations used by MatDialog.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare const matDialogAnimations: {
-    readonly dialogContainer: AnimationTriggerMetadata;
+    readonly dialogContainer: any;
 };
 
 /**

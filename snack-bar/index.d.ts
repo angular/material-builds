@@ -1,4 +1,3 @@
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { BasePortalOutlet } from '@angular/cdk/portal';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
@@ -151,7 +150,7 @@ export declare class MatSnackBarActions {
  * @breaking-change 21.0.0
  */
 export declare const matSnackBarAnimations: {
-    readonly snackBarState: AnimationTriggerMetadata;
+    readonly snackBarState: any;
 };
 
 /**

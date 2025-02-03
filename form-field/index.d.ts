@@ -2,7 +2,6 @@ import { AbstractControlDirective } from '@angular/forms';
 import { AfterContentChecked } from '@angular/core';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
@@ -294,7 +293,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
  * @breaking-change 21.0.0
  */
 export declare const matFormFieldAnimations: {
-    readonly transitionMessages: AnimationTriggerMetadata;
+    readonly transitionMessages: any;
 };
 
 /** Possible appearance styles for the form field. */

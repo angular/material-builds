@@ -2,7 +2,6 @@ import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { AfterViewChecked } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { ControlValueAccessor } from '@angular/forms';
@@ -664,8 +663,8 @@ export declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
  * @breaking-change 21.0.0
  */
 export declare const matDatepickerAnimations: {
-    readonly transformPanel: AnimationTriggerMetadata;
-    readonly fadeInCalendar: AnimationTriggerMetadata;
+    readonly transformPanel: any;
+    readonly fadeInCalendar: any;
 };
 
 /** Button that will close the datepicker and assign the current selection to the data model. */

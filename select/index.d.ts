@@ -1,6 +1,5 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { AfterContentInit } from '@angular/core';
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { ChangeDetectorRef } from '@angular/core';
@@ -460,8 +459,8 @@ export declare const matSelectAnimations: {
      * @deprecated No longer being used. To be removed.
      * @breaking-change 12.0.0
      */
-    readonly transformPanelWrap: AnimationTriggerMetadata;
-    readonly transformPanel: AnimationTriggerMetadata;
+    readonly transformPanelWrap: any;
+    readonly transformPanel: any;
 };
 
 /** Change event object that is emitted when the select value has changed. */

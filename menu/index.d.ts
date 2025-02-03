@@ -1,6 +1,5 @@
 import { AfterContentInit } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { Direction } from '@angular/cdk/bidi';
 import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
@@ -24,7 +23,7 @@ import { TemplateRef } from '@angular/core';
  * @breaking-change 8.0.0
  * @docs-private
  */
-export declare const fadeInItems: AnimationTriggerMetadata;
+export declare const fadeInItems: any;
 
 declare namespace i3 {
     export {
@@ -246,8 +245,8 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
  * @breaking-change 21.0.0
  */
 export declare const matMenuAnimations: {
-    readonly transformMenu: AnimationTriggerMetadata;
-    readonly fadeInItems: AnimationTriggerMetadata;
+    readonly transformMenu: any;
+    readonly fadeInItems: any;
 };
 
 /** Menu content that will be rendered lazily once the menu is opened. */
@@ -539,6 +538,6 @@ export declare type MenuPositionY = 'above' | 'below';
  * @breaking-change 8.0.0
  * @docs-private
  */
-export declare const transformMenu: AnimationTriggerMetadata;
+export declare const transformMenu: any;
 
 export { }

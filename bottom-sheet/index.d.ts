@@ -1,4 +1,3 @@
-import { AnimationTriggerMetadata } from '@angular/animations';
 import { CdkDialogContainer } from '@angular/cdk/dialog';
 import { ComponentRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
@@ -74,7 +73,7 @@ export declare class MatBottomSheet implements OnDestroy {
  * @breaking-change 21.0.0
  */
 export declare const matBottomSheetAnimations: {
-    readonly bottomSheetState: AnimationTriggerMetadata;
+    readonly bottomSheetState: any;
 };
 
 /**

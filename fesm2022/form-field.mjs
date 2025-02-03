@@ -10,7 +10,6 @@ import { startWith, map, pairwise, filter, takeUntil } from 'rxjs/operators';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
 import { ObserversModule } from '@angular/cdk/observers';
 import { MatCommonModule } from '@angular/material/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 
 /** The floating label for a `mat-form-field`. */
 class MatLabel {
@@ -1095,15 +1094,41 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImpor
  * @breaking-change 21.0.0
  */
 const matFormFieldAnimations = {
+    // Represents:
+    // trigger('transitionMessages', [
+    //   // TODO(mmalerba): Use angular animations for label animation as well.
+    //   state('enter', style({opacity: 1, transform: 'translateY(0%)'})),
+    //   transition('void => enter', [
+    //     style({opacity: 0, transform: 'translateY(-5px)'}),
+    //     animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+    //   ]),
+    // ])
     /** Animation that transitions the form field's error and hint messages. */
-    transitionMessages: trigger('transitionMessages', [
-        // TODO(mmalerba): Use angular animations for label animation as well.
-        state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
-        transition('void => enter', [
-            style({ opacity: 0, transform: 'translateY(-5px)' }),
-            animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-        ]),
-    ]),
+    transitionMessages: {
+        type: 7,
+        name: 'transitionMessages',
+        definitions: [
+            {
+                type: 0,
+                name: 'enter',
+                styles: {
+                    type: 6,
+                    styles: { opacity: 1, transform: 'translateY(0%)' },
+                    offset: null,
+                },
+            },
+            {
+                type: 1,
+                expr: 'void => enter',
+                animation: [
+                    { type: 6, styles: { opacity: 0, transform: 'translateY(-5px)' }, offset: null },
+                    { type: 4, styles: null, timings: '300ms cubic-bezier(0.55, 0, 0.55, 0.2)' },
+                ],
+                options: null,
+            },
+        ],
+        options: {},
+    },
 };
 
 /**
