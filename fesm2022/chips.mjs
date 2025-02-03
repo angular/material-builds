@@ -1222,8 +1222,6 @@ class MatChipListbox extends MatChipSet {
     _onChange = () => { };
     // TODO: MDC uses `grid` here
     _defaultRole = 'listbox';
-    /** Value that was assigned before the listbox was initialized. */
-    _pendingInitialValue;
     /** Default chip options. */
     _defaultOptions = inject(MAT_CHIPS_DEFAULT_OPTIONS, { optional: true });
     /** Whether the user should be allowed to select multiple chips. */
@@ -1286,7 +1284,9 @@ class MatChipListbox extends MatChipSet {
         return this._value;
     }
     set value(value) {
-        this.writeValue(value);
+        if (this._chips && this._chips.length) {
+            this._setSelectionByValue(value, false);
+        }
         this._value = value;
     }
     _value;
@@ -1294,13 +1294,12 @@ class MatChipListbox extends MatChipSet {
     change = new EventEmitter();
     _chips = undefined;
     ngAfterContentInit() {
-        if (this._pendingInitialValue !== undefined) {
-            Promise.resolve().then(() => {
-                this._setSelectionByValue(this._pendingInitialValue, false);
-                this._pendingInitialValue = undefined;
-            });
-        }
         this._chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
+            if (this.value !== undefined) {
+                Promise.resolve().then(() => {
+                    this._setSelectionByValue(this.value, false);
+                });
+            }
             // Update listbox selectable/multiple properties on chips
             this._syncListboxProperties();
         });
@@ -1342,11 +1341,11 @@ class MatChipListbox extends MatChipSet {
      * @docs-private
      */
     writeValue(value) {
-        if (this._chips) {
-            this._setSelectionByValue(value, false);
+        if (value != null) {
+            this.value = value;
         }
-        else if (value != null) {
-            this._pendingInitialValue = value;
+        else {
+            this.value = undefined;
         }
     }
     /**
