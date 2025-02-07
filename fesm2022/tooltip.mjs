@@ -2,7 +2,7 @@ import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ViewContainerRef, NgZone, Injector, afterNextRender, Directive, Input, ChangeDetectorRef, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, Injector, ViewContainerRef, afterNextRender, Directive, Input, ChangeDetectorRef, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { DOCUMENT, NgClass } from '@angular/common';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
@@ -75,10 +75,7 @@ const MAX_WIDTH = 200;
  * https://material.io/design/components/tooltips.html
  */
 class MatTooltip {
-    _overlay = inject(Overlay);
     _elementRef = inject(ElementRef);
-    _scrollDispatcher = inject(ScrollDispatcher);
-    _viewContainerRef = inject(ViewContainerRef);
     _ngZone = inject(NgZone);
     _platform = inject(Platform);
     _ariaDescriber = inject(AriaDescriber);
@@ -95,7 +92,6 @@ class MatTooltip {
     _positionAtOrigin = false;
     _disabled = false;
     _tooltipClass;
-    _scrollStrategy = inject(MAT_TOOLTIP_SCROLL_STRATEGY);
     _viewInitialized = false;
     _pointerExitEventsInitialized = false;
     _tooltipComponent = TooltipComponent;
@@ -214,8 +210,6 @@ class MatTooltip {
     }
     /** Manually-bound passive event listeners. */
     _passiveListeners = [];
-    /** Reference to the current document. */
-    _document = inject(DOCUMENT);
     /** Timer started at the last `touchstart` event. */
     _touchstartTimeout = null;
     /** Emits when the component is destroyed. */
@@ -292,7 +286,8 @@ class MatTooltip {
         const overlayRef = this._createOverlay(origin);
         this._detach();
         this._portal =
-            this._portal || new ComponentPortal(this._tooltipComponent, this._viewContainerRef);
+            this._portal ||
+                new ComponentPortal(this._tooltipComponent, this._injector.get(ViewContainerRef));
         const instance = (this._tooltipInstance = overlayRef.attach(this._portal).instance);
         instance._triggerElement = this._elementRef.nativeElement;
         instance._mouseLeaveHideDelay = this._hideDelay;
@@ -335,9 +330,12 @@ class MatTooltip {
             }
             this._detach();
         }
-        const scrollableAncestors = this._scrollDispatcher.getAncestorScrollContainers(this._elementRef);
+        const scrollableAncestors = this._injector
+            .get(ScrollDispatcher)
+            .getAncestorScrollContainers(this._elementRef);
+        const overlay = this._injector.get(Overlay);
         // Create connected position strategy that listens for scroll events to reposition.
-        const strategy = this._overlay
+        const strategy = overlay
             .position()
             .flexibleConnectedTo(this.positionAtOrigin ? origin || this._elementRef : this._elementRef)
             .withTransformOriginOn(`.${this._cssClassPrefix}-tooltip`)
@@ -354,11 +352,11 @@ class MatTooltip {
                 }
             }
         });
-        this._overlayRef = this._overlay.create({
+        this._overlayRef = overlay.create({
             direction: this._dir,
             positionStrategy: strategy,
             panelClass: `${this._cssClassPrefix}-${PANEL_CLASS}`,
-            scrollStrategy: this._scrollStrategy(),
+            scrollStrategy: this._injector.get(MAT_TOOLTIP_SCROLL_STRATEGY)(),
         });
         this._updatePosition(this._overlayRef);
         this._overlayRef
@@ -648,7 +646,9 @@ class MatTooltip {
     /** Listener for the `wheel` event on the element. */
     _wheelListener(event) {
         if (this._isTooltipVisible()) {
-            const elementUnderPointer = this._document.elementFromPoint(event.clientX, event.clientY);
+            const elementUnderPointer = this._injector
+                .get(DOCUMENT)
+                .elementFromPoint(event.clientX, event.clientY);
             const element = this._elementRef.nativeElement;
             // On non-touch devices we depend on the `mouseleave` event to close the tooltip, but it
             // won't fire if the user scrolls away using the wheel without moving their cursor. We
