@@ -70,10 +70,7 @@ export declare const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: {
  * https://material.io/design/components/tooltips.html
  */
 export declare class MatTooltip implements OnDestroy, AfterViewInit {
-    private _overlay;
     private _elementRef;
-    private _scrollDispatcher;
-    private _viewContainerRef;
     private _ngZone;
     private _platform;
     private _ariaDescriber;
@@ -88,7 +85,6 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _positionAtOrigin;
     private _disabled;
     private _tooltipClass;
-    private _scrollStrategy;
     private _viewInitialized;
     private _pointerExitEventsInitialized;
     private readonly _tooltipComponent;
@@ -145,8 +141,6 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     });
     /** Manually-bound passive event listeners. */
     private readonly _passiveListeners;
-    /** Reference to the current document. */
-    private _document;
     /** Timer started at the last `touchstart` event. */
     private _touchstartTimeout;
     /** Emits when the component is destroyed. */
