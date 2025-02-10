@@ -96,7 +96,6 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     private _dir;
     private _idGenerator;
     private _renderer;
-    private _ngZone;
     protected _parentFormField: MatFormField | null;
     ngControl: NgControl;
     private _liveAnnouncer;
@@ -316,6 +315,8 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     close(): void;
     /** Triggers the exit animation and detaches the overlay at the end. */
     private _exitAndDetach;
+    /** Detaches the current overlay directive. */
+    private _detachOverlay;
     /**
      * Sets the select's value. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.

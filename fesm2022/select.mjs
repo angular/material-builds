@@ -1,6 +1,6 @@
 import { Overlay, CdkOverlayOrigin, CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, Renderer2, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, ErrorStateMatcher, _ErrorStateTracker, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
 export { MatOptgroup, MatOption } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -89,7 +89,6 @@ class MatSelect {
     _dir = inject(Directionality, { optional: true });
     _idGenerator = inject(_IdGenerator);
     _renderer = inject(Renderer2);
-    _ngZone = inject(NgZone);
     _parentFormField = inject(MAT_FORM_FIELD, { optional: true });
     ngControl = inject(NgControl, { self: true, optional: true });
     _liveAnnouncer = inject(LiveAnnouncer);
@@ -574,31 +573,36 @@ class MatSelect {
     /** Triggers the exit animation and detaches the overlay at the end. */
     _exitAndDetach() {
         if (this._animationsDisabled || !this.panel) {
-            this._overlayDir.detachOverlay();
+            this._detachOverlay();
             return;
         }
-        this._ngZone.runOutsideAngular(() => {
-            this._cleanupDetach?.();
-            this._cleanupDetach = () => {
-                cleanupEvent();
-                clearTimeout(exitFallbackTimer);
-                this._cleanupDetach = undefined;
-            };
-            const panel = this.panel.nativeElement;
-            const cleanupEvent = this._renderer.listen(panel, 'animationend', (event) => {
-                if (event.animationName === '_mat-select-exit') {
-                    this._cleanupDetach?.();
-                    this._overlayDir.detachOverlay();
-                }
-            });
-            // Since closing the overlay depends on the animation, we have a fallback in case the panel
-            // doesn't animate. This can happen in some internal tests that do `* {animation: none}`.
-            const exitFallbackTimer = setTimeout(() => {
+        this._cleanupDetach?.();
+        this._cleanupDetach = () => {
+            cleanupEvent();
+            clearTimeout(exitFallbackTimer);
+            this._cleanupDetach = undefined;
+        };
+        const panel = this.panel.nativeElement;
+        const cleanupEvent = this._renderer.listen(panel, 'animationend', (event) => {
+            if (event.animationName === '_mat-select-exit') {
                 this._cleanupDetach?.();
-                this._overlayDir.detachOverlay();
-            }, 200);
-            panel.classList.add('mat-select-panel-exit');
+                this._detachOverlay();
+            }
         });
+        // Since closing the overlay depends on the animation, we have a fallback in case the panel
+        // doesn't animate. This can happen in some internal tests that do `* {animation: none}`.
+        const exitFallbackTimer = setTimeout(() => {
+            this._cleanupDetach?.();
+            this._detachOverlay();
+        }, 200);
+        panel.classList.add('mat-select-panel-exit');
+    }
+    /** Detaches the current overlay directive. */
+    _detachOverlay() {
+        this._overlayDir.detachOverlay();
+        // Some of the overlay detachment logic depends on change detection.
+        // Mark for check to ensure that things get picked up in a timely manner.
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Sets the select's value. Part of the ControlValueAccessor interface
