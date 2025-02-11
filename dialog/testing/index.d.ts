@@ -44,7 +44,7 @@ export declare class MatDialogHarness extends ContentContainerComponentHarness<M
      * Note: this method does nothing if `disableClose` has been set to `true` for the dialog.
      */
     close(): Promise<void>;
-    /** Gets te dialog's text. */
+    /** Gets the dialog's text. */
     getText(): Promise<string>;
     /** Gets the dialog's title text. This only works if the dialog is using mat-dialog-title. */
     getTitleText(): Promise<string>;
