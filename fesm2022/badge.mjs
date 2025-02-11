@@ -80,8 +80,9 @@ class MatBadge {
     _interactivityChecker = inject(InteractivityChecker);
     _document = inject(DOCUMENT);
     constructor() {
-        inject(_CdkPrivateStyleLoader).load(_MatBadgeStyleLoader);
-        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
+        const styleLoader = inject(_CdkPrivateStyleLoader);
+        styleLoader.load(_MatBadgeStyleLoader);
+        styleLoader.load(_VisuallyHiddenLoader);
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             const nativeElement = this._elementRef.nativeElement;
             if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {

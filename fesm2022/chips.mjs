@@ -341,8 +341,9 @@ class MatChip {
     _rippleLoader = inject(MatRippleLoader);
     _injector = inject(Injector);
     constructor() {
-        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
-        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
+        const styleLoader = inject(_CdkPrivateStyleLoader);
+        styleLoader.load(_StructuralStylesLoader);
+        styleLoader.load(_VisuallyHiddenLoader);
         const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         this._animationsDisabled = animationMode === 'NoopAnimations';
         this._monitorFocus();
