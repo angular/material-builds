@@ -59,7 +59,7 @@ class MatDialogHarness
     async close() {
         await (await this.host()).sendKeys(TestKey.ESCAPE);
     }
-    /** Gets te dialog's text. */
+    /** Gets the dialog's text. */
     async getText() {
         return (await this.host()).text();
     }
