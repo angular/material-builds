@@ -86,8 +86,9 @@ class MatStepHeader extends CdkStepHeader {
     color;
     constructor() {
         super();
-        inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
-        inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
+        const styleLoader = inject(_CdkPrivateStyleLoader);
+        styleLoader.load(_StructuralStylesLoader);
+        styleLoader.load(_VisuallyHiddenLoader);
         const changeDetectorRef = inject(ChangeDetectorRef);
         this._intlSubscription = this._intl.changes.subscribe(() => changeDetectorRef.markForCheck());
     }
