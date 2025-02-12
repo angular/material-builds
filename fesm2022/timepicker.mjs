@@ -92,6 +92,14 @@ function validateAdapter(adapter, formats) {
     }
 }
 
+/** Injection token used to configure the behavior of the timepicker dropdown while scrolling. */
+const MAT_TIMEPICKER_SCROLL_STRATEGY = new InjectionToken('MAT_TIMEPICKER_SCROLL_STRATEGY', {
+    providedIn: 'root',
+    factory: () => {
+        const overlay = inject(Overlay);
+        return () => overlay.scrollStrategies.reposition();
+    },
+});
 /**
  * Renders out a listbox that can be used to select a time of day.
  * Intended to be used together with `MatTimepickerInput`.
@@ -104,6 +112,7 @@ class MatTimepicker {
     _defaultConfig = inject(MAT_TIMEPICKER_CONFIG, { optional: true });
     _dateAdapter = inject(DateAdapter, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
+    _scrollStrategyFactory = inject(MAT_TIMEPICKER_SCROLL_STRATEGY);
     _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
     _isOpen = signal(false);
     _activeDescendant = signal(null);
@@ -283,7 +292,7 @@ class MatTimepicker {
         ]);
         this._overlayRef = this._overlay.create({
             positionStrategy,
-            scrollStrategy: this._overlay.scrollStrategies.reposition(),
+            scrollStrategy: this._scrollStrategyFactory(),
             direction: this._dir || 'ltr',
             hasBackdrop: false,
         });
@@ -870,5 +879,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.1.3", ngImpor
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_TIMEPICKER_CONFIG, MatTimepicker, MatTimepickerInput, MatTimepickerModule, MatTimepickerToggle };
+export { MAT_TIMEPICKER_CONFIG, MAT_TIMEPICKER_SCROLL_STRATEGY, MatTimepicker, MatTimepickerInput, MatTimepickerModule, MatTimepickerToggle };
 //# sourceMappingURL=timepicker.mjs.map

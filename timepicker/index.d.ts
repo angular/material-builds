@@ -11,6 +11,7 @@ import { MatOptionParentComponent } from '@angular/material/core';
 import { ModelSignal } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OutputEmitterRef } from '@angular/core';
+import { ScrollStrategy } from '@angular/cdk/overlay';
 import { Signal } from '@angular/core';
 import { TemplateRef } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
@@ -19,6 +20,7 @@ import { Validator } from '@angular/forms';
 declare namespace i1 {
     export {
         MatTimepickerSelected,
+        MAT_TIMEPICKER_SCROLL_STRATEGY,
         MatTimepicker
     }
 }
@@ -40,6 +42,9 @@ declare namespace i3 {
  */
 export declare const MAT_TIMEPICKER_CONFIG: InjectionToken<MatTimepickerConfig>;
 
+/** Injection token used to configure the behavior of the timepicker dropdown while scrolling. */
+export declare const MAT_TIMEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+
 /**
  * Renders out a listbox that can be used to select a time of day.
  * Intended to be used together with `MatTimepickerInput`.
@@ -52,6 +57,7 @@ export declare class MatTimepicker<D> implements OnDestroy, MatOptionParentCompo
     private _defaultConfig;
     private _dateAdapter;
     private _dateFormats;
+    private _scrollStrategyFactory;
     protected _animationsDisabled: boolean;
     private _isOpen;
     private _activeDescendant;
