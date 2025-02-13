@@ -370,8 +370,10 @@
     "packageGroup": [
       "@angular/material",
       "@angular/cdk",
-      "@angular/material-moment-adapter",
+      "@angular/cdk-experimental",
+      "@angular/material-experimental",
       "@angular/material-luxon-adapter",
+      "@angular/material-moment-adapter",
       "@angular/material-date-fns-adapter"
     ]
   },
