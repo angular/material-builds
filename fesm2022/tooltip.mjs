@@ -83,6 +83,7 @@ class MatTooltip {
     _focusMonitor = inject(FocusMonitor);
     _dir = inject(Directionality);
     _injector = inject(Injector);
+    _viewContainerRef = inject(ViewContainerRef);
     _defaultOptions = inject(MAT_TOOLTIP_DEFAULT_OPTIONS, {
         optional: true,
     });
@@ -287,8 +288,7 @@ class MatTooltip {
         const overlayRef = this._createOverlay(origin);
         this._detach();
         this._portal =
-            this._portal ||
-                new ComponentPortal(this._tooltipComponent, this._injector.get(ViewContainerRef));
+            this._portal || new ComponentPortal(this._tooltipComponent, this._viewContainerRef);
         const instance = (this._tooltipInstance = overlayRef.attach(this._portal).instance);
         instance._triggerElement = this._elementRef.nativeElement;
         instance._mouseLeaveHideDelay = this._hideDelay;
