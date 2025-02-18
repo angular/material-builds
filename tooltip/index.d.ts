@@ -76,6 +76,7 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _focusMonitor;
     protected _dir: Directionality;
     private _injector;
+    private _viewContainerRef;
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
     _tooltipInstance: TooltipComponent | null;
