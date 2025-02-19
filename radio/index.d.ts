@@ -164,16 +164,16 @@ export declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, O
 }
 
 /** Change event object emitted by radio button and radio group. */
-export declare class MatRadioChange {
+export declare class MatRadioChange<T = any> {
     /** The radio button that emits the change event. */
     source: MatRadioButton;
     /** The value of the radio button. */
-    value: any;
+    value: T;
     constructor(
     /** The radio button that emits the change event. */
     source: MatRadioButton, 
     /** The value of the radio button. */
-    value: any);
+    value: T);
 }
 
 export declare interface MatRadioDefaultOptions {
