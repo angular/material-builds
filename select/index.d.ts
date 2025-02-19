@@ -266,7 +266,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     /** Event emitted when the select has been closed. */
     readonly _closedStream: Observable<void>;
     /** Event emitted when the selected value has been changed by the user. */
-    readonly selectionChange: EventEmitter<MatSelectChange>;
+    readonly selectionChange: EventEmitter<MatSelectChange<any>>;
     /**
      * Event that emits whenever the raw value of the select changes. This is here primarily
      * to facilitate the two-way binding for the `value` input.
@@ -463,16 +463,16 @@ export declare const matSelectAnimations: {
 };
 
 /** Change event object that is emitted when the select value has changed. */
-export declare class MatSelectChange {
+export declare class MatSelectChange<T = any> {
     /** Reference to the select that emitted the change event. */
     source: MatSelect;
     /** Current value of the select that emitted the event. */
-    value: any;
+    value: T;
     constructor(
     /** Reference to the select that emitted the change event. */
     source: MatSelect, 
     /** Current value of the select that emitted the event. */
-    value: any);
+    value: T);
 }
 
 /** Object that can be used to configure the default options for the select module. */
