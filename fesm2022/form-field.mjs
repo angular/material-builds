@@ -602,6 +602,7 @@ class MatFormField {
     _explicitFormFieldControl;
     _needsOutlineLabelOffsetUpdate = false;
     _previousControl = null;
+    _previousControlValidatorFn = null;
     _stateChanges;
     _valueChanges;
     _describedByChanges;
@@ -636,9 +637,25 @@ class MatFormField {
     }
     ngAfterContentChecked() {
         this._assertFormFieldControl();
+        // if form field was being used with an input in first place and then replaced by other
+        // component such as select.
         if (this._control !== this._previousControl) {
             this._initializeControl(this._previousControl);
+            // keep a reference for last validator we had.
+            if (this._control.ngControl && this._control.ngControl.control) {
+                this._previousControlValidatorFn = this._control.ngControl.control.validator;
+            }
             this._previousControl = this._control;
+        }
+        // make sure the the control has been initialized.
+        if (this._control.ngControl && this._control.ngControl.control) {
+            // get the validators for current control.
+            const validatorFn = this._control.ngControl.control.validator;
+            // if our current validatorFn isn't equal to it might be we are CD behind, marking the
+            // component will allow us to catch up.
+            if (validatorFn !== this._previousControlValidatorFn) {
+                this._changeDetectorRef.markForCheck();
+            }
         }
     }
     ngOnDestroy() {

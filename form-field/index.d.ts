@@ -192,6 +192,7 @@ export declare class MatFormField implements FloatingLabelParent, AfterContentIn
     private _explicitFormFieldControl;
     private _needsOutlineLabelOffsetUpdate;
     private _previousControl;
+    private _previousControlValidatorFn;
     private _stateChanges;
     private _valueChanges;
     private _describedByChanges;
