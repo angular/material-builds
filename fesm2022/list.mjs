@@ -974,6 +974,7 @@ class MatSelectionList extends MatListBase {
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
         this._changeDetectorRef.markForCheck();
+        this._markOptionsForCheck();
     }
     /**
      * Whether the *entire* selection list is disabled. When true, each list item is also disabled
