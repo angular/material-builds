@@ -1403,6 +1403,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected _parentDisabled(): boolean;
     protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueProgrammatically(value: D | null): void;
+    protected _formatValue(value: D | null): void;
     /** return the ARIA accessible name of the input element */
     _getAccessibleName(): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInputPartBase<any>, never>;
@@ -1811,7 +1812,6 @@ export declare class MatStartDate<D> extends MatDateRangeInputPartBase<D> {
     protected _getValueFromModel(modelValue: DateRange<D>): D | null;
     protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueToModel(value: D | null): void;
-    protected _formatValue(value: D | null): void;
     _onKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;

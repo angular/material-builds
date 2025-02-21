@@ -4306,6 +4306,11 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
             : this._rangeInput._startInput);
         opposite?._validatorOnChange();
     }
+    _formatValue(value) {
+        super._formatValue(value);
+        // Any time the input value is reformatted we need to tell the parent.
+        this._rangeInput._handleChildValueChange();
+    }
     /** return the ARIA accessible name of the input element */
     _getAccessibleName() {
         return _computeAriaAccessibleName(this._elementRef.nativeElement);
@@ -4350,12 +4355,8 @@ class MatStartDate extends MatDateRangeInputPartBase {
         if (this._model) {
             const range = new DateRange(value, this._model.selection.end);
             this._model.updateSelection(range, this);
+            this._rangeInput._handleChildValueChange();
         }
-    }
-    _formatValue(value) {
-        super._formatValue(value);
-        // Any time the input value is reformatted we need to tell the parent.
-        this._rangeInput._handleChildValueChange();
     }
     _onKeydown(event) {
         const endInput = this._rangeInput._endInput;
