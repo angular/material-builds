@@ -24,7 +24,11 @@ import { Subject } from 'rxjs';
 import { Version } from '@angular/core';
 
 
-/** @docs-private */
+/**
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ * @docs-private
+ */
 export declare class AnimationCurves {
     static STANDARD_CURVE: string;
     static DECELERATION_CURVE: string;
@@ -32,7 +36,11 @@ export declare class AnimationCurves {
     static SHARP_CURVE: string;
 }
 
-/** @docs-private */
+/**
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ * @docs-private
+ */
 export declare class AnimationDurations {
     static COMPLEX: string;
     static ENTERING: string;
