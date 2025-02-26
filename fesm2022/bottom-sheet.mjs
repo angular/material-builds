@@ -72,9 +72,6 @@ class MatBottomSheetContainer extends CdkDialogContainer {
     _handleAnimationEvent(isStart, animationName) {
         const isEnter = animationName === ENTER_ANIMATION;
         const isExit = animationName === EXIT_ANIMATION;
-        if (isEnter) {
-            this._trapFocus();
-        }
         if (isEnter || isExit) {
             this._animationStateChanged.emit({
                 toState: isEnter ? 'visible' : 'hidden',
@@ -82,7 +79,6 @@ class MatBottomSheetContainer extends CdkDialogContainer {
             });
         }
     }
-    _captureInitialFocus() { }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0-rc.0", ngImport: i0, type: MatBottomSheetContainer, deps: [], target: i0.ɵɵFactoryTarget.Component });
     static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "19.2.0-rc.0", type: MatBottomSheetContainer, isStandalone: true, selector: "mat-bottom-sheet-container", host: { attributes: { "tabindex": "-1" }, listeners: { "animationstart": "_handleAnimationEvent(true, $event.animationName)", "animationend": "_handleAnimationEvent(false, $event.animationName)", "animationcancel": "_handleAnimationEvent(false, $event.animationName)" }, properties: { "class.mat-bottom-sheet-container-animations-enabled": "!_animationsDisabled", "class.mat-bottom-sheet-container-enter": "_animationState === \"visible\"", "class.mat-bottom-sheet-container-exit": "_animationState === \"hidden\"", "attr.role": "_config.role", "attr.aria-modal": "_config.ariaModal", "attr.aria-label": "_config.ariaLabel" }, classAttribute: "mat-bottom-sheet-container" }, usesInheritance: true, ngImport: i0, template: "<ng-template cdkPortalOutlet></ng-template>\r\n", styles: ["@keyframes _mat-bottom-sheet-enter{from{transform:translateY(100%)}to{transform:none}}@keyframes _mat-bottom-sheet-exit{from{transform:none}to{transform:translateY(100%)}}.mat-bottom-sheet-container{box-shadow:0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0;max-height:80vh;overflow:auto;position:relative;background:var(--mat-bottom-sheet-container-background-color, var(--mat-sys-surface-container-low));color:var(--mat-bottom-sheet-container-text-color, var(--mat-sys-on-surface));font-family:var(--mat-bottom-sheet-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-bottom-sheet-container-text-size, var(--mat-sys-body-large-size));line-height:var(--mat-bottom-sheet-container-text-line-height, var(--mat-sys-body-large-line-height));font-weight:var(--mat-bottom-sheet-container-text-weight, var(--mat-sys-body-large-weight));letter-spacing:var(--mat-bottom-sheet-container-text-tracking, var(--mat-sys-body-large-tracking))}@media(forced-colors: active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-animations-enabled{transform:translateY(100%)}.mat-bottom-sheet-container-animations-enabled.mat-bottom-sheet-container-enter{animation:_mat-bottom-sheet-enter 195ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-bottom-sheet-container-animations-enabled.mat-bottom-sheet-container-exit{animation:_mat-bottom-sheet-exit 375ms cubic-bezier(0.4, 0, 1, 1) backwards}.mat-bottom-sheet-container-xlarge,.mat-bottom-sheet-container-large,.mat-bottom-sheet-container-medium{border-top-left-radius:var(--mat-bottom-sheet-container-shape, 28px);border-top-right-radius:var(--mat-bottom-sheet-container-shape, 28px)}.mat-bottom-sheet-container-medium{min-width:384px;max-width:calc(100vw - 128px)}.mat-bottom-sheet-container-large{min-width:512px;max-width:calc(100vw - 256px)}.mat-bottom-sheet-container-xlarge{min-width:576px;max-width:calc(100vw - 384px)}"], dependencies: [{ kind: "directive", type: CdkPortalOutlet, selector: "[cdkPortalOutlet]", inputs: ["cdkPortalOutlet"], outputs: ["attached"], exportAs: ["cdkPortalOutlet"] }], changeDetection: i0.ChangeDetectionStrategy.Default, encapsulation: i0.ViewEncapsulation.None });
 }
@@ -137,15 +133,12 @@ class MatBottomSheetConfig {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation = true;
-    // Note that this is set to 'dialog' by default, because while the a11y recommendations
-    // are to focus the first focusable element, doing so prevents screen readers from reading out the
-    // rest of the bottom sheet content.
     /**
      * Where the bottom sheet should focus on open.
      * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
      * AutoFocusTarget instead.
      */
-    autoFocus = 'dialog';
+    autoFocus = 'first-tabbable';
     /**
      * Whether the bottom sheet should restore focus to the
      * previously-focused element, after it's closed.
