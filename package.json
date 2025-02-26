@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "19.2.0-rc.0",
+  "version": "19.2.0",
   "description": "Angular Material",
   "repository": {
     "type": "git",
@@ -353,11 +353,11 @@
     }
   },
   "peerDependencies": {
-    "@angular/cdk": "19.2.0-rc.0",
-    "@angular/core": "^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0",
-    "@angular/common": "^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0",
-    "@angular/forms": "^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0",
-    "@angular/platform-browser": "^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0",
+    "@angular/cdk": "19.2.0",
+    "@angular/core": "^19.0.0 || ^20.0.0",
+    "@angular/common": "^19.0.0 || ^20.0.0",
+    "@angular/forms": "^19.0.0 || ^20.0.0",
+    "@angular/platform-browser": "^19.0.0 || ^20.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {
