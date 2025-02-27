@@ -97,7 +97,7 @@ const MAT_TIMEPICKER_SCROLL_STRATEGY = new InjectionToken('MAT_TIMEPICKER_SCROLL
     providedIn: 'root',
     factory: () => {
         const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition();
+        return () => overlay.scrollStrategies.close();
     },
 });
 /**
@@ -296,9 +296,8 @@ class MatTimepicker {
             direction: this._dir || 'ltr',
             hasBackdrop: false,
         });
-        this._overlayRef.keydownEvents().subscribe(event => {
-            this._handleKeydown(event);
-        });
+        this._overlayRef.detachments().subscribe(() => this.close());
+        this._overlayRef.keydownEvents().subscribe(event => this._handleKeydown(event));
         this._overlayRef.outsidePointerEvents().subscribe(event => {
             const target = _getEventTarget(event);
             const origin = this._input()?.getOverlayOrigin().nativeElement;
