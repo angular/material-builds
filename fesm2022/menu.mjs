@@ -200,7 +200,7 @@ class MatMenuContent {
         }
         this.detach();
         if (!this._outlet) {
-            this._outlet = new DomPortalOutlet(this._document.createElement('div'), null, this._appRef, this._injector);
+            this._outlet = new DomPortalOutlet(this._document.createElement('div'), this._appRef, this._injector);
         }
         const element = this._template.elementRef.nativeElement;
         // Because we support opening the same menu from different triggers (which in turn have their

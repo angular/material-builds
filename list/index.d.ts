@@ -333,7 +333,7 @@ export declare class MatListModule {
 }
 
 export declare class MatListOption extends MatListItemBase implements ListOption, OnInit, OnDestroy {
-    private _selectionList;
+    protected _selectionList: SelectionList;
     private _changeDetectorRef;
     _lines: QueryList<MatListItemLine>;
     _titles: QueryList<MatListItemTitle>;
