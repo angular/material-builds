@@ -7378,7 +7378,7 @@ var require_explicit_system_variable_prefix = __commonJS({
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/index.mjs
 var ng_update_exports = {};
 __export(ng_update_exports, {
-  updateToV19: () => updateToV19
+  updateToV20: () => updateToV20
 });
 module.exports = __toCommonJS(ng_update_exports);
 var import_schematics = require("@angular/cdk/schematics");
@@ -7389,8 +7389,8 @@ var materialMigrations = [
   import_mat_core_removal.MatCoreMigration,
   import_explicit_system_variable_prefix.ExplicitSystemVariablePrefixMigration
 ];
-function updateToV19() {
-  return (0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V19, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete);
+function updateToV20() {
+  return (0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V20, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete);
 }
 function onMigrationComplete(context, targetVersion, hasFailures) {
   context.logger.info("");
@@ -7402,7 +7402,7 @@ function onMigrationComplete(context, targetVersion, hasFailures) {
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  updateToV19
+  updateToV20
 });
 /**
  * @license
