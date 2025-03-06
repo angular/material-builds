@@ -444,9 +444,5 @@ const matBottomSheetAnimations = {
     },
 };
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_BOTTOM_SHEET_DATA, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheet, MatBottomSheetConfig, MatBottomSheetContainer, MatBottomSheetModule, MatBottomSheetRef, matBottomSheetAnimations };
 //# sourceMappingURL=bottom-sheet.mjs.map

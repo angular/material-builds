@@ -819,9 +819,5 @@ class MatTableDataSource extends DataSource {
     }
 }
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MatCell, MatCellDef, MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRecycleRows, MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule, MatTextColumn };
 //# sourceMappingURL=table.mjs.map

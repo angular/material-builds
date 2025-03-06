@@ -874,9 +874,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                 }]
         }] });
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_TIMEPICKER_CONFIG, MAT_TIMEPICKER_SCROLL_STRATEGY, MatTimepicker, MatTimepickerInput, MatTimepickerModule, MatTimepickerToggle };
 //# sourceMappingURL=timepicker.mjs.map

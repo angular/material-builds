@@ -353,9 +353,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                 }]
         }] });
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_PAGINATOR_DEFAULT_OPTIONS, MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent };
 //# sourceMappingURL=paginator.mjs.map

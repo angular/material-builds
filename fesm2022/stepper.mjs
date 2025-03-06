@@ -708,9 +708,5 @@ const matStepperAnimations = {
     },
 };
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_STEPPER_INTL_PROVIDER, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious, matStepperAnimations };
 //# sourceMappingURL=stepper.mjs.map

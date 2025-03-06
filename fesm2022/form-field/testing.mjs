@@ -189,7 +189,5 @@ class MatFormFieldHarness extends ComponentHarness {
     }
 }
 
-// Re-export the base control harness from the "form-field/testing/control" entry-point. To
-
 export { MatErrorHarness, MatFormFieldHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -4,10 +4,10 @@ import { HighContrastModeDetector, isFakeMousedownFromScreenReader, isFakeTouchs
 import { BidiModule } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { normalizePassiveListenerOptions, _getEventTarget, Platform, _bindEventWithOptions } from '@angular/cdk/platform';
 import { coerceElement } from '@angular/cdk/coercion';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
-import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 
 /** Current version of Angular Material. */
@@ -1958,10 +1958,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                 type: Input,
                 args: [{ required: true }]
             }] } });
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, RippleRef, RippleRenderer, RippleState, ShowOnDirtyErrorStateMatcher, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, provideNativeDateAdapter, setLines };
 //# sourceMappingURL=core.mjs.map

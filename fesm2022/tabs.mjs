@@ -1,16 +1,16 @@
-import * as i0 from '@angular/core';
-import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, NgZone, Injector, Renderer2, ANIMATION_MODULE_TYPE, EventEmitter, afterNextRender, numberAttribute, Output, ContentChildren, QueryList, ViewChildren, forwardRef, HostAttributeToken, NgModule } from '@angular/core';
-import { _StructuralStylesLoader, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
-import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
-import { Subject, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
-import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { FocusKeyManager, _IdGenerator, CdkMonitorFocus, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
 import { Platform, _bindEventWithOptions } from '@angular/cdk/platform';
 import { ViewportRuler, CdkScrollable } from '@angular/cdk/scrolling';
+import * as i0 from '@angular/core';
+import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, NgZone, Injector, Renderer2, ANIMATION_MODULE_TYPE, EventEmitter, afterNextRender, numberAttribute, Output, ContentChildren, QueryList, ViewChildren, forwardRef, HostAttributeToken, NgModule } from '@angular/core';
+import { Subject, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
 import { debounceTime, takeUntil, startWith, switchMap, skip, filter } from 'rxjs/operators';
+import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
+import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _StructuralStylesLoader, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
 import { CdkObserveContent } from '@angular/cdk/observers';
 
 /**
@@ -1188,8 +1188,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                 type: Input
             }] } });
 
-/** Boolean constant that determines whether the tab group supports the `backgroundColor` input */
-const ENABLE_BACKGROUND_INPUT = true;
 /**
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -1301,9 +1299,6 @@ class MatTabGroup {
         return this._backgroundColor;
     }
     set backgroundColor(value) {
-        if (!ENABLE_BACKGROUND_INPUT) {
-            throw new Error(`mat-tab-group background color must be set through the Sass theming API`);
-        }
         const classList = this._elementRef.nativeElement.classList;
         classList.remove('mat-tabs-with-background', `mat-background-${this.backgroundColor}`);
         if (value) {
@@ -2237,10 +2232,6 @@ const matTabsAnimations = {
         options: {},
     },
 };
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { MAT_TAB, MAT_TABS_CONFIG, MAT_TAB_CONTENT, MAT_TAB_GROUP, MAT_TAB_LABEL, MatInkBar, MatPaginatedTabHeader, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabNavPanel, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MAT_INK_BAR_POSITIONER_FACTORY, matTabsAnimations };
 //# sourceMappingURL=tabs.mjs.map

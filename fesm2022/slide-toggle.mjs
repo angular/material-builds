@@ -304,9 +304,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                 }]
         }] });
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS, MatSlideToggle, MatSlideToggleChange, MatSlideToggleModule };
 //# sourceMappingURL=slide-toggle.mjs.map

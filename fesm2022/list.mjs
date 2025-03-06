@@ -1,13 +1,13 @@
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, Directive, Input, NgZone, ANIMATION_MODULE_TYPE, Injector, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, EventEmitter, Output, forwardRef, Renderer2, NgModule } from '@angular/core';
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { _StructuralStylesLoader, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, MatCommonModule, MatRippleModule, MatPseudoCheckboxModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { Subscription, merge, Subject } from 'rxjs';
+import { NgTemplateOutlet } from '@angular/common';
 import { CdkObserveContent, ObserversModule } from '@angular/cdk/observers';
 import { MatDividerModule } from '@angular/material/divider';
-import { NgTemplateOutlet } from '@angular/common';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ENTER, SPACE, A, hasModifierKey } from '@angular/cdk/keycodes';
@@ -1275,10 +1275,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                     ],
                 }]
         }] });
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { MAT_LIST, MAT_LIST_CONFIG, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatActionList, MatList, MatListItem, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemMeta, MatListItemTitle, MatListModule, MatListOption, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange, SELECTION_LIST, _MatListItemGraphicBase };
 //# sourceMappingURL=list.mjs.map
