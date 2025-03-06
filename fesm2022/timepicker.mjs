@@ -97,7 +97,7 @@ const MAT_TIMEPICKER_SCROLL_STRATEGY = new InjectionToken('MAT_TIMEPICKER_SCROLL
     providedIn: 'root',
     factory: () => {
         const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.close();
+        return () => overlay.scrollStrategies.reposition();
     },
 });
 /**
