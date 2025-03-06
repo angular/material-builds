@@ -456,11 +456,6 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
  * @breaking-change 21.0.0
  */
 export declare const matSelectAnimations: {
-    /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 12.0.0
-     */
-    readonly transformPanelWrap: any;
     readonly transformPanel: any;
 };
 

@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, Input, Output, Directive, NgModule } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, Input, Output, NgModule } from '@angular/core';
+import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { FocusMonitor, _IdGenerator } from '@angular/cdk/a11y';
 import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
@@ -11,15 +11,6 @@ const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-de
     factory: () => ({ disableToggleValue: false, hideIcon: false, disabledInteractive: false }),
 });
 
-/**
- * @deprecated Will stop being exported.
- * @breaking-change 19.0.0
- */
-const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatSlideToggle),
-    multi: true,
-};
 /** Change event object emitted by a slide toggle. */
 class MatSlideToggleChange {
     source;
@@ -215,7 +206,11 @@ class MatSlideToggle {
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatSlideToggle, deps: [], target: i0.ɵɵFactoryTarget.Component });
     static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "20.0.0-next.1", type: MatSlideToggle, isStandalone: true, selector: "mat-slide-toggle", inputs: { name: "name", id: "id", labelPosition: "labelPosition", ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"], required: ["required", "required", booleanAttribute], color: "color", disabled: ["disabled", "disabled", booleanAttribute], disableRipple: ["disableRipple", "disableRipple", booleanAttribute], tabIndex: ["tabIndex", "tabIndex", (value) => (value == null ? 0 : numberAttribute(value))], checked: ["checked", "checked", booleanAttribute], hideIcon: ["hideIcon", "hideIcon", booleanAttribute], disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute] }, outputs: { change: "change", toggleChange: "toggleChange" }, host: { properties: { "id": "id", "attr.tabindex": "null", "attr.aria-label": "null", "attr.name": "null", "attr.aria-labelledby": "null", "class.mat-mdc-slide-toggle-focused": "_focused", "class.mat-mdc-slide-toggle-checked": "checked", "class._mat-animation-noopable": "_noopAnimations", "class": "color ? \"mat-\" + color : \"\"" }, classAttribute: "mat-mdc-slide-toggle" }, providers: [
-            MAT_SLIDE_TOGGLE_VALUE_ACCESSOR,
+            {
+                provide: NG_VALUE_ACCESSOR,
+                useExisting: forwardRef(() => MatSlideToggle),
+                multi: true,
+            },
             {
                 provide: NG_VALIDATORS,
                 useExisting: MatSlideToggle,
@@ -238,7 +233,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                         '[class._mat-animation-noopable]': '_noopAnimations',
                         '[class]': 'color ? "mat-" + color : ""',
                     }, exportAs: 'matSlideToggle', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, providers: [
-                        MAT_SLIDE_TOGGLE_VALUE_ACCESSOR,
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: forwardRef(() => MatSlideToggle),
+                            multi: true,
+                        },
                         {
                             provide: NG_VALIDATORS,
                             useExisting: MatSlideToggle,
@@ -292,55 +291,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                 type: Output
             }] } });
 
-/**
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-const MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR = {
-    provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => MatSlideToggleRequiredValidator),
-    multi: true,
-};
-/**
- * Validator for Material slide-toggle components with the required attribute in a
- * template-driven form. The default validator for required form controls asserts
- * that the control value is not undefined but that is not appropriate for a slide-toggle
- * where the value is always defined.
- *
- * Required slide-toggle form controls are valid when checked.
- *
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-class MatSlideToggleRequiredValidator extends CheckboxRequiredValidator {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatSlideToggleRequiredValidator, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.1", type: MatSlideToggleRequiredValidator, isStandalone: true, selector: "mat-slide-toggle[required][formControlName],\n             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]", providers: [MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR], usesInheritance: true, ngImport: i0 });
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatSlideToggleRequiredValidator, decorators: [{
-            type: Directive,
-            args: [{
-                    selector: `mat-slide-toggle[required][formControlName],
-             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]`,
-                    providers: [MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR],
-                }]
-        }] });
-
-/**
- * @deprecated No longer used, `MatSlideToggle` implements required validation directly.
- * @breaking-change 19.0.0
- */
-class _MatSlideToggleRequiredValidatorModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: _MatSlideToggleRequiredValidatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.1", ngImport: i0, type: _MatSlideToggleRequiredValidatorModule, imports: [MatSlideToggleRequiredValidator], exports: [MatSlideToggleRequiredValidator] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: _MatSlideToggleRequiredValidatorModule });
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: _MatSlideToggleRequiredValidatorModule, decorators: [{
-            type: NgModule,
-            args: [{
-                    imports: [MatSlideToggleRequiredValidator],
-                    exports: [MatSlideToggleRequiredValidator],
-                }]
-        }] });
 class MatSlideToggleModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatSlideToggleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
     static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatSlideToggleModule, imports: [MatSlideToggle, MatCommonModule], exports: [MatSlideToggle, MatCommonModule] });
@@ -358,5 +308,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS, MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggle, MatSlideToggleChange, MatSlideToggleModule, MatSlideToggleRequiredValidator, _MatSlideToggleRequiredValidatorModule };
+export { MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS, MatSlideToggle, MatSlideToggleChange, MatSlideToggleModule };
 //# sourceMappingURL=slide-toggle.mjs.map

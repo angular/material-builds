@@ -1,7 +1,7 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, inject, ElementRef, ChangeDetectorRef, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, Directive, NgModule } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
@@ -34,15 +34,6 @@ var TransitionCheckState;
     /** The state representing the component when it's becoming indeterminate. */
     TransitionCheckState[TransitionCheckState["Indeterminate"] = 3] = "Indeterminate";
 })(TransitionCheckState || (TransitionCheckState = {}));
-/**
- * @deprecated Will stop being exported.
- * @breaking-change 19.0.0
- */
-const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MatCheckbox),
-    multi: true,
-};
 /** Change event object emitted by checkbox. */
 class MatCheckboxChange {
     /** The source checkbox of the event. */
@@ -403,7 +394,11 @@ class MatCheckbox {
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatCheckbox, deps: [], target: i0.ɵɵFactoryTarget.Component });
     static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "20.0.0-next.1", type: MatCheckbox, isStandalone: true, selector: "mat-checkbox", inputs: { ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"], ariaExpanded: ["aria-expanded", "ariaExpanded", booleanAttribute], ariaControls: ["aria-controls", "ariaControls"], ariaOwns: ["aria-owns", "ariaOwns"], id: "id", required: ["required", "required", booleanAttribute], labelPosition: "labelPosition", name: "name", value: "value", disableRipple: ["disableRipple", "disableRipple", booleanAttribute], tabIndex: ["tabIndex", "tabIndex", (value) => (value == null ? undefined : numberAttribute(value))], color: "color", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute], checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], indeterminate: ["indeterminate", "indeterminate", booleanAttribute] }, outputs: { change: "change", indeterminateChange: "indeterminateChange" }, host: { properties: { "attr.tabindex": "null", "attr.aria-label": "null", "attr.aria-labelledby": "null", "class._mat-animation-noopable": "_animationMode === 'NoopAnimations'", "class.mdc-checkbox--disabled": "disabled", "id": "id", "class.mat-mdc-checkbox-disabled": "disabled", "class.mat-mdc-checkbox-checked": "checked", "class.mat-mdc-checkbox-disabled-interactive": "disabledInteractive", "class": "color ? \"mat-\" + color : \"mat-accent\"" }, classAttribute: "mat-mdc-checkbox" }, providers: [
-            MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
+            {
+                provide: NG_VALUE_ACCESSOR,
+                useExisting: forwardRef(() => MatCheckbox),
+                multi: true,
+            },
             {
                 provide: NG_VALIDATORS,
                 useExisting: MatCheckbox,
@@ -427,7 +422,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                         '[class.mat-mdc-checkbox-disabled-interactive]': 'disabledInteractive',
                         '[class]': 'color ? "mat-" + color : "mat-accent"',
                     }, providers: [
-                        MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
+                        {
+                            provide: NG_VALUE_ACCESSOR,
+                            useExisting: forwardRef(() => MatCheckbox),
+                            multi: true,
+                        },
                         {
                             provide: NG_VALIDATORS,
                             useExisting: MatCheckbox,
@@ -495,52 +494,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                 args: [{ transform: booleanAttribute }]
             }] } });
 
-/**
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-const MAT_CHECKBOX_REQUIRED_VALIDATOR = {
-    provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => MatCheckboxRequiredValidator),
-    multi: true,
-};
-/**
- * Validator for Material checkbox's required attribute in template-driven checkbox.
- * Current CheckboxRequiredValidator only work with `input type=checkbox` and does not
- * work with `mat-checkbox`.
- *
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-class MatCheckboxRequiredValidator extends CheckboxRequiredValidator {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatCheckboxRequiredValidator, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.1", type: MatCheckboxRequiredValidator, isStandalone: true, selector: "mat-checkbox[required][formControlName],\n             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]", providers: [MAT_CHECKBOX_REQUIRED_VALIDATOR], usesInheritance: true, ngImport: i0 });
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatCheckboxRequiredValidator, decorators: [{
-            type: Directive,
-            args: [{
-                    selector: `mat-checkbox[required][formControlName],
-             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]`,
-                    providers: [MAT_CHECKBOX_REQUIRED_VALIDATOR],
-                }]
-        }] });
-
-/**
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-class _MatCheckboxRequiredValidatorModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.1", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, imports: [MatCheckboxRequiredValidator], exports: [MatCheckboxRequiredValidator] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: _MatCheckboxRequiredValidatorModule });
-}
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: _MatCheckboxRequiredValidatorModule, decorators: [{
-            type: NgModule,
-            args: [{
-                    imports: [MatCheckboxRequiredValidator],
-                    exports: [MatCheckboxRequiredValidator],
-                }]
-        }] });
 class MatCheckboxModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatCheckboxModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
     static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox, MatCommonModule], exports: [MatCheckbox, MatCommonModule] });
@@ -558,5 +511,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, MatCheckboxModule, MatCheckboxRequiredValidator, TransitionCheckState, _MatCheckboxRequiredValidatorModule };
+export { MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MatCheckbox, MatCheckboxChange, MatCheckboxModule, TransitionCheckState };
 //# sourceMappingURL=checkbox.mjs.map

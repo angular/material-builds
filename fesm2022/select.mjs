@@ -1289,33 +1289,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
  */
 const matSelectAnimations = {
     // Represents
-    // trigger('transformPanelWrap', [
-    //   transition('* => void', query('@transformPanel', [animateChild()], {optional: true})),
-    // ])
-    /**
-     * This animation ensures the select's overlay panel animation (transformPanel) is called when
-     * closing the select.
-     * This is needed due to https://github.com/angular/angular/issues/23302
-     */
-    transformPanelWrap: {
-        type: 7,
-        name: 'transformPanelWrap',
-        definitions: [
-            {
-                type: 1,
-                expr: '* => void',
-                animation: {
-                    type: 11,
-                    selector: '@transformPanel',
-                    animation: [{ type: 9, options: null }],
-                    options: { optional: true },
-                },
-                options: null,
-            },
-        ],
-        options: {},
-    },
-    // Represents
     // trigger('transformPanel', [
     //   state(
     //     'void',

@@ -529,24 +529,6 @@ const MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-mdc-dialog-scroll-str
     },
 });
 /**
- * @docs-private
- * @deprecated No longer used. To be removed.
- * @breaking-change 19.0.0
- */
-function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.block();
-}
-/**
- * @docs-private
- * @deprecated No longer used. To be removed.
- * @breaking-change 19.0.0
- */
-const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_DIALOG_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
-/**
  * Service to open Material Design modal dialogs.
  */
 class MatDialog {
@@ -1000,5 +982,5 @@ const matDialogAnimations = {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MatDialog, MatDialogActions, MatDialogClose, MatDialogConfig, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogState, MatDialogTitle, _closeDialogVia, _defaultParams, matDialogAnimations };
+export { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MatDialog, MatDialogActions, MatDialogClose, MatDialogConfig, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogState, MatDialogTitle, _closeDialogVia, _defaultParams, matDialogAnimations };
 //# sourceMappingURL=dialog.mjs.map

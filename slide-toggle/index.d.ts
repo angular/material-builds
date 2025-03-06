@@ -1,33 +1,22 @@
 import { AbstractControl } from '@angular/forms';
 import { AfterContentInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
-import { CheckboxRequiredValidator } from '@angular/forms';
 import { ControlValueAccessor } from '@angular/forms';
 import { ElementRef } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i3 from '@angular/material/core';
+import * as i2 from '@angular/material/core';
 import { InjectionToken } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { Provider } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { Type } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { Validator } from '@angular/forms';
 
 declare namespace i1 {
     export {
-        MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR,
-        MatSlideToggleRequiredValidator
-    }
-}
-
-declare namespace i2 {
-    export {
-        MAT_SLIDE_TOGGLE_VALUE_ACCESSOR,
         MatSlideToggleChange,
         MatSlideToggle
     }
@@ -35,22 +24,6 @@ declare namespace i2 {
 
 /** Injection token to be used to override the default options for `mat-slide-toggle`. */
 export declare const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatSlideToggleDefaultOptions>;
-
-/**
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-export declare const MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR: Provider;
-
-/**
- * @deprecated Will stop being exported.
- * @breaking-change 19.0.0
- */
-export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: {
-    provide: InjectionToken<readonly ControlValueAccessor[]>;
-    useExisting: Type<any>;
-    multi: boolean;
-};
 
 export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, ControlValueAccessor, Validator {
     private _elementRef;
@@ -189,34 +162,8 @@ export declare interface MatSlideToggleDefaultOptions {
 
 export declare class MatSlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof i2.MatSlideToggle, typeof i3.MatCommonModule], [typeof i2.MatSlideToggle, typeof i3.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof i1.MatSlideToggle, typeof i2.MatCommonModule], [typeof i1.MatSlideToggle, typeof i2.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSlideToggleModule>;
-}
-
-/**
- * Validator for Material slide-toggle components with the required attribute in a
- * template-driven form. The default validator for required form controls asserts
- * that the control value is not undefined but that is not appropriate for a slide-toggle
- * where the value is always defined.
- *
- * Required slide-toggle form controls are valid when checked.
- *
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-export declare class MatSlideToggleRequiredValidator extends CheckboxRequiredValidator {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleRequiredValidator, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSlideToggleRequiredValidator, "mat-slide-toggle[required][formControlName],             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]", never, {}, {}, never, never, true, never>;
-}
-
-/**
- * @deprecated No longer used, `MatSlideToggle` implements required validation directly.
- * @breaking-change 19.0.0
- */
-export declare class _MatSlideToggleRequiredValidatorModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSlideToggleRequiredValidatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<_MatSlideToggleRequiredValidatorModule, never, [typeof i1.MatSlideToggleRequiredValidator], [typeof i1.MatSlideToggleRequiredValidator]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<_MatSlideToggleRequiredValidatorModule>;
 }
 
 export { }
