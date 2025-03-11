@@ -1,74 +1,84 @@
-import { AfterViewInit } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { ConnectedPosition } from '@angular/cdk/overlay';
-import { Directionality } from '@angular/cdk/bidi';
-import { ElementRef } from '@angular/core';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/cdk/a11y';
+import { InjectionToken, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
+import { Directionality } from '@angular/cdk/bidi';
 import * as i2 from '@angular/cdk/overlay';
-import * as i3 from '@angular/material/core';
-import * as i5 from '@angular/cdk/scrolling';
-import { InjectionToken } from '@angular/core';
-import { NumberInput } from '@angular/cdk/coercion';
+import { ScrollStrategy, Overlay, OverlayRef, ConnectedPosition, OriginConnectionPosition, OverlayConnectionPosition } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
-import { OriginConnectionPosition } from '@angular/cdk/overlay';
-import { Overlay } from '@angular/cdk/overlay';
-import { OverlayConnectionPosition } from '@angular/cdk/overlay';
-import { OverlayRef } from '@angular/cdk/overlay';
-import { ScrollStrategy } from '@angular/cdk/overlay';
+import * as i1 from '@angular/cdk/a11y';
+import * as i1$1 from '@angular/material/core';
+import * as i2$1 from '@angular/cdk/scrolling';
 
+/** Possible positions for a tooltip. */
+type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
+/**
+ * Options for how the tooltip trigger should handle touch gestures.
+ * See `MatTooltip.touchGestures` for more information.
+ */
+type TooltipTouchGestures = 'auto' | 'on' | 'off';
+/** Possible visibility states of a tooltip. */
+type TooltipVisibility = 'initial' | 'visible' | 'hidden';
+/** Time in ms to throttle repositioning after scroll events. */
+declare const SCROLL_THROTTLE_MS = 20;
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
  * @docs-private
  */
-export declare function getMatTooltipInvalidPositionError(position: string): Error;
-
-declare namespace i4 {
-    export {
-        getMatTooltipInvalidPositionError,
-        MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
-        MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY,
-        TooltipPosition,
-        TooltipTouchGestures,
-        TooltipVisibility,
-        SCROLL_THROTTLE_MS,
-        MAT_TOOLTIP_SCROLL_STRATEGY,
-        MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER,
-        MAT_TOOLTIP_DEFAULT_OPTIONS,
-        MatTooltipDefaultOptions,
-        TOOLTIP_PANEL_CLASS,
-        MatTooltip,
-        TooltipComponent
-    }
-}
-
-/** Injection token to be used to override the default options for `matTooltip`. */
-export declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;
-
-/** @docs-private */
-export declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefaultOptions;
-
+declare function getMatTooltipInvalidPositionError(position: string): Error;
 /** Injection token that determines the scroll handling while a tooltip is visible. */
-export declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-
+declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
-
+declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
 /** @docs-private */
-export declare const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: {
+declare const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
     useFactory: typeof MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY;
 };
-
+/** @docs-private */
+declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefaultOptions;
+/** Injection token to be used to override the default options for `matTooltip`. */
+declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;
+/** Default `matTooltip` options that can be overridden. */
+interface MatTooltipDefaultOptions {
+    /** Default delay when the tooltip is shown. */
+    showDelay: number;
+    /** Default delay when the tooltip is hidden. */
+    hideDelay: number;
+    /** Default delay when hiding the tooltip on a touch device. */
+    touchendHideDelay: number;
+    /** Time between the user putting the pointer on a tooltip trigger and the long press event being fired on a touch device. */
+    touchLongPressShowDelay?: number;
+    /** Default touch gesture handling for tooltips. */
+    touchGestures?: TooltipTouchGestures;
+    /** Default position for tooltips. */
+    position?: TooltipPosition;
+    /**
+     * Default value for whether tooltips should be positioned near the click or touch origin
+     * instead of outside the element bounding box.
+     */
+    positionAtOrigin?: boolean;
+    /** Disables the ability for the user to interact with the tooltip element. */
+    disableTooltipInteractivity?: boolean;
+    /**
+     * Default classes to be applied to the tooltip. These default classes will not be applied if
+     * `tooltipClass` is defined directly on the tooltip element, as it will override the default.
+     */
+    tooltipClass?: string | string[];
+}
+/**
+ * CSS class that will be attached to the overlay panel.
+ * @deprecated
+ * @breaking-change 13.0.0 remove this variable
+ */
+declare const TOOLTIP_PANEL_CLASS = "mat-mdc-tooltip-panel";
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
  * https://material.io/design/components/tooltips.html
  */
-export declare class MatTooltip implements OnDestroy, AfterViewInit {
+declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _elementRef;
     private _ngZone;
     private _platform;
@@ -210,66 +220,11 @@ export declare class MatTooltip implements OnDestroy, AfterViewInit {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltip, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTooltip, "[matTooltip]", ["matTooltip"], { "position": { "alias": "matTooltipPosition"; "required": false; }; "positionAtOrigin": { "alias": "matTooltipPositionAtOrigin"; "required": false; }; "disabled": { "alias": "matTooltipDisabled"; "required": false; }; "showDelay": { "alias": "matTooltipShowDelay"; "required": false; }; "hideDelay": { "alias": "matTooltipHideDelay"; "required": false; }; "touchGestures": { "alias": "matTooltipTouchGestures"; "required": false; }; "message": { "alias": "matTooltip"; "required": false; }; "tooltipClass": { "alias": "matTooltipClass"; "required": false; }; }, {}, never, never, true, never>;
 }
-
-/**
- * Animations used by MatTooltip.
- * @docs-private
- * @deprecated No longer being used, to be removed.
- * @breaking-change 21.0.0
- */
-export declare const matTooltipAnimations: {
-    readonly tooltipState: any;
-};
-
-/** Default `matTooltip` options that can be overridden. */
-export declare interface MatTooltipDefaultOptions {
-    /** Default delay when the tooltip is shown. */
-    showDelay: number;
-    /** Default delay when the tooltip is hidden. */
-    hideDelay: number;
-    /** Default delay when hiding the tooltip on a touch device. */
-    touchendHideDelay: number;
-    /** Time between the user putting the pointer on a tooltip trigger and the long press event being fired on a touch device. */
-    touchLongPressShowDelay?: number;
-    /** Default touch gesture handling for tooltips. */
-    touchGestures?: TooltipTouchGestures;
-    /** Default position for tooltips. */
-    position?: TooltipPosition;
-    /**
-     * Default value for whether tooltips should be positioned near the click or touch origin
-     * instead of outside the element bounding box.
-     */
-    positionAtOrigin?: boolean;
-    /** Disables the ability for the user to interact with the tooltip element. */
-    disableTooltipInteractivity?: boolean;
-    /**
-     * Default classes to be applied to the tooltip. These default classes will not be applied if
-     * `tooltipClass` is defined directly on the tooltip element, as it will override the default.
-     */
-    tooltipClass?: string | string[];
-}
-
-export declare class MatTooltipModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltipModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTooltipModule, never, [typeof i1.A11yModule, typeof i2.OverlayModule, typeof i3.MatCommonModule, typeof i4.MatTooltip, typeof i4.TooltipComponent], [typeof i4.MatTooltip, typeof i4.TooltipComponent, typeof i3.MatCommonModule, typeof i5.CdkScrollableModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatTooltipModule>;
-}
-
-/** Time in ms to throttle repositioning after scroll events. */
-export declare const SCROLL_THROTTLE_MS = 20;
-
-/**
- * CSS class that will be attached to the overlay panel.
- * @deprecated
- * @breaking-change 13.0.0 remove this variable
- */
-export declare const TOOLTIP_PANEL_CLASS = "mat-mdc-tooltip-panel";
-
 /**
  * Internal component that wraps the tooltip's content.
  * @docs-private
  */
-export declare class TooltipComponent implements OnDestroy {
+declare class TooltipComponent implements OnDestroy {
     private _changeDetectorRef;
     protected _elementRef: ElementRef<HTMLElement>;
     _isMultiline: boolean;
@@ -350,16 +305,20 @@ export declare class TooltipComponent implements OnDestroy {
     static ɵcmp: i0.ɵɵComponentDeclaration<TooltipComponent, "mat-tooltip-component", never, {}, {}, never, never, true, never>;
 }
 
-/** Possible positions for a tooltip. */
-export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
-
 /**
- * Options for how the tooltip trigger should handle touch gestures.
- * See `MatTooltip.touchGestures` for more information.
+ * Animations used by MatTooltip.
+ * @docs-private
+ * @deprecated No longer being used, to be removed.
+ * @breaking-change 21.0.0
  */
-export declare type TooltipTouchGestures = 'auto' | 'on' | 'off';
+declare const matTooltipAnimations: {
+    readonly tooltipState: any;
+};
 
-/** Possible visibility states of a tooltip. */
-export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
+declare class MatTooltipModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltipModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTooltipModule, never, [typeof i1.A11yModule, typeof i2.OverlayModule, typeof i1$1.MatCommonModule, typeof MatTooltip, typeof TooltipComponent], [typeof MatTooltip, typeof TooltipComponent, typeof i1$1.MatCommonModule, typeof i2$1.CdkScrollableModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatTooltipModule>;
+}
 
-export { }
+export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, type MatTooltipDefaultOptions, MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, type TooltipPosition, type TooltipTouchGestures, type TooltipVisibility, getMatTooltipInvalidPositionError, matTooltipAnimations };

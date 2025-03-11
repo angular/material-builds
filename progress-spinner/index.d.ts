@@ -1,27 +1,35 @@
-import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, ElementRef } from '@angular/core';
+import * as i1 from '@angular/material/core';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i1 {
-    export {
-        MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
-        ProgressSpinnerMode,
-        MatProgressSpinnerDefaultOptions,
-        MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,
-        MatProgressSpinner,
-        MatSpinner
-    }
+/** Possible mode for a progress spinner. */
+type ProgressSpinnerMode = 'determinate' | 'indeterminate';
+/** Default `mat-progress-spinner` options that can be overridden. */
+interface MatProgressSpinnerDefaultOptions {
+    /**
+     * Default theme color of the progress spinner. This API is supported in M2 themes only, it
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/progress-spinner/styling.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     */
+    color?: ThemePalette;
+    /** Diameter of the spinner. */
+    diameter?: number;
+    /** Width of the spinner's stroke. */
+    strokeWidth?: number;
+    /**
+     * Whether the animations should be force to be enabled, ignoring if the current environment is
+     * using NoopAnimationsModule.
+     */
+    _forceAnimations?: boolean;
 }
-
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
-export declare const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatProgressSpinnerDefaultOptions>;
-
+declare const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatProgressSpinnerDefaultOptions>;
 /** @docs-private */
-export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgressSpinnerDefaultOptions;
-
-export declare class MatProgressSpinner {
+declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgressSpinnerDefaultOptions;
+declare class MatProgressSpinner {
     readonly _elementRef: ElementRef<HTMLElement>;
     /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
     _noopAnimations: boolean;
@@ -75,42 +83,17 @@ export declare class MatProgressSpinner {
     static ngAcceptInputType_diameter: unknown;
     static ngAcceptInputType_strokeWidth: unknown;
 }
-
-/** Default `mat-progress-spinner` options that can be overridden. */
-export declare interface MatProgressSpinnerDefaultOptions {
-    /**
-     * Default theme color of the progress spinner. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/progress-spinner/styling.
-     *
-     * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
-     */
-    color?: ThemePalette;
-    /** Diameter of the spinner. */
-    diameter?: number;
-    /** Width of the spinner's stroke. */
-    strokeWidth?: number;
-    /**
-     * Whether the animations should be force to be enabled, ignoring if the current environment is
-     * using NoopAnimationsModule.
-     */
-    _forceAnimations?: boolean;
-}
-
-export declare class MatProgressSpinnerModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinnerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressSpinnerModule, never, [typeof i1.MatProgressSpinner, typeof i1.MatProgressSpinner], [typeof i1.MatProgressSpinner, typeof i1.MatProgressSpinner, typeof i2.MatCommonModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressSpinnerModule>;
-}
-
 /**
  * @deprecated Import Progress Spinner instead. Note that the
  *    `mat-spinner` selector isn't deprecated.
  * @breaking-change 16.0.0
  */
-export declare const MatSpinner: typeof MatProgressSpinner;
+declare const MatSpinner: typeof MatProgressSpinner;
 
-/** Possible mode for a progress spinner. */
-export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
+declare class MatProgressSpinnerModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinnerModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressSpinnerModule, never, [typeof MatProgressSpinner, typeof MatProgressSpinner], [typeof MatProgressSpinner, typeof MatProgressSpinner, typeof i1.MatCommonModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressSpinnerModule>;
+}
 
-export { }
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinner, type MatProgressSpinnerDefaultOptions, MatProgressSpinnerModule, MatSpinner, type ProgressSpinnerMode };

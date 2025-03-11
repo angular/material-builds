@@ -1,385 +1,52 @@
-import { AbstractControl } from '@angular/forms';
-import { AfterContentInit } from '@angular/core';
-import { AfterViewChecked } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { ComponentType } from '@angular/cdk/portal';
-import { ControlValueAccessor } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
-import { Directionality } from '@angular/cdk/bidi';
-import { DoCheck } from '@angular/core';
-import { ElementRef } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { EventEmitter } from '@angular/core';
-import { FactoryProvider } from '@angular/core';
-import { FocusOrigin } from '@angular/cdk/a11y';
-import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
+import { OnChanges, OnDestroy, AfterViewChecked, EventEmitter, SimpleChanges, FactoryProvider, AfterContentInit, ChangeDetectorRef, AfterViewInit, ElementRef, InjectionToken, OnInit, DoCheck, TemplateRef } from '@angular/core';
 import * as i1 from '@angular/material/button';
-import * as i19 from '@angular/cdk/scrolling';
-import * as i2 from '@angular/cdk/overlay';
-import * as i3 from '@angular/cdk/a11y';
-import * as i4 from '@angular/cdk/portal';
-import * as i5 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
 import { MatButton } from '@angular/material/button';
+import * as i2 from '@angular/cdk/overlay';
+import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
+import * as i1$1 from '@angular/cdk/a11y';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import * as i3 from '@angular/cdk/portal';
+import { ComponentType, Portal, TemplatePortal } from '@angular/cdk/portal';
+import * as i1$2 from '@angular/material/core';
+import { DateAdapter, ThemePalette, ErrorStateMatcher } from '@angular/material/core';
+import { Observable, Subject } from 'rxjs';
+import { ControlValueAccessor, Validator, ValidatorFn, AbstractControl, ValidationErrors, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { NgControl } from '@angular/forms';
-import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { OnChanges } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Overlay } from '@angular/cdk/overlay';
-import { Portal } from '@angular/cdk/portal';
-import { ScrollStrategy } from '@angular/cdk/overlay';
-import { SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { TemplateRef } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { ValidationErrors } from '@angular/forms';
-import { Validator } from '@angular/forms';
-import { ValidatorFn } from '@angular/forms';
-import { WritableSignal } from '@angular/core';
+import { Directionality } from '@angular/cdk/bidi';
+import * as i2$1 from '@angular/cdk/scrolling';
 
-/**
- * Function that can be used to filter out dates from a calendar.
- * Datepicker can sometimes receive a null value as input for the date argument.
- * This doesn't represent a "null date" but rather signifies that no date has been selected yet in the calendar.
- */
-export declare type DateFilterFn<D> = (date: D | null) => boolean;
-
-/** Possible positions for the datepicker dropdown along the X axis. */
-export declare type DatepickerDropdownPositionX = 'start' | 'end';
-
-/** Possible positions for the datepicker dropdown along the Y axis. */
-export declare type DatepickerDropdownPositionY = 'above' | 'below';
-
-/** A class representing a range of dates. */
-export declare class DateRange<D> {
-    /** The start date of the range. */
-    readonly start: D | null;
-    /** The end date of the range. */
-    readonly end: D | null;
-    /**
-     * Ensures that objects with a `start` and `end` property can't be assigned to a variable that
-     * expects a `DateRange`
-     */
-    private _disableStructuralEquivalency;
-    constructor(
-    /** The start date of the range. */
-    start: D | null, 
-    /** The end date of the range. */
-    end: D | null);
-}
-
-/**
- * Event emitted by the date selection model when its selection changes.
- * @docs-private
- */
-export declare interface DateSelectionModelChange<S> {
-    /** New value for the selection. */
-    selection: S;
-    /** Object that triggered the change. */
-    source: unknown;
-    /** Previous value */
-    oldValue?: S;
-}
-
-/** Provides the default date range selection behavior. */
-export declare class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeSelectionStrategy<D> {
-    private _dateAdapter;
-    constructor(_dateAdapter: DateAdapter<D>);
-    selectionFinished(date: D, currentRange: DateRange<D>): DateRange<D>;
-    createPreview(activeDate: D | null, currentRange: DateRange<D>): DateRange<D>;
-    createDrag(dragOrigin: D, originalRange: DateRange<D>, newDate: D): DateRange<D> | null;
-    static ɵfac: i0.ɵɵFactoryDeclaration<DefaultMatCalendarRangeStrategy<any>, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<DefaultMatCalendarRangeStrategy<any>>;
-}
-
-/**
- * Conditionally picks the date type, if a DateRange is passed in.
- * @docs-private
- */
-export declare type ExtractDateTypeFromSelection<T> = T extends DateRange<infer D> ? D : NonNullable<T>;
-
-/**
- * When the multi-year view is first opened, the active year will be in view.
- * So we compute how many years are between the active year and the *slot* where our
- * "startingYear" will render when paged into view.
- */
-declare function getActiveOffset<D>(dateAdapter: DateAdapter<D>, activeDate: D, minDate: D | null, maxDate: D | null): number;
-
-declare namespace i10 {
-    export {
-        MAT_DATEPICKER_VALUE_ACCESSOR,
-        MAT_DATEPICKER_VALIDATORS,
-        MatDatepickerInput
-    }
-}
-
-declare namespace i11 {
-    export {
-        MatDatepickerToggleIcon,
-        MatDatepickerToggle
-    }
-}
-
-declare namespace i12 {
-    export {
-        MatMonthView
-    }
-}
-
-declare namespace i13 {
-    export {
-        MatYearView
-    }
-}
-
-declare namespace i14 {
-    export {
-        isSameMultiYearView,
-        getActiveOffset,
-        yearsPerPage,
-        yearsPerRow,
-        MatMultiYearView
-    }
-}
-
-declare namespace i15 {
-    export {
-        MatDateRangeInput
-    }
-}
-
-declare namespace i16 {
-    export {
-        MatStartDate,
-        MatEndDate
-    }
-}
-
-declare namespace i17 {
-    export {
-        MatDateRangePickerInput,
-        MatDateRangePicker
-    }
-}
-
-declare namespace i18 {
-    export {
-        MatDatepickerApply,
-        MatDatepickerCancel,
-        MatDatepickerActions
-    }
-}
-
-declare namespace i6 {
-    export {
-        MatCalendarView,
-        MatCalendarHeader,
-        MatCalendar
-    }
-}
-
-declare namespace i7 {
-    export {
-        MatCalendarCellCssClasses,
-        MatCalendarCellClassFunction,
-        MatCalendarCell,
-        MatCalendarUserEvent,
-        MatCalendarBody
-    }
-}
-
-declare namespace i8 {
-    export {
-        MatDatepicker
-    }
-}
-
-declare namespace i9 {
-    export {
-        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
-        MAT_DATEPICKER_SCROLL_STRATEGY,
-        DatepickerDropdownPositionX,
-        DatepickerDropdownPositionY,
-        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
-        MatDatepickerContent,
-        MatDatepickerControl,
-        MatDatepickerPanel,
-        MatDatepickerBase
-    }
-}
-
-declare function isSameMultiYearView<D>(dateAdapter: DateAdapter<D>, date1: D, date2: D, minDate: D | null, maxDate: D | null): boolean;
-
-/** Injection token used to customize the date range selection behavior. */
-export declare const MAT_DATE_RANGE_SELECTION_STRATEGY: InjectionToken<MatDateRangeSelectionStrategy<any>>;
-
-/** Injection token that determines the scroll handling while the calendar is open. */
-export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-
-/** @docs-private */
-export declare function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
-
-/** @docs-private */
-export declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
-    useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
+/** Extra CSS classes that can be associated with a calendar cell. */
+type MatCalendarCellCssClasses = string | string[] | Set<string> | {
+    [key: string]: any;
 };
-
-/** @docs-private */
-export declare const MAT_DATEPICKER_VALIDATORS: any;
-
-/** @docs-private */
-export declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
-
-/** @docs-private */
-export declare function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
-
+/** Function that can generate the extra classes that should be added to a calendar cell. */
+type MatCalendarCellClassFunction<D> = (date: D, view: 'month' | 'year' | 'multi-year') => MatCalendarCellCssClasses;
 /**
- * Used to provide a range selection model to a component.
+ * An internal class that represents the data corresponding to a single calendar cell.
  * @docs-private
  */
-export declare const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
-
-/** @docs-private */
-export declare function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
-
-/**
- * Used to provide a single selection model to a component.
- * @docs-private
- */
-export declare const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
-
-/** A calendar that is used as part of the datepicker. */
-export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
-    private _dateAdapter;
-    private _dateFormats;
-    private _changeDetectorRef;
-    /** An input indicating the type of the header component, if set. */
-    headerComponent: ComponentType<any>;
-    /** A portal containing the header component type for this calendar. */
-    _calendarHeaderPortal: Portal<any>;
-    private _intlChanges;
-    /**
-     * Used for scheduling that focus should be moved to the active cell on the next tick.
-     * We need to schedule it, rather than do it immediately, because we have to wait
-     * for Angular to re-evaluate the view children.
-     */
-    private _moveFocusOnNextTick;
-    /** A date representing the period (month or year) to start the calendar in. */
-    get startAt(): D | null;
-    set startAt(value: D | null);
-    private _startAt;
-    /** Whether the calendar should be started in month or year view. */
-    startView: MatCalendarView;
-    /** The currently selected date. */
-    get selected(): DateRange<D> | D | null;
-    set selected(value: DateRange<D> | D | null);
-    private _selected;
-    /** The minimum selectable date. */
-    get minDate(): D | null;
-    set minDate(value: D | null);
-    private _minDate;
-    /** The maximum selectable date. */
-    get maxDate(): D | null;
-    set maxDate(value: D | null);
-    private _maxDate;
-    /** Function used to filter which dates are selectable. */
-    dateFilter: (date: D) => boolean;
-    /** Function that can be used to add custom CSS classes to dates. */
-    dateClass: MatCalendarCellClassFunction<D>;
-    /** Start of the comparison range. */
-    comparisonStart: D | null;
-    /** End of the comparison range. */
-    comparisonEnd: D | null;
-    /** ARIA Accessible name of the `<input matStartDate/>` */
-    startDateAccessibleName: string | null;
-    /** ARIA Accessible name of the `<input matEndDate/>` */
-    endDateAccessibleName: string | null;
-    /** Emits when the currently selected date changes. */
-    readonly selectedChange: EventEmitter<D | null>;
-    /**
-     * Emits the year chosen in multiyear view.
-     * This doesn't imply a change on the selected date.
-     */
-    readonly yearSelected: EventEmitter<D>;
-    /**
-     * Emits the month chosen in year view.
-     * This doesn't imply a change on the selected date.
-     */
-    readonly monthSelected: EventEmitter<D>;
-    /**
-     * Emits when the current view changes.
-     */
-    readonly viewChanged: EventEmitter<MatCalendarView>;
-    /** Emits when any date is selected. */
-    readonly _userSelection: EventEmitter<MatCalendarUserEvent<D | null>>;
-    /** Emits a new date range value when the user completes a drag drop operation. */
-    readonly _userDragDrop: EventEmitter<MatCalendarUserEvent<DateRange<D>>>;
-    /** Reference to the current month view component. */
-    monthView: MatMonthView<D>;
-    /** Reference to the current year view component. */
-    yearView: MatYearView<D>;
-    /** Reference to the current multi-year view component. */
-    multiYearView: MatMultiYearView<D>;
-    /**
-     * The current active date. This determines which time period is shown and which date is
-     * highlighted when using keyboard navigation.
-     */
-    get activeDate(): D;
-    set activeDate(value: D);
-    private _clampedActiveDate;
-    /** Whether the calendar is in month view. */
-    get currentView(): MatCalendarView;
-    set currentView(value: MatCalendarView);
-    private _currentView;
-    /** Origin of active drag, or null when dragging is not active. */
-    protected _activeDrag: MatCalendarUserEvent<D> | null;
-    /**
-     * Emits whenever there is a state change that the header may need to respond to.
-     */
-    readonly stateChanges: Subject<void>;
-    constructor(...args: unknown[]);
-    ngAfterContentInit(): void;
-    ngAfterViewChecked(): void;
-    ngOnDestroy(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    /** Focuses the active date. */
-    focusActiveCell(): void;
-    /** Updates today's date after an update of the active date */
-    updateTodaysDate(): void;
-    /** Handles date selection in the month view. */
-    _dateSelected(event: MatCalendarUserEvent<D | null>): void;
-    /** Handles year selection in the multiyear view. */
-    _yearSelectedInMultiYearView(normalizedYear: D): void;
-    /** Handles month selection in the year view. */
-    _monthSelectedInYearView(normalizedMonth: D): void;
-    /** Handles year/month selection in the multi-year/year views. */
-    _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;
-    /** Called when the user starts dragging to change a date range. */
-    _dragStarted(event: MatCalendarUserEvent<D>): void;
-    /**
-     * Called when a drag completes. It may end in cancelation or in the selection
-     * of a new range.
-     */
-    _dragEnded(event: MatCalendarUserEvent<DateRange<D> | null>): void;
-    /** Returns the component instance that corresponds to the current calendar view. */
-    private _getCurrentViewComponent;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendar<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": { "alias": "headerComponent"; "required": false; }; "startAt": { "alias": "startAt"; "required": false; }; "startView": { "alias": "startView"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; "_userDragDrop": "_userDragDrop"; }, never, never, true, never>;
+declare class MatCalendarCell<D = any> {
+    value: number;
+    displayValue: string;
+    ariaLabel: string;
+    enabled: boolean;
+    cssClasses: MatCalendarCellCssClasses;
+    compareValue: number;
+    rawValue?: D | undefined;
+    readonly id: number;
+    constructor(value: number, displayValue: string, ariaLabel: string, enabled: boolean, cssClasses?: MatCalendarCellCssClasses, compareValue?: number, rawValue?: D | undefined);
 }
-
+/** Event emitted when a date inside the calendar is triggered as a result of a user action. */
+interface MatCalendarUserEvent<D> {
+    value: D;
+    event: Event;
+}
 /**
  * An internal component used to display calendar data in a table.
  * @docs-private
  */
-export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, AfterViewChecked {
+declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, AfterViewChecked {
     private _elementRef;
     private _ngZone;
     private _platform;
@@ -558,32 +225,496 @@ export declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, A
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarBody<any>, "[mat-calendar-body]", ["matCalendarBody"], { "label": { "alias": "label"; "required": false; }; "rows": { "alias": "rows"; "required": false; }; "todayValue": { "alias": "todayValue"; "required": false; }; "startValue": { "alias": "startValue"; "required": false; }; "endValue": { "alias": "endValue"; "required": false; }; "labelMinRequiredCells": { "alias": "labelMinRequiredCells"; "required": false; }; "numCols": { "alias": "numCols"; "required": false; }; "activeCell": { "alias": "activeCell"; "required": false; }; "isRange": { "alias": "isRange"; "required": false; }; "cellAspectRatio": { "alias": "cellAspectRatio"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "previewStart": { "alias": "previewStart"; "required": false; }; "previewEnd": { "alias": "previewEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; }, { "selectedValueChange": "selectedValueChange"; "previewChange": "previewChange"; "activeDateChange": "activeDateChange"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; }, never, never, true, never>;
 }
 
+/** A class representing a range of dates. */
+declare class DateRange<D> {
+    /** The start date of the range. */
+    readonly start: D | null;
+    /** The end date of the range. */
+    readonly end: D | null;
+    /**
+     * Ensures that objects with a `start` and `end` property can't be assigned to a variable that
+     * expects a `DateRange`
+     */
+    private _disableStructuralEquivalency;
+    constructor(
+    /** The start date of the range. */
+    start: D | null, 
+    /** The end date of the range. */
+    end: D | null);
+}
 /**
- * An internal class that represents the data corresponding to a single calendar cell.
+ * Conditionally picks the date type, if a DateRange is passed in.
  * @docs-private
  */
-export declare class MatCalendarCell<D = any> {
-    value: number;
-    displayValue: string;
-    ariaLabel: string;
-    enabled: boolean;
-    cssClasses: MatCalendarCellCssClasses;
-    compareValue: number;
-    rawValue?: D | undefined;
-    readonly id: number;
-    constructor(value: number, displayValue: string, ariaLabel: string, enabled: boolean, cssClasses?: MatCalendarCellCssClasses, compareValue?: number, rawValue?: D | undefined);
+type ExtractDateTypeFromSelection<T> = T extends DateRange<infer D> ? D : NonNullable<T>;
+/**
+ * Event emitted by the date selection model when its selection changes.
+ * @docs-private
+ */
+interface DateSelectionModelChange<S> {
+    /** New value for the selection. */
+    selection: S;
+    /** Object that triggered the change. */
+    source: unknown;
+    /** Previous value */
+    oldValue?: S;
+}
+/**
+ * A selection model containing a date selection.
+ * @docs-private
+ */
+declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSelection<S>> implements OnDestroy {
+    /** The current selection. */
+    readonly selection: S;
+    protected _adapter: DateAdapter<D>;
+    private readonly _selectionChanged;
+    /** Emits when the selection has changed. */
+    selectionChanged: Observable<DateSelectionModelChange<S>>;
+    protected constructor(
+    /** The current selection. */
+    selection: S, _adapter: DateAdapter<D>);
+    /**
+     * Updates the current selection in the model.
+     * @param value New selection that should be assigned.
+     * @param source Object that triggered the selection change.
+     */
+    updateSelection(value: S, source: unknown): void;
+    ngOnDestroy(): void;
+    protected _isValidDateInstance(date: D): boolean;
+    /** Adds a date to the current selection. */
+    abstract add(date: D | null): void;
+    /** Checks whether the current selection is valid. */
+    abstract isValid(): boolean;
+    /** Checks whether the current selection is complete. */
+    abstract isComplete(): boolean;
+    /** Clones the selection model. */
+    abstract clone(): MatDateSelectionModel<S, D>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateSelectionModel<any, any>, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatDateSelectionModel<any, any>>;
+}
+/**
+ * A selection model that contains a single date.
+ * @docs-private
+ */
+declare class MatSingleDateSelectionModel<D> extends MatDateSelectionModel<D | null, D> {
+    constructor(adapter: DateAdapter<D>);
+    /**
+     * Adds a date to the current selection. In the case of a single date selection, the added date
+     * simply overwrites the previous selection
+     */
+    add(date: D | null): void;
+    /** Checks whether the current selection is valid. */
+    isValid(): boolean;
+    /**
+     * Checks whether the current selection is complete. In the case of a single date selection, this
+     * is true if the current selection is not null.
+     */
+    isComplete(): boolean;
+    /** Clones the selection model. */
+    clone(): MatSingleDateSelectionModel<D>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSingleDateSelectionModel<any>, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatSingleDateSelectionModel<any>>;
+}
+/**
+ * A selection model that contains a date range.
+ * @docs-private
+ */
+declare class MatRangeDateSelectionModel<D> extends MatDateSelectionModel<DateRange<D>, D> {
+    constructor(adapter: DateAdapter<D>);
+    /**
+     * Adds a date to the current selection. In the case of a date range selection, the added date
+     * fills in the next `null` value in the range. If both the start and the end already have a date,
+     * the selection is reset so that the given date is the new `start` and the `end` is null.
+     */
+    add(date: D | null): void;
+    /** Checks whether the current selection is valid. */
+    isValid(): boolean;
+    /**
+     * Checks whether the current selection is complete. In the case of a date range selection, this
+     * is true if the current selection has a non-null `start` and `end`.
+     */
+    isComplete(): boolean;
+    /** Clones the selection model. */
+    clone(): MatRangeDateSelectionModel<D>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRangeDateSelectionModel<any>, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatRangeDateSelectionModel<any>>;
+}
+/** @docs-private */
+declare function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
+/**
+ * Used to provide a single selection model to a component.
+ * @docs-private
+ */
+declare const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
+/** @docs-private */
+declare function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
+/**
+ * Used to provide a range selection model to a component.
+ * @docs-private
+ */
+declare const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
+
+/**
+ * An internal component used to display a single month in the datepicker.
+ * @docs-private
+ */
+declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy {
+    readonly _changeDetectorRef: ChangeDetectorRef;
+    private _dateFormats;
+    _dateAdapter: DateAdapter<D, any>;
+    private _dir;
+    private _rangeStrategy;
+    private _rerenderSubscription;
+    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
+    private _selectionKeyPressed;
+    /**
+     * The date to display in this month view (everything other than the month and year is ignored).
+     */
+    get activeDate(): D;
+    set activeDate(value: D);
+    private _activeDate;
+    /** The currently selected date. */
+    get selected(): DateRange<D> | D | null;
+    set selected(value: DateRange<D> | D | null);
+    private _selected;
+    /** The minimum selectable date. */
+    get minDate(): D | null;
+    set minDate(value: D | null);
+    private _minDate;
+    /** The maximum selectable date. */
+    get maxDate(): D | null;
+    set maxDate(value: D | null);
+    private _maxDate;
+    /** Function used to filter which dates are selectable. */
+    dateFilter: (date: D) => boolean;
+    /** Function that can be used to add custom CSS classes to dates. */
+    dateClass: MatCalendarCellClassFunction<D>;
+    /** Start of the comparison range. */
+    comparisonStart: D | null;
+    /** End of the comparison range. */
+    comparisonEnd: D | null;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName: string | null;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName: string | null;
+    /** Origin of active drag, or null when dragging is not active. */
+    activeDrag: MatCalendarUserEvent<D> | null;
+    /** Emits when a new date is selected. */
+    readonly selectedChange: EventEmitter<D | null>;
+    /** Emits when any date is selected. */
+    readonly _userSelection: EventEmitter<MatCalendarUserEvent<D | null>>;
+    /** Emits when the user initiates a date range drag via mouse or touch. */
+    readonly dragStarted: EventEmitter<MatCalendarUserEvent<D>>;
+    /**
+     * Emits when the user completes or cancels a date range drag.
+     * Emits null when the drag was canceled or the newly selected date range if completed.
+     */
+    readonly dragEnded: EventEmitter<MatCalendarUserEvent<DateRange<D> | null>>;
+    /** Emits when any date is activated. */
+    readonly activeDateChange: EventEmitter<D>;
+    /** The body of calendar table */
+    _matCalendarBody: MatCalendarBody;
+    /** The label for this month (e.g. "January 2017"). */
+    _monthLabel: string;
+    /** Grid of calendar cells representing the dates of the month. */
+    _weeks: MatCalendarCell[][];
+    /** The number of blank cells in the first row before the 1st of the month. */
+    _firstWeekOffset: number;
+    /** Start value of the currently-shown date range. */
+    _rangeStart: number | null;
+    /** End value of the currently-shown date range. */
+    _rangeEnd: number | null;
+    /** Start value of the currently-shown comparison date range. */
+    _comparisonRangeStart: number | null;
+    /** End value of the currently-shown comparison date range. */
+    _comparisonRangeEnd: number | null;
+    /** Start of the preview range. */
+    _previewStart: number | null;
+    /** End of the preview range. */
+    _previewEnd: number | null;
+    /** Whether the user is currently selecting a range of dates. */
+    _isRange: boolean;
+    /** The date of the month that today falls on. Null if today is in another month. */
+    _todayDate: number | null;
+    /** The names of the weekdays. */
+    _weekdays: {
+        long: string;
+        narrow: string;
+        id: number;
+    }[];
+    constructor(...args: unknown[]);
+    ngAfterContentInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    ngOnDestroy(): void;
+    /** Handles when a new date is selected. */
+    _dateSelected(event: MatCalendarUserEvent<number>): void;
+    /**
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
+     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
+     * that date.
+     *
+     * This function is used to match each component's model of the active date with the calendar
+     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
+     * updated value asynchronously via the `activeCell` Input.
+     */
+    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
+    /** Handles keydown events on the calendar body when calendar is in month view. */
+    _handleCalendarBodyKeydown(event: KeyboardEvent): void;
+    /** Handles keyup events on the calendar body when calendar is in month view. */
+    _handleCalendarBodyKeyup(event: KeyboardEvent): void;
+    /** Initializes this month view. */
+    _init(): void;
+    /** Focuses the active cell after the microtask queue is empty. */
+    _focusActiveCell(movePreview?: boolean): void;
+    /** Focuses the active cell after change detection has run and the microtask queue is empty. */
+    _focusActiveCellAfterViewChecked(): void;
+    /** Called when the user has activated a new cell and the preview needs to be updated. */
+    _previewChanged({ event, value: cell }: MatCalendarUserEvent<MatCalendarCell<D> | null>): void;
+    /**
+     * Called when the user has ended a drag. If the drag/drop was successful,
+     * computes and emits the new range selection.
+     */
+    protected _dragEnded(event: MatCalendarUserEvent<D | null>): void;
+    /**
+     * Takes a day of the month and returns a new date in the same month and year as the currently
+     *  active date. The returned date will have the same day of the month as the argument date.
+     */
+    private _getDateFromDayOfMonth;
+    /** Initializes the weekdays. */
+    private _initWeekdays;
+    /** Creates MatCalendarCells for the dates in this month. */
+    private _createWeekCells;
+    /** Date filter for the month */
+    private _shouldEnableDate;
+    /**
+     * Gets the date in this month that the given Date falls on.
+     * Returns null if the given Date is in another month.
+     */
+    private _getDateInCurrentMonth;
+    /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
+    private _hasSameMonthAndYear;
+    /** Gets the value that will be used to one cell to another. */
+    private _getCellCompareValue;
+    /** Determines whether the user has the RTL layout direction. */
+    private _isRtl;
+    /** Sets the current range based on a model value. */
+    private _setRanges;
+    /** Gets whether a date can be selected in the month view. */
+    private _canSelect;
+    /** Clears out preview state. */
+    private _clearPreview;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMonthView<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; "activeDrag": { "alias": "activeDrag"; "required": false; }; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
 }
 
-/** Function that can generate the extra classes that should be added to a calendar cell. */
-export declare type MatCalendarCellClassFunction<D> = (date: D, view: 'month' | 'year' | 'multi-year') => MatCalendarCellCssClasses;
+declare const yearsPerPage = 24;
+declare const yearsPerRow = 4;
+/**
+ * An internal component used to display a year selector in the datepicker.
+ * @docs-private
+ */
+declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
+    private _changeDetectorRef;
+    _dateAdapter: DateAdapter<D, any>;
+    private _dir;
+    private _rerenderSubscription;
+    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
+    private _selectionKeyPressed;
+    /** The date to display in this multi-year view (everything other than the year is ignored). */
+    get activeDate(): D;
+    set activeDate(value: D);
+    private _activeDate;
+    /** The currently selected date. */
+    get selected(): DateRange<D> | D | null;
+    set selected(value: DateRange<D> | D | null);
+    private _selected;
+    /** The minimum selectable date. */
+    get minDate(): D | null;
+    set minDate(value: D | null);
+    private _minDate;
+    /** The maximum selectable date. */
+    get maxDate(): D | null;
+    set maxDate(value: D | null);
+    private _maxDate;
+    /** A function used to filter which dates are selectable. */
+    dateFilter: (date: D) => boolean;
+    /** Function that can be used to add custom CSS classes to date cells. */
+    dateClass: MatCalendarCellClassFunction<D>;
+    /** Emits when a new year is selected. */
+    readonly selectedChange: EventEmitter<D>;
+    /** Emits the selected year. This doesn't imply a change on the selected date */
+    readonly yearSelected: EventEmitter<D>;
+    /** Emits when any date is activated. */
+    readonly activeDateChange: EventEmitter<D>;
+    /** The body of calendar table */
+    _matCalendarBody: MatCalendarBody;
+    /** Grid of calendar cells representing the currently displayed years. */
+    _years: MatCalendarCell[][];
+    /** The year that today falls on. */
+    _todayYear: number;
+    /** The year of the selected date. Null if the selected date is null. */
+    _selectedYear: number | null;
+    constructor(...args: unknown[]);
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
+    /** Initializes this multi-year view. */
+    _init(): void;
+    /** Handles when a new year is selected. */
+    _yearSelected(event: MatCalendarUserEvent<number>): void;
+    /**
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
+     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
+     * that date.
+     *
+     * This function is used to match each component's model of the active date with the calendar
+     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
+     * updated value asynchronously via the `activeCell` Input.
+     */
+    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
+    /** Handles keydown events on the calendar body when calendar is in multi-year view. */
+    _handleCalendarBodyKeydown(event: KeyboardEvent): void;
+    /** Handles keyup events on the calendar body when calendar is in multi-year view. */
+    _handleCalendarBodyKeyup(event: KeyboardEvent): void;
+    _getActiveCell(): number;
+    /** Focuses the active cell after the microtask queue is empty. */
+    _focusActiveCell(): void;
+    /** Focuses the active cell after change detection has run and the microtask queue is empty. */
+    _focusActiveCellAfterViewChecked(): void;
+    /**
+     * Takes a year and returns a new date on the same day and month as the currently active date
+     *  The returned date will have the same year as the argument date.
+     */
+    private _getDateFromYear;
+    /** Creates an MatCalendarCell for the given year. */
+    private _createCellForYear;
+    /** Whether the given year is enabled. */
+    private _shouldEnableYear;
+    /** Determines whether the user has the RTL layout direction. */
+    private _isRtl;
+    /** Sets the currently-highlighted year based on a model value. */
+    private _setSelectedYear;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMultiYearView<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMultiYearView<any>, "mat-multi-year-view", ["matMultiYearView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
+}
 
-/** Extra CSS classes that can be associated with a calendar cell. */
-export declare type MatCalendarCellCssClasses = string | string[] | Set<string> | {
-    [key: string]: any;
-};
+/**
+ * An internal component used to display a single year in the datepicker.
+ * @docs-private
+ */
+declare class MatYearView<D> implements AfterContentInit, OnDestroy {
+    readonly _changeDetectorRef: ChangeDetectorRef;
+    private _dateFormats;
+    _dateAdapter: DateAdapter<D, any>;
+    private _dir;
+    private _rerenderSubscription;
+    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
+    private _selectionKeyPressed;
+    /** The date to display in this year view (everything other than the year is ignored). */
+    get activeDate(): D;
+    set activeDate(value: D);
+    private _activeDate;
+    /** The currently selected date. */
+    get selected(): DateRange<D> | D | null;
+    set selected(value: DateRange<D> | D | null);
+    private _selected;
+    /** The minimum selectable date. */
+    get minDate(): D | null;
+    set minDate(value: D | null);
+    private _minDate;
+    /** The maximum selectable date. */
+    get maxDate(): D | null;
+    set maxDate(value: D | null);
+    private _maxDate;
+    /** A function used to filter which dates are selectable. */
+    dateFilter: (date: D) => boolean;
+    /** Function that can be used to add custom CSS classes to date cells. */
+    dateClass: MatCalendarCellClassFunction<D>;
+    /** Emits when a new month is selected. */
+    readonly selectedChange: EventEmitter<D>;
+    /** Emits the selected month. This doesn't imply a change on the selected date */
+    readonly monthSelected: EventEmitter<D>;
+    /** Emits when any date is activated. */
+    readonly activeDateChange: EventEmitter<D>;
+    /** The body of calendar table */
+    _matCalendarBody: MatCalendarBody;
+    /** Grid of calendar cells representing the months of the year. */
+    _months: MatCalendarCell[][];
+    /** The label for this year (e.g. "2017"). */
+    _yearLabel: string;
+    /** The month in this year that today falls on. Null if today is in a different year. */
+    _todayMonth: number | null;
+    /**
+     * The month in this year that the selected Date falls on.
+     * Null if the selected Date is in a different year.
+     */
+    _selectedMonth: number | null;
+    constructor(...args: unknown[]);
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
+    /** Handles when a new month is selected. */
+    _monthSelected(event: MatCalendarUserEvent<number>): void;
+    /**
+     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
+     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
+     * that date.
+     *
+     * This function is used to match each component's model of the active date with the calendar
+     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
+     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
+     * updated value asynchronously via the `activeCell` Input.
+     */
+    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
+    /** Handles keydown events on the calendar body when calendar is in year view. */
+    _handleCalendarBodyKeydown(event: KeyboardEvent): void;
+    /** Handles keyup events on the calendar body when calendar is in year view. */
+    _handleCalendarBodyKeyup(event: KeyboardEvent): void;
+    /** Initializes this year view. */
+    _init(): void;
+    /** Focuses the active cell after the microtask queue is empty. */
+    _focusActiveCell(): void;
+    /** Schedules the matCalendarBody to focus the active cell after change detection has run */
+    _focusActiveCellAfterViewChecked(): void;
+    /**
+     * Gets the month in this year that the given Date falls on.
+     * Returns null if the given Date is in another year.
+     */
+    private _getMonthInCurrentYear;
+    /**
+     * Takes a month and returns a new date in the same day and year as the currently active date.
+     *  The returned date will have the same month as the argument date.
+     */
+    private _getDateFromMonth;
+    /** Creates an MatCalendarCell for the given month. */
+    private _createCellForMonth;
+    /** Whether the given month is enabled. */
+    private _shouldEnableMonth;
+    /**
+     * Tests whether the combination month/year is after this.maxDate, considering
+     * just the month and year of this.maxDate
+     */
+    private _isYearAndMonthAfterMaxDate;
+    /**
+     * Tests whether the combination month/year is before this.minDate, considering
+     * just the month and year of this.minDate
+     */
+    private _isYearAndMonthBeforeMinDate;
+    /** Determines whether the user has the RTL layout direction. */
+    private _isRtl;
+    /** Sets the currently-selected month based on a model value. */
+    private _setSelectedMonth;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatYearView<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatYearView<any>, "mat-year-view", ["matYearView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; }, { "selectedChange": "selectedChange"; "monthSelected": "monthSelected"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
+}
 
+/**
+ * Possible views for the calendar.
+ * @docs-private
+ */
+type MatCalendarView = 'month' | 'year' | 'multi-year';
 /** Default header for MatCalendar */
-export declare class MatCalendarHeader<D> {
+declare class MatCalendarHeader<D> {
     private _intl;
     calendar: MatCalendar<D>;
     private _dateAdapter;
@@ -621,61 +752,377 @@ export declare class MatCalendarHeader<D> {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendarHeader<any>, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendarHeader<any>, "mat-calendar-header", ["matCalendarHeader"], {}, {}, never, ["*"], true, never>;
 }
-
-/** Event emitted when a date inside the calendar is triggered as a result of a user action. */
-export declare interface MatCalendarUserEvent<D> {
-    value: D;
-    event: Event;
+/** A calendar that is used as part of the datepicker. */
+declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
+    private _dateAdapter;
+    private _dateFormats;
+    private _changeDetectorRef;
+    /** An input indicating the type of the header component, if set. */
+    headerComponent: ComponentType<any>;
+    /** A portal containing the header component type for this calendar. */
+    _calendarHeaderPortal: Portal<any>;
+    private _intlChanges;
+    /**
+     * Used for scheduling that focus should be moved to the active cell on the next tick.
+     * We need to schedule it, rather than do it immediately, because we have to wait
+     * for Angular to re-evaluate the view children.
+     */
+    private _moveFocusOnNextTick;
+    /** A date representing the period (month or year) to start the calendar in. */
+    get startAt(): D | null;
+    set startAt(value: D | null);
+    private _startAt;
+    /** Whether the calendar should be started in month or year view. */
+    startView: MatCalendarView;
+    /** The currently selected date. */
+    get selected(): DateRange<D> | D | null;
+    set selected(value: DateRange<D> | D | null);
+    private _selected;
+    /** The minimum selectable date. */
+    get minDate(): D | null;
+    set minDate(value: D | null);
+    private _minDate;
+    /** The maximum selectable date. */
+    get maxDate(): D | null;
+    set maxDate(value: D | null);
+    private _maxDate;
+    /** Function used to filter which dates are selectable. */
+    dateFilter: (date: D) => boolean;
+    /** Function that can be used to add custom CSS classes to dates. */
+    dateClass: MatCalendarCellClassFunction<D>;
+    /** Start of the comparison range. */
+    comparisonStart: D | null;
+    /** End of the comparison range. */
+    comparisonEnd: D | null;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName: string | null;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName: string | null;
+    /** Emits when the currently selected date changes. */
+    readonly selectedChange: EventEmitter<D | null>;
+    /**
+     * Emits the year chosen in multiyear view.
+     * This doesn't imply a change on the selected date.
+     */
+    readonly yearSelected: EventEmitter<D>;
+    /**
+     * Emits the month chosen in year view.
+     * This doesn't imply a change on the selected date.
+     */
+    readonly monthSelected: EventEmitter<D>;
+    /**
+     * Emits when the current view changes.
+     */
+    readonly viewChanged: EventEmitter<MatCalendarView>;
+    /** Emits when any date is selected. */
+    readonly _userSelection: EventEmitter<MatCalendarUserEvent<D | null>>;
+    /** Emits a new date range value when the user completes a drag drop operation. */
+    readonly _userDragDrop: EventEmitter<MatCalendarUserEvent<DateRange<D>>>;
+    /** Reference to the current month view component. */
+    monthView: MatMonthView<D>;
+    /** Reference to the current year view component. */
+    yearView: MatYearView<D>;
+    /** Reference to the current multi-year view component. */
+    multiYearView: MatMultiYearView<D>;
+    /**
+     * The current active date. This determines which time period is shown and which date is
+     * highlighted when using keyboard navigation.
+     */
+    get activeDate(): D;
+    set activeDate(value: D);
+    private _clampedActiveDate;
+    /** Whether the calendar is in month view. */
+    get currentView(): MatCalendarView;
+    set currentView(value: MatCalendarView);
+    private _currentView;
+    /** Origin of active drag, or null when dragging is not active. */
+    protected _activeDrag: MatCalendarUserEvent<D> | null;
+    /**
+     * Emits whenever there is a state change that the header may need to respond to.
+     */
+    readonly stateChanges: Subject<void>;
+    constructor(...args: unknown[]);
+    ngAfterContentInit(): void;
+    ngAfterViewChecked(): void;
+    ngOnDestroy(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    /** Focuses the active date. */
+    focusActiveCell(): void;
+    /** Updates today's date after an update of the active date */
+    updateTodaysDate(): void;
+    /** Handles date selection in the month view. */
+    _dateSelected(event: MatCalendarUserEvent<D | null>): void;
+    /** Handles year selection in the multiyear view. */
+    _yearSelectedInMultiYearView(normalizedYear: D): void;
+    /** Handles month selection in the year view. */
+    _monthSelectedInYearView(normalizedMonth: D): void;
+    /** Handles year/month selection in the multi-year/year views. */
+    _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;
+    /** Called when the user starts dragging to change a date range. */
+    _dragStarted(event: MatCalendarUserEvent<D>): void;
+    /**
+     * Called when a drag completes. It may end in cancelation or in the selection
+     * of a new range.
+     */
+    _dragEnded(event: MatCalendarUserEvent<DateRange<D> | null>): void;
+    /** Returns the component instance that corresponds to the current calendar view. */
+    private _getCurrentViewComponent;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCalendar<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatCalendar<any>, "mat-calendar", ["matCalendar"], { "headerComponent": { "alias": "headerComponent"; "required": false; }; "startAt": { "alias": "startAt"; "required": false; }; "startView": { "alias": "startView"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "monthSelected": "monthSelected"; "viewChanged": "viewChanged"; "_userSelection": "_userSelection"; "_userDragDrop": "_userDragDrop"; }, never, never, true, never>;
 }
 
 /**
- * Possible views for the calendar.
+ * An event used for datepicker input and change events. We don't always have access to a native
+ * input or change event because the event may have been triggered by the user clicking on the
+ * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
+ */
+declare class MatDatepickerInputEvent<D, S = unknown> {
+    /** Reference to the datepicker input component that emitted the event. */
+    target: MatDatepickerInputBase<S, D>;
+    /** Reference to the native input element associated with the datepicker input. */
+    targetElement: HTMLElement;
+    /** The new value for the target datepicker input. */
+    value: D | null;
+    constructor(
+    /** Reference to the datepicker input component that emitted the event. */
+    target: MatDatepickerInputBase<S, D>, 
+    /** Reference to the native input element associated with the datepicker input. */
+    targetElement: HTMLElement);
+}
+/**
+ * Function that can be used to filter out dates from a calendar.
+ * Datepicker can sometimes receive a null value as input for the date argument.
+ * This doesn't represent a "null date" but rather signifies that no date has been selected yet in the calendar.
+ */
+type DateFilterFn<D> = (date: D | null) => boolean;
+/** Base class for datepicker inputs. */
+declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelection<S>> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy, Validator {
+    protected _elementRef: ElementRef<HTMLInputElement>;
+    _dateAdapter: DateAdapter<D, any>;
+    private _dateFormats;
+    /** Whether the component has been initialized. */
+    private _isInitialized;
+    /** The value of the input. */
+    get value(): D | null;
+    set value(value: any);
+    protected _model: MatDateSelectionModel<S, D> | undefined;
+    /** Whether the datepicker-input is disabled. */
+    get disabled(): boolean;
+    set disabled(value: boolean);
+    private _disabled;
+    /** Emits when a `change` event is fired on this `<input>`. */
+    readonly dateChange: EventEmitter<MatDatepickerInputEvent<D, S>>;
+    /** Emits when an `input` event is fired on this `<input>`. */
+    readonly dateInput: EventEmitter<MatDatepickerInputEvent<D, S>>;
+    /** Emits when the internal state has changed */
+    readonly stateChanges: Subject<void>;
+    _onTouched: () => void;
+    _validatorOnChange: () => void;
+    private _cvaOnChange;
+    private _valueChangesSubscription;
+    private _localeSubscription;
+    /**
+     * Since the value is kept on the model which is assigned in an Input,
+     * we might get a value before we have a model. This property keeps track
+     * of the value until we have somewhere to assign it.
+     */
+    private _pendingValue;
+    /** The form control validator for whether the input parses. */
+    private _parseValidator;
+    /** The form control validator for the date filter. */
+    private _filterValidator;
+    /** The form control validator for the min date. */
+    private _minValidator;
+    /** The form control validator for the max date. */
+    private _maxValidator;
+    /** Gets the base validator functions. */
+    protected _getValidators(): ValidatorFn[];
+    /** Gets the minimum date for the input. Used for validation. */
+    abstract _getMinDate(): D | null;
+    /** Gets the maximum date for the input. Used for validation. */
+    abstract _getMaxDate(): D | null;
+    /** Gets the date filter function. Used for validation. */
+    protected abstract _getDateFilter(): DateFilterFn<D> | undefined;
+    /** Registers a date selection model with the input. */
+    _registerModel(model: MatDateSelectionModel<S, D>): void;
+    /** Opens the popup associated with the input. */
+    protected abstract _openPopup(): void;
+    /** Assigns a value to the input's model. */
+    protected abstract _assignValueToModel(model: D | null): void;
+    /** Converts a value from the model into a native value for the input. */
+    protected abstract _getValueFromModel(modelValue: S): D | null;
+    /** Combined form control validator for this input. */
+    protected abstract _validator: ValidatorFn | null;
+    /** Predicate that determines whether the input should handle a particular change event. */
+    protected abstract _shouldHandleChangeEvent(event: DateSelectionModelChange<S>): boolean;
+    /** Whether the last value set on the input was valid. */
+    protected _lastValueValid: boolean;
+    constructor(...args: unknown[]);
+    ngAfterViewInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    ngOnDestroy(): void;
+    /** @docs-private */
+    registerOnValidatorChange(fn: () => void): void;
+    /** @docs-private */
+    validate(c: AbstractControl): ValidationErrors | null;
+    writeValue(value: D): void;
+    registerOnChange(fn: (value: any) => void): void;
+    registerOnTouched(fn: () => void): void;
+    setDisabledState(isDisabled: boolean): void;
+    _onKeydown(event: KeyboardEvent): void;
+    _onInput(event: Event): void;
+    _onChange(): void;
+    /** Handles blur events on the input. */
+    _onBlur(): void;
+    /** Formats a value and sets it on the input element. */
+    protected _formatValue(value: D | null): void;
+    /** Assigns a value to the model. */
+    private _assignValue;
+    /** Whether a value is considered valid. */
+    private _isValidValue;
+    /**
+     * Checks whether a parent control is disabled. This is in place so that it can be overridden
+     * by inputs extending this one which can be placed inside of a group that can be disabled.
+     */
+    protected _parentDisabled(): boolean;
+    /** Programmatically assigns a value to the input. */
+    protected _assignValueProgrammatically(value: D | null): void;
+    /** Gets whether a value matches the current date filter. */
+    _matchesFilter(value: D | null): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInputBase<any, any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": { "alias": "value"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
+    static ngAcceptInputType_disabled: unknown;
+}
+
+/** Injection token that determines the scroll handling while the calendar is open. */
+declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** @docs-private */
+declare function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
+/** Possible positions for the datepicker dropdown along the X axis. */
+type DatepickerDropdownPositionX = 'start' | 'end';
+/** Possible positions for the datepicker dropdown along the Y axis. */
+type DatepickerDropdownPositionY = 'above' | 'below';
+/** @docs-private */
+declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: (typeof Overlay)[];
+    useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
+};
+/**
+ * Component used as the content for the datepicker overlay. We use this instead of using
+ * MatCalendar directly as the content so we can control the initial focus. This also gives us a
+ * place to put additional features of the overlay that are not part of the calendar itself in the
+ * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare type MatCalendarView = 'month' | 'year' | 'multi-year';
-
-/** Component responsible for managing the datepicker popup/dialog. */
-export declare class MatDatepicker<D> extends MatDatepickerBase<MatDatepickerControl<D>, D | null, D> {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepicker<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepicker<any>, "mat-datepicker", ["matDatepicker"], {}, {}, never, never, true, never>;
-}
-
-/**
- * Container that can be used to project a row of action buttons
- * to the bottom of a datepicker or date range picker.
- */
-export declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
-    private _datepicker;
-    private _viewContainerRef;
-    _template: TemplateRef<unknown>;
-    private _portal;
+declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> implements AfterViewInit, OnDestroy {
+    protected _elementRef: ElementRef<HTMLElement>;
+    protected _animationsDisabled: boolean;
+    private _changeDetectorRef;
+    private _globalModel;
+    private _dateAdapter;
+    private _ngZone;
+    private _rangeSelectionStrategy;
+    private _stateChanges;
+    private _model;
+    private _eventCleanups;
+    private _animationFallback;
+    /** Reference to the internal calendar component. */
+    _calendar: MatCalendar<D>;
+    /**
+     * Theme color of the internal calendar. This API is supported in M2 themes
+     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     */
+    color: ThemePalette;
+    /** Reference to the datepicker that created the overlay. */
+    datepicker: MatDatepickerBase<any, S, D>;
+    /** Start of the comparison range. */
+    comparisonStart: D | null;
+    /** End of the comparison range. */
+    comparisonEnd: D | null;
+    /** ARIA Accessible name of the `<input matStartDate/>` */
+    startDateAccessibleName: string | null;
+    /** ARIA Accessible name of the `<input matEndDate/>` */
+    endDateAccessibleName: string | null;
+    /** Whether the datepicker is above or below the input. */
+    _isAbove: boolean;
+    /** Emits when an animation has finished. */
+    readonly _animationDone: Subject<void>;
+    /** Whether there is an in-progress animation. */
+    _isAnimating: boolean;
+    /** Text for the close button. */
+    _closeButtonText: string;
+    /** Whether the close button currently has focus. */
+    _closeButtonFocused: boolean;
+    /** Portal with projected action buttons. */
+    _actionsPortal: TemplatePortal | null;
+    /** Id of the label for the `role="dialog"` element. */
+    _dialogLabelId: string | null;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerActions, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerActions, "mat-datepicker-actions, mat-date-range-picker-actions", never, {}, {}, never, ["*"], true, never>;
+    _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;
+    _handleUserDragDrop(event: MatCalendarUserEvent<DateRange<D>>): void;
+    _startExitAnimation(): void;
+    private _handleAnimationEvent;
+    _getSelected(): D | DateRange<D> | null;
+    /** Applies the current pending selection to the global model. */
+    _applyPendingSelection(): void;
+    /**
+     * Assigns a new portal containing the datepicker actions.
+     * @param portal Portal with the actions to be assigned.
+     * @param forceRerender Whether a re-render of the portal should be triggered. This isn't
+     * necessary if the portal is assigned during initialization, but it may be required if it's
+     * added at a later point.
+     */
+    _assignActions(portal: TemplatePortal<any> | null, forceRerender: boolean): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerContent<any, any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerContent<any, any>, "mat-datepicker-content", ["matDatepickerContent"], { "color": { "alias": "color"; "required": false; }; }, {}, never, never, true, never>;
 }
-
-/**
- * Animations used by the Material datepicker.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare const matDatepickerAnimations: {
-    readonly transformPanel: any;
-    readonly fadeInCalendar: any;
-};
-
-/** Button that will close the datepicker and assign the current selection to the data model. */
-export declare class MatDatepickerApply {
-    private _datepicker;
-    constructor(...args: unknown[]);
-    _applySelection(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerApply, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerApply, "[matDatepickerApply], [matDateRangePickerApply]", never, {}, {}, never, never, true, never>;
+/** Form control that can be associated with a datepicker. */
+interface MatDatepickerControl<D> {
+    getStartValue(): D | null;
+    getThemePalette(): ThemePalette;
+    min: D | null;
+    max: D | null;
+    disabled: boolean;
+    dateFilter: DateFilterFn<D>;
+    getConnectedOverlayOrigin(): ElementRef;
+    getOverlayLabelId(): string | null;
+    stateChanges: Observable<void>;
 }
-
+/** A datepicker that can be attached to a {@link MatDatepickerControl}. */
+interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> {
+    /** Stream that emits whenever the date picker is closed. */
+    closedStream: EventEmitter<void>;
+    /**
+     * Color palette to use on the datepicker's calendar. This API is supported in M2 themes only, it
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     */
+    color: ThemePalette;
+    /** The input element the datepicker is associated with. */
+    datepickerInput: C;
+    /** Whether the datepicker pop-up should be disabled. */
+    disabled: boolean;
+    /** The id for the datepicker's calendar. */
+    id: string;
+    /** Whether the datepicker is open. */
+    opened: boolean;
+    /** Stream that emits whenever the date picker is opened. */
+    openedStream: EventEmitter<void>;
+    /** Emits when the datepicker's state changes. */
+    stateChanges: Subject<void>;
+    /** Opens the datepicker. */
+    open(): void;
+    /** Register an input with the datepicker. */
+    registerInput(input: C): MatDateSelectionModel<S, D>;
+}
 /** Base class for a datepicker. */
 declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements MatDatepickerPanel<C, S, D>, OnDestroy, OnChanges {
     private _overlay;
@@ -829,104 +1276,18 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     static ngAcceptInputType_opened: unknown;
 }
 
-/** Button that will close the datepicker and discard the current selection. */
-export declare class MatDatepickerCancel {
-    _datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown, {}>;
-    constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerCancel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerCancel, "[matDatepickerCancel], [matDateRangePickerCancel]", never, {}, {}, never, never, true, never>;
+/** Component responsible for managing the datepicker popup/dialog. */
+declare class MatDatepicker<D> extends MatDatepickerBase<MatDatepickerControl<D>, D | null, D> {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepicker<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepicker<any>, "mat-datepicker", ["matDatepicker"], {}, {}, never, never, true, never>;
 }
 
-/**
- * Component used as the content for the datepicker overlay. We use this instead of using
- * MatCalendar directly as the content so we can control the initial focus. This also gives us a
- * place to put additional features of the overlay that are not part of the calendar itself in the
- * future. (e.g. confirmation buttons).
- * @docs-private
- */
-export declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> implements AfterViewInit, OnDestroy {
-    protected _elementRef: ElementRef<HTMLElement>;
-    protected _animationsDisabled: boolean;
-    private _changeDetectorRef;
-    private _globalModel;
-    private _dateAdapter;
-    private _ngZone;
-    private _rangeSelectionStrategy;
-    private _stateChanges;
-    private _model;
-    private _eventCleanups;
-    private _animationFallback;
-    /** Reference to the internal calendar component. */
-    _calendar: MatCalendar<D>;
-    /**
-     * Theme color of the internal calendar. This API is supported in M2 themes
-     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
-     *
-     * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
-     */
-    color: ThemePalette;
-    /** Reference to the datepicker that created the overlay. */
-    datepicker: MatDatepickerBase<any, S, D>;
-    /** Start of the comparison range. */
-    comparisonStart: D | null;
-    /** End of the comparison range. */
-    comparisonEnd: D | null;
-    /** ARIA Accessible name of the `<input matStartDate/>` */
-    startDateAccessibleName: string | null;
-    /** ARIA Accessible name of the `<input matEndDate/>` */
-    endDateAccessibleName: string | null;
-    /** Whether the datepicker is above or below the input. */
-    _isAbove: boolean;
-    /** Emits when an animation has finished. */
-    readonly _animationDone: Subject<void>;
-    /** Whether there is an in-progress animation. */
-    _isAnimating: boolean;
-    /** Text for the close button. */
-    _closeButtonText: string;
-    /** Whether the close button currently has focus. */
-    _closeButtonFocused: boolean;
-    /** Portal with projected action buttons. */
-    _actionsPortal: TemplatePortal | null;
-    /** Id of the label for the `role="dialog"` element. */
-    _dialogLabelId: string | null;
-    constructor(...args: unknown[]);
-    ngAfterViewInit(): void;
-    ngOnDestroy(): void;
-    _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;
-    _handleUserDragDrop(event: MatCalendarUserEvent<DateRange<D>>): void;
-    _startExitAnimation(): void;
-    private _handleAnimationEvent;
-    _getSelected(): D | DateRange<D> | null;
-    /** Applies the current pending selection to the global model. */
-    _applyPendingSelection(): void;
-    /**
-     * Assigns a new portal containing the datepicker actions.
-     * @param portal Portal with the actions to be assigned.
-     * @param forceRerender Whether a re-render of the portal should be triggered. This isn't
-     * necessary if the portal is assigned during initialization, but it may be required if it's
-     * added at a later point.
-     */
-    _assignActions(portal: TemplatePortal<any> | null, forceRerender: boolean): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerContent<any, any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerContent<any, any>, "mat-datepicker-content", ["matDatepickerContent"], { "color": { "alias": "color"; "required": false; }; }, {}, never, never, true, never>;
-}
-
-/** Form control that can be associated with a datepicker. */
-export declare interface MatDatepickerControl<D> {
-    getStartValue(): D | null;
-    getThemePalette(): ThemePalette;
-    min: D | null;
-    max: D | null;
-    disabled: boolean;
-    dateFilter: DateFilterFn<D>;
-    getConnectedOverlayOrigin(): ElementRef;
-    getOverlayLabelId(): string | null;
-    stateChanges: Observable<void>;
-}
-
+/** @docs-private */
+declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
+/** @docs-private */
+declare const MAT_DATEPICKER_VALIDATORS: any;
 /** Directive used to connect an input to a MatDatepicker. */
-export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> implements MatDatepickerControl<D | null>, OnDestroy {
+declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> implements MatDatepickerControl<D | null>, OnDestroy {
     private _formField;
     private _closedSubscription;
     private _openedSubscription;
@@ -934,7 +1295,7 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     set matDatepicker(datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>);
     _datepicker: MatDatepickerPanel<MatDatepickerControl<D>, D | null, D>;
     /** The id of the panel owned by this input. */
-    protected _ariaOwns: WritableSignal<string | null>;
+    protected _ariaOwns: i0.WritableSignal<string | null>;
     /** The minimum valid date. */
     get min(): D | null;
     set min(value: D | null);
@@ -977,126 +1338,8 @@ export declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | nu
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInput<any>, "input[matDatepicker]", ["matDatepickerInput"], { "matDatepicker": { "alias": "matDatepicker"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "dateFilter": { "alias": "matDatepickerFilter"; "required": false; }; }, {}, never, never, true, never>;
 }
 
-/** Base class for datepicker inputs. */
-declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelection<S>> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy, Validator {
-    protected _elementRef: ElementRef<HTMLInputElement>;
-    _dateAdapter: DateAdapter<D, any>;
-    private _dateFormats;
-    /** Whether the component has been initialized. */
-    private _isInitialized;
-    /** The value of the input. */
-    get value(): D | null;
-    set value(value: any);
-    protected _model: MatDateSelectionModel<S, D> | undefined;
-    /** Whether the datepicker-input is disabled. */
-    get disabled(): boolean;
-    set disabled(value: boolean);
-    private _disabled;
-    /** Emits when a `change` event is fired on this `<input>`. */
-    readonly dateChange: EventEmitter<MatDatepickerInputEvent<D, S>>;
-    /** Emits when an `input` event is fired on this `<input>`. */
-    readonly dateInput: EventEmitter<MatDatepickerInputEvent<D, S>>;
-    /** Emits when the internal state has changed */
-    readonly stateChanges: Subject<void>;
-    _onTouched: () => void;
-    _validatorOnChange: () => void;
-    private _cvaOnChange;
-    private _valueChangesSubscription;
-    private _localeSubscription;
-    /**
-     * Since the value is kept on the model which is assigned in an Input,
-     * we might get a value before we have a model. This property keeps track
-     * of the value until we have somewhere to assign it.
-     */
-    private _pendingValue;
-    /** The form control validator for whether the input parses. */
-    private _parseValidator;
-    /** The form control validator for the date filter. */
-    private _filterValidator;
-    /** The form control validator for the min date. */
-    private _minValidator;
-    /** The form control validator for the max date. */
-    private _maxValidator;
-    /** Gets the base validator functions. */
-    protected _getValidators(): ValidatorFn[];
-    /** Gets the minimum date for the input. Used for validation. */
-    abstract _getMinDate(): D | null;
-    /** Gets the maximum date for the input. Used for validation. */
-    abstract _getMaxDate(): D | null;
-    /** Gets the date filter function. Used for validation. */
-    protected abstract _getDateFilter(): DateFilterFn<D> | undefined;
-    /** Registers a date selection model with the input. */
-    _registerModel(model: MatDateSelectionModel<S, D>): void;
-    /** Opens the popup associated with the input. */
-    protected abstract _openPopup(): void;
-    /** Assigns a value to the input's model. */
-    protected abstract _assignValueToModel(model: D | null): void;
-    /** Converts a value from the model into a native value for the input. */
-    protected abstract _getValueFromModel(modelValue: S): D | null;
-    /** Combined form control validator for this input. */
-    protected abstract _validator: ValidatorFn | null;
-    /** Predicate that determines whether the input should handle a particular change event. */
-    protected abstract _shouldHandleChangeEvent(event: DateSelectionModelChange<S>): boolean;
-    /** Whether the last value set on the input was valid. */
-    protected _lastValueValid: boolean;
-    constructor(...args: unknown[]);
-    ngAfterViewInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
-    /** @docs-private */
-    registerOnValidatorChange(fn: () => void): void;
-    /** @docs-private */
-    validate(c: AbstractControl): ValidationErrors | null;
-    writeValue(value: D): void;
-    registerOnChange(fn: (value: any) => void): void;
-    registerOnTouched(fn: () => void): void;
-    setDisabledState(isDisabled: boolean): void;
-    _onKeydown(event: KeyboardEvent): void;
-    _onInput(event: Event): void;
-    _onChange(): void;
-    /** Handles blur events on the input. */
-    _onBlur(): void;
-    /** Formats a value and sets it on the input element. */
-    protected _formatValue(value: D | null): void;
-    /** Assigns a value to the model. */
-    private _assignValue;
-    /** Whether a value is considered valid. */
-    private _isValidValue;
-    /**
-     * Checks whether a parent control is disabled. This is in place so that it can be overridden
-     * by inputs extending this one which can be placed inside of a group that can be disabled.
-     */
-    protected _parentDisabled(): boolean;
-    /** Programmatically assigns a value to the input. */
-    protected _assignValueProgrammatically(value: D | null): void;
-    /** Gets whether a value matches the current date filter. */
-    _matchesFilter(value: D | null): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInputBase<any, any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInputBase<any, any>, never, never, { "value": { "alias": "value"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
-    static ngAcceptInputType_disabled: unknown;
-}
-
-/**
- * An event used for datepicker input and change events. We don't always have access to a native
- * input or change event because the event may have been triggered by the user clicking on the
- * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
- */
-export declare class MatDatepickerInputEvent<D, S = unknown> {
-    /** Reference to the datepicker input component that emitted the event. */
-    target: MatDatepickerInputBase<S, D>;
-    /** Reference to the native input element associated with the datepicker input. */
-    targetElement: HTMLElement;
-    /** The new value for the target datepicker input. */
-    value: D | null;
-    constructor(
-    /** Reference to the datepicker input component that emitted the event. */
-    target: MatDatepickerInputBase<S, D>, 
-    /** Reference to the native input element associated with the datepicker input. */
-    targetElement: HTMLElement);
-}
-
 /** Datepicker data that requires internationalization. */
-export declare class MatDatepickerIntl {
+declare class MatDatepickerIntl {
     /**
      * Stream that emits whenever the labels here are changed. Use this to notify
      * components if the labels have changed after initialization.
@@ -1148,43 +1391,12 @@ export declare class MatDatepickerIntl {
     static ɵprov: i0.ɵɵInjectableDeclaration<MatDatepickerIntl>;
 }
 
-export declare class MatDatepickerModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof i1.MatButtonModule, typeof i2.OverlayModule, typeof i3.A11yModule, typeof i4.PortalModule, typeof i5.MatCommonModule, typeof i6.MatCalendar, typeof i7.MatCalendarBody, typeof i8.MatDatepicker, typeof i9.MatDatepickerContent, typeof i10.MatDatepickerInput, typeof i11.MatDatepickerToggle, typeof i11.MatDatepickerToggleIcon, typeof i12.MatMonthView, typeof i13.MatYearView, typeof i14.MatMultiYearView, typeof i6.MatCalendarHeader, typeof i15.MatDateRangeInput, typeof i16.MatStartDate, typeof i16.MatEndDate, typeof i17.MatDateRangePicker, typeof i18.MatDatepickerActions, typeof i18.MatDatepickerCancel, typeof i18.MatDatepickerApply], [typeof i19.CdkScrollableModule, typeof i6.MatCalendar, typeof i7.MatCalendarBody, typeof i8.MatDatepicker, typeof i9.MatDatepickerContent, typeof i10.MatDatepickerInput, typeof i11.MatDatepickerToggle, typeof i11.MatDatepickerToggleIcon, typeof i12.MatMonthView, typeof i13.MatYearView, typeof i14.MatMultiYearView, typeof i6.MatCalendarHeader, typeof i15.MatDateRangeInput, typeof i16.MatStartDate, typeof i16.MatEndDate, typeof i17.MatDateRangePicker, typeof i18.MatDatepickerActions, typeof i18.MatDatepickerCancel, typeof i18.MatDatepickerApply]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatDatepickerModule>;
+/** Can be used to override the icon of a `matDatepickerToggle`. */
+declare class MatDatepickerToggleIcon {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggleIcon, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never, never, true, never>;
 }
-
-/** A datepicker that can be attached to a {@link MatDatepickerControl}. */
-export declare interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> {
-    /** Stream that emits whenever the date picker is closed. */
-    closedStream: EventEmitter<void>;
-    /**
-     * Color palette to use on the datepicker's calendar. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
-     *
-     * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
-     */
-    color: ThemePalette;
-    /** The input element the datepicker is associated with. */
-    datepickerInput: C;
-    /** Whether the datepicker pop-up should be disabled. */
-    disabled: boolean;
-    /** The id for the datepicker's calendar. */
-    id: string;
-    /** Whether the datepicker is open. */
-    opened: boolean;
-    /** Stream that emits whenever the date picker is opened. */
-    openedStream: EventEmitter<void>;
-    /** Emits when the datepicker's state changes. */
-    stateChanges: Subject<void>;
-    /** Opens the datepicker. */
-    open(): void;
-    /** Register an input with the datepicker. */
-    registerInput(input: C): MatDateSelectionModel<S, D>;
-}
-
-export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnDestroy {
+declare class MatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnDestroy {
     _intl: MatDatepickerIntl;
     private _changeDetectorRef;
     private _stateChanges;
@@ -1215,13 +1427,112 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     static ngAcceptInputType_disabled: unknown;
 }
 
-/** Can be used to override the icon of a `matDatepickerToggle`. */
-export declare class MatDatepickerToggleIcon {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerToggleIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerToggleIcon, "[matDatepickerToggleIcon]", never, {}, {}, never, never, true, never>;
+/**
+ * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
+ */
+declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBase<DateRange<D>> implements OnInit, AfterContentInit, DoCheck {
+    _rangeInput: MatDateRangeInput<D>;
+    _elementRef: ElementRef<HTMLInputElement>;
+    _defaultErrorStateMatcher: ErrorStateMatcher;
+    private _injector;
+    _parentForm: NgForm | null;
+    _parentFormGroup: FormGroupDirective | null;
+    /**
+     * Form control bound to this input part.
+     * @docs-private
+     */
+    ngControl: NgControl;
+    protected abstract _validator: ValidatorFn | null;
+    protected abstract _assignValueToModel(value: D | null): void;
+    protected abstract _getValueFromModel(modelValue: DateRange<D>): D | null;
+    protected abstract _register(): void;
+    protected readonly _dir: Directionality | null;
+    private _errorStateTracker;
+    /** Object used to control when error messages are shown. */
+    get errorStateMatcher(): ErrorStateMatcher;
+    set errorStateMatcher(value: ErrorStateMatcher);
+    /** Whether the input is in an error state. */
+    get errorState(): boolean;
+    set errorState(value: boolean);
+    constructor(...args: unknown[]);
+    ngOnInit(): void;
+    ngAfterContentInit(): void;
+    ngDoCheck(): void;
+    /** Gets whether the input is empty. */
+    isEmpty(): boolean;
+    /** Gets the placeholder of the input. */
+    _getPlaceholder(): string;
+    /** Focuses the input. */
+    focus(): void;
+    /** Gets the value that should be used when mirroring the input's size. */
+    getMirrorValue(): string;
+    /** Refreshes the error state of the input. */
+    updateErrorState(): void;
+    /** Handles `input` events on the input element. */
+    _onInput(event: Event): void;
+    /** Opens the datepicker associated with the input. */
+    protected _openPopup(): void;
+    /** Gets the minimum date from the range input. */
+    _getMinDate(): D | null;
+    /** Gets the maximum date from the range input. */
+    _getMaxDate(): D | null;
+    /** Gets the date filter function from the range input. */
+    protected _getDateFilter(): DateFilterFn<D>;
+    protected _parentDisabled(): boolean;
+    protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
+    protected _assignValueProgrammatically(value: D | null): void;
+    protected _formatValue(value: D | null): void;
+    /** return the ARIA accessible name of the input element */
+    _getAccessibleName(): string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInputPartBase<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, { "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, {}, never, never, true, never>;
+}
+/** Input for entering the start date in a `mat-date-range-input`. */
+declare class MatStartDate<D> extends MatDateRangeInputPartBase<D> {
+    /** Validator that checks that the start date isn't after the end date. */
+    private _startValidator;
+    protected _validator: ValidatorFn | null;
+    protected _register(): void;
+    protected _getValueFromModel(modelValue: DateRange<D>): D | null;
+    protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
+    protected _assignValueToModel(value: D | null): void;
+    _onKeydown(event: KeyboardEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
+}
+/** Input for entering the end date in a `mat-date-range-input`. */
+declare class MatEndDate<D> extends MatDateRangeInputPartBase<D> {
+    /** Validator that checks that the end date isn't before the start date. */
+    private _endValidator;
+    protected _register(): void;
+    protected _validator: ValidatorFn | null;
+    protected _getValueFromModel(modelValue: DateRange<D>): D | null;
+    protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
+    protected _assignValueToModel(value: D | null): void;
+    private _moveCaretToEndOfStartInput;
+    _onKeydown(event: KeyboardEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatEndDate<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
 }
 
-export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
+/**
+ * Input that can be associated with a date range picker.
+ * @docs-private
+ */
+interface MatDateRangePickerInput<D> extends MatDatepickerControl<D> {
+    _getEndDateAccessibleName(): string | null;
+    _getStartDateAccessibleName(): string | null;
+    comparisonStart: D | null;
+    comparisonEnd: D | null;
+}
+/** Component responsible for managing the date range picker popup/dialog. */
+declare class MatDateRangePicker<D> extends MatDatepickerBase<MatDateRangePickerInput<D>, DateRange<D>, D> {
+    protected _forwardContentValues(instance: MatDatepickerContent<DateRange<D>, D>): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangePicker<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangePicker<any>, "mat-date-range-picker", ["matDateRangePicker"], {}, {}, never, never, true, never>;
+}
+
+declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>, MatDatepickerControl<D>, MatDateRangePickerInput<D>, AfterContentInit, OnChanges, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _dateAdapter;
@@ -1251,7 +1562,7 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     set rangePicker(rangePicker: MatDatepickerPanel<MatDatepickerControl<D>, DateRange<D>, D>);
     private _rangePicker;
     /** The id of the panel owned by this input. */
-    _ariaOwns: WritableSignal<string | null>;
+    _ariaOwns: i0.WritableSignal<string | null>;
     /** Whether the input is required. */
     get required(): boolean;
     set required(value: boolean);
@@ -1349,87 +1660,47 @@ export declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRan
     static ngAcceptInputType_disabled: unknown;
 }
 
-/**
- * Base class for the individual inputs that can be projected inside a `mat-date-range-input`.
- */
-declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBase<DateRange<D>> implements OnInit, AfterContentInit, DoCheck {
-    _rangeInput: MatDateRangeInput<D>;
-    _elementRef: ElementRef<HTMLInputElement>;
-    _defaultErrorStateMatcher: ErrorStateMatcher;
-    private _injector;
-    _parentForm: NgForm | null;
-    _parentFormGroup: FormGroupDirective | null;
-    /**
-     * Form control bound to this input part.
-     * @docs-private
-     */
-    ngControl: NgControl;
-    protected abstract _validator: ValidatorFn | null;
-    protected abstract _assignValueToModel(value: D | null): void;
-    protected abstract _getValueFromModel(modelValue: DateRange<D>): D | null;
-    protected abstract _register(): void;
-    protected readonly _dir: Directionality | null;
-    private _errorStateTracker;
-    /** Object used to control when error messages are shown. */
-    get errorStateMatcher(): ErrorStateMatcher;
-    set errorStateMatcher(value: ErrorStateMatcher);
-    /** Whether the input is in an error state. */
-    get errorState(): boolean;
-    set errorState(value: boolean);
+/** Button that will close the datepicker and assign the current selection to the data model. */
+declare class MatDatepickerApply {
+    private _datepicker;
     constructor(...args: unknown[]);
-    ngOnInit(): void;
-    ngAfterContentInit(): void;
-    ngDoCheck(): void;
-    /** Gets whether the input is empty. */
-    isEmpty(): boolean;
-    /** Gets the placeholder of the input. */
-    _getPlaceholder(): string;
-    /** Focuses the input. */
-    focus(): void;
-    /** Gets the value that should be used when mirroring the input's size. */
-    getMirrorValue(): string;
-    /** Refreshes the error state of the input. */
-    updateErrorState(): void;
-    /** Handles `input` events on the input element. */
-    _onInput(event: Event): void;
-    /** Opens the datepicker associated with the input. */
-    protected _openPopup(): void;
-    /** Gets the minimum date from the range input. */
-    _getMinDate(): D | null;
-    /** Gets the maximum date from the range input. */
-    _getMaxDate(): D | null;
-    /** Gets the date filter function from the range input. */
-    protected _getDateFilter(): DateFilterFn<D>;
-    protected _parentDisabled(): boolean;
-    protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
-    protected _assignValueProgrammatically(value: D | null): void;
-    protected _formatValue(value: D | null): void;
-    /** return the ARIA accessible name of the input element */
-    _getAccessibleName(): string;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangeInputPartBase<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDateRangeInputPartBase<any>, never, never, { "errorStateMatcher": { "alias": "errorStateMatcher"; "required": false; }; }, {}, never, never, true, never>;
+    _applySelection(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerApply, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerApply, "[matDatepickerApply], [matDateRangePickerApply]", never, {}, {}, never, never, true, never>;
 }
-
-/** Component responsible for managing the date range picker popup/dialog. */
-export declare class MatDateRangePicker<D> extends MatDatepickerBase<MatDateRangePickerInput<D>, DateRange<D>, D> {
-    protected _forwardContentValues(instance: MatDatepickerContent<DateRange<D>, D>): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateRangePicker<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDateRangePicker<any>, "mat-date-range-picker", ["matDateRangePicker"], {}, {}, never, never, true, never>;
+/** Button that will close the datepicker and discard the current selection. */
+declare class MatDatepickerCancel {
+    _datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown, {}>;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerCancel, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerCancel, "[matDatepickerCancel], [matDateRangePickerCancel]", never, {}, {}, never, never, true, never>;
 }
-
 /**
- * Input that can be associated with a date range picker.
- * @docs-private
+ * Container that can be used to project a row of action buttons
+ * to the bottom of a datepicker or date range picker.
  */
-declare interface MatDateRangePickerInput<D> extends MatDatepickerControl<D> {
-    _getEndDateAccessibleName(): string | null;
-    _getStartDateAccessibleName(): string | null;
-    comparisonStart: D | null;
-    comparisonEnd: D | null;
+declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
+    private _datepicker;
+    private _viewContainerRef;
+    _template: TemplateRef<unknown>;
+    private _portal;
+    constructor(...args: unknown[]);
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerActions, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDatepickerActions, "mat-datepicker-actions, mat-date-range-picker-actions", never, {}, {}, never, ["*"], true, never>;
 }
 
+declare class MatDatepickerModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof i1.MatButtonModule, typeof i2.OverlayModule, typeof i1$1.A11yModule, typeof i3.PortalModule, typeof i1$2.MatCommonModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply], [typeof i2$1.CdkScrollableModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatDatepickerModule>;
+}
+
+/** Injection token used to customize the date range selection behavior. */
+declare const MAT_DATE_RANGE_SELECTION_STRATEGY: InjectionToken<MatDateRangeSelectionStrategy<any>>;
 /** Object that can be provided in order to customize the date range selection behavior. */
-export declare interface MatDateRangeSelectionStrategy<D> {
+interface MatDateRangeSelectionStrategy<D> {
     /**
      * Called when the user has finished selecting a value.
      * @param date Date that was selected. Will be null if the user cleared the selection.
@@ -1461,473 +1732,26 @@ export declare interface MatDateRangeSelectionStrategy<D> {
      */
     createDrag?(dragOrigin: D, originalRange: DateRange<D>, newDate: D, event: Event): DateRange<D> | null;
 }
-
-/**
- * A selection model containing a date selection.
- * @docs-private
- */
-export declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSelection<S>> implements OnDestroy {
-    /** The current selection. */
-    readonly selection: S;
-    protected _adapter: DateAdapter<D>;
-    private readonly _selectionChanged;
-    /** Emits when the selection has changed. */
-    selectionChanged: Observable<DateSelectionModelChange<S>>;
-    protected constructor(
-    /** The current selection. */
-    selection: S, _adapter: DateAdapter<D>);
-    /**
-     * Updates the current selection in the model.
-     * @param value New selection that should be assigned.
-     * @param source Object that triggered the selection change.
-     */
-    updateSelection(value: S, source: unknown): void;
-    ngOnDestroy(): void;
-    protected _isValidDateInstance(date: D): boolean;
-    /** Adds a date to the current selection. */
-    abstract add(date: D | null): void;
-    /** Checks whether the current selection is valid. */
-    abstract isValid(): boolean;
-    /** Checks whether the current selection is complete. */
-    abstract isComplete(): boolean;
-    /** Clones the selection model. */
-    abstract clone(): MatDateSelectionModel<S, D>;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDateSelectionModel<any, any>, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatDateSelectionModel<any, any>>;
-}
-
-/** Input for entering the end date in a `mat-date-range-input`. */
-export declare class MatEndDate<D> extends MatDateRangeInputPartBase<D> {
-    /** Validator that checks that the end date isn't before the start date. */
-    private _endValidator;
-    protected _register(): void;
-    protected _validator: ValidatorFn | null;
-    protected _getValueFromModel(modelValue: DateRange<D>): D | null;
-    protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
-    protected _assignValueToModel(value: D | null): void;
-    private _moveCaretToEndOfStartInput;
-    _onKeydown(event: KeyboardEvent): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatEndDate<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatEndDate<any>, "input[matEndDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
+/** Provides the default date range selection behavior. */
+declare class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeSelectionStrategy<D> {
+    private _dateAdapter;
+    constructor(_dateAdapter: DateAdapter<D>);
+    selectionFinished(date: D, currentRange: DateRange<D>): DateRange<D>;
+    createPreview(activeDate: D | null, currentRange: DateRange<D>): DateRange<D>;
+    createDrag(dragOrigin: D, originalRange: DateRange<D>, newDate: D): DateRange<D> | null;
+    static ɵfac: i0.ɵɵFactoryDeclaration<DefaultMatCalendarRangeStrategy<any>, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<DefaultMatCalendarRangeStrategy<any>>;
 }
 
 /**
- * An internal component used to display a single month in the datepicker.
+ * Animations used by the Material datepicker.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
-export declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy {
-    readonly _changeDetectorRef: ChangeDetectorRef;
-    private _dateFormats;
-    _dateAdapter: DateAdapter<D, any>;
-    private _dir;
-    private _rangeStrategy;
-    private _rerenderSubscription;
-    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
-    private _selectionKeyPressed;
-    /**
-     * The date to display in this month view (everything other than the month and year is ignored).
-     */
-    get activeDate(): D;
-    set activeDate(value: D);
-    private _activeDate;
-    /** The currently selected date. */
-    get selected(): DateRange<D> | D | null;
-    set selected(value: DateRange<D> | D | null);
-    private _selected;
-    /** The minimum selectable date. */
-    get minDate(): D | null;
-    set minDate(value: D | null);
-    private _minDate;
-    /** The maximum selectable date. */
-    get maxDate(): D | null;
-    set maxDate(value: D | null);
-    private _maxDate;
-    /** Function used to filter which dates are selectable. */
-    dateFilter: (date: D) => boolean;
-    /** Function that can be used to add custom CSS classes to dates. */
-    dateClass: MatCalendarCellClassFunction<D>;
-    /** Start of the comparison range. */
-    comparisonStart: D | null;
-    /** End of the comparison range. */
-    comparisonEnd: D | null;
-    /** ARIA Accessible name of the `<input matStartDate/>` */
-    startDateAccessibleName: string | null;
-    /** ARIA Accessible name of the `<input matEndDate/>` */
-    endDateAccessibleName: string | null;
-    /** Origin of active drag, or null when dragging is not active. */
-    activeDrag: MatCalendarUserEvent<D> | null;
-    /** Emits when a new date is selected. */
-    readonly selectedChange: EventEmitter<D | null>;
-    /** Emits when any date is selected. */
-    readonly _userSelection: EventEmitter<MatCalendarUserEvent<D | null>>;
-    /** Emits when the user initiates a date range drag via mouse or touch. */
-    readonly dragStarted: EventEmitter<MatCalendarUserEvent<D>>;
-    /**
-     * Emits when the user completes or cancels a date range drag.
-     * Emits null when the drag was canceled or the newly selected date range if completed.
-     */
-    readonly dragEnded: EventEmitter<MatCalendarUserEvent<DateRange<D> | null>>;
-    /** Emits when any date is activated. */
-    readonly activeDateChange: EventEmitter<D>;
-    /** The body of calendar table */
-    _matCalendarBody: MatCalendarBody;
-    /** The label for this month (e.g. "January 2017"). */
-    _monthLabel: string;
-    /** Grid of calendar cells representing the dates of the month. */
-    _weeks: MatCalendarCell[][];
-    /** The number of blank cells in the first row before the 1st of the month. */
-    _firstWeekOffset: number;
-    /** Start value of the currently-shown date range. */
-    _rangeStart: number | null;
-    /** End value of the currently-shown date range. */
-    _rangeEnd: number | null;
-    /** Start value of the currently-shown comparison date range. */
-    _comparisonRangeStart: number | null;
-    /** End value of the currently-shown comparison date range. */
-    _comparisonRangeEnd: number | null;
-    /** Start of the preview range. */
-    _previewStart: number | null;
-    /** End of the preview range. */
-    _previewEnd: number | null;
-    /** Whether the user is currently selecting a range of dates. */
-    _isRange: boolean;
-    /** The date of the month that today falls on. Null if today is in another month. */
-    _todayDate: number | null;
-    /** The names of the weekdays. */
-    _weekdays: {
-        long: string;
-        narrow: string;
-        id: number;
-    }[];
-    constructor(...args: unknown[]);
-    ngAfterContentInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    ngOnDestroy(): void;
-    /** Handles when a new date is selected. */
-    _dateSelected(event: MatCalendarUserEvent<number>): void;
-    /**
-     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
-     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
-     * that date.
-     *
-     * This function is used to match each component's model of the active date with the calendar
-     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
-     * updated value asynchronously via the `activeCell` Input.
-     */
-    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
-    /** Handles keydown events on the calendar body when calendar is in month view. */
-    _handleCalendarBodyKeydown(event: KeyboardEvent): void;
-    /** Handles keyup events on the calendar body when calendar is in month view. */
-    _handleCalendarBodyKeyup(event: KeyboardEvent): void;
-    /** Initializes this month view. */
-    _init(): void;
-    /** Focuses the active cell after the microtask queue is empty. */
-    _focusActiveCell(movePreview?: boolean): void;
-    /** Focuses the active cell after change detection has run and the microtask queue is empty. */
-    _focusActiveCellAfterViewChecked(): void;
-    /** Called when the user has activated a new cell and the preview needs to be updated. */
-    _previewChanged({ event, value: cell }: MatCalendarUserEvent<MatCalendarCell<D> | null>): void;
-    /**
-     * Called when the user has ended a drag. If the drag/drop was successful,
-     * computes and emits the new range selection.
-     */
-    protected _dragEnded(event: MatCalendarUserEvent<D | null>): void;
-    /**
-     * Takes a day of the month and returns a new date in the same month and year as the currently
-     *  active date. The returned date will have the same day of the month as the argument date.
-     */
-    private _getDateFromDayOfMonth;
-    /** Initializes the weekdays. */
-    private _initWeekdays;
-    /** Creates MatCalendarCells for the dates in this month. */
-    private _createWeekCells;
-    /** Date filter for the month */
-    private _shouldEnableDate;
-    /**
-     * Gets the date in this month that the given Date falls on.
-     * Returns null if the given Date is in another month.
-     */
-    private _getDateInCurrentMonth;
-    /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
-    private _hasSameMonthAndYear;
-    /** Gets the value that will be used to one cell to another. */
-    private _getCellCompareValue;
-    /** Determines whether the user has the RTL layout direction. */
-    private _isRtl;
-    /** Sets the current range based on a model value. */
-    private _setRanges;
-    /** Gets whether a date can be selected in the month view. */
-    private _canSelect;
-    /** Clears out preview state. */
-    private _clearPreview;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMonthView<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMonthView<any>, "mat-month-view", ["matMonthView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; "comparisonStart": { "alias": "comparisonStart"; "required": false; }; "comparisonEnd": { "alias": "comparisonEnd"; "required": false; }; "startDateAccessibleName": { "alias": "startDateAccessibleName"; "required": false; }; "endDateAccessibleName": { "alias": "endDateAccessibleName"; "required": false; }; "activeDrag": { "alias": "activeDrag"; "required": false; }; }, { "selectedChange": "selectedChange"; "_userSelection": "_userSelection"; "dragStarted": "dragStarted"; "dragEnded": "dragEnded"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
-}
+declare const matDatepickerAnimations: {
+    readonly transformPanel: any;
+    readonly fadeInCalendar: any;
+};
 
-/**
- * An internal component used to display a year selector in the datepicker.
- * @docs-private
- */
-export declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
-    private _changeDetectorRef;
-    _dateAdapter: DateAdapter<D, any>;
-    private _dir;
-    private _rerenderSubscription;
-    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
-    private _selectionKeyPressed;
-    /** The date to display in this multi-year view (everything other than the year is ignored). */
-    get activeDate(): D;
-    set activeDate(value: D);
-    private _activeDate;
-    /** The currently selected date. */
-    get selected(): DateRange<D> | D | null;
-    set selected(value: DateRange<D> | D | null);
-    private _selected;
-    /** The minimum selectable date. */
-    get minDate(): D | null;
-    set minDate(value: D | null);
-    private _minDate;
-    /** The maximum selectable date. */
-    get maxDate(): D | null;
-    set maxDate(value: D | null);
-    private _maxDate;
-    /** A function used to filter which dates are selectable. */
-    dateFilter: (date: D) => boolean;
-    /** Function that can be used to add custom CSS classes to date cells. */
-    dateClass: MatCalendarCellClassFunction<D>;
-    /** Emits when a new year is selected. */
-    readonly selectedChange: EventEmitter<D>;
-    /** Emits the selected year. This doesn't imply a change on the selected date */
-    readonly yearSelected: EventEmitter<D>;
-    /** Emits when any date is activated. */
-    readonly activeDateChange: EventEmitter<D>;
-    /** The body of calendar table */
-    _matCalendarBody: MatCalendarBody;
-    /** Grid of calendar cells representing the currently displayed years. */
-    _years: MatCalendarCell[][];
-    /** The year that today falls on. */
-    _todayYear: number;
-    /** The year of the selected date. Null if the selected date is null. */
-    _selectedYear: number | null;
-    constructor(...args: unknown[]);
-    ngAfterContentInit(): void;
-    ngOnDestroy(): void;
-    /** Initializes this multi-year view. */
-    _init(): void;
-    /** Handles when a new year is selected. */
-    _yearSelected(event: MatCalendarUserEvent<number>): void;
-    /**
-     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
-     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
-     * that date.
-     *
-     * This function is used to match each component's model of the active date with the calendar
-     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
-     * updated value asynchronously via the `activeCell` Input.
-     */
-    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
-    /** Handles keydown events on the calendar body when calendar is in multi-year view. */
-    _handleCalendarBodyKeydown(event: KeyboardEvent): void;
-    /** Handles keyup events on the calendar body when calendar is in multi-year view. */
-    _handleCalendarBodyKeyup(event: KeyboardEvent): void;
-    _getActiveCell(): number;
-    /** Focuses the active cell after the microtask queue is empty. */
-    _focusActiveCell(): void;
-    /** Focuses the active cell after change detection has run and the microtask queue is empty. */
-    _focusActiveCellAfterViewChecked(): void;
-    /**
-     * Takes a year and returns a new date on the same day and month as the currently active date
-     *  The returned date will have the same year as the argument date.
-     */
-    private _getDateFromYear;
-    /** Creates an MatCalendarCell for the given year. */
-    private _createCellForYear;
-    /** Whether the given year is enabled. */
-    private _shouldEnableYear;
-    /** Determines whether the user has the RTL layout direction. */
-    private _isRtl;
-    /** Sets the currently-highlighted year based on a model value. */
-    private _setSelectedYear;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMultiYearView<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMultiYearView<any>, "mat-multi-year-view", ["matMultiYearView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; }, { "selectedChange": "selectedChange"; "yearSelected": "yearSelected"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
-}
-
-/**
- * A selection model that contains a date range.
- * @docs-private
- */
-export declare class MatRangeDateSelectionModel<D> extends MatDateSelectionModel<DateRange<D>, D> {
-    constructor(adapter: DateAdapter<D>);
-    /**
-     * Adds a date to the current selection. In the case of a date range selection, the added date
-     * fills in the next `null` value in the range. If both the start and the end already have a date,
-     * the selection is reset so that the given date is the new `start` and the `end` is null.
-     */
-    add(date: D | null): void;
-    /** Checks whether the current selection is valid. */
-    isValid(): boolean;
-    /**
-     * Checks whether the current selection is complete. In the case of a date range selection, this
-     * is true if the current selection has a non-null `start` and `end`.
-     */
-    isComplete(): boolean;
-    /** Clones the selection model. */
-    clone(): MatRangeDateSelectionModel<D>;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRangeDateSelectionModel<any>, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatRangeDateSelectionModel<any>>;
-}
-
-/**
- * A selection model that contains a single date.
- * @docs-private
- */
-export declare class MatSingleDateSelectionModel<D> extends MatDateSelectionModel<D | null, D> {
-    constructor(adapter: DateAdapter<D>);
-    /**
-     * Adds a date to the current selection. In the case of a single date selection, the added date
-     * simply overwrites the previous selection
-     */
-    add(date: D | null): void;
-    /** Checks whether the current selection is valid. */
-    isValid(): boolean;
-    /**
-     * Checks whether the current selection is complete. In the case of a single date selection, this
-     * is true if the current selection is not null.
-     */
-    isComplete(): boolean;
-    /** Clones the selection model. */
-    clone(): MatSingleDateSelectionModel<D>;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSingleDateSelectionModel<any>, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatSingleDateSelectionModel<any>>;
-}
-
-/** Input for entering the start date in a `mat-date-range-input`. */
-export declare class MatStartDate<D> extends MatDateRangeInputPartBase<D> {
-    /** Validator that checks that the start date isn't after the end date. */
-    private _startValidator;
-    protected _validator: ValidatorFn | null;
-    protected _register(): void;
-    protected _getValueFromModel(modelValue: DateRange<D>): D | null;
-    protected _shouldHandleChangeEvent(change: DateSelectionModelChange<DateRange<D>>): boolean;
-    protected _assignValueToModel(value: D | null): void;
-    _onKeydown(event: KeyboardEvent): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStartDate<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStartDate<any>, "input[matStartDate]", never, {}, { "dateChange": "dateChange"; "dateInput": "dateInput"; }, never, never, true, never>;
-}
-
-/**
- * An internal component used to display a single year in the datepicker.
- * @docs-private
- */
-export declare class MatYearView<D> implements AfterContentInit, OnDestroy {
-    readonly _changeDetectorRef: ChangeDetectorRef;
-    private _dateFormats;
-    _dateAdapter: DateAdapter<D, any>;
-    private _dir;
-    private _rerenderSubscription;
-    /** Flag used to filter out space/enter keyup events that originated outside of the view. */
-    private _selectionKeyPressed;
-    /** The date to display in this year view (everything other than the year is ignored). */
-    get activeDate(): D;
-    set activeDate(value: D);
-    private _activeDate;
-    /** The currently selected date. */
-    get selected(): DateRange<D> | D | null;
-    set selected(value: DateRange<D> | D | null);
-    private _selected;
-    /** The minimum selectable date. */
-    get minDate(): D | null;
-    set minDate(value: D | null);
-    private _minDate;
-    /** The maximum selectable date. */
-    get maxDate(): D | null;
-    set maxDate(value: D | null);
-    private _maxDate;
-    /** A function used to filter which dates are selectable. */
-    dateFilter: (date: D) => boolean;
-    /** Function that can be used to add custom CSS classes to date cells. */
-    dateClass: MatCalendarCellClassFunction<D>;
-    /** Emits when a new month is selected. */
-    readonly selectedChange: EventEmitter<D>;
-    /** Emits the selected month. This doesn't imply a change on the selected date */
-    readonly monthSelected: EventEmitter<D>;
-    /** Emits when any date is activated. */
-    readonly activeDateChange: EventEmitter<D>;
-    /** The body of calendar table */
-    _matCalendarBody: MatCalendarBody;
-    /** Grid of calendar cells representing the months of the year. */
-    _months: MatCalendarCell[][];
-    /** The label for this year (e.g. "2017"). */
-    _yearLabel: string;
-    /** The month in this year that today falls on. Null if today is in a different year. */
-    _todayMonth: number | null;
-    /**
-     * The month in this year that the selected Date falls on.
-     * Null if the selected Date is in a different year.
-     */
-    _selectedMonth: number | null;
-    constructor(...args: unknown[]);
-    ngAfterContentInit(): void;
-    ngOnDestroy(): void;
-    /** Handles when a new month is selected. */
-    _monthSelected(event: MatCalendarUserEvent<number>): void;
-    /**
-     * Takes the index of a calendar body cell wrapped in an event as argument. For the date that
-     * corresponds to the given cell, set `activeDate` to that date and fire `activeDateChange` with
-     * that date.
-     *
-     * This function is used to match each component's model of the active date with the calendar
-     * body cell that was focused. It updates its value of `activeDate` synchronously and updates the
-     * parent's value asynchronously via the `activeDateChange` event. The child component receives an
-     * updated value asynchronously via the `activeCell` Input.
-     */
-    _updateActiveDate(event: MatCalendarUserEvent<number>): void;
-    /** Handles keydown events on the calendar body when calendar is in year view. */
-    _handleCalendarBodyKeydown(event: KeyboardEvent): void;
-    /** Handles keyup events on the calendar body when calendar is in year view. */
-    _handleCalendarBodyKeyup(event: KeyboardEvent): void;
-    /** Initializes this year view. */
-    _init(): void;
-    /** Focuses the active cell after the microtask queue is empty. */
-    _focusActiveCell(): void;
-    /** Schedules the matCalendarBody to focus the active cell after change detection has run */
-    _focusActiveCellAfterViewChecked(): void;
-    /**
-     * Gets the month in this year that the given Date falls on.
-     * Returns null if the given Date is in another year.
-     */
-    private _getMonthInCurrentYear;
-    /**
-     * Takes a month and returns a new date in the same day and year as the currently active date.
-     *  The returned date will have the same month as the argument date.
-     */
-    private _getDateFromMonth;
-    /** Creates an MatCalendarCell for the given month. */
-    private _createCellForMonth;
-    /** Whether the given month is enabled. */
-    private _shouldEnableMonth;
-    /**
-     * Tests whether the combination month/year is after this.maxDate, considering
-     * just the month and year of this.maxDate
-     */
-    private _isYearAndMonthAfterMaxDate;
-    /**
-     * Tests whether the combination month/year is before this.minDate, considering
-     * just the month and year of this.minDate
-     */
-    private _isYearAndMonthBeforeMinDate;
-    /** Determines whether the user has the RTL layout direction. */
-    private _isRtl;
-    /** Sets the currently-selected month based on a model value. */
-    private _setSelectedMonth;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatYearView<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatYearView<any>, "mat-year-view", ["matYearView"], { "activeDate": { "alias": "activeDate"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "minDate": { "alias": "minDate"; "required": false; }; "maxDate": { "alias": "maxDate"; "required": false; }; "dateFilter": { "alias": "dateFilter"; "required": false; }; "dateClass": { "alias": "dateClass"; "required": false; }; }, { "selectedChange": "selectedChange"; "monthSelected": "monthSelected"; "activeDateChange": "activeDateChange"; }, never, never, true, never>;
-}
-
-export declare const yearsPerPage = 24;
-
-export declare const yearsPerRow = 4;
-
-export { }
+export { type DateFilterFn, DateRange, type DateSelectionModelChange, type DatepickerDropdownPositionX, type DatepickerDropdownPositionY, DefaultMatCalendarRangeStrategy, type ExtractDateTypeFromSelection, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_DATEPICKER_VALIDATORS, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATE_RANGE_SELECTION_STRATEGY, MAT_RANGE_DATE_SELECTION_MODEL_FACTORY, MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER, MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY, MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER, MatCalendar, MatCalendarBody, MatCalendarCell, type MatCalendarCellClassFunction, type MatCalendarCellCssClasses, MatCalendarHeader, type MatCalendarUserEvent, type MatCalendarView, MatDateRangeInput, MatDateRangePicker, type MatDateRangeSelectionStrategy, MatDateSelectionModel, MatDatepicker, MatDatepickerActions, MatDatepickerApply, MatDatepickerCancel, MatDatepickerContent, type MatDatepickerControl, MatDatepickerInput, MatDatepickerInputEvent, MatDatepickerIntl, MatDatepickerModule, type MatDatepickerPanel, MatDatepickerToggle, MatDatepickerToggleIcon, MatEndDate, MatMonthView, MatMultiYearView, MatRangeDateSelectionModel, MatSingleDateSelectionModel, MatStartDate, MatYearView, matDatepickerAnimations, yearsPerPage, yearsPerRow };

@@ -1,24 +1,12 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatDatepickerInputHarness } from '@angular/material/datepicker/testing';
-import { MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
+export { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
-
-/** A set of criteria that can be used to filter a list of error harness instances. */
-export declare interface ErrorHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose text matches the given value. */
-    text?: string | RegExp;
-}
-
-/** Possible harnesses of controls which can be bound to a form-field. */
-export declare type FormFieldControlHarness = MatInputHarness | MatSelectHarness | MatDatepickerInputHarness | MatDateRangeInputHarness;
+import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
 
 /** A set of criteria that can be used to filter a list of `MatFormFieldHarness` instances. */
-export declare interface FormFieldHarnessFilters extends BaseHarnessFilters {
+interface FormFieldHarnessFilters extends BaseHarnessFilters {
     /** Filters based on the text of the form field's floating label. */
     floatingLabelText?: string | RegExp;
     /** Filters based on whether the form field has error messages. */
@@ -27,8 +15,13 @@ export declare interface FormFieldHarnessFilters extends BaseHarnessFilters {
     isValid?: boolean;
 }
 
+/** A set of criteria that can be used to filter a list of error harness instances. */
+interface ErrorHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose text matches the given value. */
+    text?: string | RegExp;
+}
 /** Harness for interacting with a `mat-error` in tests. */
-export declare class MatErrorHarness extends ComponentHarness {
+declare class MatErrorHarness extends ComponentHarness {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for an error with specific
@@ -42,9 +35,9 @@ export declare class MatErrorHarness extends ComponentHarness {
     getText(): Promise<string>;
 }
 
-export { MatFormFieldControlHarness }
-
-export declare class MatFormFieldHarness extends ComponentHarness {
+/** Possible harnesses of controls which can be bound to a form-field. */
+type FormFieldControlHarness = MatInputHarness | MatSelectHarness | MatDatepickerInputHarness | MatDateRangeInputHarness;
+declare class MatFormFieldHarness extends ComponentHarness {
     private _prefixContainer;
     private _suffixContainer;
     private _label;
@@ -129,4 +122,4 @@ export declare class MatFormFieldHarness extends ComponentHarness {
     private _hasFormControl;
 }
 
-export { }
+export { type ErrorHarnessFilters, type FormFieldControlHarness, type FormFieldHarnessFilters, MatErrorHarness, MatFormFieldHarness };

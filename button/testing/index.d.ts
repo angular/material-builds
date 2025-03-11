@@ -1,10 +1,9 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
+/** Possible button appearances. */
+type ButtonVariant = 'basic' | 'raised' | 'flat' | 'icon' | 'stroked' | 'fab' | 'mini-fab';
 /** A set of criteria that can be used to filter a list of button harness instances. */
-export declare interface ButtonHarnessFilters extends BaseHarnessFilters {
+interface ButtonHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
     /** Only find instances with a variant. */
@@ -13,11 +12,8 @@ export declare interface ButtonHarnessFilters extends BaseHarnessFilters {
     disabled?: boolean;
 }
 
-/** Possible button appearances. */
-export declare type ButtonVariant = 'basic' | 'raised' | 'flat' | 'icon' | 'stroked' | 'fab' | 'mini-fab';
-
 /** Harness for interacting with a mat-button in tests. */
-export declare class MatButtonHarness extends ContentContainerComponentHarness {
+declare class MatButtonHarness extends ContentContainerComponentHarness {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a button with specific attributes.
@@ -52,4 +48,4 @@ export declare class MatButtonHarness extends ContentContainerComponentHarness {
     getVariant(): Promise<ButtonVariant>;
 }
 
-export { }
+export { type ButtonHarnessFilters, type ButtonVariant, MatButtonHarness };

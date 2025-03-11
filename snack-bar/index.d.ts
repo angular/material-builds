@@ -1,162 +1,25 @@
-import { AriaLivePoliteness } from '@angular/cdk/a11y';
-import { BasePortalOutlet } from '@angular/cdk/portal';
-import { CdkPortalOutlet } from '@angular/cdk/portal';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentRef } from '@angular/core';
-import { ComponentType } from '@angular/cdk/overlay';
-import { Direction } from '@angular/cdk/bidi';
-import { DomPortal } from '@angular/cdk/portal';
-import { ElementRef } from '@angular/core';
-import { EmbeddedViewRef } from '@angular/core';
+import * as i2 from '@angular/cdk/overlay';
+import { OverlayRef, ComponentType } from '@angular/cdk/overlay';
+import { Subject, Observable } from 'rxjs';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/cdk/overlay';
-import * as i2 from '@angular/cdk/portal';
-import * as i3 from '@angular/material/button';
-import * as i4 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
-import { OverlayRef } from '@angular/cdk/overlay';
-import { Subject } from 'rxjs';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { TemplateRef } from '@angular/core';
-import { ViewContainerRef } from '@angular/core';
-
-declare namespace i5 {
-    export {
-        TextOnlySnackBar,
-        SimpleSnackBar
-    }
-}
-
-declare namespace i6 {
-    export {
-        MatSnackBarContainer
-    }
-}
-
-declare namespace i7 {
-    export {
-        MatSnackBarLabel,
-        MatSnackBarActions,
-        MatSnackBarAction
-    }
-}
+import { InjectionToken, ViewContainerRef, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
+import * as i3 from '@angular/cdk/portal';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
+import { AriaLivePoliteness } from '@angular/cdk/a11y';
+import { Direction } from '@angular/cdk/bidi';
+import * as i1 from '@angular/material/button';
+import * as i1$1 from '@angular/material/core';
 
 /** Injection token that can be used to access the data that was passed in to a snack bar. */
-export declare const MAT_SNACK_BAR_DATA: InjectionToken<any>;
-
-/** Injection token that can be used to specify default snack bar. */
-export declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<any>>;
-
-/** @docs-private */
-export declare function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY(): MatSnackBarConfig;
-
-/**
- * Service to dispatch Material Design snack bar messages.
- */
-export declare class MatSnackBar implements OnDestroy {
-    private _overlay;
-    private _live;
-    private _injector;
-    private _breakpointObserver;
-    private _parentSnackBar;
-    private _defaultConfig;
-    /**
-     * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
-     * If there is a parent snack-bar service, all operations should delegate to that parent
-     * via `_openedSnackBarRef`.
-     */
-    private _snackBarRefAtThisLevel;
-    /** The component that should be rendered as the snack bar's simple component. */
-    simpleSnackBarComponent: typeof SimpleSnackBar;
-    /** The container component that attaches the provided template or component. */
-    snackBarContainerComponent: typeof MatSnackBarContainer;
-    /** The CSS class to apply for handset mode. */
-    handsetCssClass: string;
-    /** Reference to the currently opened snackbar at *any* level. */
-    get _openedSnackBarRef(): MatSnackBarRef<any> | null;
-    set _openedSnackBarRef(value: MatSnackBarRef<any> | null);
-    constructor(...args: unknown[]);
-    /**
-     * Creates and dispatches a snack bar with a custom component for the content, removing any
-     * currently opened snack bars.
-     *
-     * @param component Component to be instantiated.
-     * @param config Extra configuration for the snack bar.
-     */
-    openFromComponent<T, D = any>(component: ComponentType<T>, config?: MatSnackBarConfig<D>): MatSnackBarRef<T>;
-    /**
-     * Creates and dispatches a snack bar with a custom template for the content, removing any
-     * currently opened snack bars.
-     *
-     * @param template Template to be instantiated.
-     * @param config Extra configuration for the snack bar.
-     */
-    openFromTemplate(template: TemplateRef<any>, config?: MatSnackBarConfig): MatSnackBarRef<EmbeddedViewRef<any>>;
-    /**
-     * Opens a snackbar with a message and an optional action.
-     * @param message The message to show in the snackbar.
-     * @param action The label for the snackbar action.
-     * @param config Additional configuration options for the snackbar.
-     */
-    open(message: string, action?: string, config?: MatSnackBarConfig): MatSnackBarRef<TextOnlySnackBar>;
-    /**
-     * Dismisses the currently-visible snack bar.
-     */
-    dismiss(): void;
-    ngOnDestroy(): void;
-    /**
-     * Attaches the snack bar container component to the overlay.
-     */
-    private _attachSnackBarContainer;
-    /**
-     * Places a new component or a template as the content of the snack bar container.
-     */
-    private _attach;
-    /** Animates the old snack bar out and the new one in. */
-    private _animateSnackBar;
-    /**
-     * Creates a new overlay and places it in the correct location.
-     * @param config The user-specified snack bar config.
-     */
-    private _createOverlay;
-    /**
-     * Creates an injector to be used inside of a snack bar component.
-     * @param config Config that was used to create the snack bar.
-     * @param snackBarRef Reference to the snack bar.
-     */
-    private _createInjector;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBar, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatSnackBar>;
-}
-
-/** Directive that should be applied to each of the snack bar's action buttons. */
-export declare class MatSnackBarAction {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarAction, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, true, never>;
-}
-
-/** Directive that should be applied to the element containing the snack bar's action buttons. */
-export declare class MatSnackBarActions {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarActions, "[matSnackBarActions]", never, {}, {}, never, never, true, never>;
-}
-
-/**
- * Animations used by the Material snack bar.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare const matSnackBarAnimations: {
-    readonly snackBarState: any;
-};
-
+declare const MAT_SNACK_BAR_DATA: InjectionToken<any>;
+/** Possible values for horizontalPosition on MatSnackBarConfig. */
+type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
+/** Possible values for verticalPosition on MatSnackBarConfig. */
+type MatSnackBarVerticalPosition = 'top' | 'bottom';
 /**
  * Configuration used when opening a snack-bar.
  */
-export declare class MatSnackBarConfig<D = any> {
+declare class MatSnackBarConfig<D = any> {
     /** The politeness level for the MatAriaLiveAnnouncer announcement. */
     politeness?: AriaLivePoliteness;
     /**
@@ -187,7 +50,7 @@ export declare class MatSnackBarConfig<D = any> {
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
  */
-export declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy {
+declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy {
     private _ngZone;
     private _elementRef;
     private _changeDetectorRef;
@@ -276,30 +139,14 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
 }
 
 /** Event that is emitted when a snack bar is dismissed. */
-export declare interface MatSnackBarDismiss {
+interface MatSnackBarDismiss {
     /** Whether the snack bar was dismissed using the action button. */
     dismissedByAction: boolean;
 }
-
-/** Possible values for horizontalPosition on MatSnackBarConfig. */
-export declare type MatSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
-
-/** Directive that should be applied to the text element to be rendered in the snack bar. */
-export declare class MatSnackBarLabel {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarLabel, "[matSnackBarLabel]", never, {}, {}, never, never, true, never>;
-}
-
-export declare class MatSnackBarModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSnackBarModule, never, [typeof i1.OverlayModule, typeof i2.PortalModule, typeof i3.MatButtonModule, typeof i4.MatCommonModule, typeof i5.SimpleSnackBar, typeof i6.MatSnackBarContainer, typeof i7.MatSnackBarLabel, typeof i7.MatSnackBarActions, typeof i7.MatSnackBarAction], [typeof i4.MatCommonModule, typeof i6.MatSnackBarContainer, typeof i7.MatSnackBarLabel, typeof i7.MatSnackBarActions, typeof i7.MatSnackBarAction]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatSnackBarModule>;
-}
-
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-export declare class MatSnackBarRef<T> {
+declare class MatSnackBarRef<T> {
     private _overlayRef;
     /** The instance of the component making up the content of the snack bar. */
     instance: T;
@@ -346,10 +193,19 @@ export declare class MatSnackBarRef<T> {
     onAction(): Observable<void>;
 }
 
-/** Possible values for verticalPosition on MatSnackBarConfig. */
-export declare type MatSnackBarVerticalPosition = 'top' | 'bottom';
-
-export declare class SimpleSnackBar implements TextOnlySnackBar {
+/**
+ * Interface for a simple snack bar component that has a message and a single action.
+ */
+interface TextOnlySnackBar {
+    data: {
+        message: string;
+        action: string;
+    };
+    snackBarRef: MatSnackBarRef<TextOnlySnackBar>;
+    action: () => void;
+    hasAction: boolean;
+}
+declare class SimpleSnackBar implements TextOnlySnackBar {
     snackBarRef: MatSnackBarRef<SimpleSnackBar>;
     data: any;
     constructor(...args: unknown[]);
@@ -361,17 +217,119 @@ export declare class SimpleSnackBar implements TextOnlySnackBar {
     static ɵcmp: i0.ɵɵComponentDeclaration<SimpleSnackBar, "simple-snack-bar", ["matSnackBar"], {}, {}, never, never, true, never>;
 }
 
-/**
- * Interface for a simple snack bar component that has a message and a single action.
- */
-export declare interface TextOnlySnackBar {
-    data: {
-        message: string;
-        action: string;
-    };
-    snackBarRef: MatSnackBarRef<TextOnlySnackBar>;
-    action: () => void;
-    hasAction: boolean;
+/** Directive that should be applied to the text element to be rendered in the snack bar. */
+declare class MatSnackBarLabel {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarLabel, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarLabel, "[matSnackBarLabel]", never, {}, {}, never, never, true, never>;
+}
+/** Directive that should be applied to the element containing the snack bar's action buttons. */
+declare class MatSnackBarActions {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarActions, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarActions, "[matSnackBarActions]", never, {}, {}, never, never, true, never>;
+}
+/** Directive that should be applied to each of the snack bar's action buttons. */
+declare class MatSnackBarAction {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarAction, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, true, never>;
 }
 
-export { }
+/** @docs-private */
+declare function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY(): MatSnackBarConfig;
+/** Injection token that can be used to specify default snack bar. */
+declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<any>>;
+/**
+ * Service to dispatch Material Design snack bar messages.
+ */
+declare class MatSnackBar implements OnDestroy {
+    private _overlay;
+    private _live;
+    private _injector;
+    private _breakpointObserver;
+    private _parentSnackBar;
+    private _defaultConfig;
+    /**
+     * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
+     * If there is a parent snack-bar service, all operations should delegate to that parent
+     * via `_openedSnackBarRef`.
+     */
+    private _snackBarRefAtThisLevel;
+    /** The component that should be rendered as the snack bar's simple component. */
+    simpleSnackBarComponent: typeof SimpleSnackBar;
+    /** The container component that attaches the provided template or component. */
+    snackBarContainerComponent: typeof MatSnackBarContainer;
+    /** The CSS class to apply for handset mode. */
+    handsetCssClass: string;
+    /** Reference to the currently opened snackbar at *any* level. */
+    get _openedSnackBarRef(): MatSnackBarRef<any> | null;
+    set _openedSnackBarRef(value: MatSnackBarRef<any> | null);
+    constructor(...args: unknown[]);
+    /**
+     * Creates and dispatches a snack bar with a custom component for the content, removing any
+     * currently opened snack bars.
+     *
+     * @param component Component to be instantiated.
+     * @param config Extra configuration for the snack bar.
+     */
+    openFromComponent<T, D = any>(component: ComponentType<T>, config?: MatSnackBarConfig<D>): MatSnackBarRef<T>;
+    /**
+     * Creates and dispatches a snack bar with a custom template for the content, removing any
+     * currently opened snack bars.
+     *
+     * @param template Template to be instantiated.
+     * @param config Extra configuration for the snack bar.
+     */
+    openFromTemplate(template: TemplateRef<any>, config?: MatSnackBarConfig): MatSnackBarRef<EmbeddedViewRef<any>>;
+    /**
+     * Opens a snackbar with a message and an optional action.
+     * @param message The message to show in the snackbar.
+     * @param action The label for the snackbar action.
+     * @param config Additional configuration options for the snackbar.
+     */
+    open(message: string, action?: string, config?: MatSnackBarConfig): MatSnackBarRef<TextOnlySnackBar>;
+    /**
+     * Dismisses the currently-visible snack bar.
+     */
+    dismiss(): void;
+    ngOnDestroy(): void;
+    /**
+     * Attaches the snack bar container component to the overlay.
+     */
+    private _attachSnackBarContainer;
+    /**
+     * Places a new component or a template as the content of the snack bar container.
+     */
+    private _attach;
+    /** Animates the old snack bar out and the new one in. */
+    private _animateSnackBar;
+    /**
+     * Creates a new overlay and places it in the correct location.
+     * @param config The user-specified snack bar config.
+     */
+    private _createOverlay;
+    /**
+     * Creates an injector to be used inside of a snack bar component.
+     * @param config Config that was used to create the snack bar.
+     * @param snackBarRef Reference to the snack bar.
+     */
+    private _createInjector;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBar, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatSnackBar>;
+}
+
+declare class MatSnackBarModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSnackBarModule, never, [typeof i2.OverlayModule, typeof i3.PortalModule, typeof i1.MatButtonModule, typeof i1$1.MatCommonModule, typeof SimpleSnackBar, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction], [typeof i1$1.MatCommonModule, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatSnackBarModule>;
+}
+
+/**
+ * Animations used by the Material snack bar.
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare const matSnackBarAnimations: {
+    readonly snackBarState: any;
+};
+
+export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, type MatSnackBarDismiss, type MatSnackBarHorizontalPosition, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, type MatSnackBarVerticalPosition, SimpleSnackBar, type TextOnlySnackBar, matSnackBarAnimations };

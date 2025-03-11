@@ -1,14 +1,22 @@
-import { AsyncFactoryFn } from '@angular/cdk/testing';
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { TestElement } from '@angular/cdk/testing';
+import * as _angular_cdk_testing from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
+
+/** A set of criteria that can be used to filter a list of `MatSlideToggleHarness` instances. */
+interface SlideToggleHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose label matches the given value. */
+    label?: string | RegExp;
+    /** Only find instances whose name is the given value. */
+    name?: string;
+    /** Only find instances with the given checked value. */
+    checked?: boolean;
+    /** Only find instances where the disabled state matches the given value. */
+    disabled?: boolean;
+}
 
 /** Harness for interacting with a mat-slide-toggle in tests. */
-export declare class MatSlideToggleHarness extends ComponentHarness {
+declare class MatSlideToggleHarness extends ComponentHarness {
     private _label;
-    _nativeElement: AsyncFactoryFn<TestElement>;
+    _nativeElement: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a slide-toggle w/ specific attributes.
@@ -54,16 +62,4 @@ export declare class MatSlideToggleHarness extends ComponentHarness {
     uncheck(): Promise<void>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatSlideToggleHarness` instances. */
-export declare interface SlideToggleHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose label matches the given value. */
-    label?: string | RegExp;
-    /** Only find instances whose name is the given value. */
-    name?: string;
-    /** Only find instances with the given checked value. */
-    checked?: boolean;
-    /** Only find instances where the disabled state matches the given value. */
-    disabled?: boolean;
-}
-
-export { }
+export { MatSlideToggleHarness, type SlideToggleHarnessFilters };

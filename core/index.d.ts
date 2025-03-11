@@ -1,63 +1,134 @@
-import { AbstractControl } from '@angular/forms';
-import { AfterViewChecked } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusOrigin } from '@angular/cdk/a11y';
-import { FormGroupDirective } from '@angular/forms';
 import * as i0 from '@angular/core';
+import { Version, InjectionToken, Provider, QueryList, ElementRef, NgZone, Injector, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, EventEmitter, Signal } from '@angular/core';
 import * as i1 from '@angular/cdk/bidi';
-import { InjectionToken } from '@angular/core';
-import { Injector } from '@angular/core';
-import { NgControl } from '@angular/forms';
-import { NgForm } from '@angular/forms';
-import { NgZone } from '@angular/core';
-import { Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
+import { AbstractControl, FormGroupDirective, NgForm, NgControl } from '@angular/forms';
+import { Subject, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
-import { Provider } from '@angular/core';
-import { QueryList } from '@angular/core';
-import { Signal } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Version } from '@angular/core';
+import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 
+/** Current version of Angular Material. */
+declare const VERSION: Version;
 
 /**
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  * @docs-private
  */
-export declare class AnimationCurves {
+declare class AnimationCurves {
     static STANDARD_CURVE: string;
     static DECELERATION_CURVE: string;
     static ACCELERATION_CURVE: string;
     static SHARP_CURVE: string;
 }
-
 /**
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  * @docs-private
  */
-export declare class AnimationDurations {
+declare class AnimationDurations {
     static COMPLEX: string;
     static ENTERING: string;
     static EXITING: string;
 }
 
 /**
- * Counts the amount of option group labels that precede the specified option.
- * @param optionIndex Index of the option at which to start counting.
- * @param options Flat list of all of the options.
- * @param optionGroups Flat list of all of the option groups.
+ * Injection token that configures whether the Material sanity checks are enabled.
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
+ */
+declare const MATERIAL_SANITY_CHECKS: InjectionToken<SanityChecks>;
+/**
+ * Possible sanity checks that can be enabled. If set to
+ * true/false, all checks will be enabled/disabled.
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
+ */
+type SanityChecks = boolean | GranularSanityChecks;
+/**
+ * Object that can be used to configure the sanity checks granularly.
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
+ */
+interface GranularSanityChecks {
+    doctype: boolean;
+    theme: boolean;
+    version: boolean;
+}
+/**
+ * Module that captures anything that should be loaded and/or run for *all* Angular Material
+ * components. This includes Bidi, etc.
+ *
+ * This module should be imported to each top-level component module (e.g., MatTabsModule).
+ * @deprecated No longer used and will be removed.
+ * @breaking-change 21.0.0
+ */
+declare class MatCommonModule {
+    constructor(...args: any[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCommonModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCommonModule, never, [typeof i1.BidiModule], [typeof i1.BidiModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatCommonModule>;
+}
+
+/** Possible color palette values. */
+type ThemePalette = 'primary' | 'accent' | 'warn' | undefined;
+
+/** Error state matcher that matches when a control is invalid and dirty. */
+declare class ShowOnDirtyErrorStateMatcher implements ErrorStateMatcher$1 {
+    isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ShowOnDirtyErrorStateMatcher, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ShowOnDirtyErrorStateMatcher>;
+}
+/** Provider that defines how form controls behave with regards to displaying error messages. */
+declare class ErrorStateMatcher$1 {
+    isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<ErrorStateMatcher$1, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<ErrorStateMatcher$1>;
+}
+
+interface ErrorStateMatcher extends ErrorStateMatcher$1 {
+}
+/**
+ * Class that tracks the error state of a component.
  * @docs-private
  */
-export declare function _countGroupLabelsBeforeOption(optionIndex: number, options: QueryList<MatOption>, optionGroups: QueryList<MatOptgroup>): number;
+declare class _ErrorStateTracker {
+    private _defaultMatcher;
+    ngControl: NgControl | null;
+    private _parentFormGroup;
+    private _parentForm;
+    private _stateChanges;
+    /** Whether the tracker is currently in an error state. */
+    errorState: boolean;
+    /** User-defined matcher for the error state. */
+    matcher: ErrorStateMatcher;
+    constructor(_defaultMatcher: ErrorStateMatcher | null, ngControl: NgControl | null, _parentFormGroup: FormGroupDirective | null, _parentForm: NgForm | null, _stateChanges: Subject<void>);
+    /** Updates the error state based on the provided error state matcher. */
+    updateErrorState(): void;
+}
 
+type MatDateFormats = {
+    parse: {
+        dateInput: any;
+        timeInput?: any;
+    };
+    display: {
+        dateInput: any;
+        monthLabel?: any;
+        monthYearLabel: any;
+        dateA11yLabel: any;
+        monthYearA11yLabel: any;
+        timeInput?: any;
+        timeOptionLabel?: any;
+    };
+};
+declare const MAT_DATE_FORMATS: InjectionToken<MatDateFormats>;
+
+/** InjectionToken for datepicker that can be used to override default locale code. */
+declare const MAT_DATE_LOCALE: InjectionToken<{}>;
+/** @docs-private */
+declare function MAT_DATE_LOCALE_FACTORY(): {};
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
-export declare abstract class DateAdapter<D, L = any> {
+declare abstract class DateAdapter<D, L = any> {
     /** The locale to use for all dates. */
     protected locale: L;
     protected readonly _localeChanges: Subject<void>;
@@ -311,200 +382,100 @@ export declare abstract class DateAdapter<D, L = any> {
     clampDate(date: D, min?: D | null, max?: D | null): D;
 }
 
-/**
- * Default ripple animation configuration for ripples without an explicit
- * animation config specified.
- */
-export declare const defaultRippleAnimationConfig: {
-    enterDuration: number;
-    exitDuration: number;
-};
-
-/** Provider that defines how form controls behave with regards to displaying error messages. */
-export declare class ErrorStateMatcher {
-    isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ErrorStateMatcher, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<ErrorStateMatcher>;
+/** Adapts the native JS Date for use with cdk-based components that work with dates. */
+declare class NativeDateAdapter extends DateAdapter<Date> {
+    /**
+     * @deprecated No longer being used. To be removed.
+     * @breaking-change 14.0.0
+     */
+    useUtcForDisplay: boolean;
+    /** The injected locale. */
+    private readonly _matDateLocale;
+    constructor(...args: unknown[]);
+    getYear(date: Date): number;
+    getMonth(date: Date): number;
+    getDate(date: Date): number;
+    getDayOfWeek(date: Date): number;
+    getMonthNames(style: 'long' | 'short' | 'narrow'): string[];
+    getDateNames(): string[];
+    getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[];
+    getYearName(date: Date): string;
+    getFirstDayOfWeek(): number;
+    getNumDaysInMonth(date: Date): number;
+    clone(date: Date): Date;
+    createDate(year: number, month: number, date: number): Date;
+    today(): Date;
+    parse(value: any, parseFormat?: any): Date | null;
+    format(date: Date, displayFormat: Object): string;
+    addCalendarYears(date: Date, years: number): Date;
+    addCalendarMonths(date: Date, months: number): Date;
+    addCalendarDays(date: Date, days: number): Date;
+    toIso8601(date: Date): string;
+    /**
+     * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
+     * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
+     * invalid date for all other values.
+     */
+    deserialize(value: any): Date | null;
+    isDateInstance(obj: any): obj is Date;
+    isValid(date: Date): boolean;
+    invalid(): Date;
+    setTime(target: Date, hours: number, minutes: number, seconds: number): Date;
+    getHours(date: Date): number;
+    getMinutes(date: Date): number;
+    getSeconds(date: Date): number;
+    parseTime(userValue: any, parseFormat?: any): Date | null;
+    addSeconds(date: Date, amount: number): Date;
+    /** Creates a date but allows the month and date to overflow. */
+    private _createDateWithOverflow;
+    /**
+     * Pads a number to make it two digits.
+     * @param n The number to pad.
+     * @returns The padded number.
+     */
+    private _2digit;
+    /**
+     * When converting Date object to string, javascript built-in functions may return wrong
+     * results because it applies its internal DST rules. The DST rules around the world change
+     * very frequently, and the current valid rule is not always valid in previous years though.
+     * We work around this problem building a new Date object which has its internal UTC
+     * representation with the local date and time.
+     * @param dtf Intl.DateTimeFormat object, containing the desired string format. It must have
+     *    timeZone set to 'utc' to work fine.
+     * @param date Date from which we want to get the string representation according to dtf
+     * @returns A Date object with its UTC representation based on the passed in date info
+     */
+    private _format;
+    /**
+     * Attempts to parse a time string into a date object. Returns null if it cannot be parsed.
+     * @param value Time string to parse.
+     */
+    private _parseTimeString;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<NativeDateAdapter>;
 }
 
-declare interface ErrorStateMatcher_2 extends ErrorStateMatcher {
+declare const MAT_NATIVE_DATE_FORMATS: MatDateFormats;
+
+declare class NativeDateModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<NativeDateModule, never, never, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<NativeDateModule>;
 }
+declare class MatNativeDateModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatNativeDateModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatNativeDateModule, never, never, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatNativeDateModule>;
+}
+declare function provideNativeDateAdapter(formats?: MatDateFormats): Provider[];
 
 /**
- * Class that tracks the error state of a component.
+ * Component used to load structural styles for focus indicators.
  * @docs-private
  */
-export declare class _ErrorStateTracker {
-    private _defaultMatcher;
-    ngControl: NgControl | null;
-    private _parentFormGroup;
-    private _parentForm;
-    private _stateChanges;
-    /** Whether the tracker is currently in an error state. */
-    errorState: boolean;
-    /** User-defined matcher for the error state. */
-    matcher: ErrorStateMatcher_2;
-    constructor(_defaultMatcher: ErrorStateMatcher_2 | null, ngControl: NgControl | null, _parentFormGroup: FormGroupDirective | null, _parentForm: NgForm | null, _stateChanges: Subject<void>);
-    /** Updates the error state based on the provided error state matcher. */
-    updateErrorState(): void;
-}
-
-/**
- * Determines the position to which to scroll a panel in order for an option to be into view.
- * @param optionOffset Offset of the option from the top of the panel.
- * @param optionHeight Height of the options.
- * @param currentScrollPosition Current scroll position of the panel.
- * @param panelHeight Height of the panel.
- * @docs-private
- */
-export declare function _getOptionScrollPosition(optionOffset: number, optionHeight: number, currentScrollPosition: number, panelHeight: number): number;
-
-/**
- * Object that can be used to configure the sanity checks granularly.
- * @deprecated No longer used and will be removed.
- * @breaking-change 21.0.0
- */
-export declare interface GranularSanityChecks {
-    doctype: boolean;
-    theme: boolean;
-    version: boolean;
-}
-
-declare namespace i1_2 {
-    export {
-        MATERIAL_SANITY_CHECKS,
-        SanityChecks,
-        GranularSanityChecks,
-        MatCommonModule
-    }
-}
-
-declare namespace i1_3 {
-    export {
-        RippleRenderer,
-        RippleTarget,
-        defaultRippleAnimationConfig,
-        MatRippleModule,
-        RippleGlobalOptions,
-        MAT_RIPPLE_GLOBAL_OPTIONS,
-        MatRipple,
-        RippleState,
-        RippleConfig,
-        RippleAnimationConfig,
-        RippleRef
-    }
-}
-
-declare namespace i2 {
-    export {
-        RippleGlobalOptions,
-        MAT_RIPPLE_GLOBAL_OPTIONS,
-        MatRipple
-    }
-}
-
-declare namespace i2_2 {
-    export {
-        MatPseudoCheckboxState,
-        MatPseudoCheckbox
-    }
-}
-
-declare namespace i3 {
-    export {
-        MatPseudoCheckboxModule
-    }
-}
-
-declare namespace i4 {
-    export {
-        _countGroupLabelsBeforeOption,
-        _getOptionScrollPosition,
-        MatOptionSelectionChange,
-        MatOption
-    }
-}
-
-declare namespace i5 {
-    export {
-        MAT_OPTGROUP,
-        MatOptgroup
-    }
-}
-
-export declare const MAT_DATE_FORMATS: InjectionToken<MatDateFormats>;
-
-/** InjectionToken for datepicker that can be used to override default locale code. */
-export declare const MAT_DATE_LOCALE: InjectionToken<{}>;
-
-/** @docs-private */
-export declare function MAT_DATE_LOCALE_FACTORY(): {};
-
-export declare const MAT_NATIVE_DATE_FORMATS: MatDateFormats;
-
-/**
- * Injection token that can be used to reference instances of `MatOptgroup`. It serves as
- * alternative token to the actual `MatOptgroup` class which could cause unnecessary
- * retention of the class and its component metadata.
- */
-export declare const MAT_OPTGROUP: InjectionToken<MatOptgroup>;
-
-/**
- * Injection token used to provide the parent component to options.
- */
-export declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParentComponent>;
-
-/** Injection token that can be used to specify the global ripple options. */
-export declare const MAT_RIPPLE_GLOBAL_OPTIONS: InjectionToken<RippleGlobalOptions>;
-
-/**
- * Module that captures anything that should be loaded and/or run for *all* Angular Material
- * components. This includes Bidi, etc.
- *
- * This module should be imported to each top-level component module (e.g., MatTabsModule).
- * @deprecated No longer used and will be removed.
- * @breaking-change 21.0.0
- */
-export declare class MatCommonModule {
-    constructor(...args: any[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCommonModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCommonModule, never, [typeof i1.BidiModule], [typeof i1.BidiModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatCommonModule>;
-}
-
-export declare type MatDateFormats = {
-    parse: {
-        dateInput: any;
-        timeInput?: any;
-    };
-    display: {
-        dateInput: any;
-        monthLabel?: any;
-        monthYearLabel: any;
-        dateA11yLabel: any;
-        monthYearA11yLabel: any;
-        timeInput?: any;
-        timeOptionLabel?: any;
-    };
-};
-
-/**
- * Injection token that configures whether the Material sanity checks are enabled.
- * @deprecated No longer used and will be removed.
- * @breaking-change 21.0.0
- */
-export declare const MATERIAL_SANITY_CHECKS: InjectionToken<SanityChecks>;
-
-/**
- * Internal shared component used as a container in form field controls.
- * Not to be confused with `mat-form-field` which MDC calls a "text field".
- * @docs-private
- */
-export declare class _MatInternalFormField {
-    /** Position of the label relative to the content. */
-    labelPosition: 'before' | 'after';
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatInternalFormField, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
+declare class _StructuralStylesLoader {
+    static ɵfac: i0.ɵɵFactoryDeclaration<_StructuralStylesLoader, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<_StructuralStylesLoader, "structural-styles", never, {}, {}, never, never, true, never>;
 }
 
 /**
@@ -512,27 +483,327 @@ export declare class _MatInternalFormField {
  * Line elements can be extracted with a @ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-export declare class MatLine {
+declare class MatLine {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLine, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatLine, "[mat-line], [matLine]", never, {}, {}, never, never, true, never>;
 }
-
-export declare class MatLineModule {
+/**
+ * Helper that takes a query list of lines and sets the correct class on the host.
+ * @docs-private
+ */
+declare function setLines(lines: QueryList<unknown>, element: ElementRef<HTMLElement>, prefix?: string): void;
+declare class MatLineModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLineModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatLineModule, never, [typeof i1_2.MatCommonModule, typeof MatLine], [typeof MatLine, typeof i1_2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatLineModule, never, [typeof MatCommonModule, typeof MatLine], [typeof MatLine, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatLineModule>;
 }
 
-export declare class MatNativeDateModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatNativeDateModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatNativeDateModule, never, never, never>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatNativeDateModule>;
+/** Possible states for a ripple element. */
+declare enum RippleState {
+    FADING_IN = 0,
+    VISIBLE = 1,
+    FADING_OUT = 2,
+    HIDDEN = 3
+}
+type RippleConfig = {
+    color?: string;
+    centered?: boolean;
+    radius?: number;
+    persistent?: boolean;
+    animation?: RippleAnimationConfig;
+    terminateOnPointerUp?: boolean;
+};
+/**
+ * Interface that describes the configuration for the animation of a ripple.
+ * There are two animation phases with different durations for the ripples.
+ */
+interface RippleAnimationConfig {
+    /** Duration in milliseconds for the enter animation (expansion from point of contact). */
+    enterDuration?: number;
+    /** Duration in milliseconds for the exit animation (fade-out). */
+    exitDuration?: number;
+}
+/**
+ * Reference to a previously launched ripple element.
+ */
+declare class RippleRef {
+    private _renderer;
+    /** Reference to the ripple HTML element. */
+    element: HTMLElement;
+    /** Ripple configuration used for the ripple. */
+    config: RippleConfig;
+    _animationForciblyDisabledThroughCss: boolean;
+    /** Current state of the ripple. */
+    state: RippleState;
+    constructor(_renderer: {
+        fadeOutRipple(ref: RippleRef): void;
+    }, 
+    /** Reference to the ripple HTML element. */
+    element: HTMLElement, 
+    /** Ripple configuration used for the ripple. */
+    config: RippleConfig, _animationForciblyDisabledThroughCss?: boolean);
+    /** Fades out the ripple element. */
+    fadeOut(): void;
 }
 
 /**
+ * Interface that describes the target for launching ripples.
+ * It defines the ripple configuration and disabled state for interaction ripples.
+ * @docs-private
+ */
+interface RippleTarget {
+    /** Configuration for ripples that are launched on pointer down. */
+    rippleConfig: RippleConfig;
+    /** Whether ripples on pointer down should be disabled. */
+    rippleDisabled: boolean;
+}
+/**
+ * Default ripple animation configuration for ripples without an explicit
+ * animation config specified.
+ */
+declare const defaultRippleAnimationConfig: {
+    enterDuration: number;
+    exitDuration: number;
+};
+/**
+ * Helper service that performs DOM manipulations. Not intended to be used outside this module.
+ * The constructor takes a reference to the ripple directive's host element and a map of DOM
+ * event handlers to be installed on the element that triggers ripple animations.
+ * This will eventually become a custom renderer once Angular support exists.
+ * @docs-private
+ */
+declare class RippleRenderer implements EventListenerObject {
+    private _target;
+    private _ngZone;
+    private _platform;
+    /** Element where the ripples are being added to. */
+    private _containerElement;
+    /** Element which triggers the ripple elements on mouse events. */
+    private _triggerElement;
+    /** Whether the pointer is currently down or not. */
+    private _isPointerDown;
+    /**
+     * Map of currently active ripple references.
+     * The ripple reference is mapped to its element event listeners.
+     * The reason why `| null` is used is that event listeners are added only
+     * when the condition is truthy (see the `_startFadeOutTransition` method).
+     */
+    private _activeRipples;
+    /** Latest non-persistent ripple that was triggered. */
+    private _mostRecentTransientRipple;
+    /** Time in milliseconds when the last touchstart event happened. */
+    private _lastTouchStartEvent;
+    /** Whether pointer-up event listeners have been registered. */
+    private _pointerUpEventsRegistered;
+    /**
+     * Cached dimensions of the ripple container. Set when the first
+     * ripple is shown and cleared once no more ripples are visible.
+     */
+    private _containerRect;
+    private static _eventManager;
+    constructor(_target: RippleTarget, _ngZone: NgZone, elementOrElementRef: HTMLElement | ElementRef<HTMLElement>, _platform: Platform, injector?: Injector);
+    /**
+     * Fades in a ripple at the given coordinates.
+     * @param x Coordinate within the element, along the X axis at which to start the ripple.
+     * @param y Coordinate within the element, along the Y axis at which to start the ripple.
+     * @param config Extra ripple options.
+     */
+    fadeInRipple(x: number, y: number, config?: RippleConfig): RippleRef;
+    /** Fades out a ripple reference. */
+    fadeOutRipple(rippleRef: RippleRef): void;
+    /** Fades out all currently active ripples. */
+    fadeOutAll(): void;
+    /** Fades out all currently active non-persistent ripples. */
+    fadeOutAllNonPersistent(): void;
+    /** Sets up the trigger event listeners */
+    setupTriggerEvents(elementOrElementRef: HTMLElement | ElementRef<HTMLElement>): void;
+    /**
+     * Handles all registered events.
+     * @docs-private
+     */
+    handleEvent(event: Event): void;
+    /** Method that will be called if the fade-in or fade-in transition completed. */
+    private _finishRippleTransition;
+    /**
+     * Starts the fade-out transition of the given ripple if it's not persistent and the pointer
+     * is not held down anymore.
+     */
+    private _startFadeOutTransition;
+    /** Destroys the given ripple by removing it from the DOM and updating its state. */
+    private _destroyRipple;
+    /** Function being called whenever the trigger is being pressed using mouse. */
+    private _onMousedown;
+    /** Function being called whenever the trigger is being pressed using touch. */
+    private _onTouchStart;
+    /** Function being called whenever the trigger is being released. */
+    private _onPointerUp;
+    private _getActiveRipples;
+    /** Removes previously registered event listeners from the trigger element. */
+    _removeTriggerEvents(): void;
+}
+
+/** Configurable options for `matRipple`. */
+interface RippleGlobalOptions {
+    /**
+     * Whether ripples should be disabled. Ripples can be still launched manually by using
+     * the `launch()` method. Therefore focus indicators will still show up.
+     */
+    disabled?: boolean;
+    /**
+     * Default configuration for the animation duration of the ripples. There are two phases with
+     * different durations for the ripples: `enter` and `leave`. The durations will be overwritten
+     * by the value of `matRippleAnimation` or if the `NoopAnimationsModule` is included.
+     */
+    animation?: RippleAnimationConfig;
+    /**
+     * Whether ripples should start fading out immediately after the mouse or touch is released. By
+     * default, ripples will wait for the enter animation to complete and for mouse or touch release.
+     */
+    terminateOnPointerUp?: boolean;
+    /**
+     * A namespace to use for ripple loader to allow multiple instances to exist on the same page.
+     */
+    namespace?: string;
+}
+/** Injection token that can be used to specify the global ripple options. */
+declare const MAT_RIPPLE_GLOBAL_OPTIONS: InjectionToken<RippleGlobalOptions>;
+declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
+    private _elementRef;
+    private _animationMode;
+    /** Custom color for all ripples. */
+    color: string;
+    /** Whether the ripples should be visible outside the component's bounds. */
+    unbounded: boolean;
+    /**
+     * Whether the ripple always originates from the center of the host element's bounds, rather
+     * than originating from the location of the click event.
+     */
+    centered: boolean;
+    /**
+     * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
+     * will be the distance from the center of the ripple to the furthest corner of the host element's
+     * bounding rectangle.
+     */
+    radius: number;
+    /**
+     * Configuration for the ripple animation. Allows modifying the enter and exit animation
+     * duration of the ripples. The animation durations will be overwritten if the
+     * `NoopAnimationsModule` is being used.
+     */
+    animation: RippleAnimationConfig;
+    /**
+     * Whether click events will not trigger the ripple. Ripples can be still launched manually
+     * by using the `launch()` method.
+     */
+    get disabled(): boolean;
+    set disabled(value: boolean);
+    private _disabled;
+    /**
+     * The element that triggers the ripple when click events are received.
+     * Defaults to the directive's host element.
+     */
+    get trigger(): HTMLElement;
+    set trigger(trigger: HTMLElement);
+    private _trigger;
+    /** Renderer for the ripple DOM manipulations. */
+    private _rippleRenderer;
+    /** Options that are set globally for all ripples. */
+    private _globalOptions;
+    /** @docs-private Whether ripple directive is initialized and the input bindings are set. */
+    _isInitialized: boolean;
+    constructor(...args: unknown[]);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    /** Fades out all currently showing ripple elements. */
+    fadeOutAll(): void;
+    /** Fades out all currently showing non-persistent ripple elements. */
+    fadeOutAllNonPersistent(): void;
+    /**
+     * Ripple configuration from the directive's input values.
+     * @docs-private Implemented as part of RippleTarget
+     */
+    get rippleConfig(): RippleConfig;
+    /**
+     * Whether ripples on pointer-down are disabled or not.
+     * @docs-private Implemented as part of RippleTarget
+     */
+    get rippleDisabled(): boolean;
+    /** Sets up the trigger event listeners if ripples are enabled. */
+    private _setupTriggerEventsIfEnabled;
+    /**
+     * Launches a manual ripple using the specified ripple configuration.
+     * @param config Configuration for the manual ripple.
+     */
+    launch(config: RippleConfig): RippleRef;
+    /**
+     * Launches a manual ripple at the specified coordinates relative to the viewport.
+     * @param x Coordinate along the X axis at which to fade-in the ripple. Coordinate
+     *   should be relative to the viewport.
+     * @param y Coordinate along the Y axis at which to fade-in the ripple. Coordinate
+     *   should be relative to the viewport.
+     * @param config Optional ripple configuration for the manual ripple.
+     */
+    launch(x: number, y: number, config?: RippleConfig): RippleRef;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": { "alias": "matRippleColor"; "required": false; }; "unbounded": { "alias": "matRippleUnbounded"; "required": false; }; "centered": { "alias": "matRippleCentered"; "required": false; }; "radius": { "alias": "matRippleRadius"; "required": false; }; "animation": { "alias": "matRippleAnimation"; "required": false; }; "disabled": { "alias": "matRippleDisabled"; "required": false; }; "trigger": { "alias": "matRippleTrigger"; "required": false; }; }, {}, never, never, true, never>;
+}
+
+declare class MatRippleModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRippleModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRippleModule, never, [typeof MatCommonModule, typeof MatRipple], [typeof MatRipple, typeof MatCommonModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatRippleModule>;
+}
+
+/**
+ * Possible states for a pseudo checkbox.
+ * @docs-private
+ */
+type MatPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterminate';
+/**
+ * Component that shows a simplified checkbox without including any kind of "real" checkbox.
+ * Meant to be used when the checkbox is purely decorative and a large number of them will be
+ * included, such as for the options in a multi-select. Uses no SVGs or complex animations.
+ * Note that theming is meant to be handled by the parent element, e.g.
+ * `mat-primary .mat-pseudo-checkbox`.
+ *
+ * Note that this component will be completely invisible to screen-reader users. This is *not*
+ * interchangeable with `<mat-checkbox>` and should *not* be used if the user would directly
+ * interact with the checkbox. The pseudo-checkbox should only be used as an implementation detail
+ * of more complex components that appropriately handle selected / checked state.
+ * @docs-private
+ */
+declare class MatPseudoCheckbox {
+    _animationMode?: "NoopAnimations" | "BrowserAnimations" | null | undefined;
+    /** Display state of the checkbox. */
+    state: MatPseudoCheckboxState;
+    /** Whether the checkbox is disabled. */
+    disabled: boolean;
+    /**
+     * Appearance of the pseudo checkbox. Default appearance of 'full' renders a checkmark/mixedmark
+     * indicator inside a square box. 'minimal' appearance only renders the checkmark/mixedmark.
+     */
+    appearance: 'minimal' | 'full';
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": { "alias": "state"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, never, true, never>;
+}
+
+declare class MatPseudoCheckboxModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckboxModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPseudoCheckboxModule, never, [typeof MatCommonModule, typeof MatPseudoCheckbox], [typeof MatPseudoCheckbox]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatPseudoCheckboxModule>;
+}
+
+/**
+ * Injection token that can be used to reference instances of `MatOptgroup`. It serves as
+ * alternative token to the actual `MatOptgroup` class which could cause unnecessary
+ * retention of the class and its component metadata.
+ */
+declare const MAT_OPTGROUP: InjectionToken<MatOptgroup>;
+/**
  * Component that is used to group instances of `mat-option`.
  */
-export declare class MatOptgroup {
+declare class MatOptgroup {
     /** Label for the option group. */
     label: string;
     /** whether the option group is disabled. */
@@ -547,10 +818,22 @@ export declare class MatOptgroup {
     static ngAcceptInputType_disabled: unknown;
 }
 
+/** Event object emitted by MatOption when selected or deselected. */
+declare class MatOptionSelectionChange<T = any> {
+    /** Reference to the option that emitted the event. */
+    source: MatOption<T>;
+    /** Whether the change in the option's value was a result of a user action. */
+    isUserInput: boolean;
+    constructor(
+    /** Reference to the option that emitted the event. */
+    source: MatOption<T>, 
+    /** Whether the change in the option's value was a result of a user action. */
+    isUserInput?: boolean);
+}
 /**
  * Single option inside of a `<mat-select>` element.
  */
-export declare class MatOption<T = any> implements FocusableOption, AfterViewChecked, OnDestroy {
+declare class MatOption<T = any> implements FocusableOption, AfterViewChecked, OnDestroy {
     private _element;
     _changeDetectorRef: ChangeDetectorRef;
     private _parent;
@@ -633,158 +916,44 @@ export declare class MatOption<T = any> implements FocusableOption, AfterViewChe
     static ɵcmp: i0.ɵɵComponentDeclaration<MatOption<any>, "mat-option", ["matOption"], { "value": { "alias": "value"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "onSelectionChange": "onSelectionChange"; }, never, ["mat-icon", "*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
 }
-
-export declare class MatOptionModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatOptionModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatOptionModule, never, [typeof i1_3.MatRippleModule, typeof i1_2.MatCommonModule, typeof i3.MatPseudoCheckboxModule, typeof i4.MatOption, typeof i5.MatOptgroup], [typeof i4.MatOption, typeof i5.MatOptgroup]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatOptionModule>;
-}
+/**
+ * Counts the amount of option group labels that precede the specified option.
+ * @param optionIndex Index of the option at which to start counting.
+ * @param options Flat list of all of the options.
+ * @param optionGroups Flat list of all of the option groups.
+ * @docs-private
+ */
+declare function _countGroupLabelsBeforeOption(optionIndex: number, options: QueryList<MatOption>, optionGroups: QueryList<MatOptgroup>): number;
+/**
+ * Determines the position to which to scroll a panel in order for an option to be into view.
+ * @param optionOffset Offset of the option from the top of the panel.
+ * @param optionHeight Height of the options.
+ * @param currentScrollPosition Current scroll position of the panel.
+ * @param panelHeight Height of the panel.
+ * @docs-private
+ */
+declare function _getOptionScrollPosition(optionOffset: number, optionHeight: number, currentScrollPosition: number, panelHeight: number): number;
 
 /**
  * Describes a parent component that manages a list of options.
  * Contains properties that the options can inherit.
  * @docs-private
  */
-export declare interface MatOptionParentComponent {
+interface MatOptionParentComponent {
     disableRipple?: boolean | Signal<boolean>;
     multiple?: boolean;
     inertGroups?: boolean;
     hideSingleSelectionIndicator?: boolean;
 }
-
-/** Event object emitted by MatOption when selected or deselected. */
-export declare class MatOptionSelectionChange<T = any> {
-    /** Reference to the option that emitted the event. */
-    source: MatOption<T>;
-    /** Whether the change in the option's value was a result of a user action. */
-    isUserInput: boolean;
-    constructor(
-    /** Reference to the option that emitted the event. */
-    source: MatOption<T>, 
-    /** Whether the change in the option's value was a result of a user action. */
-    isUserInput?: boolean);
-}
-
 /**
- * Component that shows a simplified checkbox without including any kind of "real" checkbox.
- * Meant to be used when the checkbox is purely decorative and a large number of them will be
- * included, such as for the options in a multi-select. Uses no SVGs or complex animations.
- * Note that theming is meant to be handled by the parent element, e.g.
- * `mat-primary .mat-pseudo-checkbox`.
- *
- * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with `<mat-checkbox>` and should *not* be used if the user would directly
- * interact with the checkbox. The pseudo-checkbox should only be used as an implementation detail
- * of more complex components that appropriately handle selected / checked state.
- * @docs-private
+ * Injection token used to provide the parent component to options.
  */
-export declare class MatPseudoCheckbox {
-    _animationMode?: "NoopAnimations" | "BrowserAnimations" | null | undefined;
-    /** Display state of the checkbox. */
-    state: MatPseudoCheckboxState;
-    /** Whether the checkbox is disabled. */
-    disabled: boolean;
-    /**
-     * Appearance of the pseudo checkbox. Default appearance of 'full' renders a checkmark/mixedmark
-     * indicator inside a square box. 'minimal' appearance only renders the checkmark/mixedmark.
-     */
-    appearance: 'minimal' | 'full';
-    constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": { "alias": "state"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, never, true, never>;
-}
+declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParentComponent>;
 
-export declare class MatPseudoCheckboxModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPseudoCheckboxModule, never, [typeof i1_2.MatCommonModule, typeof i2_2.MatPseudoCheckbox], [typeof i2_2.MatPseudoCheckbox]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatPseudoCheckboxModule>;
-}
-
-/**
- * Possible states for a pseudo checkbox.
- * @docs-private
- */
-export declare type MatPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterminate';
-
-export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
-    private _elementRef;
-    private _animationMode;
-    /** Custom color for all ripples. */
-    color: string;
-    /** Whether the ripples should be visible outside the component's bounds. */
-    unbounded: boolean;
-    /**
-     * Whether the ripple always originates from the center of the host element's bounds, rather
-     * than originating from the location of the click event.
-     */
-    centered: boolean;
-    /**
-     * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
-     * will be the distance from the center of the ripple to the furthest corner of the host element's
-     * bounding rectangle.
-     */
-    radius: number;
-    /**
-     * Configuration for the ripple animation. Allows modifying the enter and exit animation
-     * duration of the ripples. The animation durations will be overwritten if the
-     * `NoopAnimationsModule` is being used.
-     */
-    animation: RippleAnimationConfig;
-    /**
-     * Whether click events will not trigger the ripple. Ripples can be still launched manually
-     * by using the `launch()` method.
-     */
-    get disabled(): boolean;
-    set disabled(value: boolean);
-    private _disabled;
-    /**
-     * The element that triggers the ripple when click events are received.
-     * Defaults to the directive's host element.
-     */
-    get trigger(): HTMLElement;
-    set trigger(trigger: HTMLElement);
-    private _trigger;
-    /** Renderer for the ripple DOM manipulations. */
-    private _rippleRenderer;
-    /** Options that are set globally for all ripples. */
-    private _globalOptions;
-    /** @docs-private Whether ripple directive is initialized and the input bindings are set. */
-    _isInitialized: boolean;
-    constructor(...args: unknown[]);
-    ngOnInit(): void;
-    ngOnDestroy(): void;
-    /** Fades out all currently showing ripple elements. */
-    fadeOutAll(): void;
-    /** Fades out all currently showing non-persistent ripple elements. */
-    fadeOutAllNonPersistent(): void;
-    /**
-     * Ripple configuration from the directive's input values.
-     * @docs-private Implemented as part of RippleTarget
-     */
-    get rippleConfig(): RippleConfig;
-    /**
-     * Whether ripples on pointer-down are disabled or not.
-     * @docs-private Implemented as part of RippleTarget
-     */
-    get rippleDisabled(): boolean;
-    /** Sets up the trigger event listeners if ripples are enabled. */
-    private _setupTriggerEventsIfEnabled;
-    /**
-     * Launches a manual ripple using the specified ripple configuration.
-     * @param config Configuration for the manual ripple.
-     */
-    launch(config: RippleConfig): RippleRef;
-    /**
-     * Launches a manual ripple at the specified coordinates relative to the viewport.
-     * @param x Coordinate along the X axis at which to fade-in the ripple. Coordinate
-     *   should be relative to the viewport.
-     * @param y Coordinate along the Y axis at which to fade-in the ripple. Coordinate
-     *   should be relative to the viewport.
-     * @param config Optional ripple configuration for the manual ripple.
-     */
-    launch(x: number, y: number, config?: RippleConfig): RippleRef;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRipple, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": { "alias": "matRippleColor"; "required": false; }; "unbounded": { "alias": "matRippleUnbounded"; "required": false; }; "centered": { "alias": "matRippleCentered"; "required": false; }; "radius": { "alias": "matRippleRadius"; "required": false; }; "animation": { "alias": "matRippleAnimation"; "required": false; }; "disabled": { "alias": "matRippleDisabled"; "required": false; }; "trigger": { "alias": "matRippleTrigger"; "required": false; }; }, {}, never, never, true, never>;
+declare class MatOptionModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatOptionModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatOptionModule, never, [typeof MatRippleModule, typeof MatCommonModule, typeof MatPseudoCheckboxModule, typeof MatOption, typeof MatOptgroup], [typeof MatOption, typeof MatOptgroup]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatOptionModule>;
 }
 
 /**
@@ -795,7 +964,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
  *
  * @docs-private
  */
-export declare class MatRippleLoader implements OnDestroy {
+declare class MatRippleLoader implements OnDestroy {
     private _document;
     private _animationMode;
     private _globalRippleOptions;
@@ -831,293 +1000,16 @@ export declare class MatRippleLoader implements OnDestroy {
     static ɵprov: i0.ɵɵInjectableDeclaration<MatRippleLoader>;
 }
 
-export declare class MatRippleModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRippleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRippleModule, never, [typeof i1_2.MatCommonModule, typeof i2.MatRipple], [typeof i2.MatRipple, typeof i1_2.MatCommonModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatRippleModule>;
-}
-
-/** Adapts the native JS Date for use with cdk-based components that work with dates. */
-export declare class NativeDateAdapter extends DateAdapter<Date> {
-    /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 14.0.0
-     */
-    useUtcForDisplay: boolean;
-    /** The injected locale. */
-    private readonly _matDateLocale;
-    constructor(...args: unknown[]);
-    getYear(date: Date): number;
-    getMonth(date: Date): number;
-    getDate(date: Date): number;
-    getDayOfWeek(date: Date): number;
-    getMonthNames(style: 'long' | 'short' | 'narrow'): string[];
-    getDateNames(): string[];
-    getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[];
-    getYearName(date: Date): string;
-    getFirstDayOfWeek(): number;
-    getNumDaysInMonth(date: Date): number;
-    clone(date: Date): Date;
-    createDate(year: number, month: number, date: number): Date;
-    today(): Date;
-    parse(value: any, parseFormat?: any): Date | null;
-    format(date: Date, displayFormat: Object): string;
-    addCalendarYears(date: Date, years: number): Date;
-    addCalendarMonths(date: Date, months: number): Date;
-    addCalendarDays(date: Date, days: number): Date;
-    toIso8601(date: Date): string;
-    /**
-     * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
-     * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
-     * invalid date for all other values.
-     */
-    deserialize(value: any): Date | null;
-    isDateInstance(obj: any): obj is Date;
-    isValid(date: Date): boolean;
-    invalid(): Date;
-    setTime(target: Date, hours: number, minutes: number, seconds: number): Date;
-    getHours(date: Date): number;
-    getMinutes(date: Date): number;
-    getSeconds(date: Date): number;
-    parseTime(userValue: any, parseFormat?: any): Date | null;
-    addSeconds(date: Date, amount: number): Date;
-    /** Creates a date but allows the month and date to overflow. */
-    private _createDateWithOverflow;
-    /**
-     * Pads a number to make it two digits.
-     * @param n The number to pad.
-     * @returns The padded number.
-     */
-    private _2digit;
-    /**
-     * When converting Date object to string, javascript built-in functions may return wrong
-     * results because it applies its internal DST rules. The DST rules around the world change
-     * very frequently, and the current valid rule is not always valid in previous years though.
-     * We work around this problem building a new Date object which has its internal UTC
-     * representation with the local date and time.
-     * @param dtf Intl.DateTimeFormat object, containing the desired string format. It must have
-     *    timeZone set to 'utc' to work fine.
-     * @param date Date from which we want to get the string representation according to dtf
-     * @returns A Date object with its UTC representation based on the passed in date info
-     */
-    private _format;
-    /**
-     * Attempts to parse a time string into a date object. Returns null if it cannot be parsed.
-     * @param value Time string to parse.
-     */
-    private _parseTimeString;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<NativeDateAdapter>;
-}
-
-export declare class NativeDateModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<NativeDateModule, never, never, never>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<NativeDateModule>;
-}
-
-export declare function provideNativeDateAdapter(formats?: MatDateFormats): Provider[];
-
 /**
- * Interface that describes the configuration for the animation of a ripple.
- * There are two animation phases with different durations for the ripples.
- */
-export declare interface RippleAnimationConfig {
-    /** Duration in milliseconds for the enter animation (expansion from point of contact). */
-    enterDuration?: number;
-    /** Duration in milliseconds for the exit animation (fade-out). */
-    exitDuration?: number;
-}
-
-export declare type RippleConfig = {
-    color?: string;
-    centered?: boolean;
-    radius?: number;
-    persistent?: boolean;
-    animation?: RippleAnimationConfig;
-    terminateOnPointerUp?: boolean;
-};
-
-/** Configurable options for `matRipple`. */
-export declare interface RippleGlobalOptions {
-    /**
-     * Whether ripples should be disabled. Ripples can be still launched manually by using
-     * the `launch()` method. Therefore focus indicators will still show up.
-     */
-    disabled?: boolean;
-    /**
-     * Default configuration for the animation duration of the ripples. There are two phases with
-     * different durations for the ripples: `enter` and `leave`. The durations will be overwritten
-     * by the value of `matRippleAnimation` or if the `NoopAnimationsModule` is included.
-     */
-    animation?: RippleAnimationConfig;
-    /**
-     * Whether ripples should start fading out immediately after the mouse or touch is released. By
-     * default, ripples will wait for the enter animation to complete and for mouse or touch release.
-     */
-    terminateOnPointerUp?: boolean;
-    /**
-     * A namespace to use for ripple loader to allow multiple instances to exist on the same page.
-     */
-    namespace?: string;
-}
-
-/**
- * Reference to a previously launched ripple element.
- */
-export declare class RippleRef {
-    private _renderer;
-    /** Reference to the ripple HTML element. */
-    element: HTMLElement;
-    /** Ripple configuration used for the ripple. */
-    config: RippleConfig;
-    _animationForciblyDisabledThroughCss: boolean;
-    /** Current state of the ripple. */
-    state: RippleState;
-    constructor(_renderer: {
-        fadeOutRipple(ref: RippleRef): void;
-    }, 
-    /** Reference to the ripple HTML element. */
-    element: HTMLElement, 
-    /** Ripple configuration used for the ripple. */
-    config: RippleConfig, _animationForciblyDisabledThroughCss?: boolean);
-    /** Fades out the ripple element. */
-    fadeOut(): void;
-}
-
-/**
- * Helper service that performs DOM manipulations. Not intended to be used outside this module.
- * The constructor takes a reference to the ripple directive's host element and a map of DOM
- * event handlers to be installed on the element that triggers ripple animations.
- * This will eventually become a custom renderer once Angular support exists.
+ * Internal shared component used as a container in form field controls.
+ * Not to be confused with `mat-form-field` which MDC calls a "text field".
  * @docs-private
  */
-export declare class RippleRenderer implements EventListenerObject {
-    private _target;
-    private _ngZone;
-    private _platform;
-    /** Element where the ripples are being added to. */
-    private _containerElement;
-    /** Element which triggers the ripple elements on mouse events. */
-    private _triggerElement;
-    /** Whether the pointer is currently down or not. */
-    private _isPointerDown;
-    /**
-     * Map of currently active ripple references.
-     * The ripple reference is mapped to its element event listeners.
-     * The reason why `| null` is used is that event listeners are added only
-     * when the condition is truthy (see the `_startFadeOutTransition` method).
-     */
-    private _activeRipples;
-    /** Latest non-persistent ripple that was triggered. */
-    private _mostRecentTransientRipple;
-    /** Time in milliseconds when the last touchstart event happened. */
-    private _lastTouchStartEvent;
-    /** Whether pointer-up event listeners have been registered. */
-    private _pointerUpEventsRegistered;
-    /**
-     * Cached dimensions of the ripple container. Set when the first
-     * ripple is shown and cleared once no more ripples are visible.
-     */
-    private _containerRect;
-    private static _eventManager;
-    constructor(_target: RippleTarget, _ngZone: NgZone, elementOrElementRef: HTMLElement | ElementRef<HTMLElement>, _platform: Platform, injector?: Injector);
-    /**
-     * Fades in a ripple at the given coordinates.
-     * @param x Coordinate within the element, along the X axis at which to start the ripple.
-     * @param y Coordinate within the element, along the Y axis at which to start the ripple.
-     * @param config Extra ripple options.
-     */
-    fadeInRipple(x: number, y: number, config?: RippleConfig): RippleRef;
-    /** Fades out a ripple reference. */
-    fadeOutRipple(rippleRef: RippleRef): void;
-    /** Fades out all currently active ripples. */
-    fadeOutAll(): void;
-    /** Fades out all currently active non-persistent ripples. */
-    fadeOutAllNonPersistent(): void;
-    /** Sets up the trigger event listeners */
-    setupTriggerEvents(elementOrElementRef: HTMLElement | ElementRef<HTMLElement>): void;
-    /**
-     * Handles all registered events.
-     * @docs-private
-     */
-    handleEvent(event: Event): void;
-    /** Method that will be called if the fade-in or fade-in transition completed. */
-    private _finishRippleTransition;
-    /**
-     * Starts the fade-out transition of the given ripple if it's not persistent and the pointer
-     * is not held down anymore.
-     */
-    private _startFadeOutTransition;
-    /** Destroys the given ripple by removing it from the DOM and updating its state. */
-    private _destroyRipple;
-    /** Function being called whenever the trigger is being pressed using mouse. */
-    private _onMousedown;
-    /** Function being called whenever the trigger is being pressed using touch. */
-    private _onTouchStart;
-    /** Function being called whenever the trigger is being released. */
-    private _onPointerUp;
-    private _getActiveRipples;
-    /** Removes previously registered event listeners from the trigger element. */
-    _removeTriggerEvents(): void;
+declare class _MatInternalFormField {
+    /** Position of the label relative to the content. */
+    labelPosition: 'before' | 'after';
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatInternalFormField, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
 }
 
-
-/** Possible states for a ripple element. */
-export declare enum RippleState {
-    FADING_IN = 0,
-    VISIBLE = 1,
-    FADING_OUT = 2,
-    HIDDEN = 3
-}
-
-/**
- * Interface that describes the target for launching ripples.
- * It defines the ripple configuration and disabled state for interaction ripples.
- * @docs-private
- */
-export declare interface RippleTarget {
-    /** Configuration for ripples that are launched on pointer down. */
-    rippleConfig: RippleConfig;
-    /** Whether ripples on pointer down should be disabled. */
-    rippleDisabled: boolean;
-}
-
-/**
- * Possible sanity checks that can be enabled. If set to
- * true/false, all checks will be enabled/disabled.
- * @deprecated No longer used and will be removed.
- * @breaking-change 21.0.0
- */
-export declare type SanityChecks = boolean | GranularSanityChecks;
-
-/**
- * Helper that takes a query list of lines and sets the correct class on the host.
- * @docs-private
- */
-export declare function setLines(lines: QueryList<unknown>, element: ElementRef<HTMLElement>, prefix?: string): void;
-
-/** Error state matcher that matches when a control is invalid and dirty. */
-export declare class ShowOnDirtyErrorStateMatcher implements ErrorStateMatcher {
-    isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<ShowOnDirtyErrorStateMatcher, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<ShowOnDirtyErrorStateMatcher>;
-}
-
-/**
- * Component used to load structural styles for focus indicators.
- * @docs-private
- */
-export declare class _StructuralStylesLoader {
-    static ɵfac: i0.ɵɵFactoryDeclaration<_StructuralStylesLoader, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<_StructuralStylesLoader, "structural-styles", never, {}, {}, never, never, true, never>;
-}
-
-
-/** Possible color palette values. */
-export declare type ThemePalette = 'primary' | 'accent' | 'warn' | undefined;
-
-/** Current version of Angular Material. */
-export declare const VERSION: Version;
-
-export { }
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher$1 as ErrorStateMatcher, type GranularSanityChecks, MATERIAL_SANITY_CHECKS, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_NATIVE_DATE_FORMATS, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, type MatDateFormats, MatLine, MatLineModule, MatNativeDateModule, MatOptgroup, MatOption, MatOptionModule, type MatOptionParentComponent, MatOptionSelectionChange, MatPseudoCheckbox, MatPseudoCheckboxModule, type MatPseudoCheckboxState, MatRipple, MatRippleLoader, MatRippleModule, NativeDateAdapter, NativeDateModule, type RippleAnimationConfig, type RippleConfig, type RippleGlobalOptions, RippleRef, RippleRenderer, RippleState, type RippleTarget, type SanityChecks, ShowOnDirtyErrorStateMatcher, type ThemePalette, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _countGroupLabelsBeforeOption, _getOptionScrollPosition, defaultRippleAnimationConfig, provideNativeDateAdapter, setLines };

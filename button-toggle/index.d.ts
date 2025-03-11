@@ -1,152 +1,21 @@
-import { AfterContentInit } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
 import { Direction } from '@angular/cdk/bidi';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
+import { InjectionToken, OnInit, AfterContentInit, QueryList, EventEmitter, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
 import * as i1 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { QueryList } from '@angular/core';
-
-declare namespace i2 {
-    export {
-        MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY,
-        ToggleType,
-        MatButtonToggleAppearance,
-        MatButtonToggleDefaultOptions,
-        MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS,
-        MAT_BUTTON_TOGGLE_GROUP,
-        MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
-        MatButtonToggleChange,
-        MatButtonToggleGroup,
-        MatButtonToggle
-    }
-}
 
 /**
- * Injection token that can be used to configure the
- * default options for all button toggles within an app.
+ * @deprecated No longer used.
+ * @breaking-change 11.0.0
  */
-export declare const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatButtonToggleDefaultOptions>;
-
-/**
- * Injection token that can be used to reference instances of `MatButtonToggleGroup`.
- * It serves as alternative token to the actual `MatButtonToggleGroup` class which
- * could cause unnecessary retention of the class and its component metadata.
- */
-export declare const MAT_BUTTON_TOGGLE_GROUP: InjectionToken<MatButtonToggleGroup>;
-
-export declare function MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY(): MatButtonToggleDefaultOptions;
-
-/**
- * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)].
- * @docs-private
- */
-export declare const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any;
-
-/** Single button inside of a toggle group. */
-export declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy {
-    private _changeDetectorRef;
-    private _elementRef;
-    private _focusMonitor;
-    private _idGenerator;
-    private _animationMode;
-    private _checked;
-    /**
-     * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
-     * take precedence so this may be omitted.
-     */
-    ariaLabel: string;
-    /**
-     * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
-     */
-    ariaLabelledby: string | null;
-    /** Underlying native `button` element. */
-    _buttonElement: ElementRef<HTMLButtonElement>;
-    /** The parent button toggle group (exclusive selection). Optional. */
-    buttonToggleGroup: MatButtonToggleGroup;
-    /** Unique ID for the underlying `button` element. */
-    get buttonId(): string;
-    /** The unique ID for this button toggle. */
-    id: string;
-    /** HTML's 'name' attribute used to group radios for unique selection. */
-    name: string;
-    /** MatButtonToggleGroup reads this to assign its own value. */
-    value: any;
-    /** Tabindex of the toggle. */
-    get tabIndex(): number | null;
-    set tabIndex(value: number | null);
-    private _tabIndex;
-    /** Whether ripples are disabled on the button toggle. */
-    disableRipple: boolean;
-    /** The appearance style of the button. */
-    get appearance(): MatButtonToggleAppearance;
-    set appearance(value: MatButtonToggleAppearance);
-    private _appearance;
-    /** Whether the button is checked. */
-    get checked(): boolean;
-    set checked(value: boolean);
-    /** Whether the button is disabled. */
-    get disabled(): boolean;
-    set disabled(value: boolean);
-    private _disabled;
-    /** Whether the button should remain interactive when it is disabled. */
-    get disabledInteractive(): boolean;
-    set disabledInteractive(value: boolean);
-    private _disabledInteractive;
-    /** Event emitted when the group value changes. */
-    readonly change: EventEmitter<MatButtonToggleChange>;
-    constructor(...args: unknown[]);
-    ngOnInit(): void;
-    ngAfterViewInit(): void;
-    ngOnDestroy(): void;
-    /** Focuses the button. */
-    focus(options?: FocusOptions): void;
-    /** Checks the button toggle due to an interaction with the underlying native button. */
-    _onButtonClick(): void;
-    /**
-     * Marks the button toggle as needing checking for change detection.
-     * This method is exposed because the parent button toggle group will directly
-     * update bound properties of the radio button.
-     */
-    _markForCheck(): void;
-    /** Gets the name that should be assigned to the inner DOM node. */
-    _getButtonName(): string | null;
-    /** Whether the toggle is in single selection mode. */
-    isSingleSelector(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggle, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatButtonToggle, "mat-button-toggle", ["matButtonToggle"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; }, never, ["*"], true, never>;
-    static ngAcceptInputType_disableRipple: unknown;
-    static ngAcceptInputType_checked: unknown;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_disabledInteractive: unknown;
-}
-
+type ToggleType = 'checkbox' | 'radio';
 /** Possible appearance styles for the button toggle. */
-export declare type MatButtonToggleAppearance = 'legacy' | 'standard';
-
-/** Change event object emitted by button toggle. */
-export declare class MatButtonToggleChange {
-    /** The button toggle that emits the event. */
-    source: MatButtonToggle;
-    /** The value assigned to the button toggle. */
-    value: any;
-    constructor(
-    /** The button toggle that emits the event. */
-    source: MatButtonToggle, 
-    /** The value assigned to the button toggle. */
-    value: any);
-}
-
+type MatButtonToggleAppearance = 'legacy' | 'standard';
 /**
  * Represents the default options for the button toggle that can be configured
  * using the `MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS` injection token.
  */
-export declare interface MatButtonToggleDefaultOptions {
+interface MatButtonToggleDefaultOptions {
     /**
      * Default appearance to be used by button toggles. Can be overridden by explicitly
      * setting an appearance on a button toggle or group.
@@ -159,9 +28,38 @@ export declare interface MatButtonToggleDefaultOptions {
     /** Whether disabled toggle buttons should be interactive. */
     disabledInteractive?: boolean;
 }
-
+/**
+ * Injection token that can be used to configure the
+ * default options for all button toggles within an app.
+ */
+declare const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatButtonToggleDefaultOptions>;
+declare function MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY(): MatButtonToggleDefaultOptions;
+/**
+ * Injection token that can be used to reference instances of `MatButtonToggleGroup`.
+ * It serves as alternative token to the actual `MatButtonToggleGroup` class which
+ * could cause unnecessary retention of the class and its component metadata.
+ */
+declare const MAT_BUTTON_TOGGLE_GROUP: InjectionToken<MatButtonToggleGroup>;
+/**
+ * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
+ * This allows it to support [(ngModel)].
+ * @docs-private
+ */
+declare const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any;
+/** Change event object emitted by button toggle. */
+declare class MatButtonToggleChange {
+    /** The button toggle that emits the event. */
+    source: MatButtonToggle;
+    /** The value assigned to the button toggle. */
+    value: any;
+    constructor(
+    /** The button toggle that emits the event. */
+    source: MatButtonToggle, 
+    /** The value assigned to the button toggle. */
+    value: any);
+}
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
-export declare class MatButtonToggleGroup implements ControlValueAccessor, OnInit, AfterContentInit {
+declare class MatButtonToggleGroup implements ControlValueAccessor, OnInit, AfterContentInit {
     private _changeDetector;
     private _dir;
     private _multiple;
@@ -274,17 +172,88 @@ export declare class MatButtonToggleGroup implements ControlValueAccessor, OnIni
     static ngAcceptInputType_hideSingleSelectionIndicator: unknown;
     static ngAcceptInputType_hideMultipleSelectionIndicator: unknown;
 }
+/** Single button inside of a toggle group. */
+declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy {
+    private _changeDetectorRef;
+    private _elementRef;
+    private _focusMonitor;
+    private _idGenerator;
+    private _animationMode;
+    private _checked;
+    /**
+     * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
+     * take precedence so this may be omitted.
+     */
+    ariaLabel: string;
+    /**
+     * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
+     */
+    ariaLabelledby: string | null;
+    /** Underlying native `button` element. */
+    _buttonElement: ElementRef<HTMLButtonElement>;
+    /** The parent button toggle group (exclusive selection). Optional. */
+    buttonToggleGroup: MatButtonToggleGroup;
+    /** Unique ID for the underlying `button` element. */
+    get buttonId(): string;
+    /** The unique ID for this button toggle. */
+    id: string;
+    /** HTML's 'name' attribute used to group radios for unique selection. */
+    name: string;
+    /** MatButtonToggleGroup reads this to assign its own value. */
+    value: any;
+    /** Tabindex of the toggle. */
+    get tabIndex(): number | null;
+    set tabIndex(value: number | null);
+    private _tabIndex;
+    /** Whether ripples are disabled on the button toggle. */
+    disableRipple: boolean;
+    /** The appearance style of the button. */
+    get appearance(): MatButtonToggleAppearance;
+    set appearance(value: MatButtonToggleAppearance);
+    private _appearance;
+    /** Whether the button is checked. */
+    get checked(): boolean;
+    set checked(value: boolean);
+    /** Whether the button is disabled. */
+    get disabled(): boolean;
+    set disabled(value: boolean);
+    private _disabled;
+    /** Whether the button should remain interactive when it is disabled. */
+    get disabledInteractive(): boolean;
+    set disabledInteractive(value: boolean);
+    private _disabledInteractive;
+    /** Event emitted when the group value changes. */
+    readonly change: EventEmitter<MatButtonToggleChange>;
+    constructor(...args: unknown[]);
+    ngOnInit(): void;
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    /** Focuses the button. */
+    focus(options?: FocusOptions): void;
+    /** Checks the button toggle due to an interaction with the underlying native button. */
+    _onButtonClick(): void;
+    /**
+     * Marks the button toggle as needing checking for change detection.
+     * This method is exposed because the parent button toggle group will directly
+     * update bound properties of the radio button.
+     */
+    _markForCheck(): void;
+    /** Gets the name that should be assigned to the inner DOM node. */
+    _getButtonName(): string | null;
+    /** Whether the toggle is in single selection mode. */
+    isSingleSelector(): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggle, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButtonToggle, "mat-button-toggle", ["matButtonToggle"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "id": { "alias": "id"; "required": false; }; "name": { "alias": "name"; "required": false; }; "value": { "alias": "value"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; }, never, ["*"], true, never>;
+    static ngAcceptInputType_disableRipple: unknown;
+    static ngAcceptInputType_checked: unknown;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_disabledInteractive: unknown;
+}
 
-export declare class MatButtonToggleModule {
+declare class MatButtonToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonToggleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonToggleModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i2.MatButtonToggleGroup, typeof i2.MatButtonToggle], [typeof i1.MatCommonModule, typeof i2.MatButtonToggleGroup, typeof i2.MatButtonToggle]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonToggleModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof MatButtonToggleGroup, typeof MatButtonToggle], [typeof i1.MatCommonModule, typeof MatButtonToggleGroup, typeof MatButtonToggle]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonToggleModule>;
 }
 
-/**
- * @deprecated No longer used.
- * @breaking-change 11.0.0
- */
-export declare type ToggleType = 'checkbox' | 'radio';
-
-export { }
+export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, type MatButtonToggleAppearance, MatButtonToggleChange, type MatButtonToggleDefaultOptions, MatButtonToggleGroup, MatButtonToggleModule, type ToggleType };

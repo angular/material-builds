@@ -1,10 +1,11 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
+
+/** A set of criteria that can be used to filter a list of `MatProgressBarHarness` instances. */
+interface ProgressBarHarnessFilters extends BaseHarnessFilters {
+}
 
 /** Harness for interacting with a `mat-progress-bar` in tests. */
-export declare class MatProgressBarHarness extends ComponentHarness {
+declare class MatProgressBarHarness extends ComponentHarness {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a progress bar with specific
@@ -19,8 +20,4 @@ export declare class MatProgressBarHarness extends ComponentHarness {
     getMode(): Promise<string | null>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatProgressBarHarness` instances. */
-export declare interface ProgressBarHarnessFilters extends BaseHarnessFilters {
-}
-
-export { }
+export { MatProgressBarHarness, type ProgressBarHarnessFilters };

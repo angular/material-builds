@@ -1,12 +1,10 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
-export declare interface BottomSheetHarnessFilters extends BaseHarnessFilters {
+interface BottomSheetHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Harness for interacting with a standard MatBottomSheet in tests. */
-export declare class MatBottomSheetHarness extends ContentContainerComponentHarness<string> {
+declare class MatBottomSheetHarness extends ContentContainerComponentHarness<string> {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a bottom sheet with
@@ -24,4 +22,4 @@ export declare class MatBottomSheetHarness extends ContentContainerComponentHarn
     dismiss(): Promise<void>;
 }
 
-export { }
+export { type BottomSheetHarnessFilters, MatBottomSheetHarness };

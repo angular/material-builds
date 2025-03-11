@@ -1,85 +1,56 @@
-import { CdkDialogContainer } from '@angular/cdk/dialog';
-import { ComponentRef } from '@angular/core';
-import { ComponentType } from '@angular/cdk/portal';
-import { DialogRef } from '@angular/cdk/dialog';
-import { Direction } from '@angular/cdk/bidi';
-import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
+import { OnDestroy, EventEmitter, InjectionToken, ViewContainerRef, ComponentRef, TemplateRef } from '@angular/core';
 import * as i1 from '@angular/cdk/dialog';
-import * as i2 from '@angular/material/core';
+import { CdkDialogContainer, DialogRef } from '@angular/cdk/dialog';
+import * as i1$1 from '@angular/material/core';
 import * as i3 from '@angular/cdk/portal';
-import { InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
+import { ComponentType } from '@angular/cdk/portal';
+import { Direction } from '@angular/cdk/bidi';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { TemplateRef } from '@angular/core';
-import { ViewContainerRef } from '@angular/core';
+import { Observable } from 'rxjs';
+
+/**
+ * Internal component that wraps user-provided bottom sheet content.
+ * @docs-private
+ */
+declare class MatBottomSheetContainer extends CdkDialogContainer implements OnDestroy {
+    private _breakpointSubscription;
+    protected _animationsDisabled: boolean;
+    /** The state of the bottom sheet animations. */
+    _animationState: 'void' | 'visible' | 'hidden';
+    /** Emits whenever the state of the animation changes. */
+    _animationStateChanged: EventEmitter<{
+        toState: "visible" | "hidden";
+        phase: "start" | "done";
+    }>;
+    /** Whether the component has been destroyed. */
+    private _destroyed;
+    constructor(...args: unknown[]);
+    /** Begin animation of bottom sheet entrance into view. */
+    enter(): void;
+    /** Begin animation of the bottom sheet exiting from view. */
+    exit(): void;
+    ngOnDestroy(): void;
+    private _simulateAnimation;
+    protected _handleAnimationEvent(isStart: boolean, animationName: string): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, true, never>;
+}
+
+declare class MatBottomSheetModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBottomSheetModule, never, [typeof i1.DialogModule, typeof i1$1.MatCommonModule, typeof i3.PortalModule, typeof MatBottomSheetContainer], [typeof MatBottomSheetContainer, typeof i1$1.MatCommonModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatBottomSheetModule>;
+}
 
 /** Options for where to set focus to automatically on dialog open */
-export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
-
-declare namespace i4 {
-    export {
-        MatBottomSheetContainer
-    }
-}
-
+type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
 /** Injection token that can be used to access the data that was passed in to a bottom sheet. */
-export declare const MAT_BOTTOM_SHEET_DATA: InjectionToken<any>;
-
-/** Injection token that can be used to specify default bottom sheet options. */
-export declare const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: InjectionToken<MatBottomSheetConfig<any>>;
-
-/**
- * Service to trigger Material Design bottom sheets.
- */
-export declare class MatBottomSheet implements OnDestroy {
-    private _overlay;
-    private _parentBottomSheet;
-    private _defaultOptions;
-    private _bottomSheetRefAtThisLevel;
-    private _dialog;
-    /** Reference to the currently opened bottom sheet. */
-    get _openedBottomSheetRef(): MatBottomSheetRef<any> | null;
-    set _openedBottomSheetRef(value: MatBottomSheetRef<any> | null);
-    constructor(...args: unknown[]);
-    /**
-     * Opens a bottom sheet containing the given component.
-     * @param component Type of the component to load into the bottom sheet.
-     * @param config Extra configuration options.
-     * @returns Reference to the newly-opened bottom sheet.
-     */
-    open<T, D = any, R = any>(component: ComponentType<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
-    /**
-     * Opens a bottom sheet containing the given template.
-     * @param template TemplateRef to instantiate as the bottom sheet content.
-     * @param config Extra configuration options.
-     * @returns Reference to the newly-opened bottom sheet.
-     */
-    open<T, D = any, R = any>(template: TemplateRef<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
-    /**
-     * Dismisses the currently-visible bottom sheet.
-     * @param result Data to pass to the bottom sheet instance.
-     */
-    dismiss<R = any>(result?: R): void;
-    ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheet, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatBottomSheet>;
-}
-
-/**
- * Animations used by the Material bottom sheet.
- * @deprecated No longer used. Will be removed.
- * @breaking-change 21.0.0
- */
-export declare const matBottomSheetAnimations: {
-    readonly bottomSheetState: any;
-};
-
+declare const MAT_BOTTOM_SHEET_DATA: InjectionToken<any>;
 /**
  * Configuration used when opening a bottom sheet.
  */
-export declare class MatBottomSheetConfig<D = any> {
+declare class MatBottomSheetConfig<D = any> {
     /** The view container to place the overlay for the bottom sheet into. */
     viewContainerRef?: ViewContainerRef;
     /** Extra CSS classes to be added to the bottom sheet container. */
@@ -130,43 +101,9 @@ export declare class MatBottomSheetConfig<D = any> {
 }
 
 /**
- * Internal component that wraps user-provided bottom sheet content.
- * @docs-private
- */
-export declare class MatBottomSheetContainer extends CdkDialogContainer implements OnDestroy {
-    private _breakpointSubscription;
-    protected _animationsDisabled: boolean;
-    /** The state of the bottom sheet animations. */
-    _animationState: 'void' | 'visible' | 'hidden';
-    /** Emits whenever the state of the animation changes. */
-    _animationStateChanged: EventEmitter<{
-        toState: "visible" | "hidden";
-        phase: "start" | "done";
-    }>;
-    /** Whether the component has been destroyed. */
-    private _destroyed;
-    constructor(...args: unknown[]);
-    /** Begin animation of bottom sheet entrance into view. */
-    enter(): void;
-    /** Begin animation of the bottom sheet exiting from view. */
-    exit(): void;
-    ngOnDestroy(): void;
-    private _simulateAnimation;
-    protected _handleAnimationEvent(isStart: boolean, animationName: string): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, true, never>;
-}
-
-export declare class MatBottomSheetModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBottomSheetModule, never, [typeof i1.DialogModule, typeof i2.MatCommonModule, typeof i3.PortalModule, typeof i4.MatBottomSheetContainer], [typeof i4.MatBottomSheetContainer, typeof i2.MatCommonModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatBottomSheetModule>;
-}
-
-/**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
  */
-export declare class MatBottomSheetRef<T = any, R = any> {
+declare class MatBottomSheetRef<T = any, R = any> {
     private _ref;
     /** Instance of the component making up the content of the bottom sheet. */
     get instance(): T;
@@ -208,4 +145,52 @@ export declare class MatBottomSheetRef<T = any, R = any> {
     keydownEvents(): Observable<KeyboardEvent>;
 }
 
-export { }
+/** Injection token that can be used to specify default bottom sheet options. */
+declare const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: InjectionToken<MatBottomSheetConfig<any>>;
+/**
+ * Service to trigger Material Design bottom sheets.
+ */
+declare class MatBottomSheet implements OnDestroy {
+    private _overlay;
+    private _parentBottomSheet;
+    private _defaultOptions;
+    private _bottomSheetRefAtThisLevel;
+    private _dialog;
+    /** Reference to the currently opened bottom sheet. */
+    get _openedBottomSheetRef(): MatBottomSheetRef<any> | null;
+    set _openedBottomSheetRef(value: MatBottomSheetRef<any> | null);
+    constructor(...args: unknown[]);
+    /**
+     * Opens a bottom sheet containing the given component.
+     * @param component Type of the component to load into the bottom sheet.
+     * @param config Extra configuration options.
+     * @returns Reference to the newly-opened bottom sheet.
+     */
+    open<T, D = any, R = any>(component: ComponentType<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
+    /**
+     * Opens a bottom sheet containing the given template.
+     * @param template TemplateRef to instantiate as the bottom sheet content.
+     * @param config Extra configuration options.
+     * @returns Reference to the newly-opened bottom sheet.
+     */
+    open<T, D = any, R = any>(template: TemplateRef<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
+    /**
+     * Dismisses the currently-visible bottom sheet.
+     * @param result Data to pass to the bottom sheet instance.
+     */
+    dismiss<R = any>(result?: R): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheet, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatBottomSheet>;
+}
+
+/**
+ * Animations used by the Material bottom sheet.
+ * @deprecated No longer used. Will be removed.
+ * @breaking-change 21.0.0
+ */
+declare const matBottomSheetAnimations: {
+    readonly bottomSheetState: any;
+};
+
+export { type AutoFocusTarget, MAT_BOTTOM_SHEET_DATA, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheet, MatBottomSheetConfig, MatBottomSheetContainer, MatBottomSheetModule, MatBottomSheetRef, matBottomSheetAnimations };

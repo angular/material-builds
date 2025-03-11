@@ -1,10 +1,11 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
+
+/** A set of criteria that can be used to filter a list of `MatTooltipHarness` instances. */
+interface TooltipHarnessFilters extends BaseHarnessFilters {
+}
 
 /** Harness for interacting with a mat-tooltip in tests. */
-export declare class MatTooltipHarness extends ComponentHarness {
+declare class MatTooltipHarness extends ComponentHarness {
     static hostSelector: string;
     private _optionalPanel;
     private _hiddenClass;
@@ -30,8 +31,4 @@ export declare class MatTooltipHarness extends ComponentHarness {
     getTooltipText(): Promise<string>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatTooltipHarness` instances. */
-export declare interface TooltipHarnessFilters extends BaseHarnessFilters {
-}
-
-export { }
+export { MatTooltipHarness, type TooltipHarnessFilters };

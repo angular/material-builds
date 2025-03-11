@@ -1,11 +1,20 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate, HarnessLoader } from '@angular/cdk/testing';
+
+/** A set of criteria that can be used to filter a list of `MatMenuHarness` instances. */
+interface MenuHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose trigger text matches the given value. */
+    triggerText?: string | RegExp;
+}
+/** A set of criteria that can be used to filter a list of `MatMenuItemHarness` instances. */
+interface MenuItemHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose text matches the given value. */
+    text?: string | RegExp;
+    /** Only find instances that have a sub-menu. */
+    hasSubmenu?: boolean;
+}
 
 /** Harness for interacting with a mat-menu in tests. */
-export declare class MatMenuHarness extends ContentContainerComponentHarness<string> {
+declare class MatMenuHarness extends ContentContainerComponentHarness<string> {
     private _documentRootLocator;
     /** The selector for the host element of a `MatMenu` instance. */
     static hostSelector: string;
@@ -51,8 +60,7 @@ export declare class MatMenuHarness extends ContentContainerComponentHarness<str
     /** Gets the id of the menu panel associated with this menu. */
     private _getPanelId;
 }
-
-export declare class MatMenuItemHarness extends ContentContainerComponentHarness<string> {
+declare class MatMenuItemHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatMenuItem` instance. */
     static hostSelector: string;
     /**
@@ -79,18 +87,4 @@ export declare class MatMenuItemHarness extends ContentContainerComponentHarness
     getSubmenu(): Promise<MatMenuHarness | null>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatMenuHarness` instances. */
-export declare interface MenuHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose trigger text matches the given value. */
-    triggerText?: string | RegExp;
-}
-
-/** A set of criteria that can be used to filter a list of `MatMenuItemHarness` instances. */
-export declare interface MenuItemHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose text matches the given value. */
-    text?: string | RegExp;
-    /** Only find instances that have a sub-menu. */
-    hasSubmenu?: boolean;
-}
-
-export { }
+export { MatMenuHarness, MatMenuItemHarness, type MenuHarnessFilters, type MenuItemHarnessFilters };

@@ -1,120 +1,69 @@
-import { AbstractControl } from '@angular/forms';
-import { AfterContentInit } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { CdkStep } from '@angular/cdk/stepper';
-import { CdkStepHeader } from '@angular/cdk/stepper';
-import { CdkStepLabel } from '@angular/cdk/stepper';
-import { CdkStepper } from '@angular/cdk/stepper';
-import { CdkStepperNext } from '@angular/cdk/stepper';
-import { CdkStepperPrevious } from '@angular/cdk/stepper';
-import { ElementRef } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { EventEmitter } from '@angular/core';
-import { FocusOrigin } from '@angular/cdk/a11y';
-import { FormGroupDirective } from '@angular/forms';
+import * as i3$1 from '@angular/cdk/stepper';
+import { CdkStepLabel, StepState, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
+export { StepState, StepperOrientation } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
+import { Optional, TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, QueryList, ElementRef, EventEmitter } from '@angular/core';
 import * as i1 from '@angular/material/core';
-import * as i2 from '@angular/cdk/portal';
-import * as i3 from '@angular/cdk/stepper';
-import * as i4 from '@angular/material/icon';
-import { NgForm } from '@angular/forms';
-import { OnDestroy } from '@angular/core';
-import { Optional } from '@angular/core';
-import { QueryList } from '@angular/core';
-import { StepperOrientation } from '@angular/cdk/stepper';
-import { StepState } from '@angular/cdk/stepper';
-import { Subject } from 'rxjs';
+import { ThemePalette, ErrorStateMatcher } from '@angular/material/core';
+import * as i3 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { TemplateRef } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { WritableSignal } from '@angular/core';
+import * as i4 from '@angular/material/icon';
+import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { Subject } from 'rxjs';
 
-declare namespace i10 {
-    export {
-        MatStepContent
-    }
+declare class MatStepLabel extends CdkStepLabel {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepLabel, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepLabel, "[matStepLabel]", never, {}, {}, never, never, true, never>;
 }
 
-declare namespace i5 {
-    export {
-        MatStep,
-        MatStepper
-    }
+/** Stepper data that is required for internationalization. */
+declare class MatStepperIntl {
+    /**
+     * Stream that emits whenever the labels here are changed. Use this to notify
+     * components if the labels have changed after initialization.
+     */
+    readonly changes: Subject<void>;
+    /** Label that is rendered below optional steps. */
+    optionalLabel: string;
+    /** Label that is used to indicate step as completed to screen readers. */
+    completedLabel: string;
+    /** Label that is used to indicate step as editable to screen readers. */
+    editableLabel: string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIntl, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatStepperIntl>;
 }
-
-declare namespace i6 {
-    export {
-        MatStepLabel
-    }
-}
-
-declare namespace i7 {
-    export {
-        MatStepperNext,
-        MatStepperPrevious
-    }
-}
-
-declare namespace i8 {
-    export {
-        MatStepHeader
-    }
-}
-
-declare namespace i9 {
-    export {
-        MatStepperIconContext,
-        MatStepperIcon
-    }
-}
-
 /** @docs-private */
-export declare const MAT_STEPPER_INTL_PROVIDER: {
+declare function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl: MatStepperIntl): MatStepperIntl;
+/** @docs-private */
+declare const MAT_STEPPER_INTL_PROVIDER: {
     provide: typeof MatStepperIntl;
     deps: Optional[][];
     useFactory: typeof MAT_STEPPER_INTL_PROVIDER_FACTORY;
 };
 
-/** @docs-private */
-export declare function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl: MatStepperIntl): MatStepperIntl;
-
-export declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContentInit, OnDestroy {
-    private _errorStateMatcher;
-    private _viewContainerRef;
-    private _isSelected;
-    /** Content for step label given by `<ng-template matStepLabel>`. */
-    stepLabel: MatStepLabel;
-    /**
-     * Theme color for the particular step. This API is supported in M2 themes
-     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/stepper/styling.
-     *
-     * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
-     */
-    color: ThemePalette;
-    /** Content that will be rendered lazily. */
-    _lazyContent: MatStepContent;
-    /** Currently-attached portal containing the lazy content. */
-    _portal: TemplatePortal;
-    ngAfterContentInit(): void;
-    ngOnDestroy(): void;
-    /** Custom error state matcher that additionally checks for validity of interacted form. */
-    isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": { "alias": "color"; "required": false; }; }, {}, ["stepLabel", "_lazyContent"], ["*"], true, never>;
+/** Template context available to an attached `matStepperIcon`. */
+interface MatStepperIconContext {
+    /** Index of the step. */
+    index: number;
+    /** Whether the step is currently active. */
+    active: boolean;
+    /** Whether the step is optional. */
+    optional: boolean;
 }
-
 /**
- * Content for a `mat-step` that will be rendered lazily.
+ * Template to be used to override the icons inside the step header.
  */
-export declare class MatStepContent {
-    _template: TemplateRef<any>;
+declare class MatStepperIcon {
+    templateRef: TemplateRef<MatStepperIconContext>;
+    /** Name of the icon to be overridden. */
+    name: StepState;
     constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never, never, true, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIcon, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": { "alias": "matStepperIcon"; "required": false; }; }, {}, never, never, true, never>;
 }
 
-export declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDestroy {
+declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDestroy {
     _intl: MatStepperIntl;
     private _focusMonitor;
     private _intlSubscription;
@@ -164,17 +113,47 @@ export declare class MatStepHeader extends CdkStepHeader implements AfterViewIni
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "state": { "alias": "state"; "required": false; }; "label": { "alias": "label"; "required": false; }; "errorMessage": { "alias": "errorMessage"; "required": false; }; "iconOverrides": { "alias": "iconOverrides"; "required": false; }; "index": { "alias": "index"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "active": { "alias": "active"; "required": false; }; "optional": { "alias": "optional"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, never, true, never>;
 }
 
-export declare class MatStepLabel extends CdkStepLabel {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepLabel, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepLabel, "[matStepLabel]", never, {}, {}, never, never, true, never>;
+/**
+ * Content for a `mat-step` that will be rendered lazily.
+ */
+declare class MatStepContent {
+    _template: TemplateRef<any>;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepContent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never, never, true, never>;
 }
 
-export declare class MatStepper extends CdkStepper implements AfterViewInit, AfterContentInit, OnDestroy {
+declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContentInit, OnDestroy {
+    private _errorStateMatcher;
+    private _viewContainerRef;
+    private _isSelected;
+    /** Content for step label given by `<ng-template matStepLabel>`. */
+    stepLabel: MatStepLabel;
+    /**
+     * Theme color for the particular step. This API is supported in M2 themes
+     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/stepper/styling.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     */
+    color: ThemePalette;
+    /** Content that will be rendered lazily. */
+    _lazyContent: MatStepContent;
+    /** Currently-attached portal containing the lazy content. */
+    _portal: TemplatePortal;
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
+    /** Custom error state matcher that additionally checks for validity of interacted form. */
+    isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": { "alias": "color"; "required": false; }; }, {}, ["stepLabel", "_lazyContent"], ["*"], true, never>;
+}
+declare class MatStepper extends CdkStepper implements AfterViewInit, AfterContentInit, OnDestroy {
     private _ngZone;
     private _renderer;
     private _animationsModule;
     private _cleanupTransition;
-    protected _isAnimating: WritableSignal<boolean>;
+    protected _isAnimating: i0.WritableSignal<boolean>;
     /** The list of step headers of the steps in the stepper. */
     _stepHeader: QueryList<MatStepHeader>;
     /** Elements hosting the step animations. */
@@ -227,76 +206,32 @@ export declare class MatStepper extends CdkStepper implements AfterViewInit, Aft
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], ["*"], true, never>;
 }
 
+/** Button that moves to the next step in a stepper workflow. */
+declare class MatStepperNext extends CdkStepperNext {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperNext, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperNext, "button[matStepperNext]", never, {}, {}, never, never, true, never>;
+}
+/** Button that moves to the previous step in a stepper workflow. */
+declare class MatStepperPrevious extends CdkStepperPrevious {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperPrevious, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperPrevious, "button[matStepperPrevious]", never, {}, {}, never, never, true, never>;
+}
+
+declare class MatStepperModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatStepperModule, never, [typeof i1.MatCommonModule, typeof i3.PortalModule, typeof i3$1.CdkStepperModule, typeof i4.MatIconModule, typeof i1.MatRippleModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent], [typeof i1.MatCommonModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatStepperModule>;
+}
+
 /**
  * Animations used by the Material steppers.
  * @docs-private
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-export declare const matStepperAnimations: {
+declare const matStepperAnimations: {
     readonly horizontalStepTransition: any;
     readonly verticalStepTransition: any;
 };
 
-/**
- * Template to be used to override the icons inside the step header.
- */
-export declare class MatStepperIcon {
-    templateRef: TemplateRef<MatStepperIconContext>;
-    /** Name of the icon to be overridden. */
-    name: StepState;
-    constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": { "alias": "matStepperIcon"; "required": false; }; }, {}, never, never, true, never>;
-}
-
-/** Template context available to an attached `matStepperIcon`. */
-export declare interface MatStepperIconContext {
-    /** Index of the step. */
-    index: number;
-    /** Whether the step is currently active. */
-    active: boolean;
-    /** Whether the step is optional. */
-    optional: boolean;
-}
-
-/** Stepper data that is required for internationalization. */
-export declare class MatStepperIntl {
-    /**
-     * Stream that emits whenever the labels here are changed. Use this to notify
-     * components if the labels have changed after initialization.
-     */
-    readonly changes: Subject<void>;
-    /** Label that is rendered below optional steps. */
-    optionalLabel: string;
-    /** Label that is used to indicate step as completed to screen readers. */
-    completedLabel: string;
-    /** Label that is used to indicate step as editable to screen readers. */
-    editableLabel: string;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIntl, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatStepperIntl>;
-}
-
-export declare class MatStepperModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatStepperModule, never, [typeof i1.MatCommonModule, typeof i2.PortalModule, typeof i3.CdkStepperModule, typeof i4.MatIconModule, typeof i1.MatRippleModule, typeof i5.MatStep, typeof i6.MatStepLabel, typeof i5.MatStepper, typeof i7.MatStepperNext, typeof i7.MatStepperPrevious, typeof i8.MatStepHeader, typeof i9.MatStepperIcon, typeof i10.MatStepContent], [typeof i1.MatCommonModule, typeof i5.MatStep, typeof i6.MatStepLabel, typeof i5.MatStepper, typeof i7.MatStepperNext, typeof i7.MatStepperPrevious, typeof i8.MatStepHeader, typeof i9.MatStepperIcon, typeof i10.MatStepContent]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatStepperModule>;
-}
-
-/** Button that moves to the next step in a stepper workflow. */
-export declare class MatStepperNext extends CdkStepperNext {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperNext, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperNext, "button[matStepperNext]", never, {}, {}, never, never, true, never>;
-}
-
-/** Button that moves to the previous step in a stepper workflow. */
-export declare class MatStepperPrevious extends CdkStepperPrevious {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperPrevious, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperPrevious, "button[matStepperPrevious]", never, {}, {}, never, never, true, never>;
-}
-
-export { StepperOrientation }
-
-export { StepState }
-
-export { }
+export { MAT_STEPPER_INTL_PROVIDER, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, type MatStepperIconContext, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious, matStepperAnimations };

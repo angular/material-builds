@@ -1,58 +1,23 @@
-import { CdkDialogContainer } from '@angular/cdk/dialog';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentRef } from '@angular/core';
-import { ComponentType } from '@angular/cdk/overlay';
-import { Dialog } from '@angular/cdk/dialog';
-import { DialogRef } from '@angular/cdk/dialog';
-import { Direction } from '@angular/cdk/bidi';
-import { EventEmitter } from '@angular/core';
-import { FocusOrigin } from '@angular/cdk/a11y';
+import * as i2$1 from '@angular/cdk/overlay';
+import { ScrollStrategy, ComponentType } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/cdk/scrolling';
-import * as i1_2 from '@angular/cdk/dialog';
-import * as i2 from '@angular/cdk/overlay';
+import { ViewContainerRef, Injector, OnDestroy, EventEmitter, ComponentRef, InjectionToken, TemplateRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Direction } from '@angular/cdk/bidi';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { Observable, Subject } from 'rxjs';
+import * as i1 from '@angular/cdk/dialog';
+import { CdkDialogContainer, DialogRef, Dialog } from '@angular/cdk/dialog';
 import * as i3 from '@angular/cdk/portal';
-import * as i4 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { Injector } from '@angular/core';
-import { Observable } from 'rxjs';
-import { OnChanges } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { ScrollStrategy } from '@angular/cdk/overlay';
-import { SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
-import { TemplateRef } from '@angular/core';
-import { ViewContainerRef } from '@angular/core';
+import { ComponentPortal } from '@angular/cdk/portal';
+import * as i2 from '@angular/cdk/scrolling';
+import * as i1$1 from '@angular/material/core';
 
 /** Options for where to set focus to automatically on dialog open */
-export declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
-
-/** Duration of the closing animation in milliseconds. */
-declare const CLOSE_ANIMATION_DURATION = 75;
-
-/**
- * Closes the dialog with the specified interaction type. This is currently not part of
- * `MatDialogRef` as that would conflict with custom dialog ref mocks provided in tests.
- * More details. See: https://github.com/angular/components/pull/9257#issuecomment-651342226.
- */
-export declare function _closeDialogVia<R>(ref: MatDialogRef<R>, interactionType: FocusOrigin, result?: R): void;
-
-/**
- * Default parameters for the animation for backwards compatibility.
- * @docs-private
- * @deprecated Will stop being exported.
- * @breaking-change 21.0.0
- */
-export declare const _defaultParams: {
-    params: {
-        enterAnimationDuration: string;
-        exitAnimationDuration: string;
-    };
-};
-
+type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
+/** Valid ARIA roles for a dialog element. */
+type DialogRole = 'dialog' | 'alertdialog';
 /** Possible overrides for a dialog's position. */
-export declare interface DialogPosition {
+interface DialogPosition {
     /** Override for the dialog's top position. */
     top?: string;
     /** Override for the dialog's bottom position. */
@@ -62,152 +27,10 @@ export declare interface DialogPosition {
     /** Override for the dialog's right position. */
     right?: string;
 }
-
-/** Valid ARIA roles for a dialog element. */
-export declare type DialogRole = 'dialog' | 'alertdialog';
-
-declare namespace i5 {
-    export {
-        OPEN_ANIMATION_DURATION,
-        CLOSE_ANIMATION_DURATION,
-        MatDialogContainer
-    }
-}
-
-declare namespace i6 {
-    export {
-        MatDialogClose,
-        MatDialogLayoutSection,
-        MatDialogTitle,
-        MatDialogContent,
-        MatDialogActions
-    }
-}
-
-/** Event that captures the state of dialog container animations. */
-declare interface LegacyDialogAnimationEvent {
-    state: 'opened' | 'opening' | 'closing' | 'closed';
-    totalTime: number;
-}
-
-/** Injection token that can be used to access the data that was passed in to a dialog. */
-export declare const MAT_DIALOG_DATA: InjectionToken<any>;
-
-/** Injection token that can be used to specify default dialog options. */
-export declare const MAT_DIALOG_DEFAULT_OPTIONS: InjectionToken<MatDialogConfig<any>>;
-
-/** Injection token that determines the scroll handling while the dialog is open. */
-export declare const MAT_DIALOG_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-
-/**
- * Service to open Material Design modal dialogs.
- */
-export declare class MatDialog implements OnDestroy {
-    private _overlay;
-    private _defaultOptions;
-    private _scrollStrategy;
-    private _parentDialog;
-    private _idGenerator;
-    protected _dialog: Dialog;
-    private readonly _openDialogsAtThisLevel;
-    private readonly _afterAllClosedAtThisLevel;
-    private readonly _afterOpenedAtThisLevel;
-    protected dialogConfigClass: typeof MatDialogConfig;
-    private readonly _dialogRefConstructor;
-    private readonly _dialogContainerType;
-    private readonly _dialogDataToken;
-    /** Keeps track of the currently-open dialogs. */
-    get openDialogs(): MatDialogRef<any>[];
-    /** Stream that emits when a dialog has been opened. */
-    get afterOpened(): Subject<MatDialogRef<any>>;
-    private _getAfterAllClosed;
-    /**
-     * Stream that emits when all open dialog have finished closing.
-     * Will emit on subscribe if there are no open dialogs to begin with.
-     */
-    readonly afterAllClosed: Observable<void>;
-    constructor(...args: unknown[]);
-    /**
-     * Opens a modal dialog containing the given component.
-     * @param component Type of the component to load into the dialog.
-     * @param config Extra configuration options.
-     * @returns Reference to the newly-opened dialog.
-     */
-    open<T, D = any, R = any>(component: ComponentType<T>, config?: MatDialogConfig<D>): MatDialogRef<T, R>;
-    /**
-     * Opens a modal dialog containing the given template.
-     * @param template TemplateRef to instantiate as the dialog content.
-     * @param config Extra configuration options.
-     * @returns Reference to the newly-opened dialog.
-     */
-    open<T, D = any, R = any>(template: TemplateRef<T>, config?: MatDialogConfig<D>): MatDialogRef<T, R>;
-    open<T, D = any, R = any>(template: ComponentType<T> | TemplateRef<T>, config?: MatDialogConfig<D>): MatDialogRef<T, R>;
-    /**
-     * Closes all of the currently-open dialogs.
-     */
-    closeAll(): void;
-    /**
-     * Finds an open dialog by its id.
-     * @param id ID to use when looking up the dialog.
-     */
-    getDialogById(id: string): MatDialogRef<any> | undefined;
-    ngOnDestroy(): void;
-    private _closeDialogs;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialog, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatDialog>;
-}
-
-/**
- * Container for the bottom action buttons in a dialog.
- * Stays fixed to the bottom when scrolling.
- */
-export declare class MatDialogActions extends MatDialogLayoutSection {
-    /**
-     * Horizontal alignment of action buttons.
-     */
-    align?: 'start' | 'center' | 'end';
-    protected _onAdd(): void;
-    protected _onRemove(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogActions, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, { "align": { "alias": "align"; "required": false; }; }, {}, never, never, true, never>;
-}
-
-/**
- * Animations used by MatDialog.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare const matDialogAnimations: {
-    readonly dialogContainer: any;
-};
-
-/**
- * Button that will close the current dialog.
- */
-export declare class MatDialogClose implements OnInit, OnChanges {
-    dialogRef: MatDialogRef<any, any>;
-    private _elementRef;
-    private _dialog;
-    /** Screen-reader label for the button. */
-    ariaLabel: string;
-    /** Default to "button" to prevents accidental form submits. */
-    type: 'submit' | 'button' | 'reset';
-    /** Dialog close input. */
-    dialogResult: any;
-    _matDialogClose: any;
-    constructor(...args: unknown[]);
-    ngOnInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
-    _onButtonClick(event: MouseEvent): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogClose, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogClose, "[mat-dialog-close], [matDialogClose]", ["matDialogClose"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "type": { "alias": "type"; "required": false; }; "dialogResult": { "alias": "mat-dialog-close"; "required": false; }; "_matDialogClose": { "alias": "matDialogClose"; "required": false; }; }, {}, never, never, true, never>;
-}
-
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
  */
-export declare class MatDialogConfig<D = any> {
+declare class MatDialogConfig<D = any> {
     /**
      * Where the attached component should live in Angular's *logical* component tree.
      * This affects what is available for injection and the change detection order for the
@@ -297,7 +120,12 @@ export declare class MatDialogConfig<D = any> {
     exitAnimationDuration?: string | number;
 }
 
-export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConfig> implements OnDestroy {
+/** Event that captures the state of dialog container animations. */
+interface LegacyDialogAnimationEvent {
+    state: 'opened' | 'opening' | 'closing' | 'closed';
+    totalTime: number;
+}
+declare class MatDialogContainer extends CdkDialogContainer<MatDialogConfig> implements OnDestroy {
     private _animationMode;
     /** Emits when an animation state changes. */
     _animationStateChanged: EventEmitter<LegacyDialogAnimationEvent>;
@@ -353,37 +181,17 @@ export declare class MatDialogContainer extends CdkDialogContainer<MatDialogConf
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDialogContainer, "mat-dialog-container", never, {}, {}, never, never, true, never>;
 }
 
-/**
- * Scrollable content container of a dialog.
- */
-export declare class MatDialogContent {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogContent, "[mat-dialog-content], mat-dialog-content, [matDialogContent]", never, {}, {}, never, never, true, [{ directive: typeof i1.CdkScrollable; inputs: {}; outputs: {}; }]>;
-}
+/** Possible states of the lifecycle of a dialog. */
 
-declare abstract class MatDialogLayoutSection implements OnInit, OnDestroy {
-    protected _dialogRef: MatDialogRef<any, any>;
-    private _elementRef;
-    private _dialog;
-    constructor(...args: unknown[]);
-    protected abstract _onAdd(): void;
-    protected abstract _onRemove(): void;
-    ngOnInit(): void;
-    ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogLayoutSection, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogLayoutSection, never, never, {}, {}, never, never, true, never>;
+declare enum MatDialogState {
+    OPEN = 0,
+    CLOSING = 1,
+    CLOSED = 2
 }
-
-export declare class MatDialogModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDialogModule, never, [typeof i1_2.DialogModule, typeof i2.OverlayModule, typeof i3.PortalModule, typeof i4.MatCommonModule, typeof i5.MatDialogContainer, typeof i6.MatDialogClose, typeof i6.MatDialogTitle, typeof i6.MatDialogActions, typeof i6.MatDialogContent], [typeof i4.MatCommonModule, typeof i5.MatDialogContainer, typeof i6.MatDialogClose, typeof i6.MatDialogTitle, typeof i6.MatDialogActions, typeof i6.MatDialogContent]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatDialogModule>;
-}
-
 /**
  * Reference to a dialog opened via the MatDialog service.
  */
-export declare class MatDialogRef<T, R = any> {
+declare class MatDialogRef<T, R = any> {
     private _ref;
     _containerInstance: MatDialogContainer;
     /** The instance of component opened into the dialog. */
@@ -458,25 +266,168 @@ export declare class MatDialogRef<T, R = any> {
      */
     private _finishDialogClose;
 }
+/**
+ * Closes the dialog with the specified interaction type. This is currently not part of
+ * `MatDialogRef` as that would conflict with custom dialog ref mocks provided in tests.
+ * More details. See: https://github.com/angular/components/pull/9257#issuecomment-651342226.
+ */
+declare function _closeDialogVia<R>(ref: MatDialogRef<R>, interactionType: FocusOrigin, result?: R): void;
 
-export declare enum MatDialogState {
-    OPEN = 0,
-    CLOSING = 1,
-    CLOSED = 2
+/** Injection token that can be used to access the data that was passed in to a dialog. */
+declare const MAT_DIALOG_DATA: InjectionToken<any>;
+/** Injection token that can be used to specify default dialog options. */
+declare const MAT_DIALOG_DEFAULT_OPTIONS: InjectionToken<MatDialogConfig<any>>;
+/** Injection token that determines the scroll handling while the dialog is open. */
+declare const MAT_DIALOG_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/**
+ * Service to open Material Design modal dialogs.
+ */
+declare class MatDialog implements OnDestroy {
+    private _overlay;
+    private _defaultOptions;
+    private _scrollStrategy;
+    private _parentDialog;
+    private _idGenerator;
+    protected _dialog: Dialog;
+    private readonly _openDialogsAtThisLevel;
+    private readonly _afterAllClosedAtThisLevel;
+    private readonly _afterOpenedAtThisLevel;
+    protected dialogConfigClass: typeof MatDialogConfig;
+    private readonly _dialogRefConstructor;
+    private readonly _dialogContainerType;
+    private readonly _dialogDataToken;
+    /** Keeps track of the currently-open dialogs. */
+    get openDialogs(): MatDialogRef<any>[];
+    /** Stream that emits when a dialog has been opened. */
+    get afterOpened(): Subject<MatDialogRef<any>>;
+    private _getAfterAllClosed;
+    /**
+     * Stream that emits when all open dialog have finished closing.
+     * Will emit on subscribe if there are no open dialogs to begin with.
+     */
+    readonly afterAllClosed: Observable<void>;
+    constructor(...args: unknown[]);
+    /**
+     * Opens a modal dialog containing the given component.
+     * @param component Type of the component to load into the dialog.
+     * @param config Extra configuration options.
+     * @returns Reference to the newly-opened dialog.
+     */
+    open<T, D = any, R = any>(component: ComponentType<T>, config?: MatDialogConfig<D>): MatDialogRef<T, R>;
+    /**
+     * Opens a modal dialog containing the given template.
+     * @param template TemplateRef to instantiate as the dialog content.
+     * @param config Extra configuration options.
+     * @returns Reference to the newly-opened dialog.
+     */
+    open<T, D = any, R = any>(template: TemplateRef<T>, config?: MatDialogConfig<D>): MatDialogRef<T, R>;
+    open<T, D = any, R = any>(template: ComponentType<T> | TemplateRef<T>, config?: MatDialogConfig<D>): MatDialogRef<T, R>;
+    /**
+     * Closes all of the currently-open dialogs.
+     */
+    closeAll(): void;
+    /**
+     * Finds an open dialog by its id.
+     * @param id ID to use when looking up the dialog.
+     */
+    getDialogById(id: string): MatDialogRef<any> | undefined;
+    ngOnDestroy(): void;
+    private _closeDialogs;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialog, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatDialog>;
 }
 
 /**
+ * Button that will close the current dialog.
+ */
+declare class MatDialogClose implements OnInit, OnChanges {
+    dialogRef: MatDialogRef<any, any>;
+    private _elementRef;
+    private _dialog;
+    /** Screen-reader label for the button. */
+    ariaLabel: string;
+    /** Default to "button" to prevents accidental form submits. */
+    type: 'submit' | 'button' | 'reset';
+    /** Dialog close input. */
+    dialogResult: any;
+    _matDialogClose: any;
+    constructor(...args: unknown[]);
+    ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    _onButtonClick(event: MouseEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogClose, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogClose, "[mat-dialog-close], [matDialogClose]", ["matDialogClose"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "type": { "alias": "type"; "required": false; }; "dialogResult": { "alias": "mat-dialog-close"; "required": false; }; "_matDialogClose": { "alias": "matDialogClose"; "required": false; }; }, {}, never, never, true, never>;
+}
+declare abstract class MatDialogLayoutSection implements OnInit, OnDestroy {
+    protected _dialogRef: MatDialogRef<any, any>;
+    private _elementRef;
+    private _dialog;
+    constructor(...args: unknown[]);
+    protected abstract _onAdd(): void;
+    protected abstract _onRemove(): void;
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogLayoutSection, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogLayoutSection, never, never, {}, {}, never, never, true, never>;
+}
+/**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
-export declare class MatDialogTitle extends MatDialogLayoutSection {
+declare class MatDialogTitle extends MatDialogLayoutSection {
     id: string;
     protected _onAdd(): void;
     protected _onRemove(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogTitle, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogTitle, "[mat-dialog-title], [matDialogTitle]", ["matDialogTitle"], { "id": { "alias": "id"; "required": false; }; }, {}, never, never, true, never>;
 }
+/**
+ * Scrollable content container of a dialog.
+ */
+declare class MatDialogContent {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogContent, "[mat-dialog-content], mat-dialog-content, [matDialogContent]", never, {}, {}, never, never, true, [{ directive: typeof i2.CdkScrollable; inputs: {}; outputs: {}; }]>;
+}
+/**
+ * Container for the bottom action buttons in a dialog.
+ * Stays fixed to the bottom when scrolling.
+ */
+declare class MatDialogActions extends MatDialogLayoutSection {
+    /**
+     * Horizontal alignment of action buttons.
+     */
+    align?: 'start' | 'center' | 'end';
+    protected _onAdd(): void;
+    protected _onRemove(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogActions, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogActions, "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]", never, { "align": { "alias": "align"; "required": false; }; }, {}, never, never, true, never>;
+}
 
-/** Duration of the opening animation in milliseconds. */
-declare const OPEN_ANIMATION_DURATION = 150;
+declare class MatDialogModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDialogModule, never, [typeof i1.DialogModule, typeof i2$1.OverlayModule, typeof i3.PortalModule, typeof i1$1.MatCommonModule, typeof MatDialogContainer, typeof MatDialogClose, typeof MatDialogTitle, typeof MatDialogActions, typeof MatDialogContent], [typeof i1$1.MatCommonModule, typeof MatDialogContainer, typeof MatDialogClose, typeof MatDialogTitle, typeof MatDialogActions, typeof MatDialogContent]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatDialogModule>;
+}
 
-export { }
+/**
+ * Default parameters for the animation for backwards compatibility.
+ * @docs-private
+ * @deprecated Will stop being exported.
+ * @breaking-change 21.0.0
+ */
+declare const _defaultParams: {
+    params: {
+        enterAnimationDuration: string;
+        exitAnimationDuration: string;
+    };
+};
+/**
+ * Animations used by MatDialog.
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare const matDialogAnimations: {
+    readonly dialogContainer: any;
+};
+
+export { type AutoFocusTarget, type DialogPosition, type DialogRole, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MatDialog, MatDialogActions, MatDialogClose, MatDialogConfig, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogState, MatDialogTitle, _closeDialogVia, _defaultParams, matDialogAnimations };

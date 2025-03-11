@@ -2,13 +2,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/material/core';
 
-declare namespace i2 {
-    export {
-        MatDivider
-    }
-}
-
-export declare class MatDivider {
+declare class MatDivider {
     /** Whether the divider is vertically aligned. */
     get vertical(): boolean;
     set vertical(value: BooleanInput);
@@ -21,10 +15,10 @@ export declare class MatDivider {
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDivider, "mat-divider", never, { "vertical": { "alias": "vertical"; "required": false; }; "inset": { "alias": "inset"; "required": false; }; }, {}, never, never, true, never>;
 }
 
-export declare class MatDividerModule {
+declare class MatDividerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDividerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDividerModule, never, [typeof i1.MatCommonModule, typeof i2.MatDivider], [typeof i2.MatDivider, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDividerModule, never, [typeof i1.MatCommonModule, typeof MatDivider], [typeof MatDivider, typeof i1.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDividerModule>;
 }
 
-export { }
+export { MatDivider, MatDividerModule };

@@ -1,58 +1,23 @@
-import { AsyncFactoryFn } from '@angular/cdk/testing';
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { TestElement } from '@angular/cdk/testing';
+import * as _angular_cdk_testing from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with a mat-radio-button in tests. */
-export declare class MatRadioButtonHarness extends ComponentHarness {
-    /** The selector for the host element of a `MatRadioButton` instance. */
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a radio button with specific
-     * attributes.
-     * @param options Options for filtering which radio button instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with<T extends MatRadioButtonHarness>(this: ComponentHarnessConstructor<T>, options?: RadioButtonHarnessFilters): HarnessPredicate<T>;
-    protected _textLabel: AsyncFactoryFn<TestElement>;
-    protected _clickLabel: AsyncFactoryFn<TestElement>;
-    private _input;
-    /** Whether the radio-button is checked. */
-    isChecked(): Promise<boolean>;
-    /** Whether the radio-button is disabled. */
-    isDisabled(): Promise<boolean>;
-    /** Whether the radio-button is required. */
-    isRequired(): Promise<boolean>;
-    /** Gets the radio-button's name. */
-    getName(): Promise<string | null>;
-    /** Gets the radio-button's id. */
-    getId(): Promise<string | null>;
-    /**
-     * Gets the value of the radio-button. The radio-button value will be converted to a string.
-     *
-     * Note: This means that for radio-button's with an object as a value `[object Object]` is
-     * intentionally returned.
-     */
-    getValue(): Promise<string | null>;
-    /** Gets the radio-button's label text. */
-    getLabelText(): Promise<string>;
-    /** Focuses the radio-button. */
-    focus(): Promise<void>;
-    /** Blurs the radio-button. */
-    blur(): Promise<void>;
-    /** Whether the radio-button is focused. */
-    isFocused(): Promise<boolean>;
-    /**
-     * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
-     * or doing nothing if it is already checked.
-     */
-    check(): Promise<void>;
+/** A set of criteria that can be used to filter a list of `MatRadioGroupHarness` instances. */
+interface RadioGroupHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose name attribute is the given value. */
+    name?: string;
+}
+/** A set of criteria that can be used to filter a list of `MatRadioButtonHarness` instances. */
+interface RadioButtonHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose label matches the given value. */
+    label?: string | RegExp;
+    /** Only find instances whose name attribute is the given value. */
+    name?: string;
+    /** Only find instances with the given checked value. */
+    checked?: boolean;
 }
 
 /** Harness for interacting with a mat-radio-group in tests. */
-export declare class MatRadioGroupHarness extends ComponentHarness {
+declare class MatRadioGroupHarness extends ComponentHarness {
     /** The selector for the host element of a `MatRadioGroup` instance. */
     static hostSelector: string;
     private _buttonClass;
@@ -94,21 +59,50 @@ export declare class MatRadioGroupHarness extends ComponentHarness {
      */
     protected static _checkRadioGroupName(harness: MatRadioGroupHarness, name: string): Promise<boolean>;
 }
-
-/** A set of criteria that can be used to filter a list of `MatRadioButtonHarness` instances. */
-export declare interface RadioButtonHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose label matches the given value. */
-    label?: string | RegExp;
-    /** Only find instances whose name attribute is the given value. */
-    name?: string;
-    /** Only find instances with the given checked value. */
-    checked?: boolean;
+/** Harness for interacting with a mat-radio-button in tests. */
+declare class MatRadioButtonHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatRadioButton` instance. */
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a radio button with specific
+     * attributes.
+     * @param options Options for filtering which radio button instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatRadioButtonHarness>(this: ComponentHarnessConstructor<T>, options?: RadioButtonHarnessFilters): HarnessPredicate<T>;
+    protected _textLabel: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
+    protected _clickLabel: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
+    private _input;
+    /** Whether the radio-button is checked. */
+    isChecked(): Promise<boolean>;
+    /** Whether the radio-button is disabled. */
+    isDisabled(): Promise<boolean>;
+    /** Whether the radio-button is required. */
+    isRequired(): Promise<boolean>;
+    /** Gets the radio-button's name. */
+    getName(): Promise<string | null>;
+    /** Gets the radio-button's id. */
+    getId(): Promise<string | null>;
+    /**
+     * Gets the value of the radio-button. The radio-button value will be converted to a string.
+     *
+     * Note: This means that for radio-button's with an object as a value `[object Object]` is
+     * intentionally returned.
+     */
+    getValue(): Promise<string | null>;
+    /** Gets the radio-button's label text. */
+    getLabelText(): Promise<string>;
+    /** Focuses the radio-button. */
+    focus(): Promise<void>;
+    /** Blurs the radio-button. */
+    blur(): Promise<void>;
+    /** Whether the radio-button is focused. */
+    isFocused(): Promise<boolean>;
+    /**
+     * Puts the radio-button in a checked state by clicking it if it is currently unchecked,
+     * or doing nothing if it is already checked.
+     */
+    check(): Promise<void>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatRadioGroupHarness` instances. */
-export declare interface RadioGroupHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose name attribute is the given value. */
-    name?: string;
-}
-
-export { }
+export { MatRadioButtonHarness, MatRadioGroupHarness, type RadioButtonHarnessFilters, type RadioGroupHarnessFilters };

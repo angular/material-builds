@@ -1,11 +1,37 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate, HarnessLoader, ComponentHarness } from '@angular/cdk/testing';
+
+/** Possible orientations for a stepper. */
+declare enum StepperOrientation {
+    HORIZONTAL = 0,
+    VERTICAL = 1
+}
+/** A set of criteria that can be used to filter a list of `MatStepHarness` instances. */
+interface StepHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose label matches the given value. */
+    label?: string | RegExp;
+    /** Only find steps with the given selected state. */
+    selected?: boolean;
+    /** Only find completed steps. */
+    completed?: boolean;
+    /** Only find steps that have errors. */
+    invalid?: boolean;
+}
+/** A set of criteria that can be used to filter a list of `MatStepperHarness` instances. */
+interface StepperHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose orientation matches the given value. */
+    orientation?: StepperOrientation;
+}
+/**
+ * A set of criteria that can be used to filter a list of
+ * `MatStepperNextHarness` and `MatStepperPreviousHarness` instances.
+ */
+interface StepperButtonHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose text matches the given value. */
+    text?: string | RegExp;
+}
 
 /** Harness for interacting with a standard Angular Material step in tests. */
-export declare class MatStepHarness extends ContentContainerComponentHarness<string> {
+declare class MatStepHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatStep` instance. */
     static hostSelector: string;
     /**
@@ -49,7 +75,7 @@ export declare class MatStepHarness extends ContentContainerComponentHarness<str
 }
 
 /** Harness for interacting with a standard Material stepper in tests. */
-export declare class MatStepperHarness extends ComponentHarness {
+declare class MatStepperHarness extends ComponentHarness {
     /** The selector for the host element of a `MatStepper` instance. */
     static hostSelector: string;
     /**
@@ -74,8 +100,15 @@ export declare class MatStepperHarness extends ComponentHarness {
     selectStep(filter?: StepHarnessFilters): Promise<void>;
 }
 
+/** Base class for stepper button harnesses. */
+declare abstract class StepperButtonHarness extends ComponentHarness {
+    /** Gets the text of the button. */
+    getText(): Promise<string>;
+    /** Clicks the button. */
+    click(): Promise<void>;
+}
 /** Harness for interacting with a standard Angular Material stepper next button in tests. */
-export declare class MatStepperNextHarness extends StepperButtonHarness {
+declare class MatStepperNextHarness extends StepperButtonHarness {
     /** The selector for the host element of a `MatStep` instance. */
     static hostSelector: string;
     /**
@@ -86,9 +119,8 @@ export declare class MatStepperNextHarness extends StepperButtonHarness {
      */
     static with(options?: StepperButtonHarnessFilters): HarnessPredicate<MatStepperNextHarness>;
 }
-
 /** Harness for interacting with a standard Angular Material stepper previous button in tests. */
-export declare class MatStepperPreviousHarness extends StepperButtonHarness {
+declare class MatStepperPreviousHarness extends StepperButtonHarness {
     /** The selector for the host element of a `MatStep` instance. */
     static hostSelector: string;
     /**
@@ -100,45 +132,4 @@ export declare class MatStepperPreviousHarness extends StepperButtonHarness {
     static with(options?: StepperButtonHarnessFilters): HarnessPredicate<MatStepperPreviousHarness>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatStepHarness` instances. */
-export declare interface StepHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose label matches the given value. */
-    label?: string | RegExp;
-    /** Only find steps with the given selected state. */
-    selected?: boolean;
-    /** Only find completed steps. */
-    completed?: boolean;
-    /** Only find steps that have errors. */
-    invalid?: boolean;
-}
-
-/** Base class for stepper button harnesses. */
-declare abstract class StepperButtonHarness extends ComponentHarness {
-    /** Gets the text of the button. */
-    getText(): Promise<string>;
-    /** Clicks the button. */
-    click(): Promise<void>;
-}
-
-/**
- * A set of criteria that can be used to filter a list of
- * `MatStepperNextHarness` and `MatStepperPreviousHarness` instances.
- */
-export declare interface StepperButtonHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose text matches the given value. */
-    text?: string | RegExp;
-}
-
-/** A set of criteria that can be used to filter a list of `MatStepperHarness` instances. */
-export declare interface StepperHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose orientation matches the given value. */
-    orientation?: StepperOrientation;
-}
-
-/** Possible orientations for a stepper. */
-export declare enum StepperOrientation {
-    HORIZONTAL = 0,
-    VERTICAL = 1
-}
-
-export { }
+export { MatStepHarness, MatStepperHarness, MatStepperNextHarness, MatStepperPreviousHarness, type StepHarnessFilters, type StepperButtonHarnessFilters, type StepperHarnessFilters, StepperOrientation };

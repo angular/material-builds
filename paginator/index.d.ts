@@ -1,46 +1,93 @@
-import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
+import { Optional, InjectionToken, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import * as i1 from '@angular/material/button';
 import * as i2 from '@angular/material/select';
 import * as i3 from '@angular/material/tooltip';
-import { InjectionToken } from '@angular/core';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Optional } from '@angular/core';
-import { Subject } from 'rxjs';
 import { ThemePalette } from '@angular/material/core';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Subject, Observable } from 'rxjs';
 
-declare namespace i4 {
-    export {
-        MatPaginatorSelectConfig,
-        PageEvent,
-        MatPaginatorDefaultOptions,
-        MAT_PAGINATOR_DEFAULT_OPTIONS,
-        MatPaginator
-    }
+/**
+ * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
+ * include it in a custom provider
+ */
+declare class MatPaginatorIntl {
+    /**
+     * Stream to emit from when labels are changed. Use this to notify components when the labels have
+     * changed after initialization.
+     */
+    readonly changes: Subject<void>;
+    /** A label for the page size selector. */
+    itemsPerPageLabel: string;
+    /** A label for the button that increments the current page. */
+    nextPageLabel: string;
+    /** A label for the button that decrements the current page. */
+    previousPageLabel: string;
+    /** A label for the button that moves to the first page. */
+    firstPageLabel: string;
+    /** A label for the button that moves to the last page. */
+    lastPageLabel: string;
+    /** A label for the range of items within the current page and the length of the whole list. */
+    getRangeLabel: (page: number, pageSize: number, length: number) => string;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorIntl, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatPaginatorIntl>;
 }
-
-/** Injection token that can be used to provide the default options for the paginator module. */
-export declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorDefaultOptions>;
-
 /** @docs-private */
-export declare const MAT_PAGINATOR_INTL_PROVIDER: {
+declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPaginatorIntl): MatPaginatorIntl;
+/** @docs-private */
+declare const MAT_PAGINATOR_INTL_PROVIDER: {
     provide: typeof MatPaginatorIntl;
     deps: Optional[][];
     useFactory: typeof MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
 };
 
-/** @docs-private */
-export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPaginatorIntl): MatPaginatorIntl;
-
+/** Object that can used to configure the underlying `MatSelect` inside a `MatPaginator`. */
+interface MatPaginatorSelectConfig {
+    /** Whether to center the active option over the trigger. */
+    disableOptionCentering?: boolean;
+    /** Classes to be passed to the select panel. */
+    panelClass?: string | string[] | Set<string> | {
+        [key: string]: any;
+    };
+}
+/**
+ * Change event object that is emitted when the user selects a
+ * different page size or navigates to another page.
+ */
+declare class PageEvent {
+    /** The current page index. */
+    pageIndex: number;
+    /**
+     * Index of the page that was selected previously.
+     * @breaking-change 8.0.0 To be made into a required property.
+     */
+    previousPageIndex?: number;
+    /** The current page size. */
+    pageSize: number;
+    /** The current total number of items being paged. */
+    length: number;
+}
+/** Object that can be used to configure the default options for the paginator module. */
+interface MatPaginatorDefaultOptions {
+    /** Number of items to display on a page. By default set to 50. */
+    pageSize?: number;
+    /** The set of provided page size options to display to the user. */
+    pageSizeOptions?: number[];
+    /** Whether to hide the page size selection UI from the user. */
+    hidePageSize?: boolean;
+    /** Whether to show the first/last buttons UI to the user. */
+    showFirstLastButtons?: boolean;
+    /** The default form-field appearance to apply to the page size options selector. */
+    formFieldAppearance?: MatFormFieldAppearance;
+}
+/** Injection token that can be used to provide the default options for the paginator module. */
+declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorDefaultOptions>;
 /**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-export declare class MatPaginator implements OnInit, OnDestroy {
+declare class MatPaginator implements OnInit, OnDestroy {
     _intl: MatPaginatorIntl;
     private _changeDetectorRef;
     /** If set, styles the "page size" form field with the designated style. */
@@ -144,78 +191,10 @@ export declare class MatPaginator implements OnInit, OnDestroy {
     static ngAcceptInputType_disabled: unknown;
 }
 
-/** Object that can be used to configure the default options for the paginator module. */
-export declare interface MatPaginatorDefaultOptions {
-    /** Number of items to display on a page. By default set to 50. */
-    pageSize?: number;
-    /** The set of provided page size options to display to the user. */
-    pageSizeOptions?: number[];
-    /** Whether to hide the page size selection UI from the user. */
-    hidePageSize?: boolean;
-    /** Whether to show the first/last buttons UI to the user. */
-    showFirstLastButtons?: boolean;
-    /** The default form-field appearance to apply to the page size options selector. */
-    formFieldAppearance?: MatFormFieldAppearance;
-}
-
-/**
- * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
- * include it in a custom provider
- */
-export declare class MatPaginatorIntl {
-    /**
-     * Stream to emit from when labels are changed. Use this to notify components when the labels have
-     * changed after initialization.
-     */
-    readonly changes: Subject<void>;
-    /** A label for the page size selector. */
-    itemsPerPageLabel: string;
-    /** A label for the button that increments the current page. */
-    nextPageLabel: string;
-    /** A label for the button that decrements the current page. */
-    previousPageLabel: string;
-    /** A label for the button that moves to the first page. */
-    firstPageLabel: string;
-    /** A label for the button that moves to the last page. */
-    lastPageLabel: string;
-    /** A label for the range of items within the current page and the length of the whole list. */
-    getRangeLabel: (page: number, pageSize: number, length: number) => string;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorIntl, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatPaginatorIntl>;
-}
-
-export declare class MatPaginatorModule {
+declare class MatPaginatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, never, [typeof i1.MatButtonModule, typeof i2.MatSelectModule, typeof i3.MatTooltipModule, typeof i4.MatPaginator], [typeof i4.MatPaginator]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPaginatorModule, never, [typeof i1.MatButtonModule, typeof i2.MatSelectModule, typeof i3.MatTooltipModule, typeof MatPaginator], [typeof MatPaginator]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatPaginatorModule>;
 }
 
-/** Object that can used to configure the underlying `MatSelect` inside a `MatPaginator`. */
-export declare interface MatPaginatorSelectConfig {
-    /** Whether to center the active option over the trigger. */
-    disableOptionCentering?: boolean;
-    /** Classes to be passed to the select panel. */
-    panelClass?: string | string[] | Set<string> | {
-        [key: string]: any;
-    };
-}
-
-/**
- * Change event object that is emitted when the user selects a
- * different page size or navigates to another page.
- */
-export declare class PageEvent {
-    /** The current page index. */
-    pageIndex: number;
-    /**
-     * Index of the page that was selected previously.
-     * @breaking-change 8.0.0 To be made into a required property.
-     */
-    previousPageIndex?: number;
-    /** The current page size. */
-    pageSize: number;
-    /** The current total number of items being paged. */
-    length: number;
-}
-
-export { }
+export { MAT_PAGINATOR_DEFAULT_OPTIONS, MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, type MatPaginatorDefaultOptions, MatPaginatorIntl, MatPaginatorModule, type MatPaginatorSelectConfig, PageEvent };

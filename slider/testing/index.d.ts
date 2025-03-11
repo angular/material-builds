@@ -1,35 +1,25 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
-/** Harness for interacting with a MDC mat-slider in tests. */
-export declare class MatSliderHarness extends ComponentHarness {
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a slider with specific attributes.
-     * @param options Options for filtering which input instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with<T extends MatSliderHarness>(this: ComponentHarnessConstructor<T>, options?: SliderHarnessFilters): HarnessPredicate<T>;
-    /** Gets the start thumb of the slider (only applicable for range sliders). */
-    getStartThumb(): Promise<MatSliderThumbHarness>;
-    /** Gets the thumb (for single point sliders), or the end thumb (for range sliders). */
-    getEndThumb(): Promise<MatSliderThumbHarness>;
-    /** Gets whether the slider is a range slider. */
-    isRange(): Promise<boolean>;
-    /** Gets whether the slider is disabled. */
-    isDisabled(): Promise<boolean>;
-    /** Gets the value step increments of the slider. */
-    getStep(): Promise<number>;
-    /** Gets the maximum value of the slider. */
-    getMaxValue(): Promise<number>;
-    /** Gets the minimum value of the slider. */
-    getMinValue(): Promise<number>;
+/** Possible positions of a slider thumb. */
+declare enum ThumbPosition {
+    START = 0,
+    END = 1
+}
+/** A set of criteria that can be used to filter a list of `MatSliderHarness` instances. */
+interface SliderHarnessFilters extends BaseHarnessFilters {
+    /** Filters out only range/non-range sliders. */
+    isRange?: boolean;
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
+}
+/** A set of criteria that can be used to filter a list of `MatSliderThumbHarness` instances. */
+interface SliderThumbHarnessFilters extends BaseHarnessFilters {
+    /** Filters out slider thumbs with a particular position. */
+    position?: ThumbPosition;
 }
 
 /** Harness for interacting with a thumb inside of a Material slider in tests. */
-export declare class MatSliderThumbHarness extends ComponentHarness {
+declare class MatSliderThumbHarness extends ComponentHarness {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a slider thumb with specific attributes.
@@ -71,24 +61,29 @@ export declare class MatSliderThumbHarness extends ComponentHarness {
     isFocused(): Promise<boolean>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatSliderHarness` instances. */
-export declare interface SliderHarnessFilters extends BaseHarnessFilters {
-    /** Filters out only range/non-range sliders. */
-    isRange?: boolean;
-    /** Only find instances which match the given disabled state. */
-    disabled?: boolean;
+/** Harness for interacting with a MDC mat-slider in tests. */
+declare class MatSliderHarness extends ComponentHarness {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a slider with specific attributes.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatSliderHarness>(this: ComponentHarnessConstructor<T>, options?: SliderHarnessFilters): HarnessPredicate<T>;
+    /** Gets the start thumb of the slider (only applicable for range sliders). */
+    getStartThumb(): Promise<MatSliderThumbHarness>;
+    /** Gets the thumb (for single point sliders), or the end thumb (for range sliders). */
+    getEndThumb(): Promise<MatSliderThumbHarness>;
+    /** Gets whether the slider is a range slider. */
+    isRange(): Promise<boolean>;
+    /** Gets whether the slider is disabled. */
+    isDisabled(): Promise<boolean>;
+    /** Gets the value step increments of the slider. */
+    getStep(): Promise<number>;
+    /** Gets the maximum value of the slider. */
+    getMaxValue(): Promise<number>;
+    /** Gets the minimum value of the slider. */
+    getMinValue(): Promise<number>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatSliderThumbHarness` instances. */
-export declare interface SliderThumbHarnessFilters extends BaseHarnessFilters {
-    /** Filters out slider thumbs with a particular position. */
-    position?: ThumbPosition;
-}
-
-/** Possible positions of a slider thumb. */
-export declare enum ThumbPosition {
-    START = 0,
-    END = 1
-}
-
-export { }
+export { MatSliderHarness, MatSliderThumbHarness, type SliderHarnessFilters, type SliderThumbHarnessFilters, ThumbPosition };
