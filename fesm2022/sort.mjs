@@ -4,7 +4,9 @@ import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
 import { ReplaySubject, Subject, merge } from 'rxjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { _StructuralStylesLoader, MatCommonModule } from '@angular/material/core';
+import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
+import { M as MatCommonModule } from './common-module-2d64df09.mjs';
+import '@angular/cdk/bidi';
 
 /** @docs-private */
 function getSortDuplicateSortableIdError(id) {

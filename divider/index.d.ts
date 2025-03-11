@@ -1,6 +1,7 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import '@angular/cdk/bidi';
 
 declare class MatDivider {
     /** Whether the divider is vertically aligned. */
@@ -17,7 +18,7 @@ declare class MatDivider {
 
 declare class MatDividerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDividerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDividerModule, never, [typeof i1.MatCommonModule, typeof MatDivider], [typeof MatDivider, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDividerModule, never, [typeof MatCommonModule, typeof MatDivider], [typeof MatDivider, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDividerModule>;
 }
 

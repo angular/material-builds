@@ -2,8 +2,14 @@ import { _IdGenerator } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _ as _MatInternalFormField } from './internal-form-field-434c4039.mjs';
+import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
+import { M as MatRipple } from './ripple-9939d1f5.mjs';
+import { M as MatCommonModule } from './common-module-2d64df09.mjs';
+import '@angular/cdk/platform';
+import '@angular/cdk/coercion';
+import '@angular/cdk/bidi';
 
 /** Injection token to be used to override the default options for `mat-checkbox`. */
 const MAT_CHECKBOX_DEFAULT_OPTIONS = new InjectionToken('mat-checkbox-default-options', {

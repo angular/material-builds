@@ -1,12 +1,20 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, ElementRef, AfterViewInit, OnDestroy, NgZone, QueryList, OnInit, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
-import * as i1 from '@angular/material/core';
-import { RippleTarget, RippleConfig, RippleGlobalOptions, ThemePalette } from '@angular/material/core';
+import { a as RippleTarget, f as RippleConfig, b as RippleGlobalOptions } from '../ripple.d-2fb57d04.js';
+import { L as ListOption, M as MatListOptionTogglePosition } from '../list-option-types.d-8739f903.js';
+export { M as MatListOptionCheckboxPosition, M as MatListOptionTogglePosition } from '../list-option-types.d-8739f903.js';
+import * as i12 from '@angular/material/divider';
+export { MatDivider } from '@angular/material/divider';
 import * as i2 from '@angular/cdk/observers';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import { M as MatRippleModule } from '../index.d-0536b706.js';
+import { M as MatPseudoCheckboxModule } from '../pseudo-checkbox-module.d-3abc0461.js';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ControlValueAccessor } from '@angular/forms';
-import * as i10 from '@angular/material/divider';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
+import '@angular/cdk/platform';
+import '@angular/cdk/bidi';
 
 /** Object that can be used to configure the default options for the list module. */
 interface MatListConfig {
@@ -15,20 +23,6 @@ interface MatListConfig {
 }
 /** Injection token that can be used to provide the default options for the list module. */
 declare const MAT_LIST_CONFIG: InjectionToken<MatListConfig>;
-
-/**
- * Type describing possible positions of a checkbox or radio in a list option
- * with respect to the list item's text.
- */
-type MatListOptionTogglePosition = 'before' | 'after';
-/**
- * Interface describing a list option. This is used to avoid circular
- * dependencies between the list-option and the styler directives.
- * @docs-private
- */
-interface ListOption {
-    _getTogglePosition(): MatListOptionTogglePosition;
-}
 
 /**
  * Directive capturing the title of a list item. A list item usually consists of a
@@ -516,8 +510,8 @@ declare class MatListSubheaderCssMatStyler {
 
 declare class MatListModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i2.ObserversModule, typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i1.MatPseudoCheckboxModule, typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListSubheaderCssMatStyler, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta], [typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListSubheaderCssMatStyler, typeof i10.MatDividerModule, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i2.ObserversModule, typeof MatCommonModule, typeof MatRippleModule, typeof MatPseudoCheckboxModule, typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListSubheaderCssMatStyler, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta], [typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListSubheaderCssMatStyler, typeof i12.MatDividerModule, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
 }
 
-export { MAT_LIST, MAT_LIST_CONFIG, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatActionList, MatList, type MatListConfig, MatListItem, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemMeta, MatListItemTitle, MatListModule, MatListOption, type MatListOptionTogglePosition as MatListOptionCheckboxPosition, type MatListOptionTogglePosition, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange, SELECTION_LIST, type SelectionList, _MatListItemGraphicBase };
+export { MAT_LIST, MAT_LIST_CONFIG, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatActionList, MatList, type MatListConfig, MatListItem, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemMeta, MatListItemTitle, MatListModule, MatListOption, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange, SELECTION_LIST, type SelectionList, _MatListItemGraphicBase };

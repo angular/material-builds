@@ -2,8 +2,9 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { AfterViewInit, OnChanges, ElementRef, EventEmitter, SimpleChanges, InjectionToken } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
-import * as i1 from '@angular/material/core';
-import { ThemePalette } from '@angular/material/core';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import '@angular/cdk/bidi';
 
 /**
  * Represents the different states that require custom transitions between them.
@@ -210,7 +211,7 @@ type MatCheckboxClickAction = 'noop' | 'check' | 'check-indeterminate' | undefin
 
 declare class MatCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof MatCheckbox, typeof i1.MatCommonModule], [typeof MatCheckbox, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof MatCheckbox, typeof MatCommonModule], [typeof MatCheckbox, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 

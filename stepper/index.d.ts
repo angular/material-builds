@@ -3,14 +3,19 @@ import { CdkStepLabel, StepState, CdkStepHeader, CdkStep, CdkStepper, CdkStepper
 export { StepState, StepperOrientation } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
 import { Optional, TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, QueryList, ElementRef, EventEmitter } from '@angular/core';
-import * as i1 from '@angular/material/core';
-import { ThemePalette, ErrorStateMatcher } from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import * as i3 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
-import * as i4 from '@angular/material/icon';
+import { M as MatIconModule } from '../icon-module.d-ff73b65b.js';
+import { M as MatRippleModule } from '../index.d-0536b706.js';
 import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
+import { E as ErrorStateMatcher } from '../error-options.d-448d9046.js';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
+import '@angular/cdk/bidi';
+import '../ripple.d-2fb57d04.js';
+import '@angular/cdk/platform';
 
 declare class MatStepLabel extends CdkStepLabel {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepLabel, never>;
@@ -219,7 +224,7 @@ declare class MatStepperPrevious extends CdkStepperPrevious {
 
 declare class MatStepperModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatStepperModule, never, [typeof i1.MatCommonModule, typeof i3.PortalModule, typeof i3$1.CdkStepperModule, typeof i4.MatIconModule, typeof i1.MatRippleModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent], [typeof i1.MatCommonModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatStepperModule, never, [typeof MatCommonModule, typeof i3.PortalModule, typeof i3$1.CdkStepperModule, typeof MatIconModule, typeof MatRippleModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent], [typeof MatCommonModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatStepperModule>;
 }
 

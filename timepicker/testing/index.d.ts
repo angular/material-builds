@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { OptionHarnessFilters, MatOptionHarness } from '@angular/material/core/testing';
+import { O as OptionHarnessFilters, M as MatOptionHarness } from '../../option-harness.d-3d33fc9a.js';
 
 /** A set of criteria that can be used to filter a list of `MatTimepickerHarness` instances. */
 interface TimepickerHarnessFilters extends BaseHarnessFilters {

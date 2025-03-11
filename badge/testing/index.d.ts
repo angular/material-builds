@@ -1,5 +1,7 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatBadgePosition, MatBadgeSize } from '@angular/material/badge';
+import { a as MatBadgePosition, b as MatBadgeSize } from '../../badge.d-49a8a74b.js';
+import '@angular/core';
+import '../../palette.d-ec4a617c.js';
 
 interface BadgeHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;

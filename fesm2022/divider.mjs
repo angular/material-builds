@@ -1,7 +1,9 @@
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { MatCommonModule } from '@angular/material/core';
+import { M as MatCommonModule } from './common-module-2d64df09.mjs';
+import '@angular/cdk/a11y';
+import '@angular/cdk/bidi';
 
 class MatDivider {
     /** Whether the divider is vertically aligned. */

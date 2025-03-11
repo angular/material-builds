@@ -1,20 +1,26 @@
 import * as i0 from '@angular/core';
 import { OnChanges, OnDestroy, AfterViewChecked, EventEmitter, SimpleChanges, FactoryProvider, AfterContentInit, ChangeDetectorRef, AfterViewInit, ElementRef, InjectionToken, OnInit, DoCheck, TemplateRef } from '@angular/core';
-import * as i1 from '@angular/material/button';
-import { MatButton } from '@angular/material/button';
+import { b as MatButton, m as MatButtonModule } from '../module.d-c5ce8533.js';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
-import * as i1$1 from '@angular/cdk/a11y';
+import * as i1 from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i3 from '@angular/cdk/portal';
 import { ComponentType, Portal, TemplatePortal } from '@angular/cdk/portal';
-import * as i1$2 from '@angular/material/core';
-import { DateAdapter, ThemePalette, ErrorStateMatcher } from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import { Observable, Subject } from 'rxjs';
+import { D as DateAdapter$1 } from '../date-adapter.d-0f7aa1a7.js';
+import { DateAdapter } from '@angular/material/core';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
 import { ControlValueAccessor, Validator, ValidatorFn, AbstractControl, ValidationErrors, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { M as MatFormFieldControl } from '../form-field-control.d-eb86711c.js';
 import { Directionality } from '@angular/cdk/bidi';
-import * as i2$1 from '@angular/cdk/scrolling';
+import { E as ErrorStateMatcher } from '../error-options.d-448d9046.js';
+import * as i5 from '@angular/cdk/scrolling';
+import '../index.d-0536b706.js';
+import '../ripple.d-2fb57d04.js';
+import '@angular/cdk/platform';
+import '../ripple-loader.d-8aac2988.js';
 
 /** Extra CSS classes that can be associated with a calendar cell. */
 type MatCalendarCellCssClasses = string | string[] | Set<string> | {
@@ -361,7 +367,7 @@ declare const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
 declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy {
     readonly _changeDetectorRef: ChangeDetectorRef;
     private _dateFormats;
-    _dateAdapter: DateAdapter<D, any>;
+    _dateAdapter: DateAdapter$1<D, any>;
     private _dir;
     private _rangeStrategy;
     private _rerenderSubscription;
@@ -516,7 +522,7 @@ declare const yearsPerRow = 4;
  */
 declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
-    _dateAdapter: DateAdapter<D, any>;
+    _dateAdapter: DateAdapter$1<D, any>;
     private _dir;
     private _rerenderSubscription;
     /** Flag used to filter out space/enter keyup events that originated outside of the view. */
@@ -606,7 +612,7 @@ declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
 declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     readonly _changeDetectorRef: ChangeDetectorRef;
     private _dateFormats;
-    _dateAdapter: DateAdapter<D, any>;
+    _dateAdapter: DateAdapter$1<D, any>;
     private _dir;
     private _rerenderSubscription;
     /** Flag used to filter out space/enter keyup events that originated outside of the view. */
@@ -898,7 +904,7 @@ type DateFilterFn<D> = (date: D | null) => boolean;
 /** Base class for datepicker inputs. */
 declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelection<S>> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy, Validator {
     protected _elementRef: ElementRef<HTMLInputElement>;
-    _dateAdapter: DateAdapter<D, any>;
+    _dateAdapter: DateAdapter$1<D, any>;
     private _dateFormats;
     /** Whether the component has been initialized. */
     private _isInitialized;
@@ -1693,7 +1699,7 @@ declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
 
 declare class MatDatepickerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof i1.MatButtonModule, typeof i2.OverlayModule, typeof i1$1.A11yModule, typeof i3.PortalModule, typeof i1$2.MatCommonModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply], [typeof i2$1.CdkScrollableModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof MatButtonModule, typeof i2.OverlayModule, typeof i1.A11yModule, typeof i3.PortalModule, typeof MatCommonModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply], [typeof i5.CdkScrollableModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDatepickerModule>;
 }
 

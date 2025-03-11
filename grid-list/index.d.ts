@@ -1,8 +1,10 @@
+import { M as MatLine, a as MatLineModule } from '../line.d-570a2537.js';
+export { M as MatLine } from '../line.d-570a2537.js';
 import * as i0 from '@angular/core';
 import { AfterContentInit, QueryList, OnInit, AfterContentChecked } from '@angular/core';
-import * as i1 from '@angular/material/core';
-import { MatLine } from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import { NumberInput } from '@angular/cdk/coercion';
+import '@angular/cdk/bidi';
 
 /**
  * Interface describing a tile.
@@ -198,7 +200,7 @@ declare class MatGridList implements MatGridListBase, OnInit, AfterContentChecke
 
 declare class MatGridListModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridListModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatGridListModule, never, [typeof i1.MatLineModule, typeof i1.MatCommonModule, typeof MatGridList, typeof MatGridTile, typeof MatGridTileText, typeof MatGridTileHeaderCssMatStyler, typeof MatGridTileFooterCssMatStyler, typeof MatGridAvatarCssMatStyler], [typeof MatGridList, typeof MatGridTile, typeof MatGridTileText, typeof i1.MatLineModule, typeof i1.MatCommonModule, typeof MatGridTileHeaderCssMatStyler, typeof MatGridTileFooterCssMatStyler, typeof MatGridAvatarCssMatStyler]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatGridListModule, never, [typeof MatLineModule, typeof MatCommonModule, typeof MatGridList, typeof MatGridTile, typeof MatGridTileText, typeof MatGridTileHeaderCssMatStyler, typeof MatGridTileFooterCssMatStyler, typeof MatGridAvatarCssMatStyler], [typeof MatGridList, typeof MatGridTile, typeof MatGridTileText, typeof MatLineModule, typeof MatCommonModule, typeof MatGridTileHeaderCssMatStyler, typeof MatGridTileFooterCssMatStyler, typeof MatGridAvatarCssMatStyler]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatGridListModule>;
 }
 

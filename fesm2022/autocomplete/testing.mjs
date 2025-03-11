@@ -1,6 +1,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatOptionHarness, MatOptgroupHarness } from '@angular/material/core/testing';
+import { M as MatOptionHarness } from '../option-harness-3b7c1106.mjs';
+import { M as MatOptgroupHarness } from '../optgroup-harness-5e66b138.mjs';
 
 class MatAutocompleteHarness extends ComponentHarness {
     _documentRootLocator = this.documentRootLocatorFactory();

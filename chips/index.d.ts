@@ -3,9 +3,13 @@ import { ElementRef, OnInit, AfterViewInit, AfterContentInit, DoCheck, OnDestroy
 import { Subject, Observable } from 'rxjs';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import * as i1 from '@angular/material/core';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { E as ErrorStateMatcher } from '../error-options.d-448d9046.js';
+import { M as MatFormFieldControl } from '../form-field-control.d-eb86711c.js';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import { M as MatRippleModule } from '../index.d-0536b706.js';
+import '@angular/cdk/bidi';
+import '../ripple.d-2fb57d04.js';
+import '@angular/cdk/platform';
 
 /**
  * Section within a chip.
@@ -863,7 +867,7 @@ declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy {
 
 declare class MatChipsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatChipsModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof MatChipAction, typeof MatChip, typeof MatChipAvatar, typeof MatChipEditInput, typeof MatChipGrid, typeof MatChipInput, typeof MatChipListbox, typeof MatChipOption, typeof MatChipRemove, typeof MatChipRow, typeof MatChipSet, typeof MatChipTrailingIcon], [typeof i1.MatCommonModule, typeof MatChip, typeof MatChipAvatar, typeof MatChipEditInput, typeof MatChipGrid, typeof MatChipInput, typeof MatChipListbox, typeof MatChipOption, typeof MatChipRemove, typeof MatChipRow, typeof MatChipSet, typeof MatChipTrailingIcon]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatChipsModule, never, [typeof MatCommonModule, typeof MatRippleModule, typeof MatChipAction, typeof MatChip, typeof MatChipAvatar, typeof MatChipEditInput, typeof MatChipGrid, typeof MatChipInput, typeof MatChipListbox, typeof MatChipOption, typeof MatChipRemove, typeof MatChipRow, typeof MatChipSet, typeof MatChipTrailingIcon], [typeof MatCommonModule, typeof MatChip, typeof MatChipAvatar, typeof MatChipEditInput, typeof MatChipGrid, typeof MatChipInput, typeof MatChipListbox, typeof MatChipOption, typeof MatChipRemove, typeof MatChipRow, typeof MatChipSet, typeof MatChipTrailingIcon]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatChipsModule>;
 }
 

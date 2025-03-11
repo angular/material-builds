@@ -2,12 +2,14 @@ import { CdkDialogContainer, Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
 import { inject, ANIMATION_MODULE_TYPE, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injectable, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { M as MatCommonModule } from './common-module-2d64df09.mjs';
+import '@angular/cdk/a11y';
+import '@angular/cdk/bidi';
 
 const ENTER_ANIMATION = '_mat-bottom-sheet-enter';
 const EXIT_ANIMATION = '_mat-bottom-sheet-exit';

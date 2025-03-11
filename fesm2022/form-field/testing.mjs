@@ -1,8 +1,11 @@
-export { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
+export { M as MatFormFieldControlHarness } from '../form-field-control-harness-af6fd278.mjs';
 import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
-import { MatInputHarness } from '@angular/material/input/testing';
-import { MatSelectHarness } from '@angular/material/select/testing';
-import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '@angular/material/datepicker/testing';
+import { M as MatInputHarness } from '../input-harness-ed59decc.mjs';
+import { M as MatSelectHarness } from '../select-harness-8c55824d.mjs';
+import { M as MatDatepickerInputHarness, c as MatDateRangeInputHarness } from '../date-range-input-harness-ee47cdb0.mjs';
+import '@angular/cdk/coercion';
+import '../option-harness-3b7c1106.mjs';
+import '../optgroup-harness-5e66b138.mjs';
 
 /** Harness for interacting with a `mat-error` in tests. */
 class MatErrorHarness extends ComponentHarness {

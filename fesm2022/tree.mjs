@@ -1,10 +1,12 @@
 import { CdkTreeNode, CdkTreeNodeDef, CdkNestedTreeNode, CDK_TREE_NODE_OUTLET_NODE, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTree, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
 import * as i0 from '@angular/core';
 import { inject, HostAttributeToken, numberAttribute, booleanAttribute, Directive, Input, ViewContainerRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
+import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
 import { take, map } from 'rxjs/operators';
+import '@angular/cdk/a11y';
+import '@angular/cdk/bidi';
 
 /**
  * Determinte if argument TreeKeyManager is the NoopTreeKeyManager. This function is safe to use with SSR.

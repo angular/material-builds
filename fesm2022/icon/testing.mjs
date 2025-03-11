@@ -1,8 +1,12 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import * as i0 from '@angular/core';
 import { Injectable, NgModule } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
 import { of } from 'rxjs';
+import { M as MatIconRegistry } from '../icon-registry-16ca9b29.mjs';
+import '@angular/common';
+import '@angular/common/http';
+import '@angular/platform-browser';
+import 'rxjs/operators';
 
 /** Possible types of icons. */
 var IconType;

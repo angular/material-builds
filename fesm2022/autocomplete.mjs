@@ -1,5 +1,5 @@
-import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
-export { MatOptgroup, MatOption } from '@angular/material/core';
+import { M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-07c3c660.mjs';
+export { e as MatOptgroup, a as MatOption } from './option-07c3c660.mjs';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, ANIMATION_MODULE_TYPE, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -13,8 +13,18 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MAT_FORM_FIELD } from '@angular/material/form-field';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
+import { M as MAT_FORM_FIELD } from './form-field-6d755764.mjs';
+import { M as MatOptionModule } from './index-1763d3a6.mjs';
+import { M as MatCommonModule } from './common-module-2d64df09.mjs';
+import './ripple-9939d1f5.mjs';
+import '@angular/cdk/coercion';
+import '@angular/cdk/private';
+import './pseudo-checkbox-af5a4ea4.mjs';
+import './structural-styles-d5ada3b3.mjs';
+import '@angular/cdk/observers/private';
+import './index-4bc1d6d3.mjs';
+import './pseudo-checkbox-module-216fae38.mjs';
 
 /** Event object that is emitted when an autocomplete option is selected. */
 class MatAutocompleteSelectedEvent {

@@ -3,13 +3,18 @@ import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
 import { InjectionToken, OnChanges, OnDestroy, AfterViewInit, DoCheck, ElementRef, WritableSignal } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import * as i1 from '@angular/material/core';
-import { ErrorStateMatcher } from '@angular/material/core';
-import * as i2 from '@angular/material/form-field';
-import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
-export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
+import { E as ErrorStateMatcher } from '../error-options.d-448d9046.js';
+import { k as MatFormField } from '../form-field.d-2edbc094.js';
+export { a as MatError, k as MatFormField, b as MatHint, d as MatPrefix, f as MatSuffix } from '../form-field.d-2edbc094.js';
+import { M as MatFormFieldControl } from '../form-field-control.d-eb86711c.js';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import { a as MatFormFieldModule } from '../module.d-c17c834e.js';
+export { M as MatLabel } from '../module.d-c17c834e.js';
 import * as i4 from '@angular/cdk/text-field';
+import '../palette.d-ec4a617c.js';
+import '@angular/cdk/bidi';
+import '@angular/cdk/observers';
 
 /** Object that can be used to configure the default options for the input. */
 interface MatInputConfig {
@@ -191,7 +196,7 @@ declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy
 
 declare class MatInputModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInputModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatInputModule, never, [typeof i1.MatCommonModule, typeof i2.MatFormFieldModule, typeof MatInput], [typeof MatInput, typeof i2.MatFormFieldModule, typeof i4.TextFieldModule, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatInputModule, never, [typeof MatCommonModule, typeof MatFormFieldModule, typeof MatInput], [typeof MatInput, typeof MatFormFieldModule, typeof i4.TextFieldModule, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatInputModule>;
 }
 

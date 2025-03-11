@@ -1,5 +1,8 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatButtonToggleAppearance } from '@angular/material/button-toggle';
+import { b as MatButtonToggleAppearance } from '../../button-toggle.d-96bcc699.js';
+import '@angular/cdk/bidi';
+import '@angular/core';
+import '@angular/forms';
 
 /** Criteria that can be used to filter a list of `MatButtonToggleHarness` instances. */
 interface ButtonToggleHarnessFilters extends BaseHarnessFilters {

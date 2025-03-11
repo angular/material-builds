@@ -1,12 +1,13 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, TemplateRef, AfterContentInit, OnChanges, OnDestroy, EventEmitter, SimpleChanges, ElementRef, AfterViewInit, QueryList } from '@angular/core';
-import * as i1 from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import * as i2 from '@angular/cdk/accordion';
 import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
 import * as i3 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
+import '@angular/cdk/bidi';
 
 /** MatAccordion's display modes. */
 type MatAccordionDisplayMode = 'default' | 'flat';
@@ -248,7 +249,7 @@ declare class MatAccordion extends CdkAccordion implements MatAccordionBase, Aft
 
 declare class MatExpansionModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatExpansionModule, never, [typeof i1.MatCommonModule, typeof i2.CdkAccordionModule, typeof i3.PortalModule, typeof MatAccordion, typeof MatExpansionPanel, typeof MatExpansionPanelActionRow, typeof MatExpansionPanelHeader, typeof MatExpansionPanelTitle, typeof MatExpansionPanelDescription, typeof MatExpansionPanelContent], [typeof MatAccordion, typeof MatExpansionPanel, typeof MatExpansionPanelActionRow, typeof MatExpansionPanelHeader, typeof MatExpansionPanelTitle, typeof MatExpansionPanelDescription, typeof MatExpansionPanelContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatExpansionModule, never, [typeof MatCommonModule, typeof i2.CdkAccordionModule, typeof i3.PortalModule, typeof MatAccordion, typeof MatExpansionPanel, typeof MatExpansionPanelActionRow, typeof MatExpansionPanelHeader, typeof MatExpansionPanelTitle, typeof MatExpansionPanelDescription, typeof MatExpansionPanelContent], [typeof MatAccordion, typeof MatExpansionPanel, typeof MatExpansionPanelActionRow, typeof MatExpansionPanelHeader, typeof MatExpansionPanelTitle, typeof MatExpansionPanelDescription, typeof MatExpansionPanelContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatExpansionModule>;
 }
 

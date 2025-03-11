@@ -2,9 +2,10 @@ import * as i1 from '@angular/cdk/tree';
 import { CdkTreeNode, CdkTreeNodeDef, CdkNestedTreeNode, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTree, CdkTreeNodeToggle, TreeControl, FlatTreeControl } from '@angular/cdk/tree';
 import * as i0 from '@angular/core';
 import { OnInit, OnDestroy, AfterContentInit, ViewContainerRef } from '@angular/core';
-import * as i1$1 from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import '@angular/cdk/bidi';
 
 /**
  * Wrapper for the CdkTree node with Material design styles.
@@ -127,7 +128,7 @@ declare class MatTreeNodeToggle<T, K = T> extends CdkTreeNodeToggle<T, K> {
 
 declare class MatTreeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTreeModule, never, [typeof i1.CdkTreeModule, typeof i1$1.MatCommonModule, typeof MatNestedTreeNode, typeof MatTreeNodeDef, typeof MatTreeNodePadding, typeof MatTreeNodeToggle, typeof MatTree, typeof MatTreeNode, typeof MatTreeNodeOutlet], [typeof i1$1.MatCommonModule, typeof MatNestedTreeNode, typeof MatTreeNodeDef, typeof MatTreeNodePadding, typeof MatTreeNodeToggle, typeof MatTree, typeof MatTreeNode, typeof MatTreeNodeOutlet]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTreeModule, never, [typeof i1.CdkTreeModule, typeof MatCommonModule, typeof MatNestedTreeNode, typeof MatTreeNodeDef, typeof MatTreeNodePadding, typeof MatTreeNodeToggle, typeof MatTree, typeof MatTreeNode, typeof MatTreeNodeOutlet], [typeof MatCommonModule, typeof MatNestedTreeNode, typeof MatTreeNodeDef, typeof MatTreeNodePadding, typeof MatTreeNodeToggle, typeof MatTree, typeof MatTreeNode, typeof MatTreeNodeOutlet]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTreeModule>;
 }
 

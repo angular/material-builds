@@ -1,11 +1,18 @@
 import * as i2 from '@angular/cdk/table';
 import { CdkTable, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn } from '@angular/cdk/table';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/material/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
-import { MatSort } from '@angular/material/sort';
+import { M as MatPaginator } from '../paginator.d-dfd0852d.js';
+import { a as MatSort } from '../sort.d-c2b79a45.js';
+import '@angular/cdk/bidi';
+import '../palette.d-ec4a617c.js';
+import '../form-field.d-2edbc094.js';
+import '@angular/cdk/coercion';
+import '@angular/forms';
+import '../form-field-control.d-eb86711c.js';
+import '../sort-direction.d-f4ce4649.js';
 
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
@@ -147,7 +154,7 @@ declare class MatTextColumn<T> extends CdkTextColumn<T> {
 
 declare class MatTableModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTableModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTableModule, never, [typeof i1.MatCommonModule, typeof i2.CdkTableModule, typeof MatTable, typeof MatRecycleRows, typeof MatHeaderCellDef, typeof MatHeaderRowDef, typeof MatColumnDef, typeof MatCellDef, typeof MatRowDef, typeof MatFooterCellDef, typeof MatFooterRowDef, typeof MatHeaderCell, typeof MatCell, typeof MatFooterCell, typeof MatHeaderRow, typeof MatRow, typeof MatFooterRow, typeof MatNoDataRow, typeof MatTextColumn], [typeof i1.MatCommonModule, typeof MatTable, typeof MatRecycleRows, typeof MatHeaderCellDef, typeof MatHeaderRowDef, typeof MatColumnDef, typeof MatCellDef, typeof MatRowDef, typeof MatFooterCellDef, typeof MatFooterRowDef, typeof MatHeaderCell, typeof MatCell, typeof MatFooterCell, typeof MatHeaderRow, typeof MatRow, typeof MatFooterRow, typeof MatNoDataRow, typeof MatTextColumn]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTableModule, never, [typeof MatCommonModule, typeof i2.CdkTableModule, typeof MatTable, typeof MatRecycleRows, typeof MatHeaderCellDef, typeof MatHeaderRowDef, typeof MatColumnDef, typeof MatCellDef, typeof MatRowDef, typeof MatFooterCellDef, typeof MatFooterRowDef, typeof MatHeaderCell, typeof MatCell, typeof MatFooterCell, typeof MatHeaderRow, typeof MatRow, typeof MatFooterRow, typeof MatNoDataRow, typeof MatTextColumn], [typeof MatCommonModule, typeof MatTable, typeof MatRecycleRows, typeof MatHeaderCellDef, typeof MatHeaderRowDef, typeof MatColumnDef, typeof MatCellDef, typeof MatRowDef, typeof MatFooterCellDef, typeof MatFooterRowDef, typeof MatHeaderCell, typeof MatCell, typeof MatFooterCell, typeof MatHeaderRow, typeof MatRow, typeof MatFooterRow, typeof MatNoDataRow, typeof MatTextColumn]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTableModule>;
 }
 

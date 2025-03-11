@@ -10,8 +10,11 @@ import { Subject, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSub
 import { debounceTime, takeUntil, startWith, switchMap, skip, filter } from 'rxjs/operators';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { _StructuralStylesLoader, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule } from '@angular/material/core';
+import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 import { CdkObserveContent } from '@angular/cdk/observers';
+import { M as MatRipple, a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-9939d1f5.mjs';
+import { M as MatCommonModule } from './common-module-2d64df09.mjs';
+import '@angular/cdk/coercion';
 
 /**
  * Injection token that can be used to reference instances of `MatTabContent`. It serves as

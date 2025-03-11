@@ -2,13 +2,20 @@ import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnDestroy, TemplateRef, ElementRef, QueryList, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
-import * as i1 from '@angular/material/core';
-import { MatOption, ThemePalette, MatOptgroup, MatOptionSelectionChange } from '@angular/material/core';
-export { MatOptgroup, MatOption } from '@angular/material/core';
+import { M as MatOptionModule } from '../index.d-37e31cd3.js';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
+import { M as MatOption, a as MatOptgroup, b as MatOptionSelectionChange } from '../option.d-6f493d78.js';
+export { a as MatOptgroup, M as MatOption } from '../option.d-6f493d78.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
-import * as i2$1 from '@angular/cdk/scrolling';
+import * as i5 from '@angular/cdk/scrolling';
+import '../index.d-0536b706.js';
+import '../ripple.d-2fb57d04.js';
+import '@angular/cdk/platform';
+import '../pseudo-checkbox-module.d-3abc0461.js';
+import '@angular/cdk/bidi';
 
 /** Event object that is emitted when an autocomplete option is selected. */
 declare class MatAutocompleteSelectedEvent {
@@ -409,7 +416,7 @@ declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewI
 
 declare class MatAutocompleteModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatAutocompleteModule, never, [typeof i2.OverlayModule, typeof i1.MatOptionModule, typeof i1.MatCommonModule, typeof MatAutocomplete, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin], [typeof i2$1.CdkScrollableModule, typeof MatAutocomplete, typeof i1.MatOptionModule, typeof i1.MatCommonModule, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatAutocompleteModule, never, [typeof i2.OverlayModule, typeof MatOptionModule, typeof MatCommonModule, typeof MatAutocomplete, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin], [typeof i5.CdkScrollableModule, typeof MatAutocomplete, typeof MatOptionModule, typeof MatCommonModule, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatAutocompleteModule>;
 }
 
