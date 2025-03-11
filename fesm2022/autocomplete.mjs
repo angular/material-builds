@@ -593,7 +593,8 @@ class MatAutocompleteTrigger {
     setDisabledState(isDisabled) {
         this._element.nativeElement.disabled = isDisabled;
     }
-    _handleKeydown(event) {
+    _handleKeydown(e) {
+        const event = e;
         const keyCode = event.keyCode;
         const hasModifier = hasModifierKey(event);
         // Prevent the default action on all escape key presses. This is here primarily to bring IE

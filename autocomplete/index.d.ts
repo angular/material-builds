@@ -365,8 +365,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     registerOnChange(fn: (value: any) => {}): void;
     registerOnTouched(fn: () => {}): void;
     setDisabledState(isDisabled: boolean): void;
-    _handleKeydown(event: KeyboardEvent): void;
-    _handleInput(event: KeyboardEvent): void;
+    _handleKeydown(e: Event): void;
+    _handleInput(event: Event): void;
     _handleFocus(): void;
     _handleClick(): void;
     /**

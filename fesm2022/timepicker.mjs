@@ -589,7 +589,8 @@ class MatTimepickerInput {
         }
     };
     /** Handles the `input` event. */
-    _handleInput(value) {
+    _handleInput(event) {
+        const value = event.target.value;
         const currentValue = this.value();
         const date = this._dateAdapter.parseTime(value, this._dateFormats.parse.timeInput);
         const hasChanged = !this._dateAdapter.sameTime(date, currentValue);
@@ -742,7 +743,7 @@ class MatTimepickerInput {
         ]);
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatTimepickerInput, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "17.1.0", version: "20.0.0-next.1", type: MatTimepickerInput, isStandalone: true, selector: "input[matTimepicker]", inputs: { value: { classPropertyName: "value", publicName: "value", isSignal: true, isRequired: false, transformFunction: null }, timepicker: { classPropertyName: "timepicker", publicName: "matTimepicker", isSignal: true, isRequired: true, transformFunction: null }, min: { classPropertyName: "min", publicName: "matTimepickerMin", isSignal: true, isRequired: false, transformFunction: null }, max: { classPropertyName: "max", publicName: "matTimepickerMax", isSignal: true, isRequired: false, transformFunction: null }, disabledInput: { classPropertyName: "disabledInput", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { value: "valueChange" }, host: { attributes: { "role": "combobox", "type": "text", "aria-haspopup": "listbox" }, listeners: { "blur": "_handleBlur()", "input": "_handleInput($event.target.value)", "keydown": "_handleKeydown($event)" }, properties: { "attr.aria-activedescendant": "_ariaActiveDescendant()", "attr.aria-expanded": "_ariaExpanded()", "attr.aria-controls": "_ariaControls()", "attr.mat-timepicker-id": "timepicker()?.panelId", "disabled": "disabled()" }, classAttribute: "mat-timepicker-input" }, providers: [
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "17.1.0", version: "20.0.0-next.1", type: MatTimepickerInput, isStandalone: true, selector: "input[matTimepicker]", inputs: { value: { classPropertyName: "value", publicName: "value", isSignal: true, isRequired: false, transformFunction: null }, timepicker: { classPropertyName: "timepicker", publicName: "matTimepicker", isSignal: true, isRequired: true, transformFunction: null }, min: { classPropertyName: "min", publicName: "matTimepickerMin", isSignal: true, isRequired: false, transformFunction: null }, max: { classPropertyName: "max", publicName: "matTimepickerMax", isSignal: true, isRequired: false, transformFunction: null }, disabledInput: { classPropertyName: "disabledInput", publicName: "disabled", isSignal: true, isRequired: false, transformFunction: null } }, outputs: { value: "valueChange" }, host: { attributes: { "role": "combobox", "type": "text", "aria-haspopup": "listbox" }, listeners: { "blur": "_handleBlur()", "input": "_handleInput($event)", "keydown": "_handleKeydown($event)" }, properties: { "attr.aria-activedescendant": "_ariaActiveDescendant()", "attr.aria-expanded": "_ariaExpanded()", "attr.aria-controls": "_ariaControls()", "attr.mat-timepicker-id": "timepicker()?.panelId", "disabled": "disabled()" }, classAttribute: "mat-timepicker-input" }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: MatTimepickerInput,
@@ -775,7 +776,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                         '[attr.mat-timepicker-id]': 'timepicker()?.panelId',
                         '[disabled]': 'disabled()',
                         '(blur)': '_handleBlur()',
-                        '(input)': '_handleInput($event.target.value)',
+                        '(input)': '_handleInput($event)',
                         '(keydown)': '_handleKeydown($event)',
                     },
                     providers: [

@@ -236,7 +236,7 @@ export declare class MatTimepickerInput<D> implements ControlValueAccessor, Vali
     /** Handles clicks on the input or the containing form field. */
     private _handleClick;
     /** Handles the `input` event. */
-    protected _handleInput(value: string): void;
+    protected _handleInput(event: Event): void;
     /** Handles the `blur` event. */
     protected _handleBlur(): void;
     /** Handles the `keydown` event. */

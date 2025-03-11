@@ -521,7 +521,7 @@ export declare class MatChipInput implements MatChipTextControl, OnChanges, OnDe
     /** Register input for chip list */
     get chipGrid(): MatChipGrid;
     set chipGrid(value: MatChipGrid);
-    private _chipGrid;
+    protected _chipGrid: MatChipGrid;
     /**
      * Whether or not the chipEnd event will be emitted when the input is blurred.
      */

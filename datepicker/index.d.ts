@@ -1052,7 +1052,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     registerOnTouched(fn: () => void): void;
     setDisabledState(isDisabled: boolean): void;
     _onKeydown(event: KeyboardEvent): void;
-    _onInput(value: string): void;
+    _onInput(event: Event): void;
     _onChange(): void;
     /** Handles blur events on the input. */
     _onBlur(): void;
@@ -1391,7 +1391,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     /** Refreshes the error state of the input. */
     updateErrorState(): void;
     /** Handles `input` events on the input element. */
-    _onInput(value: string): void;
+    _onInput(event: Event): void;
     /** Opens the datepicker associated with the input. */
     protected _openPopup(): void;
     /** Gets the minimum date from the range input. */

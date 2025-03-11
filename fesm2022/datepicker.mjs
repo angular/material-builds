@@ -3298,7 +3298,8 @@ class MatDatepickerInputBase {
             event.preventDefault();
         }
     }
-    _onInput(value) {
+    _onInput(event) {
+        const value = event.target.value;
         const lastValueWasValid = this._lastValueValid;
         let date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._lastValueValid = this._isValidValue(date);
@@ -3545,7 +3546,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
         return event.source !== this;
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatDatepickerInput, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.1", type: MatDatepickerInput, isStandalone: true, selector: "input[matDatepicker]", inputs: { matDatepicker: "matDatepicker", min: "min", max: "max", dateFilter: ["matDatepickerFilter", "dateFilter"] }, host: { listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "blur": "_onBlur()", "keydown": "_onKeydown($event)" }, properties: { "attr.aria-haspopup": "_datepicker ? \"dialog\" : null", "attr.aria-owns": "_ariaOwns()", "attr.min": "min ? _dateAdapter.toIso8601(min) : null", "attr.max": "max ? _dateAdapter.toIso8601(max) : null", "attr.data-mat-calendar": "_datepicker ? _datepicker.id : null", "disabled": "disabled" }, classAttribute: "mat-datepicker-input" }, providers: [
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.1", type: MatDatepickerInput, isStandalone: true, selector: "input[matDatepicker]", inputs: { matDatepicker: "matDatepicker", min: "min", max: "max", dateFilter: ["matDatepickerFilter", "dateFilter"] }, host: { listeners: { "input": "_onInput($event)", "change": "_onChange()", "blur": "_onBlur()", "keydown": "_onKeydown($event)" }, properties: { "attr.aria-haspopup": "_datepicker ? \"dialog\" : null", "attr.aria-owns": "_ariaOwns()", "attr.min": "min ? _dateAdapter.toIso8601(min) : null", "attr.max": "max ? _dateAdapter.toIso8601(max) : null", "attr.data-mat-calendar": "_datepicker ? _datepicker.id : null", "disabled": "disabled" }, classAttribute: "mat-datepicker-input" }, providers: [
             MAT_DATEPICKER_VALUE_ACCESSOR,
             MAT_DATEPICKER_VALIDATORS,
             { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
@@ -3570,7 +3571,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                         // `aria-owns` for this, because it's only defined while the calendar is open.
                         '[attr.data-mat-calendar]': '_datepicker ? _datepicker.id : null',
                         '[disabled]': 'disabled',
-                        '(input)': '_onInput($event.target.value)',
+                        '(input)': '_onInput($event)',
                         '(change)': '_onChange()',
                         '(blur)': '_onBlur()',
                         '(keydown)': '_onKeydown($event)',
@@ -4273,8 +4274,8 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
         this._errorStateTracker.updateErrorState();
     }
     /** Handles `input` events on the input element. */
-    _onInput(value) {
-        super._onInput(value);
+    _onInput(event) {
+        super._onInput(event);
         this._rangeInput._handleChildValueChange();
     }
     /** Opens the datepicker associated with the input. */
@@ -4376,7 +4377,7 @@ class MatStartDate extends MatDateRangeInputPartBase {
         }
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatStartDate, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.1", type: MatStartDate, isStandalone: true, selector: "input[matStartDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.1", type: MatStartDate, isStandalone: true, selector: "input[matStartDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns() || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()!) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()!) : null" }, classAttribute: "mat-start-date mat-date-range-input-inner" }, providers: [
             { provide: NG_VALUE_ACCESSOR, useExisting: MatStartDate, multi: true },
             { provide: NG_VALIDATORS, useExisting: MatStartDate, multi: true },
         ], usesInheritance: true, ngImport: i0 });
@@ -4388,15 +4389,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                     host: {
                         'class': 'mat-start-date mat-date-range-input-inner',
                         '[disabled]': 'disabled',
-                        '(input)': '_onInput($event.target.value)',
+                        '(input)': '_onInput($event)',
                         '(change)': '_onChange()',
                         '(keydown)': '_onKeydown($event)',
                         '[attr.aria-haspopup]': '_rangeInput.rangePicker ? "dialog" : null',
-                        '[attr.aria-owns]': `_rangeInput._ariaOwns
-        ? _rangeInput._ariaOwns()
-        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null`,
-                        '[attr.min]': '_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null',
-                        '[attr.max]': '_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null',
+                        '[attr.aria-owns]': '_rangeInput._ariaOwns() || null',
+                        '[attr.min]': '_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()!) : null',
+                        '[attr.max]': '_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()!) : null',
                         '(blur)': '_onBlur()',
                         'type': 'text',
                     },
@@ -4471,7 +4470,7 @@ class MatEndDate extends MatDateRangeInputPartBase {
         }
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatEndDate, deps: null, target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.1", type: MatEndDate, isStandalone: true, selector: "input[matEndDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event.target.value)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns\n        ? _rangeInput._ariaOwns()\n        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null" }, classAttribute: "mat-end-date mat-date-range-input-inner" }, providers: [
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.1", type: MatEndDate, isStandalone: true, selector: "input[matEndDate]", outputs: { dateChange: "dateChange", dateInput: "dateInput" }, host: { attributes: { "type": "text" }, listeners: { "input": "_onInput($event)", "change": "_onChange()", "keydown": "_onKeydown($event)", "blur": "_onBlur()" }, properties: { "disabled": "disabled", "attr.aria-haspopup": "_rangeInput.rangePicker ? \"dialog\" : null", "attr.aria-owns": "_rangeInput._ariaOwns() || null", "attr.min": "_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()!) : null", "attr.max": "_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()!) : null" }, classAttribute: "mat-end-date mat-date-range-input-inner" }, providers: [
             { provide: NG_VALUE_ACCESSOR, useExisting: MatEndDate, multi: true },
             { provide: NG_VALIDATORS, useExisting: MatEndDate, multi: true },
         ], usesInheritance: true, ngImport: i0 });
@@ -4483,15 +4482,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                     host: {
                         'class': 'mat-end-date mat-date-range-input-inner',
                         '[disabled]': 'disabled',
-                        '(input)': '_onInput($event.target.value)',
+                        '(input)': '_onInput($event)',
                         '(change)': '_onChange()',
                         '(keydown)': '_onKeydown($event)',
                         '[attr.aria-haspopup]': '_rangeInput.rangePicker ? "dialog" : null',
-                        '[attr.aria-owns]': `_rangeInput._ariaOwns
-        ? _rangeInput._ariaOwns()
-        : (_rangeInput.rangePicker?.opened && _rangeInput.rangePicker.id) || null`,
-                        '[attr.min]': '_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()) : null',
-                        '[attr.max]': '_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()) : null',
+                        '[attr.aria-owns]': '_rangeInput._ariaOwns() || null',
+                        '[attr.min]': '_getMinDate() ? _dateAdapter.toIso8601(_getMinDate()!) : null',
+                        '[attr.max]': '_getMaxDate() ? _dateAdapter.toIso8601(_getMaxDate()!) : null',
                         '(blur)': '_onBlur()',
                         'type': 'text',
                     },
