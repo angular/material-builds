@@ -217,7 +217,6 @@ declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewI
     private _changeDetectorRef;
     private _dir;
     private _formField;
-    private _document;
     private _viewportRuler;
     private _scrollStrategy;
     private _renderer;
@@ -332,6 +331,8 @@ declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewI
     _handleInput(event: Event): void;
     _handleFocus(): void;
     _handleClick(): void;
+    /** Whether the input currently has focus. */
+    private _hasFocus;
     /**
      * In "auto" mode, the label will animate down as soon as focus is lost.
      * This causes the value to jump when selecting an option with the mouse.
