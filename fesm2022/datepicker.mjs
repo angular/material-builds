@@ -14,8 +14,8 @@ import { NgClass, DOCUMENT } from '@angular/common';
 import { startWith, take, filter } from 'rxjs/operators';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
-import { a as MAT_DATE_FORMATS, D as DateAdapter$1 } from './date-formats-24f38853.mjs';
-import { M as MatButton, h as MatButtonModule } from './module-07d1b654.mjs';
+import { a as MAT_DATE_FORMATS, D as DateAdapter$1 } from './date-formats-b618acb8.mjs';
+import { M as MatButton, h as MatButtonModule } from './module-df9f7af3.mjs';
 import { a as MatIconButton } from './icon-button-47f1b5d9.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-8a79a24e.mjs';
@@ -808,26 +808,38 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatRangeDateSelectionModel, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: i1.DateAdapter }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
     return parent || new MatSingleDateSelectionModel(adapter);
 }
 /**
  * Used to provide a single selection model to a component.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER = {
     provide: MatDateSelectionModel,
     deps: [[new Optional(), new SkipSelf(), MatDateSelectionModel], DateAdapter],
     useFactory: MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY,
 };
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
     return parent || new MatRangeDateSelectionModel(adapter);
 }
 /**
  * Used to provide a range selection model to a component.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER = {
     provide: MatDateSelectionModel,
@@ -910,11 +922,19 @@ class DefaultMatCalendarRangeStrategy {
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: DefaultMatCalendarRangeStrategy, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: i1.DateAdapter }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY(parent, adapter) {
     return parent || new DefaultMatCalendarRangeStrategy(adapter);
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_CALENDAR_RANGE_STRATEGY_PROVIDER = {
     provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
     deps: [[new Optional(), new SkipSelf(), MAT_DATE_RANGE_SELECTION_STRATEGY], DateAdapter],
@@ -2460,11 +2480,19 @@ const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll
         return () => overlay.scrollStrategies.reposition();
     },
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [Overlay],

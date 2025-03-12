@@ -6,7 +6,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Subject, Subscription } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
-import { d as MatIcon, M as MatIconModule } from './icon-module-80ce72d3.mjs';
+import { d as MatIcon, M as MatIconModule } from './icon-module-3f77a24d.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 import { M as MatRipple } from './ripple-9939d1f5.mjs';
 import { Platform } from '@angular/cdk/platform';
@@ -14,7 +14,7 @@ import { switchMap, map, startWith, takeUntil } from 'rxjs/operators';
 import { E as ErrorStateMatcher } from './error-options-4a00765e.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 import { M as MatRippleModule } from './index-4bc1d6d3.mjs';
-import './icon-registry-16ca9b29.mjs';
+import './icon-registry-13a3b98e.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
 import '@angular/cdk/coercion';
@@ -51,11 +51,19 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatStepperIntl();
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_STEPPER_INTL_PROVIDER = {
     provide: MatStepperIntl,
     deps: [[new Optional(), new SkipSelf(), MatStepperIntl]],

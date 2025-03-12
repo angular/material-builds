@@ -4,7 +4,7 @@ import * as i0 from '@angular/core';
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
-import { M as MatPaginator } from '../paginator.d-dfd0852d.js';
+import { M as MatPaginator } from '../paginator.d-40b1766e.js';
 import { a as MatSort } from '../sort.d-c2b79a45.js';
 import '@angular/cdk/bidi';
 import '../palette.d-ec4a617c.js';

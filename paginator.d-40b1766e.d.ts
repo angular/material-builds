@@ -29,9 +29,17 @@ declare class MatPaginatorIntl {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorIntl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatPaginatorIntl>;
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPaginatorIntl): MatPaginatorIntl;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare const MAT_PAGINATOR_INTL_PROVIDER: {
     provide: typeof MatPaginatorIntl;
     deps: Optional[][];

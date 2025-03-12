@@ -598,11 +598,19 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                     type: Inject,
                     args: [DOCUMENT]
                 }] }, { type: i0.ErrorHandler }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, errorHandler, document) {
     return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document, errorHandler);
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const ICON_REGISTRY_PROVIDER = {
     // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
@@ -628,4 +636,4 @@ function isSafeUrlWithOptions(value) {
 }
 
 export { ICON_REGISTRY_PROVIDER_FACTORY as I, MatIconRegistry as M, getMatIconNoHttpProviderError as a, getMatIconFailedToSanitizeUrlError as b, getMatIconFailedToSanitizeLiteralError as c, ICON_REGISTRY_PROVIDER as d, getMatIconNameNotFoundError as g };
-//# sourceMappingURL=icon-registry-16ca9b29.mjs.map
+//# sourceMappingURL=icon-registry-13a3b98e.mjs.map

@@ -30,17 +30,29 @@ const MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strat
         return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
     },
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 };
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
     return {
         showDelay: 0,
@@ -955,4 +967,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
         }] });
 
 export { MatTooltip as M, SCROLL_THROTTLE_MS as S, TOOLTIP_PANEL_CLASS as T, MatTooltipModule as a, MAT_TOOLTIP_SCROLL_STRATEGY as b, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY as c, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER as d, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY as e, MAT_TOOLTIP_DEFAULT_OPTIONS as f, getMatTooltipInvalidPositionError as g, TooltipComponent as h };
-//# sourceMappingURL=module-e8043f5e.mjs.map
+//# sourceMappingURL=module-47e3be58.mjs.map

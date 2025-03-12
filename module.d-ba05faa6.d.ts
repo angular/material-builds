@@ -18,7 +18,11 @@ import { a as MatFormFieldModule } from './module.d-c17c834e.js';
 
 /** Injection token that determines the scroll handling while a select is open. */
 declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
 /** Object that can be used to configure the default options for the select module. */
 interface MatSelectConfig {
@@ -43,7 +47,11 @@ interface MatSelectConfig {
 }
 /** Injection token that can be used to provide the default options the select module. */
 declare const MAT_SELECT_CONFIG: InjectionToken<MatSelectConfig>;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];

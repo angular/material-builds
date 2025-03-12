@@ -16,7 +16,11 @@ const MAT_CHECKBOX_DEFAULT_OPTIONS = new InjectionToken('mat-checkbox-default-op
     providedIn: 'root',
     factory: MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY() {
     return {
         color: 'accent',

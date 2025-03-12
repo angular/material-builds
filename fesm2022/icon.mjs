@@ -1,5 +1,5 @@
-export { a as MAT_ICON_DEFAULT_OPTIONS, b as MAT_ICON_LOCATION, c as MAT_ICON_LOCATION_FACTORY, d as MatIcon, M as MatIconModule } from './icon-module-80ce72d3.mjs';
-export { d as ICON_REGISTRY_PROVIDER, I as ICON_REGISTRY_PROVIDER_FACTORY, M as MatIconRegistry, c as getMatIconFailedToSanitizeLiteralError, b as getMatIconFailedToSanitizeUrlError, g as getMatIconNameNotFoundError, a as getMatIconNoHttpProviderError } from './icon-registry-16ca9b29.mjs';
+export { a as MAT_ICON_DEFAULT_OPTIONS, b as MAT_ICON_LOCATION, c as MAT_ICON_LOCATION_FACTORY, d as MatIcon, M as MatIconModule } from './icon-module-3f77a24d.mjs';
+export { d as ICON_REGISTRY_PROVIDER, I as ICON_REGISTRY_PROVIDER_FACTORY, M as MatIconRegistry, c as getMatIconFailedToSanitizeLiteralError, b as getMatIconFailedToSanitizeUrlError, g as getMatIconNameNotFoundError, a as getMatIconNoHttpProviderError } from './icon-registry-13a3b98e.mjs';
 import '@angular/core';
 import '@angular/common';
 import 'rxjs';

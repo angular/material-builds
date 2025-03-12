@@ -3,7 +3,7 @@ import { InjectionToken, inject, ElementRef, ErrorHandler, HostAttributeToken, b
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { M as MatIconRegistry } from './icon-registry-16ca9b29.mjs';
+import { M as MatIconRegistry } from './icon-registry-13a3b98e.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 
 /** Injection token to be used to override the default options for `mat-icon`. */
@@ -17,7 +17,11 @@ const MAT_ICON_LOCATION = new InjectionToken('mat-icon-location', {
     providedIn: 'root',
     factory: MAT_ICON_LOCATION_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_ICON_LOCATION_FACTORY() {
     const _document = inject(DOCUMENT);
     const _location = _document ? _document.location : null;
@@ -388,4 +392,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
         }] });
 
 export { MatIconModule as M, MAT_ICON_DEFAULT_OPTIONS as a, MAT_ICON_LOCATION as b, MAT_ICON_LOCATION_FACTORY as c, MatIcon as d };
-//# sourceMappingURL=icon-module-80ce72d3.mjs.map
+//# sourceMappingURL=icon-module-3f77a24d.mjs.map

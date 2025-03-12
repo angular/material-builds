@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { OnChanges, OnDestroy, AfterViewChecked, EventEmitter, SimpleChanges, FactoryProvider, AfterContentInit, ChangeDetectorRef, AfterViewInit, ElementRef, InjectionToken, OnInit, DoCheck, TemplateRef } from '@angular/core';
-import { b as MatButton, m as MatButtonModule } from '../module.d-c5ce8533.js';
+import { b as MatButton, m as MatButtonModule } from '../module.d-18a67f56.js';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
 import * as i1 from '@angular/cdk/a11y';
@@ -9,7 +9,7 @@ import * as i3 from '@angular/cdk/portal';
 import { ComponentType, Portal, TemplatePortal } from '@angular/cdk/portal';
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import { Observable, Subject } from 'rxjs';
-import { D as DateAdapter$1 } from '../date-adapter.d-0f7aa1a7.js';
+import { D as DateAdapter$1 } from '../date-adapter.d-c6835d41.js';
 import { DateAdapter } from '@angular/material/core';
 import { T as ThemePalette } from '../palette.d-ec4a617c.js';
 import { ControlValueAccessor, Validator, ValidatorFn, AbstractControl, ValidationErrors, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
@@ -345,18 +345,30 @@ declare class MatRangeDateSelectionModel<D> extends MatDateSelectionModel<DateRa
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRangeDateSelectionModel<any>, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatRangeDateSelectionModel<any>>;
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
 /**
  * Used to provide a single selection model to a component.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 declare const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
 /**
  * Used to provide a range selection model to a component.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 declare const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
 
@@ -1002,13 +1014,21 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
 
 /** Injection token that determines the scroll handling while the calendar is open. */
 declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
 /** Possible positions for the datepicker dropdown along the X axis. */
 type DatepickerDropdownPositionX = 'start' | 'end';
 /** Possible positions for the datepicker dropdown along the Y axis. */
 type DatepickerDropdownPositionY = 'above' | 'below';
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];

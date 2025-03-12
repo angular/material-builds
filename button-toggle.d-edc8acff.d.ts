@@ -32,6 +32,11 @@ interface MatButtonToggleDefaultOptions {
  * default options for all button toggles within an app.
  */
 declare const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatButtonToggleDefaultOptions>;
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY(): MatButtonToggleDefaultOptions;
 /**
  * Injection token that can be used to reference instances of `MatButtonToggleGroup`.

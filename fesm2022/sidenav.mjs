@@ -28,7 +28,11 @@ const MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOS
  * @docs-private
  */
 const MAT_DRAWER_CONTAINER = new InjectionToken('MAT_DRAWER_CONTAINER');
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
     return false;
 }

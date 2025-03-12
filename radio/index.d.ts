@@ -46,6 +46,11 @@ interface MatRadioDefaultOptions {
     disabledInteractive?: boolean;
 }
 declare const MAT_RADIO_DEFAULT_OPTIONS: InjectionToken<MatRadioDefaultOptions>;
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_RADIO_DEFAULT_OPTIONS_FACTORY(): MatRadioDefaultOptions;
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.

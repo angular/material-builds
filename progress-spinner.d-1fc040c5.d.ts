@@ -26,7 +26,11 @@ interface MatProgressSpinnerDefaultOptions {
 }
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
 declare const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatProgressSpinnerDefaultOptions>;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgressSpinnerDefaultOptions;
 declare class MatProgressSpinner {
     readonly _elementRef: ElementRef<HTMLElement>;

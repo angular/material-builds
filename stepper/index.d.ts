@@ -6,7 +6,7 @@ import { Optional, TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, Quer
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import * as i3 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { M as MatIconModule } from '../icon-module.d-ff73b65b.js';
+import { M as MatIconModule } from '../icon-module.d-aa3bbba0.js';
 import { M as MatRippleModule } from '../index.d-0536b706.js';
 import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { T as ThemePalette } from '../palette.d-ec4a617c.js';
@@ -38,9 +38,17 @@ declare class MatStepperIntl {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIntl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatStepperIntl>;
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl: MatStepperIntl): MatStepperIntl;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare const MAT_STEPPER_INTL_PROVIDER: {
     provide: typeof MatStepperIntl;
     deps: Optional[][];

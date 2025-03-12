@@ -174,6 +174,8 @@ interface _MatInkBarPositioner {
 /**
  * The default positioner function for the MatInkBar.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 declare function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner;
 /** Injection token for the MatInkBar's Positioner. */

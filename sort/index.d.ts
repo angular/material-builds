@@ -21,9 +21,17 @@ declare class MatSortHeaderIntl {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeaderIntl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatSortHeaderIntl>;
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl: MatSortHeaderIntl): MatSortHeaderIntl;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare const MAT_SORT_HEADER_INTL_PROVIDER: {
     provide: typeof MatSortHeaderIntl;
     deps: Optional[][];

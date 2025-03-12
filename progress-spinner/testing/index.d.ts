@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { P as ProgressSpinnerMode } from '../../progress-spinner.d-720db481.js';
+import { P as ProgressSpinnerMode } from '../../progress-spinner.d-1fc040c5.js';
 import '@angular/core';
 import '../../palette.d-ec4a617c.js';
 

@@ -7,7 +7,7 @@ import * as i3 from '@angular/cdk/portal';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { m as MatButtonModule } from '../module.d-c5ce8533.js';
+import { m as MatButtonModule } from '../module.d-18a67f56.js';
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import '../index.d-0536b706.js';
 import '../ripple.d-2fb57d04.js';
@@ -238,7 +238,11 @@ declare class MatSnackBarAction {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatSnackBarAction, "[matSnackBarAction]", never, {}, {}, never, never, true, never>;
 }
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY(): MatSnackBarConfig;
 /** Injection token that can be used to specify default snack bar. */
 declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<any>>;

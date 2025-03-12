@@ -128,7 +128,11 @@ interface MatFabDefaultOptions {
 }
 /** Injection token to be used to override the default options for FAB. */
 declare const MAT_FAB_DEFAULT_OPTIONS: InjectionToken<MatFabDefaultOptions>;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_FAB_DEFAULT_OPTIONS_FACTORY(): MatFabDefaultOptions;
 /**
  * Material Design floating action button (FAB) component. These buttons represent the primary

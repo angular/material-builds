@@ -43,7 +43,11 @@ const MAT_FAB_DEFAULT_OPTIONS = new InjectionToken('mat-mdc-fab-default-options'
     providedIn: 'root',
     factory: MAT_FAB_DEFAULT_OPTIONS_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_FAB_DEFAULT_OPTIONS_FACTORY() {
     return {
         // The FAB by default has its color set to accent.
@@ -145,4 +149,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
         }] });
 
 export { MatButton as M, MatAnchor as a, MAT_FAB_DEFAULT_OPTIONS as b, MAT_FAB_DEFAULT_OPTIONS_FACTORY as c, MatFabButton as d, MatMiniFabButton as e, MatFabAnchor as f, MatMiniFabAnchor as g, MatButtonModule as h };
-//# sourceMappingURL=module-07d1b654.mjs.map
+//# sourceMappingURL=module-df9f7af3.mjs.map

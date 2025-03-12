@@ -31,7 +31,11 @@ declare const MAT_ICON_LOCATION: InjectionToken<MatIconLocation>;
 interface MatIconLocation {
     getPathname: () => string;
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
 /**
  * Component to display an icon. It can be used in the following ways:

@@ -304,9 +304,17 @@ declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, On
 
 /** Injection token that determines the scroll handling while the menu is open. */
 declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];

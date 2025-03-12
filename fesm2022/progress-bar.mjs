@@ -13,7 +13,11 @@ const MAT_PROGRESS_BAR_DEFAULT_OPTIONS = new InjectionToken('MAT_PROGRESS_BAR_DE
  * @docs-private
  */
 const MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
     const _document = inject(DOCUMENT);
     const _location = _document ? _document.location : null;

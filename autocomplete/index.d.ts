@@ -54,7 +54,11 @@ interface MatAutocompleteDefaultOptions {
 }
 /** Injection token to be used to override the default options for `mat-autocomplete`. */
 declare const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS: InjectionToken<MatAutocompleteDefaultOptions>;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): MatAutocompleteDefaultOptions;
 /** Autocomplete component. */
 declare class MatAutocomplete implements AfterContentInit, OnDestroy {
@@ -187,9 +191,17 @@ declare const MAT_AUTOCOMPLETE_VALUE_ACCESSOR: any;
 declare function getMatAutocompleteMissingPanelError(): Error;
 /** Injection token that determines the scroll handling while the autocomplete panel is open. */
 declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];

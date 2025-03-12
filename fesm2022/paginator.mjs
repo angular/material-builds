@@ -3,11 +3,11 @@ import { Injectable, Optional, SkipSelf, InjectionToken, inject, ChangeDetectorR
 import { Subject, ReplaySubject } from 'rxjs';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { k as MatFormField } from './form-field-6d755764.mjs';
-import { M as MatSelect, a as MatSelectModule } from './module-284802de.mjs';
-import { M as MatTooltip, a as MatTooltipModule } from './module-e8043f5e.mjs';
+import { M as MatSelect, a as MatSelectModule } from './module-3bf2775f.mjs';
+import { M as MatTooltip, a as MatTooltipModule } from './module-47e3be58.mjs';
 import { a as MatOption } from './option-07c3c660.mjs';
 import { a as MatIconButton } from './icon-button-47f1b5d9.mjs';
-import { h as MatButtonModule } from './module-07d1b654.mjs';
+import { h as MatButtonModule } from './module-df9f7af3.mjs';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
 import '@angular/cdk/platform';
@@ -72,11 +72,19 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatPaginatorIntl();
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,

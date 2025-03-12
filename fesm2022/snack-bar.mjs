@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, ANIMATION_MODULE_TYPE, afterRender, ViewChild, Injector, TemplateRef, Injectable, NgModule } from '@angular/core';
 import { Subject, of } from 'rxjs';
-import { M as MatButton, h as MatButtonModule } from './module-07d1b654.mjs';
+import { M as MatButton, h as MatButtonModule } from './module-df9f7af3.mjs';
 import { DOCUMENT } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
@@ -526,7 +526,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                 args: ['label', { static: true }]
             }] } });
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
     return new MatSnackBarConfig();
 }

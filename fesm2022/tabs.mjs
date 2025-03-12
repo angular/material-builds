@@ -318,6 +318,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
 /**
  * The default positioner function for the MatInkBar.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 function _MAT_INK_BAR_POSITIONER_FACTORY() {
     const method = (element) => ({
