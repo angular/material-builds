@@ -46,11 +46,19 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatPaginatorIntl();
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,

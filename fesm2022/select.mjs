@@ -51,13 +51,21 @@ const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strateg
         return () => overlay.scrollStrategies.reposition();
     },
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
 /** Injection token that can be used to provide the default options the select module. */
 const MAT_SELECT_CONFIG = new InjectionToken('MAT_SELECT_CONFIG');
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_SELECT_SCROLL_STRATEGY,
     deps: [Overlay],

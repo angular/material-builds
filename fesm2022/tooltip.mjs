@@ -30,17 +30,29 @@ const MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strat
         return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
     },
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 };
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
     return {
         showDelay: 0,

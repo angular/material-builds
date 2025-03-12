@@ -437,7 +437,11 @@ export declare const MAT_DATE_FORMATS: InjectionToken<MatDateFormats>;
 /** InjectionToken for datepicker that can be used to override default locale code. */
 export declare const MAT_DATE_LOCALE: InjectionToken<{}>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_DATE_LOCALE_FACTORY(): {};
 
 export declare const MAT_NATIVE_DATE_FORMATS: MatDateFormats;

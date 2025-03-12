@@ -599,11 +599,19 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
                     type: Inject,
                     args: [DOCUMENT]
                 }] }, { type: i0.ErrorHandler }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, errorHandler, document) {
     return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document, errorHandler);
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const ICON_REGISTRY_PROVIDER = {
     // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
@@ -639,7 +647,11 @@ const MAT_ICON_LOCATION = new InjectionToken('mat-icon-location', {
     providedIn: 'root',
     factory: MAT_ICON_LOCATION_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_ICON_LOCATION_FACTORY() {
     const _document = inject(DOCUMENT);
     const _location = _document ? _document.location : null;

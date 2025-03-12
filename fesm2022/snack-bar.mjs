@@ -518,7 +518,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
                 args: ['label', { static: true }]
             }] } });
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
     return new MatSnackBarConfig();
 }

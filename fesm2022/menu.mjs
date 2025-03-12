@@ -245,7 +245,11 @@ const MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', 
     providedIn: 'root',
     factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
     return {
         overlapTrigger: false,
@@ -667,11 +671,19 @@ const MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy', 
         return () => overlay.scrollStrategies.reposition();
     },
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_MENU_SCROLL_STRATEGY,
     deps: [Overlay],

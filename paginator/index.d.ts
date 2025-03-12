@@ -25,14 +25,22 @@ declare namespace i4 {
 /** Injection token that can be used to provide the default options for the paginator module. */
 export declare const MAT_PAGINATOR_DEFAULT_OPTIONS: InjectionToken<MatPaginatorDefaultOptions>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare const MAT_PAGINATOR_INTL_PROVIDER: {
     provide: typeof MatPaginatorIntl;
     deps: Optional[][];
     useFactory: typeof MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
 };
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPaginatorIntl): MatPaginatorIntl;
 
 /**

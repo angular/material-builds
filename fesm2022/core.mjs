@@ -110,7 +110,11 @@ const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
     factory: MAT_DATE_LOCALE_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_DATE_LOCALE_FACTORY() {
     return inject(LOCALE_ID);
 }

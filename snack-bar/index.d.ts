@@ -49,7 +49,11 @@ export declare const MAT_SNACK_BAR_DATA: InjectionToken<any>;
 /** Injection token that can be used to specify default snack bar. */
 export declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<any>>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY(): MatSnackBarConfig;
 
 /**

@@ -30,7 +30,11 @@ export declare const MAT_PROGRESS_BAR_DEFAULT_OPTIONS: InjectionToken<MatProgres
  */
 export declare const MAT_PROGRESS_BAR_LOCATION: InjectionToken<MatProgressBarLocation>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
 
 export declare class MatProgressBar implements AfterViewInit, OnDestroy {

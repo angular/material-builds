@@ -8,7 +8,11 @@ const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-sp
     providedIn: 'root',
     factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
     return { diameter: BASE_SIZE };
 }

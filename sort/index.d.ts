@@ -57,14 +57,22 @@ declare namespace i3 {
 /** Injection token to be used to override the default options for `mat-sort`. */
 export declare const MAT_SORT_DEFAULT_OPTIONS: InjectionToken<MatSortDefaultOptions>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare const MAT_SORT_HEADER_INTL_PROVIDER: {
     provide: typeof MatSortHeaderIntl;
     deps: Optional[][];
     useFactory: typeof MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
 };
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl: MatSortHeaderIntl): MatSortHeaderIntl;
 
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */

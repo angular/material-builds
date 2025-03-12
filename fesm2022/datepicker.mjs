@@ -798,26 +798,38 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: MatRangeDateSelectionModel, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: i1.DateAdapter }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
     return parent || new MatSingleDateSelectionModel(adapter);
 }
 /**
  * Used to provide a single selection model to a component.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER = {
     provide: MatDateSelectionModel,
     deps: [[new Optional(), new SkipSelf(), MatDateSelectionModel], DateAdapter],
     useFactory: MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY,
 };
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent, adapter) {
     return parent || new MatRangeDateSelectionModel(adapter);
 }
 /**
  * Used to provide a range selection model to a component.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER = {
     provide: MatDateSelectionModel,
@@ -900,11 +912,19 @@ class DefaultMatCalendarRangeStrategy {
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: DefaultMatCalendarRangeStrategy, decorators: [{
             type: Injectable
         }], ctorParameters: () => [{ type: i1.DateAdapter }] });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY(parent, adapter) {
     return parent || new DefaultMatCalendarRangeStrategy(adapter);
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_CALENDAR_RANGE_STRATEGY_PROVIDER = {
     provide: MAT_DATE_RANGE_SELECTION_STRATEGY,
     deps: [[new Optional(), new SkipSelf(), MAT_DATE_RANGE_SELECTION_STRATEGY], DateAdapter],
@@ -2450,11 +2470,19 @@ const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll
         return () => overlay.scrollStrategies.reposition();
     },
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [Overlay],

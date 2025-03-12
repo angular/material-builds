@@ -281,7 +281,11 @@ const MAT_FAB_DEFAULT_OPTIONS = new InjectionToken('mat-mdc-fab-default-options'
     providedIn: 'root',
     factory: MAT_FAB_DEFAULT_OPTIONS_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_FAB_DEFAULT_OPTIONS_FACTORY() {
     return {
         // The FAB by default has its color set to accent.

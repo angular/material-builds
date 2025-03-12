@@ -99,6 +99,8 @@ export declare const _MAT_INK_BAR_POSITIONER: InjectionToken<_MatInkBarPositione
 /**
  * The default positioner function for the MatInkBar.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
 export declare function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner;
 

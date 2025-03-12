@@ -51,7 +51,11 @@ declare const MAT_DRAWER_CONTAINER: InjectionToken<unknown>;
 /** Configures whether drawers should use auto sizing by default. */
 export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
 
 /**

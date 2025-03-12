@@ -39,6 +39,11 @@ const MAT_RADIO_DEFAULT_OPTIONS = new InjectionToken('mat-radio-default-options'
     providedIn: 'root',
     factory: MAT_RADIO_DEFAULT_OPTIONS_FACTORY,
 });
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_RADIO_DEFAULT_OPTIONS_FACTORY() {
     return {
         color: 'accent',

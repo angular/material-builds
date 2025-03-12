@@ -42,7 +42,11 @@ export declare const MAT_BUTTON_CONFIG: InjectionToken<MatButtonConfig>;
 /** Injection token to be used to override the default options for FAB. */
 export declare const MAT_FAB_DEFAULT_OPTIONS: InjectionToken<MatFabDefaultOptions>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_FAB_DEFAULT_OPTIONS_FACTORY(): MatFabDefaultOptions;
 
 /**

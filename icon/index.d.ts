@@ -53,14 +53,22 @@ declare namespace i2 {
     }
 }
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare const ICON_REGISTRY_PROVIDER: {
     provide: typeof MatIconRegistry;
     deps: (Optional[] | typeof DomSanitizer | typeof ErrorHandler)[];
     useFactory: typeof ICON_REGISTRY_PROVIDER_FACTORY;
 };
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, errorHandler: ErrorHandler, document?: any): MatIconRegistry;
 
 /** Options that can be used to configure how an icon or the icons in an icon set are presented. */
@@ -87,7 +95,11 @@ export declare const MAT_ICON_DEFAULT_OPTIONS: InjectionToken<MatIconDefaultOpti
  */
 export declare const MAT_ICON_LOCATION: InjectionToken<MatIconLocation>;
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
 
 /**

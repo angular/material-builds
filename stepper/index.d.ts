@@ -68,14 +68,22 @@ declare namespace i9 {
     }
 }
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare const MAT_STEPPER_INTL_PROVIDER: {
     provide: typeof MatStepperIntl;
     deps: Optional[][];
     useFactory: typeof MAT_STEPPER_INTL_PROVIDER_FACTORY;
 };
 
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 export declare function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl: MatStepperIntl): MatStepperIntl;
 
 export declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContentInit, OnDestroy {

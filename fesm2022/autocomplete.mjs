@@ -34,7 +34,11 @@ const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-de
     providedIn: 'root',
     factory: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
     return {
         autoActiveFirstOption: false,
@@ -325,11 +329,19 @@ const MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-sc
         return () => overlay.scrollStrategies.reposition();
     },
 });
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
-/** @docs-private */
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
 const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
     deps: [Overlay],
