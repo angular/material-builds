@@ -1,11 +1,21 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatOptionHarness } from '@angular/material/core/testing';
-import { OptionHarnessFilters } from '@angular/material/core/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
+import { OptionHarnessFilters, MatOptionHarness } from '@angular/material/core/testing';
 
-export declare class MatTimepickerHarness extends ComponentHarness {
+/** A set of criteria that can be used to filter a list of `MatTimepickerHarness` instances. */
+interface TimepickerHarnessFilters extends BaseHarnessFilters {
+}
+/** A set of criteria that can be used to filter a list of timepicker input instances. */
+interface TimepickerInputHarnessFilters extends BaseHarnessFilters {
+    /** Filters based on the value of the input. */
+    value?: string | RegExp;
+    /** Filters based on the placeholder text of the input. */
+    placeholder?: string | RegExp;
+}
+/** A set of criteria that can be used to filter a list of timepicker toggle instances. */
+interface TimepickerToggleHarnessFilters extends BaseHarnessFilters {
+}
+
+declare class MatTimepickerHarness extends ComponentHarness {
     private _documentRootLocator;
     static hostSelector: string;
     /**
@@ -26,7 +36,7 @@ export declare class MatTimepickerHarness extends ComponentHarness {
 }
 
 /** Harness for interacting with a standard Material timepicker inputs in tests. */
-export declare class MatTimepickerInputHarness extends ComponentHarness {
+declare class MatTimepickerInputHarness extends ComponentHarness {
     private _documentRootLocator;
     static hostSelector: string;
     /**
@@ -75,7 +85,7 @@ export declare class MatTimepickerInputHarness extends ComponentHarness {
 }
 
 /** Harness for interacting with a standard Material timepicker toggle in tests. */
-export declare class MatTimepickerToggleHarness extends ComponentHarness {
+declare class MatTimepickerToggleHarness extends ComponentHarness {
     static hostSelector: string;
     /** The clickable button inside the toggle. */
     private _button;
@@ -94,20 +104,4 @@ export declare class MatTimepickerToggleHarness extends ComponentHarness {
     isDisabled(): Promise<boolean>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatTimepickerHarness` instances. */
-export declare interface TimepickerHarnessFilters extends BaseHarnessFilters {
-}
-
-/** A set of criteria that can be used to filter a list of timepicker input instances. */
-export declare interface TimepickerInputHarnessFilters extends BaseHarnessFilters {
-    /** Filters based on the value of the input. */
-    value?: string | RegExp;
-    /** Filters based on the placeholder text of the input. */
-    placeholder?: string | RegExp;
-}
-
-/** A set of criteria that can be used to filter a list of timepicker toggle instances. */
-export declare interface TimepickerToggleHarnessFilters extends BaseHarnessFilters {
-}
-
-export { }
+export { MatTimepickerHarness, MatTimepickerInputHarness, MatTimepickerToggleHarness, type TimepickerHarnessFilters, type TimepickerInputHarnessFilters, type TimepickerToggleHarnessFilters };

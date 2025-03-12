@@ -187,9 +187,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
                 }]
         }] });
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
 //# sourceMappingURL=progress-bar.mjs.map

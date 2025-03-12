@@ -1,34 +1,12 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
 
-/** Harness for interacting with a `mat-optgroup` in tests. */
-export declare class MatOptgroupHarness extends ComponentHarness {
-    /** Selector used to locate option group instances. */
-    static hostSelector: string;
-    private _label;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a option group with specific
-     * attributes.
-     * @param options Options for filtering which option instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with<T extends MatOptgroupHarness>(this: ComponentHarnessConstructor<T>, options?: OptgroupHarnessFilters): HarnessPredicate<T>;
-    /** Gets the option group's label text. */
-    getLabelText(): Promise<string>;
-    /** Gets whether the option group is disabled. */
-    isDisabled(): Promise<boolean>;
-    /**
-     * Gets the options that are inside the group.
-     * @param filter Optionally filters which options are included.
-     */
-    getOptions(filter?: OptionHarnessFilters): Promise<MatOptionHarness[]>;
+interface OptionHarnessFilters extends BaseHarnessFilters {
+    text?: string | RegExp;
+    isSelected?: boolean;
 }
 
 /** Harness for interacting with a `mat-option` in tests. */
-export declare class MatOptionHarness extends ContentContainerComponentHarness {
+declare class MatOptionHarness extends ContentContainerComponentHarness {
     /** Selector used to locate option instances. */
     static hostSelector: string;
     /** Element containing the option's text. */
@@ -53,13 +31,31 @@ export declare class MatOptionHarness extends ContentContainerComponentHarness {
     isMultiple(): Promise<boolean>;
 }
 
-export declare interface OptgroupHarnessFilters extends BaseHarnessFilters {
+interface OptgroupHarnessFilters extends BaseHarnessFilters {
     labelText?: string | RegExp;
 }
 
-export declare interface OptionHarnessFilters extends BaseHarnessFilters {
-    text?: string | RegExp;
-    isSelected?: boolean;
+/** Harness for interacting with a `mat-optgroup` in tests. */
+declare class MatOptgroupHarness extends ComponentHarness {
+    /** Selector used to locate option group instances. */
+    static hostSelector: string;
+    private _label;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a option group with specific
+     * attributes.
+     * @param options Options for filtering which option instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatOptgroupHarness>(this: ComponentHarnessConstructor<T>, options?: OptgroupHarnessFilters): HarnessPredicate<T>;
+    /** Gets the option group's label text. */
+    getLabelText(): Promise<string>;
+    /** Gets whether the option group is disabled. */
+    isDisabled(): Promise<boolean>;
+    /**
+     * Gets the options that are inside the group.
+     * @param filter Optionally filters which options are included.
+     */
+    getOptions(filter?: OptionHarnessFilters): Promise<MatOptionHarness[]>;
 }
 
-export { }
+export { MatOptgroupHarness, MatOptionHarness, type OptgroupHarnessFilters, type OptionHarnessFilters };

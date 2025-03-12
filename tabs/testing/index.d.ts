@@ -1,37 +1,31 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate, HarnessLoader, ComponentHarness } from '@angular/cdk/testing';
 
-/** Harness for interacting with a mat-tab-group in tests. */
-export declare class MatTabGroupHarness extends ComponentHarness {
-    /** The selector for the host element of a `MatTabGroup` instance. */
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a tab group with specific attributes.
-     * @param options Options for filtering which tab group instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with<T extends MatTabGroupHarness>(this: ComponentHarnessConstructor<T>, options?: TabGroupHarnessFilters): HarnessPredicate<T>;
-    /**
-     * Gets the list of tabs in the tab group.
-     * @param filter Optionally filters which tabs are included.
-     */
-    getTabs(filter?: TabHarnessFilters): Promise<MatTabHarness[]>;
-    /** Gets the selected tab of the tab group. */
-    getSelectedTab(): Promise<MatTabHarness>;
-    /**
-     * Selects a tab in this tab group.
-     * @param filter An optional filter to apply to the child tabs. The first tab matching the filter
-     *     will be selected.
-     */
-    selectTab(filter?: TabHarnessFilters): Promise<void>;
+/** A set of criteria that can be used to filter a list of `MatTabHarness` instances. */
+interface TabHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose label matches the given value. */
+    label?: string | RegExp;
+    /** Only find instances whose selected state matches the given value. */
+    selected?: boolean;
+}
+/** A set of criteria that can be used to filter a list of `MatTabGroupHarness` instances. */
+interface TabGroupHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose selected tab label matches the given value. */
+    selectedTabLabel?: string | RegExp;
+}
+/** A set of criteria that can be used to filter a list of `MatTabLinkHarness` instances. */
+interface TabLinkHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose label matches the given value. */
+    label?: string | RegExp;
+}
+/** A set of criteria that can be used to filter a list of `MatTabNavBarHarness` instances. */
+interface TabNavBarHarnessFilters extends BaseHarnessFilters {
+}
+/** A set of criteria that can be used to filter a list of `MatTabNavPanelHarness` instances. */
+interface TabNavPanelHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Harness for interacting with an Angular Material tab in tests. */
-export declare class MatTabHarness extends ContentContainerComponentHarness<string> {
+declare class MatTabHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatTab` instance. */
     static hostSelector: string;
     /**
@@ -59,8 +53,33 @@ export declare class MatTabHarness extends ContentContainerComponentHarness<stri
     private _getContentId;
 }
 
+/** Harness for interacting with a mat-tab-group in tests. */
+declare class MatTabGroupHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatTabGroup` instance. */
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a tab group with specific attributes.
+     * @param options Options for filtering which tab group instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatTabGroupHarness>(this: ComponentHarnessConstructor<T>, options?: TabGroupHarnessFilters): HarnessPredicate<T>;
+    /**
+     * Gets the list of tabs in the tab group.
+     * @param filter Optionally filters which tabs are included.
+     */
+    getTabs(filter?: TabHarnessFilters): Promise<MatTabHarness[]>;
+    /** Gets the selected tab of the tab group. */
+    getSelectedTab(): Promise<MatTabHarness>;
+    /**
+     * Selects a tab in this tab group.
+     * @param filter An optional filter to apply to the child tabs. The first tab matching the filter
+     *     will be selected.
+     */
+    selectTab(filter?: TabHarnessFilters): Promise<void>;
+}
+
 /** Harness for interacting with a Angular Material tab link in tests. */
-export declare class MatTabLinkHarness extends ComponentHarness {
+declare class MatTabLinkHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabLink` instance. */
     static hostSelector: string;
     /**
@@ -79,8 +98,23 @@ export declare class MatTabLinkHarness extends ComponentHarness {
     click(): Promise<void>;
 }
 
+/** Harness for interacting with a standard mat-tab-nav-panel in tests. */
+declare class MatTabNavPanelHarness extends ContentContainerComponentHarness {
+    /** The selector for the host element of a `MatTabNavPanel` instance. */
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a tab nav panel with specific
+     * attributes.
+     * @param options Options for filtering which tab nav panel instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatTabNavPanelHarness>(this: ComponentHarnessConstructor<T>, options?: TabNavPanelHarnessFilters): HarnessPredicate<T>;
+    /** Gets the tab panel text content. */
+    getTextContent(): Promise<string>;
+}
+
 /** Harness for interacting with a mat-tab-nav-bar in tests. */
-export declare class MatTabNavBarHarness extends ComponentHarness {
+declare class MatTabNavBarHarness extends ComponentHarness {
     /** The selector for the host element of a `MatTabNavBar` instance. */
     static hostSelector: string;
     /**
@@ -107,47 +141,4 @@ export declare class MatTabNavBarHarness extends ComponentHarness {
     getPanel(): Promise<MatTabNavPanelHarness>;
 }
 
-/** Harness for interacting with a standard mat-tab-nav-panel in tests. */
-declare class MatTabNavPanelHarness extends ContentContainerComponentHarness {
-    /** The selector for the host element of a `MatTabNavPanel` instance. */
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a tab nav panel with specific
-     * attributes.
-     * @param options Options for filtering which tab nav panel instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with<T extends MatTabNavPanelHarness>(this: ComponentHarnessConstructor<T>, options?: TabNavPanelHarnessFilters): HarnessPredicate<T>;
-    /** Gets the tab panel text content. */
-    getTextContent(): Promise<string>;
-}
-
-/** A set of criteria that can be used to filter a list of `MatTabGroupHarness` instances. */
-export declare interface TabGroupHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose selected tab label matches the given value. */
-    selectedTabLabel?: string | RegExp;
-}
-
-/** A set of criteria that can be used to filter a list of `MatTabHarness` instances. */
-export declare interface TabHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose label matches the given value. */
-    label?: string | RegExp;
-    /** Only find instances whose selected state matches the given value. */
-    selected?: boolean;
-}
-
-/** A set of criteria that can be used to filter a list of `MatTabLinkHarness` instances. */
-export declare interface TabLinkHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose label matches the given value. */
-    label?: string | RegExp;
-}
-
-/** A set of criteria that can be used to filter a list of `MatTabNavBarHarness` instances. */
-export declare interface TabNavBarHarnessFilters extends BaseHarnessFilters {
-}
-
-/** A set of criteria that can be used to filter a list of `MatTabNavPanelHarness` instances. */
-export declare interface TabNavPanelHarnessFilters extends BaseHarnessFilters {
-}
-
-export { }
+export { MatTabGroupHarness, MatTabHarness, MatTabLinkHarness, MatTabNavBarHarness, type TabGroupHarnessFilters, type TabHarnessFilters, type TabLinkHarnessFilters, type TabNavBarHarnessFilters, type TabNavPanelHarnessFilters };

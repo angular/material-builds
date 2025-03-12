@@ -1,12 +1,8 @@
-import { AsyncFactoryFn } from '@angular/cdk/testing';
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { TestElement } from '@angular/cdk/testing';
+import * as _angular_cdk_testing from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
 /** A set of criteria that can be used to filter a list of `MatCheckboxHarness` instances. */
-export declare interface CheckboxHarnessFilters extends BaseHarnessFilters {
+interface CheckboxHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose label matches the given value. */
     label?: string | RegExp;
     /** Only find instances whose name attribute is the given value. */
@@ -18,9 +14,9 @@ export declare interface CheckboxHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Harness for interacting with a mat-checkbox in tests. */
-export declare class MatCheckboxHarness extends ComponentHarness {
+declare class MatCheckboxHarness extends ComponentHarness {
     static hostSelector: string;
-    _input: AsyncFactoryFn<TestElement>;
+    _input: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
     private _label;
     private _inputContainer;
     /**
@@ -86,4 +82,4 @@ export declare class MatCheckboxHarness extends ComponentHarness {
     uncheck(): Promise<void>;
 }
 
-export { }
+export { type CheckboxHarnessFilters, MatCheckboxHarness };

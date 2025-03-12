@@ -1,4 +1,4 @@
-import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
 
 /**
  * Base class for the drawer harness functionality.

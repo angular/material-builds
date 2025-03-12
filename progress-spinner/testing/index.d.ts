@@ -1,11 +1,12 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 
+/** A set of criteria that can be used to filter a list of `MatProgressSpinnerHarness` instances. */
+interface ProgressSpinnerHarnessFilters extends BaseHarnessFilters {
+}
+
 /** Harness for interacting with a MDC based mat-progress-spinner in tests. */
-export declare class MatProgressSpinnerHarness extends ComponentHarness {
+declare class MatProgressSpinnerHarness extends ComponentHarness {
     /** The selector for the host element of a `MatProgressSpinner` instance. */
     static hostSelector: string;
     /**
@@ -21,8 +22,4 @@ export declare class MatProgressSpinnerHarness extends ComponentHarness {
     getMode(): Promise<ProgressSpinnerMode>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatProgressSpinnerHarness` instances. */
-export declare interface ProgressSpinnerHarnessFilters extends BaseHarnessFilters {
-}
-
-export { }
+export { MatProgressSpinnerHarness, type ProgressSpinnerHarnessFilters };

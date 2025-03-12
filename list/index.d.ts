@@ -1,116 +1,101 @@
-import { AfterViewInit } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { ControlValueAccessor } from '@angular/forms';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/cdk/observers';
-import * as i10 from '@angular/material/divider';
-import * as i2 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { NgZone } from '@angular/core';
-import { OnChanges } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { QueryList } from '@angular/core';
-import { RippleConfig } from '@angular/material/core';
-import { RippleGlobalOptions } from '@angular/material/core';
-import { RippleTarget } from '@angular/material/core';
+import { InjectionToken, ElementRef, AfterViewInit, OnDestroy, NgZone, QueryList, OnInit, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { BooleanInput } from '@angular/cdk/coercion';
+import * as i1 from '@angular/material/core';
+import { RippleTarget, RippleConfig, RippleGlobalOptions, ThemePalette } from '@angular/material/core';
+import * as i2 from '@angular/cdk/observers';
 import { SelectionModel } from '@angular/cdk/collections';
-import { SimpleChanges } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
+import { ControlValueAccessor } from '@angular/forms';
+import * as i10 from '@angular/material/divider';
 
-declare namespace i3 {
-    export {
-        MAT_LIST,
-        MatList,
-        MatListItem
-    }
+/** Object that can be used to configure the default options for the list module. */
+interface MatListConfig {
+    /** Whether icon indicators should be hidden for single-selection. */
+    hideSingleSelectionIndicator?: boolean;
 }
+/** Injection token that can be used to provide the default options for the list module. */
+declare const MAT_LIST_CONFIG: InjectionToken<MatListConfig>;
 
-declare namespace i4 {
-    export {
-        MatActionList
-    }
-}
-
-declare namespace i5 {
-    export {
-        MAT_NAV_LIST,
-        MatNavList
-    }
-}
-
-declare namespace i6 {
-    export {
-        MAT_SELECTION_LIST_VALUE_ACCESSOR,
-        MatSelectionListChange,
-        MatSelectionList
-    }
-}
-
-declare namespace i7 {
-    export {
-        SELECTION_LIST,
-        SelectionList,
-        MatListOption
-    }
-}
-
-declare namespace i8 {
-    export {
-        MatListSubheaderCssMatStyler
-    }
-}
-
-declare namespace i9 {
-    export {
-        MatListItemTitle,
-        MatListItemLine,
-        MatListItemMeta,
-        _MatListItemGraphicBase,
-        MatListItemAvatar,
-        MatListItemIcon
-    }
-}
-
+/**
+ * Type describing possible positions of a checkbox or radio in a list option
+ * with respect to the list item's text.
+ */
+type MatListOptionTogglePosition = 'before' | 'after';
 /**
  * Interface describing a list option. This is used to avoid circular
  * dependencies between the list-option and the styler directives.
  * @docs-private
  */
-declare interface ListOption {
+interface ListOption {
     _getTogglePosition(): MatListOptionTogglePosition;
 }
 
 /**
- * Injection token that can be used to inject instances of `MatList`. It serves as
- * alternative token to the actual `MatList` class which could cause unnecessary
- * retention of the class and its component metadata.
+ * Directive capturing the title of a list item. A list item usually consists of a
+ * title and optional secondary or tertiary lines.
+ *
+ * Text content for the title never wraps. There can only be a single title per list item.
  */
-export declare const MAT_LIST: InjectionToken<MatList>;
-
-/** Injection token that can be used to provide the default options for the list module. */
-export declare const MAT_LIST_CONFIG: InjectionToken<MatListConfig>;
-
-/**
- * Injection token that can be used to inject instances of `MatNavList`. It serves as
- * alternative token to the actual `MatNavList` class which could cause unnecessary
- * retention of the class and its component metadata.
- */
-export declare const MAT_NAV_LIST: InjectionToken<MatNavList>;
-
-export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
-
-export declare class MatActionList extends MatListBase {
-    _isNonInteractive: boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatActionList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatActionList, "mat-action-list", ["matActionList"], {}, {}, never, ["*"], true, never>;
+declare class MatListItemTitle {
+    _elementRef: ElementRef<HTMLElement>;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemTitle, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, true, never>;
 }
-
-export declare class MatList extends MatListBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list", ["matList"], {}, {}, never, ["*"], true, never>;
+/**
+ * Directive capturing a line in a list item. A list item usually consists of a
+ * title and optional secondary or tertiary lines.
+ *
+ * Text content inside a line never wraps. There can be at maximum two lines per list item.
+ */
+declare class MatListItemLine {
+    _elementRef: ElementRef<HTMLElement>;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemLine, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, true, never>;
+}
+/**
+ * Directive matching an optional meta section for list items.
+ *
+ * List items can reserve space at the end of an item to display a control,
+ * button or additional text content.
+ */
+declare class MatListItemMeta {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemMeta, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemMeta, "[matListItemMeta]", never, {}, {}, never, never, true, never>;
+}
+/**
+ * @docs-private
+ *
+ * MDC uses the very intuitively named classes `.mdc-list-item__start` and `.mat-list-item__end` to
+ * position content such as icons or checkboxes/radios that comes either before or after the text
+ * content respectively. This directive detects the placement of the checkbox/radio and applies the
+ * correct MDC class to position the icon/avatar on the opposite side.
+ */
+declare class _MatListItemGraphicBase {
+    _listOption: ListOption | null;
+    constructor(...args: unknown[]);
+    _isAlignedAtStart(): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatListItemGraphicBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, true, never>;
+}
+/**
+ * Directive matching an optional avatar within a list item.
+ *
+ * List items can reserve space at the beginning of an item to display an avatar.
+ */
+declare class MatListItemAvatar extends _MatListItemGraphicBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemAvatar, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemAvatar, "[matListItemAvatar]", never, {}, {}, never, never, true, never>;
+}
+/**
+ * Directive matching an optional icon within a list item.
+ *
+ * List items can reserve space at the beginning of an item to display an icon.
+ */
+declare class MatListItemIcon extends _MatListItemGraphicBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemIcon, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemIcon, "[matListItemIcon]", never, {}, {}, never, never, true, never>;
 }
 
 declare abstract class MatListBase {
@@ -130,43 +115,6 @@ declare abstract class MatListBase {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListBase, never, never, { "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, never, true, never>;
 }
-
-/** Object that can be used to configure the default options for the list module. */
-export declare interface MatListConfig {
-    /** Whether icon indicators should be hidden for single-selection. */
-    hideSingleSelectionIndicator?: boolean;
-}
-
-export declare class MatListItem extends MatListItemBase {
-    _lines: QueryList<MatListItemLine>;
-    _titles: QueryList<MatListItemTitle>;
-    _meta: QueryList<MatListItemMeta>;
-    _unscopedContent: ElementRef<HTMLSpanElement>;
-    _itemText: ElementRef<HTMLElement>;
-    /** Indicates whether an item in a `<mat-nav-list>` is the currently active page. */
-    get activated(): boolean;
-    set activated(activated: boolean);
-    _activated: boolean;
-    /**
-     * Determine the value of `aria-current`. Return 'page' if this item is an activated anchor tag.
-     * Otherwise, return `null`. This method is safe to use with server-side rendering.
-     */
-    _getAriaCurrent(): string | null;
-    protected _hasBothLeadingAndTrailing(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": { "alias": "activated"; "required": false; }; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], true, never>;
-}
-
-/**
- * Directive matching an optional avatar within a list item.
- *
- * List items can reserve space at the beginning of an item to display an avatar.
- */
-export declare class MatListItemAvatar extends _MatListItemGraphicBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemAvatar, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemAvatar, "[matListItemAvatar]", never, {}, {}, never, never, true, never>;
-}
-
 declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, RippleTarget {
     _elementRef: ElementRef<HTMLElement>;
     protected _ngZone: NgZone;
@@ -263,76 +211,77 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemBase, never, never, { "lines": { "alias": "lines"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, ["_avatars", "_icons"], never, true, never>;
 }
 
+declare class MatActionList extends MatListBase {
+    _isNonInteractive: boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatActionList, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatActionList, "mat-action-list", ["matActionList"], {}, {}, never, ["*"], true, never>;
+}
+
 /**
+ * Injection token that can be used to inject instances of `MatList`. It serves as
+ * alternative token to the actual `MatList` class which could cause unnecessary
+ * retention of the class and its component metadata.
+ */
+declare const MAT_LIST: InjectionToken<MatList>;
+declare class MatList extends MatListBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatList, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatList, "mat-list", ["matList"], {}, {}, never, ["*"], true, never>;
+}
+declare class MatListItem extends MatListItemBase {
+    _lines: QueryList<MatListItemLine>;
+    _titles: QueryList<MatListItemTitle>;
+    _meta: QueryList<MatListItemMeta>;
+    _unscopedContent: ElementRef<HTMLSpanElement>;
+    _itemText: ElementRef<HTMLElement>;
+    /** Indicates whether an item in a `<mat-nav-list>` is the currently active page. */
+    get activated(): boolean;
+    set activated(activated: boolean);
+    _activated: boolean;
+    /**
+     * Determine the value of `aria-current`. Return 'page' if this item is an activated anchor tag.
+     * Otherwise, return `null`. This method is safe to use with server-side rendering.
+     */
+    _getAriaCurrent(): string | null;
+    protected _hasBothLeadingAndTrailing(): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItem, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListItem, "mat-list-item, a[mat-list-item], button[mat-list-item]", ["matListItem"], { "activated": { "alias": "activated"; "required": false; }; }, {}, ["_lines", "_titles", "_meta"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "[matListItemMeta]", "mat-divider"], true, never>;
+}
+
+/**
+ * Injection token that can be used to inject instances of `MatNavList`. It serves as
+ * alternative token to the actual `MatNavList` class which could cause unnecessary
+ * retention of the class and its component metadata.
+ */
+declare const MAT_NAV_LIST: InjectionToken<MatNavList>;
+declare class MatNavList extends MatListBase {
+    _isNonInteractive: boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatNavList, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], {}, {}, never, ["*"], true, never>;
+}
+
+/**
+ * Injection token that can be used to reference instances of an `SelectionList`. It serves
+ * as alternative token to an actual implementation which would result in circular references.
  * @docs-private
- *
- * MDC uses the very intuitively named classes `.mdc-list-item__start` and `.mat-list-item__end` to
- * position content such as icons or checkboxes/radios that comes either before or after the text
- * content respectively. This directive detects the placement of the checkbox/radio and applies the
- * correct MDC class to position the icon/avatar on the opposite side.
  */
-export declare class _MatListItemGraphicBase {
-    _listOption: ListOption | null;
-    constructor(...args: unknown[]);
-    _isAlignedAtStart(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatListItemGraphicBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, true, never>;
-}
-
+declare const SELECTION_LIST: InjectionToken<SelectionList>;
 /**
- * Directive matching an optional icon within a list item.
- *
- * List items can reserve space at the beginning of an item to display an icon.
+ * Interface describing the containing list of a list option. This is used to avoid
+ * circular dependencies between the list-option and the selection list.
+ * @docs-private
  */
-export declare class MatListItemIcon extends _MatListItemGraphicBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemIcon, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemIcon, "[matListItemIcon]", never, {}, {}, never, never, true, never>;
+interface SelectionList extends MatListBase {
+    multiple: boolean;
+    color: ThemePalette;
+    selectedOptions: SelectionModel<MatListOption>;
+    hideSingleSelectionIndicator: boolean;
+    compareWith: (o1: any, o2: any) => boolean;
+    _value: string[] | null;
+    _reportValueChange(): void;
+    _emitChangeEvent(options: MatListOption[]): void;
+    _onTouched(): void;
 }
-
-/**
- * Directive capturing a line in a list item. A list item usually consists of a
- * title and optional secondary or tertiary lines.
- *
- * Text content inside a line never wraps. There can be at maximum two lines per list item.
- */
-export declare class MatListItemLine {
-    _elementRef: ElementRef<HTMLElement>;
-    constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemLine, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, true, never>;
-}
-
-/**
- * Directive matching an optional meta section for list items.
- *
- * List items can reserve space at the end of an item to display a control,
- * button or additional text content.
- */
-export declare class MatListItemMeta {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemMeta, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemMeta, "[matListItemMeta]", never, {}, {}, never, never, true, never>;
-}
-
-/**
- * Directive capturing the title of a list item. A list item usually consists of a
- * title and optional secondary or tertiary lines.
- *
- * Text content for the title never wraps. There can only be a single title per list item.
- */
-export declare class MatListItemTitle {
-    _elementRef: ElementRef<HTMLElement>;
-    constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemTitle, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, true, never>;
-}
-
-export declare class MatListModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i1.ObserversModule, typeof i2.MatCommonModule, typeof i2.MatRippleModule, typeof i2.MatPseudoCheckboxModule, typeof i3.MatList, typeof i4.MatActionList, typeof i5.MatNavList, typeof i6.MatSelectionList, typeof i3.MatListItem, typeof i7.MatListOption, typeof i8.MatListSubheaderCssMatStyler, typeof i9.MatListItemAvatar, typeof i9.MatListItemIcon, typeof i9.MatListItemLine, typeof i9.MatListItemTitle, typeof i9.MatListItemMeta], [typeof i3.MatList, typeof i4.MatActionList, typeof i5.MatNavList, typeof i6.MatSelectionList, typeof i3.MatListItem, typeof i7.MatListOption, typeof i9.MatListItemAvatar, typeof i9.MatListItemIcon, typeof i8.MatListSubheaderCssMatStyler, typeof i10.MatDividerModule, typeof i9.MatListItemLine, typeof i9.MatListItemTitle, typeof i9.MatListItemMeta]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
-}
-
-export declare class MatListOption extends MatListItemBase implements ListOption, OnInit, OnDestroy {
+declare class MatListOption extends MatListItemBase implements ListOption, OnInit, OnDestroy {
     protected _selectionList: SelectionList;
     private _changeDetectorRef;
     _lines: QueryList<MatListItemLine>;
@@ -417,30 +366,20 @@ export declare class MatListOption extends MatListItemBase implements ListOption
     static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": { "alias": "togglePosition"; "required": false; }; "checkboxPosition": { "alias": "checkboxPosition"; "required": false; }; "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], true, never>;
 }
 
-/**
- * Type describing possible positions of a checkbox or radio in a list option
- * with respect to the list item's text.
- */
-declare type MatListOptionTogglePosition = 'before' | 'after';
-export { MatListOptionTogglePosition as MatListOptionCheckboxPosition }
-export { MatListOptionTogglePosition }
-
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatListSubheaderCssMatStyler {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatListSubheaderCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, true, never>;
+declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
+/** Change event that is being fired whenever the selected state of an option changes. */
+declare class MatSelectionListChange {
+    /** Reference to the selection list that emitted the event. */
+    source: MatSelectionList;
+    /** Reference to the options that have been changed. */
+    options: MatListOption[];
+    constructor(
+    /** Reference to the selection list that emitted the event. */
+    source: MatSelectionList, 
+    /** Reference to the options that have been changed. */
+    options: MatListOption[]);
 }
-
-export declare class MatNavList extends MatListBase {
-    _isNonInteractive: boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatNavList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatNavList, "mat-nav-list", ["matNavList"], {}, {}, never, ["*"], true, never>;
-}
-
-export declare class MatSelectionList extends MatListBase implements SelectionList, ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
+declare class MatSelectionList extends MatListBase implements SelectionList, ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
     _element: ElementRef<HTMLElement>;
     private _ngZone;
     private _renderer;
@@ -566,41 +505,19 @@ export declare class MatSelectionList extends MatListBase implements SelectionLi
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSelectionList, "mat-selection-list", ["matSelectionList"], { "color": { "alias": "color"; "required": false; }; "compareWith": { "alias": "compareWith"; "required": false; }; "multiple": { "alias": "multiple"; "required": false; }; "hideSingleSelectionIndicator": { "alias": "hideSingleSelectionIndicator"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "selectionChange": "selectionChange"; }, ["_items"], ["*"], true, never>;
 }
 
-/** Change event that is being fired whenever the selected state of an option changes. */
-export declare class MatSelectionListChange {
-    /** Reference to the selection list that emitted the event. */
-    source: MatSelectionList;
-    /** Reference to the options that have been changed. */
-    options: MatListOption[];
-    constructor(
-    /** Reference to the selection list that emitted the event. */
-    source: MatSelectionList, 
-    /** Reference to the options that have been changed. */
-    options: MatListOption[]);
-}
-
 /**
- * Injection token that can be used to reference instances of an `SelectionList`. It serves
- * as alternative token to an actual implementation which would result in circular references.
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare const SELECTION_LIST: InjectionToken<SelectionList>;
-
-/**
- * Interface describing the containing list of a list option. This is used to avoid
- * circular dependencies between the list-option and the selection list.
- * @docs-private
- */
-export declare interface SelectionList extends MatListBase {
-    multiple: boolean;
-    color: ThemePalette;
-    selectedOptions: SelectionModel<MatListOption>;
-    hideSingleSelectionIndicator: boolean;
-    compareWith: (o1: any, o2: any) => boolean;
-    _value: string[] | null;
-    _reportValueChange(): void;
-    _emitChangeEvent(options: MatListOption[]): void;
-    _onTouched(): void;
+declare class MatListSubheaderCssMatStyler {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListSubheaderCssMatStyler, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatListSubheaderCssMatStyler, "[mat-subheader], [matSubheader]", never, {}, {}, never, never, true, never>;
 }
 
-export { }
+declare class MatListModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatListModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i2.ObserversModule, typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i1.MatPseudoCheckboxModule, typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListSubheaderCssMatStyler, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta], [typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListSubheaderCssMatStyler, typeof i10.MatDividerModule, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
+}
+
+export { MAT_LIST, MAT_LIST_CONFIG, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatActionList, MatList, type MatListConfig, MatListItem, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemMeta, MatListItemTitle, MatListModule, MatListOption, type MatListOptionTogglePosition as MatListOptionCheckboxPosition, type MatListOptionTogglePosition, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange, SELECTION_LIST, type SelectionList, _MatListItemGraphicBase };

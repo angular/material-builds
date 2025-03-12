@@ -859,9 +859,5 @@ const matSnackBarAnimations = {
     },
 };
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.mjs.map

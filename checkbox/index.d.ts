@@ -1,59 +1,37 @@
-import { AbstractControl } from '@angular/forms';
-import { AfterViewInit } from '@angular/core';
-import { CheckboxRequiredValidator } from '@angular/forms';
-import { ControlValueAccessor } from '@angular/forms';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i3 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { OnChanges } from '@angular/core';
-import { Provider } from '@angular/core';
-import { SimpleChanges } from '@angular/core';
+import { AfterViewInit, OnChanges, ElementRef, EventEmitter, SimpleChanges, InjectionToken, Provider } from '@angular/core';
+import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors, CheckboxRequiredValidator } from '@angular/forms';
+import * as i1 from '@angular/material/core';
 import { ThemePalette } from '@angular/material/core';
-import { ValidationErrors } from '@angular/forms';
-import { Validator } from '@angular/forms';
 
-declare namespace i1 {
-    export {
-        MAT_CHECKBOX_REQUIRED_VALIDATOR,
-        MatCheckboxRequiredValidator
-    }
+/**
+ * Represents the different states that require custom transitions between them.
+ * @docs-private
+ */
+declare enum TransitionCheckState {
+    /** The initial state of the component before any user interaction. */
+    Init = 0,
+    /** The state representing the component when it's becoming checked. */
+    Checked = 1,
+    /** The state representing the component when it's becoming unchecked. */
+    Unchecked = 2,
+    /** The state representing the component when it's becoming indeterminate. */
+    Indeterminate = 3
 }
-
-declare namespace i2 {
-    export {
-        TransitionCheckState,
-        MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR,
-        MatCheckboxChange,
-        MatCheckbox
-    }
-}
-
 /**
  * @deprecated Will stop being exported.
  * @breaking-change 19.0.0
  */
-export declare const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR: any;
-
-/** Injection token to be used to override the default options for `mat-checkbox`. */
-export declare const MAT_CHECKBOX_DEFAULT_OPTIONS: InjectionToken<MatCheckboxDefaultOptions>;
-
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY(): MatCheckboxDefaultOptions;
-
-/**
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-export declare const MAT_CHECKBOX_REQUIRED_VALIDATOR: Provider;
-
-export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAccessor, Validator, FocusableOption {
+declare const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR: any;
+/** Change event object emitted by checkbox. */
+declare class MatCheckboxChange {
+    /** The source checkbox of the event. */
+    source: MatCheckbox;
+    /** The new `checked` value of the checkbox. */
+    checked: boolean;
+}
+declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAccessor, Validator, FocusableOption {
     _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _ngZone;
@@ -207,25 +185,8 @@ export declare class MatCheckbox implements AfterViewInit, OnChanges, ControlVal
     static ngAcceptInputType_indeterminate: unknown;
 }
 
-/** Change event object emitted by checkbox. */
-export declare class MatCheckboxChange {
-    /** The source checkbox of the event. */
-    source: MatCheckbox;
-    /** The new `checked` value of the checkbox. */
-    checked: boolean;
-}
-
-/**
- * Checkbox click action when user click on input element.
- * noop: Do not toggle checked or indeterminate.
- * check: Only toggle checked status, ignore indeterminate.
- * check-indeterminate: Toggle checked status, set indeterminate to false. Default behavior.
- * undefined: Same as `check-indeterminate`.
- */
-export declare type MatCheckboxClickAction = 'noop' | 'check' | 'check-indeterminate' | undefined;
-
 /** Default `mat-checkbox` options that can be overridden. */
-export declare interface MatCheckboxDefaultOptions {
+interface MatCheckboxDefaultOptions {
     /**
      * Default theme color of the checkbox. This API is supported in M2 themes
      * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/checkbox/styling.
@@ -239,13 +200,28 @@ export declare interface MatCheckboxDefaultOptions {
     /** Whether disabled checkboxes should be interactive. */
     disabledInteractive?: boolean;
 }
+/** Injection token to be used to override the default options for `mat-checkbox`. */
+declare const MAT_CHECKBOX_DEFAULT_OPTIONS: InjectionToken<MatCheckboxDefaultOptions>;
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY(): MatCheckboxDefaultOptions;
+/**
+ * Checkbox click action when user click on input element.
+ * noop: Do not toggle checked or indeterminate.
+ * check: Only toggle checked status, ignore indeterminate.
+ * check-indeterminate: Toggle checked status, set indeterminate to false. Default behavior.
+ * undefined: Same as `check-indeterminate`.
+ */
+type MatCheckboxClickAction = 'noop' | 'check' | 'check-indeterminate' | undefined;
 
-export declare class MatCheckboxModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof i2.MatCheckbox, typeof i3.MatCommonModule], [typeof i2.MatCheckbox, typeof i3.MatCommonModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
-}
-
+/**
+ * @deprecated No longer used, `MatCheckbox` implements required validation directly.
+ * @breaking-change 19.0.0
+ */
+declare const MAT_CHECKBOX_REQUIRED_VALIDATOR: Provider;
 /**
  * Validator for Material checkbox's required attribute in template-driven checkbox.
  * Current CheckboxRequiredValidator only work with `input type=checkbox` and does not
@@ -254,7 +230,7 @@ export declare class MatCheckboxModule {
  * @deprecated No longer used, `MatCheckbox` implements required validation directly.
  * @breaking-change 19.0.0
  */
-export declare class MatCheckboxRequiredValidator extends CheckboxRequiredValidator {
+declare class MatCheckboxRequiredValidator extends CheckboxRequiredValidator {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxRequiredValidator, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatCheckboxRequiredValidator, "mat-checkbox[required][formControlName],             mat-checkbox[required][formControl], mat-checkbox[required][ngModel]", never, {}, {}, never, never, true, never>;
 }
@@ -263,25 +239,15 @@ export declare class MatCheckboxRequiredValidator extends CheckboxRequiredValida
  * @deprecated No longer used, `MatCheckbox` implements required validation directly.
  * @breaking-change 19.0.0
  */
-export declare class _MatCheckboxRequiredValidatorModule {
+declare class _MatCheckboxRequiredValidatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatCheckboxRequiredValidatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<_MatCheckboxRequiredValidatorModule, never, [typeof i1.MatCheckboxRequiredValidator], [typeof i1.MatCheckboxRequiredValidator]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<_MatCheckboxRequiredValidatorModule, never, [typeof MatCheckboxRequiredValidator], [typeof MatCheckboxRequiredValidator]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<_MatCheckboxRequiredValidatorModule>;
 }
-
-/**
- * Represents the different states that require custom transitions between them.
- * @docs-private
- */
-export declare enum TransitionCheckState {
-    /** The initial state of the component before any user interaction. */
-    Init = 0,
-    /** The state representing the component when it's becoming checked. */
-    Checked = 1,
-    /** The state representing the component when it's becoming unchecked. */
-    Unchecked = 2,
-    /** The state representing the component when it's becoming indeterminate. */
-    Indeterminate = 3
+declare class MatCheckboxModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof MatCheckbox, typeof i1.MatCommonModule], [typeof MatCheckbox, typeof i1.MatCommonModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 
-export { }
+export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, type MatCheckboxClickAction, type MatCheckboxDefaultOptions, MatCheckboxModule, MatCheckboxRequiredValidator, TransitionCheckState, _MatCheckboxRequiredValidatorModule };

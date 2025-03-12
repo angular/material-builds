@@ -1,6 +1,6 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, Renderer2, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatRippleLoader, _StructuralStylesLoader, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 
@@ -477,10 +477,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
                     ],
                 }]
         }] });
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { MAT_BUTTON_CONFIG, MAT_FAB_DEFAULT_OPTIONS, MAT_FAB_DEFAULT_OPTIONS_FACTORY, MatAnchor, MatButton, MatButtonModule, MatFabAnchor, MatFabButton, MatIconAnchor, MatIconButton, MatMiniFabAnchor, MatMiniFabButton };
 //# sourceMappingURL=button.mjs.map

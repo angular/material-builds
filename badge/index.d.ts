@@ -1,21 +1,23 @@
 import * as i0 from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
-import * as i2 from '@angular/material/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
+import * as i1$1 from '@angular/material/core';
 import { ThemePalette } from '@angular/material/core';
 
-declare namespace i3 {
-    export {
-        MatBadgePosition,
-        MatBadgeSize,
-        _MatBadgeStyleLoader,
-        MatBadge
-    }
+/** Allowed position options for matBadgePosition */
+type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after' | 'before' | 'after' | 'above' | 'below';
+/** Allowed size options for matBadgeSize */
+type MatBadgeSize = 'small' | 'medium' | 'large';
+/**
+ * Component used to load the structural styles of the badge.
+ * @docs-private
+ */
+declare class _MatBadgeStyleLoader {
+    static ɵfac: i0.ɵɵFactoryDeclaration<_MatBadgeStyleLoader, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<_MatBadgeStyleLoader, "ng-component", never, {}, {}, never, never, true, never>;
 }
-
 /** Directive to display a text badge. */
-export declare class MatBadge implements OnInit, OnDestroy {
+declare class MatBadge implements OnInit, OnDestroy {
     private _ngZone;
     private _elementRef;
     private _ariaDescriber;
@@ -95,25 +97,10 @@ export declare class MatBadge implements OnInit, OnDestroy {
     static ngAcceptInputType_hidden: unknown;
 }
 
-export declare class MatBadgeModule {
+declare class MatBadgeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadgeModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBadgeModule, never, [typeof i1.A11yModule, typeof i2.MatCommonModule, typeof i3.MatBadge, typeof i3._MatBadgeStyleLoader], [typeof i3.MatBadge, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBadgeModule, never, [typeof i1.A11yModule, typeof i1$1.MatCommonModule, typeof MatBadge, typeof _MatBadgeStyleLoader], [typeof MatBadge, typeof i1$1.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatBadgeModule>;
 }
 
-/** Allowed position options for matBadgePosition */
-export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after' | 'before' | 'after' | 'above' | 'below';
-
-/** Allowed size options for matBadgeSize */
-export declare type MatBadgeSize = 'small' | 'medium' | 'large';
-
-/**
- * Component used to load the structural styles of the badge.
- * @docs-private
- */
-declare class _MatBadgeStyleLoader {
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatBadgeStyleLoader, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<_MatBadgeStyleLoader, "ng-component", never, {}, {}, never, never, true, never>;
-}
-
-export { }
+export { MatBadge, MatBadgeModule, type MatBadgePosition, type MatBadgeSize };

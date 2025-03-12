@@ -1,10 +1,21 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
 
+/** A set of criteria that can be used to filter a list of datepicker input instances. */
+interface DatepickerInputHarnessFilters extends BaseHarnessFilters {
+    /** Filters based on the value of the input. */
+    value?: string | RegExp;
+    /** Filters based on the placeholder text of the input. */
+    placeholder?: string | RegExp;
+}
+/** A set of criteria that can be used to filter a list of datepicker toggle instances. */
+interface DatepickerToggleHarnessFilters extends BaseHarnessFilters {
+}
+/** A set of criteria that can be used to filter a list of calendar instances. */
+interface CalendarHarnessFilters extends BaseHarnessFilters {
+}
 /** A set of criteria that can be used to filter a list of calendar cell instances. */
-export declare interface CalendarCellHarnessFilters extends BaseHarnessFilters {
+interface CalendarCellHarnessFilters extends BaseHarnessFilters {
     /** Filters based on the text of the cell. */
     text?: string | RegExp;
     /** Filters based on whether the cell is selected. */
@@ -22,68 +33,47 @@ export declare interface CalendarCellHarnessFilters extends BaseHarnessFilters {
     /** Filters based on whether the cell is inside of the preview range. */
     inPreviewRange?: boolean;
 }
-
-/** A set of criteria that can be used to filter a list of calendar instances. */
-export declare interface CalendarHarnessFilters extends BaseHarnessFilters {
-}
-
-/** Possible views of a `MatCalendarHarness`. */
-export declare enum CalendarView {
-    MONTH = 0,
-    YEAR = 1,
-    MULTI_YEAR = 2
-}
-
-/** A set of criteria that can be used to filter a list of datepicker input instances. */
-export declare interface DatepickerInputHarnessFilters extends BaseHarnessFilters {
-    /** Filters based on the value of the input. */
-    value?: string | RegExp;
-    /** Filters based on the placeholder text of the input. */
-    placeholder?: string | RegExp;
-}
-
-/** A set of criteria that can be used to filter a list of datepicker toggle instances. */
-export declare interface DatepickerToggleHarnessFilters extends BaseHarnessFilters {
-}
-
-/** Interface for a test harness that can open and close a calendar. */
-declare interface DatepickerTrigger {
-    isCalendarOpen(): Promise<boolean>;
-    openCalendar(): Promise<void>;
-    closeCalendar(): Promise<void>;
-    hasCalendar(): Promise<boolean>;
-    getCalendar(filter?: CalendarHarnessFilters): Promise<MatCalendarHarness>;
-}
-
-/** Base class for harnesses that can trigger a calendar. */
-declare abstract class DatepickerTriggerHarnessBase extends ComponentHarness implements DatepickerTrigger {
-    /** Whether the trigger is disabled. */
-    abstract isDisabled(): Promise<boolean>;
-    /** Whether the calendar associated with the trigger is open. */
-    abstract isCalendarOpen(): Promise<boolean>;
-    /** Opens the calendar associated with the trigger. */
-    protected abstract _openCalendar(): Promise<void>;
-    /** Opens the calendar if the trigger is enabled and it has a calendar. */
-    openCalendar(): Promise<void>;
-    /** Closes the calendar if it is open. */
-    closeCalendar(): Promise<void>;
-    /** Gets whether there is a calendar associated with the trigger. */
-    hasCalendar(): Promise<boolean>;
-    /**
-     * Gets the `MatCalendarHarness` that is associated with the trigger.
-     * @param filter Optionally filters which calendar is included.
-     */
-    getCalendar(filter?: CalendarHarnessFilters): Promise<MatCalendarHarness>;
-}
-
 /** A set of criteria that can be used to filter a list of date range input instances. */
-export declare interface DateRangeInputHarnessFilters extends BaseHarnessFilters {
+interface DateRangeInputHarnessFilters extends BaseHarnessFilters {
     /** Filters based on the value of the input. */
     value?: string | RegExp;
+}
+
+/** Base class for datepicker input harnesses. */
+declare abstract class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
+    /** Whether the input is disabled. */
+    isDisabled(): Promise<boolean>;
+    /** Whether the input is required. */
+    isRequired(): Promise<boolean>;
+    /** Gets the value of the input. */
+    getValue(): Promise<string>;
+    /**
+     * Sets the value of the input. The value will be set by simulating
+     * keypresses that correspond to the given value.
+     */
+    setValue(newValue: string): Promise<void>;
+    /** Gets the placeholder of the input. */
+    getPlaceholder(): Promise<string>;
+    /**
+     * Focuses the input and returns a promise that indicates when the
+     * action is complete.
+     */
+    focus(): Promise<void>;
+    /**
+     * Blurs the input and returns a promise that indicates when the
+     * action is complete.
+     */
+    blur(): Promise<void>;
+    /** Whether the input is focused. */
+    isFocused(): Promise<boolean>;
+    /** Gets the formatted minimum date for the input's value. */
+    getMin(): Promise<string | null>;
+    /** Gets the formatted maximum date for the input's value. */
+    getMax(): Promise<string | null>;
 }
 
 /** Harness for interacting with a standard Material calendar cell in tests. */
-export declare class MatCalendarCellHarness extends ComponentHarness {
+declare class MatCalendarCellHarness extends ComponentHarness {
     static hostSelector: string;
     /** Reference to the inner content element inside the cell. */
     private _content;
@@ -138,8 +128,14 @@ export declare class MatCalendarCellHarness extends ComponentHarness {
     private _hasState;
 }
 
+/** Possible views of a `MatCalendarHarness`. */
+declare enum CalendarView {
+    MONTH = 0,
+    YEAR = 1,
+    MULTI_YEAR = 2
+}
 /** Harness for interacting with a standard Material calendar in tests. */
-export declare class MatCalendarHarness extends ComponentHarness {
+declare class MatCalendarHarness extends ComponentHarness {
     static hostSelector: string;
     /** Queries for the calendar's period toggle button. */
     private _periodButton;
@@ -176,8 +172,37 @@ export declare class MatCalendarHarness extends ComponentHarness {
     selectCell(filter?: CalendarCellHarnessFilters): Promise<void>;
 }
 
+/** Interface for a test harness that can open and close a calendar. */
+interface DatepickerTrigger {
+    isCalendarOpen(): Promise<boolean>;
+    openCalendar(): Promise<void>;
+    closeCalendar(): Promise<void>;
+    hasCalendar(): Promise<boolean>;
+    getCalendar(filter?: CalendarHarnessFilters): Promise<MatCalendarHarness>;
+}
+/** Base class for harnesses that can trigger a calendar. */
+declare abstract class DatepickerTriggerHarnessBase extends ComponentHarness implements DatepickerTrigger {
+    /** Whether the trigger is disabled. */
+    abstract isDisabled(): Promise<boolean>;
+    /** Whether the calendar associated with the trigger is open. */
+    abstract isCalendarOpen(): Promise<boolean>;
+    /** Opens the calendar associated with the trigger. */
+    protected abstract _openCalendar(): Promise<void>;
+    /** Opens the calendar if the trigger is enabled and it has a calendar. */
+    openCalendar(): Promise<void>;
+    /** Closes the calendar if it is open. */
+    closeCalendar(): Promise<void>;
+    /** Gets whether there is a calendar associated with the trigger. */
+    hasCalendar(): Promise<boolean>;
+    /**
+     * Gets the `MatCalendarHarness` that is associated with the trigger.
+     * @param filter Optionally filters which calendar is included.
+     */
+    getCalendar(filter?: CalendarHarnessFilters): Promise<MatCalendarHarness>;
+}
+
 /** Harness for interacting with a standard Material datepicker inputs in tests. */
-export declare class MatDatepickerInputHarness extends MatDatepickerInputHarnessBase implements DatepickerTrigger {
+declare class MatDatepickerInputHarness extends MatDatepickerInputHarnessBase implements DatepickerTrigger {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDatepickerInputHarness`
@@ -201,41 +226,8 @@ export declare class MatDatepickerInputHarness extends MatDatepickerInputHarness
     getCalendar(filter?: CalendarHarnessFilters): Promise<MatCalendarHarness>;
 }
 
-/** Base class for datepicker input harnesses. */
-declare abstract class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
-    /** Whether the input is disabled. */
-    isDisabled(): Promise<boolean>;
-    /** Whether the input is required. */
-    isRequired(): Promise<boolean>;
-    /** Gets the value of the input. */
-    getValue(): Promise<string>;
-    /**
-     * Sets the value of the input. The value will be set by simulating
-     * keypresses that correspond to the given value.
-     */
-    setValue(newValue: string): Promise<void>;
-    /** Gets the placeholder of the input. */
-    getPlaceholder(): Promise<string>;
-    /**
-     * Focuses the input and returns a promise that indicates when the
-     * action is complete.
-     */
-    focus(): Promise<void>;
-    /**
-     * Blurs the input and returns a promise that indicates when the
-     * action is complete.
-     */
-    blur(): Promise<void>;
-    /** Whether the input is focused. */
-    isFocused(): Promise<boolean>;
-    /** Gets the formatted minimum date for the input's value. */
-    getMin(): Promise<string | null>;
-    /** Gets the formatted maximum date for the input's value. */
-    getMax(): Promise<string | null>;
-}
-
 /** Harness for interacting with a standard Material datepicker toggle in tests. */
-export declare class MatDatepickerToggleHarness extends DatepickerTriggerHarnessBase {
+declare class MatDatepickerToggleHarness extends DatepickerTriggerHarnessBase {
     static hostSelector: string;
     /** The clickable button inside the toggle. */
     private _button;
@@ -253,8 +245,30 @@ export declare class MatDatepickerToggleHarness extends DatepickerTriggerHarness
     protected _openCalendar(): Promise<void>;
 }
 
+/** Harness for interacting with a standard Material date range start input in tests. */
+declare class MatStartDateHarness extends MatDatepickerInputHarnessBase {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatStartDateHarness`
+     * that meets certain criteria.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: DatepickerInputHarnessFilters): HarnessPredicate<MatStartDateHarness>;
+}
+/** Harness for interacting with a standard Material date range end input in tests. */
+declare class MatEndDateHarness extends MatDatepickerInputHarnessBase {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatEndDateHarness`
+     * that meets certain criteria.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: DatepickerInputHarnessFilters): HarnessPredicate<MatEndDateHarness>;
+}
 /** Harness for interacting with a standard Material date range input in tests. */
-export declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
+declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDateRangeInputHarness`
@@ -280,28 +294,4 @@ export declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBa
     protected _openCalendar(): Promise<void>;
 }
 
-/** Harness for interacting with a standard Material date range end input in tests. */
-export declare class MatEndDateHarness extends MatDatepickerInputHarnessBase {
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatEndDateHarness`
-     * that meets certain criteria.
-     * @param options Options for filtering which input instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: DatepickerInputHarnessFilters): HarnessPredicate<MatEndDateHarness>;
-}
-
-/** Harness for interacting with a standard Material date range start input in tests. */
-export declare class MatStartDateHarness extends MatDatepickerInputHarnessBase {
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatStartDateHarness`
-     * that meets certain criteria.
-     * @param options Options for filtering which input instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: DatepickerInputHarnessFilters): HarnessPredicate<MatStartDateHarness>;
-}
-
-export { }
+export { type CalendarCellHarnessFilters, type CalendarHarnessFilters, CalendarView, type DateRangeInputHarnessFilters, type DatepickerInputHarnessFilters, type DatepickerToggleHarnessFilters, MatCalendarCellHarness, MatCalendarHarness, MatDateRangeInputHarness, MatDatepickerInputHarness, MatDatepickerToggleHarness, MatEndDateHarness, MatStartDateHarness };

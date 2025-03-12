@@ -1,103 +1,80 @@
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { AfterContentInit } from '@angular/core';
-import { CdkConnectedOverlay } from '@angular/cdk/overlay';
-import { CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { ChangeDetectorRef } from '@angular/core';
-import { ConnectedPosition } from '@angular/cdk/overlay';
-import { ControlValueAccessor } from '@angular/forms';
-import { DoCheck } from '@angular/core';
-import { ElementRef } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/cdk/overlay';
-import * as i2 from '@angular/material/core';
-import * as i4 from '@angular/cdk/scrolling';
-import * as i5 from '@angular/material/form-field';
-import { InjectionToken } from '@angular/core';
-import { MatError } from '@angular/material/form-field';
-import { MatFormField } from '@angular/material/form-field';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { MatHint } from '@angular/material/form-field';
-import { MatLabel } from '@angular/material/form-field';
-import { MatOptgroup } from '@angular/material/core';
-import { MatOption } from '@angular/material/core';
-import { MatOptionSelectionChange } from '@angular/material/core';
-import { MatPrefix } from '@angular/material/form-field';
-import { MatSuffix } from '@angular/material/form-field';
-import { NgControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { OnChanges } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Overlay } from '@angular/cdk/overlay';
-import { QueryList } from '@angular/core';
-import { ScrollStrategy } from '@angular/cdk/overlay';
+import { InjectionToken, AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ChangeDetectorRef, ElementRef, QueryList, EventEmitter, SimpleChanges } from '@angular/core';
+import * as i2 from '@angular/cdk/overlay';
+import { ScrollStrategy, Overlay, ConnectedPosition, CdkOverlayOrigin, CdkConnectedOverlay } from '@angular/cdk/overlay';
+import * as i1 from '@angular/material/core';
+import { MatOption, MatOptgroup, ErrorStateMatcher, MatOptionSelectionChange } from '@angular/material/core';
+export { MatOptgroup, MatOption } from '@angular/material/core';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
+import * as i2$1 from '@angular/cdk/scrolling';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-
-declare namespace i3 {
-    export {
-        MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
-        MAT_SELECT_SCROLL_STRATEGY,
-        MatSelectConfig,
-        MAT_SELECT_CONFIG,
-        MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
-        MAT_SELECT_TRIGGER,
-        MatSelectChange,
-        MatSelect,
-        MatSelectTrigger
-    }
-}
-
-/** Injection token that can be used to provide the default options the select module. */
-export declare const MAT_SELECT_CONFIG: InjectionToken<MatSelectConfig>;
+import { ControlValueAccessor, NgControl } from '@angular/forms';
+import * as i2$2 from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormField } from '@angular/material/form-field';
+export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
+import { Subject, Observable } from 'rxjs';
 
 /** Injection token that determines the scroll handling while a select is open. */
-export declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-
+declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-export declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
+declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
+/** Object that can be used to configure the default options for the select module. */
+interface MatSelectConfig {
+    /** Whether option centering should be disabled. */
+    disableOptionCentering?: boolean;
+    /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
+    typeaheadDebounceInterval?: number;
+    /** Class or list of classes to be applied to the menu's overlay panel. */
+    overlayPanelClass?: string | string[];
+    /** Whether icon indicators should be hidden for single-selection. */
+    hideSingleSelectionIndicator?: boolean;
+    /**
+     * Width of the panel. If set to `auto`, the panel will match the trigger width.
+     * If set to null or an empty string, the panel will grow to match the longest option's text.
+     */
+    panelWidth?: string | number | null;
+    /**
+     * Whether nullable options can be selected by default.
+     * See `MatSelect.canSelectNullableOptions` for more information.
+     */
+    canSelectNullableOptions?: boolean;
+}
+/** Injection token that can be used to provide the default options the select module. */
+declare const MAT_SELECT_CONFIG: InjectionToken<MatSelectConfig>;
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
     useFactory: typeof MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
 };
-
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
-
 /**
  * Injection token that can be used to reference instances of `MatSelectTrigger`. It serves as
  * alternative token to the actual `MatSelectTrigger` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-export declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
-
-export { MatError }
-
-export { MatFormField }
-
-export { MatHint }
-
-export { MatLabel }
-
-export { MatOptgroup }
-
-export { MatOption }
-
-export { MatPrefix }
-
-export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<any> {
+declare const MAT_SELECT_TRIGGER: InjectionToken<MatSelectTrigger>;
+/** Change event object that is emitted when the select value has changed. */
+declare class MatSelectChange<T = any> {
+    /** Reference to the select that emitted the change event. */
+    source: MatSelect;
+    /** Current value of the select that emitted the event. */
+    value: T;
+    constructor(
+    /** Reference to the select that emitted the change event. */
+    source: MatSelect, 
+    /** Current value of the select that emitted the event. */
+    value: T);
+}
+declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, MatFormFieldControl<any> {
     protected _viewportRuler: ViewportRuler;
     protected _changeDetectorRef: ChangeDetectorRef;
     readonly _elementRef: ElementRef<any>;
@@ -453,6 +430,19 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
     static ngAcceptInputType_typeaheadDebounceInterval: unknown;
     static ngAcceptInputType_canSelectNullableOptions: unknown;
 }
+/**
+ * Allows the user to customize the trigger that is displayed when the select has a value.
+ */
+declare class MatSelectTrigger {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectTrigger, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSelectTrigger, "mat-select-trigger", never, {}, {}, never, never, true, never>;
+}
+
+declare class MatSelectModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, never, [typeof i2.OverlayModule, typeof i1.MatOptionModule, typeof i1.MatCommonModule, typeof MatSelect, typeof MatSelectTrigger], [typeof i2$1.CdkScrollableModule, typeof i2$2.MatFormFieldModule, typeof MatSelect, typeof MatSelectTrigger, typeof i1.MatOptionModule, typeof i1.MatCommonModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatSelectModule>;
+}
 
 /**
  * The following are all the animations for the mat-select component, with each
@@ -463,7 +453,7 @@ export declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-export declare const matSelectAnimations: {
+declare const matSelectAnimations: {
     /**
      * @deprecated No longer being used. To be removed.
      * @breaking-change 12.0.0
@@ -472,55 +462,4 @@ export declare const matSelectAnimations: {
     readonly transformPanel: any;
 };
 
-/** Change event object that is emitted when the select value has changed. */
-export declare class MatSelectChange<T = any> {
-    /** Reference to the select that emitted the change event. */
-    source: MatSelect;
-    /** Current value of the select that emitted the event. */
-    value: T;
-    constructor(
-    /** Reference to the select that emitted the change event. */
-    source: MatSelect, 
-    /** Current value of the select that emitted the event. */
-    value: T);
-}
-
-/** Object that can be used to configure the default options for the select module. */
-export declare interface MatSelectConfig {
-    /** Whether option centering should be disabled. */
-    disableOptionCentering?: boolean;
-    /** Time to wait in milliseconds after the last keystroke before moving focus to an item. */
-    typeaheadDebounceInterval?: number;
-    /** Class or list of classes to be applied to the menu's overlay panel. */
-    overlayPanelClass?: string | string[];
-    /** Whether icon indicators should be hidden for single-selection. */
-    hideSingleSelectionIndicator?: boolean;
-    /**
-     * Width of the panel. If set to `auto`, the panel will match the trigger width.
-     * If set to null or an empty string, the panel will grow to match the longest option's text.
-     */
-    panelWidth?: string | number | null;
-    /**
-     * Whether nullable options can be selected by default.
-     * See `MatSelect.canSelectNullableOptions` for more information.
-     */
-    canSelectNullableOptions?: boolean;
-}
-
-export declare class MatSelectModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, never, [typeof i1.OverlayModule, typeof i2.MatOptionModule, typeof i2.MatCommonModule, typeof i3.MatSelect, typeof i3.MatSelectTrigger], [typeof i4.CdkScrollableModule, typeof i5.MatFormFieldModule, typeof i3.MatSelect, typeof i3.MatSelectTrigger, typeof i2.MatOptionModule, typeof i2.MatCommonModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatSelectModule>;
-}
-
-/**
- * Allows the user to customize the trigger that is displayed when the select has a value.
- */
-export declare class MatSelectTrigger {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectTrigger, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSelectTrigger, "mat-select-trigger", never, {}, {}, never, never, true, never>;
-}
-
-export { MatSuffix }
-
-export { }
+export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatSelect, MatSelectChange, type MatSelectConfig, MatSelectModule, MatSelectTrigger, matSelectAnimations };

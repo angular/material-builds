@@ -1,15 +1,15 @@
-import { Overlay, CdkOverlayOrigin, CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
-import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, ErrorStateMatcher, _ErrorStateTracker, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionModule, MatCommonModule } from '@angular/material/core';
 export { MatOptgroup, MatOption } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
+import { Overlay, CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
+import * as i0 from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { _IdGenerator, LiveAnnouncer, removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, A, ESCAPE } from '@angular/cdk/keycodes';
+import { hasModifierKey, ENTER, SPACE, A, ESCAPE, DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, filter, map, takeUntil, take } from 'rxjs/operators';
@@ -1386,10 +1386,6 @@ const matSelectAnimations = {
         options: {},
     },
 };
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger, matSelectAnimations };
 //# sourceMappingURL=select.mjs.map

@@ -1,9 +1,17 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
+/** A set of criteria that can be used to filter a list of `MatToolbarHarness` instances. */
+interface ToolbarHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances whose text matches the given value. */
+    text?: string | RegExp;
+}
+
+/** Selectors for different sections of the mat-toolbar that contain user content. */
+declare enum MatToolbarSection {
+    ROW = ".mat-toolbar-row"
+}
 /** Harness for interacting with a standard mat-toolbar in tests. */
-export declare class MatToolbarHarness extends ContentContainerComponentHarness<MatToolbarSection> {
+declare class MatToolbarHarness extends ContentContainerComponentHarness<MatToolbarSection> {
     static hostSelector: string;
     private _getRows;
     /**
@@ -21,15 +29,4 @@ export declare class MatToolbarHarness extends ContentContainerComponentHarness<
     getRowsAsText(): Promise<string[]>;
 }
 
-/** Selectors for different sections of the mat-toolbar that contain user content. */
-export declare enum MatToolbarSection {
-    ROW = ".mat-toolbar-row"
-}
-
-/** A set of criteria that can be used to filter a list of `MatToolbarHarness` instances. */
-export declare interface ToolbarHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances whose text matches the given value. */
-    text?: string | RegExp;
-}
-
-export { }
+export { MatToolbarHarness, MatToolbarSection, type ToolbarHarnessFilters };

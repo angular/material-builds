@@ -1,99 +1,18 @@
-import { AfterViewInit } from '@angular/core';
-import { ElementRef } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
+import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, NgZone, OnInit } from '@angular/core';
 import * as i1 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { MatRippleLoader } from '@angular/material/core';
-import { NgZone } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
+import { ThemePalette, MatRippleLoader } from '@angular/material/core';
 
-declare namespace i2 {
-    export {
-        MatButton,
-        MatAnchor
-    }
+/** Object that can be used to configure the default options for the button component. */
+interface MatButtonConfig {
+    /** Whether disabled buttons should be interactive. */
+    disabledInteractive?: boolean;
+    /** Default palette color to apply to buttons. */
+    color?: ThemePalette;
 }
-
-declare namespace i3 {
-    export {
-        MatIconButton,
-        MatIconAnchor
-    }
-}
-
-declare namespace i4 {
-    export {
-        MAT_FAB_DEFAULT_OPTIONS_FACTORY,
-        MatFabDefaultOptions,
-        MAT_FAB_DEFAULT_OPTIONS,
-        MatFabButton,
-        MatMiniFabButton,
-        MatFabAnchor,
-        MatMiniFabAnchor
-    }
-}
-
 /** Injection token that can be used to provide the default options the button component. */
-export declare const MAT_BUTTON_CONFIG: InjectionToken<MatButtonConfig>;
-
-/** Injection token to be used to override the default options for FAB. */
-export declare const MAT_FAB_DEFAULT_OPTIONS: InjectionToken<MatFabDefaultOptions>;
-
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare function MAT_FAB_DEFAULT_OPTIONS_FACTORY(): MatFabDefaultOptions;
-
-/**
- * Material Design button component for anchor elements. Anchor elements are used to provide
- * links for the user to navigate across different routes or pages.
- * See https://material.io/components/buttons
- *
- * The `MatAnchor` class applies to native anchor elements and captures the appearances for
- * "text button", "outlined button", and "contained button" per the Material Design
- * specification. `MatAnchor` additionally captures an additional "flat" appearance, which matches
- * "contained" but without elevation.
- */
-export declare class MatAnchor extends MatAnchorBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchor, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatAnchor, "a[mat-button], a[mat-raised-button], a[mat-flat-button], a[mat-stroked-button]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
-}
-
-/**
- * Anchor button base.
- */
-declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
-    private _renderer;
-    private _cleanupClick;
-    tabIndex: number;
-    ngOnInit(): void;
-    ngOnDestroy(): void;
-    _haltDisabledEvents: (event: Event) => void;
-    protected _getAriaDisabled(): boolean | null;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchorBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAnchorBase, never, never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, true, never>;
-    static ngAcceptInputType_tabIndex: unknown;
-}
-
-/**
- * Material Design button component. Users interact with a button to perform an action.
- * See https://material.io/components/buttons
- *
- * The `MatButton` class applies to native button elements and captures the appearances for
- * "text button", "outlined button", and "contained button" per the Material Design
- * specification. `MatButton` additionally captures an additional "flat" appearance, which matches
- * "contained" but without elevation.
- */
-export declare class MatButton extends MatButtonBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
-}
-
+declare const MAT_BUTTON_CONFIG: InjectionToken<MatButtonConfig>;
 /** Base class for all buttons.  */
 declare class MatButtonBase implements AfterViewInit, OnDestroy {
     _elementRef: ElementRef<any>;
@@ -152,57 +71,52 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
     static ngAcceptInputType_ariaDisabled: unknown;
     static ngAcceptInputType_disabledInteractive: unknown;
 }
-
-/** Object that can be used to configure the default options for the button component. */
-export declare interface MatButtonConfig {
-    /** Whether disabled buttons should be interactive. */
-    disabledInteractive?: boolean;
-    /** Default palette color to apply to buttons. */
-    color?: ThemePalette;
-}
-
-export declare class MatButtonModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof i2.MatAnchor, typeof i2.MatButton, typeof i3.MatIconAnchor, typeof i4.MatMiniFabAnchor, typeof i4.MatMiniFabButton, typeof i3.MatIconButton, typeof i4.MatFabAnchor, typeof i4.MatFabButton], [typeof i2.MatAnchor, typeof i2.MatButton, typeof i3.MatIconAnchor, typeof i3.MatIconButton, typeof i4.MatMiniFabAnchor, typeof i4.MatMiniFabButton, typeof i4.MatFabAnchor, typeof i4.MatFabButton, typeof i1.MatCommonModule]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonModule>;
+/**
+ * Anchor button base.
+ */
+declare class MatAnchorBase extends MatButtonBase implements OnInit, OnDestroy {
+    private _renderer;
+    private _cleanupClick;
+    tabIndex: number;
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    _haltDisabledEvents: (event: Event) => void;
+    protected _getAriaDisabled(): boolean | null;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchorBase, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAnchorBase, never, never, { "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_tabIndex: unknown;
 }
 
 /**
- * Material Design floating action button (FAB) component for anchor elements. Anchor elements
- * are used to provide links for the user to navigate across different routes or pages.
- * See https://material.io/components/buttons-floating-action-button/
+ * Material Design button component. Users interact with a button to perform an action.
+ * See https://material.io/components/buttons
  *
- * The `MatFabAnchor` class has two appearances: normal and extended.
+ * The `MatButton` class applies to native button elements and captures the appearances for
+ * "text button", "outlined button", and "contained button" per the Material Design
+ * specification. `MatButton` additionally captures an additional "flat" appearance, which matches
+ * "contained" but without elevation.
  */
-export declare class MatFabAnchor extends MatAnchor {
-    private _options;
-    _isFab: boolean;
-    extended: boolean;
-    constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatFabAnchor, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabAnchor, "a[mat-fab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
-    static ngAcceptInputType_extended: unknown;
+declare class MatButton extends MatButtonBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button]  ", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
-
 /**
- * Material Design floating action button (FAB) component. These buttons represent the primary
- * or most common action for users to interact with.
- * See https://material.io/components/buttons-floating-action-button/
+ * Material Design button component for anchor elements. Anchor elements are used to provide
+ * links for the user to navigate across different routes or pages.
+ * See https://material.io/components/buttons
  *
- * The `MatFabButton` class has two appearances: normal and extended.
+ * The `MatAnchor` class applies to native anchor elements and captures the appearances for
+ * "text button", "outlined button", and "contained button" per the Material Design
+ * specification. `MatAnchor` additionally captures an additional "flat" appearance, which matches
+ * "contained" but without elevation.
  */
-export declare class MatFabButton extends MatButtonBase {
-    private _options;
-    _isFab: boolean;
-    extended: boolean;
-    constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatFabButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab]", ["matButton"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
-    static ngAcceptInputType_extended: unknown;
+declare class MatAnchor extends MatAnchorBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatAnchor, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatAnchor, "a[mat-button], a[mat-raised-button], a[mat-flat-button], a[mat-stroked-button]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
 
 /** Default FAB options that can be overridden. */
-export declare interface MatFabDefaultOptions {
+interface MatFabDefaultOptions {
     /**
      * Default theme color of the button. This API is supported in M2 themes
      * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/button/styling.
@@ -212,34 +126,64 @@ export declare interface MatFabDefaultOptions {
      */
     color?: ThemePalette;
 }
-
+/** Injection token to be used to override the default options for FAB. */
+declare const MAT_FAB_DEFAULT_OPTIONS: InjectionToken<MatFabDefaultOptions>;
 /**
- * Material Design icon button component for anchor elements. This button displays a single
- * interaction icon that allows users to navigate across different routes or pages.
- * See https://material.io/develop/web/components/buttons/icon-buttons/
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
-export declare class MatIconAnchor extends MatAnchorBase {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatIconAnchor, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconAnchor, "a[mat-icon-button]", ["matButton", "matAnchor"], {}, {}, never, ["*"], true, never>;
-}
-
+declare function MAT_FAB_DEFAULT_OPTIONS_FACTORY(): MatFabDefaultOptions;
 /**
- * Material Design icon button component. This type of button displays a single interactive icon for
- * users to perform an action.
- * See https://material.io/develop/web/components/buttons/icon-buttons/
+ * Material Design floating action button (FAB) component. These buttons represent the primary
+ * or most common action for users to interact with.
+ * See https://material.io/components/buttons-floating-action-button/
+ *
+ * The `MatFabButton` class has two appearances: normal and extended.
  */
-export declare class MatIconButton extends MatButtonBase {
+declare class MatFabButton extends MatButtonBase {
+    private _options;
+    _isFab: boolean;
+    extended: boolean;
     constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatIconButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button]", ["matButton"], {}, {}, never, ["*"], true, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFabButton, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab]", ["matButton"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ngAcceptInputType_extended: unknown;
 }
-
+/**
+ * Material Design mini floating action button (FAB) component. These buttons represent the primary
+ * or most common action for users to interact with.
+ * See https://material.io/components/buttons-floating-action-button/
+ */
+declare class MatMiniFabButton extends MatButtonBase {
+    private _options;
+    _isFab: boolean;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabButton, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab]", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+}
+/**
+ * Material Design floating action button (FAB) component for anchor elements. Anchor elements
+ * are used to provide links for the user to navigate across different routes or pages.
+ * See https://material.io/components/buttons-floating-action-button/
+ *
+ * The `MatFabAnchor` class has two appearances: normal and extended.
+ */
+declare class MatFabAnchor extends MatAnchor {
+    private _options;
+    _isFab: boolean;
+    extended: boolean;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFabAnchor, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabAnchor, "a[mat-fab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ngAcceptInputType_extended: unknown;
+}
 /**
  * Material Design mini floating action button (FAB) component for anchor elements. Anchor elements
  * are used to provide links for the user to navigate across different routes or pages.
  * See https://material.io/components/buttons-floating-action-button/
  */
-export declare class MatMiniFabAnchor extends MatAnchor {
+declare class MatMiniFabAnchor extends MatAnchor {
     private _options;
     _isFab: boolean;
     constructor(...args: unknown[]);
@@ -248,16 +192,29 @@ export declare class MatMiniFabAnchor extends MatAnchor {
 }
 
 /**
- * Material Design mini floating action button (FAB) component. These buttons represent the primary
- * or most common action for users to interact with.
- * See https://material.io/components/buttons-floating-action-button/
+ * Material Design icon button component. This type of button displays a single interactive icon for
+ * users to perform an action.
+ * See https://material.io/develop/web/components/buttons/icon-buttons/
  */
-export declare class MatMiniFabButton extends MatButtonBase {
-    private _options;
-    _isFab: boolean;
+declare class MatIconButton extends MatButtonBase {
     constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab]", ["matButton"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatIconButton, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button]", ["matButton"], {}, {}, never, ["*"], true, never>;
+}
+/**
+ * Material Design icon button component for anchor elements. This button displays a single
+ * interaction icon that allows users to navigate across different routes or pages.
+ * See https://material.io/develop/web/components/buttons/icon-buttons/
+ */
+declare class MatIconAnchor extends MatAnchorBase {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatIconAnchor, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconAnchor, "a[mat-icon-button]", ["matButton", "matAnchor"], {}, {}, never, ["*"], true, never>;
 }
 
-export { }
+declare class MatButtonModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof MatAnchor, typeof MatButton, typeof MatIconAnchor, typeof MatMiniFabAnchor, typeof MatMiniFabButton, typeof MatIconButton, typeof MatFabAnchor, typeof MatFabButton], [typeof MatAnchor, typeof MatButton, typeof MatIconAnchor, typeof MatIconButton, typeof MatMiniFabAnchor, typeof MatMiniFabButton, typeof MatFabAnchor, typeof MatFabButton, typeof i1.MatCommonModule]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonModule>;
+}
+
+export { MAT_BUTTON_CONFIG, MAT_FAB_DEFAULT_OPTIONS, MAT_FAB_DEFAULT_OPTIONS_FACTORY, MatAnchor, MatButton, type MatButtonConfig, MatButtonModule, MatFabAnchor, MatFabButton, type MatFabDefaultOptions, MatIconAnchor, MatIconButton, MatMiniFabAnchor, MatMiniFabButton };

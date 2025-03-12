@@ -1,107 +1,45 @@
-import { AfterViewChecked } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ElementRef } from '@angular/core';
-import { ErrorHandler } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import * as i0 from '@angular/core';
+import { InjectionToken, OnInit, AfterViewChecked, OnDestroy, ElementRef, ErrorHandler, Optional } from '@angular/core';
 import * as i1 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Optional } from '@angular/core';
-import { SafeHtml } from '@angular/platform-browser';
-import { SafeResourceUrl } from '@angular/platform-browser';
 import { ThemePalette } from '@angular/material/core';
+import { HttpClient } from '@angular/common/http';
+import { SafeResourceUrl, SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
-/**
- * Returns an exception to be thrown when a HTML string couldn't be sanitized.
- * @param literal HTML that was attempted to be sanitized.
- * @docs-private
- */
-export declare function getMatIconFailedToSanitizeLiteralError(literal: SafeHtml): Error;
-
-/**
- * Returns an exception to be thrown when a URL couldn't be sanitized.
- * @param url URL that was attempted to be sanitized.
- * @docs-private
- */
-export declare function getMatIconFailedToSanitizeUrlError(url: SafeResourceUrl): Error;
-
-/**
- * Returns an exception to be thrown in the case when attempting to
- * load an icon with a name that cannot be found.
- * @docs-private
- */
-export declare function getMatIconNameNotFoundError(iconName: string): Error;
-
-/**
- * Returns an exception to be thrown when the consumer attempts to use
- * `<mat-icon>` without including @angular/common/http.
- * @docs-private
- */
-export declare function getMatIconNoHttpProviderError(): Error;
-
-declare namespace i2 {
-    export {
-        MAT_ICON_LOCATION_FACTORY,
-        MatIconDefaultOptions,
-        MAT_ICON_DEFAULT_OPTIONS,
-        MAT_ICON_LOCATION,
-        MatIconLocation,
-        MatIcon
-    }
+/** Default options for `mat-icon`.  */
+interface MatIconDefaultOptions {
+    /**
+     * Theme color of the icon. This API is supported in M2 themes only, it
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/icon/styling.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     */
+    color?: ThemePalette;
+    /** Font set that the icon is a part of. */
+    fontSet?: string;
 }
-
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare const ICON_REGISTRY_PROVIDER: {
-    provide: typeof MatIconRegistry;
-    deps: (Optional[] | typeof DomSanitizer | typeof ErrorHandler)[];
-    useFactory: typeof ICON_REGISTRY_PROVIDER_FACTORY;
-};
-
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, errorHandler: ErrorHandler, document?: any): MatIconRegistry;
-
-/** Options that can be used to configure how an icon or the icons in an icon set are presented. */
-export declare interface IconOptions {
-    /** View box to set on the icon. */
-    viewBox?: string;
-    /** Whether or not to fetch the icon or icon set using HTTP credentials. */
-    withCredentials?: boolean;
-}
-
-/**
- * Function that will be invoked by the icon registry when trying to resolve the
- * URL from which to fetch an icon. The returned URL will be used to make a request for the icon.
- */
-export declare type IconResolver = (name: string, namespace: string) => SafeResourceUrl | SafeResourceUrlWithIconOptions | null;
-
 /** Injection token to be used to override the default options for `mat-icon`. */
-export declare const MAT_ICON_DEFAULT_OPTIONS: InjectionToken<MatIconDefaultOptions>;
-
+declare const MAT_ICON_DEFAULT_OPTIONS: InjectionToken<MatIconDefaultOptions>;
 /**
  * Injection token used to provide the current location to `MatIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * @docs-private
  */
-export declare const MAT_ICON_LOCATION: InjectionToken<MatIconLocation>;
-
+declare const MAT_ICON_LOCATION: InjectionToken<MatIconLocation>;
+/**
+ * Stubbed out location for `MatIcon`.
+ * @docs-private
+ */
+interface MatIconLocation {
+    getPathname: () => string;
+}
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
-
+declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -134,7 +72,7 @@ export declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
  *   Example:
  *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
-export declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
+declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
     readonly _elementRef: ElementRef<HTMLElement>;
     private _iconRegistry;
     private _location;
@@ -223,34 +161,53 @@ export declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
     static ngAcceptInputType_inline: unknown;
 }
 
-/** Default options for `mat-icon`.  */
-export declare interface MatIconDefaultOptions {
-    /**
-     * Theme color of the icon. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/icon/styling.
-     *
-     * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
-     */
-    color?: ThemePalette;
-    /** Font set that the icon is a part of. */
-    fontSet?: string;
-}
-
-/**
- * Stubbed out location for `MatIcon`.
- * @docs-private
- */
-export declare interface MatIconLocation {
-    getPathname: () => string;
-}
-
-export declare class MatIconModule {
+declare class MatIconModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatIconModule, never, [typeof i1.MatCommonModule, typeof i2.MatIcon], [typeof i2.MatIcon, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatIconModule, never, [typeof i1.MatCommonModule, typeof MatIcon], [typeof MatIcon, typeof i1.MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatIconModule>;
 }
 
+/**
+ * Returns an exception to be thrown in the case when attempting to
+ * load an icon with a name that cannot be found.
+ * @docs-private
+ */
+declare function getMatIconNameNotFoundError(iconName: string): Error;
+/**
+ * Returns an exception to be thrown when the consumer attempts to use
+ * `<mat-icon>` without including @angular/common/http.
+ * @docs-private
+ */
+declare function getMatIconNoHttpProviderError(): Error;
+/**
+ * Returns an exception to be thrown when a URL couldn't be sanitized.
+ * @param url URL that was attempted to be sanitized.
+ * @docs-private
+ */
+declare function getMatIconFailedToSanitizeUrlError(url: SafeResourceUrl): Error;
+/**
+ * Returns an exception to be thrown when a HTML string couldn't be sanitized.
+ * @param literal HTML that was attempted to be sanitized.
+ * @docs-private
+ */
+declare function getMatIconFailedToSanitizeLiteralError(literal: SafeHtml): Error;
+/** Options that can be used to configure how an icon or the icons in an icon set are presented. */
+interface IconOptions {
+    /** View box to set on the icon. */
+    viewBox?: string;
+    /** Whether or not to fetch the icon or icon set using HTTP credentials. */
+    withCredentials?: boolean;
+}
+/**
+ * Function that will be invoked by the icon registry when trying to resolve the
+ * URL from which to fetch an icon. The returned URL will be used to make a request for the icon.
+ */
+type IconResolver = (name: string, namespace: string) => SafeResourceUrl | SafeResourceUrlWithIconOptions | null;
+/** Object that specifies a URL from which to fetch an icon and the options to use for it. */
+interface SafeResourceUrlWithIconOptions {
+    url: SafeResourceUrl;
+    options: IconOptions;
+}
 /**
  * Service to register and display icons used by the `<mat-icon>` component.
  * - Registers icon URLs by namespace and name.
@@ -258,7 +215,7 @@ export declare class MatIconModule {
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-export declare class MatIconRegistry implements OnDestroy {
+declare class MatIconRegistry implements OnDestroy {
     private _httpClient;
     private _sanitizer;
     private readonly _errorHandler;
@@ -472,11 +429,21 @@ export declare class MatIconRegistry implements OnDestroy {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconRegistry, [{ optional: true; }, null, { optional: true; }, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatIconRegistry>;
 }
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, errorHandler: ErrorHandler, document?: any): MatIconRegistry;
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare const ICON_REGISTRY_PROVIDER: {
+    provide: typeof MatIconRegistry;
+    deps: (Optional[] | typeof DomSanitizer | typeof ErrorHandler)[];
+    useFactory: typeof ICON_REGISTRY_PROVIDER_FACTORY;
+};
 
-/** Object that specifies a URL from which to fetch an icon and the options to use for it. */
-export declare interface SafeResourceUrlWithIconOptions {
-    url: SafeResourceUrl;
-    options: IconOptions;
-}
-
-export { }
+export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, type IconOptions, type IconResolver, MAT_ICON_DEFAULT_OPTIONS, MAT_ICON_LOCATION, MAT_ICON_LOCATION_FACTORY, MatIcon, type MatIconDefaultOptions, type MatIconLocation, MatIconModule, MatIconRegistry, type SafeResourceUrlWithIconOptions, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };

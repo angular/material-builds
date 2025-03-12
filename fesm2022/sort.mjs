@@ -712,9 +712,5 @@ const matSortAnimations = {
     },
 };
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_SORT_DEFAULT_OPTIONS, MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, matSortAnimations };
 //# sourceMappingURL=sort.mjs.map

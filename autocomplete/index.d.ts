@@ -1,100 +1,60 @@
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { AfterContentInit } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/cdk/overlay';
-import * as i2 from '@angular/material/core';
-import * as i6 from '@angular/cdk/scrolling';
-import { InjectionToken } from '@angular/core';
-import { MatOptgroup } from '@angular/material/core';
-import { MatOption } from '@angular/material/core';
-import { MatOptionSelectionChange } from '@angular/material/core';
+import { InjectionToken, AfterContentInit, OnDestroy, TemplateRef, ElementRef, QueryList, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import * as i2 from '@angular/cdk/overlay';
+import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
+import * as i1 from '@angular/material/core';
+import { MatOption, ThemePalette, MatOptgroup, MatOptionSelectionChange } from '@angular/material/core';
+export { MatOptgroup, MatOption } from '@angular/material/core';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { OnChanges } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Overlay } from '@angular/cdk/overlay';
-import { QueryList } from '@angular/core';
-import { ScrollStrategy } from '@angular/cdk/overlay';
-import { SimpleChanges } from '@angular/core';
-import { TemplateRef } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
+import * as i2$1 from '@angular/cdk/scrolling';
 
-/**
- * Creates an error to be thrown when attempting to use an autocomplete trigger without a panel.
- * @docs-private
- */
-export declare function getMatAutocompleteMissingPanelError(): Error;
-
-declare namespace i3 {
-    export {
-        MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
-        MatAutocompleteSelectedEvent,
-        MatAutocompleteActivatedEvent,
-        MatAutocompleteDefaultOptions,
-        MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,
-        MatAutocomplete
-    }
+/** Event object that is emitted when an autocomplete option is selected. */
+declare class MatAutocompleteSelectedEvent {
+    /** Reference to the autocomplete panel that emitted the event. */
+    source: MatAutocomplete;
+    /** Option that was selected. */
+    option: MatOption;
+    constructor(
+    /** Reference to the autocomplete panel that emitted the event. */
+    source: MatAutocomplete, 
+    /** Option that was selected. */
+    option: MatOption);
 }
-
-declare namespace i4 {
-    export {
-        getMatAutocompleteMissingPanelError,
-        MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
-        MAT_AUTOCOMPLETE_VALUE_ACCESSOR,
-        MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
-        MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER,
-        MatAutocompleteTrigger
-    }
+/** Event object that is emitted when an autocomplete option is activated. */
+interface MatAutocompleteActivatedEvent {
+    /** Reference to the autocomplete panel that emitted the event. */
+    source: MatAutocomplete;
+    /** Option that was selected. */
+    option: MatOption | null;
 }
-
-declare namespace i5 {
-    export {
-        MatAutocompleteOrigin
-    }
+/** Default `mat-autocomplete` options that can be overridden. */
+interface MatAutocompleteDefaultOptions {
+    /** Whether the first option should be highlighted when an autocomplete panel is opened. */
+    autoActiveFirstOption?: boolean;
+    /** Whether the active option should be selected as the user is navigating. */
+    autoSelectActiveOption?: boolean;
+    /**
+     * Whether the user is required to make a selection when
+     * they're interacting with the autocomplete.
+     */
+    requireSelection?: boolean;
+    /** Class or list of classes to be applied to the autocomplete's overlay panel. */
+    overlayPanelClass?: string | string[];
+    /** Whether icon indicators should be hidden for single-selection. */
+    hideSingleSelectionIndicator?: boolean;
 }
-
 /** Injection token to be used to override the default options for `mat-autocomplete`. */
-export declare const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS: InjectionToken<MatAutocompleteDefaultOptions>;
-
+declare const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS: InjectionToken<MatAutocompleteDefaultOptions>;
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-export declare function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): MatAutocompleteDefaultOptions;
-
-/** Injection token that determines the scroll handling while the autocomplete panel is open. */
-export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
-
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
-    useFactory: typeof MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY;
-};
-
-/**
- * Provider that allows the autocomplete to register as a ControlValueAccessor.
- * @docs-private
- */
-export declare const MAT_AUTOCOMPLETE_VALUE_ACCESSOR: any;
-
+declare function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): MatAutocompleteDefaultOptions;
 /** Autocomplete component. */
-export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
+declare class MatAutocomplete implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     protected _defaults: MatAutocompleteDefaultOptions;
@@ -201,63 +161,47 @@ export declare class MatAutocomplete implements AfterContentInit, OnDestroy {
     static ngAcceptInputType_hideSingleSelectionIndicator: unknown;
 }
 
-/** Event object that is emitted when an autocomplete option is activated. */
-export declare interface MatAutocompleteActivatedEvent {
-    /** Reference to the autocomplete panel that emitted the event. */
-    source: MatAutocomplete;
-    /** Option that was selected. */
-    option: MatOption | null;
-}
-
-/** Default `mat-autocomplete` options that can be overridden. */
-export declare interface MatAutocompleteDefaultOptions {
-    /** Whether the first option should be highlighted when an autocomplete panel is opened. */
-    autoActiveFirstOption?: boolean;
-    /** Whether the active option should be selected as the user is navigating. */
-    autoSelectActiveOption?: boolean;
-    /**
-     * Whether the user is required to make a selection when
-     * they're interacting with the autocomplete.
-     */
-    requireSelection?: boolean;
-    /** Class or list of classes to be applied to the autocomplete's overlay panel. */
-    overlayPanelClass?: string | string[];
-    /** Whether icon indicators should be hidden for single-selection. */
-    hideSingleSelectionIndicator?: boolean;
-}
-
-export declare class MatAutocompleteModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatAutocompleteModule, never, [typeof i1.OverlayModule, typeof i2.MatOptionModule, typeof i2.MatCommonModule, typeof i3.MatAutocomplete, typeof i4.MatAutocompleteTrigger, typeof i5.MatAutocompleteOrigin], [typeof i6.CdkScrollableModule, typeof i3.MatAutocomplete, typeof i2.MatOptionModule, typeof i2.MatCommonModule, typeof i4.MatAutocompleteTrigger, typeof i5.MatAutocompleteOrigin]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatAutocompleteModule>;
-}
-
 /**
  * Directive applied to an element to make it usable
  * as a connection point for an autocomplete panel.
  */
-export declare class MatAutocompleteOrigin {
+declare class MatAutocompleteOrigin {
     elementRef: ElementRef<HTMLElement>;
     constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteOrigin, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, true, never>;
 }
 
-/** Event object that is emitted when an autocomplete option is selected. */
-export declare class MatAutocompleteSelectedEvent {
-    /** Reference to the autocomplete panel that emitted the event. */
-    source: MatAutocomplete;
-    /** Option that was selected. */
-    option: MatOption;
-    constructor(
-    /** Reference to the autocomplete panel that emitted the event. */
-    source: MatAutocomplete, 
-    /** Option that was selected. */
-    option: MatOption);
-}
-
+/**
+ * Provider that allows the autocomplete to register as a ControlValueAccessor.
+ * @docs-private
+ */
+declare const MAT_AUTOCOMPLETE_VALUE_ACCESSOR: any;
+/**
+ * Creates an error to be thrown when attempting to use an autocomplete trigger without a panel.
+ * @docs-private
+ */
+declare function getMatAutocompleteMissingPanelError(): Error;
+/** Injection token that determines the scroll handling while the autocomplete panel is open. */
+declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: (typeof Overlay)[];
+    useFactory: typeof MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY;
+};
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
-export declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
+declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
     private _environmentInjector;
     private _element;
     private _overlay;
@@ -475,8 +419,10 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, Aft
     static ngAcceptInputType_autocompleteDisabled: unknown;
 }
 
-export { MatOptgroup }
+declare class MatAutocompleteModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatAutocompleteModule, never, [typeof i2.OverlayModule, typeof i1.MatOptionModule, typeof i1.MatCommonModule, typeof MatAutocomplete, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin], [typeof i2$1.CdkScrollableModule, typeof MatAutocomplete, typeof i1.MatOptionModule, typeof i1.MatCommonModule, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatAutocompleteModule>;
+}
 
-export { MatOption }
-
-export { }
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, type MatAutocompleteActivatedEvent, type MatAutocompleteDefaultOptions, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, getMatAutocompleteMissingPanelError };

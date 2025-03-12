@@ -1325,9 +1325,5 @@ const fadeInItems = matMenuAnimations.fadeInItems;
  */
 const transformMenu = matMenuAnimations.transformMenu;
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER, MENU_PANEL_TOP_PADDING, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, fadeInItems, matMenuAnimations, transformMenu };
 //# sourceMappingURL=menu.mjs.map

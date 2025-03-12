@@ -1,9 +1,9 @@
-import * as i0 from '@angular/core';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
 import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
+import * as i0 from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
+import { MatCommonModule } from '@angular/material/core';
 
 const BADGE_CONTENT_CLASS = 'mat-badge-content';
 /**
@@ -297,10 +297,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
                     exports: [MatBadge, MatCommonModule],
                 }]
         }] });
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { MatBadge, MatBadgeModule };
 //# sourceMappingURL=badge.mjs.map

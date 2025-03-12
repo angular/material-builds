@@ -1,22 +1,22 @@
-import { AsyncFactoryFn } from '@angular/cdk/testing';
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import * as _angular_cdk_testing from '@angular/cdk/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 import { MatSelectHarness } from '@angular/material/select/testing';
-import { TestElement } from '@angular/cdk/testing';
+
+/** A set of criteria that can be used to filter a list of `MatPaginatorHarness` instances. */
+interface PaginatorHarnessFilters extends BaseHarnessFilters {
+}
 
 /** Harness for interacting with a mat-paginator in tests. */
-export declare class MatPaginatorHarness extends ComponentHarness {
+declare class MatPaginatorHarness extends ComponentHarness {
     /** Selector used to find paginator instances. */
     static hostSelector: string;
     private _nextButton;
     private _previousButton;
     private _firstPageButton;
     private _lastPageButton;
-    _select: AsyncFactoryFn<MatSelectHarness | null>;
+    _select: _angular_cdk_testing.AsyncFactoryFn<MatSelectHarness | null>;
     private _pageSizeFallback;
-    _rangeLabel: AsyncFactoryFn<TestElement>;
+    _rangeLabel: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a paginator with specific attributes.
      * @param options Options for filtering which paginator instances are considered a match.
@@ -45,8 +45,4 @@ export declare class MatPaginatorHarness extends ComponentHarness {
     getRangeLabel(): Promise<string>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatPaginatorHarness` instances. */
-export declare interface PaginatorHarnessFilters extends BaseHarnessFilters {
-}
-
-export { }
+export { MatPaginatorHarness, type PaginatorHarnessFilters };

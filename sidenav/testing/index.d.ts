@@ -1,23 +1,57 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-
-/** A set of criteria that can be used to filter a list of `MatDrawerContainerHarness` instances. */
-export declare interface DrawerContainerHarnessFilters extends BaseHarnessFilters {
-}
-
-/** A set of criteria that can be used to filter a list of `MatDrawerContentHarness` instances. */
-export declare interface DrawerContentHarnessFilters extends BaseHarnessFilters {
-}
+import { BaseHarnessFilters, HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
 
 /** A set of criteria that can be used to filter a list of `MatDrawerHarness` instances. */
-export declare interface DrawerHarnessFilters extends BaseHarnessFilters {
+interface DrawerHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose side is the given value. */
     position?: 'start' | 'end';
 }
+/** A set of criteria that can be used to filter a list of `MatDrawerContainerHarness` instances. */
+interface DrawerContainerHarnessFilters extends BaseHarnessFilters {
+}
+/** A set of criteria that can be used to filter a list of `MatDrawerContentHarness` instances. */
+interface DrawerContentHarnessFilters extends BaseHarnessFilters {
+}
+
+/**
+ * Base class for the drawer harness functionality.
+ * @docs-private
+ */
+declare class MatDrawerHarnessBase extends ContentContainerComponentHarness<string> {
+    /** Whether the drawer is open. */
+    isOpen(): Promise<boolean>;
+    /** Gets the position of the drawer inside its container. */
+    getPosition(): Promise<'start' | 'end'>;
+    /** Gets the mode that the drawer is in. */
+    getMode(): Promise<'over' | 'push' | 'side'>;
+}
+/** Harness for interacting with a standard mat-drawer in tests. */
+declare class MatDrawerHarness extends MatDrawerHarnessBase {
+    /** The selector for the host element of a `MatDrawer` instance. */
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerHarness` that meets
+     * certain criteria.
+     * @param options Options for filtering which drawer instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: DrawerHarnessFilters): HarnessPredicate<MatDrawerHarness>;
+}
+
+/** Harness for interacting with a standard mat-drawer-content in tests. */
+declare class MatDrawerContentHarness extends ContentContainerComponentHarness<string> {
+    /** The selector for the host element of a `MatDrawerContent` instance. */
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerContentHarness` that
+     * meets certain criteria.
+     * @param options Options for filtering which drawer content instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: DrawerContentHarnessFilters): HarnessPredicate<MatDrawerContentHarness>;
+}
 
 /** Harness for interacting with a standard mat-drawer-container in tests. */
-export declare class MatDrawerContainerHarness extends ContentContainerComponentHarness<string> {
+declare class MatDrawerContainerHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatDrawerContainer` instance. */
     static hostSelector: string;
     /**
@@ -36,47 +70,36 @@ export declare class MatDrawerContainerHarness extends ContentContainerComponent
     getContent(): Promise<MatDrawerContentHarness>;
 }
 
-/** Harness for interacting with a standard mat-drawer-content in tests. */
-export declare class MatDrawerContentHarness extends ContentContainerComponentHarness<string> {
-    /** The selector for the host element of a `MatDrawerContent` instance. */
+/** Harness for interacting with a standard mat-sidenav-content in tests. */
+declare class MatSidenavContentHarness extends ContentContainerComponentHarness<string> {
+    /** The selector for the host element of a `MatSidenavContent` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerContentHarness` that
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavContentHarness` that
      * meets certain criteria.
-     * @param options Options for filtering which drawer content instances are considered a match.
+     * @param options Options for filtering which sidenav content instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: DrawerContentHarnessFilters): HarnessPredicate<MatDrawerContentHarness>;
+    static with(options?: DrawerContentHarnessFilters): HarnessPredicate<MatSidenavContentHarness>;
 }
 
-/** Harness for interacting with a standard mat-drawer in tests. */
-export declare class MatDrawerHarness extends MatDrawerHarnessBase {
-    /** The selector for the host element of a `MatDrawer` instance. */
+/** Harness for interacting with a standard mat-sidenav in tests. */
+declare class MatSidenavHarness extends MatDrawerHarnessBase {
+    /** The selector for the host element of a `MatSidenav` instance. */
     static hostSelector: string;
     /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatDrawerHarness` that meets
+     * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavHarness` that meets
      * certain criteria.
-     * @param options Options for filtering which drawer instances are considered a match.
+     * @param options Options for filtering which sidenav instances are considered a match.
      * @return a `HarnessPredicate` configured with the given options.
      */
-    static with(options?: DrawerHarnessFilters): HarnessPredicate<MatDrawerHarness>;
-}
-
-/**
- * Base class for the drawer harness functionality.
- * @docs-private
- */
-declare class MatDrawerHarnessBase extends ContentContainerComponentHarness<string> {
-    /** Whether the drawer is open. */
-    isOpen(): Promise<boolean>;
-    /** Gets the position of the drawer inside its container. */
-    getPosition(): Promise<'start' | 'end'>;
-    /** Gets the mode that the drawer is in. */
-    getMode(): Promise<'over' | 'push' | 'side'>;
+    static with(options?: DrawerHarnessFilters): HarnessPredicate<MatSidenavHarness>;
+    /** Whether the sidenav is fixed in the viewport. */
+    isFixedInViewport(): Promise<boolean>;
 }
 
 /** Harness for interacting with a standard mat-sidenav-container in tests. */
-export declare class MatSidenavContainerHarness extends ContentContainerComponentHarness<string> {
+declare class MatSidenavContainerHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatSidenavContainer` instance. */
     static hostSelector: string;
     /**
@@ -95,32 +118,4 @@ export declare class MatSidenavContainerHarness extends ContentContainerComponen
     getContent(): Promise<MatSidenavContentHarness>;
 }
 
-/** Harness for interacting with a standard mat-sidenav-content in tests. */
-export declare class MatSidenavContentHarness extends ContentContainerComponentHarness<string> {
-    /** The selector for the host element of a `MatSidenavContent` instance. */
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavContentHarness` that
-     * meets certain criteria.
-     * @param options Options for filtering which sidenav content instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: DrawerContentHarnessFilters): HarnessPredicate<MatSidenavContentHarness>;
-}
-
-/** Harness for interacting with a standard mat-sidenav in tests. */
-export declare class MatSidenavHarness extends MatDrawerHarnessBase {
-    /** The selector for the host element of a `MatSidenav` instance. */
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatSidenavHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which sidenav instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: DrawerHarnessFilters): HarnessPredicate<MatSidenavHarness>;
-    /** Whether the sidenav is fixed in the viewport. */
-    isFixedInViewport(): Promise<boolean>;
-}
-
-export { }
+export { type DrawerContainerHarnessFilters, type DrawerContentHarnessFilters, type DrawerHarnessFilters, MatDrawerContainerHarness, MatDrawerContentHarness, MatDrawerHarness, MatSidenavContainerHarness, MatSidenavContentHarness, MatSidenavHarness };

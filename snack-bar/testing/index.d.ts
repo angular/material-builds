@@ -1,10 +1,12 @@
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+
+/** A set of criteria that can be used to filter a list of `MatSnackBarHarness` instances. */
+interface SnackBarHarnessFilters extends BaseHarnessFilters {
+}
 
 /** Harness for interacting with a mat-snack-bar in tests. */
-export declare class MatSnackBarHarness extends ContentContainerComponentHarness<string> {
+declare class MatSnackBarHarness extends ContentContainerComponentHarness<string> {
     /** The selector for the host element of a `MatSnackBar` instance. */
     static hostSelector: string;
     private _messageSelector;
@@ -58,8 +60,4 @@ export declare class MatSnackBarHarness extends ContentContainerComponentHarness
     private _getActionButton;
 }
 
-/** A set of criteria that can be used to filter a list of `MatSnackBarHarness` instances. */
-export declare interface SnackBarHarnessFilters extends BaseHarnessFilters {
-}
-
-export { }
+export { MatSnackBarHarness, type SnackBarHarnessFilters };

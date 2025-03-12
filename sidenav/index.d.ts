@@ -1,67 +1,46 @@
-import { AfterContentInit } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { DoCheck } from '@angular/core';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
+import { InjectionToken, AfterContentInit, AfterViewInit, OnDestroy, EventEmitter, ElementRef, DoCheck, QueryList } from '@angular/core';
 import * as i1 from '@angular/material/core';
 import * as i2 from '@angular/cdk/scrolling';
-import { InjectionToken } from '@angular/core';
-import { NumberInput } from '@angular/cdk/coercion';
-import { Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
-import { QueryList } from '@angular/core';
-import { Subject } from 'rxjs';
-
-/** Options for where to set focus to automatically on dialog open */
-declare type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
-
-declare namespace i3 {
-    export {
-        throwMatDuplicatedDrawerError,
-        MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
-        AutoFocusTarget,
-        MatDrawerToggleResult,
-        MatDrawerMode,
-        MAT_DRAWER_DEFAULT_AUTOSIZE,
-        MAT_DRAWER_CONTAINER,
-        MatDrawerContent,
-        MatDrawer,
-        MatDrawerContainer
-    }
-}
-
-declare namespace i4 {
-    export {
-        MatSidenavContent,
-        MatSidenav,
-        MatSidenavContainer
-    }
-}
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FocusOrigin } from '@angular/cdk/a11y';
+import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
+import { Subject, Observable } from 'rxjs';
 
 /**
- * Used to provide a drawer container to a drawer while avoiding circular references.
+ * Throws an exception when two MatDrawer are matching the same position.
  * @docs-private
  */
-declare const MAT_DRAWER_CONTAINER: InjectionToken<unknown>;
-
+declare function throwMatDuplicatedDrawerError(position: string): void;
+/** Options for where to set focus to automatically on dialog open */
+type AutoFocusTarget = 'dialog' | 'first-tabbable' | 'first-heading';
+/** Result of the toggle promise that indicates the state of the drawer. */
+type MatDrawerToggleResult = 'open' | 'close';
+/** Drawer and SideNav display modes. */
+type MatDrawerMode = 'over' | 'push' | 'side';
 /** Configures whether drawers should use auto sizing by default. */
-export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
-
+declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-export declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
-
+declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
+declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
+    private _platform;
+    private _changeDetectorRef;
+    _container: MatDrawerContainer;
+    constructor(...args: unknown[]);
+    ngAfterContentInit(): void;
+    /** Determines whether the content element should be hidden from the user. */
+    protected _shouldBeHidden(): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContent, "mat-drawer-content", never, {}, {}, never, ["*"], true, never>;
+}
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
-export declare class MatDrawer implements AfterViewInit, OnDestroy {
+declare class MatDrawer implements AfterViewInit, OnDestroy {
     private _elementRef;
     private _focusTrapFactory;
     private _focusMonitor;
@@ -203,24 +182,13 @@ export declare class MatDrawer implements AfterViewInit, OnDestroy {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawer, "mat-drawer", ["matDrawer"], { "position": { "alias": "position"; "required": false; }; "mode": { "alias": "mode"; "required": false; }; "disableClose": { "alias": "disableClose"; "required": false; }; "autoFocus": { "alias": "autoFocus"; "required": false; }; "opened": { "alias": "opened"; "required": false; }; }, { "openedChange": "openedChange"; "_openedStream": "opened"; "openedStart": "openedStart"; "_closedStream": "closed"; "closedStart": "closedStart"; "onPositionChanged": "positionChanged"; }, never, ["*"], true, never>;
 }
-
-/**
- * Animations used by the Material drawers.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-export declare const matDrawerAnimations: {
-    readonly transformDrawer: any;
-};
-
 /**
  * `<mat-drawer-container>` component.
  *
  * This is the parent component to one or two `<mat-drawer>`s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-export declare class MatDrawerContainer implements AfterContentInit, DoCheck, OnDestroy {
+declare class MatDrawerContainer implements AfterContentInit, DoCheck, OnDestroy {
     private _dir;
     private _element;
     private _ngZone;
@@ -330,25 +298,11 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContainer, "mat-drawer-container", ["matDrawerContainer"], { "autosize": { "alias": "autosize"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; }, { "backdropClick": "backdropClick"; }, ["_content", "_allDrawers"], ["mat-drawer", "mat-drawer-content", "*"], true, never>;
 }
 
-export declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
-    private _platform;
-    private _changeDetectorRef;
-    _container: MatDrawerContainer;
-    constructor(...args: unknown[]);
-    ngAfterContentInit(): void;
-    /** Determines whether the content element should be hidden from the user. */
-    protected _shouldBeHidden(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContent, "mat-drawer-content", never, {}, {}, never, ["*"], true, never>;
+declare class MatSidenavContent extends MatDrawerContent {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContent, "mat-sidenav-content", never, {}, {}, never, ["*"], true, never>;
 }
-
-/** Drawer and SideNav display modes. */
-export declare type MatDrawerMode = 'over' | 'push' | 'side';
-
-/** Result of the toggle promise that indicates the state of the drawer. */
-export declare type MatDrawerToggleResult = 'open' | 'close';
-
-export declare class MatSidenav extends MatDrawer {
+declare class MatSidenav extends MatDrawer {
     /** Whether the sidenav is fixed in the viewport. */
     get fixedInViewport(): boolean;
     set fixedInViewport(value: BooleanInput);
@@ -370,29 +324,27 @@ export declare class MatSidenav extends MatDrawer {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenav, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenav, "mat-sidenav", ["matSidenav"], { "fixedInViewport": { "alias": "fixedInViewport"; "required": false; }; "fixedTopGap": { "alias": "fixedTopGap"; "required": false; }; "fixedBottomGap": { "alias": "fixedBottomGap"; "required": false; }; }, {}, never, ["*"], true, never>;
 }
-
-export declare class MatSidenavContainer extends MatDrawerContainer {
+declare class MatSidenavContainer extends MatDrawerContainer {
     _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContainer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContainer, "mat-sidenav-container", ["matSidenavContainer"], {}, {}, ["_content", "_allDrawers"], ["mat-sidenav", "mat-sidenav-content", "*"], true, never>;
 }
 
-export declare class MatSidenavContent extends MatDrawerContent {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContent, "mat-sidenav-content", never, {}, {}, never, ["*"], true, never>;
-}
-
-export declare class MatSidenavModule {
+declare class MatSidenavModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSidenavModule, never, [typeof i1.MatCommonModule, typeof i2.CdkScrollableModule, typeof i3.MatDrawer, typeof i3.MatDrawerContainer, typeof i3.MatDrawerContent, typeof i4.MatSidenav, typeof i4.MatSidenavContainer, typeof i4.MatSidenavContent], [typeof i2.CdkScrollableModule, typeof i1.MatCommonModule, typeof i3.MatDrawer, typeof i3.MatDrawerContainer, typeof i3.MatDrawerContent, typeof i4.MatSidenav, typeof i4.MatSidenavContainer, typeof i4.MatSidenavContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSidenavModule, never, [typeof i1.MatCommonModule, typeof i2.CdkScrollableModule, typeof MatDrawer, typeof MatDrawerContainer, typeof MatDrawerContent, typeof MatSidenav, typeof MatSidenavContainer, typeof MatSidenavContent], [typeof i2.CdkScrollableModule, typeof i1.MatCommonModule, typeof MatDrawer, typeof MatDrawerContainer, typeof MatDrawerContent, typeof MatSidenav, typeof MatSidenavContainer, typeof MatSidenavContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSidenavModule>;
 }
 
 /**
- * Throws an exception when two MatDrawer are matching the same position.
+ * Animations used by the Material drawers.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
-export declare function throwMatDuplicatedDrawerError(position: string): void;
+declare const matDrawerAnimations: {
+    readonly transformDrawer: any;
+};
 
-export { }
+export { MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawer, MatDrawerContainer, MatDrawerContent, type MatDrawerMode, type MatDrawerToggleResult, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule, matDrawerAnimations, throwMatDuplicatedDrawerError };

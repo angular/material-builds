@@ -1,15 +1,15 @@
-import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
 import { inject, ANIMATION_MODULE_TYPE, EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, InjectionToken, Injectable, ElementRef, Directive, Input, NgModule } from '@angular/core';
+import { _IdGenerator } from '@angular/cdk/a11y';
+import * as i1 from '@angular/cdk/scrolling';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular/cdk/dialog';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { Subject, merge, defer } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
-import { _IdGenerator } from '@angular/cdk/a11y';
-import * as i1 from '@angular/cdk/scrolling';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatCommonModule } from '@angular/material/core';
 
 /**
@@ -1001,10 +1001,6 @@ const matDialogAnimations = {
         options: {},
     },
 };
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MatDialog, MatDialogActions, MatDialogClose, MatDialogConfig, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogState, MatDialogTitle, _closeDialogVia, _defaultParams, matDialogAnimations };
 //# sourceMappingURL=dialog.mjs.map

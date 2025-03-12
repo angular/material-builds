@@ -680,9 +680,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
 // Privately exported for the grid-list harness.
 const ɵTileCoordinator = TileCoordinator;
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MatGridAvatarCssMatStyler, MatGridList, MatGridListModule, MatGridTile, MatGridTileFooterCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileText, ɵTileCoordinator };
 //# sourceMappingURL=grid-list.mjs.map

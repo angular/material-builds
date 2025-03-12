@@ -1,10 +1,7 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
 /** A set of criteria that can be used to filter a list of `MatCardHarness` instances. */
-export declare interface CardHarnessFilters extends BaseHarnessFilters {
+interface CardHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
     /** Only find instances whose title matches the given value. */
@@ -13,8 +10,15 @@ export declare interface CardHarnessFilters extends BaseHarnessFilters {
     subtitle?: string | RegExp;
 }
 
+/** Selectors for different sections of the mat-card that can container user content. */
+declare enum MatCardSection {
+    HEADER = ".mat-mdc-card-header",
+    CONTENT = ".mat-mdc-card-content",
+    ACTIONS = ".mat-mdc-card-actions",
+    FOOTER = ".mat-mdc-card-footer"
+}
 /** Harness for interacting with a mat-card in tests. */
-export declare class MatCardHarness extends ContentContainerComponentHarness<MatCardSection> {
+declare class MatCardHarness extends ContentContainerComponentHarness<MatCardSection> {
     /** The selector for the host element of a `MatCard` instance. */
     static hostSelector: string;
     /**
@@ -33,12 +37,4 @@ export declare class MatCardHarness extends ContentContainerComponentHarness<Mat
     getSubtitleText(): Promise<string>;
 }
 
-/** Selectors for different sections of the mat-card that can container user content. */
-export declare enum MatCardSection {
-    HEADER = ".mat-mdc-card-header",
-    CONTENT = ".mat-mdc-card-content",
-    ACTIONS = ".mat-mdc-card-actions",
-    FOOTER = ".mat-mdc-card-footer"
-}
-
-export { }
+export { type CardHarnessFilters, MatCardHarness, MatCardSection };
