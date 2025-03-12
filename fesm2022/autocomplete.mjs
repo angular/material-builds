@@ -5,13 +5,12 @@ import { InjectionToken, inject, ChangeDetectorRef, ElementRef, ANIMATION_MODULE
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
-import { Platform, _getEventTarget } from '@angular/cdk/platform';
+import { Platform, _getFocusedElementPierceShadowDom, _getEventTarget } from '@angular/cdk/platform';
 import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, ESCAPE, ENTER, TAB, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MAT_FORM_FIELD } from '@angular/material/form-field';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
@@ -357,7 +356,6 @@ class MatAutocompleteTrigger {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _dir = inject(Directionality, { optional: true });
     _formField = inject(MAT_FORM_FIELD, { optional: true, host: true });
-    _document = inject(DOCUMENT);
     _viewportRuler = inject(ViewportRuler);
     _scrollStrategy = inject(MAT_AUTOCOMPLETE_SCROLL_STRATEGY);
     _renderer = inject(Renderer2);
@@ -409,8 +407,7 @@ class MatAutocompleteTrigger {
         // If the user blurred the window while the autocomplete is focused, it means that it'll be
         // refocused when they come back. In this case we want to skip the first focus event, if the
         // pane was closed, in order to avoid reopening it unintentionally.
-        this._canOpenOnNextFocus =
-            this._document.activeElement !== this._element.nativeElement || this.panelOpen;
+        this._canOpenOnNextFocus = this.panelOpen || !this._hasFocus();
     };
     /** `View -> model callback called when value changes` */
     _onChange = () => { };
@@ -571,7 +568,7 @@ class MatAutocompleteTrigger {
                     // true. Its main purpose is to handle the case where the input is focused from an
                     // outside click which propagates up to the `body` listener within the same sequence
                     // and causes the panel to close immediately (see #3106).
-                    this._document.activeElement !== this._element.nativeElement &&
+                    !this._hasFocus() &&
                     (!formField || !formField.contains(clickTarget)) &&
                     (!customOrigin || !customOrigin.contains(clickTarget)) &&
                     !!this._overlayRef &&
@@ -677,7 +674,7 @@ class MatAutocompleteTrigger {
                     }
                 }
             }
-            if (this._canOpen() && this._document.activeElement === event.target) {
+            if (this._canOpen() && this._hasFocus()) {
                 // When the `input` event fires, the input's value will have already changed. This means
                 // that if we take the `this._element.nativeElement.value` directly, it'll be one keystroke
                 // behind. This can be a problem when the user selects a value, changes a character while
@@ -703,6 +700,10 @@ class MatAutocompleteTrigger {
         if (this._canOpen() && !this.panelOpen) {
             this._openPanelInternal();
         }
+    }
+    /** Whether the input currently has focus. */
+    _hasFocus() {
+        return _getFocusedElementPierceShadowDom() === this._element.nativeElement;
     }
     /**
      * In "auto" mode, the label will animate down as soon as focus is lost.
