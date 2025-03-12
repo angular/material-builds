@@ -11,7 +11,7 @@ import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/priv
 import { DOCUMENT } from '@angular/common';
 
 /** Current version of Angular Material. */
-const VERSION = new Version('19.2.2');
+const VERSION = new Version('19.2.3');
 
 /**
  * @deprecated No longer used, will be removed.
