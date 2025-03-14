@@ -76,7 +76,9 @@ class MatButtonBase {
     /**
      * Natively disabled buttons prevent focus and any pointer events from reaching the button.
      * In some scenarios this might not be desirable, because it can prevent users from finding out
-     * why the button is disabled (e.g. via tooltip).
+     * why the button is disabled (e.g. via tooltip). This is also useful for buttons that may
+     * become disabled when activated, which would cause focus to be transferred to the document
+     * body instead of remaining on the button.
      *
      * Enabling this input will change the button so that it is styled to be disabled and will be
      * marked as `aria-disabled`, but it will allow the button to receive events and focus.
@@ -208,4 +210,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
 const MatIconAnchor = MatIconButton;
 
 export { MAT_BUTTON_CONFIG as M, MatIconButton as a, MatIconAnchor as b, MatButtonBase as c, MAT_BUTTON_HOST as d };
-//# sourceMappingURL=icon-button-a0d49271.mjs.map
+//# sourceMappingURL=icon-button-2ad3ee9f.mjs.map
