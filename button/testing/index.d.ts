@@ -1,13 +1,17 @@
 import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
+/** Possible button variants. */
+type ButtonVariant = 'basic' | 'icon' | 'fab' | 'mini-fab';
 /** Possible button appearances. */
-type ButtonVariant = 'basic' | 'raised' | 'flat' | 'icon' | 'stroked' | 'fab' | 'mini-fab';
+type ButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined';
 /** A set of criteria that can be used to filter a list of button harness instances. */
 interface ButtonHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
     /** Only find instances with a variant. */
     variant?: ButtonVariant;
+    /** Only find instances with a specific appearance. */
+    appearance?: ButtonAppearance;
     /** Only find instances which match the given disabled state. */
     disabled?: boolean;
 }
@@ -21,6 +25,7 @@ declare class MatButtonHarness extends ContentContainerComponentHarness {
      *   - `selector` finds a button whose host element matches the given selector.
      *   - `text` finds a button with specific text content.
      *   - `variant` finds buttons matching a specific variant.
+     *   - `appearance` finds buttons matching a specific appearance.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatButtonHarness>(this: ComponentHarnessConstructor<T>, options?: ButtonHarnessFilters): HarnessPredicate<T>;
@@ -46,6 +51,8 @@ declare class MatButtonHarness extends ContentContainerComponentHarness {
     isFocused(): Promise<boolean>;
     /** Gets the variant of the button. */
     getVariant(): Promise<ButtonVariant>;
+    /** Gets the appearance of the button. */
+    getAppearance(): Promise<ButtonAppearance | null>;
 }
 
-export { type ButtonHarnessFilters, type ButtonVariant, MatButtonHarness };
+export { type ButtonAppearance, type ButtonHarnessFilters, type ButtonVariant, MatButtonHarness };

@@ -7,7 +7,7 @@ import * as i3 from '@angular/cdk/portal';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { m as MatButtonModule } from '../module.d-18a67f56.js';
+import { n as MatButtonModule } from '../module.d-6654cd30.js';
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import '../index.d-0536b706.js';
 import '../ripple.d-2fb57d04.js';

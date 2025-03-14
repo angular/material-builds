@@ -6,20 +6,28 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import { T as ThemePalette } from './palette.d-ec4a617c.js';
 import { M as MatRippleLoader } from './ripple-loader.d-8aac2988.js';
 
+/**
+ * Possible appearances for a `MatButton`.
+ * See https://m3.material.io/components/buttons/overview
+ */
+type MatButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined';
 /** Object that can be used to configure the default options for the button component. */
 interface MatButtonConfig {
     /** Whether disabled buttons should be interactive. */
     disabledInteractive?: boolean;
     /** Default palette color to apply to buttons. */
     color?: ThemePalette;
+    /** Default appearance for plain buttons (not icon buttons or FABs). */
+    defaultAppearance?: MatButtonAppearance;
 }
 /** Injection token that can be used to provide the default options the button component. */
 declare const MAT_BUTTON_CONFIG: InjectionToken<MatButtonConfig>;
 /** Base class for all buttons.  */
 declare class MatButtonBase implements AfterViewInit, OnDestroy {
-    _elementRef: ElementRef<any>;
+    _elementRef: ElementRef<HTMLElement>;
     _ngZone: NgZone;
     _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
+    protected readonly _config: MatButtonConfig | null;
     private readonly _focusMonitor;
     private _cleanupClick;
     private _renderer;
@@ -91,26 +99,23 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
 
 /**
  * Material Design button component. Users interact with a button to perform an action.
- * See https://material.io/components/buttons
- *
- * The `MatButton` class applies to native button elements and captures the appearances for
- * "text button", "outlined button", and "contained button" per the Material Design
- * specification. `MatButton` additionally captures an additional "flat" appearance, which matches
- * "contained" but without elevation.
+ * See https://m3.material.io/components/buttons/overview
  */
 declare class MatButton extends MatButtonBase {
+    /** Appearance of the button. */
+    get appearance(): MatButtonAppearance | null;
+    set appearance(value: MatButtonAppearance | '');
+    private _appearance;
+    constructor(...args: unknown[]);
+    /** Programmatically sets the appearance of the button. */
+    setAppearance(appearance: MatButtonAppearance): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[mat-button], button[mat-raised-button], button[mat-flat-button],    button[mat-stroked-button], a[mat-button], a[mat-raised-button], a[mat-flat-button],    a[mat-stroked-button]  ", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[matButton], a[matButton], button[mat-button], button[mat-raised-button],    button[mat-flat-button], button[mat-stroked-button], a[mat-button], a[mat-raised-button],    a[mat-flat-button], a[mat-stroked-button]  ", ["matButton", "matAnchor"], { "appearance": { "alias": "matButton"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
 /**
  * Material Design button component for anchor elements. Anchor elements are used to provide
  * links for the user to navigate across different routes or pages.
- * See https://material.io/components/buttons
- *
- * The `MatAnchor` class applies to native anchor elements and captures the appearances for
- * "text button", "outlined button", and "contained button" per the Material Design
- * specification. `MatAnchor` additionally captures an additional "flat" appearance, which matches
- * "contained" but without elevation.
+ * See https://m3.material.io/components/buttons/overview
  */
 declare const MatAnchor: typeof MatButton;
 type MatAnchor = MatButton;
@@ -137,7 +142,7 @@ declare function MAT_FAB_DEFAULT_OPTIONS_FACTORY(): MatFabDefaultOptions;
 /**
  * Material Design floating action button (FAB) component. These buttons represent the primary
  * or most common action for users to interact with.
- * See https://material.io/components/buttons-floating-action-button/
+ * See https://m3.material.io/components/floating-action-button/overview
  *
  * The `MatFabButton` class has two appearances: normal and extended.
  */
@@ -147,25 +152,25 @@ declare class MatFabButton extends MatButtonBase {
     extended: boolean;
     constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFabButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab], a[mat-fab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab], a[mat-fab], button[matFab], a[matFab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
     static ngAcceptInputType_extended: unknown;
 }
 /**
  * Material Design mini floating action button (FAB) component. These buttons represent the primary
  * or most common action for users to interact with.
- * See https://material.io/components/buttons-floating-action-button/
+ * See https://m3.material.io/components/floating-action-button/overview
  */
 declare class MatMiniFabButton extends MatButtonBase {
     private _options;
     _isFab: boolean;
     constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab], a[mat-mini-fab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab], a[mat-mini-fab], button[matMiniFab], a[matMiniFab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
 }
 /**
  * Material Design floating action button (FAB) component for anchor elements. Anchor elements
  * are used to provide links for the user to navigate across different routes or pages.
- * See https://material.io/components/buttons-floating-action-button/
+ * See https://m3.material.io/components/floating-action-button/overview
  *
  * The `MatFabAnchor` class has two appearances: normal and extended.
  */
@@ -174,7 +179,7 @@ type MatFabAnchor = MatFabButton;
 /**
  * Material Design mini floating action button (FAB) component for anchor elements. Anchor elements
  * are used to provide links for the user to navigate across different routes or pages.
- * See https://material.io/components/buttons-floating-action-button/
+ * See https://m3.material.io/components/floating-action-button/overview
  */
 declare const MatMiniFabAnchor: typeof MatMiniFabButton;
 type MatMiniFabAnchor = MatMiniFabButton;
@@ -187,7 +192,7 @@ type MatMiniFabAnchor = MatMiniFabButton;
 declare class MatIconButton extends MatButtonBase {
     constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button], a[mat-icon-button]", ["matButton", "matAnchor"], {}, {}, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button], a[mat-icon-button], button[matIconButton], a[matIconButton]", ["matButton", "matAnchor"], {}, {}, never, ["*"], true, never>;
 }
 /**
  * Material Design icon button component for anchor elements. This button displays a single
@@ -203,4 +208,4 @@ declare class MatButtonModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonModule>;
 }
 
-export { MAT_BUTTON_CONFIG as M, type MatButtonConfig as a, MatButton as b, MatAnchor as c, type MatFabDefaultOptions as d, MAT_FAB_DEFAULT_OPTIONS as e, MAT_FAB_DEFAULT_OPTIONS_FACTORY as f, MatFabButton as g, MatMiniFabButton as h, MatFabAnchor as i, MatMiniFabAnchor as j, MatIconButton as k, MatIconAnchor as l, MatButtonModule as m };
+export { MAT_BUTTON_CONFIG as M, type MatButtonAppearance as a, type MatButtonConfig as b, MatButton as c, MatAnchor as d, type MatFabDefaultOptions as e, MAT_FAB_DEFAULT_OPTIONS as f, MAT_FAB_DEFAULT_OPTIONS_FACTORY as g, MatFabButton as h, MatMiniFabButton as i, MatFabAnchor as j, MatMiniFabAnchor as k, MatIconButton as l, MatIconAnchor as m, MatButtonModule as n };
