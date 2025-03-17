@@ -22,11 +22,11 @@ interface MatButtonConfig {
 }
 /** Injection token that can be used to provide the default options the button component. */
 declare const MAT_BUTTON_CONFIG: InjectionToken<MatButtonConfig>;
-/** Base class for all buttons.  */
+/** Base class for all buttons. */
 declare class MatButtonBase implements AfterViewInit, OnDestroy {
     _elementRef: ElementRef<HTMLElement>;
-    _ngZone: NgZone;
-    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
+    protected _ngZone: NgZone;
+    protected _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
     protected readonly _config: MatButtonConfig | null;
     private readonly _focusMonitor;
     private _cleanupClick;
