@@ -363,7 +363,7 @@ class MatSlider {
         return this._min;
     }
     set min(v) {
-        const min = isNaN(v) ? this._min : v;
+        const min = v === undefined || v === null || isNaN(v) ? this._min : v;
         if (this._min !== min) {
             this._updateMin(min);
         }
@@ -422,7 +422,7 @@ class MatSlider {
         return this._max;
     }
     set max(v) {
-        const max = isNaN(v) ? this._max : v;
+        const max = v === undefined || v === null || isNaN(v) ? this._max : v;
         if (this._max !== max) {
             this._updateMax(max);
         }
@@ -1098,6 +1098,9 @@ class MatSliderThumb {
         return numberAttribute(this._hostElement.value, 0);
     }
     set value(value) {
+        if (value === null) {
+            value = this._getDefaultValue();
+        }
         value = isNaN(value) ? 0 : value;
         const stringValue = value + '';
         if (!this._hasSetInitialValue) {
