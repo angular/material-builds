@@ -3,7 +3,7 @@ import { Injectable, Optional, SkipSelf, InjectionToken, inject, ChangeDetectorR
 import { Subject, ReplaySubject } from 'rxjs';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { k as MatFormField } from './form-field-6d755764.mjs';
-import { M as MatSelect, a as MatSelectModule } from './module-3bf2775f.mjs';
+import { M as MatSelect, a as MatSelectModule } from './module-a8df8e21.mjs';
 import { M as MatTooltip, a as MatTooltipModule } from './module-47e3be58.mjs';
 import { a as MatOption } from './option-07c3c660.mjs';
 import { a as MatIconButton } from './icon-button-55676025.mjs';
