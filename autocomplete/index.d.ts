@@ -47,6 +47,10 @@ interface MatAutocompleteDefaultOptions {
      * they're interacting with the autocomplete.
      */
     requireSelection?: boolean;
+    /** Class to be applied to the autocomplete's backdrop. */
+    backdropClass?: string;
+    /** Whether the autocomplete has a backdrop. */
+    hasBackdrop?: boolean;
     /** Class or list of classes to be applied to the autocomplete's overlay panel. */
     overlayPanelClass?: string | string[];
     /** Whether icon indicators should be hidden for single-selection. */
