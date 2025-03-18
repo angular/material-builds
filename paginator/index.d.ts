@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { n as MatButtonModule } from '../module.d-ce5763ab.js';
+import { n as MatButtonModule } from '../module.d-792a497c.js';
 import { M as MatSelectModule } from '../module.d-ba05faa6.js';
 import { M as MatTooltipModule } from '../module.d-74a721b9.js';
 import { M as MatPaginator } from '../paginator.d-40b1766e.js';

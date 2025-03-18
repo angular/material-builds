@@ -10,7 +10,7 @@ import { M as MatRippleLoader } from './ripple-loader.d-8aac2988.js';
  * Possible appearances for a `MatButton`.
  * See https://m3.material.io/components/buttons/overview
  */
-type MatButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined';
+type MatButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined' | 'tonal';
 /** Object that can be used to configure the default options for the button component. */
 interface MatButtonConfig {
     /** Whether disabled buttons should be interactive. */

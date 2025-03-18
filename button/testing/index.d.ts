@@ -3,7 +3,7 @@ import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessC
 /** Possible button variants. */
 type ButtonVariant = 'basic' | 'icon' | 'fab' | 'mini-fab';
 /** Possible button appearances. */
-type ButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined';
+type ButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined' | 'tonal';
 /** A set of criteria that can be used to filter a list of button harness instances. */
 interface ButtonHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */

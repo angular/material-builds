@@ -84,6 +84,9 @@ class MatButtonHarness extends ContentContainerComponentHarness {
         if (await host.hasClass('mat-mdc-button')) {
             return 'text';
         }
+        if (await host.hasClass('mat-tonal-button')) {
+            return 'tonal';
+        }
         return null;
     }
 }
