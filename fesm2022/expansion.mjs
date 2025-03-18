@@ -2,7 +2,6 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, ANIMATION_MODULE_TYPE, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
-import { _StructuralStylesLoader, MatCommonModule } from '@angular/material/core';
 import { _IdGenerator, FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
 import { startWith, filter, take } from 'rxjs/operators';
 import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
@@ -10,6 +9,9 @@ import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DOCUMENT } from '@angular/common';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _ as _StructuralStylesLoader } from './structural-styles-326dcb39.mjs';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import '@angular/cdk/bidi';
 
 /**
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.

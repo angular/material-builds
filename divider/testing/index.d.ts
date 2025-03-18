@@ -1,14 +1,2 @@
-import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-
-interface DividerHarnessFilters extends BaseHarnessFilters {
-}
-
-/** Harness for interacting with a `mat-divider`. */
-declare class MatDividerHarness extends ComponentHarness {
-    static hostSelector: string;
-    static with(options?: DividerHarnessFilters): HarnessPredicate<MatDividerHarness>;
-    getOrientation(): Promise<'horizontal' | 'vertical'>;
-    isInset(): Promise<boolean>;
-}
-
-export { type DividerHarnessFilters, MatDividerHarness };
+export { D as DividerHarnessFilters, M as MatDividerHarness } from '../../divider-harness.d-d34fede4.js';
+import '@angular/cdk/testing';

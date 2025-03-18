@@ -1,7 +1,9 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, ANIMATION_MODULE_TYPE, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, NgModule } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { MatCommonModule } from '@angular/material/core';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import '@angular/cdk/a11y';
+import '@angular/cdk/bidi';
 
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
 const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {

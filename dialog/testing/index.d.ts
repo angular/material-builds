@@ -1,8 +1,13 @@
 import * as _angular_cdk_testing from '@angular/cdk/testing';
 import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { DialogRole, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { D as DialogRole, g as MatDialog, i as MatDialogConfig, M as MatDialogRef } from '../../dialog.d-7187c941.js';
 import { ComponentType } from '@angular/cdk/overlay';
 import { OnDestroy } from '@angular/core';
+import '@angular/cdk/bidi';
+import '@angular/cdk/a11y';
+import 'rxjs';
+import '@angular/cdk/dialog';
+import '@angular/cdk/portal';
 
 /** A set of criteria that can be used to filter a list of `MatDialogHarness` instances. */
 interface DialogHarnessFilters extends BaseHarnessFilters {

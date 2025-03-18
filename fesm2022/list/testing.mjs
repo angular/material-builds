@@ -1,5 +1,5 @@
 import { ComponentHarness, HarnessPredicate, ContentContainerComponentHarness, parallel } from '@angular/cdk/testing';
-import { MatDividerHarness } from '@angular/material/divider/testing';
+import { M as MatDividerHarness } from '../divider-harness-3394f29a.mjs';
 
 const iconSelector = '.mat-mdc-list-item-icon';
 const avatarSelector = '.mat-mdc-list-item-avatar';

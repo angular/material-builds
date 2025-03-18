@@ -1,6 +1,8 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Directive, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import '@angular/cdk/a11y';
+import '@angular/cdk/bidi';
 
 /** Injection token that can be used to provide the default options the card module. */
 const MAT_CARD_CONFIG = new InjectionToken('MAT_CARD_CONFIG');

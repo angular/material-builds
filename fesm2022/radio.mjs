@@ -3,8 +3,15 @@ import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import * as i0 from '@angular/core';
 import { forwardRef, InjectionToken, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, ElementRef, NgZone, Renderer2, Injector, ANIMATION_MODULE_TYPE, HostAttributeToken, numberAttribute, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _ as _StructuralStylesLoader } from './structural-styles-326dcb39.mjs';
+import { M as MatRipple } from './ripple-5bdada85.mjs';
+import { _ as _MatInternalFormField } from './internal-form-field-5960ea2e.mjs';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import { M as MatRippleModule } from './index-a36e3c7c.mjs';
+import '@angular/cdk/platform';
+import '@angular/cdk/coercion';
+import '@angular/cdk/bidi';
 
 /** Change event object emitted by radio button and radio group. */
 class MatRadioChange {

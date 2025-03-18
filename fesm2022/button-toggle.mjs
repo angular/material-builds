@@ -6,7 +6,13 @@ import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import * as i0 from '@angular/core';
 import { InjectionToken, forwardRef, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, ContentChildren, Input, Output, ElementRef, ANIMATION_MODULE_TYPE, HostAttributeToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { _StructuralStylesLoader, MatRipple, MatPseudoCheckbox, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { M as MatRipple } from './ripple-5bdada85.mjs';
+import { M as MatPseudoCheckbox } from './pseudo-checkbox-4a60d45e.mjs';
+import { _ as _StructuralStylesLoader } from './structural-styles-326dcb39.mjs';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import { M as MatRippleModule } from './index-a36e3c7c.mjs';
+import '@angular/cdk/platform';
+import '@angular/cdk/coercion';
 
 /**
  * Injection token that can be used to configure the

@@ -5,8 +5,11 @@ import { Direction } from '@angular/cdk/bidi';
 import { Subject, Observable } from 'rxjs';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
-import * as i1 from '@angular/material/core';
-import * as i2$1 from '@angular/cdk/scrolling';
+import { M as MatRippleModule } from '../index.d-0536b706.js';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import * as i5 from '@angular/cdk/scrolling';
+import '../ripple.d-2fb57d04.js';
+import '@angular/cdk/platform';
 
 type MenuPositionX = 'before' | 'after';
 type MenuPositionY = 'above' | 'below';
@@ -460,7 +463,7 @@ declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
 
 declare class MatMenuModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, never, [typeof i1.MatRippleModule, typeof i1.MatCommonModule, typeof i2.OverlayModule, typeof MatMenu, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger], [typeof i2$1.CdkScrollableModule, typeof MatMenu, typeof i1.MatCommonModule, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, never, [typeof MatRippleModule, typeof MatCommonModule, typeof i2.OverlayModule, typeof MatMenu, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger], [typeof i5.CdkScrollableModule, typeof MatMenu, typeof MatCommonModule, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatMenuModule>;
 }
 

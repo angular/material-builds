@@ -1,6 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken } from '@angular/core';
-import * as i1 from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import '@angular/cdk/bidi';
 
 type MatCardAppearance = 'outlined' | 'raised';
 /** Object that can be used to configure the default options for the card module. */
@@ -148,7 +149,7 @@ declare class MatCardAvatar {
 
 declare class MatCardModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCardModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCardModule, never, [typeof i1.MatCommonModule, typeof MatCard, typeof MatCardActions, typeof MatCardAvatar, typeof MatCardContent, typeof MatCardFooter, typeof MatCardHeader, typeof MatCardImage, typeof MatCardLgImage, typeof MatCardMdImage, typeof MatCardSmImage, typeof MatCardSubtitle, typeof MatCardTitle, typeof MatCardTitleGroup, typeof MatCardXlImage], [typeof MatCard, typeof MatCardActions, typeof MatCardAvatar, typeof MatCardContent, typeof MatCardFooter, typeof MatCardHeader, typeof MatCardImage, typeof MatCardLgImage, typeof MatCardMdImage, typeof MatCardSmImage, typeof MatCardSubtitle, typeof MatCardTitle, typeof MatCardTitleGroup, typeof MatCardXlImage, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCardModule, never, [typeof MatCommonModule, typeof MatCard, typeof MatCardActions, typeof MatCardAvatar, typeof MatCardContent, typeof MatCardFooter, typeof MatCardHeader, typeof MatCardImage, typeof MatCardLgImage, typeof MatCardMdImage, typeof MatCardSmImage, typeof MatCardSubtitle, typeof MatCardTitle, typeof MatCardTitleGroup, typeof MatCardXlImage], [typeof MatCard, typeof MatCardActions, typeof MatCardAvatar, typeof MatCardContent, typeof MatCardFooter, typeof MatCardHeader, typeof MatCardImage, typeof MatCardLgImage, typeof MatCardMdImage, typeof MatCardSmImage, typeof MatCardSubtitle, typeof MatCardTitle, typeof MatCardTitleGroup, typeof MatCardXlImage, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCardModule>;
 }
 

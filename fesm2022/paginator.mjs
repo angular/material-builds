@@ -1,12 +1,38 @@
 import * as i0 from '@angular/core';
 import { Injectable, Optional, SkipSelf, InjectionToken, inject, ChangeDetectorRef, numberAttribute, EventEmitter, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
-import { MatIconButton, MatButtonModule } from '@angular/material/button';
-import { MatSelect, MatSelectModule } from '@angular/material/select';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { _IdGenerator } from '@angular/cdk/a11y';
-import { MatOption } from '@angular/material/core';
-import { MatFormField } from '@angular/material/form-field';
+import { k as MatFormField } from './form-field-50ec956f.mjs';
+import { M as MatSelect, a as MatSelectModule } from './module-b0a3e0af.mjs';
+import { M as MatTooltip, a as MatTooltipModule } from './module-087ecec3.mjs';
+import { a as MatOption } from './option-cb353f7a.mjs';
+import { a as MatIconButton } from './icon-button-655c4ed3.mjs';
+import { h as MatButtonModule } from './module-6b33072b.mjs';
+import '@angular/cdk/bidi';
+import '@angular/cdk/coercion';
+import '@angular/cdk/platform';
+import '@angular/common';
+import 'rxjs/operators';
+import '@angular/cdk/observers/private';
+import '@angular/cdk/overlay';
+import '@angular/cdk/scrolling';
+import '@angular/cdk/collections';
+import '@angular/cdk/keycodes';
+import '@angular/forms';
+import './error-options-aca21924.mjs';
+import './error-state-8f4ce1af.mjs';
+import './index-2f2536d6.mjs';
+import './index-a36e3c7c.mjs';
+import './common-module-a39ee957.mjs';
+import './ripple-5bdada85.mjs';
+import '@angular/cdk/private';
+import './pseudo-checkbox-module-31a58606.mjs';
+import './pseudo-checkbox-4a60d45e.mjs';
+import './module-0776ab9b.mjs';
+import '@angular/cdk/observers';
+import '@angular/cdk/portal';
+import './structural-styles-326dcb39.mjs';
+import './ripple-loader-dabcd93d.mjs';
 
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and

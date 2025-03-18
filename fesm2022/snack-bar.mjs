@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, ANIMATION_MODULE_TYPE, afterRender, ViewChild, Injector, TemplateRef, Injectable, NgModule } from '@angular/core';
-import { MatButton, MatButtonModule } from '@angular/material/button';
 import { Subject, of } from 'rxjs';
+import { M as MatButton, h as MatButtonModule } from './module-6b33072b.mjs';
 import { DOCUMENT } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
@@ -9,7 +9,15 @@ import { Platform } from '@angular/cdk/platform';
 import { take, takeUntil } from 'rxjs/operators';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { MatCommonModule } from '@angular/material/core';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import './icon-button-655c4ed3.mjs';
+import '@angular/cdk/private';
+import './ripple-loader-dabcd93d.mjs';
+import './ripple-5bdada85.mjs';
+import '@angular/cdk/coercion';
+import './structural-styles-326dcb39.mjs';
+import './index-a36e3c7c.mjs';
+import '@angular/cdk/bidi';
 
 /** Maximum amount of milliseconds that can be passed into setTimeout. */
 const MAX_TIMEOUT = Math.pow(2, 31) - 1;

@@ -1,11 +1,13 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, TemplateRef, OnInit, OnChanges, OnDestroy, SimpleChanges, QueryList, ElementRef, AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import * as i1 from '@angular/material/core';
-import { ThemePalette, RippleTarget, RippleConfig, RippleGlobalOptions } from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
+import { a as RippleTarget, f as RippleConfig, b as RippleGlobalOptions } from '../ripple.d-2fb57d04.js';
+import '@angular/cdk/platform';
 
 /**
  * Injection token that can be used to reference instances of `MatTabContent`. It serves as
@@ -842,7 +844,7 @@ declare class MatTabNavPanel {
 
 declare class MatTabsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTabsModule, never, [typeof i1.MatCommonModule, typeof MatTabContent, typeof MatTabLabel, typeof MatTab, typeof MatTabGroup, typeof MatTabNav, typeof MatTabNavPanel, typeof MatTabLink], [typeof i1.MatCommonModule, typeof MatTabContent, typeof MatTabLabel, typeof MatTab, typeof MatTabGroup, typeof MatTabNav, typeof MatTabNavPanel, typeof MatTabLink]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTabsModule, never, [typeof MatCommonModule, typeof MatTabContent, typeof MatTabLabel, typeof MatTab, typeof MatTabGroup, typeof MatTabNav, typeof MatTabNavPanel, typeof MatTabLink], [typeof MatCommonModule, typeof MatTabContent, typeof MatTabLabel, typeof MatTab, typeof MatTabGroup, typeof MatTabNav, typeof MatTabNavPanel, typeof MatTabLink]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTabsModule>;
 }
 

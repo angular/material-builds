@@ -2,10 +2,12 @@ import * as i0 from '@angular/core';
 import { Directive, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, booleanAttribute, NgModule } from '@angular/core';
 import { CdkTable, CDK_TABLE, _COALESCED_STYLE_SCHEDULER, _CoalescedStyleScheduler, STICKY_POSITIONING_LISTENER, HeaderRowOutlet, DataRowOutlet, NoDataRowOutlet, FooterRowOutlet, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkCellOutlet, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule } from '@angular/cdk/table';
 import { _VIEW_REPEATER_STRATEGY, _RecycleViewRepeaterStrategy, _DisposeViewRepeaterStrategy, DataSource } from '@angular/cdk/collections';
-import { MatCommonModule } from '@angular/material/core';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
 import { BehaviorSubject, Subject, merge, of, combineLatest } from 'rxjs';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { map } from 'rxjs/operators';
+import '@angular/cdk/a11y';
+import '@angular/cdk/bidi';
 
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with

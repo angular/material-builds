@@ -1,10 +1,13 @@
 import { Directionality } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { ChangeDetectorRef, WritableSignal, AfterViewInit, OnDestroy, NgZone, ElementRef, QueryList, EventEmitter } from '@angular/core';
-import * as i1 from '@angular/material/core';
-import { RippleGlobalOptions, MatRipple, ThemePalette } from '@angular/material/core';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
+import { b as RippleGlobalOptions, M as MatRipple } from '../ripple.d-2fb57d04.js';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import { M as MatRippleModule } from '../index.d-0536b706.js';
+import '@angular/cdk/platform';
 
 /**
  * Thumb types: range slider has two thumbs (START, END) whereas single point
@@ -649,7 +652,7 @@ declare class MatSliderRangeThumb extends MatSliderThumb implements _MatSliderRa
 
 declare class MatSliderModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSliderModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof MatSlider, typeof MatSliderThumb, typeof MatSliderRangeThumb, typeof MatSliderVisualThumb], [typeof MatSlider, typeof MatSliderThumb, typeof MatSliderRangeThumb]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSliderModule, never, [typeof MatCommonModule, typeof MatRippleModule, typeof MatSlider, typeof MatSliderThumb, typeof MatSliderRangeThumb, typeof MatSliderVisualThumb], [typeof MatSlider, typeof MatSliderThumb, typeof MatSliderRangeThumb]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSliderModule>;
 }
 

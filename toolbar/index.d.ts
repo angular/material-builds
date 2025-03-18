@@ -1,6 +1,7 @@
 import * as i0 from '@angular/core';
 import { AfterViewInit, ElementRef, QueryList } from '@angular/core';
-import * as i1 from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import '@angular/cdk/bidi';
 
 declare class MatToolbarRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbarRow, never>;
@@ -37,7 +38,7 @@ declare function throwToolbarMixedModesError(): void;
 
 declare class MatToolbarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatToolbarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatToolbarModule, never, [typeof i1.MatCommonModule, typeof MatToolbar, typeof MatToolbarRow], [typeof MatToolbar, typeof MatToolbarRow, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatToolbarModule, never, [typeof MatCommonModule, typeof MatToolbar, typeof MatToolbarRow], [typeof MatToolbar, typeof MatToolbarRow, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatToolbarModule>;
 }
 

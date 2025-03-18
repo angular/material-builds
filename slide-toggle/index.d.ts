@@ -2,8 +2,9 @@ import * as i0 from '@angular/core';
 import { InjectionToken, OnDestroy, AfterContentInit, OnChanges, ChangeDetectorRef, ElementRef, EventEmitter, SimpleChanges, Provider } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors, CheckboxRequiredValidator } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import * as i1 from '@angular/material/core';
-import { ThemePalette } from '@angular/material/core';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import '@angular/cdk/bidi';
 
 /** Default `mat-slide-toggle` options that can be overridden. */
 interface MatSlideToggleDefaultOptions {
@@ -182,7 +183,7 @@ declare class _MatSlideToggleRequiredValidatorModule {
 }
 declare class MatSlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof MatSlideToggle, typeof i1.MatCommonModule], [typeof MatSlideToggle, typeof i1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof MatSlideToggle, typeof MatCommonModule], [typeof MatSlideToggle, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSlideToggleModule>;
 }
 

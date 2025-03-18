@@ -1,8 +1,10 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import * as i0 from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
 import { Observable } from 'rxjs';
+import { M as MatIconRegistry } from '../../icon-registry.d-1dffe9de.js';
+import '@angular/common/http';
+import '@angular/platform-browser';
 
 /** Possible types of icons. */
 declare enum IconType {

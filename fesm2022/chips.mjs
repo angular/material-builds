@@ -4,12 +4,21 @@ import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/priv
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, NgZone, EventEmitter, Injector, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
-import { _StructuralStylesLoader, MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleLoader, ErrorStateMatcher, _ErrorStateTracker, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
+import { _ as _StructuralStylesLoader } from './structural-styles-326dcb39.mjs';
+import { a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-5bdada85.mjs';
+import { M as MatRippleLoader } from './ripple-loader-dabcd93d.mjs';
 import { takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
-import { MatFormFieldControl, MAT_FORM_FIELD } from '@angular/material/form-field';
+import { E as ErrorStateMatcher } from './error-options-aca21924.mjs';
+import { _ as _ErrorStateTracker } from './error-state-8f4ce1af.mjs';
+import { a as MatFormFieldControl, M as MAT_FORM_FIELD } from './form-field-50ec956f.mjs';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import { M as MatRippleModule } from './index-a36e3c7c.mjs';
+import '@angular/cdk/platform';
+import '@angular/cdk/coercion';
+import '@angular/cdk/observers/private';
 
 /** Injection token to be used to override the default options for the chips module. */
 const MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options', {

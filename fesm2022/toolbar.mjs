@@ -1,8 +1,10 @@
 import * as i0 from '@angular/core';
 import { Directive, inject, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, NgModule } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import '@angular/cdk/a11y';
+import '@angular/cdk/bidi';
 
 class MatToolbarRow {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: MatToolbarRow, deps: [], target: i0.ɵɵFactoryTarget.Directive });

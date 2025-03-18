@@ -1,5 +1,5 @@
-import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
-export { MatOptgroup, MatOption } from '@angular/material/core';
+import { M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-cb353f7a.mjs';
+export { e as MatOptgroup, a as MatOption } from './option-cb353f7a.mjs';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, ANIMATION_MODULE_TYPE, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -12,8 +12,19 @@ import { hasModifierKey, ESCAPE, ENTER, TAB, UP_ARROW, DOWN_ARROW } from '@angul
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MAT_FORM_FIELD } from '@angular/material/form-field';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
+import { M as MAT_FORM_FIELD } from './form-field-50ec956f.mjs';
+import { M as MatOptionModule } from './index-2f2536d6.mjs';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import './ripple-5bdada85.mjs';
+import '@angular/cdk/coercion';
+import '@angular/cdk/private';
+import './pseudo-checkbox-4a60d45e.mjs';
+import './structural-styles-326dcb39.mjs';
+import '@angular/common';
+import '@angular/cdk/observers/private';
+import './index-a36e3c7c.mjs';
+import './pseudo-checkbox-module-31a58606.mjs';
 
 /** Event object that is emitted when an autocomplete option is selected. */
 class MatAutocompleteSelectedEvent {

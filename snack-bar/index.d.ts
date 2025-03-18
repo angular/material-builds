@@ -7,8 +7,13 @@ import * as i3 from '@angular/cdk/portal';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import * as i1 from '@angular/material/button';
-import * as i1$1 from '@angular/material/core';
+import { m as MatButtonModule } from '../module.d-f490a6d4.js';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import '../index.d-0536b706.js';
+import '../ripple.d-2fb57d04.js';
+import '@angular/cdk/platform';
+import '../palette.d-ec4a617c.js';
+import '../ripple-loader.d-8aac2988.js';
 
 /** Injection token that can be used to access the data that was passed in to a snack bar. */
 declare const MAT_SNACK_BAR_DATA: InjectionToken<any>;
@@ -322,7 +327,7 @@ declare class MatSnackBar implements OnDestroy {
 
 declare class MatSnackBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSnackBarModule, never, [typeof i2.OverlayModule, typeof i3.PortalModule, typeof i1.MatButtonModule, typeof i1$1.MatCommonModule, typeof SimpleSnackBar, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction], [typeof i1$1.MatCommonModule, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSnackBarModule, never, [typeof i2.OverlayModule, typeof i3.PortalModule, typeof MatButtonModule, typeof MatCommonModule, typeof SimpleSnackBar, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction], [typeof MatCommonModule, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSnackBarModule>;
 }
 

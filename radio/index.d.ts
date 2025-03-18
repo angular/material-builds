@@ -2,8 +2,12 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnDestroy, EventEmitter, QueryList, OnInit, AfterViewInit, DoCheck, ElementRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import * as i1 from '@angular/material/core';
-import { ThemePalette } from '@angular/material/core';
+import { T as ThemePalette } from '../palette.d-ec4a617c.js';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import { M as MatRippleModule } from '../index.d-0536b706.js';
+import '@angular/cdk/bidi';
+import '../ripple.d-2fb57d04.js';
+import '@angular/cdk/platform';
 
 /** Change event object emitted by radio button and radio group. */
 declare class MatRadioChange<T = any> {
@@ -290,7 +294,7 @@ declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, OnDestro
 
 declare class MatRadioModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRadioModule, never, [typeof i1.MatCommonModule, typeof i1.MatRippleModule, typeof MatRadioGroup, typeof MatRadioButton], [typeof i1.MatCommonModule, typeof MatRadioGroup, typeof MatRadioButton]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRadioModule, never, [typeof MatCommonModule, typeof MatRippleModule, typeof MatRadioGroup, typeof MatRadioButton], [typeof MatCommonModule, typeof MatRadioGroup, typeof MatRadioButton]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRadioModule>;
 }
 

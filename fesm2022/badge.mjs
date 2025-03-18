@@ -3,7 +3,8 @@ import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
-import { MatCommonModule } from '@angular/material/core';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import '@angular/cdk/bidi';
 
 const BADGE_CONTENT_CLASS = 'mat-badge-content';
 /**

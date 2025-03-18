@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ANIMATION_MODULE_TYPE, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import * as i1 from '@angular/material/core';
-import { _StructuralStylesLoader, DateAdapter, MAT_DATE_FORMATS, ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -11,13 +11,23 @@ import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModul
 import { Platform, _bindEventWithOptions, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { ComponentPortal, CdkPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { NgClass, DOCUMENT } from '@angular/common';
-import { MatButton, MatIconButton, MatButtonModule } from '@angular/material/button';
 import { startWith, take, filter } from 'rxjs/operators';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
+import { _ as _StructuralStylesLoader } from './structural-styles-326dcb39.mjs';
+import { a as MAT_DATE_FORMATS, D as DateAdapter$1 } from './date-formats-b618acb8.mjs';
+import { M as MatButton, h as MatButtonModule } from './module-6b33072b.mjs';
+import { a as MatIconButton } from './icon-button-655c4ed3.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
-import { MAT_FORM_FIELD, MatFormFieldControl } from '@angular/material/form-field';
-import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
+import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-8a79a24e.mjs';
+import { M as MAT_FORM_FIELD, a as MatFormFieldControl } from './form-field-50ec956f.mjs';
+import { E as ErrorStateMatcher } from './error-options-aca21924.mjs';
+import { _ as _ErrorStateTracker } from './error-state-8f4ce1af.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import './index-a36e3c7c.mjs';
+import './ripple-5bdada85.mjs';
+import './ripple-loader-dabcd93d.mjs';
+import '@angular/cdk/observers/private';
 
 /** @docs-private */
 function createMissingDateImplError(provider) {
@@ -940,7 +950,7 @@ let uniqueIdCounter = 0;
 class MatMonthView {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateAdapter = inject(DateAdapter$1, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _rangeStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, { optional: true });
     _rerenderSubscription = Subscription.EMPTY;
@@ -1410,7 +1420,7 @@ const yearsPerRow = 4;
  */
 class MatMultiYearView {
     _changeDetectorRef = inject(ChangeDetectorRef);
-    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateAdapter = inject(DateAdapter$1, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _rerenderSubscription = Subscription.EMPTY;
     /** Flag used to filter out space/enter keyup events that originated outside of the view. */
@@ -1734,7 +1744,7 @@ function euclideanModulo(a, b) {
 class MatYearView {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateAdapter = inject(DateAdapter$1, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _rerenderSubscription = Subscription.EMPTY;
     /** Flag used to filter out space/enter keyup events that originated outside of the view. */
@@ -2050,7 +2060,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
 class MatCalendarHeader {
     _intl = inject(MatDatepickerIntl);
     calendar = inject(MatCalendar);
-    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateAdapter = inject(DateAdapter$1, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     constructor() {
         inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
@@ -2173,7 +2183,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
         }], ctorParameters: () => [] });
 /** A calendar that is used as part of the datepicker. */
 class MatCalendar {
-    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateAdapter = inject(DateAdapter$1, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     _changeDetectorRef = inject(ChangeDetectorRef);
     /** An input indicating the type of the header component, if set. */
@@ -2500,7 +2510,7 @@ class MatDatepickerContent {
     _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
     _changeDetectorRef = inject(ChangeDetectorRef);
     _globalModel = inject(MatDateSelectionModel);
-    _dateAdapter = inject(DateAdapter);
+    _dateAdapter = inject(DateAdapter$1);
     _ngZone = inject(NgZone);
     _rangeSelectionStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, { optional: true });
     _stateChanges;
@@ -2667,7 +2677,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
 class MatDatepickerBase {
     _overlay = inject(Overlay);
     _viewContainerRef = inject(ViewContainerRef);
-    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateAdapter = inject(DateAdapter$1, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _model = inject(MatDateSelectionModel);
     _scrollStrategy = inject(MAT_DATEPICKER_SCROLL_STRATEGY);
@@ -3159,7 +3169,7 @@ class MatDatepickerInputEvent {
 /** Base class for datepicker inputs. */
 class MatDatepickerInputBase {
     _elementRef = inject(ElementRef);
-    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateAdapter = inject(DateAdapter$1, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     /** Whether the component has been initialized. */
     _isInitialized;
@@ -3729,7 +3739,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
 class MatDateRangeInput {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _elementRef = inject(ElementRef);
-    _dateAdapter = inject(DateAdapter, { optional: true });
+    _dateAdapter = inject(DateAdapter$1, { optional: true });
     _formField = inject(MAT_FORM_FIELD, { optional: true });
     _closedSubscription = Subscription.EMPTY;
     _openedSubscription = Subscription.EMPTY;

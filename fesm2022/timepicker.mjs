@@ -1,18 +1,28 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ViewContainerRef, Injector, ANIMATION_MODULE_TYPE, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
-import { DateAdapter, MAT_DATE_FORMATS, MatOption, MAT_OPTION_PARENT_COMPONENT } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { _getEventTarget } from '@angular/cdk/platform';
 import { TAB, ESCAPE, hasModifierKey, ENTER, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { ActiveDescendantKeyManager, _IdGenerator } from '@angular/cdk/a11y';
+import { D as DateAdapter, a as MAT_DATE_FORMATS } from './date-formats-b618acb8.mjs';
+import { a as MatOption, M as MAT_OPTION_PARENT_COMPONENT } from './option-cb353f7a.mjs';
 import { Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { MAT_FORM_FIELD } from '@angular/material/form-field';
-import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 import { DOCUMENT } from '@angular/common';
-import { MatIconButton } from '@angular/material/button';
+import { M as MAT_FORM_FIELD } from './form-field-50ec956f.mjs';
+import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-8a79a24e.mjs';
+import { a as MatIconButton } from './icon-button-655c4ed3.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
+import 'rxjs';
+import './ripple-5bdada85.mjs';
+import '@angular/cdk/coercion';
+import '@angular/cdk/private';
+import './pseudo-checkbox-4a60d45e.mjs';
+import './structural-styles-326dcb39.mjs';
+import 'rxjs/operators';
+import '@angular/cdk/observers/private';
+import './ripple-loader-dabcd93d.mjs';
 
 /** Pattern that interval strings have to match. */
 const INTERVAL_PATTERN = /^(\d*\.?\d+)\s*(h|hour|hours|m|min|minute|minutes|s|second|seconds)?$/i;

@@ -2,14 +2,23 @@ import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/port
 import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
 import { Directive, Injectable, Optional, SkipSelf, inject, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, TemplateRef, ViewContainerRef, ContentChild, NgZone, Renderer2, ANIMATION_MODULE_TYPE, signal, QueryList, EventEmitter, ElementRef, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
-import { _StructuralStylesLoader, MatRipple, ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Subject, Subscription } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
+import { d as MatIcon, M as MatIconModule } from './icon-module-881c6455.mjs';
+import { _ as _StructuralStylesLoader } from './structural-styles-326dcb39.mjs';
+import { M as MatRipple } from './ripple-5bdada85.mjs';
 import { Platform } from '@angular/cdk/platform';
 import { switchMap, map, startWith, takeUntil } from 'rxjs/operators';
+import { E as ErrorStateMatcher } from './error-options-aca21924.mjs';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import { M as MatRippleModule } from './index-a36e3c7c.mjs';
+import './icon-registry-e1064d47.mjs';
+import '@angular/common/http';
+import '@angular/platform-browser';
+import '@angular/cdk/coercion';
+import '@angular/cdk/bidi';
 
 class MatStepLabel extends CdkStepLabel {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: MatStepLabel, deps: null, target: i0.ɵɵFactoryTarget.Directive });

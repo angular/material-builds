@@ -1,9 +1,12 @@
 import * as i0 from '@angular/core';
 import { OnDestroy, Signal, ModelSignal, InputSignal, InputSignalWithTransform, ElementRef, InjectionToken, TemplateRef, OutputEmitterRef } from '@angular/core';
-import { MatOptionParentComponent, MatOption } from '@angular/material/core';
+import { M as MatOption } from '../option.d-6f493d78.js';
+import { M as MatOptionParentComponent } from '../option-parent.d-559ad5c5.js';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
-import * as i2 from '@angular/cdk/scrolling';
+import * as i5 from '@angular/cdk/scrolling';
+import '@angular/cdk/a11y';
+import 'rxjs';
 
 /**
  * Input that can be used to enter time and connect to a `mat-timepicker`.
@@ -279,7 +282,7 @@ declare class MatTimepickerToggle<D> {
 
 declare class MatTimepickerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTimepickerModule, never, [typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle], [typeof i2.CdkScrollableModule, typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTimepickerModule, never, [typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle], [typeof i5.CdkScrollableModule, typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTimepickerModule>;
 }
 

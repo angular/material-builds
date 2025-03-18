@@ -2,8 +2,14 @@ import * as i0 from '@angular/core';
 import { InjectionToken, forwardRef, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, Input, Output, Directive, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, CheckboxRequiredValidator } from '@angular/forms';
 import { FocusMonitor, _IdGenerator } from '@angular/cdk/a11y';
-import { _StructuralStylesLoader, MatRipple, _MatInternalFormField, MatCommonModule } from '@angular/material/core';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _ as _StructuralStylesLoader } from './structural-styles-326dcb39.mjs';
+import { M as MatRipple } from './ripple-5bdada85.mjs';
+import { _ as _MatInternalFormField } from './internal-form-field-5960ea2e.mjs';
+import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import '@angular/cdk/platform';
+import '@angular/cdk/coercion';
+import '@angular/cdk/bidi';
 
 /** Injection token to be used to override the default options for `mat-slide-toggle`. */
 const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {

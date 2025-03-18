@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { OnDestroy, EventEmitter, InjectionToken, ViewContainerRef, ComponentRef, TemplateRef } from '@angular/core';
 import * as i1 from '@angular/cdk/dialog';
 import { CdkDialogContainer, DialogRef } from '@angular/cdk/dialog';
-import * as i1$1 from '@angular/material/core';
+import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import * as i3 from '@angular/cdk/portal';
 import { ComponentType } from '@angular/cdk/portal';
 import { Direction } from '@angular/cdk/bidi';
@@ -39,7 +39,7 @@ declare class MatBottomSheetContainer extends CdkDialogContainer implements OnDe
 
 declare class MatBottomSheetModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBottomSheetModule, never, [typeof i1.DialogModule, typeof i1$1.MatCommonModule, typeof i3.PortalModule, typeof MatBottomSheetContainer], [typeof MatBottomSheetContainer, typeof i1$1.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatBottomSheetModule, never, [typeof i1.DialogModule, typeof MatCommonModule, typeof i3.PortalModule, typeof MatBottomSheetContainer], [typeof MatBottomSheetContainer, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatBottomSheetModule>;
 }
 
