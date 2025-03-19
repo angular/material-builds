@@ -1,7 +1,7 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { M as MatSelectHarness } from '../select-harness-8c55824d.mjs';
-import '../form-field-control-harness-af6fd278.mjs';
+import { M as MatSelectHarness } from '../select-harness-69d47123.mjs';
+import '../form-field-control-harness-efefd4cf.mjs';
 import '../option-harness-3b7c1106.mjs';
 import '../optgroup-harness-5e66b138.mjs';
 
