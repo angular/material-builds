@@ -1,5 +1,5 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { M as MatOptionHarness } from './option-harness-3b7c1106.mjs';
+import { M as MatOptionHarness } from './option-harness-b4971f41.mjs';
 
 /** Harness for interacting with a `mat-optgroup` in tests. */
 class MatOptgroupHarness extends ComponentHarness {
@@ -33,4 +33,4 @@ class MatOptgroupHarness extends ComponentHarness {
 }
 
 export { MatOptgroupHarness as M };
-//# sourceMappingURL=optgroup-harness-5e66b138.mjs.map
+//# sourceMappingURL=optgroup-harness-d5cf72ed.mjs.map

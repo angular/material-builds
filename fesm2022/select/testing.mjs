@@ -1,6 +1,6 @@
-export { M as MatSelectHarness } from '../select-harness-69d47123.mjs';
+export { M as MatSelectHarness } from '../select-harness-30466074.mjs';
 import '@angular/cdk/testing';
 import '../form-field-control-harness-efefd4cf.mjs';
-import '../option-harness-3b7c1106.mjs';
-import '../optgroup-harness-5e66b138.mjs';
+import '../option-harness-b4971f41.mjs';
+import '../optgroup-harness-d5cf72ed.mjs';
 //# sourceMappingURL=testing.mjs.map
