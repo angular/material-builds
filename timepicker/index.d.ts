@@ -13,7 +13,6 @@ import 'rxjs';
  */
 declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, OnDestroy {
     private _elementRef;
-    private _document;
     private _dateAdapter;
     private _dateFormats;
     private _formField;
