@@ -1,6 +1,7 @@
 export { _ as _MatInternalFormField } from './internal-form-field-434c4039.mjs';
 import * as i0 from '@angular/core';
 import { Version, inject, Injectable, NgModule } from '@angular/core';
+export { A as AnimationCurves, a as AnimationDurations, _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 export { a as MATERIAL_SANITY_CHECKS, M as MatCommonModule } from './common-module-2d64df09.mjs';
 export { _ as _ErrorStateTracker } from './error-state-8f4ce1af.mjs';
 import { D as DateAdapter, M as MAT_DATE_LOCALE, a as MAT_DATE_FORMATS } from './date-formats-b618acb8.mjs';
@@ -8,13 +9,13 @@ export { D as DateAdapter, a as MAT_DATE_FORMATS, M as MAT_DATE_LOCALE, b as MAT
 export { E as ErrorStateMatcher, S as ShowOnDirtyErrorStateMatcher } from './error-options-4a00765e.mjs';
 export { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 export { M as MatLine, a as MatLineModule, s as setLines } from './line-d6afe347.mjs';
-export { b as MAT_OPTGROUP, M as MAT_OPTION_PARENT_COMPONENT, e as MatOptgroup, a as MatOption, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-07c3c660.mjs';
-export { M as MatOptionModule } from './index-1763d3a6.mjs';
-export { M as MatRippleLoader } from './ripple-loader-f2078c66.mjs';
-export { a as MAT_RIPPLE_GLOBAL_OPTIONS, M as MatRipple, c as RippleRef, R as RippleRenderer, b as RippleState, d as defaultRippleAnimationConfig } from './ripple-9939d1f5.mjs';
-export { M as MatRippleModule } from './index-4bc1d6d3.mjs';
-export { M as MatPseudoCheckbox } from './pseudo-checkbox-af5a4ea4.mjs';
-export { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-216fae38.mjs';
+export { b as MAT_OPTGROUP, M as MAT_OPTION_PARENT_COMPONENT, e as MatOptgroup, a as MatOption, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-636f0562.mjs';
+export { M as MatOptionModule } from './index-26a22e6d.mjs';
+export { M as MatRippleLoader } from './ripple-loader-37620555.mjs';
+export { a as MAT_RIPPLE_GLOBAL_OPTIONS, M as MatRipple, c as RippleRef, R as RippleRenderer, b as RippleState, d as defaultRippleAnimationConfig } from './ripple-c405b061.mjs';
+export { M as MatRippleModule } from './index-8309af79.mjs';
+export { M as MatPseudoCheckbox } from './pseudo-checkbox-0115d33e.mjs';
+export { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-89d964bd.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 import 'rxjs';
@@ -27,28 +28,6 @@ import '@angular/cdk/coercion';
 
 /** Current version of Angular Material. */
 const VERSION = new Version('20.0.0-next.2');
-
-/**
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- * @docs-private
- */
-class AnimationCurves {
-    static STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
-    static DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
-    static ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
-    static SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
-}
-/**
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- * @docs-private
- */
-class AnimationDurations {
-    static COMPLEX = '375ms';
-    static ENTERING = '225ms';
-    static EXITING = '195ms';
-}
 
 /**
  * Matches strings that have the form of a valid RFC 3339 string
@@ -403,5 +382,5 @@ function provideNativeDateAdapter(formats = MAT_NATIVE_DATE_FORMATS) {
     ];
 }
 
-export { AnimationCurves, AnimationDurations, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, provideNativeDateAdapter };
+export { MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, provideNativeDateAdapter };
 //# sourceMappingURL=core.mjs.map

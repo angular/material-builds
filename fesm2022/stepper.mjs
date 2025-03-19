@@ -1,19 +1,20 @@
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
-import { Directive, Injectable, Optional, SkipSelf, inject, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, TemplateRef, ViewContainerRef, ContentChild, NgZone, Renderer2, ANIMATION_MODULE_TYPE, signal, QueryList, EventEmitter, ElementRef, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
+import { Directive, Injectable, Optional, SkipSelf, inject, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, TemplateRef, ViewContainerRef, ContentChild, NgZone, Renderer2, signal, QueryList, EventEmitter, ElementRef, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Subject, Subscription } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { d as MatIcon, M as MatIconModule } from './icon-module-3f77a24d.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
-import { M as MatRipple } from './ripple-9939d1f5.mjs';
+import { M as MatRipple } from './ripple-c405b061.mjs';
 import { Platform } from '@angular/cdk/platform';
 import { switchMap, map, startWith, takeUntil } from 'rxjs/operators';
 import { E as ErrorStateMatcher } from './error-options-4a00765e.mjs';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import { M as MatRippleModule } from './index-4bc1d6d3.mjs';
+import { M as MatRippleModule } from './index-8309af79.mjs';
 import './icon-registry-13a3b98e.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
@@ -293,7 +294,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
 class MatStepper extends CdkStepper {
     _ngZone = inject(NgZone);
     _renderer = inject(Renderer2);
-    _animationsModule = inject(ANIMATION_MODULE_TYPE, { optional: true });
+    _animationsDisabled = _animationsDisabled();
     _cleanupTransition;
     _isAnimating = signal(false);
     /** The list of step headers of the steps in the stepper. */
@@ -362,7 +363,7 @@ class MatStepper extends CdkStepper {
             }
         });
         this._ngZone.runOutsideAngular(() => {
-            if (this._animationsModule !== 'NoopAnimations') {
+            if (!this._animationsDisabled) {
                 setTimeout(() => {
                     // Delay enabling the animations so we don't animate the initial state.
                     this._elementRef.nativeElement.classList.add('mat-stepper-animations-enabled');
@@ -404,7 +405,7 @@ class MatStepper extends CdkStepper {
         return step.completed || this.selectedIndex === index || !this.linear;
     }
     _getAnimationDuration() {
-        if (this._animationsModule === 'NoopAnimations') {
+        if (this._animationsDisabled) {
             return '0ms';
         }
         if (this.animationDuration) {

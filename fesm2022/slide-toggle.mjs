@@ -1,10 +1,11 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, Input, Output, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, Input, Output, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { FocusMonitor, _IdGenerator } from '@angular/cdk/a11y';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
-import { M as MatRipple } from './ripple-9939d1f5.mjs';
+import { M as MatRipple } from './ripple-c405b061.mjs';
 import { _ as _MatInternalFormField } from './internal-form-field-434c4039.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 import '@angular/cdk/platform';
@@ -56,7 +57,7 @@ class MatSlideToggle {
         this._switchElement.nativeElement.focus();
     }
     /** Whether noop animations are enabled. */
-    _noopAnimations;
+    _noopAnimations = _animationsDisabled();
     /** Whether the slide toggle is currently focused. */
     _focused;
     /** Name value will be applied to the input element if present. */
@@ -117,10 +118,8 @@ class MatSlideToggle {
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const tabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });
         const defaults = this.defaults;
-        const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         this.tabIndex = tabIndex == null ? 0 : parseInt(tabIndex) || 0;
         this.color = defaults.color || 'accent';
-        this._noopAnimations = animationMode === 'NoopAnimations';
         this.id = this._uniqueId = inject(_IdGenerator).getId('mat-mdc-slide-toggle-');
         this.hideIcon = defaults.hideIcon ?? false;
         this.disabledInteractive = defaults.disabledInteractive ?? false;

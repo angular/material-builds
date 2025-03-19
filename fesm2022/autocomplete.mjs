@@ -1,30 +1,31 @@
-import { M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-07c3c660.mjs';
-export { e as MatOptgroup, a as MatOption } from './option-07c3c660.mjs';
+import { M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-636f0562.mjs';
+export { e as MatOptgroup, a as MatOption } from './option-636f0562.mjs';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, ANIMATION_MODULE_TYPE, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { Platform, _getFocusedElementPierceShadowDom, _getEventTarget } from '@angular/cdk/platform';
 import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, ESCAPE, ENTER, TAB, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
-import { M as MAT_FORM_FIELD } from './form-field-6d755764.mjs';
-import { M as MatOptionModule } from './index-1763d3a6.mjs';
+import { M as MAT_FORM_FIELD } from './form-field-8a19bb72.mjs';
+import { M as MatOptionModule } from './index-26a22e6d.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import './ripple-9939d1f5.mjs';
+import './ripple-c405b061.mjs';
 import '@angular/cdk/coercion';
 import '@angular/cdk/private';
-import './pseudo-checkbox-af5a4ea4.mjs';
+import './pseudo-checkbox-0115d33e.mjs';
 import './structural-styles-d5ada3b3.mjs';
 import '@angular/common';
 import '@angular/cdk/observers/private';
-import './index-4bc1d6d3.mjs';
-import './pseudo-checkbox-module-216fae38.mjs';
+import './index-8309af79.mjs';
+import './pseudo-checkbox-module-89d964bd.mjs';
 
 /** Event object that is emitted when an autocomplete option is selected. */
 class MatAutocompleteSelectedEvent {
@@ -63,7 +64,7 @@ class MatAutocomplete {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _elementRef = inject(ElementRef);
     _defaults = inject(MAT_AUTOCOMPLETE_DEFAULT_OPTIONS);
-    _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
+    _animationsDisabled = _animationsDisabled();
     _activeOptionChanges = Subscription.EMPTY;
     /** Manages active item in option list based on key events. */
     _keyManager;
@@ -371,6 +372,7 @@ class MatAutocompleteTrigger {
     _viewportRuler = inject(ViewportRuler);
     _scrollStrategy = inject(MAT_AUTOCOMPLETE_SCROLL_STRATEGY);
     _renderer = inject(Renderer2);
+    _animationsDisabled = _animationsDisabled();
     _defaults = inject(MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, { optional: true });
     _overlayRef;
     _portal;
@@ -999,6 +1001,7 @@ class MatAutocompleteTrigger {
             hasBackdrop: this._defaults?.hasBackdrop,
             backdropClass: this._defaults?.backdropClass,
             panelClass: this._defaults?.overlayPanelClass,
+            disableAnimations: this._animationsDisabled,
         });
     }
     _getOverlayPosition() {

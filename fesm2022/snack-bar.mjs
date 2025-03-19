@@ -1,22 +1,23 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, ANIMATION_MODULE_TYPE, afterRender, ViewChild, Injector, TemplateRef, Injectable, NgModule } from '@angular/core';
+import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, afterRender, ViewChild, Injector, TemplateRef, Injectable, NgModule } from '@angular/core';
 import { Subject, of } from 'rxjs';
-import { M as MatButton, h as MatButtonModule } from './module-cf951a02.mjs';
+import { M as MatButton, h as MatButtonModule } from './module-5a2afb59.mjs';
 import { DOCUMENT } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { take, takeUntil } from 'rxjs/operators';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import './icon-button-0850d958.mjs';
+import './icon-button-b4a4e8c0.mjs';
 import '@angular/cdk/private';
-import './ripple-loader-f2078c66.mjs';
-import './ripple-9939d1f5.mjs';
+import './ripple-loader-37620555.mjs';
+import './ripple-c405b061.mjs';
 import '@angular/cdk/coercion';
 import './structural-styles-d5ada3b3.mjs';
-import './index-4bc1d6d3.mjs';
+import './index-8309af79.mjs';
 import '@angular/cdk/bidi';
 
 /** Maximum amount of milliseconds that can be passed into setTimeout. */
@@ -222,7 +223,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _platform = inject(Platform);
     _rendersRef;
-    _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
+    _animationsDisabled = _animationsDisabled();
     snackBarConfig = inject(MatSnackBarConfig);
     _document = inject(DOCUMENT);
     _trackedModals = new Set();
@@ -549,6 +550,7 @@ class MatSnackBar {
     _breakpointObserver = inject(BreakpointObserver);
     _parentSnackBar = inject(MatSnackBar, { optional: true, skipSelf: true });
     _defaultConfig = inject(MAT_SNACK_BAR_DEFAULT_OPTIONS);
+    _animationsDisabled = _animationsDisabled();
     /**
      * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
      * If there is a parent snack-bar service, all operations should delegate to that parent
@@ -742,6 +744,7 @@ class MatSnackBar {
             positionStrategy.bottom('0');
         }
         overlayConfig.positionStrategy = positionStrategy;
+        overlayConfig.disableAnimations = this._animationsDisabled;
         return this._overlay.create(overlayConfig);
     }
     /**

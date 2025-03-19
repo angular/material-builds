@@ -31,7 +31,7 @@ declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAcces
     _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _ngZone;
-    _animationMode?: "NoopAnimations" | "BrowserAnimations" | null | undefined;
+    private _animationsDisabled;
     private _options;
     /** Focuses the checkbox. */
     focus(): void;

@@ -153,6 +153,7 @@ declare const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: InjectionToken<MatBottomSheetCon
 declare class MatBottomSheet implements OnDestroy {
     private _overlay;
     private _parentBottomSheet;
+    private _animationsDisabled;
     private _defaultOptions;
     private _bottomSheetRefAtThisLevel;
     private _dialog;

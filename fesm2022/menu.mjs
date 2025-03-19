@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, ANIMATION_MODULE_TYPE, afterNextRender, ContentChildren, ViewChild, ContentChild, Output, NgZone, Renderer2, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, afterNextRender, ContentChildren, ViewChild, ContentChild, Output, NgZone, Renderer2, NgModule } from '@angular/core';
 import { FocusMonitor, _IdGenerator, FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject, merge, Subscription, of } from 'rxjs';
@@ -7,13 +7,14 @@ import { startWith, switchMap, takeUntil, take, filter } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
-import { M as MatRipple } from './ripple-9939d1f5.mjs';
+import { M as MatRipple } from './ripple-c405b061.mjs';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { _bindEventWithOptions } from '@angular/cdk/platform';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
-import { M as MatRippleModule } from './index-4bc1d6d3.mjs';
+import { M as MatRippleModule } from './index-8309af79.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 import '@angular/cdk/coercion';
 
@@ -276,7 +277,7 @@ class MatMenu {
     _firstItemFocusRef;
     _exitFallbackTimeout;
     /** Whether animations are currently disabled. */
-    _animationsDisabled;
+    _animationsDisabled = _animationsDisabled();
     /** All items inside the menu. Includes items nested inside another menu. */
     _allItems;
     /** Only the direct descendant menu items. */
@@ -398,7 +399,6 @@ class MatMenu {
         this.backdropClass = defaultOptions.backdropClass;
         this.overlapTrigger = defaultOptions.overlapTrigger;
         this.hasBackdrop = defaultOptions.hasBackdrop;
-        this._animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
     }
     ngOnInit() {
         this.setPositionClasses();
@@ -714,6 +714,7 @@ class MatMenuTrigger {
     _ngZone = inject(NgZone);
     _scrollStrategy = inject(MAT_MENU_SCROLL_STRATEGY);
     _changeDetectorRef = inject(ChangeDetectorRef);
+    _animationsDisabled = _animationsDisabled();
     _cleanupTouchstart;
     _portal;
     _overlayRef = null;
@@ -981,6 +982,7 @@ class MatMenuTrigger {
             panelClass: menu.overlayPanelClass,
             scrollStrategy: this._scrollStrategy(),
             direction: this._dir || 'ltr',
+            disableAnimations: this._animationsDisabled,
         });
     }
     /**

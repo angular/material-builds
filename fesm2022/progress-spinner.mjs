@@ -1,6 +1,7 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ANIMATION_MODULE_TYPE, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, NgModule } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
@@ -49,10 +50,8 @@ class MatProgressSpinner {
     /** The element of the determinate spinner. */
     _determinateCircle;
     constructor() {
-        const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         const defaults = inject(MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS);
-        this._noopAnimations =
-            animationMode === 'NoopAnimations' && !!defaults && !defaults._forceAnimations;
+        this._noopAnimations = _animationsDisabled() && !!defaults && !defaults._forceAnimations;
         this.mode =
             this._elementRef.nativeElement.nodeName.toLowerCase() === 'mat-spinner'
                 ? 'indeterminate'

@@ -1,10 +1,11 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, Directive, Input, NgZone, ANIMATION_MODULE_TYPE, Injector, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, EventEmitter, Output, forwardRef, Renderer2, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, Directive, Input, NgZone, Injector, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, EventEmitter, Output, forwardRef, Renderer2, NgModule } from '@angular/core';
 import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { Subscription, merge, Subject } from 'rxjs';
-import { a as MAT_RIPPLE_GLOBAL_OPTIONS, R as RippleRenderer } from './ripple-9939d1f5.mjs';
+import { a as MAT_RIPPLE_GLOBAL_OPTIONS, R as RippleRenderer } from './ripple-c405b061.mjs';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { CdkObserveContent, ObserversModule } from '@angular/cdk/observers';
@@ -16,10 +17,10 @@ import { ENTER, SPACE, A, hasModifierKey } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import { M as MatRippleModule } from './index-4bc1d6d3.mjs';
-import { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-216fae38.mjs';
+import { M as MatRippleModule } from './index-8309af79.mjs';
+import { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-89d964bd.mjs';
 import '@angular/cdk/bidi';
-import './pseudo-checkbox-af5a4ea4.mjs';
+import './pseudo-checkbox-0115d33e.mjs';
 
 /**
  * Injection token that can be used to reference instances of an `ListOption`. It serves
@@ -201,7 +202,7 @@ class MatListItemBase {
     /** indicate whether the host element is a button or not */
     _isButtonElement;
     /** Whether animations are disabled. */
-    _noopAnimations;
+    _noopAnimations = _animationsDisabled();
     _avatars;
     _icons;
     /**
@@ -259,11 +260,9 @@ class MatListItemBase {
         const globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, {
             optional: true,
         });
-        const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         this.rippleConfig = globalRippleOptions || {};
         this._hostElement = this._elementRef.nativeElement;
         this._isButtonElement = this._hostElement.nodeName.toLowerCase() === 'button';
-        this._noopAnimations = animationMode === 'NoopAnimations';
         if (this._listBase && !this._listBase._isNonInteractive) {
             this._initInteractiveListItem();
         }

@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { OnChanges, OnDestroy, AfterViewChecked, EventEmitter, SimpleChanges, FactoryProvider, AfterContentInit, ChangeDetectorRef, AfterViewInit, ElementRef, InjectionToken, OnInit, DoCheck, TemplateRef } from '@angular/core';
-import { c as MatButton, n as MatButtonModule } from '../module.d-792a497c.js';
+import { c as MatButton, n as MatButtonModule } from '../module.d-d86ca350.js';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
 import * as i1 from '@angular/cdk/a11y';
@@ -17,10 +17,10 @@ import { M as MatFormFieldControl } from '../form-field-control.d-eb86711c.js';
 import { Directionality } from '@angular/cdk/bidi';
 import { E as ErrorStateMatcher } from '../error-options.d-448d9046.js';
 import * as i5 from '@angular/cdk/scrolling';
-import '../index.d-0536b706.js';
-import '../ripple.d-2fb57d04.js';
+import '../index.d-cc6e48d4.js';
+import '../ripple.d-f2cd74cf.js';
 import '@angular/cdk/platform';
-import '../ripple-loader.d-8aac2988.js';
+import '../ripple-loader.d-e5ac6c14.js';
 
 /** Extra CSS classes that can be associated with a calendar cell. */
 type MatCalendarCellCssClasses = string | string[] | Set<string> | {
@@ -1156,6 +1156,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     private _dateAdapter;
     private _dir;
     private _model;
+    private _animationsDisabled;
     private _scrollStrategy;
     private _inputStateChanges;
     private _document;

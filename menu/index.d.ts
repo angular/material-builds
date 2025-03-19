@@ -5,10 +5,10 @@ import { Direction } from '@angular/cdk/bidi';
 import { Subject, Observable } from 'rxjs';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
-import { M as MatRippleModule } from '../index.d-0536b706.js';
+import { M as MatRippleModule } from '../index.d-cc6e48d4.js';
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import * as i5 from '@angular/cdk/scrolling';
-import '../ripple.d-2fb57d04.js';
+import '../ripple.d-f2cd74cf.js';
 import '@angular/cdk/platform';
 
 type MenuPositionX = 'before' | 'after';
@@ -337,6 +337,7 @@ declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _ngZone;
     private _scrollStrategy;
     private _changeDetectorRef;
+    private _animationsDisabled;
     private _cleanupTouchstart;
     private _portal;
     private _overlayRef;

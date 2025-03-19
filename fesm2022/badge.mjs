@@ -1,8 +1,9 @@
 import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 import '@angular/cdk/bidi';
 
@@ -25,7 +26,7 @@ class MatBadge {
     _elementRef = inject(ElementRef);
     _ariaDescriber = inject(AriaDescriber);
     _renderer = inject(Renderer2);
-    _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
+    _animationsDisabled = _animationsDisabled();
     _idGenerator = inject(_IdGenerator);
     /**
      * Theme color of the badge. This API is supported in M2 themes only, it
@@ -151,12 +152,12 @@ class MatBadge {
         // flow. Instead, we use the badge to describe the decorated element with aria-describedby.
         badgeElement.setAttribute('aria-hidden', 'true');
         badgeElement.classList.add(BADGE_CONTENT_CLASS);
-        if (this._animationMode === 'NoopAnimations') {
+        if (this._animationsDisabled) {
             badgeElement.classList.add('_mat-animation-noopable');
         }
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
-        if (typeof requestAnimationFrame === 'function' && this._animationMode !== 'NoopAnimations') {
+        if (typeof requestAnimationFrame === 'function' && !this._animationsDisabled) {
             this._ngZone.runOutsideAngular(() => {
                 requestAnimationFrame(() => {
                     badgeElement.classList.add(activeClass);

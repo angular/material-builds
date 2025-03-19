@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, ANIMATION_MODULE_TYPE, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
@@ -8,6 +8,7 @@ import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DOCUMENT } from '@angular/common';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
@@ -54,7 +55,7 @@ const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new InjectionToken('MAT_EXPANSION_PA
  */
 class MatExpansionPanel extends CdkAccordionItem {
     _viewContainerRef = inject(ViewContainerRef);
-    _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
+    _animationsDisabled = _animationsDisabled();
     _document = inject(DOCUMENT);
     _ngZone = inject(NgZone);
     _elementRef = inject(ElementRef);

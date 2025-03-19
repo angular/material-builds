@@ -3,19 +3,20 @@ import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, UP_ARROW, DOWN_AR
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, NgZone, EventEmitter, Injector, ANIMATION_MODULE_TYPE, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, NgZone, EventEmitter, Injector, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
 import { Subject, merge } from 'rxjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
-import { a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-9939d1f5.mjs';
-import { M as MatRippleLoader } from './ripple-loader-f2078c66.mjs';
+import { a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-c405b061.mjs';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
+import { M as MatRippleLoader } from './ripple-loader-37620555.mjs';
 import { takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { E as ErrorStateMatcher } from './error-options-4a00765e.mjs';
 import { _ as _ErrorStateTracker } from './error-state-8f4ce1af.mjs';
-import { a as MatFormFieldControl, M as MAT_FORM_FIELD } from './form-field-6d755764.mjs';
+import { a as MatFormFieldControl, M as MAT_FORM_FIELD } from './form-field-8a19bb72.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import { M as MatRippleModule } from './index-4bc1d6d3.mjs';
+import { M as MatRippleModule } from './index-8309af79.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 import '@angular/cdk/observers/private';
@@ -264,7 +265,7 @@ class MatChip {
     /** Subscription to changes in the chip's actions. */
     _actionChanges;
     /** Whether animations for the chip are enabled. */
-    _animationsDisabled;
+    _animationsDisabled = _animationsDisabled();
     /** All avatars present in the chip. */
     _allLeadingIcons;
     /** All trailing icons present in the chip. */
@@ -353,8 +354,6 @@ class MatChip {
         const styleLoader = inject(_CdkPrivateStyleLoader);
         styleLoader.load(_StructuralStylesLoader);
         styleLoader.load(_VisuallyHiddenLoader);
-        const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
-        this._animationsDisabled = animationMode === 'NoopAnimations';
         this._monitorFocus();
         this._rippleLoader?.configureRipple(this._elementRef.nativeElement, {
             className: 'mat-mdc-chip-ripple',

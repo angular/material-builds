@@ -1,6 +1,7 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, ChangeDetectorRef, Renderer2, ANIMATION_MODULE_TYPE, EventEmitter, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, ChangeDetectorRef, Renderer2, EventEmitter, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
@@ -33,12 +34,10 @@ class MatProgressBar {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _renderer = inject(Renderer2);
     _cleanupTransitionEnd;
-    _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
     constructor() {
         const defaults = inject(MAT_PROGRESS_BAR_DEFAULT_OPTIONS, {
             optional: true,
         });
-        this._isNoopAnimation = this._animationMode === 'NoopAnimations';
         if (defaults) {
             if (defaults.color) {
                 this.color = this._defaultColor = defaults.color;
@@ -47,7 +46,7 @@ class MatProgressBar {
         }
     }
     /** Flag that indicates whether NoopAnimations mode is set to true. */
-    _isNoopAnimation = false;
+    _isNoopAnimation = _animationsDisabled();
     // TODO: should be typed as `ThemePalette` but internal apps pass in arbitrary strings.
     /**
      * Theme color of the progress bar. This API is supported in M2 themes only, it

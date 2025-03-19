@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ANIMATION_MODULE_TYPE, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import * as i1 from '@angular/material/core';
 import { DateAdapter } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
@@ -15,18 +15,19 @@ import { startWith, take, filter } from 'rxjs/operators';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 import { a as MAT_DATE_FORMATS, D as DateAdapter$1 } from './date-formats-b618acb8.mjs';
-import { M as MatButton, h as MatButtonModule } from './module-cf951a02.mjs';
-import { a as MatIconButton } from './icon-button-0850d958.mjs';
+import { M as MatButton, h as MatButtonModule } from './module-5a2afb59.mjs';
+import { a as MatIconButton } from './icon-button-b4a4e8c0.mjs';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-8a79a24e.mjs';
-import { M as MAT_FORM_FIELD, a as MatFormFieldControl } from './form-field-6d755764.mjs';
+import { M as MAT_FORM_FIELD, a as MatFormFieldControl } from './form-field-8a19bb72.mjs';
 import { E as ErrorStateMatcher } from './error-options-4a00765e.mjs';
 import { _ as _ErrorStateTracker } from './error-state-8f4ce1af.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import './index-4bc1d6d3.mjs';
-import './ripple-9939d1f5.mjs';
-import './ripple-loader-f2078c66.mjs';
+import './index-8309af79.mjs';
+import './ripple-c405b061.mjs';
+import './ripple-loader-37620555.mjs';
 import '@angular/cdk/observers/private';
 
 /** @docs-private */
@@ -2507,7 +2508,7 @@ const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 class MatDatepickerContent {
     _elementRef = inject(ElementRef);
-    _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
+    _animationsDisabled = _animationsDisabled();
     _changeDetectorRef = inject(ChangeDetectorRef);
     _globalModel = inject(MatDateSelectionModel);
     _dateAdapter = inject(DateAdapter$1);
@@ -2680,6 +2681,7 @@ class MatDatepickerBase {
     _dateAdapter = inject(DateAdapter$1, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _model = inject(MatDateSelectionModel);
+    _animationsDisabled = _animationsDisabled();
     _scrollStrategy = inject(MAT_DATEPICKER_SCROLL_STRATEGY);
     _inputStateChanges = Subscription.EMPTY;
     _document = inject(DOCUMENT);
@@ -2975,6 +2977,7 @@ class MatDatepickerBase {
             direction: this._dir || 'ltr',
             scrollStrategy: isDialog ? this._overlay.scrollStrategies.block() : this._scrollStrategy(),
             panelClass: `mat-datepicker-${isDialog ? 'dialog' : 'popup'}`,
+            disableAnimations: this._animationsDisabled,
         })));
         this._getCloseStream(overlayRef).subscribe(event => {
             if (event) {

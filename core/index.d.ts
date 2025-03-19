@@ -7,15 +7,15 @@ import { Subject } from 'rxjs';
 import { E as ErrorStateMatcher$1 } from '../error-options.d-448d9046.js';
 export { E as ErrorStateMatcher, S as ShowOnDirtyErrorStateMatcher } from '../error-options.d-448d9046.js';
 export { M as MatLine, a as MatLineModule, s as setLines } from '../line.d-570a2537.js';
-export { M as MatOptionModule } from '../index.d-37e31cd3.js';
-export { M as MatRippleLoader } from '../ripple-loader.d-8aac2988.js';
-export { M as MatRippleModule } from '../index.d-0536b706.js';
-export { b as MatPseudoCheckbox, M as MatPseudoCheckboxModule, a as MatPseudoCheckboxState } from '../pseudo-checkbox-module.d-3abc0461.js';
+export { M as MatOptionModule } from '../index.d-d77f0821.js';
+export { M as MatRippleLoader } from '../ripple-loader.d-e5ac6c14.js';
+export { M as MatRippleModule } from '../index.d-cc6e48d4.js';
+export { b as MatPseudoCheckbox, M as MatPseudoCheckboxModule, a as MatPseudoCheckboxState } from '../pseudo-checkbox-module.d-d21de92b.js';
 import { D as DateAdapter } from '../date-adapter.d-c6835d41.js';
 export { D as DateAdapter, M as MAT_DATE_LOCALE, a as MAT_DATE_LOCALE_FACTORY } from '../date-adapter.d-c6835d41.js';
 export { d as MAT_OPTGROUP, a as MatOptgroup, M as MatOption, b as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, c as _getOptionScrollPosition } from '../option.d-6f493d78.js';
 export { a as MAT_OPTION_PARENT_COMPONENT, M as MatOptionParentComponent } from '../option-parent.d-559ad5c5.js';
-export { c as MAT_RIPPLE_GLOBAL_OPTIONS, M as MatRipple, g as RippleAnimationConfig, f as RippleConfig, b as RippleGlobalOptions, h as RippleRef, R as RippleRenderer, e as RippleState, a as RippleTarget, d as defaultRippleAnimationConfig } from '../ripple.d-2fb57d04.js';
+export { c as MAT_RIPPLE_GLOBAL_OPTIONS, M as MatRipple, g as RippleAnimationConfig, f as RippleConfig, b as RippleGlobalOptions, h as RippleRef, R as RippleRenderer, e as RippleState, a as RippleTarget, d as defaultRippleAnimationConfig } from '../ripple.d-f2cd74cf.js';
 import '@angular/cdk/bidi';
 import '@angular/cdk/a11y';
 import '@angular/cdk/platform';
@@ -44,6 +44,11 @@ declare class AnimationDurations {
     static ENTERING: string;
     static EXITING: string;
 }
+/**
+ * Returns whether animations have been disabled by DI. Must be called in a DI context.
+ * @docs-private
+ */
+declare function _animationsDisabled(): boolean;
 
 interface ErrorStateMatcher extends ErrorStateMatcher$1 {
 }
@@ -191,4 +196,4 @@ declare class _MatInternalFormField {
     static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
 }
 
-export { AnimationCurves, AnimationDurations, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, type MatDateFormats, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, provideNativeDateAdapter };
+export { AnimationCurves, AnimationDurations, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, type MatDateFormats, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, provideNativeDateAdapter };

@@ -6,9 +6,10 @@ import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, ANIMATION_MODULE_TYPE, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 
 /**
@@ -558,7 +559,7 @@ class MatDrawerContainer {
     _element = inject(ElementRef);
     _ngZone = inject(NgZone);
     _changeDetectorRef = inject(ChangeDetectorRef);
-    _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
+    _animationDisabled = _animationsDisabled();
     _transitionsEnabled = false;
     /** All drawers in the container. Includes drawers from inside nested containers. */
     _allDrawers;
@@ -645,7 +646,7 @@ class MatDrawerContainer {
             .change()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => this.updateContentMargins());
-        if (this._animationMode !== 'NoopAnimations' && platform.isBrowser) {
+        if (!this._animationDisabled && platform.isBrowser) {
             this._ngZone.runOutsideAngular(() => {
                 // Enable the animations after a delay in order to skip
                 // the initial transition if a drawer is open by default.

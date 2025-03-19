@@ -4,13 +4,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW, UP_ARROW, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, ContentChildren, Input, Output, ElementRef, ANIMATION_MODULE_TYPE, HostAttributeToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, ContentChildren, Input, Output, ElementRef, HostAttributeToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { M as MatRipple } from './ripple-9939d1f5.mjs';
-import { M as MatPseudoCheckbox } from './pseudo-checkbox-af5a4ea4.mjs';
+import { M as MatRipple } from './ripple-c405b061.mjs';
+import { M as MatPseudoCheckbox } from './pseudo-checkbox-0115d33e.mjs';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import { M as MatRippleModule } from './index-4bc1d6d3.mjs';
+import { M as MatRippleModule } from './index-8309af79.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 
@@ -463,7 +464,7 @@ class MatButtonToggle {
     _elementRef = inject(ElementRef);
     _focusMonitor = inject(FocusMonitor);
     _idGenerator = inject(_IdGenerator);
-    _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
+    _animationDisabled = _animationsDisabled();
     _checked = false;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, aria-labelledby will
@@ -573,7 +574,7 @@ class MatButtonToggle {
         // 1. We don't want the animation to fire on the first render for pre-checked toggles so we
         //    delay adding the class until the view is rendered.
         // 2. We don't want animation if the `NoopAnimationsModule` is provided.
-        if (this._animationMode !== 'NoopAnimations') {
+        if (!this._animationDisabled) {
             this._elementRef.nativeElement.classList.add('mat-button-toggle-animations-enabled');
         }
         this._focusMonitor.monitor(this._elementRef, true);

@@ -6,7 +6,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
 import { T as ThemePalette } from '../palette.d-ec4a617c.js';
-import { a as RippleTarget, f as RippleConfig, b as RippleGlobalOptions } from '../ripple.d-2fb57d04.js';
+import { a as RippleTarget, f as RippleConfig, b as RippleGlobalOptions } from '../ripple.d-f2cd74cf.js';
 import '@angular/cdk/platform';
 
 /**
@@ -222,7 +222,7 @@ declare abstract class MatPaginatedTabHeader implements AfterContentChecked, Aft
     private _sharedResizeObserver;
     private _injector;
     private _renderer;
-    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
+    _animationsDisabled: boolean;
     private _eventCleanups;
     abstract _items: QueryList<MatPaginatedTabHeaderItem>;
     abstract _inkBar: {
@@ -466,7 +466,7 @@ declare class MatTabBody implements OnInit, OnDestroy {
     private _ngZone;
     private _injector;
     private _renderer;
-    private _animationsModule;
+    private _diAnimationsDisabled;
     private _eventCleanups?;
     private _initialized;
     private _fallbackTimer;
@@ -543,7 +543,7 @@ declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterConte
     private _tabsSubscription;
     private _tabLabelSubscription;
     private _tabBodySubscription;
-    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
+    _animationsDisabled: boolean;
     /**
      * All tabs inside the tab group. This includes tabs that belong to groups that are nested
      * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.

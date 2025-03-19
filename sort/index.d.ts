@@ -82,7 +82,7 @@ declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, AfterView
     private _elementRef;
     private _ariaDescriber;
     private _renderChanges;
-    protected _animationModule: "NoopAnimations" | "BrowserAnimations" | null;
+    protected _animationsDisabled: boolean;
     /**
      * Indicates which state was just cleared from the sort header.
      * Will be reset on the next interaction. Used for coordinating animations.

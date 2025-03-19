@@ -1,8 +1,9 @@
 import { CdkDialogContainer, Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { inject, ANIMATION_MODULE_TYPE, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injectable, NgModule } from '@angular/core';
+import { EventEmitter, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injectable, NgModule } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { Overlay } from '@angular/cdk/overlay';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
@@ -19,7 +20,7 @@ const EXIT_ANIMATION = '_mat-bottom-sheet-exit';
  */
 class MatBottomSheetContainer extends CdkDialogContainer {
     _breakpointSubscription;
-    _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
+    _animationsDisabled = _animationsDisabled();
     /** The state of the bottom sheet animations. */
     _animationState = 'void';
     /** Emits whenever the state of the animation changes. */
@@ -268,6 +269,7 @@ const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-de
 class MatBottomSheet {
     _overlay = inject(Overlay);
     _parentBottomSheet = inject(MatBottomSheet, { optional: true, skipSelf: true });
+    _animationsDisabled = _animationsDisabled();
     _defaultOptions = inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, {
         optional: true,
     });
@@ -300,6 +302,7 @@ class MatBottomSheet {
             container: MatBottomSheetContainer,
             scrollStrategy: _config.scrollStrategy || this._overlay.scrollStrategies.block(),
             positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0'),
+            disableAnimations: this._animationsDisabled,
             templateContext: () => ({ bottomSheetRef: ref }),
             providers: (cdkRef, _cdkConfig, container) => {
                 ref = new MatBottomSheetRef(cdkRef, _config, container);

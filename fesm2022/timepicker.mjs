@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ViewContainerRef, Injector, ANIMATION_MODULE_TYPE, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
+import { InjectionToken, inject, ViewContainerRef, Injector, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -7,22 +7,23 @@ import { _getEventTarget } from '@angular/cdk/platform';
 import { TAB, ESCAPE, hasModifierKey, ENTER, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { ActiveDescendantKeyManager, _IdGenerator } from '@angular/cdk/a11y';
 import { D as DateAdapter, a as MAT_DATE_FORMATS } from './date-formats-b618acb8.mjs';
-import { a as MatOption, M as MAT_OPTION_PARENT_COMPONENT } from './option-07c3c660.mjs';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
+import { a as MatOption, M as MAT_OPTION_PARENT_COMPONENT } from './option-636f0562.mjs';
 import { Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
-import { M as MAT_FORM_FIELD } from './form-field-6d755764.mjs';
+import { M as MAT_FORM_FIELD } from './form-field-8a19bb72.mjs';
 import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-8a79a24e.mjs';
-import { a as MatIconButton } from './icon-button-0850d958.mjs';
+import { a as MatIconButton } from './icon-button-b4a4e8c0.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import 'rxjs';
-import './ripple-9939d1f5.mjs';
+import './ripple-c405b061.mjs';
 import '@angular/cdk/coercion';
 import '@angular/cdk/private';
-import './pseudo-checkbox-af5a4ea4.mjs';
+import './pseudo-checkbox-0115d33e.mjs';
 import './structural-styles-d5ada3b3.mjs';
 import 'rxjs/operators';
 import '@angular/cdk/observers/private';
-import './ripple-loader-f2078c66.mjs';
+import './ripple-loader-37620555.mjs';
 
 /** Pattern that interval strings have to match. */
 const INTERVAL_PATTERN = /^(\d*\.?\d+)\s*(h|hour|hours|m|min|minute|minutes|s|second|seconds)?$/i;
@@ -123,7 +124,7 @@ class MatTimepicker {
     _dateAdapter = inject(DateAdapter, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     _scrollStrategyFactory = inject(MAT_TIMEPICKER_SCROLL_STRATEGY);
-    _animationsDisabled = inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
+    _animationsDisabled = _animationsDisabled();
     _isOpen = signal(false);
     _activeDescendant = signal(null);
     _input = signal(null);
@@ -309,6 +310,7 @@ class MatTimepicker {
             scrollStrategy: this._scrollStrategyFactory(),
             direction: this._dir || 'ltr',
             hasBackdrop: false,
+            disableAnimations: this._animationsDisabled,
         });
         this._overlayRef.detachments().subscribe(() => this.close());
         this._overlayRef.keydownEvents().subscribe(event => this._handleKeydown(event));

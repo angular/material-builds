@@ -7,13 +7,13 @@ import * as i3 from '@angular/cdk/portal';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { n as MatButtonModule } from '../module.d-792a497c.js';
+import { n as MatButtonModule } from '../module.d-d86ca350.js';
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
-import '../index.d-0536b706.js';
-import '../ripple.d-2fb57d04.js';
+import '../index.d-cc6e48d4.js';
+import '../ripple.d-f2cd74cf.js';
 import '@angular/cdk/platform';
 import '../palette.d-ec4a617c.js';
-import '../ripple-loader.d-8aac2988.js';
+import '../ripple-loader.d-e5ac6c14.js';
 
 /** Injection token that can be used to access the data that was passed in to a snack bar. */
 declare const MAT_SNACK_BAR_DATA: InjectionToken<any>;
@@ -256,6 +256,7 @@ declare class MatSnackBar implements OnDestroy {
     private _breakpointObserver;
     private _parentSnackBar;
     private _defaultConfig;
+    private _animationsDisabled;
     /**
      * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
      * If there is a parent snack-bar service, all operations should delegate to that parent

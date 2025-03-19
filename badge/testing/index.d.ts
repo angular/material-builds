@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { a as MatBadgePosition, b as MatBadgeSize } from '../../badge.d-49a8a74b.js';
+import { a as MatBadgePosition, b as MatBadgeSize } from '../../badge.d-d42103d0.js';
 import '@angular/core';
 import '../../palette.d-ec4a617c.js';
 

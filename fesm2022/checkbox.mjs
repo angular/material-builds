@@ -1,11 +1,12 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, ANIMATION_MODULE_TYPE, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _ as _MatInternalFormField } from './internal-form-field-434c4039.mjs';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
-import { M as MatRipple } from './ripple-9939d1f5.mjs';
+import { M as MatRipple } from './ripple-c405b061.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
@@ -57,7 +58,7 @@ class MatCheckbox {
     _elementRef = inject(ElementRef);
     _changeDetectorRef = inject(ChangeDetectorRef);
     _ngZone = inject(NgZone);
-    _animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
+    _animationsDisabled = _animationsDisabled();
     _options = inject(MAT_CHECKBOX_DEFAULT_OPTIONS, {
         optional: true,
     });
@@ -334,7 +335,7 @@ class MatCheckbox {
     }
     _getAnimationClassForCheckStateTransition(oldState, newState) {
         // Don't transition if animations are disabled.
-        if (this._animationMode === 'NoopAnimations') {
+        if (this._animationsDisabled) {
             return '';
         }
         switch (oldState) {
@@ -403,7 +404,7 @@ class MatCheckbox {
         }
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatCheckbox, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "20.0.0-next.1", type: MatCheckbox, isStandalone: true, selector: "mat-checkbox", inputs: { ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"], ariaExpanded: ["aria-expanded", "ariaExpanded", booleanAttribute], ariaControls: ["aria-controls", "ariaControls"], ariaOwns: ["aria-owns", "ariaOwns"], id: "id", required: ["required", "required", booleanAttribute], labelPosition: "labelPosition", name: "name", value: "value", disableRipple: ["disableRipple", "disableRipple", booleanAttribute], tabIndex: ["tabIndex", "tabIndex", (value) => (value == null ? undefined : numberAttribute(value))], color: "color", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute], checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], indeterminate: ["indeterminate", "indeterminate", booleanAttribute] }, outputs: { change: "change", indeterminateChange: "indeterminateChange" }, host: { properties: { "attr.tabindex": "null", "attr.aria-label": "null", "attr.aria-labelledby": "null", "class._mat-animation-noopable": "_animationMode === 'NoopAnimations'", "class.mdc-checkbox--disabled": "disabled", "id": "id", "class.mat-mdc-checkbox-disabled": "disabled", "class.mat-mdc-checkbox-checked": "checked", "class.mat-mdc-checkbox-disabled-interactive": "disabledInteractive", "class": "color ? \"mat-\" + color : \"mat-accent\"" }, classAttribute: "mat-mdc-checkbox" }, providers: [
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "16.1.0", version: "20.0.0-next.1", type: MatCheckbox, isStandalone: true, selector: "mat-checkbox", inputs: { ariaLabel: ["aria-label", "ariaLabel"], ariaLabelledby: ["aria-labelledby", "ariaLabelledby"], ariaDescribedby: ["aria-describedby", "ariaDescribedby"], ariaExpanded: ["aria-expanded", "ariaExpanded", booleanAttribute], ariaControls: ["aria-controls", "ariaControls"], ariaOwns: ["aria-owns", "ariaOwns"], id: "id", required: ["required", "required", booleanAttribute], labelPosition: "labelPosition", name: "name", value: "value", disableRipple: ["disableRipple", "disableRipple", booleanAttribute], tabIndex: ["tabIndex", "tabIndex", (value) => (value == null ? undefined : numberAttribute(value))], color: "color", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute], checked: ["checked", "checked", booleanAttribute], disabled: ["disabled", "disabled", booleanAttribute], indeterminate: ["indeterminate", "indeterminate", booleanAttribute] }, outputs: { change: "change", indeterminateChange: "indeterminateChange" }, host: { properties: { "attr.tabindex": "null", "attr.aria-label": "null", "attr.aria-labelledby": "null", "class._mat-animation-noopable": "_animationsDisabled", "class.mdc-checkbox--disabled": "disabled", "id": "id", "class.mat-mdc-checkbox-disabled": "disabled", "class.mat-mdc-checkbox-checked": "checked", "class.mat-mdc-checkbox-disabled-interactive": "disabledInteractive", "class": "color ? \"mat-\" + color : \"mat-accent\"" }, classAttribute: "mat-mdc-checkbox" }, providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
                 useExisting: forwardRef(() => MatCheckbox),
@@ -423,7 +424,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                         '[attr.tabindex]': 'null',
                         '[attr.aria-label]': 'null',
                         '[attr.aria-labelledby]': 'null',
-                        '[class._mat-animation-noopable]': `_animationMode === 'NoopAnimations'`,
+                        '[class._mat-animation-noopable]': '_animationsDisabled',
                         '[class.mdc-checkbox--disabled]': 'disabled',
                         '[id]': 'id',
                         // Add classes that users can use to more easily target disabled or checked checkboxes.

@@ -1,14 +1,15 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, ANIMATION_MODULE_TYPE, booleanAttribute, numberAttribute, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, signal, Directive, Output, NgModule } from '@angular/core';
-import { b as RippleState, M as MatRipple, a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-9939d1f5.mjs';
+import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, booleanAttribute, numberAttribute, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, signal, Directive, Output, NgModule } from '@angular/core';
+import { b as RippleState, M as MatRipple, a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-c405b061.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import { M as MatRippleModule } from './index-4bc1d6d3.mjs';
+import { M as MatRippleModule } from './index-8309af79.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/coercion';
 
@@ -533,7 +534,7 @@ class MatSlider {
     /** Used to keep track of & render the active & inactive tick marks on the slider track. */
     _tickMarks;
     /** Whether animations have been disabled. */
-    _noopAnimations;
+    _noopAnimations = _animationsDisabled();
     /** Subscription to changes to the directionality (LTR / RTL) context for the application. */
     _dirChangeSubscription;
     /** Observer used to monitor size changes in the slider. */
@@ -564,8 +565,6 @@ class MatSlider {
     _platform = inject(Platform);
     constructor() {
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
-        const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
-        this._noopAnimations = animationMode === 'NoopAnimations';
         if (this._dir) {
             this._dirChangeSubscription = this._dir.change.subscribe(() => this._onDirChange());
             this._isRtl = this._dir.value === 'rtl';

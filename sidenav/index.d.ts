@@ -194,7 +194,7 @@ declare class MatDrawerContainer implements AfterContentInit, DoCheck, OnDestroy
     private _element;
     private _ngZone;
     private _changeDetectorRef;
-    private _animationMode;
+    private _animationDisabled;
     _transitionsEnabled: boolean;
     /** All drawers in the container. Includes drawers from inside nested containers. */
     _allDrawers: QueryList<MatDrawer>;

@@ -49,7 +49,6 @@ declare class MatProgressBar implements AfterViewInit, OnDestroy {
     private _changeDetectorRef;
     private _renderer;
     private _cleanupTransitionEnd;
-    _animationMode?: "NoopAnimations" | "BrowserAnimations" | null | undefined;
     constructor(...args: unknown[]);
     /** Flag that indicates whether NoopAnimations mode is set to true. */
     _isNoopAnimation: boolean;

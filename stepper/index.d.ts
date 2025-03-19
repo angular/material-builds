@@ -7,14 +7,14 @@ import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import * as i3 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { M as MatIconModule } from '../icon-module.d-aa3bbba0.js';
-import { M as MatRippleModule } from '../index.d-0536b706.js';
+import { M as MatRippleModule } from '../index.d-cc6e48d4.js';
 import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { T as ThemePalette } from '../palette.d-ec4a617c.js';
 import { E as ErrorStateMatcher } from '../error-options.d-448d9046.js';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
 import '@angular/cdk/bidi';
-import '../ripple.d-2fb57d04.js';
+import '../ripple.d-f2cd74cf.js';
 import '@angular/cdk/platform';
 
 declare class MatStepLabel extends CdkStepLabel {
@@ -164,7 +164,7 @@ declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContent
 declare class MatStepper extends CdkStepper implements AfterViewInit, AfterContentInit, OnDestroy {
     private _ngZone;
     private _renderer;
-    private _animationsModule;
+    private _animationsDisabled;
     private _cleanupTransition;
     protected _isAnimating: i0.WritableSignal<boolean>;
     /** The list of step headers of the steps in the stepper. */

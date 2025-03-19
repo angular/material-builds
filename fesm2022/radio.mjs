@@ -1,14 +1,15 @@
 import { _IdGenerator, FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import * as i0 from '@angular/core';
-import { forwardRef, InjectionToken, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, ElementRef, NgZone, Renderer2, Injector, ANIMATION_MODULE_TYPE, HostAttributeToken, numberAttribute, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { forwardRef, InjectionToken, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, Output, ContentChildren, Input, ElementRef, NgZone, Renderer2, Injector, HostAttributeToken, numberAttribute, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
-import { M as MatRipple } from './ripple-9939d1f5.mjs';
+import { M as MatRipple } from './ripple-c405b061.mjs';
 import { _ as _MatInternalFormField } from './internal-form-field-434c4039.mjs';
 import { M as MatCommonModule } from './common-module-2d64df09.mjs';
-import { M as MatRippleModule } from './index-4bc1d6d3.mjs';
+import { M as MatRippleModule } from './index-8309af79.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 import '@angular/cdk/bidi';
@@ -462,17 +463,15 @@ class MatRadioButton {
     /** Trigger elements for the ripple events. */
     _rippleTrigger;
     /** Whether animations are disabled. */
-    _noopAnimations;
+    _noopAnimations = _animationsDisabled();
     _injector = inject(Injector);
     constructor() {
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const radioGroup = inject(MAT_RADIO_GROUP, { optional: true });
-        const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
         const tabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         this.radioGroup = radioGroup;
-        this._noopAnimations = animationMode === 'NoopAnimations';
         this._disabledInteractive = this._defaultOptions?.disabledInteractive ?? false;
         if (tabIndex) {
             this.tabIndex = numberAttribute(tabIndex, 0);

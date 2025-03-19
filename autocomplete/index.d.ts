@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnDestroy, TemplateRef, ElementRef, QueryList, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
-import { M as MatOptionModule } from '../index.d-37e31cd3.js';
+import { M as MatOptionModule } from '../index.d-d77f0821.js';
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
 import { T as ThemePalette } from '../palette.d-ec4a617c.js';
 import { M as MatOption, a as MatOptgroup, b as MatOptionSelectionChange } from '../option.d-6f493d78.js';
@@ -11,10 +11,10 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as i5 from '@angular/cdk/scrolling';
-import '../index.d-0536b706.js';
-import '../ripple.d-2fb57d04.js';
+import '../index.d-cc6e48d4.js';
+import '../ripple.d-f2cd74cf.js';
 import '@angular/cdk/platform';
-import '../pseudo-checkbox-module.d-3abc0461.js';
+import '../pseudo-checkbox-module.d-d21de92b.js';
 import '@angular/cdk/bidi';
 
 /** Event object that is emitted when an autocomplete option is selected. */
@@ -224,6 +224,7 @@ declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewI
     private _viewportRuler;
     private _scrollStrategy;
     private _renderer;
+    private _animationsDisabled;
     private _defaults;
     private _overlayRef;
     private _portal;
