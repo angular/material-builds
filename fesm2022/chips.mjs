@@ -1993,6 +1993,10 @@ class MatChipInput {
         this._disabled = value;
     }
     _disabled = false;
+    /** Whether the input is readonly. */
+    readonly = false;
+    /** Whether the input should remain interactive when it is disabled. */
+    disabledInteractive;
     /** Whether the input is empty. */
     get empty() {
         return !this.inputElement.value;
@@ -2004,6 +2008,7 @@ class MatChipInput {
         const formField = inject(MAT_FORM_FIELD, { optional: true });
         this.inputElement = this._elementRef.nativeElement;
         this.separatorKeyCodes = defaultOptions.separatorKeyCodes;
+        this.disabledInteractive = defaultOptions.inputDisabledInteractive ?? false;
         if (formField) {
             this.inputElement.classList.add('mat-mdc-form-field-input-control');
         }
@@ -2082,8 +2087,12 @@ class MatChipInput {
     _isSeparatorKey(event) {
         return !hasModifierKey(event) && new Set(this.separatorKeyCodes).has(event.keyCode);
     }
+    /** Gets the value to set on the `readonly` attribute. */
+    _getReadonlyAttribute() {
+        return this.readonly || (this.disabled && this.disabledInteractive) ? 'true' : null;
+    }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatChipInput, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "20.0.0-next.1", type: MatChipInput, isStandalone: true, selector: "input[matChipInputFor]", inputs: { chipGrid: ["matChipInputFor", "chipGrid"], addOnBlur: ["matChipInputAddOnBlur", "addOnBlur", booleanAttribute], separatorKeyCodes: ["matChipInputSeparatorKeyCodes", "separatorKeyCodes"], placeholder: "placeholder", id: "id", disabled: ["disabled", "disabled", booleanAttribute] }, outputs: { chipEnd: "matChipInputTokenEnd" }, host: { listeners: { "keydown": "_keydown($event)", "blur": "_blur()", "focus": "_focus()", "input": "_onInput()" }, properties: { "id": "id", "attr.disabled": "disabled || null", "attr.placeholder": "placeholder || null", "attr.aria-invalid": "_chipGrid && _chipGrid.ngControl ? _chipGrid.ngControl.invalid : null", "attr.aria-required": "_chipGrid && _chipGrid.required || null", "attr.required": "_chipGrid && _chipGrid.required || null" }, classAttribute: "mat-mdc-chip-input mat-mdc-input-element mdc-text-field__input mat-input-element" }, exportAs: ["matChipInput", "matChipInputFor"], usesOnChanges: true, ngImport: i0 });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "20.0.0-next.1", type: MatChipInput, isStandalone: true, selector: "input[matChipInputFor]", inputs: { chipGrid: ["matChipInputFor", "chipGrid"], addOnBlur: ["matChipInputAddOnBlur", "addOnBlur", booleanAttribute], separatorKeyCodes: ["matChipInputSeparatorKeyCodes", "separatorKeyCodes"], placeholder: "placeholder", id: "id", disabled: ["disabled", "disabled", booleanAttribute], readonly: ["readonly", "readonly", booleanAttribute], disabledInteractive: ["matChipInputDisabledInteractive", "disabledInteractive", booleanAttribute] }, outputs: { chipEnd: "matChipInputTokenEnd" }, host: { listeners: { "keydown": "_keydown($event)", "blur": "_blur()", "focus": "_focus()", "input": "_onInput()" }, properties: { "id": "id", "attr.disabled": "disabled && !disabledInteractive ? \"\" : null", "attr.placeholder": "placeholder || null", "attr.aria-invalid": "_chipGrid && _chipGrid.ngControl ? _chipGrid.ngControl.invalid : null", "attr.aria-required": "_chipGrid && _chipGrid.required || null", "attr.aria-disabled": "disabled && disabledInteractive ? \"true\" : null", "attr.readonly": "_getReadonlyAttribute()", "attr.required": "_chipGrid && _chipGrid.required || null" }, classAttribute: "mat-mdc-chip-input mat-mdc-input-element mdc-text-field__input mat-input-element" }, exportAs: ["matChipInput", "matChipInputFor"], usesOnChanges: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", ngImport: i0, type: MatChipInput, decorators: [{
             type: Directive,
@@ -2100,10 +2109,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
                         '(focus)': '_focus()',
                         '(input)': '_onInput()',
                         '[id]': 'id',
-                        '[attr.disabled]': 'disabled || null',
+                        '[attr.disabled]': 'disabled && !disabledInteractive ? "" : null',
                         '[attr.placeholder]': 'placeholder || null',
                         '[attr.aria-invalid]': '_chipGrid && _chipGrid.ngControl ? _chipGrid.ngControl.invalid : null',
                         '[attr.aria-required]': '_chipGrid && _chipGrid.required || null',
+                        '[attr.aria-disabled]': 'disabled && disabledInteractive ? "true" : null',
+                        '[attr.readonly]': '_getReadonlyAttribute()',
                         '[attr.required]': '_chipGrid && _chipGrid.required || null',
                     },
                 }]
@@ -2126,6 +2137,12 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.1", 
             }], disabled: [{
                 type: Input,
                 args: [{ transform: booleanAttribute }]
+            }], readonly: [{
+                type: Input,
+                args: [{ transform: booleanAttribute }]
+            }], disabledInteractive: [{
+                type: Input,
+                args: [{ alias: 'matChipInputDisabledInteractive', transform: booleanAttribute }]
             }] } });
 
 const CHIP_DECLARATIONS = [

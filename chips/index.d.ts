@@ -837,6 +837,10 @@ declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy {
     get disabled(): boolean;
     set disabled(value: boolean);
     private _disabled;
+    /** Whether the input is readonly. */
+    readonly: boolean;
+    /** Whether the input should remain interactive when it is disabled. */
+    disabledInteractive: boolean;
     /** Whether the input is empty. */
     get empty(): boolean;
     /** The native input element to which this directive is attached. */
@@ -859,10 +863,14 @@ declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy {
     setDescribedByIds(ids: string[]): void;
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;
+    /** Gets the value to set on the `readonly` attribute. */
+    protected _getReadonlyAttribute(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipInput, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipGrid": { "alias": "matChipInputFor"; "required": false; }; "addOnBlur": { "alias": "matChipInputAddOnBlur"; "required": false; }; "separatorKeyCodes": { "alias": "matChipInputSeparatorKeyCodes"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipInput, "input[matChipInputFor]", ["matChipInput", "matChipInputFor"], { "chipGrid": { "alias": "matChipInputFor"; "required": false; }; "addOnBlur": { "alias": "matChipInputAddOnBlur"; "required": false; }; "separatorKeyCodes": { "alias": "matChipInputSeparatorKeyCodes"; "required": false; }; "placeholder": { "alias": "placeholder"; "required": false; }; "id": { "alias": "id"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "readonly": { "alias": "readonly"; "required": false; }; "disabledInteractive": { "alias": "matChipInputDisabledInteractive"; "required": false; }; }, { "chipEnd": "matChipInputTokenEnd"; }, never, never, true, never>;
     static ngAcceptInputType_addOnBlur: unknown;
     static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_readonly: unknown;
+    static ngAcceptInputType_disabledInteractive: unknown;
 }
 
 declare class MatChipsModule {
@@ -877,6 +885,8 @@ interface MatChipsDefaultOptions {
     separatorKeyCodes: readonly number[] | ReadonlySet<number>;
     /** Whether icon indicators should be hidden for single-selection. */
     hideSingleSelectionIndicator?: boolean;
+    /** Whether the chip input should be interactive while disabled by default. */
+    inputDisabledInteractive?: boolean;
 }
 /** Injection token to be used to override the default options for the chips module. */
 declare const MAT_CHIPS_DEFAULT_OPTIONS: InjectionToken<MatChipsDefaultOptions>;
