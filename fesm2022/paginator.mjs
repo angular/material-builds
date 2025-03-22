@@ -7,7 +7,7 @@ import { M as MatSelect, a as MatSelectModule } from './module-57e0986f.mjs';
 import { M as MatTooltip, a as MatTooltipModule } from './module-4a8034fc.mjs';
 import { a as MatOption } from './option-636f0562.mjs';
 import { a as MatIconButton } from './icon-button-b4a4e8c0.mjs';
-import { h as MatButtonModule } from './module-5a2afb59.mjs';
+import { h as MatButtonModule } from './module-5c43c853.mjs';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
 import '@angular/cdk/platform';

@@ -15,7 +15,7 @@ import { startWith, take, filter } from 'rxjs/operators';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-d5ada3b3.mjs';
 import { a as MAT_DATE_FORMATS, D as DateAdapter$1 } from './date-formats-b618acb8.mjs';
-import { M as MatButton, h as MatButtonModule } from './module-5a2afb59.mjs';
+import { M as MatButton, h as MatButtonModule } from './module-5c43c853.mjs';
 import { a as MatIconButton } from './icon-button-b4a4e8c0.mjs';
 import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';

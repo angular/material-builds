@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, afterRender, ViewChild, Injector, TemplateRef, Injectable, NgModule } from '@angular/core';
 import { Subject, of } from 'rxjs';
-import { M as MatButton, h as MatButtonModule } from './module-5a2afb59.mjs';
+import { M as MatButton, h as MatButtonModule } from './module-5c43c853.mjs';
 import { DOCUMENT } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
