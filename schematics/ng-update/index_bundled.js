@@ -1,11 +1,9 @@
-var __create = Object.create;
+"use strict";
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
@@ -36,23 +34,6 @@ var __objRest = (source, exclude) => {
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
@@ -78,724 +59,163 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// node_modules/tslib/tslib.js
-var require_tslib = __commonJS({
-  "node_modules/tslib/tslib.js"(exports, module2) {
-    var __extends;
-    var __assign;
-    var __rest;
-    var __decorate;
-    var __param;
-    var __esDecorate;
-    var __runInitializers;
-    var __propKey;
-    var __setFunctionName;
-    var __metadata;
-    var __awaiter;
-    var __generator;
-    var __exportStar;
-    var __values;
-    var __read;
-    var __spread;
-    var __spreadArrays;
-    var __spreadArray;
-    var __await;
-    var __asyncGenerator;
-    var __asyncDelegator;
-    var __asyncValues;
-    var __makeTemplateObject;
-    var __importStar;
-    var __importDefault;
-    var __classPrivateFieldGet;
-    var __classPrivateFieldSet;
-    var __classPrivateFieldIn;
-    var __createBinding;
-    var __addDisposableResource;
-    var __disposeResources;
-    (function(factory) {
-      var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
-      if (typeof define === "function" && define.amd) {
-        define("tslib", ["exports"], function(exports2) {
-          factory(createExporter(root, createExporter(exports2)));
-        });
-      } else if (typeof module2 === "object" && typeof module2.exports === "object") {
-        factory(createExporter(root, createExporter(module2.exports)));
-      } else {
-        factory(createExporter(root));
-      }
-      function createExporter(exports2, previous) {
-        if (exports2 !== root) {
-          if (typeof Object.create === "function") {
-            Object.defineProperty(exports2, "__esModule", { value: true });
-          } else {
-            exports2.__esModule = true;
-          }
-        }
-        return function(id, v) {
-          return exports2[id] = previous ? previous(id, v) : v;
-        };
-      }
-    })(function(exporter) {
-      var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b) {
-        d.__proto__ = b;
-      } || function(d, b) {
-        for (var p in b)
-          if (Object.prototype.hasOwnProperty.call(b, p))
-            d[p] = b[p];
-      };
-      __extends = function(d, b) {
-        if (typeof b !== "function" && b !== null)
-          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-      __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-          s = arguments[i];
-          for (var p in s)
-            if (Object.prototype.hasOwnProperty.call(s, p))
-              t[p] = s[p];
-        }
-        return t;
-      };
-      __rest = function(s, e) {
-        var t = {};
-        for (var p in s)
-          if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === "function")
-          for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-              t[p[i]] = s[p[i]];
-          }
-        return t;
-      };
-      __decorate = function(decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
-          r = Reflect.decorate(decorators, target, key, desc);
-        else
-          for (var i = decorators.length - 1; i >= 0; i--)
-            if (d = decorators[i])
-              r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-      };
-      __param = function(paramIndex, decorator) {
-        return function(target, key) {
-          decorator(target, key, paramIndex);
-        };
-      };
-      __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
-        function accept(f) {
-          if (f !== void 0 && typeof f !== "function")
-            throw new TypeError("Function expected");
-          return f;
-        }
-        var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
-        var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
-        var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
-        var _, done = false;
-        for (var i = decorators.length - 1; i >= 0; i--) {
-          var context = {};
-          for (var p in contextIn)
-            context[p] = p === "access" ? {} : contextIn[p];
-          for (var p in contextIn.access)
-            context.access[p] = contextIn.access[p];
-          context.addInitializer = function(f) {
-            if (done)
-              throw new TypeError("Cannot add initializers after decoration has completed");
-            extraInitializers.push(accept(f || null));
-          };
-          var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
-          if (kind === "accessor") {
-            if (result === void 0)
-              continue;
-            if (result === null || typeof result !== "object")
-              throw new TypeError("Object expected");
-            if (_ = accept(result.get))
-              descriptor.get = _;
-            if (_ = accept(result.set))
-              descriptor.set = _;
-            if (_ = accept(result.init))
-              initializers.unshift(_);
-          } else if (_ = accept(result)) {
-            if (kind === "field")
-              initializers.unshift(_);
-            else
-              descriptor[key] = _;
-          }
-        }
-        if (target)
-          Object.defineProperty(target, contextIn.name, descriptor);
-        done = true;
-      };
-      __runInitializers = function(thisArg, initializers, value) {
-        var useValue = arguments.length > 2;
-        for (var i = 0; i < initializers.length; i++) {
-          value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-        }
-        return useValue ? value : void 0;
-      };
-      __propKey = function(x) {
-        return typeof x === "symbol" ? x : "".concat(x);
-      };
-      __setFunctionName = function(f, name, prefix) {
-        if (typeof name === "symbol")
-          name = name.description ? "[".concat(name.description, "]") : "";
-        return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
-      };
-      __metadata = function(metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
-          return Reflect.metadata(metadataKey, metadataValue);
-      };
-      __awaiter = function(thisArg, _arguments, P, generator) {
-        function adopt(value) {
-          return value instanceof P ? value : new P(function(resolve) {
-            resolve(value);
-          });
-        }
-        return new (P || (P = Promise))(function(resolve, reject) {
-          function fulfilled(value) {
-            try {
-              step(generator.next(value));
-            } catch (e) {
-              reject(e);
-            }
-          }
-          function rejected(value) {
-            try {
-              step(generator["throw"](value));
-            } catch (e) {
-              reject(e);
-            }
-          }
-          function step(result) {
-            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-          }
-          step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-      };
-      __generator = function(thisArg, body) {
-        var _ = { label: 0, sent: function() {
-          if (t[0] & 1)
-            throw t[1];
-          return t[1];
-        }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
-          return this;
-        }), g;
-        function verb(n) {
-          return function(v) {
-            return step([n, v]);
-          };
-        }
-        function step(op) {
-          if (f)
-            throw new TypeError("Generator is already executing.");
-          while (g && (g = 0, op[0] && (_ = 0)), _)
-            try {
-              if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
-                return t;
-              if (y = 0, t)
-                op = [op[0] & 2, t.value];
-              switch (op[0]) {
-                case 0:
-                case 1:
-                  t = op;
-                  break;
-                case 4:
-                  _.label++;
-                  return { value: op[1], done: false };
-                case 5:
-                  _.label++;
-                  y = op[1];
-                  op = [0];
-                  continue;
-                case 7:
-                  op = _.ops.pop();
-                  _.trys.pop();
-                  continue;
-                default:
-                  if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-                    _ = 0;
-                    continue;
-                  }
-                  if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-                    _.label = op[1];
-                    break;
-                  }
-                  if (op[0] === 6 && _.label < t[1]) {
-                    _.label = t[1];
-                    t = op;
-                    break;
-                  }
-                  if (t && _.label < t[2]) {
-                    _.label = t[2];
-                    _.ops.push(op);
-                    break;
-                  }
-                  if (t[2])
-                    _.ops.pop();
-                  _.trys.pop();
-                  continue;
-              }
-              op = body.call(thisArg, _);
-            } catch (e) {
-              op = [6, e];
-              y = 0;
-            } finally {
-              f = t = 0;
-            }
-          if (op[0] & 5)
-            throw op[1];
-          return { value: op[0] ? op[1] : void 0, done: true };
-        }
-      };
-      __exportStar = function(m, o) {
-        for (var p in m)
-          if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
-            __createBinding(o, m, p);
-      };
-      __createBinding = Object.create ? function(o, m, k, k2) {
-        if (k2 === void 0)
-          k2 = k;
-        var desc = Object.getOwnPropertyDescriptor(m, k);
-        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-          desc = { enumerable: true, get: function() {
-            return m[k];
-          } };
-        }
-        Object.defineProperty(o, k2, desc);
-      } : function(o, m, k, k2) {
-        if (k2 === void 0)
-          k2 = k;
-        o[k2] = m[k];
-      };
-      __values = function(o) {
-        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-        if (m)
-          return m.call(o);
-        if (o && typeof o.length === "number")
-          return {
-            next: function() {
-              if (o && i >= o.length)
-                o = void 0;
-              return { value: o && o[i++], done: !o };
-            }
-          };
-        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-      };
-      __read = function(o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m)
-          return o;
-        var i = m.call(o), r, ar = [], e;
-        try {
-          while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
-            ar.push(r.value);
-        } catch (error) {
-          e = { error };
-        } finally {
-          try {
-            if (r && !r.done && (m = i["return"]))
-              m.call(i);
-          } finally {
-            if (e)
-              throw e.error;
-          }
-        }
-        return ar;
-      };
-      __spread = function() {
-        for (var ar = [], i = 0; i < arguments.length; i++)
-          ar = ar.concat(__read(arguments[i]));
-        return ar;
-      };
-      __spreadArrays = function() {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
-          s += arguments[i].length;
-        for (var r = Array(s), k = 0, i = 0; i < il; i++)
-          for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-        return r;
-      };
-      __spreadArray = function(to, from, pack) {
-        if (pack || arguments.length === 2)
-          for (var i = 0, l = from.length, ar; i < l; i++) {
-            if (ar || !(i in from)) {
-              if (!ar)
-                ar = Array.prototype.slice.call(from, 0, i);
-              ar[i] = from[i];
-            }
-          }
-        return to.concat(ar || Array.prototype.slice.call(from));
-      };
-      __await = function(v) {
-        return this instanceof __await ? (this.v = v, this) : new __await(v);
-      };
-      __asyncGenerator = function(thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator)
-          throw new TypeError("Symbol.asyncIterator is not defined.");
-        var g = generator.apply(thisArg, _arguments || []), i, q = [];
-        return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function() {
-          return this;
-        }, i;
-        function awaitReturn(f) {
-          return function(v) {
-            return Promise.resolve(v).then(f, reject);
-          };
-        }
-        function verb(n, f) {
-          if (g[n]) {
-            i[n] = function(v) {
-              return new Promise(function(a, b) {
-                q.push([n, v, a, b]) > 1 || resume(n, v);
-              });
-            };
-            if (f)
-              i[n] = f(i[n]);
-          }
-        }
-        function resume(n, v) {
-          try {
-            step(g[n](v));
-          } catch (e) {
-            settle(q[0][3], e);
-          }
-        }
-        function step(r) {
-          r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
-        }
-        function fulfill(value) {
-          resume("next", value);
-        }
-        function reject(value) {
-          resume("throw", value);
-        }
-        function settle(f, v) {
-          if (f(v), q.shift(), q.length)
-            resume(q[0][0], q[0][1]);
-        }
-      };
-      __asyncDelegator = function(o) {
-        var i, p;
-        return i = {}, verb("next"), verb("throw", function(e) {
-          throw e;
-        }), verb("return"), i[Symbol.iterator] = function() {
-          return this;
-        }, i;
-        function verb(n, f) {
-          i[n] = o[n] ? function(v) {
-            return (p = !p) ? { value: __await(o[n](v)), done: false } : f ? f(v) : v;
-          } : f;
-        }
-      };
-      __asyncValues = function(o) {
-        if (!Symbol.asyncIterator)
-          throw new TypeError("Symbol.asyncIterator is not defined.");
-        var m = o[Symbol.asyncIterator], i;
-        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
-          return this;
-        }, i);
-        function verb(n) {
-          i[n] = o[n] && function(v) {
-            return new Promise(function(resolve, reject) {
-              v = o[n](v), settle(resolve, reject, v.done, v.value);
-            });
-          };
-        }
-        function settle(resolve, reject, d, v) {
-          Promise.resolve(v).then(function(v2) {
-            resolve({ value: v2, done: d });
-          }, reject);
-        }
-      };
-      __makeTemplateObject = function(cooked, raw) {
-        if (Object.defineProperty) {
-          Object.defineProperty(cooked, "raw", { value: raw });
-        } else {
-          cooked.raw = raw;
-        }
-        return cooked;
-      };
-      var __setModuleDefault = Object.create ? function(o, v) {
-        Object.defineProperty(o, "default", { enumerable: true, value: v });
-      } : function(o, v) {
-        o["default"] = v;
-      };
-      __importStar = function(mod) {
-        if (mod && mod.__esModule)
-          return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k in mod)
-            if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
-              __createBinding(result, mod, k);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-      __importDefault = function(mod) {
-        return mod && mod.__esModule ? mod : { "default": mod };
-      };
-      __classPrivateFieldGet = function(receiver, state, kind, f) {
-        if (kind === "a" && !f)
-          throw new TypeError("Private accessor was defined without a getter");
-        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-          throw new TypeError("Cannot read private member from an object whose class did not declare it");
-        return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-      };
-      __classPrivateFieldSet = function(receiver, state, value, kind, f) {
-        if (kind === "m")
-          throw new TypeError("Private method is not writable");
-        if (kind === "a" && !f)
-          throw new TypeError("Private accessor was defined without a setter");
-        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-          throw new TypeError("Cannot write private member to an object whose class did not declare it");
-        return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-      };
-      __classPrivateFieldIn = function(state, receiver) {
-        if (receiver === null || typeof receiver !== "object" && typeof receiver !== "function")
-          throw new TypeError("Cannot use 'in' operator on non-object");
-        return typeof state === "function" ? receiver === state : state.has(receiver);
-      };
-      __addDisposableResource = function(env, value, async) {
-        if (value !== null && value !== void 0) {
-          if (typeof value !== "object" && typeof value !== "function")
-            throw new TypeError("Object expected.");
-          var dispose, inner;
-          if (async) {
-            if (!Symbol.asyncDispose)
-              throw new TypeError("Symbol.asyncDispose is not defined.");
-            dispose = value[Symbol.asyncDispose];
-          }
-          if (dispose === void 0) {
-            if (!Symbol.dispose)
-              throw new TypeError("Symbol.dispose is not defined.");
-            dispose = value[Symbol.dispose];
-            if (async)
-              inner = dispose;
-          }
-          if (typeof dispose !== "function")
-            throw new TypeError("Object not disposable.");
-          if (inner)
-            dispose = function() {
-              try {
-                inner.call(this);
-              } catch (e) {
-                return Promise.reject(e);
-              }
-            };
-          env.stack.push({ value, dispose, async });
-        } else if (async) {
-          env.stack.push({ async: true });
-        }
-        return value;
-      };
-      var _SuppressedError = typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
-        var e = new Error(message);
-        return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-      };
-      __disposeResources = function(env) {
-        function fail(e) {
-          env.error = env.hasError ? new _SuppressedError(e, env.error, "An error was suppressed during disposal.") : e;
-          env.hasError = true;
-        }
-        function next() {
-          while (env.stack.length) {
-            var rec = env.stack.pop();
-            try {
-              var result = rec.dispose && rec.dispose.call(rec.value);
-              if (rec.async)
-                return Promise.resolve(result).then(next, function(e) {
-                  fail(e);
-                  return next();
-                });
-            } catch (e) {
-              fail(e);
-            }
-          }
-          if (env.hasError)
-            throw env.error;
-        }
-        return next();
-      };
-      exporter("__extends", __extends);
-      exporter("__assign", __assign);
-      exporter("__rest", __rest);
-      exporter("__decorate", __decorate);
-      exporter("__param", __param);
-      exporter("__esDecorate", __esDecorate);
-      exporter("__runInitializers", __runInitializers);
-      exporter("__propKey", __propKey);
-      exporter("__setFunctionName", __setFunctionName);
-      exporter("__metadata", __metadata);
-      exporter("__awaiter", __awaiter);
-      exporter("__generator", __generator);
-      exporter("__exportStar", __exportStar);
-      exporter("__createBinding", __createBinding);
-      exporter("__values", __values);
-      exporter("__read", __read);
-      exporter("__spread", __spread);
-      exporter("__spreadArrays", __spreadArrays);
-      exporter("__spreadArray", __spreadArray);
-      exporter("__await", __await);
-      exporter("__asyncGenerator", __asyncGenerator);
-      exporter("__asyncDelegator", __asyncDelegator);
-      exporter("__asyncValues", __asyncValues);
-      exporter("__makeTemplateObject", __makeTemplateObject);
-      exporter("__importStar", __importStar);
-      exporter("__importDefault", __importDefault);
-      exporter("__classPrivateFieldGet", __classPrivateFieldGet);
-      exporter("__classPrivateFieldSet", __classPrivateFieldSet);
-      exporter("__classPrivateFieldIn", __classPrivateFieldIn);
-      exporter("__addDisposableResource", __addDisposableResource);
-      exporter("__disposeResources", __disposeResources);
-    });
-  }
-});
-
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/attribute-selectors.js
 var require_attribute_selectors = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/attribute-selectors.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/attribute-selectors.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.attributeSelectors = void 0;
-    exports.attributeSelectors = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.attributeSelectors = void 0;
+    exports2.attributeSelectors = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/class-names.js
 var require_class_names = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/class-names.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/class-names.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.classNames = void 0;
-    exports.classNames = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.classNames = void 0;
+    exports2.classNames = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/constructor-checks.js
 var require_constructor_checks = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/constructor-checks.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/constructor-checks.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.constructorChecks = void 0;
-    exports.constructorChecks = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.constructorChecks = void 0;
+    exports2.constructorChecks = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/css-selectors.js
 var require_css_selectors = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/css-selectors.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/css-selectors.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.cssSelectors = void 0;
-    exports.cssSelectors = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.cssSelectors = void 0;
+    exports2.cssSelectors = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/css-tokens.js
 var require_css_tokens = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/css-tokens.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/css-tokens.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.cssTokens = void 0;
-    exports.cssTokens = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.cssTokens = void 0;
+    exports2.cssTokens = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/element-selectors.js
 var require_element_selectors = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/element-selectors.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/element-selectors.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.elementSelectors = void 0;
-    exports.elementSelectors = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.elementSelectors = void 0;
+    exports2.elementSelectors = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/input-names.js
 var require_input_names = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/input-names.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/input-names.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.inputNames = void 0;
-    exports.inputNames = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.inputNames = void 0;
+    exports2.inputNames = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/method-call-checks.js
 var require_method_call_checks = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/method-call-checks.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/method-call-checks.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.methodCallChecks = void 0;
-    exports.methodCallChecks = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.methodCallChecks = void 0;
+    exports2.methodCallChecks = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/output-names.js
 var require_output_names = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/output-names.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/output-names.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.outputNames = void 0;
-    exports.outputNames = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.outputNames = void 0;
+    exports2.outputNames = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/property-names.js
 var require_property_names = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/property-names.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/property-names.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.propertyNames = void 0;
-    exports.propertyNames = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.propertyNames = void 0;
+    exports2.propertyNames = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/symbol-removal.js
 var require_symbol_removal = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/symbol-removal.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/symbol-removal.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.symbolRemoval = void 0;
-    exports.symbolRemoval = {};
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.symbolRemoval = void 0;
+    exports2.symbolRemoval = {};
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/index.js
 var require_data = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/index.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/data/index.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var tslib_1 = require_tslib();
-    tslib_1.__exportStar(require_attribute_selectors(), exports);
-    tslib_1.__exportStar(require_class_names(), exports);
-    tslib_1.__exportStar(require_constructor_checks(), exports);
-    tslib_1.__exportStar(require_css_selectors(), exports);
-    tslib_1.__exportStar(require_css_tokens(), exports);
-    tslib_1.__exportStar(require_element_selectors(), exports);
-    tslib_1.__exportStar(require_input_names(), exports);
-    tslib_1.__exportStar(require_method_call_checks(), exports);
-    tslib_1.__exportStar(require_output_names(), exports);
-    tslib_1.__exportStar(require_property_names(), exports);
-    tslib_1.__exportStar(require_symbol_removal(), exports);
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
+      for (var p in m)
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
+          __createBinding(exports3, m, p);
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    __exportStar(require_attribute_selectors(), exports2);
+    __exportStar(require_class_names(), exports2);
+    __exportStar(require_constructor_checks(), exports2);
+    __exportStar(require_css_selectors(), exports2);
+    __exportStar(require_css_tokens(), exports2);
+    __exportStar(require_element_selectors(), exports2);
+    __exportStar(require_input_names(), exports2);
+    __exportStar(require_method_call_checks(), exports2);
+    __exportStar(require_output_names(), exports2);
+    __exportStar(require_property_names(), exports2);
+    __exportStar(require_symbol_removal(), exports2);
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/upgrade-data.js
 var require_upgrade_data = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/upgrade-data.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/upgrade-data.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.materialUpgradeData = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.materialUpgradeData = void 0;
     var data_1 = require_data();
-    exports.materialUpgradeData = {
+    exports2.materialUpgradeData = {
       attributeSelectors: data_1.attributeSelectors,
       classNames: data_1.classNames,
       constructorChecks: data_1.constructorChecks,
@@ -813,7 +233,7 @@ var require_upgrade_data = __commonJS({
 
 // node_modules/picocolors/picocolors.js
 var require_picocolors = __commonJS({
-  "node_modules/picocolors/picocolors.js"(exports, module2) {
+  "node_modules/picocolors/picocolors.js"(exports2, module2) {
     var argv = process.argv || [];
     var env = process.env;
     var isColorSupported = !("NO_COLOR" in env || argv.includes("--no-color")) && ("FORCE_COLOR" in env || argv.includes("--color") || process.platform === "win32" || require != null && require("tty").isatty(1) && env.TERM !== "dumb" || "CI" in env);
@@ -870,7 +290,7 @@ var require_picocolors = __commonJS({
 
 // node_modules/postcss/lib/tokenize.js
 var require_tokenize = __commonJS({
-  "node_modules/postcss/lib/tokenize.js"(exports, module2) {
+  "node_modules/postcss/lib/tokenize.js"(exports2, module2) {
     "use strict";
     var SINGLE_QUOTE = "'".charCodeAt(0);
     var DOUBLE_QUOTE = '"'.charCodeAt(0);
@@ -1087,7 +507,7 @@ var require_tokenize = __commonJS({
 
 // node_modules/postcss/lib/terminal-highlight.js
 var require_terminal_highlight = __commonJS({
-  "node_modules/postcss/lib/terminal-highlight.js"(exports, module2) {
+  "node_modules/postcss/lib/terminal-highlight.js"(exports2, module2) {
     "use strict";
     var pico = require_picocolors();
     var tokenizer = require_tokenize();
@@ -1150,7 +570,7 @@ var require_terminal_highlight = __commonJS({
 
 // node_modules/postcss/lib/css-syntax-error.js
 var require_css_syntax_error = __commonJS({
-  "node_modules/postcss/lib/css-syntax-error.js"(exports, module2) {
+  "node_modules/postcss/lib/css-syntax-error.js"(exports2, module2) {
     "use strict";
     var pico = require_picocolors();
     var terminalHighlight = require_terminal_highlight();
@@ -1239,7 +659,7 @@ var require_css_syntax_error = __commonJS({
 
 // node_modules/postcss/lib/symbols.js
 var require_symbols = __commonJS({
-  "node_modules/postcss/lib/symbols.js"(exports, module2) {
+  "node_modules/postcss/lib/symbols.js"(exports2, module2) {
     "use strict";
     module2.exports.isClean = Symbol("isClean");
     module2.exports.my = Symbol("my");
@@ -1248,7 +668,7 @@ var require_symbols = __commonJS({
 
 // node_modules/postcss/lib/stringifier.js
 var require_stringifier = __commonJS({
-  "node_modules/postcss/lib/stringifier.js"(exports, module2) {
+  "node_modules/postcss/lib/stringifier.js"(exports2, module2) {
     "use strict";
     var DEFAULT_RAW = {
       after: "\n",
@@ -1570,7 +990,7 @@ var require_stringifier = __commonJS({
 
 // node_modules/postcss/lib/stringify.js
 var require_stringify = __commonJS({
-  "node_modules/postcss/lib/stringify.js"(exports, module2) {
+  "node_modules/postcss/lib/stringify.js"(exports2, module2) {
     "use strict";
     var Stringifier = require_stringifier();
     function stringify(node, builder) {
@@ -1584,7 +1004,7 @@ var require_stringify = __commonJS({
 
 // node_modules/postcss/lib/node.js
 var require_node = __commonJS({
-  "node_modules/postcss/lib/node.js"(exports, module2) {
+  "node_modules/postcss/lib/node.js"(exports2, module2) {
     "use strict";
     var { isClean, my } = require_symbols();
     var CssSyntaxError = require_css_syntax_error();
@@ -1921,7 +1341,7 @@ var require_node = __commonJS({
 
 // node_modules/postcss/lib/declaration.js
 var require_declaration = __commonJS({
-  "node_modules/postcss/lib/declaration.js"(exports, module2) {
+  "node_modules/postcss/lib/declaration.js"(exports2, module2) {
     "use strict";
     var Node = require_node();
     var Declaration = class extends Node {
@@ -1943,15 +1363,15 @@ var require_declaration = __commonJS({
 
 // node_modules/source-map-js/lib/base64.js
 var require_base64 = __commonJS({
-  "node_modules/source-map-js/lib/base64.js"(exports) {
+  "node_modules/source-map-js/lib/base64.js"(exports2) {
     var intToCharMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("");
-    exports.encode = function(number) {
+    exports2.encode = function(number) {
       if (0 <= number && number < intToCharMap.length) {
         return intToCharMap[number];
       }
       throw new TypeError("Must be between 0 and 63: " + number);
     };
-    exports.decode = function(charCode) {
+    exports2.decode = function(charCode) {
       var bigA = 65;
       var bigZ = 90;
       var littleA = 97;
@@ -1984,7 +1404,7 @@ var require_base64 = __commonJS({
 
 // node_modules/source-map-js/lib/base64-vlq.js
 var require_base64_vlq = __commonJS({
-  "node_modules/source-map-js/lib/base64-vlq.js"(exports) {
+  "node_modules/source-map-js/lib/base64-vlq.js"(exports2) {
     var base64 = require_base64();
     var VLQ_BASE_SHIFT = 5;
     var VLQ_BASE = 1 << VLQ_BASE_SHIFT;
@@ -1998,7 +1418,7 @@ var require_base64_vlq = __commonJS({
       var shifted = aValue >> 1;
       return isNegative ? -shifted : shifted;
     }
-    exports.encode = function base64VLQ_encode(aValue) {
+    exports2.encode = function base64VLQ_encode(aValue) {
       var encoded = "";
       var digit;
       var vlq = toVLQSigned(aValue);
@@ -2012,7 +1432,7 @@ var require_base64_vlq = __commonJS({
       } while (vlq > 0);
       return encoded;
     };
-    exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
+    exports2.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
       var strLen = aStr.length;
       var result = 0;
       var shift = 0;
@@ -2038,7 +1458,7 @@ var require_base64_vlq = __commonJS({
 
 // node_modules/source-map-js/lib/util.js
 var require_util = __commonJS({
-  "node_modules/source-map-js/lib/util.js"(exports) {
+  "node_modules/source-map-js/lib/util.js"(exports2) {
     function getArg(aArgs, aName, aDefaultValue) {
       if (aName in aArgs) {
         return aArgs[aName];
@@ -2048,7 +1468,7 @@ var require_util = __commonJS({
         throw new Error('"' + aName + '" is a required argument.');
       }
     }
-    exports.getArg = getArg;
+    exports2.getArg = getArg;
     var urlRegexp = /^(?:([\w+\-.]+):)?\/\/(?:(\w+:\w+)@)?([\w.-]*)(?::(\d+))?(.*)$/;
     var dataUrlRegexp = /^data:.+\,.+$/;
     function urlParse(aUrl) {
@@ -2064,7 +1484,7 @@ var require_util = __commonJS({
         path: match[5]
       };
     }
-    exports.urlParse = urlParse;
+    exports2.urlParse = urlParse;
     function urlGenerate(aParsedUrl) {
       var url = "";
       if (aParsedUrl.scheme) {
@@ -2085,7 +1505,7 @@ var require_util = __commonJS({
       }
       return url;
     }
-    exports.urlGenerate = urlGenerate;
+    exports2.urlGenerate = urlGenerate;
     var MAX_CACHED_INPUTS = 32;
     function lruMemoize(f) {
       var cache = [];
@@ -2118,7 +1538,7 @@ var require_util = __commonJS({
         }
         path = url.path;
       }
-      var isAbsolute = exports.isAbsolute(path);
+      var isAbsolute = exports2.isAbsolute(path);
       var parts = [];
       var start = 0;
       var i = 0;
@@ -2161,7 +1581,7 @@ var require_util = __commonJS({
       }
       return path;
     });
-    exports.normalize = normalize;
+    exports2.normalize = normalize;
     function join(aRoot, aPath) {
       if (aRoot === "") {
         aRoot = ".";
@@ -2194,8 +1614,8 @@ var require_util = __commonJS({
       }
       return joined;
     }
-    exports.join = join;
-    exports.isAbsolute = function(aPath) {
+    exports2.join = join;
+    exports2.isAbsolute = function(aPath) {
       return aPath.charAt(0) === "/" || urlRegexp.test(aPath);
     };
     function relative(aRoot, aPath) {
@@ -2217,7 +1637,7 @@ var require_util = __commonJS({
       }
       return Array(level + 1).join("../") + aPath.substr(aRoot.length + 1);
     }
-    exports.relative = relative;
+    exports2.relative = relative;
     var supportsNullProto = function() {
       var obj = /* @__PURE__ */ Object.create(null);
       return !("__proto__" in obj);
@@ -2231,14 +1651,14 @@ var require_util = __commonJS({
       }
       return aStr;
     }
-    exports.toSetString = supportsNullProto ? identity : toSetString;
+    exports2.toSetString = supportsNullProto ? identity : toSetString;
     function fromSetString(aStr) {
       if (isProtoString(aStr)) {
         return aStr.slice(1);
       }
       return aStr;
     }
-    exports.fromSetString = supportsNullProto ? identity : fromSetString;
+    exports2.fromSetString = supportsNullProto ? identity : fromSetString;
     function isProtoString(s) {
       if (!s) {
         return false;
@@ -2280,7 +1700,7 @@ var require_util = __commonJS({
       }
       return strcmp(mappingA.name, mappingB.name);
     }
-    exports.compareByOriginalPositions = compareByOriginalPositions;
+    exports2.compareByOriginalPositions = compareByOriginalPositions;
     function compareByOriginalPositionsNoSource(mappingA, mappingB, onlyCompareOriginal) {
       var cmp;
       cmp = mappingA.originalLine - mappingB.originalLine;
@@ -2301,7 +1721,7 @@ var require_util = __commonJS({
       }
       return strcmp(mappingA.name, mappingB.name);
     }
-    exports.compareByOriginalPositionsNoSource = compareByOriginalPositionsNoSource;
+    exports2.compareByOriginalPositionsNoSource = compareByOriginalPositionsNoSource;
     function compareByGeneratedPositionsDeflated(mappingA, mappingB, onlyCompareGenerated) {
       var cmp = mappingA.generatedLine - mappingB.generatedLine;
       if (cmp !== 0) {
@@ -2325,7 +1745,7 @@ var require_util = __commonJS({
       }
       return strcmp(mappingA.name, mappingB.name);
     }
-    exports.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
+    exports2.compareByGeneratedPositionsDeflated = compareByGeneratedPositionsDeflated;
     function compareByGeneratedPositionsDeflatedNoLine(mappingA, mappingB, onlyCompareGenerated) {
       var cmp = mappingA.generatedColumn - mappingB.generatedColumn;
       if (cmp !== 0 || onlyCompareGenerated) {
@@ -2345,7 +1765,7 @@ var require_util = __commonJS({
       }
       return strcmp(mappingA.name, mappingB.name);
     }
-    exports.compareByGeneratedPositionsDeflatedNoLine = compareByGeneratedPositionsDeflatedNoLine;
+    exports2.compareByGeneratedPositionsDeflatedNoLine = compareByGeneratedPositionsDeflatedNoLine;
     function strcmp(aStr1, aStr2) {
       if (aStr1 === aStr2) {
         return 0;
@@ -2384,11 +1804,11 @@ var require_util = __commonJS({
       }
       return strcmp(mappingA.name, mappingB.name);
     }
-    exports.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
+    exports2.compareByGeneratedPositionsInflated = compareByGeneratedPositionsInflated;
     function parseSourceMapInput(str) {
       return JSON.parse(str.replace(/^\)]}'[^\n]*\n/, ""));
     }
-    exports.parseSourceMapInput = parseSourceMapInput;
+    exports2.parseSourceMapInput = parseSourceMapInput;
     function computeSourceURL(sourceRoot, sourceURL, sourceMapURL) {
       sourceURL = sourceURL || "";
       if (sourceRoot) {
@@ -2412,13 +1832,13 @@ var require_util = __commonJS({
       }
       return normalize(sourceURL);
     }
-    exports.computeSourceURL = computeSourceURL;
+    exports2.computeSourceURL = computeSourceURL;
   }
 });
 
 // node_modules/source-map-js/lib/array-set.js
 var require_array_set = __commonJS({
-  "node_modules/source-map-js/lib/array-set.js"(exports) {
+  "node_modules/source-map-js/lib/array-set.js"(exports2) {
     var util = require_util();
     var has = Object.prototype.hasOwnProperty;
     var hasNativeMap = typeof Map !== "undefined";
@@ -2482,13 +1902,13 @@ var require_array_set = __commonJS({
     ArraySet.prototype.toArray = function ArraySet_toArray() {
       return this._array.slice();
     };
-    exports.ArraySet = ArraySet;
+    exports2.ArraySet = ArraySet;
   }
 });
 
 // node_modules/source-map-js/lib/mapping-list.js
 var require_mapping_list = __commonJS({
-  "node_modules/source-map-js/lib/mapping-list.js"(exports) {
+  "node_modules/source-map-js/lib/mapping-list.js"(exports2) {
     var util = require_util();
     function generatedPositionAfter(mappingA, mappingB) {
       var lineA = mappingA.generatedLine;
@@ -2521,13 +1941,13 @@ var require_mapping_list = __commonJS({
       }
       return this._array;
     };
-    exports.MappingList = MappingList;
+    exports2.MappingList = MappingList;
   }
 });
 
 // node_modules/source-map-js/lib/source-map-generator.js
 var require_source_map_generator = __commonJS({
-  "node_modules/source-map-js/lib/source-map-generator.js"(exports) {
+  "node_modules/source-map-js/lib/source-map-generator.js"(exports2) {
     var base64VLQ = require_base64_vlq();
     var util = require_util();
     var ArraySet = require_array_set().ArraySet;
@@ -2814,15 +2234,15 @@ var require_source_map_generator = __commonJS({
     SourceMapGenerator.prototype.toString = function SourceMapGenerator_toString() {
       return JSON.stringify(this.toJSON());
     };
-    exports.SourceMapGenerator = SourceMapGenerator;
+    exports2.SourceMapGenerator = SourceMapGenerator;
   }
 });
 
 // node_modules/source-map-js/lib/binary-search.js
 var require_binary_search = __commonJS({
-  "node_modules/source-map-js/lib/binary-search.js"(exports) {
-    exports.GREATEST_LOWER_BOUND = 1;
-    exports.LEAST_UPPER_BOUND = 2;
+  "node_modules/source-map-js/lib/binary-search.js"(exports2) {
+    exports2.GREATEST_LOWER_BOUND = 1;
+    exports2.LEAST_UPPER_BOUND = 2;
     function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
       var mid = Math.floor((aHigh - aLow) / 2) + aLow;
       var cmp = aCompare(aNeedle, aHaystack[mid], true);
@@ -2832,7 +2252,7 @@ var require_binary_search = __commonJS({
         if (aHigh - mid > 1) {
           return recursiveSearch(mid, aHigh, aNeedle, aHaystack, aCompare, aBias);
         }
-        if (aBias == exports.LEAST_UPPER_BOUND) {
+        if (aBias == exports2.LEAST_UPPER_BOUND) {
           return aHigh < aHaystack.length ? aHigh : -1;
         } else {
           return mid;
@@ -2841,14 +2261,14 @@ var require_binary_search = __commonJS({
         if (mid - aLow > 1) {
           return recursiveSearch(aLow, mid, aNeedle, aHaystack, aCompare, aBias);
         }
-        if (aBias == exports.LEAST_UPPER_BOUND) {
+        if (aBias == exports2.LEAST_UPPER_BOUND) {
           return mid;
         } else {
           return aLow < 0 ? -1 : aLow;
         }
       }
     }
-    exports.search = function search(aNeedle, aHaystack, aCompare, aBias) {
+    exports2.search = function search(aNeedle, aHaystack, aCompare, aBias) {
       if (aHaystack.length === 0) {
         return -1;
       }
@@ -2858,7 +2278,7 @@ var require_binary_search = __commonJS({
         aNeedle,
         aHaystack,
         aCompare,
-        aBias || exports.GREATEST_LOWER_BOUND
+        aBias || exports2.GREATEST_LOWER_BOUND
       );
       if (index < 0) {
         return -1;
@@ -2876,7 +2296,7 @@ var require_binary_search = __commonJS({
 
 // node_modules/source-map-js/lib/quick-sort.js
 var require_quick_sort = __commonJS({
-  "node_modules/source-map-js/lib/quick-sort.js"(exports) {
+  "node_modules/source-map-js/lib/quick-sort.js"(exports2) {
     function SortTemplate(comparator) {
       function swap(ary, x, y) {
         var temp = ary[x];
@@ -2912,7 +2332,7 @@ var require_quick_sort = __commonJS({
       return templateFn(comparator);
     }
     var sortCache = /* @__PURE__ */ new WeakMap();
-    exports.quickSort = function(ary, comparator, start = 0) {
+    exports2.quickSort = function(ary, comparator, start = 0) {
       let doQuickSort = sortCache.get(comparator);
       if (doQuickSort === void 0) {
         doQuickSort = cloneSort(comparator);
@@ -2925,7 +2345,7 @@ var require_quick_sort = __commonJS({
 
 // node_modules/source-map-js/lib/source-map-consumer.js
 var require_source_map_consumer = __commonJS({
-  "node_modules/source-map-js/lib/source-map-consumer.js"(exports) {
+  "node_modules/source-map-js/lib/source-map-consumer.js"(exports2) {
     var util = require_util();
     var binarySearch = require_binary_search();
     var ArraySet = require_array_set().ArraySet;
@@ -3054,7 +2474,7 @@ var require_source_map_consumer = __commonJS({
       }
       return mappings;
     };
-    exports.SourceMapConsumer = SourceMapConsumer;
+    exports2.SourceMapConsumer = SourceMapConsumer;
     function BasicSourceMapConsumer(aSourceMap, aSourceMapURL) {
       var sourceMap = aSourceMap;
       if (typeof aSourceMap === "string") {
@@ -3404,7 +2824,7 @@ var require_source_map_consumer = __commonJS({
         lastColumn: null
       };
     };
-    exports.BasicSourceMapConsumer = BasicSourceMapConsumer;
+    exports2.BasicSourceMapConsumer = BasicSourceMapConsumer;
     function IndexedSourceMapConsumer(aSourceMap, aSourceMapURL) {
       var sourceMap = aSourceMap;
       if (typeof aSourceMap === "string") {
@@ -3560,13 +2980,13 @@ var require_source_map_consumer = __commonJS({
       quickSort(this.__generatedMappings, util.compareByGeneratedPositionsDeflated);
       quickSort(this.__originalMappings, util.compareByOriginalPositions);
     };
-    exports.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
+    exports2.IndexedSourceMapConsumer = IndexedSourceMapConsumer;
   }
 });
 
 // node_modules/source-map-js/lib/source-node.js
 var require_source_node = __commonJS({
-  "node_modules/source-map-js/lib/source-node.js"(exports) {
+  "node_modules/source-map-js/lib/source-node.js"(exports2) {
     var SourceMapGenerator = require_source_map_generator().SourceMapGenerator;
     var util = require_util();
     var REGEX_NEWLINE = /(\r?\n)/;
@@ -3826,22 +3246,22 @@ var require_source_node = __commonJS({
       });
       return { code: generated.code, map };
     };
-    exports.SourceNode = SourceNode;
+    exports2.SourceNode = SourceNode;
   }
 });
 
 // node_modules/source-map-js/source-map.js
 var require_source_map = __commonJS({
-  "node_modules/source-map-js/source-map.js"(exports) {
-    exports.SourceMapGenerator = require_source_map_generator().SourceMapGenerator;
-    exports.SourceMapConsumer = require_source_map_consumer().SourceMapConsumer;
-    exports.SourceNode = require_source_node().SourceNode;
+  "node_modules/source-map-js/source-map.js"(exports2) {
+    exports2.SourceMapGenerator = require_source_map_generator().SourceMapGenerator;
+    exports2.SourceMapConsumer = require_source_map_consumer().SourceMapConsumer;
+    exports2.SourceNode = require_source_node().SourceNode;
   }
 });
 
 // node_modules/nanoid/non-secure/index.cjs
 var require_non_secure = __commonJS({
-  "node_modules/nanoid/non-secure/index.cjs"(exports, module2) {
+  "node_modules/nanoid/non-secure/index.cjs"(exports2, module2) {
     var urlAlphabet = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
     var customAlphabet = (alphabet, defaultSize = 21) => {
       return (size = defaultSize) => {
@@ -3867,7 +3287,7 @@ var require_non_secure = __commonJS({
 
 // node_modules/postcss/lib/previous-map.js
 var require_previous_map = __commonJS({
-  "node_modules/postcss/lib/previous-map.js"(exports, module2) {
+  "node_modules/postcss/lib/previous-map.js"(exports2, module2) {
     "use strict";
     var { SourceMapConsumer, SourceMapGenerator } = require_source_map();
     var { existsSync, readFileSync } = require("fs");
@@ -3993,7 +3413,7 @@ var require_previous_map = __commonJS({
 
 // node_modules/postcss/lib/input.js
 var require_input = __commonJS({
-  "node_modules/postcss/lib/input.js"(exports, module2) {
+  "node_modules/postcss/lib/input.js"(exports2, module2) {
     "use strict";
     var { SourceMapConsumer, SourceMapGenerator } = require_source_map();
     var { fileURLToPath, pathToFileURL } = require("url");
@@ -4206,7 +3626,7 @@ var require_input = __commonJS({
 
 // node_modules/postcss/lib/map-generator.js
 var require_map_generator = __commonJS({
-  "node_modules/postcss/lib/map-generator.js"(exports, module2) {
+  "node_modules/postcss/lib/map-generator.js"(exports2, module2) {
     "use strict";
     var { SourceMapConsumer, SourceMapGenerator } = require_source_map();
     var { dirname, relative, resolve, sep } = require("path");
@@ -4536,7 +3956,7 @@ var require_map_generator = __commonJS({
 
 // node_modules/postcss/lib/comment.js
 var require_comment = __commonJS({
-  "node_modules/postcss/lib/comment.js"(exports, module2) {
+  "node_modules/postcss/lib/comment.js"(exports2, module2) {
     "use strict";
     var Node = require_node();
     var Comment = class extends Node {
@@ -4552,7 +3972,7 @@ var require_comment = __commonJS({
 
 // node_modules/postcss/lib/container.js
 var require_container = __commonJS({
-  "node_modules/postcss/lib/container.js"(exports, module2) {
+  "node_modules/postcss/lib/container.js"(exports2, module2) {
     "use strict";
     var { isClean, my } = require_symbols();
     var Declaration = require_declaration();
@@ -4955,7 +4375,7 @@ var require_container = __commonJS({
 
 // node_modules/postcss/lib/document.js
 var require_document = __commonJS({
-  "node_modules/postcss/lib/document.js"(exports, module2) {
+  "node_modules/postcss/lib/document.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var LazyResult;
@@ -4985,7 +4405,7 @@ var require_document = __commonJS({
 
 // node_modules/postcss/lib/warn-once.js
 var require_warn_once = __commonJS({
-  "node_modules/postcss/lib/warn-once.js"(exports, module2) {
+  "node_modules/postcss/lib/warn-once.js"(exports2, module2) {
     "use strict";
     var printed = {};
     module2.exports = function warnOnce(message) {
@@ -5001,7 +4421,7 @@ var require_warn_once = __commonJS({
 
 // node_modules/postcss/lib/warning.js
 var require_warning = __commonJS({
-  "node_modules/postcss/lib/warning.js"(exports, module2) {
+  "node_modules/postcss/lib/warning.js"(exports2, module2) {
     "use strict";
     var Warning = class {
       constructor(text, opts = {}) {
@@ -5038,7 +4458,7 @@ var require_warning = __commonJS({
 
 // node_modules/postcss/lib/result.js
 var require_result = __commonJS({
-  "node_modules/postcss/lib/result.js"(exports, module2) {
+  "node_modules/postcss/lib/result.js"(exports2, module2) {
     "use strict";
     var Warning = require_warning();
     var Result = class {
@@ -5077,7 +4497,7 @@ var require_result = __commonJS({
 
 // node_modules/postcss/lib/at-rule.js
 var require_at_rule = __commonJS({
-  "node_modules/postcss/lib/at-rule.js"(exports, module2) {
+  "node_modules/postcss/lib/at-rule.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var AtRule = class extends Container {
@@ -5104,7 +4524,7 @@ var require_at_rule = __commonJS({
 
 // node_modules/postcss/lib/root.js
 var require_root = __commonJS({
-  "node_modules/postcss/lib/root.js"(exports, module2) {
+  "node_modules/postcss/lib/root.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var LazyResult;
@@ -5159,7 +4579,7 @@ var require_root = __commonJS({
 
 // node_modules/postcss/lib/list.js
 var require_list = __commonJS({
-  "node_modules/postcss/lib/list.js"(exports, module2) {
+  "node_modules/postcss/lib/list.js"(exports2, module2) {
     "use strict";
     var list = {
       comma(string) {
@@ -5219,7 +4639,7 @@ var require_list = __commonJS({
 
 // node_modules/postcss/lib/rule.js
 var require_rule = __commonJS({
-  "node_modules/postcss/lib/rule.js"(exports, module2) {
+  "node_modules/postcss/lib/rule.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var list = require_list();
@@ -5247,7 +4667,7 @@ var require_rule = __commonJS({
 
 // node_modules/postcss/lib/parser.js
 var require_parser = __commonJS({
-  "node_modules/postcss/lib/parser.js"(exports, module2) {
+  "node_modules/postcss/lib/parser.js"(exports2, module2) {
     "use strict";
     var Declaration = require_declaration();
     var tokenizer = require_tokenize();
@@ -5794,7 +5214,7 @@ var require_parser = __commonJS({
 
 // node_modules/postcss/lib/parse.js
 var require_parse = __commonJS({
-  "node_modules/postcss/lib/parse.js"(exports, module2) {
+  "node_modules/postcss/lib/parse.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var Parser = require_parser();
@@ -5828,7 +5248,7 @@ var require_parse = __commonJS({
 
 // node_modules/postcss/lib/lazy-result.js
 var require_lazy_result = __commonJS({
-  "node_modules/postcss/lib/lazy-result.js"(exports, module2) {
+  "node_modules/postcss/lib/lazy-result.js"(exports2, module2) {
     "use strict";
     var { isClean, my } = require_symbols();
     var MapGenerator = require_map_generator();
@@ -6324,7 +5744,7 @@ var require_lazy_result = __commonJS({
 
 // node_modules/postcss/lib/no-work-result.js
 var require_no_work_result = __commonJS({
-  "node_modules/postcss/lib/no-work-result.js"(exports, module2) {
+  "node_modules/postcss/lib/no-work-result.js"(exports2, module2) {
     "use strict";
     var MapGenerator = require_map_generator();
     var stringify = require_stringify();
@@ -6343,10 +5763,10 @@ var require_no_work_result = __commonJS({
         let str = stringify;
         this.result = new Result(this._processor, root, this._opts);
         this.result.css = css;
-        let self2 = this;
+        let self = this;
         Object.defineProperty(this.result, "root", {
           get() {
-            return self2.root;
+            return self.root;
           }
         });
         let map = new MapGenerator(str, root, this._opts, css);
@@ -6442,7 +5862,7 @@ var require_no_work_result = __commonJS({
 
 // node_modules/postcss/lib/processor.js
 var require_processor = __commonJS({
-  "node_modules/postcss/lib/processor.js"(exports, module2) {
+  "node_modules/postcss/lib/processor.js"(exports2, module2) {
     "use strict";
     var NoWorkResult = require_no_work_result();
     var LazyResult = require_lazy_result();
@@ -6500,7 +5920,7 @@ var require_processor = __commonJS({
 
 // node_modules/postcss/lib/fromJSON.js
 var require_fromJSON = __commonJS({
-  "node_modules/postcss/lib/fromJSON.js"(exports, module2) {
+  "node_modules/postcss/lib/fromJSON.js"(exports2, module2) {
     "use strict";
     var Declaration = require_declaration();
     var PreviousMap = require_previous_map();
@@ -6556,7 +5976,7 @@ var require_fromJSON = __commonJS({
 
 // node_modules/postcss/lib/postcss.js
 var require_postcss = __commonJS({
-  "node_modules/postcss/lib/postcss.js"(exports, module2) {
+  "node_modules/postcss/lib/postcss.js"(exports2, module2) {
     "use strict";
     var CssSyntaxError = require_css_syntax_error();
     var Declaration = require_declaration();
@@ -6645,7 +6065,7 @@ var require_postcss = __commonJS({
 
 // node_modules/postcss-scss/lib/scss-stringifier.js
 var require_scss_stringifier = __commonJS({
-  "node_modules/postcss-scss/lib/scss-stringifier.js"(exports, module2) {
+  "node_modules/postcss-scss/lib/scss-stringifier.js"(exports2, module2) {
     var Stringifier = require_stringifier();
     var ScssStringifier = class extends Stringifier {
       comment(node) {
@@ -6696,7 +6116,7 @@ var require_scss_stringifier = __commonJS({
 
 // node_modules/postcss-scss/lib/scss-stringify.js
 var require_scss_stringify = __commonJS({
-  "node_modules/postcss-scss/lib/scss-stringify.js"(exports, module2) {
+  "node_modules/postcss-scss/lib/scss-stringify.js"(exports2, module2) {
     var ScssStringifier = require_scss_stringifier();
     module2.exports = function scssStringify(node, builder) {
       let str = new ScssStringifier(builder);
@@ -6707,7 +6127,7 @@ var require_scss_stringify = __commonJS({
 
 // node_modules/postcss-scss/lib/nested-declaration.js
 var require_nested_declaration = __commonJS({
-  "node_modules/postcss-scss/lib/nested-declaration.js"(exports, module2) {
+  "node_modules/postcss-scss/lib/nested-declaration.js"(exports2, module2) {
     var { Container } = require_postcss();
     var NestedDeclaration = class extends Container {
       constructor(defaults) {
@@ -6724,7 +6144,7 @@ var require_nested_declaration = __commonJS({
 
 // node_modules/postcss-scss/lib/scss-tokenize.js
 var require_scss_tokenize = __commonJS({
-  "node_modules/postcss-scss/lib/scss-tokenize.js"(exports, module2) {
+  "node_modules/postcss-scss/lib/scss-tokenize.js"(exports2, module2) {
     "use strict";
     var SINGLE_QUOTE = "'".charCodeAt(0);
     var DOUBLE_QUOTE = '"'.charCodeAt(0);
@@ -6993,7 +6413,7 @@ var require_scss_tokenize = __commonJS({
 
 // node_modules/postcss-scss/lib/scss-parser.js
 var require_scss_parser = __commonJS({
-  "node_modules/postcss-scss/lib/scss-parser.js"(exports, module2) {
+  "node_modules/postcss-scss/lib/scss-parser.js"(exports2, module2) {
     var { Comment } = require_postcss();
     var Parser = require_parser();
     var NestedDeclaration = require_nested_declaration();
@@ -7189,7 +6609,7 @@ var require_scss_parser = __commonJS({
 
 // node_modules/postcss-scss/lib/scss-parse.js
 var require_scss_parse = __commonJS({
-  "node_modules/postcss-scss/lib/scss-parse.js"(exports, module2) {
+  "node_modules/postcss-scss/lib/scss-parse.js"(exports2, module2) {
     var { Input } = require_postcss();
     var ScssParser = require_scss_parser();
     module2.exports = function scssParse(scss, opts) {
@@ -7203,7 +6623,7 @@ var require_scss_parse = __commonJS({
 
 // node_modules/postcss-scss/lib/scss-syntax.js
 var require_scss_syntax = __commonJS({
-  "node_modules/postcss-scss/lib/scss-syntax.js"(exports, module2) {
+  "node_modules/postcss-scss/lib/scss-syntax.js"(exports2, module2) {
     var stringify = require_scss_stringify();
     var parse = require_scss_parse();
     module2.exports = { parse, stringify };
@@ -7212,16 +6632,15 @@ var require_scss_syntax = __commonJS({
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/mat-core-removal.js
 var require_mat_core_removal = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/mat-core-removal.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/mat-core-removal.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.MatCoreMigration = void 0;
-    var tslib_1 = require_tslib();
-    var postcss = tslib_1.__importStar(require_postcss());
-    var scss = tslib_1.__importStar(require_scss_syntax());
-    var schematics_1 = require("@angular/cdk/schematics");
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.MatCoreMigration = void 0;
+    var postcss = require_postcss();
+    var scss = require_scss_syntax();
+    var schematics_12 = require("@angular/cdk/schematics");
     var MATERIAL_IMPORT_PATH = "@angular/material";
-    var MatCoreMigration2 = class extends schematics_1.Migration {
+    var MatCoreMigration = class extends schematics_12.Migration {
       constructor() {
         super(...arguments);
         __publicField(this, "enabled", true);
@@ -7283,18 +6702,18 @@ var require_mat_core_removal = __commonJS({
         this.fileSystem.edit(filePath).remove(index, str.old.length).insertRight(index, str.new);
       }
     };
-    exports.MatCoreMigration = MatCoreMigration2;
+    exports2.MatCoreMigration = MatCoreMigration;
   }
 });
 
 // bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/explicit-system-variable-prefix.js
 var require_explicit_system_variable_prefix = __commonJS({
-  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/explicit-system-variable-prefix.js"(exports) {
+  "bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/migrations/explicit-system-variable-prefix.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ExplicitSystemVariablePrefixMigration = void 0;
-    var schematics_1 = require("@angular/cdk/schematics");
-    var ExplicitSystemVariablePrefixMigration2 = class extends schematics_1.Migration {
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.ExplicitSystemVariablePrefixMigration = void 0;
+    var schematics_12 = require("@angular/cdk/schematics");
+    var ExplicitSystemVariablePrefixMigration = class extends schematics_12.Migration {
       constructor() {
         super(...arguments);
         __publicField(this, "enabled", true);
@@ -7371,26 +6790,23 @@ var require_explicit_system_variable_prefix = __commonJS({
         return false;
       }
     };
-    exports.ExplicitSystemVariablePrefixMigration = ExplicitSystemVariablePrefixMigration2;
+    exports2.ExplicitSystemVariablePrefixMigration = ExplicitSystemVariablePrefixMigration;
   }
 });
 
-// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/index.mjs
-var ng_update_exports = {};
-__export(ng_update_exports, {
-  updateToV19: () => updateToV19
-});
-module.exports = __toCommonJS(ng_update_exports);
-var import_schematics = require("@angular/cdk/schematics");
-var import_upgrade_data = __toESM(require_upgrade_data(), 1);
-var import_mat_core_removal = __toESM(require_mat_core_removal(), 1);
-var import_explicit_system_variable_prefix = __toESM(require_explicit_system_variable_prefix(), 1);
+// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-update/index.js
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateToV19 = updateToV19;
+var schematics_1 = require("@angular/cdk/schematics");
+var upgrade_data_1 = require_upgrade_data();
+var mat_core_removal_1 = require_mat_core_removal();
+var explicit_system_variable_prefix_1 = require_explicit_system_variable_prefix();
 var materialMigrations = [
-  import_mat_core_removal.MatCoreMigration,
-  import_explicit_system_variable_prefix.ExplicitSystemVariablePrefixMigration
+  mat_core_removal_1.MatCoreMigration,
+  explicit_system_variable_prefix_1.ExplicitSystemVariablePrefixMigration
 ];
 function updateToV19() {
-  return (0, import_schematics.createMigrationSchematicRule)(import_schematics.TargetVersion.V19, materialMigrations, import_upgrade_data.materialUpgradeData, onMigrationComplete);
+  return (0, schematics_1.createMigrationSchematicRule)(schematics_1.TargetVersion.V19, materialMigrations, upgrade_data_1.materialUpgradeData, onMigrationComplete);
 }
 function onMigrationComplete(context, targetVersion, hasFailures) {
   context.logger.info("");
@@ -7400,10 +6816,6 @@ function onMigrationComplete(context, targetVersion, hasFailures) {
     context.logger.warn("  \u26A0  Some issues were detected but could not be fixed automatically. Please check the output above and fix these issues manually.");
   }
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  updateToV19
-});
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
