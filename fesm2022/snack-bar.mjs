@@ -1,15 +1,15 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, afterRender, ViewChild, Injector, TemplateRef, Injectable, NgModule } from '@angular/core';
+import { InjectionToken, Directive, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, NgZone, ElementRef, ChangeDetectorRef, Injector, afterNextRender, ViewChild, TemplateRef, Injectable, NgModule } from '@angular/core';
 import { Subject, of } from 'rxjs';
 import { M as MatButton, h as MatButtonModule } from './module-38f9b290.mjs';
-import { DOCUMENT } from '@angular/common';
-import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { take, takeUntil } from 'rxjs/operators';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
 import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { takeUntil } from 'rxjs/operators';
 import { M as MatCommonModule } from './common-module-255441a7.mjs';
 import './icon-button-b0c1795a.mjs';
 import '@angular/cdk/private';
@@ -222,14 +222,13 @@ class MatSnackBarContainer extends BasePortalOutlet {
     _elementRef = inject(ElementRef);
     _changeDetectorRef = inject(ChangeDetectorRef);
     _platform = inject(Platform);
-    _rendersRef;
     _animationsDisabled = _animationsDisabled();
     snackBarConfig = inject(MatSnackBarConfig);
     _document = inject(DOCUMENT);
     _trackedModals = new Set();
     _enterFallback;
     _exitFallback;
-    _renders = new Subject();
+    _injector = inject(Injector);
     /** The number of milliseconds to wait before announcing the snack bar's content. */
     _announceDelay = 150;
     /** The timeout for announcing the snack bar's content. */
@@ -285,10 +284,6 @@ class MatSnackBarContainer extends BasePortalOutlet {
                 this._role = 'alert';
             }
         }
-        // Note: ideally we'd just do an `afterNextRender` in the places where we need to delay
-        // something, however in some cases (TestBed teardown) the injector can be destroyed at an
-        // unexpected time, causing the `afterRender` to fail.
-        this._rendersRef = afterRender(() => this._renders.next(), { manualCleanup: true });
     }
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal(portal) {
@@ -338,9 +333,9 @@ class MatSnackBarContainer extends BasePortalOutlet {
             this._changeDetectorRef.detectChanges();
             this._screenReaderAnnounce();
             if (this._animationsDisabled) {
-                this._renders.pipe(take(1)).subscribe(() => {
+                afterNextRender(() => {
                     this._ngZone.run(() => queueMicrotask(() => this.onAnimationEnd(ENTER_ANIMATION)));
-                });
+                }, { injector: this._injector });
             }
             else {
                 clearTimeout(this._enterFallback);
@@ -374,9 +369,9 @@ class MatSnackBarContainer extends BasePortalOutlet {
             // long enough to visually read it either, so clear the timeout for announcing.
             clearTimeout(this._announceTimeoutId);
             if (this._animationsDisabled) {
-                this._renders.pipe(take(1)).subscribe(() => {
+                afterNextRender(() => {
                     this._ngZone.run(() => queueMicrotask(() => this.onAnimationEnd(EXIT_ANIMATION)));
-                });
+                }, { injector: this._injector });
             }
             else {
                 clearTimeout(this._exitFallback);
@@ -390,8 +385,6 @@ class MatSnackBarContainer extends BasePortalOutlet {
         this._destroyed = true;
         this._clearFromModals();
         this._completeExit();
-        this._renders.complete();
-        this._rendersRef.destroy();
     }
     _completeExit() {
         clearTimeout(this._exitFallback);

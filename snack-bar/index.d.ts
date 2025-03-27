@@ -1,11 +1,11 @@
 import * as i2 from '@angular/cdk/overlay';
 import { OverlayRef, ComponentType } from '@angular/cdk/overlay';
 import { Subject, Observable } from 'rxjs';
-import * as i0 from '@angular/core';
-import { InjectionToken, ViewContainerRef, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
+import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import * as i3 from '@angular/cdk/portal';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
-import { AriaLivePoliteness } from '@angular/cdk/a11y';
+import * as i0 from '@angular/core';
+import { InjectionToken, ViewContainerRef, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { n as MatButtonModule } from '../module.d-d86ca350.js';
 import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
@@ -60,14 +60,13 @@ declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy
     private _elementRef;
     private _changeDetectorRef;
     private _platform;
-    private _rendersRef;
     protected _animationsDisabled: boolean;
     snackBarConfig: MatSnackBarConfig<any>;
     private _document;
     private _trackedModals;
     private _enterFallback;
     private _exitFallback;
-    private _renders;
+    private _injector;
     /** The number of milliseconds to wait before announcing the snack bar's content. */
     private readonly _announceDelay;
     /** The timeout for announcing the snack bar's content. */
