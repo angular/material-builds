@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { NgModule } from '@angular/core';
 import { M as MatRippleModule } from './index-b8da641d.mjs';
 import { M as MatCommonModule } from './common-module-3ec8031a.mjs';
-import { a as MatOption, e as MatOptgroup } from './option-a77bb984.mjs';
+import { a as MatOption, e as MatOptgroup } from './option-b8dab324.mjs';
 import { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-d04dbe5a.mjs';
 
 class MatOptionModule {
@@ -19,4 +19,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.3", 
         }] });
 
 export { MatOptionModule as M };
-//# sourceMappingURL=index-1ea85b8e.mjs.map
+//# sourceMappingURL=index-b3b52707.mjs.map

@@ -1,5 +1,5 @@
-import { M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-a77bb984.mjs';
-export { e as MatOptgroup, a as MatOption } from './option-a77bb984.mjs';
+import { M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-b8dab324.mjs';
+export { e as MatOptgroup, a as MatOption } from './option-b8dab324.mjs';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -14,8 +14,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
-import { M as MAT_FORM_FIELD } from './form-field-f97b8b0c.mjs';
-import { M as MatOptionModule } from './index-1ea85b8e.mjs';
+import { M as MAT_FORM_FIELD } from './form-field-a44282bb.mjs';
+import { M as MatOptionModule } from './index-b3b52707.mjs';
 import { M as MatCommonModule } from './common-module-3ec8031a.mjs';
 import './ripple-18f3bc18.mjs';
 import '@angular/cdk/coercion';

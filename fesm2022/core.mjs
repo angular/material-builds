@@ -9,8 +9,8 @@ export { D as DateAdapter, a as MAT_DATE_FORMATS, M as MAT_DATE_LOCALE, b as MAT
 export { E as ErrorStateMatcher, S as ShowOnDirtyErrorStateMatcher } from './error-options-ee129e4b.mjs';
 export { _ as _StructuralStylesLoader } from './structural-styles-e3fe1eb7.mjs';
 export { M as MatLine, a as MatLineModule, s as setLines } from './line-d0757c01.mjs';
-export { b as MAT_OPTGROUP, M as MAT_OPTION_PARENT_COMPONENT, e as MatOptgroup, a as MatOption, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-a77bb984.mjs';
-export { M as MatOptionModule } from './index-1ea85b8e.mjs';
+export { b as MAT_OPTGROUP, M as MAT_OPTION_PARENT_COMPONENT, e as MatOptgroup, a as MatOption, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-b8dab324.mjs';
+export { M as MatOptionModule } from './index-b3b52707.mjs';
 export { M as MatRippleLoader } from './ripple-loader-e685c61f.mjs';
 export { a as MAT_RIPPLE_GLOBAL_OPTIONS, M as MatRipple, c as RippleRef, R as RippleRenderer, b as RippleState, d as defaultRippleAnimationConfig } from './ripple-18f3bc18.mjs';
 export { M as MatRippleModule } from './index-b8da641d.mjs';
