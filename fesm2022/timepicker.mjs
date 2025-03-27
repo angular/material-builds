@@ -10,7 +10,7 @@ import { D as DateAdapter, a as MAT_DATE_FORMATS } from './date-formats-b618acb8
 import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
 import { a as MatOption, M as MAT_OPTION_PARENT_COMPONENT } from './option-a77bb984.mjs';
 import { Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { M as MAT_FORM_FIELD } from './form-field-9a53ebf1.mjs';
+import { M as MAT_FORM_FIELD } from './form-field-f97b8b0c.mjs';
 import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-8a79a24e.mjs';
 import { a as MatIconButton } from './icon-button-acdabdec.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';

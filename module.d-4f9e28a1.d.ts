@@ -12,9 +12,9 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
 import { E as ErrorStateMatcher } from './error-options.d-448d9046.js';
 import { M as MatOption, a as MatOptgroup, b as MatOptionSelectionChange } from './option.d-6f493d78.js';
-import { k as MatFormField } from './form-field.d-2edbc094.js';
+import { k as MatFormField } from './form-field.d-a2e66ffc.js';
 import { M as MatFormFieldControl } from './form-field-control.d-eb86711c.js';
-import { a as MatFormFieldModule } from './module.d-c17c834e.js';
+import { a as MatFormFieldModule } from './module.d-45fad3fb.js';
 
 /** Injection token that determines the scroll handling while a select is open. */
 declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;

@@ -205,7 +205,6 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     private _platform;
     private _idGenerator;
     private _ngZone;
-    private _injector;
     private _defaults;
     _textField: ElementRef<HTMLElement>;
     _iconPrefixContainer: ElementRef<HTMLElement>;
@@ -215,6 +214,11 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     _floatingLabel: MatFormFieldFloatingLabel | undefined;
     _notchedOutline: MatFormFieldNotchedOutline | undefined;
     _lineRipple: MatFormFieldLineRipple | undefined;
+    private _iconPrefixContainerSignal;
+    private _textPrefixContainerSignal;
+    private _iconSuffixContainerSignal;
+    private _textSuffixContainerSignal;
+    private _prefixSuffixContainers;
     _formFieldControl: MatFormFieldControl<any>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
@@ -240,7 +244,7 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     /** The form field appearance style. */
     get appearance(): MatFormFieldAppearance;
     set appearance(value: MatFormFieldAppearance);
-    private _appearance;
+    private _appearanceSignal;
     /**
      * Whether the form field should reserve space for one line of hint/error text (default)
      * or to have the spacing grow from 0px as needed based on the size of the hint/error content.
@@ -265,7 +269,6 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     private _destroyed;
     private _isFocused;
     private _explicitFormFieldControl;
-    private _needsOutlineLabelOffsetUpdate;
     private _previousControl;
     private _previousControlValidatorFn;
     private _stateChanges;
@@ -302,13 +305,14 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     /** Throws an error if the form field's control is missing. */
     private _assertFormFieldControl;
     private _updateFocusState;
+    private _outlineLabelOffsetResizeObserver;
     /**
      * The floating label in the docked state needs to account for prefixes. The horizontal offset
      * is calculated whenever the appearance changes to `outline`, the prefixes change, or when the
      * form field is added to the DOM. This method sets up all subscriptions which are needed to
      * trigger the label offset update.
      */
-    private _initializeOutlineLabelOffsetSubscriptions;
+    private _syncOutlineLabelOffset;
     /** Whether the floating label should always float or not. */
     _shouldAlwaysFloat(): boolean;
     _hasOutline(): boolean;
