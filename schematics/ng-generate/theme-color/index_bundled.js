@@ -54,7 +54,7 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// node_modules/@material/material-color-utilities/utils/math_utils.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/math_utils.js
 function signum(num) {
   if (num < 0) {
     return -1;
@@ -111,11 +111,11 @@ function matrixMultiply(row, matrix) {
   return [a, b, c];
 }
 var init_math_utils = __esm({
-  "node_modules/@material/material-color-utilities/utils/math_utils.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/math_utils.js"() {
   }
 });
 
-// node_modules/@material/material-color-utilities/utils/color_utils.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/color_utils.js
 function argbFromRgb(red, green, blue) {
   return (255 << 24 | (red & 255) << 16 | (green & 255) << 8 | blue & 255) >>> 0;
 }
@@ -267,7 +267,7 @@ function labInvf(ft) {
 }
 var SRGB_TO_XYZ, XYZ_TO_SRGB, WHITE_POINT_D65;
 var init_color_utils = __esm({
-  "node_modules/@material/material-color-utilities/utils/color_utils.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/color_utils.js"() {
     init_math_utils();
     SRGB_TO_XYZ = [
       [0.41233895, 0.35762064, 0.18051042],
@@ -295,10 +295,10 @@ var init_color_utils = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/hct/viewing_conditions.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/hct/viewing_conditions.js
 var ViewingConditions;
 var init_viewing_conditions = __esm({
-  "node_modules/@material/material-color-utilities/hct/viewing_conditions.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/hct/viewing_conditions.js"() {
     init_color_utils();
     init_math_utils();
     ViewingConditions = class {
@@ -355,10 +355,10 @@ var init_viewing_conditions = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/hct/cam16.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/hct/cam16.js
 var Cam16;
 var init_cam16 = __esm({
-  "node_modules/@material/material-color-utilities/hct/cam16.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/hct/cam16.js"() {
     init_color_utils();
     init_math_utils();
     init_viewing_conditions();
@@ -569,10 +569,10 @@ var init_cam16 = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/hct/hct_solver.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/hct/hct_solver.js
 var HctSolver;
 var init_hct_solver = __esm({
-  "node_modules/@material/material-color-utilities/hct/hct_solver.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/hct/hct_solver.js"() {
     init_color_utils();
     init_math_utils();
     init_cam16();
@@ -1108,10 +1108,10 @@ var init_hct_solver = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/hct/hct.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/hct/hct.js
 var Hct;
 var init_hct = __esm({
-  "node_modules/@material/material-color-utilities/hct/hct.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/hct/hct.js"() {
     init_color_utils();
     init_cam16();
     init_hct_solver();
@@ -1170,10 +1170,10 @@ var init_hct = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/blend/blend.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/blend/blend.js
 var Blend;
 var init_blend = __esm({
-  "node_modules/@material/material-color-utilities/blend/blend.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/blend/blend.js"() {
     init_cam16();
     init_hct();
     init_color_utils();
@@ -1212,10 +1212,10 @@ var init_blend = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/contrast/contrast.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/contrast/contrast.js
 var Contrast;
 var init_contrast = __esm({
-  "node_modules/@material/material-color-utilities/contrast/contrast.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/contrast/contrast.js"() {
     init_color_utils();
     init_math_utils();
     Contrast = class {
@@ -1275,10 +1275,10 @@ var init_contrast = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js
 var DislikeAnalyzer;
 var init_dislike_analyzer = __esm({
-  "node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js"() {
     init_hct();
     DislikeAnalyzer = class {
       static isDisliked(hct) {
@@ -1297,10 +1297,10 @@ var init_dislike_analyzer = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js
 var DynamicColor;
 var init_dynamic_color = __esm({
-  "node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js"() {
     init_contrast();
     init_math_utils();
     DynamicColor = class {
@@ -1480,10 +1480,10 @@ var init_dynamic_color = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/palettes/tonal_palette.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/palettes/tonal_palette.js
 var TonalPalette, KeyColor;
 var init_tonal_palette = __esm({
-  "node_modules/@material/material-color-utilities/palettes/tonal_palette.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/palettes/tonal_palette.js"() {
     init_hct();
     TonalPalette = class {
       static fromInt(argb) {
@@ -1563,10 +1563,10 @@ var init_tonal_palette = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js
 var ContrastCurve;
 var init_contrast_curve = __esm({
-  "node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js"() {
     init_math_utils();
     ContrastCurve = class {
       constructor(low, normal, medium, high) {
@@ -1592,10 +1592,10 @@ var init_contrast_curve = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js
 var ToneDeltaPair;
 var init_tone_delta_pair = __esm({
-  "node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js"() {
     ToneDeltaPair = class {
       constructor(roleA, roleB, delta, polarity, stayTogether) {
         this.roleA = roleA;
@@ -1608,10 +1608,10 @@ var init_tone_delta_pair = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/dynamiccolor/variant.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/variant.js
 var Variant;
 var init_variant = __esm({
-  "node_modules/@material/material-color-utilities/dynamiccolor/variant.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/variant.js"() {
     (function(Variant2) {
       Variant2[Variant2["MONOCHROME"] = 0] = "MONOCHROME";
       Variant2[Variant2["NEUTRAL"] = 1] = "NEUTRAL";
@@ -1626,7 +1626,7 @@ var init_variant = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js
 function isFidelity(scheme) {
   return scheme.variant === Variant.FIDELITY || scheme.variant === Variant.CONTENT;
 }
@@ -1659,7 +1659,7 @@ function findDesiredChromaByTone(hue, chroma, tone, byDecreasingTone) {
 }
 var MaterialDynamicColors;
 var init_material_dynamic_colors = __esm({
-  "node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js"() {
     init_dislike_analyzer();
     init_hct();
     init_contrast_curve();
@@ -2141,10 +2141,10 @@ var init_material_dynamic_colors = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js
 var DynamicScheme;
 var init_dynamic_scheme = __esm({
-  "node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js"() {
     init_hct();
     init_tonal_palette();
     init_math_utils();
@@ -2353,10 +2353,10 @@ var init_dynamic_scheme = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/palettes/core_palette.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/palettes/core_palette.js
 var CorePalette;
 var init_core_palette = __esm({
-  "node_modules/@material/material-color-utilities/palettes/core_palette.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/palettes/core_palette.js"() {
     init_hct();
     init_tonal_palette();
     CorePalette = class {
@@ -2419,10 +2419,10 @@ var init_core_palette = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/quantize/lab_point_provider.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/lab_point_provider.js
 var LabPointProvider;
 var init_lab_point_provider = __esm({
-  "node_modules/@material/material-color-utilities/quantize/lab_point_provider.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/lab_point_provider.js"() {
     init_color_utils();
     LabPointProvider = class {
       fromInt(argb) {
@@ -2441,10 +2441,10 @@ var init_lab_point_provider = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/quantize/quantizer_wsmeans.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/quantizer_wsmeans.js
 var MAX_ITERATIONS, MIN_MOVEMENT_DISTANCE, QuantizerWsmeans, DistanceAndIndex;
 var init_quantizer_wsmeans = __esm({
-  "node_modules/@material/material-color-utilities/quantize/quantizer_wsmeans.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/quantizer_wsmeans.js"() {
     init_lab_point_provider();
     MAX_ITERATIONS = 10;
     MIN_MOVEMENT_DISTANCE = 3;
@@ -2608,10 +2608,10 @@ var init_quantizer_wsmeans = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/quantize/quantizer_map.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/quantizer_map.js
 var QuantizerMap;
 var init_quantizer_map = __esm({
-  "node_modules/@material/material-color-utilities/quantize/quantizer_map.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/quantizer_map.js"() {
     init_color_utils();
     QuantizerMap = class {
       static quantize(pixels) {
@@ -2631,10 +2631,10 @@ var init_quantizer_map = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/quantize/quantizer_wu.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/quantizer_wu.js
 var INDEX_BITS, SIDE_LENGTH, TOTAL_SIZE, directions, QuantizerWu, Box, CreateBoxesResult, MaximizeResult;
 var init_quantizer_wu = __esm({
-  "node_modules/@material/material-color-utilities/quantize/quantizer_wu.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/quantizer_wu.js"() {
     init_color_utils();
     init_quantizer_map();
     INDEX_BITS = 5;
@@ -2925,10 +2925,10 @@ var init_quantizer_wu = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/quantize/quantizer_celebi.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/quantizer_celebi.js
 var QuantizerCelebi;
 var init_quantizer_celebi = __esm({
-  "node_modules/@material/material-color-utilities/quantize/quantizer_celebi.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/quantize/quantizer_celebi.js"() {
     init_quantizer_wsmeans();
     init_quantizer_wu();
     QuantizerCelebi = class {
@@ -2941,10 +2941,10 @@ var init_quantizer_celebi = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme.js
 var Scheme;
 var init_scheme = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme.js"() {
     init_core_palette();
     Scheme = class {
       get primary() {
@@ -3122,10 +3122,10 @@ var init_scheme = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_android.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_android.js
 var SchemeAndroid;
 var init_scheme_android = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_android.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_android.js"() {
     init_core_palette();
     SchemeAndroid = class {
       get colorAccentPrimary() {
@@ -3287,10 +3287,10 @@ var init_scheme_android = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/temperature/temperature_cache.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/temperature/temperature_cache.js
 var TemperatureCache;
 var init_temperature_cache = __esm({
-  "node_modules/@material/material-color-utilities/temperature/temperature_cache.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/temperature/temperature_cache.js"() {
     init_hct();
     init_color_utils();
     init_math_utils();
@@ -3474,10 +3474,10 @@ var init_temperature_cache = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_content.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_content.js
 var SchemeContent;
 var init_scheme_content = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_content.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_content.js"() {
     init_dislike_analyzer();
     init_dynamic_scheme();
     init_variant();
@@ -3501,10 +3501,10 @@ var init_scheme_content = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_expressive.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_expressive.js
 var SchemeExpressive;
 var init_scheme_expressive = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_expressive.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_expressive.js"() {
     init_dynamic_scheme();
     init_variant();
     init_tonal_palette();
@@ -3560,10 +3560,10 @@ var init_scheme_expressive = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_fidelity.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_fidelity.js
 var SchemeFidelity;
 var init_scheme_fidelity = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_fidelity.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_fidelity.js"() {
     init_dislike_analyzer();
     init_dynamic_scheme();
     init_variant();
@@ -3587,10 +3587,10 @@ var init_scheme_fidelity = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_fruit_salad.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_fruit_salad.js
 var SchemeFruitSalad;
 var init_scheme_fruit_salad = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_fruit_salad.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_fruit_salad.js"() {
     init_dynamic_scheme();
     init_variant();
     init_tonal_palette();
@@ -3613,10 +3613,10 @@ var init_scheme_fruit_salad = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_monochrome.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_monochrome.js
 var SchemeMonochrome;
 var init_scheme_monochrome = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_monochrome.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_monochrome.js"() {
     init_dynamic_scheme();
     init_variant();
     init_tonal_palette();
@@ -3638,10 +3638,10 @@ var init_scheme_monochrome = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_neutral.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_neutral.js
 var SchemeNeutral;
 var init_scheme_neutral = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_neutral.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_neutral.js"() {
     init_dynamic_scheme();
     init_variant();
     init_tonal_palette();
@@ -3663,10 +3663,10 @@ var init_scheme_neutral = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_rainbow.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_rainbow.js
 var SchemeRainbow;
 var init_scheme_rainbow = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_rainbow.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_rainbow.js"() {
     init_dynamic_scheme();
     init_variant();
     init_tonal_palette();
@@ -3689,10 +3689,10 @@ var init_scheme_rainbow = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_tonal_spot.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_tonal_spot.js
 var SchemeTonalSpot;
 var init_scheme_tonal_spot = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_tonal_spot.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_tonal_spot.js"() {
     init_dynamic_scheme();
     init_variant();
     init_tonal_palette();
@@ -3715,10 +3715,10 @@ var init_scheme_tonal_spot = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/scheme/scheme_vibrant.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_vibrant.js
 var SchemeVibrant;
 var init_scheme_vibrant = __esm({
-  "node_modules/@material/material-color-utilities/scheme/scheme_vibrant.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/scheme/scheme_vibrant.js"() {
     init_dynamic_scheme();
     init_variant();
     init_tonal_palette();
@@ -3773,7 +3773,7 @@ var init_scheme_vibrant = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/score/score.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/score/score.js
 function compare(a, b) {
   if (a.score > b.score) {
     return -1;
@@ -3784,7 +3784,7 @@ function compare(a, b) {
 }
 var SCORE_OPTION_DEFAULTS, Score;
 var init_score = __esm({
-  "node_modules/@material/material-color-utilities/score/score.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/score/score.js"() {
     init_hct();
     init_math_utils();
     SCORE_OPTION_DEFAULTS = {
@@ -3864,7 +3864,7 @@ var init_score = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/utils/string_utils.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/string_utils.js
 function hexFromArgb(argb) {
   const r = redFromArgb(argb);
   const g = greenFromArgb(argb);
@@ -3907,12 +3907,12 @@ function parseIntHex(value) {
   return parseInt(value, 16);
 }
 var init_string_utils = __esm({
-  "node_modules/@material/material-color-utilities/utils/string_utils.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/string_utils.js"() {
     init_color_utils();
   }
 });
 
-// node_modules/@material/material-color-utilities/utils/image_utils.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/image_utils.js
 function sourceColorFromImage(image) {
   return __async(this, null, function* () {
     const imageBytes = yield new Promise((resolve, reject) => {
@@ -3965,14 +3965,14 @@ function sourceColorFromImage(image) {
   });
 }
 var init_image_utils = __esm({
-  "node_modules/@material/material-color-utilities/utils/image_utils.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/image_utils.js"() {
     init_quantizer_celebi();
     init_score();
     init_color_utils();
   }
 });
 
-// node_modules/@material/material-color-utilities/utils/theme_utils.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/theme_utils.js
 function themeFromSourceColor(source, customColors = []) {
   const palette = CorePalette.of(source);
   return {
@@ -4054,7 +4054,7 @@ function setSchemeProperties(target, scheme, suffix = "") {
   }
 }
 var init_theme_utils = __esm({
-  "node_modules/@material/material-color-utilities/utils/theme_utils.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/utils/theme_utils.js"() {
     init_blend();
     init_core_palette();
     init_scheme();
@@ -4063,7 +4063,7 @@ var init_theme_utils = __esm({
   }
 });
 
-// node_modules/@material/material-color-utilities/index.js
+// bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/index.js
 var material_color_utilities_exports = {};
 __export(material_color_utilities_exports, {
   Blend: () => Blend,
@@ -4132,7 +4132,7 @@ __export(material_color_utilities_exports, {
   yFromLstar: () => yFromLstar
 });
 var init_material_color_utilities = __esm({
-  "node_modules/@material/material-color-utilities/index.js"() {
+  "bazel-out/k8-fastbuild/bin/node_modules/@material/material-color-utilities/index.js"() {
     init_blend();
     init_contrast();
     init_dislike_analyzer();
