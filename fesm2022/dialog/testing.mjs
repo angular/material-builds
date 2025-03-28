@@ -2,7 +2,7 @@ import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@an
 import { __decorate, __metadata } from 'tslib';
 import { inject, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { j as MatDialog, n as MatDialogModule } from '../module-b3de5709.mjs';
+import { j as MatDialog, n as MatDialogModule } from '../module-c1a8b4bb.mjs';
 import '@angular/cdk/dialog';
 import '@angular/cdk/overlay';
 import '@angular/cdk/portal';
@@ -12,7 +12,7 @@ import 'rxjs/operators';
 import '@angular/cdk/keycodes';
 import '@angular/cdk/a11y';
 import '@angular/cdk/scrolling';
-import '../common-module-a39ee957.mjs';
+import '../common-module-5a9c16bb.mjs';
 import '@angular/cdk/bidi';
 
 /** Selectors for different sections of the mat-dialog that can contain user content. */

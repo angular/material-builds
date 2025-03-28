@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, ANIMATION_MODULE_TYPE, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, NgModule } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import { M as MatCommonModule } from './common-module-5a9c16bb.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 

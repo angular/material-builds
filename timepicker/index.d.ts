@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { OnDestroy, Signal, ModelSignal, InputSignal, InputSignalWithTransform, ElementRef, InjectionToken, TemplateRef, OutputEmitterRef } from '@angular/core';
-import { M as MatOption } from '../option.d-6f493d78.js';
-import { M as MatOptionParentComponent } from '../option-parent.d-559ad5c5.js';
+import { M as MatOption } from '../option.d-be9de0a8.js';
+import { M as MatOptionParentComponent } from '../option-parent.d-f2c0c7de.js';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import * as i5 from '@angular/cdk/scrolling';

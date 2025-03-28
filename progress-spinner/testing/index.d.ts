@@ -1,7 +1,7 @@
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { P as ProgressSpinnerMode } from '../../progress-spinner.d-1fc040c5.js';
+import { P as ProgressSpinnerMode } from '../../progress-spinner.d-96c586e2.js';
 import '@angular/core';
-import '../../palette.d-ec4a617c.js';
+import '../../palette.d-f5ca9a2b.js';
 
 /** A set of criteria that can be used to filter a list of `MatProgressSpinnerHarness` instances. */
 interface ProgressSpinnerHarnessFilters extends BaseHarnessFilters {

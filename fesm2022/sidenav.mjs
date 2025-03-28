@@ -9,7 +9,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, ANIMATION_MODULE_TYPE, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
-import { M as MatCommonModule } from './common-module-a39ee957.mjs';
+import { M as MatCommonModule } from './common-module-5a9c16bb.mjs';
 
 /**
  * Throws an exception when two MatDrawer are matching the same position.

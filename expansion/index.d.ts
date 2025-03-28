@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, TemplateRef, AfterContentInit, OnChanges, OnDestroy, EventEmitter, SimpleChanges, ElementRef, AfterViewInit, QueryList } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
 import * as i2 from '@angular/cdk/accordion';
 import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
 import * as i3 from '@angular/cdk/portal';

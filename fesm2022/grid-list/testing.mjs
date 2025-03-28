@@ -1,5 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
-import { ɵ as ɵTileCoordinator } from '../public-api-c5ab57f5.mjs';
+import { ɵ as ɵTileCoordinator } from '../public-api-c3ea43bd.mjs';
 
 /** Selectors for the various `mat-grid-tile` sections that may contain user content. */
 var MatGridTileSection;
