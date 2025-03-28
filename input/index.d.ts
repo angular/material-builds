@@ -5,12 +5,12 @@ import { InjectionToken, OnChanges, OnDestroy, AfterViewInit, DoCheck, ElementRe
 import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { E as ErrorStateMatcher } from '../error-options.d-bd1801bf.js';
-import { k as MatFormField } from '../form-field.d-15bf4dcf.js';
-export { a as MatError, k as MatFormField, b as MatHint, d as MatPrefix, f as MatSuffix } from '../form-field.d-15bf4dcf.js';
+import { k as MatFormField } from '../form-field.d-e2081e20.js';
+export { a as MatError, k as MatFormField, b as MatHint, d as MatPrefix, f as MatSuffix } from '../form-field.d-e2081e20.js';
 import { M as MatFormFieldControl } from '../form-field-control.d-d7b3a431.js';
 import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
-import { a as MatFormFieldModule } from '../module.d-debd2add.js';
-export { M as MatLabel } from '../module.d-debd2add.js';
+import { a as MatFormFieldModule } from '../module.d-a335a842.js';
+export { M as MatLabel } from '../module.d-a335a842.js';
 import * as i4 from '@angular/cdk/text-field';
 import '../palette.d-f5ca9a2b.js';
 import '@angular/cdk/bidi';

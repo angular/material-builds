@@ -1,9 +1,9 @@
 import * as i0 from '@angular/core';
 import { n as MatButtonModule } from '../module.d-1b393e15.js';
-import { M as MatSelectModule } from '../module.d-324b469d.js';
+import { M as MatSelectModule } from '../module.d-916841df.js';
 import { M as MatTooltipModule } from '../module.d-984cabd6.js';
-import { M as MatPaginator } from '../paginator.d-b387a59d.js';
-export { c as MAT_PAGINATOR_DEFAULT_OPTIONS, f as MAT_PAGINATOR_INTL_PROVIDER, e as MAT_PAGINATOR_INTL_PROVIDER_FACTORY, M as MatPaginator, b as MatPaginatorDefaultOptions, d as MatPaginatorIntl, a as MatPaginatorSelectConfig, P as PageEvent } from '../paginator.d-b387a59d.js';
+import { M as MatPaginator } from '../paginator.d-82b71ef4.js';
+export { c as MAT_PAGINATOR_DEFAULT_OPTIONS, f as MAT_PAGINATOR_INTL_PROVIDER, e as MAT_PAGINATOR_INTL_PROVIDER_FACTORY, M as MatPaginator, b as MatPaginatorDefaultOptions, d as MatPaginatorIntl, a as MatPaginatorSelectConfig, P as PageEvent } from '../paginator.d-82b71ef4.js';
 import '../common-module.d-1b789e68.js';
 import '@angular/cdk/bidi';
 import '../index.d-609609fc.js';
@@ -21,10 +21,10 @@ import '@angular/cdk/collections';
 import '@angular/cdk/scrolling';
 import '@angular/forms';
 import '../error-options.d-bd1801bf.js';
-import '../form-field.d-15bf4dcf.js';
+import '../form-field.d-e2081e20.js';
 import '@angular/cdk/coercion';
 import '../form-field-control.d-d7b3a431.js';
-import '../module.d-debd2add.js';
+import '../module.d-a335a842.js';
 import '@angular/cdk/observers';
 
 declare class MatPaginatorModule {
