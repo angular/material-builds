@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-0e6515ae.js';
+import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
 import '@angular/cdk/bidi';
 
 type MatCardAppearance = 'outlined' | 'raised';

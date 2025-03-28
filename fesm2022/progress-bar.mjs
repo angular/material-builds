@@ -1,8 +1,8 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, ChangeDetectorRef, Renderer2, EventEmitter, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { _ as _animationsDisabled } from './animation-5f89c9a6.mjs';
-import { M as MatCommonModule } from './common-module-255441a7.mjs';
+import { _ as _animationsDisabled } from './animation-0a58df80.mjs';
+import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 
