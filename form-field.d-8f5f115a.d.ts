@@ -328,8 +328,8 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
      * should be forwarded to the host element.
      */
     _shouldForward(prop: keyof AbstractControlDirective): boolean;
-    /** Determines whether to display hints or errors. */
-    _getDisplayedMessages(): 'error' | 'hint';
+    /** Gets the type of subscript message to render (error or hint). */
+    _getSubscriptMessageType(): 'error' | 'hint';
     /** Handle label resize events. */
     _handleLabelResized(): void;
     /** Refreshes the width of the outline-notch, if present. */
