@@ -23,6 +23,13 @@ import '@angular/cdk/platform';
 /** Current version of Angular Material. */
 declare const VERSION: Version;
 
+/** Object used to configure the animation in Angular Material. */
+interface AnimationsConfig {
+    /** Whether all animations should be disabled. */
+    animationsDisabled: boolean;
+}
+/** Injection token used to configure the animations in Angular Material. */
+declare const MATERIAL_ANIMATIONS: InjectionToken<AnimationsConfig>;
 /**
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
@@ -196,4 +203,4 @@ declare class _MatInternalFormField {
     static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
 }
 
-export { AnimationCurves, AnimationDurations, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, type MatDateFormats, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, provideNativeDateAdapter };
+export { AnimationCurves, AnimationDurations, type AnimationsConfig, MATERIAL_ANIMATIONS, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, type MatDateFormats, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, provideNativeDateAdapter };

@@ -1,5 +1,7 @@
-import { inject, ANIMATION_MODULE_TYPE } from '@angular/core';
+import { InjectionToken, inject, ANIMATION_MODULE_TYPE } from '@angular/core';
 
+/** Injection token used to configure the animations in Angular Material. */
+const MATERIAL_ANIMATIONS = new InjectionToken('MATERIAL_ANIMATIONS');
 /**
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
@@ -26,8 +28,12 @@ class AnimationDurations {
  * @docs-private
  */
 function _animationsDisabled() {
+    const customToken = inject(MATERIAL_ANIMATIONS, { optional: true });
+    if (customToken) {
+        return customToken.animationsDisabled;
+    }
     return inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
 }
 
-export { AnimationCurves as A, _animationsDisabled as _, AnimationDurations as a };
-//# sourceMappingURL=animation-0a58df80.mjs.map
+export { AnimationCurves as A, MATERIAL_ANIMATIONS as M, _animationsDisabled as _, AnimationDurations as a };
+//# sourceMappingURL=animation-89957083.mjs.map

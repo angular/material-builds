@@ -2,14 +2,14 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, booleanAttribute, numberAttribute, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, signal, Directive, Output, NgModule } from '@angular/core';
-import { b as RippleState, M as MatRipple, a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-41c62a88.mjs';
+import { b as RippleState, M as MatRipple, a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-7f0562cc.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { _ as _animationsDisabled } from './animation-0a58df80.mjs';
+import { _ as _animationsDisabled } from './animation-89957083.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
-import { M as MatRippleModule } from './index-5ac4af9b.mjs';
+import { M as MatRippleModule } from './index-59ddbae2.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/coercion';
 

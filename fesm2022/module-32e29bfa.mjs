@@ -11,7 +11,7 @@ import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform
 import { Directionality } from '@angular/cdk/bidi';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
-import { _ as _animationsDisabled } from './animation-0a58df80.mjs';
+import { _ as _animationsDisabled } from './animation-89957083.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 
 /** Time in ms to throttle repositioning after scroll events. */
@@ -967,4 +967,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
         }] });
 
 export { MatTooltip as M, SCROLL_THROTTLE_MS as S, TOOLTIP_PANEL_CLASS as T, MatTooltipModule as a, MAT_TOOLTIP_SCROLL_STRATEGY as b, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY as c, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER as d, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY as e, MAT_TOOLTIP_DEFAULT_OPTIONS as f, getMatTooltipInvalidPositionError as g, TooltipComponent as h };
-//# sourceMappingURL=module-c62ec13a.mjs.map
+//# sourceMappingURL=module-32e29bfa.mjs.map

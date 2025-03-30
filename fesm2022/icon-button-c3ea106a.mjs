@@ -2,9 +2,9 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, Renderer2, booleanAttribute, Directive, Input, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { M as MatRippleLoader } from './ripple-loader-be5bc60f.mjs';
+import { M as MatRippleLoader } from './ripple-loader-6084e18d.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
-import { _ as _animationsDisabled } from './animation-0a58df80.mjs';
+import { _ as _animationsDisabled } from './animation-89957083.mjs';
 
 /** Injection token that can be used to provide the default options the button component. */
 const MAT_BUTTON_CONFIG = new InjectionToken('MAT_BUTTON_CONFIG');
@@ -209,4 +209,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
 const MatIconAnchor = MatIconButton;
 
 export { MAT_BUTTON_CONFIG as M, MatIconButton as a, MatIconAnchor as b, MatButtonBase as c };
-//# sourceMappingURL=icon-button-9055fbe1.mjs.map
+//# sourceMappingURL=icon-button-c3ea106a.mjs.map
