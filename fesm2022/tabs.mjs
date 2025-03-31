@@ -2,7 +2,7 @@ import { FocusKeyManager, _IdGenerator, CdkMonitorFocus, FocusMonitor } from '@a
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
-import { Platform, _bindEventWithOptions } from '@angular/cdk/platform';
+import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler, CdkScrollable } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, NgZone, Injector, Renderer2, EventEmitter, afterNextRender, numberAttribute, Output, ContentChildren, QueryList, ViewChildren, forwardRef, HostAttributeToken, NgModule } from '@angular/core';
@@ -457,7 +457,7 @@ class MatPaginatedTabHeader {
     }
     ngAfterViewInit() {
         // We need to handle these events manually, because we want to bind passive event listeners.
-        this._eventCleanups.push(_bindEventWithOptions(this._renderer, this._previousPaginator.nativeElement, 'touchstart', () => this._handlePaginatorPress('before'), passiveEventListenerOptions), _bindEventWithOptions(this._renderer, this._nextPaginator.nativeElement, 'touchstart', () => this._handlePaginatorPress('after'), passiveEventListenerOptions));
+        this._eventCleanups.push(this._renderer.listen(this._previousPaginator.nativeElement, 'touchstart', () => this._handlePaginatorPress('before'), passiveEventListenerOptions), this._renderer.listen(this._nextPaginator.nativeElement, 'touchstart', () => this._handlePaginatorPress('after'), passiveEventListenerOptions));
     }
     ngAfterContentInit() {
         const dirChange = this._dir ? this._dir.change : of('ltr');

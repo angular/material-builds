@@ -6,8 +6,8 @@ import { k as MatFormField } from './form-field-362737c2.mjs';
 import { M as MatSelect, a as MatSelectModule } from './module-dd496aa0.mjs';
 import { M as MatTooltip, a as MatTooltipModule } from './module-32e29bfa.mjs';
 import { a as MatOption } from './option-f73e199f.mjs';
-import { a as MatIconButton } from './icon-button-c3ea106a.mjs';
-import { h as MatButtonModule } from './module-11a46ff0.mjs';
+import { a as MatIconButton } from './icon-button-b18e0678.mjs';
+import { h as MatButtonModule } from './module-6b891d2d.mjs';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
 import '@angular/cdk/platform';
@@ -33,7 +33,7 @@ import './module-363d9b43.mjs';
 import '@angular/cdk/observers';
 import '@angular/cdk/portal';
 import './structural-styles-efc7816b.mjs';
-import './ripple-loader-6084e18d.mjs';
+import './ripple-loader-901d2736.mjs';
 
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and

@@ -12,10 +12,10 @@ import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { _ as _animationsDisabled } from './animation-89957083.mjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { _bindEventWithOptions } from '@angular/cdk/platform';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { M as MatRippleModule } from './index-59ddbae2.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
+import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 
 /**
@@ -801,7 +801,7 @@ class MatMenuTrigger {
         const parentMenu = inject(MAT_MENU_PANEL, { optional: true });
         const renderer = inject(Renderer2);
         this._parentMaterialMenu = parentMenu instanceof MatMenu ? parentMenu : undefined;
-        this._cleanupTouchstart = _bindEventWithOptions(renderer, this._element.nativeElement, 'touchstart', (event) => {
+        this._cleanupTouchstart = renderer.listen(this._element.nativeElement, 'touchstart', (event) => {
             if (!isFakeTouchstartFromScreenReader(event)) {
                 this._openedBy = 'touch';
             }

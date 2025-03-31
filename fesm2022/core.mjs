@@ -11,7 +11,7 @@ export { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
 export { M as MatLine, a as MatLineModule, s as setLines } from './line-8a8e5afd.mjs';
 export { b as MAT_OPTGROUP, M as MAT_OPTION_PARENT_COMPONENT, e as MatOptgroup, a as MatOption, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-f73e199f.mjs';
 export { M as MatOptionModule } from './index-36009e89.mjs';
-export { M as MatRippleLoader } from './ripple-loader-6084e18d.mjs';
+export { M as MatRippleLoader } from './ripple-loader-901d2736.mjs';
 export { a as MAT_RIPPLE_GLOBAL_OPTIONS, M as MatRipple, c as RippleRef, R as RippleRenderer, b as RippleState, d as defaultRippleAnimationConfig } from './ripple-7f0562cc.mjs';
 export { M as MatRippleModule } from './index-59ddbae2.mjs';
 export { M as MatPseudoCheckbox } from './pseudo-checkbox-eb9ea05b.mjs';

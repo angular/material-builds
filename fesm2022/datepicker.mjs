@@ -8,15 +8,15 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { Platform, _bindEventWithOptions, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
+import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { ComponentPortal, CdkPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { NgClass, DOCUMENT } from '@angular/common';
 import { startWith, take, filter } from 'rxjs/operators';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
 import { a as MAT_DATE_FORMATS, D as DateAdapter$1 } from './date-formats-7bf66210.mjs';
-import { M as MatButton, h as MatButtonModule } from './module-11a46ff0.mjs';
-import { a as MatIconButton } from './icon-button-c3ea106a.mjs';
+import { M as MatButton, h as MatButtonModule } from './module-6b891d2d.mjs';
+import { a as MatIconButton } from './icon-button-b18e0678.mjs';
 import { _ as _animationsDisabled } from './animation-89957083.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-4d18edb7.mjs';
@@ -27,7 +27,7 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 import './index-59ddbae2.mjs';
 import './ripple-7f0562cc.mjs';
-import './ripple-loader-6084e18d.mjs';
+import './ripple-loader-901d2736.mjs';
 import '@angular/cdk/observers/private';
 
 /** @docs-private */
@@ -238,13 +238,13 @@ class MatCalendarBody {
             const element = this._elementRef.nativeElement;
             const cleanups = [
                 // `touchmove` is active since we need to call `preventDefault`.
-                _bindEventWithOptions(renderer, element, 'touchmove', this._touchmoveHandler, activeCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'mouseenter', this._enterHandler, passiveCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'focus', this._enterHandler, passiveCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'mouseleave', this._leaveHandler, passiveCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'blur', this._leaveHandler, passiveCapturingEventOptions),
-                _bindEventWithOptions(renderer, element, 'mousedown', this._mousedownHandler, passiveEventOptions),
-                _bindEventWithOptions(renderer, element, 'touchstart', this._mousedownHandler, passiveEventOptions),
+                renderer.listen(element, 'touchmove', this._touchmoveHandler, activeCapturingEventOptions),
+                renderer.listen(element, 'mouseenter', this._enterHandler, passiveCapturingEventOptions),
+                renderer.listen(element, 'focus', this._enterHandler, passiveCapturingEventOptions),
+                renderer.listen(element, 'mouseleave', this._leaveHandler, passiveCapturingEventOptions),
+                renderer.listen(element, 'blur', this._leaveHandler, passiveCapturingEventOptions),
+                renderer.listen(element, 'mousedown', this._mousedownHandler, passiveEventOptions),
+                renderer.listen(element, 'touchstart', this._mousedownHandler, passiveEventOptions),
             ];
             if (this._platform.isBrowser) {
                 cleanups.push(renderer.listen('window', 'mouseup', this._mouseupHandler), renderer.listen('window', 'touchend', this._touchendHandler));

@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { inject, NgZone, Injector, RendererFactory2, Injectable } from '@angular/core';
-import { Platform, _bindEventWithOptions, _getEventTarget } from '@angular/cdk/platform';
+import { Platform, _getEventTarget } from '@angular/cdk/platform';
 import { _ as _animationsDisabled } from './animation-89957083.mjs';
 import { a as MAT_RIPPLE_GLOBAL_OPTIONS, R as RippleRenderer, d as defaultRippleAnimationConfig } from './ripple-7f0562cc.mjs';
 
@@ -40,9 +40,7 @@ class MatRippleLoader {
     _hosts = new Map();
     constructor() {
         const renderer = inject(RendererFactory2).createRenderer(null, null);
-        this._eventCleanups = this._ngZone.runOutsideAngular(() => {
-            return rippleInteractionEvents.map(name => _bindEventWithOptions(renderer, this._document, name, this._onInteraction, eventListenerOptions));
-        });
+        this._eventCleanups = this._ngZone.runOutsideAngular(() => rippleInteractionEvents.map(name => renderer.listen(this._document, name, this._onInteraction, eventListenerOptions)));
     }
     ngOnDestroy() {
         const hosts = this._hosts.keys();
@@ -162,4 +160,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
         }], ctorParameters: () => [] });
 
 export { MatRippleLoader as M };
-//# sourceMappingURL=ripple-loader-6084e18d.mjs.map
+//# sourceMappingURL=ripple-loader-901d2736.mjs.map
