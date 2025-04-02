@@ -74,6 +74,11 @@ declare class MatTab implements OnInit, OnChanges, OnDestroy {
     labelClass: string | string[];
     /** Classes to be passed to the tab mat-tab-body container. */
     bodyClass: string | string[];
+    /**
+     * Custom ID for the tab, overriding the auto-generated one by Material.
+     * Note that when using this input, it's your responsibility to ensure that the ID is unique.
+     */
+    id: string | null;
     /** Portal that will be the hosted content of the tab */
     private _contentPortal;
     /** @docs-private */
@@ -106,7 +111,7 @@ declare class MatTab implements OnInit, OnChanges, OnDestroy {
      */
     private _setTemplateLabelInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTab, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTab, "mat-tab", ["matTab"], { "disabled": { "alias": "disabled"; "required": false; }; "textLabel": { "alias": "label"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "labelClass": { "alias": "labelClass"; "required": false; }; "bodyClass": { "alias": "bodyClass"; "required": false; }; }, {}, ["templateLabel", "_explicitContent"], ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTab, "mat-tab", ["matTab"], { "disabled": { "alias": "disabled"; "required": false; }; "textLabel": { "alias": "label"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "labelClass": { "alias": "labelClass"; "required": false; }; "bodyClass": { "alias": "bodyClass"; "required": false; }; "id": { "alias": "id"; "required": false; }; }, {}, ["templateLabel", "_explicitContent"], ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
 }
 
@@ -678,9 +683,9 @@ declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterConte
     /** Clamps the given index to the bounds of 0 and the tabs length. */
     private _clampTabIndex;
     /** Returns a unique id for each tab label element */
-    _getTabLabelId(i: number): string;
+    _getTabLabelId(tab: MatTab, index: number): string;
     /** Returns a unique id for each tab content element */
-    _getTabContentId(i: number): string;
+    _getTabContentId(index: number): string;
     /**
      * Sets the height of the body wrapper to the height of the activating tab if dynamic
      * height property is true.
