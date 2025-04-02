@@ -12,7 +12,7 @@ import { M as MAT_FORM_FIELD, a as MatFormFieldControl } from './form-field-3627
 export { d as MatError, k as MatFormField, e as MatHint, b as MatLabel, g as MatPrefix, i as MatSuffix } from './form-field-362737c2.mjs';
 import { E as ErrorStateMatcher } from './error-options-97896218.mjs';
 import { _ as _ErrorStateTracker } from './error-state-66849a3f.mjs';
-import { M as MatFormFieldModule } from './module-363d9b43.mjs';
+import { M as MatFormFieldModule } from './module-c237ef5d.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 import '@angular/cdk/bidi';
 import '@angular/common';

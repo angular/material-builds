@@ -15,7 +15,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
 import { M as MAT_FORM_FIELD } from './form-field-362737c2.mjs';
-import { M as MatOptionModule } from './index-36009e89.mjs';
+import { M as MatOptionModule } from './index-c6f98e9a.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 import './ripple-7f0562cc.mjs';
 import '@angular/cdk/coercion';
