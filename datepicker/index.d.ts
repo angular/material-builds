@@ -9,8 +9,7 @@ import * as i3 from '@angular/cdk/portal';
 import { ComponentType, Portal, TemplatePortal } from '@angular/cdk/portal';
 import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
 import { Observable, Subject } from 'rxjs';
-import { D as DateAdapter$1 } from '../date-adapter.d-de8dcff3.js';
-import { DateAdapter } from '@angular/material/core';
+import { D as DateAdapter } from '../date-adapter.d-de8dcff3.js';
 import { T as ThemePalette } from '../palette.d-f5ca9a2b.js';
 import { ControlValueAccessor, Validator, ValidatorFn, AbstractControl, ValidationErrors, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { M as MatFormFieldControl } from '../form-field-control.d-d7b3a431.js';
@@ -379,7 +378,7 @@ declare const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
 declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy {
     readonly _changeDetectorRef: ChangeDetectorRef;
     private _dateFormats;
-    _dateAdapter: DateAdapter$1<D, any>;
+    _dateAdapter: DateAdapter<D, any>;
     private _dir;
     private _rangeStrategy;
     private _rerenderSubscription;
@@ -534,7 +533,7 @@ declare const yearsPerRow = 4;
  */
 declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
     private _changeDetectorRef;
-    _dateAdapter: DateAdapter$1<D, any>;
+    _dateAdapter: DateAdapter<D, any>;
     private _dir;
     private _rerenderSubscription;
     /** Flag used to filter out space/enter keyup events that originated outside of the view. */
@@ -624,7 +623,7 @@ declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
 declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     readonly _changeDetectorRef: ChangeDetectorRef;
     private _dateFormats;
-    _dateAdapter: DateAdapter$1<D, any>;
+    _dateAdapter: DateAdapter<D, any>;
     private _dir;
     private _rerenderSubscription;
     /** Flag used to filter out space/enter keyup events that originated outside of the view. */
@@ -916,7 +915,7 @@ type DateFilterFn<D> = (date: D | null) => boolean;
 /** Base class for datepicker inputs. */
 declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelection<S>> implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy, Validator {
     protected _elementRef: ElementRef<HTMLInputElement>;
-    _dateAdapter: DateAdapter$1<D, any>;
+    _dateAdapter: DateAdapter<D, any>;
     private _dateFormats;
     /** Whether the component has been initialized. */
     private _isInitialized;

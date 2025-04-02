@@ -1,8 +1,7 @@
 import * as i0 from '@angular/core';
 import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
-import * as i1 from '@angular/material/core';
-import { DateAdapter } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
+import { D as DateAdapter, a as MAT_DATE_FORMATS } from './date-formats-7bf66210.mjs';
 import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceStringArray } from '@angular/cdk/coercion';
@@ -14,7 +13,6 @@ import { NgClass, DOCUMENT } from '@angular/common';
 import { startWith, take, filter } from 'rxjs/operators';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
-import { a as MAT_DATE_FORMATS, D as DateAdapter$1 } from './date-formats-7bf66210.mjs';
 import { M as MatButton, h as MatButtonModule } from './module-6b891d2d.mjs';
 import { a as MatIconButton } from './icon-button-b18e0678.mjs';
 import { _ as _animationsDisabled } from './animation-89957083.mjs';
@@ -707,7 +705,7 @@ class MatDateSelectionModel {
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatDateSelectionModel, decorators: [{
             type: Injectable
-        }], ctorParameters: () => [{ type: undefined }, { type: i1.DateAdapter }] });
+        }], ctorParameters: () => [{ type: undefined }, { type: DateAdapter }] });
 /**
  * A selection model that contains a single date.
  * @docs-private
@@ -740,12 +738,12 @@ class MatSingleDateSelectionModel extends MatDateSelectionModel {
         clone.updateSelection(this.selection, this);
         return clone;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatSingleDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatSingleDateSelectionModel, deps: [{ token: DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
     static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatSingleDateSelectionModel });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatSingleDateSelectionModel, decorators: [{
             type: Injectable
-        }], ctorParameters: () => [{ type: i1.DateAdapter }] });
+        }], ctorParameters: () => [{ type: DateAdapter }] });
 /**
  * A selection model that contains a date range.
  * @docs-private
@@ -803,12 +801,12 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
         clone.updateSelection(this.selection, this);
         return clone;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatRangeDateSelectionModel, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatRangeDateSelectionModel, deps: [{ token: DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
     static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatRangeDateSelectionModel });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: MatRangeDateSelectionModel, decorators: [{
             type: Injectable
-        }], ctorParameters: () => [{ type: i1.DateAdapter }] });
+        }], ctorParameters: () => [{ type: DateAdapter }] });
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
@@ -917,12 +915,12 @@ class DefaultMatCalendarRangeStrategy {
         }
         return new DateRange(start, end);
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: DefaultMatCalendarRangeStrategy, deps: [{ token: i1.DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: DefaultMatCalendarRangeStrategy, deps: [{ token: DateAdapter }], target: i0.ɵɵFactoryTarget.Injectable });
     static ɵprov = i0.ɵɵngDeclareInjectable({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: DefaultMatCalendarRangeStrategy });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", ngImport: i0, type: DefaultMatCalendarRangeStrategy, decorators: [{
             type: Injectable
-        }], ctorParameters: () => [{ type: i1.DateAdapter }] });
+        }], ctorParameters: () => [{ type: DateAdapter }] });
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
@@ -951,7 +949,7 @@ let uniqueIdCounter = 0;
 class MatMonthView {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-    _dateAdapter = inject(DateAdapter$1, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _rangeStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, { optional: true });
     _rerenderSubscription = Subscription.EMPTY;
@@ -1421,7 +1419,7 @@ const yearsPerRow = 4;
  */
 class MatMultiYearView {
     _changeDetectorRef = inject(ChangeDetectorRef);
-    _dateAdapter = inject(DateAdapter$1, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _rerenderSubscription = Subscription.EMPTY;
     /** Flag used to filter out space/enter keyup events that originated outside of the view. */
@@ -1745,7 +1743,7 @@ function euclideanModulo(a, b) {
 class MatYearView {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
-    _dateAdapter = inject(DateAdapter$1, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _rerenderSubscription = Subscription.EMPTY;
     /** Flag used to filter out space/enter keyup events that originated outside of the view. */
@@ -2061,7 +2059,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
 class MatCalendarHeader {
     _intl = inject(MatDatepickerIntl);
     calendar = inject(MatCalendar);
-    _dateAdapter = inject(DateAdapter$1, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     constructor() {
         inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
@@ -2184,7 +2182,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
         }], ctorParameters: () => [] });
 /** A calendar that is used as part of the datepicker. */
 class MatCalendar {
-    _dateAdapter = inject(DateAdapter$1, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     _changeDetectorRef = inject(ChangeDetectorRef);
     /** An input indicating the type of the header component, if set. */
@@ -2511,7 +2509,7 @@ class MatDatepickerContent {
     _animationsDisabled = _animationsDisabled();
     _changeDetectorRef = inject(ChangeDetectorRef);
     _globalModel = inject(MatDateSelectionModel);
-    _dateAdapter = inject(DateAdapter$1);
+    _dateAdapter = inject(DateAdapter);
     _ngZone = inject(NgZone);
     _rangeSelectionStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, { optional: true });
     _stateChanges;
@@ -2678,7 +2676,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
 class MatDatepickerBase {
     _overlay = inject(Overlay);
     _viewContainerRef = inject(ViewContainerRef);
-    _dateAdapter = inject(DateAdapter$1, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
     _dir = inject(Directionality, { optional: true });
     _model = inject(MatDateSelectionModel);
     _animationsDisabled = _animationsDisabled();
@@ -3172,7 +3170,7 @@ class MatDatepickerInputEvent {
 /** Base class for datepicker inputs. */
 class MatDatepickerInputBase {
     _elementRef = inject(ElementRef);
-    _dateAdapter = inject(DateAdapter$1, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     /** Whether the component has been initialized. */
     _isInitialized;
@@ -3743,7 +3741,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
 class MatDateRangeInput {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _elementRef = inject(ElementRef);
-    _dateAdapter = inject(DateAdapter$1, { optional: true });
+    _dateAdapter = inject(DateAdapter, { optional: true });
     _formField = inject(MAT_FORM_FIELD, { optional: true });
     _closedSubscription = Subscription.EMPTY;
     _openedSubscription = Subscription.EMPTY;
