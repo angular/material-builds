@@ -4,8 +4,8 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { a as RippleTarget, f as RippleConfig, b as RippleGlobalOptions } from '../ripple.d-816a1e42.js';
 import { L as ListOption, M as MatListOptionTogglePosition } from '../list-option-types.d-32a3be09.js';
 export { M as MatListOptionCheckboxPosition, M as MatListOptionTogglePosition } from '../list-option-types.d-32a3be09.js';
-import * as i12 from '@angular/material/divider';
-export { MatDivider } from '@angular/material/divider';
+import { a as MatDividerModule } from '../divider-module.d-d645550e.js';
+export { M as MatDivider } from '../divider-module.d-d645550e.js';
 import * as i2 from '@angular/cdk/observers';
 import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
 import { M as MatRippleModule } from '../index.d-9bdbdee9.js';
@@ -510,7 +510,7 @@ declare class MatListSubheaderCssMatStyler {
 
 declare class MatListModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i2.ObserversModule, typeof MatCommonModule, typeof MatRippleModule, typeof MatPseudoCheckboxModule, typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListSubheaderCssMatStyler, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta], [typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListSubheaderCssMatStyler, typeof i12.MatDividerModule, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatListModule, never, [typeof i2.ObserversModule, typeof MatCommonModule, typeof MatRippleModule, typeof MatPseudoCheckboxModule, typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListSubheaderCssMatStyler, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta], [typeof MatList, typeof MatActionList, typeof MatNavList, typeof MatSelectionList, typeof MatListItem, typeof MatListOption, typeof MatListItemAvatar, typeof MatListItemIcon, typeof MatListSubheaderCssMatStyler, typeof MatDividerModule, typeof MatListItemLine, typeof MatListItemTitle, typeof MatListItemMeta]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
 }
 

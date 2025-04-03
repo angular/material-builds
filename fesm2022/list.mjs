@@ -8,8 +8,8 @@ import { a as MAT_RIPPLE_GLOBAL_OPTIONS, R as RippleRenderer } from './ripple-33
 import { _ as _StructuralStylesLoader } from './structural-styles-afbfe518.mjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { CdkObserveContent, ObserversModule } from '@angular/cdk/observers';
-import { MatDividerModule } from '@angular/material/divider';
-export { MatDivider } from '@angular/material/divider';
+import { a as MatDividerModule } from './divider-module-0b2b275c.mjs';
+export { M as MatDivider } from './divider-module-0b2b275c.mjs';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ENTER, SPACE, A, hasModifierKey } from '@angular/cdk/keycodes';
