@@ -18,10 +18,10 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 import { M as MatRippleModule } from './index-ac2e1e56.mjs';
-import { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-8bc38039.mjs';
+import { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-8f035203.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/bidi';
-import './pseudo-checkbox-5bada414.mjs';
+import './pseudo-checkbox-28acecf4.mjs';
 
 /**
  * Injection token that can be used to reference instances of an `ListOption`. It serves

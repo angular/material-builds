@@ -4,7 +4,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ElementRef, ChangeDetectorRef, EventEmitter, isSignal, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { M as MatRipple } from './ripple-df48cf18.mjs';
-import { M as MatPseudoCheckbox } from './pseudo-checkbox-5bada414.mjs';
+import { M as MatPseudoCheckbox } from './pseudo-checkbox-28acecf4.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 
@@ -345,4 +345,4 @@ function _getOptionScrollPosition(optionOffset, optionHeight, currentScrollPosit
 }
 
 export { MAT_OPTION_PARENT_COMPONENT as M, _countGroupLabelsBeforeOption as _, MatOption as a, MAT_OPTGROUP as b, MatOptionSelectionChange as c, _getOptionScrollPosition as d, MatOptgroup as e };
-//# sourceMappingURL=option-cca7aff4.mjs.map
+//# sourceMappingURL=option-799ce36e.mjs.map
