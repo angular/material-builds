@@ -8,17 +8,18 @@ import { NgTemplateOutlet } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { d as MatIcon, M as MatIconModule } from './icon-module-611f1d10.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
-import { M as MatRipple } from './ripple-7f0562cc.mjs';
+import { M as MatRipple } from './ripple-df48cf18.mjs';
 import { Platform } from '@angular/cdk/platform';
 import { switchMap, map, startWith, takeUntil } from 'rxjs/operators';
 import { E as ErrorStateMatcher } from './error-options-97896218.mjs';
-import { _ as _animationsDisabled } from './animation-89957083.mjs';
+import { _ as _animationsDisabled } from './animation-924dea30.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
-import { M as MatRippleModule } from './index-59ddbae2.mjs';
+import { M as MatRippleModule } from './index-ac2e1e56.mjs';
 import './icon-registry-c6f81050.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
 import '@angular/cdk/coercion';
+import '@angular/cdk/layout';
 import '@angular/cdk/bidi';
 
 class MatStepLabel extends CdkStepLabel {

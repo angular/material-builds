@@ -2,8 +2,8 @@ import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { inject, NgZone, Injector, RendererFactory2, Injectable } from '@angular/core';
 import { Platform, _getEventTarget } from '@angular/cdk/platform';
-import { _ as _animationsDisabled } from './animation-89957083.mjs';
-import { a as MAT_RIPPLE_GLOBAL_OPTIONS, R as RippleRenderer, d as defaultRippleAnimationConfig } from './ripple-7f0562cc.mjs';
+import { _ as _animationsDisabled } from './animation-924dea30.mjs';
+import { a as MAT_RIPPLE_GLOBAL_OPTIONS, R as RippleRenderer, d as defaultRippleAnimationConfig } from './ripple-df48cf18.mjs';
 
 /** The options for the MatRippleLoader's event listeners. */
 const eventListenerOptions = { capture: true };
@@ -160,4 +160,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
         }], ctorParameters: () => [] });
 
 export { MatRippleLoader as M };
-//# sourceMappingURL=ripple-loader-901d2736.mjs.map
+//# sourceMappingURL=ripple-loader-997807c0.mjs.map

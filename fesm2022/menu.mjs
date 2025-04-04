@@ -7,16 +7,17 @@ import { startWith, switchMap, takeUntil, take, filter } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
-import { M as MatRipple } from './ripple-7f0562cc.mjs';
+import { M as MatRipple } from './ripple-df48cf18.mjs';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
-import { _ as _animationsDisabled } from './animation-89957083.mjs';
+import { _ as _animationsDisabled } from './animation-924dea30.mjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
-import { M as MatRippleModule } from './index-59ddbae2.mjs';
+import { M as MatRippleModule } from './index-ac2e1e56.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
+import '@angular/cdk/layout';
 
 /**
  * Injection token used to provide the parent menu to menu-specific components.

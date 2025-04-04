@@ -2,16 +2,17 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, booleanAttribute, numberAttribute, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, signal, Directive, Output, NgModule } from '@angular/core';
-import { b as RippleState, M as MatRipple, a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-7f0562cc.mjs';
+import { b as RippleState, M as MatRipple, a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-df48cf18.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { _ as _animationsDisabled } from './animation-89957083.mjs';
+import { _ as _animationsDisabled } from './animation-924dea30.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
-import { M as MatRippleModule } from './index-59ddbae2.mjs';
+import { M as MatRippleModule } from './index-ac2e1e56.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/coercion';
+import '@angular/cdk/layout';
 
 /**
  * Thumb types: range slider has two thumbs (START, END) whereas single point

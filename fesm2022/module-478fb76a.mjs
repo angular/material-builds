@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, InjectionToken, inject, booleanAttribute, NgModule } from '@angular/core';
-import { c as MatButtonBase, a as MatIconButton } from './icon-button-b18e0678.mjs';
-import { M as MatRippleModule } from './index-59ddbae2.mjs';
+import { c as MatButtonBase, a as MatIconButton } from './icon-button-322e9da9.mjs';
+import { M as MatRippleModule } from './index-ac2e1e56.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 
 /**
@@ -211,4 +211,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
         }] });
 
 export { MatButton as M, MatAnchor as a, MAT_FAB_DEFAULT_OPTIONS as b, MAT_FAB_DEFAULT_OPTIONS_FACTORY as c, MatFabButton as d, MatMiniFabButton as e, MatFabAnchor as f, MatMiniFabAnchor as g, MatButtonModule as h };
-//# sourceMappingURL=module-6b891d2d.mjs.map
+//# sourceMappingURL=module-478fb76a.mjs.map

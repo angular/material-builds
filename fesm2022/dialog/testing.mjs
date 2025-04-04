@@ -2,12 +2,13 @@ import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@an
 import { __decorate, __metadata } from 'tslib';
 import { inject, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { h as MatDialog, l as MatDialogModule } from '../module-d7b2b858.mjs';
+import { h as MatDialog, l as MatDialogModule } from '../module-a17ca7de.mjs';
 import '@angular/cdk/dialog';
 import '@angular/cdk/overlay';
 import '@angular/cdk/portal';
 import '@angular/cdk/coercion';
-import '../animation-89957083.mjs';
+import '../animation-924dea30.mjs';
+import '@angular/cdk/layout';
 import 'rxjs';
 import 'rxjs/operators';
 import '@angular/cdk/keycodes';

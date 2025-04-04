@@ -3,8 +3,9 @@ import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
-import { _ as _animationsDisabled } from './animation-89957083.mjs';
+import { _ as _animationsDisabled } from './animation-924dea30.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
+import '@angular/cdk/layout';
 import '@angular/cdk/bidi';
 
 const BADGE_CONTENT_CLASS = 'mat-badge-content';

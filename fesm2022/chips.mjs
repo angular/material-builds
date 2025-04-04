@@ -6,19 +6,20 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, NgZone, EventEmitter, Injector, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
 import { Subject, merge } from 'rxjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
-import { a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-7f0562cc.mjs';
-import { _ as _animationsDisabled } from './animation-89957083.mjs';
-import { M as MatRippleLoader } from './ripple-loader-901d2736.mjs';
+import { a as MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-df48cf18.mjs';
+import { _ as _animationsDisabled } from './animation-924dea30.mjs';
+import { M as MatRippleLoader } from './ripple-loader-997807c0.mjs';
 import { takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { E as ErrorStateMatcher } from './error-options-97896218.mjs';
 import { _ as _ErrorStateTracker } from './error-state-66849a3f.mjs';
-import { a as MatFormFieldControl, M as MAT_FORM_FIELD } from './form-field-362737c2.mjs';
+import { a as MatFormFieldControl, M as MAT_FORM_FIELD } from './form-field-1373abf0.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
-import { M as MatRippleModule } from './index-59ddbae2.mjs';
+import { M as MatRippleModule } from './index-ac2e1e56.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
+import '@angular/cdk/layout';
 import '@angular/cdk/observers/private';
 
 /** Injection token to be used to override the default options for the chips module. */

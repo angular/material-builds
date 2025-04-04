@@ -26,7 +26,7 @@ declare const VERSION: Version;
 /** Object used to configure the animation in Angular Material. */
 interface AnimationsConfig {
     /** Whether all animations should be disabled. */
-    animationsDisabled: boolean;
+    animationsDisabled?: boolean;
 }
 /** Injection token used to configure the animations in Angular Material. */
 declare const MATERIAL_ANIMATIONS: InjectionToken<AnimationsConfig>;

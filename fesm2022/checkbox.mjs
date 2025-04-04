@@ -4,10 +4,11 @@ import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, EventEmi
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _ as _MatInternalFormField } from './internal-form-field-8aa9ac25.mjs';
-import { _ as _animationsDisabled } from './animation-89957083.mjs';
+import { _ as _animationsDisabled } from './animation-924dea30.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
-import { M as MatRipple } from './ripple-7f0562cc.mjs';
+import { M as MatRipple } from './ripple-df48cf18.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
+import '@angular/cdk/layout';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 import '@angular/cdk/bidi';

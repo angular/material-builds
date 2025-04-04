@@ -1,3 +1,4 @@
+import { MediaMatcher } from '@angular/cdk/layout';
 import { InjectionToken, inject, ANIMATION_MODULE_TYPE } from '@angular/core';
 
 /** Injection token used to configure the animations in Angular Material. */
@@ -28,12 +29,13 @@ class AnimationDurations {
  * @docs-private
  */
 function _animationsDisabled() {
-    const customToken = inject(MATERIAL_ANIMATIONS, { optional: true });
-    if (customToken) {
-        return customToken.animationsDisabled;
+    if (inject(MATERIAL_ANIMATIONS, { optional: true })?.animationsDisabled ||
+        inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations') {
+        return true;
     }
-    return inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations';
+    const mediaMatcher = inject(MediaMatcher);
+    return mediaMatcher.matchMedia('(prefers-reduced-motion)').matches;
 }
 
 export { AnimationCurves as A, MATERIAL_ANIMATIONS as M, _animationsDisabled as _, AnimationDurations as a };
-//# sourceMappingURL=animation-89957083.mjs.map
+//# sourceMappingURL=animation-924dea30.mjs.map

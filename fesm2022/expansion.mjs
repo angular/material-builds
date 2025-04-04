@@ -8,10 +8,11 @@ import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { DOCUMENT } from '@angular/common';
-import { _ as _animationsDisabled } from './animation-89957083.mjs';
+import { _ as _animationsDisabled } from './animation-924dea30.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-efc7816b.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
+import '@angular/cdk/layout';
 import '@angular/cdk/bidi';
 
 /**
