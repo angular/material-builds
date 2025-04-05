@@ -12,10 +12,10 @@ import { startWith, switchMap, filter, map, takeUntil, take } from 'rxjs/operato
 import { NgClass } from '@angular/common';
 import { M as MAT_FORM_FIELD, a as MatFormFieldControl } from './form-field-5e788e19.mjs';
 import { _ as _animationsDisabled } from './animation-924dea30.mjs';
-import { _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition, M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP } from './option-799ce36e.mjs';
+import { _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition, M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP } from './option-1183f3f5.mjs';
 import { E as ErrorStateMatcher } from './error-options-97896218.mjs';
 import { _ as _ErrorStateTracker } from './error-state-66849a3f.mjs';
-import { M as MatOptionModule } from './index-9d013d1c.mjs';
+import { M as MatOptionModule } from './index-d50d54cd.mjs';
 import { M as MatCommonModule } from './common-module-727dea0d.mjs';
 import { M as MatFormFieldModule } from './module-1512d492.mjs';
 
@@ -1291,4 +1291,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.4", 
         }] });
 
 export { MatSelect as M, MatSelectModule as a, MAT_SELECT_SCROLL_STRATEGY as b, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY as c, MAT_SELECT_CONFIG as d, MAT_SELECT_SCROLL_STRATEGY_PROVIDER as e, MAT_SELECT_TRIGGER as f, MatSelectChange as g, MatSelectTrigger as h };
-//# sourceMappingURL=module-f6a2e2e6.mjs.map
+//# sourceMappingURL=module-18f150da.mjs.map

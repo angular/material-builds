@@ -1,6 +1,6 @@
-export { e as MatOptgroup, a as MatOption } from './option-799ce36e.mjs';
+export { e as MatOptgroup, a as MatOption } from './option-1183f3f5.mjs';
 export { d as MatError, k as MatFormField, e as MatHint, b as MatLabel, g as MatPrefix, i as MatSuffix } from './form-field-5e788e19.mjs';
-export { d as MAT_SELECT_CONFIG, b as MAT_SELECT_SCROLL_STRATEGY, e as MAT_SELECT_SCROLL_STRATEGY_PROVIDER, c as MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, f as MAT_SELECT_TRIGGER, M as MatSelect, g as MatSelectChange, a as MatSelectModule, h as MatSelectTrigger } from './module-f6a2e2e6.mjs';
+export { d as MAT_SELECT_CONFIG, b as MAT_SELECT_SCROLL_STRATEGY, e as MAT_SELECT_SCROLL_STRATEGY_PROVIDER, c as MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, f as MAT_SELECT_TRIGGER, M as MatSelect, g as MatSelectChange, a as MatSelectModule, h as MatSelectTrigger } from './module-18f150da.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/keycodes';
 import '@angular/core';
@@ -23,7 +23,7 @@ import '@angular/cdk/collections';
 import '@angular/forms';
 import './error-options-97896218.mjs';
 import './error-state-66849a3f.mjs';
-import './index-9d013d1c.mjs';
+import './index-d50d54cd.mjs';
 import './index-ac2e1e56.mjs';
 import './common-module-727dea0d.mjs';
 import './pseudo-checkbox-module-8f035203.mjs';
