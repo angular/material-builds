@@ -350,4 +350,5 @@ declare class MatListOptionHarness extends MatListItemHarnessBase {
     deselect(): Promise<void>;
 }
 
-export { type ActionListHarnessFilters, type ActionListItemHarnessFilters, type BaseListItemHarnessFilters, type ListHarnessFilters, type ListItemHarnessFilters, type ListOptionHarnessFilters, MatActionListHarness, MatActionListItemHarness, MatListHarness, MatListItemHarness, MatListItemSection, MatListItemType, MatListOptionHarness, MatNavListHarness, MatNavListItemHarness, MatSelectionListHarness, MatSubheaderHarness, type NavListHarnessFilters, type NavListItemHarnessFilters, type SelectionListHarnessFilters, type SubheaderHarnessFilters };
+export { MatActionListHarness, MatActionListItemHarness, MatListHarness, MatListItemHarness, MatListItemSection, MatListItemType, MatListOptionHarness, MatNavListHarness, MatNavListItemHarness, MatSelectionListHarness, MatSubheaderHarness };
+export type { ActionListHarnessFilters, ActionListItemHarnessFilters, BaseListItemHarnessFilters, ListHarnessFilters, ListItemHarnessFilters, ListOptionHarnessFilters, NavListHarnessFilters, NavListItemHarnessFilters, SelectionListHarnessFilters, SubheaderHarnessFilters };

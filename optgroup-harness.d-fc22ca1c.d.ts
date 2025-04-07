@@ -28,4 +28,5 @@ declare class MatOptgroupHarness extends ComponentHarness {
     getOptions(filter?: OptionHarnessFilters): Promise<MatOptionHarness[]>;
 }
 
-export { MatOptgroupHarness as M, type OptgroupHarnessFilters as O };
+export { MatOptgroupHarness as M };
+export type { OptgroupHarnessFilters as O };

@@ -283,4 +283,5 @@ declare const ICON_REGISTRY_PROVIDER: {
     useFactory: typeof ICON_REGISTRY_PROVIDER_FACTORY;
 };
 
-export { type IconOptions as I, MatIconRegistry as M, type SafeResourceUrlWithIconOptions as S, getMatIconNoHttpProviderError as a, getMatIconFailedToSanitizeUrlError as b, getMatIconFailedToSanitizeLiteralError as c, type IconResolver as d, ICON_REGISTRY_PROVIDER_FACTORY as e, ICON_REGISTRY_PROVIDER as f, getMatIconNameNotFoundError as g };
+export { MatIconRegistry as M, getMatIconNoHttpProviderError as a, getMatIconFailedToSanitizeUrlError as b, getMatIconFailedToSanitizeLiteralError as c, ICON_REGISTRY_PROVIDER_FACTORY as e, ICON_REGISTRY_PROVIDER as f, getMatIconNameNotFoundError as g };
+export type { IconOptions as I, SafeResourceUrlWithIconOptions as S, IconResolver as d };

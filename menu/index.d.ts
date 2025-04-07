@@ -493,4 +493,5 @@ declare const fadeInItems: any;
  */
 declare const transformMenu: any;
 
-export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER, MENU_PANEL_TOP_PADDING, MatMenu, MatMenuContent, type MatMenuDefaultOptions, MatMenuItem, MatMenuModule, type MatMenuPanel, MatMenuTrigger, type MenuCloseReason, type MenuPositionX, type MenuPositionY, fadeInItems, matMenuAnimations, transformMenu };
+export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER, MENU_PANEL_TOP_PADDING, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, fadeInItems, matMenuAnimations, transformMenu };
+export type { MatMenuDefaultOptions, MatMenuPanel, MenuCloseReason, MenuPositionX, MenuPositionY };

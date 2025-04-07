@@ -895,4 +895,5 @@ declare const matTabsAnimations: {
     readonly translateTab: any;
 };
 
-export { MAT_TAB, MAT_TABS_CONFIG, MAT_TAB_CONTENT, MAT_TAB_GROUP, MAT_TAB_LABEL, MatInkBar, MatPaginatedTabHeader, MatTab, MatTabBody, type MatTabBodyOriginState, MatTabBodyPortal, type MatTabBodyPositionState, MatTabChangeEvent, MatTabContent, MatTabGroup, type MatTabGroupBaseHeader, MatTabHeader, type MatTabHeaderPosition, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabNavPanel, type MatTabsConfig, MatTabsModule, type ScrollDirection, _MAT_INK_BAR_POSITIONER, _MAT_INK_BAR_POSITIONER_FACTORY, type _MatInkBarPositioner, matTabsAnimations };
+export { MAT_TAB, MAT_TABS_CONFIG, MAT_TAB_CONTENT, MAT_TAB_GROUP, MAT_TAB_LABEL, MatInkBar, MatPaginatedTabHeader, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabNavPanel, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MAT_INK_BAR_POSITIONER_FACTORY, matTabsAnimations };
+export type { MatTabBodyOriginState, MatTabBodyPositionState, MatTabGroupBaseHeader, MatTabHeaderPosition, MatTabsConfig, ScrollDirection, _MatInkBarPositioner };

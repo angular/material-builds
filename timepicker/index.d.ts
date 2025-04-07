@@ -285,4 +285,5 @@ declare class MatTimepickerModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTimepickerModule>;
 }
 
-export { MAT_TIMEPICKER_CONFIG, MAT_TIMEPICKER_SCROLL_STRATEGY, MatTimepicker, type MatTimepickerConfig, MatTimepickerInput, MatTimepickerModule, type MatTimepickerOption, type MatTimepickerSelected, MatTimepickerToggle };
+export { MAT_TIMEPICKER_CONFIG, MAT_TIMEPICKER_SCROLL_STRATEGY, MatTimepicker, MatTimepickerInput, MatTimepickerModule, MatTimepickerToggle };
+export type { MatTimepickerConfig, MatTimepickerOption, MatTimepickerSelected };

@@ -141,4 +141,5 @@ declare class MatTabNavBarHarness extends ComponentHarness {
     getPanel(): Promise<MatTabNavPanelHarness>;
 }
 
-export { MatTabGroupHarness, MatTabHarness, MatTabLinkHarness, MatTabNavBarHarness, type TabGroupHarnessFilters, type TabHarnessFilters, type TabLinkHarnessFilters, type TabNavBarHarnessFilters, type TabNavPanelHarnessFilters };
+export { MatTabGroupHarness, MatTabHarness, MatTabLinkHarness, MatTabNavBarHarness };
+export type { TabGroupHarnessFilters, TabHarnessFilters, TabLinkHarnessFilters, TabNavBarHarnessFilters, TabNavPanelHarnessFilters };

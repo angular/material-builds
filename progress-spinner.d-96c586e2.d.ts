@@ -93,4 +93,5 @@ declare class MatProgressSpinner {
  */
 declare const MatSpinner: typeof MatProgressSpinner;
 
-export { MatProgressSpinner as M, type ProgressSpinnerMode as P, type MatProgressSpinnerDefaultOptions as a, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS as b, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY as c, MatSpinner as d };
+export { MatProgressSpinner as M, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS as b, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY as c, MatSpinner as d };
+export type { ProgressSpinnerMode as P, MatProgressSpinnerDefaultOptions as a };

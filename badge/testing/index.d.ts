@@ -32,4 +32,5 @@ declare class MatBadgeHarness extends ComponentHarness {
     isDisabled(): Promise<boolean>;
 }
 
-export { type BadgeHarnessFilters, MatBadgeHarness };
+export { MatBadgeHarness };
+export type { BadgeHarnessFilters };

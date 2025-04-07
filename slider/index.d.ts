@@ -656,4 +656,5 @@ declare class MatSliderModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSliderModule>;
 }
 
-export { MatSlider, MatSliderChange, type MatSliderDragEvent, MatSliderModule, MatSliderRangeThumb, MatSliderThumb, MatSliderVisualThumb };
+export { MatSlider, MatSliderChange, MatSliderModule, MatSliderRangeThumb, MatSliderThumb, MatSliderVisualThumb };
+export type { MatSliderDragEvent };

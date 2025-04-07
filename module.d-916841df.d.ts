@@ -445,4 +445,5 @@ declare class MatSelectModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSelectModule>;
 }
 
-export { MatSelectModule as M, MAT_SELECT_SCROLL_STRATEGY as a, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY as b, type MatSelectConfig as c, MAT_SELECT_CONFIG as d, MAT_SELECT_SCROLL_STRATEGY_PROVIDER as e, MAT_SELECT_TRIGGER as f, MatSelectChange as g, MatSelect as h, MatSelectTrigger as i };
+export { MatSelectModule as M, MAT_SELECT_SCROLL_STRATEGY as a, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY as b, MAT_SELECT_CONFIG as d, MAT_SELECT_SCROLL_STRATEGY_PROVIDER as e, MAT_SELECT_TRIGGER as f, MatSelectChange as g, MatSelect as h, MatSelectTrigger as i };
+export type { MatSelectConfig as c };

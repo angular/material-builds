@@ -913,4 +913,5 @@ declare const MAT_CHIP_REMOVE: InjectionToken<unknown>;
  */
 declare const MAT_CHIP: InjectionToken<unknown>;
 
-export { MAT_CHIP, MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_LISTBOX_CONTROL_VALUE_ACCESSOR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatChip, MatChipAvatar, MatChipEditInput, type MatChipEditedEvent, type MatChipEvent, MatChipGrid, MatChipGridChange, MatChipInput, type MatChipInputEvent, MatChipListbox, MatChipListboxChange, MatChipOption, MatChipRemove, MatChipRow, MatChipSelectionChange, MatChipSet, type MatChipTextControl, MatChipTrailingIcon, type MatChipsDefaultOptions, MatChipsModule };
+export { MAT_CHIP, MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_LISTBOX_CONTROL_VALUE_ACCESSOR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatChip, MatChipAvatar, MatChipEditInput, MatChipGrid, MatChipGridChange, MatChipInput, MatChipListbox, MatChipListboxChange, MatChipOption, MatChipRemove, MatChipRow, MatChipSelectionChange, MatChipSet, MatChipTrailingIcon, MatChipsModule };
+export type { MatChipEditedEvent, MatChipEvent, MatChipInputEvent, MatChipTextControl, MatChipsDefaultOptions };

@@ -254,4 +254,5 @@ declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy {
     static ngAcceptInputType_disabledInteractive: unknown;
 }
 
-export { MatButtonToggleGroup as M, type ToggleType as T, MatButtonToggle as a, type MatButtonToggleAppearance as b, type MatButtonToggleDefaultOptions as c, MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS as d, MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY as e, MAT_BUTTON_TOGGLE_GROUP as f, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR as g, MatButtonToggleChange as h };
+export { MatButtonToggleGroup as M, MatButtonToggle as a, MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS as d, MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY as e, MAT_BUTTON_TOGGLE_GROUP as f, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR as g, MatButtonToggleChange as h };
+export type { ToggleType as T, MatButtonToggleAppearance as b, MatButtonToggleDefaultOptions as c };

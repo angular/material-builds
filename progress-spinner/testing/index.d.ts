@@ -24,4 +24,5 @@ declare class MatProgressSpinnerHarness extends ComponentHarness {
     getMode(): Promise<ProgressSpinnerMode>;
 }
 
-export { MatProgressSpinnerHarness, type ProgressSpinnerHarnessFilters };
+export { MatProgressSpinnerHarness };
+export type { ProgressSpinnerHarnessFilters };

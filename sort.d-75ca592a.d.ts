@@ -84,4 +84,5 @@ declare class MatSort implements OnChanges, OnDestroy, OnInit {
     static ngAcceptInputType_disabled: unknown;
 }
 
-export { type MatSortable as M, type SortHeaderArrowPosition as S, MatSort as a, type Sort as b, type MatSortDefaultOptions as c, MAT_SORT_DEFAULT_OPTIONS as d };
+export { MatSort as a, MAT_SORT_DEFAULT_OPTIONS as d };
+export type { MatSortable as M, SortHeaderArrowPosition as S, Sort as b, MatSortDefaultOptions as c };

@@ -115,4 +115,5 @@ declare class MatTreeHarness extends ComponentHarness {
     private _addChildToNode;
 }
 
-export { MatTreeHarness, MatTreeNodeHarness, type TextTree, type TreeHarnessFilters, type TreeNodeHarnessFilters };
+export { MatTreeHarness, MatTreeNodeHarness };
+export type { TextTree, TreeHarnessFilters, TreeNodeHarnessFilters };

@@ -11,4 +11,5 @@ declare class MatDividerHarness extends ComponentHarness {
     isInset(): Promise<boolean>;
 }
 
-export { type DividerHarnessFilters as D, MatDividerHarness as M };
+export { MatDividerHarness as M };
+export type { DividerHarnessFilters as D };

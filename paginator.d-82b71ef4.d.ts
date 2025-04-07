@@ -196,4 +196,5 @@ declare class MatPaginator implements OnInit, OnDestroy {
     static ngAcceptInputType_disabled: unknown;
 }
 
-export { MatPaginator as M, PageEvent as P, type MatPaginatorSelectConfig as a, type MatPaginatorDefaultOptions as b, MAT_PAGINATOR_DEFAULT_OPTIONS as c, MatPaginatorIntl as d, MAT_PAGINATOR_INTL_PROVIDER_FACTORY as e, MAT_PAGINATOR_INTL_PROVIDER as f };
+export { MatPaginator as M, PageEvent as P, MAT_PAGINATOR_DEFAULT_OPTIONS as c, MatPaginatorIntl as d, MAT_PAGINATOR_INTL_PROVIDER_FACTORY as e, MAT_PAGINATOR_INTL_PROVIDER as f };
+export type { MatPaginatorSelectConfig as a, MatPaginatorDefaultOptions as b };

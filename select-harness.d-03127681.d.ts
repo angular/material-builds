@@ -60,4 +60,5 @@ declare class MatSelectHarness extends MatFormFieldControlHarness {
     private _getPanelSelector;
 }
 
-export { MatSelectHarness as M, type SelectHarnessFilters as S };
+export { MatSelectHarness as M };
+export type { SelectHarnessFilters as S };

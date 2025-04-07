@@ -245,4 +245,5 @@ declare class MatChipSetHarness extends ComponentHarness {
     getChips(filter?: ChipHarnessFilters): Promise<MatChipHarness[]>;
 }
 
-export { type ChipAvatarHarnessFilters, type ChipEditInputHarnessFilters, type ChipGridHarnessFilters, type ChipHarnessFilters, type ChipInputHarnessFilters, type ChipListboxHarnessFilters, type ChipOptionHarnessFilters, type ChipRemoveHarnessFilters, type ChipRowHarnessFilters, type ChipSetHarnessFilters, MatChipAvatarHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
+export { MatChipAvatarHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
+export type { ChipAvatarHarnessFilters, ChipEditInputHarnessFilters, ChipGridHarnessFilters, ChipHarnessFilters, ChipInputHarnessFilters, ChipListboxHarnessFilters, ChipOptionHarnessFilters, ChipRemoveHarnessFilters, ChipRowHarnessFilters, ChipSetHarnessFilters };

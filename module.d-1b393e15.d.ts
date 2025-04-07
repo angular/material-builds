@@ -210,4 +210,5 @@ declare class MatButtonModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonModule>;
 }
 
-export { MAT_BUTTON_CONFIG as M, type MatButtonAppearance as a, type MatButtonConfig as b, MatButton as c, MatAnchor as d, type MatFabDefaultOptions as e, MAT_FAB_DEFAULT_OPTIONS as f, MAT_FAB_DEFAULT_OPTIONS_FACTORY as g, MatFabButton as h, MatMiniFabButton as i, MatFabAnchor as j, MatMiniFabAnchor as k, MatIconButton as l, MatIconAnchor as m, MatButtonModule as n };
+export { MAT_BUTTON_CONFIG as M, MatButton as c, MatAnchor as d, MAT_FAB_DEFAULT_OPTIONS as f, MAT_FAB_DEFAULT_OPTIONS_FACTORY as g, MatFabButton as h, MatMiniFabButton as i, MatFabAnchor as j, MatMiniFabAnchor as k, MatIconButton as l, MatIconAnchor as m, MatButtonModule as n };
+export type { MatButtonAppearance as a, MatButtonConfig as b, MatFabDefaultOptions as e };

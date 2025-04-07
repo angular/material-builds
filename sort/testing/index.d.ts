@@ -44,4 +44,5 @@ declare class MatSortHarness extends ComponentHarness {
     getActiveHeader(): Promise<MatSortHeaderHarness | null>;
 }
 
-export { MatSortHarness, MatSortHeaderHarness, type SortHarnessFilters, type SortHeaderHarnessFilters };
+export { MatSortHarness, MatSortHeaderHarness };
+export type { SortHarnessFilters, SortHeaderHarnessFilters };

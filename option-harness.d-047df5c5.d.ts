@@ -31,4 +31,5 @@ declare class MatOptionHarness extends ContentContainerComponentHarness {
     isMultiple(): Promise<boolean>;
 }
 
-export { MatOptionHarness as M, type OptionHarnessFilters as O };
+export { MatOptionHarness as M };
+export type { OptionHarnessFilters as O };

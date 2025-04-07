@@ -78,4 +78,5 @@ declare class MatGridListHarness extends ComponentHarness {
     }): Promise<MatGridTileHarness>;
 }
 
-export { type GridListHarnessFilters, type GridTileHarnessFilters, MatGridListHarness, MatGridTileHarness, MatGridTileSection };
+export { MatGridListHarness, MatGridTileHarness, MatGridTileSection };
+export type { GridListHarnessFilters, GridTileHarnessFilters };

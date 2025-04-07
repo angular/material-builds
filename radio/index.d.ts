@@ -298,4 +298,5 @@ declare class MatRadioModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRadioModule>;
 }
 
-export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioButton, MatRadioChange, type MatRadioDefaultOptions, MatRadioGroup, MatRadioModule };
+export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule };
+export type { MatRadioDefaultOptions };

@@ -109,4 +109,5 @@ declare class MatProgressBarModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressBarModule>;
 }
 
-export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, type MatProgressBarDefaultOptions, type MatProgressBarLocation, MatProgressBarModule, type ProgressAnimationEnd, type ProgressBarMode };
+export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
+export type { MatProgressBarDefaultOptions, MatProgressBarLocation, ProgressAnimationEnd, ProgressBarMode };

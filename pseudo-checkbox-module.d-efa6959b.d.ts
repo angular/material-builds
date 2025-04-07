@@ -41,4 +41,5 @@ declare class MatPseudoCheckboxModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatPseudoCheckboxModule>;
 }
 
-export { MatPseudoCheckboxModule as M, type MatPseudoCheckboxState as a, MatPseudoCheckbox as b };
+export { MatPseudoCheckboxModule as M, MatPseudoCheckbox as b };
+export type { MatPseudoCheckboxState as a };

@@ -79,4 +79,5 @@ declare class MatTestDialogOpener<T = unknown, R = unknown> implements OnDestroy
 declare class MatTestDialogOpenerModule {
 }
 
-export { type DialogHarnessFilters, MatDialogHarness, MatDialogSection, MatTestDialogOpener, MatTestDialogOpenerModule };
+export { MatDialogHarness, MatDialogSection, MatTestDialogOpener, MatTestDialogOpenerModule };
+export type { DialogHarnessFilters };

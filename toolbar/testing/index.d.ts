@@ -29,4 +29,5 @@ declare class MatToolbarHarness extends ContentContainerComponentHarness<MatTool
     getRowsAsText(): Promise<string[]>;
 }
 
-export { MatToolbarHarness, MatToolbarSection, type ToolbarHarnessFilters };
+export { MatToolbarHarness, MatToolbarSection };
+export type { ToolbarHarnessFilters };

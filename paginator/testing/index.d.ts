@@ -48,4 +48,5 @@ declare class MatPaginatorHarness extends ComponentHarness {
     getRangeLabel(): Promise<string>;
 }
 
-export { MatPaginatorHarness, type PaginatorHarnessFilters };
+export { MatPaginatorHarness };
+export type { PaginatorHarnessFilters };

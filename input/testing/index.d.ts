@@ -68,4 +68,5 @@ declare class MatNativeSelectHarness extends MatFormFieldControlHarness {
     selectOptions(filter?: NativeOptionHarnessFilters): Promise<void>;
 }
 
-export { MatNativeOptionHarness, MatNativeSelectHarness, type NativeOptionHarnessFilters, type NativeSelectHarnessFilters };
+export { MatNativeOptionHarness, MatNativeSelectHarness };
+export type { NativeOptionHarnessFilters, NativeSelectHarnessFilters };

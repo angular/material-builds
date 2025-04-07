@@ -252,4 +252,5 @@ declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatRipple, "[mat-ripple], [matRipple]", ["matRipple"], { "color": { "alias": "matRippleColor"; "required": false; }; "unbounded": { "alias": "matRippleUnbounded"; "required": false; }; "centered": { "alias": "matRippleCentered"; "required": false; }; "radius": { "alias": "matRippleRadius"; "required": false; }; "animation": { "alias": "matRippleAnimation"; "required": false; }; "disabled": { "alias": "matRippleDisabled"; "required": false; }; "trigger": { "alias": "matRippleTrigger"; "required": false; }; }, {}, never, never, true, never>;
 }
 
-export { MatRipple as M, RippleRenderer as R, type RippleTarget as a, type RippleGlobalOptions as b, MAT_RIPPLE_GLOBAL_OPTIONS as c, defaultRippleAnimationConfig as d, RippleState as e, type RippleConfig as f, type RippleAnimationConfig as g, RippleRef as h };
+export { MatRipple as M, RippleRenderer as R, MAT_RIPPLE_GLOBAL_OPTIONS as c, defaultRippleAnimationConfig as d, RippleState as e, RippleRef as h };
+export type { RippleTarget as a, RippleGlobalOptions as b, RippleConfig as f, RippleAnimationConfig as g };

@@ -332,4 +332,5 @@ declare class MatDialog implements OnDestroy {
     static ɵprov: i0.ɵɵInjectableDeclaration<MatDialog>;
 }
 
-export { type AutoFocusTarget as A, type DialogRole as D, MatDialogRef as M, _closeDialogVia as _, MatDialogContainer as a, MAT_DIALOG_DATA as b, MAT_DIALOG_DEFAULT_OPTIONS as c, MAT_DIALOG_SCROLL_STRATEGY as d, MatDialog as e, type DialogPosition as f, MatDialogConfig as g, MatDialogState as h };
+export { MatDialogRef as M, _closeDialogVia as _, MatDialogContainer as a, MAT_DIALOG_DATA as b, MAT_DIALOG_DEFAULT_OPTIONS as c, MAT_DIALOG_SCROLL_STRATEGY as d, MatDialog as e, MatDialogConfig as g, MatDialogState as h };
+export type { AutoFocusTarget as A, DialogRole as D, DialogPosition as f };

@@ -55,4 +55,5 @@ declare class MatButtonHarness extends ContentContainerComponentHarness {
     getAppearance(): Promise<ButtonAppearance | null>;
 }
 
-export { type ButtonAppearance, type ButtonHarnessFilters, type ButtonVariant, MatButtonHarness };
+export { MatButtonHarness };
+export type { ButtonAppearance, ButtonHarnessFilters, ButtonVariant };

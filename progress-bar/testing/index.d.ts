@@ -20,4 +20,5 @@ declare class MatProgressBarHarness extends ComponentHarness {
     getMode(): Promise<string | null>;
 }
 
-export { MatProgressBarHarness, type ProgressBarHarnessFilters };
+export { MatProgressBarHarness };
+export type { ProgressBarHarnessFilters };

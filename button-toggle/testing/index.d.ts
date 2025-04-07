@@ -93,4 +93,5 @@ declare class MatButtonToggleGroupHarness extends ComponentHarness {
     getAppearance(): Promise<MatButtonToggleAppearance>;
 }
 
-export { type ButtonToggleGroupHarnessFilters, type ButtonToggleHarnessFilters, MatButtonToggleGroupHarness, MatButtonToggleHarness };
+export { MatButtonToggleGroupHarness, MatButtonToggleHarness };
+export type { ButtonToggleGroupHarnessFilters, ButtonToggleHarnessFilters };

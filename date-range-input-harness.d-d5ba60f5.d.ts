@@ -275,4 +275,5 @@ declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     protected _openCalendar(): Promise<void>;
 }
 
-export { type CalendarHarnessFilters as C, DatepickerTriggerHarnessBase as D, MatDatepickerInputHarness as M, type DatepickerToggleHarnessFilters as a, type DatepickerInputHarnessFilters as b, type CalendarCellHarnessFilters as c, type DateRangeInputHarnessFilters as d, MatStartDateHarness as e, MatEndDateHarness as f, MatDateRangeInputHarness as g, CalendarView as h, MatCalendarHarness as i, MatCalendarCellHarness as j };
+export { DatepickerTriggerHarnessBase as D, MatDatepickerInputHarness as M, MatStartDateHarness as e, MatEndDateHarness as f, MatDateRangeInputHarness as g, CalendarView as h, MatCalendarHarness as i, MatCalendarCellHarness as j };
+export type { CalendarHarnessFilters as C, DatepickerToggleHarnessFilters as a, DatepickerInputHarnessFilters as b, CalendarCellHarnessFilters as c, DateRangeInputHarnessFilters as d };

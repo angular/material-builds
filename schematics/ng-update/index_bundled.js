@@ -1839,9 +1839,9 @@ var require_document = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/nanoid@3.3.8/node_modules/nanoid/non-secure/index.cjs
+// node_modules/.aspect_rules_js/nanoid@3.3.11/node_modules/nanoid/non-secure/index.cjs
 var require_non_secure = __commonJS({
-  "node_modules/.aspect_rules_js/nanoid@3.3.8/node_modules/nanoid/non-secure/index.cjs"(exports2, module2) {
+  "node_modules/.aspect_rules_js/nanoid@3.3.11/node_modules/nanoid/non-secure/index.cjs"(exports2, module2) {
     var urlAlphabet = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
     var customAlphabet = (alphabet, defaultSize = 21) => {
       return (size = defaultSize) => {

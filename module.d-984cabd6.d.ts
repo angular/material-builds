@@ -324,4 +324,5 @@ declare class MatTooltipModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTooltipModule>;
 }
 
-export { MatTooltipModule as M, SCROLL_THROTTLE_MS as S, type TooltipPosition as T, type TooltipTouchGestures as a, type TooltipVisibility as b, MAT_TOOLTIP_SCROLL_STRATEGY as c, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY as d, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER as e, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY as f, getMatTooltipInvalidPositionError as g, MAT_TOOLTIP_DEFAULT_OPTIONS as h, type MatTooltipDefaultOptions as i, TOOLTIP_PANEL_CLASS as j, MatTooltip as k, TooltipComponent as l };
+export { MatTooltipModule as M, SCROLL_THROTTLE_MS as S, MAT_TOOLTIP_SCROLL_STRATEGY as c, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY as d, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER as e, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY as f, getMatTooltipInvalidPositionError as g, MAT_TOOLTIP_DEFAULT_OPTIONS as h, TOOLTIP_PANEL_CLASS as j, MatTooltip as k, TooltipComponent as l };
+export type { TooltipPosition as T, TooltipTouchGestures as a, TooltipVisibility as b, MatTooltipDefaultOptions as i };

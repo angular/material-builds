@@ -148,4 +148,5 @@ declare class MatSlideToggleModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSlideToggleModule>;
 }
 
-export { MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS, MatSlideToggle, MatSlideToggleChange, type MatSlideToggleDefaultOptions, MatSlideToggleModule };
+export { MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS, MatSlideToggle, MatSlideToggleChange, MatSlideToggleModule };
+export type { MatSlideToggleDefaultOptions };

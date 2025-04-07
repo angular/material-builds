@@ -288,4 +288,5 @@ declare const matExpansionAnimations: {
     readonly bodyExpansion: any;
 };
 
-export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, type MatAccordionBase, type MatAccordionDisplayMode, type MatAccordionTogglePosition, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, type MatExpansionPanelDefaultOptions, MatExpansionPanelDescription, MatExpansionPanelHeader, type MatExpansionPanelState, MatExpansionPanelTitle, matExpansionAnimations };
+export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle, matExpansionAnimations };
+export type { MatAccordionBase, MatAccordionDisplayMode, MatAccordionTogglePosition, MatExpansionPanelDefaultOptions, MatExpansionPanelState };

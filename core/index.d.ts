@@ -203,4 +203,5 @@ declare class _MatInternalFormField {
     static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
 }
 
-export { AnimationCurves, AnimationDurations, type AnimationsConfig, MATERIAL_ANIMATIONS, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, type MatDateFormats, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, provideNativeDateAdapter };
+export { AnimationCurves, AnimationDurations, MATERIAL_ANIMATIONS, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, provideNativeDateAdapter };
+export type { AnimationsConfig, MatDateFormats };

@@ -124,4 +124,5 @@ declare class MatFormFieldHarness extends ComponentHarness {
     private _hasFormControl;
 }
 
-export { type ErrorHarnessFilters, type FormFieldControlHarness, type FormFieldHarnessFilters, MatErrorHarness, MatFormFieldHarness };
+export { MatErrorHarness, MatFormFieldHarness };
+export type { ErrorHarnessFilters, FormFieldControlHarness, FormFieldHarnessFilters };

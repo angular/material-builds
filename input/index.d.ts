@@ -213,4 +213,5 @@ declare const MAT_INPUT_VALUE_ACCESSOR: InjectionToken<{
 /** @docs-private */
 declare function getMatInputUnsupportedTypeError(type: string): Error;
 
-export { MAT_INPUT_CONFIG, MAT_INPUT_VALUE_ACCESSOR, MatInput, type MatInputConfig, MatInputModule, getMatInputUnsupportedTypeError };
+export { MAT_INPUT_CONFIG, MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, getMatInputUnsupportedTypeError };
+export type { MatInputConfig };

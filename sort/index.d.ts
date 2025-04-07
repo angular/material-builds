@@ -160,4 +160,5 @@ declare const matSortAnimations: {
     readonly allowChildren: any;
 };
 
-export { type ArrowViewState, type ArrowViewStateTransition, MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeader, MatSortHeaderIntl, MatSortModule, matSortAnimations };
+export { MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeader, MatSortHeaderIntl, MatSortModule, matSortAnimations };
+export type { ArrowViewState, ArrowViewStateTransition };

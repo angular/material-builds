@@ -104,4 +104,5 @@ declare class MatTimepickerToggleHarness extends ComponentHarness {
     isDisabled(): Promise<boolean>;
 }
 
-export { MatTimepickerHarness, MatTimepickerInputHarness, MatTimepickerToggleHarness, type TimepickerHarnessFilters, type TimepickerInputHarnessFilters, type TimepickerToggleHarnessFilters };
+export { MatTimepickerHarness, MatTimepickerInputHarness, MatTimepickerToggleHarness };
+export type { TimepickerHarnessFilters, TimepickerInputHarnessFilters, TimepickerToggleHarnessFilters };

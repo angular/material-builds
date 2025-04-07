@@ -118,4 +118,5 @@ declare class MatSidenavContainerHarness extends ContentContainerComponentHarnes
     getContent(): Promise<MatSidenavContentHarness>;
 }
 
-export { type DrawerContainerHarnessFilters, type DrawerContentHarnessFilters, type DrawerHarnessFilters, MatDrawerContainerHarness, MatDrawerContentHarness, MatDrawerHarness, MatSidenavContainerHarness, MatSidenavContentHarness, MatSidenavHarness };
+export { MatDrawerContainerHarness, MatDrawerContentHarness, MatDrawerHarness, MatSidenavContainerHarness, MatSidenavContentHarness, MatSidenavHarness };
+export type { DrawerContainerHarnessFilters, DrawerContentHarnessFilters, DrawerHarnessFilters };

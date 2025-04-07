@@ -95,4 +95,5 @@ declare class MatBadge implements OnInit, OnDestroy {
     static ngAcceptInputType_hidden: unknown;
 }
 
-export { MatBadge as M, _MatBadgeStyleLoader as _, type MatBadgePosition as a, type MatBadgeSize as b };
+export { MatBadge as M, _MatBadgeStyleLoader as _ };
+export type { MatBadgePosition as a, MatBadgeSize as b };

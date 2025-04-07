@@ -40,4 +40,5 @@ declare class MatCommonModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCommonModule>;
 }
 
-export { type GranularSanityChecks as G, MatCommonModule as M, type SanityChecks as S, MATERIAL_SANITY_CHECKS as a };
+export { MatCommonModule as M, MATERIAL_SANITY_CHECKS as a };
+export type { GranularSanityChecks as G, SanityChecks as S };

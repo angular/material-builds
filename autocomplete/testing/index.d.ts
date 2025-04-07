@@ -49,4 +49,5 @@ declare class MatAutocompleteHarness extends ComponentHarness {
     protected _getPanelSelector(): Promise<string>;
 }
 
-export { type AutocompleteHarnessFilters, MatAutocompleteHarness };
+export { MatAutocompleteHarness };
+export type { AutocompleteHarnessFilters };

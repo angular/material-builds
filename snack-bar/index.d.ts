@@ -341,4 +341,5 @@ declare const matSnackBarAnimations: {
     readonly snackBarState: any;
 };
 
-export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, type MatSnackBarDismiss, type MatSnackBarHorizontalPosition, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, type MatSnackBarVerticalPosition, SimpleSnackBar, type TextOnlySnackBar, matSnackBarAnimations };
+export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
+export type { MatSnackBarDismiss, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, TextOnlySnackBar };

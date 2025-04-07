@@ -57,4 +57,5 @@ declare class MatInputHarness extends MatFormFieldControlHarness {
     setValue(newValue: string): Promise<void>;
 }
 
-export { type InputHarnessFilters as I, MatInputHarness as M };
+export { MatInputHarness as M };
+export type { InputHarnessFilters as I };

@@ -219,4 +219,5 @@ declare class MatCheckboxModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 
-export { MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MatCheckbox, MatCheckboxChange, type MatCheckboxClickAction, type MatCheckboxDefaultOptions, MatCheckboxModule, TransitionCheckState };
+export { MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MatCheckbox, MatCheckboxChange, MatCheckboxModule, TransitionCheckState };
+export type { MatCheckboxClickAction, MatCheckboxDefaultOptions };

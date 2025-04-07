@@ -16,4 +16,5 @@ interface MatOptionParentComponent {
  */
 declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParentComponent>;
 
-export { type MatOptionParentComponent as M, MAT_OPTION_PARENT_COMPONENT as a };
+export { MAT_OPTION_PARENT_COMPONENT as a };
+export type { MatOptionParentComponent as M };

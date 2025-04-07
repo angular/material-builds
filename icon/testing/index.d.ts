@@ -77,4 +77,5 @@ declare class MatIconTestingModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatIconTestingModule>;
 }
 
-export { FakeMatIconRegistry, type IconHarnessFilters, IconType, MatIconHarness, MatIconTestingModule };
+export { FakeMatIconRegistry, IconType, MatIconHarness, MatIconTestingModule };
+export type { IconHarnessFilters };

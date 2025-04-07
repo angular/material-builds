@@ -164,4 +164,5 @@ declare class MatIconModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatIconModule>;
 }
 
-export { MatIconModule as M, type MatIconDefaultOptions as a, MAT_ICON_DEFAULT_OPTIONS as b, MAT_ICON_LOCATION as c, type MatIconLocation as d, MAT_ICON_LOCATION_FACTORY as e, MatIcon as f };
+export { MatIconModule as M, MAT_ICON_DEFAULT_OPTIONS as b, MAT_ICON_LOCATION as c, MAT_ICON_LOCATION_FACTORY as e, MatIcon as f };
+export type { MatIconDefaultOptions as a, MatIconLocation as d };

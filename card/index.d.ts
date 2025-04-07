@@ -153,4 +153,5 @@ declare class MatCardModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCardModule>;
 }
 
-export { MAT_CARD_CONFIG, MatCard, MatCardActions, type MatCardAppearance, MatCardAvatar, type MatCardConfig, MatCardContent, MatCardFooter, MatCardHeader, MatCardImage, MatCardLgImage, MatCardMdImage, MatCardModule, MatCardSmImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup, MatCardXlImage };
+export { MAT_CARD_CONFIG, MatCard, MatCardActions, MatCardAvatar, MatCardContent, MatCardFooter, MatCardHeader, MatCardImage, MatCardLgImage, MatCardMdImage, MatCardModule, MatCardSmImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup, MatCardXlImage };
+export type { MatCardAppearance, MatCardConfig };
