@@ -32,6 +32,7 @@ declare class MatBottomSheetContainer extends CdkDialogContainer implements OnDe
     exit(): void;
     ngOnDestroy(): void;
     private _simulateAnimation;
+    protected _trapFocus(): void;
     protected _handleAnimationEvent(isStart: boolean, animationName: string): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheetContainer, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatBottomSheetContainer, "mat-bottom-sheet-container", never, {}, {}, never, never, true, never>;
