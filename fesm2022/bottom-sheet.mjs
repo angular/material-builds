@@ -72,6 +72,14 @@ class MatBottomSheetContainer extends CdkDialogContainer {
             setTimeout(() => this._handleAnimationEvent(false, name));
         });
     }
+    _trapFocus() {
+        // The bottom sheet starts off-screen and animates in, and at the same time we trap focus
+        // within it. With some styles this appears to cause the page to jump around. See:
+        // https://github.com/angular/components/issues/30774. Preventing the browser from
+        // scrolling resolves the issue and isn't really necessary since the bottom sheet
+        // normally isn't scrollable.
+        super._trapFocus({ preventScroll: true });
+    }
     _handleAnimationEvent(isStart, animationName) {
         const isEnter = animationName === ENTER_ANIMATION;
         const isExit = animationName === EXIT_ANIMATION;
