@@ -121,7 +121,7 @@ const MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
  */
 class MatSnackBarConfig {
     /** The politeness level for the MatAriaLiveAnnouncer announcement. */
-    politeness = 'assertive';
+    politeness = 'polite';
     /**
      * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
      * component or template, the announcement message will default to the specified message.
