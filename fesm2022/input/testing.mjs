@@ -1,6 +1,6 @@
-export { M as MatInputHarness } from '../input-harness-d9056d71.mjs';
+export { MatInputHarness } from '../input-harness-CxVp_q3n.mjs';
 import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
-import { M as MatFormFieldControlHarness } from '../form-field-control-harness-999f1b0d.mjs';
+import { MatFormFieldControlHarness } from '../form-field/testing/control.mjs';
 import '@angular/cdk/coercion';
 
 /** Harness for interacting with a native `option` in tests. */

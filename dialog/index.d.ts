@@ -1,12 +1,12 @@
-import { M as MatDialogRef, a as MatDialogContainer } from '../dialog.d-06fd8250.js';
-export { A as AutoFocusTarget, f as DialogPosition, D as DialogRole, b as MAT_DIALOG_DATA, c as MAT_DIALOG_DEFAULT_OPTIONS, d as MAT_DIALOG_SCROLL_STRATEGY, e as MatDialog, g as MatDialogConfig, a as MatDialogContainer, M as MatDialogRef, h as MatDialogState, _ as _closeDialogVia } from '../dialog.d-06fd8250.js';
+import { MatDialogRef, MatDialogContainer } from '../dialog.d-DSidcNPx.js';
+export { AutoFocusTarget, DialogPosition, DialogRole, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MatDialog, MatDialogConfig, MatDialogState, _closeDialogVia } from '../dialog.d-DSidcNPx.js';
 import * as i0 from '@angular/core';
-import { OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import * as i5 from '@angular/cdk/scrolling';
 import * as i1 from '@angular/cdk/dialog';
 import * as i2 from '@angular/cdk/overlay';
 import * as i3 from '@angular/cdk/portal';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
 import '@angular/cdk/bidi';
 import '@angular/cdk/a11y';
 import 'rxjs';
@@ -104,4 +104,4 @@ declare const matDialogAnimations: {
     readonly dialogContainer: any;
 };
 
-export { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle, _defaultParams, matDialogAnimations };
+export { MatDialogActions, MatDialogClose, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle, _defaultParams, matDialogAnimations };

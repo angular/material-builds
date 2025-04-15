@@ -5,15 +5,15 @@ import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import * as i3 from '@angular/cdk/portal';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { InjectionToken, ViewContainerRef, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
+import { ViewContainerRef, InjectionToken, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
-import { n as MatButtonModule } from '../module.d-1b393e15.js';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
-import '../index.d-609609fc.js';
-import '../ripple.d-838c5cd6.js';
+import { MatButtonModule } from '../button/index.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import '../palette.d-fF1us9u8.js';
+import '../ripple-loader.d-DL-hT7NH.js';
+import '../index.d-_XdEyDn3.js';
+import '../ripple.d-DBFnJ3Aa.js';
 import '@angular/cdk/platform';
-import '../palette.d-f5ca9a2b.js';
-import '../ripple-loader.d-ef3a5132.js';
 
 /** Injection token that can be used to access the data that was passed in to a snack bar. */
 declare const MAT_SNACK_BAR_DATA: InjectionToken<any>;

@@ -1,6 +1,6 @@
 import * as _angular_cdk_testing from '@angular/cdk/testing';
 import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { D as DialogRole, e as MatDialog, g as MatDialogConfig, M as MatDialogRef } from '../../dialog.d-06fd8250.js';
+import { DialogRole, MatDialog, MatDialogConfig, MatDialogRef } from '../../dialog.d-DSidcNPx.js';
 import { ComponentType } from '@angular/cdk/overlay';
 import { OnDestroy } from '@angular/core';
 import '@angular/cdk/bidi';

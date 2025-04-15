@@ -1,4 +1,4 @@
-import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate, ComponentHarnessConstructor, ComponentHarness } from '@angular/cdk/testing';
 
 /** A set of criteria that can be used to filter a list of cell harness instances. */
 interface CellHarnessFilters extends BaseHarnessFilters {

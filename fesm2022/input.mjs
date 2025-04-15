@@ -2,23 +2,22 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
 import { AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, Renderer2, isSignal, effect, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, Renderer2, isSignal, effect, booleanAttribute, Input, Directive, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-4d18edb7.mjs';
-export { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-4d18edb7.mjs';
-import { M as MAT_FORM_FIELD, a as MatFormFieldControl } from './form-field-41b19aab.mjs';
-export { d as MatError, k as MatFormField, e as MatHint, b as MatLabel, g as MatPrefix, i as MatSuffix } from './form-field-41b19aab.mjs';
-import { E as ErrorStateMatcher } from './error-options-bdf4ccea.mjs';
-import { _ as _ErrorStateTracker } from './error-state-66849a3f.mjs';
-import { M as MatFormFieldModule } from './module-2313bf2d.mjs';
-import { M as MatCommonModule } from './common-module-90645281.mjs';
+import { MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-cp3A3zMa.mjs';
+import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-ScdCZBIR.mjs';
+export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from './form-field-ScdCZBIR.mjs';
+import { ErrorStateMatcher } from './error-options-f2L_D2TV.mjs';
+import { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
+import { MatFormFieldModule } from './module-DLlzjQQf.mjs';
+import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import '@angular/cdk/bidi';
 import '@angular/common';
 import 'rxjs/operators';
 import '@angular/cdk/observers/private';
-import './animation-924dea30.mjs';
+import './animation-DYWs964N.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/observers';
 
@@ -587,5 +586,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
                 }]
         }] });
 
-export { MAT_INPUT_CONFIG, MatInput, MatInputModule, getMatInputUnsupportedTypeError };
+export { MAT_INPUT_CONFIG, MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, getMatInputUnsupportedTypeError };
 //# sourceMappingURL=input.mjs.map

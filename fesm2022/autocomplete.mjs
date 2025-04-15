@@ -1,31 +1,31 @@
-import { M as MAT_OPTION_PARENT_COMPONENT, a as MatOption, b as MAT_OPTGROUP, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-99dcb8a5.mjs';
-export { e as MatOptgroup, a as MatOption } from './option-99dcb8a5.mjs';
+import { MatOption, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './option-CI_ptN6G.mjs';
+export { MatOptgroup } from './option-CI_ptN6G.mjs';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, TemplateRef, booleanAttribute, Input, Output, ContentChildren, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, Component, Directive, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { Platform, _getFocusedElementPierceShadowDom, _getEventTarget } from '@angular/cdk/platform';
 import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
-import { _ as _animationsDisabled } from './animation-924dea30.mjs';
+import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, ESCAPE, ENTER, TAB, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
-import { M as MAT_FORM_FIELD } from './form-field-41b19aab.mjs';
-import { M as MatOptionModule } from './index-2a02c5db.mjs';
-import { M as MatCommonModule } from './common-module-90645281.mjs';
-import './ripple-178dae2b.mjs';
+import { MAT_FORM_FIELD } from './form-field-ScdCZBIR.mjs';
+import { MatOptionModule } from './index-CPRPXhfK.mjs';
+import { MatCommonModule } from './common-module-BTLyTce6.mjs';
+import './ripple-CSpmxbGi.mjs';
 import '@angular/cdk/coercion';
 import '@angular/cdk/private';
-import './pseudo-checkbox-5ace34a5.mjs';
-import './structural-styles-a007a18e.mjs';
+import './pseudo-checkbox-BYnaWCwT.mjs';
+import './structural-styles-B6PnAnft.mjs';
 import '@angular/common';
 import '@angular/cdk/observers/private';
-import './index-d1184401.mjs';
-import './pseudo-checkbox-module-a7946385.mjs';
+import './index-DD8f9bSt.mjs';
+import './pseudo-checkbox-module-DnFwfV7H.mjs';
 
 /** Event object that is emitted when an autocomplete option is selected. */
 class MatAutocompleteSelectedEvent {
@@ -1252,5 +1252,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
                 }]
         }] });
 
-export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, getMatAutocompleteMissingPanelError };
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOption, getMatAutocompleteMissingPanelError };
 //# sourceMappingURL=autocomplete.mjs.map

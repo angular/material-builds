@@ -1,21 +1,21 @@
-export { _ as _MatInternalFormField } from './internal-form-field-1a83fe62.mjs';
+export { _MatInternalFormField } from './internal-form-field-DVo6OAlm.mjs';
 import * as i0 from '@angular/core';
 import { Version, inject, Injectable, NgModule } from '@angular/core';
-export { A as AnimationCurves, a as AnimationDurations, M as MATERIAL_ANIMATIONS, _ as _animationsDisabled } from './animation-924dea30.mjs';
-export { a as MATERIAL_SANITY_CHECKS, M as MatCommonModule } from './common-module-90645281.mjs';
-export { _ as _ErrorStateTracker } from './error-state-66849a3f.mjs';
-import { D as DateAdapter, M as MAT_DATE_LOCALE, a as MAT_DATE_FORMATS } from './date-formats-7bf66210.mjs';
-export { D as DateAdapter, a as MAT_DATE_FORMATS, M as MAT_DATE_LOCALE, b as MAT_DATE_LOCALE_FACTORY } from './date-formats-7bf66210.mjs';
-export { E as ErrorStateMatcher, S as ShowOnDirtyErrorStateMatcher } from './error-options-bdf4ccea.mjs';
-export { _ as _StructuralStylesLoader } from './structural-styles-a007a18e.mjs';
-export { M as MatLine, a as MatLineModule, s as setLines } from './line-ea9f61fa.mjs';
-export { b as MAT_OPTGROUP, M as MAT_OPTION_PARENT_COMPONENT, e as MatOptgroup, a as MatOption, c as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, d as _getOptionScrollPosition } from './option-99dcb8a5.mjs';
-export { M as MatOptionModule } from './index-2a02c5db.mjs';
-export { M as MatRippleLoader } from './ripple-loader-26732946.mjs';
-export { a as MAT_RIPPLE_GLOBAL_OPTIONS, M as MatRipple, c as RippleRef, R as RippleRenderer, b as RippleState, d as defaultRippleAnimationConfig } from './ripple-178dae2b.mjs';
-export { M as MatRippleModule } from './index-d1184401.mjs';
-export { M as MatPseudoCheckbox } from './pseudo-checkbox-5ace34a5.mjs';
-export { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-a7946385.mjs';
+export { AnimationCurves, AnimationDurations, MATERIAL_ANIMATIONS, _animationsDisabled } from './animation-DYWs964N.mjs';
+export { MATERIAL_SANITY_CHECKS, MatCommonModule } from './common-module-BTLyTce6.mjs';
+export { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from './date-formats-BQbO9F6H.mjs';
+export { MAT_DATE_LOCALE_FACTORY } from './date-formats-BQbO9F6H.mjs';
+export { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from './error-options-f2L_D2TV.mjs';
+export { _StructuralStylesLoader } from './structural-styles-B6PnAnft.mjs';
+export { MatLine, MatLineModule, setLines } from './line-DI2_SkWl.mjs';
+export { MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './option-CI_ptN6G.mjs';
+export { MatOptionModule } from './index-CPRPXhfK.mjs';
+export { MatRippleLoader } from './ripple-loader-kDrScpIH.mjs';
+export { MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleRef, RippleRenderer, RippleState, defaultRippleAnimationConfig } from './ripple-CSpmxbGi.mjs';
+export { MatRippleModule } from './index-DD8f9bSt.mjs';
+export { MatPseudoCheckbox } from './pseudo-checkbox-BYnaWCwT.mjs';
+export { MatPseudoCheckboxModule } from './pseudo-checkbox-module-DnFwfV7H.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
@@ -383,5 +383,5 @@ function provideNativeDateAdapter(formats = MAT_NATIVE_DATE_FORMATS) {
     ];
 }
 
-export { MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, provideNativeDateAdapter };
+export { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, provideNativeDateAdapter };
 //# sourceMappingURL=core.mjs.map

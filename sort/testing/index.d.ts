@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { S as SortDirection } from '../../sort-direction.d-2be5f588.js';
+import { SortDirection } from '../../sort-direction.d-Dlz8961P.js';
 
 interface SortHarnessFilters extends BaseHarnessFilters {
 }

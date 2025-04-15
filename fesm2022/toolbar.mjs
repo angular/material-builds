@@ -1,8 +1,8 @@
 import * as i0 from '@angular/core';
-import { Directive, inject, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, NgModule } from '@angular/core';
+import { inject, ElementRef, Directive, ContentChildren, Input, ViewEncapsulation, ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { M as MatCommonModule } from './common-module-90645281.mjs';
+import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 
