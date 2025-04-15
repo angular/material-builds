@@ -87,4 +87,5 @@ declare class MatMenuItemHarness extends ContentContainerComponentHarness<string
     getSubmenu(): Promise<MatMenuHarness | null>;
 }
 
-export { MatMenuHarness, MatMenuItemHarness, type MenuHarnessFilters, type MenuItemHarnessFilters };
+export { MatMenuHarness, MatMenuItemHarness };
+export type { MenuHarnessFilters, MenuItemHarnessFilters };

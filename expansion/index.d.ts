@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, TemplateRef, AfterContentInit, OnChanges, OnDestroy, EventEmitter, SimpleChanges, ElementRef, AfterViewInit, QueryList } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
 import * as i2 from '@angular/cdk/accordion';
 import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
 import * as i3 from '@angular/cdk/portal';
@@ -288,4 +288,5 @@ declare const matExpansionAnimations: {
     readonly bodyExpansion: any;
 };
 
-export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, type MatAccordionBase, type MatAccordionDisplayMode, type MatAccordionTogglePosition, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, type MatExpansionPanelDefaultOptions, MatExpansionPanelDescription, MatExpansionPanelHeader, type MatExpansionPanelState, MatExpansionPanelTitle, matExpansionAnimations };
+export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle, matExpansionAnimations };
+export type { MatAccordionBase, MatAccordionDisplayMode, MatAccordionTogglePosition, MatExpansionPanelDefaultOptions, MatExpansionPanelState };

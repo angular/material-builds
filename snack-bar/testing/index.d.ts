@@ -60,4 +60,5 @@ declare class MatSnackBarHarness extends ContentContainerComponentHarness<string
     private _getActionButton;
 }
 
-export { MatSnackBarHarness, type SnackBarHarnessFilters };
+export { MatSnackBarHarness };
+export type { SnackBarHarnessFilters };

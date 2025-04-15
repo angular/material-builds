@@ -2,8 +2,8 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { AfterViewInit, OnChanges, ElementRef, EventEmitter, SimpleChanges, InjectionToken, Provider } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors, CheckboxRequiredValidator } from '@angular/forms';
-import { T as ThemePalette } from '../palette.d-f5ca9a2b.js';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
+import { ThemePalette } from '../palette.d-fF1us9u8.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
 import '@angular/cdk/bidi';
 
 /**
@@ -251,4 +251,5 @@ declare class MatCheckboxModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 
-export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, type MatCheckboxClickAction, type MatCheckboxDefaultOptions, MatCheckboxModule, MatCheckboxRequiredValidator, TransitionCheckState, _MatCheckboxRequiredValidatorModule };
+export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckbox, MatCheckboxChange, MatCheckboxModule, MatCheckboxRequiredValidator, TransitionCheckState, _MatCheckboxRequiredValidatorModule };
+export type { MatCheckboxClickAction, MatCheckboxDefaultOptions };

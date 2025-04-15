@@ -3,12 +3,12 @@ import { ElementRef, OnInit, AfterViewInit, AfterContentInit, DoCheck, OnDestroy
 import { Subject, Observable } from 'rxjs';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { E as ErrorStateMatcher } from '../error-options.d-bd1801bf.js';
-import { M as MatFormFieldControl } from '../form-field-control.d-d7b3a431.js';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
-import { M as MatRippleModule } from '../index.d-9bdbdee9.js';
+import { ErrorStateMatcher } from '../error-options.d-C1yXmo10.js';
+import { MatFormFieldControl } from '../form-field-control.d-DvjiYVzi.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import { MatRippleModule } from '../index.d-DFBzZCgk.js';
 import '@angular/cdk/bidi';
-import '../ripple.d-816a1e42.js';
+import '../ripple.d-ET2Lo6a_.js';
 import '@angular/cdk/platform';
 
 /**
@@ -903,4 +903,5 @@ declare const MAT_CHIP_REMOVE: InjectionToken<unknown>;
  */
 declare const MAT_CHIP: InjectionToken<unknown>;
 
-export { MAT_CHIP, MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_LISTBOX_CONTROL_VALUE_ACCESSOR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatChip, MatChipAvatar, MatChipEditInput, type MatChipEditedEvent, type MatChipEvent, MatChipGrid, MatChipGridChange, MatChipInput, type MatChipInputEvent, MatChipListbox, MatChipListboxChange, MatChipOption, MatChipRemove, MatChipRow, MatChipSelectionChange, MatChipSet, type MatChipTextControl, MatChipTrailingIcon, type MatChipsDefaultOptions, MatChipsModule };
+export { MAT_CHIP, MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_LISTBOX_CONTROL_VALUE_ACCESSOR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatChip, MatChipAvatar, MatChipEditInput, MatChipGrid, MatChipGridChange, MatChipInput, MatChipListbox, MatChipListboxChange, MatChipOption, MatChipRemove, MatChipRow, MatChipSelectionChange, MatChipSet, MatChipTrailingIcon, MatChipsModule };
+export type { MatChipEditedEvent, MatChipEvent, MatChipInputEvent, MatChipTextControl, MatChipsDefaultOptions };

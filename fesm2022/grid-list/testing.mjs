@@ -1,5 +1,5 @@
 import { ContentContainerComponentHarness, HarnessPredicate, ComponentHarness, parallel } from '@angular/cdk/testing';
-import { ɵ as ɵTileCoordinator } from '../public-api-c3ea43bd.mjs';
+import { ɵTileCoordinator as _TileCoordinator } from '../public-api-B95TI2uI.mjs';
 
 /** Selectors for the various `mat-grid-tile` sections that may contain user content. */
 var MatGridTileSection;
@@ -79,7 +79,7 @@ class MatGridListHarness extends ComponentHarness {
      * positions of tiles. We leverage the coordinator to provide an API
      * for retrieving tiles based on visual tile positions.
      */
-    _tileCoordinator = new ɵTileCoordinator();
+    _tileCoordinator = new _TileCoordinator();
     /** Gets all tiles of the grid-list. */
     async getTiles(filters = {}) {
         return await this.locatorForAll(MatGridTileHarness.with(filters))();

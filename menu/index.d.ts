@@ -1,14 +1,14 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, OnDestroy, TemplateRef, EventEmitter, AfterViewInit, AfterContentInit, OnInit, QueryList } from '@angular/core';
+import { OnDestroy, InjectionToken, TemplateRef, EventEmitter, AfterViewInit, AfterContentInit, OnInit, QueryList } from '@angular/core';
 import { FocusOrigin, FocusableOption } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
 import { Subject, Observable } from 'rxjs';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
-import { M as MatRippleModule } from '../index.d-9bdbdee9.js';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
+import { MatRippleModule } from '../index.d-DFBzZCgk.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
 import * as i5 from '@angular/cdk/scrolling';
-import '../ripple.d-816a1e42.js';
+import '../ripple.d-ET2Lo6a_.js';
 import '@angular/cdk/platform';
 
 type MenuPositionX = 'before' | 'after';
@@ -492,4 +492,5 @@ declare const fadeInItems: any;
  */
 declare const transformMenu: any;
 
-export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER, MENU_PANEL_TOP_PADDING, MatMenu, MatMenuContent, type MatMenuDefaultOptions, MatMenuItem, MatMenuModule, type MatMenuPanel, MatMenuTrigger, type MenuCloseReason, type MenuPositionX, type MenuPositionY, fadeInItems, matMenuAnimations, transformMenu };
+export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER, MENU_PANEL_TOP_PADDING, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, fadeInItems, matMenuAnimations, transformMenu };
+export type { MatMenuDefaultOptions, MatMenuPanel, MenuCloseReason, MenuPositionX, MenuPositionY };

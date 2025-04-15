@@ -132,4 +132,5 @@ declare class MatStepperPreviousHarness extends StepperButtonHarness {
     static with(options?: StepperButtonHarnessFilters): HarnessPredicate<MatStepperPreviousHarness>;
 }
 
-export { MatStepHarness, MatStepperHarness, MatStepperNextHarness, MatStepperPreviousHarness, type StepHarnessFilters, type StepperButtonHarnessFilters, type StepperHarnessFilters, StepperOrientation };
+export { MatStepHarness, MatStepperHarness, MatStepperNextHarness, MatStepperPreviousHarness, StepperOrientation };
+export type { StepHarnessFilters, StepperButtonHarnessFilters, StepperHarnessFilters };

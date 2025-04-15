@@ -31,4 +31,5 @@ declare class MatTooltipHarness extends ComponentHarness {
     getTooltipText(): Promise<string>;
 }
 
-export { MatTooltipHarness, type TooltipHarnessFilters };
+export { MatTooltipHarness };
+export type { TooltipHarnessFilters };

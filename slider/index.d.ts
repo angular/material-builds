@@ -1,12 +1,12 @@
 import { Directionality } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
-import { ChangeDetectorRef, WritableSignal, AfterViewInit, OnDestroy, NgZone, ElementRef, QueryList, EventEmitter } from '@angular/core';
-import { T as ThemePalette } from '../palette.d-f5ca9a2b.js';
-import { b as RippleGlobalOptions, M as MatRipple } from '../ripple.d-816a1e42.js';
+import { WritableSignal, ChangeDetectorRef, AfterViewInit, OnDestroy, NgZone, ElementRef, QueryList, EventEmitter } from '@angular/core';
+import { ThemePalette } from '../palette.d-fF1us9u8.js';
+import { MatRipple, RippleGlobalOptions } from '../ripple.d-ET2Lo6a_.js';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
-import { M as MatRippleModule } from '../index.d-9bdbdee9.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import { MatRippleModule } from '../index.d-DFBzZCgk.js';
 import '@angular/cdk/platform';
 
 /**
@@ -656,4 +656,5 @@ declare class MatSliderModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSliderModule>;
 }
 
-export { MatSlider, MatSliderChange, type MatSliderDragEvent, MatSliderModule, MatSliderRangeThumb, MatSliderThumb, MatSliderVisualThumb };
+export { MatSlider, MatSliderChange, MatSliderModule, MatSliderRangeThumb, MatSliderThumb, MatSliderVisualThumb };
+export type { MatSliderDragEvent };

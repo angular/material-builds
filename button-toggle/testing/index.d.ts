@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { b as MatButtonToggleAppearance } from '../../button-toggle.d-a042f71c.js';
+import { MatButtonToggleAppearance } from '../../button-toggle.d-WsHxVxY9.js';
 import '@angular/cdk/bidi';
 import '@angular/core';
 import '@angular/forms';
@@ -93,4 +93,5 @@ declare class MatButtonToggleGroupHarness extends ComponentHarness {
     getAppearance(): Promise<MatButtonToggleAppearance>;
 }
 
-export { type ButtonToggleGroupHarnessFilters, type ButtonToggleHarnessFilters, MatButtonToggleGroupHarness, MatButtonToggleHarness };
+export { MatButtonToggleGroupHarness, MatButtonToggleHarness };
+export type { ButtonToggleGroupHarnessFilters, ButtonToggleHarnessFilters };

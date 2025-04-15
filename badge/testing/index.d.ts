@@ -1,7 +1,7 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { a as MatBadgePosition, b as MatBadgeSize } from '../../badge.d-8bc601f4.js';
+import { MatBadgePosition, MatBadgeSize } from '../../badge.d-Bhde3P8d.js';
 import '@angular/core';
-import '../../palette.d-f5ca9a2b.js';
+import '../../palette.d-fF1us9u8.js';
 
 interface BadgeHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;
@@ -32,4 +32,5 @@ declare class MatBadgeHarness extends ComponentHarness {
     isDisabled(): Promise<boolean>;
 }
 
-export { type BadgeHarnessFilters, MatBadgeHarness };
+export { MatBadgeHarness };
+export type { BadgeHarnessFilters };

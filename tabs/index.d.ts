@@ -1,12 +1,12 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, TemplateRef, OnInit, OnChanges, OnDestroy, SimpleChanges, QueryList, ElementRef, AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
+import { TemplateRef, InjectionToken, OnInit, OnChanges, OnDestroy, SimpleChanges, QueryList, ElementRef, AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { T as ThemePalette } from '../palette.d-f5ca9a2b.js';
-import { a as RippleTarget, f as RippleConfig, b as RippleGlobalOptions } from '../ripple.d-816a1e42.js';
+import { ThemePalette } from '../palette.d-fF1us9u8.js';
+import { RippleTarget, RippleConfig, RippleGlobalOptions } from '../ripple.d-ET2Lo6a_.js';
 import '@angular/cdk/platform';
 
 /**
@@ -895,4 +895,5 @@ declare const matTabsAnimations: {
     readonly translateTab: any;
 };
 
-export { MAT_TAB, MAT_TABS_CONFIG, MAT_TAB_CONTENT, MAT_TAB_GROUP, MAT_TAB_LABEL, MatInkBar, MatPaginatedTabHeader, MatTab, MatTabBody, type MatTabBodyOriginState, MatTabBodyPortal, type MatTabBodyPositionState, MatTabChangeEvent, MatTabContent, MatTabGroup, type MatTabGroupBaseHeader, MatTabHeader, type MatTabHeaderPosition, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabNavPanel, type MatTabsConfig, MatTabsModule, type ScrollDirection, _MAT_INK_BAR_POSITIONER, _MAT_INK_BAR_POSITIONER_FACTORY, type _MatInkBarPositioner, matTabsAnimations };
+export { MAT_TAB, MAT_TABS_CONFIG, MAT_TAB_CONTENT, MAT_TAB_GROUP, MAT_TAB_LABEL, MatInkBar, MatPaginatedTabHeader, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabNavPanel, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MAT_INK_BAR_POSITIONER_FACTORY, matTabsAnimations };
+export type { MatTabBodyOriginState, MatTabBodyPositionState, MatTabGroupBaseHeader, MatTabHeaderPosition, MatTabsConfig, ScrollDirection, _MatInkBarPositioner };

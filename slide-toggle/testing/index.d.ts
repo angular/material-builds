@@ -62,4 +62,5 @@ declare class MatSlideToggleHarness extends ComponentHarness {
     uncheck(): Promise<void>;
 }
 
-export { MatSlideToggleHarness, type SlideToggleHarnessFilters };
+export { MatSlideToggleHarness };
+export type { SlideToggleHarnessFilters };

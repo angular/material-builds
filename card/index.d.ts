@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
 import '@angular/cdk/bidi';
 
 type MatCardAppearance = 'outlined' | 'raised';
@@ -153,4 +153,5 @@ declare class MatCardModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCardModule>;
 }
 
-export { MAT_CARD_CONFIG, MatCard, MatCardActions, type MatCardAppearance, MatCardAvatar, type MatCardConfig, MatCardContent, MatCardFooter, MatCardHeader, MatCardImage, MatCardLgImage, MatCardMdImage, MatCardModule, MatCardSmImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup, MatCardXlImage };
+export { MAT_CARD_CONFIG, MatCard, MatCardActions, MatCardAvatar, MatCardContent, MatCardFooter, MatCardHeader, MatCardImage, MatCardLgImage, MatCardMdImage, MatCardModule, MatCardSmImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup, MatCardXlImage };
+export type { MatCardAppearance, MatCardConfig };

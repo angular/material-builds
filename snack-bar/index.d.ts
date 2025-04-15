@@ -2,18 +2,18 @@ import * as i2 from '@angular/cdk/overlay';
 import { OverlayRef, ComponentType } from '@angular/cdk/overlay';
 import { Subject, Observable } from 'rxjs';
 import * as i0 from '@angular/core';
-import { InjectionToken, ViewContainerRef, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
+import { ViewContainerRef, InjectionToken, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
 import * as i3 from '@angular/cdk/portal';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { m as MatButtonModule } from '../module.d-4830783a.js';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
-import '../index.d-9bdbdee9.js';
-import '../ripple.d-816a1e42.js';
+import { MatButtonModule } from '../button/index.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import '../palette.d-fF1us9u8.js';
+import '../ripple-loader.d-Dc_OaMd1.js';
+import '../index.d-DFBzZCgk.js';
+import '../ripple.d-ET2Lo6a_.js';
 import '@angular/cdk/platform';
-import '../palette.d-f5ca9a2b.js';
-import '../ripple-loader.d-850167e6.js';
 
 /** Injection token that can be used to access the data that was passed in to a snack bar. */
 declare const MAT_SNACK_BAR_DATA: InjectionToken<any>;
@@ -341,4 +341,5 @@ declare const matSnackBarAnimations: {
     readonly snackBarState: any;
 };
 
-export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, type MatSnackBarDismiss, type MatSnackBarHorizontalPosition, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, type MatSnackBarVerticalPosition, SimpleSnackBar, type TextOnlySnackBar, matSnackBarAnimations };
+export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
+export type { MatSnackBarDismiss, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, TextOnlySnackBar };

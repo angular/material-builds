@@ -1,4 +1,4 @@
-import { BaseHarnessFilters, HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /** A set of criteria that can be used to filter a list of `MatDrawerHarness` instances. */
 interface DrawerHarnessFilters extends BaseHarnessFilters {
@@ -118,4 +118,5 @@ declare class MatSidenavContainerHarness extends ContentContainerComponentHarnes
     getContent(): Promise<MatSidenavContentHarness>;
 }
 
-export { type DrawerContainerHarnessFilters, type DrawerContentHarnessFilters, type DrawerHarnessFilters, MatDrawerContainerHarness, MatDrawerContentHarness, MatDrawerHarness, MatSidenavContainerHarness, MatSidenavContentHarness, MatSidenavHarness };
+export { MatDrawerContainerHarness, MatDrawerContentHarness, MatDrawerHarness, MatSidenavContainerHarness, MatSidenavContentHarness, MatSidenavHarness };
+export type { DrawerContainerHarnessFilters, DrawerContentHarnessFilters, DrawerHarnessFilters };

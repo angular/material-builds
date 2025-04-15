@@ -48,4 +48,5 @@ declare class MatButtonHarness extends ContentContainerComponentHarness {
     getVariant(): Promise<ButtonVariant>;
 }
 
-export { type ButtonHarnessFilters, type ButtonVariant, MatButtonHarness };
+export { MatButtonHarness };
+export type { ButtonHarnessFilters, ButtonVariant };

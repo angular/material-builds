@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, EventEmitter } from '@angular/core';
-import { T as ThemePalette } from '../palette.d-f5ca9a2b.js';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
+import { ThemePalette } from '../palette.d-fF1us9u8.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
 import '@angular/cdk/bidi';
 
 /** Last animation end data. */
@@ -110,4 +110,5 @@ declare class MatProgressBarModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressBarModule>;
 }
 
-export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, type MatProgressBarDefaultOptions, type MatProgressBarLocation, MatProgressBarModule, type ProgressAnimationEnd, type ProgressBarMode };
+export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
+export type { MatProgressBarDefaultOptions, MatProgressBarLocation, ProgressAnimationEnd, ProgressBarMode };

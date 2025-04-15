@@ -1,2 +1,10 @@
-export { M as MatFormFieldControlHarness } from '../../../form-field-control-harness.d-8ec51e17.js';
-import '@angular/cdk/testing';
+import { ComponentHarness } from '@angular/cdk/testing';
+
+/**
+ * Base class for custom form-field control harnesses. Harnesses for
+ * custom controls with form-fields need to implement this interface.
+ */
+declare abstract class MatFormFieldControlHarness extends ComponentHarness {
+}
+
+export { MatFormFieldControlHarness };

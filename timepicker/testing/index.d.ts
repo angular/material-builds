@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { O as OptionHarnessFilters, M as MatOptionHarness } from '../../option-harness.d-047df5c5.js';
+import { OptionHarnessFilters, MatOptionHarness } from '../../option-harness.d-BpYClwei.js';
 
 /** A set of criteria that can be used to filter a list of `MatTimepickerHarness` instances. */
 interface TimepickerHarnessFilters extends BaseHarnessFilters {
@@ -104,4 +104,5 @@ declare class MatTimepickerToggleHarness extends ComponentHarness {
     isDisabled(): Promise<boolean>;
 }
 
-export { MatTimepickerHarness, MatTimepickerInputHarness, MatTimepickerToggleHarness, type TimepickerHarnessFilters, type TimepickerInputHarnessFilters, type TimepickerToggleHarnessFilters };
+export { MatTimepickerHarness, MatTimepickerInputHarness, MatTimepickerToggleHarness };
+export type { TimepickerHarnessFilters, TimepickerInputHarnessFilters, TimepickerToggleHarnessFilters };

@@ -1,6 +1,6 @@
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { O as OptionHarnessFilters, M as MatOptionHarness } from '../../option-harness.d-047df5c5.js';
-import { O as OptgroupHarnessFilters, M as MatOptgroupHarness } from '../../optgroup-harness.d-fc22ca1c.js';
+import { OptionHarnessFilters, MatOptionHarness } from '../../option-harness.d-BpYClwei.js';
+import { OptgroupHarnessFilters, MatOptgroupHarness } from '../../core/testing/index.js';
 
 /** A set of criteria that can be used to filter a list of `MatAutocompleteHarness` instances. */
 interface AutocompleteHarnessFilters extends BaseHarnessFilters {
@@ -49,4 +49,5 @@ declare class MatAutocompleteHarness extends ComponentHarness {
     protected _getPanelSelector(): Promise<string>;
 }
 
-export { type AutocompleteHarnessFilters, MatAutocompleteHarness };
+export { MatAutocompleteHarness };
+export type { AutocompleteHarnessFilters };

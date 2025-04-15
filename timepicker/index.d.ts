@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { OnDestroy, Signal, ModelSignal, InputSignal, InputSignalWithTransform, ElementRef, InjectionToken, TemplateRef, OutputEmitterRef } from '@angular/core';
-import { M as MatOption } from '../option.d-be9de0a8.js';
-import { M as MatOptionParentComponent } from '../option-parent.d-f2c0c7de.js';
+import { MatOption } from '../option.d-ef4idHSb.js';
+import { MatOptionParentComponent } from '../option-parent.d-CvnRKBST.js';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import * as i5 from '@angular/cdk/scrolling';
@@ -285,4 +285,5 @@ declare class MatTimepickerModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTimepickerModule>;
 }
 
-export { MAT_TIMEPICKER_CONFIG, MAT_TIMEPICKER_SCROLL_STRATEGY, MatTimepicker, type MatTimepickerConfig, MatTimepickerInput, MatTimepickerModule, type MatTimepickerOption, type MatTimepickerSelected, MatTimepickerToggle };
+export { MAT_TIMEPICKER_CONFIG, MAT_TIMEPICKER_SCROLL_STRATEGY, MatTimepicker, MatTimepickerInput, MatTimepickerModule, MatTimepickerToggle };
+export type { MatTimepickerConfig, MatTimepickerOption, MatTimepickerSelected };

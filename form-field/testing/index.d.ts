@@ -1,11 +1,10 @@
-import { M as MatFormFieldControlHarness } from '../../form-field-control-harness.d-8ec51e17.js';
-export { M as MatFormFieldControlHarness } from '../../form-field-control-harness.d-8ec51e17.js';
+import { MatFormFieldControlHarness } from './control/index.js';
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { M as MatInputHarness } from '../../input-harness.d-5a0b8058.js';
-import { M as MatSelectHarness } from '../../select-harness.d-03127681.js';
-import { M as MatDatepickerInputHarness, g as MatDateRangeInputHarness } from '../../date-range-input-harness.d-d5ba60f5.js';
-import '../../option-harness.d-047df5c5.js';
-import '../../optgroup-harness.d-fc22ca1c.js';
+import { MatInputHarness } from '../../input-harness.d-C1zsmszC.js';
+import { MatSelectHarness } from '../../select/testing/index.js';
+import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '../../date-range-input-harness.d-CJDdddpn.js';
+import '../../option-harness.d-BpYClwei.js';
+import '../../core/testing/index.js';
 
 /** A set of criteria that can be used to filter a list of `MatFormFieldHarness` instances. */
 interface FormFieldHarnessFilters extends BaseHarnessFilters {
@@ -124,4 +123,5 @@ declare class MatFormFieldHarness extends ComponentHarness {
     private _hasFormControl;
 }
 
-export { type ErrorHarnessFilters, type FormFieldControlHarness, type FormFieldHarnessFilters, MatErrorHarness, MatFormFieldHarness };
+export { MatErrorHarness, MatFormFieldControlHarness, MatFormFieldHarness };
+export type { ErrorHarnessFilters, FormFieldControlHarness, FormFieldHarnessFilters };

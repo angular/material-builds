@@ -105,4 +105,5 @@ declare class MatRadioButtonHarness extends ComponentHarness {
     check(): Promise<void>;
 }
 
-export { MatRadioButtonHarness, MatRadioGroupHarness, type RadioButtonHarnessFilters, type RadioGroupHarnessFilters };
+export { MatRadioButtonHarness, MatRadioGroupHarness };
+export type { RadioButtonHarnessFilters, RadioGroupHarnessFilters };

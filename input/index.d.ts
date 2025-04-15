@@ -1,18 +1,18 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, OnChanges, OnDestroy, AfterViewInit, DoCheck, ElementRef, WritableSignal } from '@angular/core';
+import { OnChanges, OnDestroy, AfterViewInit, DoCheck, ElementRef, InjectionToken, WritableSignal } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { E as ErrorStateMatcher } from '../error-options.d-bd1801bf.js';
-import { k as MatFormField } from '../form-field.d-8f5f115a.js';
-export { a as MatError, k as MatFormField, b as MatHint, d as MatPrefix, f as MatSuffix } from '../form-field.d-8f5f115a.js';
-import { M as MatFormFieldControl } from '../form-field-control.d-d7b3a431.js';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
-import { a as MatFormFieldModule } from '../module.d-d670423d.js';
-export { M as MatLabel } from '../module.d-d670423d.js';
+import { ErrorStateMatcher } from '../error-options.d-C1yXmo10.js';
+import { MatFormField } from '../form-field.d-BJpDa0PI.js';
+export { MatError, MatHint, MatPrefix, MatSuffix } from '../form-field.d-BJpDa0PI.js';
+import { MatFormFieldControl } from '../form-field-control.d-DvjiYVzi.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import { MatFormFieldModule } from '../module.d-vndDeG-q.js';
+export { MatLabel } from '../module.d-vndDeG-q.js';
 import * as i4 from '@angular/cdk/text-field';
-import '../palette.d-f5ca9a2b.js';
+import '../palette.d-fF1us9u8.js';
 import '@angular/cdk/bidi';
 import '@angular/cdk/observers';
 
@@ -213,4 +213,5 @@ declare const MAT_INPUT_VALUE_ACCESSOR: InjectionToken<{
 /** @docs-private */
 declare function getMatInputUnsupportedTypeError(type: string): Error;
 
-export { MAT_INPUT_CONFIG, MAT_INPUT_VALUE_ACCESSOR, MatInput, type MatInputConfig, MatInputModule, getMatInputUnsupportedTypeError };
+export { MAT_INPUT_CONFIG, MAT_INPUT_VALUE_ACCESSOR, MatFormField, MatInput, MatInputModule, getMatInputUnsupportedTypeError };
+export type { MatInputConfig };

@@ -2,7 +2,7 @@ import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular
 import * as i0 from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { M as MatIconRegistry } from '../../icon-registry.d-b191b30b.js';
+import { MatIconRegistry } from '../../icon-registry.d-DyR40vgq.js';
 import '@angular/common/http';
 import '@angular/platform-browser';
 
@@ -77,4 +77,5 @@ declare class MatIconTestingModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatIconTestingModule>;
 }
 
-export { FakeMatIconRegistry, type IconHarnessFilters, IconType, MatIconHarness, MatIconTestingModule };
+export { FakeMatIconRegistry, IconType, MatIconHarness, MatIconTestingModule };
+export type { IconHarnessFilters };

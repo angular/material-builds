@@ -1,13 +1,13 @@
-export { a as MatFormFieldModule, M as MatLabel } from '../module.d-d670423d.js';
-export { F as FloatLabelType, M as MAT_ERROR, i as MAT_FORM_FIELD, j as MAT_FORM_FIELD_DEFAULT_OPTIONS, c as MAT_PREFIX, e as MAT_SUFFIX, a as MatError, k as MatFormField, g as MatFormFieldAppearance, h as MatFormFieldDefaultOptions, b as MatHint, d as MatPrefix, f as MatSuffix, S as SubscriptSizing } from '../form-field.d-8f5f115a.js';
-export { M as MatFormFieldControl } from '../form-field-control.d-d7b3a431.js';
+export { MatFormFieldModule, MatLabel } from '../module.d-vndDeG-q.js';
+export { FloatLabelType, MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatError, MatFormField, MatFormFieldAppearance, MatFormFieldDefaultOptions, MatHint, MatPrefix, MatSuffix, SubscriptSizing } from '../form-field.d-BJpDa0PI.js';
+export { MatFormFieldControl } from '../form-field-control.d-DvjiYVzi.js';
 import '@angular/core';
-import '../common-module.d-1b789e68.js';
+import '../common-module.d-CUT8AqiB.js';
 import '@angular/cdk/bidi';
 import '@angular/cdk/observers';
 import '@angular/cdk/coercion';
 import '@angular/forms';
-import '../palette.d-f5ca9a2b.js';
+import '../palette.d-fF1us9u8.js';
 import 'rxjs';
 
 /** @docs-private */

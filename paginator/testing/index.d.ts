@@ -1,9 +1,9 @@
 import * as _angular_cdk_testing from '@angular/cdk/testing';
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { M as MatSelectHarness } from '../../select-harness.d-03127681.js';
-import '../../option-harness.d-047df5c5.js';
-import '../../optgroup-harness.d-fc22ca1c.js';
-import '../../form-field-control-harness.d-8ec51e17.js';
+import { MatSelectHarness } from '../../select/testing/index.js';
+import '../../option-harness.d-BpYClwei.js';
+import '../../core/testing/index.js';
+import '../../form-field/testing/control/index.js';
 
 /** A set of criteria that can be used to filter a list of `MatPaginatorHarness` instances. */
 interface PaginatorHarnessFilters extends BaseHarnessFilters {
@@ -48,4 +48,5 @@ declare class MatPaginatorHarness extends ComponentHarness {
     getRangeLabel(): Promise<string>;
 }
 
-export { MatPaginatorHarness, type PaginatorHarnessFilters };
+export { MatPaginatorHarness };
+export type { PaginatorHarnessFilters };

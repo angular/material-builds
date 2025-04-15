@@ -22,4 +22,5 @@ declare class MatBottomSheetHarness extends ContentContainerComponentHarness<str
     dismiss(): Promise<void>;
 }
 
-export { type BottomSheetHarnessFilters, MatBottomSheetHarness };
+export { MatBottomSheetHarness };
+export type { BottomSheetHarnessFilters };

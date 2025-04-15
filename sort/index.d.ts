@@ -1,10 +1,9 @@
 import * as i0 from '@angular/core';
 import { Optional, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
-import { M as MatSortable, a as MatSort, S as SortHeaderArrowPosition } from '../sort.d-75ca592a.js';
-export { d as MAT_SORT_DEFAULT_OPTIONS, a as MatSort, c as MatSortDefaultOptions, M as MatSortable, b as Sort, S as SortHeaderArrowPosition } from '../sort.d-75ca592a.js';
-import { S as SortDirection } from '../sort-direction.d-2be5f588.js';
-export { S as SortDirection } from '../sort-direction.d-2be5f588.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import { MatSortable, MatSort, SortHeaderArrowPosition } from '../sort.d-CHu7FXsP.js';
+export { MAT_SORT_DEFAULT_OPTIONS, MatSortDefaultOptions, Sort } from '../sort.d-CHu7FXsP.js';
+import { SortDirection } from '../sort-direction.d-Dlz8961P.js';
 import { Subject } from 'rxjs';
 import '@angular/cdk/bidi';
 
@@ -160,4 +159,5 @@ declare const matSortAnimations: {
     readonly allowChildren: any;
 };
 
-export { type ArrowViewState, type ArrowViewStateTransition, MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeader, MatSortHeaderIntl, MatSortModule, matSortAnimations };
+export { MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, MatSortable, SortDirection, SortHeaderArrowPosition, matSortAnimations };
+export type { ArrowViewState, ArrowViewStateTransition };

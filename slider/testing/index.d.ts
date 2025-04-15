@@ -86,4 +86,5 @@ declare class MatSliderHarness extends ComponentHarness {
     getMinValue(): Promise<number>;
 }
 
-export { MatSliderHarness, MatSliderThumbHarness, type SliderHarnessFilters, type SliderThumbHarnessFilters, ThumbPosition };
+export { MatSliderHarness, MatSliderThumbHarness, ThumbPosition };
+export type { SliderHarnessFilters, SliderThumbHarnessFilters };

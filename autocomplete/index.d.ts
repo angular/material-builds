@@ -1,20 +1,19 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, AfterContentInit, OnDestroy, TemplateRef, ElementRef, QueryList, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterContentInit, OnDestroy, TemplateRef, ElementRef, QueryList, EventEmitter, InjectionToken, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
-import { M as MatOptionModule } from '../index.d-30b17cf3.js';
-import { M as MatCommonModule } from '../common-module.d-1b789e68.js';
-import { T as ThemePalette } from '../palette.d-f5ca9a2b.js';
-import { M as MatOption, a as MatOptgroup, b as MatOptionSelectionChange } from '../option.d-be9de0a8.js';
-export { a as MatOptgroup, M as MatOption } from '../option.d-be9de0a8.js';
+import { MatOptionModule } from '../index.d-DSgY27vJ.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import { ThemePalette } from '../palette.d-fF1us9u8.js';
+import { MatOption, MatOptgroup, MatOptionSelectionChange } from '../option.d-ef4idHSb.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as i5 from '@angular/cdk/scrolling';
-import '../index.d-9bdbdee9.js';
-import '../ripple.d-816a1e42.js';
+import '../index.d-DFBzZCgk.js';
+import '../ripple.d-ET2Lo6a_.js';
 import '@angular/cdk/platform';
-import '../pseudo-checkbox-module.d-c6731352.js';
+import '../pseudo-checkbox-module.d-Blr34unH.js';
 import '@angular/cdk/bidi';
 
 /** Event object that is emitted when an autocomplete option is selected. */
@@ -437,4 +436,5 @@ declare class MatAutocompleteModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatAutocompleteModule>;
 }
 
-export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, type MatAutocompleteActivatedEvent, type MatAutocompleteDefaultOptions, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, getMatAutocompleteMissingPanelError };
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOptgroup, MatOption, getMatAutocompleteMissingPanelError };
+export type { MatAutocompleteActivatedEvent, MatAutocompleteDefaultOptions };

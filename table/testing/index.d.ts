@@ -1,4 +1,4 @@
-import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate, ComponentHarness } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate, ComponentHarnessConstructor, ComponentHarness } from '@angular/cdk/testing';
 
 /** A set of criteria that can be used to filter a list of cell harness instances. */
 interface CellHarnessFilters extends BaseHarnessFilters {
@@ -144,4 +144,5 @@ declare class MatTableHarness extends ContentContainerComponentHarness<string> {
     getCellTextByColumnName(): Promise<MatTableHarnessColumnsText>;
 }
 
-export { type CellHarnessFilters, MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, type MatRowHarnessColumnsText, MatTableHarness, type MatTableHarnessColumnsText, type RowHarnessFilters, type TableHarnessFilters, _MatCellHarnessBase, _MatRowHarnessBase };
+export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, MatTableHarness, _MatCellHarnessBase, _MatRowHarnessBase };
+export type { CellHarnessFilters, MatRowHarnessColumnsText, MatTableHarnessColumnsText, RowHarnessFilters, TableHarnessFilters };

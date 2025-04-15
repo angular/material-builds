@@ -97,4 +97,5 @@ declare class MatAccordionHarness extends ComponentHarness {
     isMulti(): Promise<boolean>;
 }
 
-export { type AccordionHarnessFilters, type ExpansionPanelHarnessFilters, MatAccordionHarness, MatExpansionPanelHarness, MatExpansionPanelSection };
+export { MatAccordionHarness, MatExpansionPanelHarness, MatExpansionPanelSection };
+export type { AccordionHarnessFilters, ExpansionPanelHarnessFilters };

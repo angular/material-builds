@@ -82,4 +82,5 @@ declare class MatCheckboxHarness extends ComponentHarness {
     uncheck(): Promise<void>;
 }
 
-export { type CheckboxHarnessFilters, MatCheckboxHarness };
+export { MatCheckboxHarness };
+export type { CheckboxHarnessFilters };

@@ -37,4 +37,5 @@ declare class MatCardHarness extends ContentContainerComponentHarness<MatCardSec
     getSubtitleText(): Promise<string>;
 }
 
-export { type CardHarnessFilters, MatCardHarness, MatCardSection };
+export { MatCardHarness, MatCardSection };
+export type { CardHarnessFilters };
