@@ -1091,10 +1091,18 @@ class MatSelect {
         if (this.ariaLabel) {
             return null;
         }
-        const labelId = this._parentFormField?.getLabelId();
-        let value = (labelId ? labelId + ' ' : '') + this._valueId;
+        let value = this._parentFormField?.getLabelId() || '';
         if (this.ariaLabelledby) {
             value += ' ' + this.ariaLabelledby;
+        }
+        // The value should not be used for the trigger's aria-labelledby,
+        // but this currently "breaks" accessibility tests since they complain
+        // there is no aria-labelledby. This is because they are not setting an
+        // appropriate label on the form field or select.
+        // TODO: remove this conditional after fixing clients by ensuring their
+        // selects have a label applied.
+        if (!value) {
+            value = this._valueId;
         }
         return value;
     }
@@ -1290,4 +1298,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.6", ngImpor
         }] });
 
 export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger };
-//# sourceMappingURL=module-Dzh-auMR.mjs.map
+//# sourceMappingURL=module-DBJe6lvw.mjs.map

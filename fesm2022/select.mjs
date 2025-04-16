@@ -1,6 +1,6 @@
 export { MatOptgroup, MatOption } from './option-B6mQ8PwE.mjs';
 export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from './form-field-BPX7ZLIc.mjs';
-export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger } from './module-Dzh-auMR.mjs';
+export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger } from './module-DBJe6lvw.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/keycodes';
 import '@angular/core';
