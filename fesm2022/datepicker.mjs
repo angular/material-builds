@@ -18,7 +18,7 @@ import { MatIconButton } from './icon-button-SnLX2J-J.mjs';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-cp3A3zMa.mjs';
-import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-CTjHMEpL.mjs';
+import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-DXXhIBX2.mjs';
 import { ErrorStateMatcher } from './error-options-f2L_D2TV.mjs';
 import { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -3911,6 +3911,15 @@ class MatDateRangeInput {
         }
         // TODO(crisbeto): remove `as any` after #18206 lands.
         this.ngControl = inject(ControlContainer, { optional: true, self: true });
+    }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get describedByIds() {
+        const element = this._elementRef.nativeElement;
+        const existingDescribedBy = element.getAttribute('aria-describedby');
+        return existingDescribedBy?.split(' ') || [];
     }
     /**
      * Implemented as a part of `MatFormFieldControl`.

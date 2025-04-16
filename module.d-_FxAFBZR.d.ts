@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { MatCommonModule } from './common-module.d-CUT8AqiB.js';
 import * as i2 from '@angular/cdk/observers';
-import { MatFormField, MatError, MatHint, MatPrefix, MatSuffix } from './form-field.d-Ch5vSoMJ.js';
+import { MatFormField, MatError, MatHint, MatPrefix, MatSuffix } from './form-field.d-DeaA8Upo.js';
 
 /** The floating label for a `mat-form-field`. */
 declare class MatLabel {

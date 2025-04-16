@@ -14,7 +14,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ErrorStateMatcher } from './error-options-f2L_D2TV.mjs';
 import { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
-import { MatFormFieldControl, MAT_FORM_FIELD } from './form-field-CTjHMEpL.mjs';
+import { MatFormFieldControl, MAT_FORM_FIELD } from './form-field-DXXhIBX2.mjs';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import { MatRippleModule } from './index-D7tf-UtR.mjs';
 import '@angular/cdk/platform';
@@ -1771,6 +1771,13 @@ class MatChipGrid extends MatChipSet {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
+    get describedByIds() {
+        return this._chipInput?.describedByIds || [];
+    }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     setDescribedByIds(ids) {
         // We must keep this up to date to handle the case where ids are set
         // before the chip input is registered.
@@ -2072,6 +2079,15 @@ class MatChipInput {
     /** Clears the input */
     clear() {
         this.inputElement.value = '';
+    }
+    /**
+     * Implemented as part of MatChipTextControl.
+     * @docs-private
+     */
+    get describedByIds() {
+        const element = this._elementRef.nativeElement;
+        const existingDescribedBy = element.getAttribute('aria-describedby');
+        return existingDescribedBy?.split(' ') || [];
     }
     setDescribedByIds(ids) {
         const element = this._elementRef.nativeElement;

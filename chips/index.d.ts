@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ErrorStateMatcher } from '../error-options.d-C1yXmo10.js';
-import { MatFormFieldControl } from '../form-field-control.d-DvjiYVzi.js';
+import { MatFormFieldControl } from '../form-field-control.d-39fAGkWp.js';
 import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
 import { MatRippleModule } from '../index.d-_XdEyDn3.js';
 import '@angular/cdk/bidi';
@@ -615,6 +615,8 @@ interface MatChipTextControl {
     empty: boolean;
     /** Focuses the text control. */
     focus(): void;
+    /** Gets the list of ids the input is described by. */
+    readonly describedByIds?: string[];
     /** Sets the list of ids the input is described by. */
     setDescribedByIds(ids: string[]): void;
 }
@@ -748,6 +750,11 @@ declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterV
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
+    get describedByIds(): string[];
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     setDescribedByIds(ids: string[]): void;
     /**
      * Implemented as part of ControlValueAccessor.
@@ -860,6 +867,11 @@ declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy {
     focus(): void;
     /** Clears the input */
     clear(): void;
+    /**
+     * Implemented as part of MatChipTextControl.
+     * @docs-private
+     */
+    get describedByIds(): string[];
     setDescribedByIds(ids: string[]): void;
     /** Checks whether a keycode is one of the configured separators. */
     private _isSeparatorKey;

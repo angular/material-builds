@@ -409,6 +409,8 @@ class MatFormFieldControl {
      * field from associating the label with non-native elements.
      */
     disableAutomaticLabeling;
+    /** Gets the list of element IDs that currently describe this control. */
+    describedByIds;
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.5", ngImport: i0, type: MatFormFieldControl, deps: [], target: i0.ɵɵFactoryTarget.Directive });
     static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-next.5", type: MatFormFieldControl, isStandalone: true, ngImport: i0 });
 }
@@ -568,6 +570,8 @@ class MatFormField {
     _labelId = this._idGenerator.getId('mat-mdc-form-field-label-');
     // Unique id for the hint label.
     _hintLabelId = this._idGenerator.getId('mat-mdc-hint-');
+    // Ids obtained from the error and hint fields
+    _describedByIds;
     /** Gets the current form field control */
     get _control() {
         return this._explicitFormFieldControl || this._formFieldControl;
@@ -908,7 +912,21 @@ class MatFormField {
             else if (this._errorChildren) {
                 ids.push(...this._errorChildren.map(error => error.id));
             }
-            this._control.setDescribedByIds(ids);
+            const existingDescribedBy = this._control.describedByIds;
+            let toAssign;
+            // In some cases there might be some `aria-describedby` IDs that were assigned directly,
+            // like by the `AriaDescriber` (see #30011). Attempt to preserve them by taking the previous
+            // attribute value and filtering out the IDs that came from the previous `setDescribedByIds`
+            // call. Note the `|| ids` here allows us to avoid duplicating IDs on the first render.
+            if (existingDescribedBy) {
+                const exclude = this._describedByIds || ids;
+                toAssign = ids.concat(existingDescribedBy.filter(id => id && !exclude.includes(id)));
+            }
+            else {
+                toAssign = ids;
+            }
+            this._control.setDescribedByIds(toAssign);
+            this._describedByIds = ids;
         }
     }
     /**
@@ -1075,4 +1093,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
             }] } });
 
 export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatError, MatFormField, MatFormFieldControl, MatHint, MatLabel, MatPrefix, MatSuffix, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError };
-//# sourceMappingURL=form-field-CTjHMEpL.mjs.map
+//# sourceMappingURL=form-field-DXXhIBX2.mjs.map

@@ -7,11 +7,11 @@ import { _IdGenerator } from '@angular/cdk/a11y';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-cp3A3zMa.mjs';
-import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-CTjHMEpL.mjs';
-export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from './form-field-CTjHMEpL.mjs';
+import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-DXXhIBX2.mjs';
+export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from './form-field-DXXhIBX2.mjs';
 import { ErrorStateMatcher } from './error-options-f2L_D2TV.mjs';
 import { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
-import { MatFormFieldModule } from './module-Dxc8MBPS.mjs';
+import { MatFormFieldModule } from './module-BIHXUA0w.mjs';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import '@angular/cdk/bidi';
 import '@angular/common';
@@ -57,8 +57,6 @@ class MatInput {
     _config = inject(MAT_INPUT_CONFIG, { optional: true });
     _cleanupIosKeyup;
     _cleanupWebkitWheel;
-    /** `aria-describedby` IDs assigned by the form field. */
-    _formFieldDescribedBy;
     /** Whether the component is being rendered on the server. */
     _isServer;
     /** Whether the component is a native html select. */
@@ -419,24 +417,19 @@ class MatInput {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    setDescribedByIds(ids) {
+    get describedByIds() {
         const element = this._elementRef.nativeElement;
         const existingDescribedBy = element.getAttribute('aria-describedby');
-        let toAssign;
-        // In some cases there might be some `aria-describedby` IDs that were assigned directly,
-        // like by the `AriaDescriber` (see #30011). Attempt to preserve them by taking the previous
-        // attribute value and filtering out the IDs that came from the previous `setDescribedByIds`
-        // call. Note the `|| ids` here allows us to avoid duplicating IDs on the first render.
-        if (existingDescribedBy) {
-            const exclude = this._formFieldDescribedBy || ids;
-            toAssign = ids.concat(existingDescribedBy.split(' ').filter(id => id && !exclude.includes(id)));
-        }
-        else {
-            toAssign = ids;
-        }
-        this._formFieldDescribedBy = ids;
-        if (toAssign.length) {
-            element.setAttribute('aria-describedby', toAssign.join(' '));
+        return existingDescribedBy?.split(' ') || [];
+    }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    setDescribedByIds(ids) {
+        const element = this._elementRef.nativeElement;
+        if (ids.length) {
+            element.setAttribute('aria-describedby', ids.join(' '));
         }
         else {
             element.removeAttribute('aria-describedby');

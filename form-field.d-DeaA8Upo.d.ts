@@ -3,7 +3,7 @@ import { InjectionToken, OnDestroy, AfterViewInit, ElementRef, AfterContentInit,
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AbstractControlDirective } from '@angular/forms';
 import { ThemePalette } from './palette.d-fF1us9u8.js';
-import { MatFormFieldControl as MatFormFieldControl$1 } from './form-field-control.d-DvjiYVzi.js';
+import { MatFormFieldControl as MatFormFieldControl$1 } from './form-field-control.d-39fAGkWp.js';
 
 /**
  * Injection token that can be used to reference instances of `MatError`. It serves as
@@ -263,6 +263,7 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     _hasTextSuffix: boolean;
     readonly _labelId: string;
     readonly _hintLabelId: string;
+    private _describedByIds;
     /** Gets the current form field control */
     get _control(): MatFormFieldControl<any>;
     set _control(value: MatFormFieldControl<any>);

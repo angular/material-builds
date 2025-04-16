@@ -12,9 +12,9 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
 import { ErrorStateMatcher } from './error-options.d-C1yXmo10.js';
 import { MatOption, MatOptgroup, MatOptionSelectionChange } from './option.d-ef4idHSb.js';
-import { MatFormField } from './form-field.d-Ch5vSoMJ.js';
-import { MatFormFieldControl } from './form-field-control.d-DvjiYVzi.js';
-import { MatFormFieldModule } from './module.d-HDN7Snzl.js';
+import { MatFormField } from './form-field.d-DeaA8Upo.js';
+import { MatFormFieldControl } from './form-field-control.d-39fAGkWp.js';
+import { MatFormFieldModule } from './module.d-_FxAFBZR.js';
 
 /** Injection token that determines the scroll handling while a select is open. */
 declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
@@ -404,6 +404,11 @@ declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnIni
     _getAriaActiveDescendant(): string | null;
     /** Gets the aria-labelledby of the select component trigger. */
     private _getTriggerAriaLabelledby;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get describedByIds(): string[];
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

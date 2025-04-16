@@ -51,6 +51,8 @@ declare abstract class MatFormFieldControl<T> {
      * field from associating the label with non-native elements.
      */
     readonly disableAutomaticLabeling?: boolean;
+    /** Gets the list of element IDs that currently describe this control. */
+    readonly describedByIds?: string[];
     /** Sets the list of element IDs that currently describe this control. */
     abstract setDescribedByIds(ids: string[]): void;
     /** Handles a click on the control's container. */

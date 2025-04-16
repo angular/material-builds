@@ -12,7 +12,7 @@ import { Observable, Subject } from 'rxjs';
 import { DateAdapter } from '../date-adapter.d-DzP3EMeE.js';
 import { ThemePalette } from '../palette.d-fF1us9u8.js';
 import { ControlValueAccessor, Validator, ValidatorFn, AbstractControl, ValidationErrors, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
-import { MatFormFieldControl } from '../form-field-control.d-DvjiYVzi.js';
+import { MatFormFieldControl } from '../form-field-control.d-39fAGkWp.js';
 import { Directionality } from '@angular/cdk/bidi';
 import { ErrorStateMatcher } from '../error-options.d-C1yXmo10.js';
 import * as i5 from '@angular/cdk/scrolling';
@@ -1637,6 +1637,11 @@ declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>,
      */
     readonly disableAutomaticLabeling = true;
     constructor(...args: unknown[]);
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get describedByIds(): string[];
     /**
      * Implemented as a part of `MatFormFieldControl`.
      * @docs-private

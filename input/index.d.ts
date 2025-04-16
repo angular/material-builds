@@ -5,12 +5,12 @@ import { OnChanges, OnDestroy, AfterViewInit, DoCheck, ElementRef, InjectionToke
 import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { ErrorStateMatcher } from '../error-options.d-C1yXmo10.js';
-import { MatFormField } from '../form-field.d-Ch5vSoMJ.js';
-export { MatError, MatHint, MatPrefix, MatSuffix } from '../form-field.d-Ch5vSoMJ.js';
-import { MatFormFieldControl } from '../form-field-control.d-DvjiYVzi.js';
+import { MatFormField } from '../form-field.d-DeaA8Upo.js';
+export { MatError, MatHint, MatPrefix, MatSuffix } from '../form-field.d-DeaA8Upo.js';
+import { MatFormFieldControl } from '../form-field-control.d-39fAGkWp.js';
 import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
-import { MatFormFieldModule } from '../module.d-HDN7Snzl.js';
-export { MatLabel } from '../module.d-HDN7Snzl.js';
+import { MatFormFieldModule } from '../module.d-_FxAFBZR.js';
+export { MatLabel } from '../module.d-_FxAFBZR.js';
 import * as i4 from '@angular/cdk/text-field';
 import '../palette.d-fF1us9u8.js';
 import '@angular/cdk/bidi';
@@ -40,8 +40,6 @@ declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy
     private _config;
     private _cleanupIosKeyup;
     private _cleanupWebkitWheel;
-    /** `aria-describedby` IDs assigned by the form field. */
-    private _formFieldDescribedBy;
     /** Whether the component is being rendered on the server. */
     readonly _isServer: boolean;
     /** Whether the component is a native html select. */
@@ -163,6 +161,11 @@ declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy
      * @docs-private
      */
     get shouldLabelFloat(): boolean;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    get describedByIds(): string[];
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

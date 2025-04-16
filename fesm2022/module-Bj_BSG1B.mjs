@@ -10,12 +10,12 @@ import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/form
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, filter, map, takeUntil, take } from 'rxjs/operators';
 import { NgClass } from '@angular/common';
-import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-CTjHMEpL.mjs';
+import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-DXXhIBX2.mjs';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOption, MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT } from './option-Ce_vIVuD.mjs';
 import { ErrorStateMatcher } from './error-options-f2L_D2TV.mjs';
 import { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
-import { MatFormFieldModule } from './module-Dxc8MBPS.mjs';
+import { MatFormFieldModule } from './module-BIHXUA0w.mjs';
 import { MatOptionModule } from './index-CYUgEsfZ.mjs';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 
@@ -1103,6 +1103,15 @@ class MatSelect {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
+    get describedByIds() {
+        const element = this._elementRef.nativeElement;
+        const existingDescribedBy = element.getAttribute('aria-describedby');
+        return existingDescribedBy?.split(' ') || [];
+    }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     setDescribedByIds(ids) {
         if (ids.length) {
             this._elementRef.nativeElement.setAttribute('aria-describedby', ids.join(' '));
@@ -1291,4 +1300,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger };
-//# sourceMappingURL=module-CD2gDsEE.mjs.map
+//# sourceMappingURL=module-Bj_BSG1B.mjs.map
