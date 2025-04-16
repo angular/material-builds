@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { NgModule } from '@angular/core';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
-import { MatRipple } from './ripple-CSpmxbGi.mjs';
+import { MatRipple } from './ripple-t-kasrhF.mjs';
 
 class MatRippleModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.5", ngImport: i0, type: MatRippleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
@@ -17,4 +17,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MatRippleModule };
-//# sourceMappingURL=index-DD8f9bSt.mjs.map
+//# sourceMappingURL=index-D7tf-UtR.mjs.map
