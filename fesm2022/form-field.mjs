@@ -1,5 +1,5 @@
-export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatError, MatFormField, MatFormFieldControl, MatHint, MatLabel, MatPrefix, MatSuffix, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError } from './form-field-BAyQDs0C.mjs';
-export { MatFormFieldModule } from './module-eAxbgAvV.mjs';
+export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatError, MatFormField, MatFormFieldControl, MatHint, MatLabel, MatPrefix, MatSuffix, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError } from './form-field-BPX7ZLIc.mjs';
+export { MatFormFieldModule } from './module-BOQEdUAz.mjs';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
 import '@angular/cdk/platform';

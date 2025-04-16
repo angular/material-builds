@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { NgModule } from '@angular/core';
-import { MatPseudoCheckbox } from './pseudo-checkbox-BmT4RW8_.mjs';
+import { MatPseudoCheckbox } from './pseudo-checkbox-Dy35mUmj.mjs';
 import { MatCommonModule } from './common-module-DoCSSHRt.mjs';
 
 class MatPseudoCheckboxModule {
@@ -17,4 +17,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.6", ngImpor
         }] });
 
 export { MatPseudoCheckboxModule };
-//# sourceMappingURL=pseudo-checkbox-module-iaNEo0xW.mjs.map
+//# sourceMappingURL=pseudo-checkbox-module-CUFRN-kl.mjs.map
