@@ -1,7 +1,7 @@
 import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { inject, NgZone, ElementRef, Renderer2, booleanAttribute, ChangeDetectionStrategy, ViewEncapsulation, Component, Input, Directive, NgModule } from '@angular/core';
+import { inject, NgZone, ElementRef, Renderer2, HOST_TAG_NAME, booleanAttribute, ChangeDetectionStrategy, ViewEncapsulation, Component, Input, Directive, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
@@ -91,10 +91,11 @@ class MatBadge {
             if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
                 throw Error('matBadge must be attached to an element node.');
             }
+            const tagName = inject(HOST_TAG_NAME);
             // Heads-up for developers to avoid putting matBadge on <mat-icon>
             // as it is aria-hidden by default docs mention this at:
             // https://material.angular.io/components/badge/overview#accessibility
-            if (nativeElement.tagName.toLowerCase() === 'mat-icon' &&
+            if (tagName.toLowerCase() === 'mat-icon' &&
                 nativeElement.getAttribute('aria-hidden') === 'true') {
                 console.warn(`Detected a matBadge on an "aria-hidden" "<mat-icon>". ` +
                     `Consider setting aria-hidden="false" in order to surface the information assistive technology.` +

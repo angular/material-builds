@@ -3,7 +3,7 @@ import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, UP_ARROW, DOWN_AR
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, numberAttribute, booleanAttribute, Input, Directive, ChangeDetectorRef, NgZone, EventEmitter, Injector, ViewChild, ContentChild, Output, ContentChildren, ChangeDetectionStrategy, ViewEncapsulation, Component, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, numberAttribute, booleanAttribute, Input, Directive, ChangeDetectorRef, HOST_TAG_NAME, NgZone, EventEmitter, Injector, ViewChild, ContentChild, Output, ContentChildren, ChangeDetectionStrategy, ViewEncapsulation, Component, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
 import { Subject, merge } from 'rxjs';
 import { _StructuralStylesLoader } from './structural-styles-BcST1BXh.mjs';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-t-kasrhF.mjs';
@@ -245,6 +245,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
 class MatChip {
     _changeDetectorRef = inject(ChangeDetectorRef);
     _elementRef = inject(ElementRef);
+    _tagName = inject(HOST_TAG_NAME);
     _ngZone = inject(NgZone);
     _focusMonitor = inject(FocusMonitor);
     _globalRippleOptions = inject(MAT_RIPPLE_GLOBAL_OPTIONS, {
@@ -364,10 +365,9 @@ class MatChip {
     ngOnInit() {
         // This check needs to happen in `ngOnInit` so the overridden value of
         // `basicChipAttrName` coming from base classes can be picked up.
-        const element = this._elementRef.nativeElement;
         this._isBasicChip =
-            element.hasAttribute(this.basicChipAttrName) ||
-                element.tagName.toLowerCase() === this.basicChipAttrName;
+            this._elementRef.nativeElement.hasAttribute(this.basicChipAttrName) ||
+                this._tagName.toLowerCase() === this.basicChipAttrName;
     }
     ngAfterViewInit() {
         this._textElement = this._elementRef.nativeElement.querySelector('.mat-mdc-chip-action-label');

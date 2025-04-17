@@ -107,6 +107,7 @@ interface MatChipEvent {
 declare class MatChip implements OnInit, AfterViewInit, AfterContentInit, DoCheck, OnDestroy {
     _changeDetectorRef: ChangeDetectorRef;
     _elementRef: ElementRef<HTMLElement>;
+    private readonly _tagName;
     protected _ngZone: NgZone;
     private _focusMonitor;
     private _globalRippleOptions;
