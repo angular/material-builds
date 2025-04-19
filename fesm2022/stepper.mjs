@@ -15,7 +15,7 @@ import { ErrorStateMatcher } from './error-options-f2L_D2TV.mjs';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import { MatRippleModule } from './index-D7tf-UtR.mjs';
-import './icon-registry-C2Nxi8Mq.mjs';
+import './icon-registry-Fxi0B_pI.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
 import '@angular/cdk/coercion';

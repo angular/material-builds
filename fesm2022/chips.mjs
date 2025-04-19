@@ -1,14 +1,13 @@
 import { FocusMonitor, _IdGenerator, FocusKeyManager } from '@angular/cdk/a11y';
 import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
-import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, numberAttribute, booleanAttribute, Input, Directive, ChangeDetectorRef, HOST_TAG_NAME, NgZone, EventEmitter, Injector, ViewChild, ContentChild, Output, ContentChildren, ChangeDetectionStrategy, ViewEncapsulation, Component, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, numberAttribute, booleanAttribute, Input, Directive, ChangeDetectorRef, HOST_TAG_NAME, NgZone, DOCUMENT, EventEmitter, Injector, ViewChild, ContentChild, Output, ContentChildren, ChangeDetectionStrategy, ViewEncapsulation, Component, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
 import { Subject, merge } from 'rxjs';
 import { _StructuralStylesLoader } from './structural-styles-BcST1BXh.mjs';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-t-kasrhF.mjs';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
-import { MatRippleLoader } from './ripple-loader-R9v4tIlx.mjs';
+import { MatRippleLoader } from './ripple-loader-Fl6wuH86.mjs';
 import { takeUntil, startWith, switchMap } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
@@ -20,6 +19,7 @@ import { MatRippleModule } from './index-D7tf-UtR.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 import '@angular/cdk/layout';
+import '@angular/common';
 import '@angular/cdk/observers/private';
 
 /** Injection token to be used to override the default options for the chips module. */

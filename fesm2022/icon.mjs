@@ -1,10 +1,9 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ErrorHandler, HostAttributeToken, booleanAttribute, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { InjectionToken, inject, DOCUMENT, ElementRef, ErrorHandler, HostAttributeToken, booleanAttribute, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { MatIconRegistry } from './icon-registry-C2Nxi8Mq.mjs';
-export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './icon-registry-C2Nxi8Mq.mjs';
+import { MatIconRegistry } from './icon-registry-Fxi0B_pI.mjs';
+export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './icon-registry-Fxi0B_pI.mjs';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';

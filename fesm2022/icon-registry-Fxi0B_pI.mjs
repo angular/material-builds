@@ -1,8 +1,7 @@
-import { DOCUMENT } from '@angular/common';
 import * as i1 from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import * as i0 from '@angular/core';
-import { Optional, SkipSelf, ErrorHandler, SecurityContext, Inject, Injectable } from '@angular/core';
+import { Optional, SkipSelf, ErrorHandler, DOCUMENT, SecurityContext, Inject, Injectable } from '@angular/core';
 import * as i2 from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { of, throwError, forkJoin } from 'rxjs';
@@ -636,4 +635,4 @@ function isSafeUrlWithOptions(value) {
 }
 
 export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };
-//# sourceMappingURL=icon-registry-C2Nxi8Mq.mjs.map
+//# sourceMappingURL=icon-registry-Fxi0B_pI.mjs.map

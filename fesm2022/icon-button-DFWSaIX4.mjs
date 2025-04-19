@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, Renderer2, booleanAttribute, numberAttribute, Input, Directive, ChangeDetectionStrategy, ViewEncapsulation, Component } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { MatRippleLoader } from './ripple-loader-R9v4tIlx.mjs';
+import { MatRippleLoader } from './ripple-loader-Fl6wuH86.mjs';
 import { _StructuralStylesLoader } from './structural-styles-BcST1BXh.mjs';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 
@@ -209,4 +209,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
 const MatIconAnchor = MatIconButton;
 
 export { MAT_BUTTON_CONFIG, MatButtonBase, MatIconAnchor, MatIconButton };
-//# sourceMappingURL=icon-button-SnLX2J-J.mjs.map
+//# sourceMappingURL=icon-button-DFWSaIX4.mjs.map

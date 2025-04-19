@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ViewContainerRef, DOCUMENT, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { DateAdapter, MAT_DATE_FORMATS } from './date-formats-BQbO9F6H.mjs';
 import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
@@ -9,12 +9,12 @@ import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DO
 import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { ComponentPortal, CdkPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { NgClass, DOCUMENT } from '@angular/common';
 import { startWith, take, filter } from 'rxjs/operators';
+import { NgClass } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _StructuralStylesLoader } from './structural-styles-BcST1BXh.mjs';
 import { MatButton, MatButtonModule } from './button.mjs';
-import { MatIconButton } from './icon-button-SnLX2J-J.mjs';
+import { MatIconButton } from './icon-button-DFWSaIX4.mjs';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-cp3A3zMa.mjs';
@@ -25,7 +25,7 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import './index-D7tf-UtR.mjs';
 import './ripple-t-kasrhF.mjs';
-import './ripple-loader-R9v4tIlx.mjs';
+import './ripple-loader-Fl6wuH86.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/observers/private';
 

@@ -4,9 +4,8 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
-import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Renderer2, EventEmitter, Injector, afterNextRender, QueryList, ViewEncapsulation, ChangeDetectionStrategy, Component, ViewChild, Output, Input, ContentChild, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Renderer2, DOCUMENT, EventEmitter, Injector, afterNextRender, QueryList, ViewEncapsulation, ChangeDetectionStrategy, Component, ViewChild, Output, Input, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';

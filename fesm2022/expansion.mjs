@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, ViewChild, ContentChild, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, DOCUMENT, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, ViewChild, ContentChild, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
@@ -7,7 +7,6 @@ import { startWith, filter, take } from 'rxjs/operators';
 import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { DOCUMENT } from '@angular/common';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _StructuralStylesLoader } from './structural-styles-BcST1BXh.mjs';

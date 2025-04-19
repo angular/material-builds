@@ -1,12 +1,12 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, Injector, ViewContainerRef, afterNextRender, ChangeDetectorRef, Input, Directive, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, Injector, ViewContainerRef, afterNextRender, DOCUMENT, ChangeDetectorRef, Input, Directive, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Overlay, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
-import { DOCUMENT, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Platform, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { Directionality } from '@angular/cdk/bidi';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -967,4 +967,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError };
-//# sourceMappingURL=module-nTxiyWBy.mjs.map
+//# sourceMappingURL=module-erPKIVPj.mjs.map

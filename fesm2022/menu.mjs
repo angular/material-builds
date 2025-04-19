@@ -1,10 +1,9 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, booleanAttribute, Input, ViewEncapsulation, ChangeDetectionStrategy, Component, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, afterNextRender, Output, ContentChild, ContentChildren, ViewChild, NgZone, Renderer2, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, DOCUMENT, ChangeDetectorRef, booleanAttribute, Input, ViewEncapsulation, ChangeDetectionStrategy, Component, TemplateRef, ApplicationRef, Injector, ViewContainerRef, Directive, QueryList, EventEmitter, afterNextRender, Output, ContentChild, ContentChildren, ViewChild, NgZone, Renderer2, NgModule } from '@angular/core';
 import { FocusMonitor, _IdGenerator, FocusKeyManager, isFakeTouchstartFromScreenReader, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, ESCAPE, hasModifierKey, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Subject, merge, Subscription, of } from 'rxjs';
 import { startWith, switchMap, takeUntil, take, filter } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _StructuralStylesLoader } from './structural-styles-BcST1BXh.mjs';
 import { MatRipple } from './ripple-t-kasrhF.mjs';

@@ -1,13 +1,12 @@
-import { MatButtonBase, MatIconButton } from './icon-button-SnLX2J-J.mjs';
-export { MAT_BUTTON_CONFIG, MatIconAnchor } from './icon-button-SnLX2J-J.mjs';
+import { MatButtonBase, MatIconButton } from './icon-button-DFWSaIX4.mjs';
+export { MAT_BUTTON_CONFIG, MatIconAnchor } from './icon-button-DFWSaIX4.mjs';
 import * as i0 from '@angular/core';
 import { Input, ChangeDetectionStrategy, ViewEncapsulation, Component, InjectionToken, inject, booleanAttribute, NgModule } from '@angular/core';
 import { MatRippleModule } from './index-D7tf-UtR.mjs';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/private';
-import './ripple-loader-R9v4tIlx.mjs';
-import '@angular/common';
+import './ripple-loader-Fl6wuH86.mjs';
 import '@angular/cdk/platform';
 import './animation-DYWs964N.mjs';
 import '@angular/cdk/layout';

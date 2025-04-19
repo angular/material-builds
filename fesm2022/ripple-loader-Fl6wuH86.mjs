@@ -1,6 +1,5 @@
-import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { inject, NgZone, Injector, RendererFactory2, Injectable } from '@angular/core';
+import { inject, DOCUMENT, NgZone, Injector, RendererFactory2, Injectable } from '@angular/core';
 import { Platform, _getEventTarget } from '@angular/cdk/platform';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, defaultRippleAnimationConfig } from './ripple-t-kasrhF.mjs';
@@ -160,4 +159,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }], ctorParameters: () => [] });
 
 export { MatRippleLoader };
-//# sourceMappingURL=ripple-loader-R9v4tIlx.mjs.map
+//# sourceMappingURL=ripple-loader-Fl6wuH86.mjs.map

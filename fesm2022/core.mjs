@@ -11,7 +11,7 @@ export { _StructuralStylesLoader } from './structural-styles-BcST1BXh.mjs';
 export { MatLine, MatLineModule, setLines } from './line-DI2_SkWl.mjs';
 export { MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './option-Ce_vIVuD.mjs';
 export { MatOptionModule } from './index-CYUgEsfZ.mjs';
-export { MatRippleLoader } from './ripple-loader-R9v4tIlx.mjs';
+export { MatRippleLoader } from './ripple-loader-Fl6wuH86.mjs';
 export { MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleRef, RippleRenderer, RippleState, defaultRippleAnimationConfig } from './ripple-t-kasrhF.mjs';
 export { MatRippleModule } from './index-D7tf-UtR.mjs';
 export { MatPseudoCheckbox } from './pseudo-checkbox-rb5Qj2XH.mjs';
@@ -23,7 +23,6 @@ import 'rxjs';
 import 'rxjs/operators';
 import '@angular/cdk/keycodes';
 import '@angular/cdk/private';
-import '@angular/common';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 

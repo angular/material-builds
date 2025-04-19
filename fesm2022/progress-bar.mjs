@@ -1,6 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, ChangeDetectorRef, Renderer2, EventEmitter, numberAttribute, Input, Output, ViewEncapsulation, ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { InjectionToken, inject, DOCUMENT, ElementRef, NgZone, ChangeDetectorRef, Renderer2, EventEmitter, numberAttribute, Input, Output, ViewEncapsulation, ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
 import { _animationsDisabled } from './animation-DYWs964N.mjs';
 import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import '@angular/cdk/layout';
