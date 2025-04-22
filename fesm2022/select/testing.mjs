@@ -1,6 +1,6 @@
 import { HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatFormFieldControlHarness } from '../form-field/testing/control.mjs';
-import { M as MatOptionHarness } from '../option-harness-BFcc-M_4.mjs';
+import { MatOptionHarness } from '../option-harness-D_dpAU04.mjs';
 import { MatOptgroupHarness } from '../core/testing.mjs';
 
 /** Harness for interacting with a mat-select in tests. */

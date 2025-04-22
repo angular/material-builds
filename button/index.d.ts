@@ -1,12 +1,12 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, NgZone, OnInit } from '@angular/core';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { M as MatRippleLoader } from '../ripple-loader.d-C3HznB6v.js';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import { M as MatRippleModule } from '../index.d-DG9eDM2-.js';
+import { ThemePalette } from '../palette.d-fF1us9u8.js';
+import { MatRippleLoader } from '../ripple-loader.d-Dc_OaMd1.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import { MatRippleModule } from '../index.d-DFBzZCgk.js';
 import '@angular/cdk/bidi';
-import '../ripple.d-BxTUZJt7.js';
+import '../ripple.d-ET2Lo6a_.js';
 import '@angular/cdk/platform';
 
 /** Object that can be used to configure the default options for the button component. */

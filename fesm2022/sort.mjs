@@ -1,11 +1,11 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, booleanAttribute, Directive, Optional, Inject, Input, Output, Injectable, SkipSelf, inject, ChangeDetectorRef, ElementRef, ANIMATION_MODULE_TYPE, signal, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, EventEmitter, booleanAttribute, Output, Input, Optional, Inject, Directive, SkipSelf, Injectable, inject, ChangeDetectorRef, ElementRef, ANIMATION_MODULE_TYPE, signal, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
 import { ReplaySubject, Subject, merge } from 'rxjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { _ as _StructuralStylesLoader } from './structural-styles-BQUT6wsL.mjs';
-import { M as MatCommonModule } from './common-module-WayjW0Pb.mjs';
+import { _StructuralStylesLoader } from './structural-styles-B2ekkpE5.mjs';
+import { MatCommonModule } from './common-module-DoCSSHRt.mjs';
 import '@angular/cdk/bidi';
 
 /** @docs-private */

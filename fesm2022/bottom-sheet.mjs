@@ -1,13 +1,13 @@
 import { CdkDialogContainer, Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { inject, ANIMATION_MODULE_TYPE, EventEmitter, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injectable, NgModule } from '@angular/core';
+import { inject, ANIMATION_MODULE_TYPE, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, Component, InjectionToken, Injectable, NgModule } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { M as MatCommonModule } from './common-module-WayjW0Pb.mjs';
+import { MatCommonModule } from './common-module-DoCSSHRt.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 

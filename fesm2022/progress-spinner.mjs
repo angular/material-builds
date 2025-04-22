@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ANIMATION_MODULE_TYPE, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ANIMATION_MODULE_TYPE, numberAttribute, Input, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { M as MatCommonModule } from './common-module-WayjW0Pb.mjs';
+import { MatCommonModule } from './common-module-DoCSSHRt.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 

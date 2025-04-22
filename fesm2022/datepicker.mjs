@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
-import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ANIMATION_MODULE_TYPE, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, Optional, SkipSelf, InjectionToken, ChangeDetectorRef, ViewChild, ANIMATION_MODULE_TYPE, ViewContainerRef, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
-import { D as DateAdapter, a as MAT_DATE_FORMATS } from './date-formats-K6TQue-Y.mjs';
+import { DateAdapter, MAT_DATE_FORMATS } from './date-formats-BQbO9F6H.mjs';
 import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceStringArray } from '@angular/cdk/coercion';
@@ -12,19 +12,19 @@ import { ComponentPortal, CdkPortalOutlet, TemplatePortal, PortalModule } from '
 import { NgClass, DOCUMENT } from '@angular/common';
 import { startWith, take, filter } from 'rxjs/operators';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
-import { _ as _StructuralStylesLoader } from './structural-styles-BQUT6wsL.mjs';
+import { _StructuralStylesLoader } from './structural-styles-B2ekkpE5.mjs';
 import { MatButton, MatButtonModule } from './button.mjs';
-import { M as MatIconButton } from './icon-button-ImoriYmd.mjs';
+import { MatIconButton } from './icon-button-BUs2uBU3.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
-import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-D1GvPuqO.mjs';
-import { h as MAT_FORM_FIELD, k as MatFormFieldControl } from './form-field-B4o2BB25.mjs';
-import { E as ErrorStateMatcher } from './error-options-Dm2JJUbF.mjs';
-import { _ as _ErrorStateTracker } from './error-state-Dtb1IHM-.mjs';
+import { MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-cp3A3zMa.mjs';
+import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-BPX7ZLIc.mjs';
+import { ErrorStateMatcher } from './error-options-BPhcAVoK.mjs';
+import { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
-import { M as MatCommonModule } from './common-module-WayjW0Pb.mjs';
-import './index-SYVYjXwK.mjs';
-import './ripple-BT3tzh6F.mjs';
-import './ripple-loader-Ce3DAhPW.mjs';
+import { MatCommonModule } from './common-module-DoCSSHRt.mjs';
+import './index-eRSoE0yr.mjs';
+import './ripple-BPguEKwi.mjs';
+import './ripple-loader-BiPcTQRh.mjs';
 import '@angular/cdk/observers/private';
 
 /** @docs-private */
@@ -1557,7 +1557,7 @@ class MatMultiYearView {
                 this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, isRtl ? -1 : 1);
                 break;
             case UP_ARROW:
-                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -yearsPerRow);
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -4);
                 break;
             case DOWN_ARROW:
                 this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, yearsPerRow);
@@ -1571,7 +1571,7 @@ class MatMultiYearView {
                     1);
                 break;
             case PAGE_UP:
-                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? -yearsPerPage * 10 : -yearsPerPage);
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? -24 * 10 : -24);
                 break;
             case PAGE_DOWN:
                 this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? yearsPerPage * 10 : yearsPerPage);
@@ -2122,7 +2122,7 @@ class MatCalendarHeader {
         this.calendar.activeDate =
             this.calendar.currentView == 'month'
                 ? this._dateAdapter.addCalendarMonths(this.calendar.activeDate, -1)
-                : this._dateAdapter.addCalendarYears(this.calendar.activeDate, this.calendar.currentView == 'year' ? -1 : -yearsPerPage);
+                : this._dateAdapter.addCalendarYears(this.calendar.activeDate, this.calendar.currentView == 'year' ? -1 : -24);
     }
     /** Handles user clicks on the next button. */
     nextClicked() {

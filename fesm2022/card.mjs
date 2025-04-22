@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Directive, NgModule } from '@angular/core';
-import { M as MatCommonModule } from './common-module-WayjW0Pb.mjs';
+import { InjectionToken, inject, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, Directive, NgModule } from '@angular/core';
+import { MatCommonModule } from './common-module-DoCSSHRt.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 

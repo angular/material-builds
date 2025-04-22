@@ -1,28 +1,28 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ViewContainerRef, Injector, ANIMATION_MODULE_TYPE, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
+import { InjectionToken, inject, ViewContainerRef, Injector, ANIMATION_MODULE_TYPE, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, ViewEncapsulation, ChangeDetectionStrategy, Component, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { _getEventTarget, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { TAB, ESCAPE, hasModifierKey, ENTER, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { ActiveDescendantKeyManager, _IdGenerator } from '@angular/cdk/a11y';
-import { D as DateAdapter, a as MAT_DATE_FORMATS } from './date-formats-K6TQue-Y.mjs';
-import { M as MatOption, c as MAT_OPTION_PARENT_COMPONENT } from './option-ChV6uQgD.mjs';
+import { DateAdapter, MAT_DATE_FORMATS } from './date-formats-BQbO9F6H.mjs';
+import { MatOption, MAT_OPTION_PARENT_COMPONENT } from './option-B6mQ8PwE.mjs';
 import { Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { h as MAT_FORM_FIELD } from './form-field-B4o2BB25.mjs';
-import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-D1GvPuqO.mjs';
-import { M as MatIconButton } from './icon-button-ImoriYmd.mjs';
+import { MAT_FORM_FIELD } from './form-field-BPX7ZLIc.mjs';
+import { MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-cp3A3zMa.mjs';
+import { MatIconButton } from './icon-button-BUs2uBU3.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import 'rxjs';
-import './ripple-BT3tzh6F.mjs';
+import './ripple-BPguEKwi.mjs';
 import '@angular/cdk/coercion';
 import '@angular/cdk/private';
-import './pseudo-checkbox-CJ7seqQH.mjs';
-import './structural-styles-BQUT6wsL.mjs';
+import './pseudo-checkbox-Dy35mUmj.mjs';
+import './structural-styles-B2ekkpE5.mjs';
 import '@angular/common';
 import 'rxjs/operators';
 import '@angular/cdk/observers/private';
-import './ripple-loader-Ce3DAhPW.mjs';
+import './ripple-loader-BiPcTQRh.mjs';
 
 /** Pattern that interval strings have to match. */
 const INTERVAL_PATTERN = /^(\d*\.?\d+)\s*(h|hour|hours|m|min|minute|minutes|s|second|seconds)?$/i;

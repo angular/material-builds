@@ -1,7 +1,7 @@
 import * as _angular_cdk_testing from '@angular/cdk/testing';
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 import { MatSelectHarness } from '../../select/testing/index.js';
-import '../../option-harness.d-IqsW95GR.js';
+import '../../option-harness.d-BpYClwei.js';
 import '../../core/testing/index.js';
 import '../../form-field/testing/control/index.js';
 

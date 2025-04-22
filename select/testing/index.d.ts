@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { O as OptionHarnessFilters, M as MatOptionHarness } from '../../option-harness.d-IqsW95GR.js';
+import { OptionHarnessFilters, MatOptionHarness } from '../../option-harness.d-BpYClwei.js';
 import { OptgroupHarnessFilters, MatOptgroupHarness } from '../../core/testing/index.js';
 import { MatFormFieldControlHarness } from '../../form-field/testing/control/index.js';
 

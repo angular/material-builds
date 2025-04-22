@@ -6,10 +6,10 @@ import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, ANIMATION_MODULE_TYPE, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Renderer2, EventEmitter, Injector, afterNextRender, ANIMATION_MODULE_TYPE, QueryList, ViewEncapsulation, ChangeDetectionStrategy, Component, ViewChild, Output, Input, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
-import { M as MatCommonModule } from './common-module-WayjW0Pb.mjs';
+import { MatCommonModule } from './common-module-DoCSSHRt.mjs';
 
 /**
  * Throws an exception when two MatDrawer are matching the same position.

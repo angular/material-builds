@@ -1,9 +1,9 @@
 import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { inject, NgZone, ElementRef, Renderer2, ANIMATION_MODULE_TYPE, booleanAttribute, ChangeDetectionStrategy, ViewEncapsulation, Component, Input, Directive, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
-import { M as MatCommonModule } from './common-module-WayjW0Pb.mjs';
+import { MatCommonModule } from './common-module-DoCSSHRt.mjs';
 import '@angular/cdk/bidi';
 
 const BADGE_CONTENT_CLASS = 'mat-badge-content';
