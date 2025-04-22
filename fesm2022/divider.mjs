@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
+import { Input, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { M as MatCommonModule } from './common-module-DZl8g1kc.mjs';
+import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 

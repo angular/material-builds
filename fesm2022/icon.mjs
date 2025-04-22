@@ -1,10 +1,10 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, DOCUMENT, ElementRef, ErrorHandler, HostAttributeToken, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
+import { InjectionToken, inject, DOCUMENT, ElementRef, ErrorHandler, HostAttributeToken, booleanAttribute, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { M as MatIconRegistry } from './icon-registry-Bk5cM8Z5.mjs';
-export { d as ICON_REGISTRY_PROVIDER, I as ICON_REGISTRY_PROVIDER_FACTORY, c as getMatIconFailedToSanitizeLiteralError, b as getMatIconFailedToSanitizeUrlError, g as getMatIconNameNotFoundError, a as getMatIconNoHttpProviderError } from './icon-registry-Bk5cM8Z5.mjs';
-import { M as MatCommonModule } from './common-module-DZl8g1kc.mjs';
+import { MatIconRegistry } from './icon-registry-Fxi0B_pI.mjs';
+export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './icon-registry-Fxi0B_pI.mjs';
+import { MatCommonModule } from './common-module-BTLyTce6.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
 import '@angular/cdk/a11y';

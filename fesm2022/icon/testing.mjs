@@ -2,7 +2,7 @@ import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import * as i0 from '@angular/core';
 import { Injectable, NgModule } from '@angular/core';
 import { of } from 'rxjs';
-import { M as MatIconRegistry } from '../icon-registry-Bk5cM8Z5.mjs';
+import { MatIconRegistry } from '../icon-registry-Fxi0B_pI.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
 import 'rxjs/operators';

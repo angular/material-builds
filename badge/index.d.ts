@@ -1,10 +1,10 @@
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import { M as MatBadge, _ as _MatBadgeStyleLoader } from '../badge.d-D0iThVg0.js';
-export { a as MatBadgePosition, b as MatBadgeSize } from '../badge.d-D0iThVg0.js';
+import { MatCommonModule } from '../common-module.d-CUT8AqiB.js';
+import { MatBadge, _MatBadgeStyleLoader } from '../badge.d-BUeRGv1E.js';
+export { MatBadgePosition, MatBadgeSize } from '../badge.d-BUeRGv1E.js';
 import '@angular/cdk/bidi';
-import '../palette.d-BSSFKjO6.js';
+import '../palette.d-fF1us9u8.js';
 
 declare class MatBadgeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadgeModule, never>;
