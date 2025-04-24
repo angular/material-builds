@@ -2,9 +2,9 @@ import { ScrollStrategy, ComponentType } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
 import { ViewContainerRef, Injector, OnDestroy, EventEmitter, ComponentRef, InjectionToken, TemplateRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
+import { DialogConfig, CdkDialogContainer, DialogRef, Dialog } from '@angular/cdk/dialog';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Observable, Subject } from 'rxjs';
-import { CdkDialogContainer, DialogRef, Dialog } from '@angular/cdk/dialog';
 import { ComponentPortal } from '@angular/cdk/portal';
 
 /** Options for where to set focus to automatically on dialog open */
@@ -50,6 +50,8 @@ declare class MatDialogConfig<D = any> {
     backdropClass?: string | string[];
     /** Whether the user can use escape or clicking on the backdrop to close the modal. */
     disableClose?: boolean;
+    /** Function used to determine whether the dialog is allowed to close. */
+    closePredicate?: <Result = unknown, Component = unknown, Config extends DialogConfig = MatDialogConfig>(result: Result | undefined, config: Config, componentInstance: Component | null) => boolean;
     /** Width of the dialog. */
     width?: string;
     /** Height of the dialog. */
@@ -187,6 +189,7 @@ declare enum MatDialogState {
  */
 declare class MatDialogRef<T, R = any> {
     private _ref;
+    private _config;
     _containerInstance: MatDialogContainer;
     /** The instance of component opened into the dialog. */
     componentInstance: T;
@@ -211,7 +214,7 @@ declare class MatDialogRef<T, R = any> {
     private _state;
     /** Interaction that caused the dialog to close. */
     private _closeInteractionType;
-    constructor(_ref: DialogRef<R, T>, config: MatDialogConfig, _containerInstance: MatDialogContainer);
+    constructor(_ref: DialogRef<R, T>, _config: MatDialogConfig, _containerInstance: MatDialogContainer);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.

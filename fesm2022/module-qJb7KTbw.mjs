@@ -41,6 +41,8 @@ class MatDialogConfig {
     backdropClass = '';
     /** Whether the user can use escape or clicking on the backdrop to close the modal. */
     disableClose = false;
+    /** Function used to determine whether the dialog is allowed to close. */
+    closePredicate;
     /** Width of the dialog. */
     width = '';
     /** Height of the dialog. */
@@ -337,6 +339,7 @@ var MatDialogState;
  */
 class MatDialogRef {
     _ref;
+    _config;
     _containerInstance;
     /** The instance of component opened into the dialog. */
     componentInstance;
@@ -365,10 +368,11 @@ class MatDialogRef {
     // because it'll be called with two arguments by things like `MatDialogClose`.
     /** Interaction that caused the dialog to close. */
     _closeInteractionType;
-    constructor(_ref, config, _containerInstance) {
+    constructor(_ref, _config, _containerInstance) {
         this._ref = _ref;
+        this._config = _config;
         this._containerInstance = _containerInstance;
-        this.disableClose = config.disableClose;
+        this.disableClose = _config.disableClose;
         this.id = _ref.id;
         // Used to target panels specifically tied to dialogs.
         _ref.addPanelClass('mat-mdc-dialog-panel');
@@ -403,6 +407,10 @@ class MatDialogRef {
      * @param dialogResult Optional result to return to the dialog opener.
      */
     close(dialogResult) {
+        const closePredicate = this._config.closePredicate;
+        if (closePredicate && !closePredicate(dialogResult, this._config, this.componentInstance)) {
+            return;
+        }
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
         this._containerInstance._animationStateChanged
@@ -580,6 +588,8 @@ class MatDialog {
             positionStrategy: this._overlay.position().global().centerHorizontally().centerVertically(),
             // Disable closing since we need to sync it up to the animation ourselves.
             disableClose: true,
+            // Closing is tied to our animation so the close predicate has to be implemented separately.
+            closePredicate: undefined,
             // Disable closing on destroy, because this service cleans up its open dialogs as well.
             // We want to do the cleanup here, rather than the CDK service, because the CDK destroys
             // the dialogs immediately whereas we want it to wait for the animations to finish.
@@ -876,4 +886,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MatDialogActions as M, _closeDialogVia as _, MatDialogClose as a, MatDialogTitle as b, MatDialogContent as c, MatDialogContainer as d, MAT_DIALOG_DATA as e, MAT_DIALOG_DEFAULT_OPTIONS as f, MAT_DIALOG_SCROLL_STRATEGY as g, MatDialog as h, MatDialogConfig as i, MatDialogState as j, MatDialogRef as k, MatDialogModule as l };
-//# sourceMappingURL=module-BfHrf4Ok.mjs.map
+//# sourceMappingURL=module-qJb7KTbw.mjs.map
