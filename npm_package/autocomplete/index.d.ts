@@ -264,6 +264,8 @@ declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewI
     private _pendingAutoselectedOption;
     /** Stream of keyboard events that can close the panel. */
     private readonly _closeKeyEventStream;
+    /** Classes to apply to the panel. Exposed as a public property for internal usage. */
+    readonly _overlayPanelClass: string[];
     /**
      * Event handler for when the window is blurred. Needs to be an
      * arrow function in order to preserve the context.

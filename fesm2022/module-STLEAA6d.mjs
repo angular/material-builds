@@ -102,6 +102,7 @@ class MatTooltip {
     });
     _overlayRef;
     _tooltipInstance;
+    _overlayPanelClass; // Used for styling internally.
     _portal;
     _position = 'below';
     _positionAtOrigin = false;
@@ -348,6 +349,7 @@ class MatTooltip {
             .get(ScrollDispatcher)
             .getAncestorScrollContainers(this._elementRef);
         const overlay = this._injector.get(Overlay);
+        const panelClass = `${this._cssClassPrefix}-${PANEL_CLASS}`;
         // Create connected position strategy that listens for scroll events to reposition.
         const strategy = overlay
             .position()
@@ -369,7 +371,7 @@ class MatTooltip {
         this._overlayRef = overlay.create({
             direction: this._dir,
             positionStrategy: strategy,
-            panelClass: `${this._cssClassPrefix}-${PANEL_CLASS}`,
+            panelClass: this._overlayPanelClass ? [...this._overlayPanelClass, panelClass] : panelClass,
             scrollStrategy: this._injector.get(MAT_TOOLTIP_SCROLL_STRATEGY)(),
             disableAnimations: this._animationsDisabled,
         });
@@ -967,4 +969,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MAT_TOOLTIP_SCROLL_STRATEGY as M, SCROLL_THROTTLE_MS as S, TOOLTIP_PANEL_CLASS as T, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY as a, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER as b, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY as c, MAT_TOOLTIP_DEFAULT_OPTIONS as d, MatTooltip as e, TooltipComponent as f, getMatTooltipInvalidPositionError as g, MatTooltipModule as h };
-//# sourceMappingURL=module-B8kY0JtB.mjs.map
+//# sourceMappingURL=module-STLEAA6d.mjs.map

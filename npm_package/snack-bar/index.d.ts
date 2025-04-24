@@ -57,7 +57,7 @@ declare class MatSnackBarConfig<D = any> {
  */
 declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy {
     private _ngZone;
-    private _elementRef;
+    readonly _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _platform;
     protected _animationsDisabled: boolean;

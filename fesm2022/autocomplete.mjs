@@ -12,13 +12,13 @@ import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, ESCAPE, ENTER, TAB, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { coerceArray } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
 import { h as MAT_FORM_FIELD } from './form-field-DpN-CJrJ.mjs';
 import { M as MatOptionModule } from './index-BHJ4tVIe.mjs';
 import { M as MatCommonModule } from './common-module-DZl8g1kc.mjs';
 import './ripple-CuyVtN3V.mjs';
-import '@angular/cdk/coercion';
 import '@angular/cdk/private';
 import './pseudo-checkbox-BFGIaGxz.mjs';
 import './structural-styles-CasigI3l.mjs';
@@ -413,6 +413,8 @@ class MatAutocompleteTrigger {
     _pendingAutoselectedOption;
     /** Stream of keyboard events that can close the panel. */
     _closeKeyEventStream = new Subject();
+    /** Classes to apply to the panel. Exposed as a public property for internal usage. */
+    _overlayPanelClass = coerceArray(this._defaults?.overlayPanelClass || []);
     /**
      * Event handler for when the window is blurred. Needs to be an
      * arrow function in order to preserve the context.
@@ -1000,7 +1002,7 @@ class MatAutocompleteTrigger {
             direction: this._dir ?? undefined,
             hasBackdrop: this._defaults?.hasBackdrop,
             backdropClass: this._defaults?.backdropClass,
-            panelClass: this._defaults?.overlayPanelClass,
+            panelClass: this._overlayPanelClass,
             disableAnimations: this._animationsDisabled,
         });
     }

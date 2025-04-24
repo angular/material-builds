@@ -103,6 +103,7 @@ declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
     _tooltipInstance: TooltipComponent | null;
+    _overlayPanelClass: string[] | undefined;
     private _portal;
     private _position;
     private _positionAtOrigin;
