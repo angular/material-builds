@@ -3,7 +3,7 @@ import { InjectionToken } from '@angular/core';
 import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
 import '@angular/cdk/bidi';
 
-type MatCardAppearance = 'outlined' | 'raised';
+type MatCardAppearance = 'outlined' | 'raised' | 'filled';
 /** Object that can be used to configure the default options for the card module. */
 interface MatCardConfig {
     /** Default appearance for cards. */
