@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = default_1;
 const schematics_1 = require("@angular-devkit/schematics");
 const schematics_2 = require("@angular/cdk/schematics");
-const workspace_1 = require("@schematics/angular/utility/workspace");
+const utility_1 = require("@schematics/angular/utility");
 const workspace_models_1 = require("@schematics/angular/utility/workspace-models");
 const material_fonts_1 = require("./fonts/material-fonts");
 const theming_1 = require("./theming/theming");
@@ -21,14 +21,14 @@ const theming_1 = require("./theming/theming");
  */
 function default_1(options) {
     return async (host, context) => {
-        const workspace = await (0, workspace_1.getWorkspace)(host);
+        const workspace = await (0, utility_1.readWorkspace)(host);
         const project = (0, schematics_2.getProjectFromWorkspace)(workspace, options.project);
         if (project.extensions['projectType'] === workspace_models_1.ProjectType.Application) {
             return (0, schematics_1.chain)([
                 (0, theming_1.addThemeToAppStyles)(options),
                 (0, material_fonts_1.addFontsToIndex)(options),
                 addMaterialAppStyles(options),
-                (0, theming_1.addTypographyClass)(options),
+                options.typography ? (0, theming_1.addTypographyClass)(options) : (0, schematics_1.noop)(),
             ]);
         }
         context.logger.warn('Angular Material has been set up in your workspace. There is no additional setup ' +
@@ -44,7 +44,7 @@ function default_1(options) {
  */
 function addMaterialAppStyles(options) {
     return async (host, context) => {
-        const workspace = await (0, workspace_1.getWorkspace)(host);
+        const workspace = await (0, utility_1.readWorkspace)(host);
         const project = (0, schematics_2.getProjectFromWorkspace)(workspace, options.project);
         const styleFilePath = (0, schematics_2.getProjectStyleFile)(project);
         const logger = context.logger;

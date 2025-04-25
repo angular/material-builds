@@ -13,7 +13,7 @@ const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
 const schematics_2 = require("@angular/cdk/schematics");
 const change_1 = require("@schematics/angular/utility/change");
-const workspace_1 = require("@schematics/angular/utility/workspace");
+const utility_1 = require("@schematics/angular/utility");
 const path_1 = require("path");
 const create_custom_theme_1 = require("./create-custom-theme");
 /** Path segment that can be found in paths that refer to a prebuilt theme. */
@@ -32,15 +32,13 @@ function addThemeToAppStyles(options) {
 /** Adds the global typography class to the body element. */
 function addTypographyClass(options) {
     return async (host) => {
-        const workspace = await (0, workspace_1.getWorkspace)(host);
+        const workspace = await (0, utility_1.readWorkspace)(host);
         const project = (0, schematics_2.getProjectFromWorkspace)(workspace, options.project);
         const projectIndexFiles = (0, schematics_2.getProjectIndexFiles)(project);
         if (!projectIndexFiles.length) {
             throw new schematics_1.SchematicsException('No project index HTML file could be found.');
         }
-        if (options.typography) {
-            projectIndexFiles.forEach(path => (0, schematics_2.addBodyClass)(host, path, 'mat-typography'));
-        }
+        projectIndexFiles.forEach(path => (0, schematics_2.addBodyClass)(host, path, 'mat-typography'));
     };
 }
 /**
@@ -48,7 +46,7 @@ function addTypographyClass(options) {
  * Scss file for the custom theme will be created.
  */
 async function insertCustomTheme(projectName, host, logger) {
-    const workspace = await (0, workspace_1.getWorkspace)(host);
+    const workspace = await (0, utility_1.readWorkspace)(host);
     const project = (0, schematics_2.getProjectFromWorkspace)(workspace, projectName);
     const stylesPath = (0, schematics_2.getProjectStyleFile)(project, 'scss');
     const themeContent = (0, create_custom_theme_1.createCustomTheme)(projectName);
@@ -84,7 +82,7 @@ function insertPrebuiltTheme(project, theme, logger) {
 }
 /** Adds a theming style entry to the given project target options. */
 function addThemeStyleToTarget(projectName, targetName, assetPath, logger) {
-    return (0, workspace_1.updateWorkspace)(workspace => {
+    return (0, utility_1.updateWorkspace)(workspace => {
         const project = (0, schematics_2.getProjectFromWorkspace)(workspace, projectName);
         // Do not update the builder options in case the target does not use the default CLI builder.
         if (!validateDefaultTargetBuilder(project, targetName, logger)) {

@@ -10,11 +10,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.addFontsToIndex = addFontsToIndex;
 const schematics_1 = require("@angular-devkit/schematics");
 const schematics_2 = require("@angular/cdk/schematics");
-const workspace_1 = require("@schematics/angular/utility/workspace");
+const utility_1 = require("@schematics/angular/utility");
 /** Adds the Material Design fonts to the index HTML file. */
 function addFontsToIndex(options) {
     return async (host) => {
-        const workspace = await (0, workspace_1.getWorkspace)(host);
+        const workspace = await (0, utility_1.readWorkspace)(host);
         const project = (0, schematics_2.getProjectFromWorkspace)(workspace, options.project);
         const projectIndexFiles = (0, schematics_2.getProjectIndexFiles)(project);
         if (!projectIndexFiles.length) {
