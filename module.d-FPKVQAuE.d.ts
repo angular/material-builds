@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ChangeDetectorRef, ElementRef, QueryList, EventEmitter, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
-import { ScrollStrategy, Overlay, ConnectedPosition, CdkOverlayOrigin, CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { ScrollStrategy, ConnectedPosition, CdkOverlayOrigin, CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { M as MatOptionModule } from './index.d-CikM2bbf.js';
 import { M as MatCommonModule } from './common-module.d-C8xzHJDr.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
@@ -23,7 +23,7 @@ declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
+declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(_overlay: unknown): () => ScrollStrategy;
 /** Object that can be used to configure the default options for the select module. */
 interface MatSelectConfig {
     /** Whether option centering should be disabled. */
@@ -54,7 +54,7 @@ declare const MAT_SELECT_CONFIG: InjectionToken<MatSelectConfig>;
  */
 declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
+    deps: any[];
     useFactory: typeof MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
 };
 /**

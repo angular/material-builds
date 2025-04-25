@@ -160,7 +160,6 @@ declare const MAT_TIMEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrateg
  * Intended to be used together with `MatTimepickerInput`.
  */
 declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
-    private _overlay;
     private _dir;
     private _viewContainerRef;
     private _injector;

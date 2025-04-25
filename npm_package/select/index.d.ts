@@ -1,4 +1,4 @@
-export { d as MAT_SELECT_CONFIG, a as MAT_SELECT_SCROLL_STRATEGY, e as MAT_SELECT_SCROLL_STRATEGY_PROVIDER, b as MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, f as MAT_SELECT_TRIGGER, h as MatSelect, g as MatSelectChange, c as MatSelectConfig, M as MatSelectModule, i as MatSelectTrigger } from '../module.d-Rmph6oa6.js';
+export { d as MAT_SELECT_CONFIG, a as MAT_SELECT_SCROLL_STRATEGY, e as MAT_SELECT_SCROLL_STRATEGY_PROVIDER, b as MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, f as MAT_SELECT_TRIGGER, h as MatSelect, g as MatSelectChange, c as MatSelectConfig, M as MatSelectModule, i as MatSelectTrigger } from '../module.d-FPKVQAuE.js';
 export { a as MatOptgroup, M as MatOption } from '../option.d-BVGX3edu.js';
 export { M as MatLabel } from '../module.d-DgVhly5v.js';
 export { b as MatError, M as MatFormField, a as MatHint, c as MatPrefix, d as MatSuffix } from '../form-field.d-BPtgp_nJ.js';

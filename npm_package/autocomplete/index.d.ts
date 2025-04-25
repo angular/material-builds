@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnDestroy, TemplateRef, ElementRef, QueryList, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
-import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
+import { ScrollStrategy } from '@angular/cdk/overlay';
 import { M as MatOptionModule } from '../index.d-CikM2bbf.js';
 import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
 import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
@@ -199,7 +199,7 @@ declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrat
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
+declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(_overlay: unknown): () => ScrollStrategy;
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
@@ -207,14 +207,14 @@ declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () 
  */
 declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
+    deps: any[];
     useFactory: typeof MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY;
 };
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
 declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewInit, OnChanges, OnDestroy {
     private _environmentInjector;
     private _element;
-    private _overlay;
+    private _injector;
     private _viewContainerRef;
     private _zone;
     private _changeDetectorRef;

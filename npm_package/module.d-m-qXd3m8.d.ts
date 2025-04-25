@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import * as i2 from '@angular/cdk/overlay';
-import { ScrollStrategy, Overlay, OverlayRef, ConnectedPosition, OriginConnectionPosition, OverlayConnectionPosition } from '@angular/cdk/overlay';
+import { ScrollStrategy, OverlayRef, ConnectedPosition, OriginConnectionPosition, OverlayConnectionPosition } from '@angular/cdk/overlay';
 import { M as MatCommonModule } from './common-module.d-C8xzHJDr.js';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
@@ -32,7 +32,7 @@ declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
+declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(_overlay: unknown): () => ScrollStrategy;
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
@@ -40,7 +40,7 @@ declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => Sc
  */
 declare const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
+    deps: any[];
     useFactory: typeof MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY;
 };
 /**

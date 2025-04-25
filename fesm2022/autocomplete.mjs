@@ -1,9 +1,9 @@
 import { c as MAT_OPTION_PARENT_COMPONENT, M as MatOption, d as MAT_OPTGROUP, e as MatOptionSelectionChange, _ as _countGroupLabelsBeforeOption, b as _getOptionScrollPosition } from './option-MOeehkAg.mjs';
 export { a as MatOptgroup } from './option-MOeehkAg.mjs';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, Injector, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { createRepositionScrollStrategy, createOverlayRef, OverlayConfig, createFlexibleConnectedPositionStrategy, OverlayModule } from '@angular/cdk/overlay';
 import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { Platform, _getFocusedElementPierceShadowDom, _getEventTarget } from '@angular/cdk/platform';
 import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
@@ -337,8 +337,8 @@ function getMatAutocompleteMissingPanelError() {
 const MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy', {
     providedIn: 'root',
     factory: () => {
-        const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition();
+        const injector = inject(Injector);
+        return () => createRepositionScrollStrategy(injector);
     },
 });
 /**
@@ -346,8 +346,9 @@ const MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-sc
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
+function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(_overlay) {
+    const injector = inject(Injector);
+    return () => createRepositionScrollStrategy(injector);
 }
 /**
  * @docs-private
@@ -356,14 +357,14 @@ function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay) {
  */
 const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [],
     useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
 };
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
 class MatAutocompleteTrigger {
     _environmentInjector = inject(EnvironmentInjector);
     _element = inject(ElementRef);
-    _overlay = inject(Overlay);
+    _injector = inject(Injector);
     _viewContainerRef = inject(ViewContainerRef);
     _zone = inject(NgZone);
     _changeDetectorRef = inject(ChangeDetectorRef);
@@ -896,7 +897,7 @@ class MatAutocompleteTrigger {
             this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef, {
                 id: this._formField?.getLabelId(),
             });
-            overlayRef = this._overlay.create(this._getOverlayConfig());
+            overlayRef = createOverlayRef(this._injector, this._getOverlayConfig());
             this._overlayRef = overlayRef;
             this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
                 if (this.panelOpen && overlayRef) {
@@ -1008,9 +1009,7 @@ class MatAutocompleteTrigger {
     }
     _getOverlayPosition() {
         // Set default Overlay Position
-        const strategy = this._overlay
-            .position()
-            .flexibleConnectedTo(this._getConnectedElement())
+        const strategy = createFlexibleConnectedPositionStrategy(this._injector, this._getConnectedElement())
             .withFlexibleDimensions(false)
             .withPush(false);
         this._setStrategyPositions(strategy);

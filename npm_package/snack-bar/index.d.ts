@@ -249,7 +249,6 @@ declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<an
  * Service to dispatch Material Design snack bar messages.
  */
 declare class MatSnackBar implements OnDestroy {
-    private _overlay;
     private _live;
     private _injector;
     private _breakpointObserver;

@@ -152,7 +152,7 @@ declare const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS: InjectionToken<MatBottomSheetCon
  * Service to trigger Material Design bottom sheets.
  */
 declare class MatBottomSheet implements OnDestroy {
-    private _overlay;
+    private _injector;
     private _parentBottomSheet;
     private _animationsDisabled;
     private _defaultOptions;

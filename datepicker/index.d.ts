@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { OnChanges, OnDestroy, AfterViewChecked, EventEmitter, SimpleChanges, FactoryProvider, AfterContentInit, ChangeDetectorRef, AfterViewInit, ElementRef, InjectionToken, OnInit, DoCheck, TemplateRef } from '@angular/core';
 import { MatButton, MatButtonModule } from '../button/index.js';
 import * as i2 from '@angular/cdk/overlay';
-import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
+import { ScrollStrategy } from '@angular/cdk/overlay';
 import * as i1 from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i3 from '@angular/cdk/portal';
@@ -1018,7 +1018,7 @@ declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrateg
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-declare function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
+declare function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(_overlay: unknown): () => ScrollStrategy;
 /** Possible positions for the datepicker dropdown along the X axis. */
 type DatepickerDropdownPositionX = 'start' | 'end';
 /** Possible positions for the datepicker dropdown along the Y axis. */
@@ -1030,7 +1030,7 @@ type DatepickerDropdownPositionY = 'above' | 'below';
  */
 declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
+    deps: any[];
     useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 };
 /**
@@ -1150,7 +1150,7 @@ interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = ExtractDa
 }
 /** Base class for a datepicker. */
 declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> implements MatDatepickerPanel<C, S, D>, OnDestroy, OnChanges {
-    private _overlay;
+    private _injector;
     private _viewContainerRef;
     private _dateAdapter;
     private _dir;
@@ -1245,7 +1245,6 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     datepickerInput: C;
     /** Emits when the datepicker's state changes. */
     readonly stateChanges: Subject<void>;
-    private _injector;
     private readonly _changeDetectorRef;
     constructor(...args: unknown[]);
     ngOnChanges(changes: SimpleChanges): void;

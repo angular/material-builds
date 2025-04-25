@@ -6,7 +6,7 @@ import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angula
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
-import { Overlay, FlexibleConnectedPositionStrategy, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { createRepositionScrollStrategy, FlexibleConnectedPositionStrategy, createOverlayRef, OverlayConfig, createBlockScrollStrategy, createGlobalPositionStrategy, createFlexibleConnectedPositionStrategy, OverlayModule } from '@angular/cdk/overlay';
 import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { ComponentPortal, CdkPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { startWith, take, filter } from 'rxjs/operators';
@@ -2476,8 +2476,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
 const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy', {
     providedIn: 'root',
     factory: () => {
-        const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition();
+        const injector = inject(Injector);
+        return () => createRepositionScrollStrategy(injector);
     },
 });
 /**
@@ -2485,8 +2485,9 @@ const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
+function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(_overlay) {
+    const injector = inject(Injector);
+    return () => createRepositionScrollStrategy(injector);
 }
 /**
  * @docs-private
@@ -2495,7 +2496,7 @@ function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
  */
 const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [],
     useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
 };
 /**
@@ -2675,7 +2676,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
             }] } });
 /** Base class for a datepicker. */
 class MatDatepickerBase {
-    _overlay = inject(Overlay);
+    _injector = inject(Injector);
     _viewContainerRef = inject(ViewContainerRef);
     _dateAdapter = inject(DateAdapter, { optional: true });
     _dir = inject(Directionality, { optional: true });
@@ -2808,7 +2809,6 @@ class MatDatepickerBase {
     datepickerInput;
     /** Emits when the datepicker's state changes. */
     stateChanges = new Subject();
-    _injector = inject(Injector);
     _changeDetectorRef = inject(ChangeDetectorRef);
     constructor() {
         if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
@@ -2966,7 +2966,7 @@ class MatDatepickerBase {
         this._destroyOverlay();
         const isDialog = this.touchUi;
         const portal = new ComponentPortal(MatDatepickerContent, this._viewContainerRef);
-        const overlayRef = (this._overlayRef = this._overlay.create(new OverlayConfig({
+        const overlayRef = (this._overlayRef = createOverlayRef(this._injector, new OverlayConfig({
             positionStrategy: isDialog ? this._getDialogStrategy() : this._getDropdownStrategy(),
             hasBackdrop: true,
             backdropClass: [
@@ -2974,7 +2974,9 @@ class MatDatepickerBase {
                 this._backdropHarnessClass,
             ],
             direction: this._dir || 'ltr',
-            scrollStrategy: isDialog ? this._overlay.scrollStrategies.block() : this._scrollStrategy(),
+            scrollStrategy: isDialog
+                ? createBlockScrollStrategy(this._injector)
+                : this._scrollStrategy(),
             panelClass: `mat-datepicker-${isDialog ? 'dialog' : 'popup'}`,
             disableAnimations: this._animationsDisabled,
         })));
@@ -3017,13 +3019,11 @@ class MatDatepickerBase {
     }
     /** Gets a position strategy that will open the calendar as a dropdown. */
     _getDialogStrategy() {
-        return this._overlay.position().global().centerHorizontally().centerVertically();
+        return createGlobalPositionStrategy(this._injector).centerHorizontally().centerVertically();
     }
     /** Gets a position strategy that will open the calendar as a dropdown. */
     _getDropdownStrategy() {
-        const strategy = this._overlay
-            .position()
-            .flexibleConnectedTo(this.datepickerInput.getConnectedOverlayOrigin())
+        const strategy = createFlexibleConnectedPositionStrategy(this._injector, this.datepickerInput.getConnectedOverlayOrigin())
             .withTransformOriginOn('.mat-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)

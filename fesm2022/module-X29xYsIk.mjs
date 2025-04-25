@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, Injector, ViewContainerRef, afterNextRender, DOCUMENT, Directive, Input, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, Injector, ElementRef, NgZone, ViewContainerRef, afterNextRender, DOCUMENT, Directive, Input, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
-import { Overlay, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
+import { createRepositionScrollStrategy, ScrollDispatcher, createFlexibleConnectedPositionStrategy, createOverlayRef, OverlayModule } from '@angular/cdk/overlay';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
@@ -27,8 +27,8 @@ function getMatTooltipInvalidPositionError(position) {
 const MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy', {
     providedIn: 'root',
     factory: () => {
-        const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
+        const injector = inject(Injector);
+        return () => createRepositionScrollStrategy(injector, { scrollThrottle: SCROLL_THROTTLE_MS });
     },
 });
 /**
@@ -36,8 +36,9 @@ const MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strat
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
+function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(_overlay) {
+    const injector = inject(Injector);
+    return () => createRepositionScrollStrategy(injector, { scrollThrottle: SCROLL_THROTTLE_MS });
 }
 /**
  * @docs-private
@@ -46,7 +47,7 @@ function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay) {
  */
 const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 };
 /**
@@ -348,12 +349,9 @@ class MatTooltip {
         const scrollableAncestors = this._injector
             .get(ScrollDispatcher)
             .getAncestorScrollContainers(this._elementRef);
-        const overlay = this._injector.get(Overlay);
         const panelClass = `${this._cssClassPrefix}-${PANEL_CLASS}`;
         // Create connected position strategy that listens for scroll events to reposition.
-        const strategy = overlay
-            .position()
-            .flexibleConnectedTo(this.positionAtOrigin ? origin || this._elementRef : this._elementRef)
+        const strategy = createFlexibleConnectedPositionStrategy(this._injector, this.positionAtOrigin ? origin || this._elementRef : this._elementRef)
             .withTransformOriginOn(`.${this._cssClassPrefix}-tooltip`)
             .withFlexibleDimensions(false)
             .withViewportMargin(this._viewportMargin)
@@ -368,7 +366,7 @@ class MatTooltip {
                 }
             }
         });
-        this._overlayRef = overlay.create({
+        this._overlayRef = createOverlayRef(this._injector, {
             direction: this._dir,
             positionStrategy: strategy,
             panelClass: this._overlayPanelClass ? [...this._overlayPanelClass, panelClass] : panelClass,
@@ -969,4 +967,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MAT_TOOLTIP_SCROLL_STRATEGY as M, SCROLL_THROTTLE_MS as S, TOOLTIP_PANEL_CLASS as T, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY as a, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER as b, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY as c, MAT_TOOLTIP_DEFAULT_OPTIONS as d, MatTooltip as e, TooltipComponent as f, getMatTooltipInvalidPositionError as g, MatTooltipModule as h };
-//# sourceMappingURL=module-STLEAA6d.mjs.map
+//# sourceMappingURL=module-X29xYsIk.mjs.map

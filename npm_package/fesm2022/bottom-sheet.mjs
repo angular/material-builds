@@ -1,10 +1,10 @@
 import { CdkDialogContainer, Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { EventEmitter, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injectable, NgModule } from '@angular/core';
+import { EventEmitter, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injector, Injectable, NgModule } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
-import { Overlay } from '@angular/cdk/overlay';
+import { createBlockScrollStrategy, createGlobalPositionStrategy } from '@angular/cdk/overlay';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -275,7 +275,7 @@ const MAT_BOTTOM_SHEET_DEFAULT_OPTIONS = new InjectionToken('mat-bottom-sheet-de
  * Service to trigger Material Design bottom sheets.
  */
 class MatBottomSheet {
-    _overlay = inject(Overlay);
+    _injector = inject(Injector);
     _parentBottomSheet = inject(MatBottomSheet, { optional: true, skipSelf: true });
     _animationsDisabled = _animationsDisabled();
     _defaultOptions = inject(MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, {
@@ -308,8 +308,10 @@ class MatBottomSheet {
             closeOnOverlayDetachments: false,
             maxWidth: '100%',
             container: MatBottomSheetContainer,
-            scrollStrategy: _config.scrollStrategy || this._overlay.scrollStrategies.block(),
-            positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0'),
+            scrollStrategy: _config.scrollStrategy || createBlockScrollStrategy(this._injector),
+            positionStrategy: createGlobalPositionStrategy(this._injector)
+                .centerHorizontally()
+                .bottom('0'),
             disableAnimations: this._animationsDisabled,
             templateContext: () => ({ bottomSheetRef: ref }),
             providers: (cdkRef, _cdkConfig, container) => {

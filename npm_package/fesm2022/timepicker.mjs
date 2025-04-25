@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ViewContainerRef, Injector, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
+import { InjectionToken, inject, Injector, ViewContainerRef, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { Overlay } from '@angular/cdk/overlay';
+import { createRepositionScrollStrategy, createFlexibleConnectedPositionStrategy, createOverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { _getEventTarget, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { TAB, ESCAPE, hasModifierKey, ENTER, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
@@ -108,8 +108,8 @@ function validateAdapter(adapter, formats) {
 const MAT_TIMEPICKER_SCROLL_STRATEGY = new InjectionToken('MAT_TIMEPICKER_SCROLL_STRATEGY', {
     providedIn: 'root',
     factory: () => {
-        const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition();
+        const injector = inject(Injector);
+        return () => createRepositionScrollStrategy(injector);
     },
 });
 /**
@@ -117,7 +117,6 @@ const MAT_TIMEPICKER_SCROLL_STRATEGY = new InjectionToken('MAT_TIMEPICKER_SCROLL
  * Intended to be used together with `MatTimepickerInput`.
  */
 class MatTimepicker {
-    _overlay = inject(Overlay);
     _dir = inject(Directionality, { optional: true });
     _viewContainerRef = inject(ViewContainerRef);
     _injector = inject(Injector);
@@ -285,9 +284,7 @@ class MatTimepicker {
         if (this._overlayRef) {
             return this._overlayRef;
         }
-        const positionStrategy = this._overlay
-            .position()
-            .flexibleConnectedTo(this._input().getOverlayOrigin())
+        const positionStrategy = createFlexibleConnectedPositionStrategy(this._injector, this._input().getOverlayOrigin())
             .withFlexibleDimensions(false)
             .withPush(false)
             .withTransformOriginOn('.mat-timepicker-panel')
@@ -306,7 +303,7 @@ class MatTimepicker {
                 panelClass: 'mat-timepicker-above',
             },
         ]);
-        this._overlayRef = this._overlay.create({
+        this._overlayRef = createOverlayRef(this._injector, {
             positionStrategy,
             scrollStrategy: this._scrollStrategyFactory(),
             direction: this._dir || 'ltr',

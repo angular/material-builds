@@ -1,8 +1,8 @@
 import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular/cdk/dialog';
-import { Overlay, OverlayModule } from '@angular/cdk/overlay';
+import { createBlockScrollStrategy, createGlobalPositionStrategy, OverlayModule } from '@angular/cdk/overlay';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
-import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, InjectionToken, inject, Injectable, ElementRef, Directive, Input, NgModule } from '@angular/core';
+import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, InjectionToken, inject, Injector, Injectable, ElementRef, Directive, Input, NgModule } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
 import { Subject, merge, defer } from 'rxjs';
@@ -532,19 +532,19 @@ const MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-mdc-dialog-default-op
 const MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-mdc-dialog-scroll-strategy', {
     providedIn: 'root',
     factory: () => {
-        const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.block();
+        const injector = inject(Injector);
+        return () => createBlockScrollStrategy(injector);
     },
 });
 /**
  * Service to open Material Design modal dialogs.
  */
 class MatDialog {
-    _overlay = inject(Overlay);
     _defaultOptions = inject(MAT_DIALOG_DEFAULT_OPTIONS, { optional: true });
     _scrollStrategy = inject(MAT_DIALOG_SCROLL_STRATEGY);
     _parentDialog = inject(MatDialog, { optional: true, skipSelf: true });
     _idGenerator = inject(_IdGenerator);
+    _injector = inject(Injector);
     _dialog = inject(Dialog);
     _animationsDisabled = _animationsDisabled();
     _openDialogsAtThisLevel = [];
@@ -585,7 +585,9 @@ class MatDialog {
         config.scrollStrategy = config.scrollStrategy || this._scrollStrategy();
         const cdkRef = this._dialog.open(componentOrTemplateRef, {
             ...config,
-            positionStrategy: this._overlay.position().global().centerHorizontally().centerVertically(),
+            positionStrategy: createGlobalPositionStrategy(this._injector)
+                .centerHorizontally()
+                .centerVertically(),
             // Disable closing since we need to sync it up to the animation ourselves.
             disableClose: true,
             // Closing is tied to our animation so the close predicate has to be implemented separately.
@@ -886,4 +888,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MatDialogActions as M, _closeDialogVia as _, MatDialogClose as a, MatDialogTitle as b, MatDialogContent as c, MatDialogContainer as d, MAT_DIALOG_DATA as e, MAT_DIALOG_DEFAULT_OPTIONS as f, MAT_DIALOG_SCROLL_STRATEGY as g, MatDialog as h, MatDialogConfig as i, MatDialogState as j, MatDialogRef as k, MatDialogModule as l };
-//# sourceMappingURL=module-qJb7KTbw.mjs.map
+//# sourceMappingURL=module-D-cNfopD.mjs.map

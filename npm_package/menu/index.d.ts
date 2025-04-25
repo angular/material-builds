@@ -4,7 +4,7 @@ import { FocusOrigin, FocusableOption } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
 import { Subject, Observable } from 'rxjs';
 import * as i2 from '@angular/cdk/overlay';
-import { ScrollStrategy, Overlay } from '@angular/cdk/overlay';
+import { ScrollStrategy } from '@angular/cdk/overlay';
 import { M as MatRippleModule } from '../index.d-C5neTPvr.js';
 import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
 import * as i5 from '@angular/cdk/scrolling';
@@ -309,7 +309,7 @@ declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
+declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(_overlay: unknown): () => ScrollStrategy;
 /**
  * @docs-private
  * @deprecated No longer used, will be removed.
@@ -317,7 +317,7 @@ declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => Scrol
  */
 declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
+    deps: any[];
     useFactory: typeof MAT_MENU_SCROLL_STRATEGY_FACTORY;
 };
 /**
@@ -328,13 +328,13 @@ declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
 declare const MENU_PANEL_TOP_PADDING = 8;
 /** Directive applied to an element that should trigger a `mat-menu`. */
 declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
-    private _overlay;
     private _element;
     private _viewContainerRef;
     private _menuItemInstance;
     private _dir;
     private _focusMonitor;
     private _ngZone;
+    private _injector;
     private _scrollStrategy;
     private _changeDetectorRef;
     private _animationsDisabled;

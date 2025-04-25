@@ -1,6 +1,6 @@
-import { Overlay, CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
+import { createRepositionScrollStrategy, CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, Renderer2, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, Injector, ChangeDetectorRef, ElementRef, Renderer2, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { _IdGenerator, LiveAnnouncer, removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -51,8 +51,8 @@ function getMatSelectNonFunctionValueError() {
 const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strategy', {
     providedIn: 'root',
     factory: () => {
-        const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition();
+        const injector = inject(Injector);
+        return () => createRepositionScrollStrategy(injector);
     },
 });
 /**
@@ -60,8 +60,9 @@ const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strateg
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
+function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(_overlay) {
+    const injector = inject(Injector);
+    return () => createRepositionScrollStrategy(injector);
 }
 /** Injection token that can be used to provide the default options the select module. */
 const MAT_SELECT_CONFIG = new InjectionToken('MAT_SELECT_CONFIG');
@@ -72,7 +73,7 @@ const MAT_SELECT_CONFIG = new InjectionToken('MAT_SELECT_CONFIG');
  */
 const MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_SELECT_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [],
     useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
@@ -1308,4 +1309,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MatSelectModule as M, MAT_SELECT_SCROLL_STRATEGY as a, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY as b, MAT_SELECT_CONFIG as c, MAT_SELECT_SCROLL_STRATEGY_PROVIDER as d, MAT_SELECT_TRIGGER as e, MatSelectChange as f, MatSelect as g, MatSelectTrigger as h };
-//# sourceMappingURL=module-lnq6GRbC.mjs.map
+//# sourceMappingURL=module-B72NhPw9.mjs.map

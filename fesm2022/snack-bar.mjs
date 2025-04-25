@@ -7,7 +7,7 @@ import { Platform } from '@angular/cdk/platform';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { OverlayConfig, createGlobalPositionStrategy, createOverlayRef, OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators';
 import { M as MatCommonModule } from './common-module-DZl8g1kc.mjs';
 import './icon-button-4VvBKIK4.mjs';
@@ -536,7 +536,6 @@ const MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-
  * Service to dispatch Material Design snack bar messages.
  */
 class MatSnackBar {
-    _overlay = inject(Overlay);
     _live = inject(LiveAnnouncer);
     _injector = inject(Injector);
     _breakpointObserver = inject(BreakpointObserver);
@@ -712,7 +711,7 @@ class MatSnackBar {
     _createOverlay(config) {
         const overlayConfig = new OverlayConfig();
         overlayConfig.direction = config.direction;
-        let positionStrategy = this._overlay.position().global();
+        const positionStrategy = createGlobalPositionStrategy(this._injector);
         // Set horizontal position.
         const isRtl = config.direction === 'rtl';
         const isLeft = config.horizontalPosition === 'left' ||
@@ -737,7 +736,7 @@ class MatSnackBar {
         }
         overlayConfig.positionStrategy = positionStrategy;
         overlayConfig.disableAnimations = this._animationsDisabled;
-        return this._overlay.create(overlayConfig);
+        return createOverlayRef(this._injector, overlayConfig);
     }
     /**
      * Creates an injector to be used inside of a snack bar component.

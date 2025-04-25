@@ -280,11 +280,11 @@ declare const MAT_DIALOG_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
  * Service to open Material Design modal dialogs.
  */
 declare class MatDialog implements OnDestroy {
-    private _overlay;
     private _defaultOptions;
     private _scrollStrategy;
     private _parentDialog;
     private _idGenerator;
+    private _injector;
     protected _dialog: Dialog;
     private _animationsDisabled;
     private readonly _openDialogsAtThisLevel;

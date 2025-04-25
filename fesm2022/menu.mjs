@@ -10,7 +10,7 @@ import { M as MatRipple } from './ripple-CuyVtN3V.mjs';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
 import { Directionality } from '@angular/cdk/bidi';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { createRepositionScrollStrategy, createOverlayRef, OverlayConfig, createFlexibleConnectedPositionStrategy, OverlayModule } from '@angular/cdk/overlay';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { M as MatRippleModule } from './index-D2rZ0V78.mjs';
 import { M as MatCommonModule } from './common-module-DZl8g1kc.mjs';
@@ -671,8 +671,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
 const MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy', {
     providedIn: 'root',
     factory: () => {
-        const overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition();
+        const injector = inject(Injector);
+        return () => createRepositionScrollStrategy(injector);
     },
 });
 /**
@@ -680,8 +680,9 @@ const MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy', 
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
+function MAT_MENU_SCROLL_STRATEGY_FACTORY(_overlay) {
+    const injector = inject(Injector);
+    return () => createRepositionScrollStrategy(injector);
 }
 /**
  * @docs-private
@@ -690,11 +691,9 @@ function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay) {
  */
 const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_MENU_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [],
     useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 };
-/** Options for binding a passive event listener. */
-const passiveEventListenerOptions = { passive: true };
 /**
  * Default top padding of the menu panel.
  * @deprecated No longer being used. Will be removed.
@@ -705,13 +704,13 @@ const MENU_PANEL_TOP_PADDING = 8;
 const PANELS_TO_TRIGGERS = new WeakMap();
 /** Directive applied to an element that should trigger a `mat-menu`. */
 class MatMenuTrigger {
-    _overlay = inject(Overlay);
     _element = inject(ElementRef);
     _viewContainerRef = inject(ViewContainerRef);
     _menuItemInstance = inject(MatMenuItem, { optional: true, self: true });
     _dir = inject(Directionality, { optional: true });
     _focusMonitor = inject(FocusMonitor);
     _ngZone = inject(NgZone);
+    _injector = inject(Injector);
     _scrollStrategy = inject(MAT_MENU_SCROLL_STRATEGY);
     _changeDetectorRef = inject(ChangeDetectorRef);
     _animationsDisabled = _animationsDisabled();
@@ -805,7 +804,7 @@ class MatMenuTrigger {
             if (!isFakeTouchstartFromScreenReader(event)) {
                 this._openedBy = 'touch';
             }
-        }, passiveEventListenerOptions);
+        }, { passive: true });
     }
     ngAfterContentInit() {
         this._handleHover();
@@ -957,7 +956,7 @@ class MatMenuTrigger {
         if (!this._overlayRef) {
             const config = this._getOverlayConfig(menu);
             this._subscribeToPositions(menu, config.positionStrategy);
-            this._overlayRef = this._overlay.create(config);
+            this._overlayRef = createOverlayRef(this._injector, config);
             this._overlayRef.keydownEvents().subscribe(event => {
                 if (this.menu instanceof MatMenu) {
                     this.menu._handleKeydown(event);
@@ -972,9 +971,7 @@ class MatMenuTrigger {
      */
     _getOverlayConfig(menu) {
         return new OverlayConfig({
-            positionStrategy: this._overlay
-                .position()
-                .flexibleConnectedTo(this._element)
+            positionStrategy: createFlexibleConnectedPositionStrategy(this._injector, this._element)
                 .withLockedPosition()
                 .withGrowAfterOpen()
                 .withTransformOriginOn('.mat-menu-panel, .mat-mdc-menu-panel'),
