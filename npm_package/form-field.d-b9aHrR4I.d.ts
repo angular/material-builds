@@ -137,10 +137,10 @@ declare class MatFormFieldNotchedOutline implements AfterViewInit {
     private _ngZone;
     /** Whether the notch should be opened. */
     open: boolean;
-    _notch: ElementRef;
-    constructor(...args: unknown[]);
+    _notch: ElementRef<HTMLElement>;
     ngAfterViewInit(): void;
     _setNotchWidth(labelWidth: number): void;
+    _setMaxWidth(prefixAndSuffixWidth: number): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldNotchedOutline, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatFormFieldNotchedOutline, "div[matFormFieldNotchedOutline]", never, { "open": { "alias": "matFormFieldNotchedOutlineOpen"; "required": false; }; }, {}, never, ["*"], true, never>;
 }
