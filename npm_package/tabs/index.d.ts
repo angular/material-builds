@@ -548,7 +548,7 @@ declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterConte
     private _tabsSubscription;
     private _tabLabelSubscription;
     private _tabBodySubscription;
-    _animationMode: "NoopAnimations" | "BrowserAnimations" | null;
+    private _diAnimationsDisabled;
     /**
      * All tabs inside the tab group. This includes tabs that belong to groups that are nested
      * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
@@ -704,6 +704,7 @@ declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterConte
      * @param isCenter Whether the tab will be in the center.
      */
     protected _bodyCentered(isCenter: boolean): void;
+    protected _animationsDisabled(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabGroup, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTabGroup, "mat-tab-group", ["matTabGroup"], { "color": { "alias": "color"; "required": false; }; "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; "stretchTabs": { "alias": "mat-stretch-tabs"; "required": false; }; "alignTabs": { "alias": "mat-align-tabs"; "required": false; }; "dynamicHeight": { "alias": "dynamicHeight"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; "contentTabIndex": { "alias": "contentTabIndex"; "required": false; }; "disablePagination": { "alias": "disablePagination"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "preserveContent": { "alias": "preserveContent"; "required": false; }; "backgroundColor": { "alias": "backgroundColor"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; }, { "selectedIndexChange": "selectedIndexChange"; "focusChange": "focusChange"; "animationDone": "animationDone"; "selectedTabChange": "selectedTabChange"; }, ["_allTabs"], ["*"], true, never>;
     static ngAcceptInputType_fitInkBarToContent: unknown;
