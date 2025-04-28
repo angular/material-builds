@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { Directive, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, booleanAttribute, NgModule } from '@angular/core';
-import { CdkTable, CDK_TABLE, _COALESCED_STYLE_SCHEDULER, _CoalescedStyleScheduler, STICKY_POSITIONING_LISTENER, HeaderRowOutlet, DataRowOutlet, NoDataRowOutlet, FooterRowOutlet, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkCellOutlet, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule } from '@angular/cdk/table';
+import { CdkTable, CDK_TABLE, STICKY_POSITIONING_LISTENER, HeaderRowOutlet, DataRowOutlet, NoDataRowOutlet, FooterRowOutlet, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkCellOutlet, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule } from '@angular/cdk/table';
 import { _VIEW_REPEATER_STRATEGY, _RecycleViewRepeaterStrategy, _DisposeViewRepeaterStrategy, DataSource } from '@angular/cdk/collections';
 import { M as MatCommonModule } from './common-module-DZl8g1kc.mjs';
 import { BehaviorSubject, Subject, merge, of, combineLatest } from 'rxjs';
@@ -33,7 +33,6 @@ class MatTable extends CdkTable {
     static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "20.0.0-next.5", type: MatTable, isStandalone: true, selector: "mat-table, table[mat-table]", host: { properties: { "class.mdc-table-fixed-layout": "fixedLayout" }, classAttribute: "mat-mdc-table mdc-data-table__table" }, providers: [
             { provide: CdkTable, useExisting: MatTable },
             { provide: CDK_TABLE, useExisting: MatTable },
-            { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
             // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
             //  is only included in the build if used.
             { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
@@ -107,7 +106,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
                     }, providers: [
                         { provide: CdkTable, useExisting: MatTable },
                         { provide: CDK_TABLE, useExisting: MatTable },
-                        { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
                         // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
                         //  is only included in the build if used.
                         { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
