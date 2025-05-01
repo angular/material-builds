@@ -26,7 +26,7 @@ import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 
 /** Current version of Angular Material. */
-const VERSION = new Version('19.2.13');
+const VERSION = new Version('19.2.14');
 
 /**
  * @deprecated No longer used, will be removed.
