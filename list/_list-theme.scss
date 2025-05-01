@@ -1,15 +1,15 @@
 @use 'sass:map';
 
+@use '../checkbox/m2-checkbox';
 @use '../core/style/sass-utils';
-@use '../core/theming/theming';
 @use '../core/theming/inspection';
+@use '../core/theming/theming';
 @use '../core/theming/validation';
-@use '../core/tokens/m2/mat/list' as tokens-mat-list;
-@use '../core/tokens/m2/mdc/checkbox' as tokens-mdc-checkbox;
-@use '../core/tokens/m2/mdc/radio' as tokens-mdc-radio;
-@use '../core/tokens/m2/mdc/list' as tokens-mdc-list;
 @use '../core/tokens/token-utils';
 @use '../core/typography/typography';
+@use '../radio/m2-radio';
+@use './m2-list';
+@use './m3-list';
 
 @mixin base($theme) {
   // Add default values for tokens not related to color, typography, or density.
@@ -17,14 +17,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-list.$prefix,
-        tokens-mdc-list.get-unthemable-tokens()
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-list.$prefix,
-        tokens-mat-list.get-unthemable-tokens()
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-list.$prefix, m2-list.get-unthemable-tokens());
     }
   }
 }
@@ -34,30 +28,22 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-list.$prefix,
-        tokens-mdc-list.get-color-tokens($theme)
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-list.$prefix,
-        tokens-mat-list.get-color-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-list.$prefix, m2-list.get-color-tokens($theme));
     }
 
     .mdc-list-item__start,
     .mdc-list-item__end {
-      @include token-utils.create-token-values(
-        tokens-mdc-radio.$prefix,
-        tokens-mdc-radio.get-color-tokens($theme, primary)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-radio.$prefix, m2-radio.get-color-tokens($theme, primary));
     }
 
     .mat-accent {
       .mdc-list-item__start,
       .mdc-list-item__end {
-        @include token-utils.create-token-values(
-          tokens-mdc-radio.$prefix,
-          tokens-mdc-radio.get-color-tokens($theme, accent)
+        @include token-utils.create-token-values-mixed(
+          m2-radio.$prefix,
+          m2-radio.get-color-tokens($theme, accent)
         );
       }
     }
@@ -65,29 +51,29 @@
     .mat-warn {
       .mdc-list-item__start,
       .mdc-list-item__end {
-        @include token-utils.create-token-values(
-          tokens-mdc-radio.$prefix,
-          tokens-mdc-radio.get-color-tokens($theme, warn)
+        @include token-utils.create-token-values-mixed(
+          m2-radio.$prefix,
+          m2-radio.get-color-tokens($theme, warn)
         );
       }
     }
 
     .mat-mdc-list-option {
-      @include token-utils.create-token-values(
-        tokens-mdc-checkbox.$prefix,
-        tokens-mdc-checkbox.get-color-tokens($theme, primary)
+      @include token-utils.create-token-values-mixed(
+        m2-checkbox.$prefix,
+        m2-checkbox.get-color-tokens($theme, primary)
       );
     }
     .mat-mdc-list-option.mat-accent {
-      @include token-utils.create-token-values(
-        tokens-mdc-checkbox.$prefix,
-        tokens-mdc-checkbox.get-color-tokens($theme, accent)
+      @include token-utils.create-token-values-mixed(
+        m2-checkbox.$prefix,
+        m2-checkbox.get-color-tokens($theme, accent)
       );
     }
     .mat-mdc-list-option.mat-warn {
-      @include token-utils.create-token-values(
-        tokens-mdc-checkbox.$prefix,
-        tokens-mdc-checkbox.get-color-tokens($theme, warn)
+      @include token-utils.create-token-values-mixed(
+        m2-checkbox.$prefix,
+        m2-checkbox.get-color-tokens($theme, warn)
       );
     }
 
@@ -118,27 +104,20 @@
 
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    @include token-utils.create-token-values(m3-list.$prefix, m3-list.get-density-tokens($theme));
   } @else {
     $density-scale: inspection.get-theme-density($theme);
 
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-list.$prefix,
-        tokens-mdc-list.get-density-tokens($theme)
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-list.$prefix,
-        tokens-mat-list.get-density-tokens($theme)
-      );
+      // TODO: See if this can be removed
+      @include token-utils.create-token-values-mixed(
+        m2-list.$prefix, m2-list.get-density-tokens($theme));
     }
 
     .mdc-list-item__start,
     .mdc-list-item__end {
-      @include token-utils.create-token-values(
-        tokens-mdc-radio.$prefix,
-        tokens-mdc-radio.get-density-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+          m2-radio.$prefix, m2-radio.get-density-tokens($theme));
     }
 
     // TODO(mmalerba): This is added to maintain the same style MDC used prior to the token-based
@@ -185,14 +164,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-list.$prefix,
-        tokens-mdc-list.get-typography-tokens($theme)
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-list.$prefix,
-        tokens-mat-list.get-typography-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-list.$prefix, m2-list.get-typography-tokens($theme));
     }
 
     // MDC does not have tokens for the subheader.
@@ -208,12 +181,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mat-list.$prefix,
-      tokens: tokens-mat-list.get-token-slots(),
-    ),
-    (
-      namespace: tokens-mdc-list.$prefix,
-      tokens: tokens-mdc-list.get-token-slots(),
+      namespace: m2-list.$prefix,
+      tokens: m2-list.get-token-slots(),
     ),
   );
 }
@@ -226,6 +195,9 @@
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-list') {
     @if inspection.get-theme-version($theme) == 1 {
       @include _theme-from-tokens(inspection.get-theme-tokens($theme));
+      @if inspection.theme-has($theme, density) {
+        @include density($theme);
+      }
     } @else {
       @include base($theme);
       @if inspection.theme-has($theme, color) {
@@ -245,8 +217,6 @@
   @include validation.selector-defined(
     'Calls to Angular Material theme mixins with an M3 theme must be wrapped in a selector'
   );
-  $mdc-list-tokens: token-utils.get-tokens-for($tokens, tokens-mdc-list.$prefix);
-  $mat-list-tokens: token-utils.get-tokens-for($tokens, tokens-mat-list.$prefix);
-  @include token-utils.create-token-values(tokens-mdc-list.$prefix, $mdc-list-tokens);
-  @include token-utils.create-token-values(tokens-mat-list.$prefix, $mat-list-tokens);
+  $mat-list-tokens: token-utils.get-tokens-for($tokens, m2-list.$prefix);
+  @include token-utils.create-token-values(m2-list.$prefix, $mat-list-tokens);
 }

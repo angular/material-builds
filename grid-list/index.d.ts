@@ -1,163 +1,20 @@
-import { AfterContentChecked } from '@angular/core';
-import { AfterContentInit } from '@angular/core';
+import { M as MatLine, a as MatLineModule } from '../line.d-C-QdueRc.js';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/material/core';
-import { MatLine } from '@angular/material/core';
+import { AfterContentInit, QueryList, OnInit, AfterContentChecked } from '@angular/core';
+import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
 import { NumberInput } from '@angular/cdk/coercion';
-import { OnInit } from '@angular/core';
-import { QueryList } from '@angular/core';
-
-declare namespace i2 {
-    export {
-        MatGridList
-    }
-}
-
-declare namespace i3 {
-    export {
-        MatGridTile,
-        MatGridTileText,
-        MatGridAvatarCssMatStyler,
-        MatGridTileHeaderCssMatStyler,
-        MatGridTileFooterCssMatStyler
-    }
-}
-
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatGridAvatarCssMatStyler {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridAvatarCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridAvatarCssMatStyler, "[mat-grid-avatar], [matGridAvatar]", never, {}, {}, never, never, true, never>;
-}
-
-export declare class MatGridList implements MatGridListBase, OnInit, AfterContentChecked, TileStyleTarget {
-    private _element;
-    private _dir;
-    /** Number of columns being rendered. */
-    private _cols;
-    /** Used for determining the position of each tile in the grid. */
-    private _tileCoordinator;
-    /**
-     * Row height value passed in by user. This can be one of three types:
-     * - Number value (ex: "100px"):  sets a fixed row height to that value
-     * - Ratio value (ex: "4:3"): sets the row height based on width:height ratio
-     * - "Fit" mode (ex: "fit"): sets the row height to total height divided by number of rows
-     */
-    private _rowHeight;
-    /** The amount of space between tiles. This will be something like '5px' or '2em'. */
-    private _gutter;
-    /** Sets position and size styles for a tile */
-    private _tileStyler;
-    /** Query list of tiles that are being rendered. */
-    _tiles: QueryList<MatGridTile>;
-    constructor(...args: unknown[]);
-    /** Amount of columns in the grid list. */
-    get cols(): number;
-    set cols(value: NumberInput);
-    /** Size of the grid list's gutter in pixels. */
-    get gutterSize(): string;
-    set gutterSize(value: string);
-    /** Set internal representation of row height from the user-provided value. */
-    get rowHeight(): string | number;
-    set rowHeight(value: string | number);
-    ngOnInit(): void;
-    /**
-     * The layout calculation is fairly cheap if nothing changes, so there's little cost
-     * to run it frequently.
-     */
-    ngAfterContentChecked(): void;
-    /** Throw a friendly error if cols property is missing */
-    private _checkCols;
-    /** Default to equal width:height if rowHeight property is missing */
-    private _checkRowHeight;
-    /** Creates correct Tile Styler subtype based on rowHeight passed in by user */
-    private _setTileStyler;
-    /** Computes and applies the size and position for all children grid tiles. */
-    private _layoutTiles;
-    /** Sets style on the main grid-list element, given the style name and value. */
-    _setListStyle(style: [string, string | null] | null): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridList, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": { "alias": "cols"; "required": false; }; "gutterSize": { "alias": "gutterSize"; "required": false; }; "rowHeight": { "alias": "rowHeight"; "required": false; }; }, {}, ["_tiles"], ["*"], true, never>;
-}
-
-/**
- * Base interface for a `MatGridList`.
- * @docs-private
- */
-declare interface MatGridListBase {
-    cols: number;
-    gutterSize: string;
-    rowHeight: number | string;
-}
-
-export declare class MatGridListModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridListModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatGridListModule, never, [typeof i1.MatLineModule, typeof i1.MatCommonModule, typeof i2.MatGridList, typeof i3.MatGridTile, typeof i3.MatGridTileText, typeof i3.MatGridTileHeaderCssMatStyler, typeof i3.MatGridTileFooterCssMatStyler, typeof i3.MatGridAvatarCssMatStyler], [typeof i2.MatGridList, typeof i3.MatGridTile, typeof i3.MatGridTileText, typeof i1.MatLineModule, typeof i1.MatCommonModule, typeof i3.MatGridTileHeaderCssMatStyler, typeof i3.MatGridTileFooterCssMatStyler, typeof i3.MatGridAvatarCssMatStyler]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatGridListModule>;
-}
-
-export declare class MatGridTile {
-    private _element;
-    _gridList?: MatGridListBase | null | undefined;
-    _rowspan: number;
-    _colspan: number;
-    constructor(...args: unknown[]);
-    /** Amount of rows that the grid tile takes up. */
-    get rowspan(): number;
-    set rowspan(value: NumberInput);
-    /** Amount of columns that the grid tile takes up. */
-    get colspan(): number;
-    set colspan(value: NumberInput);
-    /**
-     * Sets the style of the grid-tile element.  Needs to be set manually to avoid
-     * "Changed after checked" errors that would occur with HostBinding.
-     */
-    _setStyle(property: string, value: any): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTile, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTile, "mat-grid-tile", ["matGridTile"], { "rowspan": { "alias": "rowspan"; "required": false; }; "colspan": { "alias": "colspan"; "required": false; }; }, {}, never, ["*"], true, never>;
-}
-
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatGridTileFooterCssMatStyler {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileFooterCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridTileFooterCssMatStyler, "mat-grid-tile-footer", never, {}, {}, never, never, true, never>;
-}
-
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatGridTileHeaderCssMatStyler {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileHeaderCssMatStyler, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridTileHeaderCssMatStyler, "mat-grid-tile-header", never, {}, {}, never, never, true, never>;
-}
-
-export declare class MatGridTileText implements AfterContentInit {
-    private _element;
-    _lines: QueryList<MatLine>;
-    constructor(...args: unknown[]);
-    ngAfterContentInit(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileText, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTileText, "mat-grid-tile-header, mat-grid-tile-footer", never, {}, {}, ["_lines"], ["[mat-grid-avatar], [matGridAvatar]", "[mat-line], [matLine]", "*"], true, never>;
-}
-
+import '@angular/cdk/bidi';
 
 /**
  * Interface describing a tile.
  * @docs-private
  */
-declare interface Tile {
+interface Tile {
     /** Amount of rows that the tile takes up. */
     rowspan: number;
     /** Amount of columns that the tile takes up. */
     colspan: number;
 }
-
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -211,7 +68,6 @@ declare class TileCoordinator {
     /** Update the tile tracker to account for the given tile in the given space. */
     private _markTilePosition;
 }
-
 /**
  * Simple data structure for tile position (row, col).
  * @docs-private
@@ -222,12 +78,131 @@ declare class TilePosition {
     constructor(row: number, col: number);
 }
 
+/**
+ * Base interface for a `MatGridList`.
+ * @docs-private
+ */
+interface MatGridListBase {
+    cols: number;
+    gutterSize: string;
+    rowHeight: number | string;
+}
+
+declare class MatGridTile {
+    private _element;
+    _gridList?: MatGridListBase | null | undefined;
+    _rowspan: number;
+    _colspan: number;
+    constructor(...args: unknown[]);
+    /** Amount of rows that the grid tile takes up. */
+    get rowspan(): number;
+    set rowspan(value: NumberInput);
+    /** Amount of columns that the grid tile takes up. */
+    get colspan(): number;
+    set colspan(value: NumberInput);
+    /**
+     * Sets the style of the grid-tile element.  Needs to be set manually to avoid
+     * "Changed after checked" errors that would occur with HostBinding.
+     */
+    _setStyle(property: string, value: any): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTile, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTile, "mat-grid-tile", ["matGridTile"], { "rowspan": { "alias": "rowspan"; "required": false; }; "colspan": { "alias": "colspan"; "required": false; }; }, {}, never, ["*"], true, never>;
+}
+declare class MatGridTileText implements AfterContentInit {
+    private _element;
+    _lines: QueryList<MatLine>;
+    constructor(...args: unknown[]);
+    ngAfterContentInit(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileText, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTileText, "mat-grid-tile-header, mat-grid-tile-footer", never, {}, {}, ["_lines"], ["[mat-grid-avatar], [matGridAvatar]", "[mat-line], [matLine]", "*"], true, never>;
+}
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
+ */
+declare class MatGridAvatarCssMatStyler {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridAvatarCssMatStyler, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridAvatarCssMatStyler, "[mat-grid-avatar], [matGridAvatar]", never, {}, {}, never, never, true, never>;
+}
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
+ */
+declare class MatGridTileHeaderCssMatStyler {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileHeaderCssMatStyler, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridTileHeaderCssMatStyler, "mat-grid-tile-header", never, {}, {}, never, never, true, never>;
+}
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
+ */
+declare class MatGridTileFooterCssMatStyler {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileFooterCssMatStyler, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatGridTileFooterCssMatStyler, "mat-grid-tile-footer", never, {}, {}, never, never, true, never>;
+}
+
 /** Object that can be styled by the `TileStyler`. */
-declare interface TileStyleTarget {
+interface TileStyleTarget {
     _setListStyle(style: [string, string | null] | null): void;
     _tiles: QueryList<MatGridTile>;
 }
 
-export declare const ɵTileCoordinator: typeof TileCoordinator;
+declare class MatGridList implements MatGridListBase, OnInit, AfterContentChecked, TileStyleTarget {
+    private _element;
+    private _dir;
+    /** Number of columns being rendered. */
+    private _cols;
+    /** Used for determining the position of each tile in the grid. */
+    private _tileCoordinator;
+    /**
+     * Row height value passed in by user. This can be one of three types:
+     * - Number value (ex: "100px"):  sets a fixed row height to that value
+     * - Ratio value (ex: "4:3"): sets the row height based on width:height ratio
+     * - "Fit" mode (ex: "fit"): sets the row height to total height divided by number of rows
+     */
+    private _rowHeight;
+    /** The amount of space between tiles. This will be something like '5px' or '2em'. */
+    private _gutter;
+    /** Sets position and size styles for a tile */
+    private _tileStyler;
+    /** Query list of tiles that are being rendered. */
+    _tiles: QueryList<MatGridTile>;
+    constructor(...args: unknown[]);
+    /** Amount of columns in the grid list. */
+    get cols(): number;
+    set cols(value: NumberInput);
+    /** Size of the grid list's gutter in pixels. */
+    get gutterSize(): string;
+    set gutterSize(value: string);
+    /** Set internal representation of row height from the user-provided value. */
+    get rowHeight(): string | number;
+    set rowHeight(value: string | number);
+    ngOnInit(): void;
+    /**
+     * The layout calculation is fairly cheap if nothing changes, so there's little cost
+     * to run it frequently.
+     */
+    ngAfterContentChecked(): void;
+    /** Throw a friendly error if cols property is missing */
+    private _checkCols;
+    /** Default to equal width:height if rowHeight property is missing */
+    private _checkRowHeight;
+    /** Creates correct Tile Styler subtype based on rowHeight passed in by user */
+    private _setTileStyler;
+    /** Computes and applies the size and position for all children grid tiles. */
+    private _layoutTiles;
+    /** Sets style on the main grid-list element, given the style name and value. */
+    _setListStyle(style: [string, string | null] | null): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridList, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatGridList, "mat-grid-list", ["matGridList"], { "cols": { "alias": "cols"; "required": false; }; "gutterSize": { "alias": "gutterSize"; "required": false; }; "rowHeight": { "alias": "rowHeight"; "required": false; }; }, {}, ["_tiles"], ["*"], true, never>;
+}
 
-export { }
+declare class MatGridListModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatGridListModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatGridListModule, never, [typeof MatLineModule, typeof MatCommonModule, typeof MatGridList, typeof MatGridTile, typeof MatGridTileText, typeof MatGridTileHeaderCssMatStyler, typeof MatGridTileFooterCssMatStyler, typeof MatGridAvatarCssMatStyler], [typeof MatGridList, typeof MatGridTile, typeof MatGridTileText, typeof MatLineModule, typeof MatCommonModule, typeof MatGridTileHeaderCssMatStyler, typeof MatGridTileFooterCssMatStyler, typeof MatGridAvatarCssMatStyler]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatGridListModule>;
+}
+
+declare const ɵTileCoordinator: typeof TileCoordinator;
+
+export { MatGridAvatarCssMatStyler, MatGridList, MatGridListModule, MatGridTile, MatGridTileFooterCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileText, MatLine, ɵTileCoordinator };

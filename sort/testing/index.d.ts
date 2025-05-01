@@ -1,25 +1,15 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { SortDirection } from '@angular/material/sort';
+import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { S as SortDirection } from '../../sort-direction.d-CF7VUsH-.js';
 
-/** Harness for interacting with a standard `mat-sort` in tests. */
-export declare class MatSortHarness extends ComponentHarness {
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `mat-sort` with specific attributes.
-     * @param options Options for narrowing the search.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: SortHarnessFilters): HarnessPredicate<MatSortHarness>;
-    /** Gets all of the sort headers in the `mat-sort`. */
-    getSortHeaders(filter?: SortHeaderHarnessFilters): Promise<MatSortHeaderHarness[]>;
-    /** Gets the selected header in the `mat-sort`. */
-    getActiveHeader(): Promise<MatSortHeaderHarness | null>;
+interface SortHarnessFilters extends BaseHarnessFilters {
+}
+interface SortHeaderHarnessFilters extends BaseHarnessFilters {
+    label?: string | RegExp;
+    sortDirection?: SortDirection;
 }
 
 /** Harness for interacting with a standard Angular Material sort header in tests. */
-export declare class MatSortHeaderHarness extends ComponentHarness {
+declare class MatSortHeaderHarness extends ComponentHarness {
     static hostSelector: string;
     private _container;
     /**
@@ -39,12 +29,20 @@ export declare class MatSortHeaderHarness extends ComponentHarness {
     click(): Promise<void>;
 }
 
-export declare interface SortHarnessFilters extends BaseHarnessFilters {
+/** Harness for interacting with a standard `mat-sort` in tests. */
+declare class MatSortHarness extends ComponentHarness {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `mat-sort` with specific attributes.
+     * @param options Options for narrowing the search.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: SortHarnessFilters): HarnessPredicate<MatSortHarness>;
+    /** Gets all of the sort headers in the `mat-sort`. */
+    getSortHeaders(filter?: SortHeaderHarnessFilters): Promise<MatSortHeaderHarness[]>;
+    /** Gets the selected header in the `mat-sort`. */
+    getActiveHeader(): Promise<MatSortHeaderHarness | null>;
 }
 
-export declare interface SortHeaderHarnessFilters extends BaseHarnessFilters {
-    label?: string | RegExp;
-    sortDirection?: SortDirection;
-}
-
-export { }
+export { MatSortHarness, MatSortHeaderHarness };
+export type { SortHarnessFilters, SortHeaderHarnessFilters };

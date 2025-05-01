@@ -1,96 +1,162 @@
-import { AfterContentInit } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { Direction } from '@angular/cdk/bidi';
-import { EventEmitter } from '@angular/core';
-import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/material/core';
+import { InjectionToken, OnDestroy, TemplateRef, EventEmitter, AfterViewInit, AfterContentInit, OnInit, QueryList } from '@angular/core';
+import { FocusOrigin, FocusableOption } from '@angular/cdk/a11y';
+import { Direction } from '@angular/cdk/bidi';
+import { Subject, Observable } from 'rxjs';
 import * as i2 from '@angular/cdk/overlay';
-import * as i7 from '@angular/cdk/scrolling';
-import { InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Overlay } from '@angular/cdk/overlay';
-import { QueryList } from '@angular/core';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { Subject } from 'rxjs';
-import { TemplateRef } from '@angular/core';
+import { M as MatRippleModule } from '../index.d-C5neTPvr.js';
+import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import * as i5 from '@angular/cdk/scrolling';
+import '../ripple.d-BT30YVLB.js';
+import '@angular/cdk/platform';
 
-/**
- * @deprecated
- * @breaking-change 8.0.0
- * @docs-private
- */
-export declare const fadeInItems: any;
-
-declare namespace i3 {
-    export {
-        MAT_MENU_DEFAULT_OPTIONS_FACTORY,
-        MenuCloseReason,
-        MatMenuDefaultOptions,
-        MAT_MENU_DEFAULT_OPTIONS,
-        MatMenu
-    }
-}
-
-declare namespace i4 {
-    export {
-        MatMenuItem
-    }
-}
-
-declare namespace i5 {
-    export {
-        MAT_MENU_CONTENT,
-        MatMenuContent
-    }
-}
-
-declare namespace i6 {
-    export {
-        MAT_MENU_SCROLL_STRATEGY_FACTORY,
-        MAT_MENU_SCROLL_STRATEGY,
-        MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER,
-        MENU_PANEL_TOP_PADDING,
-        MatMenuTrigger
-    }
-}
+type MenuPositionX = 'before' | 'after';
+type MenuPositionY = 'above' | 'below';
 
 /**
  * Injection token that can be used to reference instances of `MatMenuContent`. It serves
  * as alternative token to the actual `MatMenuContent` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-export declare const MAT_MENU_CONTENT: InjectionToken<MatMenuContent>;
-
-/** Injection token to be used to override the default options for `mat-menu`. */
-export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
-
-/** @docs-private */
-declare function MAT_MENU_DEFAULT_OPTIONS_FACTORY(): MatMenuDefaultOptions;
+declare const MAT_MENU_CONTENT: InjectionToken<MatMenuContent>;
+/** Menu content that will be rendered lazily once the menu is opened. */
+declare class MatMenuContent implements OnDestroy {
+    private _template;
+    private _appRef;
+    private _injector;
+    private _viewContainerRef;
+    private _document;
+    private _changeDetectorRef;
+    private _portal;
+    private _outlet;
+    /** Emits when the menu content has been attached. */
+    readonly _attached: Subject<void>;
+    constructor(...args: unknown[]);
+    /**
+     * Attaches the content with a particular context.
+     * @docs-private
+     */
+    attach(context?: any): void;
+    /**
+     * Detaches the content.
+     * @docs-private
+     */
+    detach(): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuContent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, true, never>;
+}
 
 /**
  * Injection token used to provide the parent menu to menu-specific components.
  * @docs-private
  */
-export declare const MAT_MENU_PANEL: InjectionToken<MatMenuPanel<any>>;
+declare const MAT_MENU_PANEL: InjectionToken<MatMenuPanel<any>>;
+/**
+ * Interface for a custom menu panel that can be used with `matMenuTriggerFor`.
+ * @docs-private
+ */
+interface MatMenuPanel<T = any> {
+    xPosition: MenuPositionX;
+    yPosition: MenuPositionY;
+    overlapTrigger: boolean;
+    templateRef: TemplateRef<any>;
+    readonly close: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
+    parentMenu?: MatMenuPanel | undefined;
+    direction?: Direction;
+    focusFirstItem: (origin?: FocusOrigin) => void;
+    resetActiveItem: () => void;
+    setPositionClasses?: (x: MenuPositionX, y: MenuPositionY) => void;
+    /**
+     * @deprecated No longer used and will be removed.
+     * @breaking-change 21.0.0
+     */
+    setElevation?(depth: number): void;
+    lazyContent?: MatMenuContent;
+    backdropClass?: string;
+    overlayPanelClass?: string | string[];
+    hasBackdrop?: boolean;
+    readonly panelId?: string;
+    /**
+     * @deprecated To be removed.
+     * @breaking-change 8.0.0
+     */
+    addItem?: (item: T) => void;
+    /**
+     * @deprecated To be removed.
+     * @breaking-change 8.0.0
+     */
+    removeItem?: (item: T) => void;
+}
 
-/** Injection token that determines the scroll handling while the menu is open. */
-export declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/**
+ * Single item inside a `mat-menu`. Provides the menu item styling and accessibility treatment.
+ */
+declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
+    private _elementRef;
+    private _document;
+    private _focusMonitor;
+    _parentMenu?: MatMenuPanel<MatMenuItem> | null | undefined;
+    private _changeDetectorRef;
+    /** ARIA role for the menu item. */
+    role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
+    /** Whether the menu item is disabled. */
+    disabled: boolean;
+    /** Whether ripples are disabled on the menu item. */
+    disableRipple: boolean;
+    /** Stream that emits when the menu item is hovered. */
+    readonly _hovered: Subject<MatMenuItem>;
+    /** Stream that emits when the menu item is focused. */
+    readonly _focused: Subject<MatMenuItem>;
+    /** Whether the menu item is highlighted. */
+    _highlighted: boolean;
+    /** Whether the menu item acts as a trigger for a sub-menu. */
+    _triggersSubmenu: boolean;
+    constructor(...args: unknown[]);
+    /** Focuses the menu item. */
+    focus(origin?: FocusOrigin, options?: FocusOptions): void;
+    ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    /** Used to set the `tabindex`. */
+    _getTabIndex(): string;
+    /** Returns the host DOM element. */
+    _getHostElement(): HTMLElement;
+    /** Prevents the default element actions if it is disabled. */
+    _checkDisabled(event: Event): void;
+    /** Emits to the hover stream. */
+    _handleMouseEnter(): void;
+    /** Gets the label to be used when determining whether the option should be focused. */
+    getLabel(): string;
+    _setHighlighted(isHighlighted: boolean): void;
+    _setTriggersSubmenu(triggersSubmenu: boolean): void;
+    _hasFocus(): boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], true, never>;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_disableRipple: unknown;
+}
 
-/** @docs-private */
-declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
-
-/** @docs-private */
-export declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
-    useFactory: typeof MAT_MENU_SCROLL_STRATEGY_FACTORY;
-};
-
-export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
+/** Reason why the menu was closed. */
+type MenuCloseReason = void | 'click' | 'keydown' | 'tab';
+/** Default `mat-menu` options that can be overridden. */
+interface MatMenuDefaultOptions {
+    /** The x-axis position of the menu. */
+    xPosition: MenuPositionX;
+    /** The y-axis position of the menu. */
+    yPosition: MenuPositionY;
+    /** Whether the menu should overlap the menu trigger. */
+    overlapTrigger: boolean;
+    /** Class to be applied to the menu's backdrop. */
+    backdropClass: string;
+    /** Class or list of classes to be applied to the menu's overlay panel. */
+    overlayPanelClass?: string | string[];
+    /** Whether the menu has a backdrop. */
+    hasBackdrop?: boolean;
+}
+/** Injection token to be used to override the default options for `mat-menu`. */
+declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
+declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
     private _elementRef;
     private _changeDetectorRef;
     private _injector;
@@ -236,164 +302,42 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
     static ngAcceptInputType_hasBackdrop: any;
 }
 
+/** Injection token that determines the scroll handling while the menu is open. */
+declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /**
- * Animations used by the mat-menu component.
- * Animation duration and timing values are based on:
- * https://material.io/guidelines/components/menus.html#menus-usage
  * @docs-private
  * @deprecated No longer used, will be removed.
  * @breaking-change 21.0.0
  */
-export declare const matMenuAnimations: {
-    readonly transformMenu: any;
-    readonly fadeInItems: any;
-};
-
-/** Menu content that will be rendered lazily once the menu is opened. */
-export declare class MatMenuContent implements OnDestroy {
-    private _template;
-    private _appRef;
-    private _injector;
-    private _viewContainerRef;
-    private _document;
-    private _changeDetectorRef;
-    private _portal;
-    private _outlet;
-    /** Emits when the menu content has been attached. */
-    readonly _attached: Subject<void>;
-    constructor(...args: unknown[]);
-    /**
-     * Attaches the content with a particular context.
-     * @docs-private
-     */
-    attach(context?: any): void;
-    /**
-     * Detaches the content.
-     * @docs-private
-     */
-    detach(): void;
-    ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuContent, "ng-template[matMenuContent]", never, {}, {}, never, never, true, never>;
-}
-
-/** Default `mat-menu` options that can be overridden. */
-export declare interface MatMenuDefaultOptions {
-    /** The x-axis position of the menu. */
-    xPosition: MenuPositionX;
-    /** The y-axis position of the menu. */
-    yPosition: MenuPositionY;
-    /** Whether the menu should overlap the menu trigger. */
-    overlapTrigger: boolean;
-    /** Class to be applied to the menu's backdrop. */
-    backdropClass: string;
-    /** Class or list of classes to be applied to the menu's overlay panel. */
-    overlayPanelClass?: string | string[];
-    /** Whether the menu has a backdrop. */
-    hasBackdrop?: boolean;
-}
-
+declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(_overlay: unknown): () => ScrollStrategy;
 /**
- * Single item inside a `mat-menu`. Provides the menu item styling and accessibility treatment.
- */
-export declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
-    private _elementRef;
-    private _document;
-    private _focusMonitor;
-    _parentMenu?: MatMenuPanel<MatMenuItem> | null | undefined;
-    private _changeDetectorRef;
-    /** ARIA role for the menu item. */
-    role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
-    /** Whether the menu item is disabled. */
-    disabled: boolean;
-    /** Whether ripples are disabled on the menu item. */
-    disableRipple: boolean;
-    /** Stream that emits when the menu item is hovered. */
-    readonly _hovered: Subject<MatMenuItem>;
-    /** Stream that emits when the menu item is focused. */
-    readonly _focused: Subject<MatMenuItem>;
-    /** Whether the menu item is highlighted. */
-    _highlighted: boolean;
-    /** Whether the menu item acts as a trigger for a sub-menu. */
-    _triggersSubmenu: boolean;
-    constructor(...args: unknown[]);
-    /** Focuses the menu item. */
-    focus(origin?: FocusOrigin, options?: FocusOptions): void;
-    ngAfterViewInit(): void;
-    ngOnDestroy(): void;
-    /** Used to set the `tabindex`. */
-    _getTabIndex(): string;
-    /** Returns the host DOM element. */
-    _getHostElement(): HTMLElement;
-    /** Prevents the default element actions if it is disabled. */
-    _checkDisabled(event: Event): void;
-    /** Emits to the hover stream. */
-    _handleMouseEnter(): void;
-    /** Gets the label to be used when determining whether the option should be focused. */
-    getLabel(): string;
-    _setHighlighted(isHighlighted: boolean): void;
-    _setTriggersSubmenu(triggersSubmenu: boolean): void;
-    _hasFocus(): boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], true, never>;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_disableRipple: unknown;
-}
-
-export declare class MatMenuModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, never, [typeof i1.MatRippleModule, typeof i1.MatCommonModule, typeof i2.OverlayModule, typeof i3.MatMenu, typeof i4.MatMenuItem, typeof i5.MatMenuContent, typeof i6.MatMenuTrigger], [typeof i7.CdkScrollableModule, typeof i3.MatMenu, typeof i1.MatCommonModule, typeof i4.MatMenuItem, typeof i5.MatMenuContent, typeof i6.MatMenuTrigger]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatMenuModule>;
-}
-
-/**
- * Interface for a custom menu panel that can be used with `matMenuTriggerFor`.
  * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
-export declare interface MatMenuPanel<T = any> {
-    xPosition: MenuPositionX;
-    yPosition: MenuPositionY;
-    overlapTrigger: boolean;
-    templateRef: TemplateRef<any>;
-    readonly close: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
-    parentMenu?: MatMenuPanel | undefined;
-    direction?: Direction;
-    focusFirstItem: (origin?: FocusOrigin) => void;
-    resetActiveItem: () => void;
-    setPositionClasses?: (x: MenuPositionX, y: MenuPositionY) => void;
-    /**
-     * @deprecated No longer used and will be removed.
-     * @breaking-change 21.0.0
-     */
-    setElevation?(depth: number): void;
-    lazyContent?: MatMenuContent;
-    backdropClass?: string;
-    overlayPanelClass?: string | string[];
-    hasBackdrop?: boolean;
-    readonly panelId?: string;
-    /**
-     * @deprecated To be removed.
-     * @breaking-change 8.0.0
-     */
-    addItem?: (item: T) => void;
-    /**
-     * @deprecated To be removed.
-     * @breaking-change 8.0.0
-     */
-    removeItem?: (item: T) => void;
-}
-
+declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: any[];
+    useFactory: typeof MAT_MENU_SCROLL_STRATEGY_FACTORY;
+};
+/**
+ * Default top padding of the menu panel.
+ * @deprecated No longer being used. Will be removed.
+ * @breaking-change 15.0.0
+ */
+declare const MENU_PANEL_TOP_PADDING = 8;
 /** Directive applied to an element that should trigger a `mat-menu`. */
-export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
-    private _overlay;
+declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _element;
     private _viewContainerRef;
     private _menuItemInstance;
     private _dir;
     private _focusMonitor;
     private _ngZone;
+    private _injector;
     private _scrollStrategy;
     private _changeDetectorRef;
+    private _animationsDisabled;
     private _cleanupTouchstart;
     private _portal;
     private _overlayRef;
@@ -518,26 +462,36 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTrigger, "[mat-menu-trigger-for], [matMenuTriggerFor]", ["matMenuTrigger"], { "_deprecatedMatMenuTriggerFor": { "alias": "mat-menu-trigger-for"; "required": false; }; "menu": { "alias": "matMenuTriggerFor"; "required": false; }; "menuData": { "alias": "matMenuTriggerData"; "required": false; }; "restoreFocus": { "alias": "matMenuTriggerRestoreFocus"; "required": false; }; }, { "menuOpened": "menuOpened"; "onMenuOpen": "onMenuOpen"; "menuClosed": "menuClosed"; "onMenuClose": "onMenuClose"; }, never, never, true, never>;
 }
 
+declare class MatMenuModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, never, [typeof MatRippleModule, typeof MatCommonModule, typeof i2.OverlayModule, typeof MatMenu, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger], [typeof i5.CdkScrollableModule, typeof MatMenu, typeof MatCommonModule, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatMenuModule>;
+}
+
 /**
- * Default top padding of the menu panel.
- * @deprecated No longer being used. Will be removed.
- * @breaking-change 15.0.0
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
  */
-export declare const MENU_PANEL_TOP_PADDING = 8;
-
-/** Reason why the menu was closed. */
-export declare type MenuCloseReason = void | 'click' | 'keydown' | 'tab';
-
-
-export declare type MenuPositionX = 'before' | 'after';
-
-export declare type MenuPositionY = 'above' | 'below';
-
+declare const matMenuAnimations: {
+    readonly transformMenu: any;
+    readonly fadeInItems: any;
+};
 /**
  * @deprecated
  * @breaking-change 8.0.0
  * @docs-private
  */
-export declare const transformMenu: any;
+declare const fadeInItems: any;
+/**
+ * @deprecated
+ * @breaking-change 8.0.0
+ * @docs-private
+ */
+declare const transformMenu: any;
 
-export { }
+export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER, MENU_PANEL_TOP_PADDING, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger, fadeInItems, matMenuAnimations, transformMenu };
+export type { MatMenuDefaultOptions, MatMenuPanel, MenuCloseReason, MenuPositionX, MenuPositionY };

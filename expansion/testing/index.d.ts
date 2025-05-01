@@ -1,13 +1,8 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessLoader } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate, HarnessLoader, ComponentHarness } from '@angular/cdk/testing';
 
-export declare interface AccordionHarnessFilters extends BaseHarnessFilters {
+interface AccordionHarnessFilters extends BaseHarnessFilters {
 }
-
-export declare interface ExpansionPanelHarnessFilters extends BaseHarnessFilters {
+interface ExpansionPanelHarnessFilters extends BaseHarnessFilters {
     title?: string | RegExp | null;
     description?: string | RegExp | null;
     content?: string | RegExp;
@@ -15,24 +10,15 @@ export declare interface ExpansionPanelHarnessFilters extends BaseHarnessFilters
     disabled?: boolean;
 }
 
-/** Harness for interacting with a standard mat-accordion in tests. */
-export declare class MatAccordionHarness extends ComponentHarness {
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for an accordion
-     * with specific attributes.
-     * @param options Options for narrowing the search.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: AccordionHarnessFilters): HarnessPredicate<MatAccordionHarness>;
-    /** Gets all expansion panels which are part of the accordion. */
-    getExpansionPanels(filter?: ExpansionPanelHarnessFilters): Promise<MatExpansionPanelHarness[]>;
-    /** Whether the accordion allows multiple expanded panels simultaneously. */
-    isMulti(): Promise<boolean>;
+/** Selectors for the various `mat-expansion-panel` sections that may contain user content. */
+declare enum MatExpansionPanelSection {
+    HEADER = ".mat-expansion-panel-header",
+    TITLE = ".mat-expansion-panel-header-title",
+    DESCRIPTION = ".mat-expansion-panel-header-description",
+    CONTENT = ".mat-expansion-panel-content"
 }
-
 /** Harness for interacting with a standard mat-expansion-panel in tests. */
-export declare class MatExpansionPanelHarness extends ContentContainerComponentHarness<MatExpansionPanelSection> {
+declare class MatExpansionPanelHarness extends ContentContainerComponentHarness<MatExpansionPanelSection> {
     static hostSelector: string;
     private _header;
     private _title;
@@ -95,12 +81,21 @@ export declare class MatExpansionPanelHarness extends ContentContainerComponentH
     getToggleIndicatorPosition(): Promise<'before' | 'after'>;
 }
 
-/** Selectors for the various `mat-expansion-panel` sections that may contain user content. */
-export declare enum MatExpansionPanelSection {
-    HEADER = ".mat-expansion-panel-header",
-    TITLE = ".mat-expansion-panel-header-title",
-    DESCRIPTION = ".mat-expansion-panel-header-description",
-    CONTENT = ".mat-expansion-panel-content"
+/** Harness for interacting with a standard mat-accordion in tests. */
+declare class MatAccordionHarness extends ComponentHarness {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for an accordion
+     * with specific attributes.
+     * @param options Options for narrowing the search.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: AccordionHarnessFilters): HarnessPredicate<MatAccordionHarness>;
+    /** Gets all expansion panels which are part of the accordion. */
+    getExpansionPanels(filter?: ExpansionPanelHarnessFilters): Promise<MatExpansionPanelHarness[]>;
+    /** Whether the accordion allows multiple expanded panels simultaneously. */
+    isMulti(): Promise<boolean>;
 }
 
-export { }
+export { MatAccordionHarness, MatExpansionPanelHarness, MatExpansionPanelSection };
+export type { AccordionHarnessFilters, ExpansionPanelHarnessFilters };

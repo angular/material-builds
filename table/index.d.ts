@@ -1,85 +1,65 @@
-import { BehaviorSubject } from 'rxjs';
-import { CdkCell } from '@angular/cdk/table';
-import { CdkCellDef } from '@angular/cdk/table';
-import { CdkColumnDef } from '@angular/cdk/table';
-import { CdkFooterCell } from '@angular/cdk/table';
-import { CdkFooterCellDef } from '@angular/cdk/table';
-import { CdkFooterRow } from '@angular/cdk/table';
-import { CdkFooterRowDef } from '@angular/cdk/table';
-import { CdkHeaderCell } from '@angular/cdk/table';
-import { CdkHeaderCellDef } from '@angular/cdk/table';
-import { CdkHeaderRow } from '@angular/cdk/table';
-import { CdkHeaderRowDef } from '@angular/cdk/table';
-import { CdkNoDataRow } from '@angular/cdk/table';
-import { CdkRow } from '@angular/cdk/table';
-import { CdkRowDef } from '@angular/cdk/table';
-import { CdkTable } from '@angular/cdk/table';
-import { CdkTextColumn } from '@angular/cdk/table';
-import { DataSource } from '@angular/cdk/collections';
-import * as i0 from '@angular/core';
-import * as i1 from '@angular/material/core';
 import * as i2 from '@angular/cdk/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { Subscription } from 'rxjs';
+import { CdkTable, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn } from '@angular/cdk/table';
+import * as i0 from '@angular/core';
+import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { Subscription, BehaviorSubject } from 'rxjs';
+import { DataSource } from '@angular/cdk/collections';
+import { M as MatPaginator } from '../paginator.d-3kymf0wo.js';
+import { a as MatSort } from '../sort.d-i-bF_IaU.js';
+import '@angular/cdk/bidi';
+import '../palette.d-BSSFKjO6.js';
+import '../form-field.d-b9aHrR4I.js';
+import '@angular/cdk/coercion';
+import '@angular/forms';
+import '../form-field-control.d-DvB4ZVlf.js';
+import '../sort-direction.d-CF7VUsH-.js';
 
-declare namespace i3 {
-    export {
-        MatRecycleRows,
-        MatTable
-    }
+/**
+ * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
+ * tables that animate rows.
+ */
+declare class MatRecycleRows {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRecycleRows, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRecycleRows, "mat-table[recycleRows], table[mat-table][recycleRows]", never, {}, {}, never, never, true, never>;
 }
-
-declare namespace i4 {
-    export {
-        MatCellDef,
-        MatHeaderCellDef,
-        MatFooterCellDef,
-        MatColumnDef,
-        MatHeaderCell,
-        MatFooterCell,
-        MatCell
-    }
-}
-
-declare namespace i5 {
-    export {
-        MatHeaderRowDef,
-        MatFooterRowDef,
-        MatRowDef,
-        MatHeaderRow,
-        MatFooterRow,
-        MatRow,
-        MatNoDataRow
-    }
-}
-
-declare namespace i6 {
-    export {
-        MatTextColumn
-    }
-}
-
-/** Cell template container that adds the right classes and role. */
-export declare class MatCell extends CdkCell {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCell, "mat-cell, td[mat-cell]", never, {}, {}, never, never, true, never>;
+declare class MatTable<T> extends CdkTable<T> {
+    /** Overrides the sticky CSS class set by the `CdkTable`. */
+    protected stickyCssClass: string;
+    /** Overrides the need to add position: sticky on every sticky cell element in `CdkTable`. */
+    protected needsPositionStickyOnElement: boolean;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTable<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col", "*"], true, never>;
 }
 
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-export declare class MatCellDef extends CdkCellDef {
+declare class MatCellDef extends CdkCellDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCellDef, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatCellDef, "[matCellDef]", never, {}, {}, never, never, true, never>;
 }
-
+/**
+ * Header cell definition for the mat-table.
+ * Captures the template of a column's header cell and as well as cell-specific properties.
+ */
+declare class MatHeaderCellDef extends CdkHeaderCellDef {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderCellDef, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, true, never>;
+}
+/**
+ * Footer cell definition for the mat-table.
+ * Captures the template of a column's footer cell and as well as cell-specific properties.
+ */
+declare class MatFooterCellDef extends CdkFooterCellDef {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterCellDef, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCellDef, "[matFooterCellDef]", never, {}, {}, never, never, true, never>;
+}
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
  */
-export declare class MatColumnDef extends CdkColumnDef {
+declare class MatColumnDef extends CdkColumnDef {
     /** Unique name for this column. */
     get name(): string;
     set name(name: string);
@@ -93,108 +73,89 @@ export declare class MatColumnDef extends CdkColumnDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatColumnDef, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatColumnDef, "[matColumnDef]", never, { "name": { "alias": "matColumnDef"; "required": false; }; }, {}, never, never, true, never>;
 }
-
-/** Footer cell template container that adds the right classes and role. */
-export declare class MatFooterCell extends CdkFooterCell {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterCell, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCell, "mat-footer-cell, td[mat-footer-cell]", never, {}, {}, never, never, true, never>;
-}
-
-/**
- * Footer cell definition for the mat-table.
- * Captures the template of a column's footer cell and as well as cell-specific properties.
- */
-export declare class MatFooterCellDef extends CdkFooterCellDef {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCellDef, "[matFooterCellDef]", never, {}, {}, never, never, true, never>;
-}
-
-/** Footer template container that contains the cell outlet. Adds the right class and role. */
-export declare class MatFooterRow extends CdkFooterRow {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFooterRow, "mat-footer-row, tr[mat-footer-row]", ["matFooterRow"], {}, {}, never, never, true, never>;
-}
-
-/**
- * Footer row definition for the mat-table.
- * Captures the footer row's template and other footer properties such as the columns to display.
- */
-export declare class MatFooterRowDef extends CdkFooterRowDef {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterRowDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterRowDef, "[matFooterRowDef]", never, { "columns": { "alias": "matFooterRowDef"; "required": false; }; "sticky": { "alias": "matFooterRowDefSticky"; "required": false; }; }, {}, never, never, true, never>;
-    static ngAcceptInputType_sticky: unknown;
-}
-
 /** Header cell template container that adds the right classes and role. */
-export declare class MatHeaderCell extends CdkHeaderCell {
+declare class MatHeaderCell extends CdkHeaderCell {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderCell, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCell, "mat-header-cell, th[mat-header-cell]", never, {}, {}, never, never, true, never>;
 }
-
-/**
- * Header cell definition for the mat-table.
- * Captures the template of a column's header cell and as well as cell-specific properties.
- */
-export declare class MatHeaderCellDef extends CdkHeaderCellDef {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderCellDef, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderCellDef, "[matHeaderCellDef]", never, {}, {}, never, never, true, never>;
+/** Footer cell template container that adds the right classes and role. */
+declare class MatFooterCell extends CdkFooterCell {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterCell, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterCell, "mat-footer-cell, td[mat-footer-cell]", never, {}, {}, never, never, true, never>;
 }
-
-/** Header template container that contains the cell outlet. Adds the right class and role. */
-export declare class MatHeaderRow extends CdkHeaderRow {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatHeaderRow, "mat-header-row, tr[mat-header-row]", ["matHeaderRow"], {}, {}, never, never, true, never>;
+/** Cell template container that adds the right classes and role. */
+declare class MatCell extends CdkCell {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatCell, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatCell, "mat-cell, td[mat-cell]", never, {}, {}, never, never, true, never>;
 }
 
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-export declare class MatHeaderRowDef extends CdkHeaderRowDef {
+declare class MatHeaderRowDef extends CdkHeaderRowDef {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRowDef, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatHeaderRowDef, "[matHeaderRowDef]", never, { "columns": { "alias": "matHeaderRowDef"; "required": false; }; "sticky": { "alias": "matHeaderRowDefSticky"; "required": false; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_sticky: unknown;
 }
-
+/**
+ * Footer row definition for the mat-table.
+ * Captures the footer row's template and other footer properties such as the columns to display.
+ */
+declare class MatFooterRowDef extends CdkFooterRowDef {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterRowDef, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatFooterRowDef, "[matFooterRowDef]", never, { "columns": { "alias": "matFooterRowDef"; "required": false; }; "sticky": { "alias": "matFooterRowDefSticky"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_sticky: unknown;
+}
+/**
+ * Data row definition for the mat-table.
+ * Captures the data row's template and other properties such as the columns to display and
+ * a when predicate that describes when this row should be used.
+ */
+declare class MatRowDef<T> extends CdkRowDef<T> {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRowDef<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRowDef<any>, "[matRowDef]", never, { "columns": { "alias": "matRowDefColumns"; "required": false; }; "when": { "alias": "matRowDefWhen"; "required": false; }; }, {}, never, never, true, never>;
+}
+/** Header template container that contains the cell outlet. Adds the right class and role. */
+declare class MatHeaderRow extends CdkHeaderRow {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatHeaderRow, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatHeaderRow, "mat-header-row, tr[mat-header-row]", ["matHeaderRow"], {}, {}, never, never, true, never>;
+}
+/** Footer template container that contains the cell outlet. Adds the right class and role. */
+declare class MatFooterRow extends CdkFooterRow {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatFooterRow, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFooterRow, "mat-footer-row, tr[mat-footer-row]", ["matFooterRow"], {}, {}, never, never, true, never>;
+}
+/** Data row template container that contains the cell outlet. Adds the right class and role. */
+declare class MatRow extends CdkRow {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatRow, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatRow, "mat-row, tr[mat-row]", ["matRow"], {}, {}, never, never, true, never>;
+}
 /** Row that can be used to display a message when no data is shown in the table. */
-export declare class MatNoDataRow extends CdkNoDataRow {
+declare class MatNoDataRow extends CdkNoDataRow {
     _contentClassName: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNoDataRow, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatNoDataRow, "ng-template[matNoDataRow]", never, {}, {}, never, never, true, never>;
 }
 
 /**
- * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
- * tables that animate rows.
+ * Column that simply shows text content for the header and row cells. Assumes that the table
+ * is using the native table implementation (`<table>`).
+ *
+ * By default, the name of this column will be the header text and data property accessor.
+ * The header text can be overridden with the `headerText` input. Cell values can be overridden with
+ * the `dataAccessor` input. Change the text justification to the start or end using the `justify`
+ * input.
  */
-export declare class MatRecycleRows {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRecycleRows, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRecycleRows, "mat-table[recycleRows], table[mat-table][recycleRows]", never, {}, {}, never, never, true, never>;
+declare class MatTextColumn<T> extends CdkTextColumn<T> {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTextColumn<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTextColumn<any>, "mat-text-column", never, {}, {}, never, never, true, never>;
 }
 
-/** Data row template container that contains the cell outlet. Adds the right class and role. */
-export declare class MatRow extends CdkRow {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatRow, "mat-row, tr[mat-row]", ["matRow"], {}, {}, never, never, true, never>;
-}
-
-/**
- * Data row definition for the mat-table.
- * Captures the data row's template and other properties such as the columns to display and
- * a when predicate that describes when this row should be used.
- */
-export declare class MatRowDef<T> extends CdkRowDef<T> {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatRowDef<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatRowDef<any>, "[matRowDef]", never, { "columns": { "alias": "matRowDefColumns"; "required": false; }; "when": { "alias": "matRowDefWhen"; "required": false; }; }, {}, never, never, true, never>;
-}
-
-export declare class MatTable<T> extends CdkTable<T> {
-    /** Overrides the sticky CSS class set by the `CdkTable`. */
-    protected stickyCssClass: string;
-    /** Overrides the need to add position: sticky on every sticky cell element in `CdkTable`. */
-    protected needsPositionStickyOnElement: boolean;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTable<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTable<any>, "mat-table, table[mat-table]", ["matTable"], {}, {}, never, ["caption", "colgroup, col", "*"], true, never>;
+declare class MatTableModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTableModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTableModule, never, [typeof MatCommonModule, typeof i2.CdkTableModule, typeof MatTable, typeof MatRecycleRows, typeof MatHeaderCellDef, typeof MatHeaderRowDef, typeof MatColumnDef, typeof MatCellDef, typeof MatRowDef, typeof MatFooterCellDef, typeof MatFooterRowDef, typeof MatHeaderCell, typeof MatCell, typeof MatFooterCell, typeof MatHeaderRow, typeof MatRow, typeof MatFooterRow, typeof MatNoDataRow, typeof MatTextColumn], [typeof MatCommonModule, typeof MatTable, typeof MatRecycleRows, typeof MatHeaderCellDef, typeof MatHeaderRowDef, typeof MatColumnDef, typeof MatCellDef, typeof MatRowDef, typeof MatFooterCellDef, typeof MatFooterRowDef, typeof MatHeaderCell, typeof MatCell, typeof MatFooterCell, typeof MatHeaderRow, typeof MatRow, typeof MatFooterRow, typeof MatNoDataRow, typeof MatTextColumn]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatTableModule>;
 }
 
 /**
@@ -210,7 +171,7 @@ export declare class MatTable<T> extends CdkTable<T> {
  * interactions. If your app needs to support more advanced use cases, consider implementing your
  * own `DataSource`.
  */
-export declare class MatTableDataSource<T, P extends MatPaginator = MatPaginator> extends DataSource<T> {
+declare class MatTableDataSource<T, P extends MatPaginator = MatPaginator> extends DataSource<T> {
     /** Stream that emits when a new data array is set on the data source. */
     private readonly _data;
     /** Stream emitting render data to the table (depends on ordered data changes). */
@@ -333,24 +294,4 @@ export declare class MatTableDataSource<T, P extends MatPaginator = MatPaginator
     disconnect(): void;
 }
 
-export declare class MatTableModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTableModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTableModule, never, [typeof i1.MatCommonModule, typeof i2.CdkTableModule, typeof i3.MatTable, typeof i3.MatRecycleRows, typeof i4.MatHeaderCellDef, typeof i5.MatHeaderRowDef, typeof i4.MatColumnDef, typeof i4.MatCellDef, typeof i5.MatRowDef, typeof i4.MatFooterCellDef, typeof i5.MatFooterRowDef, typeof i4.MatHeaderCell, typeof i4.MatCell, typeof i4.MatFooterCell, typeof i5.MatHeaderRow, typeof i5.MatRow, typeof i5.MatFooterRow, typeof i5.MatNoDataRow, typeof i6.MatTextColumn], [typeof i1.MatCommonModule, typeof i3.MatTable, typeof i3.MatRecycleRows, typeof i4.MatHeaderCellDef, typeof i5.MatHeaderRowDef, typeof i4.MatColumnDef, typeof i4.MatCellDef, typeof i5.MatRowDef, typeof i4.MatFooterCellDef, typeof i5.MatFooterRowDef, typeof i4.MatHeaderCell, typeof i4.MatCell, typeof i4.MatFooterCell, typeof i5.MatHeaderRow, typeof i5.MatRow, typeof i5.MatFooterRow, typeof i5.MatNoDataRow, typeof i6.MatTextColumn]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatTableModule>;
-}
-
-/**
- * Column that simply shows text content for the header and row cells. Assumes that the table
- * is using the native table implementation (`<table>`).
- *
- * By default, the name of this column will be the header text and data property accessor.
- * The header text can be overridden with the `headerText` input. Cell values can be overridden with
- * the `dataAccessor` input. Change the text justification to the start or end using the `justify`
- * input.
- */
-export declare class MatTextColumn<T> extends CdkTextColumn<T> {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTextColumn<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTextColumn<any>, "mat-text-column", never, {}, {}, never, never, true, never>;
-}
-
-export { }
+export { MatCell, MatCellDef, MatColumnDef, MatFooterCell, MatFooterCellDef, MatFooterRow, MatFooterRowDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRecycleRows, MatRow, MatRowDef, MatTable, MatTableDataSource, MatTableModule, MatTextColumn };

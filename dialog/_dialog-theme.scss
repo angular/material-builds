@@ -1,7 +1,6 @@
 @use 'sass:map';
 @use '../core/style/sass-utils';
-@use '../core/tokens/m2/mdc/dialog' as tokens-mdc-dialog;
-@use '../core/tokens/m2/mat/dialog' as tokens-mat-dialog;
+@use './m2-dialog';
 @use '../core/tokens/token-utils';
 @use '../core/theming/theming';
 @use '../core/theming/inspection';
@@ -14,14 +13,8 @@
   } @else {
     // Add default values for tokens not related to color, typography, or density.
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-dialog.$prefix,
-        tokens-mdc-dialog.get-unthemable-tokens()
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-dialog.$prefix,
-        tokens-mat-dialog.get-unthemable-tokens()
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-dialog.$prefix, m2-dialog.get-unthemable-tokens());
     }
   }
 }
@@ -31,14 +24,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-dialog.$prefix,
-        tokens-mdc-dialog.get-color-tokens($theme)
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-dialog.$prefix,
-        tokens-mat-dialog.get-color-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-dialog.$prefix, m2-dialog.get-color-tokens($theme));
     }
   }
 }
@@ -48,21 +35,15 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-dialog.$prefix,
-        tokens-mdc-dialog.get-typography-tokens($theme)
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-dialog.$prefix,
-        tokens-mat-dialog.get-typography-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-dialog.$prefix, m2-dialog.get-typography-tokens($theme));
     }
   }
 }
 
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    // There are no M3 density tokens for this component
   } @else {
   }
 }
@@ -71,12 +52,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mdc-dialog.$prefix,
-      tokens: tokens-mdc-dialog.get-token-slots(),
-    ),
-    (
-      namespace: tokens-mat-dialog.$prefix,
-      tokens: tokens-mat-dialog.get-token-slots(),
+      namespace: m2-dialog.$prefix,
+      tokens: m2-dialog.get-token-slots(),
     ),
   );
 }
@@ -110,12 +87,8 @@
   );
   @if ($tokens != ()) {
     @include token-utils.create-token-values(
-      tokens-mdc-dialog.$prefix,
-      map.get($tokens, tokens-mdc-dialog.$prefix)
-    );
-    @include token-utils.create-token-values(
-      tokens-mat-dialog.$prefix,
-      map.get($tokens, tokens-mat-dialog.$prefix)
+      m2-dialog.$prefix,
+      map.get($tokens, m2-dialog.$prefix)
     );
   }
 }

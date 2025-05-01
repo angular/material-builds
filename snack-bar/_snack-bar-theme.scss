@@ -5,8 +5,7 @@
 @use '../core/style/sass-utils';
 @use '../core/typography/typography';
 @use '../core/tokens/token-utils';
-@use '../core/tokens/m2/mdc/snack-bar' as tokens-mdc-snack-bar;
-@use '../core/tokens/m2/mat/snack-bar' as tokens-mat-snack-bar;
+@use './m2-snack-bar';
 
 @mixin base($theme) {
   @if inspection.get-theme-version($theme) == 1 {
@@ -14,10 +13,8 @@
   } @else {
     // Add default values for tokens not related to color, typography, or density.
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-snack-bar.$prefix,
-        tokens-mdc-snack-bar.get-unthemable-tokens()
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-snack-bar.$prefix, m2-snack-bar.get-unthemable-tokens());
     }
   }
 }
@@ -27,14 +24,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-snack-bar.$prefix,
-        tokens-mdc-snack-bar.get-color-tokens($theme)
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-snack-bar.$prefix,
-        tokens-mat-snack-bar.get-color-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-snack-bar.$prefix, m2-snack-bar.get-color-tokens($theme));
     }
   }
 }
@@ -44,10 +35,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-snack-bar.$prefix,
-        tokens-mdc-snack-bar.get-typography-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-snack-bar.$prefix, m2-snack-bar.get-typography-tokens($theme));
     }
   }
 }
@@ -59,12 +48,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mdc-snack-bar.$prefix,
-      tokens: tokens-mdc-snack-bar.get-token-slots(),
-    ),
-    (
-      namespace: tokens-mat-snack-bar.$prefix,
-      tokens: tokens-mat-snack-bar.get-token-slots(),
+      namespace: m2-snack-bar.$prefix,
+      tokens: m2-snack-bar.get-token-slots(),
     ),
   );
 }
@@ -100,12 +85,8 @@
   );
   @if ($tokens != ()) {
     @include token-utils.create-token-values(
-      tokens-mdc-snack-bar.$prefix,
-      map.get($tokens, tokens-mdc-snack-bar.$prefix)
-    );
-    @include token-utils.create-token-values(
-      tokens-mat-snack-bar.$prefix,
-      map.get($tokens, tokens-mat-snack-bar.$prefix)
+      m2-snack-bar.$prefix,
+      map.get($tokens, m2-snack-bar.$prefix)
     );
   }
 }

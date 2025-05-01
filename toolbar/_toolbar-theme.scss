@@ -1,16 +1,17 @@
 @use 'sass:map';
-@use '../core/theming/theming';
-@use '../core/theming/inspection';
-@use '../core/theming/validation';
-@use '../core/typography/typography';
-@use '../core/tokens/m2/mat/toolbar' as tokens-mat-toolbar;
-@use '../core/tokens/token-utils';
 @use '../core/style/sass-utils';
+@use '../core/theming/inspection';
+@use '../core/theming/theming';
+@use '../core/theming/validation';
+@use '../core/tokens/token-utils';
+@use '../core/typography/typography';
+@use './m2-toolbar';
+@use './m3-toolbar';
 
 @mixin _palette-styles($theme, $palette-name) {
-  @include token-utils.create-token-values(
-    tokens-mat-toolbar.$prefix,
-    tokens-mat-toolbar.private-get-color-palette-color-tokens(
+  @include token-utils.create-token-values-mixed(
+    m2-toolbar.$prefix,
+    m2-toolbar.private-get-color-palette-color-tokens(
       $background-color: inspection.get-theme-color($theme, $palette-name),
       $text-color: inspection.get-theme-color($theme, $palette-name, default-contrast)
     )
@@ -25,9 +26,9 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-toolbar.$prefix,
-        tokens-mat-toolbar.get-color-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-toolbar.$prefix,
+        m2-toolbar.get-color-tokens($theme)
       );
     }
 
@@ -55,9 +56,9 @@
     $theme: inspection.private-get-typography-back-compat-theme($theme);
 
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-toolbar.$prefix,
-        tokens-mat-toolbar.get-typography-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-toolbar.$prefix,
+        m2-toolbar.get-typography-tokens($theme)
       );
     }
   }
@@ -65,12 +66,13 @@
 
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    @include token-utils.create-token-values(
+        m3-toolbar.$prefix, m3-toolbar.get-density-tokens($theme));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-toolbar.$prefix,
-        tokens-mat-toolbar.get-density-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-toolbar.$prefix,
+        m2-toolbar.get-density-tokens($theme)
       );
     }
   }
@@ -80,8 +82,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mat-toolbar.$prefix,
-      tokens: tokens-mat-toolbar.get-token-slots(),
+      namespace: m2-toolbar.$prefix,
+      tokens: m2-toolbar.get-token-slots(),
     ),
   );
 }
@@ -96,6 +98,9 @@
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-toolbar') {
     @if inspection.get-theme-version($theme) == 1 {
       @include _theme-from-tokens(inspection.get-theme-tokens($theme));
+      @if inspection.theme-has($theme, density) {
+        @include density($theme);
+      }
     } @else {
       @include base($theme);
       @if inspection.theme-has($theme, color) {
@@ -117,8 +122,8 @@
   );
   @if ($tokens != ()) {
     @include token-utils.create-token-values(
-      tokens-mat-toolbar.$prefix,
-      map.get($tokens, tokens-mat-toolbar.$prefix)
+      m2-toolbar.$prefix,
+      map.get($tokens, m2-toolbar.$prefix)
     );
   }
 }

@@ -1,11 +1,11 @@
-@use '../core/tokens/m2/mat/select' as tokens-mat-select;
-@use '../core/tokens/token-utils';
 @use '../core/style/sass-utils';
-
-@use '../core/theming/theming';
 @use '../core/theming/inspection';
+@use '../core/theming/theming';
 @use '../core/theming/validation';
+@use '../core/tokens/token-utils';
 @use '../core/typography/typography';
+@use './m2-select';
+@use './m3-select';
 
 /// Outputs base theme styles (styles not dependent on the color, typography, or density settings)
 /// for the mat-select.
@@ -15,8 +15,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      $mat-tokens: tokens-mat-select.get-unthemable-tokens();
-      @include token-utils.create-token-values(tokens-mat-select.$prefix, $mat-tokens);
+      $mat-tokens: m2-select.get-unthemable-tokens();
+      @include token-utils.create-token-values-mixed(m2-select.$prefix, $mat-tokens);
     }
   }
 }
@@ -31,22 +31,22 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color), $options...);
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-select.$prefix,
-        tokens-mat-select.get-color-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-select.$prefix,
+        m2-select.get-color-tokens($theme)
       );
 
       .mat-mdc-form-field.mat-accent {
-        @include token-utils.create-token-values(
-          tokens-mat-select.$prefix,
-          tokens-mat-select.get-color-tokens($theme, accent)
+        @include token-utils.create-token-values-mixed(
+          m2-select.$prefix,
+          m2-select.get-color-tokens($theme, accent)
         );
       }
 
       .mat-mdc-form-field.mat-warn {
-        @include token-utils.create-token-values(
-          tokens-mat-select.$prefix,
-          tokens-mat-select.get-color-tokens($theme, warn)
+        @include token-utils.create-token-values-mixed(
+          m2-select.$prefix,
+          m2-select.get-color-tokens($theme, warn)
         );
       }
     }
@@ -60,9 +60,9 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-select.$prefix,
-        tokens-mat-select.get-typography-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-select.$prefix,
+        m2-select.get-typography-tokens($theme)
       );
     }
   }
@@ -72,12 +72,13 @@
 /// @param {Map} $theme The theme to generate density styles for.
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    @include token-utils.create-token-values(
+        m3-select.$prefix, m3-select.get-density-tokens($theme));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-select.$prefix,
-        tokens-mat-select.get-density-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-select.$prefix,
+        m2-select.get-density-tokens($theme)
       );
     }
   }
@@ -87,8 +88,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mat-select.$prefix,
-      tokens: tokens-mat-select.get-token-slots(),
+      namespace: m2-select.$prefix,
+      tokens: m2-select.get-token-slots(),
     ),
   );
 }
@@ -108,6 +109,9 @@
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-select') {
     @if inspection.get-theme-version($theme) == 1 {
       @include _theme-from-tokens(inspection.get-theme-tokens($theme), $options...);
+      @if inspection.theme-has($theme, density) {
+        @include density($theme);
+      }
     } @else {
       @include base($theme);
       @if inspection.theme-has($theme, color) {
@@ -127,6 +131,6 @@
   @include validation.selector-defined(
     'Calls to Angular Material theme mixins with an M3 theme must be wrapped in a selector'
   );
-  $mat-select-tokens: token-utils.get-tokens-for($tokens, tokens-mat-select.$prefix, $options...);
-  @include token-utils.create-token-values(tokens-mat-select.$prefix, $mat-select-tokens);
+  $mat-select-tokens: token-utils.get-tokens-for($tokens, m2-select.$prefix, $options...);
+  @include token-utils.create-token-values(m2-select.$prefix, $mat-select-tokens);
 }

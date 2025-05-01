@@ -1,45 +1,54 @@
-import { AfterViewInit } from '@angular/core';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i2 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
+import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, EventEmitter } from '@angular/core';
+import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
+import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import '@angular/cdk/bidi';
 
-declare namespace i1 {
-    export {
-        MAT_PROGRESS_BAR_LOCATION_FACTORY,
-        ProgressAnimationEnd,
-        MatProgressBarDefaultOptions,
-        MAT_PROGRESS_BAR_DEFAULT_OPTIONS,
-        MAT_PROGRESS_BAR_LOCATION,
-        MatProgressBarLocation,
-        ProgressBarMode,
-        MatProgressBar
-    }
+/** Last animation end data. */
+interface ProgressAnimationEnd {
+    value: number;
 }
-
+/** Default `mat-progress-bar` options that can be overridden. */
+interface MatProgressBarDefaultOptions {
+    /**
+     * Default theme color of the progress bar. This API is supported in M2 themes only,
+     * it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/progress-bar/styling.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     */
+    color?: ThemePalette;
+    /** Default mode of the progress bar. */
+    mode?: ProgressBarMode;
+}
 /** Injection token to be used to override the default options for `mat-progress-bar`. */
-export declare const MAT_PROGRESS_BAR_DEFAULT_OPTIONS: InjectionToken<MatProgressBarDefaultOptions>;
-
+declare const MAT_PROGRESS_BAR_DEFAULT_OPTIONS: InjectionToken<MatProgressBarDefaultOptions>;
 /**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * @docs-private
  */
-export declare const MAT_PROGRESS_BAR_LOCATION: InjectionToken<MatProgressBarLocation>;
-
-/** @docs-private */
-export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
-
-export declare class MatProgressBar implements AfterViewInit, OnDestroy {
+declare const MAT_PROGRESS_BAR_LOCATION: InjectionToken<MatProgressBarLocation>;
+/**
+ * Stubbed out location for `MatProgressBar`.
+ * @docs-private
+ */
+interface MatProgressBarLocation {
+    getPathname: () => string;
+}
+/**
+ * @docs-private
+ * @deprecated No longer used, will be removed.
+ * @breaking-change 21.0.0
+ */
+declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
+type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
+declare class MatProgressBar implements AfterViewInit, OnDestroy {
     readonly _elementRef: ElementRef<HTMLElement>;
     private _ngZone;
     private _changeDetectorRef;
     private _renderer;
     private _cleanupTransitionEnd;
-    _animationMode?: "NoopAnimations" | "BrowserAnimations" | null | undefined;
     constructor(...args: unknown[]);
     /** Flag that indicates whether NoopAnimations mode is set to true. */
     _isNoopAnimation: boolean;
@@ -94,39 +103,11 @@ export declare class MatProgressBar implements AfterViewInit, OnDestroy {
     static ngAcceptInputType_bufferValue: unknown;
 }
 
-/** Default `mat-progress-bar` options that can be overridden. */
-export declare interface MatProgressBarDefaultOptions {
-    /**
-     * Default theme color of the progress bar. This API is supported in M2 themes only,
-     * it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/progress-bar/styling.
-     *
-     * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
-     */
-    color?: ThemePalette;
-    /** Default mode of the progress bar. */
-    mode?: ProgressBarMode;
-}
-
-/**
- * Stubbed out location for `MatProgressBar`.
- * @docs-private
- */
-export declare interface MatProgressBarLocation {
-    getPathname: () => string;
-}
-
-export declare class MatProgressBarModule {
+declare class MatProgressBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressBarModule, never, [typeof i1.MatProgressBar], [typeof i1.MatProgressBar, typeof i2.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressBarModule, never, [typeof MatProgressBar], [typeof MatProgressBar, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressBarModule>;
 }
 
-/** Last animation end data. */
-export declare interface ProgressAnimationEnd {
-    value: number;
-}
-
-export declare type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
-
-export { }
+export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
+export type { MatProgressBarDefaultOptions, MatProgressBarLocation, ProgressAnimationEnd, ProgressBarMode };

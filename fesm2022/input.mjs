@@ -5,23 +5,26 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, Renderer2, isSignal, effect, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
-import { ErrorStateMatcher, _ErrorStateTracker, MatCommonModule } from '@angular/material/core';
-import { MAT_FORM_FIELD, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
-export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
+import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-D1GvPuqO.mjs';
+import { h as MAT_FORM_FIELD, k as MatFormFieldControl } from './form-field-BZd6Vhww.mjs';
+export { b as MatError, j as MatFormField, c as MatHint, M as MatLabel, e as MatPrefix, g as MatSuffix } from './form-field-BZd6Vhww.mjs';
+import { E as ErrorStateMatcher } from './error-options-BWOa3B4G.mjs';
+import { _ as _ErrorStateTracker } from './error-state-Dtb1IHM-.mjs';
+import { M as MatFormFieldModule } from './module-CTd5xD2i.mjs';
+import { M as MatCommonModule } from './common-module-DZl8g1kc.mjs';
+import '@angular/cdk/bidi';
+import '@angular/common';
+import 'rxjs/operators';
+import '@angular/cdk/observers/private';
+import './animation-DfMFjxHu.mjs';
+import '@angular/cdk/layout';
+import '@angular/cdk/observers';
 
 /** @docs-private */
 function getMatInputUnsupportedTypeError(type) {
     return Error(`Input type "${type}" isn't supported by matInput.`);
 }
-
-/**
- * This token is used to inject the object whose value should be set into `MatInput`. If none is
- * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
- * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
- * value to them.
- */
-const MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 const MAT_INPUT_INVALID_TYPES = [
@@ -54,8 +57,6 @@ class MatInput {
     _config = inject(MAT_INPUT_CONFIG, { optional: true });
     _cleanupIosKeyup;
     _cleanupWebkitWheel;
-    /** `aria-describedby` IDs assigned by the form field. */
-    _formFieldDescribedBy;
     /** Whether the component is being rendered on the server. */
     _isServer;
     /** Whether the component is a native html select. */
@@ -416,24 +417,19 @@ class MatInput {
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    setDescribedByIds(ids) {
+    get describedByIds() {
         const element = this._elementRef.nativeElement;
         const existingDescribedBy = element.getAttribute('aria-describedby');
-        let toAssign;
-        // In some cases there might be some `aria-describedby` IDs that were assigned directly,
-        // like by the `AriaDescriber` (see #30011). Attempt to preserve them by taking the previous
-        // attribute value and filtering out the IDs that came from the previous `setDescribedByIds`
-        // call. Note the `|| ids` here allows us to avoid duplicating IDs on the first render.
-        if (existingDescribedBy) {
-            const exclude = this._formFieldDescribedBy || ids;
-            toAssign = ids.concat(existingDescribedBy.split(' ').filter(id => id && !exclude.includes(id)));
-        }
-        else {
-            toAssign = ids;
-        }
-        this._formFieldDescribedBy = ids;
-        if (toAssign.length) {
-            element.setAttribute('aria-describedby', toAssign.join(' '));
+        return existingDescribedBy?.split(' ') || [];
+    }
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    setDescribedByIds(ids) {
+        const element = this._elementRef.nativeElement;
+        if (ids.length) {
+            element.setAttribute('aria-describedby', ids.join(' '));
         }
         else {
             element.removeAttribute('aria-describedby');
@@ -503,10 +499,10 @@ class MatInput {
         }
         return null;
     }
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: MatInput, deps: [], target: i0.ɵɵFactoryTarget.Directive });
-    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "19.2.0", type: MatInput, isStandalone: true, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute] }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mat-mdc-input-disabled-interactive": "disabledInteractive", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled && !disabledInteractive", "required": "required", "attr.name": "name || null", "attr.readonly": "_getReadonlyAttribute()", "attr.aria-disabled": "disabled && disabledInteractive ? \"true\" : null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesOnChanges: true, ngImport: i0 });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.5", ngImport: i0, type: MatInput, deps: [], target: i0.ɵɵFactoryTarget.Directive });
+    static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "16.1.0", version: "20.0.0-next.5", type: MatInput, isStandalone: true, selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]", inputs: { disabled: "disabled", id: "id", placeholder: "placeholder", name: "name", required: "required", type: "type", errorStateMatcher: "errorStateMatcher", userAriaDescribedBy: ["aria-describedby", "userAriaDescribedBy"], value: "value", readonly: "readonly", disabledInteractive: ["disabledInteractive", "disabledInteractive", booleanAttribute] }, host: { listeners: { "focus": "_focusChanged(true)", "blur": "_focusChanged(false)", "input": "_onInput()" }, properties: { "class.mat-input-server": "_isServer", "class.mat-mdc-form-field-textarea-control": "_isInFormField && _isTextarea", "class.mat-mdc-form-field-input-control": "_isInFormField", "class.mat-mdc-input-disabled-interactive": "disabledInteractive", "class.mdc-text-field__input": "_isInFormField", "class.mat-mdc-native-select-inline": "_isInlineSelect()", "id": "id", "disabled": "disabled && !disabledInteractive", "required": "required", "attr.name": "name || null", "attr.readonly": "_getReadonlyAttribute()", "attr.aria-disabled": "disabled && disabledInteractive ? \"true\" : null", "attr.aria-invalid": "(empty && required) ? null : errorState", "attr.aria-required": "required", "attr.id": "id" }, classAttribute: "mat-mdc-input-element" }, providers: [{ provide: MatFormFieldControl, useExisting: MatInput }], exportAs: ["matInput"], usesOnChanges: true, ngImport: i0 });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: MatInput, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", ngImport: i0, type: MatInput, decorators: [{
             type: Directive,
             args: [{
                     selector: `input[matInput], textarea[matInput], select[matNativeControl],
@@ -571,21 +567,17 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImpor
             }] } });
 
 class MatInputModule {
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "19.2.0", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatInput], exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatFormFieldModule, TextFieldModule, MatCommonModule] });
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-next.5", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.0.0-next.5", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatInput], exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.0.0-next.5", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatFormFieldModule, TextFieldModule, MatCommonModule] });
 }
-i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "19.2.0", ngImport: i0, type: MatInputModule, decorators: [{
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", ngImport: i0, type: MatInputModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, MatFormFieldModule, MatInput],
                     exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule],
                 }]
         }] });
-
-/**
- * Generated bundle index. Do not edit.
- */
 
 export { MAT_INPUT_CONFIG, MAT_INPUT_VALUE_ACCESSOR, MatInput, MatInputModule, getMatInputUnsupportedTypeError };
 //# sourceMappingURL=input.mjs.map

@@ -1,6 +1,9 @@
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatSelectHarness } from '@angular/material/select/testing';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { MatSelectHarness } from '../select/testing.mjs';
+import '../form-field/testing/control.mjs';
+import '../option-harness-BFcc-M_4.mjs';
+import '../core/testing.mjs';
 
 /** Harness for interacting with a mat-paginator in tests. */
 class MatPaginatorHarness extends ComponentHarness {

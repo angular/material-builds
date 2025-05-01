@@ -8,12 +8,11 @@
 @use './style/sass-utils';
 @use './typography/typography';
 @use './tokens/token-utils';
-@use './tokens/m2/mat/app' as tokens-mat-app;
-@use './tokens/m2/mat/ripple' as tokens-mat-ripple;
-@use './tokens/m2/mat/option' as tokens-mat-option;
-@use './tokens/m2/mat/optgroup' as tokens-mat-optgroup;
-@use './tokens/m2/mat/full-pseudo-checkbox' as tokens-mat-full-pseudo-checkbox;
-@use './tokens/m2/mat/minimal-pseudo-checkbox' as tokens-mat-minimal-pseudo-checkbox;
+@use './m2-app';
+@use 'ripple/m2-ripple';
+@use 'option/m2-option';
+@use 'option/m2-optgroup';
+@use 'selection/pseudo-checkbox/m2-pseudo-checkbox';
 
 @mixin base($theme) {
   @if inspection.get-theme-version($theme) == 1 {
@@ -24,10 +23,8 @@
     @include optgroup-theme.base($theme);
     @include pseudo-checkbox-theme.base($theme);
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-app.$prefix,
-        tokens-mat-app.get-unthemable-tokens()
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-app.$prefix, m2-app.get-unthemable-tokens());
     }
   }
 }
@@ -41,10 +38,8 @@
     @include optgroup-theme.color($theme);
     @include pseudo-checkbox-theme.color($theme);
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-app.$prefix,
-        tokens-mat-app.get-color-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-app.$prefix, m2-app.get-color-tokens($theme));
     }
   }
 }
@@ -62,7 +57,7 @@
 
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    // There are no M3 density tokens for this component
   } @else {
     @include option-theme.density($theme);
     @include optgroup-theme.density($theme);
@@ -72,28 +67,22 @@
 }
 
 @function _define-overrides() {
-  $app-tokens: tokens-mat-app.get-token-slots();
-  $ripple-tokens: tokens-mat-ripple.get-token-slots();
-  $option-tokens: tokens-mat-option.get-token-slots();
-  $optgroup-tokens: tokens-mat-optgroup.get-token-slots();
-  $full-pseudo-checkbox-tokens: tokens-mat-full-pseudo-checkbox.get-token-slots();
-  $minimal-pseudo-checkbox-tokens: tokens-mat-minimal-pseudo-checkbox.get-token-slots();
+  $app-tokens: m2-app.get-token-slots();
+  $ripple-tokens: m2-ripple.get-token-slots();
+  $option-tokens: m2-option.get-token-slots();
+  $optgroup-tokens: m2-optgroup.get-token-slots();
+  $pseudo-checkbox-tokens: m2-pseudo-checkbox.get-token-slots();
 
   @return (
-    (namespace: tokens-mat-app.$prefix, tokens: $app-tokens, prefix: 'app-'),
-    (namespace: tokens-mat-ripple.$prefix, tokens: $ripple-tokens, prefix: 'ripple-'),
-    (namespace: tokens-mat-option.$prefix, tokens: $option-tokens, prefix: 'option-'),
-    (namespace: tokens-mat-optgroup.$prefix, tokens: $optgroup-tokens, prefix: 'optgroup-'),
+    (namespace: m2-app.$prefix, tokens: $app-tokens, prefix: 'app-'),
+    (namespace: m2-ripple.$prefix, tokens: $ripple-tokens, prefix: 'ripple-'),
+    (namespace: m2-option.$prefix, tokens: $option-tokens, prefix: 'option-'),
+    (namespace: m2-optgroup.$prefix, tokens: $optgroup-tokens, prefix: 'optgroup-'),
     (
-      namespace: tokens-mat-full-pseudo-checkbox.$prefix,
-      tokens: $full-pseudo-checkbox-tokens,
-      prefix: 'pseudo-checkbox-full-'
+      namespace: m2-pseudo-checkbox.$prefix,
+      tokens: m2-pseudo-checkbox.get-token-slots(),
+      prefix: 'pseudo-checkbox-'
     ),
-    (
-      namespace: tokens-mat-minimal-pseudo-checkbox.$prefix,
-      tokens: $minimal-pseudo-checkbox-tokens,
-      prefix: 'pseudo-checkbox-minimal-'
-    )
   );
 }
 
@@ -128,35 +117,26 @@
   @include validation.selector-defined(
     'Calls to Angular Material theme mixins with an M3 theme must be wrapped in a selector'
   );
-  $mat-app-tokens: token-utils.get-tokens-for($tokens, tokens-mat-app.$prefix, $options...);
-  $mat-ripple-tokens: token-utils.get-tokens-for($tokens, tokens-mat-ripple.$prefix, $options...);
-  $mat-option-tokens: token-utils.get-tokens-for($tokens, tokens-mat-option.$prefix, $options...);
+  $mat-app-tokens: token-utils.get-tokens-for($tokens, m2-app.$prefix, $options...);
+  $mat-ripple-tokens: token-utils.get-tokens-for($tokens, m2-ripple.$prefix, $options...);
+  $mat-option-tokens: token-utils.get-tokens-for($tokens, m2-option.$prefix, $options...);
   $mat-optgroup-tokens: token-utils.get-tokens-for(
     $tokens,
-    tokens-mat-optgroup.$prefix,
+    m2-optgroup.$prefix,
     $options...
   );
-  $mat-full-pseudo-checkbox-tokens: token-utils.get-tokens-for(
+  $mat-pseudo-checkbox-tokens: token-utils.get-tokens-for(
     $tokens,
-    tokens-mat-full-pseudo-checkbox.$prefix,
-    $options...
-  );
-  $mat-minimal-pseudo-checkbox-tokens: token-utils.get-tokens-for(
-    $tokens,
-    tokens-mat-minimal-pseudo-checkbox.$prefix,
+    m2-pseudo-checkbox.$prefix,
     $options...
   );
 
-  @include token-utils.create-token-values(tokens-mat-app.$prefix, $mat-app-tokens);
-  @include token-utils.create-token-values(tokens-mat-ripple.$prefix, $mat-ripple-tokens);
-  @include token-utils.create-token-values(tokens-mat-option.$prefix, $mat-option-tokens);
-  @include token-utils.create-token-values(tokens-mat-optgroup.$prefix, $mat-optgroup-tokens);
+  @include token-utils.create-token-values(m2-app.$prefix, $mat-app-tokens);
+  @include token-utils.create-token-values(m2-ripple.$prefix, $mat-ripple-tokens);
+  @include token-utils.create-token-values(m2-option.$prefix, $mat-option-tokens);
+  @include token-utils.create-token-values(m2-optgroup.$prefix, $mat-optgroup-tokens);
   @include token-utils.create-token-values(
-    tokens-mat-full-pseudo-checkbox.$prefix,
-    $mat-full-pseudo-checkbox-tokens
-  );
-  @include token-utils.create-token-values(
-    tokens-mat-minimal-pseudo-checkbox.$prefix,
-    $mat-minimal-pseudo-checkbox-tokens
+    m2-pseudo-checkbox.$prefix,
+    $mat-pseudo-checkbox-tokens
   );
 }

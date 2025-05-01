@@ -4,8 +4,8 @@
 @use '../core/theming/validation';
 @use '../core/tokens/token-utils';
 @use '../core/typography/typography';
-@use '../core/tokens/m2/mdc/radio' as tokens-mdc-radio;
-@use '../core/tokens/m2/mat/radio' as tokens-mat-radio;
+@use './m2-radio';
+@use './m3-radio';
 
 /// Outputs base theme styles (styles not dependent on the color, typography, or density settings)
 /// for the mat-radio.
@@ -15,14 +15,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-radio.$prefix,
-        tokens-mdc-radio.get-unthemable-tokens()
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-radio.$prefix,
-        tokens-mat-radio.get-unthemable-tokens()
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-radio.$prefix, m2-radio.get-unthemable-tokens());
     }
   }
 }
@@ -38,35 +32,23 @@
   } @else {
     .mat-mdc-radio-button {
       &.mat-primary {
-        @include token-utils.create-token-values(
-          tokens-mdc-radio.$prefix,
-          tokens-mdc-radio.get-color-tokens($theme, primary)
-        );
-        @include token-utils.create-token-values(
-          tokens-mat-radio.$prefix,
-          tokens-mat-radio.get-color-tokens($theme, primary)
+        @include token-utils.create-token-values-mixed(
+          m2-radio.$prefix,
+          m2-radio.get-color-tokens($theme, primary)
         );
       }
 
       &.mat-accent {
-        @include token-utils.create-token-values(
-          tokens-mdc-radio.$prefix,
-          tokens-mdc-radio.get-color-tokens($theme)
-        );
-        @include token-utils.create-token-values(
-          tokens-mat-radio.$prefix,
-          tokens-mat-radio.get-color-tokens($theme)
+        @include token-utils.create-token-values-mixed(
+          m2-radio.$prefix,
+          m2-radio.get-color-tokens($theme)
         );
       }
 
       &.mat-warn {
-        @include token-utils.create-token-values(
-          tokens-mdc-radio.$prefix,
-          tokens-mdc-radio.get-color-tokens($theme, warn)
-        );
-        @include token-utils.create-token-values(
-          tokens-mat-radio.$prefix,
-          tokens-mat-radio.get-color-tokens($theme, warn)
+        @include token-utils.create-token-values-mixed(
+          m2-radio.$prefix,
+          m2-radio.get-color-tokens($theme, warn)
         );
       }
     }
@@ -80,13 +62,9 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-radio.$prefix,
-        tokens-mdc-radio.get-typography-tokens($theme)
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-radio.$prefix,
-        tokens-mat-radio.get-typography-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-radio.$prefix,
+        m2-radio.get-typography-tokens($theme)
       );
     }
   }
@@ -96,18 +74,14 @@
 /// @param {Map} $theme The theme to generate density styles for.
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    @include token-utils.create-token-values(m3-radio.$prefix, m3-radio.get-density-tokens($theme));
   } @else {
     $density-scale: inspection.get-theme-density($theme);
 
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mdc-radio.$prefix,
-        tokens-mdc-radio.get-density-tokens($theme)
-      );
-      @include token-utils.create-token-values(
-        tokens-mat-radio.$prefix,
-        tokens-mat-radio.get-density-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-radio.$prefix,
+        m2-radio.get-density-tokens($theme)
       );
     }
   }
@@ -117,12 +91,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mdc-radio.$prefix,
-      tokens: tokens-mdc-radio.get-token-slots(),
-    ),
-    (
-      namespace: tokens-mat-radio.$prefix,
-      tokens: tokens-mat-radio.get-token-slots(),
+      namespace: m2-radio.$prefix,
+      tokens: m2-radio.get-token-slots(),
     ),
   );
 }
@@ -142,6 +112,9 @@
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-radio') {
     @if inspection.get-theme-version($theme) == 1 {
       @include _theme-from-tokens(inspection.get-theme-tokens($theme), $options...);
+      @if inspection.theme-has($theme, density) {
+        @include density($theme);
+      }
     } @else {
       @include base($theme);
       @if inspection.theme-has($theme, color) {
@@ -161,8 +134,6 @@
   @include validation.selector-defined(
     'Calls to Angular Material theme mixins with an M3 theme must be wrapped in a selector'
   );
-  $mdc-radio-tokens: token-utils.get-tokens-for($tokens, tokens-mdc-radio.$prefix, $options...);
-  $mat-radio-tokens: token-utils.get-tokens-for($tokens, tokens-mat-radio.$prefix, $options...);
-  @include token-utils.create-token-values(tokens-mdc-radio.$prefix, $mdc-radio-tokens);
-  @include token-utils.create-token-values(tokens-mat-radio.$prefix, $mat-radio-tokens);
+  $mat-radio-tokens: token-utils.get-tokens-for($tokens, m2-radio.$prefix, $options...);
+  @include token-utils.create-token-values(m2-radio.$prefix, $mat-radio-tokens);
 }

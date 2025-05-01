@@ -5,17 +5,16 @@
 @use '../core/typography/typography';
 @use '../core/style/sass-utils';
 @use '../core/tokens/token-utils';
-@use '../core/tokens/m2/mat/expansion' as tokens-mat-expansion;
+@use './m2-expansion';
+@use './m3-expansion';
 
 @mixin base($theme) {
   @if inspection.get-theme-version($theme) == 1 {
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-expansion.$prefix,
-        tokens-mat-expansion.get-unthemable-tokens()
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-expansion.$prefix, m2-expansion.get-unthemable-tokens());
     }
   }
 }
@@ -25,10 +24,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-expansion.$prefix,
-        tokens-mat-expansion.get-color-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-expansion.$prefix, m2-expansion.get-color-tokens($theme));
     }
   }
 }
@@ -41,23 +38,20 @@
     $theme: inspection.private-get-typography-back-compat-theme($theme);
 
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-expansion.$prefix,
-        tokens-mat-expansion.get-typography-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-expansion.$prefix, m2-expansion.get-typography-tokens($theme));
     }
   }
 }
 
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    @include token-utils.create-token-values(
+        m3-expansion.$prefix, m3-expansion.get-density-tokens($theme));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-expansion.$prefix,
-        tokens-mat-expansion.get-density-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-expansion.$prefix, m2-expansion.get-density-tokens($theme));
     }
   }
 }
@@ -66,8 +60,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mat-expansion.$prefix,
-      tokens: tokens-mat-expansion.get-token-slots(),
+      namespace: m2-expansion.$prefix,
+      tokens: m2-expansion.get-token-slots(),
     ),
   );
 }
@@ -80,6 +74,9 @@
   @include theming.private-check-duplicate-theme-styles($theme, 'mat-expansion') {
     @if inspection.get-theme-version($theme) == 1 {
       @include _theme-from-tokens(inspection.get-theme-tokens($theme));
+      @if inspection.theme-has($theme, density) {
+        @include density($theme);
+      }
     } @else {
       @include base($theme);
       @if inspection.theme-has($theme, color) {
@@ -101,8 +98,8 @@
   );
   @if ($tokens != ()) {
     @include token-utils.create-token-values(
-      tokens-mat-expansion.$prefix,
-      map.get($tokens, tokens-mat-expansion.$prefix)
+      m2-expansion.$prefix,
+      map.get($tokens, m2-expansion.$prefix)
     );
   }
 }

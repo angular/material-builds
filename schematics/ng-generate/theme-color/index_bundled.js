@@ -50,7 +50,7 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/theme-color/index.mjs
+// src/material/schematics/ng-generate/theme-color/index.ts
 var theme_color_exports = {};
 __export(theme_color_exports, {
   default: () => theme_color_default,
@@ -63,7 +63,7 @@ __export(theme_color_exports, {
 });
 module.exports = __toCommonJS(theme_color_exports);
 
-// node_modules/@material/material-color-utilities/utils/math_utils.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/utils/math_utils.js
 function signum(num) {
   if (num < 0) {
     return -1;
@@ -116,7 +116,7 @@ function matrixMultiply(row, matrix) {
   return [a, b, c];
 }
 
-// node_modules/@material/material-color-utilities/utils/color_utils.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/utils/color_utils.js
 var SRGB_TO_XYZ = [
   [0.41233895, 0.35762064, 0.18051042],
   [0.2126, 0.7152, 0.0722],
@@ -250,8 +250,30 @@ function labInvf(ft) {
   }
 }
 
-// node_modules/@material/material-color-utilities/hct/viewing_conditions.js
-var ViewingConditions = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/hct/viewing_conditions.js
+var ViewingConditions = class _ViewingConditions {
+  /**
+   * Create ViewingConditions from a simple, physically relevant, set of
+   * parameters.
+   *
+   * @param whitePoint White point, measured in the XYZ color space.
+   *     default = D65, or sunny day afternoon
+   * @param adaptingLuminance The luminance of the adapting field. Informally,
+   *     how bright it is in the room where the color is viewed. Can be
+   *     calculated from lux by multiplying lux by 0.0586. default = 11.72,
+   *     or 200 lux.
+   * @param backgroundLstar The lightness of the area surrounding the color.
+   *     measured by L* in L*a*b*. default = 50.0
+   * @param surround A general description of the lighting surrounding the
+   *     color. 0 is pitch dark, like watching a movie in a theater. 1.0 is a
+   *     dimly light room, like watching TV at home at night. 2.0 means there
+   *     is no difference between the lighting on the color and around it.
+   *     default = 2.0
+   * @param discountingIlluminant Whether the eye accounts for the tint of the
+   *     ambient lighting, such as knowing an apple is still red in green light.
+   *     default = false, the eye does not perform this process on
+   *       self-luminous objects like displays.
+   */
   static make(whitePoint = whitePointD65(), adaptingLuminance = 200 / Math.PI * yFromLstar(50) / 100, backgroundLstar = 50, surround = 2, discountingIlluminant = false) {
     const xyz = whitePoint;
     const rW = xyz[0] * 0.401288 + xyz[1] * 0.650173 + xyz[2] * -0.051461;
@@ -286,8 +308,15 @@ var ViewingConditions = class {
       400 * rgbAFactors[2] / (rgbAFactors[2] + 27.13)
     ];
     const aw = (2 * rgbA[0] + rgbA[1] + 0.05 * rgbA[2]) * nbb;
-    return new ViewingConditions(n, aw, nbb, ncb, c, nc, rgbD, fl, Math.pow(fl, 0.25), z);
+    return new _ViewingConditions(n, aw, nbb, ncb, c, nc, rgbD, fl, Math.pow(fl, 0.25), z);
   }
+  /**
+   * Parameters are intermediate values of the CAM16 conversion process. Their
+   * names are shorthand for technical color science terminology, this class
+   * would not benefit from documenting them individually. A brief overview
+   * is available in the CAM16 specification, and a complete overview requires
+   * a color science textbook, such as Fairchild's Color Appearance Models.
+   */
   constructor(n, aw, nbb, ncb, c, nc, rgbD, fl, fLRoot, z) {
     this.n = n;
     this.aw = aw;
@@ -303,8 +332,28 @@ var ViewingConditions = class {
 };
 ViewingConditions.DEFAULT = ViewingConditions.make();
 
-// node_modules/@material/material-color-utilities/hct/cam16.js
-var Cam16 = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/hct/cam16.js
+var Cam16 = class _Cam16 {
+  /**
+   * All of the CAM16 dimensions can be calculated from 3 of the dimensions, in
+   * the following combinations:
+   *      -  {j or q} and {c, m, or s} and hue
+   *      - jstar, astar, bstar
+   * Prefer using a static method that constructs from 3 of those dimensions.
+   * This constructor is intended for those methods to use to return all
+   * possible dimensions.
+   *
+   * @param hue
+   * @param chroma informally, colorfulness / color intensity. like saturation
+   *     in HSL, except perceptually accurate.
+   * @param j lightness
+   * @param q brightness; ratio of lightness to white point's lightness
+   * @param m colorfulness
+   * @param s saturation; ratio of chroma to white point's chroma
+   * @param jstar CAM16-UCS J coordinate
+   * @param astar CAM16-UCS a coordinate
+   * @param bstar CAM16-UCS b coordinate
+   */
   constructor(hue, chroma, j, q, m, s, jstar, astar, bstar) {
     this.hue = hue;
     this.chroma = chroma;
@@ -316,6 +365,11 @@ var Cam16 = class {
     this.astar = astar;
     this.bstar = bstar;
   }
+  /**
+   * CAM16 instances also have coordinates in the CAM16-UCS space, called J*,
+   * a*, b*, or jstar, astar, bstar in code. CAM16-UCS is included in the CAM16
+   * specification, and is used to measure distances between colors.
+   */
   distance(other) {
     const dJ = this.jstar - other.jstar;
     const dA = this.astar - other.astar;
@@ -324,9 +378,20 @@ var Cam16 = class {
     const dE = 1.41 * Math.pow(dEPrime, 0.63);
     return dE;
   }
+  /**
+   * @param argb ARGB representation of a color.
+   * @return CAM16 color, assuming the color was viewed in default viewing
+   *     conditions.
+   */
   static fromInt(argb) {
-    return Cam16.fromIntInViewingConditions(argb, ViewingConditions.DEFAULT);
+    return _Cam16.fromIntInViewingConditions(argb, ViewingConditions.DEFAULT);
   }
+  /**
+   * @param argb ARGB representation of a color.
+   * @param viewingConditions Information about the environment where the color
+   *     was observed.
+   * @return CAM16 color.
+   */
   static fromIntInViewingConditions(argb, viewingConditions) {
     const red = (argb & 16711680) >> 16;
     const green = (argb & 65280) >> 8;
@@ -372,11 +437,23 @@ var Cam16 = class {
     const mstar = 1 / 0.0228 * Math.log(1 + 0.0228 * m);
     const astar = mstar * Math.cos(hueRadians);
     const bstar = mstar * Math.sin(hueRadians);
-    return new Cam16(hue, c, j, q, m, s, jstar, astar, bstar);
+    return new _Cam16(hue, c, j, q, m, s, jstar, astar, bstar);
   }
+  /**
+   * @param j CAM16 lightness
+   * @param c CAM16 chroma
+   * @param h CAM16 hue
+   */
   static fromJch(j, c, h) {
-    return Cam16.fromJchInViewingConditions(j, c, h, ViewingConditions.DEFAULT);
+    return _Cam16.fromJchInViewingConditions(j, c, h, ViewingConditions.DEFAULT);
   }
+  /**
+   * @param j CAM16 lightness
+   * @param c CAM16 chroma
+   * @param h CAM16 hue
+   * @param viewingConditions Information about the environment where the color
+   *     was observed.
+   */
   static fromJchInViewingConditions(j, c, h, viewingConditions) {
     const q = 4 / viewingConditions.c * Math.sqrt(j / 100) * (viewingConditions.aw + 4) * viewingConditions.fLRoot;
     const m = c * viewingConditions.fLRoot;
@@ -387,11 +464,27 @@ var Cam16 = class {
     const mstar = 1 / 0.0228 * Math.log(1 + 0.0228 * m);
     const astar = mstar * Math.cos(hueRadians);
     const bstar = mstar * Math.sin(hueRadians);
-    return new Cam16(h, c, j, q, m, s, jstar, astar, bstar);
+    return new _Cam16(h, c, j, q, m, s, jstar, astar, bstar);
   }
+  /**
+   * @param jstar CAM16-UCS lightness.
+   * @param astar CAM16-UCS a dimension. Like a* in L*a*b*, it is a Cartesian
+   *     coordinate on the Y axis.
+   * @param bstar CAM16-UCS b dimension. Like a* in L*a*b*, it is a Cartesian
+   *     coordinate on the X axis.
+   */
   static fromUcs(jstar, astar, bstar) {
-    return Cam16.fromUcsInViewingConditions(jstar, astar, bstar, ViewingConditions.DEFAULT);
+    return _Cam16.fromUcsInViewingConditions(jstar, astar, bstar, ViewingConditions.DEFAULT);
   }
+  /**
+   * @param jstar CAM16-UCS lightness.
+   * @param astar CAM16-UCS a dimension. Like a* in L*a*b*, it is a Cartesian
+   *     coordinate on the Y axis.
+   * @param bstar CAM16-UCS b dimension. Like a* in L*a*b*, it is a Cartesian
+   *     coordinate on the X axis.
+   * @param viewingConditions Information about the environment where the color
+   *     was observed.
+   */
   static fromUcsInViewingConditions(jstar, astar, bstar, viewingConditions) {
     const a = astar;
     const b = bstar;
@@ -403,11 +496,21 @@ var Cam16 = class {
       h += 360;
     }
     const j = jstar / (1 - (jstar - 100) * 7e-3);
-    return Cam16.fromJchInViewingConditions(j, c, h, viewingConditions);
+    return _Cam16.fromJchInViewingConditions(j, c, h, viewingConditions);
   }
+  /**
+   *  @return ARGB representation of color, assuming the color was viewed in
+   *     default viewing conditions, which are near-identical to the default
+   *     viewing conditions for sRGB.
+   */
   toInt() {
     return this.viewed(ViewingConditions.DEFAULT);
   }
+  /**
+   * @param viewingConditions Information about the environment where the color
+   *     will be viewed.
+   * @return ARGB representation of color
+   */
   viewed(viewingConditions) {
     const alpha = this.chroma === 0 || this.j === 0 ? 0 : this.chroma / Math.sqrt(this.j / 100);
     const t = Math.pow(alpha / Math.pow(1.64 - Math.pow(0.29, viewingConditions.n), 0.73), 1 / 0.9);
@@ -439,6 +542,8 @@ var Cam16 = class {
     const argb = argbFromXyz(x, y, z);
     return argb;
   }
+  /// Given color expressed in XYZ and viewed in [viewingConditions], convert to
+  /// CAM16.
   static fromXyzInViewingConditions(x, y, z, viewingConditions) {
     const rC = 0.401288 * x + 0.650173 * y - 0.051461 * z;
     const gC = -0.250268 * x + 1.204414 * y + 0.045854 * z;
@@ -475,8 +580,9 @@ var Cam16 = class {
     const mstar = Math.log(1 + 0.0228 * M) / 0.0228;
     const astar = mstar * Math.cos(hueRadians);
     const bstar = mstar * Math.sin(hueRadians);
-    return new Cam16(hue, C, J, Q, M, s, jstar, astar, bstar);
+    return new _Cam16(hue, C, J, Q, M, s, jstar, astar, bstar);
   }
+  /// XYZ representation of CAM16 seen in [viewingConditions].
   xyzInViewingConditions(viewingConditions) {
     const alpha = this.chroma === 0 || this.j === 0 ? 0 : this.chroma / Math.sqrt(this.j / 100);
     const t = Math.pow(alpha / Math.pow(1.64 - Math.pow(0.29, viewingConditions.n), 0.73), 1 / 0.9);
@@ -509,11 +615,27 @@ var Cam16 = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/hct/hct_solver.js
-var HctSolver = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/hct/hct_solver.js
+var HctSolver = class _HctSolver {
+  /**
+   * Sanitizes a small enough angle in radians.
+   *
+   * @param angle An angle in radians; must not deviate too much
+   * from 0.
+   * @return A coterminal angle between 0 and 2pi.
+   */
   static sanitizeRadians(angle) {
     return (angle + Math.PI * 8) % (Math.PI * 2);
   }
+  /**
+   * Delinearizes an RGB component, returning a floating-point
+   * number.
+   *
+   * @param rgbComponent 0.0 <= rgb_component <= 100.0, represents
+   * linear R/G/B channel
+   * @return 0.0 <= output <= 255.0, color channel converted to
+   * regular RGB space
+   */
   static trueDelinearized(rgbComponent) {
     const normalized = rgbComponent / 100;
     let delinearized2 = 0;
@@ -528,20 +650,34 @@ var HctSolver = class {
     const af = Math.pow(Math.abs(component), 0.42);
     return signum(component) * 400 * af / (af + 27.13);
   }
+  /**
+   * Returns the hue of a linear RGB color in CAM16.
+   *
+   * @param linrgb The linear RGB coordinates of a color.
+   * @return The hue of the color in CAM16, in radians.
+   */
   static hueOf(linrgb) {
-    const scaledDiscount = matrixMultiply(linrgb, HctSolver.SCALED_DISCOUNT_FROM_LINRGB);
-    const rA = HctSolver.chromaticAdaptation(scaledDiscount[0]);
-    const gA = HctSolver.chromaticAdaptation(scaledDiscount[1]);
-    const bA = HctSolver.chromaticAdaptation(scaledDiscount[2]);
+    const scaledDiscount = matrixMultiply(linrgb, _HctSolver.SCALED_DISCOUNT_FROM_LINRGB);
+    const rA = _HctSolver.chromaticAdaptation(scaledDiscount[0]);
+    const gA = _HctSolver.chromaticAdaptation(scaledDiscount[1]);
+    const bA = _HctSolver.chromaticAdaptation(scaledDiscount[2]);
     const a = (11 * rA + -12 * gA + bA) / 11;
     const b = (rA + gA - 2 * bA) / 9;
     return Math.atan2(b, a);
   }
   static areInCyclicOrder(a, b, c) {
-    const deltaAB = HctSolver.sanitizeRadians(b - a);
-    const deltaAC = HctSolver.sanitizeRadians(c - a);
+    const deltaAB = _HctSolver.sanitizeRadians(b - a);
+    const deltaAC = _HctSolver.sanitizeRadians(c - a);
     return deltaAB < deltaAC;
   }
+  /**
+   * Solves the lerp equation.
+   *
+   * @param source The starting number.
+   * @param mid The number in the middle.
+   * @param target The ending number.
+   * @return A number t such that lerp(source, target, t) = mid.
+   */
   static intercept(source, mid, target) {
     return (mid - source) / (target - source);
   }
@@ -552,24 +688,45 @@ var HctSolver = class {
       source[2] + (target[2] - source[2]) * t
     ];
   }
+  /**
+   * Intersects a segment with a plane.
+   *
+   * @param source The coordinates of point A.
+   * @param coordinate The R-, G-, or B-coordinate of the plane.
+   * @param target The coordinates of point B.
+   * @param axis The axis the plane is perpendicular with. (0: R, 1:
+   * G, 2: B)
+   * @return The intersection point of the segment AB with the plane
+   * R=coordinate, G=coordinate, or B=coordinate
+   */
   static setCoordinate(source, coordinate, target, axis) {
-    const t = HctSolver.intercept(source[axis], coordinate, target[axis]);
-    return HctSolver.lerpPoint(source, t, target);
+    const t = _HctSolver.intercept(source[axis], coordinate, target[axis]);
+    return _HctSolver.lerpPoint(source, t, target);
   }
   static isBounded(x) {
     return 0 <= x && x <= 100;
   }
+  /**
+   * Returns the nth possible vertex of the polygonal intersection.
+   *
+   * @param y The Y value of the plane.
+   * @param n The zero-based index of the point. 0 <= n <= 11.
+   * @return The nth possible vertex of the polygonal intersection
+   * of the y plane and the RGB cube, in linear RGB coordinates, if
+   * it exists. If this possible vertex lies outside of the cube,
+   * [-1.0, -1.0, -1.0] is returned.
+   */
   static nthVertex(y, n) {
-    const kR = HctSolver.Y_FROM_LINRGB[0];
-    const kG = HctSolver.Y_FROM_LINRGB[1];
-    const kB = HctSolver.Y_FROM_LINRGB[2];
+    const kR = _HctSolver.Y_FROM_LINRGB[0];
+    const kG = _HctSolver.Y_FROM_LINRGB[1];
+    const kB = _HctSolver.Y_FROM_LINRGB[2];
     const coordA = n % 4 <= 1 ? 0 : 100;
     const coordB = n % 2 === 0 ? 0 : 100;
     if (n < 4) {
       const g = coordA;
       const b = coordB;
       const r = (y - g * kG - b * kB) / kR;
-      if (HctSolver.isBounded(r)) {
+      if (_HctSolver.isBounded(r)) {
         return [r, g, b];
       } else {
         return [-1, -1, -1];
@@ -578,7 +735,7 @@ var HctSolver = class {
       const b = coordA;
       const r = coordB;
       const g = (y - r * kR - b * kB) / kG;
-      if (HctSolver.isBounded(g)) {
+      if (_HctSolver.isBounded(g)) {
         return [r, g, b];
       } else {
         return [-1, -1, -1];
@@ -587,13 +744,22 @@ var HctSolver = class {
       const r = coordA;
       const g = coordB;
       const b = (y - r * kR - g * kG) / kB;
-      if (HctSolver.isBounded(b)) {
+      if (_HctSolver.isBounded(b)) {
         return [r, g, b];
       } else {
         return [-1, -1, -1];
       }
     }
   }
+  /**
+   * Finds the segment containing the desired color.
+   *
+   * @param y The Y value of the color.
+   * @param targetHue The hue of the color.
+   * @return A list of two sets of linear RGB coordinates, each
+   * corresponding to an endpoint of the segment containing the
+   * desired color.
+   */
   static bisectToSegment(y, targetHue) {
     let left = [-1, -1, -1];
     let right = left;
@@ -602,11 +768,11 @@ var HctSolver = class {
     let initialized = false;
     let uncut = true;
     for (let n = 0; n < 12; n++) {
-      const mid = HctSolver.nthVertex(y, n);
+      const mid = _HctSolver.nthVertex(y, n);
       if (mid[0] < 0) {
         continue;
       }
-      const midHue = HctSolver.hueOf(mid);
+      const midHue = _HctSolver.hueOf(mid);
       if (!initialized) {
         left = mid;
         right = mid;
@@ -615,9 +781,9 @@ var HctSolver = class {
         initialized = true;
         continue;
       }
-      if (uncut || HctSolver.areInCyclicOrder(leftHue, midHue, rightHue)) {
+      if (uncut || _HctSolver.areInCyclicOrder(leftHue, midHue, rightHue)) {
         uncut = false;
-        if (HctSolver.areInCyclicOrder(leftHue, targetHue, midHue)) {
+        if (_HctSolver.areInCyclicOrder(leftHue, targetHue, midHue)) {
           right = mid;
           rightHue = midHue;
         } else {
@@ -641,31 +807,39 @@ var HctSolver = class {
   static criticalPlaneAbove(x) {
     return Math.ceil(x - 0.5);
   }
+  /**
+   * Finds a color with the given Y and hue on the boundary of the
+   * cube.
+   *
+   * @param y The Y value of the color.
+   * @param targetHue The hue of the color.
+   * @return The desired color, in linear RGB coordinates.
+   */
   static bisectToLimit(y, targetHue) {
-    const segment = HctSolver.bisectToSegment(y, targetHue);
+    const segment = _HctSolver.bisectToSegment(y, targetHue);
     let left = segment[0];
-    let leftHue = HctSolver.hueOf(left);
+    let leftHue = _HctSolver.hueOf(left);
     let right = segment[1];
     for (let axis = 0; axis < 3; axis++) {
       if (left[axis] !== right[axis]) {
         let lPlane = -1;
         let rPlane = 255;
         if (left[axis] < right[axis]) {
-          lPlane = HctSolver.criticalPlaneBelow(HctSolver.trueDelinearized(left[axis]));
-          rPlane = HctSolver.criticalPlaneAbove(HctSolver.trueDelinearized(right[axis]));
+          lPlane = _HctSolver.criticalPlaneBelow(_HctSolver.trueDelinearized(left[axis]));
+          rPlane = _HctSolver.criticalPlaneAbove(_HctSolver.trueDelinearized(right[axis]));
         } else {
-          lPlane = HctSolver.criticalPlaneAbove(HctSolver.trueDelinearized(left[axis]));
-          rPlane = HctSolver.criticalPlaneBelow(HctSolver.trueDelinearized(right[axis]));
+          lPlane = _HctSolver.criticalPlaneAbove(_HctSolver.trueDelinearized(left[axis]));
+          rPlane = _HctSolver.criticalPlaneBelow(_HctSolver.trueDelinearized(right[axis]));
         }
         for (let i = 0; i < 8; i++) {
           if (Math.abs(rPlane - lPlane) <= 1) {
             break;
           } else {
             const mPlane = Math.floor((lPlane + rPlane) / 2);
-            const midPlaneCoordinate = HctSolver.CRITICAL_PLANES[mPlane];
-            const mid = HctSolver.setCoordinate(left, midPlaneCoordinate, right, axis);
-            const midHue = HctSolver.hueOf(mid);
-            if (HctSolver.areInCyclicOrder(leftHue, targetHue, midHue)) {
+            const midPlaneCoordinate = _HctSolver.CRITICAL_PLANES[mPlane];
+            const mid = _HctSolver.setCoordinate(left, midPlaneCoordinate, right, axis);
+            const midHue = _HctSolver.hueOf(mid);
+            if (_HctSolver.areInCyclicOrder(leftHue, targetHue, midHue)) {
               right = mid;
               rPlane = mPlane;
             } else {
@@ -677,13 +851,22 @@ var HctSolver = class {
         }
       }
     }
-    return HctSolver.midpoint(left, right);
+    return _HctSolver.midpoint(left, right);
   }
   static inverseChromaticAdaptation(adapted) {
     const adaptedAbs = Math.abs(adapted);
     const base = Math.max(0, 27.13 * adaptedAbs / (400 - adaptedAbs));
     return signum(adapted) * Math.pow(base, 1 / 0.42);
   }
+  /**
+   * Finds a color with the given hue, chroma, and Y.
+   *
+   * @param hueRadians The desired hue in radians.
+   * @param chroma The desired chroma.
+   * @param y The desired Y.
+   * @return The desired color as a hexadecimal integer, if found; 0
+   * otherwise.
+   */
   static findResultByJ(hueRadians, chroma, y) {
     let j = Math.sqrt(y) * 11;
     const viewingConditions = ViewingConditions.DEFAULT;
@@ -704,16 +887,16 @@ var HctSolver = class {
       const rA = (460 * p2 + 451 * a + 288 * b) / 1403;
       const gA = (460 * p2 - 891 * a - 261 * b) / 1403;
       const bA = (460 * p2 - 220 * a - 6300 * b) / 1403;
-      const rCScaled = HctSolver.inverseChromaticAdaptation(rA);
-      const gCScaled = HctSolver.inverseChromaticAdaptation(gA);
-      const bCScaled = HctSolver.inverseChromaticAdaptation(bA);
-      const linrgb = matrixMultiply([rCScaled, gCScaled, bCScaled], HctSolver.LINRGB_FROM_SCALED_DISCOUNT);
+      const rCScaled = _HctSolver.inverseChromaticAdaptation(rA);
+      const gCScaled = _HctSolver.inverseChromaticAdaptation(gA);
+      const bCScaled = _HctSolver.inverseChromaticAdaptation(bA);
+      const linrgb = matrixMultiply([rCScaled, gCScaled, bCScaled], _HctSolver.LINRGB_FROM_SCALED_DISCOUNT);
       if (linrgb[0] < 0 || linrgb[1] < 0 || linrgb[2] < 0) {
         return 0;
       }
-      const kR = HctSolver.Y_FROM_LINRGB[0];
-      const kG = HctSolver.Y_FROM_LINRGB[1];
-      const kB = HctSolver.Y_FROM_LINRGB[2];
+      const kR = _HctSolver.Y_FROM_LINRGB[0];
+      const kG = _HctSolver.Y_FROM_LINRGB[1];
+      const kB = _HctSolver.Y_FROM_LINRGB[2];
       const fnj = kR * linrgb[0] + kG * linrgb[1] + kB * linrgb[2];
       if (fnj <= 0) {
         return 0;
@@ -728,6 +911,18 @@ var HctSolver = class {
     }
     return 0;
   }
+  /**
+   * Finds an sRGB color with the given hue, chroma, and L*, if
+   * possible.
+   *
+   * @param hueDegrees The desired hue, in degrees.
+   * @param chroma The desired chroma.
+   * @param lstar The desired L*.
+   * @return A hexadecimal representing the sRGB color. The color
+   * has sufficiently close hue, chroma, and L* to the desired
+   * values, if possible; otherwise, the hue and L* will be
+   * sufficiently close, and chroma will be maximized.
+   */
   static solveToInt(hueDegrees, chroma, lstar) {
     if (chroma < 1e-4 || lstar < 1e-4 || lstar > 99.9999) {
       return argbFromLstar(lstar);
@@ -735,15 +930,27 @@ var HctSolver = class {
     hueDegrees = sanitizeDegreesDouble(hueDegrees);
     const hueRadians = hueDegrees / 180 * Math.PI;
     const y = yFromLstar(lstar);
-    const exactAnswer = HctSolver.findResultByJ(hueRadians, chroma, y);
+    const exactAnswer = _HctSolver.findResultByJ(hueRadians, chroma, y);
     if (exactAnswer !== 0) {
       return exactAnswer;
     }
-    const linrgb = HctSolver.bisectToLimit(y, hueRadians);
+    const linrgb = _HctSolver.bisectToLimit(y, hueRadians);
     return argbFromLinrgb(linrgb);
   }
+  /**
+   * Finds an sRGB color with the given hue, chroma, and L*, if
+   * possible.
+   *
+   * @param hueDegrees The desired hue, in degrees.
+   * @param chroma The desired chroma.
+   * @param lstar The desired L*.
+   * @return An CAM16 object representing the sRGB color. The color
+   * has sufficiently close hue, chroma, and L* to the desired
+   * values, if possible; otherwise, the hue and L* will be
+   * sufficiently close, and chroma will be maximized.
+   */
   static solveToCam(hueDegrees, chroma, lstar) {
-    return Cam16.fromInt(HctSolver.solveToInt(hueDegrees, chroma, lstar));
+    return Cam16.fromInt(_HctSolver.solveToInt(hueDegrees, chroma, lstar));
   }
 };
 HctSolver.SCALED_DISCOUNT_FROM_LINRGB = [
@@ -1039,32 +1246,56 @@ HctSolver.CRITICAL_PLANES = [
   99.55452497210776
 ];
 
-// node_modules/@material/material-color-utilities/hct/hct.js
-var Hct = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/hct/hct.js
+var Hct = class _Hct {
   static from(hue, chroma, tone) {
-    return new Hct(HctSolver.solveToInt(hue, chroma, tone));
+    return new _Hct(HctSolver.solveToInt(hue, chroma, tone));
   }
+  /**
+   * @param argb ARGB representation of a color.
+   * @return HCT representation of a color in default viewing conditions
+   */
   static fromInt(argb) {
-    return new Hct(argb);
+    return new _Hct(argb);
   }
   toInt() {
     return this.argb;
   }
+  /**
+   * A number, in degrees, representing ex. red, orange, yellow, etc.
+   * Ranges from 0 <= hue < 360.
+   */
   get hue() {
     return this.internalHue;
   }
+  /**
+   * @param newHue 0 <= newHue < 360; invalid values are corrected.
+   * Chroma may decrease because chroma has a different maximum for any given
+   * hue and tone.
+   */
   set hue(newHue) {
     this.setInternalState(HctSolver.solveToInt(newHue, this.internalChroma, this.internalTone));
   }
   get chroma() {
     return this.internalChroma;
   }
+  /**
+   * @param newChroma 0 <= newChroma < ?
+   * Chroma may decrease because chroma has a different maximum for any given
+   * hue and tone.
+   */
   set chroma(newChroma) {
     this.setInternalState(HctSolver.solveToInt(this.internalHue, newChroma, this.internalTone));
   }
+  /** Lightness. Ranges from 0 to 100. */
   get tone() {
     return this.internalTone;
   }
+  /**
+   * @param newTone 0 <= newTone <= 100; invalid valids are corrected.
+   * Chroma may decrease because chroma has a different maximum for any given
+   * hue and tone.
+   */
   set tone(newTone) {
     this.setInternalState(HctSolver.solveToInt(this.internalHue, this.internalChroma, newTone));
   }
@@ -1083,34 +1314,64 @@ var Hct = class {
     this.internalTone = lstarFromArgb(argb);
     this.argb = argb;
   }
+  /**
+   * Translates a color into different [ViewingConditions].
+   *
+   * Colors change appearance. They look different with lights on versus off,
+   * the same color, as in hex code, on white looks different when on black.
+   * This is called color relativity, most famously explicated by Josef Albers
+   * in Interaction of Color.
+   *
+   * In color science, color appearance models can account for this and
+   * calculate the appearance of a color in different settings. HCT is based on
+   * CAM16, a color appearance model, and uses it to make these calculations.
+   *
+   * See [ViewingConditions.make] for parameters affecting color appearance.
+   */
   inViewingConditions(vc) {
     const cam = Cam16.fromInt(this.toInt());
     const viewedInVc = cam.xyzInViewingConditions(vc);
     const recastInVc = Cam16.fromXyzInViewingConditions(viewedInVc[0], viewedInVc[1], viewedInVc[2], ViewingConditions.make());
-    const recastHct = Hct.from(recastInVc.hue, recastInVc.chroma, lstarFromY(viewedInVc[1]));
+    const recastHct = _Hct.from(recastInVc.hue, recastInVc.chroma, lstarFromY(viewedInVc[1]));
     return recastHct;
   }
 };
 
-// node_modules/@material/material-color-utilities/contrast/contrast.js
-var Contrast = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/contrast/contrast.js
+var Contrast = class _Contrast {
+  /**
+   * Returns a contrast ratio, which ranges from 1 to 21.
+   *
+   * @param toneA Tone between 0 and 100. Values outside will be clamped.
+   * @param toneB Tone between 0 and 100. Values outside will be clamped.
+   */
   static ratioOfTones(toneA, toneB) {
     toneA = clampDouble(0, 100, toneA);
     toneB = clampDouble(0, 100, toneB);
-    return Contrast.ratioOfYs(yFromLstar(toneA), yFromLstar(toneB));
+    return _Contrast.ratioOfYs(yFromLstar(toneA), yFromLstar(toneB));
   }
   static ratioOfYs(y1, y2) {
     const lighter = y1 > y2 ? y1 : y2;
     const darker = lighter === y2 ? y1 : y2;
     return (lighter + 5) / (darker + 5);
   }
+  /**
+   * Returns a tone >= tone parameter that ensures ratio parameter.
+   * Return value is between 0 and 100.
+   * Returns -1 if ratio cannot be achieved with tone parameter.
+   *
+   * @param tone Tone return value must contrast with.
+   * Range is 0 to 100. Invalid values will result in -1 being returned.
+   * @param ratio Contrast ratio of return value and tone.
+   * Range is 1 to 21, invalid values have undefined behavior.
+   */
   static lighter(tone, ratio) {
     if (tone < 0 || tone > 100) {
       return -1;
     }
     const darkY = yFromLstar(tone);
     const lightY = ratio * (darkY + 5) - 5;
-    const realContrast = Contrast.ratioOfYs(lightY, darkY);
+    const realContrast = _Contrast.ratioOfYs(lightY, darkY);
     const delta = Math.abs(realContrast - ratio);
     if (realContrast < ratio && delta > 0.04) {
       return -1;
@@ -1121,13 +1382,23 @@ var Contrast = class {
     }
     return returnValue;
   }
+  /**
+   * Returns a tone <= tone parameter that ensures ratio parameter.
+   * Return value is between 0 and 100.
+   * Returns -1 if ratio cannot be achieved with tone parameter.
+   *
+   * @param tone Tone return value must contrast with.
+   * Range is 0 to 100. Invalid values will result in -1 being returned.
+   * @param ratio Contrast ratio of return value and tone.
+   * Range is 1 to 21, invalid values have undefined behavior.
+   */
   static darker(tone, ratio) {
     if (tone < 0 || tone > 100) {
       return -1;
     }
     const lightY = yFromLstar(tone);
     const darkY = (lightY + 5) / ratio - 5;
-    const realContrast = Contrast.ratioOfYs(lightY, darkY);
+    const realContrast = _Contrast.ratioOfYs(lightY, darkY);
     const delta = Math.abs(realContrast - ratio);
     if (realContrast < ratio && delta > 0.04) {
       return -1;
@@ -1138,38 +1409,119 @@ var Contrast = class {
     }
     return returnValue;
   }
+  /**
+   * Returns a tone >= tone parameter that ensures ratio parameter.
+   * Return value is between 0 and 100.
+   * Returns 100 if ratio cannot be achieved with tone parameter.
+   *
+   * This method is unsafe because the returned value is guaranteed to be in
+   * bounds for tone, i.e. between 0 and 100. However, that value may not reach
+   * the ratio with tone. For example, there is no color lighter than T100.
+   *
+   * @param tone Tone return value must contrast with.
+   * Range is 0 to 100. Invalid values will result in 100 being returned.
+   * @param ratio Desired contrast ratio of return value and tone parameter.
+   * Range is 1 to 21, invalid values have undefined behavior.
+   */
   static lighterUnsafe(tone, ratio) {
-    const lighterSafe = Contrast.lighter(tone, ratio);
+    const lighterSafe = _Contrast.lighter(tone, ratio);
     return lighterSafe < 0 ? 100 : lighterSafe;
   }
+  /**
+   * Returns a tone >= tone parameter that ensures ratio parameter.
+   * Return value is between 0 and 100.
+   * Returns 100 if ratio cannot be achieved with tone parameter.
+   *
+   * This method is unsafe because the returned value is guaranteed to be in
+   * bounds for tone, i.e. between 0 and 100. However, that value may not reach
+   * the [ratio with [tone]. For example, there is no color darker than T0.
+   *
+   * @param tone Tone return value must contrast with.
+   * Range is 0 to 100. Invalid values will result in 0 being returned.
+   * @param ratio Desired contrast ratio of return value and tone parameter.
+   * Range is 1 to 21, invalid values have undefined behavior.
+   */
   static darkerUnsafe(tone, ratio) {
-    const darkerSafe = Contrast.darker(tone, ratio);
+    const darkerSafe = _Contrast.darker(tone, ratio);
     return darkerSafe < 0 ? 0 : darkerSafe;
   }
 };
 
-// node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js
-var DislikeAnalyzer = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js
+var DislikeAnalyzer = class _DislikeAnalyzer {
+  /**
+   * Returns true if a color is disliked.
+   *
+   * @param hct A color to be judged.
+   * @return Whether the color is disliked.
+   *
+   * Disliked is defined as a dark yellow-green that is not neutral.
+   */
   static isDisliked(hct) {
     const huePasses = Math.round(hct.hue) >= 90 && Math.round(hct.hue) <= 111;
     const chromaPasses = Math.round(hct.chroma) > 16;
     const tonePasses = Math.round(hct.tone) < 65;
     return huePasses && chromaPasses && tonePasses;
   }
+  /**
+   * If a color is disliked, lighten it to make it likable.
+   *
+   * @param hct A color to be judged.
+   * @return A new color if the original color is disliked, or the original
+   *   color if it is acceptable.
+   */
   static fixIfDisliked(hct) {
-    if (DislikeAnalyzer.isDisliked(hct)) {
+    if (_DislikeAnalyzer.isDisliked(hct)) {
       return Hct.from(hct.hue, hct.chroma, 70);
     }
     return hct;
   }
 };
 
-// node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js
-var DynamicColor = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js
+var DynamicColor = class _DynamicColor {
+  /**
+   * Create a DynamicColor defined by a TonalPalette and HCT tone.
+   *
+   * @param args Functions with DynamicScheme as input. Must provide a palette
+   * and tone. May provide a background DynamicColor and ToneDeltaConstraint.
+   */
   static fromPalette(args) {
     var _a, _b;
-    return new DynamicColor((_a = args.name) != null ? _a : "", args.palette, args.tone, (_b = args.isBackground) != null ? _b : false, args.background, args.secondBackground, args.contrastCurve, args.toneDeltaPair);
+    return new _DynamicColor((_a = args.name) != null ? _a : "", args.palette, args.tone, (_b = args.isBackground) != null ? _b : false, args.background, args.secondBackground, args.contrastCurve, args.toneDeltaPair);
   }
+  /**
+   * The base constructor for DynamicColor.
+   *
+   * _Strongly_ prefer using one of the convenience constructors. This class is
+   * arguably too flexible to ensure it can support any scenario. Functional
+   * arguments allow  overriding without risks that come with subclasses.
+   *
+   * For example, the default behavior of adjust tone at max contrast
+   * to be at a 7.0 ratio with its background is principled and
+   * matches accessibility guidance. That does not mean it's the desired
+   * approach for _every_ design system, and every color pairing,
+   * always, in every case.
+   *
+   * @param name The name of the dynamic color. Defaults to empty.
+   * @param palette Function that provides a TonalPalette given
+   * DynamicScheme. A TonalPalette is defined by a hue and chroma, so this
+   * replaces the need to specify hue/chroma. By providing a tonal palette, when
+   * contrast adjustments are made, intended chroma can be preserved.
+   * @param tone Function that provides a tone, given a DynamicScheme.
+   * @param isBackground Whether this dynamic color is a background, with
+   * some other color as the foreground. Defaults to false.
+   * @param background The background of the dynamic color (as a function of a
+   *     `DynamicScheme`), if it exists.
+   * @param secondBackground A second background of the dynamic color (as a
+   *     function of a `DynamicScheme`), if it
+   * exists.
+   * @param contrastCurve A `ContrastCurve` object specifying how its contrast
+   * against its background should behave in various contrast levels options.
+   * @param toneDeltaPair A `ToneDeltaPair` object specifying a tone delta
+   * constraint between two colors. One of them must be the color being
+   * constructed.
+   */
   constructor(name, palette, tone, isBackground, background, secondBackground, contrastCurve, toneDeltaPair) {
     this.name = name;
     this.palette = palette;
@@ -1190,9 +1542,24 @@ var DynamicColor = class {
       throw new Error(`Color ${name} has backgrounddefined, but contrastCurve is not defined.`);
     }
   }
+  /**
+   * Return a ARGB integer (i.e. a hex code).
+   *
+   * @param scheme Defines the conditions of the user interface, for example,
+   * whether or not it is dark mode or light mode, and what the desired
+   * contrast level is.
+   */
   getArgb(scheme) {
     return this.getHct(scheme).toInt();
   }
+  /**
+   * Return a color, expressed in the HCT color space, that this
+   * DynamicColor is under the conditions in scheme.
+   *
+   * @param scheme Defines the conditions of the user interface, for example,
+   * whether or not it is dark mode or light mode, and what the desired
+   * contrast level is.
+   */
   getHct(scheme) {
     const cachedAnswer = this.hctCache.get(scheme);
     if (cachedAnswer != null) {
@@ -1206,6 +1573,14 @@ var DynamicColor = class {
     this.hctCache.set(scheme, answer);
     return answer;
   }
+  /**
+   * Return a tone, T in the HCT color space, that this DynamicColor is under
+   * the conditions in scheme.
+   *
+   * @param scheme Defines the conditions of the user interface, for example,
+   * whether or not it is dark mode or light mode, and what the desired
+   * contrast level is.
+   */
   getTone(scheme) {
     const decreasingContrast = scheme.contrastLevel < 0;
     if (this.toneDeltaPair) {
@@ -1225,12 +1600,12 @@ var DynamicColor = class {
       const nContrast = nearer.contrastCurve.get(scheme.contrastLevel);
       const fContrast = farther.contrastCurve.get(scheme.contrastLevel);
       const nInitialTone = nearer.tone(scheme);
-      let nTone = Contrast.ratioOfTones(bgTone, nInitialTone) >= nContrast ? nInitialTone : DynamicColor.foregroundTone(bgTone, nContrast);
+      let nTone = Contrast.ratioOfTones(bgTone, nInitialTone) >= nContrast ? nInitialTone : _DynamicColor.foregroundTone(bgTone, nContrast);
       const fInitialTone = farther.tone(scheme);
-      let fTone = Contrast.ratioOfTones(bgTone, fInitialTone) >= fContrast ? fInitialTone : DynamicColor.foregroundTone(bgTone, fContrast);
+      let fTone = Contrast.ratioOfTones(bgTone, fInitialTone) >= fContrast ? fInitialTone : _DynamicColor.foregroundTone(bgTone, fContrast);
       if (decreasingContrast) {
-        nTone = DynamicColor.foregroundTone(bgTone, nContrast);
-        fTone = DynamicColor.foregroundTone(bgTone, fContrast);
+        nTone = _DynamicColor.foregroundTone(bgTone, nContrast);
+        fTone = _DynamicColor.foregroundTone(bgTone, fContrast);
       }
       if ((fTone - nTone) * expansionDir >= delta) {
       } else {
@@ -1275,10 +1650,10 @@ var DynamicColor = class {
       const desiredRatio = this.contrastCurve.get(scheme.contrastLevel);
       if (Contrast.ratioOfTones(bgTone, answer) >= desiredRatio) {
       } else {
-        answer = DynamicColor.foregroundTone(bgTone, desiredRatio);
+        answer = _DynamicColor.foregroundTone(bgTone, desiredRatio);
       }
       if (decreasingContrast) {
-        answer = DynamicColor.foregroundTone(bgTone, desiredRatio);
+        answer = _DynamicColor.foregroundTone(bgTone, desiredRatio);
       }
       if (this.isBackground && 50 <= answer && answer < 60) {
         if (Contrast.ratioOfTones(49, bgTone) >= desiredRatio) {
@@ -1301,7 +1676,7 @@ var DynamicColor = class {
           availables.push(lightOption);
         if (darkOption !== -1)
           availables.push(darkOption);
-        const prefersLight = DynamicColor.tonePrefersLightForeground(bgTone1) || DynamicColor.tonePrefersLightForeground(bgTone2);
+        const prefersLight = _DynamicColor.tonePrefersLightForeground(bgTone1) || _DynamicColor.tonePrefersLightForeground(bgTone2);
         if (prefersLight) {
           return lightOption < 0 ? 100 : lightOption;
         }
@@ -1313,12 +1688,21 @@ var DynamicColor = class {
       return answer;
     }
   }
+  /**
+   * Given a background tone, find a foreground tone, while ensuring they reach
+   * a contrast ratio that is as close to [ratio] as possible.
+   *
+   * @param bgTone Tone in HCT. Range is 0 to 100, undefined behavior when it
+   *     falls outside that range.
+   * @param ratio The contrast ratio desired between bgTone and the return
+   *     value.
+   */
   static foregroundTone(bgTone, ratio) {
     const lighterTone = Contrast.lighterUnsafe(bgTone, ratio);
     const darkerTone = Contrast.darkerUnsafe(bgTone, ratio);
     const lighterRatio = Contrast.ratioOfTones(lighterTone, bgTone);
     const darkerRatio = Contrast.ratioOfTones(darkerTone, bgTone);
-    const preferLighter = DynamicColor.tonePrefersLightForeground(bgTone);
+    const preferLighter = _DynamicColor.tonePrefersLightForeground(bgTone);
     if (preferLighter) {
       const negligibleDifference = Math.abs(lighterRatio - darkerRatio) < 0.1 && lighterRatio < ratio && darkerRatio < ratio;
       return lighterRatio >= ratio || lighterRatio >= darkerRatio || negligibleDifference ? lighterTone : darkerTone;
@@ -1326,32 +1710,64 @@ var DynamicColor = class {
       return darkerRatio >= ratio || darkerRatio >= lighterRatio ? darkerTone : lighterTone;
     }
   }
+  /**
+   * Returns whether [tone] prefers a light foreground.
+   *
+   * People prefer white foregrounds on ~T60-70. Observed over time, and also
+   * by Andrew Somers during research for APCA.
+   *
+   * T60 used as to create the smallest discontinuity possible when skipping
+   * down to T49 in order to ensure light foregrounds.
+   * Since `tertiaryContainer` in dark monochrome scheme requires a tone of
+   * 60, it should not be adjusted. Therefore, 60 is excluded here.
+   */
   static tonePrefersLightForeground(tone) {
     return Math.round(tone) < 60;
   }
+  /**
+   * Returns whether [tone] can reach a contrast ratio of 4.5 with a lighter
+   * color.
+   */
   static toneAllowsLightForeground(tone) {
     return Math.round(tone) <= 49;
   }
+  /**
+   * Adjust a tone such that white has 4.5 contrast, if the tone is
+   * reasonably close to supporting it.
+   */
   static enableLightForeground(tone) {
-    if (DynamicColor.tonePrefersLightForeground(tone) && !DynamicColor.toneAllowsLightForeground(tone)) {
+    if (_DynamicColor.tonePrefersLightForeground(tone) && !_DynamicColor.toneAllowsLightForeground(tone)) {
       return 49;
     }
     return tone;
   }
 };
 
-// node_modules/@material/material-color-utilities/palettes/tonal_palette.js
-var TonalPalette = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/palettes/tonal_palette.js
+var TonalPalette = class _TonalPalette {
+  /**
+   * @param argb ARGB representation of a color
+   * @return Tones matching that color's hue and chroma.
+   */
   static fromInt(argb) {
     const hct = Hct.fromInt(argb);
-    return TonalPalette.fromHct(hct);
+    return _TonalPalette.fromHct(hct);
   }
+  /**
+   * @param hct Hct
+   * @return Tones matching that color's hue and chroma.
+   */
   static fromHct(hct) {
-    return new TonalPalette(hct.hue, hct.chroma, hct);
+    return new _TonalPalette(hct.hue, hct.chroma, hct);
   }
+  /**
+   * @param hue HCT hue
+   * @param chroma HCT chroma
+   * @return Tones matching hue and chroma.
+   */
   static fromHueAndChroma(hue, chroma) {
     const keyColor = new KeyColor(hue, chroma).create();
-    return new TonalPalette(hue, chroma, keyColor);
+    return new _TonalPalette(hue, chroma, keyColor);
   }
   constructor(hue, chroma, keyColor) {
     this.hue = hue;
@@ -1359,6 +1775,10 @@ var TonalPalette = class {
     this.keyColor = keyColor;
     this.cache = /* @__PURE__ */ new Map();
   }
+  /**
+   * @param tone HCT tone, measured from 0 to 100.
+   * @return ARGB representation of a color with that tone.
+   */
   tone(tone) {
     let argb = this.cache.get(tone);
     if (argb === void 0) {
@@ -1367,6 +1787,10 @@ var TonalPalette = class {
     }
     return argb;
   }
+  /**
+   * @param tone HCT tone.
+   * @return HCT representation of a color with that tone.
+   */
   getHct(tone) {
     return Hct.fromInt(this.tone(tone));
   }
@@ -1378,6 +1802,13 @@ var KeyColor = class {
     this.chromaCache = /* @__PURE__ */ new Map();
     this.maxChromaValue = 200;
   }
+  /**
+   * Creates a key color from a [hue] and a [chroma].
+   * The key color is the first tone, starting from T50, matching the given hue
+   * and chroma.
+   *
+   * @return Key color [Hct]
+   */
   create() {
     const pivotTone = 50;
     const toneStepSize = 1;
@@ -1407,6 +1838,7 @@ var KeyColor = class {
     }
     return Hct.from(this.hue, this.requestedChroma, lowerTone);
   }
+  // Find the maximum chroma for a given tone
   maxChroma(tone) {
     if (this.chromaCache.has(tone)) {
       return this.chromaCache.get(tone);
@@ -1417,14 +1849,29 @@ var KeyColor = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js
 var ContrastCurve = class {
+  /**
+   * Creates a `ContrastCurve` object.
+   *
+   * @param low Value for contrast level -1.0
+   * @param normal Value for contrast level 0.0
+   * @param medium Value for contrast level 0.5
+   * @param high Value for contrast level 1.0
+   */
   constructor(low, normal, medium, high) {
     this.low = low;
     this.normal = normal;
     this.medium = medium;
     this.high = high;
   }
+  /**
+   * Returns the value at a given contrast level.
+   *
+   * @param contrastLevel The contrast level. 0.0 is the default (normal); -1.0
+   *     is the lowest; 1.0 is the highest.
+   * @return The value. For contrast ratios, a number between 1.0 and 21.0.
+   */
   get(contrastLevel) {
     if (contrastLevel <= -1) {
       return this.low;
@@ -1440,8 +1887,31 @@ var ContrastCurve = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js
 var ToneDeltaPair = class {
+  /**
+   * Documents a constraint in tone distance between two DynamicColors.
+   *
+   * The polarity is an adjective that describes "A", compared to "B".
+   *
+   * For instance, ToneDeltaPair(A, B, 15, 'darker', stayTogether) states that
+   * A's tone should be at least 15 darker than B's.
+   *
+   * 'nearer' and 'farther' describes closeness to the surface roles. For
+   * instance, ToneDeltaPair(A, B, 10, 'nearer', stayTogether) states that A
+   * should be 10 lighter than B in light mode, and 10 darker than B in dark
+   * mode.
+   *
+   * @param roleA The first role in a pair.
+   * @param roleB The second role in a pair.
+   * @param delta Required difference between tones. Absolute value, negative
+   * values have undefined behavior.
+   * @param polarity The relative relation between tones of roleA and roleB,
+   * as described above.
+   * @param stayTogether Whether these two roles should stay on the same side of
+   * the "awkward zone" (T50-59). This is necessary for certain cases where
+   * one role has two backgrounds.
+   */
   constructor(roleA, roleB, delta, polarity, stayTogether) {
     this.roleA = roleA;
     this.roleB = roleB;
@@ -1451,7 +1921,7 @@ var ToneDeltaPair = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/dynamiccolor/variant.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/variant.js
 var Variant;
 (function(Variant2) {
   Variant2[Variant2["MONOCHROME"] = 0] = "MONOCHROME";
@@ -1465,7 +1935,7 @@ var Variant;
   Variant2[Variant2["FRUIT_SALAD"] = 8] = "FRUIT_SALAD";
 })(Variant || (Variant = {}));
 
-// node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js
 function isFidelity(scheme) {
   return scheme.variant === Variant.FIDELITY || scheme.variant === Variant.CONTENT;
 }
@@ -1496,9 +1966,9 @@ function findDesiredChromaByTone(hue, chroma, tone, byDecreasingTone) {
   }
   return answer;
 }
-var MaterialDynamicColors = class {
+var MaterialDynamicColors = class _MaterialDynamicColors {
   static highestSurface(s) {
-    return s.isDark ? MaterialDynamicColors.surfaceBright : MaterialDynamicColors.surfaceDim;
+    return s.isDark ? _MaterialDynamicColors.surfaceBright : _MaterialDynamicColors.surfaceDim;
   }
 };
 MaterialDynamicColors.contentAccentToneDelta = 15;
@@ -1969,7 +2439,7 @@ MaterialDynamicColors.onTertiaryFixedVariant = DynamicColor.fromPalette({
   contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
 });
 
-// node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js
 var DynamicScheme = class {
   constructor(args) {
     this.sourceColorArgb = args.sourceColorArgb;
@@ -1984,6 +2454,16 @@ var DynamicScheme = class {
     this.neutralVariantPalette = args.neutralVariantPalette;
     this.errorPalette = TonalPalette.fromHueAndChroma(25, 84);
   }
+  /**
+   * Support design spec'ing Dynamic Color by schemes that specify hue
+   * rotations that should be applied at certain breakpoints.
+   * @param sourceColor the source color of the theme, in HCT.
+   * @param hues The "breakpoints", i.e. the hues at which a rotation should
+   * be apply.
+   * @param rotations The rotation that should be applied when source color's
+   * hue is >= the same index in hues array, and <= the hue at the next index
+   * in hues array.
+   */
   static getRotatedHue(sourceColor, hues, rotations) {
     const sourceHue = sourceColor.hue;
     if (hues.length !== rotations.length) {
@@ -2172,8 +2652,8 @@ var DynamicScheme = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/temperature/temperature_cache.js
-var TemperatureCache = class {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/temperature/temperature_cache.js
+var TemperatureCache = class _TemperatureCache {
   constructor(input) {
     this.input = input;
     this.hctsByTempCache = [];
@@ -2198,6 +2678,19 @@ var TemperatureCache = class {
   get coldest() {
     return this.hctsByTemp[0];
   }
+  /**
+   * A set of colors with differing hues, equidistant in temperature.
+   *
+   * In art, this is usually described as a set of 5 colors on a color wheel
+   * divided into 12 sections. This method allows provision of either of those
+   * values.
+   *
+   * Behavior is undefined when [count] or [divisions] is 0.
+   * When divisions < count, colors repeat.
+   *
+   * [count] The number of colors to return, includes the input color.
+   * [divisions] The number of divisions on the color wheel.
+   */
   analogous(count = 5, divisions = 12) {
     const startHue = Math.round(this.input.hue);
     const startHct = this.hctsByHue[startHue];
@@ -2265,6 +2758,13 @@ var TemperatureCache = class {
     }
     return answers;
   }
+  /**
+   * A color that complements the input color aesthetically.
+   *
+   * In art, this is usually described as being across the color wheel.
+   * History of this shows intent as a color that is just as cool-warm as the
+   * input color is warm-cool.
+   */
   get complement() {
     if (this.complementCache != null) {
       return this.complementCache;
@@ -2274,7 +2774,7 @@ var TemperatureCache = class {
     const warmestHue = this.warmest.hue;
     const warmestTemp = this.tempsByHct.get(this.warmest);
     const range = warmestTemp - coldestTemp;
-    const startHueIsColdestToWarmest = TemperatureCache.isBetween(this.input.hue, coldestHue, warmestHue);
+    const startHueIsColdestToWarmest = _TemperatureCache.isBetween(this.input.hue, coldestHue, warmestHue);
     const startHue = startHueIsColdestToWarmest ? warmestHue : coldestHue;
     const endHue = startHueIsColdestToWarmest ? coldestHue : warmestHue;
     const directionOfRotation = 1;
@@ -2283,7 +2783,7 @@ var TemperatureCache = class {
     const complementRelativeTemp = 1 - this.inputRelativeTemperature;
     for (let hueAddend = 0; hueAddend <= 360; hueAddend += 1) {
       const hue = sanitizeDegreesDouble(startHue + directionOfRotation * hueAddend);
-      if (!TemperatureCache.isBetween(hue, startHue, endHue)) {
+      if (!_TemperatureCache.isBetween(hue, startHue, endHue)) {
         continue;
       }
       const possibleAnswer = this.hctsByHue[Math.round(hue)];
@@ -2297,6 +2797,10 @@ var TemperatureCache = class {
     this.complementCache = answer;
     return this.complementCache;
   }
+  /**
+   * Temperature relative to all colors with the same chroma and tone.
+   * Value on a scale from 0 to 1.
+   */
   relativeTemperature(hct) {
     const range = this.tempsByHct.get(this.warmest) - this.tempsByHct.get(this.coldest);
     const differenceFromColdest = this.tempsByHct.get(hct) - this.tempsByHct.get(this.coldest);
@@ -2305,6 +2809,7 @@ var TemperatureCache = class {
     }
     return differenceFromColdest / range;
   }
+  /** Relative temperature of the input color. See [relativeTemperature]. */
   get inputRelativeTemperature() {
     if (this.inputRelativeTemperatureCache >= 0) {
       return this.inputRelativeTemperatureCache;
@@ -2312,6 +2817,7 @@ var TemperatureCache = class {
     this.inputRelativeTemperatureCache = this.relativeTemperature(this.input);
     return this.inputRelativeTemperatureCache;
   }
+  /** A Map with keys of HCTs in [hctsByTemp], values of raw temperature. */
   get tempsByHct() {
     if (this.tempsByHctCache.size > 0) {
       return this.tempsByHctCache;
@@ -2319,11 +2825,15 @@ var TemperatureCache = class {
     const allHcts = this.hctsByHue.concat([this.input]);
     const temperaturesByHct = /* @__PURE__ */ new Map();
     for (const e of allHcts) {
-      temperaturesByHct.set(e, TemperatureCache.rawTemperature(e));
+      temperaturesByHct.set(e, _TemperatureCache.rawTemperature(e));
     }
     this.tempsByHctCache = temperaturesByHct;
     return temperaturesByHct;
   }
+  /**
+   * HCTs for all hues, with the same chroma/tone as the input.
+   * Sorted ascending, hue 0 to 360.
+   */
   get hctsByHue() {
     if (this.hctsByHueCache.length > 0) {
       return this.hctsByHueCache;
@@ -2336,12 +2846,32 @@ var TemperatureCache = class {
     this.hctsByHueCache = hcts;
     return this.hctsByHueCache;
   }
+  /** Determines if an angle is between two other angles, rotating clockwise. */
   static isBetween(angle, a, b) {
     if (a < b) {
       return a <= angle && angle <= b;
     }
     return a <= angle || angle <= b;
   }
+  /**
+   * Value representing cool-warm factor of a color.
+   * Values below 0 are considered cool, above, warm.
+   *
+   * Color science has researched emotion and harmony, which art uses to select
+   * colors. Warm-cool is the foundation of analogous and complementary colors.
+   * See:
+   * - Li-Chen Ou's Chapter 19 in Handbook of Color Psychology (2015).
+   * - Josef Albers' Interaction of Color chapters 19 and 21.
+   *
+   * Implementation of Ou, Woodcock and Wright's algorithm, which uses
+   * L*a*b* / LCH color space.
+   * Return value has these properties:
+   * - Values below 0 are cool, above 0 are warm.
+   * - Lower bound: -0.52 - (chroma ^ 1.07 / 20). L*a*b* chroma is infinite.
+   *   Assuming max of 130 chroma, -9.66.
+   * - Upper bound: -0.52 + (chroma ^ 1.07 / 20). L*a*b* chroma is infinite.
+   *   Assuming max of 130 chroma, 8.61.
+   */
   static rawTemperature(color) {
     const lab = labFromArgb(color.toInt());
     const hue = sanitizeDegreesDouble(Math.atan2(lab[2], lab[1]) * 180 / Math.PI);
@@ -2351,8 +2881,8 @@ var TemperatureCache = class {
   }
 };
 
-// node_modules/@material/material-color-utilities/scheme/scheme_expressive.js
-var SchemeExpressive = class extends DynamicScheme {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/scheme/scheme_expressive.js
+var SchemeExpressive = class _SchemeExpressive extends DynamicScheme {
   constructor(sourceColorHct, isDark, contrastLevel) {
     super({
       sourceColorArgb: sourceColorHct.toInt(),
@@ -2360,8 +2890,8 @@ var SchemeExpressive = class extends DynamicScheme {
       contrastLevel,
       isDark,
       primaryPalette: TonalPalette.fromHueAndChroma(sanitizeDegreesDouble(sourceColorHct.hue + 240), 40),
-      secondaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, SchemeExpressive.hues, SchemeExpressive.secondaryRotations), 24),
-      tertiaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, SchemeExpressive.hues, SchemeExpressive.tertiaryRotations), 32),
+      secondaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, _SchemeExpressive.hues, _SchemeExpressive.secondaryRotations), 24),
+      tertiaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, _SchemeExpressive.hues, _SchemeExpressive.tertiaryRotations), 32),
       neutralPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue + 15, 8),
       neutralVariantPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue + 15, 12)
     });
@@ -2401,8 +2931,8 @@ SchemeExpressive.tertiaryRotations = [
   120
 ];
 
-// node_modules/@material/material-color-utilities/scheme/scheme_vibrant.js
-var SchemeVibrant = class extends DynamicScheme {
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/scheme/scheme_vibrant.js
+var SchemeVibrant = class _SchemeVibrant extends DynamicScheme {
   constructor(sourceColorHct, isDark, contrastLevel) {
     super({
       sourceColorArgb: sourceColorHct.toInt(),
@@ -2410,8 +2940,8 @@ var SchemeVibrant = class extends DynamicScheme {
       contrastLevel,
       isDark,
       primaryPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, 200),
-      secondaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, SchemeVibrant.hues, SchemeVibrant.secondaryRotations), 24),
-      tertiaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, SchemeVibrant.hues, SchemeVibrant.tertiaryRotations), 32),
+      secondaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, _SchemeVibrant.hues, _SchemeVibrant.secondaryRotations), 24),
+      tertiaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, _SchemeVibrant.hues, _SchemeVibrant.tertiaryRotations), 32),
       neutralPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, 10),
       neutralVariantPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, 12)
     });
@@ -2451,11 +2981,12 @@ SchemeVibrant.tertiaryRotations = [
   25
 ];
 
-// node_modules/@material/material-color-utilities/score/score.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/score/score.js
 var SCORE_OPTION_DEFAULTS = {
   desired: 4,
   fallbackColorARGB: 4282549748,
   filter: true
+  // Avoid unsuitable colors.
 };
 function compare(a, b) {
   if (a.score > b.score) {
@@ -2465,9 +2996,22 @@ function compare(a, b) {
   }
   return 0;
 }
-var Score = class {
+var Score = class _Score {
   constructor() {
   }
+  /**
+   * Given a map with keys of colors and values of how often the color appears,
+   * rank the colors based on suitability for being used for a UI theme.
+   *
+   * @param colorsToPopulation map with keys of colors and values of how often
+   *     the color appears, usually from a source image.
+   * @param {ScoreOptions} options optional parameters.
+   * @return Colors sorted by suitability for a UI theme. The most suitable
+   *     color is the first item, the least suitable is the last. There will
+   *     always be at least one color returned. If all the input colors
+   *     were not suitable for a theme, a default fallback color will be
+   *     provided, Google Blue.
+   */
   static score(colorsToPopulation, options) {
     const { desired, fallbackColorARGB, filter } = __spreadValues(__spreadValues({}, SCORE_OPTION_DEFAULTS), options);
     const colorsHct = [];
@@ -2492,12 +3036,12 @@ var Score = class {
     for (const hct of colorsHct) {
       const hue = sanitizeDegreesInt(Math.round(hct.hue));
       const proportion = hueExcitedProportions[hue];
-      if (filter && (hct.chroma < Score.CUTOFF_CHROMA || proportion <= Score.CUTOFF_EXCITED_PROPORTION)) {
+      if (filter && (hct.chroma < _Score.CUTOFF_CHROMA || proportion <= _Score.CUTOFF_EXCITED_PROPORTION)) {
         continue;
       }
-      const proportionScore = proportion * 100 * Score.WEIGHT_PROPORTION;
-      const chromaWeight = hct.chroma < Score.TARGET_CHROMA ? Score.WEIGHT_CHROMA_BELOW : Score.WEIGHT_CHROMA_ABOVE;
-      const chromaScore = (hct.chroma - Score.TARGET_CHROMA) * chromaWeight;
+      const proportionScore = proportion * 100 * _Score.WEIGHT_PROPORTION;
+      const chromaWeight = hct.chroma < _Score.TARGET_CHROMA ? _Score.WEIGHT_CHROMA_BELOW : _Score.WEIGHT_CHROMA_ABOVE;
+      const chromaScore = (hct.chroma - _Score.TARGET_CHROMA) * chromaWeight;
       const score = proportionScore + chromaScore;
       scoredHct.push({ hct, score });
     }
@@ -2535,7 +3079,7 @@ Score.WEIGHT_CHROMA_BELOW = 0.1;
 Score.CUTOFF_CHROMA = 5;
 Score.CUTOFF_EXCITED_PROPORTION = 0.01;
 
-// node_modules/@material/material-color-utilities/utils/string_utils.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/utils/string_utils.js
 function hexFromArgb(argb) {
   const r = redFromArgb(argb);
   const g = greenFromArgb(argb);
@@ -2578,7 +3122,7 @@ function parseIntHex(value) {
   return parseInt(value, 16);
 }
 
-// bazel-out/k8-fastbuild/bin/src/material/schematics/ng-generate/theme-color/index.mjs
+// src/material/schematics/ng-generate/theme-color/index.ts
 var HUE_TONES = [0, 10, 20, 25, 30, 35, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100];
 var NEUTRAL_HUES = /* @__PURE__ */ new Map([
   [4, { prev: 0, next: 10 }],
@@ -2597,13 +3141,16 @@ function getHctFromHex(color) {
   try {
     return Hct.fromInt(argbFromHex(color));
   } catch (e) {
-    throw new Error("Cannot parse the specified color " + color + ". Please verify it is a hex color (ex. #ffffff or ffffff).");
+    throw new Error(
+      "Cannot parse the specified color " + color + ". Please verify it is a hex color (ex. #ffffff or ffffff)."
+    );
   }
 }
 function getMaterialDynamicScheme(primaryPalette, secondaryPalette, tertiaryPalette, neutralPalette, neutralVariantPalette, isDark, contrastLevel) {
   return new DynamicScheme({
     sourceColorArgb: primaryPalette.keyColor.toInt(),
     variant: 6,
+    // Variant.FIDELITY, used number representation since enum is not accessible outside of @material/material-color-utilities
     contrastLevel,
     isDark,
     primaryPalette,
@@ -2620,25 +3167,38 @@ function getColorPalettes(primaryColor, secondaryColor, tertiaryColor, neutralCo
   if (secondaryColor) {
     secondaryPalette = TonalPalette.fromHct(getHctFromHex(secondaryColor));
   } else {
-    secondaryPalette = TonalPalette.fromHueAndChroma(primaryColorHct.hue, Math.max(primaryColorHct.chroma - 32, primaryColorHct.chroma * 0.5));
+    secondaryPalette = TonalPalette.fromHueAndChroma(
+      primaryColorHct.hue,
+      Math.max(primaryColorHct.chroma - 32, primaryColorHct.chroma * 0.5)
+    );
   }
   let tertiaryPalette;
   if (tertiaryColor) {
     tertiaryPalette = TonalPalette.fromHct(getHctFromHex(tertiaryColor));
   } else {
-    tertiaryPalette = TonalPalette.fromInt(DislikeAnalyzer.fixIfDisliked(new TemperatureCache(primaryColorHct).analogous(3, 6)[2]).toInt());
+    tertiaryPalette = TonalPalette.fromInt(
+      DislikeAnalyzer.fixIfDisliked(
+        new TemperatureCache(primaryColorHct).analogous(3, 6)[2]
+      ).toInt()
+    );
   }
   let neutralPalette;
   if (neutralColor) {
     neutralPalette = TonalPalette.fromHct(getHctFromHex(neutralColor));
   } else {
-    neutralPalette = TonalPalette.fromHueAndChroma(primaryColorHct.hue, primaryColorHct.chroma / 8);
+    neutralPalette = TonalPalette.fromHueAndChroma(
+      primaryColorHct.hue,
+      primaryColorHct.chroma / 8
+    );
   }
   let neutralVariantPalette;
   if (neutralVariantColor) {
     neutralVariantPalette = TonalPalette.fromHct(getHctFromHex(neutralVariantColor));
   } else {
-    neutralVariantPalette = TonalPalette.fromHueAndChroma(primaryColorHct.hue, primaryColorHct.chroma / 8 + 4);
+    neutralVariantPalette = TonalPalette.fromHueAndChroma(
+      primaryColorHct.hue,
+      primaryColorHct.chroma / 8 + 4
+    );
   }
   let errorPalette;
   if (errorColor) {
@@ -2650,7 +3210,9 @@ function getColorPalettes(primaryColor, secondaryColor, tertiaryColor, neutralCo
       tertiaryPalette,
       neutralPalette,
       neutralVariantPalette,
+      /* isDark */
       false,
+      /* contrastLevel */
       0
     ).errorPalette;
   }
@@ -2733,6 +3295,7 @@ function getHighContrastOverides(colorScheme) {
   overrides.set("surface", hexFromArgb(colorScheme.surface));
   overrides.set("surface-dim", hexFromArgb(colorScheme.surfaceDim));
   overrides.set("surface-bright", hexFromArgb(colorScheme.surfaceBright));
+  overrides.set("surface-container-low", hexFromArgb(colorScheme.surfaceContainerLow));
   overrides.set("surface-container-lowest", hexFromArgb(colorScheme.surfaceContainerLowest));
   overrides.set("surface-container", hexFromArgb(colorScheme.surfaceContainer));
   overrides.set("surface-container-high", hexFromArgb(colorScheme.surfaceContainerHigh));
@@ -2787,61 +3350,289 @@ function getColorSysVariablesCSS(lightScheme, darkScheme, isHighContrast = false
   let css = "";
   let leftSpacing = " ".repeat(isHighContrast ? 4 : 2);
   css += leftSpacing + "/* Primary palette variables */\n";
-  css += createLightDarkVar(leftSpacing, "primary", isHighContrast ? lightScheme.primary : lightScheme.primaryPalette.tone(40), isHighContrast ? darkScheme.primary : lightScheme.primaryPalette.tone(80));
-  css += createLightDarkVar(leftSpacing, "on-primary", isHighContrast ? lightScheme.onPrimary : lightScheme.primaryPalette.tone(100), isHighContrast ? darkScheme.onPrimary : darkScheme.primaryPalette.tone(20));
-  css += createLightDarkVar(leftSpacing, "primary-container", isHighContrast ? lightScheme.primaryContainer : lightScheme.primaryPalette.tone(90), isHighContrast ? darkScheme.primaryContainer : darkScheme.primaryPalette.tone(30));
-  css += createLightDarkVar(leftSpacing, "on-primary-container", isHighContrast ? lightScheme.onPrimaryContainer : lightScheme.primaryPalette.tone(10), isHighContrast ? darkScheme.onPrimaryContainer : darkScheme.primaryPalette.tone(90));
-  css += createLightDarkVar(leftSpacing, "inverse-primary", lightScheme.inversePrimary, darkScheme.inversePrimary);
-  css += createLightDarkVar(leftSpacing, "primary-fixed", isHighContrast ? lightScheme.primaryFixed : lightScheme.primaryPalette.tone(90), isHighContrast ? darkScheme.primaryFixed : darkScheme.primaryPalette.tone(90));
-  css += createLightDarkVar(leftSpacing, "primary-fixed-dim", isHighContrast ? lightScheme.primaryFixedDim : lightScheme.primaryPalette.tone(80), isHighContrast ? darkScheme.primaryFixedDim : darkScheme.primaryPalette.tone(80));
-  css += createLightDarkVar(leftSpacing, "on-primary-fixed", lightScheme.onPrimaryFixed, darkScheme.onPrimaryFixed);
-  css += createLightDarkVar(leftSpacing, "on-primary-fixed-variant", lightScheme.onPrimaryFixedVariant, darkScheme.onPrimaryFixedVariant);
+  css += createLightDarkVar(
+    leftSpacing,
+    "primary",
+    isHighContrast ? lightScheme.primary : lightScheme.primaryPalette.tone(40),
+    isHighContrast ? darkScheme.primary : lightScheme.primaryPalette.tone(80)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-primary",
+    isHighContrast ? lightScheme.onPrimary : lightScheme.primaryPalette.tone(100),
+    isHighContrast ? darkScheme.onPrimary : darkScheme.primaryPalette.tone(20)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "primary-container",
+    isHighContrast ? lightScheme.primaryContainer : lightScheme.primaryPalette.tone(90),
+    isHighContrast ? darkScheme.primaryContainer : darkScheme.primaryPalette.tone(30)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-primary-container",
+    isHighContrast ? lightScheme.onPrimaryContainer : lightScheme.primaryPalette.tone(10),
+    isHighContrast ? darkScheme.onPrimaryContainer : darkScheme.primaryPalette.tone(90)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "inverse-primary",
+    lightScheme.inversePrimary,
+    darkScheme.inversePrimary
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "primary-fixed",
+    isHighContrast ? lightScheme.primaryFixed : lightScheme.primaryPalette.tone(90),
+    isHighContrast ? darkScheme.primaryFixed : darkScheme.primaryPalette.tone(90)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "primary-fixed-dim",
+    isHighContrast ? lightScheme.primaryFixedDim : lightScheme.primaryPalette.tone(80),
+    isHighContrast ? darkScheme.primaryFixedDim : darkScheme.primaryPalette.tone(80)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-primary-fixed",
+    lightScheme.onPrimaryFixed,
+    darkScheme.onPrimaryFixed
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-primary-fixed-variant",
+    lightScheme.onPrimaryFixedVariant,
+    darkScheme.onPrimaryFixedVariant
+  );
   css += "\n" + leftSpacing + "/* Secondary palette variables */\n";
-  css += createLightDarkVar(leftSpacing, "secondary", isHighContrast ? lightScheme.secondary : lightScheme.secondaryPalette.tone(40), isHighContrast ? darkScheme.secondary : darkScheme.secondaryPalette.tone(80));
-  css += createLightDarkVar(leftSpacing, "on-secondary", isHighContrast ? lightScheme.onSecondary : lightScheme.secondaryPalette.tone(100), isHighContrast ? darkScheme.onSecondary : darkScheme.secondaryPalette.tone(20));
-  css += createLightDarkVar(leftSpacing, "secondary-container", isHighContrast ? lightScheme.secondaryContainer : lightScheme.secondaryPalette.tone(90), isHighContrast ? darkScheme.secondaryContainer : darkScheme.secondaryPalette.tone(30));
-  css += createLightDarkVar(leftSpacing, "on-secondary-container", isHighContrast ? lightScheme.onSecondaryContainer : lightScheme.secondaryPalette.tone(10), isHighContrast ? darkScheme.onSecondaryContainer : darkScheme.secondaryPalette.tone(90));
-  css += createLightDarkVar(leftSpacing, "secondary-fixed", isHighContrast ? lightScheme.secondaryFixed : lightScheme.secondaryPalette.tone(90), isHighContrast ? darkScheme.secondaryFixed : darkScheme.secondaryPalette.tone(90));
-  css += createLightDarkVar(leftSpacing, "secondary-fixed-dim", isHighContrast ? lightScheme.secondaryFixedDim : lightScheme.secondaryPalette.tone(80), isHighContrast ? darkScheme.secondaryFixedDim : darkScheme.secondaryPalette.tone(80));
-  css += createLightDarkVar(leftSpacing, "on-secondary-fixed", lightScheme.onSecondaryFixed, darkScheme.onSecondaryFixed);
-  css += createLightDarkVar(leftSpacing, "on-secondary-fixed-variant", lightScheme.onSecondaryFixedVariant, darkScheme.onSecondaryFixedVariant);
+  css += createLightDarkVar(
+    leftSpacing,
+    "secondary",
+    isHighContrast ? lightScheme.secondary : lightScheme.secondaryPalette.tone(40),
+    isHighContrast ? darkScheme.secondary : darkScheme.secondaryPalette.tone(80)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-secondary",
+    isHighContrast ? lightScheme.onSecondary : lightScheme.secondaryPalette.tone(100),
+    isHighContrast ? darkScheme.onSecondary : darkScheme.secondaryPalette.tone(20)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "secondary-container",
+    isHighContrast ? lightScheme.secondaryContainer : lightScheme.secondaryPalette.tone(90),
+    isHighContrast ? darkScheme.secondaryContainer : darkScheme.secondaryPalette.tone(30)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-secondary-container",
+    isHighContrast ? lightScheme.onSecondaryContainer : lightScheme.secondaryPalette.tone(10),
+    isHighContrast ? darkScheme.onSecondaryContainer : darkScheme.secondaryPalette.tone(90)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "secondary-fixed",
+    isHighContrast ? lightScheme.secondaryFixed : lightScheme.secondaryPalette.tone(90),
+    isHighContrast ? darkScheme.secondaryFixed : darkScheme.secondaryPalette.tone(90)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "secondary-fixed-dim",
+    isHighContrast ? lightScheme.secondaryFixedDim : lightScheme.secondaryPalette.tone(80),
+    isHighContrast ? darkScheme.secondaryFixedDim : darkScheme.secondaryPalette.tone(80)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-secondary-fixed",
+    lightScheme.onSecondaryFixed,
+    darkScheme.onSecondaryFixed
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-secondary-fixed-variant",
+    lightScheme.onSecondaryFixedVariant,
+    darkScheme.onSecondaryFixedVariant
+  );
   css += "\n" + leftSpacing + "/* Tertiary palette variables */\n";
-  css += createLightDarkVar(leftSpacing, "tertiary", isHighContrast ? lightScheme.tertiary : lightScheme.tertiaryPalette.tone(40), isHighContrast ? darkScheme.tertiary : darkScheme.tertiaryPalette.tone(80));
-  css += createLightDarkVar(leftSpacing, "on-tertiary", isHighContrast ? lightScheme.tertiary : lightScheme.tertiaryPalette.tone(100), isHighContrast ? darkScheme.tertiary : darkScheme.tertiaryPalette.tone(20));
-  css += createLightDarkVar(leftSpacing, "tertiary-container", isHighContrast ? lightScheme.tertiaryContainer : lightScheme.tertiaryPalette.tone(90), isHighContrast ? darkScheme.tertiaryContainer : darkScheme.tertiaryPalette.tone(30));
-  css += createLightDarkVar(leftSpacing, "on-tertiary-container", isHighContrast ? lightScheme.onTertiaryContainer : lightScheme.tertiaryPalette.tone(10), isHighContrast ? darkScheme.onTertiaryContainer : darkScheme.tertiaryPalette.tone(90));
-  css += createLightDarkVar(leftSpacing, "tertiary-fixed", isHighContrast ? lightScheme.tertiaryFixed : lightScheme.tertiaryPalette.tone(90), isHighContrast ? darkScheme.tertiaryFixed : darkScheme.tertiaryPalette.tone(90));
-  css += createLightDarkVar(leftSpacing, "tertiary-fixed-dim", isHighContrast ? lightScheme.tertiaryFixedDim : lightScheme.tertiaryPalette.tone(80), isHighContrast ? darkScheme.tertiaryFixedDim : darkScheme.tertiaryPalette.tone(80));
-  css += createLightDarkVar(leftSpacing, "on-tertiary-fixed", lightScheme.onTertiaryFixed, darkScheme.onTertiaryFixed);
-  css += createLightDarkVar(leftSpacing, "on-tertiary-fixed-variant", lightScheme.onTertiaryFixedVariant, darkScheme.onTertiaryFixedVariant);
+  css += createLightDarkVar(
+    leftSpacing,
+    "tertiary",
+    isHighContrast ? lightScheme.tertiary : lightScheme.tertiaryPalette.tone(40),
+    isHighContrast ? darkScheme.tertiary : darkScheme.tertiaryPalette.tone(80)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-tertiary",
+    isHighContrast ? lightScheme.tertiary : lightScheme.tertiaryPalette.tone(100),
+    isHighContrast ? darkScheme.tertiary : darkScheme.tertiaryPalette.tone(20)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "tertiary-container",
+    isHighContrast ? lightScheme.tertiaryContainer : lightScheme.tertiaryPalette.tone(90),
+    isHighContrast ? darkScheme.tertiaryContainer : darkScheme.tertiaryPalette.tone(30)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-tertiary-container",
+    isHighContrast ? lightScheme.onTertiaryContainer : lightScheme.tertiaryPalette.tone(10),
+    isHighContrast ? darkScheme.onTertiaryContainer : darkScheme.tertiaryPalette.tone(90)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "tertiary-fixed",
+    isHighContrast ? lightScheme.tertiaryFixed : lightScheme.tertiaryPalette.tone(90),
+    isHighContrast ? darkScheme.tertiaryFixed : darkScheme.tertiaryPalette.tone(90)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "tertiary-fixed-dim",
+    isHighContrast ? lightScheme.tertiaryFixedDim : lightScheme.tertiaryPalette.tone(80),
+    isHighContrast ? darkScheme.tertiaryFixedDim : darkScheme.tertiaryPalette.tone(80)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-tertiary-fixed",
+    lightScheme.onTertiaryFixed,
+    darkScheme.onTertiaryFixed
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-tertiary-fixed-variant",
+    lightScheme.onTertiaryFixedVariant,
+    darkScheme.onTertiaryFixedVariant
+  );
   css += "\n" + leftSpacing + "/* Neutral palette variables */\n";
-  css += createLightDarkVar(leftSpacing, "background", lightScheme.background, darkScheme.background);
-  css += createLightDarkVar(leftSpacing, "on-background", lightScheme.onBackground, darkScheme.onBackground);
+  css += createLightDarkVar(
+    leftSpacing,
+    "background",
+    lightScheme.background,
+    darkScheme.background
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-background",
+    lightScheme.onBackground,
+    darkScheme.onBackground
+  );
   css += createLightDarkVar(leftSpacing, "surface", lightScheme.surface, darkScheme.surface);
-  css += createLightDarkVar(leftSpacing, "surface-dim", lightScheme.surfaceDim, darkScheme.surfaceDim);
-  css += createLightDarkVar(leftSpacing, "surface-bright", lightScheme.surfaceBright, darkScheme.surfaceBright);
-  css += createLightDarkVar(leftSpacing, "surface-container-lowest", lightScheme.surfaceContainerLowest, darkScheme.surfaceContainerLowest);
-  css += createLightDarkVar(leftSpacing, "surface-container", lightScheme.surfaceContainer, darkScheme.surfaceContainer);
-  css += createLightDarkVar(leftSpacing, "surface-container-high", lightScheme.surfaceContainerHigh, darkScheme.surfaceContainerHigh);
-  css += createLightDarkVar(leftSpacing, "surface-container-highest", lightScheme.surfaceContainerHighest, darkScheme.surfaceContainerHighest);
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-dim",
+    lightScheme.surfaceDim,
+    darkScheme.surfaceDim
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-bright",
+    lightScheme.surfaceBright,
+    darkScheme.surfaceBright
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-container-low",
+    lightScheme.surfaceContainerLow,
+    darkScheme.surfaceContainerLow
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-container-lowest",
+    lightScheme.surfaceContainerLowest,
+    darkScheme.surfaceContainerLowest
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-container",
+    lightScheme.surfaceContainer,
+    darkScheme.surfaceContainer
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-container-high",
+    lightScheme.surfaceContainerHigh,
+    darkScheme.surfaceContainerHigh
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-container-highest",
+    lightScheme.surfaceContainerHighest,
+    darkScheme.surfaceContainerHighest
+  );
   css += createLightDarkVar(leftSpacing, "on-surface", lightScheme.onSurface, darkScheme.onSurface);
   css += createLightDarkVar(leftSpacing, "shadow", lightScheme.shadow, darkScheme.shadow);
   css += createLightDarkVar(leftSpacing, "scrim", lightScheme.scrim, darkScheme.scrim);
-  css += createLightDarkVar(leftSpacing, "surface-tint", lightScheme.surfaceTint, darkScheme.surfaceTint);
-  css += createLightDarkVar(leftSpacing, "inverse-surface", lightScheme.inverseSurface, darkScheme.inverseSurface);
-  css += createLightDarkVar(leftSpacing, "inverse-on-surface", lightScheme.inverseOnSurface, darkScheme.inverseOnSurface);
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-tint",
+    lightScheme.surfaceTint,
+    darkScheme.surfaceTint
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "inverse-surface",
+    lightScheme.inverseSurface,
+    darkScheme.inverseSurface
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "inverse-on-surface",
+    lightScheme.inverseOnSurface,
+    darkScheme.inverseOnSurface
+  );
   css += createLightDarkVar(leftSpacing, "outline", lightScheme.outline, darkScheme.outline);
-  css += createLightDarkVar(leftSpacing, "outline-variant", lightScheme.outlineVariant, darkScheme.outlineVariant);
-  css += createLightDarkVar(leftSpacing, "neutral10", lightScheme.neutralPalette.tone(10), darkScheme.neutralPalette.tone(10), "Variable used for the form field native select option text color");
+  css += createLightDarkVar(
+    leftSpacing,
+    "outline-variant",
+    lightScheme.outlineVariant,
+    darkScheme.outlineVariant
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "neutral10",
+    lightScheme.neutralPalette.tone(10),
+    darkScheme.neutralPalette.tone(10),
+    "Variable used for the form field native select option text color"
+  );
   css += "\n" + leftSpacing + "/* Error palette variables */\n";
-  css += createLightDarkVar(leftSpacing, "error", isHighContrast ? lightScheme.error : lightScheme.errorPalette.tone(40), isHighContrast ? darkScheme.error : darkScheme.errorPalette.tone(80));
+  css += createLightDarkVar(
+    leftSpacing,
+    "error",
+    isHighContrast ? lightScheme.error : lightScheme.errorPalette.tone(40),
+    isHighContrast ? darkScheme.error : darkScheme.errorPalette.tone(80)
+  );
   css += createLightDarkVar(leftSpacing, "on-error", lightScheme.onError, darkScheme.onError);
-  css += createLightDarkVar(leftSpacing, "error-container", isHighContrast ? lightScheme.errorContainer : lightScheme.errorPalette.tone(90), isHighContrast ? darkScheme.errorContainer : darkScheme.errorPalette.tone(30));
-  css += createLightDarkVar(leftSpacing, "on-error-container", isHighContrast ? lightScheme.onErrorContainer : lightScheme.errorPalette.tone(10), isHighContrast ? darkScheme.onErrorContainer : darkScheme.errorPalette.tone(90));
+  css += createLightDarkVar(
+    leftSpacing,
+    "error-container",
+    isHighContrast ? lightScheme.errorContainer : lightScheme.errorPalette.tone(90),
+    isHighContrast ? darkScheme.errorContainer : darkScheme.errorPalette.tone(30)
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-error-container",
+    isHighContrast ? lightScheme.onErrorContainer : lightScheme.errorPalette.tone(10),
+    isHighContrast ? darkScheme.onErrorContainer : darkScheme.errorPalette.tone(90)
+  );
   css += "\n" + leftSpacing + "/* Neutral variant palette variables */\n";
-  css += createLightDarkVar(leftSpacing, "surface-variant", lightScheme.surfaceVariant, darkScheme.surfaceVariant);
-  css += createLightDarkVar(leftSpacing, "on-surface-variant", lightScheme.onSurfaceVariant, darkScheme.onSurfaceVariant);
-  css += createLightDarkVar(leftSpacing, "neutral-variant20", lightScheme.neutralVariantPalette.tone(20), darkScheme.neutralVariantPalette.tone(20), "Variable used for the sidenav scrim (container background shadow when opened)");
+  css += createLightDarkVar(
+    leftSpacing,
+    "surface-variant",
+    lightScheme.surfaceVariant,
+    darkScheme.surfaceVariant
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "on-surface-variant",
+    lightScheme.onSurfaceVariant,
+    darkScheme.onSurfaceVariant
+  );
+  css += createLightDarkVar(
+    leftSpacing,
+    "neutral-variant20",
+    lightScheme.neutralVariantPalette.tone(20),
+    darkScheme.neutralVariantPalette.tone(20),
+    "Variable used for the sidenav scrim (container background shadow when opened)"
+  );
   return css;
 }
 function getTypographySysVariablesCSS() {
@@ -3020,7 +3811,12 @@ function getAllSysVariablesCSS(lightColorScheme, darkColorScheme) {
 function getHighContrastOverridesCSS(lightColorScheme, darkColorScheme) {
   let css = "\n";
   css += "  @media (prefers-contrast: more) {\n";
-  css += getColorSysVariablesCSS(lightColorScheme, darkColorScheme, true);
+  css += getColorSysVariablesCSS(
+    lightColorScheme,
+    darkColorScheme,
+    /* isHighContrast */
+    true
+  );
   css += "  }\n";
   return css;
 }
@@ -3050,8 +3846,22 @@ function getColorComment(primaryColor, secondaryColor, tertiaryColor, neutralCol
 }
 function theme_color_default(options) {
   return (tree, context) => __async(this, null, function* () {
-    const colorComment = getColorComment(options.primaryColor, options.secondaryColor, options.tertiaryColor, options.neutralColor, options.neutralVariantColor, options.errorColor);
-    const colorPalettes = getColorPalettes(options.primaryColor, options.secondaryColor, options.tertiaryColor, options.neutralColor, options.neutralVariantColor, options.errorColor);
+    const colorComment = getColorComment(
+      options.primaryColor,
+      options.secondaryColor,
+      options.tertiaryColor,
+      options.neutralColor,
+      options.neutralVariantColor,
+      options.errorColor
+    );
+    const colorPalettes = getColorPalettes(
+      options.primaryColor,
+      options.secondaryColor,
+      options.tertiaryColor,
+      options.neutralColor,
+      options.neutralVariantColor,
+      options.errorColor
+    );
     let lightHighContrastColorScheme;
     let darkHighContrastColorScheme;
     if (options.includeHighContrast) {
@@ -3061,7 +3871,9 @@ function theme_color_default(options) {
         colorPalettes.tertiary,
         colorPalettes.neutral,
         colorPalettes.neutralVariant,
+        /* isDark */
         false,
+        /* contrastLevel */
         1
       );
       darkHighContrastColorScheme = getMaterialDynamicScheme(
@@ -3070,7 +3882,9 @@ function theme_color_default(options) {
         colorPalettes.tertiary,
         colorPalettes.neutral,
         colorPalettes.neutralVariant,
+        /* isDark */
         true,
+        /* contrastLevel */
         1
       );
       if (options.errorColor) {
@@ -3081,7 +3895,10 @@ function theme_color_default(options) {
     if (options.isScss) {
       let themeScss = generateSCSSTheme(colorPalettes, colorComment);
       if (options.includeHighContrast) {
-        themeScss += generateHighContrastOverrideMixinsSCSS(lightHighContrastColorScheme, darkHighContrastColorScheme);
+        themeScss += generateHighContrastOverrideMixinsSCSS(
+          lightHighContrastColorScheme,
+          darkHighContrastColorScheme
+        );
       }
       createThemeFile(themeScss, tree, options.directory);
     } else {
@@ -3094,7 +3911,9 @@ function theme_color_default(options) {
         colorPalettes.tertiary,
         colorPalettes.neutral,
         colorPalettes.neutralVariant,
+        /* isDark */
         false,
+        /* contrastLevel */
         0
       );
       const darkColorScheme = getMaterialDynamicScheme(
@@ -3103,7 +3922,9 @@ function theme_color_default(options) {
         colorPalettes.tertiary,
         colorPalettes.neutral,
         colorPalettes.neutralVariant,
+        /* isDark */
         true,
+        /* contrastLevel */
         0
       );
       if (options.errorColor) {
@@ -3112,10 +3933,19 @@ function theme_color_default(options) {
       }
       themeCss += getAllSysVariablesCSS(lightColorScheme, darkColorScheme);
       if (options.includeHighContrast) {
-        themeCss += getHighContrastOverridesCSS(lightHighContrastColorScheme, darkHighContrastColorScheme);
+        themeCss += getHighContrastOverridesCSS(
+          lightHighContrastColorScheme,
+          darkHighContrastColorScheme
+        );
       }
       themeCss += "}\n";
-      createThemeFile(themeCss, tree, options.directory, false);
+      createThemeFile(
+        themeCss,
+        tree,
+        options.directory,
+        /* isScss */
+        false
+      );
     }
   });
 }
@@ -3130,57 +3960,713 @@ function theme_color_default(options) {
 });
 /**
  * @license
- * Copyright 2021 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * @license
- * Copyright 2022 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * @license
- * Copyright 2023 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * @license
  * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.dev/license
  */
+/*! Bundled license information:
+
+@material/material-color-utilities/utils/math_utils.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/utils/color_utils.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/hct/viewing_conditions.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/hct/cam16.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/hct/hct_solver.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/hct/hct.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/blend/blend.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/contrast/contrast.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dislike/dislike_analyzer.js:
+  (**
+   * @license
+   * Copyright 2023 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dynamiccolor/dynamic_color.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/palettes/tonal_palette.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dynamiccolor/contrast_curve.js:
+  (**
+   * @license
+   * Copyright 2023 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dynamiccolor/tone_delta_pair.js:
+  (**
+   * @license
+   * Copyright 2023 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dynamiccolor/variant.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dynamiccolor/dynamic_scheme.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/palettes/core_palette.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/quantize/lab_point_provider.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/quantize/quantizer_wsmeans.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/quantize/quantizer_map.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/quantize/quantizer_wu.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/quantize/quantizer_celebi.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_android.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/temperature/temperature_cache.js:
+  (**
+   * @license
+   * Copyright 2023 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_content.js:
+  (**
+   * @license
+   * Copyright 2023 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_expressive.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_fidelity.js:
+  (**
+   * @license
+   * Copyright 2023 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_fruit_salad.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_monochrome.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_neutral.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_rainbow.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_tonal_spot.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/scheme/scheme_vibrant.js:
+  (**
+   * @license
+   * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/score/score.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/utils/string_utils.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/utils/image_utils.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/utils/theme_utils.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/index.js:
+  (**
+   * @license
+   * Copyright 2021 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+*/
 //# sourceMappingURL=index_bundled.js.map

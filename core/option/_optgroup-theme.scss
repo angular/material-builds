@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../tokens/m2/mat/optgroup' as tokens-mat-optgroup;
+@use './m2-optgroup';
 @use '../tokens/token-utils';
 @use '../style/sass-utils';
 @use '../theming/theming';
@@ -19,10 +19,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-optgroup.$prefix,
-        tokens-mat-optgroup.get-color-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-optgroup.$prefix, m2-optgroup.get-color-tokens($theme));
     }
   }
 }
@@ -32,17 +30,15 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-optgroup.$prefix,
-        tokens-mat-optgroup.get-typography-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-optgroup.$prefix, m2-optgroup.get-typography-tokens($theme));
     }
   }
 }
 
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    // There are no M3 density tokens for this component
   } @else {
   }
 }
@@ -51,8 +47,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mat-optgroup.$prefix,
-      tokens: tokens-mat-optgroup.get-token-slots(),
+      namespace: m2-optgroup.$prefix,
+      tokens: m2-optgroup.get-token-slots(),
     ),
   );
 }
@@ -86,8 +82,8 @@
   );
   @if ($tokens != ()) {
     @include token-utils.create-token-values(
-      tokens-mat-optgroup.$prefix,
-      map.get($tokens, tokens-mat-optgroup.$prefix)
+      m2-optgroup.$prefix,
+      map.get($tokens, m2-optgroup.$prefix)
     );
   }
 }

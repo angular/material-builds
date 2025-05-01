@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../core/tokens/m2/mat/sort' as tokens-mat-sort;
+@use './m2-sort';
 @use '../core/style/sass-utils';
 @use '../core/typography/typography';
 @use '../core/theming/theming';
@@ -19,10 +19,8 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-sort.$prefix,
-        tokens-mat-sort.get-color-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-sort.$prefix, m2-sort.get-color-tokens($theme));
     }
   }
 }
@@ -32,23 +30,19 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-sort.$prefix,
-        tokens-mat-sort.get-typography-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-sort.$prefix, m2-sort.get-typography-tokens($theme));
     }
   }
 }
 
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    // There are no M3 density tokens for this component
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-sort.$prefix,
-        tokens-mat-sort.get-density-tokens($theme)
-      );
+      @include token-utils.create-token-values-mixed(
+        m2-sort.$prefix, m2-sort.get-density-tokens($theme));
     }
   }
 }
@@ -57,8 +51,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mat-sort.$prefix,
-      tokens: tokens-mat-sort.get-token-slots(),
+      namespace: m2-sort.$prefix,
+      tokens: m2-sort.get-token-slots(),
     ),
   );
 }
@@ -92,8 +86,8 @@
   );
   @if ($tokens != ()) {
     @include token-utils.create-token-values(
-      tokens-mat-sort.$prefix,
-      map.get($tokens, tokens-mat-sort.$prefix)
+      m2-sort.$prefix,
+      map.get($tokens, m2-sort.$prefix)
     );
   }
 }

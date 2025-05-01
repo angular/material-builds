@@ -5,16 +5,16 @@
 @use '../core/typography/typography';
 @use '../core/style/sass-utils';
 @use '../core/tokens/token-utils';
-@use '../core/tokens/m2/mat/autocomplete' as tokens-mat-autocomplete;
+@use 'm2-autocomplete';
 
 @mixin base($theme) {
   @if inspection.get-theme-version($theme) == 1 {
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, base));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-autocomplete.$prefix,
-        tokens-mat-autocomplete.get-unthemable-tokens()
+      @include token-utils.create-token-values-mixed(
+        m2-autocomplete.$prefix,
+        m2-autocomplete.get-unthemable-tokens()
       );
     }
   }
@@ -25,9 +25,9 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, color));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-autocomplete.$prefix,
-        tokens-mat-autocomplete.get-color-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-autocomplete.$prefix,
+        m2-autocomplete.get-color-tokens($theme)
       );
     }
   }
@@ -38,9 +38,9 @@
     @include _theme-from-tokens(inspection.get-theme-tokens($theme, typography));
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-autocomplete.$prefix,
-        tokens-mat-autocomplete.get-typography-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-autocomplete.$prefix,
+        m2-autocomplete.get-typography-tokens($theme)
       );
     }
   }
@@ -48,12 +48,12 @@
 
 @mixin density($theme) {
   @if inspection.get-theme-version($theme) == 1 {
-    @include _theme-from-tokens(inspection.get-theme-tokens($theme, density));
+    // There are no M3 density tokens for this component
   } @else {
     @include sass-utils.current-selector-or-root() {
-      @include token-utils.create-token-values(
-        tokens-mat-autocomplete.$prefix,
-        tokens-mat-autocomplete.get-density-tokens($theme)
+      @include token-utils.create-token-values-mixed(
+        m2-autocomplete.$prefix,
+        m2-autocomplete.get-density-tokens($theme)
       );
     }
   }
@@ -63,8 +63,8 @@
 @function _define-overrides() {
   @return (
     (
-      namespace: tokens-mat-autocomplete.$prefix,
-      tokens: tokens-mat-autocomplete.get-token-slots(),
+      namespace: m2-autocomplete.$prefix,
+      tokens: m2-autocomplete.get-token-slots(),
     ),
   );
 }
@@ -98,8 +98,8 @@
   );
   @if ($tokens != ()) {
     @include token-utils.create-token-values(
-      tokens-mat-autocomplete.$prefix,
-      map.get($tokens, tokens-mat-autocomplete.$prefix)
+      m2-autocomplete.$prefix,
+      map.get($tokens, m2-autocomplete.$prefix)
     );
   }
 }

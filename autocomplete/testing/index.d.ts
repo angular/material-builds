@@ -1,21 +1,16 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatOptgroupHarness } from '@angular/material/core/testing';
-import { MatOptionHarness } from '@angular/material/core/testing';
-import { OptgroupHarnessFilters } from '@angular/material/core/testing';
-import { OptionHarnessFilters } from '@angular/material/core/testing';
+import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
+import { O as OptionHarnessFilters, M as MatOptionHarness } from '../../option-harness.d-IqsW95GR.js';
+import { OptgroupHarnessFilters, MatOptgroupHarness } from '../../core/testing/index.js';
 
 /** A set of criteria that can be used to filter a list of `MatAutocompleteHarness` instances. */
-export declare interface AutocompleteHarnessFilters extends BaseHarnessFilters {
+interface AutocompleteHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose associated input element matches the given value. */
     value?: string | RegExp;
     /** Only find instances which match the given disabled state. */
     disabled?: boolean;
 }
 
-export declare class MatAutocompleteHarness extends ComponentHarness {
+declare class MatAutocompleteHarness extends ComponentHarness {
     private _documentRootLocator;
     /** The selector for the host element of a `MatAutocomplete` instance. */
     static hostSelector: string;
@@ -54,4 +49,5 @@ export declare class MatAutocompleteHarness extends ComponentHarness {
     protected _getPanelSelector(): Promise<string>;
 }
 
-export { }
+export { MatAutocompleteHarness };
+export type { AutocompleteHarnessFilters };

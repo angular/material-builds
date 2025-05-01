@@ -1,22 +1,26 @@
-import { AsyncFactoryFn } from '@angular/cdk/testing';
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
+import * as _angular_cdk_testing from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
+import { D as DialogRole, e as MatDialog, g as MatDialogConfig, M as MatDialogRef } from '../../dialog.d-DsYAn2Gk.js';
 import { ComponentType } from '@angular/cdk/overlay';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { DialogRole } from '@angular/material/dialog';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDialogConfig } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
 import { OnDestroy } from '@angular/core';
-import { TestElement } from '@angular/cdk/testing';
+import '@angular/cdk/bidi';
+import '@angular/cdk/dialog';
+import '@angular/cdk/a11y';
+import 'rxjs';
+import '@angular/cdk/portal';
 
 /** A set of criteria that can be used to filter a list of `MatDialogHarness` instances. */
-export declare interface DialogHarnessFilters extends BaseHarnessFilters {
+interface DialogHarnessFilters extends BaseHarnessFilters {
 }
 
+/** Selectors for different sections of the mat-dialog that can contain user content. */
+declare enum MatDialogSection {
+    TITLE = ".mat-mdc-dialog-title",
+    CONTENT = ".mat-mdc-dialog-content",
+    ACTIONS = ".mat-mdc-dialog-actions"
+}
 /** Harness for interacting with a standard `MatDialog` in tests. */
-export declare class MatDialogHarness extends ContentContainerComponentHarness<MatDialogSection | string> {
+declare class MatDialogHarness extends ContentContainerComponentHarness<MatDialogSection | string> {
     /** The selector for the host element of a `MatDialog` instance. */
     static hostSelector: string;
     /**
@@ -25,9 +29,9 @@ export declare class MatDialogHarness extends ContentContainerComponentHarness<M
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatDialogHarness>(this: ComponentHarnessConstructor<T>, options?: DialogHarnessFilters): HarnessPredicate<T>;
-    protected _title: AsyncFactoryFn<TestElement | null>;
-    protected _content: AsyncFactoryFn<TestElement | null>;
-    protected _actions: AsyncFactoryFn<TestElement | null>;
+    protected _title: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement | null>;
+    protected _content: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement | null>;
+    protected _actions: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement | null>;
     /** Gets the id of the dialog. */
     getId(): Promise<string | null>;
     /** Gets the role of the dialog. */
@@ -54,15 +58,8 @@ export declare class MatDialogHarness extends ContentContainerComponentHarness<M
     getActionsText(): Promise<string>;
 }
 
-/** Selectors for different sections of the mat-dialog that can contain user content. */
-export declare enum MatDialogSection {
-    TITLE = ".mat-mdc-dialog-title",
-    CONTENT = ".mat-mdc-dialog-content",
-    ACTIONS = ".mat-mdc-dialog-actions"
-}
-
 /** Test component that immediately opens a dialog when bootstrapped. */
-export declare class MatTestDialogOpener<T = unknown, R = unknown> implements OnDestroy {
+declare class MatTestDialogOpener<T = unknown, R = unknown> implements OnDestroy {
     dialog: MatDialog;
     /** Component that should be opened with the MatDialog `open` method. */
     protected static component: ComponentType<unknown> | undefined;
@@ -79,8 +76,8 @@ export declare class MatTestDialogOpener<T = unknown, R = unknown> implements On
     constructor(...args: unknown[]);
     ngOnDestroy(): void;
 }
-
-export declare class MatTestDialogOpenerModule {
+declare class MatTestDialogOpenerModule {
 }
 
-export { }
+export { MatDialogHarness, MatDialogSection, MatTestDialogOpener, MatTestDialogOpenerModule };
+export type { DialogHarnessFilters };

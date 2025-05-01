@@ -1,23 +1,23 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarnessConstructor } from '@angular/cdk/testing';
-import { ContentContainerComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
+/** Possible button variants. */
+type ButtonVariant = 'basic' | 'icon' | 'fab' | 'mini-fab';
+/** Possible button appearances. */
+type ButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined' | 'tonal';
 /** A set of criteria that can be used to filter a list of button harness instances. */
-export declare interface ButtonHarnessFilters extends BaseHarnessFilters {
+interface ButtonHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
     /** Only find instances with a variant. */
     variant?: ButtonVariant;
+    /** Only find instances with a specific appearance. */
+    appearance?: ButtonAppearance;
     /** Only find instances which match the given disabled state. */
     disabled?: boolean;
 }
 
-/** Possible button appearances. */
-export declare type ButtonVariant = 'basic' | 'raised' | 'flat' | 'icon' | 'stroked' | 'fab' | 'mini-fab';
-
 /** Harness for interacting with a mat-button in tests. */
-export declare class MatButtonHarness extends ContentContainerComponentHarness {
+declare class MatButtonHarness extends ContentContainerComponentHarness {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a button with specific attributes.
@@ -25,6 +25,7 @@ export declare class MatButtonHarness extends ContentContainerComponentHarness {
      *   - `selector` finds a button whose host element matches the given selector.
      *   - `text` finds a button with specific text content.
      *   - `variant` finds buttons matching a specific variant.
+     *   - `appearance` finds buttons matching a specific appearance.
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatButtonHarness>(this: ComponentHarnessConstructor<T>, options?: ButtonHarnessFilters): HarnessPredicate<T>;
@@ -50,6 +51,9 @@ export declare class MatButtonHarness extends ContentContainerComponentHarness {
     isFocused(): Promise<boolean>;
     /** Gets the variant of the button. */
     getVariant(): Promise<ButtonVariant>;
+    /** Gets the appearance of the button. */
+    getAppearance(): Promise<ButtonAppearance | null>;
 }
 
-export { }
+export { MatButtonHarness };
+export type { ButtonAppearance, ButtonHarnessFilters, ButtonVariant };

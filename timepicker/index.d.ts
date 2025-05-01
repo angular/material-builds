@@ -1,56 +1,165 @@
-import { AbstractControl } from '@angular/forms';
-import { ControlValueAccessor } from '@angular/forms';
-import { ElementRef } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i4 from '@angular/cdk/scrolling';
-import { InjectionToken } from '@angular/core';
-import { InputSignal } from '@angular/core';
-import { InputSignalWithTransform } from '@angular/core';
-import { MatOption } from '@angular/material/core';
-import { MatOptionParentComponent } from '@angular/material/core';
-import { ModelSignal } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OutputEmitterRef } from '@angular/core';
+import { OnDestroy, Signal, ModelSignal, InputSignal, InputSignalWithTransform, ElementRef, InjectionToken, TemplateRef, OutputEmitterRef } from '@angular/core';
+import { M as MatOption } from '../option.d-BVGX3edu.js';
+import { M as MatOptionParentComponent } from '../option-parent.d-CnYuuMkO.js';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { Signal } from '@angular/core';
-import { TemplateRef } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
-import { Validator } from '@angular/forms';
+import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
+import * as i5 from '@angular/cdk/scrolling';
+import '@angular/cdk/a11y';
+import 'rxjs';
 
-declare namespace i1 {
-    export {
-        MatTimepickerSelected,
-        MAT_TIMEPICKER_SCROLL_STRATEGY,
-        MatTimepicker
-    }
-}
-
-declare namespace i2 {
-    export {
-        MatTimepickerInput
-    }
-}
-
-declare namespace i3 {
-    export {
-        MatTimepickerToggle
-    }
+/**
+ * Input that can be used to enter time and connect to a `mat-timepicker`.
+ */
+declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, OnDestroy {
+    private _elementRef;
+    private _dateAdapter;
+    private _dateFormats;
+    private _formField;
+    private _onChange;
+    private _onTouched;
+    private _validatorOnChange;
+    private _cleanupClick;
+    private _accessorDisabled;
+    private _localeSubscription;
+    private _timepickerSubscription;
+    private _validator;
+    private _lastValueValid;
+    private _lastValidDate;
+    /** Value of the `aria-activedescendant` attribute. */
+    protected readonly _ariaActiveDescendant: Signal<string | null>;
+    /** Value of the `aria-expanded` attribute. */
+    protected readonly _ariaExpanded: Signal<string>;
+    /** Value of the `aria-controls` attribute. */
+    protected readonly _ariaControls: Signal<string | null>;
+    /** Current value of the input. */
+    readonly value: ModelSignal<D | null>;
+    /** Timepicker that the input is associated with. */
+    readonly timepicker: InputSignal<MatTimepicker<D>>;
+    /**
+     * Minimum time that can be selected or typed in. Can be either
+     * a date object (only time will be used) or a valid time string.
+     */
+    readonly min: InputSignalWithTransform<D | null, unknown>;
+    /**
+     * Maximum time that can be selected or typed in. Can be either
+     * a date object (only time will be used) or a valid time string.
+     */
+    readonly max: InputSignalWithTransform<D | null, unknown>;
+    /** Whether the input is disabled. */
+    readonly disabled: Signal<boolean>;
+    /**
+     * Whether the input should be disabled through the template.
+     * @docs-private
+     */
+    readonly disabledInput: InputSignalWithTransform<boolean, unknown>;
+    constructor();
+    /**
+     * Implemented as a part of `ControlValueAccessor`.
+     * @docs-private
+     */
+    writeValue(value: any): void;
+    /**
+     * Implemented as a part of `ControlValueAccessor`.
+     * @docs-private
+     */
+    registerOnChange(fn: (value: any) => void): void;
+    /**
+     * Implemented as a part of `ControlValueAccessor`.
+     * @docs-private
+     */
+    registerOnTouched(fn: () => void): void;
+    /**
+     * Implemented as a part of `ControlValueAccessor`.
+     * @docs-private
+     */
+    setDisabledState(isDisabled: boolean): void;
+    /**
+     * Implemented as a part of `Validator`.
+     * @docs-private
+     */
+    validate(control: AbstractControl): ValidationErrors | null;
+    /**
+     * Implemented as a part of `Validator`.
+     * @docs-private
+     */
+    registerOnValidatorChange(fn: () => void): void;
+    /** Gets the element to which the timepicker popup should be attached. */
+    getOverlayOrigin(): ElementRef<HTMLElement>;
+    /** Focuses the input. */
+    focus(): void;
+    ngOnDestroy(): void;
+    /** Gets the ID of the input's label. */
+    _getLabelId(): string | null;
+    /** Handles clicks on the input or the containing form field. */
+    private _handleClick;
+    /** Handles the `input` event. */
+    protected _handleInput(event: Event): void;
+    /** Handles the `blur` event. */
+    protected _handleBlur(): void;
+    /** Handles the `keydown` event. */
+    protected _handleKeydown(event: KeyboardEvent): void;
+    /** Sets up the code that watches for changes in the value and adjusts the input. */
+    private _respondToValueChanges;
+    /** Sets up the logic that registers the input with the timepicker. */
+    private _registerTimepicker;
+    /** Sets up the logic that adjusts the input if the min/max changes. */
+    private _respondToMinMaxChanges;
+    /**
+     * Assigns a value set by the user to the input's model.
+     * @param selection Time selected by the user that should be assigned.
+     * @param propagateToAccessor Whether the value should be propagated to the ControlValueAccessor.
+     */
+    private _assignUserSelection;
+    /** Formats the current value and assigns it to the input. */
+    private _formatValue;
+    /** Checks whether a value is valid. */
+    private _isValid;
+    /** Transforms an arbitrary value into a value that can be assigned to a date-based input. */
+    private _transformDateInput;
+    /** Whether the input is currently focused. */
+    private _hasFocus;
+    /** Gets a function that can be used to validate the input. */
+    private _getValidator;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerInput<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTimepickerInput<any>, "input[matTimepicker]", ["matTimepickerInput"], { "value": { "alias": "value"; "required": false; "isSignal": true; }; "timepicker": { "alias": "matTimepicker"; "required": true; "isSignal": true; }; "min": { "alias": "matTimepickerMin"; "required": false; "isSignal": true; }; "max": { "alias": "matTimepickerMax"; "required": false; "isSignal": true; }; "disabledInput": { "alias": "disabled"; "required": false; "isSignal": true; }; }, { "value": "valueChange"; }, never, never, true, never>;
 }
 
 /**
+ * Object that can be used to configure the default options for the timepicker component.
+ */
+interface MatTimepickerConfig {
+    /** Default interval for all time pickers. */
+    interval?: string | number;
+    /** Whether ripples inside the timepicker should be disabled by default. */
+    disableRipple?: boolean;
+}
+/**
  * Injection token that can be used to configure the default options for the timepicker component.
  */
-export declare const MAT_TIMEPICKER_CONFIG: InjectionToken<MatTimepickerConfig>;
+declare const MAT_TIMEPICKER_CONFIG: InjectionToken<MatTimepickerConfig>;
+/**
+ * Time selection option that can be displayed within a `mat-timepicker`.
+ */
+interface MatTimepickerOption<D = unknown> {
+    /** Date value of the option. */
+    value: D;
+    /** Label to show to the user. */
+    label: string;
+}
 
+/** Event emitted when a value is selected in the timepicker. */
+interface MatTimepickerSelected<D> {
+    value: D;
+    source: MatTimepicker<D>;
+}
 /** Injection token used to configure the behavior of the timepicker dropdown while scrolling. */
-export declare const MAT_TIMEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-
+declare const MAT_TIMEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /**
  * Renders out a listbox that can be used to select a time of day.
  * Intended to be used together with `MatTimepickerInput`.
  */
-export declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
-    private _overlay;
+declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
     private _dir;
     private _viewContainerRef;
     private _injector;
@@ -139,161 +248,11 @@ export declare class MatTimepicker<D> implements OnDestroy, MatOptionParentCompo
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTimepicker<any>, "mat-timepicker", ["matTimepicker"], { "interval": { "alias": "interval"; "required": false; "isSignal": true; }; "options": { "alias": "options"; "required": false; "isSignal": true; }; "disableRipple": { "alias": "disableRipple"; "required": false; "isSignal": true; }; "ariaLabel": { "alias": "aria-label"; "required": false; "isSignal": true; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; "isSignal": true; }; }, { "selected": "selected"; "opened": "opened"; "closed": "closed"; }, never, never, true, never>;
 }
 
-/**
- * Object that can be used to configure the default options for the timepicker component.
- */
-export declare interface MatTimepickerConfig {
-    /** Default interval for all time pickers. */
-    interval?: string | number;
-    /** Whether ripples inside the timepicker should be disabled by default. */
-    disableRipple?: boolean;
-}
-
-/**
- * Input that can be used to enter time and connect to a `mat-timepicker`.
- */
-export declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, OnDestroy {
-    private _elementRef;
-    private _document;
-    private _dateAdapter;
-    private _dateFormats;
-    private _formField;
-    private _onChange;
-    private _onTouched;
-    private _validatorOnChange;
-    private _cleanupClick;
-    private _accessorDisabled;
-    private _localeSubscription;
-    private _timepickerSubscription;
-    private _validator;
-    private _lastValueValid;
-    private _lastValidDate;
-    /** Value of the `aria-activedescendant` attribute. */
-    protected readonly _ariaActiveDescendant: Signal<string | null>;
-    /** Value of the `aria-expanded` attribute. */
-    protected readonly _ariaExpanded: Signal<string>;
-    /** Value of the `aria-controls` attribute. */
-    protected readonly _ariaControls: Signal<string | null>;
-    /** Current value of the input. */
-    readonly value: ModelSignal<D | null>;
-    /** Timepicker that the input is associated with. */
-    readonly timepicker: InputSignal<MatTimepicker<D>>;
-    /**
-     * Minimum time that can be selected or typed in. Can be either
-     * a date object (only time will be used) or a valid time string.
-     */
-    readonly min: InputSignalWithTransform<D | null, unknown>;
-    /**
-     * Maximum time that can be selected or typed in. Can be either
-     * a date object (only time will be used) or a valid time string.
-     */
-    readonly max: InputSignalWithTransform<D | null, unknown>;
-    /** Whether the input is disabled. */
-    readonly disabled: Signal<boolean>;
-    /**
-     * Whether the input should be disabled through the template.
-     * @docs-private
-     */
-    readonly disabledInput: InputSignalWithTransform<boolean, unknown>;
-    constructor();
-    /**
-     * Implemented as a part of `ControlValueAccessor`.
-     * @docs-private
-     */
-    writeValue(value: any): void;
-    /**
-     * Implemented as a part of `ControlValueAccessor`.
-     * @docs-private
-     */
-    registerOnChange(fn: (value: any) => void): void;
-    /**
-     * Implemented as a part of `ControlValueAccessor`.
-     * @docs-private
-     */
-    registerOnTouched(fn: () => void): void;
-    /**
-     * Implemented as a part of `ControlValueAccessor`.
-     * @docs-private
-     */
-    setDisabledState(isDisabled: boolean): void;
-    /**
-     * Implemented as a part of `Validator`.
-     * @docs-private
-     */
-    validate(control: AbstractControl): ValidationErrors | null;
-    /**
-     * Implemented as a part of `Validator`.
-     * @docs-private
-     */
-    registerOnValidatorChange(fn: () => void): void;
-    /** Gets the element to which the timepicker popup should be attached. */
-    getOverlayOrigin(): ElementRef<HTMLElement>;
-    /** Focuses the input. */
-    focus(): void;
-    ngOnDestroy(): void;
-    /** Gets the ID of the input's label. */
-    _getLabelId(): string | null;
-    /** Handles clicks on the input or the containing form field. */
-    private _handleClick;
-    /** Handles the `input` event. */
-    protected _handleInput(value: string): void;
-    /** Handles the `blur` event. */
-    protected _handleBlur(): void;
-    /** Handles the `keydown` event. */
-    protected _handleKeydown(event: KeyboardEvent): void;
-    /** Sets up the code that watches for changes in the value and adjusts the input. */
-    private _respondToValueChanges;
-    /** Sets up the logic that registers the input with the timepicker. */
-    private _registerTimepicker;
-    /** Sets up the logic that adjusts the input if the min/max changes. */
-    private _respondToMinMaxChanges;
-    /**
-     * Assigns a value set by the user to the input's model.
-     * @param selection Time selected by the user that should be assigned.
-     * @param propagateToAccessor Whether the value should be propagated to the ControlValueAccessor.
-     */
-    private _assignUserSelection;
-    /** Formats the current value and assigns it to the input. */
-    private _formatValue;
-    /** Checks whether a value is valid. */
-    private _isValid;
-    /** Transforms an arbitrary value into a value that can be assigned to a date-based input. */
-    private _transformDateInput;
-    /** Whether the input is currently focused. */
-    private _hasFocus;
-    /** Gets a function that can be used to validate the input. */
-    private _getValidator;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerInput<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTimepickerInput<any>, "input[matTimepicker]", ["matTimepickerInput"], { "value": { "alias": "value"; "required": false; "isSignal": true; }; "timepicker": { "alias": "matTimepicker"; "required": true; "isSignal": true; }; "min": { "alias": "matTimepickerMin"; "required": false; "isSignal": true; }; "max": { "alias": "matTimepickerMax"; "required": false; "isSignal": true; }; "disabledInput": { "alias": "disabled"; "required": false; "isSignal": true; }; }, { "value": "valueChange"; }, never, never, true, never>;
-}
-
-export declare class MatTimepickerModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTimepickerModule, never, [typeof i1.MatTimepicker, typeof i2.MatTimepickerInput, typeof i3.MatTimepickerToggle], [typeof i4.CdkScrollableModule, typeof i1.MatTimepicker, typeof i2.MatTimepickerInput, typeof i3.MatTimepickerToggle]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatTimepickerModule>;
-}
-
-/**
- * Time selection option that can be displayed within a `mat-timepicker`.
- */
-export declare interface MatTimepickerOption<D = unknown> {
-    /** Date value of the option. */
-    value: D;
-    /** Label to show to the user. */
-    label: string;
-}
-
-/** Event emitted when a value is selected in the timepicker. */
-export declare interface MatTimepickerSelected<D> {
-    value: D;
-    source: MatTimepicker<D>;
-}
-
 /** Button that can be used to open a `mat-timepicker`. */
-export declare class MatTimepickerToggle<D> {
+declare class MatTimepickerToggle<D> {
     private _defaultConfig;
     private _defaultTabIndex;
-    protected _isDisabled: Signal<boolean>;
+    protected _isDisabled: i0.Signal<boolean>;
     /** Timepicker instance that the button will toggle. */
     readonly timepicker: InputSignal<MatTimepicker<D>>;
     /** Screen-reader label for the button. */
@@ -319,4 +278,11 @@ export declare class MatTimepickerToggle<D> {
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTimepickerToggle<any>, "mat-timepicker-toggle", ["matTimepickerToggle"], { "timepicker": { "alias": "for"; "required": true; "isSignal": true; }; "ariaLabel": { "alias": "aria-label"; "required": false; "isSignal": true; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; "isSignal": true; }; "disabled": { "alias": "disabled"; "required": false; "isSignal": true; }; "tabIndex": { "alias": "tabIndex"; "required": false; "isSignal": true; }; "disableRipple": { "alias": "disableRipple"; "required": false; "isSignal": true; }; }, {}, never, ["[matTimepickerToggleIcon]"], true, never>;
 }
 
-export { }
+declare class MatTimepickerModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTimepickerModule, never, [typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle], [typeof i5.CdkScrollableModule, typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatTimepickerModule>;
+}
+
+export { MAT_TIMEPICKER_CONFIG, MAT_TIMEPICKER_SCROLL_STRATEGY, MatTimepicker, MatTimepickerInput, MatTimepickerModule, MatTimepickerToggle };
+export type { MatTimepickerConfig, MatTimepickerOption, MatTimepickerSelected };

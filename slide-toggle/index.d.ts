@@ -1,58 +1,44 @@
-import { AbstractControl } from '@angular/forms';
-import { AfterContentInit } from '@angular/core';
-import { ChangeDetectorRef } from '@angular/core';
-import { CheckboxRequiredValidator } from '@angular/forms';
-import { ControlValueAccessor } from '@angular/forms';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i3 from '@angular/material/core';
-import { InjectionToken } from '@angular/core';
-import { OnChanges } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Provider } from '@angular/core';
-import { SimpleChanges } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { Type } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
-import { Validator } from '@angular/forms';
+import { InjectionToken, OnDestroy, AfterContentInit, OnChanges, ChangeDetectorRef, ElementRef, EventEmitter, SimpleChanges } from '@angular/core';
+import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
+import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import '@angular/cdk/bidi';
 
-declare namespace i1 {
-    export {
-        MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR,
-        MatSlideToggleRequiredValidator
-    }
+/** Default `mat-slide-toggle` options that can be overridden. */
+interface MatSlideToggleDefaultOptions {
+    /** Whether toggle action triggers value changes in slide toggle. */
+    disableToggleValue?: boolean;
+    /**
+     * Default theme color of the slide toggle. This API is supported in M2 themes only,
+     * it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/slide-toggle/styling.
+     *
+     * For information on applying color variants in M3, see
+     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     */
+    color?: ThemePalette;
+    /** Whether to hide the icon inside the slide toggle. */
+    hideIcon?: boolean;
+    /** Whether disabled slide toggles should remain interactive. */
+    disabledInteractive?: boolean;
 }
-
-declare namespace i2 {
-    export {
-        MAT_SLIDE_TOGGLE_VALUE_ACCESSOR,
-        MatSlideToggleChange,
-        MatSlideToggle
-    }
-}
-
 /** Injection token to be used to override the default options for `mat-slide-toggle`. */
-export declare const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatSlideToggleDefaultOptions>;
+declare const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatSlideToggleDefaultOptions>;
 
-/**
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-export declare const MAT_SLIDE_TOGGLE_REQUIRED_VALIDATOR: Provider;
-
-/**
- * @deprecated Will stop being exported.
- * @breaking-change 19.0.0
- */
-export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: {
-    provide: InjectionToken<readonly ControlValueAccessor[]>;
-    useExisting: Type<any>;
-    multi: boolean;
-};
-
-export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, ControlValueAccessor, Validator {
+/** Change event object emitted by a slide toggle. */
+declare class MatSlideToggleChange {
+    /** The source slide toggle of the event. */
+    source: MatSlideToggle;
+    /** The new `checked` value of the slide toggle. */
+    checked: boolean;
+    constructor(
+    /** The source slide toggle of the event. */
+    source: MatSlideToggle, 
+    /** The new `checked` value of the slide toggle. */
+    checked: boolean);
+}
+declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, ControlValueAccessor, Validator {
     private _elementRef;
     protected _focusMonitor: FocusMonitor;
     protected _changeDetectorRef: ChangeDetectorRef;
@@ -156,67 +142,11 @@ export declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnCh
     static ngAcceptInputType_disabledInteractive: unknown;
 }
 
-/** Change event object emitted by a slide toggle. */
-export declare class MatSlideToggleChange {
-    /** The source slide toggle of the event. */
-    source: MatSlideToggle;
-    /** The new `checked` value of the slide toggle. */
-    checked: boolean;
-    constructor(
-    /** The source slide toggle of the event. */
-    source: MatSlideToggle, 
-    /** The new `checked` value of the slide toggle. */
-    checked: boolean);
-}
-
-/** Default `mat-slide-toggle` options that can be overridden. */
-export declare interface MatSlideToggleDefaultOptions {
-    /** Whether toggle action triggers value changes in slide toggle. */
-    disableToggleValue?: boolean;
-    /**
-     * Default theme color of the slide toggle. This API is supported in M2 themes only,
-     * it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/slide-toggle/styling.
-     *
-     * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
-     */
-    color?: ThemePalette;
-    /** Whether to hide the icon inside the slide toggle. */
-    hideIcon?: boolean;
-    /** Whether disabled slide toggles should remain interactive. */
-    disabledInteractive?: boolean;
-}
-
-export declare class MatSlideToggleModule {
+declare class MatSlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof i2.MatSlideToggle, typeof i3.MatCommonModule], [typeof i2.MatSlideToggle, typeof i3.MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof MatSlideToggle, typeof MatCommonModule], [typeof MatSlideToggle, typeof MatCommonModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSlideToggleModule>;
 }
 
-/**
- * Validator for Material slide-toggle components with the required attribute in a
- * template-driven form. The default validator for required form controls asserts
- * that the control value is not undefined but that is not appropriate for a slide-toggle
- * where the value is always defined.
- *
- * Required slide-toggle form controls are valid when checked.
- *
- * @deprecated No longer used, `MatCheckbox` implements required validation directly.
- * @breaking-change 19.0.0
- */
-export declare class MatSlideToggleRequiredValidator extends CheckboxRequiredValidator {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleRequiredValidator, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatSlideToggleRequiredValidator, "mat-slide-toggle[required][formControlName],             mat-slide-toggle[required][formControl], mat-slide-toggle[required][ngModel]", never, {}, {}, never, never, true, never>;
-}
-
-/**
- * @deprecated No longer used, `MatSlideToggle` implements required validation directly.
- * @breaking-change 19.0.0
- */
-export declare class _MatSlideToggleRequiredValidatorModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<_MatSlideToggleRequiredValidatorModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<_MatSlideToggleRequiredValidatorModule, never, [typeof i1.MatSlideToggleRequiredValidator], [typeof i1.MatSlideToggleRequiredValidator]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<_MatSlideToggleRequiredValidatorModule>;
-}
-
-export { }
+export { MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS, MatSlideToggle, MatSlideToggleChange, MatSlideToggleModule };
+export type { MatSlideToggleDefaultOptions };

@@ -1,16 +1,11 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatButtonToggleAppearance } from '@angular/material/button-toggle';
-
-/** Criteria that can be used to filter a list of `MatButtonToggleGroupHarness` instances. */
-export declare interface ButtonToggleGroupHarnessFilters extends BaseHarnessFilters {
-    /** Only find instances which match the given disabled state. */
-    disabled?: boolean;
-}
+import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { b as MatButtonToggleAppearance } from '../../button-toggle.d-B_G01PhW.js';
+import '@angular/cdk/bidi';
+import '@angular/core';
+import '@angular/forms';
 
 /** Criteria that can be used to filter a list of `MatButtonToggleHarness` instances. */
-export declare interface ButtonToggleHarnessFilters extends BaseHarnessFilters {
+interface ButtonToggleHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
     text?: string | RegExp;
     /** Only find instances whose name matches the given value. */
@@ -22,31 +17,7 @@ export declare interface ButtonToggleHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Harness for interacting with a standard mat-button-toggle in tests. */
-export declare class MatButtonToggleGroupHarness extends ComponentHarness {
-    /** The selector for the host element of a `MatButton` instance. */
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatButtonToggleGroupHarness`
-     * that meets certain criteria.
-     * @param options Options for filtering which button toggle instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: ButtonToggleGroupHarnessFilters): HarnessPredicate<MatButtonToggleGroupHarness>;
-    /**
-     * Gets the button toggles that are inside the group.
-     * @param filter Optionally filters which toggles are included.
-     */
-    getToggles(filter?: ButtonToggleHarnessFilters): Promise<MatButtonToggleHarness[]>;
-    /** Gets whether the button toggle group is disabled. */
-    isDisabled(): Promise<boolean>;
-    /** Gets whether the button toggle group is laid out vertically. */
-    isVertical(): Promise<boolean>;
-    /** Gets the appearance that the group is using. */
-    getAppearance(): Promise<MatButtonToggleAppearance>;
-}
-
-/** Harness for interacting with a standard mat-button-toggle in tests. */
-export declare class MatButtonToggleHarness extends ComponentHarness {
+declare class MatButtonToggleHarness extends ComponentHarness {
     /** The selector for the host element of a `MatButton` instance. */
     static hostSelector: string;
     private _label;
@@ -92,4 +63,35 @@ export declare class MatButtonToggleHarness extends ComponentHarness {
     uncheck(): Promise<void>;
 }
 
-export { }
+/** Criteria that can be used to filter a list of `MatButtonToggleGroupHarness` instances. */
+interface ButtonToggleGroupHarnessFilters extends BaseHarnessFilters {
+    /** Only find instances which match the given disabled state. */
+    disabled?: boolean;
+}
+
+/** Harness for interacting with a standard mat-button-toggle in tests. */
+declare class MatButtonToggleGroupHarness extends ComponentHarness {
+    /** The selector for the host element of a `MatButton` instance. */
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a `MatButtonToggleGroupHarness`
+     * that meets certain criteria.
+     * @param options Options for filtering which button toggle instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: ButtonToggleGroupHarnessFilters): HarnessPredicate<MatButtonToggleGroupHarness>;
+    /**
+     * Gets the button toggles that are inside the group.
+     * @param filter Optionally filters which toggles are included.
+     */
+    getToggles(filter?: ButtonToggleHarnessFilters): Promise<MatButtonToggleHarness[]>;
+    /** Gets whether the button toggle group is disabled. */
+    isDisabled(): Promise<boolean>;
+    /** Gets whether the button toggle group is laid out vertically. */
+    isVertical(): Promise<boolean>;
+    /** Gets the appearance that the group is using. */
+    getAppearance(): Promise<MatButtonToggleAppearance>;
+}
+
+export { MatButtonToggleGroupHarness, MatButtonToggleHarness };
+export type { ButtonToggleGroupHarnessFilters, ButtonToggleHarnessFilters };

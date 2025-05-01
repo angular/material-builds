@@ -1,15 +1,14 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatBadgePosition } from '@angular/material/badge';
-import { MatBadgeSize } from '@angular/material/badge';
+import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { a as MatBadgePosition, b as MatBadgeSize } from '../../badge.d-D0iThVg0.js';
+import '@angular/core';
+import '../../palette.d-BSSFKjO6.js';
 
-export declare interface BadgeHarnessFilters extends BaseHarnessFilters {
+interface BadgeHarnessFilters extends BaseHarnessFilters {
     text?: string | RegExp;
 }
 
 /** Harness for interacting with a standard Material badge in tests. */
-export declare class MatBadgeHarness extends ComponentHarness {
+declare class MatBadgeHarness extends ComponentHarness {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a badge with specific attributes.
@@ -33,4 +32,5 @@ export declare class MatBadgeHarness extends ComponentHarness {
     isDisabled(): Promise<boolean>;
 }
 
-export { }
+export { MatBadgeHarness };
+export type { BadgeHarnessFilters };

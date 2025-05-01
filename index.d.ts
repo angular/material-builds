@@ -1,4 +1,3 @@
+declare const ɵɵtsModuleIndicatorApiExtractorWorkaround = true;
 
-export declare const ɵɵtsModuleIndicatorApiExtractorWorkaround = true;
-
-export { }
+export { ɵɵtsModuleIndicatorApiExtractorWorkaround };

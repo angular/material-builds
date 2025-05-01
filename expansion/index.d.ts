@@ -1,116 +1,23 @@
-import { AfterContentInit } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { CdkAccordion } from '@angular/cdk/accordion';
-import { CdkAccordionItem } from '@angular/cdk/accordion';
-import { ElementRef } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { FocusableOption } from '@angular/cdk/a11y';
-import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import * as i1 from '@angular/material/core';
+import { InjectionToken, TemplateRef, AfterContentInit, OnChanges, OnDestroy, EventEmitter, SimpleChanges, ElementRef, AfterViewInit, QueryList } from '@angular/core';
+import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
 import * as i2 from '@angular/cdk/accordion';
+import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
 import * as i3 from '@angular/cdk/portal';
-import { InjectionToken } from '@angular/core';
-import { OnChanges } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { QueryList } from '@angular/core';
-import { SimpleChanges } from '@angular/core';
-import { Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { TemplateRef } from '@angular/core';
+import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { Subject } from 'rxjs';
+import '@angular/cdk/bidi';
 
-/**
- * Time and timing curve for expansion panel animations.
- * @deprecated No longer used. Will be removed.
- * @breaking-change 21.0.0
- */
-export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
-
-declare namespace i4 {
-    export {
-        MatAccordion
-    }
-}
-
-declare namespace i5 {
-    export {
-        MatExpansionPanelState,
-        MatExpansionPanelDefaultOptions,
-        MAT_EXPANSION_PANEL_DEFAULT_OPTIONS,
-        MatExpansionPanel,
-        MatExpansionPanelActionRow
-    }
-}
-
-declare namespace i6 {
-    export {
-        MatExpansionPanelHeader,
-        MatExpansionPanelDescription,
-        MatExpansionPanelTitle
-    }
-}
-
-declare namespace i7 {
-    export {
-        MatExpansionPanelContent
-    }
-}
-
-/**
- * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
- * Used primarily to avoid circular imports between `MatAccordion` and `MatExpansionPanel`.
- */
-export declare const MAT_ACCORDION: InjectionToken<MatAccordionBase>;
-
-/**
- * Token used to provide a `MatExpansionPanel` to `MatExpansionPanelContent`.
- * Used to avoid circular imports between `MatExpansionPanel` and `MatExpansionPanelContent`.
- */
-export declare const MAT_EXPANSION_PANEL: InjectionToken<MatExpansionPanelBase>;
-
-/**
- * Injection token that can be used to configure the default
- * options for the expansion panel component.
- */
-export declare const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS: InjectionToken<MatExpansionPanelDefaultOptions>;
-
-/**
- * Directive for a Material Design Accordion.
- */
-export declare class MatAccordion extends CdkAccordion implements MatAccordionBase, AfterContentInit, OnDestroy {
-    private _keyManager;
-    /** Headers belonging to this accordion. */
-    private _ownHeaders;
-    /** All headers inside the accordion. Includes headers inside nested accordions. */
-    _headers: QueryList<MatExpansionPanelHeader>;
-    /** Whether the expansion indicator should be hidden. */
-    hideToggle: boolean;
-    /**
-     * Display mode used for all expansion panels in the accordion. Currently two display
-     * modes exist:
-     *  default - a gutter-like spacing is placed around any expanded panel, placing the expanded
-     *     panel at a different elevation from the rest of the accordion.
-     *  flat - no spacing is placed around expanded panels, showing all panels at the same
-     *     elevation.
-     */
-    displayMode: MatAccordionDisplayMode;
-    /** The position of the expansion indicator. */
-    togglePosition: MatAccordionTogglePosition;
-    ngAfterContentInit(): void;
-    /** Handles keyboard events coming in from the panel headers. */
-    _handleHeaderKeydown(event: KeyboardEvent): void;
-    _handleHeaderFocus(header: MatExpansionPanelHeader): void;
-    ngOnDestroy(): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatAccordion, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "hideToggle": { "alias": "hideToggle"; "required": false; }; "displayMode": { "alias": "displayMode"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, {}, ["_headers"], never, true, never>;
-    static ngAcceptInputType_hideToggle: unknown;
-}
-
+/** MatAccordion's display modes. */
+type MatAccordionDisplayMode = 'default' | 'flat';
+/** MatAccordion's toggle positions. */
+type MatAccordionTogglePosition = 'before' | 'after';
 /**
  * Base interface for a `MatAccordion`.
  * @docs-private
  */
-export declare interface MatAccordionBase extends CdkAccordion {
+interface MatAccordionBase extends CdkAccordion {
     /** Whether the expansion indicator should be hidden. */
     hideToggle: boolean;
     /** Display mode used for all expansion panels in the accordion. */
@@ -122,53 +29,62 @@ export declare interface MatAccordionBase extends CdkAccordion {
     /** Handles focus events on the panel headers. */
     _handleHeaderFocus: (header: any) => void;
 }
-
-/** MatAccordion's display modes. */
-export declare type MatAccordionDisplayMode = 'default' | 'flat';
-
-/** MatAccordion's toggle positions. */
-export declare type MatAccordionTogglePosition = 'before' | 'after';
+/**
+ * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
+ * Used primarily to avoid circular imports between `MatAccordion` and `MatExpansionPanel`.
+ */
+declare const MAT_ACCORDION: InjectionToken<MatAccordionBase>;
 
 /**
- * Animations used by the Material expansion panel.
- *
- * A bug in angular animation's `state` when ViewContainers are moved using ViewContainerRef.move()
- * causes the animation state of moved components to become `void` upon exit, and not update again
- * upon reentry into the DOM. This can lead a to situation for the expansion panel where the state
- * of the panel is `expanded` or `collapsed` but the animation state is `void`.
- *
- * To correctly handle animating to the next state, we animate between `void` and `collapsed` which
- * are defined to have the same styles. Since angular animates from the current styles to the
- * destination state's style definition, in situations where we are moving from `void`'s styles to
- * `collapsed` this acts a noop since no style values change.
- *
- * In the case where angular's animation state is out of sync with the expansion panel's state, the
- * expansion panel being `expanded` and angular animations being `void`, the animation from the
- * `expanded`'s effective styles (though in a `void` animation state) to the collapsed state will
- * occur as expected.
- *
- * Angular Bug: https://github.com/angular/angular/issues/18847
- *
+ * Base interface for a `MatExpansionPanel`.
  * @docs-private
- * @deprecated No longer being used, to be removed.
- * @breaking-change 21.0.0
  */
-export declare const matExpansionAnimations: {
-    readonly indicatorRotate: any;
-    readonly bodyExpansion: any;
-};
+interface MatExpansionPanelBase extends CdkAccordionItem {
+    /** Whether the toggle indicator should be hidden. */
+    hideToggle: boolean;
+}
+/**
+ * Token used to provide a `MatExpansionPanel` to `MatExpansionPanelContent`.
+ * Used to avoid circular imports between `MatExpansionPanel` and `MatExpansionPanelContent`.
+ */
+declare const MAT_EXPANSION_PANEL: InjectionToken<MatExpansionPanelBase>;
 
-export declare class MatExpansionModule {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatExpansionModule, never, [typeof i1.MatCommonModule, typeof i2.CdkAccordionModule, typeof i3.PortalModule, typeof i4.MatAccordion, typeof i5.MatExpansionPanel, typeof i5.MatExpansionPanelActionRow, typeof i6.MatExpansionPanelHeader, typeof i6.MatExpansionPanelTitle, typeof i6.MatExpansionPanelDescription, typeof i7.MatExpansionPanelContent], [typeof i4.MatAccordion, typeof i5.MatExpansionPanel, typeof i5.MatExpansionPanelActionRow, typeof i6.MatExpansionPanelHeader, typeof i6.MatExpansionPanelTitle, typeof i6.MatExpansionPanelDescription, typeof i7.MatExpansionPanelContent]>;
-    static ɵinj: i0.ɵɵInjectorDeclaration<MatExpansionModule>;
+/**
+ * Expansion panel content that will be rendered lazily
+ * after the panel is opened for the first time.
+ */
+declare class MatExpansionPanelContent {
+    _template: TemplateRef<any>;
+    _expansionPanel: MatExpansionPanelBase | null;
+    constructor(...args: unknown[]);
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, true, never>;
 }
 
+/** MatExpansionPanel's states. */
+type MatExpansionPanelState = 'expanded' | 'collapsed';
+/**
+ * Object that can be used to override the default options
+ * for all of the expansion panels in a module.
+ */
+interface MatExpansionPanelDefaultOptions {
+    /** Height of the header while the panel is expanded. */
+    expandedHeight: string;
+    /** Height of the header while the panel is collapsed. */
+    collapsedHeight: string;
+    /** Whether the toggle indicator should be hidden. */
+    hideToggle: boolean;
+}
+/**
+ * Injection token that can be used to configure the default
+ * options for the expansion panel component.
+ */
+declare const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS: InjectionToken<MatExpansionPanelDefaultOptions>;
 /**
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MatAccordion directive attached.
  */
-export declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
+declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
     private readonly _animationsDisabled;
     private _document;
@@ -224,61 +140,18 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanel, "mat-expansion-panel", ["matExpansionPanel"], { "hideToggle": { "alias": "hideToggle"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, { "afterExpand": "afterExpand"; "afterCollapse": "afterCollapse"; }, ["_lazyContent"], ["mat-expansion-panel-header", "*", "mat-action-row"], true, never>;
     static ngAcceptInputType_hideToggle: unknown;
 }
-
 /**
  * Actions of a `<mat-expansion-panel>`.
  */
-export declare class MatExpansionPanelActionRow {
+declare class MatExpansionPanelActionRow {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelActionRow, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelActionRow, "mat-action-row", never, {}, {}, never, never, true, never>;
 }
 
 /**
- * Base interface for a `MatExpansionPanel`.
- * @docs-private
- */
-declare interface MatExpansionPanelBase extends CdkAccordionItem {
-    /** Whether the toggle indicator should be hidden. */
-    hideToggle: boolean;
-}
-
-/**
- * Expansion panel content that will be rendered lazily
- * after the panel is opened for the first time.
- */
-export declare class MatExpansionPanelContent {
-    _template: TemplateRef<any>;
-    _expansionPanel: MatExpansionPanelBase | null;
-    constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, true, never>;
-}
-
-/**
- * Object that can be used to override the default options
- * for all of the expansion panels in a module.
- */
-export declare interface MatExpansionPanelDefaultOptions {
-    /** Height of the header while the panel is expanded. */
-    expandedHeight: string;
-    /** Height of the header while the panel is collapsed. */
-    collapsedHeight: string;
-    /** Whether the toggle indicator should be hidden. */
-    hideToggle: boolean;
-}
-
-/**
- * Description element of a `<mat-expansion-panel-header>`.
- */
-export declare class MatExpansionPanelDescription {
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelDescription, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never, never, true, never>;
-}
-
-/**
  * Header element of a `<mat-expansion-panel>`.
  */
-export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy, FocusableOption {
+declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy, FocusableOption {
     panel: MatExpansionPanel;
     private _element;
     private _focusMonitor;
@@ -327,16 +200,93 @@ export declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy
     static ɵcmp: i0.ɵɵComponentDeclaration<MatExpansionPanelHeader, "mat-expansion-panel-header", never, { "expandedHeight": { "alias": "expandedHeight"; "required": false; }; "collapsedHeight": { "alias": "collapsedHeight"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, never, ["mat-panel-title", "mat-panel-description", "*"], true, never>;
     static ngAcceptInputType_tabIndex: unknown;
 }
-
-/** MatExpansionPanel's states. */
-export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
-
+/**
+ * Description element of a `<mat-expansion-panel-header>`.
+ */
+declare class MatExpansionPanelDescription {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelDescription, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelDescription, "mat-panel-description", never, {}, {}, never, never, true, never>;
+}
 /**
  * Title element of a `<mat-expansion-panel-header>`.
  */
-export declare class MatExpansionPanelTitle {
+declare class MatExpansionPanelTitle {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelTitle, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelTitle, "mat-panel-title", never, {}, {}, never, never, true, never>;
 }
 
-export { }
+/**
+ * Directive for a Material Design Accordion.
+ */
+declare class MatAccordion extends CdkAccordion implements MatAccordionBase, AfterContentInit, OnDestroy {
+    private _keyManager;
+    /** Headers belonging to this accordion. */
+    private _ownHeaders;
+    /** All headers inside the accordion. Includes headers inside nested accordions. */
+    _headers: QueryList<MatExpansionPanelHeader>;
+    /** Whether the expansion indicator should be hidden. */
+    hideToggle: boolean;
+    /**
+     * Display mode used for all expansion panels in the accordion. Currently two display
+     * modes exist:
+     *  default - a gutter-like spacing is placed around any expanded panel, placing the expanded
+     *     panel at a different elevation from the rest of the accordion.
+     *  flat - no spacing is placed around expanded panels, showing all panels at the same
+     *     elevation.
+     */
+    displayMode: MatAccordionDisplayMode;
+    /** The position of the expansion indicator. */
+    togglePosition: MatAccordionTogglePosition;
+    ngAfterContentInit(): void;
+    /** Handles keyboard events coming in from the panel headers. */
+    _handleHeaderKeydown(event: KeyboardEvent): void;
+    _handleHeaderFocus(header: MatExpansionPanelHeader): void;
+    ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatAccordion, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatAccordion, "mat-accordion", ["matAccordion"], { "hideToggle": { "alias": "hideToggle"; "required": false; }; "displayMode": { "alias": "displayMode"; "required": false; }; "togglePosition": { "alias": "togglePosition"; "required": false; }; }, {}, ["_headers"], never, true, never>;
+    static ngAcceptInputType_hideToggle: unknown;
+}
+
+declare class MatExpansionModule {
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatExpansionModule, never, [typeof MatCommonModule, typeof i2.CdkAccordionModule, typeof i3.PortalModule, typeof MatAccordion, typeof MatExpansionPanel, typeof MatExpansionPanelActionRow, typeof MatExpansionPanelHeader, typeof MatExpansionPanelTitle, typeof MatExpansionPanelDescription, typeof MatExpansionPanelContent], [typeof MatAccordion, typeof MatExpansionPanel, typeof MatExpansionPanelActionRow, typeof MatExpansionPanelHeader, typeof MatExpansionPanelTitle, typeof MatExpansionPanelDescription, typeof MatExpansionPanelContent]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<MatExpansionModule>;
+}
+
+/**
+ * Time and timing curve for expansion panel animations.
+ * @deprecated No longer used. Will be removed.
+ * @breaking-change 21.0.0
+ */
+declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
+/**
+ * Animations used by the Material expansion panel.
+ *
+ * A bug in angular animation's `state` when ViewContainers are moved using ViewContainerRef.move()
+ * causes the animation state of moved components to become `void` upon exit, and not update again
+ * upon reentry into the DOM. This can lead a to situation for the expansion panel where the state
+ * of the panel is `expanded` or `collapsed` but the animation state is `void`.
+ *
+ * To correctly handle animating to the next state, we animate between `void` and `collapsed` which
+ * are defined to have the same styles. Since angular animates from the current styles to the
+ * destination state's style definition, in situations where we are moving from `void`'s styles to
+ * `collapsed` this acts a noop since no style values change.
+ *
+ * In the case where angular's animation state is out of sync with the expansion panel's state, the
+ * expansion panel being `expanded` and angular animations being `void`, the animation from the
+ * `expanded`'s effective styles (though in a `void` animation state) to the collapsed state will
+ * occur as expected.
+ *
+ * Angular Bug: https://github.com/angular/angular/issues/18847
+ *
+ * @docs-private
+ * @deprecated No longer being used, to be removed.
+ * @breaking-change 21.0.0
+ */
+declare const matExpansionAnimations: {
+    readonly indicatorRotate: any;
+    readonly bodyExpansion: any;
+};
+
+export { EXPANSION_PANEL_ANIMATION_TIMING, MAT_ACCORDION, MAT_EXPANSION_PANEL, MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, MatAccordion, MatExpansionModule, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelContent, MatExpansionPanelDescription, MatExpansionPanelHeader, MatExpansionPanelTitle, matExpansionAnimations };
+export type { MatAccordionBase, MatAccordionDisplayMode, MatAccordionTogglePosition, MatExpansionPanelDefaultOptions, MatExpansionPanelState };

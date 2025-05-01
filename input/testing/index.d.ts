@@ -1,66 +1,19 @@
-import { BaseHarnessFilters } from '@angular/cdk/testing';
-import { ComponentHarness } from '@angular/cdk/testing';
-import { HarnessPredicate } from '@angular/cdk/testing';
-import { MatFormFieldControlHarness } from '@angular/material/form-field/testing/control';
+export { I as InputHarnessFilters, M as MatInputHarness } from '../../input-harness.d-8fkAAbu2.js';
+import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { MatFormFieldControlHarness } from '../../form-field/testing/control/index.js';
 
-/** A set of criteria that can be used to filter a list of `MatInputHarness` instances. */
-export declare interface InputHarnessFilters extends BaseHarnessFilters {
-    /** Filters based on the value of the input. */
-    value?: string | RegExp;
-    /** Filters based on the placeholder text of the input. */
-    placeholder?: string | RegExp;
+/** A set of criteria that can be used to filter a list of `MatNativeSelectHarness` instances. */
+interface NativeSelectHarnessFilters extends BaseHarnessFilters {
 }
-
-/** Harness for interacting with a standard Material inputs in tests. */
-export declare class MatInputHarness extends MatFormFieldControlHarness {
-    static hostSelector: string;
-    /**
-     * Gets a `HarnessPredicate` that can be used to search for a `MatInputHarness` that meets
-     * certain criteria.
-     * @param options Options for filtering which input instances are considered a match.
-     * @return a `HarnessPredicate` configured with the given options.
-     */
-    static with(options?: InputHarnessFilters): HarnessPredicate<MatInputHarness>;
-    /** Whether the input is disabled. */
-    isDisabled(): Promise<boolean>;
-    /** Whether the input is required. */
-    isRequired(): Promise<boolean>;
-    /** Whether the input is readonly. */
-    isReadonly(): Promise<boolean>;
-    /** Gets the value of the input. */
-    getValue(): Promise<string>;
-    /** Gets the name of the input. */
-    getName(): Promise<string>;
-    /**
-     * Gets the type of the input. Returns "textarea" if the input is
-     * a textarea.
-     */
-    getType(): Promise<string>;
-    /** Gets the placeholder of the input. */
-    getPlaceholder(): Promise<string>;
-    /** Gets the id of the input. */
-    getId(): Promise<string>;
-    /**
-     * Focuses the input and returns a promise that indicates when the
-     * action is complete.
-     */
-    focus(): Promise<void>;
-    /**
-     * Blurs the input and returns a promise that indicates when the
-     * action is complete.
-     */
-    blur(): Promise<void>;
-    /** Whether the input is focused. */
-    isFocused(): Promise<boolean>;
-    /**
-     * Sets the value of the input. The value will be set by simulating
-     * keypresses that correspond to the given value.
-     */
-    setValue(newValue: string): Promise<void>;
+/** A set of criteria that can be used to filter a list of `MatNativeOptionHarness` instances. */
+interface NativeOptionHarnessFilters extends BaseHarnessFilters {
+    text?: string | RegExp;
+    index?: number;
+    isSelected?: boolean;
 }
 
 /** Harness for interacting with a native `option` in tests. */
-export declare class MatNativeOptionHarness extends ComponentHarness {
+declare class MatNativeOptionHarness extends ComponentHarness {
     /** Selector used to locate option instances. */
     static hostSelector: string;
     /**
@@ -81,7 +34,7 @@ export declare class MatNativeOptionHarness extends ComponentHarness {
 }
 
 /** Harness for interacting with a native `select` in tests. */
-export declare class MatNativeSelectHarness extends MatFormFieldControlHarness {
+declare class MatNativeSelectHarness extends MatFormFieldControlHarness {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatNativeSelectHarness` that meets
@@ -115,15 +68,5 @@ export declare class MatNativeSelectHarness extends MatFormFieldControlHarness {
     selectOptions(filter?: NativeOptionHarnessFilters): Promise<void>;
 }
 
-/** A set of criteria that can be used to filter a list of `MatNativeOptionHarness` instances. */
-export declare interface NativeOptionHarnessFilters extends BaseHarnessFilters {
-    text?: string | RegExp;
-    index?: number;
-    isSelected?: boolean;
-}
-
-/** A set of criteria that can be used to filter a list of `MatNativeSelectHarness` instances. */
-export declare interface NativeSelectHarnessFilters extends BaseHarnessFilters {
-}
-
-export { }
+export { MatNativeOptionHarness, MatNativeSelectHarness };
+export type { NativeOptionHarnessFilters, NativeSelectHarnessFilters };

@@ -27,9 +27,5 @@ class MatProgressSpinnerHarness extends ComponentHarness {
     }
 }
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MatProgressSpinnerHarness };
 //# sourceMappingURL=testing.mjs.map

@@ -25,9 +25,5 @@ class MatProgressBarHarness extends ComponentHarness {
     }
 }
 
-/**
- * Generated bundle index. Do not edit.
- */
-
 export { MatProgressBarHarness };
 //# sourceMappingURL=testing.mjs.map
