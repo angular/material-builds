@@ -2,11 +2,11 @@ import * as i0 from '@angular/core';
 import { Injectable, Optional, SkipSelf, InjectionToken, inject, ChangeDetectorRef, numberAttribute, EventEmitter, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
 import { Subject, ReplaySubject } from 'rxjs';
 import { _IdGenerator } from '@angular/cdk/a11y';
-import { j as MatFormField } from './form-field-BZd6Vhww.mjs';
-import { g as MatSelect, M as MatSelectModule } from './module-qRXgbi2L.mjs';
+import { j as MatFormField } from './form-field-B3aq6ikj.mjs';
+import { g as MatSelect, M as MatSelectModule } from './module-D9IKGg_w.mjs';
 import { e as MatTooltip, h as MatTooltipModule } from './module-X29xYsIk.mjs';
 import { M as MatOption } from './option-MOeehkAg.mjs';
-import { M as MatIconButton } from './icon-button-4VvBKIK4.mjs';
+import { M as MatIconButton } from './icon-button-DH8TBWWr.mjs';
 import { MatButtonModule } from './button.mjs';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
@@ -30,7 +30,7 @@ import './ripple-CuyVtN3V.mjs';
 import '@angular/cdk/private';
 import './pseudo-checkbox-module-Dxth-mPi.mjs';
 import './pseudo-checkbox-BFGIaGxz.mjs';
-import './module-CTd5xD2i.mjs';
+import './module-hX_hFZhs.mjs';
 import '@angular/cdk/observers';
 import '@angular/cdk/portal';
 import './structural-styles-CasigI3l.mjs';
@@ -132,10 +132,10 @@ class MatPaginator {
     _initializedStream = new ReplaySubject(1);
     /**
      * Theme color of the underlying form controls. This API is supported in M2
-     * themes only,it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/paginator/styling.
+     * themes only,it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/paginator/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */

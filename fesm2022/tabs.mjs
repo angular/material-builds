@@ -1235,10 +1235,10 @@ class MatTabGroup {
     _tabBodyWrapperHeight = 0;
     /**
      * Theme color of the tab group. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/tabs/styling.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/tabs/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /** Whether the ink bar should fit its width to the size of the tab label content. */
@@ -1303,10 +1303,10 @@ class MatTabGroup {
     preserveContent = false;
     /**
      * Theme color of the background of the tab group. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/tabs/styling.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/tabs/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      *
      * @deprecated The background color should be customized through Sass theming APIs.
      * @breaking-change 20.0.0 Remove this input
@@ -1730,10 +1730,10 @@ class MatTabNav extends MatPaginatedTabHeader {
     _items;
     /**
      * Theme color of the background of the tab nav. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/tabs/styling.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/tabs/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     get backgroundColor() {
         return this._backgroundColor;
@@ -1751,10 +1751,10 @@ class MatTabNav extends MatPaginatedTabHeader {
     disableRipple = false;
     /**
      * Theme color of the nav bar. This API is supported in M2 themes only, it has
-     * no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/tabs/styling.
+     * no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/tabs/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color = 'primary';
     /**
