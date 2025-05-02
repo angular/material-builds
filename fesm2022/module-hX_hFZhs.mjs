@@ -1,7 +1,7 @@
 import { ObserversModule } from '@angular/cdk/observers';
 import * as i0 from '@angular/core';
 import { NgModule } from '@angular/core';
-import { j as MatFormField, M as MatLabel, b as MatError, c as MatHint, e as MatPrefix, g as MatSuffix } from './form-field-BZd6Vhww.mjs';
+import { j as MatFormField, M as MatLabel, b as MatError, c as MatHint, e as MatPrefix, g as MatSuffix } from './form-field-B3aq6ikj.mjs';
 import { M as MatCommonModule } from './common-module-DZl8g1kc.mjs';
 
 class MatFormFieldModule {
@@ -36,4 +36,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MatFormFieldModule as M };
-//# sourceMappingURL=module-CTd5xD2i.mjs.map
+//# sourceMappingURL=module-hX_hFZhs.mjs.map

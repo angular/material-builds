@@ -31,10 +31,10 @@ class MatButtonBase {
     _isFab = false;
     /**
      * Theme color of the button. This API is supported in M2 themes only, it has
-     * no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/button/styling.
+     * no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/button/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /** Whether the ripple effect is disabled or not. */
@@ -209,4 +209,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
 const MatIconAnchor = MatIconButton;
 
 export { MatIconButton as M, MatButtonBase as a, MAT_BUTTON_CONFIG as b, MatIconAnchor as c };
-//# sourceMappingURL=icon-button-4VvBKIK4.mjs.map
+//# sourceMappingURL=icon-button-DH8TBWWr.mjs.map

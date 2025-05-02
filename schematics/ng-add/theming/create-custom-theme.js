@@ -12,7 +12,7 @@ exports.createCustomTheme = createCustomTheme;
 function createCustomTheme(name = 'app') {
     return `
 // Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
+// For more information: https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
 html {
