@@ -51,7 +51,7 @@ class MatDialogConfig {
     minWidth;
     /** Min-height of the dialog. If a number is provided, assumes pixel units. */
     minHeight;
-    /** Max-width of the dialog. If a number is provided, assumes pixel units. Defaults to 80vw. */
+    /** Max-width of the dialog. If a number is provided, assumes pixel units. */
     maxWidth;
     /** Max-height of the dialog. If a number is provided, assumes pixel units. */
     maxHeight;
@@ -888,4 +888,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-next.5", 
         }] });
 
 export { MatDialogActions as M, _closeDialogVia as _, MatDialogClose as a, MatDialogTitle as b, MatDialogContent as c, MatDialogContainer as d, MAT_DIALOG_DATA as e, MAT_DIALOG_DEFAULT_OPTIONS as f, MAT_DIALOG_SCROLL_STRATEGY as g, MatDialog as h, MatDialogConfig as i, MatDialogState as j, MatDialogRef as k, MatDialogModule as l };
-//# sourceMappingURL=module-D-cNfopD.mjs.map
+//# sourceMappingURL=module-B-ci3hbc.mjs.map
