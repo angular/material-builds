@@ -66,7 +66,7 @@ declare class MatChipRemoveHarness extends ComponentHarness {
 
 /** Harness for interacting with a mat-chip in tests. */
 declare class MatChipHarness extends ContentContainerComponentHarness {
-    protected _primaryAction: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
+    protected _primaryAction: () => Promise<_angular_cdk_testing.TestElement>;
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a chip with specific attributes.

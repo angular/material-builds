@@ -17,9 +17,9 @@ declare class MatPaginatorHarness extends ComponentHarness {
     private _previousButton;
     private _firstPageButton;
     private _lastPageButton;
-    _select: _angular_cdk_testing.AsyncFactoryFn<MatSelectHarness | null>;
+    _select: () => Promise<MatSelectHarness | null>;
     private _pageSizeFallback;
-    _rangeLabel: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
+    _rangeLabel: () => Promise<_angular_cdk_testing.TestElement>;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a paginator with specific attributes.
      * @param options Options for filtering which paginator instances are considered a match.

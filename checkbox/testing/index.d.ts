@@ -16,7 +16,7 @@ interface CheckboxHarnessFilters extends BaseHarnessFilters {
 /** Harness for interacting with a mat-checkbox in tests. */
 declare class MatCheckboxHarness extends ComponentHarness {
     static hostSelector: string;
-    _input: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
+    _input: () => Promise<_angular_cdk_testing.TestElement>;
     private _label;
     private _inputContainer;
     /**
