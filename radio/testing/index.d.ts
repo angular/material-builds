@@ -70,8 +70,8 @@ declare class MatRadioButtonHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatRadioButtonHarness>(this: ComponentHarnessConstructor<T>, options?: RadioButtonHarnessFilters): HarnessPredicate<T>;
-    protected _textLabel: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
-    protected _clickLabel: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
+    protected _textLabel: () => Promise<_angular_cdk_testing.TestElement>;
+    protected _clickLabel: () => Promise<_angular_cdk_testing.TestElement>;
     private _input;
     /** Whether the radio-button is checked. */
     isChecked(): Promise<boolean>;

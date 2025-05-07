@@ -16,7 +16,7 @@ interface SlideToggleHarnessFilters extends BaseHarnessFilters {
 /** Harness for interacting with a mat-slide-toggle in tests. */
 declare class MatSlideToggleHarness extends ComponentHarness {
     private _label;
-    _nativeElement: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement>;
+    _nativeElement: () => Promise<_angular_cdk_testing.TestElement>;
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a slide-toggle w/ specific attributes.

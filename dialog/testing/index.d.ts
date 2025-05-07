@@ -29,9 +29,9 @@ declare class MatDialogHarness extends ContentContainerComponentHarness<MatDialo
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatDialogHarness>(this: ComponentHarnessConstructor<T>, options?: DialogHarnessFilters): HarnessPredicate<T>;
-    protected _title: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement | null>;
-    protected _content: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement | null>;
-    protected _actions: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement | null>;
+    protected _title: () => Promise<_angular_cdk_testing.TestElement | null>;
+    protected _content: () => Promise<_angular_cdk_testing.TestElement | null>;
+    protected _actions: () => Promise<_angular_cdk_testing.TestElement | null>;
     /** Gets the id of the dialog. */
     getId(): Promise<string | null>;
     /** Gets the role of the dialog. */

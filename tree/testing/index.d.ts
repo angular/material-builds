@@ -20,7 +20,7 @@ interface TreeNodeHarnessFilters extends BaseHarnessFilters {
 declare class MatTreeNodeHarness extends ContentContainerComponentHarness<string> {
     /** The selector of the host element of a `MatTreeNode` instance. */
     static hostSelector: string;
-    _toggle: _angular_cdk_testing.AsyncFactoryFn<_angular_cdk_testing.TestElement | null>;
+    _toggle: () => Promise<_angular_cdk_testing.TestElement | null>;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a tree node with specific attributes.
      * @param options Options for narrowing the search
