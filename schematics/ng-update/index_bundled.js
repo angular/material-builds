@@ -6751,7 +6751,8 @@ var require_explicit_system_variable_prefix = __commonJS({
 // src/material/schematics/ng-update/index.js
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateToV20 = updateToV20;
-var schematics_1 = require("@angular/cdk/schematics");
+var schematics_1 = require("@angular-devkit/schematics");
+var schematics_2 = require("@angular/cdk/schematics");
 var upgrade_data_1 = require_upgrade_data();
 var mat_core_removal_1 = require_mat_core_removal();
 var explicit_system_variable_prefix_1 = require_explicit_system_variable_prefix();
@@ -6760,7 +6761,58 @@ var materialMigrations = [
   explicit_system_variable_prefix_1.ExplicitSystemVariablePrefixMigration
 ];
 function updateToV20() {
-  return (0, schematics_1.createMigrationSchematicRule)(schematics_1.TargetVersion.V20, materialMigrations, upgrade_data_1.materialUpgradeData, onMigrationComplete);
+  return (0, schematics_1.chain)([
+    (0, schematics_2.createMigrationSchematicRule)(schematics_2.TargetVersion.V20, materialMigrations, upgrade_data_1.materialUpgradeData, onMigrationComplete),
+    renameMdcTokens(),
+    renameComponentTokens()
+  ]);
+}
+function renameMdcTokens() {
+  return (tree) => {
+    tree.visit((path) => {
+      const content = tree.readText(path);
+      const updatedContent = content.replace("--mdc-", "--mat-");
+      tree.overwrite(path, updatedContent);
+    });
+  };
+}
+function renameComponentTokens() {
+  const tokenPrefixes = [
+    { old: "--mat-circular-progress", replacement: "--mat-progress-spinner" },
+    { old: "--mat-elevated-card", replacement: "--mat-card-elevated" },
+    { old: "--mat-extended-fab", replacement: "--mat-fab-extended" },
+    { old: "--mat-filled-button", replacement: "--mat-button-filled" },
+    { old: "--mat-filled-text-field", replacement: "--mat-form-field-filled" },
+    { old: "--mat-full-pseudo-checkbox", replacement: "--mat-pseudo-checkbox-full" },
+    { old: "--mat-legacy-button-toggle", replacement: "--mat-button-toggle-legacy" },
+    { old: "--mat-linear-progress", replacement: "--mat-progress-bar" },
+    { old: "--mat-minimal-pseudo-checkbox", replacement: "--mat-pseudo-checkbox-minimal" },
+    { old: "--mat-outlined-button", replacement: "--mat-button-outlined" },
+    { old: "--mat-outlined-card", replacement: "--mat-card-outlined" },
+    { old: "--mat-outlined-text-field", replacement: "--mat-form-field-outlined" },
+    { old: "--mat-plain-tooltip", replacement: "--mat-tooltip" },
+    { old: "--mat-protected-button", replacement: "--mat-button-protected" },
+    { old: "--mat-secondary-navigation-tab", replacement: "--mat-tab" },
+    { old: "--mat-standard-button-toggle", replacement: "--mat-button-toggle" },
+    { old: "--mat-switch", replacement: "--mat-slide-toggle" },
+    { old: "--mat-tab-header", replacement: "--mat-tab" },
+    { old: "--mat-tab-header-with-background", replacement: "--mat-tab" },
+    { old: "--mat-tab-indicator", replacement: "--mat-tab" },
+    { old: "--mat-text-button", replacement: "--mat-button-text" },
+    { old: "--mat-tonal-button", replacement: "--mat-button-tonal" }
+  ];
+  return (tree) => {
+    tree.visit((path) => {
+      const content = tree.readText(path);
+      let updatedContent = content;
+      for (const tokenPrefix of tokenPrefixes) {
+        updatedContent = updatedContent.replace(tokenPrefix.old, tokenPrefix.replacement);
+      }
+      if (content !== updatedContent) {
+        tree.overwrite(path, updatedContent);
+      }
+    });
+  };
 }
 function onMigrationComplete(context, targetVersion, hasFailures) {
   context.logger.info("");
