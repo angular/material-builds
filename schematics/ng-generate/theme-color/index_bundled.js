@@ -3463,8 +3463,8 @@ function getColorSysVariablesCSS(lightScheme, darkScheme, isHighContrast = false
   css += createLightDarkVar(
     leftSpacing,
     "on-tertiary",
-    isHighContrast ? lightScheme.tertiary : lightScheme.tertiaryPalette.tone(100),
-    isHighContrast ? darkScheme.tertiary : darkScheme.tertiaryPalette.tone(20)
+    isHighContrast ? lightScheme.onTertiary : lightScheme.tertiaryPalette.tone(100),
+    isHighContrast ? darkScheme.onTertiary : darkScheme.tertiaryPalette.tone(20)
   );
   css += createLightDarkVar(
     leftSpacing,
