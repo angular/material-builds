@@ -354,7 +354,7 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
      */
     private _syncDescribedByIds;
     /**
-     * Updates the horizontal offset of the label in the outline appearance. In the outline
+     * Calculates the horizontal offset of the label in the outline appearance. In the outline
      * appearance, the notched-outline and label are not relative to the infix container because
      * the outline intends to surround prefixes, suffixes and the infix. This means that the
      * floating label by default overlaps prefixes in the docked state. To avoid this, we need to
@@ -362,7 +362,9 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
      * not need to do this because they use a fixed width for prefixes. Hence, they can simply
      * incorporate the horizontal offset into their default text-field styles.
      */
-    private _updateOutlineLabelOffset;
+    private _getOutlinedLabelOffset;
+    /** Writes the styles produced by `_getOutlineLabelOffset` synchronously to the DOM. */
+    private _writeOutlinedLabelStyles;
     /** Checks whether the form field is attached to the DOM. */
     private _isAttachedToDom;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormField, never>;
