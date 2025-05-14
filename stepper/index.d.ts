@@ -6,7 +6,7 @@ import { Optional, TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, Quer
 import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
 import * as i3 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { M as MatIconModule } from '../icon-module.d-sA1hmRKS.js';
+import { M as MatIconModule } from '../icon-module.d-COXCrhrh.js';
 import { M as MatRippleModule } from '../index.d-DG9eDM2-.js';
 import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
@@ -102,10 +102,10 @@ declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDe
     disableRipple: boolean;
     /**
      * Theme color of the step header. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/stepper/styling.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/stepper/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
     constructor(...args: unknown[]);
@@ -144,10 +144,10 @@ declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContent
     stepLabel: MatStepLabel;
     /**
      * Theme color for the particular step. This API is supported in M2 themes
-     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/stepper/styling.
+     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/stepper/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
     /** Content that will be rendered lazily. */
@@ -183,10 +183,10 @@ declare class MatStepper extends CdkStepper implements AfterViewInit, AfterConte
     disableRipple: boolean;
     /**
      * Theme color for all of the steps in stepper. This API is supported in M2
-     * themes only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/stepper/styling.
+     * themes only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/stepper/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
     /**

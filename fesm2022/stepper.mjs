@@ -94,10 +94,10 @@ class MatStepHeader extends CdkStepHeader {
     disableRipple;
     /**
      * Theme color of the step header. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/stepper/styling.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/stepper/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     constructor() {
@@ -234,10 +234,10 @@ class MatStep extends CdkStep {
     stepLabel = undefined;
     /**
      * Theme color for the particular step. This API is supported in M2 themes
-     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/stepper/styling.
+     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/stepper/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /** Content that will be rendered lazily. */
@@ -312,10 +312,10 @@ class MatStepper extends CdkStepper {
     disableRipple;
     /**
      * Theme color for all of the steps in stepper. This API is supported in M2
-     * themes only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/stepper/styling.
+     * themes only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/stepper/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /**

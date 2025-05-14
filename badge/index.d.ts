@@ -1,8 +1,8 @@
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import { M as MatBadge, _ as _MatBadgeStyleLoader } from '../badge.d-BZbIGkUG.js';
-export { a as MatBadgePosition, b as MatBadgeSize } from '../badge.d-BZbIGkUG.js';
+import { M as MatBadge, _ as _MatBadgeStyleLoader } from '../badge.d-mlaO4g0J.js';
+export { a as MatBadgePosition, b as MatBadgeSize } from '../badge.d-mlaO4g0J.js';
 import '@angular/cdk/bidi';
 import '../palette.d-BSSFKjO6.js';
 

@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { Optional, InjectionToken, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { T as ThemePalette } from './palette.d-BSSFKjO6.js';
 import { Subject, Observable } from 'rxjs';
-import { h as MatFormFieldAppearance } from './form-field.d-BjJF4VvY.js';
+import { h as MatFormFieldAppearance } from './form-field.d-CMA_QQ0R.js';
 
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -104,10 +104,10 @@ declare class MatPaginator implements OnInit, OnDestroy {
     private _initializedStream;
     /**
      * Theme color of the underlying form controls. This API is supported in M2
-     * themes only,it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/paginator/styling.
+     * themes only,it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/paginator/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */

@@ -13,7 +13,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { E as ErrorStateMatcher } from './error-options-Dm2JJUbF.mjs';
 import { _ as _ErrorStateTracker } from './error-state-Dtb1IHM-.mjs';
-import { k as MatFormFieldControl, h as MAT_FORM_FIELD } from './form-field-B4o2BB25.mjs';
+import { k as MatFormFieldControl, h as MAT_FORM_FIELD } from './form-field-DqPi4knt.mjs';
 import { M as MatCommonModule } from './common-module-WayjW0Pb.mjs';
 import { M as MatRippleModule } from './index-SYVYjXwK.mjs';
 import '@angular/cdk/platform';
@@ -305,10 +305,10 @@ class MatChip {
     // TODO: should be typed as `ThemePalette` but internal apps pass in arbitrary strings.
     /**
      * Theme color of the chip. This API is supported in M2 themes only, it has no
-     * effect in M3 themes. For color customization in M3, see https://material.angular.io/components/chips/styling.
+     * effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/chips/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /**

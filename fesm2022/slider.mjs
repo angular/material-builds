@@ -54,7 +54,7 @@ const MAT_SLIDER_RANGE_THUMB = new InjectionToken('_MatSliderRangeThumb');
 const MAT_SLIDER_VISUAL_THUMB = new InjectionToken('_MatSliderVisualThumb');
 /**
  * A simple change event emitted by the MatSlider component.
- * @deprecated Use event bindings directly on the MatSliderThumbs for `change` and `input` events. See https://v17.material.angular.io/guide/mdc-migration for information about migrating.
+ * @deprecated Use event bindings directly on the MatSliderThumbs for `change` and `input` events. See https://v17.material.angular.dev/guide/mdc-migration for information about migrating.
  * @breaking-change 17.0.0
  */
 class MatSliderChange {
@@ -371,10 +371,10 @@ class MatSlider {
     _min = 0;
     /**
      * Theme color of the slider. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/slider/styling.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/slider/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /** Whether ripples are disabled in the slider. */

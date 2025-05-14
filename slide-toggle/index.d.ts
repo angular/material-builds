@@ -12,10 +12,10 @@ interface MatSlideToggleDefaultOptions {
     disableToggleValue?: boolean;
     /**
      * Default theme color of the slide toggle. This API is supported in M2 themes only,
-     * it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/slide-toggle/styling.
+     * it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/slide-toggle/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color?: ThemePalette;
     /** Whether to hide the icon inside the slide toggle. */
@@ -86,10 +86,10 @@ declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, 
     required: boolean;
     /**
      * Theme color of the slide toggle. This API is supported in M2 themes only,
-     * it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/slide-toggle/styling.
+     * it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/slide-toggle/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: string | undefined;
     /** Whether the slide toggle is disabled. */

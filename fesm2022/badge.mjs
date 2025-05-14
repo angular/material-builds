@@ -29,10 +29,10 @@ class MatBadge {
     _idGenerator = inject(_IdGenerator);
     /**
      * Theme color of the badge. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/badge/styling.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/badge/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     get color() {
         return this._color;
@@ -91,7 +91,7 @@ class MatBadge {
             }
             // Heads-up for developers to avoid putting matBadge on <mat-icon>
             // as it is aria-hidden by default docs mention this at:
-            // https://material.angular.io/components/badge/overview#accessibility
+            // https://material.angular.dev/components/badge/overview#accessibility
             if (nativeElement.tagName.toLowerCase() === 'mat-icon' &&
                 nativeElement.getAttribute('aria-hidden') === 'true') {
                 console.warn(`Detected a matBadge on an "aria-hidden" "<mat-icon>". ` +

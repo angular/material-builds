@@ -14,10 +14,10 @@ import { startWith, take, filter } from 'rxjs/operators';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-BQUT6wsL.mjs';
 import { MatButton, MatButtonModule } from './button.mjs';
-import { M as MatIconButton } from './icon-button-ImoriYmd.mjs';
+import { M as MatIconButton } from './icon-button-D1J0zeqv.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-D1GvPuqO.mjs';
-import { h as MAT_FORM_FIELD, k as MatFormFieldControl } from './form-field-B4o2BB25.mjs';
+import { h as MAT_FORM_FIELD, k as MatFormFieldControl } from './form-field-DqPi4knt.mjs';
 import { E as ErrorStateMatcher } from './error-options-Dm2JJUbF.mjs';
 import { _ as _ErrorStateTracker } from './error-state-Dtb1IHM-.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
@@ -2519,10 +2519,10 @@ class MatDatepickerContent {
     _calendar;
     /**
      * Theme color of the internal calendar. This API is supported in M2 themes
-     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
+     * only, it has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/datepicker/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color;
     /** Reference to the datepicker that created the overlay. */
@@ -2697,10 +2697,10 @@ class MatDatepickerBase {
     startView = 'month';
     /**
      * Theme color of the datepicker's calendar. This API is supported in M2 themes only, it
-     * has no effect in M3 themes. For color customization in M3, see https://material.angular.io/components/datepicker/styling.
+     * has no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/datepicker/styling.
      *
      * For information on applying color variants in M3, see
-     * https://material.angular.io/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
+     * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     get color() {
         return (this._color || (this.datepickerInput ? this.datepickerInput.getThemePalette() : undefined));
