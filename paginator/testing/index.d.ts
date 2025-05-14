@@ -1,9 +1,8 @@
 import * as _angular_cdk_testing from '@angular/cdk/testing';
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 import { MatSelectHarness } from '../../select/testing/index.js';
-import '../../option-harness.d-IqsW95GR.js';
-import '../../core/testing/index.js';
-import '../../form-field/testing/control/index.js';
+import '@angular/material/core/testing';
+import '@angular/material/form-field/testing/control';
 
 /** A set of criteria that can be used to filter a list of `MatPaginatorHarness` instances. */
 interface PaginatorHarnessFilters extends BaseHarnessFilters {

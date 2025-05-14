@@ -1,9 +1,10 @@
-export { I as InputHarnessFilters, M as MatInputHarness } from '../../input-harness.d-8fkAAbu2.js';
+export { I as InputHarnessFilters, M as MatInputHarness } from '../../input-harness.d-DVI6ttzl.js';
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatFormFieldControlHarness } from '../../form-field/testing/control/index.js';
+import { a as MatFormFieldControlHarnessBase } from '../../form-field-control-harness.d-BiL5ss09.js';
+import { MatFormFieldControlHarnessFilters } from '@angular/material/form-field/testing/control';
 
 /** A set of criteria that can be used to filter a list of `MatNativeSelectHarness` instances. */
-interface NativeSelectHarnessFilters extends BaseHarnessFilters {
+interface NativeSelectHarnessFilters extends MatFormFieldControlHarnessFilters {
 }
 /** A set of criteria that can be used to filter a list of `MatNativeOptionHarness` instances. */
 interface NativeOptionHarnessFilters extends BaseHarnessFilters {
@@ -34,7 +35,7 @@ declare class MatNativeOptionHarness extends ComponentHarness {
 }
 
 /** Harness for interacting with a native `select` in tests. */
-declare class MatNativeSelectHarness extends MatFormFieldControlHarness {
+declare class MatNativeSelectHarness extends MatFormFieldControlHarnessBase {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatNativeSelectHarness` that meets

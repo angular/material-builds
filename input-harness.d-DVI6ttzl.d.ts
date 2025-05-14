@@ -1,8 +1,8 @@
-import { BaseHarnessFilters, HarnessPredicate } from '@angular/cdk/testing';
-import { MatFormFieldControlHarness } from './form-field/testing/control/index.js';
+import { HarnessPredicate } from '@angular/cdk/testing';
+import { MatFormFieldControlHarnessFilters, MatFormFieldControlHarnessBase } from '@angular/material/form-field/testing/control';
 
 /** A set of criteria that can be used to filter a list of `MatInputHarness` instances. */
-interface InputHarnessFilters extends BaseHarnessFilters {
+interface InputHarnessFilters extends MatFormFieldControlHarnessFilters {
     /** Filters based on the value of the input. */
     value?: string | RegExp;
     /** Filters based on the placeholder text of the input. */
@@ -10,7 +10,7 @@ interface InputHarnessFilters extends BaseHarnessFilters {
 }
 
 /** Harness for interacting with a standard Material inputs in tests. */
-declare class MatInputHarness extends MatFormFieldControlHarness {
+declare class MatInputHarness extends MatFormFieldControlHarnessBase {
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatInputHarness` that meets

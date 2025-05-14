@@ -1,16 +1,15 @@
-import { BaseHarnessFilters, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { O as OptionHarnessFilters, M as MatOptionHarness } from '../../option-harness.d-IqsW95GR.js';
-import { OptgroupHarnessFilters, MatOptgroupHarness } from '../../core/testing/index.js';
-import { MatFormFieldControlHarness } from '../../form-field/testing/control/index.js';
+import { ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
+import { OptionHarnessFilters, MatOptionHarness, OptgroupHarnessFilters, MatOptgroupHarness } from '@angular/material/core/testing';
+import { MatFormFieldControlHarnessFilters, MatFormFieldControlHarnessBase } from '@angular/material/form-field/testing/control';
 
 /** A set of criteria that can be used to filter a list of `MatSelectHarness` instances. */
-interface SelectHarnessFilters extends BaseHarnessFilters {
+interface SelectHarnessFilters extends MatFormFieldControlHarnessFilters {
     /** Only find instances which match the given disabled state. */
     disabled?: boolean;
 }
 
 /** Harness for interacting with a mat-select in tests. */
-declare class MatSelectHarness extends MatFormFieldControlHarness {
+declare class MatSelectHarness extends MatFormFieldControlHarnessBase {
     static hostSelector: string;
     private _prefix;
     private _optionClass;

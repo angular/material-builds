@@ -6,6 +6,31 @@ import { ComponentHarness } from '@angular/cdk/testing';
  */
 class MatFormFieldControlHarness extends ComponentHarness {
 }
+/**
+ * Shared behavior for `MatFormFieldControlHarness` implementations
+ */
+class MatFormFieldControlHarnessBase extends MatFormFieldControlHarness {
+    floatingLabelSelector = '.mdc-floating-label';
+    /** Gets the text content of the floating label, if it exists. */
+    async getLabel() {
+        const documentRootLocator = await this.documentRootLocatorFactory();
+        const labelId = await (await this.host()).getAttribute('aria-labelledby');
+        const hostId = await (await this.host()).getAttribute('id');
+        if (labelId) {
+            // First option, try to fetch the label using the `aria-labelledby`
+            // attribute.
+            const labelEl = await await documentRootLocator.locatorForOptional(`${this.floatingLabelSelector}[id="${labelId}"]`)();
+            return labelEl ? labelEl.text() : null;
+        }
+        else if (hostId) {
+            // Fallback option, try to match the id of the input with the `for`
+            // attribute of the label.
+            const labelEl = await await documentRootLocator.locatorForOptional(`${this.floatingLabelSelector}[for="${hostId}"]`)();
+            return labelEl ? labelEl.text() : null;
+        }
+        return null;
+    }
+}
 
-export { MatFormFieldControlHarness };
+export { MatFormFieldControlHarness, MatFormFieldControlHarnessBase };
 //# sourceMappingURL=control.mjs.map

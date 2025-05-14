@@ -1,5 +1,5 @@
 import { HarnessPredicate, ComponentHarness, parallel, TestKey } from '@angular/cdk/testing';
-import { MatFormFieldControlHarness } from './form-field/testing/control.mjs';
+import { MatFormFieldControlHarnessBase } from '@angular/material/form-field/testing/control';
 
 /** Sets up the filter predicates for a datepicker input harness. */
 function getInputPredicate(type, options) {
@@ -9,10 +9,13 @@ function getInputPredicate(type, options) {
     })
         .addOption('placeholder', options.placeholder, (harness, placeholder) => {
         return HarnessPredicate.stringMatches(harness.getPlaceholder(), placeholder);
+    })
+        .addOption('label', options.label, (harness, label) => {
+        return HarnessPredicate.stringMatches(harness.getLabel(), label);
     });
 }
 /** Base class for datepicker input harnesses. */
-class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
+class MatDatepickerInputHarnessBase extends MatFormFieldControlHarnessBase {
     /** Whether the input is disabled. */
     async isDisabled() {
         return (await this.host()).getProperty('disabled');
@@ -404,6 +407,7 @@ class MatEndDateHarness extends MatDatepickerInputHarnessBase {
 /** Harness for interacting with a standard Material date range input in tests. */
 class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     static hostSelector = '.mat-date-range-input';
+    floatingLabelSelector = '.mdc-floating-label';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDateRangeInputHarness`
      * that meets certain criteria.
@@ -411,7 +415,11 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatDateRangeInputHarness, options).addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value));
+        return new HarnessPredicate(MatDateRangeInputHarness, options)
+            .addOption('value', options.value, (harness, value) => HarnessPredicate.stringMatches(harness.getValue(), value))
+            .addOption('label', options.label, (harness, label) => {
+            return HarnessPredicate.stringMatches(harness.getLabel(), label);
+        });
     }
     /** Gets the combined value of the start and end inputs, including the separator. */
     async getValue() {
@@ -431,6 +439,26 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     async getEndInput() {
         // Don't pass in filters here since the end input is required and there can only be one.
         return this.locatorFor(MatEndDateHarness)();
+    }
+    /** Gets the floating label text for the range input, if it exists. */
+    async getLabel() {
+        // Copied from MatFormFieldControlHarnessBase since this class cannot extend two classes
+        const documentRootLocator = await this.documentRootLocatorFactory();
+        const labelId = await (await this.host()).getAttribute('aria-labelledby');
+        const hostId = await (await this.host()).getAttribute('id');
+        if (labelId) {
+            // First option, try to fetch the label using the `aria-labelledby`
+            // attribute.
+            const labelEl = await await documentRootLocator.locatorForOptional(`${this.floatingLabelSelector}[id="${labelId}"]`)();
+            return labelEl ? labelEl.text() : null;
+        }
+        else if (hostId) {
+            // Fallback option, try to match the id of the input with the `for`
+            // attribute of the label.
+            const labelEl = await await documentRootLocator.locatorForOptional(`${this.floatingLabelSelector}[for="${hostId}"]`)();
+            return labelEl ? labelEl.text() : null;
+        }
+        return null;
     }
     /** Gets the separator text between the values of the two inputs. */
     async getSeparator() {
@@ -464,4 +492,4 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
 }
 
 export { CalendarView as C, DatepickerTriggerHarnessBase as D, MatDatepickerInputHarness as M, MatStartDateHarness as a, MatEndDateHarness as b, MatDateRangeInputHarness as c, MatCalendarHarness as d, MatCalendarCellHarness as e };
-//# sourceMappingURL=date-range-input-harness-Bp1T4oUe.mjs.map
+//# sourceMappingURL=date-range-input-harness-TqBHr_my.mjs.map

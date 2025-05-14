@@ -1,6 +1,7 @@
-export { M as MatInputHarness } from '../input-harness-oQzj5EsQ.mjs';
+export { M as MatInputHarness } from '../input-harness-C5Msdc4-.mjs';
 import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
-import { MatFormFieldControlHarness } from '../form-field/testing/control.mjs';
+import { MatFormFieldControlHarnessBase } from '../form-field/testing/control.mjs';
+import '@angular/material/form-field/testing/control';
 import '@angular/cdk/coercion';
 
 /** Harness for interacting with a native `option` in tests. */
@@ -38,7 +39,7 @@ class MatNativeOptionHarness extends ComponentHarness {
 }
 
 /** Harness for interacting with a native `select` in tests. */
-class MatNativeSelectHarness extends MatFormFieldControlHarness {
+class MatNativeSelectHarness extends MatFormFieldControlHarnessBase {
     static hostSelector = 'select[matNativeControl]';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatNativeSelectHarness` that meets
@@ -47,7 +48,9 @@ class MatNativeSelectHarness extends MatFormFieldControlHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(MatNativeSelectHarness, options);
+        return new HarnessPredicate(MatNativeSelectHarness, options).addOption('label', options.label, (harness, label) => {
+            return HarnessPredicate.stringMatches(harness.getLabel(), label);
+        });
     }
     /** Gets a boolean promise indicating if the select is disabled. */
     async isDisabled() {

@@ -1,8 +1,8 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatFormFieldControlHarness } from './form-field/testing/control/index.js';
+import { MatFormFieldControlHarnessFilters, MatFormFieldControlHarnessBase } from '@angular/material/form-field/testing/control';
 
 /** A set of criteria that can be used to filter a list of datepicker input instances. */
-interface DatepickerInputHarnessFilters extends BaseHarnessFilters {
+interface DatepickerInputHarnessFilters extends MatFormFieldControlHarnessFilters {
     /** Filters based on the value of the input. */
     value?: string | RegExp;
     /** Filters based on the placeholder text of the input. */
@@ -34,13 +34,13 @@ interface CalendarCellHarnessFilters extends BaseHarnessFilters {
     inPreviewRange?: boolean;
 }
 /** A set of criteria that can be used to filter a list of date range input instances. */
-interface DateRangeInputHarnessFilters extends BaseHarnessFilters {
+interface DateRangeInputHarnessFilters extends MatFormFieldControlHarnessFilters {
     /** Filters based on the value of the input. */
     value?: string | RegExp;
 }
 
 /** Base class for datepicker input harnesses. */
-declare abstract class MatDatepickerInputHarnessBase extends MatFormFieldControlHarness {
+declare abstract class MatDatepickerInputHarnessBase extends MatFormFieldControlHarnessBase {
     /** Whether the input is disabled. */
     isDisabled(): Promise<boolean>;
     /** Whether the input is required. */
@@ -251,6 +251,7 @@ declare class MatEndDateHarness extends MatDatepickerInputHarnessBase {
 /** Harness for interacting with a standard Material date range input in tests. */
 declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     static hostSelector: string;
+    private readonly floatingLabelSelector;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDateRangeInputHarness`
      * that meets certain criteria.
@@ -264,6 +265,8 @@ declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     getStartInput(): Promise<MatStartDateHarness>;
     /** Gets the inner start date input inside the range input. */
     getEndInput(): Promise<MatEndDateHarness>;
+    /** Gets the floating label text for the range input, if it exists. */
+    getLabel(): Promise<string | null>;
     /** Gets the separator text between the values of the two inputs. */
     getSeparator(): Promise<string>;
     /** Gets whether the range input is disabled. */
