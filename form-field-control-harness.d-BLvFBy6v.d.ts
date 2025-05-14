@@ -10,7 +10,7 @@ declare abstract class MatFormFieldControlHarness extends ComponentHarness {
  * Shared behavior for `MatFormFieldControlHarness` implementations
  */
 declare abstract class MatFormFieldControlHarnessBase extends MatFormFieldControlHarness {
-    private readonly floatingLabelSelector;
+    private readonly _floatingLabelSelector;
     /** Gets the text content of the floating label, if it exists. */
     getLabel(): Promise<string | null>;
 }

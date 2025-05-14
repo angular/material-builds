@@ -251,7 +251,7 @@ declare class MatEndDateHarness extends MatDatepickerInputHarnessBase {
 /** Harness for interacting with a standard Material date range input in tests. */
 declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     static hostSelector: string;
-    private readonly floatingLabelSelector;
+    private readonly _floatingLabelSelector;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDateRangeInputHarness`
      * that meets certain criteria.

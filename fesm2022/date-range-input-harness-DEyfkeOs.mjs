@@ -407,7 +407,7 @@ class MatEndDateHarness extends MatDatepickerInputHarnessBase {
 /** Harness for interacting with a standard Material date range input in tests. */
 class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     static hostSelector = '.mat-date-range-input';
-    floatingLabelSelector = '.mdc-floating-label';
+    _floatingLabelSelector = '.mdc-floating-label';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDateRangeInputHarness`
      * that meets certain criteria.
@@ -443,19 +443,19 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     /** Gets the floating label text for the range input, if it exists. */
     async getLabel() {
         // Copied from MatFormFieldControlHarnessBase since this class cannot extend two classes
-        const documentRootLocator = await this.documentRootLocatorFactory();
+        const documentRootLocator = this.documentRootLocatorFactory();
         const labelId = await (await this.host()).getAttribute('aria-labelledby');
         const hostId = await (await this.host()).getAttribute('id');
         if (labelId) {
             // First option, try to fetch the label using the `aria-labelledby`
             // attribute.
-            const labelEl = await await documentRootLocator.locatorForOptional(`${this.floatingLabelSelector}[id="${labelId}"]`)();
+            const labelEl = await documentRootLocator.locatorForOptional(`${this._floatingLabelSelector}[id="${labelId}"]`)();
             return labelEl ? labelEl.text() : null;
         }
         else if (hostId) {
             // Fallback option, try to match the id of the input with the `for`
             // attribute of the label.
-            const labelEl = await await documentRootLocator.locatorForOptional(`${this.floatingLabelSelector}[for="${hostId}"]`)();
+            const labelEl = await documentRootLocator.locatorForOptional(`${this._floatingLabelSelector}[for="${hostId}"]`)();
             return labelEl ? labelEl.text() : null;
         }
         return null;
@@ -492,4 +492,4 @@ class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
 }
 
 export { CalendarView as C, DatepickerTriggerHarnessBase as D, MatDatepickerInputHarness as M, MatStartDateHarness as a, MatEndDateHarness as b, MatDateRangeInputHarness as c, MatCalendarHarness as d, MatCalendarCellHarness as e };
-//# sourceMappingURL=date-range-input-harness-TqBHr_my.mjs.map
+//# sourceMappingURL=date-range-input-harness-DEyfkeOs.mjs.map
