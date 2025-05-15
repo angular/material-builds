@@ -2186,6 +2186,7 @@ class MatCalendar {
     _dateAdapter = inject(DateAdapter, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
     _changeDetectorRef = inject(ChangeDetectorRef);
+    _elementRef = inject(ElementRef);
     /** An input indicating the type of the header component, if set. */
     headerComponent;
     /** A portal containing the header component type for this calendar. */
@@ -2353,9 +2354,12 @@ class MatCalendar {
         if (changeRequiringRerender && !changeRequiringRerender.firstChange) {
             const view = this._getCurrentViewComponent();
             if (view) {
-                // Schedule focus to be moved to the active date since re-rendering
-                // can blur the active cell. See #29265.
-                this._moveFocusOnNextTick = true;
+                // Schedule focus to be moved to the active date since re-rendering can blur the active
+                // cell (see #29265), however don't do so if focus is outside of the calendar, because it
+                // can steal away the user's attention (see #30635).
+                if (this._elementRef.nativeElement.contains(_getFocusedElementPierceShadowDom())) {
+                    this._moveFocusOnNextTick = true;
+                }
                 // We need to `detectChanges` manually here, because the `minDate`, `maxDate` etc. are
                 // passed down to the view via data bindings which won't be up-to-date when we call `_init`.
                 this._changeDetectorRef.detectChanges();

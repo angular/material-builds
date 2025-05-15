@@ -774,6 +774,7 @@ declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDe
     private _dateAdapter;
     private _dateFormats;
     private _changeDetectorRef;
+    private _elementRef;
     /** An input indicating the type of the header component, if set. */
     headerComponent: ComponentType<any>;
     /** A portal containing the header component type for this calendar. */
