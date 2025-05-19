@@ -3,7 +3,7 @@ import { InjectionToken, TemplateRef, OnInit, OnChanges, OnDestroy, SimpleChange
 import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusKeyManager, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
 import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
 import { b as RippleTarget, f as RippleConfig, R as RippleGlobalOptions } from '../ripple.d-BT30YVLB.js';
@@ -259,7 +259,7 @@ declare abstract class MatPaginatedTabHeader implements AfterContentChecked, Aft
     /** Whether the scroll distance has changed and should be applied after the view is checked. */
     private _scrollDistanceChanged;
     /** Used to manage focus between the tabs. */
-    private _keyManager;
+    protected _keyManager: FocusKeyManager<MatPaginatedTabHeaderItem> | undefined;
     /** Cached text content of the header. */
     private _currentTextContent;
     /** Stream that will stop the automated scrolling. */
@@ -729,6 +729,7 @@ declare class MatTabChangeEvent {
  * Provides anchored navigation with animated ink bar.
  */
 declare class MatTabNav extends MatPaginatedTabHeader implements AfterContentInit, AfterViewInit {
+    _focusedItem: i0.WritableSignal<MatPaginatedTabHeaderItem | null>;
     /** Whether the ink bar should fit its width to the size of the tab label content. */
     get fitInkBarToContent(): boolean;
     set fitInkBarToContent(value: boolean);
@@ -779,6 +780,7 @@ declare class MatTabNav extends MatPaginatedTabHeader implements AfterContentIni
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(): void;
     _getRole(): string | null;
+    _hasFocus(link: MatTabLink): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabNav, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; "stretchTabs": { "alias": "mat-stretch-tabs"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; "backgroundColor": { "alias": "backgroundColor"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabPanel": { "alias": "tabPanel"; "required": false; }; }, {}, ["_items"], ["*"], true, never>;
     static ngAcceptInputType_fitInkBarToContent: unknown;
@@ -795,6 +797,7 @@ declare class MatTabLink extends InkBarItem implements AfterViewInit, OnDestroy,
     private readonly _destroyed;
     /** Whether the tab link is active or not. */
     protected _isActive: boolean;
+    protected _tabIndex: i0.Signal<number>;
     /** Whether the link is active. */
     get active(): boolean;
     set active(value: boolean);
@@ -828,7 +831,6 @@ declare class MatTabLink extends InkBarItem implements AfterViewInit, OnDestroy,
     _getAriaSelected(): string | null;
     _getAriaCurrent(): string | null;
     _getRole(): string | null;
-    _getTabIndex(): number;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabLink, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTabLink, "[mat-tab-link], [matTabLink]", ["matTabLink"], { "active": { "alias": "active"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "id": { "alias": "id"; "required": false; }; }, {}, never, ["*"], true, never>;
     static ngAcceptInputType_active: unknown;
