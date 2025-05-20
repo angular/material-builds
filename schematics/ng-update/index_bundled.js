@@ -6187,10 +6187,12 @@ var require_scss_tokenize = __commonJS({
             currentToken = [controlChar, controlChar, pos];
             break;
           }
+          // SCSS PATCH {
           case COMMA: {
             currentToken = ["word", ",", pos, pos + 1];
             break;
           }
+          // } SCSS PATCH
           case OPEN_PARENTHESES: {
             prev = buffer.length ? buffer.pop()[1] : "";
             n = css.charCodeAt(pos + 1);
