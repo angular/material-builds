@@ -4,7 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW, UP_ARROW, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, ContentChildren, Input, Output, ElementRef, HostAttributeToken, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, ContentChildren, Input, Output, ElementRef, HostAttributeToken, signal, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { M as MatRipple } from './ripple-BtLhcfGO.mjs';
 import { M as MatPseudoCheckbox } from './pseudo-checkbox-DQugCpur.mjs';
@@ -318,7 +318,6 @@ class MatButtonToggleGroup {
                 }
             }
         }
-        this._markButtonsForCheck();
     }
     /** Obtain the subsequent toggle to which the focus shifts. */
     _getNextButton(startIndex, offset) {
@@ -492,13 +491,10 @@ class MatButtonToggle {
     value;
     /** Tabindex of the toggle. */
     get tabIndex() {
-        return this._tabIndex;
+        return this._tabIndex();
     }
     set tabIndex(value) {
-        if (value !== this._tabIndex) {
-            this._tabIndex = value;
-            this._markForCheck();
-        }
+        this._tabIndex.set(value);
     }
     _tabIndex;
     /** Whether ripples are disabled on the button toggle. */
@@ -548,7 +544,7 @@ class MatButtonToggle {
         const toggleGroup = inject(MAT_BUTTON_TOGGLE_GROUP, { optional: true });
         const defaultTabIndex = inject(new HostAttributeToken('tabindex'), { optional: true }) || '';
         const defaultOptions = inject(MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, { optional: true });
-        this._tabIndex = parseInt(defaultTabIndex) || 0;
+        this._tabIndex = signal(parseInt(defaultTabIndex) || 0);
         this.buttonToggleGroup = toggleGroup;
         this.appearance =
             defaultOptions && defaultOptions.appearance ? defaultOptions.appearance : 'standard';
