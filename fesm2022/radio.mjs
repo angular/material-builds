@@ -406,6 +406,9 @@ class MatRadioButton {
         return this._required || (this.radioGroup && this.radioGroup.required);
     }
     set required(value) {
+        if (value !== this._required) {
+            this._changeDetector.markForCheck();
+        }
         this._required = value;
     }
     /**
