@@ -1,6 +1,6 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, EventEmitter, HostAttributeToken, signal, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _ as _MatInternalFormField } from './internal-form-field-BvZ2D3xG.mjs';
@@ -171,7 +171,7 @@ class MatCheckbox {
         }
     }
     ngAfterViewInit() {
-        this._syncIndeterminate(this._indeterminate);
+        this._syncIndeterminate(this.indeterminate);
     }
     /** Whether the checkbox is checked. */
     get checked() {
@@ -202,23 +202,23 @@ class MatCheckbox {
      * set to false.
      */
     get indeterminate() {
-        return this._indeterminate;
+        return this._indeterminate();
     }
     set indeterminate(value) {
-        const changed = value != this._indeterminate;
-        this._indeterminate = value;
+        const changed = value != this._indeterminate();
+        this._indeterminate.set(value);
         if (changed) {
-            if (this._indeterminate) {
+            if (value) {
                 this._transitionCheckState(TransitionCheckState.Indeterminate);
             }
             else {
                 this._transitionCheckState(this.checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
             }
-            this.indeterminateChange.emit(this._indeterminate);
+            this.indeterminateChange.emit(value);
         }
-        this._syncIndeterminate(this._indeterminate);
+        this._syncIndeterminate(value);
     }
-    _indeterminate = false;
+    _indeterminate = signal(false);
     _isRippleDisabled() {
         return this.disableRipple || this.disabled;
     }
@@ -298,8 +298,8 @@ class MatCheckbox {
             // When user manually click on the checkbox, `indeterminate` is set to false.
             if (this.indeterminate && clickAction !== 'check') {
                 Promise.resolve().then(() => {
-                    this._indeterminate = false;
-                    this.indeterminateChange.emit(this._indeterminate);
+                    this._indeterminate.set(false);
+                    this.indeterminateChange.emit(false);
                 });
             }
             this._checked = !this._checked;

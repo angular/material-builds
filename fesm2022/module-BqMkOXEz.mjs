@@ -1,6 +1,6 @@
 import { createRepositionScrollStrategy, CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Injector, ChangeDetectorRef, ElementRef, Renderer2, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, Injector, ChangeDetectorRef, ElementRef, Renderer2, signal, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { _IdGenerator, LiveAnnouncer, removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -12,10 +12,10 @@ import { startWith, switchMap, filter, map, takeUntil, take } from 'rxjs/operato
 import { NgClass } from '@angular/common';
 import { h as MAT_FORM_FIELD, k as MatFormFieldControl } from './form-field-DzH6hOfl.mjs';
 import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
-import { _ as _countGroupLabelsBeforeOption, b as _getOptionScrollPosition, c as MAT_OPTION_PARENT_COMPONENT, M as MatOption, d as MAT_OPTGROUP } from './option-DD94keLC.mjs';
+import { _ as _countGroupLabelsBeforeOption, b as _getOptionScrollPosition, c as MAT_OPTION_PARENT_COMPONENT, M as MatOption, d as MAT_OPTGROUP } from './option-dtYoa8D2.mjs';
 import { E as ErrorStateMatcher } from './error-options-CHoGYKRW.mjs';
 import { _ as _ErrorStateTracker } from './error-state-Dtb1IHM-.mjs';
-import { M as MatOptionModule } from './index-C5onKDm8.mjs';
+import { M as MatOptionModule } from './index-CfwGxVXK.mjs';
 import { M as MatCommonModule } from './common-module-C69n6I4V.mjs';
 import { M as MatFormFieldModule } from './module-D2XanOTM.mjs';
 
@@ -247,7 +247,13 @@ class MatSelect {
     /** Whether the select is disabled. */
     disabled = false;
     /** Whether ripples in the select are disabled. */
-    disableRipple = false;
+    get disableRipple() {
+        return this._disableRipple();
+    }
+    set disableRipple(value) {
+        this._disableRipple.set(value);
+    }
+    _disableRipple = signal(false);
     /** Tab index of the select. */
     tabIndex = 0;
     /** Whether checkmark indicator for single-selection options is hidden. */
@@ -1309,4 +1315,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0-rc.2", ng
         }] });
 
 export { MatSelectModule as M, MAT_SELECT_SCROLL_STRATEGY as a, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY as b, MAT_SELECT_CONFIG as c, MAT_SELECT_SCROLL_STRATEGY_PROVIDER as d, MAT_SELECT_TRIGGER as e, MatSelectChange as f, MatSelect as g, MatSelectTrigger as h };
-//# sourceMappingURL=module-BCaF12X_.mjs.map
+//# sourceMappingURL=module-BqMkOXEz.mjs.map

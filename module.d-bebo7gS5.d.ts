@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ChangeDetectorRef, ElementRef, QueryList, EventEmitter, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, ConnectedPosition, CdkOverlayOrigin, CdkConnectedOverlay } from '@angular/cdk/overlay';
-import { M as MatOptionModule } from './index.d-CikM2bbf.js';
+import { M as MatOptionModule } from './index.d-DAhBYbjm.js';
 import { M as MatCommonModule } from './common-module.d-C8xzHJDr.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -11,7 +11,7 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
 import { E as ErrorStateMatcher } from './error-options.d-CGdTZUYk.js';
-import { M as MatOption, a as MatOptgroup, b as MatOptionSelectionChange } from './option.d-BVGX3edu.js';
+import { M as MatOption, a as MatOptgroup, b as MatOptionSelectionChange } from './option.d-BcvS44bt.js';
 import { M as MatFormField } from './form-field.d-C6p5uYjG.js';
 import { M as MatFormFieldControl } from './form-field-control.d-DvB4ZVlf.js';
 import { a as MatFormFieldModule } from './module.d-D1Ym5Wf2.js';
@@ -178,7 +178,9 @@ declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnIni
     /** Whether the select is disabled. */
     disabled: boolean;
     /** Whether ripples in the select are disabled. */
-    disableRipple: boolean;
+    get disableRipple(): boolean;
+    set disableRipple(value: boolean);
+    private _disableRipple;
     /** Tab index of the select. */
     tabIndex: number;
     /** Whether checkmark indicator for single-selection options is hidden. */

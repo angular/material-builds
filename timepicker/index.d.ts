@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { OnDestroy, Signal, ModelSignal, InputSignal, InputSignalWithTransform, ElementRef, InjectionToken, TemplateRef, OutputEmitterRef } from '@angular/core';
-import { M as MatOption } from '../option.d-BVGX3edu.js';
+import { M as MatOption } from '../option.d-BcvS44bt.js';
 import { M as MatOptionParentComponent } from '../option-parent.d-CnYuuMkO.js';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';

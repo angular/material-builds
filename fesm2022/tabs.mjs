@@ -1751,7 +1751,13 @@ class MatTabNav extends MatPaginatedTabHeader {
     }
     _backgroundColor;
     /** Whether the ripple effect is disabled or not. */
-    disableRipple = false;
+    get disableRipple() {
+        return this._disableRipple();
+    }
+    set disableRipple(value) {
+        this._disableRipple.set(value);
+    }
+    _disableRipple = signal(false);
     /**
      * Theme color of the nav bar. This API is supported in M2 themes only, it has
      * no effect in M3 themes. For color customization in M3, see https://material.angular.dev/components/tabs/styling.
@@ -1910,7 +1916,13 @@ class MatTabLink extends InkBarItem {
     /** Whether the tab link is disabled. */
     disabled = false;
     /** Whether ripples are disabled on the tab link. */
-    disableRipple = false;
+    get disableRipple() {
+        return this._disableRipple();
+    }
+    set disableRipple(value) {
+        this._disableRipple.set(value);
+    }
+    _disableRipple = signal(false);
     tabIndex = 0;
     /**
      * Ripple configuration for ripples that are launched on pointer down. The ripple config

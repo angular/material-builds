@@ -50,7 +50,6 @@ declare class MatOption<T = any> implements FocusableOption, AfterViewChecked, O
     private _signalDisableRipple;
     private _selected;
     private _active;
-    private _disabled;
     private _mostRecentViewValue;
     /** Whether the wrapping component is in multiple selection mode. */
     get multiple(): boolean | null | undefined;
@@ -63,6 +62,7 @@ declare class MatOption<T = any> implements FocusableOption, AfterViewChecked, O
     /** Whether the option is disabled. */
     get disabled(): boolean;
     set disabled(value: boolean);
+    private _disabled;
     /** Whether ripples for the option are disabled. */
     get disableRipple(): boolean;
     /** Whether to display checkmark for single-selection. */
