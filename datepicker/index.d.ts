@@ -736,6 +736,11 @@ declare class MatCalendarHeader<D> {
     calendar: MatCalendar<D>;
     private _dateAdapter;
     private _dateFormats;
+    private _periodButtonText;
+    private _periodButtonDescription;
+    private _periodButtonLabel;
+    private _prevButtonLabel;
+    private _nextButtonLabel;
     constructor(...args: unknown[]);
     /** The display text for the current calendar view. */
     get periodButtonText(): string;
@@ -757,6 +762,8 @@ declare class MatCalendarHeader<D> {
     previousEnabled(): boolean;
     /** Whether the next period button is enabled. */
     nextEnabled(): boolean;
+    /** Updates the labels for the various sections of the header. */
+    private _updateLabels;
     /** Whether the two dates represent the same view in the current view mode (month or year). */
     private _isSameView;
     /**
@@ -1461,6 +1468,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     _elementRef: ElementRef<HTMLInputElement>;
     _defaultErrorStateMatcher: ErrorStateMatcher;
     private _injector;
+    private _rawValue;
     _parentForm: NgForm | null;
     _parentFormGroup: FormGroupDirective | null;
     /**

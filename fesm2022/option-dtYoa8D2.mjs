@@ -1,7 +1,7 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ElementRef, ChangeDetectorRef, EventEmitter, isSignal, Output, ViewChild } from '@angular/core';
+import { InjectionToken, inject, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ElementRef, ChangeDetectorRef, signal, EventEmitter, isSignal, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { M as MatRipple } from './ripple-FWNMf7zt.mjs';
 import { M as MatPseudoCheckbox } from './pseudo-checkbox-BEBzOVxs.mjs';
@@ -96,7 +96,6 @@ class MatOption {
     _signalDisableRipple = false;
     _selected = false;
     _active = false;
-    _disabled = false;
     _mostRecentViewValue = '';
     /** Whether the wrapping component is in multiple selection mode. */
     get multiple() {
@@ -112,11 +111,12 @@ class MatOption {
     id = inject(_IdGenerator).getId('mat-option-');
     /** Whether the option is disabled. */
     get disabled() {
-        return (this.group && this.group.disabled) || this._disabled;
+        return (this.group && this.group.disabled) || this._disabled();
     }
     set disabled(value) {
-        this._disabled = value;
+        this._disabled.set(value);
     }
+    _disabled = signal(false);
     /** Whether ripples for the option are disabled. */
     get disableRipple() {
         return this._signalDisableRipple
@@ -345,4 +345,4 @@ function _getOptionScrollPosition(optionOffset, optionHeight, currentScrollPosit
 }
 
 export { MatOption as M, _countGroupLabelsBeforeOption as _, MatOptgroup as a, _getOptionScrollPosition as b, MAT_OPTION_PARENT_COMPONENT as c, MAT_OPTGROUP as d, MatOptionSelectionChange as e };
-//# sourceMappingURL=option-DD94keLC.mjs.map
+//# sourceMappingURL=option-dtYoa8D2.mjs.map

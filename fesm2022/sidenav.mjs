@@ -5,7 +5,7 @@ import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, DOCUMENT, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, DOCUMENT, signal, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
 import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
@@ -184,12 +184,12 @@ class MatDrawer {
      * starts or end.
      */
     get opened() {
-        return this._opened;
+        return this._opened();
     }
     set opened(value) {
         this.toggle(coerceBooleanProperty(value));
     }
-    _opened = false;
+    _opened = signal(false);
     /** How the sidenav was opened (keypress, mouse click etc.) */
     _openedVia;
     /** Emits whenever the drawer has started animating. */
@@ -257,7 +257,7 @@ class MatDrawer {
             ];
         });
         this._animationEnd.subscribe(() => {
-            this.openedChange.emit(this._opened);
+            this.openedChange.emit(this.opened);
         });
     }
     /**
@@ -415,10 +415,10 @@ class MatDrawer {
      * @param focusOrigin Origin to use when restoring focus.
      */
     _setOpen(isOpen, restoreFocus, focusOrigin) {
-        if (isOpen === this._opened) {
+        if (isOpen === this.opened) {
             return Promise.resolve(isOpen ? 'open' : 'close');
         }
-        this._opened = isOpen;
+        this._opened.set(isOpen);
         if (this._container?._transitionsEnabled) {
             // Note: it's importatnt to set this as early as possible,
             // otherwise the animation can look glitchy in some cases.

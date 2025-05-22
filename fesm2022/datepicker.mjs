@@ -2062,58 +2062,39 @@ class MatCalendarHeader {
     calendar = inject(MatCalendar);
     _dateAdapter = inject(DateAdapter, { optional: true });
     _dateFormats = inject(MAT_DATE_FORMATS, { optional: true });
+    _periodButtonText;
+    _periodButtonDescription;
+    _periodButtonLabel;
+    _prevButtonLabel;
+    _nextButtonLabel;
     constructor() {
         inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         const changeDetectorRef = inject(ChangeDetectorRef);
-        this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
+        this._updateLabels();
+        this.calendar.stateChanges.subscribe(() => {
+            this._updateLabels();
+            changeDetectorRef.markForCheck();
+        });
     }
     /** The display text for the current calendar view. */
     get periodButtonText() {
-        if (this.calendar.currentView == 'month') {
-            return this._dateAdapter
-                .format(this.calendar.activeDate, this._dateFormats.display.monthYearLabel)
-                .toLocaleUpperCase();
-        }
-        if (this.calendar.currentView == 'year') {
-            return this._dateAdapter.getYearName(this.calendar.activeDate);
-        }
-        return this._intl.formatYearRange(...this._formatMinAndMaxYearLabels());
+        return this._periodButtonText;
     }
     /** The aria description for the current calendar view. */
     get periodButtonDescription() {
-        if (this.calendar.currentView == 'month') {
-            return this._dateAdapter
-                .format(this.calendar.activeDate, this._dateFormats.display.monthYearLabel)
-                .toLocaleUpperCase();
-        }
-        if (this.calendar.currentView == 'year') {
-            return this._dateAdapter.getYearName(this.calendar.activeDate);
-        }
-        // Format a label for the window of years displayed in the multi-year calendar view. Use
-        // `formatYearRangeLabel` because it is TTS friendly.
-        return this._intl.formatYearRangeLabel(...this._formatMinAndMaxYearLabels());
+        return this._periodButtonDescription;
     }
     /** The `aria-label` for changing the calendar view. */
     get periodButtonLabel() {
-        return this.calendar.currentView == 'month'
-            ? this._intl.switchToMultiYearViewLabel
-            : this._intl.switchToMonthViewLabel;
+        return this._periodButtonLabel;
     }
     /** The label for the previous button. */
     get prevButtonLabel() {
-        return {
-            'month': this._intl.prevMonthLabel,
-            'year': this._intl.prevYearLabel,
-            'multi-year': this._intl.prevMultiYearLabel,
-        }[this.calendar.currentView];
+        return this._prevButtonLabel;
     }
     /** The label for the next button. */
     get nextButtonLabel() {
-        return {
-            'month': this._intl.nextMonthLabel,
-            'year': this._intl.nextYearLabel,
-            'multi-year': this._intl.nextMultiYearLabel,
-        }[this.calendar.currentView];
+        return this._nextButtonLabel;
     }
     /** Handles user clicks on the period label. */
     currentPeriodClicked() {
@@ -2143,6 +2124,39 @@ class MatCalendarHeader {
     /** Whether the next period button is enabled. */
     nextEnabled() {
         return (!this.calendar.maxDate || !this._isSameView(this.calendar.activeDate, this.calendar.maxDate));
+    }
+    /** Updates the labels for the various sections of the header. */
+    _updateLabels() {
+        const calendar = this.calendar;
+        const intl = this._intl;
+        const adapter = this._dateAdapter;
+        if (calendar.currentView === 'month') {
+            this._periodButtonText = adapter
+                .format(calendar.activeDate, this._dateFormats.display.monthYearLabel)
+                .toLocaleUpperCase();
+            this._periodButtonDescription = adapter
+                .format(calendar.activeDate, this._dateFormats.display.monthYearLabel)
+                .toLocaleUpperCase();
+            this._periodButtonLabel = intl.switchToMultiYearViewLabel;
+            this._prevButtonLabel = intl.prevMonthLabel;
+            this._nextButtonLabel = intl.nextMonthLabel;
+        }
+        else if (calendar.currentView === 'year') {
+            this._periodButtonText = adapter.getYearName(calendar.activeDate);
+            this._periodButtonDescription = adapter.getYearName(calendar.activeDate);
+            this._periodButtonLabel = intl.switchToMonthViewLabel;
+            this._prevButtonLabel = intl.prevYearLabel;
+            this._nextButtonLabel = intl.nextYearLabel;
+        }
+        else {
+            this._periodButtonText = intl.formatYearRange(...this._formatMinAndMaxYearLabels());
+            // Format a label for the window of years displayed in the multi-year calendar view. Use
+            // `formatYearRangeLabel` because it is TTS friendly.
+            this._periodButtonDescription = intl.formatYearRangeLabel(...this._formatMinAndMaxYearLabels());
+            this._periodButtonLabel = intl.switchToMonthViewLabel;
+            this._prevButtonLabel = intl.prevMultiYearLabel;
+            this._nextButtonLabel = intl.nextMultiYearLabel;
+        }
     }
     /** Whether the two dates represent the same view in the current view mode (month or year). */
     _isSameView(date1, date2) {
@@ -2298,6 +2312,7 @@ class MatCalendar {
         this._moveFocusOnNextTick = true;
         this._changeDetectorRef.markForCheck();
         if (viewChangedResult) {
+            this.stateChanges.next();
             this.viewChanged.emit(viewChangedResult);
         }
     }
@@ -4253,6 +4268,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
     _elementRef = inject(ElementRef);
     _defaultErrorStateMatcher = inject(ErrorStateMatcher);
     _injector = inject(Injector);
+    _rawValue = signal('');
     _parentForm = inject(NgForm, { optional: true });
     _parentFormGroup = inject(FormGroupDirective, { optional: true });
     /**
@@ -4303,10 +4319,11 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
             // that whatever logic is in here has to be super lean or we risk destroying the performance.
             this.updateErrorState();
         }
+        this._rawValue.set(this._elementRef.nativeElement.value);
     }
     /** Gets whether the input is empty. */
     isEmpty() {
-        return this._elementRef.nativeElement.value.length === 0;
+        return this._rawValue().length === 0;
     }
     /** Gets the placeholder of the input. */
     _getPlaceholder() {
@@ -4318,9 +4335,8 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
     }
     /** Gets the value that should be used when mirroring the input's size. */
     getMirrorValue() {
-        const element = this._elementRef.nativeElement;
-        const value = element.value;
-        return value.length > 0 ? value : element.placeholder;
+        const value = this._rawValue();
+        return value.length > 0 ? value : this._getPlaceholder();
     }
     /** Refreshes the error state of the input. */
     updateErrorState() {
@@ -4359,6 +4375,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
             ? this._rangeInput._endInput
             : this._rangeInput._startInput);
         opposite?._validatorOnChange();
+        this._rawValue.set(this._elementRef.nativeElement.value);
     }
     _formatValue(value) {
         super._formatValue(value);

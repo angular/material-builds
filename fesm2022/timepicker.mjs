@@ -8,7 +8,7 @@ import { TAB, ESCAPE, hasModifierKey, ENTER, DOWN_ARROW, UP_ARROW } from '@angul
 import { ActiveDescendantKeyManager, _IdGenerator } from '@angular/cdk/a11y';
 import { D as DateAdapter, a as MAT_DATE_FORMATS } from './date-formats-K6TQue-Y.mjs';
 import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
-import { M as MatOption, c as MAT_OPTION_PARENT_COMPONENT } from './option-DD94keLC.mjs';
+import { M as MatOption, c as MAT_OPTION_PARENT_COMPONENT } from './option-dtYoa8D2.mjs';
 import { Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { h as MAT_FORM_FIELD } from './form-field-DzH6hOfl.mjs';
 import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-D1GvPuqO.mjs';
