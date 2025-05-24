@@ -119,8 +119,6 @@ declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDe
     _templateLabel(): MatStepLabel | null;
     /** Returns the host HTML element. */
     _getHostElement(): HTMLElement;
-    /** Template context variables that are exposed to the `matStepperIcon` instances. */
-    _getIconContext(): MatStepperIconContext;
     _getDefaultTextForState(state: StepState): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepHeader, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "state": { "alias": "state"; "required": false; }; "label": { "alias": "label"; "required": false; }; "errorMessage": { "alias": "errorMessage"; "required": false; }; "iconOverrides": { "alias": "iconOverrides"; "required": false; }; "index": { "alias": "index"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "active": { "alias": "active"; "required": false; }; "optional": { "alias": "optional"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, never, true, never>;
@@ -211,7 +209,6 @@ declare class MatStepper extends CdkStepper implements AfterViewInit, AfterConte
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    _stepIsNavigable(index: number, step: MatStep): boolean;
     _getAnimationDuration(): string;
     private _handleTransitionend;
     private _onAnimationDone;
