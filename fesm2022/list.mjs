@@ -1,6 +1,6 @@
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, Directive, Input, NgZone, Injector, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, EventEmitter, Output, forwardRef, Renderer2, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, Directive, signal, Input, NgZone, Injector, ContentChildren, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef, EventEmitter, Output, forwardRef, Renderer2, NgModule } from '@angular/core';
 import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { Subscription, merge, Subject } from 'rxjs';
@@ -170,12 +170,12 @@ class MatListBase {
      * are disabled.
      */
     get disabled() {
-        return this._disabled;
+        return this._disabled();
     }
     set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
+        this._disabled.set(coerceBooleanProperty(value));
     }
-    _disabled = false;
+    _disabled = signal(false);
     _defaultOptions = inject(MAT_LIST_CONFIG, { optional: true });
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.0.0-rc.2", ngImport: i0, type: MatListBase, deps: [], target: i0.ɵɵFactoryTarget.Directive });
     static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.0.0-rc.2", type: MatListBase, isStandalone: true, inputs: { disableRipple: "disableRipple", disabled: "disabled" }, host: { properties: { "attr.aria-disabled": "disabled" } }, ngImport: i0 });
@@ -234,12 +234,12 @@ class MatListItemBase {
     _disableRipple = false;
     /** Whether the list-item is disabled. */
     get disabled() {
-        return this._disabled || !!this._listBase?.disabled;
+        return this._disabled() || !!this._listBase?.disabled;
     }
     set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
+        this._disabled.set(coerceBooleanProperty(value));
     }
-    _disabled = false;
+    _disabled = signal(false);
     _subscriptions = new Subscription();
     _rippleRenderer = null;
     /** Whether the list item has unscoped text content. */
@@ -988,18 +988,18 @@ class MatSelectionList extends MatListBase {
      * and each list item is removed from the tab order (has tabindex="-1").
      */
     get disabled() {
-        return this._selectionListDisabled;
+        return this._selectionListDisabled();
     }
     set disabled(value) {
         // Update the disabled state of this list. Write to `this._selectionListDisabled` instead of
         // `super.disabled`. That is to avoid closure compiler compatibility issues with assigning to
         // a super property.
-        this._selectionListDisabled = coerceBooleanProperty(value);
-        if (this._selectionListDisabled) {
+        this._selectionListDisabled.set(coerceBooleanProperty(value));
+        if (this._selectionListDisabled()) {
             this._keyManager?.setActiveItem(-1);
         }
     }
-    _selectionListDisabled = false;
+    _selectionListDisabled = signal(false);
     /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn) {
         this._onChange = fn;
