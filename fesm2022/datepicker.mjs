@@ -14,7 +14,7 @@ import { NgClass } from '@angular/common';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _ as _StructuralStylesLoader } from './structural-styles-CObeNzjn.mjs';
 import { MatButton, MatButtonModule } from './button.mjs';
-import { M as MatIconButton } from './icon-button-B2tPB5AH.mjs';
+import { M as MatIconButton } from './icon-button-DxiIc1ex.mjs';
 import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { M as MAT_INPUT_VALUE_ACCESSOR } from './input-value-accessor-D1GvPuqO.mjs';

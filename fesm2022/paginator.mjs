@@ -6,7 +6,7 @@ import { j as MatFormField } from './form-field-C9DZXojn.mjs';
 import { g as MatSelect, M as MatSelectModule } from './module-BDiw_nWS.mjs';
 import { e as MatTooltip, h as MatTooltipModule } from './module-CWxMD37a.mjs';
 import { M as MatOption } from './option-BzhYL_xC.mjs';
-import { M as MatIconButton } from './icon-button-B2tPB5AH.mjs';
+import { M as MatIconButton } from './icon-button-DxiIc1ex.mjs';
 import { MatButtonModule } from './button.mjs';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';

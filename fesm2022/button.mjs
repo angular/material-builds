@@ -1,5 +1,5 @@
-import { a as MatButtonBase, M as MatIconButton } from './icon-button-B2tPB5AH.mjs';
-export { b as MAT_BUTTON_CONFIG, c as MatIconAnchor } from './icon-button-B2tPB5AH.mjs';
+import { a as MatButtonBase, M as MatIconButton } from './icon-button-DxiIc1ex.mjs';
+export { b as MAT_BUTTON_CONFIG, c as MatIconAnchor } from './icon-button-DxiIc1ex.mjs';
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, InjectionToken, inject, booleanAttribute, NgModule } from '@angular/core';
 import { M as MatRippleModule } from './index-BFRo2fUq.mjs';
