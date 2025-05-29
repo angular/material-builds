@@ -353,12 +353,22 @@ declare class MatChipRow extends MatChip implements AfterViewInit {
     defaultEditInput?: MatChipEditInput;
     /** The projected chip edit input. */
     contentEditInput?: MatChipEditInput;
+    /**
+     * Set on a mousedown when the chip is already focused via mouse or keyboard.
+     *
+     * This allows us to ensure chip is already focused when deciding whether to enter the
+     * edit mode on a subsequent click. Otherwise, the chip appears focused when handling the
+     * first click event.
+     */
+    private _alreadyFocused;
     _isEditing: boolean;
     constructor(...args: unknown[]);
+    ngAfterViewInit(): void;
     _hasTrailingIcon(): boolean;
     /** Sends focus to the first gridcell when the user clicks anywhere inside the chip. */
     _handleFocus(): void;
     _handleKeydown(event: KeyboardEvent): void;
+    _handleClick(event: MouseEvent): void;
     _handleDoubleclick(event: MouseEvent): void;
     private _startEditing;
     private _onEditFinish;
