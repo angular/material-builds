@@ -15,6 +15,24 @@ class MatChipAvatarHarness extends ComponentHarness {
     }
 }
 
+/** Harness for interacting with a standard Material chip edit button in tests. */
+class MatChipEditHarness extends ComponentHarness {
+    static hostSelector = '.mat-mdc-chip-edit';
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a chip edit with specific
+     * attributes.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options);
+    }
+    /** Clicks the edit button. */
+    async click() {
+        return (await this.host()).click();
+    }
+}
+
 /** Harness for interacting with a standard Material chip remove button in tests. */
 class MatChipRemoveHarness extends ComponentHarness {
     static hostSelector = '.mat-mdc-chip-remove';
@@ -65,6 +83,13 @@ class MatChipHarness extends ContentContainerComponentHarness {
     async remove() {
         const hostEl = await this.host();
         await hostEl.sendKeys(TestKey.DELETE);
+    }
+    /**
+     * Gets the edit button inside of a chip.
+     * @param filter Optionally filters which chips are included.
+     */
+    async geEditButton(filter = {}) {
+        return this.locatorFor(MatChipEditHarness.with(filter))();
     }
     /**
      * Gets the remove button inside of a chip.
@@ -359,5 +384,5 @@ class MatChipSetHarness extends ComponentHarness {
     }
 }
 
-export { MatChipAvatarHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
+export { MatChipAvatarHarness, MatChipEditHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
 //# sourceMappingURL=testing.mjs.map

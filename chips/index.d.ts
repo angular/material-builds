@@ -21,12 +21,15 @@ declare class MatChipAction {
         _handlePrimaryActionInteraction(): void;
         remove(): void;
         disabled: boolean;
+        _edit(): void;
         _isEditing?: boolean;
     };
     /** Whether the action is interactive. */
     isInteractive: boolean;
     /** Whether this is the primary action in the chip. */
     _isPrimary: boolean;
+    /** Whether this is the leading action in the chip. */
+    _isLeading: boolean;
     /** Whether the action is disabled. */
     get disabled(): boolean;
     set disabled(value: boolean);
@@ -70,6 +73,31 @@ declare class MatChipTrailingIcon extends MatChipAction {
     _isPrimary: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipTrailingIcon, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never, never, true, never>;
+}
+/**
+ * Directive to edit the parent chip when the leading action icon is clicked or
+ * when the ENTER key is pressed on it.
+ *
+ * Recommended for use with the Material Design "edit" icon
+ * available at https://material.io/icons/#ic_edit.
+ *
+ * Example:
+ *
+ * ```
+ * <mat-chip>
+ *   <button matChipEdit aria-label="Edit">
+ *     <mat-icon>edit</mat-icon>
+ *   </button>
+ * </mat-chip>
+ * ```
+ */
+declare class MatChipEdit extends MatChipAction {
+    _isPrimary: boolean;
+    _isLeading: boolean;
+    _handleClick(event: MouseEvent): void;
+    _handleKeydown(event: KeyboardEvent): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipEdit, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipEdit, "[matChipEdit]", never, {}, {}, never, never, true, never>;
 }
 /**
  * Directive to remove the parent chip when the trailing icon is clicked or
@@ -132,6 +160,8 @@ declare class MatChip implements OnInit, AfterViewInit, AfterContentInit, DoChec
     protected _allLeadingIcons: QueryList<MatChipAvatar>;
     /** All trailing icons present in the chip. */
     protected _allTrailingIcons: QueryList<MatChipTrailingIcon>;
+    /** All edit icons present in the chip. */
+    protected _allEditIcons: QueryList<MatChipEdit>;
     /** All remove icons present in the chip. */
     protected _allRemoveIcons: QueryList<MatChipRemove>;
     _hasFocus(): boolean;
@@ -183,6 +213,8 @@ declare class MatChip implements OnInit, AfterViewInit, AfterContentInit, DoChec
     protected basicChipAttrName: string;
     /** The chip's leading icon. */
     leadingIcon: MatChipAvatar;
+    /** The chip's leading edit icon. */
+    editIcon: MatChipEdit;
     /** The chip's trailing icon. */
     trailingIcon: MatChipTrailingIcon;
     /** The chip's trailing remove icon. */
@@ -221,10 +253,12 @@ declare class MatChip implements OnInit, AfterViewInit, AfterContentInit, DoChec
     _getActions(): MatChipAction[];
     /** Handles interactions with the primary action of the chip. */
     _handlePrimaryActionInteraction(): void;
+    /** Handles interactions with the edit action of the chip. */
+    _edit(event: Event): void;
     /** Starts the focus monitoring process on the chip. */
     private _monitorFocus;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChip, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "role": { "alias": "role"; "required": false; }; "id": { "alias": "id"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaDescription": { "alias": "aria-description"; "required": false; }; "value": { "alias": "value"; "required": false; }; "color": { "alias": "color"; "required": false; }; "removable": { "alias": "removable"; "required": false; }; "highlighted": { "alias": "highlighted"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "trailingIcon", "removeIcon", "_allLeadingIcons", "_allTrailingIcons", "_allRemoveIcons"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChip, "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]", ["matChip"], { "role": { "alias": "role"; "required": false; }; "id": { "alias": "id"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaDescription": { "alias": "aria-description"; "required": false; }; "value": { "alias": "value"; "required": false; }; "color": { "alias": "color"; "required": false; }; "removable": { "alias": "removable"; "required": false; }; "highlighted": { "alias": "highlighted"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, { "removed": "removed"; "destroyed": "destroyed"; }, ["leadingIcon", "editIcon", "trailingIcon", "removeIcon", "_allLeadingIcons", "_allTrailingIcons", "_allEditIcons", "_allRemoveIcons"], ["mat-chip-avatar, [matChipAvatar]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
     static ngAcceptInputType_removable: unknown;
     static ngAcceptInputType_highlighted: unknown;
     static ngAcceptInputType_disableRipple: unknown;
@@ -364,12 +398,14 @@ declare class MatChipRow extends MatChip implements AfterViewInit {
     _isEditing: boolean;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
+    protected _hasLeadingActionIcon(): boolean;
     _hasTrailingIcon(): boolean;
     /** Sends focus to the first gridcell when the user clicks anywhere inside the chip. */
     _handleFocus(): void;
     _handleKeydown(event: KeyboardEvent): void;
     _handleClick(event: MouseEvent): void;
     _handleDoubleclick(event: MouseEvent): void;
+    _edit(): void;
     private _startEditing;
     private _onEditFinish;
     _isRippleDisabled(): boolean;
@@ -379,7 +415,7 @@ declare class MatChipRow extends MatChip implements AfterViewInit {
      */
     private _getEditInput;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipRow, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]", never, { "editable": { "alias": "editable"; "required": false; }; }, { "edited": "edited"; }, ["contentEditInput"], ["mat-chip-avatar, [matChipAvatar]", "[matChipEditInput]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatChipRow, "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]", never, { "editable": { "alias": "editable"; "required": false; }; }, { "edited": "edited"; }, ["contentEditInput"], ["[matChipEdit]", "mat-chip-avatar, [matChipAvatar]", "[matChipEditInput]", "*", "mat-chip-trailing-icon,[matChipRemove],[matChipTrailingIcon]"], true, never>;
 }
 
 /**
@@ -898,7 +934,7 @@ declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy {
 
 declare class MatChipsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatChipsModule, never, [typeof MatCommonModule, typeof MatRippleModule, typeof MatChipAction, typeof MatChip, typeof MatChipAvatar, typeof MatChipEditInput, typeof MatChipGrid, typeof MatChipInput, typeof MatChipListbox, typeof MatChipOption, typeof MatChipRemove, typeof MatChipRow, typeof MatChipSet, typeof MatChipTrailingIcon], [typeof MatCommonModule, typeof MatChip, typeof MatChipAvatar, typeof MatChipEditInput, typeof MatChipGrid, typeof MatChipInput, typeof MatChipListbox, typeof MatChipOption, typeof MatChipRemove, typeof MatChipRow, typeof MatChipSet, typeof MatChipTrailingIcon]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatChipsModule, never, [typeof MatCommonModule, typeof MatRippleModule, typeof MatChipAction, typeof MatChip, typeof MatChipAvatar, typeof MatChipEdit, typeof MatChipEditInput, typeof MatChipGrid, typeof MatChipInput, typeof MatChipListbox, typeof MatChipOption, typeof MatChipRemove, typeof MatChipRow, typeof MatChipSet, typeof MatChipTrailingIcon], [typeof MatCommonModule, typeof MatChip, typeof MatChipAvatar, typeof MatChipEdit, typeof MatChipEditInput, typeof MatChipGrid, typeof MatChipInput, typeof MatChipListbox, typeof MatChipOption, typeof MatChipRemove, typeof MatChipRow, typeof MatChipSet, typeof MatChipTrailingIcon]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatChipsModule>;
 }
 
@@ -926,6 +962,12 @@ declare const MAT_CHIP_AVATAR: InjectionToken<unknown>;
  */
 declare const MAT_CHIP_TRAILING_ICON: InjectionToken<unknown>;
 /**
+ * Injection token that can be used to reference instances of `MatChipEdit`. It serves as
+ * alternative token to the actual `MatChipEdit` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+declare const MAT_CHIP_EDIT: InjectionToken<unknown>;
+/**
  * Injection token that can be used to reference instances of `MatChipRemove`. It serves as
  * alternative token to the actual `MatChipRemove` class which could cause unnecessary
  * retention of the class and its directive metadata.
@@ -936,5 +978,5 @@ declare const MAT_CHIP_REMOVE: InjectionToken<unknown>;
  */
 declare const MAT_CHIP: InjectionToken<unknown>;
 
-export { MAT_CHIP, MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_LISTBOX_CONTROL_VALUE_ACCESSOR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatChip, MatChipAvatar, MatChipEditInput, MatChipGrid, MatChipGridChange, MatChipInput, MatChipListbox, MatChipListboxChange, MatChipOption, MatChipRemove, MatChipRow, MatChipSelectionChange, MatChipSet, MatChipTrailingIcon, MatChipsModule };
+export { MAT_CHIP, MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_EDIT, MAT_CHIP_LISTBOX_CONTROL_VALUE_ACCESSOR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatChip, MatChipAvatar, MatChipEdit, MatChipEditInput, MatChipGrid, MatChipGridChange, MatChipInput, MatChipListbox, MatChipListboxChange, MatChipOption, MatChipRemove, MatChipRow, MatChipSelectionChange, MatChipSet, MatChipTrailingIcon, MatChipsModule };
 export type { MatChipEditedEvent, MatChipEvent, MatChipInputEvent, MatChipTextControl, MatChipsDefaultOptions };

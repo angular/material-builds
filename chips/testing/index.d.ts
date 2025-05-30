@@ -31,6 +31,8 @@ interface ChipRowHarnessFilters extends ChipHarnessFilters {
 }
 interface ChipSetHarnessFilters extends BaseHarnessFilters {
 }
+interface ChipEditHarnessFilters extends BaseHarnessFilters {
+}
 interface ChipRemoveHarnessFilters extends BaseHarnessFilters {
 }
 interface ChipAvatarHarnessFilters extends BaseHarnessFilters {
@@ -48,6 +50,20 @@ declare class MatChipAvatarHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatChipAvatarHarness>(this: ComponentHarnessConstructor<T>, options?: ChipAvatarHarnessFilters): HarnessPredicate<T>;
+}
+
+/** Harness for interacting with a standard Material chip edit button in tests. */
+declare class MatChipEditHarness extends ComponentHarness {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a chip edit with specific
+     * attributes.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatChipEditHarness>(this: ComponentHarnessConstructor<T>, options?: ChipEditHarnessFilters): HarnessPredicate<T>;
+    /** Clicks the edit button. */
+    click(): Promise<void>;
 }
 
 /** Harness for interacting with a standard Material chip remove button in tests. */
@@ -80,6 +96,11 @@ declare class MatChipHarness extends ContentContainerComponentHarness {
     isDisabled(): Promise<boolean>;
     /** Delete a chip from the set. */
     remove(): Promise<void>;
+    /**
+     * Gets the edit button inside of a chip.
+     * @param filter Optionally filters which chips are included.
+     */
+    geEditButton(filter?: ChipEditHarnessFilters): Promise<MatChipEditHarness>;
     /**
      * Gets the remove button inside of a chip.
      * @param filter Optionally filters which chips are included.
@@ -245,5 +266,5 @@ declare class MatChipSetHarness extends ComponentHarness {
     getChips(filter?: ChipHarnessFilters): Promise<MatChipHarness[]>;
 }
 
-export { MatChipAvatarHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
-export type { ChipAvatarHarnessFilters, ChipEditInputHarnessFilters, ChipGridHarnessFilters, ChipHarnessFilters, ChipInputHarnessFilters, ChipListboxHarnessFilters, ChipOptionHarnessFilters, ChipRemoveHarnessFilters, ChipRowHarnessFilters, ChipSetHarnessFilters };
+export { MatChipAvatarHarness, MatChipEditHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
+export type { ChipAvatarHarnessFilters, ChipEditHarnessFilters, ChipEditInputHarnessFilters, ChipGridHarnessFilters, ChipHarnessFilters, ChipInputHarnessFilters, ChipListboxHarnessFilters, ChipOptionHarnessFilters, ChipRemoveHarnessFilters, ChipRowHarnessFilters, ChipSetHarnessFilters };
