@@ -404,6 +404,8 @@ declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     toggleMenu(): void;
     /** Opens the menu. */
     openMenu(): void;
+    /** Internal method to open menu providing option to auto focus on first item. */
+    private _openMenu;
     /** Closes the menu. */
     closeMenu(): void;
     /**
