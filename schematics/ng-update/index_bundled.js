@@ -6781,7 +6781,9 @@ function renameMdcTokens() {
       if (shouldRenameTokens(path)) {
         const content = tree.readText(path);
         const updatedContent = content.replace("--mdc-", "--mat-");
-        tree.overwrite(path, updatedContent);
+        if (content !== updatedContent) {
+          tree.overwrite(path, updatedContent);
+        }
       }
     });
   };
