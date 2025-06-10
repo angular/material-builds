@@ -1127,7 +1127,7 @@ interface MatDatepickerControl<D> {
     getOverlayLabelId(): string | null;
     stateChanges: Observable<void>;
 }
-/** A datepicker that can be attached to a {@link MatDatepickerControl}. */
+/** A datepicker that can be attached to a `MatDatepickerControl`. */
 interface MatDatepickerPanel<C extends MatDatepickerControl<D>, S, D = ExtractDateTypeFromSelection<S>> {
     /** Stream that emits whenever the date picker is closed. */
     closedStream: EventEmitter<void>;
