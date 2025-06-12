@@ -18,6 +18,7 @@ interface ButtonHarnessFilters extends BaseHarnessFilters {
 
 /** Harness for interacting with a mat-button in tests. */
 declare class MatButtonHarness extends ContentContainerComponentHarness {
+    /** Selector for the harness. */
     static hostSelector: string;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a button with specific attributes.
