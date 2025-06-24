@@ -179,17 +179,6 @@ declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy
     /** Whether the form control is a native select that is displayed inline. */
     _isInlineSelect(): boolean;
     private _iOSKeyupListener;
-    private _webkitBlinkWheelListener;
-    /**
-     * In blink and webkit browsers a focused number input does not increment or decrement its value
-     * on mouse wheel interaction unless a wheel event listener is attached to it or one of its
-     * ancestors or a passive wheel listener is attached somewhere in the DOM. For example: Hitting
-     * a tooltip once enables the mouse wheel input for all number inputs as long as it exists. In
-     * order to get reliable and intuitive behavior we apply a wheel event on our own thus making
-     * sure increment and decrement by mouse wheel works every time.
-     * @docs-private
-     */
-    private _ensureWheelDefaultBehavior;
     /** Gets the value to set on the `readonly` attribute. */
     protected _getReadonlyAttribute(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInput, never>;
