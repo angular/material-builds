@@ -27,7 +27,7 @@ import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 
 /** Current version of Angular Material. */
-const VERSION = new Version('20.1.0-next.1');
+const VERSION = new Version('20.1.0-next.2');
 
 /**
  * Matches strings that have the form of a valid RFC 3339 string
