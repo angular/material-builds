@@ -106,7 +106,7 @@ class MatDrawer {
     _ngZone = inject(NgZone);
     _renderer = inject(Renderer2);
     _interactivityChecker = inject(InteractivityChecker);
-    _doc = inject(DOCUMENT, { optional: true });
+    _doc = inject(DOCUMENT);
     _container = inject(MAT_DRAWER_CONTAINER, { optional: true });
     _focusTrap = null;
     _elementFocusedBeforeDrawerWasOpened = null;
@@ -225,9 +225,7 @@ class MatDrawer {
     constructor() {
         this.openedChange.pipe(takeUntil(this._destroyed)).subscribe((opened) => {
             if (opened) {
-                if (this._doc) {
-                    this._elementFocusedBeforeDrawerWasOpened = this._doc.activeElement;
-                }
+                this._elementFocusedBeforeDrawerWasOpened = this._doc.activeElement;
                 this._takeFocus();
             }
             else if (this._isFocusWithinDrawer()) {
