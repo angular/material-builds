@@ -46,6 +46,12 @@ declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, 
      * a date object (only time will be used) or a valid time string.
      */
     readonly max: InputSignalWithTransform<D | null, unknown>;
+    /**
+     * Whether to open the timepicker overlay when clicking on the input. Enabled by default.
+     * Note that when disabling this option, you'll have to provide your own logic for opening
+     * the overlay.
+     */
+    readonly openOnClick: InputSignalWithTransform<boolean, unknown>;
     /** Whether the input is disabled. */
     readonly disabled: Signal<boolean>;
     /**
@@ -122,7 +128,7 @@ declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, 
     /** Gets a function that can be used to validate the input. */
     private _getValidator;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerInput<any>, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTimepickerInput<any>, "input[matTimepicker]", ["matTimepickerInput"], { "value": { "alias": "value"; "required": false; "isSignal": true; }; "timepicker": { "alias": "matTimepicker"; "required": true; "isSignal": true; }; "min": { "alias": "matTimepickerMin"; "required": false; "isSignal": true; }; "max": { "alias": "matTimepickerMax"; "required": false; "isSignal": true; }; "disabledInput": { "alias": "disabled"; "required": false; "isSignal": true; }; }, { "value": "valueChange"; }, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatTimepickerInput<any>, "input[matTimepicker]", ["matTimepickerInput"], { "value": { "alias": "value"; "required": false; "isSignal": true; }; "timepicker": { "alias": "matTimepicker"; "required": true; "isSignal": true; }; "min": { "alias": "matTimepickerMin"; "required": false; "isSignal": true; }; "max": { "alias": "matTimepickerMax"; "required": false; "isSignal": true; }; "openOnClick": { "alias": "matTimepickerOpenOnClick"; "required": false; "isSignal": true; }; "disabledInput": { "alias": "disabled"; "required": false; "isSignal": true; }; }, { "value": "valueChange"; }, never, never, true, never>;
 }
 
 /**
