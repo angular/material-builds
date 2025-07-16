@@ -296,9 +296,9 @@ var require_picocolors = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/tokenize.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/tokenize.js
 var require_tokenize = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/tokenize.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/tokenize.js"(exports2, module2) {
     "use strict";
     var SINGLE_QUOTE = "'".charCodeAt(0);
     var DOUBLE_QUOTE = '"'.charCodeAt(0);
@@ -511,9 +511,9 @@ var require_tokenize = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/terminal-highlight.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/terminal-highlight.js
 var require_terminal_highlight = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/terminal-highlight.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/terminal-highlight.js"(exports2, module2) {
     "use strict";
     var pico = require_picocolors();
     var tokenizer = require_tokenize();
@@ -573,9 +573,9 @@ var require_terminal_highlight = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/css-syntax-error.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/css-syntax-error.js
 var require_css_syntax_error = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/css-syntax-error.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/css-syntax-error.js"(exports2, module2) {
     "use strict";
     var pico = require_picocolors();
     var terminalHighlight = require_terminal_highlight();
@@ -670,9 +670,9 @@ var require_css_syntax_error = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/stringifier.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/stringifier.js
 var require_stringifier = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/stringifier.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/stringifier.js"(exports2, module2) {
     "use strict";
     var DEFAULT_RAW = {
       after: "\n",
@@ -974,9 +974,9 @@ var require_stringifier = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/stringify.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/stringify.js
 var require_stringify = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/stringify.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/stringify.js"(exports2, module2) {
     "use strict";
     var Stringifier = require_stringifier();
     function stringify(node, builder) {
@@ -988,18 +988,18 @@ var require_stringify = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/symbols.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/symbols.js
 var require_symbols = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/symbols.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/symbols.js"(exports2, module2) {
     "use strict";
     module2.exports.isClean = Symbol("isClean");
     module2.exports.my = Symbol("my");
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/node.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/node.js
 var require_node = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/node.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/node.js"(exports2, module2) {
     "use strict";
     var CssSyntaxError = require_css_syntax_error();
     var Stringifier = require_stringifier();
@@ -1170,7 +1170,7 @@ var require_node = __commonJS({
         let index = this.parent.index(this);
         return this.parent.nodes[index + 1];
       }
-      positionBy(opts = {}) {
+      positionBy(opts) {
         let pos = this.source.start;
         if (opts.index) {
           pos = this.positionInside(opts.index);
@@ -1199,38 +1199,27 @@ var require_node = __commonJS({
             column += 1;
           }
         }
-        return { column, line, offset: end };
+        return { column, line };
       }
       prev() {
         if (!this.parent) return void 0;
         let index = this.parent.index(this);
         return this.parent.nodes[index - 1];
       }
-      rangeBy(opts = {}) {
-        let inputString = "document" in this.source.input ? this.source.input.document : this.source.input.css;
+      rangeBy(opts) {
         let start = {
           column: this.source.start.column,
-          line: this.source.start.line,
-          offset: sourceOffset(inputString, this.source.start)
+          line: this.source.start.line
         };
         let end = this.source.end ? {
           column: this.source.end.column + 1,
-          line: this.source.end.line,
-          offset: typeof this.source.end.offset === "number" ? (
-            // `source.end.offset` is exclusive, so we don't need to add 1
-            this.source.end.offset
-          ) : (
-            // Since line/column in this.source.end is inclusive,
-            // the `sourceOffset(... , this.source.end)` returns an inclusive offset.
-            // So, we add 1 to convert it to exclusive.
-            sourceOffset(inputString, this.source.end) + 1
-          )
+          line: this.source.end.line
         } : {
           column: start.column + 1,
-          line: start.line,
-          offset: start.offset + 1
+          line: start.line
         };
         if (opts.word) {
+          let inputString = "document" in this.source.input ? this.source.input.document : this.source.input.css;
           let stringRepresentation = inputString.slice(
             sourceOffset(inputString, this.source.start),
             sourceOffset(inputString, this.source.end)
@@ -1238,14 +1227,15 @@ var require_node = __commonJS({
           let index = stringRepresentation.indexOf(opts.word);
           if (index !== -1) {
             start = this.positionInside(index);
-            end = this.positionInside(index + opts.word.length);
+            end = this.positionInside(
+              index + opts.word.length
+            );
           }
         } else {
           if (opts.start) {
             start = {
               column: opts.start.column,
-              line: opts.start.line,
-              offset: sourceOffset(inputString, opts.start)
+              line: opts.start.line
             };
           } else if (opts.index) {
             start = this.positionInside(opts.index);
@@ -1253,8 +1243,7 @@ var require_node = __commonJS({
           if (opts.end) {
             end = {
               column: opts.end.column,
-              line: opts.end.line,
-              offset: sourceOffset(inputString, opts.end)
+              line: opts.end.line
             };
           } else if (typeof opts.endIndex === "number") {
             end = this.positionInside(opts.endIndex);
@@ -1263,11 +1252,7 @@ var require_node = __commonJS({
           }
         }
         if (end.line < start.line || end.line === start.line && end.column <= start.column) {
-          end = {
-            column: start.column + 1,
-            line: start.line,
-            offset: start.offset + 1
-          };
+          end = { column: start.column + 1, line: start.line };
         }
         return { end, start };
       }
@@ -1331,7 +1316,6 @@ var require_node = __commonJS({
           } else if (typeof value === "object" && value.toJSON) {
             fixed[name] = value.toJSON(null, inputs);
           } else if (name === "source") {
-            if (value == null) continue;
             let inputId = inputs.get(value.input);
             if (inputId == null) {
               inputId = inputsNextIndex;
@@ -1366,7 +1350,7 @@ var require_node = __commonJS({
         });
         return result;
       }
-      warn(result, text, opts = {}) {
+      warn(result, text, opts) {
         let data = { node: this };
         for (let i in opts) data[i] = opts[i];
         return result.warn(text, data);
@@ -1377,9 +1361,9 @@ var require_node = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/comment.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/comment.js
 var require_comment = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/comment.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/comment.js"(exports2, module2) {
     "use strict";
     var Node = require_node();
     var Comment = class extends Node {
@@ -1393,9 +1377,9 @@ var require_comment = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/declaration.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/declaration.js
 var require_declaration = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/declaration.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/declaration.js"(exports2, module2) {
     "use strict";
     var Node = require_node();
     var Declaration = class extends Node {
@@ -1415,9 +1399,9 @@ var require_declaration = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/container.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/container.js
 var require_container = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/container.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/container.js"(exports2, module2) {
     "use strict";
     var Comment = require_comment();
     var Declaration = require_declaration();
@@ -1800,9 +1784,9 @@ var require_container = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/at-rule.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/at-rule.js
 var require_at_rule = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/at-rule.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/at-rule.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var AtRule = class extends Container {
@@ -1825,9 +1809,9 @@ var require_at_rule = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/document.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/document.js
 var require_document = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/document.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/document.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var LazyResult;
@@ -3784,9 +3768,9 @@ var require_source_map = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/previous-map.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/previous-map.js
 var require_previous_map = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/previous-map.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/previous-map.js"(exports2, module2) {
     "use strict";
     var { existsSync, readFileSync } = require("fs");
     var { dirname, join } = require("path");
@@ -3904,9 +3888,9 @@ var require_previous_map = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/input.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/input.js
 var require_input = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/input.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/input.js"(exports2, module2) {
     "use strict";
     var { nanoid } = require_non_secure();
     var { isAbsolute, resolve } = require("path");
@@ -3915,21 +3899,9 @@ var require_input = __commonJS({
     var CssSyntaxError = require_css_syntax_error();
     var PreviousMap = require_previous_map();
     var terminalHighlight = require_terminal_highlight();
-    var lineToIndexCache = Symbol("lineToIndexCache");
+    var fromOffsetCache = Symbol("fromOffsetCache");
     var sourceMapAvailable = Boolean(SourceMapConsumer && SourceMapGenerator);
     var pathAvailable = Boolean(resolve && isAbsolute);
-    function getLineToIndex(input) {
-      if (input[lineToIndexCache]) return input[lineToIndexCache];
-      let lines = input.css.split("\n");
-      let lineToIndex = new Array(lines.length);
-      let prevIndex = 0;
-      for (let i = 0, l = lines.length; i < l; i++) {
-        lineToIndex[i] = prevIndex;
-        prevIndex += lines[i].length + 1;
-      }
-      input[lineToIndexCache] = lineToIndex;
-      return lineToIndex;
-    }
     var Input = class {
       get from() {
         return this.file || this.id;
@@ -3968,37 +3940,30 @@ var require_input = __commonJS({
         if (this.map) this.map.file = this.from;
       }
       error(message, line, column, opts = {}) {
-        let endColumn, endLine, endOffset, offset, result;
+        let endColumn, endLine, result;
         if (line && typeof line === "object") {
           let start = line;
           let end = column;
           if (typeof start.offset === "number") {
-            offset = start.offset;
-            let pos = this.fromOffset(offset);
+            let pos = this.fromOffset(start.offset);
             line = pos.line;
             column = pos.col;
           } else {
             line = start.line;
             column = start.column;
-            offset = this.fromLineAndColumn(line, column);
           }
           if (typeof end.offset === "number") {
-            endOffset = end.offset;
-            let pos = this.fromOffset(endOffset);
+            let pos = this.fromOffset(end.offset);
             endLine = pos.line;
             endColumn = pos.col;
           } else {
             endLine = end.line;
             endColumn = end.column;
-            endOffset = this.fromLineAndColumn(end.line, end.column);
           }
         } else if (!column) {
-          offset = line;
-          let pos = this.fromOffset(offset);
+          let pos = this.fromOffset(line);
           line = pos.line;
           column = pos.col;
-        } else {
-          offset = this.fromLineAndColumn(line, column);
         }
         let origin = this.origin(line, column, endLine, endColumn);
         if (origin) {
@@ -4020,7 +3985,7 @@ var require_input = __commonJS({
             opts.plugin
           );
         }
-        result.input = { column, endColumn, endLine, endOffset, line, offset, source: this.css };
+        result.input = { column, endColumn, endLine, line, source: this.css };
         if (this.file) {
           if (pathToFileURL) {
             result.input.url = pathToFileURL(this.file).toString();
@@ -4029,14 +3994,21 @@ var require_input = __commonJS({
         }
         return result;
       }
-      fromLineAndColumn(line, column) {
-        let lineToIndex = getLineToIndex(this);
-        let index = lineToIndex[line - 1];
-        return index + column - 1;
-      }
       fromOffset(offset) {
-        let lineToIndex = getLineToIndex(this);
-        let lastLine = lineToIndex[lineToIndex.length - 1];
+        let lastLine, lineToIndex;
+        if (!this[fromOffsetCache]) {
+          let lines = this.css.split("\n");
+          lineToIndex = new Array(lines.length);
+          let prevIndex = 0;
+          for (let i = 0, l = lines.length; i < l; i++) {
+            lineToIndex[i] = prevIndex;
+            prevIndex += lines[i].length + 1;
+          }
+          this[fromOffsetCache] = lineToIndex;
+        } else {
+          lineToIndex = this[fromOffsetCache];
+        }
+        lastLine = lineToIndex[lineToIndex.length - 1];
         let min = 0;
         if (offset >= lastLine) {
           min = lineToIndex.length - 1;
@@ -4126,9 +4098,9 @@ var require_input = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/root.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/root.js
 var require_root = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/root.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/root.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var LazyResult;
@@ -4180,9 +4152,9 @@ var require_root = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/list.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/list.js
 var require_list = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/list.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/list.js"(exports2, module2) {
     "use strict";
     var list = {
       comma(string) {
@@ -4236,9 +4208,9 @@ var require_list = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/rule.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/rule.js
 var require_rule = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/rule.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/rule.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var list = require_list();
@@ -4263,9 +4235,9 @@ var require_rule = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/fromJSON.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/fromJSON.js
 var require_fromJSON = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/fromJSON.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/fromJSON.js"(exports2, module2) {
     "use strict";
     var AtRule = require_at_rule();
     var Comment = require_comment();
@@ -4318,9 +4290,9 @@ var require_fromJSON = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/map-generator.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/map-generator.js
 var require_map_generator = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/map-generator.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/map-generator.js"(exports2, module2) {
     "use strict";
     var { dirname, relative, resolve, sep } = require("path");
     var { SourceMapConsumer, SourceMapGenerator } = require_source_map();
@@ -4635,9 +4607,9 @@ var require_map_generator = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/parser.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/parser.js
 var require_parser = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/parser.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/parser.js"(exports2, module2) {
     "use strict";
     var AtRule = require_at_rule();
     var Comment = require_comment();
@@ -5169,9 +5141,9 @@ var require_parser = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/parse.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/parse.js
 var require_parse = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/parse.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/parse.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var Input = require_input();
@@ -5203,9 +5175,9 @@ var require_parse = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/warning.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/warning.js
 var require_warning = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/warning.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/warning.js"(exports2, module2) {
     "use strict";
     var Warning = class {
       constructor(text, opts = {}) {
@@ -5239,9 +5211,9 @@ var require_warning = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/result.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/result.js
 var require_result = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/result.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/result.js"(exports2, module2) {
     "use strict";
     var Warning = require_warning();
     var Result = class {
@@ -5253,7 +5225,7 @@ var require_result = __commonJS({
         this.messages = [];
         this.root = root;
         this.opts = opts;
-        this.css = "";
+        this.css = void 0;
         this.map = void 0;
       }
       toString() {
@@ -5278,9 +5250,9 @@ var require_result = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/warn-once.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/warn-once.js
 var require_warn_once = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/warn-once.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/warn-once.js"(exports2, module2) {
     "use strict";
     var printed = {};
     module2.exports = function warnOnce(message) {
@@ -5293,9 +5265,9 @@ var require_warn_once = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/lazy-result.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/lazy-result.js
 var require_lazy_result = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/lazy-result.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/lazy-result.js"(exports2, module2) {
     "use strict";
     var Container = require_container();
     var Document = require_document();
@@ -5769,9 +5741,9 @@ var require_lazy_result = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/no-work-result.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/no-work-result.js
 var require_no_work_result = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/no-work-result.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/no-work-result.js"(exports2, module2) {
     "use strict";
     var MapGenerator = require_map_generator();
     var parse = require_parse();
@@ -5885,9 +5857,9 @@ var require_no_work_result = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/processor.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/processor.js
 var require_processor = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/processor.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/processor.js"(exports2, module2) {
     "use strict";
     var Document = require_document();
     var LazyResult = require_lazy_result();
@@ -5895,7 +5867,7 @@ var require_processor = __commonJS({
     var Root = require_root();
     var Processor = class {
       constructor(plugins = []) {
-        this.version = "8.5.6";
+        this.version = "8.5.3";
         this.plugins = this.normalize(plugins);
       }
       normalize(plugins) {
@@ -5943,9 +5915,9 @@ var require_processor = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/postcss.js
+// node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/postcss.js
 var require_postcss = __commonJS({
-  "node_modules/.aspect_rules_js/postcss@8.5.6/node_modules/postcss/lib/postcss.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss@8.5.3/node_modules/postcss/lib/postcss.js"(exports2, module2) {
     "use strict";
     var AtRule = require_at_rule();
     var Comment = require_comment();
@@ -6031,9 +6003,9 @@ var require_postcss = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-stringifier.js
+// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-stringifier.js
 var require_scss_stringifier = __commonJS({
-  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-stringifier.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-stringifier.js"(exports2, module2) {
     var Stringifier = require_stringifier();
     var ScssStringifier = class extends Stringifier {
       comment(node) {
@@ -6081,9 +6053,9 @@ var require_scss_stringifier = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-stringify.js
+// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-stringify.js
 var require_scss_stringify = __commonJS({
-  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-stringify.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-stringify.js"(exports2, module2) {
     var ScssStringifier = require_scss_stringifier();
     module2.exports = function scssStringify(node, builder) {
       let str = new ScssStringifier(builder);
@@ -6092,9 +6064,9 @@ var require_scss_stringify = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/nested-declaration.js
+// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/nested-declaration.js
 var require_nested_declaration = __commonJS({
-  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/nested-declaration.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/nested-declaration.js"(exports2, module2) {
     var { Container } = require_postcss();
     var NestedDeclaration = class extends Container {
       constructor(defaults) {
@@ -6108,9 +6080,9 @@ var require_nested_declaration = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-tokenize.js
+// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-tokenize.js
 var require_scss_tokenize = __commonJS({
-  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-tokenize.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-tokenize.js"(exports2, module2) {
     "use strict";
     var SINGLE_QUOTE = "'".charCodeAt(0);
     var DOUBLE_QUOTE = '"'.charCodeAt(0);
@@ -6374,9 +6346,9 @@ var require_scss_tokenize = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-parser.js
+// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-parser.js
 var require_scss_parser = __commonJS({
-  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-parser.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-parser.js"(exports2, module2) {
     var { Comment } = require_postcss();
     var Parser = require_parser();
     var NestedDeclaration = require_nested_declaration();
@@ -6570,9 +6542,9 @@ var require_scss_parser = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-parse.js
+// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-parse.js
 var require_scss_parse = __commonJS({
-  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-parse.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-parse.js"(exports2, module2) {
     var { Input } = require_postcss();
     var ScssParser = require_scss_parser();
     module2.exports = function scssParse(scss, opts) {
@@ -6584,9 +6556,9 @@ var require_scss_parse = __commonJS({
   }
 });
 
-// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-syntax.js
+// node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-syntax.js
 var require_scss_syntax = __commonJS({
-  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.6/node_modules/postcss-scss/lib/scss-syntax.js"(exports2, module2) {
+  "node_modules/.aspect_rules_js/postcss-scss@4.0.9_postcss_8.5.3/node_modules/postcss-scss/lib/scss-syntax.js"(exports2, module2) {
     var stringify = require_scss_stringify();
     var parse = require_scss_parse();
     module2.exports = { parse, stringify };
