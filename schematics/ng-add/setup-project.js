@@ -28,7 +28,6 @@ function default_1(options) {
                 (0, theming_1.addThemeToAppStyles)(options),
                 (0, material_fonts_1.addFontsToIndex)(options),
                 addMaterialAppStyles(options),
-                options.typography ? (0, theming_1.addTypographyClass)(options) : (0, schematics_1.noop)(),
             ]);
         }
         context.logger.warn('Angular Material has been set up in your workspace. There is no additional setup ' +

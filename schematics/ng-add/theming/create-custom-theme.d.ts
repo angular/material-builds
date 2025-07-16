@@ -6,4 +6,4 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 /** Create custom theme for the given application configuration. */
-export declare function createCustomTheme(name?: string): string;
+export declare function createCustomTheme(userPaletteChoice: string): string;
