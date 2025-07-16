@@ -22,7 +22,14 @@ const defaultCustomThemeFilename = 'custom-theme.scss';
 /** Add pre-built styles to the main project style file. */
 function addThemeToAppStyles(options) {
     return (host, context) => {
-        const palettes = options.theme || 'azure-blue';
+        let palettes = options.theme || 'azure-blue';
+        // For a long time, theme param could be "custom" which meant to add a custom theme. This option
+        // was removed since we always add a custom theme, and we expect this option to be the
+        // user's preferred palettes. However it's possible that users will have hardcoded CLI commands
+        // that pass "--theme custom" and we can gracefully handle this by assuming azure-blue.
+        if (palettes === 'custom') {
+            palettes = 'azure-blue';
+        }
         return insertCustomTheme(palettes, options.project, host, context.logger);
     };
 }
