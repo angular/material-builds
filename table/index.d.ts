@@ -206,7 +206,7 @@ declare class MatTableDataSource<T, P extends MatPaginator = MatPaginator> exten
      * emitted by the MatSort will trigger an update to the table's rendered data.
      */
     get sort(): MatSort | null;
-    set sort(sort: MatSort | null);
+    set sort(sort: MatSort | null | undefined);
     private _sort;
     /**
      * Instance of the paginator component used by the table to control what page of the data is
@@ -219,7 +219,7 @@ declare class MatTableDataSource<T, P extends MatPaginator = MatPaginator> exten
      * initialized before assigning it to this data source.
      */
     get paginator(): P | null;
-    set paginator(paginator: P | null);
+    set paginator(paginator: P | null | undefined);
     private _paginator;
     /**
      * Data accessor function that is used for accessing data properties for sorting through
