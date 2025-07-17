@@ -4,8 +4,8 @@ import { InjectionToken, inject, ElementRef, Directive, signal, Input, NgZone, I
 import { Platform, _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { Subscription, merge, Subject } from 'rxjs';
-import { a as MAT_RIPPLE_GLOBAL_OPTIONS, R as RippleRenderer } from './ripple-Caf80wGY.mjs';
-import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
+import { a as MAT_RIPPLE_GLOBAL_OPTIONS, R as RippleRenderer } from './ripple-Zv-qeZC_.mjs';
+import { _ as _animationsDisabled } from './animation-ChQ1vjiF.mjs';
 import { _ as _StructuralStylesLoader } from './structural-styles-BrpNk7kf.mjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { CdkObserveContent, ObserversModule } from '@angular/cdk/observers';
@@ -17,11 +17,11 @@ import { ENTER, SPACE, A, hasModifierKey } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { M as MatCommonModule } from './common-module-DAS0wn13.mjs';
-import { M as MatRippleModule } from './index-DPMBppX-.mjs';
-import { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-BH5rV6nS.mjs';
+import { M as MatRippleModule } from './index-CuY3Kdec.mjs';
+import { M as MatPseudoCheckboxModule } from './pseudo-checkbox-module-BealdPG_.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/bidi';
-import './pseudo-checkbox-MTYwd7sN.mjs';
+import './pseudo-checkbox-C1cYESAn.mjs';
 
 /**
  * Injection token that can be used to reference instances of an `ListOption`. It serves

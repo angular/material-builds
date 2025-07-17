@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, 
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { coerceElement } from '@angular/cdk/coercion';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
+import { _ as _animationsDisabled } from './animation-ChQ1vjiF.mjs';
 
 /** Possible states for a ripple element. */
 var RippleState;
@@ -637,4 +637,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.0", 
             }] } });
 
 export { MatRipple as M, RippleRenderer as R, MAT_RIPPLE_GLOBAL_OPTIONS as a, RippleState as b, RippleRef as c, defaultRippleAnimationConfig as d };
-//# sourceMappingURL=ripple-Caf80wGY.mjs.map
+//# sourceMappingURL=ripple-Zv-qeZC_.mjs.map

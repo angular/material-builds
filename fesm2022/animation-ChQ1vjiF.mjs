@@ -24,18 +24,26 @@ class AnimationDurations {
     static ENTERING = '225ms';
     static EXITING = '195ms';
 }
+let reducedMotion = null;
+/**
+ * Gets the the configured animations state.
+ * @docs-private
+ */
+function _getAnimationsState() {
+    if (inject(MATERIAL_ANIMATIONS, { optional: true })?.animationsDisabled ||
+        inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations') {
+        return 'di-disabled';
+    }
+    reducedMotion ??= inject(MediaMatcher).matchMedia('(prefers-reduced-motion)').matches;
+    return reducedMotion ? 'reduced-motion' : 'enabled';
+}
 /**
  * Returns whether animations have been disabled by DI. Must be called in a DI context.
  * @docs-private
  */
 function _animationsDisabled() {
-    if (inject(MATERIAL_ANIMATIONS, { optional: true })?.animationsDisabled ||
-        inject(ANIMATION_MODULE_TYPE, { optional: true }) === 'NoopAnimations') {
-        return true;
-    }
-    const mediaMatcher = inject(MediaMatcher);
-    return mediaMatcher.matchMedia('(prefers-reduced-motion)').matches;
+    return _getAnimationsState() !== 'enabled';
 }
 
-export { AnimationCurves as A, MATERIAL_ANIMATIONS as M, _animationsDisabled as _, AnimationDurations as a };
-//# sourceMappingURL=animation-DfMFjxHu.mjs.map
+export { AnimationCurves as A, MATERIAL_ANIMATIONS as M, _animationsDisabled as _, _getAnimationsState as a, AnimationDurations as b };
+//# sourceMappingURL=animation-ChQ1vjiF.mjs.map

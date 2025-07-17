@@ -4,7 +4,7 @@ import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
 import { EventEmitter, Component, ViewEncapsulation, ChangeDetectionStrategy, InjectionToken, inject, Injector, Injectable, ElementRef, Directive, Input, NgModule } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
+import { _ as _animationsDisabled } from './animation-ChQ1vjiF.mjs';
 import { Subject, merge, defer } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
@@ -888,4 +888,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.0", 
         }] });
 
 export { MatDialogActions as M, _closeDialogVia as _, MatDialogClose as a, MatDialogTitle as b, MatDialogContent as c, MatDialogContainer as d, MAT_DIALOG_DATA as e, MAT_DIALOG_DEFAULT_OPTIONS as f, MAT_DIALOG_SCROLL_STRATEGY as g, MatDialog as h, MatDialogConfig as i, MatDialogState as j, MatDialogRef as k, MatDialogModule as l };
-//# sourceMappingURL=module-MzaMA0u6.mjs.map
+//# sourceMappingURL=module-BIpJc6Po.mjs.map
