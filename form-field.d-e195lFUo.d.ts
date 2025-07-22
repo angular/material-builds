@@ -275,6 +275,7 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     private _stateChanges;
     private _valueChanges;
     private _describedByChanges;
+    private _outlineLabelOffsetResizeObserver;
     protected readonly _animationsDisabled: boolean;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
@@ -306,7 +307,6 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     /** Throws an error if the form field's control is missing. */
     private _assertFormFieldControl;
     private _updateFocusState;
-    private _outlineLabelOffsetResizeObserver;
     /**
      * The floating label in the docked state needs to account for prefixes. The horizontal offset
      * is calculated whenever the appearance changes to `outline`, the prefixes change, or when the

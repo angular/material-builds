@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { Optional, InjectionToken, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { T as ThemePalette } from './palette.d-BSSFKjO6.js';
 import { Subject, Observable } from 'rxjs';
-import { h as MatFormFieldAppearance } from './form-field.d-C6p5uYjG.js';
+import { h as MatFormFieldAppearance } from './form-field.d-e195lFUo.js';
 
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
