@@ -2,7 +2,7 @@ import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, DOCUMENT, HOST_TAG_NAME, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
-import { _ as _animationsDisabled } from './animation-DfMFjxHu.mjs';
+import { _ as _animationsDisabled } from './animation-ChQ1vjiF.mjs';
 import { M as MatCommonModule } from './common-module-cKSwHniA.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/bidi';

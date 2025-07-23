@@ -52,6 +52,11 @@ declare class AnimationDurations {
     static EXITING: string;
 }
 /**
+ * Gets the the configured animations state.
+ * @docs-private
+ */
+declare function _getAnimationsState(): 'enabled' | 'di-disabled' | 'reduced-motion';
+/**
  * Returns whether animations have been disabled by DI. Must be called in a DI context.
  * @docs-private
  */
@@ -203,5 +208,5 @@ declare class _MatInternalFormField {
     static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
 }
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher$1 as ErrorStateMatcher, MATERIAL_ANIMATIONS, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, provideNativeDateAdapter };
+export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher$1 as ErrorStateMatcher, MATERIAL_ANIMATIONS, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, _getAnimationsState, provideNativeDateAdapter };
 export type { AnimationsConfig, MatDateFormats };
