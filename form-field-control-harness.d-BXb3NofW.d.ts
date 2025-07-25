@@ -10,8 +10,10 @@ declare abstract class MatFormFieldControlHarness extends ComponentHarness {
  * Shared behavior for `MatFormFieldControlHarness` implementations
  */
 declare abstract class MatFormFieldControlHarnessBase extends MatFormFieldControlHarness {
-    private readonly _floatingLabelSelector;
-    /** Gets the text content of the floating label, if it exists. */
+    /**
+     * Gets the label for the control, if it exists. This might be provided by a label element or by
+     * the `aria-label` attribute.
+     */
     getLabel(): Promise<string | null>;
 }
 

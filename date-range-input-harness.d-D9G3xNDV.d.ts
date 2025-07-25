@@ -251,7 +251,6 @@ declare class MatEndDateHarness extends MatDatepickerInputHarnessBase {
 /** Harness for interacting with a standard Material date range input in tests. */
 declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     static hostSelector: string;
-    private readonly _floatingLabelSelector;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a `MatDateRangeInputHarness`
      * that meets certain criteria.
@@ -265,7 +264,10 @@ declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
     getStartInput(): Promise<MatStartDateHarness>;
     /** Gets the inner start date input inside the range input. */
     getEndInput(): Promise<MatEndDateHarness>;
-    /** Gets the floating label text for the range input, if it exists. */
+    /**
+     * Gets the label for the range input, if it exists. This might be provided by a label element or
+     * by the `aria-label` attribute.
+     */
     getLabel(): Promise<string | null>;
     /** Gets the separator text between the values of the two inputs. */
     getSeparator(): Promise<string>;
