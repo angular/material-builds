@@ -359,7 +359,17 @@ class MatSlider {
     }
     _discrete = false;
     /** Whether the slider displays tick marks along the slider track. */
-    showTickMarks = false;
+    get showTickMarks() {
+        return this._showTickMarks;
+    }
+    set showTickMarks(value) {
+        this._showTickMarks = value;
+        if (this._hasViewInitialized) {
+            this._updateTickMarkUI();
+            this._updateTickMarkTrackUI();
+        }
+    }
+    _showTickMarks = false;
     /** The minimum value that the slider can have. */
     get min() {
         return this._min;
