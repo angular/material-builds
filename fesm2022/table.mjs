@@ -588,8 +588,6 @@ class MatTableDataSource extends DataSource {
         return this._sort;
     }
     set sort(sort) {
-        // Treat undefined like the initial this._sort value.
-        // Note that the API can be changed in a breaking change to fix the cast.
         this._sort = sort;
         this._updateChangeSubscription();
     }
@@ -608,8 +606,6 @@ class MatTableDataSource extends DataSource {
         return this._paginator;
     }
     set paginator(paginator) {
-        // Treat undefined like the initial this._paginator value.
-        // Note that the API can be changed in a breaking change to fix the cast.
         this._paginator = paginator;
         this._updateChangeSubscription();
     }
