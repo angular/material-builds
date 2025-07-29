@@ -198,7 +198,9 @@ declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     set discrete(v: boolean);
     private _discrete;
     /** Whether the slider displays tick marks along the slider track. */
-    showTickMarks: boolean;
+    get showTickMarks(): boolean;
+    set showTickMarks(value: boolean);
+    private _showTickMarks;
     /** The minimum value that the slider can have. */
     get min(): number;
     set min(v: number);
