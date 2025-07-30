@@ -33,7 +33,9 @@ html {
     typography: Roboto,
     density: 0,
   ));
+}
 
+body {
   // Default the application to a light color theme. This can be changed to
   // \`dark\` to enable the dark color theme, or to \`light dark\` to defer to the
   // user's system settings.
@@ -45,6 +47,10 @@ html {
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
-}`;
+
+  // Reset the user agent margin.
+  margin: 0;
+}
+`;
 }
 //# sourceMappingURL=create-custom-theme.js.map
