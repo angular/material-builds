@@ -1,5 +1,5 @@
-export { a as MAT_ERROR, h as MAT_FORM_FIELD, i as MAT_FORM_FIELD_DEFAULT_OPTIONS, d as MAT_PREFIX, f as MAT_SUFFIX, b as MatError, j as MatFormField, k as MatFormFieldControl, c as MatHint, M as MatLabel, e as MatPrefix, g as MatSuffix, m as getMatFormFieldDuplicatedHintError, n as getMatFormFieldMissingControlError, l as getMatFormFieldPlaceholderConflictError } from './form-field-Ce1YJL9K.mjs';
-export { M as MatFormFieldModule } from './module-Bww_vjaX.mjs';
+export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatError, MatFormField, MatFormFieldControl, MatHint, MatLabel, MatPrefix, MatSuffix, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError } from './form-field2.mjs';
+export { MatFormFieldModule } from './form-field-module.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
@@ -9,10 +9,10 @@ import '@angular/core';
 import 'rxjs';
 import 'rxjs/operators';
 import '@angular/cdk/observers/private';
-import './animation-ChQ1vjiF.mjs';
+import './animation.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/observers';
-import './common-module-Ckwlusp6.mjs';
+import './common-module.mjs';
 
 /**
  * Animations used by the MatFormField.

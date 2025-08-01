@@ -1,8 +1,8 @@
 export { MatFormFieldControlHarness } from './testing/control.mjs';
 import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
-import { M as MatInputHarness } from '../input-harness-C5Msdc4-.mjs';
+import { MatInputHarness } from '../input-harness.mjs';
 import { MatSelectHarness } from '../select/testing.mjs';
-import { M as MatDatepickerInputHarness, c as MatDateRangeInputHarness } from '../date-range-input-harness-BZyjpIJH.mjs';
+import { MatDatepickerInputHarness, MatDateRangeInputHarness } from '../date-range-input-harness.mjs';
 import '@angular/material/form-field/testing/control';
 import '@angular/cdk/coercion';
 import '@angular/material/core/testing';

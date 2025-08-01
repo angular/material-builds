@@ -1,12 +1,12 @@
 import { Directionality } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { ChangeDetectorRef, WritableSignal, AfterViewInit, OnDestroy, NgZone, ElementRef, QueryList, EventEmitter } from '@angular/core';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { R as RippleGlobalOptions, M as MatRipple } from '../ripple.d-BT30YVLB.js';
+import { ThemePalette } from '../palette.d.js';
+import { RippleGlobalOptions, MatRipple } from '../ripple.d.js';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import { M as MatRippleModule } from '../index.d-C5neTPvr.js';
+import { MatCommonModule } from '../common-module.d.js';
+import { MatRippleModule } from '../ripple-module.d.js';
 import '@angular/cdk/platform';
 
 /**

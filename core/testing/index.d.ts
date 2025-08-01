@@ -1,4 +1,4 @@
-import { O as OptionHarnessFilters, M as MatOptionHarness } from '../../option-harness.d-IqsW95GR.js';
+import { OptionHarnessFilters, MatOptionHarness } from '../../option-harness.d.js';
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
 interface OptgroupHarnessFilters extends BaseHarnessFilters {

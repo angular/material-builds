@@ -7,18 +7,18 @@ import * as i1 from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i3 from '@angular/cdk/portal';
 import { ComponentType, Portal, TemplatePortal } from '@angular/cdk/portal';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import { Observable, Subject } from 'rxjs';
-import { D as DateAdapter } from '../date-adapter.d-CtKXIxk0.js';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
+import { DateAdapter } from '../date-adapter.d.js';
+import { ThemePalette } from '../palette.d.js';
 import { ControlValueAccessor, Validator, ValidatorFn, AbstractControl, ValidationErrors, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
-import { M as MatFormFieldControl } from '../form-field-control.d-DvB4ZVlf.js';
+import { MatFormFieldControl } from '../form-field-control.d.js';
 import { Directionality } from '@angular/cdk/bidi';
-import { E as ErrorStateMatcher } from '../error-options.d-CGdTZUYk.js';
+import { ErrorStateMatcher } from '../error-options.d.js';
 import * as i5 from '@angular/cdk/scrolling';
-import '../ripple-loader.d-9me-KFSi.js';
-import '../index.d-C5neTPvr.js';
-import '../ripple.d-BT30YVLB.js';
+import '../ripple-loader.d.js';
+import '../ripple-module.d.js';
+import '../ripple.d.js';
 import '@angular/cdk/platform';
 
 /** Extra CSS classes that can be associated with a calendar cell. */

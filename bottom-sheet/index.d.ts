@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { OnDestroy, EventEmitter, InjectionToken, ViewContainerRef, ComponentRef, TemplateRef } from '@angular/core';
 import * as i1 from '@angular/cdk/dialog';
 import { CdkDialogContainer, DialogRef } from '@angular/cdk/dialog';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import * as i3 from '@angular/cdk/portal';
 import { ComponentType } from '@angular/cdk/portal';
 import { Direction } from '@angular/cdk/bidi';

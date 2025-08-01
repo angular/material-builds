@@ -1,12 +1,12 @@
-import { M as MatDialogRef, a as MatDialogContainer } from '../dialog.d-hlN3f-Hk.js';
-export { A as AutoFocusTarget, f as DialogPosition, D as DialogRole, b as MAT_DIALOG_DATA, c as MAT_DIALOG_DEFAULT_OPTIONS, d as MAT_DIALOG_SCROLL_STRATEGY, e as MatDialog, g as MatDialogConfig, h as MatDialogState, _ as _closeDialogVia } from '../dialog.d-hlN3f-Hk.js';
+import { MatDialogRef, MatDialogContainer } from '../dialog.d.js';
+export { AutoFocusTarget, DialogPosition, DialogRole, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MatDialog, MatDialogConfig, MatDialogState, _closeDialogVia } from '../dialog.d.js';
 import * as i0 from '@angular/core';
 import { OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import * as i5 from '@angular/cdk/scrolling';
 import * as i1 from '@angular/cdk/dialog';
 import * as i2 from '@angular/cdk/overlay';
 import * as i3 from '@angular/cdk/portal';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import '@angular/cdk/bidi';
 import '@angular/cdk/a11y';
 import 'rxjs';

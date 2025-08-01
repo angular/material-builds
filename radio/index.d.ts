@@ -2,11 +2,11 @@ import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnDestroy, EventEmitter, QueryList, OnInit, AfterViewInit, DoCheck, ElementRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import { M as MatRippleModule } from '../index.d-C5neTPvr.js';
+import { ThemePalette } from '../palette.d.js';
+import { MatCommonModule } from '../common-module.d.js';
+import { MatRippleModule } from '../ripple-module.d.js';
 import '@angular/cdk/bidi';
-import '../ripple.d-BT30YVLB.js';
+import '../ripple.d.js';
 import '@angular/cdk/platform';
 
 /** Change event object emitted by radio button and radio group. */

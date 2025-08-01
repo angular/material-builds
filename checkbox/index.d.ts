@@ -2,8 +2,8 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { AfterViewInit, OnChanges, ElementRef, EventEmitter, SimpleChanges, InjectionToken } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { ThemePalette } from '../palette.d.js';
+import { MatCommonModule } from '../common-module.d.js';
 import '@angular/cdk/bidi';
 
 /**

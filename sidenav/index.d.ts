@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, AfterViewInit, OnDestroy, EventEmitter, ElementRef, DoCheck, QueryList } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import * as i5 from '@angular/cdk/scrolling';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FocusOrigin } from '@angular/cdk/a11y';

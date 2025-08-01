@@ -3,18 +3,18 @@ import { CdkStepLabel, StepState, CdkStepHeader, CdkStep, CdkStepper, CdkStepper
 export { StepState, StepperOrientation } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
 import { Optional, TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, QueryList, ElementRef, EventEmitter } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import * as i3 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { M as MatIconModule } from '../icon-module.d-COXCrhrh.js';
-import { M as MatRippleModule } from '../index.d-C5neTPvr.js';
+import { MatIconModule } from '../icon-module.d.js';
+import { MatRippleModule } from '../ripple-module.d.js';
 import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { E as ErrorStateMatcher } from '../error-options.d-CGdTZUYk.js';
+import { ThemePalette } from '../palette.d.js';
+import { ErrorStateMatcher } from '../error-options.d.js';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
 import '@angular/cdk/bidi';
-import '../ripple.d-BT30YVLB.js';
+import '../ripple.d.js';
 import '@angular/cdk/platform';
 
 declare class MatStepLabel extends CdkStepLabel {

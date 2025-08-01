@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, EventEmitter } from '@angular/core';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { ThemePalette } from '../palette.d.js';
+import { MatCommonModule } from '../common-module.d.js';
 import '@angular/cdk/bidi';
 
 /** Last animation end data. */

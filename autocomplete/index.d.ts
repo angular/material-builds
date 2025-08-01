@@ -2,18 +2,18 @@ import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnDestroy, TemplateRef, ElementRef, QueryList, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { M as MatOptionModule } from '../index.d-DAhBYbjm.js';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { M as MatOption, a as MatOptgroup, b as MatOptionSelectionChange } from '../option.d-BcvS44bt.js';
+import { MatOptionModule } from '../option-module.d.js';
+import { MatCommonModule } from '../common-module.d.js';
+import { ThemePalette } from '../palette.d.js';
+import { MatOption, MatOptgroup, MatOptionSelectionChange } from '../option.d.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as i5 from '@angular/cdk/scrolling';
-import '../index.d-C5neTPvr.js';
-import '../ripple.d-BT30YVLB.js';
+import '../ripple-module.d.js';
+import '../ripple.d.js';
 import '@angular/cdk/platform';
-import '../pseudo-checkbox-module.d-BHmTZ10P.js';
+import '../pseudo-checkbox-module.d.js';
 import '@angular/cdk/bidi';
 
 /** Event object that is emitted when an autocomplete option is selected. */

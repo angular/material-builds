@@ -1,6 +1,6 @@
 import { BooleanInput } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import '@angular/cdk/bidi';
 
 declare class MatDivider {

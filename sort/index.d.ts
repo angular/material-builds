@@ -1,9 +1,9 @@
 import * as i0 from '@angular/core';
 import { Optional, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import { M as MatSortable, a as MatSort, S as SortHeaderArrowPosition } from '../sort.d-i-bF_IaU.js';
-export { d as MAT_SORT_DEFAULT_OPTIONS, c as MatSortDefaultOptions, b as Sort } from '../sort.d-i-bF_IaU.js';
-import { S as SortDirection } from '../sort-direction.d-CF7VUsH-.js';
+import { MatCommonModule } from '../common-module.d.js';
+import { MatSortable, MatSort, SortHeaderArrowPosition } from '../sort.d.js';
+export { MAT_SORT_DEFAULT_OPTIONS, MatSortDefaultOptions, Sort } from '../sort.d.js';
+import { SortDirection } from '../sort-direction.d.js';
 import { Subject } from 'rxjs';
 import '@angular/cdk/bidi';
 

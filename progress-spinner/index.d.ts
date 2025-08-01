@@ -1,8 +1,8 @@
-import { M as MatProgressSpinner } from '../progress-spinner.d-Lfz4Wh5x.js';
-export { b as MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, c as MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, a as MatProgressSpinnerDefaultOptions, d as MatSpinner, P as ProgressSpinnerMode } from '../progress-spinner.d-Lfz4Wh5x.js';
+import { MatProgressSpinner } from '../progress-spinner.d.js';
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinnerDefaultOptions, MatSpinner, ProgressSpinnerMode } from '../progress-spinner.d.js';
 import * as i0 from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import '../palette.d-BSSFKjO6.js';
+import { MatCommonModule } from '../common-module.d.js';
+import '../palette.d.js';
 import '@angular/cdk/bidi';
 
 declare class MatProgressSpinnerModule {

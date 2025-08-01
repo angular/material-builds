@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { O as OptionHarnessFilters, M as MatOptionHarness } from '../../option-harness.d-IqsW95GR.js';
+import { OptionHarnessFilters, MatOptionHarness } from '../../option-harness.d.js';
 import { OptgroupHarnessFilters, MatOptgroupHarness } from '../../core/testing/index.js';
 
 /** A set of criteria that can be used to filter a list of `MatAutocompleteHarness` instances. */

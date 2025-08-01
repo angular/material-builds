@@ -1,7 +1,7 @@
-import { M as MatLine, a as MatLineModule } from '../line.d-C-QdueRc.js';
+import { MatLine, MatLineModule } from '../line.d.js';
 import * as i0 from '@angular/core';
 import { AfterContentInit, QueryList, OnInit, AfterContentChecked } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import { NumberInput } from '@angular/cdk/coercion';
 import '@angular/cdk/bidi';
 

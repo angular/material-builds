@@ -1,18 +1,18 @@
 import * as i2 from '@angular/cdk/table';
 import { CdkTable, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn } from '@angular/cdk/table';
 import * as i0 from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
-import { M as MatPaginator } from '../paginator.d-Zo1cMMo4.js';
-import { a as MatSort } from '../sort.d-i-bF_IaU.js';
+import { MatPaginator } from '../paginator.d.js';
+import { MatSort } from '../sort.d.js';
 import '@angular/cdk/bidi';
-import '../palette.d-BSSFKjO6.js';
-import '../form-field.d-e195lFUo.js';
+import '../palette.d.js';
+import '../form-field.d.js';
 import '@angular/cdk/coercion';
 import '@angular/forms';
-import '../form-field-control.d-DvB4ZVlf.js';
-import '../sort-direction.d-CF7VUsH-.js';
+import '../form-field-control.d.js';
+import '../sort-direction.d.js';
 
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with

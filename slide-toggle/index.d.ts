@@ -2,8 +2,8 @@ import * as i0 from '@angular/core';
 import { InjectionToken, OnDestroy, AfterContentInit, OnChanges, ChangeDetectorRef, ElementRef, EventEmitter, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { ThemePalette } from '../palette.d.js';
+import { MatCommonModule } from '../common-module.d.js';
 import '@angular/cdk/bidi';
 
 /** Default `mat-slide-toggle` options that can be overridden. */

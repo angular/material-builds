@@ -6,10 +6,10 @@ import * as rxjs from 'rxjs';
 import { Subject, Observable } from 'rxjs';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, OverlayRef, FlexibleConnectedPositionStrategyOrigin } from '@angular/cdk/overlay';
-import { M as MatRippleModule } from '../index.d-C5neTPvr.js';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatRippleModule } from '../ripple-module.d.js';
+import { MatCommonModule } from '../common-module.d.js';
 import * as i5 from '@angular/cdk/scrolling';
-import '../ripple.d-BT30YVLB.js';
+import '../ripple.d.js';
 import '@angular/cdk/platform';
 
 type MenuPositionX = 'before' | 'after';

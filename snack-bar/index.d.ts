@@ -8,11 +8,11 @@ import * as i0 from '@angular/core';
 import { InjectionToken, ViewContainerRef, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { MatButtonModule } from '../button/index.js';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
-import '../palette.d-BSSFKjO6.js';
-import '../ripple-loader.d-9me-KFSi.js';
-import '../index.d-C5neTPvr.js';
-import '../ripple.d-BT30YVLB.js';
+import { MatCommonModule } from '../common-module.d.js';
+import '../palette.d.js';
+import '../ripple-loader.d.js';
+import '../ripple-module.d.js';
+import '../ripple.d.js';
 import '@angular/cdk/platform';
 
 /** Injection token that can be used to access the data that was passed in to a snack bar. */

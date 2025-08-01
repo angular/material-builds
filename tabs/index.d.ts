@@ -1,12 +1,12 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, TemplateRef, OnInit, OnChanges, OnDestroy, SimpleChanges, QueryList, ElementRef, AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { M as MatCommonModule } from '../common-module.d-C8xzHJDr.js';
+import { MatCommonModule } from '../common-module.d.js';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FocusKeyManager, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { T as ThemePalette } from '../palette.d-BSSFKjO6.js';
-import { b as RippleTarget, f as RippleConfig, R as RippleGlobalOptions } from '../ripple.d-BT30YVLB.js';
+import { ThemePalette } from '../palette.d.js';
+import { RippleTarget, RippleConfig, RippleGlobalOptions } from '../ripple.d.js';
 import '@angular/cdk/platform';
 
 /**
