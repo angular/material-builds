@@ -39,7 +39,7 @@ declare class MatChipAction {
     /**
      * Private API to allow focusing this chip when it is disabled.
      */
-    private _allowFocusWhenDisabled;
+    _allowFocusWhenDisabled: boolean;
     /**
      * Determine the value of the disabled attribute for this chip action.
      */
