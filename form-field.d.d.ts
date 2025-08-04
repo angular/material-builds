@@ -201,11 +201,11 @@ interface MatFormFieldControl<T> extends MatFormFieldControl$1<T> {
 declare class MatFormField implements FloatingLabelParent, AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
     _elementRef: ElementRef<any>;
     private _changeDetectorRef;
-    private _dir;
     private _platform;
     private _idGenerator;
     private _ngZone;
     private _defaults;
+    private _currentDirection;
     _textField: ElementRef<HTMLElement>;
     _iconPrefixContainer: ElementRef<HTMLElement>;
     _textPrefixContainer: ElementRef<HTMLElement>;
