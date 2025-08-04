@@ -10,14 +10,14 @@ import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/form
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, filter, map, takeUntil, take } from 'rxjs/operators';
 import { NgClass } from '@angular/common';
-import { h as MAT_FORM_FIELD, k as MatFormFieldControl } from './form-field-D9B5IUZf.mjs';
+import { h as MAT_FORM_FIELD, k as MatFormFieldControl } from './form-field-C_dE1cl0.mjs';
 import { _ as _animationsDisabled } from './animation-ChQ1vjiF.mjs';
 import { _ as _countGroupLabelsBeforeOption, b as _getOptionScrollPosition, c as MAT_OPTION_PARENT_COMPONENT, M as MatOption, d as MAT_OPTGROUP } from './option-CEIjUDzj.mjs';
 import { E as ErrorStateMatcher } from './error-options-DCNQlTOA.mjs';
 import { _ as _ErrorStateTracker } from './error-state-Dtb1IHM-.mjs';
 import { M as MatOptionModule } from './index-ZUoC96yG.mjs';
 import { M as MatCommonModule } from './common-module-cKSwHniA.mjs';
-import { M as MatFormFieldModule } from './module-Dj5gfeAg.mjs';
+import { M as MatFormFieldModule } from './module-ko3UutPV.mjs';
 
 // Note that these have been copied over verbatim from
 // `material/select` so that we don't have to expose them publicly.
@@ -1315,4 +1315,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0", ngImpor
         }] });
 
 export { MatSelectModule as M, MAT_SELECT_SCROLL_STRATEGY as a, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY as b, MAT_SELECT_CONFIG as c, MAT_SELECT_SCROLL_STRATEGY_PROVIDER as d, MAT_SELECT_TRIGGER as e, MatSelectChange as f, MatSelect as g, MatSelectTrigger as h };
-//# sourceMappingURL=module-DG8Yn3Vr.mjs.map
+//# sourceMappingURL=module-CZcVPeGQ.mjs.map

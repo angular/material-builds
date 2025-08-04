@@ -4,7 +4,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { NgTemplateOutlet } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Directive, InjectionToken, inject, Input, ElementRef, NgZone, Renderer2, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ChangeDetectorRef, viewChild, computed, contentChild, signal, afterRenderEffect, ContentChild, ContentChildren } from '@angular/core';
+import { Directive, InjectionToken, inject, Input, ElementRef, NgZone, Renderer2, Component, ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ChangeDetectorRef, viewChild, computed, contentChild, signal, effect, afterRenderEffect, ContentChild, ContentChildren } from '@angular/core';
 import { Subscription, Subject, merge } from 'rxjs';
 import { startWith, map, pairwise, filter, takeUntil } from 'rxjs/operators';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
@@ -466,13 +466,13 @@ const FLOATING_LABEL_DEFAULT_DOCKED_TRANSFORM = `translateY(-50%)`;
 class MatFormField {
     _elementRef = inject(ElementRef);
     _changeDetectorRef = inject(ChangeDetectorRef);
-    _dir = inject(Directionality);
     _platform = inject(Platform);
     _idGenerator = inject(_IdGenerator);
     _ngZone = inject(NgZone);
     _defaults = inject(MAT_FORM_FIELD_DEFAULT_OPTIONS, {
         optional: true,
     });
+    _currentDirection;
     _textField;
     _iconPrefixContainer;
     _textPrefixContainer;
@@ -596,6 +596,7 @@ class MatFormField {
     _animationsDisabled = _animationsDisabled();
     constructor() {
         const defaults = this._defaults;
+        const dir = inject(Directionality);
         if (defaults) {
             if (defaults.appearance) {
                 this.appearance = defaults.appearance;
@@ -605,6 +606,10 @@ class MatFormField {
                 this.color = defaults.color;
             }
         }
+        // We need this value inside a `afterRenderEffect`, however at the time of writing, reading the
+        // signal directly causes a memory leak (see https://github.com/angular/angular/issues/62980).
+        // TODO(crisbeto): clean this up once the framework issue is resolved.
+        effect(() => (this._currentDirection = dir.valueSignal()));
         this._syncOutlineLabelOffset();
     }
     ngAfterViewInit() {
@@ -946,7 +951,6 @@ class MatFormField {
      * incorporate the horizontal offset into their default text-field styles.
      */
     _getOutlinedLabelOffset() {
-        const dir = this._dir.valueSignal();
         if (!this._hasOutline() || !this._floatingLabel) {
             return null;
         }
@@ -970,7 +974,7 @@ class MatFormField {
         const textSuffixContainerWidth = textSuffixContainer?.getBoundingClientRect().width ?? 0;
         // If the directionality is RTL, the x-axis transform needs to be inverted. This
         // is because `transformX` does not change based on the page directionality.
-        const negate = dir === 'rtl' ? '-1' : '1';
+        const negate = this._currentDirection === 'rtl' ? '-1' : '1';
         const prefixWidth = `${iconPrefixContainerWidth + textPrefixContainerWidth}px`;
         const labelOffset = `var(--mat-mdc-form-field-label-offset-x, 0px)`;
         const labelHorizontalOffset = `calc(${negate} * (${prefixWidth} + ${labelOffset}))`;
@@ -1107,4 +1111,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.0.0", ngImpor
             }] } });
 
 export { MatLabel as M, MAT_ERROR as a, MatError as b, MatHint as c, MAT_PREFIX as d, MatPrefix as e, MAT_SUFFIX as f, MatSuffix as g, MAT_FORM_FIELD as h, MAT_FORM_FIELD_DEFAULT_OPTIONS as i, MatFormField as j, MatFormFieldControl as k, getMatFormFieldPlaceholderConflictError as l, getMatFormFieldDuplicatedHintError as m, getMatFormFieldMissingControlError as n };
-//# sourceMappingURL=form-field-D9B5IUZf.mjs.map
+//# sourceMappingURL=form-field-C_dE1cl0.mjs.map
