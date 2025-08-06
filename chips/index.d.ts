@@ -175,6 +175,8 @@ declare class MatChip implements OnInit, AfterViewInit, AfterContentInit, DoChec
     _ariaDescriptionId: string;
     /** Whether the chip list is disabled. */
     _chipListDisabled: boolean;
+    /** Whether the chip was focused when it was removed. */
+    _hadFocusOnRemove: boolean;
     private _textElement;
     /**
      * The value of the chip. Defaults to the content inside
