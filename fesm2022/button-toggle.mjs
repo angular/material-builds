@@ -1,7 +1,7 @@
 import { _IdGenerator, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW, UP_ARROW, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { hasModifierKey, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW, UP_ARROW, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import * as i0 from '@angular/core';
 import { InjectionToken, forwardRef, inject, ChangeDetectorRef, EventEmitter, booleanAttribute, Directive, ContentChildren, Input, Output, ElementRef, HostAttributeToken, signal, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
@@ -211,7 +211,7 @@ class MatButtonToggleGroup {
     }
     /** Handle keydown event calling to single-select button toggle. */
     _keydown(event) {
-        if (this.multiple || this.disabled) {
+        if (this.multiple || this.disabled || hasModifierKey(event)) {
             return;
         }
         const target = event.target;
