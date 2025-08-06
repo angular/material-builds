@@ -354,6 +354,8 @@ class MatChip {
     _ariaDescriptionId = `${this.id}-aria-description`;
     /** Whether the chip list is disabled. */
     _chipListDisabled = false;
+    /** Whether the chip was focused when it was removed. */
+    _hadFocusOnRemove = false;
     _textElement;
     /**
      * The value of the chip. Defaults to the content inside
@@ -461,6 +463,7 @@ class MatChip {
      */
     remove() {
         if (this.removable) {
+            this._hadFocusOnRemove = this._hasFocus();
             this.removed.emit({ chip: this });
         }
     }
@@ -1230,13 +1233,22 @@ class MatChipSet {
     /** Starts tracking the destroyed chips in order to capture the focused one. */
     _trackDestroyedFocusedChip() {
         this.chipDestroyedChanges.pipe(takeUntil(this._destroyed)).subscribe((event) => {
-            const chipArray = this._chips.toArray();
-            const chipIndex = chipArray.indexOf(event.chip);
             // If the focused chip is destroyed, save its index so that we can move focus to the next
             // chip. We only save the index here, rather than move the focus immediately, because we want
             // to wait until the chip is removed from the chip list before focusing the next one. This
             // allows us to keep focus on the same index if the chip gets swapped out.
-            if (this._isValidIndex(chipIndex) && event.chip._hasFocus()) {
+            const chipArray = this._chips.toArray();
+            const chipIndex = chipArray.indexOf(event.chip);
+            const hasFocus = event.chip._hasFocus();
+            const wasLastFocused = event.chip._hadFocusOnRemove &&
+                this._keyManager.activeItem &&
+                event.chip._getActions().includes(this._keyManager.activeItem);
+            // Note that depending on the timing, the chip might've already lost focus by the
+            // time we check this. We need the `wasLastFocused` as a fallback to detect such cases.
+            // In `wasLastFocused` we also need to ensure that the chip actually had focus when it was
+            // deleted so that we don't steal away the user's focus after they've moved on from the chip.
+            const shouldMoveFocus = hasFocus || wasLastFocused;
+            if (this._isValidIndex(chipIndex) && shouldMoveFocus) {
                 this._lastDestroyedFocusedChipIndex = chipIndex;
             }
         });
