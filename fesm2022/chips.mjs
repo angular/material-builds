@@ -473,6 +473,7 @@ class MatChip {
             this.disableRipple ||
             this._animationsDisabled ||
             this._isBasicChip ||
+            !this._hasInteractiveActions() ||
             !!this._globalRippleOptions?.disabled);
     }
     /** Returns whether the chip has a trailing icon. */
@@ -529,6 +530,10 @@ class MatChip {
     /** Handles interactions with the primary action of the chip. */
     _handlePrimaryActionInteraction() {
         // Empty here, but is overwritten in child classes.
+    }
+    /** Returns whether the chip has any interactive actions. */
+    _hasInteractiveActions() {
+        return this._getActions().some(a => a.isInteractive);
     }
     /** Handles interactions with the edit action of the chip. */
     _edit(event) {

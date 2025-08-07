@@ -255,6 +255,8 @@ declare class MatChip implements OnInit, AfterViewInit, AfterContentInit, DoChec
     _getActions(): MatChipAction[];
     /** Handles interactions with the primary action of the chip. */
     _handlePrimaryActionInteraction(): void;
+    /** Returns whether the chip has any interactive actions. */
+    _hasInteractiveActions(): boolean;
     /** Handles interactions with the edit action of the chip. */
     _edit(event: Event): void;
     /** Starts the focus monitoring process on the chip. */
