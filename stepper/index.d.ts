@@ -120,6 +120,9 @@ declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDe
     /** Returns the host HTML element. */
     _getHostElement(): HTMLElement;
     _getDefaultTextForState(state: StepState): string;
+    protected _hasEmptyLabel(): boolean;
+    protected _hasOptionalLabel(): boolean;
+    protected _hasErrorLabel(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepHeader, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStepHeader, "mat-step-header", never, { "state": { "alias": "state"; "required": false; }; "label": { "alias": "label"; "required": false; }; "errorMessage": { "alias": "errorMessage"; "required": false; }; "iconOverrides": { "alias": "iconOverrides"; "required": false; }; "index": { "alias": "index"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; "active": { "alias": "active"; "required": false; }; "optional": { "alias": "optional"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; }, {}, never, never, true, never>;
 }
