@@ -171,8 +171,6 @@ declare class MatChip implements OnInit, AfterViewInit, AfterContentInit, DoChec
     ariaLabel: string | null;
     /** ARIA description for the content of the chip. */
     ariaDescription: string | null;
-    /** Id of a span that contains this chip's aria description. */
-    _ariaDescriptionId: string;
     /** Whether the chip list is disabled. */
     _chipListDisabled: boolean;
     /** Whether the chip was focused when it was removed. */
