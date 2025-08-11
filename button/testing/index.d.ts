@@ -4,6 +4,8 @@ import { BaseHarnessFilters, ContentContainerComponentHarness, ComponentHarnessC
 type ButtonVariant = 'basic' | 'icon' | 'fab' | 'mini-fab';
 /** Possible button appearances. */
 type ButtonAppearance = 'text' | 'filled' | 'elevated' | 'outlined' | 'tonal';
+/** Possible button types. */
+type ButtonType = 'button' | 'submit' | 'reset';
 /** A set of criteria that can be used to filter a list of button harness instances. */
 interface ButtonHarnessFilters extends BaseHarnessFilters {
     /** Only find instances whose text matches the given value. */
@@ -14,6 +16,8 @@ interface ButtonHarnessFilters extends BaseHarnessFilters {
     appearance?: ButtonAppearance;
     /** Only find instances which match the given disabled state. */
     disabled?: boolean;
+    /** Only find instances with the specified type. */
+    buttonType?: ButtonType;
 }
 
 /** Harness for interacting with a mat-button in tests. */
@@ -54,7 +58,11 @@ declare class MatButtonHarness extends ContentContainerComponentHarness {
     getVariant(): Promise<ButtonVariant>;
     /** Gets the appearance of the button. */
     getAppearance(): Promise<ButtonAppearance | null>;
+    /**
+     * Gets the type of the button. Supported values are 'button', 'submit', and 'reset'.
+     */
+    getType(): Promise<ButtonType | null>;
 }
 
 export { MatButtonHarness };
-export type { ButtonAppearance, ButtonHarnessFilters, ButtonVariant };
+export type { ButtonAppearance, ButtonHarnessFilters, ButtonType, ButtonVariant };

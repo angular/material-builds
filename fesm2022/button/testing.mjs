@@ -26,7 +26,8 @@ class MatButtonHarness extends ContentContainerComponentHarness {
             .addOption('appearance', options.appearance, (harness, appearance) => HarnessPredicate.stringMatches(harness.getAppearance(), appearance))
             .addOption('disabled', options.disabled, async (harness, disabled) => {
             return (await harness.isDisabled()) === disabled;
-        });
+        })
+            .addOption('buttonType', options.buttonType, (harness, buttonType) => HarnessPredicate.stringMatches(harness.getType(), buttonType));
     }
     async click(...args) {
         return (await this.host()).click(...args);
@@ -89,6 +90,17 @@ class MatButtonHarness extends ContentContainerComponentHarness {
         }
         if (await host.hasClass('mat-tonal-button')) {
             return 'tonal';
+        }
+        return null;
+    }
+    /**
+     * Gets the type of the button. Supported values are 'button', 'submit', and 'reset'.
+     */
+    async getType() {
+        const host = await this.host();
+        const buttonType = await host.getAttribute('type');
+        if (buttonType === 'button' || buttonType === 'submit' || buttonType === 'reset') {
+            return buttonType;
         }
         return null;
     }
