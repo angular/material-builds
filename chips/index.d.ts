@@ -652,7 +652,7 @@ declare class MatChipListbox extends MatChipSet implements AfterContentInit, OnD
     static ngAcceptInputType_hideSingleSelectionIndicator: unknown;
 }
 
-/** Interface for a text control that is used to drive interaction with a mat-chip-list. */
+/** Interface for a text control that is used to drive interaction with a mat-chip-grid. */
 interface MatChipTextControl {
     /** Unique identifier for the text control. */
     id: string;
