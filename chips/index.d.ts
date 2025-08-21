@@ -694,9 +694,10 @@ declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterV
      */
     readonly controlType: string;
     /** The chip input to add more chips */
-    protected _chipInput: MatChipTextControl;
+    protected _chipInput?: MatChipTextControl;
     protected _defaultRole: string;
     private _errorStateTracker;
+    private _uid;
     /**
      * List of element ids to propagate to the chipInput's aria-describedby attribute.
      */
@@ -780,7 +781,6 @@ declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterV
     set errorState(value: boolean);
     constructor(...args: unknown[]);
     ngAfterContentInit(): void;
-    ngAfterViewInit(): void;
     ngDoCheck(): void;
     ngOnDestroy(): void;
     /** Associates an HTML input element with this chip grid. */

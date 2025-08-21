@@ -1703,6 +1703,7 @@ class MatChipGrid extends MatChipSet {
     _chipInput;
     _defaultRole = 'grid';
     _errorStateTracker;
+    _uid = inject(_IdGenerator).getId('mat-chip-grid-');
     /**
      * List of element ids to propagate to the chipInput's aria-describedby attribute.
      */
@@ -1734,7 +1735,7 @@ class MatChipGrid extends MatChipSet {
      * @docs-private
      */
     get id() {
-        return this._chipInput.id;
+        return this._chipInput ? this._chipInput.id : this._uid;
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -1757,7 +1758,7 @@ class MatChipGrid extends MatChipSet {
     _placeholder;
     /** Whether any chips or the matChipInput inside of this chip-grid has focus. */
     get focused() {
-        return this._chipInput.focused || this._hasFocusedChip();
+        return this._chipInput?.focused || this._hasFocusedChip();
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -1841,12 +1842,6 @@ class MatChipGrid extends MatChipSet {
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => this.stateChanges.next());
     }
-    ngAfterViewInit() {
-        super.ngAfterViewInit();
-        if (!this._chipInput && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-            throw Error('mat-chip-grid must be used in combination with matChipInputFor.');
-        }
-    }
     ngDoCheck() {
         if (this.ngControl) {
             // We need to re-evaluate this on every change detection cycle, because there are some
@@ -1863,6 +1858,8 @@ class MatChipGrid extends MatChipSet {
     registerInput(inputElement) {
         this._chipInput = inputElement;
         this._chipInput.setDescribedByIds(this._ariaDescribedbyIds);
+        // If ids were already attached to host element, can now remove in favor of chipInput
+        this._elementRef.nativeElement.removeAttribute('aria-describedby');
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -1878,10 +1875,13 @@ class MatChipGrid extends MatChipSet {
      * are no eligible chips.
      */
     focus() {
-        if (this.disabled || this._chipInput.focused) {
+        if (this.disabled || this._chipInput?.focused) {
             return;
         }
         if (!this._chips.length || this._chips.first.disabled) {
+            if (!this._chipInput) {
+                return;
+            }
             // Delay until the next tick, because this can cause a "changed after checked"
             // error if the input does something on focus (e.g. opens an autocomplete).
             Promise.resolve().then(() => this._chipInput.focus());
@@ -1902,7 +1902,11 @@ class MatChipGrid extends MatChipSet {
      * @docs-private
      */
     get describedByIds() {
-        return this._chipInput?.describedByIds || [];
+        if (this._chipInput) {
+            return this._chipInput.describedByIds || [];
+        }
+        const existing = this._elementRef.nativeElement.getAttribute('aria-describedby');
+        return existing ? existing.split(' ') : [];
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -1912,7 +1916,15 @@ class MatChipGrid extends MatChipSet {
         // We must keep this up to date to handle the case where ids are set
         // before the chip input is registered.
         this._ariaDescribedbyIds = ids;
-        this._chipInput?.setDescribedByIds(ids);
+        if (this._chipInput) {
+            this._chipInput.setDescribedByIds(ids);
+        }
+        else if (ids.length) {
+            this._elementRef.nativeElement.setAttribute('aria-describedby', ids.join(' '));
+        }
+        else {
+            this._elementRef.nativeElement.removeAttribute('aria-describedby');
+        }
     }
     /**
      * Implemented as part of ControlValueAccessor.
@@ -1969,7 +1981,7 @@ class MatChipGrid extends MatChipSet {
      * it back to the first chip, creating a focus trap, if it user tries to tab away.
      */
     _allowFocusEscape() {
-        if (!this._chipInput.focused) {
+        if (!this._chipInput?.focused) {
             super._allowFocusEscape();
         }
     }
@@ -1978,7 +1990,7 @@ class MatChipGrid extends MatChipSet {
         const keyCode = event.keyCode;
         const activeItem = this._keyManager.activeItem;
         if (keyCode === TAB) {
-            if (this._chipInput.focused &&
+            if (this._chipInput?.focused &&
                 hasModifierKey(event, 'shiftKey') &&
                 this._chips.length &&
                 !this._chips.last.disabled) {
@@ -1997,7 +2009,7 @@ class MatChipGrid extends MatChipSet {
                 super._allowFocusEscape();
             }
         }
-        else if (!this._chipInput.focused) {
+        else if (!this._chipInput?.focused) {
             // The up and down arrows are supposed to navigate between the individual rows in the grid.
             // We do this by filtering the actions down to the ones that have the same `_isPrimary`
             // flag as the active action and moving focus between them ourseles instead of delegating
