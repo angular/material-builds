@@ -12,10 +12,10 @@ import '../ripple.d.js';
 import '@angular/cdk/platform';
 
 /**
- * Section within a chip.
+ * A non-interactive section of a chip.
  * @docs-private
  */
-declare class MatChipAction {
+declare class MatChipContent {
     _elementRef: ElementRef<HTMLElement>;
     protected _parentChip: {
         _handlePrimaryActionInteraction(): void;
@@ -24,8 +24,6 @@ declare class MatChipAction {
         _edit(): void;
         _isEditing?: boolean;
     };
-    /** Whether the action is interactive. */
-    isInteractive: boolean;
     /** Whether this is the primary action in the chip. */
     _isPrimary: boolean;
     /** Whether this is the leading action in the chip. */
@@ -44,18 +42,26 @@ declare class MatChipAction {
      * Determine the value of the disabled attribute for this chip action.
      */
     protected _getDisabledAttribute(): string | null;
+    constructor(...args: unknown[]);
+    focus(): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatChipContent, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipContent, "[matChipContent]", never, { "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "_allowFocusWhenDisabled": { "alias": "_allowFocusWhenDisabled"; "required": false; }; }, {}, never, never, true, never>;
+    static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_tabIndex: unknown;
+}
+/**
+ * Interactive section of a chip.
+ * @docs-private
+ */
+declare class MatChipAction extends MatChipContent {
     /**
      * Determine the value of the tabindex attribute for this chip action.
      */
     protected _getTabindex(): string | null;
-    constructor(...args: unknown[]);
-    focus(): void;
     _handleClick(event: MouseEvent): void;
     _handleKeydown(event: KeyboardEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipAction, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAction, "[matChipAction]", never, { "isInteractive": { "alias": "isInteractive"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "_allowFocusWhenDisabled": { "alias": "_allowFocusWhenDisabled"; "required": false; }; }, {}, never, never, true, never>;
-    static ngAcceptInputType_disabled: unknown;
-    static ngAcceptInputType_tabIndex: unknown;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAction, "[matChipAction]", never, {}, {}, never, never, true, never>;
 }
 
 /** Avatar image within a chip. */
@@ -64,12 +70,7 @@ declare class MatChipAvatar {
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipAvatar, "mat-chip-avatar, [matChipAvatar]", never, {}, {}, never, never, true, never>;
 }
 /** Non-interactive trailing icon in a chip. */
-declare class MatChipTrailingIcon extends MatChipAction {
-    /**
-     * MDC considers all trailing actions as a remove icon,
-     * but we support non-interactive trailing icons.
-     */
-    isInteractive: boolean;
+declare class MatChipTrailingIcon extends MatChipContent {
     _isPrimary: boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipTrailingIcon, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipTrailingIcon, "mat-chip-trailing-icon, [matChipTrailingIcon]", never, {}, {}, never, never, true, never>;
@@ -498,7 +499,7 @@ declare class MatChipSet implements AfterViewInit, OnDestroy {
      * Determines if key manager should avoid putting a given chip action in the tab index. Skip
      * non-interactive and disabled actions since the user can't do anything with them.
      */
-    protected _skipPredicate(action: MatChipAction): boolean;
+    protected _skipPredicate(action: MatChipContent): boolean;
     /** Listens to changes in the chip set and syncs up the state of the individual chips. */
     private _trackChipSetChanges;
     /** Starts tracking the destroyed chips in order to capture the focused one. */
