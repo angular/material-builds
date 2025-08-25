@@ -34,7 +34,10 @@ var __objRest = (source, exclude) => {
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -171,7 +174,8 @@ var require_data = __commonJS({
   "src/material/schematics/ng-update/data/index.js"(exports2) {
     "use strict";
     var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
+      if (k2 === void 0)
+        k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
       if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
         desc = { enumerable: true, get: function() {
@@ -180,11 +184,14 @@ var require_data = __commonJS({
       }
       Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
+      if (k2 === void 0)
+        k2 = k;
       o[k2] = m[k];
     });
     var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
+      for (var p in m)
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
+          __createBinding(exports3, m, p);
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     __exportStar(require_attribute_selectors(), exports2);
@@ -342,8 +349,10 @@ var require_tokenize = __commonJS({
         return returned.length === 0 && pos >= length;
       }
       function nextToken(opts) {
-        if (returned.length) return returned.pop();
-        if (pos >= length) return;
+        if (returned.length)
+          return returned.pop();
+        if (pos >= length)
+          return;
         let ignoreUnclosed = opts ? opts.ignoreUnclosed : false;
         code = css.charCodeAt(pos);
         switch (code) {
@@ -550,7 +559,8 @@ var require_terminal_highlight = __commonJS({
       if (!processor.endOfFile()) {
         let next = processor.nextToken();
         processor.back(next);
-        if (next[0] === "brackets" || next[0] === "(") return "call";
+        if (next[0] === "brackets" || next[0] === "(")
+          return "call";
       }
       return type;
     }
@@ -618,9 +628,11 @@ var require_css_syntax_error = __commonJS({
         this.message += ": " + this.reason;
       }
       showSourceCode(color) {
-        if (!this.source) return "";
+        if (!this.source)
+          return "";
         let css = this.source;
-        if (color == null) color = pico.isColorSupported;
+        if (color == null)
+          color = pico.isColorSupported;
         let aside = (text) => text;
         let mark = (text) => text;
         let highlight = (text) => text;
@@ -730,7 +742,8 @@ var require_stringifier = __commonJS({
         if (value.includes("\n")) {
           let indent = this.raw(node, null, "indent");
           if (indent.length) {
-            for (let step = 0; step < depth; step++) value += indent;
+            for (let step = 0; step < depth; step++)
+              value += indent;
           }
         }
         return value;
@@ -745,20 +758,23 @@ var require_stringifier = __commonJS({
         } else {
           after = this.raw(node, "after", "emptyBody");
         }
-        if (after) this.builder(after);
+        if (after)
+          this.builder(after);
         this.builder("}", node, "end");
       }
       body(node) {
         let last = node.nodes.length - 1;
         while (last > 0) {
-          if (node.nodes[last].type !== "comment") break;
+          if (node.nodes[last].type !== "comment")
+            break;
           last -= 1;
         }
         let semicolon = this.raw(node, "semicolon");
         for (let i = 0; i < node.nodes.length; i++) {
           let child = node.nodes[i];
           let before = this.raw(child, "before");
-          if (before) this.builder(before);
+          if (before)
+            this.builder(before);
           this.stringify(child, last !== i || semicolon);
         }
       }
@@ -773,7 +789,8 @@ var require_stringifier = __commonJS({
         if (node.important) {
           string += node.raws.important || " !important";
         }
-        if (semicolon) string += ";";
+        if (semicolon)
+          string += ";";
         this.builder(string, node);
       }
       document(node) {
@@ -781,10 +798,12 @@ var require_stringifier = __commonJS({
       }
       raw(node, own, detect) {
         let value;
-        if (!detect) detect = own;
+        if (!detect)
+          detect = own;
         if (own) {
           value = node.raws[own];
-          if (typeof value !== "undefined") return value;
+          if (typeof value !== "undefined")
+            return value;
         }
         let parent = node.parent;
         if (detect === "before") {
@@ -795,9 +814,11 @@ var require_stringifier = __commonJS({
             return "";
           }
         }
-        if (!parent) return DEFAULT_RAW[detect];
+        if (!parent)
+          return DEFAULT_RAW[detect];
         let root = node.root();
-        if (!root.rawCache) root.rawCache = {};
+        if (!root.rawCache)
+          root.rawCache = {};
         if (typeof root.rawCache[detect] !== "undefined") {
           return root.rawCache[detect];
         }
@@ -810,11 +831,13 @@ var require_stringifier = __commonJS({
           } else {
             root.walk((i) => {
               value = i.raws[own];
-              if (typeof value !== "undefined") return false;
+              if (typeof value !== "undefined")
+                return false;
             });
           }
         }
-        if (typeof value === "undefined") value = DEFAULT_RAW[detect];
+        if (typeof value === "undefined")
+          value = DEFAULT_RAW[detect];
         root.rawCache[detect] = value;
         return value;
       }
@@ -831,7 +854,8 @@ var require_stringifier = __commonJS({
             }
           }
         });
-        if (value) value = value.replace(/\S/g, "");
+        if (value)
+          value = value.replace(/\S/g, "");
         return value;
       }
       rawBeforeComment(root, node) {
@@ -875,7 +899,8 @@ var require_stringifier = __commonJS({
         root.walk((i) => {
           if (i.type !== "decl") {
             value = i.raws.between;
-            if (typeof value !== "undefined") return false;
+            if (typeof value !== "undefined")
+              return false;
           }
         });
         return value;
@@ -893,7 +918,8 @@ var require_stringifier = __commonJS({
             }
           }
         });
-        if (value) value = value.replace(/\S/g, "");
+        if (value)
+          value = value.replace(/\S/g, "");
         return value;
       }
       rawColon(root) {
@@ -911,13 +937,15 @@ var require_stringifier = __commonJS({
         root.walk((i) => {
           if (i.nodes && i.nodes.length === 0) {
             value = i.raws.after;
-            if (typeof value !== "undefined") return false;
+            if (typeof value !== "undefined")
+              return false;
           }
         });
         return value;
       }
       rawIndent(root) {
-        if (root.raws.indent) return root.raws.indent;
+        if (root.raws.indent)
+          return root.raws.indent;
         let value;
         root.walk((i) => {
           let p = i.parent;
@@ -937,7 +965,8 @@ var require_stringifier = __commonJS({
         root.walk((i) => {
           if (i.nodes && i.nodes.length && i.last.type === "decl") {
             value = i.raws.semicolon;
-            if (typeof value !== "undefined") return false;
+            if (typeof value !== "undefined")
+              return false;
           }
         });
         return value;
@@ -952,7 +981,8 @@ var require_stringifier = __commonJS({
       }
       root(node) {
         this.body(node);
-        if (node.raws.after) this.builder(node.raws.after);
+        if (node.raws.after)
+          this.builder(node.raws.after);
       }
       rule(node) {
         this.block(node, this.rawValue(node, "selector"));
@@ -1011,17 +1041,20 @@ var require_node = __commonJS({
         if (!Object.prototype.hasOwnProperty.call(obj, i)) {
           continue;
         }
-        if (i === "proxyCache") continue;
+        if (i === "proxyCache")
+          continue;
         let value = obj[i];
         let type = typeof value;
         if (i === "parent" && type === "object") {
-          if (parent) cloned[i] = parent;
+          if (parent)
+            cloned[i] = parent;
         } else if (i === "source") {
           cloned[i] = value;
         } else if (Array.isArray(value)) {
           cloned[i] = value.map((j) => cloneNode(j, cloned));
         } else {
-          if (type === "object" && value !== null) value = cloneNode(value);
+          if (type === "object" && value !== null)
+            value = cloneNode(value);
           cloned[i] = value;
         }
       }
@@ -1099,7 +1132,8 @@ var require_node = __commonJS({
       cleanRaws(keepBetween) {
         delete this.raws.before;
         delete this.raws.after;
-        if (!keepBetween) delete this.raws.between;
+        if (!keepBetween)
+          delete this.raws.between;
       }
       clone(overrides = {}) {
         let cloned = cloneNode(this);
@@ -1142,7 +1176,8 @@ var require_node = __commonJS({
             }
           },
           set(node, prop, value) {
-            if (node[prop] === value) return true;
+            if (node[prop] === value)
+              return true;
             node[prop] = value;
             if (prop === "prop" || prop === "value" || prop === "name" || prop === "params" || prop === "important" || /* c8 ignore next */
             prop === "text") {
@@ -1166,7 +1201,8 @@ var require_node = __commonJS({
         }
       }
       next() {
-        if (!this.parent) return void 0;
+        if (!this.parent)
+          return void 0;
         let index = this.parent.index(this);
         return this.parent.nodes[index + 1];
       }
@@ -1181,7 +1217,8 @@ var require_node = __commonJS({
             sourceOffset(inputString, this.source.end)
           );
           let index = stringRepresentation.indexOf(opts.word);
-          if (index !== -1) pos = this.positionInside(index);
+          if (index !== -1)
+            pos = this.positionInside(index);
         }
         return pos;
       }
@@ -1202,7 +1239,8 @@ var require_node = __commonJS({
         return { column, line, offset: end };
       }
       prev() {
-        if (!this.parent) return void 0;
+        if (!this.parent)
+          return void 0;
         let index = this.parent.index(this);
         return this.parent.nodes[index - 1];
       }
@@ -1318,7 +1356,8 @@ var require_node = __commonJS({
           if (!Object.prototype.hasOwnProperty.call(this, name)) {
             continue;
           }
-          if (name === "parent" || name === "proxyCache") continue;
+          if (name === "parent" || name === "proxyCache")
+            continue;
           let value = this[name];
           if (Array.isArray(value)) {
             fixed[name] = value.map((i) => {
@@ -1331,7 +1370,8 @@ var require_node = __commonJS({
           } else if (typeof value === "object" && value.toJSON) {
             fixed[name] = value.toJSON(null, inputs);
           } else if (name === "source") {
-            if (value == null) continue;
+            if (value == null)
+              continue;
             let inputId = inputs.get(value.input);
             if (inputId == null) {
               inputId = inputsNextIndex;
@@ -1359,7 +1399,8 @@ var require_node = __commonJS({
         return this.proxyCache;
       }
       toString(stringifier = stringify) {
-        if (stringifier.stringify) stringifier = stringifier.stringify;
+        if (stringifier.stringify)
+          stringifier = stringifier.stringify;
         let result = "";
         stringifier(this, (i) => {
           result += i;
@@ -1368,7 +1409,8 @@ var require_node = __commonJS({
       }
       warn(result, text, opts = {}) {
         let data = { node: this };
-        for (let i in opts) data[i] = opts[i];
+        for (let i in opts)
+          data[i] = opts[i];
         return result.warn(text, data);
       }
     };
@@ -1429,7 +1471,8 @@ var require_container = __commonJS({
     var Rule;
     function cleanSource(nodes) {
       return nodes.map((i) => {
-        if (i.nodes) i.nodes = cleanSource(i.nodes);
+        if (i.nodes)
+          i.nodes = cleanSource(i.nodes);
         delete i.source;
         return i;
       });
@@ -1444,17 +1487,20 @@ var require_container = __commonJS({
     }
     var Container = class _Container extends Node {
       get first() {
-        if (!this.proxyOf.nodes) return void 0;
+        if (!this.proxyOf.nodes)
+          return void 0;
         return this.proxyOf.nodes[0];
       }
       get last() {
-        if (!this.proxyOf.nodes) return void 0;
+        if (!this.proxyOf.nodes)
+          return void 0;
         return this.proxyOf.nodes[this.proxyOf.nodes.length - 1];
       }
       append(...children) {
         for (let child of children) {
           let nodes = this.normalize(child, this.last);
-          for (let node of nodes) this.proxyOf.nodes.push(node);
+          for (let node of nodes)
+            this.proxyOf.nodes.push(node);
         }
         this.markDirty();
         return this;
@@ -1462,17 +1508,20 @@ var require_container = __commonJS({
       cleanRaws(keepBetween) {
         super.cleanRaws(keepBetween);
         if (this.nodes) {
-          for (let node of this.nodes) node.cleanRaws(keepBetween);
+          for (let node of this.nodes)
+            node.cleanRaws(keepBetween);
         }
       }
       each(callback) {
-        if (!this.proxyOf.nodes) return void 0;
+        if (!this.proxyOf.nodes)
+          return void 0;
         let iterator = this.getIterator();
         let index, result;
         while (this.indexes[iterator] < this.proxyOf.nodes.length) {
           index = this.indexes[iterator];
           result = callback(this.proxyOf.nodes[index], index);
-          if (result === false) break;
+          if (result === false)
+            break;
           this.indexes[iterator] += 1;
         }
         delete this.indexes[iterator];
@@ -1482,8 +1531,10 @@ var require_container = __commonJS({
         return this.nodes.every(condition);
       }
       getIterator() {
-        if (!this.lastEach) this.lastEach = 0;
-        if (!this.indexes) this.indexes = {};
+        if (!this.lastEach)
+          this.lastEach = 0;
+        if (!this.indexes)
+          this.indexes = {};
         this.lastEach += 1;
         let iterator = this.lastEach;
         this.indexes[iterator] = 0;
@@ -1525,7 +1576,8 @@ var require_container = __commonJS({
             }
           },
           set(node, prop, value) {
-            if (node[prop] === value) return true;
+            if (node[prop] === value)
+              return true;
             node[prop] = value;
             if (prop === "name" || prop === "params" || prop === "selector") {
               node.markDirty();
@@ -1535,15 +1587,18 @@ var require_container = __commonJS({
         };
       }
       index(child) {
-        if (typeof child === "number") return child;
-        if (child.proxyOf) child = child.proxyOf;
+        if (typeof child === "number")
+          return child;
+        if (child.proxyOf)
+          child = child.proxyOf;
         return this.proxyOf.nodes.indexOf(child);
       }
       insertAfter(exist, add) {
         let existIndex = this.index(exist);
         let nodes = this.normalize(add, this.proxyOf.nodes[existIndex]).reverse();
         existIndex = this.index(exist);
-        for (let node of nodes) this.proxyOf.nodes.splice(existIndex + 1, 0, node);
+        for (let node of nodes)
+          this.proxyOf.nodes.splice(existIndex + 1, 0, node);
         let index;
         for (let id in this.indexes) {
           index = this.indexes[id];
@@ -1563,7 +1618,8 @@ var require_container = __commonJS({
           type
         ).reverse();
         existIndex = this.index(exist);
-        for (let node of nodes) this.proxyOf.nodes.splice(existIndex, 0, node);
+        for (let node of nodes)
+          this.proxyOf.nodes.splice(existIndex, 0, node);
         let index;
         for (let id in this.indexes) {
           index = this.indexes[id];
@@ -1582,12 +1638,14 @@ var require_container = __commonJS({
         } else if (Array.isArray(nodes)) {
           nodes = nodes.slice(0);
           for (let i of nodes) {
-            if (i.parent) i.parent.removeChild(i, "ignore");
+            if (i.parent)
+              i.parent.removeChild(i, "ignore");
           }
         } else if (nodes.type === "root" && this.type !== "document") {
           nodes = nodes.nodes.slice(0);
           for (let i of nodes) {
-            if (i.parent) i.parent.removeChild(i, "ignore");
+            if (i.parent)
+              i.parent.removeChild(i, "ignore");
           }
         } else if (nodes.type) {
           nodes = [nodes];
@@ -1608,11 +1666,15 @@ var require_container = __commonJS({
           throw new Error("Unknown node type in node creation");
         }
         let processed = nodes.map((i) => {
-          if (!i[my]) _Container.rebuild(i);
+          if (!i[my])
+            _Container.rebuild(i);
           i = i.proxyOf;
-          if (i.parent) i.parent.removeChild(i);
-          if (i[isClean]) markTreeDirty(i);
-          if (!i.raws) i.raws = {};
+          if (i.parent)
+            i.parent.removeChild(i);
+          if (i[isClean])
+            markTreeDirty(i);
+          if (!i.raws)
+            i.raws = {};
           if (typeof i.raws.before === "undefined") {
             if (sample && typeof sample.raws.before !== "undefined") {
               i.raws.before = sample.raws.before.replace(/\S/g, "");
@@ -1627,7 +1689,8 @@ var require_container = __commonJS({
         children = children.reverse();
         for (let child of children) {
           let nodes = this.normalize(child, this.first, "prepend").reverse();
-          for (let node of nodes) this.proxyOf.nodes.unshift(node);
+          for (let node of nodes)
+            this.proxyOf.nodes.unshift(node);
           for (let id in this.indexes) {
             this.indexes[id] = this.indexes[id] + nodes.length;
           }
@@ -1641,7 +1704,8 @@ var require_container = __commonJS({
         return this;
       }
       removeAll() {
-        for (let node of this.proxyOf.nodes) node.parent = void 0;
+        for (let node of this.proxyOf.nodes)
+          node.parent = void 0;
         this.proxyOf.nodes = [];
         this.markDirty();
         return this;
@@ -1666,8 +1730,10 @@ var require_container = __commonJS({
           opts = {};
         }
         this.walkDecls((decl) => {
-          if (opts.props && !opts.props.includes(decl.prop)) return;
-          if (opts.fast && !decl.value.includes(opts.fast)) return;
+          if (opts.props && !opts.props.includes(decl.prop))
+            return;
+          if (opts.fast && !decl.value.includes(opts.fast))
+            return;
           decl.value = decl.value.replace(pattern, callback);
         });
         this.markDirty();
@@ -1811,11 +1877,13 @@ var require_at_rule = __commonJS({
         this.type = "atrule";
       }
       append(...children) {
-        if (!this.proxyOf.nodes) this.nodes = [];
+        if (!this.proxyOf.nodes)
+          this.nodes = [];
         return super.append(...children);
       }
       prepend(...children) {
-        if (!this.proxyOf.nodes) this.nodes = [];
+        if (!this.proxyOf.nodes)
+          this.nodes = [];
         return super.prepend(...children);
       }
     };
@@ -3526,7 +3594,8 @@ var require_source_node = __commonJS({
       this.source = aSource == null ? null : aSource;
       this.name = aName == null ? null : aName;
       this[isSourceNode] = true;
-      if (aChunks != null) this.add(aChunks);
+      if (aChunks != null)
+        this.add(aChunks);
     }
     SourceNode.fromStringWithSourceMap = function SourceNode_fromStringWithSourceMap(aGeneratedCode, aSourceMapConsumer, aRelativePath) {
       var node = new SourceNode();
@@ -3800,7 +3869,8 @@ var require_previous_map = __commonJS({
     }
     var PreviousMap = class {
       constructor(css, opts) {
-        if (opts.map === false) return;
+        if (opts.map === false)
+          return;
         this.loadAnnotation(css);
         this.inline = this.startWith(this.annotation, "data:");
         let prev = opts.map ? opts.map.prev : void 0;
@@ -3808,8 +3878,10 @@ var require_previous_map = __commonJS({
         if (!this.mapFile && opts.from) {
           this.mapFile = opts.from;
         }
-        if (this.mapFile) this.root = dirname(this.mapFile);
-        if (text) this.text = text;
+        if (this.mapFile)
+          this.root = dirname(this.mapFile);
+        if (text)
+          this.text = text;
       }
       consumer() {
         if (!this.consumerCache) {
@@ -3837,12 +3909,14 @@ var require_previous_map = __commonJS({
         return sourceMapString.replace(/^\/\*\s*# sourceMappingURL=/, "").trim();
       }
       isMap(map) {
-        if (typeof map !== "object") return false;
+        if (typeof map !== "object")
+          return false;
         return typeof map.mappings === "string" || typeof map._mappings === "string" || Array.isArray(map.sections);
       }
       loadAnnotation(css) {
         let comments = css.match(/\/\*\s*# sourceMappingURL=/g);
-        if (!comments) return;
+        if (!comments)
+          return;
         let start = css.lastIndexOf(comments.pop());
         let end = css.indexOf("*/", start);
         if (start > -1 && end > -1) {
@@ -3857,7 +3931,8 @@ var require_previous_map = __commonJS({
         }
       }
       loadMap(file, prev) {
-        if (prev === false) return false;
+        if (prev === false)
+          return false;
         if (prev) {
           if (typeof prev === "string") {
             return prev;
@@ -3887,12 +3962,14 @@ var require_previous_map = __commonJS({
           return this.decodeInline(this.annotation);
         } else if (this.annotation) {
           let map = this.annotation;
-          if (file) map = join(dirname(file), map);
+          if (file)
+            map = join(dirname(file), map);
           return this.loadFile(map);
         }
       }
       startWith(string, start) {
-        if (!string) return false;
+        if (!string)
+          return false;
         return string.substr(0, start.length) === start;
       }
       withContent() {
@@ -3919,7 +3996,8 @@ var require_input = __commonJS({
     var sourceMapAvailable = Boolean(SourceMapConsumer && SourceMapGenerator);
     var pathAvailable = Boolean(resolve && isAbsolute);
     function getLineToIndex(input) {
-      if (input[lineToIndexCache]) return input[lineToIndexCache];
+      if (input[lineToIndexCache])
+        return input[lineToIndexCache];
       let lines = input.css.split("\n");
       let lineToIndex = new Array(lines.length);
       let prevIndex = 0;
@@ -3946,7 +4024,8 @@ var require_input = __commonJS({
           this.hasBOM = false;
         }
         this.document = this.css;
-        if (opts.document) this.document = opts.document.toString();
+        if (opts.document)
+          this.document = opts.document.toString();
         if (opts.from) {
           if (!pathAvailable || /^\w+:\/\//.test(opts.from) || isAbsolute(opts.from)) {
             this.file = opts.from;
@@ -3959,13 +4038,15 @@ var require_input = __commonJS({
           if (map.text) {
             this.map = map;
             let file = map.consumer().file;
-            if (!this.file && file) this.file = this.mapResolve(file);
+            if (!this.file && file)
+              this.file = this.mapResolve(file);
           }
         }
         if (!this.file) {
           this.id = "<input css " + nanoid(6) + ">";
         }
-        if (this.map) this.map.file = this.from;
+        if (this.map)
+          this.map.file = this.from;
       }
       error(message, line, column, opts = {}) {
         let endColumn, endLine, endOffset, offset, result;
@@ -4067,10 +4148,12 @@ var require_input = __commonJS({
         return resolve(this.map.consumer().sourceRoot || this.map.root || ".", file);
       }
       origin(line, column, endLine, endColumn) {
-        if (!this.map) return false;
+        if (!this.map)
+          return false;
         let consumer = this.map.consumer();
         let from = consumer.originalPositionFor({ column, line });
-        if (!from.source) return false;
+        if (!from.source)
+          return false;
         let to;
         if (typeof endLine === "number") {
           to = consumer.originalPositionFor({ column: endColumn, line: endLine });
@@ -4099,7 +4182,8 @@ var require_input = __commonJS({
           }
         }
         let source = consumer.sourceContentFor(from.source);
-        if (source) result.source = source;
+        if (source)
+          result.source = source;
         return result;
       }
       toJSON() {
@@ -4137,7 +4221,8 @@ var require_root = __commonJS({
       constructor(defaults) {
         super(defaults);
         this.type = "root";
-        if (!this.nodes) this.nodes = [];
+        if (!this.nodes)
+          this.nodes = [];
       }
       normalize(child, sample, type) {
         let nodes = super.normalize(child);
@@ -4215,19 +4300,23 @@ var require_list = __commonJS({
           } else if (letter === "(") {
             func += 1;
           } else if (letter === ")") {
-            if (func > 0) func -= 1;
+            if (func > 0)
+              func -= 1;
           } else if (func === 0) {
-            if (separators.includes(letter)) split = true;
+            if (separators.includes(letter))
+              split = true;
           }
           if (split) {
-            if (current !== "") array.push(current.trim());
+            if (current !== "")
+              array.push(current.trim());
             current = "";
             split = false;
           } else {
             current += letter;
           }
         }
-        if (last || current !== "") array.push(current.trim());
+        if (last || current !== "")
+          array.push(current.trim());
         return array;
       }
     };
@@ -4254,7 +4343,8 @@ var require_rule = __commonJS({
       constructor(defaults) {
         super(defaults);
         this.type = "rule";
-        if (!this.nodes) this.nodes = [];
+        if (!this.nodes)
+          this.nodes = [];
       }
     };
     module2.exports = Rule;
@@ -4275,7 +4365,8 @@ var require_fromJSON = __commonJS({
     var Root = require_root();
     var Rule = require_rule();
     function fromJSON(json, inputs) {
-      if (Array.isArray(json)) return json.map((n) => fromJSON(n));
+      if (Array.isArray(json))
+        return json.map((n) => fromJSON(n));
       let _a = json, { inputs: ownInputs } = _a, defaults = __objRest(_a, ["inputs"]);
       if (ownInputs) {
         inputs = [];
@@ -4353,7 +4444,8 @@ var require_map_generator = __commonJS({
           content = this.outputFile() + ".map";
         }
         let eol = "\n";
-        if (this.css.includes("\r\n")) eol = "\r\n";
+        if (this.css.includes("\r\n"))
+          eol = "\r\n";
         this.css += eol + "/*# sourceMappingURL=" + content + " */";
       }
       applyPrevMaps() {
@@ -4373,12 +4465,14 @@ var require_map_generator = __commonJS({
         }
       }
       clearAnnotation() {
-        if (this.mapOpts.annotation === false) return;
+        if (this.mapOpts.annotation === false)
+          return;
         if (this.root) {
           let node;
           for (let i = this.root.nodes.length - 1; i >= 0; i--) {
             node = this.root.nodes[i];
-            if (node.type !== "comment") continue;
+            if (node.type !== "comment")
+              continue;
             if (node.text.startsWith("# sourceMappingURL=")) {
               this.root.removeChild(i);
             }
@@ -4419,9 +4513,12 @@ var require_map_generator = __commonJS({
             source: this.opts.from ? this.toUrl(this.path(this.opts.from)) : "<no source>"
           });
         }
-        if (this.isSourcesContent()) this.setSourcesContent();
-        if (this.root && this.previous().length > 0) this.applyPrevMaps();
-        if (this.isAnnotation()) this.addAnnotation();
+        if (this.isSourcesContent())
+          this.setSourcesContent();
+        if (this.root && this.previous().length > 0)
+          this.applyPrevMaps();
+        if (this.isAnnotation())
+          this.addAnnotation();
         if (this.isInline()) {
           return [this.css];
         } else {
@@ -4541,11 +4638,15 @@ var require_map_generator = __commonJS({
         }
       }
       path(file) {
-        if (this.mapOpts.absolute) return file;
-        if (file.charCodeAt(0) === 60) return file;
-        if (/^\w+:\/\//.test(file)) return file;
+        if (this.mapOpts.absolute)
+          return file;
+        if (file.charCodeAt(0) === 60)
+          return file;
+        if (/^\w+:\/\//.test(file))
+          return file;
         let cached = this.memoizedPaths.get(file);
-        if (cached) return cached;
+        if (cached)
+          return cached;
         let from = this.opts.to ? dirname(this.opts.to) : ".";
         if (typeof this.mapOpts.annotation === "string") {
           from = dirname(resolve(from, this.mapOpts.annotation));
@@ -4568,7 +4669,8 @@ var require_map_generator = __commonJS({
             });
           } else {
             let input = new Input(this.originalCSS, this.opts);
-            if (input.map) this.previousMaps.push(input.map);
+            if (input.map)
+              this.previousMaps.push(input.map);
           }
         }
         return this.previousMaps;
@@ -4609,7 +4711,8 @@ var require_map_generator = __commonJS({
       }
       toFileUrl(path) {
         let cached = this.memoizedFileURLs.get(path);
-        if (cached) return cached;
+        if (cached)
+          return cached;
         if (pathToFileURL) {
           let fileURL = pathToFileURL(path).toString();
           this.memoizedFileURLs.set(path, fileURL);
@@ -4622,7 +4725,8 @@ var require_map_generator = __commonJS({
       }
       toUrl(path) {
         let cached = this.memoizedURLs.get(path);
-        if (cached) return cached;
+        if (cached)
+          return cached;
         if (sep === "\\") {
           path = path.replace(/\\/g, "/");
         }
@@ -4653,7 +4757,8 @@ var require_parser = __commonJS({
       for (let i = tokens.length - 1; i >= 0; i--) {
         let token = tokens[i];
         let pos = token[3] || token[2];
-        if (pos) return pos;
+        if (pos)
+          return pos;
       }
     }
     var Parser = class {
@@ -4746,14 +4851,16 @@ var require_parser = __commonJS({
       }
       checkMissedSemicolon(tokens) {
         let colon = this.colon(tokens);
-        if (colon === false) return;
+        if (colon === false)
+          return;
         let founded = 0;
         let token;
         for (let j = colon - 1; j >= 0; j--) {
           token = tokens[j];
           if (token[0] !== "space") {
             founded += 1;
-            if (founded === 2) break;
+            if (founded === 2)
+              break;
           }
         }
         throw this.input.error(
@@ -4819,7 +4926,8 @@ var require_parser = __commonJS({
         );
         node.source.end.offset++;
         while (tokens[0][0] !== "word") {
-          if (tokens.length === 1) this.unknownWord(tokens);
+          if (tokens.length === 1)
+            this.unknownWord(tokens);
           node.raws.before += tokens.shift()[1];
         }
         node.source.start = this.getPosition(tokens[0][2]);
@@ -4853,7 +4961,8 @@ var require_parser = __commonJS({
         let next;
         while (tokens.length) {
           next = tokens[0][0];
-          if (next !== "space" && next !== "comment") break;
+          if (next !== "space" && next !== "comment")
+            break;
           firstSpaces.push(tokens.shift());
         }
         this.precheckMissedSemicolon(tokens);
@@ -4863,7 +4972,8 @@ var require_parser = __commonJS({
             node.important = true;
             let string = this.stringFrom(tokens, i);
             string = this.spacesFromEnd(tokens) + string;
-            if (string !== " !important") node.raws.important = string;
+            if (string !== " !important")
+              node.raws.important = string;
             break;
           } else if (token[1].toLowerCase() === "important") {
             let cache = tokens.slice(0);
@@ -4925,7 +5035,8 @@ var require_parser = __commonJS({
         }
       }
       endFile() {
-        if (this.current.parent) this.unclosedBlock();
+        if (this.current.parent)
+          this.unclosedBlock();
         if (this.current.nodes && this.current.nodes.length) {
           this.current.raws.semicolon = this.semicolon;
         }
@@ -4961,7 +5072,8 @@ var require_parser = __commonJS({
         };
         node.raws.before = this.spaces;
         this.spaces = "";
-        if (node.type !== "comment") this.semicolon = false;
+        if (node.type !== "comment")
+          this.semicolon = false;
       }
       other(start) {
         let end = false;
@@ -4976,10 +5088,12 @@ var require_parser = __commonJS({
           type = token[0];
           tokens.push(token);
           if (type === "(" || type === "[") {
-            if (!bracket) bracket = token;
+            if (!bracket)
+              bracket = token;
             brackets.push(type === "(" ? ")" : "]");
           } else if (customProperty && colon && type === "{") {
-            if (!bracket) bracket = token;
+            if (!bracket)
+              bracket = token;
             brackets.push("}");
           } else if (brackets.length === 0) {
             if (type === ";") {
@@ -5001,17 +5115,21 @@ var require_parser = __commonJS({
             }
           } else if (type === brackets[brackets.length - 1]) {
             brackets.pop();
-            if (brackets.length === 0) bracket = null;
+            if (brackets.length === 0)
+              bracket = null;
           }
           token = this.tokenizer.nextToken();
         }
-        if (this.tokenizer.endOfFile()) end = true;
-        if (brackets.length > 0) this.unclosedBracket(bracket);
+        if (this.tokenizer.endOfFile())
+          end = true;
+        if (brackets.length > 0)
+          this.unclosedBracket(bracket);
         if (end && colon) {
           if (!customProperty) {
             while (tokens.length) {
               token = tokens[tokens.length - 1][0];
-              if (token !== "space" && token !== "comment") break;
+              if (token !== "space" && token !== "comment")
+                break;
               this.tokenizer.back(tokens.pop());
             }
           }
@@ -5098,7 +5216,8 @@ var require_parser = __commonJS({
         let spaces = "";
         while (tokens.length) {
           lastTokenType = tokens[tokens.length - 1][0];
-          if (lastTokenType !== "space" && lastTokenType !== "comment") break;
+          if (lastTokenType !== "space" && lastTokenType !== "comment")
+            break;
           spaces = tokens.pop()[1] + spaces;
         }
         return spaces;
@@ -5109,7 +5228,8 @@ var require_parser = __commonJS({
         let spaces = "";
         while (tokens.length) {
           next = tokens[0][0];
-          if (next !== "space" && next !== "comment") break;
+          if (next !== "space" && next !== "comment")
+            break;
           spaces += tokens.shift()[1];
         }
         return spaces;
@@ -5119,7 +5239,8 @@ var require_parser = __commonJS({
         let spaces = "";
         while (tokens.length) {
           lastTokenType = tokens[tokens.length - 1][0];
-          if (lastTokenType !== "space") break;
+          if (lastTokenType !== "space")
+            break;
           spaces = tokens.pop()[1] + spaces;
         }
         return spaces;
@@ -5218,7 +5339,8 @@ var require_warning = __commonJS({
           this.endLine = range.end.line;
           this.endColumn = range.end.column;
         }
-        for (let opt in opts) this[opt] = opts[opt];
+        for (let opt in opts)
+          this[opt] = opts[opt];
       }
       toString() {
         if (this.node) {
@@ -5284,7 +5406,8 @@ var require_warn_once = __commonJS({
     "use strict";
     var printed = {};
     module2.exports = function warnOnce(message) {
-      if (printed[message]) return;
+      if (printed[message])
+        return;
       printed[message] = true;
       if (typeof console !== "undefined" && console.warn) {
         console.warn(message);
@@ -5385,7 +5508,8 @@ var require_lazy_result = __commonJS({
     }
     function cleanMarks(node) {
       node[isClean] = false;
-      if (node.nodes) node.nodes.forEach((i) => cleanMarks(i));
+      if (node.nodes)
+        node.nodes.forEach((i) => cleanMarks(i));
       return node;
     }
     var postcss = {};
@@ -5423,15 +5547,20 @@ var require_lazy_result = __commonJS({
         } else if (css instanceof _LazyResult || css instanceof Result) {
           root = cleanMarks(css.root);
           if (css.map) {
-            if (typeof opts.map === "undefined") opts.map = {};
-            if (!opts.map.inline) opts.map.inline = false;
+            if (typeof opts.map === "undefined")
+              opts.map = {};
+            if (!opts.map.inline)
+              opts.map.inline = false;
             opts.map.prev = css.map;
           }
         } else {
           let parser = parse;
-          if (opts.syntax) parser = opts.syntax.parse;
-          if (opts.parser) parser = opts.parser;
-          if (parser.parse) parser = parser.parse;
+          if (opts.syntax)
+            parser = opts.syntax.parse;
+          if (opts.parser)
+            parser = opts.parser;
+          if (parser.parse)
+            parser = parser.parse;
           try {
             root = parser(css, opts);
           } catch (error) {
@@ -5453,8 +5582,10 @@ var require_lazy_result = __commonJS({
         });
       }
       async() {
-        if (this.error) return Promise.reject(this.error);
-        if (this.processed) return Promise.resolve(this.result);
+        if (this.error)
+          return Promise.reject(this.error);
+        if (this.processed)
+          return Promise.resolve(this.result);
         if (!this.processing) {
           this.processing = this.runAsync();
         }
@@ -5472,7 +5603,8 @@ var require_lazy_result = __commonJS({
       handleError(error, node) {
         let plugin = this.result.lastPlugin;
         try {
-          if (node) node.addToError(error);
+          if (node)
+            node.addToError(error);
           this.error = error;
           if (error.name === "CssSyntaxError" && !error.plugin) {
             error.plugin = plugin.postcssPlugin;
@@ -5492,14 +5624,16 @@ var require_lazy_result = __commonJS({
             }
           }
         } catch (err) {
-          if (console && console.error) console.error(err);
+          if (console && console.error)
+            console.error(err);
         }
         return error;
       }
       prepareVisitors() {
         this.listeners = {};
         let add = (plugin, type, cb) => {
-          if (!this.listeners[type]) this.listeners[type] = [];
+          if (!this.listeners[type])
+            this.listeners[type] = [];
           this.listeners[type].push([plugin, cb]);
         };
         for (let plugin of this.plugins) {
@@ -5608,15 +5742,20 @@ var require_lazy_result = __commonJS({
         }
       }
       stringify() {
-        if (this.error) throw this.error;
-        if (this.stringified) return this.result;
+        if (this.error)
+          throw this.error;
+        if (this.stringified)
+          return this.result;
         this.stringified = true;
         this.sync();
         let opts = this.result.opts;
         let str = stringify;
-        if (opts.syntax) str = opts.syntax.stringify;
-        if (opts.stringifier) str = opts.stringifier;
-        if (str.stringify) str = str.stringify;
+        if (opts.syntax)
+          str = opts.syntax.stringify;
+        if (opts.stringifier)
+          str = opts.stringifier;
+        if (str.stringify)
+          str = str.stringify;
         let map = new MapGenerator(str, this.result.root, this.result.opts);
         let data = map.generate();
         this.result.css = data[0];
@@ -5624,8 +5763,10 @@ var require_lazy_result = __commonJS({
         return this.result;
       }
       sync() {
-        if (this.error) throw this.error;
-        if (this.processed) return this.result;
+        if (this.error)
+          throw this.error;
+        if (this.processed)
+          return this.result;
         this.processed = true;
         if (this.processing) {
           throw this.getAsyncError();
@@ -5744,13 +5885,15 @@ var require_lazy_result = __commonJS({
           if (event === CHILDREN) {
             if (node.nodes) {
               node.each((child) => {
-                if (!child[isClean]) this.walkSync(child);
+                if (!child[isClean])
+                  this.walkSync(child);
               });
             }
           } else {
             let visitors = this.listeners[event];
             if (visitors) {
-              if (this.visitSync(visitors, node.toProxy())) return;
+              if (this.visitSync(visitors, node.toProxy()))
+                return;
             }
           }
         }
@@ -5850,7 +5993,8 @@ var require_no_work_result = __commonJS({
         }
       }
       async() {
-        if (this.error) return Promise.reject(this.error);
+        if (this.error)
+          return Promise.reject(this.error);
         return Promise.resolve(this.result);
       }
       catch(onRejected) {
@@ -5860,7 +6004,8 @@ var require_no_work_result = __commonJS({
         return this.async().then(onFinally, onFinally);
       }
       sync() {
-        if (this.error) throw this.error;
+        if (this.error)
+          throw this.error;
         return this.result;
       }
       then(onFulfilled, onRejected) {
@@ -5993,7 +6138,8 @@ var require_postcss = __commonJS({
       let cache;
       Object.defineProperty(creator, "postcss", {
         get() {
-          if (!cache) cache = creator();
+          if (!cache)
+            cache = creator();
           return cache;
         }
       });
@@ -6063,7 +6209,8 @@ var require_scss_stringifier = __commonJS({
           } else {
             after = this.raw(node, "after", "emptyBody");
           }
-          if (after) this.builder(after);
+          if (after)
+            this.builder(after);
           this.builder("}", node, "end");
         }
       }
@@ -6101,7 +6248,8 @@ var require_nested_declaration = __commonJS({
         super(defaults);
         this.type = "decl";
         this.isNested = true;
-        if (!this.nodes) this.nodes = [];
+        if (!this.nodes)
+          this.nodes = [];
       }
     };
     module2.exports = NestedDeclaration;
@@ -6163,7 +6311,8 @@ var require_scss_tokenize = __commonJS({
         let stringEscaped = false;
         while (deep > 0) {
           next += 1;
-          if (css.length <= next) unclosed("interpolation");
+          if (css.length <= next)
+            unclosed("interpolation");
           code = css.charCodeAt(next);
           n = css.charCodeAt(next + 1);
           if (stringQuote) {
@@ -6185,8 +6334,10 @@ var require_scss_tokenize = __commonJS({
         }
       }
       function nextToken(opts) {
-        if (returned.length) return returned.pop();
-        if (pos >= length) return void 0;
+        if (returned.length)
+          return returned.pop();
+        if (pos >= length)
+          return void 0;
         let ignoreUnclosed = opts ? opts.ignoreUnclosed : false;
         code = css.charCodeAt(pos);
         switch (code) {
@@ -6215,12 +6366,10 @@ var require_scss_tokenize = __commonJS({
             currentToken = [controlChar, controlChar, pos];
             break;
           }
-          // SCSS PATCH {
           case COMMA: {
             currentToken = ["word", ",", pos, pos + 1];
             break;
           }
-          // } SCSS PATCH
           case OPEN_PARENTHESES: {
             prev = buffer.length ? buffer.pop()[1] : "";
             n = css.charCodeAt(pos + 1);
@@ -6236,7 +6385,8 @@ var require_scss_tokenize = __commonJS({
                   brackets += 1;
                 } else if (n === CLOSE_PARENTHESES) {
                   brackets -= 1;
-                  if (brackets === 0) break;
+                  if (brackets === 0)
+                    break;
                 }
                 next += 1;
               }
@@ -6262,7 +6412,8 @@ var require_scss_tokenize = __commonJS({
             escaped = false;
             while (next < length) {
               next++;
-              if (next === length) unclosed("string");
+              if (next === length)
+                unclosed("string");
               code = css.charCodeAt(next);
               n = css.charCodeAt(next + 1);
               if (!escaped && code === quote) {
