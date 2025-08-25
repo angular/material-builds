@@ -1,18 +1,19 @@
-export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError } from './tooltip-module.mjs';
-import '@angular/core';
-import '@angular/cdk/a11y';
-import '@angular/cdk/overlay';
-import '@angular/cdk/scrolling';
+export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError } from './tooltip2.mjs';
+export { MatTooltipModule } from './tooltip-module.mjs';
 import 'rxjs/operators';
 import '@angular/cdk/coercion';
 import '@angular/cdk/keycodes';
+import '@angular/core';
 import '@angular/common';
 import '@angular/cdk/platform';
+import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
+import '@angular/cdk/overlay';
 import '@angular/cdk/portal';
 import 'rxjs';
 import './animation.mjs';
 import '@angular/cdk/layout';
+import '@angular/cdk/scrolling';
 import './common-module.mjs';
 
 /**

@@ -4,9 +4,10 @@ import { Subject, ReplaySubject } from 'rxjs';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { MatFormField } from './form-field2.mjs';
 import { MatSelect, MatSelectModule } from './select-module.mjs';
-import { MatTooltip, MatTooltipModule } from './tooltip-module.mjs';
 import { MatOption } from './option.mjs';
 import { MatIconButton } from './icon-button.mjs';
+import { MatTooltip } from './tooltip2.mjs';
+import { MatTooltipModule } from './tooltip-module.mjs';
 import { MatButtonModule } from './button.mjs';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
@@ -32,9 +33,9 @@ import './pseudo-checkbox-module.mjs';
 import './pseudo-checkbox.mjs';
 import './form-field-module.mjs';
 import '@angular/cdk/observers';
-import '@angular/cdk/portal';
 import './structural-styles.mjs';
 import './ripple-loader.mjs';
+import '@angular/cdk/portal';
 
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
