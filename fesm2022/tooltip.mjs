@@ -1,66 +1,35 @@
-export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError } from './tooltip2.mjs';
-export { MatTooltipModule } from './tooltip-module.mjs';
+import { MatTooltip, TooltipComponent, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER } from './tooltip2.mjs';
+export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError } from './tooltip2.mjs';
+import * as i0 from '@angular/core';
+import { NgModule } from '@angular/core';
+import { A11yModule } from '@angular/cdk/a11y';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
+import { MatCommonModule } from './common-module.mjs';
 import 'rxjs/operators';
 import '@angular/cdk/coercion';
 import '@angular/cdk/keycodes';
-import '@angular/core';
 import '@angular/common';
 import '@angular/cdk/platform';
-import '@angular/cdk/a11y';
 import '@angular/cdk/bidi';
-import '@angular/cdk/overlay';
 import '@angular/cdk/portal';
 import 'rxjs';
 import './animation.mjs';
 import '@angular/cdk/layout';
-import '@angular/cdk/scrolling';
-import './common-module.mjs';
 
-/**
- * Animations used by MatTooltip.
- * @docs-private
- * @deprecated No longer being used, to be removed.
- * @breaking-change 21.0.0
- */
-const matTooltipAnimations = {
-    // Represents:
-    // trigger('state', [
-    //   state('initial, void, hidden', style({opacity: 0, transform: 'scale(0.8)'})),
-    //   state('visible', style({transform: 'scale(1)'})),
-    //   transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
-    //   transition('* => hidden', animate('75ms cubic-bezier(0.4, 0, 1, 1)')),
-    // ])
-    /** Animation that transitions a tooltip in and out. */
-    tooltipState: {
-        type: 7,
-        name: 'state',
-        definitions: [
-            {
-                type: 0,
-                name: 'initial, void, hidden',
-                styles: { type: 6, styles: { opacity: 0, transform: 'scale(0.8)' }, offset: null },
-            },
-            {
-                type: 0,
-                name: 'visible',
-                styles: { type: 6, styles: { transform: 'scale(1)' }, offset: null },
-            },
-            {
-                type: 1,
-                expr: '* => visible',
-                animation: { type: 4, styles: null, timings: '150ms cubic-bezier(0, 0, 0.2, 1)' },
-                options: null,
-            },
-            {
-                type: 1,
-                expr: '* => hidden',
-                animation: { type: 4, styles: null, timings: '75ms cubic-bezier(0.4, 0, 1, 1)' },
-                options: null,
-            },
-        ],
-        options: {},
-    },
-};
+class MatTooltipModule {
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTooltipModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTooltipModule, imports: [A11yModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent], exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTooltipModule, providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [A11yModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule] });
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTooltipModule, decorators: [{
+            type: NgModule,
+            args: [{
+                    imports: [A11yModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent],
+                    exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule],
+                    providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
+                }]
+        }] });
 
-export { matTooltipAnimations };
+export { MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, MatTooltipModule, TooltipComponent };
 //# sourceMappingURL=tooltip.mjs.map

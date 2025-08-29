@@ -892,15 +892,5 @@ interface MatTabsConfig {
 /** Injection token that can be used to provide the default options the tabs module. */
 declare const MAT_TABS_CONFIG: InjectionToken<MatTabsConfig>;
 
-/**
- * Animations used by the Material tabs.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0.
- */
-declare const matTabsAnimations: {
-    readonly translateTab: any;
-};
-
-export { MAT_TAB, MAT_TABS_CONFIG, MAT_TAB_CONTENT, MAT_TAB_GROUP, MAT_TAB_LABEL, MatInkBar, MatPaginatedTabHeader, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabNavPanel, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MAT_INK_BAR_POSITIONER_FACTORY, matTabsAnimations };
+export { MAT_TAB, MAT_TABS_CONFIG, MAT_TAB_CONTENT, MAT_TAB_GROUP, MAT_TAB_LABEL, MatInkBar, MatPaginatedTabHeader, MatTab, MatTabBody, MatTabBodyPortal, MatTabChangeEvent, MatTabContent, MatTabGroup, MatTabHeader, MatTabLabel, MatTabLabelWrapper, MatTabLink, MatTabNav, MatTabNavPanel, MatTabsModule, _MAT_INK_BAR_POSITIONER, _MAT_INK_BAR_POSITIONER_FACTORY };
 export type { MatTabBodyOriginState, MatTabBodyPositionState, MatTabGroupBaseHeader, MatTabHeaderPosition, MatTabsConfig, ScrollDirection, _MatInkBarPositioner };

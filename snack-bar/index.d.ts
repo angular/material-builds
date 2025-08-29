@@ -330,15 +330,5 @@ declare class MatSnackBarModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSnackBarModule>;
 }
 
-/**
- * Animations used by the Material snack bar.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const matSnackBarAnimations: {
-    readonly snackBarState: any;
-};
-
-export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
+export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar };
 export type { MatSnackBarDismiss, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, TextOnlySnackBar };

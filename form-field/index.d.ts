@@ -17,14 +17,4 @@ declare function getMatFormFieldDuplicatedHintError(align: string): Error;
 /** @docs-private */
 declare function getMatFormFieldMissingControlError(): Error;
 
-/**
- * Animations used by the MatFormField.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const matFormFieldAnimations: {
-    readonly transitionMessages: any;
-};
-
-export { getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError, matFormFieldAnimations };
+export { getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError };

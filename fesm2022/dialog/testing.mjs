@@ -2,18 +2,18 @@ import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@an
 import { __decorate, __metadata } from 'tslib';
 import { inject, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, NgModule } from '@angular/core';
 import { MATERIAL_ANIMATIONS } from '@angular/material/core';
-import { MatDialog, MatDialogModule } from '../dialog-module.mjs';
-import '@angular/cdk/dialog';
+import { MatDialog, MatDialogModule } from '../dialog.mjs';
+import '@angular/cdk/a11y';
+import '@angular/cdk/scrolling';
 import '@angular/cdk/overlay';
-import '@angular/cdk/portal';
+import '@angular/cdk/dialog';
 import '@angular/cdk/coercion';
+import '@angular/cdk/portal';
 import '../animation.mjs';
 import '@angular/cdk/layout';
 import 'rxjs';
 import 'rxjs/operators';
 import '@angular/cdk/keycodes';
-import '@angular/cdk/a11y';
-import '@angular/cdk/scrolling';
 import '../common-module.mjs';
 import '@angular/cdk/bidi';
 

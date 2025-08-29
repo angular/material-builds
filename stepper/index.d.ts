@@ -236,16 +236,5 @@ declare class MatStepperModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatStepperModule>;
 }
 
-/**
- * Animations used by the Material steppers.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const matStepperAnimations: {
-    readonly horizontalStepTransition: any;
-    readonly verticalStepTransition: any;
-};
-
-export { MAT_STEPPER_INTL_PROVIDER, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious, matStepperAnimations };
+export { MAT_STEPPER_INTL_PROVIDER, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious };
 export type { MatStepperIconContext };

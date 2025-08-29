@@ -338,15 +338,5 @@ declare class MatSidenavModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSidenavModule>;
 }
 
-/**
- * Animations used by the Material drawers.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const matDrawerAnimations: {
-    readonly transformDrawer: any;
-};
-
-export { MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule, matDrawerAnimations, throwMatDuplicatedDrawerError };
+export { MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule, throwMatDuplicatedDrawerError };
 export type { MatDrawerMode, MatDrawerToggleResult };

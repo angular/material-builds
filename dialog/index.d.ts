@@ -82,26 +82,4 @@ declare class MatDialogModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDialogModule>;
 }
 
-/**
- * Default parameters for the animation for backwards compatibility.
- * @docs-private
- * @deprecated Will stop being exported.
- * @breaking-change 21.0.0
- */
-declare const _defaultParams: {
-    params: {
-        enterAnimationDuration: string;
-        exitAnimationDuration: string;
-    };
-};
-/**
- * Animations used by MatDialog.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const matDialogAnimations: {
-    readonly dialogContainer: any;
-};
-
-export { MatDialogActions, MatDialogClose, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle, _defaultParams, matDialogAnimations };
+export { MatDialogActions, MatDialogClose, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle };

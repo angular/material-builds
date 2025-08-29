@@ -186,14 +186,5 @@ declare class MatBottomSheet implements OnDestroy {
     static ɵprov: i0.ɵɵInjectableDeclaration<MatBottomSheet>;
 }
 
-/**
- * Animations used by the Material bottom sheet.
- * @deprecated No longer used. Will be removed.
- * @breaking-change 21.0.0
- */
-declare const matBottomSheetAnimations: {
-    readonly bottomSheetState: any;
-};
-
-export { MAT_BOTTOM_SHEET_DATA, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheet, MatBottomSheetConfig, MatBottomSheetContainer, MatBottomSheetModule, MatBottomSheetRef, matBottomSheetAnimations };
+export { MAT_BOTTOM_SHEET_DATA, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheet, MatBottomSheetConfig, MatBottomSheetContainer, MatBottomSheetModule, MatBottomSheetRef };
 export type { AutoFocusTarget };

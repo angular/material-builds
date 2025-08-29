@@ -11,7 +11,7 @@ import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field2.mjs';
 export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from './form-field2.mjs';
 import { ErrorStateMatcher } from './error-options.mjs';
 import { _ErrorStateTracker } from './error-state.mjs';
-import { MatFormFieldModule } from './form-field-module.mjs';
+import { MatFormFieldModule } from './form-field.mjs';
 import { MatCommonModule } from './common-module.mjs';
 import '@angular/cdk/bidi';
 import '@angular/common';

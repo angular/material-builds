@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { MatButtonModule } from '../button/index.js';
-import { MatSelectModule } from '../select-module.d.js';
-import { MatTooltipModule } from '../tooltip-module.d.js';
+import { MatSelectModule } from '../select/index.js';
+import { MatTooltipModule } from '../tooltip/index.js';
 import { MatPaginator } from '../paginator.d.js';
 export { MAT_PAGINATOR_DEFAULT_OPTIONS, MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginatorDefaultOptions, MatPaginatorIntl, MatPaginatorSelectConfig, PageEvent } from '../paginator.d.js';
 import '@angular/cdk/a11y';

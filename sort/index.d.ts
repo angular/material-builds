@@ -144,20 +144,5 @@ declare class MatSortModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSortModule>;
 }
 
-/**
- * Animations used by MatSort.
- * @docs-private
- * @deprecated No longer being used, to be removed.
- * @breaking-change 21.0.0
- */
-declare const matSortAnimations: {
-    readonly indicator: any;
-    readonly leftPointer: any;
-    readonly rightPointer: any;
-    readonly arrowOpacity: any;
-    readonly arrowPosition: any;
-    readonly allowChildren: any;
-};
-
-export { MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, MatSortable, SortDirection, SortHeaderArrowPosition, matSortAnimations };
+export { MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, MatSortable, SortDirection, SortHeaderArrowPosition };
 export type { ArrowViewState, ArrowViewStateTransition };
