@@ -28,12 +28,6 @@ import '@angular/cdk/observers';
 
 /** Injection token that determines the scroll handling while a select is open. */
 declare const MAT_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(_overlay: unknown): () => ScrollStrategy;
 /** Object that can be used to configure the default options for the select module. */
 interface MatSelectConfig {
     /** Whether option centering should be disabled. */
@@ -57,16 +51,6 @@ interface MatSelectConfig {
 }
 /** Injection token that can be used to provide the default options the select module. */
 declare const MAT_SELECT_CONFIG: InjectionToken<MatSelectConfig>;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: any[];
-    useFactory: typeof MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
-};
 /**
  * Injection token that can be used to reference instances of `MatSelectTrigger`. It serves as
  * alternative token to the actual `MatSelectTrigger` class which could cause unnecessary
@@ -462,5 +446,5 @@ declare class MatSelectModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSelectModule>;
 }
 
-export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatFormField, MatOptgroup, MatOption, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger };
+export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_TRIGGER, MatFormField, MatOptgroup, MatOption, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger };
 export type { MatSelectConfig };

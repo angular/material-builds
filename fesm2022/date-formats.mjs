@@ -4,16 +4,8 @@ import { Subject } from 'rxjs';
 /** InjectionToken for datepicker that can be used to override default locale code. */
 const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
-    factory: MAT_DATE_LOCALE_FACTORY,
+    factory: () => inject(LOCALE_ID),
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_DATE_LOCALE_FACTORY() {
-    return inject(LOCALE_ID);
-}
 const NOT_IMPLEMENTED = 'Method not implemented';
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
 class DateAdapter {
@@ -186,5 +178,5 @@ class DateAdapter {
 
 const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
-export { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY };
+export { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE };
 //# sourceMappingURL=date-formats.mjs.map

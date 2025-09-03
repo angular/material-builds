@@ -1,7 +1,7 @@
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
-import { Directive, Injectable, Optional, SkipSelf, inject, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, TemplateRef, ViewContainerRef, ContentChild, NgZone, Renderer2, signal, QueryList, EventEmitter, ElementRef, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
+import { Directive, Injectable, inject, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, TemplateRef, ViewContainerRef, ContentChild, NgZone, Renderer2, signal, QueryList, EventEmitter, ElementRef, ViewChildren, ContentChildren, Output, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Subject, Subscription } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
@@ -53,24 +53,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl) {
-    return parentIntl || new MatStepperIntl();
-}
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-const MAT_STEPPER_INTL_PROVIDER = {
-    provide: MatStepperIntl,
-    deps: [[new Optional(), new SkipSelf(), MatStepperIntl]],
-    useFactory: MAT_STEPPER_INTL_PROVIDER_FACTORY,
-};
 
 class MatStepHeader extends CdkStepHeader {
     _intl = inject(MatStepperIntl);
@@ -539,7 +521,7 @@ class MatStepperModule {
             MatStepHeader,
             MatStepperIcon,
             MatStepContent] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepperModule, providers: [MAT_STEPPER_INTL_PROVIDER, ErrorStateMatcher], imports: [MatCommonModule,
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepperModule, providers: [ErrorStateMatcher], imports: [MatCommonModule,
             PortalModule,
             CdkStepperModule,
             MatIconModule,
@@ -576,9 +558,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatStepperIcon,
                         MatStepContent,
                     ],
-                    providers: [MAT_STEPPER_INTL_PROVIDER, ErrorStateMatcher],
+                    providers: [ErrorStateMatcher],
                 }]
         }] });
 
-export { MAT_STEPPER_INTL_PROVIDER, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious };
+export { MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious };
 //# sourceMappingURL=stepper.mjs.map

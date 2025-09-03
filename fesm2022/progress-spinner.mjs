@@ -10,16 +10,8 @@ import '@angular/cdk/bidi';
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
 const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {
     providedIn: 'root',
-    factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
+    factory: () => ({ diameter: BASE_SIZE }),
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
-    return { diameter: BASE_SIZE };
-}
 /**
  * Base reference size of the spinner.
  */
@@ -189,5 +181,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 }]
         }] });
 
-export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinner, MatProgressSpinnerModule, MatSpinner };
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinner, MatProgressSpinnerModule, MatSpinner };
 //# sourceMappingURL=progress-spinner.mjs.map

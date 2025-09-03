@@ -139,12 +139,6 @@ interface MatFabDefaultOptions {
 /** Injection token to be used to override the default options for FAB. */
 declare const MAT_FAB_DEFAULT_OPTIONS: InjectionToken<MatFabDefaultOptions>;
 /**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_FAB_DEFAULT_OPTIONS_FACTORY(): MatFabDefaultOptions;
-/**
  * Material Design floating action button (FAB) component. These buttons represent the primary
  * or most common action for users to interact with.
  * See https://m3.material.io/components/floating-action-button/overview
@@ -213,5 +207,5 @@ declare class MatButtonModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonModule>;
 }
 
-export { MAT_BUTTON_CONFIG, MAT_FAB_DEFAULT_OPTIONS, MAT_FAB_DEFAULT_OPTIONS_FACTORY, MatAnchor, MatButton, MatButtonModule, MatFabAnchor, MatFabButton, MatIconAnchor, MatIconButton, MatMiniFabAnchor, MatMiniFabButton };
+export { MAT_BUTTON_CONFIG, MAT_FAB_DEFAULT_OPTIONS, MatAnchor, MatButton, MatButtonModule, MatFabAnchor, MatFabButton, MatIconAnchor, MatIconButton, MatMiniFabAnchor, MatMiniFabButton };
 export type { MatButtonAppearance, MatButtonConfig, MatFabDefaultOptions };

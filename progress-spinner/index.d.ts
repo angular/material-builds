@@ -1,5 +1,5 @@
 import { MatProgressSpinner } from '../progress-spinner.d.js';
-export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinnerDefaultOptions, MatSpinner, ProgressSpinnerMode } from '../progress-spinner.d.js';
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinnerDefaultOptions, MatSpinner, ProgressSpinnerMode } from '../progress-spinner.d.js';
 import * as i0 from '@angular/core';
 import { MatCommonModule } from '../common-module.d.js';
 import '../palette.d.js';

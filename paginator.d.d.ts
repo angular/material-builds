@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Optional, InjectionToken, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { InjectionToken, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ThemePalette } from './palette.d.js';
 import { Subject, Observable } from 'rxjs';
 import { MatFormFieldAppearance } from './form-field.d.js';
@@ -29,22 +29,6 @@ declare class MatPaginatorIntl {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorIntl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatPaginatorIntl>;
 }
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPaginatorIntl): MatPaginatorIntl;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_PAGINATOR_INTL_PROVIDER: {
-    provide: typeof MatPaginatorIntl;
-    deps: Optional[][];
-    useFactory: typeof MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
-};
 
 /** Object that can used to configure the underlying `MatSelect` inside a `MatPaginator`. */
 interface MatPaginatorSelectConfig {
@@ -196,5 +180,5 @@ declare class MatPaginator implements OnInit, OnDestroy {
     static ngAcceptInputType_disabled: unknown;
 }
 
-export { MAT_PAGINATOR_DEFAULT_OPTIONS, MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, MatPaginatorIntl, PageEvent };
+export { MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginator, MatPaginatorIntl, PageEvent };
 export type { MatPaginatorDefaultOptions, MatPaginatorSelectConfig };

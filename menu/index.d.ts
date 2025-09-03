@@ -306,22 +306,6 @@ declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, On
 /** Injection token that determines the scroll handling while the menu is open. */
 declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(_overlay: unknown): () => ScrollStrategy;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: any[];
-    useFactory: typeof MAT_MENU_SCROLL_STRATEGY_FACTORY;
-};
-/**
  * Default top padding of the menu panel.
  * @deprecated No longer being used. Will be removed.
  * @breaking-change 15.0.0
@@ -554,5 +538,5 @@ declare class MatMenuModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatMenuModule>;
 }
 
-export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER, MENU_PANEL_TOP_PADDING, MatContextMenuTrigger, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger };
+export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MENU_PANEL_TOP_PADDING, MatContextMenuTrigger, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger };
 export type { MatMenuDefaultOptions, MatMenuPanel, MenuCloseReason, MenuPositionX, MenuPositionY };

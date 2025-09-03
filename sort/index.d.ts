@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Optional, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
+import { OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { MatCommonModule } from '../common-module.d.js';
 import { MatSortable, MatSort, SortHeaderArrowPosition } from '../sort.d.js';
 export { MAT_SORT_DEFAULT_OPTIONS, MatSortDefaultOptions, Sort } from '../sort.d.js';
@@ -20,22 +20,6 @@ declare class MatSortHeaderIntl {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeaderIntl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatSortHeaderIntl>;
 }
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl: MatSortHeaderIntl): MatSortHeaderIntl;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_SORT_HEADER_INTL_PROVIDER: {
-    provide: typeof MatSortHeaderIntl;
-    deps: Optional[][];
-    useFactory: typeof MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
-};
 
 /**
  * Valid positions for the arrow to be in for its opacity and translation. If the state is a
@@ -144,5 +128,5 @@ declare class MatSortModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSortModule>;
 }
 
-export { MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, MatSortable, SortDirection, SortHeaderArrowPosition };
+export { MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, MatSortable, SortDirection, SortHeaderArrowPosition };
 export type { ArrowViewState, ArrowViewStateTransition };

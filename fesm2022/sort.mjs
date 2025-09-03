@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, booleanAttribute, Directive, Optional, Inject, Input, Output, Injectable, SkipSelf, inject, ChangeDetectorRef, ElementRef, signal, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, EventEmitter, booleanAttribute, Directive, Optional, Inject, Input, Output, Injectable, inject, ChangeDetectorRef, ElementRef, signal, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
 import { ReplaySubject, Subject, merge } from 'rxjs';
@@ -195,25 +195,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
-    return parentIntl || new MatSortHeaderIntl();
-}
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-const MAT_SORT_HEADER_INTL_PROVIDER = {
-    // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
-    provide: MatSortHeaderIntl,
-    deps: [[new Optional(), new SkipSelf(), MatSortHeaderIntl]],
-    useFactory: MAT_SORT_HEADER_INTL_PROVIDER_FACTORY,
-};
 
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
@@ -401,16 +382,15 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 class MatSortModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
     static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, imports: [MatCommonModule, MatSort, MatSortHeader], exports: [MatSort, MatSortHeader] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, providers: [MAT_SORT_HEADER_INTL_PROVIDER], imports: [MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, imports: [MatCommonModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatCommonModule, MatSort, MatSortHeader],
                     exports: [MatSort, MatSortHeader],
-                    providers: [MAT_SORT_HEADER_INTL_PROVIDER],
                 }]
         }] });
 
-export { MAT_SORT_DEFAULT_OPTIONS, MAT_SORT_HEADER_INTL_PROVIDER, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule };
+export { MAT_SORT_DEFAULT_OPTIONS, MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule };
 //# sourceMappingURL=sort.mjs.map

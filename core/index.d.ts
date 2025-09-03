@@ -15,7 +15,7 @@ export { MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleAnimationConfig, RippleConf
 export { MatRippleModule } from '../ripple-module.d.js';
 export { MatPseudoCheckbox, MatPseudoCheckboxModule, MatPseudoCheckboxState } from '../pseudo-checkbox-module.d.js';
 import { DateAdapter } from '../date-adapter.d.js';
-export { MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY } from '../date-adapter.d.js';
+export { MAT_DATE_LOCALE } from '../date-adapter.d.js';
 import '@angular/cdk/bidi';
 import '@angular/cdk/a11y';
 import '@angular/cdk/platform';

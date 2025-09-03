@@ -19,19 +19,13 @@ interface MatProgressSpinnerDefaultOptions {
     /** Width of the spinner's stroke. */
     strokeWidth?: number;
     /**
-     * Whether the animations should be force to be enabled, ignoring if the current environment is
-     * using NoopAnimationsModule.
+     * Whether the animations should be force to be enabled, ignoring if the current environment
+     * disables them.
      */
     _forceAnimations?: boolean;
 }
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
 declare const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatProgressSpinnerDefaultOptions>;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgressSpinnerDefaultOptions;
 declare class MatProgressSpinner {
     readonly _elementRef: ElementRef<HTMLElement>;
     /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
@@ -93,5 +87,5 @@ declare class MatProgressSpinner {
  */
 declare const MatSpinner: typeof MatProgressSpinner;
 
-export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinner, MatSpinner };
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinner, MatSpinner };
 export type { MatProgressSpinnerDefaultOptions, ProgressSpinnerMode };

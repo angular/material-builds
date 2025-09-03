@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
-import { Injectable, Optional, SkipSelf, InjectionToken, inject, ChangeDetectorRef, numberAttribute, EventEmitter, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
-import { Subject, ReplaySubject } from 'rxjs';
+import { Injectable, InjectionToken, inject, ChangeDetectorRef, numberAttribute, EventEmitter, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
+import { Subject, ReplaySubject } from 'rxjs';
 import { MatFormField } from './form-field2.mjs';
 import { MatSelect, MatSelectModule } from './select.mjs';
 import { MatOption } from './option.mjs';
@@ -75,25 +75,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
             type: Injectable,
             args: [{ providedIn: 'root' }]
         }] });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
-    return parentIntl || new MatPaginatorIntl();
-}
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-const MAT_PAGINATOR_INTL_PROVIDER = {
-    // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
-    provide: MatPaginatorIntl,
-    deps: [[new Optional(), new SkipSelf(), MatPaginatorIntl]],
-    useFactory: MAT_PAGINATOR_INTL_PROVIDER_FACTORY,
-};
 
 /** The default page size if there is no page size and there are no provided page size options. */
 const DEFAULT_PAGE_SIZE = 50;
@@ -379,16 +360,15 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 class MatPaginatorModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatPaginatorModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
     static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatPaginatorModule, imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator], exports: [MatPaginator] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatPaginatorModule, providers: [MAT_PAGINATOR_INTL_PROVIDER], imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatPaginatorModule, imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatPaginatorModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator],
                     exports: [MatPaginator],
-                    providers: [MAT_PAGINATOR_INTL_PROVIDER],
                 }]
         }] });
 
-export { MAT_PAGINATOR_DEFAULT_OPTIONS, MAT_PAGINATOR_INTL_PROVIDER, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent };
+export { MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent };
 //# sourceMappingURL=paginator.mjs.map

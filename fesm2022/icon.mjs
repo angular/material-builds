@@ -3,7 +3,7 @@ import { InjectionToken, inject, DOCUMENT, ElementRef, ErrorHandler, HostAttribu
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { MatIconRegistry } from './icon-registry.mjs';
-export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './icon-registry.mjs';
+export { getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './icon-registry.mjs';
 import { MatCommonModule } from './common-module.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
@@ -19,22 +19,16 @@ const MAT_ICON_DEFAULT_OPTIONS = new InjectionToken('MAT_ICON_DEFAULT_OPTIONS');
  */
 const MAT_ICON_LOCATION = new InjectionToken('mat-icon-location', {
     providedIn: 'root',
-    factory: MAT_ICON_LOCATION_FACTORY,
+    factory: () => {
+        const _document = inject(DOCUMENT);
+        const _location = _document ? _document.location : null;
+        return {
+            // Note that this needs to be a function, rather than a property, because Angular
+            // will only resolve it once, but we want the current path on each call.
+            getPathname: () => (_location ? _location.pathname + _location.search : ''),
+        };
+    },
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_ICON_LOCATION_FACTORY() {
-    const _document = inject(DOCUMENT);
-    const _location = _document ? _document.location : null;
-    return {
-        // Note that this needs to be a function, rather than a property, because Angular
-        // will only resolve it once, but we want the current path on each call.
-        getPathname: () => (_location ? _location.pathname + _location.search : ''),
-    };
-}
 /** SVG attributes that accept a FuncIRI (e.g. `url(<something>)`). */
 const funcIriAttributes = [
     'clip-path',
@@ -395,5 +389,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 }]
         }] });
 
-export { MAT_ICON_DEFAULT_OPTIONS, MAT_ICON_LOCATION, MAT_ICON_LOCATION_FACTORY, MatIcon, MatIconModule, MatIconRegistry };
+export { MAT_ICON_DEFAULT_OPTIONS, MAT_ICON_LOCATION, MatIcon, MatIconModule, MatIconRegistry };
 //# sourceMappingURL=icon.mjs.map

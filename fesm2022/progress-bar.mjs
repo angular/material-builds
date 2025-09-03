@@ -13,21 +13,18 @@ const MAT_PROGRESS_BAR_DEFAULT_OPTIONS = new InjectionToken('MAT_PROGRESS_BAR_DE
  * Used to handle server-side rendering and to stub out during unit tests.
  * @docs-private
  */
-const MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
-    const _document = inject(DOCUMENT);
-    const _location = _document ? _document.location : null;
-    return {
-        // Note that this needs to be a function, rather than a property, because Angular
-        // will only resolve it once, but we want the current path on each call.
-        getPathname: () => (_location ? _location.pathname + _location.search : ''),
-    };
-}
+const MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location', {
+    providedIn: 'root',
+    factory: () => {
+        const _document = inject(DOCUMENT);
+        const _location = _document ? _document.location : null;
+        return {
+            // Note that this needs to be a function, rather than a property, because Angular
+            // will only resolve it once, but we want the current path on each call.
+            getPathname: () => (_location ? _location.pathname + _location.search : ''),
+        };
+    },
+});
 class MatProgressBar {
     _elementRef = inject(ElementRef);
     _ngZone = inject(NgZone);
@@ -193,5 +190,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 }]
         }] });
 
-export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
+export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MatProgressBar, MatProgressBarModule };
 //# sourceMappingURL=progress-bar.mjs.map

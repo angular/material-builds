@@ -32,12 +32,6 @@ interface MatIconLocation {
     getPathname: () => string;
 }
 /**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_ICON_LOCATION_FACTORY(): MatIconLocation;
-/**
  * Component to display an icon. It can be used in the following ways:
  *
  * - Specify the svgIcon input to load an SVG icon from a URL previously registered with the
@@ -164,5 +158,5 @@ declare class MatIconModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatIconModule>;
 }
 
-export { MAT_ICON_DEFAULT_OPTIONS, MAT_ICON_LOCATION, MAT_ICON_LOCATION_FACTORY, MatIcon, MatIconModule };
+export { MAT_ICON_DEFAULT_OPTIONS, MAT_ICON_LOCATION, MatIcon, MatIconModule };
 export type { MatIconDefaultOptions, MatIconLocation };

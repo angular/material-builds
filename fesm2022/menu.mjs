@@ -248,21 +248,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 /** Injection token to be used to override the default options for `mat-menu`. */
 const MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
-    factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY,
-});
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
-    return {
+    factory: () => ({
         overlapTrigger: false,
         xPosition: 'after',
         yPosition: 'below',
         backdropClass: 'cdk-overlay-transparent-backdrop',
-    };
-}
+    }),
+});
 /** Name of the enter animation `@keyframes`. */
 const ENTER_ANIMATION = '_mat-menu-enter';
 /** Name of the exit animation `@keyframes`. */
@@ -675,25 +667,6 @@ const MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy', 
         return () => createRepositionScrollStrategy(injector);
     },
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_MENU_SCROLL_STRATEGY_FACTORY(_overlay) {
-    const injector = inject(Injector);
-    return () => createRepositionScrollStrategy(injector);
-}
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
-    provide: MAT_MENU_SCROLL_STRATEGY,
-    deps: [],
-    useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
-};
 /**
  * Default top padding of the menu panel.
  * @deprecated No longer being used. Will be removed.
@@ -1414,7 +1387,7 @@ class MatMenuModule {
             MatMenuContent,
             MatMenuTrigger,
             MatContextMenuTrigger] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMenuModule, providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [MatRippleModule,
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMenuModule, imports: [MatRippleModule,
             MatCommonModule,
             OverlayModule, CdkScrollableModule,
             MatCommonModule] });
@@ -1441,9 +1414,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatMenuTrigger,
                         MatContextMenuTrigger,
                     ],
-                    providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 }]
         }] });
 
-export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER, MENU_PANEL_TOP_PADDING, MatContextMenuTrigger, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger };
+export { MAT_MENU_CONTENT, MAT_MENU_DEFAULT_OPTIONS, MAT_MENU_PANEL, MAT_MENU_SCROLL_STRATEGY, MENU_PANEL_TOP_PADDING, MatContextMenuTrigger, MatMenu, MatMenuContent, MatMenuItem, MatMenuModule, MatMenuTrigger };
 //# sourceMappingURL=menu.mjs.map

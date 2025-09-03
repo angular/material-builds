@@ -2,7 +2,7 @@ import * as i3$1 from '@angular/cdk/stepper';
 import { CdkStepLabel, StepState, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
 export { StepState, StepperOrientation } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
-import { Optional, TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, QueryList, ElementRef, EventEmitter } from '@angular/core';
+import { TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, QueryList, ElementRef, EventEmitter } from '@angular/core';
 import { MatCommonModule } from '../common-module.d.js';
 import * as i3 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -38,22 +38,6 @@ declare class MatStepperIntl {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIntl, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatStepperIntl>;
 }
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_STEPPER_INTL_PROVIDER_FACTORY(parentIntl: MatStepperIntl): MatStepperIntl;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_STEPPER_INTL_PROVIDER: {
-    provide: typeof MatStepperIntl;
-    deps: Optional[][];
-    useFactory: typeof MAT_STEPPER_INTL_PROVIDER_FACTORY;
-};
 
 /** Template context available to an attached `matStepperIcon`. */
 interface MatStepperIconContext {
@@ -236,5 +220,5 @@ declare class MatStepperModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatStepperModule>;
 }
 
-export { MAT_STEPPER_INTL_PROVIDER, MAT_STEPPER_INTL_PROVIDER_FACTORY, MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious };
+export { MatStep, MatStepContent, MatStepHeader, MatStepLabel, MatStepper, MatStepperIcon, MatStepperIntl, MatStepperModule, MatStepperNext, MatStepperPrevious };
 export type { MatStepperIconContext };

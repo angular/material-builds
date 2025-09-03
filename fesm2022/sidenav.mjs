@@ -22,21 +22,13 @@ function throwMatDuplicatedDrawerError(position) {
 /** Configures whether drawers should use auto sizing by default. */
 const MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
-    factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
+    factory: () => false,
 });
 /**
  * Used to provide a drawer container to a drawer while avoiding circular references.
  * @docs-private
  */
 const MAT_DRAWER_CONTAINER = new InjectionToken('MAT_DRAWER_CONTAINER');
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
-    return false;
-}
 class MatDrawerContent extends CdkScrollable {
     _platform = inject(Platform);
     _changeDetectorRef = inject(ChangeDetectorRef);
@@ -1074,5 +1066,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 }]
         }] });
 
-export { MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule, throwMatDuplicatedDrawerError };
+export { MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule, throwMatDuplicatedDrawerError };
 //# sourceMappingURL=sidenav.mjs.map

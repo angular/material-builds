@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { OnChanges, OnDestroy, AfterViewChecked, EventEmitter, SimpleChanges, FactoryProvider, AfterContentInit, ChangeDetectorRef, AfterViewInit, ElementRef, InjectionToken, OnInit, DoCheck, TemplateRef } from '@angular/core';
+import { OnChanges, OnDestroy, AfterViewChecked, EventEmitter, SimpleChanges, AfterContentInit, ChangeDetectorRef, AfterViewInit, ElementRef, InjectionToken, OnInit, DoCheck, TemplateRef } from '@angular/core';
 import { MatButton, MatButtonModule } from '../button/index.js';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
@@ -344,32 +344,6 @@ declare class MatRangeDateSelectionModel<D> extends MatDateSelectionModel<DateRa
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRangeDateSelectionModel<any>, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatRangeDateSelectionModel<any>>;
 }
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
-/**
- * Used to provide a single selection model to a component.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(parent: MatSingleDateSelectionModel<unknown>, adapter: DateAdapter<unknown>): MatSingleDateSelectionModel<unknown>;
-/**
- * Used to provide a range selection model to a component.
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider;
 
 /**
  * An internal component used to display a single month in the datepicker.
@@ -1021,26 +995,10 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
 
 /** Injection token that determines the scroll handling while the calendar is open. */
 declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(_overlay: unknown): () => ScrollStrategy;
 /** Possible positions for the datepicker dropdown along the X axis. */
 type DatepickerDropdownPositionX = 'start' | 'end';
 /** Possible positions for the datepicker dropdown along the Y axis. */
 type DatepickerDropdownPositionY = 'above' | 'below';
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: any[];
-    useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
-};
 /**
  * Component used as the content for the datepicker overlay. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -1782,5 +1740,5 @@ declare class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeSelectio
     static ɵprov: i0.ɵɵInjectableDeclaration<DefaultMatCalendarRangeStrategy<any>>;
 }
 
-export { DateRange, DefaultMatCalendarRangeStrategy, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_DATEPICKER_VALIDATORS, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATE_RANGE_SELECTION_STRATEGY, MAT_RANGE_DATE_SELECTION_MODEL_FACTORY, MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER, MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY, MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER, MatCalendar, MatCalendarBody, MatCalendarCell, MatCalendarHeader, MatDateRangeInput, MatDateRangePicker, MatDateSelectionModel, MatDatepicker, MatDatepickerActions, MatDatepickerApply, MatDatepickerCancel, MatDatepickerContent, MatDatepickerInput, MatDatepickerInputEvent, MatDatepickerIntl, MatDatepickerModule, MatDatepickerToggle, MatDatepickerToggleIcon, MatEndDate, MatMonthView, MatMultiYearView, MatRangeDateSelectionModel, MatSingleDateSelectionModel, MatStartDate, MatYearView, yearsPerPage, yearsPerRow };
+export { DateRange, DefaultMatCalendarRangeStrategy, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_VALIDATORS, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATE_RANGE_SELECTION_STRATEGY, MatCalendar, MatCalendarBody, MatCalendarCell, MatCalendarHeader, MatDateRangeInput, MatDateRangePicker, MatDateSelectionModel, MatDatepicker, MatDatepickerActions, MatDatepickerApply, MatDatepickerCancel, MatDatepickerContent, MatDatepickerInput, MatDatepickerInputEvent, MatDatepickerIntl, MatDatepickerModule, MatDatepickerToggle, MatDatepickerToggleIcon, MatEndDate, MatMonthView, MatMultiYearView, MatRangeDateSelectionModel, MatSingleDateSelectionModel, MatStartDate, MatYearView, yearsPerPage, yearsPerRow };
 export type { DateFilterFn, DateSelectionModelChange, DatepickerDropdownPositionX, DatepickerDropdownPositionY, ExtractDateTypeFromSelection, MatCalendarCellClassFunction, MatCalendarCellCssClasses, MatCalendarUserEvent, MatCalendarView, MatDateRangeSelectionStrategy, MatDatepickerControl, MatDatepickerPanel };

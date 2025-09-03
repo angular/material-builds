@@ -499,8 +499,8 @@ class MatRipple {
     radius = 0;
     /**
      * Configuration for the ripple animation. Allows modifying the enter and exit animation
-     * duration of the ripples. The animation durations will be overwritten if the
-     * `NoopAnimationsModule` is being used.
+     * duration of the ripples. The animation durations will be overwritten if animations are
+     * disabled.
      */
     animation;
     /**

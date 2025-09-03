@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import * as i0 from '@angular/core';
-import { OnDestroy, ErrorHandler, Optional } from '@angular/core';
+import { OnDestroy, ErrorHandler } from '@angular/core';
 import { SafeResourceUrl, SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 
@@ -266,22 +266,6 @@ declare class MatIconRegistry implements OnDestroy {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconRegistry, [{ optional: true; }, null, { optional: true; }, null]>;
     static ɵprov: i0.ɵɵInjectableDeclaration<MatIconRegistry>;
 }
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, errorHandler: ErrorHandler, document?: any): MatIconRegistry;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const ICON_REGISTRY_PROVIDER: {
-    provide: typeof MatIconRegistry;
-    deps: (Optional[] | typeof DomSanitizer | typeof ErrorHandler)[];
-    useFactory: typeof ICON_REGISTRY_PROVIDER_FACTORY;
-};
 
-export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };
+export { MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };
 export type { IconOptions, IconResolver, SafeResourceUrlWithIconOptions };

@@ -519,18 +519,10 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 args: ['label', { static: true }]
             }] } });
 
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
-    return new MatSnackBarConfig();
-}
 /** Injection token that can be used to specify default snack bar. */
 const MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
-    factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
+    factory: () => new MatSnackBarConfig(),
 });
 /**
  * Service to dispatch Material Design snack bar messages.
@@ -791,5 +783,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 }]
         }] });
 
-export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar };
+export { MAT_SNACK_BAR_DATA, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarAction, MatSnackBarActions, MatSnackBarConfig, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarModule, MatSnackBarRef, SimpleSnackBar };
 //# sourceMappingURL=snack-bar.mjs.map

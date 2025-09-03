@@ -33,12 +33,6 @@ interface MatButtonToggleDefaultOptions {
  */
 declare const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS: InjectionToken<MatButtonToggleDefaultOptions>;
 /**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY(): MatButtonToggleDefaultOptions;
-/**
  * Injection token that can be used to reference instances of `MatButtonToggleGroup`.
  * It serves as alternative token to the actual `MatButtonToggleGroup` class which
  * could cause unnecessary retention of the class and its component metadata.
@@ -254,5 +248,5 @@ declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy {
     static ngAcceptInputType_disabledInteractive: unknown;
 }
 
-export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup };
+export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup };
 export type { MatButtonToggleAppearance, MatButtonToggleDefaultOptions, ToggleType };

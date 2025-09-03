@@ -1,5 +1,5 @@
 import { MatButtonToggleGroup, MatButtonToggle } from '../button-toggle.d.js';
-export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleAppearance, MatButtonToggleChange, MatButtonToggleDefaultOptions, ToggleType } from '../button-toggle.d.js';
+export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleAppearance, MatButtonToggleChange, MatButtonToggleDefaultOptions, ToggleType } from '../button-toggle.d.js';
 import * as i0 from '@angular/core';
 import { MatCommonModule } from '../common-module.d.js';
 import { MatRippleModule } from '../ripple-module.d.js';

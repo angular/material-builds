@@ -68,27 +68,8 @@ const MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strateg
         return () => createRepositionScrollStrategy(injector);
     },
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(_overlay) {
-    const injector = inject(Injector);
-    return () => createRepositionScrollStrategy(injector);
-}
 /** Injection token that can be used to provide the default options the select module. */
 const MAT_SELECT_CONFIG = new InjectionToken('MAT_SELECT_CONFIG');
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-const MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_SELECT_SCROLL_STRATEGY,
-    deps: [],
-    useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
 /**
  * Injection token that can be used to reference instances of `MatSelectTrigger`. It serves as
  * alternative token to the actual `MatSelectTrigger` class which could cause unnecessary
@@ -1306,7 +1287,7 @@ class MatSelectModule {
             MatSelectTrigger,
             MatOptionModule,
             MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSelectModule, providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER], imports: [OverlayModule, MatOptionModule, MatCommonModule, CdkScrollableModule,
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSelectModule, imports: [OverlayModule, MatOptionModule, MatCommonModule, CdkScrollableModule,
             MatFormFieldModule,
             MatOptionModule,
             MatCommonModule] });
@@ -1323,9 +1304,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatOptionModule,
                         MatCommonModule,
                     ],
-                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER],
                 }]
         }] });
 
-export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_TRIGGER, MatOption, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger };
+export { MAT_SELECT_CONFIG, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_TRIGGER, MatOption, MatSelect, MatSelectChange, MatSelectModule, MatSelectTrigger };
 //# sourceMappingURL=select.mjs.map

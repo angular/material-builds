@@ -36,12 +36,6 @@ declare const MAT_PROGRESS_BAR_LOCATION: InjectionToken<MatProgressBarLocation>;
 interface MatProgressBarLocation {
     getPathname: () => string;
 }
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
 type ProgressBarMode = 'determinate' | 'indeterminate' | 'buffer' | 'query';
 declare class MatProgressBar implements AfterViewInit, OnDestroy {
     readonly _elementRef: ElementRef<HTMLElement>;
@@ -109,5 +103,5 @@ declare class MatProgressBarModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressBarModule>;
 }
 
-export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar, MatProgressBarModule };
+export { MAT_PROGRESS_BAR_DEFAULT_OPTIONS, MAT_PROGRESS_BAR_LOCATION, MatProgressBar, MatProgressBarModule };
 export type { MatProgressBarDefaultOptions, MatProgressBarLocation, ProgressAnimationEnd, ProgressBarMode };

@@ -1,6 +1,6 @@
-import { _IdGenerator } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, EventEmitter, HostAttributeToken, signal, booleanAttribute, numberAttribute, forwardRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { _IdGenerator } from '@angular/cdk/a11y';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _MatInternalFormField } from './internal-form-field.mjs';
@@ -13,23 +13,16 @@ import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 import '@angular/cdk/bidi';
 
+const checkboxDefaults = {
+    color: 'accent',
+    clickAction: 'check-indeterminate',
+    disabledInteractive: false,
+};
 /** Injection token to be used to override the default options for `mat-checkbox`. */
 const MAT_CHECKBOX_DEFAULT_OPTIONS = new InjectionToken('mat-checkbox-default-options', {
     providedIn: 'root',
-    factory: MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY,
+    factory: () => checkboxDefaults,
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY() {
-    return {
-        color: 'accent',
-        clickAction: 'check-indeterminate',
-        disabledInteractive: false,
-    };
-}
 
 /**
  * Represents the different states that require custom transitions between them.
@@ -53,8 +46,6 @@ class MatCheckboxChange {
     /** The new `checked` value of the checkbox. */
     checked;
 }
-// Default checkbox configuration.
-const defaults = MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY();
 class MatCheckbox {
     _elementRef = inject(ElementRef);
     _changeDetectorRef = inject(ChangeDetectorRef);
@@ -159,8 +150,8 @@ class MatCheckbox {
     constructor() {
         inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
         const tabIndex = inject(new HostAttributeToken('tabindex'), { optional: true });
-        this._options = this._options || defaults;
-        this.color = this._options.color || defaults.color;
+        this._options = this._options || checkboxDefaults;
+        this.color = this._options.color || checkboxDefaults.color;
         this.tabIndex = tabIndex == null ? 0 : parseInt(tabIndex) || 0;
         this.id = this._uniqueId = inject(_IdGenerator).getId('mat-mdc-checkbox-');
         this.disabledInteractive = this._options?.disabledInteractive ?? false;
@@ -519,5 +510,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 }]
         }] });
 
-export { MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MatCheckbox, MatCheckboxChange, MatCheckboxModule, TransitionCheckState };
+export { MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckbox, MatCheckboxChange, MatCheckboxModule, TransitionCheckState };
 //# sourceMappingURL=checkbox.mjs.map

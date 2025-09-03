@@ -22,20 +22,12 @@ import '@angular/cdk/layout';
  */
 const MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS', {
     providedIn: 'root',
-    factory: MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY,
-});
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY() {
-    return {
+    factory: () => ({
         hideSingleSelectionIndicator: false,
         hideMultipleSelectionIndicator: false,
         disabledInteractive: false,
-    };
-}
+    }),
+});
 /**
  * Injection token that can be used to reference instances of `MatButtonToggleGroup`.
  * It serves as alternative token to the actual `MatButtonToggleGroup` class which
@@ -570,7 +562,7 @@ class MatButtonToggle {
         // This serves two purposes:
         // 1. We don't want the animation to fire on the first render for pre-checked toggles so we
         //    delay adding the class until the view is rendered.
-        // 2. We don't want animation if the `NoopAnimationsModule` is provided.
+        // 2. We don't want to animate if animations are disabled.
         if (!this._animationDisabled) {
             this._elementRef.nativeElement.classList.add('mat-button-toggle-animations-enabled');
         }
@@ -704,5 +696,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 }]
         }] });
 
-export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_DEFAULT_OPTIONS_FACTORY, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleModule };
+export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggle, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleModule };
 //# sourceMappingURL=button-toggle.mjs.map

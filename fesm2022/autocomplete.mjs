@@ -43,22 +43,14 @@ class MatAutocompleteSelectedEvent {
 /** Injection token to be used to override the default options for `mat-autocomplete`. */
 const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options', {
     providedIn: 'root',
-    factory: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
-});
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
-    return {
+    factory: () => ({
         autoActiveFirstOption: false,
         autoSelectActiveOption: false,
         hideSingleSelectionIndicator: false,
         requireSelection: false,
         hasBackdrop: false,
-    };
-}
+    }),
+});
 /** Autocomplete component. */
 class MatAutocomplete {
     _changeDetectorRef = inject(ChangeDetectorRef);
@@ -341,25 +333,6 @@ const MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-sc
         return () => createRepositionScrollStrategy(injector);
     },
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(_overlay) {
-    const injector = inject(Injector);
-    return () => createRepositionScrollStrategy(injector);
-}
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
-    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
-    deps: [],
-    useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
-};
 /** Base class with all of the `MatAutocompleteTrigger` functionality. */
 class MatAutocompleteTrigger {
     _environmentInjector = inject(EnvironmentInjector);
@@ -1224,7 +1197,7 @@ class MatAutocompleteModule {
             MatCommonModule,
             MatAutocompleteTrigger,
             MatAutocompleteOrigin] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatAutocompleteModule, providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER], imports: [OverlayModule,
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatAutocompleteModule, imports: [OverlayModule,
             MatOptionModule,
             MatCommonModule, CdkScrollableModule,
             MatOptionModule,
@@ -1249,9 +1222,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatAutocompleteTrigger,
                         MatAutocompleteOrigin,
                     ],
-                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 }]
         }] });
 
-export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOption, getMatAutocompleteMissingPanelError };
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocomplete, MatAutocompleteModule, MatAutocompleteOrigin, MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatOption, getMatAutocompleteMissingPanelError };
 //# sourceMappingURL=autocomplete.mjs.map

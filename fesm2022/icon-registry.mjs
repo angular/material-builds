@@ -1,9 +1,7 @@
 import * as i1 from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
 import * as i0 from '@angular/core';
-import { SecurityContext, DOCUMENT, Injectable, Optional, Inject, SkipSelf, ErrorHandler } from '@angular/core';
+import { SecurityContext, DOCUMENT, Injectable, Optional, Inject } from '@angular/core';
 import * as i2 from '@angular/platform-browser';
-import { DomSanitizer } from '@angular/platform-browser';
 import { of, throwError, forkJoin } from 'rxjs';
 import { tap, map, catchError, finalize, share } from 'rxjs/operators';
 
@@ -597,31 +595,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                     type: Inject,
                     args: [DOCUMENT]
                 }] }, { type: i0.ErrorHandler }] });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, errorHandler, document) {
-    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document, errorHandler);
-}
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-const ICON_REGISTRY_PROVIDER = {
-    // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
-    provide: MatIconRegistry,
-    deps: [
-        [new Optional(), new SkipSelf(), MatIconRegistry],
-        [new Optional(), HttpClient],
-        DomSanitizer,
-        ErrorHandler,
-        [new Optional(), DOCUMENT],
-    ],
-    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
-};
 /** Clones an SVGElement while preserving type information. */
 function cloneSvg(svg) {
     return svg.cloneNode(true);
@@ -634,5 +607,5 @@ function isSafeUrlWithOptions(value) {
     return !!(value.url && value.options);
 }
 
-export { ICON_REGISTRY_PROVIDER, ICON_REGISTRY_PROVIDER_FACTORY, MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };
+export { MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };
 //# sourceMappingURL=icon-registry.mjs.map

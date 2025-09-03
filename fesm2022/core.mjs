@@ -5,7 +5,6 @@ export { AnimationCurves, AnimationDurations, MATERIAL_ANIMATIONS, _animationsDi
 export { MATERIAL_SANITY_CHECKS, MatCommonModule } from './common-module.mjs';
 export { _ErrorStateTracker } from './error-state.mjs';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from './date-formats.mjs';
-export { MAT_DATE_LOCALE_FACTORY } from './date-formats.mjs';
 export { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from './error-options.mjs';
 export { _StructuralStylesLoader } from './structural-styles.mjs';
 export { MatLine, MatLineModule, setLines } from './line.mjs';

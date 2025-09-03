@@ -21,12 +21,6 @@ type MatDrawerToggleResult = 'open' | 'close';
 type MatDrawerMode = 'over' | 'push' | 'side';
 /** Configures whether drawers should use auto sizing by default. */
 declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
 declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
     private _platform;
     private _changeDetectorRef;
@@ -338,5 +332,5 @@ declare class MatSidenavModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSidenavModule>;
 }
 
-export { MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule, throwMatDuplicatedDrawerError };
+export { MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavContainer, MatSidenavContent, MatSidenavModule, throwMatDuplicatedDrawerError };
 export type { MatDrawerMode, MatDrawerToggleResult };

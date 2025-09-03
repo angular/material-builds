@@ -199,12 +199,6 @@ interface MatCheckboxDefaultOptions {
 /** Injection token to be used to override the default options for `mat-checkbox`. */
 declare const MAT_CHECKBOX_DEFAULT_OPTIONS: InjectionToken<MatCheckboxDefaultOptions>;
 /**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY(): MatCheckboxDefaultOptions;
-/**
  * Checkbox click action when user click on input element.
  * noop: Do not toggle checked or indeterminate.
  * check: Only toggle checked status, ignore indeterminate.
@@ -219,5 +213,5 @@ declare class MatCheckboxModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 
-export { MAT_CHECKBOX_DEFAULT_OPTIONS, MAT_CHECKBOX_DEFAULT_OPTIONS_FACTORY, MatCheckbox, MatCheckboxChange, MatCheckboxModule, TransitionCheckState };
+export { MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckbox, MatCheckboxChange, MatCheckboxModule, TransitionCheckState };
 export type { MatCheckboxClickAction, MatCheckboxDefaultOptions };

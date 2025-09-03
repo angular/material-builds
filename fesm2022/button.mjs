@@ -112,21 +112,13 @@ const MatAnchor = MatButton;
 /** Injection token to be used to override the default options for FAB. */
 const MAT_FAB_DEFAULT_OPTIONS = new InjectionToken('mat-mdc-fab-default-options', {
     providedIn: 'root',
-    factory: MAT_FAB_DEFAULT_OPTIONS_FACTORY,
+    factory: () => defaults,
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_FAB_DEFAULT_OPTIONS_FACTORY() {
-    return {
-        // The FAB by default has its color set to accent.
-        color: 'accent',
-    };
-}
 // Default FAB configuration.
-const defaults = MAT_FAB_DEFAULT_OPTIONS_FACTORY();
+const defaults = {
+    // The FAB by default has its color set to accent.
+    color: 'accent',
+};
 /**
  * Material Design floating action button (FAB) component. These buttons represent the primary
  * or most common action for users to interact with.
@@ -221,5 +213,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                 }]
         }] });
 
-export { MAT_FAB_DEFAULT_OPTIONS, MAT_FAB_DEFAULT_OPTIONS_FACTORY, MatAnchor, MatButton, MatButtonModule, MatFabAnchor, MatFabButton, MatIconButton, MatMiniFabAnchor, MatMiniFabButton };
+export { MAT_FAB_DEFAULT_OPTIONS, MatAnchor, MatButton, MatButtonModule, MatFabAnchor, MatFabButton, MatIconButton, MatMiniFabAnchor, MatMiniFabButton };
 //# sourceMappingURL=button.mjs.map

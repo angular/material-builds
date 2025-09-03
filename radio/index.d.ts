@@ -47,12 +47,6 @@ interface MatRadioDefaultOptions {
 }
 declare const MAT_RADIO_DEFAULT_OPTIONS: InjectionToken<MatRadioDefaultOptions>;
 /**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_RADIO_DEFAULT_OPTIONS_FACTORY(): MatRadioDefaultOptions;
-/**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
 declare class MatRadioGroup implements AfterContentInit, OnDestroy, ControlValueAccessor {
@@ -298,5 +292,5 @@ declare class MatRadioModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRadioModule>;
 }
 
-export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_DEFAULT_OPTIONS_FACTORY, MAT_RADIO_GROUP, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule };
+export { MAT_RADIO_DEFAULT_OPTIONS, MAT_RADIO_GROUP, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioButton, MatRadioChange, MatRadioGroup, MatRadioModule };
 export type { MatRadioDefaultOptions };

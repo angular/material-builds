@@ -29,41 +29,14 @@ const MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strat
         return () => createRepositionScrollStrategy(injector, { scrollThrottle: SCROLL_THROTTLE_MS });
     },
 });
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(_overlay) {
-    const injector = inject(Injector);
-    return () => createRepositionScrollStrategy(injector, { scrollThrottle: SCROLL_THROTTLE_MS });
-}
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
-    provide: MAT_TOOLTIP_SCROLL_STRATEGY,
-    deps: [],
-    useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
-};
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
-    return {
-        showDelay: 0,
-        hideDelay: 0,
-        touchendHideDelay: 1500,
-    };
-}
 /** Injection token to be used to override the default options for `matTooltip`. */
 const MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
-    factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY,
+    factory: () => ({
+        showDelay: 0,
+        hideDelay: 0,
+        touchendHideDelay: 1500,
+    }),
 });
 /**
  * CSS class that will be attached to the overlay panel.
@@ -950,5 +923,5 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                     }]
             }] } });
 
-export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError };
+export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_SCROLL_STRATEGY, MatTooltip, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError };
 //# sourceMappingURL=tooltip2.mjs.map

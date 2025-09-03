@@ -27,28 +27,6 @@ declare const SCROLL_THROTTLE_MS = 20;
 declare function getMatTooltipInvalidPositionError(position: string): Error;
 /** Injection token that determines the scroll handling while a tooltip is visible. */
 declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(_overlay: unknown): () => ScrollStrategy;
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: any[];
-    useFactory: typeof MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY;
-};
-/**
- * @docs-private
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- */
-declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefaultOptions;
 /** Injection token to be used to override the default options for `matTooltip`. */
 declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;
 /** Default `matTooltip` options that can be overridden. */
@@ -325,5 +303,5 @@ declare class MatTooltipModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTooltipModule>;
 }
 
-export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MatTooltip, MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError };
+export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_SCROLL_STRATEGY, MatTooltip, MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError };
 export type { MatTooltipDefaultOptions, TooltipPosition, TooltipTouchGestures, TooltipVisibility };
