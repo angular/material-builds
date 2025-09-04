@@ -2,13 +2,13 @@ import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectio
 export { MatOptgroup } from './option.mjs';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, Injector, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { createRepositionScrollStrategy, createOverlayRef, OverlayConfig, createFlexibleConnectedPositionStrategy, OverlayModule } from '@angular/cdk/overlay';
 import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { Platform, _getFocusedElementPierceShadowDom, _getEventTarget } from '@angular/cdk/platform';
 import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
 import { _animationsDisabled } from './animation.mjs';
-import { Directionality } from '@angular/cdk/bidi';
 import { hasModifierKey, ESCAPE, ENTER, TAB, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -17,7 +17,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
 import { MAT_FORM_FIELD } from './form-field2.mjs';
 import { MatOptionModule } from './option-module.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import './ripple.mjs';
 import '@angular/cdk/private';
 import './pseudo-checkbox.mjs';
@@ -1188,20 +1187,18 @@ class MatAutocompleteModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatAutocompleteModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
     static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatAutocompleteModule, imports: [OverlayModule,
             MatOptionModule,
-            MatCommonModule,
             MatAutocomplete,
             MatAutocompleteTrigger,
             MatAutocompleteOrigin], exports: [CdkScrollableModule,
             MatAutocomplete,
             MatOptionModule,
-            MatCommonModule,
+            BidiModule,
             MatAutocompleteTrigger,
             MatAutocompleteOrigin] });
     static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatAutocompleteModule, imports: [OverlayModule,
+            MatOptionModule, CdkScrollableModule,
             MatOptionModule,
-            MatCommonModule, CdkScrollableModule,
-            MatOptionModule,
-            MatCommonModule] });
+            BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatAutocompleteModule, decorators: [{
             type: NgModule,
@@ -1209,7 +1206,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                     imports: [
                         OverlayModule,
                         MatOptionModule,
-                        MatCommonModule,
                         MatAutocomplete,
                         MatAutocompleteTrigger,
                         MatAutocompleteOrigin,
@@ -1218,7 +1214,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         CdkScrollableModule,
                         MatAutocomplete,
                         MatOptionModule,
-                        MatCommonModule,
+                        BidiModule,
                         MatAutocompleteTrigger,
                         MatAutocompleteOrigin,
                     ],

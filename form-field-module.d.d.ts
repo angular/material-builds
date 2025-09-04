@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
-import { MatCommonModule } from './common-module.d.js';
-import * as i2 from '@angular/cdk/observers';
+import * as i1 from '@angular/cdk/observers';
 import { MatFormField, MatError, MatHint, MatPrefix, MatSuffix } from './form-field.d.js';
+import * as i2 from '@angular/cdk/bidi';
 
 /** The floating label for a `mat-form-field`. */
 declare class MatLabel {
@@ -11,7 +11,7 @@ declare class MatLabel {
 
 declare class MatFormFieldModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFormFieldModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatFormFieldModule, never, [typeof MatCommonModule, typeof i2.ObserversModule, typeof MatFormField, typeof MatLabel, typeof MatError, typeof MatHint, typeof MatPrefix, typeof MatSuffix], [typeof MatFormField, typeof MatLabel, typeof MatHint, typeof MatError, typeof MatPrefix, typeof MatSuffix, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatFormFieldModule, never, [typeof i1.ObserversModule, typeof MatFormField, typeof MatLabel, typeof MatError, typeof MatHint, typeof MatPrefix, typeof MatSuffix], [typeof MatFormField, typeof MatLabel, typeof MatHint, typeof MatError, typeof MatPrefix, typeof MatSuffix, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatFormFieldModule>;
 }
 

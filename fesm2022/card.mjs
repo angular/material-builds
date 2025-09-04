@@ -1,8 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Directive, NgModule } from '@angular/core';
-import { MatCommonModule } from './common-module.mjs';
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
+import { BidiModule } from '@angular/cdk/bidi';
 
 /** Injection token that can be used to provide the default options the card module. */
 const MAT_CARD_CONFIG = new InjectionToken('MAT_CARD_CONFIG');
@@ -272,7 +270,7 @@ const CARD_DIRECTIVES = [
 ];
 class MatCardModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCardModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, MatCard,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCardModule, imports: [MatCard,
             MatCardActions,
             MatCardAvatar,
             MatCardContent,
@@ -298,14 +296,14 @@ class MatCardModule {
             MatCardSubtitle,
             MatCardTitle,
             MatCardTitleGroup,
-            MatCardXlImage, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCardModule, imports: [MatCommonModule, MatCommonModule] });
+            MatCardXlImage, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCardModule, imports: [BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCardModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, ...CARD_DIRECTIVES],
-                    exports: [CARD_DIRECTIVES, MatCommonModule],
+                    imports: CARD_DIRECTIVES,
+                    exports: [CARD_DIRECTIVES, BidiModule],
                 }]
         }] });
 

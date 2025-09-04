@@ -1,3 +1,4 @@
+import { BidiModule } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { InjectionToken, EventEmitter, booleanAttribute, Directive, Optional, Inject, Input, Output, Injectable, inject, ChangeDetectorRef, ElementRef, signal, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
 import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
@@ -6,9 +7,7 @@ import { ReplaySubject, Subject, merge } from 'rxjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _animationsDisabled } from './animation.mjs';
 import { _StructuralStylesLoader } from './structural-styles.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import '@angular/cdk/layout';
-import '@angular/cdk/bidi';
 
 /** @docs-private */
 function getSortDuplicateSortableIdError(id) {
@@ -381,14 +380,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatSortModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, imports: [MatCommonModule, MatSort, MatSortHeader], exports: [MatSort, MatSortHeader] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, imports: [MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, imports: [MatSort, MatSortHeader], exports: [MatSort, MatSortHeader, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, imports: [BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSortModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatSort, MatSortHeader],
-                    exports: [MatSort, MatSortHeader],
+                    imports: [MatSort, MatSortHeader],
+                    exports: [MatSort, MatSortHeader, BidiModule],
                 }]
         }] });
 

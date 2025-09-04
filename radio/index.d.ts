@@ -3,9 +3,8 @@ import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnDestroy, EventEmitter, QueryList, OnInit, AfterViewInit, DoCheck, ElementRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { ThemePalette } from '../palette.d.js';
-import { MatCommonModule } from '../common-module.d.js';
 import { MatRippleModule } from '../ripple-module.d.js';
-import '@angular/cdk/bidi';
+import * as i2 from '@angular/cdk/bidi';
 import '../ripple.d.js';
 import '@angular/cdk/platform';
 
@@ -288,7 +287,7 @@ declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, OnDestro
 
 declare class MatRadioModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRadioModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRadioModule, never, [typeof MatCommonModule, typeof MatRippleModule, typeof MatRadioGroup, typeof MatRadioButton], [typeof MatCommonModule, typeof MatRadioGroup, typeof MatRadioButton]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatRadioModule, never, [typeof MatRippleModule, typeof MatRadioGroup, typeof MatRadioButton], [typeof i2.BidiModule, typeof MatRadioGroup, typeof MatRadioButton]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatRadioModule>;
 }
 

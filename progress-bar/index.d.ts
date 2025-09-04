@@ -1,8 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, EventEmitter } from '@angular/core';
 import { ThemePalette } from '../palette.d.js';
-import { MatCommonModule } from '../common-module.d.js';
-import '@angular/cdk/bidi';
+import * as i2 from '@angular/cdk/bidi';
 
 /** Last animation end data. */
 interface ProgressAnimationEnd {
@@ -99,7 +98,7 @@ declare class MatProgressBar implements AfterViewInit, OnDestroy {
 
 declare class MatProgressBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressBarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressBarModule, never, [typeof MatProgressBar], [typeof MatProgressBar, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatProgressBarModule, never, [typeof MatProgressBar], [typeof MatProgressBar, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatProgressBarModule>;
 }
 

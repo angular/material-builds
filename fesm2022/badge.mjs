@@ -3,9 +3,8 @@ import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, DOCUMENT, HOST_TAG_NAME, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _animationsDisabled } from './animation.mjs';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
-import '@angular/cdk/bidi';
 
 const BADGE_CONTENT_CLASS = 'mat-badge-content';
 /**
@@ -288,16 +287,16 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatBadgeModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBadgeModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBadgeModule, imports: [A11yModule, MatCommonModule, MatBadge, _MatBadgeStyleLoader], exports: [MatBadge, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBadgeModule, imports: [A11yModule, MatCommonModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBadgeModule, imports: [A11yModule, MatBadge, _MatBadgeStyleLoader], exports: [MatBadge, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBadgeModule, imports: [A11yModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBadgeModule, decorators: [{
             type: NgModule,
             args: [{
                     // Note: we _shouldn't_ have to import `_MatBadgeStyleLoader`,
                     // but it seems to be necessary for tests.
-                    imports: [A11yModule, MatCommonModule, MatBadge, _MatBadgeStyleLoader],
-                    exports: [MatBadge, MatCommonModule],
+                    imports: [A11yModule, MatBadge, _MatBadgeStyleLoader],
+                    exports: [MatBadge, BidiModule],
                 }]
         }] });
 

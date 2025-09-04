@@ -2,10 +2,8 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, NgModule } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { _getAnimationsState } from './animation.mjs';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
 
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
 const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {
@@ -170,14 +168,14 @@ const MatSpinner = MatProgressSpinner;
 
 class MatProgressSpinnerModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatProgressSpinnerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatProgressSpinnerModule, imports: [MatProgressSpinner, MatSpinner], exports: [MatProgressSpinner, MatSpinner, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatProgressSpinnerModule, imports: [MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatProgressSpinnerModule, imports: [MatProgressSpinner, MatSpinner], exports: [MatProgressSpinner, MatSpinner, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatProgressSpinnerModule, imports: [BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatProgressSpinnerModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [MatProgressSpinner, MatSpinner],
-                    exports: [MatProgressSpinner, MatSpinner, MatCommonModule],
+                    exports: [MatProgressSpinner, MatSpinner, BidiModule],
                 }]
         }] });
 

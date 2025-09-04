@@ -1,5 +1,5 @@
 import { FocusKeyManager, _IdGenerator, CdkMonitorFocus, FocusMonitor } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { hasModifierKey, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
 import { Platform } from '@angular/cdk/platform';
@@ -14,7 +14,6 @@ import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _StructuralStylesLoader } from './structural-styles.mjs';
 import { CdkObserveContent } from '@angular/cdk/observers';
 import { MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/coercion';
 
@@ -2074,14 +2073,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatTabsModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTabsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTabsModule, imports: [MatCommonModule,
-            MatTabContent,
-            MatTabLabel,
-            MatTab,
-            MatTabGroup,
-            MatTabNav,
-            MatTabNavPanel,
-            MatTabLink], exports: [MatCommonModule,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTabsModule, imports: [MatTabContent, MatTabLabel, MatTab, MatTabGroup, MatTabNav, MatTabNavPanel, MatTabLink], exports: [BidiModule,
             MatTabContent,
             MatTabLabel,
             MatTab,
@@ -2089,23 +2081,14 @@ class MatTabsModule {
             MatTabNav,
             MatTabNavPanel,
             MatTabLink] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTabsModule, imports: [MatCommonModule, MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTabsModule, imports: [BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTabsModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        MatCommonModule,
-                        MatTabContent,
-                        MatTabLabel,
-                        MatTab,
-                        MatTabGroup,
-                        MatTabNav,
-                        MatTabNavPanel,
-                        MatTabLink,
-                    ],
+                    imports: [MatTabContent, MatTabLabel, MatTab, MatTabGroup, MatTabNav, MatTabNavPanel, MatTabLink],
                     exports: [
-                        MatCommonModule,
+                        BidiModule,
                         MatTabContent,
                         MatTabLabel,
                         MatTab,

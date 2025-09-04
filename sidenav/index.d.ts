@@ -1,12 +1,11 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, AfterViewInit, OnDestroy, EventEmitter, ElementRef, DoCheck, QueryList } from '@angular/core';
-import { MatCommonModule } from '../common-module.d.js';
-import * as i5 from '@angular/cdk/scrolling';
+import * as i1 from '@angular/cdk/scrolling';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
-import '@angular/cdk/bidi';
+import * as i2 from '@angular/cdk/bidi';
 
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -328,7 +327,7 @@ declare class MatSidenavContainer extends MatDrawerContainer {
 
 declare class MatSidenavModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSidenavModule, never, [typeof MatCommonModule, typeof i5.CdkScrollableModule, typeof MatDrawer, typeof MatDrawerContainer, typeof MatDrawerContent, typeof MatSidenav, typeof MatSidenavContainer, typeof MatSidenavContent], [typeof i5.CdkScrollableModule, typeof MatCommonModule, typeof MatDrawer, typeof MatDrawerContainer, typeof MatDrawerContent, typeof MatSidenav, typeof MatSidenavContainer, typeof MatSidenavContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSidenavModule, never, [typeof i1.CdkScrollableModule, typeof MatDrawer, typeof MatDrawerContainer, typeof MatDrawerContent, typeof MatSidenav, typeof MatSidenavContainer, typeof MatSidenavContent], [typeof i2.BidiModule, typeof i1.CdkScrollableModule, typeof MatDrawer, typeof MatDrawerContainer, typeof MatDrawerContent, typeof MatSidenav, typeof MatSidenavContainer, typeof MatSidenavContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSidenavModule>;
 }
 

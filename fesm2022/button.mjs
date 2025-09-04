@@ -2,8 +2,8 @@ import { MatButtonBase, MatIconButton } from './icon-button.mjs';
 export { MAT_BUTTON_CONFIG, MatIconAnchor } from './icon-button.mjs';
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, InjectionToken, inject, booleanAttribute, NgModule } from '@angular/core';
+import { BidiModule } from '@angular/cdk/bidi';
 import { MatRippleModule } from './ripple-module.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/private';
 import './ripple-loader.mjs';
@@ -13,7 +13,6 @@ import '@angular/cdk/layout';
 import './ripple.mjs';
 import '@angular/cdk/coercion';
 import './structural-styles.mjs';
-import '@angular/cdk/bidi';
 
 /**
  * Classes that need to be set for each appearance of the button.
@@ -189,27 +188,14 @@ const MatMiniFabAnchor = MatMiniFabButton;
 
 class MatButtonModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonModule, imports: [MatCommonModule,
-            MatRippleModule,
-            MatButton,
-            MatMiniFabButton,
-            MatIconButton,
-            MatFabButton], exports: [MatCommonModule, MatButton, MatMiniFabButton, MatIconButton, MatFabButton] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonModule, imports: [MatCommonModule,
-            MatRippleModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonModule, imports: [MatRippleModule, MatButton, MatMiniFabButton, MatIconButton, MatFabButton], exports: [BidiModule, MatButton, MatMiniFabButton, MatIconButton, MatFabButton] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonModule, imports: [MatRippleModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        MatCommonModule,
-                        MatRippleModule,
-                        MatButton,
-                        MatMiniFabButton,
-                        MatIconButton,
-                        MatFabButton,
-                    ],
-                    exports: [MatCommonModule, MatButton, MatMiniFabButton, MatIconButton, MatFabButton],
+                    imports: [MatRippleModule, MatButton, MatMiniFabButton, MatIconButton, MatFabButton],
+                    exports: [BidiModule, MatButton, MatMiniFabButton, MatIconButton, MatFabButton],
                 }]
         }] });
 

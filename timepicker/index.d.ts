@@ -4,7 +4,7 @@ import { MatOption } from '../option.d.js';
 import { MatOptionParentComponent } from '../option-parent.d.js';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
-import * as i5 from '@angular/cdk/scrolling';
+import * as i1 from '@angular/cdk/scrolling';
 import '@angular/cdk/a11y';
 import 'rxjs';
 
@@ -286,7 +286,7 @@ declare class MatTimepickerToggle<D> {
 
 declare class MatTimepickerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTimepickerModule, never, [typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle], [typeof i5.CdkScrollableModule, typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTimepickerModule, never, [typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle], [typeof i1.CdkScrollableModule, typeof MatTimepicker, typeof MatTimepickerInput, typeof MatTimepickerToggle]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTimepickerModule>;
 }
 

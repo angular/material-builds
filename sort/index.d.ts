@@ -1,11 +1,10 @@
 import * as i0 from '@angular/core';
 import { OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { MatCommonModule } from '../common-module.d.js';
 import { MatSortable, MatSort, SortHeaderArrowPosition } from '../sort.d.js';
 export { MAT_SORT_DEFAULT_OPTIONS, MatSortDefaultOptions, Sort } from '../sort.d.js';
 import { SortDirection } from '../sort-direction.d.js';
 import { Subject } from 'rxjs';
-import '@angular/cdk/bidi';
+import * as i2 from '@angular/cdk/bidi';
 
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -124,7 +123,7 @@ declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, AfterView
 
 declare class MatSortModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSortModule, never, [typeof MatCommonModule, typeof MatSort, typeof MatSortHeader], [typeof MatSort, typeof MatSortHeader]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSortModule, never, [typeof MatSort, typeof MatSortHeader], [typeof MatSort, typeof MatSortHeader, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSortModule>;
 }
 

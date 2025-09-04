@@ -2,15 +2,13 @@ import { CdkDialogContainer, Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
 import { EventEmitter, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injector, Injectable, NgModule } from '@angular/core';
+import { BidiModule } from '@angular/cdk/bidi';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { _animationsDisabled } from './animation.mjs';
 import { createBlockScrollStrategy, createGlobalPositionStrategy } from '@angular/cdk/overlay';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { MatCommonModule } from './common-module.mjs';
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
 
 const ENTER_ANIMATION = '_mat-bottom-sheet-enter';
 const EXIT_ANIMATION = '_mat-bottom-sheet-exit';
@@ -366,14 +364,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatBottomSheetModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBottomSheetModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBottomSheetModule, imports: [DialogModule, MatCommonModule, PortalModule, MatBottomSheetContainer], exports: [MatBottomSheetContainer, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBottomSheetModule, providers: [MatBottomSheet], imports: [DialogModule, MatCommonModule, PortalModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBottomSheetModule, imports: [DialogModule, PortalModule, MatBottomSheetContainer], exports: [MatBottomSheetContainer, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBottomSheetModule, providers: [MatBottomSheet], imports: [DialogModule, PortalModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatBottomSheetModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [DialogModule, MatCommonModule, PortalModule, MatBottomSheetContainer],
-                    exports: [MatBottomSheetContainer, MatCommonModule],
+                    imports: [DialogModule, PortalModule, MatBottomSheetContainer],
+                    exports: [MatBottomSheetContainer, BidiModule],
                     providers: [MatBottomSheet],
                 }]
         }] });

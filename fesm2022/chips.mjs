@@ -9,12 +9,11 @@ import { MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple.mjs';
 import { _animationsDisabled } from './animation.mjs';
 import { MatRippleLoader } from './ripple-loader.mjs';
 import { takeUntil, startWith, switchMap } from 'rxjs/operators';
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { NG_VALUE_ACCESSOR, NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { ErrorStateMatcher } from './error-options.mjs';
 import { _ErrorStateTracker } from './error-state.mjs';
 import { MatFormFieldControl, MAT_FORM_FIELD } from './form-field2.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import { MatRippleModule } from './ripple-module.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
@@ -2320,7 +2319,7 @@ const CHIP_DECLARATIONS = [
 ];
 class MatChipsModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatChipsModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatChipsModule, imports: [MatCommonModule, MatRippleModule, MatChipAction, MatChip,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatChipsModule, imports: [MatRippleModule, MatChipAction, MatChip,
             MatChipAvatar,
             MatChipEdit,
             MatChipEditInput,
@@ -2331,7 +2330,7 @@ class MatChipsModule {
             MatChipRemove,
             MatChipRow,
             MatChipSet,
-            MatChipTrailingIcon], exports: [MatCommonModule, MatChip,
+            MatChipTrailingIcon], exports: [BidiModule, MatChip,
             MatChipAvatar,
             MatChipEdit,
             MatChipEditInput,
@@ -2351,13 +2350,13 @@ class MatChipsModule {
                     separatorKeyCodes: [ENTER],
                 },
             },
-        ], imports: [MatCommonModule, MatRippleModule, MatCommonModule] });
+        ], imports: [MatRippleModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatChipsModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatRippleModule, MatChipAction, CHIP_DECLARATIONS],
-                    exports: [MatCommonModule, CHIP_DECLARATIONS],
+                    imports: [MatRippleModule, MatChipAction, CHIP_DECLARATIONS],
+                    exports: [BidiModule, CHIP_DECLARATIONS],
                     providers: [
                         ErrorStateMatcher,
                         {

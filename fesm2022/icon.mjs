@@ -1,14 +1,12 @@
+import { BidiModule } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, DOCUMENT, ElementRef, ErrorHandler, HostAttributeToken, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { MatIconRegistry } from './icon-registry.mjs';
 export { getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './icon-registry.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
 
 /** Injection token to be used to override the default options for `mat-icon`. */
 const MAT_ICON_DEFAULT_OPTIONS = new InjectionToken('MAT_ICON_DEFAULT_OPTIONS');
@@ -378,14 +376,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatIconModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatIconModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatIconModule, imports: [MatCommonModule, MatIcon], exports: [MatIcon, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatIconModule, imports: [MatCommonModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatIconModule, imports: [MatIcon], exports: [MatIcon, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatIconModule, imports: [BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatIconModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatIcon],
-                    exports: [MatIcon, MatCommonModule],
+                    imports: [MatIcon],
+                    exports: [MatIcon, BidiModule],
                 }]
         }] });
 

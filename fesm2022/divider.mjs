@@ -1,9 +1,7 @@
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { MatCommonModule } from './common-module.mjs';
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
+import { BidiModule } from '@angular/cdk/bidi';
 
 class MatDivider {
     /** Whether the divider is vertically aligned. */
@@ -43,14 +41,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatDividerModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDividerModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDividerModule, imports: [MatCommonModule, MatDivider], exports: [MatDivider, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDividerModule, imports: [MatCommonModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDividerModule, imports: [MatDivider], exports: [MatDivider, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDividerModule, imports: [BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDividerModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatDivider],
-                    exports: [MatDivider, MatCommonModule],
+                    imports: [MatDivider],
+                    exports: [MatDivider, BidiModule],
                 }]
         }] });
 

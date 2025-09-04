@@ -1,13 +1,13 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
 import { InjectionToken, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
+import * as i2$1 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, OverlayRef, ConnectedPosition, OriginConnectionPosition, OverlayConnectionPosition } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 import * as i1 from '@angular/cdk/a11y';
-import { MatCommonModule } from '../common-module.d.js';
-import * as i5 from '@angular/cdk/scrolling';
+import * as i1$1 from '@angular/cdk/scrolling';
 
 /** Possible positions for a tooltip. */
 type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
@@ -299,7 +299,7 @@ declare class TooltipComponent implements OnDestroy {
 
 declare class MatTooltipModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltipModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTooltipModule, never, [typeof i1.A11yModule, typeof i2.OverlayModule, typeof MatCommonModule, typeof MatTooltip, typeof TooltipComponent], [typeof MatTooltip, typeof TooltipComponent, typeof MatCommonModule, typeof i5.CdkScrollableModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTooltipModule, never, [typeof i1.A11yModule, typeof i2.OverlayModule, typeof MatTooltip, typeof TooltipComponent], [typeof MatTooltip, typeof TooltipComponent, typeof i2$1.BidiModule, typeof i1$1.CdkScrollableModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTooltipModule>;
 }
 

@@ -2,12 +2,10 @@ import * as i0 from '@angular/core';
 import { Directive, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, booleanAttribute, NgModule } from '@angular/core';
 import { CdkTable, CDK_TABLE, STICKY_POSITIONING_LISTENER, HeaderRowOutlet, DataRowOutlet, NoDataRowOutlet, FooterRowOutlet, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkCellOutlet, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule } from '@angular/cdk/table';
 import { _VIEW_REPEATER_STRATEGY, _RecycleViewRepeaterStrategy, _DisposeViewRepeaterStrategy, DataSource } from '@angular/cdk/collections';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import { BehaviorSubject, Subject, merge, of, combineLatest } from 'rxjs';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { map } from 'rxjs/operators';
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
 
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
@@ -460,7 +458,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 class MatTableModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTableModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTableModule, imports: [MatCommonModule, CdkTableModule, 
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTableModule, imports: [CdkTableModule, 
             // Table
             MatTable,
             MatRecycleRows,
@@ -481,7 +479,7 @@ class MatTableModule {
             MatRow,
             MatFooterRow,
             MatNoDataRow,
-            MatTextColumn], exports: [MatCommonModule, 
+            MatTextColumn], exports: [BidiModule, 
             // Table
             MatTable,
             MatRecycleRows,
@@ -503,13 +501,13 @@ class MatTableModule {
             MatFooterRow,
             MatNoDataRow,
             MatTextColumn] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTableModule, imports: [MatCommonModule, CdkTableModule, MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTableModule, imports: [CdkTableModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTableModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, CdkTableModule, ...EXPORTED_DECLARATIONS],
-                    exports: [MatCommonModule, EXPORTED_DECLARATIONS],
+                    imports: [CdkTableModule, ...EXPORTED_DECLARATIONS],
+                    exports: [BidiModule, EXPORTED_DECLARATIONS],
                 }]
         }] });
 

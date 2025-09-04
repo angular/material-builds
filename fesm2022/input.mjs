@@ -11,9 +11,8 @@ import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field2.mjs';
 export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from './form-field2.mjs';
 import { ErrorStateMatcher } from './error-options.mjs';
 import { _ErrorStateTracker } from './error-state.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import { MatFormFieldModule } from './form-field.mjs';
-import { MatCommonModule } from './common-module.mjs';
-import '@angular/cdk/bidi';
 import '@angular/common';
 import 'rxjs/operators';
 import '@angular/cdk/observers/private';
@@ -544,14 +543,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatInputModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatInputModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatInput], exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatInputModule, imports: [MatCommonModule, MatFormFieldModule, MatFormFieldModule, TextFieldModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatInputModule, imports: [MatFormFieldModule, MatInput], exports: [MatInput, MatFormFieldModule, TextFieldModule, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatInputModule, imports: [MatFormFieldModule, MatFormFieldModule, TextFieldModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatInputModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatFormFieldModule, MatInput],
-                    exports: [MatInput, MatFormFieldModule, TextFieldModule, MatCommonModule],
+                    imports: [MatFormFieldModule, MatInput],
+                    exports: [MatInput, MatFormFieldModule, TextFieldModule, BidiModule],
                 }]
         }] });
 

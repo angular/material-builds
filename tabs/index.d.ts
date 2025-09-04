@@ -1,9 +1,9 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, TemplateRef, OnInit, OnChanges, OnDestroy, SimpleChanges, QueryList, ElementRef, AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { MatCommonModule } from '../common-module.d.js';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FocusKeyManager, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import * as i2 from '@angular/cdk/bidi';
 import { Direction } from '@angular/cdk/bidi';
 import { ThemePalette } from '../palette.d.js';
 import { RippleTarget, RippleConfig, RippleGlobalOptions } from '../ripple.d.js';
@@ -849,7 +849,7 @@ declare class MatTabNavPanel {
 
 declare class MatTabsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabsModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTabsModule, never, [typeof MatCommonModule, typeof MatTabContent, typeof MatTabLabel, typeof MatTab, typeof MatTabGroup, typeof MatTabNav, typeof MatTabNavPanel, typeof MatTabLink], [typeof MatCommonModule, typeof MatTabContent, typeof MatTabLabel, typeof MatTab, typeof MatTabGroup, typeof MatTabNav, typeof MatTabNavPanel, typeof MatTabLink]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatTabsModule, never, [typeof MatTabContent, typeof MatTabLabel, typeof MatTab, typeof MatTabGroup, typeof MatTabNav, typeof MatTabNavPanel, typeof MatTabLink], [typeof i2.BidiModule, typeof MatTabContent, typeof MatTabLabel, typeof MatTab, typeof MatTabGroup, typeof MatTabNav, typeof MatTabNavPanel, typeof MatTabLink]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatTabsModule>;
 }
 

@@ -1,14 +1,14 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, OnDestroy, TemplateRef, EventEmitter, AfterViewInit, AfterContentInit, OnInit, QueryList, ElementRef } from '@angular/core';
 import { FocusOrigin, FocusableOption } from '@angular/cdk/a11y';
+import * as i2$1 from '@angular/cdk/bidi';
 import { Direction } from '@angular/cdk/bidi';
 import * as rxjs from 'rxjs';
 import { Subject, Observable } from 'rxjs';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, OverlayRef, FlexibleConnectedPositionStrategyOrigin } from '@angular/cdk/overlay';
 import { MatRippleModule } from '../ripple-module.d.js';
-import { MatCommonModule } from '../common-module.d.js';
-import * as i5 from '@angular/cdk/scrolling';
+import * as i1 from '@angular/cdk/scrolling';
 import '../ripple.d.js';
 import '@angular/cdk/platform';
 
@@ -534,7 +534,7 @@ declare class MatContextMenuTrigger extends MatMenuTriggerBase implements OnDest
 
 declare class MatMenuModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, never, [typeof MatRippleModule, typeof MatCommonModule, typeof i2.OverlayModule, typeof MatMenu, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger, typeof MatContextMenuTrigger], [typeof i5.CdkScrollableModule, typeof MatMenu, typeof MatCommonModule, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger, typeof MatContextMenuTrigger]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatMenuModule, never, [typeof MatRippleModule, typeof i2.OverlayModule, typeof MatMenu, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger, typeof MatContextMenuTrigger], [typeof i2$1.BidiModule, typeof i1.CdkScrollableModule, typeof MatMenu, typeof MatMenuItem, typeof MatMenuContent, typeof MatMenuTrigger, typeof MatContextMenuTrigger]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatMenuModule>;
 }
 

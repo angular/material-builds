@@ -5,17 +5,17 @@ import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import * as i1 from '@angular/cdk/a11y';
 import { FocusOrigin } from '@angular/cdk/a11y';
-import * as i3 from '@angular/cdk/portal';
+import * as i2$1 from '@angular/cdk/portal';
 import { ComponentType, Portal, TemplatePortal } from '@angular/cdk/portal';
-import { MatCommonModule } from '../common-module.d.js';
 import { Observable, Subject } from 'rxjs';
 import { DateAdapter } from '../date-adapter.d.js';
 import { ThemePalette } from '../palette.d.js';
 import { ControlValueAccessor, Validator, ValidatorFn, AbstractControl, ValidationErrors, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { MatFormFieldControl } from '../form-field-control.d.js';
+import * as i2$2 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
 import { ErrorStateMatcher } from '../error-options.d.js';
-import * as i5 from '@angular/cdk/scrolling';
+import * as i1$1 from '@angular/cdk/scrolling';
 import '../ripple-loader.d.js';
 import '../ripple-module.d.js';
 import '../ripple.d.js';
@@ -1690,7 +1690,7 @@ declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
 
 declare class MatDatepickerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof MatButtonModule, typeof i2.OverlayModule, typeof i1.A11yModule, typeof i3.PortalModule, typeof MatCommonModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply], [typeof i5.CdkScrollableModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDatepickerModule, never, [typeof MatButtonModule, typeof i2.OverlayModule, typeof i1.A11yModule, typeof i2$1.PortalModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply], [typeof i2$2.BidiModule, typeof i1$1.CdkScrollableModule, typeof MatCalendar, typeof MatCalendarBody, typeof MatDatepicker, typeof MatDatepickerContent, typeof MatDatepickerInput, typeof MatDatepickerToggle, typeof MatDatepickerToggleIcon, typeof MatMonthView, typeof MatYearView, typeof MatMultiYearView, typeof MatCalendarHeader, typeof MatDateRangeInput, typeof MatStartDate, typeof MatEndDate, typeof MatDateRangePicker, typeof MatDatepickerActions, typeof MatDatepickerCancel, typeof MatDatepickerApply]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDatepickerModule>;
 }
 

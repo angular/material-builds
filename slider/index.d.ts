@@ -1,3 +1,4 @@
+import * as i2 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { ChangeDetectorRef, WritableSignal, AfterViewInit, OnDestroy, NgZone, ElementRef, QueryList, EventEmitter } from '@angular/core';
@@ -5,7 +6,6 @@ import { ThemePalette } from '../palette.d.js';
 import { RippleGlobalOptions, MatRipple } from '../ripple.d.js';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { MatCommonModule } from '../common-module.d.js';
 import { MatRippleModule } from '../ripple-module.d.js';
 import '@angular/cdk/platform';
 
@@ -654,7 +654,7 @@ declare class MatSliderRangeThumb extends MatSliderThumb implements _MatSliderRa
 
 declare class MatSliderModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSliderModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSliderModule, never, [typeof MatCommonModule, typeof MatRippleModule, typeof MatSlider, typeof MatSliderThumb, typeof MatSliderRangeThumb, typeof MatSliderVisualThumb], [typeof MatSlider, typeof MatSliderThumb, typeof MatSliderRangeThumb]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSliderModule, never, [typeof MatRippleModule, typeof MatSlider, typeof MatSliderThumb, typeof MatSliderRangeThumb, typeof MatSliderVisualThumb], [typeof MatSlider, typeof MatSliderThumb, typeof MatSliderRangeThumb, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSliderModule>;
 }
 

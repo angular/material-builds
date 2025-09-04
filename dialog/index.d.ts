@@ -2,12 +2,11 @@ import { MatDialogRef, MatDialogContainer } from '../dialog.d.js';
 export { AutoFocusTarget, DialogPosition, DialogRole, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MatDialog, MatDialogConfig, MatDialogState, _closeDialogVia } from '../dialog.d.js';
 import * as i0 from '@angular/core';
 import { OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import * as i5 from '@angular/cdk/scrolling';
-import * as i1 from '@angular/cdk/dialog';
+import * as i1 from '@angular/cdk/scrolling';
+import * as i1$1 from '@angular/cdk/dialog';
 import * as i2 from '@angular/cdk/overlay';
-import * as i3 from '@angular/cdk/portal';
-import { MatCommonModule } from '../common-module.d.js';
-import '@angular/cdk/bidi';
+import * as i2$1 from '@angular/cdk/portal';
+import * as i2$2 from '@angular/cdk/bidi';
 import '@angular/cdk/a11y';
 import 'rxjs';
 
@@ -59,7 +58,7 @@ declare class MatDialogTitle extends MatDialogLayoutSection {
  */
 declare class MatDialogContent {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogContent, "[mat-dialog-content], mat-dialog-content, [matDialogContent]", never, {}, {}, never, never, true, [{ directive: typeof i5.CdkScrollable; inputs: {}; outputs: {}; }]>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogContent, "[mat-dialog-content], mat-dialog-content, [matDialogContent]", never, {}, {}, never, never, true, [{ directive: typeof i1.CdkScrollable; inputs: {}; outputs: {}; }]>;
 }
 /**
  * Container for the bottom action buttons in a dialog.
@@ -78,7 +77,7 @@ declare class MatDialogActions extends MatDialogLayoutSection {
 
 declare class MatDialogModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDialogModule, never, [typeof i1.DialogModule, typeof i2.OverlayModule, typeof i3.PortalModule, typeof MatCommonModule, typeof MatDialogContainer, typeof MatDialogClose, typeof MatDialogTitle, typeof MatDialogActions, typeof MatDialogContent], [typeof MatCommonModule, typeof MatDialogContainer, typeof MatDialogClose, typeof MatDialogTitle, typeof MatDialogActions, typeof MatDialogContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatDialogModule, never, [typeof i1$1.DialogModule, typeof i2.OverlayModule, typeof i2$1.PortalModule, typeof MatDialogContainer, typeof MatDialogClose, typeof MatDialogTitle, typeof MatDialogActions, typeof MatDialogContent], [typeof i2$2.BidiModule, typeof MatDialogContainer, typeof MatDialogClose, typeof MatDialogTitle, typeof MatDialogActions, typeof MatDialogContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatDialogModule>;
 }
 

@@ -1,9 +1,7 @@
+import { BidiModule } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { Directive, inject, ElementRef, DOCUMENT, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, NgModule } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { MatCommonModule } from './common-module.mjs';
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
 
 class MatToolbarRow {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatToolbarRow, deps: [], target: i0.ɵɵFactoryTarget.Directive });
@@ -84,14 +82,14 @@ function throwToolbarMixedModesError() {
 
 class MatToolbarModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatToolbarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatToolbarModule, imports: [MatCommonModule, MatToolbar, MatToolbarRow], exports: [MatToolbar, MatToolbarRow, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatToolbarModule, imports: [MatCommonModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatToolbarModule, imports: [MatToolbar, MatToolbarRow], exports: [MatToolbar, MatToolbarRow, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatToolbarModule, imports: [BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatToolbarModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatToolbar, MatToolbarRow],
-                    exports: [MatToolbar, MatToolbarRow, MatCommonModule],
+                    imports: [MatToolbar, MatToolbarRow],
+                    exports: [MatToolbar, MatToolbarRow, BidiModule],
                 }]
         }] });
 

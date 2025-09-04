@@ -7,7 +7,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, Injector, ChangeDetectorRef, ElementRef, Renderer2, signal, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import { _IdGenerator, LiveAnnouncer, removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { hasModifierKey, ENTER, SPACE, A, ESCAPE, DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
@@ -18,7 +18,6 @@ import { _animationsDisabled } from './animation.mjs';
 import { ErrorStateMatcher } from './error-options.mjs';
 import { _ErrorStateTracker } from './error-state.mjs';
 import { MatOptionModule } from './option-module.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import { MatFormFieldModule } from './form-field.mjs';
 import './ripple.mjs';
 import '@angular/cdk/platform';
@@ -1281,28 +1280,28 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatSelectModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSelectModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSelectModule, imports: [OverlayModule, MatOptionModule, MatCommonModule, MatSelect, MatSelectTrigger], exports: [CdkScrollableModule,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSelectModule, imports: [OverlayModule, MatOptionModule, MatSelect, MatSelectTrigger], exports: [BidiModule,
+            CdkScrollableModule,
             MatFormFieldModule,
             MatSelect,
             MatSelectTrigger,
-            MatOptionModule,
-            MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSelectModule, imports: [OverlayModule, MatOptionModule, MatCommonModule, CdkScrollableModule,
+            MatOptionModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSelectModule, imports: [OverlayModule, MatOptionModule, BidiModule,
+            CdkScrollableModule,
             MatFormFieldModule,
-            MatOptionModule,
-            MatCommonModule] });
+            MatOptionModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSelectModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [OverlayModule, MatOptionModule, MatCommonModule, MatSelect, MatSelectTrigger],
+                    imports: [OverlayModule, MatOptionModule, MatSelect, MatSelectTrigger],
                     exports: [
+                        BidiModule,
                         CdkScrollableModule,
                         MatFormFieldModule,
                         MatSelect,
                         MatSelectTrigger,
                         MatOptionModule,
-                        MatCommonModule,
                     ],
                 }]
         }] });

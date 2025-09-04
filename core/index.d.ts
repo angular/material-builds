@@ -1,6 +1,5 @@
 import * as i0 from '@angular/core';
 import { Version, InjectionToken, Provider } from '@angular/core';
-export { GranularSanityChecks, MATERIAL_SANITY_CHECKS, MatCommonModule, SanityChecks } from '../common-module.d.js';
 export { ThemePalette } from '../palette.d.js';
 import { NgControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';

@@ -1,4 +1,4 @@
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, booleanAttribute, numberAttribute, ViewChildren, ContentChild, ContentChildren, forwardRef, EventEmitter, signal, Directive, Output, NgModule } from '@angular/core';
@@ -8,7 +8,6 @@ import { _animationsDisabled } from './animation.mjs';
 import { _StructuralStylesLoader } from './structural-styles.mjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { MatCommonModule } from './common-module.mjs';
 import { MatRippleModule } from './ripple-module.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/coercion';
@@ -1771,27 +1770,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatSliderModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSliderModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSliderModule, imports: [MatCommonModule,
-            MatRippleModule,
-            MatSlider,
-            MatSliderThumb,
-            MatSliderRangeThumb,
-            MatSliderVisualThumb], exports: [MatSlider, MatSliderThumb, MatSliderRangeThumb] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSliderModule, imports: [MatCommonModule,
-            MatRippleModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSliderModule, imports: [MatRippleModule, MatSlider, MatSliderThumb, MatSliderRangeThumb, MatSliderVisualThumb], exports: [MatSlider, MatSliderThumb, MatSliderRangeThumb, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSliderModule, imports: [MatRippleModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSliderModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        MatCommonModule,
-                        MatRippleModule,
-                        MatSlider,
-                        MatSliderThumb,
-                        MatSliderRangeThumb,
-                        MatSliderVisualThumb,
-                    ],
-                    exports: [MatSlider, MatSliderThumb, MatSliderRangeThumb],
+                    imports: [MatRippleModule, MatSlider, MatSliderThumb, MatSliderRangeThumb, MatSliderVisualThumb],
+                    exports: [MatSlider, MatSliderThumb, MatSliderRangeThumb, BidiModule],
                 }]
         }] });
 

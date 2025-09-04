@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { QueryList, ElementRef } from '@angular/core';
-import { MatCommonModule } from './common-module.d.js';
+import * as i2 from '@angular/cdk/bidi';
 
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -18,7 +18,7 @@ declare class MatLine {
 declare function setLines(lines: QueryList<unknown>, element: ElementRef<HTMLElement>, prefix?: string): void;
 declare class MatLineModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatLineModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatLineModule, never, [typeof MatCommonModule, typeof MatLine], [typeof MatLine, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatLineModule, never, [typeof MatLine], [typeof MatLine, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatLineModule>;
 }
 

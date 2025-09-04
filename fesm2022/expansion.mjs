@@ -1,5 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, DOCUMENT, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
+import { BidiModule } from '@angular/cdk/bidi';
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
@@ -10,9 +11,7 @@ import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { _animationsDisabled } from './animation.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _StructuralStylesLoader } from './structural-styles.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import '@angular/cdk/layout';
-import '@angular/cdk/bidi';
 
 /**
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
@@ -512,8 +511,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatExpansionModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatExpansionModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatExpansionModule, imports: [MatCommonModule,
-            CdkAccordionModule,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatExpansionModule, imports: [CdkAccordionModule,
             PortalModule,
             MatAccordion,
             MatExpansionPanel,
@@ -521,22 +519,21 @@ class MatExpansionModule {
             MatExpansionPanelHeader,
             MatExpansionPanelTitle,
             MatExpansionPanelDescription,
-            MatExpansionPanelContent], exports: [MatAccordion,
+            MatExpansionPanelContent], exports: [BidiModule,
+            MatAccordion,
             MatExpansionPanel,
             MatExpansionPanelActionRow,
             MatExpansionPanelHeader,
             MatExpansionPanelTitle,
             MatExpansionPanelDescription,
             MatExpansionPanelContent] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatExpansionModule, imports: [MatCommonModule,
-            CdkAccordionModule,
-            PortalModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatExpansionModule, imports: [CdkAccordionModule,
+            PortalModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatExpansionModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
-                        MatCommonModule,
                         CdkAccordionModule,
                         PortalModule,
                         MatAccordion,
@@ -548,6 +545,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatExpansionPanelContent,
                     ],
                     exports: [
+                        BidiModule,
                         MatAccordion,
                         MatExpansionPanel,
                         MatExpansionPanelActionRow,

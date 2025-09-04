@@ -1,13 +1,11 @@
 import { TileCoordinator } from './public-api.mjs';
 export { ɵTileCoordinator } from './public-api.mjs';
 import { setLines, MatLine, MatLineModule } from './line.mjs';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ContentChildren, Directive, NgModule } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-import { Directionality } from '@angular/cdk/bidi';
-import { MatCommonModule } from './common-module.mjs';
 import 'rxjs/operators';
-import '@angular/cdk/a11y';
 
 /**
  * Injection token used to provide a grid list to a tile and to avoid circular imports.
@@ -496,30 +494,27 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 class MatGridListModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatGridListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
     static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatGridListModule, imports: [MatLineModule,
-            MatCommonModule,
             MatGridList,
             MatGridTile,
             MatGridTileText,
             MatGridTileHeaderCssMatStyler,
             MatGridTileFooterCssMatStyler,
-            MatGridAvatarCssMatStyler], exports: [MatGridList,
+            MatGridAvatarCssMatStyler], exports: [BidiModule,
+            MatGridList,
             MatGridTile,
             MatGridTileText,
             MatLineModule,
-            MatCommonModule,
             MatGridTileHeaderCssMatStyler,
             MatGridTileFooterCssMatStyler,
             MatGridAvatarCssMatStyler] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatGridListModule, imports: [MatLineModule,
-            MatCommonModule, MatLineModule,
-            MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatGridListModule, imports: [MatLineModule, BidiModule,
+            MatLineModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatGridListModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
                         MatLineModule,
-                        MatCommonModule,
                         MatGridList,
                         MatGridTile,
                         MatGridTileText,
@@ -528,11 +523,11 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatGridAvatarCssMatStyler,
                     ],
                     exports: [
+                        BidiModule,
                         MatGridList,
                         MatGridTile,
                         MatGridTileText,
                         MatLineModule,
-                        MatCommonModule,
                         MatGridTileHeaderCssMatStyler,
                         MatGridTileFooterCssMatStyler,
                         MatGridAvatarCssMatStyler,

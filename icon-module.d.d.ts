@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, OnInit, AfterViewChecked, OnDestroy, ElementRef } from '@angular/core';
-import { MatCommonModule } from './common-module.d.js';
 import { ThemePalette } from './palette.d.js';
+import * as i2 from '@angular/cdk/bidi';
 
 /** Default options for `mat-icon`.  */
 interface MatIconDefaultOptions {
@@ -154,7 +154,7 @@ declare class MatIcon implements OnInit, AfterViewChecked, OnDestroy {
 
 declare class MatIconModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatIconModule, never, [typeof MatCommonModule, typeof MatIcon], [typeof MatIcon, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatIconModule, never, [typeof MatIcon], [typeof MatIcon, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatIconModule>;
 }
 

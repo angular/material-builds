@@ -9,12 +9,11 @@ import { _StructuralStylesLoader } from './structural-styles.mjs';
 import { MatRipple } from './ripple.mjs';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { _animationsDisabled } from './animation.mjs';
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { createRepositionScrollStrategy, createOverlayRef, OverlayConfig, createFlexibleConnectedPositionStrategy, ViewportRuler, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
 import { _getEventTarget, _getShadowRoot } from '@angular/cdk/platform';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { MatRippleModule } from './ripple-module.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import '@angular/cdk/coercion';
 import '@angular/cdk/layout';
 
@@ -1374,30 +1373,27 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 class MatMenuModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMenuModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
     static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMenuModule, imports: [MatRippleModule,
-            MatCommonModule,
             OverlayModule,
             MatMenu,
             MatMenuItem,
             MatMenuContent,
             MatMenuTrigger,
-            MatContextMenuTrigger], exports: [CdkScrollableModule,
+            MatContextMenuTrigger], exports: [BidiModule,
+            CdkScrollableModule,
             MatMenu,
-            MatCommonModule,
             MatMenuItem,
             MatMenuContent,
             MatMenuTrigger,
             MatContextMenuTrigger] });
     static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMenuModule, imports: [MatRippleModule,
-            MatCommonModule,
-            OverlayModule, CdkScrollableModule,
-            MatCommonModule] });
+            OverlayModule, BidiModule,
+            CdkScrollableModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMenuModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
                         MatRippleModule,
-                        MatCommonModule,
                         OverlayModule,
                         MatMenu,
                         MatMenuItem,
@@ -1406,9 +1402,9 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatContextMenuTrigger,
                     ],
                     exports: [
+                        BidiModule,
                         CdkScrollableModule,
                         MatMenu,
-                        MatCommonModule,
                         MatMenuItem,
                         MatMenuContent,
                         MatMenuTrigger,

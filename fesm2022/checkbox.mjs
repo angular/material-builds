@@ -7,11 +7,10 @@ import { _MatInternalFormField } from './internal-form-field.mjs';
 import { _animationsDisabled } from './animation.mjs';
 import { _StructuralStylesLoader } from './structural-styles.mjs';
 import { MatRipple } from './ripple.mjs';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
-import '@angular/cdk/bidi';
 
 const checkboxDefaults = {
     color: 'accent',
@@ -499,14 +498,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatCheckboxModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCheckboxModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox, MatCommonModule], exports: [MatCheckbox, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox, MatCommonModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox], exports: [MatCheckbox, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCheckboxModule, imports: [MatCheckbox, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatCheckboxModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCheckbox, MatCommonModule],
-                    exports: [MatCheckbox, MatCommonModule],
+                    imports: [MatCheckbox],
+                    exports: [MatCheckbox, BidiModule],
                 }]
         }] });
 

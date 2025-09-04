@@ -3,9 +3,8 @@ import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, NgZone } from '@angular/core';
 import { ThemePalette } from '../palette.d.js';
 import { MatRippleLoader } from '../ripple-loader.d.js';
-import { MatCommonModule } from '../common-module.d.js';
 import { MatRippleModule } from '../ripple-module.d.js';
-import '@angular/cdk/bidi';
+import * as i2 from '@angular/cdk/bidi';
 import '../ripple.d.js';
 import '@angular/cdk/platform';
 
@@ -203,7 +202,7 @@ type MatIconAnchor = MatIconButton;
 
 declare class MatButtonModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonModule, never, [typeof MatCommonModule, typeof MatRippleModule, typeof MatButton, typeof MatMiniFabButton, typeof MatIconButton, typeof MatFabButton], [typeof MatCommonModule, typeof MatButton, typeof MatMiniFabButton, typeof MatIconButton, typeof MatFabButton]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatButtonModule, never, [typeof MatRippleModule, typeof MatButton, typeof MatMiniFabButton, typeof MatIconButton, typeof MatFabButton], [typeof i2.BidiModule, typeof MatButton, typeof MatMiniFabButton, typeof MatIconButton, typeof MatFabButton]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatButtonModule>;
 }
 

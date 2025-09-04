@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { MatCommonModule } from './common-module.d.js';
+import * as i2 from '@angular/cdk/bidi';
 
 /**
  * Possible states for a pseudo checkbox.
@@ -37,7 +37,7 @@ declare class MatPseudoCheckbox {
 
 declare class MatPseudoCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPseudoCheckboxModule, never, [typeof MatCommonModule, typeof MatPseudoCheckbox], [typeof MatPseudoCheckbox]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatPseudoCheckboxModule, never, [typeof MatPseudoCheckbox], [typeof MatPseudoCheckbox, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatPseudoCheckboxModule>;
 }
 

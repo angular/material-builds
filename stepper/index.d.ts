@@ -1,10 +1,9 @@
-import * as i3$1 from '@angular/cdk/stepper';
+import * as i2$1 from '@angular/cdk/stepper';
 import { CdkStepLabel, StepState, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
 export { StepState, StepperOrientation } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
 import { TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, QueryList, ElementRef, EventEmitter } from '@angular/core';
-import { MatCommonModule } from '../common-module.d.js';
-import * as i3 from '@angular/cdk/portal';
+import * as i2 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { MatIconModule } from '../icon-module.d.js';
 import { MatRippleModule } from '../ripple-module.d.js';
@@ -13,7 +12,7 @@ import { ThemePalette } from '../palette.d.js';
 import { ErrorStateMatcher } from '../error-options.d.js';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
-import '@angular/cdk/bidi';
+import * as i2$2 from '@angular/cdk/bidi';
 import '../ripple.d.js';
 import '@angular/cdk/platform';
 
@@ -216,7 +215,7 @@ declare class MatStepperPrevious extends CdkStepperPrevious {
 
 declare class MatStepperModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatStepperModule, never, [typeof MatCommonModule, typeof i3.PortalModule, typeof i3$1.CdkStepperModule, typeof MatIconModule, typeof MatRippleModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent], [typeof MatCommonModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatStepperModule, never, [typeof i2.PortalModule, typeof i2$1.CdkStepperModule, typeof MatIconModule, typeof MatRippleModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent], [typeof i2$2.BidiModule, typeof MatStep, typeof MatStepLabel, typeof MatStepper, typeof MatStepperNext, typeof MatStepperPrevious, typeof MatStepHeader, typeof MatStepperIcon, typeof MatStepContent]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatStepperModule>;
 }
 

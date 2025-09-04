@@ -3,8 +3,7 @@ import * as i0 from '@angular/core';
 import { AfterViewInit, OnChanges, ElementRef, EventEmitter, SimpleChanges, InjectionToken } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ThemePalette } from '../palette.d.js';
-import { MatCommonModule } from '../common-module.d.js';
-import '@angular/cdk/bidi';
+import * as i2 from '@angular/cdk/bidi';
 
 /**
  * Represents the different states that require custom transitions between them.
@@ -209,7 +208,7 @@ type MatCheckboxClickAction = 'noop' | 'check' | 'check-indeterminate' | undefin
 
 declare class MatCheckboxModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCheckboxModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof MatCheckbox, typeof MatCommonModule], [typeof MatCheckbox, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCheckboxModule, never, [typeof MatCheckbox], [typeof MatCheckbox, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCheckboxModule>;
 }
 

@@ -1,7 +1,7 @@
+import { BidiModule } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { Directive, NgModule } from '@angular/core';
 import { startWith } from 'rxjs/operators';
-import { MatCommonModule } from './common-module.mjs';
 
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -44,14 +44,14 @@ function setClass(element, className, isAdd) {
 }
 class MatLineModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatLineModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatLineModule, imports: [MatCommonModule, MatLine], exports: [MatLine, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatLineModule, imports: [MatCommonModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatLineModule, imports: [MatLine], exports: [MatLine, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatLineModule, imports: [BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatLineModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatLine],
-                    exports: [MatLine, MatCommonModule],
+                    imports: [MatLine],
+                    exports: [MatLine, BidiModule],
                 }]
         }] });
 

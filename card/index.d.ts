@@ -1,7 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken } from '@angular/core';
-import { MatCommonModule } from '../common-module.d.js';
-import '@angular/cdk/bidi';
+import * as i2 from '@angular/cdk/bidi';
 
 type MatCardAppearance = 'outlined' | 'raised' | 'filled';
 /** Object that can be used to configure the default options for the card module. */
@@ -149,7 +148,7 @@ declare class MatCardAvatar {
 
 declare class MatCardModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCardModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCardModule, never, [typeof MatCommonModule, typeof MatCard, typeof MatCardActions, typeof MatCardAvatar, typeof MatCardContent, typeof MatCardFooter, typeof MatCardHeader, typeof MatCardImage, typeof MatCardLgImage, typeof MatCardMdImage, typeof MatCardSmImage, typeof MatCardSubtitle, typeof MatCardTitle, typeof MatCardTitleGroup, typeof MatCardXlImage], [typeof MatCard, typeof MatCardActions, typeof MatCardAvatar, typeof MatCardContent, typeof MatCardFooter, typeof MatCardHeader, typeof MatCardImage, typeof MatCardLgImage, typeof MatCardMdImage, typeof MatCardSmImage, typeof MatCardSubtitle, typeof MatCardTitle, typeof MatCardTitleGroup, typeof MatCardXlImage, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatCardModule, never, [typeof MatCard, typeof MatCardActions, typeof MatCardAvatar, typeof MatCardContent, typeof MatCardFooter, typeof MatCardHeader, typeof MatCardImage, typeof MatCardLgImage, typeof MatCardMdImage, typeof MatCardSmImage, typeof MatCardSubtitle, typeof MatCardTitle, typeof MatCardTitleGroup, typeof MatCardXlImage], [typeof MatCard, typeof MatCardActions, typeof MatCardAvatar, typeof MatCardContent, typeof MatCardFooter, typeof MatCardHeader, typeof MatCardImage, typeof MatCardLgImage, typeof MatCardMdImage, typeof MatCardSmImage, typeof MatCardSubtitle, typeof MatCardTitle, typeof MatCardTitleGroup, typeof MatCardXlImage, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatCardModule>;
 }
 

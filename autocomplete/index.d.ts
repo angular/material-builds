@@ -3,18 +3,17 @@ import { InjectionToken, AfterContentInit, OnDestroy, TemplateRef, ElementRef, Q
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { MatOptionModule } from '../option-module.d.js';
-import { MatCommonModule } from '../common-module.d.js';
 import { ThemePalette } from '../palette.d.js';
 import { MatOption, MatOptgroup, MatOptionSelectionChange } from '../option.d.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
-import * as i5 from '@angular/cdk/scrolling';
+import * as i1 from '@angular/cdk/scrolling';
+import * as i2$1 from '@angular/cdk/bidi';
 import '../ripple-module.d.js';
 import '../ripple.d.js';
 import '@angular/cdk/platform';
 import '../pseudo-checkbox-module.d.js';
-import '@angular/cdk/bidi';
 
 /** Event object that is emitted when an autocomplete option is selected. */
 declare class MatAutocompleteSelectedEvent {
@@ -413,7 +412,7 @@ declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewI
 
 declare class MatAutocompleteModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatAutocompleteModule, never, [typeof i2.OverlayModule, typeof MatOptionModule, typeof MatCommonModule, typeof MatAutocomplete, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin], [typeof i5.CdkScrollableModule, typeof MatAutocomplete, typeof MatOptionModule, typeof MatCommonModule, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatAutocompleteModule, never, [typeof i2.OverlayModule, typeof MatOptionModule, typeof MatAutocomplete, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin], [typeof i1.CdkScrollableModule, typeof MatAutocomplete, typeof MatOptionModule, typeof i2$1.BidiModule, typeof MatAutocompleteTrigger, typeof MatAutocompleteOrigin]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatAutocompleteModule>;
 }
 

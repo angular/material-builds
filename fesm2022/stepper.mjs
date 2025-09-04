@@ -1,3 +1,4 @@
+import { BidiModule } from '@angular/cdk/bidi';
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { CdkStepLabel, CdkStepHeader, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import * as i0 from '@angular/core';
@@ -13,14 +14,12 @@ import { Platform } from '@angular/cdk/platform';
 import { switchMap, map, startWith, takeUntil } from 'rxjs/operators';
 import { ErrorStateMatcher } from './error-options.mjs';
 import { _animationsDisabled } from './animation.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import { MatRippleModule } from './ripple-module.mjs';
 import './icon-registry.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
 import '@angular/cdk/coercion';
 import '@angular/cdk/layout';
-import '@angular/cdk/bidi';
 
 class MatStepLabel extends CdkStepLabel {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepLabel, deps: null, target: i0.ɵɵFactoryTarget.Directive });
@@ -500,8 +499,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatStepperModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepperModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepperModule, imports: [MatCommonModule,
-            PortalModule,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepperModule, imports: [PortalModule,
             CdkStepperModule,
             MatIconModule,
             MatRippleModule,
@@ -512,7 +510,7 @@ class MatStepperModule {
             MatStepperPrevious,
             MatStepHeader,
             MatStepperIcon,
-            MatStepContent], exports: [MatCommonModule,
+            MatStepContent], exports: [BidiModule,
             MatStep,
             MatStepLabel,
             MatStepper,
@@ -521,19 +519,17 @@ class MatStepperModule {
             MatStepHeader,
             MatStepperIcon,
             MatStepContent] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepperModule, providers: [ErrorStateMatcher], imports: [MatCommonModule,
-            PortalModule,
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepperModule, providers: [ErrorStateMatcher], imports: [PortalModule,
             CdkStepperModule,
             MatIconModule,
             MatRippleModule,
             MatStepper,
-            MatStepHeader, MatCommonModule] });
+            MatStepHeader, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatStepperModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
-                        MatCommonModule,
                         PortalModule,
                         CdkStepperModule,
                         MatIconModule,
@@ -548,7 +544,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatStepContent,
                     ],
                     exports: [
-                        MatCommonModule,
+                        BidiModule,
                         MatStep,
                         MatStepLabel,
                         MatStepper,

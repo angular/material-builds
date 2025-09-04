@@ -26,7 +26,6 @@ import './error-options.mjs';
 import './error-state.mjs';
 import './option-module.mjs';
 import './ripple-module.mjs';
-import './common-module.mjs';
 import './ripple.mjs';
 import '@angular/cdk/private';
 import './pseudo-checkbox-module.mjs';

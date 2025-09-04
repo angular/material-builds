@@ -3,7 +3,7 @@ import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Rendere
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { DateAdapter, MAT_DATE_FORMATS } from './date-formats.mjs';
 import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { coerceStringArray } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey, SPACE, ENTER, PAGE_DOWN, PAGE_UP, END, HOME, DOWN_ARROW, UP_ARROW, RIGHT_ARROW, LEFT_ARROW, BACKSPACE } from '@angular/cdk/keycodes';
 import { createRepositionScrollStrategy, FlexibleConnectedPositionStrategy, createOverlayRef, OverlayConfig, createBlockScrollStrategy, createGlobalPositionStrategy, createFlexibleConnectedPositionStrategy, OverlayModule } from '@angular/cdk/overlay';
@@ -23,7 +23,6 @@ import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field2.mjs';
 import { ErrorStateMatcher } from './error-options.mjs';
 import { _ErrorStateTracker } from './error-state.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
-import { MatCommonModule } from './common-module.mjs';
 import './ripple-module.mjs';
 import './ripple.mjs';
 import './ripple-loader.mjs';
@@ -4656,7 +4655,6 @@ class MatDatepickerModule {
             OverlayModule,
             A11yModule,
             PortalModule,
-            MatCommonModule,
             MatCalendar,
             MatCalendarBody,
             MatDatepicker,
@@ -4674,7 +4672,8 @@ class MatDatepickerModule {
             MatDateRangePicker,
             MatDatepickerActions,
             MatDatepickerCancel,
-            MatDatepickerApply], exports: [CdkScrollableModule,
+            MatDatepickerApply], exports: [BidiModule,
+            CdkScrollableModule,
             MatCalendar,
             MatCalendarBody,
             MatDatepicker,
@@ -4697,10 +4696,10 @@ class MatDatepickerModule {
             OverlayModule,
             A11yModule,
             PortalModule,
-            MatCommonModule,
             MatDatepickerContent,
             MatDatepickerToggle,
-            MatCalendarHeader, CdkScrollableModule] });
+            MatCalendarHeader, BidiModule,
+            CdkScrollableModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDatepickerModule, decorators: [{
             type: NgModule,
@@ -4710,7 +4709,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         OverlayModule,
                         A11yModule,
                         PortalModule,
-                        MatCommonModule,
                         MatCalendar,
                         MatCalendarBody,
                         MatDatepicker,
@@ -4731,6 +4729,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatDatepickerApply,
                     ],
                     exports: [
+                        BidiModule,
                         CdkScrollableModule,
                         MatCalendar,
                         MatCalendarBody,

@@ -3,8 +3,7 @@ import { InjectionToken, OnDestroy, AfterContentInit, OnChanges, ChangeDetectorR
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ThemePalette } from '../palette.d.js';
-import { MatCommonModule } from '../common-module.d.js';
-import '@angular/cdk/bidi';
+import * as i2 from '@angular/cdk/bidi';
 
 /** Default `mat-slide-toggle` options that can be overridden. */
 interface MatSlideToggleDefaultOptions {
@@ -144,7 +143,7 @@ declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, 
 
 declare class MatSlideToggleModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggleModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof MatSlideToggle, typeof MatCommonModule], [typeof MatSlideToggle, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSlideToggleModule, never, [typeof MatSlideToggle], [typeof MatSlideToggle, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSlideToggleModule>;
 }
 

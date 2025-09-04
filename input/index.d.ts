@@ -8,12 +8,11 @@ import { ErrorStateMatcher } from '../error-options.d.js';
 import { MatFormField } from '../form-field.d.js';
 export { MatError, MatHint, MatPrefix, MatSuffix } from '../form-field.d.js';
 import { MatFormFieldControl } from '../form-field-control.d.js';
-import { MatCommonModule } from '../common-module.d.js';
 import { MatFormFieldModule } from '../form-field-module.d.js';
 export { MatLabel } from '../form-field-module.d.js';
-import * as i4 from '@angular/cdk/text-field';
+import * as i3 from '@angular/cdk/text-field';
+import * as i2 from '@angular/cdk/bidi';
 import '../palette.d.js';
-import '@angular/cdk/bidi';
 import '@angular/cdk/observers';
 
 /** Object that can be used to configure the default options for the input. */
@@ -188,7 +187,7 @@ declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy
 
 declare class MatInputModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatInputModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatInputModule, never, [typeof MatCommonModule, typeof MatFormFieldModule, typeof MatInput], [typeof MatInput, typeof MatFormFieldModule, typeof i4.TextFieldModule, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatInputModule, never, [typeof MatFormFieldModule, typeof MatInput], [typeof MatInput, typeof MatFormFieldModule, typeof i3.TextFieldModule, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatInputModule>;
 }
 

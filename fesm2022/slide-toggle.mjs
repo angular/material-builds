@@ -7,11 +7,10 @@ import { _animationsDisabled } from './animation.mjs';
 import { _StructuralStylesLoader } from './structural-styles.mjs';
 import { MatRipple } from './ripple.mjs';
 import { _MatInternalFormField } from './internal-form-field.mjs';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
-import '@angular/cdk/bidi';
 
 /** Injection token to be used to override the default options for `mat-slide-toggle`. */
 const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
@@ -299,14 +298,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatSlideToggleModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSlideToggleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSlideToggleModule, imports: [MatSlideToggle, MatCommonModule], exports: [MatSlideToggle, MatCommonModule] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSlideToggleModule, imports: [MatSlideToggle, MatCommonModule, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSlideToggleModule, imports: [MatSlideToggle], exports: [MatSlideToggle, BidiModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSlideToggleModule, imports: [MatSlideToggle, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSlideToggleModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatSlideToggle, MatCommonModule],
-                    exports: [MatSlideToggle, MatCommonModule],
+                    imports: [MatSlideToggle],
+                    exports: [MatSlideToggle, BidiModule],
                 }]
         }] });
 

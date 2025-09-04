@@ -3,10 +3,9 @@ import { InjectionToken, AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, ConnectedPosition, CdkOverlayOrigin, CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { MatOptionModule } from '../option-module.d.js';
-import { MatCommonModule } from '../common-module.d.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import * as i5 from '@angular/cdk/scrolling';
+import * as i1 from '@angular/cdk/scrolling';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
@@ -15,13 +14,13 @@ import { MatOption, MatOptgroup, MatOptionSelectionChange } from '../option.d.js
 import { MatFormField } from '../form-field.d.js';
 export { MatError, MatHint, MatPrefix, MatSuffix } from '../form-field.d.js';
 import { MatFormFieldControl } from '../form-field-control.d.js';
+import * as i2$1 from '@angular/cdk/bidi';
 import { MatFormFieldModule } from '../form-field-module.d.js';
 export { MatLabel } from '../form-field-module.d.js';
 import '../ripple-module.d.js';
 import '../ripple.d.js';
 import '@angular/cdk/platform';
 import '../pseudo-checkbox-module.d.js';
-import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
 import '../palette.d.js';
 import '@angular/cdk/observers';
@@ -442,7 +441,7 @@ declare class MatSelectTrigger {
 
 declare class MatSelectModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSelectModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, never, [typeof i2.OverlayModule, typeof MatOptionModule, typeof MatCommonModule, typeof MatSelect, typeof MatSelectTrigger], [typeof i5.CdkScrollableModule, typeof MatFormFieldModule, typeof MatSelect, typeof MatSelectTrigger, typeof MatOptionModule, typeof MatCommonModule]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSelectModule, never, [typeof i2.OverlayModule, typeof MatOptionModule, typeof MatSelect, typeof MatSelectTrigger], [typeof i2$1.BidiModule, typeof i1.CdkScrollableModule, typeof MatFormFieldModule, typeof MatSelect, typeof MatSelectTrigger, typeof MatOptionModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSelectModule>;
 }
 

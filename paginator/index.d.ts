@@ -7,11 +7,10 @@ export { MAT_PAGINATOR_DEFAULT_OPTIONS, MatPaginatorDefaultOptions, MatPaginator
 import '@angular/cdk/a11y';
 import '../palette.d.js';
 import '../ripple-loader.d.js';
-import '../common-module.d.js';
-import '@angular/cdk/bidi';
 import '../ripple-module.d.js';
 import '../ripple.d.js';
 import '@angular/cdk/platform';
+import '@angular/cdk/bidi';
 import '@angular/cdk/overlay';
 import '../option-module.d.js';
 import '../pseudo-checkbox-module.d.js';

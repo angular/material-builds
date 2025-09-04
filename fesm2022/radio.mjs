@@ -8,12 +8,11 @@ import { _animationsDisabled } from './animation.mjs';
 import { _StructuralStylesLoader } from './structural-styles.mjs';
 import { MatRipple } from './ripple.mjs';
 import { _MatInternalFormField } from './internal-form-field.mjs';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import { MatRippleModule } from './ripple-module.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
-import '@angular/cdk/bidi';
 
 /** Change event object emitted by radio button and radio group. */
 class MatRadioChange {
@@ -704,14 +703,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatRadioModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatRadioModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatRadioModule, imports: [MatCommonModule, MatRippleModule, MatRadioGroup, MatRadioButton], exports: [MatCommonModule, MatRadioGroup, MatRadioButton] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatRadioModule, imports: [MatCommonModule, MatRippleModule, MatRadioButton, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatRadioModule, imports: [MatRippleModule, MatRadioGroup, MatRadioButton], exports: [BidiModule, MatRadioGroup, MatRadioButton] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatRadioModule, imports: [MatRippleModule, MatRadioButton, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatRadioModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatRippleModule, MatRadioGroup, MatRadioButton],
-                    exports: [MatCommonModule, MatRadioGroup, MatRadioButton],
+                    imports: [MatRippleModule, MatRadioGroup, MatRadioButton],
+                    exports: [BidiModule, MatRadioGroup, MatRadioButton],
                 }]
         }] });
 

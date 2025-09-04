@@ -14,7 +14,6 @@ import '@angular/cdk/layout';
 import 'rxjs';
 import 'rxjs/operators';
 import '@angular/cdk/keycodes';
-import '../common-module.mjs';
 import '@angular/cdk/bidi';
 
 /** Selectors for different sections of the mat-dialog that can contain user content. */

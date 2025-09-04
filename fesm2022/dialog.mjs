@@ -11,9 +11,8 @@ import { _animationsDisabled } from './animation.mjs';
 import { Subject, merge, defer } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
-import '@angular/cdk/bidi';
 
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
@@ -869,22 +868,22 @@ const DIRECTIVES = [
 ];
 class MatDialogModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDialogModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDialogModule, imports: [DialogModule, OverlayModule, PortalModule, MatCommonModule, MatDialogContainer,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDialogModule, imports: [DialogModule, OverlayModule, PortalModule, MatDialogContainer,
             MatDialogClose,
             MatDialogTitle,
             MatDialogActions,
-            MatDialogContent], exports: [MatCommonModule, MatDialogContainer,
+            MatDialogContent], exports: [BidiModule, MatDialogContainer,
             MatDialogClose,
             MatDialogTitle,
             MatDialogActions,
             MatDialogContent] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDialogModule, providers: [MatDialog], imports: [DialogModule, OverlayModule, PortalModule, MatCommonModule, MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDialogModule, providers: [MatDialog], imports: [DialogModule, OverlayModule, PortalModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatDialogModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [DialogModule, OverlayModule, PortalModule, MatCommonModule, ...DIRECTIVES],
-                    exports: [MatCommonModule, ...DIRECTIVES],
+                    imports: [DialogModule, OverlayModule, PortalModule, ...DIRECTIVES],
+                    exports: [BidiModule, ...DIRECTIVES],
                     providers: [MatDialog],
                 }]
         }] });

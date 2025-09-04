@@ -2,13 +2,13 @@ import * as i2 from '@angular/cdk/overlay';
 import { OverlayRef, ComponentType } from '@angular/cdk/overlay';
 import { Subject, Observable } from 'rxjs';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
-import * as i3 from '@angular/cdk/portal';
+import * as i2$1 from '@angular/cdk/portal';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, DomPortal } from '@angular/cdk/portal';
 import * as i0 from '@angular/core';
 import { InjectionToken, ViewContainerRef, OnDestroy, ElementRef, ComponentRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
+import * as i2$2 from '@angular/cdk/bidi';
 import { Direction } from '@angular/cdk/bidi';
 import { MatButtonModule } from '../button/index.js';
-import { MatCommonModule } from '../common-module.d.js';
 import '../palette.d.js';
 import '../ripple-loader.d.js';
 import '../ripple-module.d.js';
@@ -320,7 +320,7 @@ declare class MatSnackBar implements OnDestroy {
 
 declare class MatSnackBarModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBarModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSnackBarModule, never, [typeof i2.OverlayModule, typeof i3.PortalModule, typeof MatButtonModule, typeof MatCommonModule, typeof SimpleSnackBar, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction], [typeof MatCommonModule, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<MatSnackBarModule, never, [typeof i2.OverlayModule, typeof i2$1.PortalModule, typeof MatButtonModule, typeof SimpleSnackBar, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction], [typeof i2$2.BidiModule, typeof MatSnackBarContainer, typeof MatSnackBarLabel, typeof MatSnackBarActions, typeof MatSnackBarAction]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSnackBarModule>;
 }
 

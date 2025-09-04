@@ -16,12 +16,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ENTER, SPACE, A, hasModifierKey } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
+import { BidiModule } from '@angular/cdk/bidi';
 import { MatPseudoCheckboxModule } from './pseudo-checkbox-module.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import { MatRippleModule } from './ripple-module.mjs';
 import '@angular/cdk/layout';
 import './pseudo-checkbox.mjs';
-import '@angular/cdk/bidi';
 
 /**
  * Injection token that can be used to reference instances of an `ListOption`. It serves
@@ -1212,7 +1211,6 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 class MatListModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatListModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
     static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatListModule, imports: [ObserversModule,
-            MatCommonModule,
             MatRippleModule,
             MatPseudoCheckboxModule,
             MatList,
@@ -1226,7 +1224,8 @@ class MatListModule {
             MatListItemIcon,
             MatListItemLine,
             MatListItemTitle,
-            MatListItemMeta], exports: [MatList,
+            MatListItemMeta], exports: [BidiModule,
+            MatList,
             MatActionList,
             MatNavList,
             MatSelectionList,
@@ -1240,16 +1239,15 @@ class MatListModule {
             MatListItemTitle,
             MatListItemMeta] });
     static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatListModule, imports: [ObserversModule,
-            MatCommonModule,
             MatRippleModule,
-            MatPseudoCheckboxModule, MatDividerModule] });
+            MatPseudoCheckboxModule, BidiModule,
+            MatDividerModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatListModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
                         ObserversModule,
-                        MatCommonModule,
                         MatRippleModule,
                         MatPseudoCheckboxModule,
                         MatList,
@@ -1266,6 +1264,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatListItemMeta,
                     ],
                     exports: [
+                        BidiModule,
                         MatList,
                         MatActionList,
                         MatNavList,

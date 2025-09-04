@@ -1,5 +1,5 @@
 import { FocusTrapFactory, FocusMonitor, InteractivityChecker } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
@@ -9,7 +9,6 @@ import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Componen
 import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
 import { _animationsDisabled } from './animation.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import '@angular/cdk/layout';
 
 /**
@@ -1021,30 +1020,27 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatSidenavModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSidenavModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSidenavModule, imports: [MatCommonModule,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSidenavModule, imports: [CdkScrollableModule,
+            MatDrawer,
+            MatDrawerContainer,
+            MatDrawerContent,
+            MatSidenav,
+            MatSidenavContainer,
+            MatSidenavContent], exports: [BidiModule,
             CdkScrollableModule,
             MatDrawer,
             MatDrawerContainer,
             MatDrawerContent,
             MatSidenav,
             MatSidenavContainer,
-            MatSidenavContent], exports: [CdkScrollableModule,
-            MatCommonModule,
-            MatDrawer,
-            MatDrawerContainer,
-            MatDrawerContent,
-            MatSidenav,
-            MatSidenavContainer,
             MatSidenavContent] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSidenavModule, imports: [MatCommonModule,
-            CdkScrollableModule, CdkScrollableModule,
-            MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSidenavModule, imports: [CdkScrollableModule, BidiModule,
+            CdkScrollableModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSidenavModule, decorators: [{
             type: NgModule,
             args: [{
                     imports: [
-                        MatCommonModule,
                         CdkScrollableModule,
                         MatDrawer,
                         MatDrawerContainer,
@@ -1054,8 +1050,8 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                         MatSidenavContent,
                     ],
                     exports: [
+                        BidiModule,
                         CdkScrollableModule,
-                        MatCommonModule,
                         MatDrawer,
                         MatDrawerContainer,
                         MatDrawerContent,

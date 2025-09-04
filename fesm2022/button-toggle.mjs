@@ -1,5 +1,5 @@
 import { _IdGenerator, FocusMonitor } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { hasModifierKey, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW, UP_ARROW, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
@@ -10,7 +10,6 @@ import { MatRipple } from './ripple.mjs';
 import { MatPseudoCheckbox } from './pseudo-checkbox.mjs';
 import { _animationsDisabled } from './animation.mjs';
 import { _StructuralStylesLoader } from './structural-styles.mjs';
-import { MatCommonModule } from './common-module.mjs';
 import { MatRippleModule } from './ripple-module.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
@@ -685,14 +684,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 
 class MatButtonToggleModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonToggleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonToggleModule, imports: [MatCommonModule, MatRippleModule, MatButtonToggleGroup, MatButtonToggle], exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonToggleModule, imports: [MatCommonModule, MatRippleModule, MatButtonToggle, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonToggleModule, imports: [MatRippleModule, MatButtonToggleGroup, MatButtonToggle], exports: [BidiModule, MatButtonToggleGroup, MatButtonToggle] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonToggleModule, imports: [MatRippleModule, MatButtonToggle, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatButtonToggleModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [MatCommonModule, MatRippleModule, MatButtonToggleGroup, MatButtonToggle],
-                    exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle],
+                    imports: [MatRippleModule, MatButtonToggleGroup, MatButtonToggle],
+                    exports: [BidiModule, MatButtonToggleGroup, MatButtonToggle],
                 }]
         }] });
 

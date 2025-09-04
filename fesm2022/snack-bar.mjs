@@ -9,7 +9,7 @@ import { _animationsDisabled } from './animation.mjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { OverlayConfig, createGlobalPositionStrategy, createOverlayRef, OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import './icon-button.mjs';
 import '@angular/cdk/private';
 import './ripple-loader.mjs';
@@ -17,7 +17,6 @@ import './ripple.mjs';
 import '@angular/cdk/coercion';
 import './structural-styles.mjs';
 import './ripple-module.mjs';
-import '@angular/cdk/bidi';
 
 /** Maximum amount of milliseconds that can be passed into setTimeout. */
 const MAX_TIMEOUT = Math.pow(2, 31) - 1;
@@ -756,29 +755,14 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
 const DIRECTIVES = [MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction];
 class MatSnackBarModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSnackBarModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSnackBarModule, imports: [OverlayModule,
-            PortalModule,
-            MatButtonModule,
-            MatCommonModule,
-            SimpleSnackBar, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction], exports: [MatCommonModule, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSnackBarModule, providers: [MatSnackBar], imports: [OverlayModule,
-            PortalModule,
-            MatButtonModule,
-            MatCommonModule,
-            SimpleSnackBar, MatCommonModule] });
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSnackBarModule, imports: [OverlayModule, PortalModule, MatButtonModule, SimpleSnackBar, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction], exports: [BidiModule, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSnackBarModule, providers: [MatSnackBar], imports: [OverlayModule, PortalModule, MatButtonModule, SimpleSnackBar, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatSnackBarModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [
-                        OverlayModule,
-                        PortalModule,
-                        MatButtonModule,
-                        MatCommonModule,
-                        SimpleSnackBar,
-                        ...DIRECTIVES,
-                    ],
-                    exports: [MatCommonModule, ...DIRECTIVES],
+                    imports: [OverlayModule, PortalModule, MatButtonModule, SimpleSnackBar, ...DIRECTIVES],
+                    exports: [BidiModule, ...DIRECTIVES],
                     providers: [MatSnackBar],
                 }]
         }] });

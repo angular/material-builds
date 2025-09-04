@@ -1,12 +1,10 @@
 import { CdkTreeNode, CdkTreeNodeDef, CdkNestedTreeNode, CDK_TREE_NODE_OUTLET_NODE, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTree, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
 import * as i0 from '@angular/core';
 import { inject, HostAttributeToken, numberAttribute, booleanAttribute, Directive, Input, ViewContainerRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
-import { MatCommonModule } from './common-module.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
 
 /**
  * Determinte if argument TreeKeyManager is the NoopTreeKeyManager. This function is safe to use with SSR.
@@ -307,26 +305,26 @@ const MAT_TREE_DIRECTIVES = [
 ];
 class MatTreeModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTreeModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
-    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTreeModule, imports: [CdkTreeModule, MatCommonModule, MatNestedTreeNode,
+    static ɵmod = i0.ɵɵngDeclareNgModule({ minVersion: "14.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTreeModule, imports: [CdkTreeModule, MatNestedTreeNode,
             MatTreeNodeDef,
             MatTreeNodePadding,
             MatTreeNodeToggle,
             MatTree,
             MatTreeNode,
-            MatTreeNodeOutlet], exports: [MatCommonModule, MatNestedTreeNode,
+            MatTreeNodeOutlet], exports: [BidiModule, MatNestedTreeNode,
             MatTreeNodeDef,
             MatTreeNodePadding,
             MatTreeNodeToggle,
             MatTree,
             MatTreeNode,
             MatTreeNodeOutlet] });
-    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTreeModule, imports: [CdkTreeModule, MatCommonModule, MatCommonModule] });
+    static ɵinj = i0.ɵɵngDeclareInjector({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTreeModule, imports: [CdkTreeModule, BidiModule] });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatTreeModule, decorators: [{
             type: NgModule,
             args: [{
-                    imports: [CdkTreeModule, MatCommonModule, ...MAT_TREE_DIRECTIVES],
-                    exports: [MatCommonModule, MAT_TREE_DIRECTIVES],
+                    imports: [CdkTreeModule, ...MAT_TREE_DIRECTIVES],
+                    exports: [BidiModule, MAT_TREE_DIRECTIVES],
                 }]
         }] });
 
