@@ -32,7 +32,8 @@ class MatStepHarness extends ContentContainerComponentHarness {
     /** Whether the step is selected. */
     async isSelected() {
         const host = await this.host();
-        return (await host.getAttribute('aria-selected')) === 'true';
+        return ((await host.getAttribute('aria-selected')) === 'true' ||
+            (await host.getAttribute('aria-current')) === 'step');
     }
     /** Whether the step has been filled out. */
     async isCompleted() {
