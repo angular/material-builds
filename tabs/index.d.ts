@@ -425,6 +425,7 @@ declare class MatTabHeader extends MatPaginatedTabHeader implements AfterContent
  */
 declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestroy {
     private _host;
+    private _ngZone;
     /** Subscription to events for when the tab body begins centering. */
     private _centeringSub;
     /** Subscription to events for when the tab body finishes leaving from center position. */
