@@ -18,6 +18,8 @@ interface ButtonHarnessFilters extends BaseHarnessFilters {
     disabled?: boolean;
     /** Only find instances with the specified type. */
     buttonType?: ButtonType;
+    /** Only find instances that contain an icon whose name matches the given value. */
+    iconName?: string | RegExp;
 }
 
 /** Harness for interacting with a mat-button in tests. */

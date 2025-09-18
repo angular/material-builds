@@ -1,5 +1,6 @@
 import { booleanAttribute } from '@angular/core';
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { MatIconHarness } from '@angular/material/icon/testing';
 
 /** Harness for interacting with a mat-button in tests. */
 class MatButtonHarness extends ContentContainerComponentHarness {
@@ -27,7 +28,10 @@ class MatButtonHarness extends ContentContainerComponentHarness {
             .addOption('disabled', options.disabled, async (harness, disabled) => {
             return (await harness.isDisabled()) === disabled;
         })
-            .addOption('buttonType', options.buttonType, (harness, buttonType) => HarnessPredicate.stringMatches(harness.getType(), buttonType));
+            .addOption('buttonType', options.buttonType, (harness, buttonType) => HarnessPredicate.stringMatches(harness.getType(), buttonType))
+            .addOption('iconName', options.iconName, (harness, iconName) => {
+            return harness.hasHarness(MatIconHarness.with({ name: iconName }));
+        });
     }
     async click(...args) {
         return (await this.host()).click(...args);
