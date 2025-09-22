@@ -375,8 +375,13 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
         }] });
 /** Row that can be used to display a message when no data is shown in the table. */
 class MatNoDataRow extends CdkNoDataRow {
-    _contentClassName = 'mat-mdc-no-data-row';
-    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatNoDataRow, deps: null, target: i0.ɵɵFactoryTarget.Directive });
+    _cellSelector = 'td, mat-cell, [mat-cell], .mat-cell';
+    constructor() {
+        super();
+        this._contentClassNames.push('mat-mdc-no-data-row', 'mat-mdc-row', 'mdc-data-table__row');
+        this._cellClassNames.push('mat-mdc-cell', 'mdc-data-table__cell', 'mat-no-data-cell');
+    }
+    static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatNoDataRow, deps: [], target: i0.ɵɵFactoryTarget.Directive });
     static ɵdir = i0.ɵɵngDeclareDirective({ minVersion: "14.0.0", version: "20.2.0-next.2", type: MatNoDataRow, isStandalone: true, selector: "ng-template[matNoDataRow]", providers: [{ provide: CdkNoDataRow, useExisting: MatNoDataRow }], usesInheritance: true, ngImport: i0 });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatNoDataRow, decorators: [{
@@ -385,7 +390,7 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
                     selector: 'ng-template[matNoDataRow]',
                     providers: [{ provide: CdkNoDataRow, useExisting: MatNoDataRow }],
                 }]
-        }] });
+        }], ctorParameters: () => [] });
 
 /**
  * Column that simply shows text content for the header and row cells. Assumes that the table

@@ -30,7 +30,7 @@ class _MatCellHarnessBase extends ContentContainerComponentHarness {
 /** Harness for interacting with an Angular Material table cell. */
 class MatCellHarness extends _MatCellHarnessBase {
     /** The selector for the host element of a `MatCellHarness` instance. */
-    static hostSelector = '.mat-mdc-cell';
+    static hostSelector = '.mat-mdc-cell:not(.mat-no-data-cell)';
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table cell with specific attributes.
      * @param options Options for narrowing the search
@@ -93,7 +93,7 @@ class _MatRowHarnessBase extends ComponentHarness {
 /** Harness for interacting with an Angular Material table row. */
 class MatRowHarness extends _MatRowHarnessBase {
     /** The selector for the host element of a `MatRowHarness` instance. */
-    static hostSelector = '.mat-mdc-row';
+    static hostSelector = '.mat-mdc-row:not(.mat-mdc-no-data-row)';
     _cellHarness = MatCellHarness;
     /**
      * Gets a `HarnessPredicate` that can be used to search for a table row with specific attributes.

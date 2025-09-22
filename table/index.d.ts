@@ -133,7 +133,8 @@ declare class MatRow extends CdkRow {
 }
 /** Row that can be used to display a message when no data is shown in the table. */
 declare class MatNoDataRow extends CdkNoDataRow {
-    _contentClassName: string;
+    _cellSelector: string;
+    constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<MatNoDataRow, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatNoDataRow, "ng-template[matNoDataRow]", never, {}, {}, never, never, true, never>;
 }
