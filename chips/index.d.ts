@@ -1,11 +1,12 @@
 import * as i0 from '@angular/core';
-import { ElementRef, OnInit, AfterViewInit, AfterContentInit, DoCheck, OnDestroy, ChangeDetectorRef, NgZone, QueryList, EventEmitter, Injector, OnChanges, InjectionToken } from '@angular/core';
+import { ElementRef, OnInit, AfterViewInit, AfterContentInit, DoCheck, OnDestroy, ChangeDetectorRef, NgZone, QueryList, EventEmitter, Injector, InjectionToken, OnChanges } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ErrorStateMatcher } from '../error-options.d.js';
 import { MatFormFieldControl } from '../form-field-control.d.js';
 import { MatRippleModule } from '../ripple-module.d.js';
+import { ModifierKey } from '@angular/cdk/keycodes';
 import * as i2 from '@angular/cdk/bidi';
 import '../ripple.d.js';
 import '@angular/cdk/platform';
@@ -848,6 +849,51 @@ declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterV
     static ngAcceptInputType_required: unknown;
 }
 
+/** Key that can be used as a separator between chips. */
+interface SeparatorKey {
+    keyCode: number;
+    modifiers: readonly ModifierKey[];
+}
+/** Default options, for the chips module, that can be overridden. */
+interface MatChipsDefaultOptions {
+    /** The list of key codes that will trigger a chipEnd event. */
+    separatorKeyCodes: readonly (number | SeparatorKey)[] | ReadonlySet<number | SeparatorKey>;
+    /** Whether icon indicators should be hidden for single-selection. */
+    hideSingleSelectionIndicator?: boolean;
+    /** Whether the chip input should be interactive while disabled by default. */
+    inputDisabledInteractive?: boolean;
+}
+/** Injection token to be used to override the default options for the chips module. */
+declare const MAT_CHIPS_DEFAULT_OPTIONS: InjectionToken<MatChipsDefaultOptions>;
+/**
+ * Injection token that can be used to reference instances of `MatChipAvatar`. It serves as
+ * alternative token to the actual `MatChipAvatar` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+declare const MAT_CHIP_AVATAR: InjectionToken<unknown>;
+/**
+ * Injection token that can be used to reference instances of `MatChipTrailingIcon`. It serves as
+ * alternative token to the actual `MatChipTrailingIcon` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+declare const MAT_CHIP_TRAILING_ICON: InjectionToken<unknown>;
+/**
+ * Injection token that can be used to reference instances of `MatChipEdit`. It serves as
+ * alternative token to the actual `MatChipEdit` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+declare const MAT_CHIP_EDIT: InjectionToken<unknown>;
+/**
+ * Injection token that can be used to reference instances of `MatChipRemove`. It serves as
+ * alternative token to the actual `MatChipRemove` class which could cause unnecessary
+ * retention of the class and its directive metadata.
+ */
+declare const MAT_CHIP_REMOVE: InjectionToken<unknown>;
+/**
+ * Injection token used to avoid a circular dependency between the `MatChip` and `MatChipAction`.
+ */
+declare const MAT_CHIP: InjectionToken<unknown>;
+
 /** Represents an input event on a `matChipInput`. */
 interface MatChipInputEvent {
     /**
@@ -882,7 +928,7 @@ declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy {
      *
      * Defaults to `[ENTER]`.
      */
-    separatorKeyCodes: readonly number[] | ReadonlySet<number>;
+    separatorKeyCodes: readonly (number | SeparatorKey)[] | ReadonlySet<number | SeparatorKey>;
     /** Emitted when a chip is to be added. */
     readonly chipEnd: EventEmitter<MatChipInputEvent>;
     /** The input's placeholder text. */
@@ -940,45 +986,5 @@ declare class MatChipsModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatChipsModule>;
 }
 
-/** Default options, for the chips module, that can be overridden. */
-interface MatChipsDefaultOptions {
-    /** The list of key codes that will trigger a chipEnd event. */
-    separatorKeyCodes: readonly number[] | ReadonlySet<number>;
-    /** Whether icon indicators should be hidden for single-selection. */
-    hideSingleSelectionIndicator?: boolean;
-    /** Whether the chip input should be interactive while disabled by default. */
-    inputDisabledInteractive?: boolean;
-}
-/** Injection token to be used to override the default options for the chips module. */
-declare const MAT_CHIPS_DEFAULT_OPTIONS: InjectionToken<MatChipsDefaultOptions>;
-/**
- * Injection token that can be used to reference instances of `MatChipAvatar`. It serves as
- * alternative token to the actual `MatChipAvatar` class which could cause unnecessary
- * retention of the class and its directive metadata.
- */
-declare const MAT_CHIP_AVATAR: InjectionToken<unknown>;
-/**
- * Injection token that can be used to reference instances of `MatChipTrailingIcon`. It serves as
- * alternative token to the actual `MatChipTrailingIcon` class which could cause unnecessary
- * retention of the class and its directive metadata.
- */
-declare const MAT_CHIP_TRAILING_ICON: InjectionToken<unknown>;
-/**
- * Injection token that can be used to reference instances of `MatChipEdit`. It serves as
- * alternative token to the actual `MatChipEdit` class which could cause unnecessary
- * retention of the class and its directive metadata.
- */
-declare const MAT_CHIP_EDIT: InjectionToken<unknown>;
-/**
- * Injection token that can be used to reference instances of `MatChipRemove`. It serves as
- * alternative token to the actual `MatChipRemove` class which could cause unnecessary
- * retention of the class and its directive metadata.
- */
-declare const MAT_CHIP_REMOVE: InjectionToken<unknown>;
-/**
- * Injection token used to avoid a circular dependency between the `MatChip` and `MatChipAction`.
- */
-declare const MAT_CHIP: InjectionToken<unknown>;
-
 export { MAT_CHIP, MAT_CHIPS_DEFAULT_OPTIONS, MAT_CHIP_AVATAR, MAT_CHIP_EDIT, MAT_CHIP_LISTBOX_CONTROL_VALUE_ACCESSOR, MAT_CHIP_REMOVE, MAT_CHIP_TRAILING_ICON, MatChip, MatChipAvatar, MatChipEdit, MatChipEditInput, MatChipGrid, MatChipGridChange, MatChipInput, MatChipListbox, MatChipListboxChange, MatChipOption, MatChipRemove, MatChipRow, MatChipSelectionChange, MatChipSet, MatChipTrailingIcon, MatChipsModule };
-export type { MatChipEditedEvent, MatChipEvent, MatChipInputEvent, MatChipTextControl, MatChipsDefaultOptions };
+export type { MatChipEditedEvent, MatChipEvent, MatChipInputEvent, MatChipTextControl, MatChipsDefaultOptions, SeparatorKey };

@@ -2243,7 +2243,28 @@ class MatChipInput {
     }
     /** Checks whether a keycode is one of the configured separators. */
     _isSeparatorKey(event) {
-        return !hasModifierKey(event) && new Set(this.separatorKeyCodes).has(event.keyCode);
+        if (!this.separatorKeyCodes) {
+            return false;
+        }
+        for (const key of this.separatorKeyCodes) {
+            let keyCode;
+            let modifiers;
+            if (typeof key === 'number') {
+                keyCode = key;
+                modifiers = null;
+            }
+            else {
+                keyCode = key.keyCode;
+                modifiers = key.modifiers;
+            }
+            const modifiersMatch = !modifiers?.length
+                ? !hasModifierKey(event)
+                : hasModifierKey(event, ...modifiers);
+            if (keyCode === event.keyCode && modifiersMatch) {
+                return true;
+            }
+        }
+        return false;
     }
     /** Gets the value to set on the `readonly` attribute. */
     _getReadonlyAttribute() {
