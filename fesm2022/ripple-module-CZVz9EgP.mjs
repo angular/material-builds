@@ -1,7 +1,7 @@
 import { BidiModule } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { NgModule } from '@angular/core';
-import { MatRipple } from './ripple-DjCEow_t.mjs';
+import { MatRipple } from './ripple-l8LsvuYU.mjs';
 
 class MatRippleModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatRippleModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
@@ -17,4 +17,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
         }] });
 
 export { MatRippleModule };
-//# sourceMappingURL=ripple-module-C79kN6V8.mjs.map
+//# sourceMappingURL=ripple-module-CZVz9EgP.mjs.map

@@ -8,7 +8,7 @@ import { Directive, InjectionToken, inject, Input, ElementRef, NgZone, Renderer2
 import { Subscription, Subject, merge } from 'rxjs';
 import { startWith, map, pairwise, filter, takeUntil } from 'rxjs/operators';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
-import { _animationsDisabled } from './animation-C1RHfpRw.mjs';
+import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
 
 /** The floating label for a `mat-form-field`. */
 class MatLabel {
@@ -1111,4 +1111,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
             }] } });
 
 export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatError, MatFormField, MatFormFieldControl, MatHint, MatLabel, MatPrefix, MatSuffix, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError };
-//# sourceMappingURL=form-field-CtnU0Lri.mjs.map
+//# sourceMappingURL=form-field-yCHsRZef.mjs.map

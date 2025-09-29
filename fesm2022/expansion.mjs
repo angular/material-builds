@@ -8,7 +8,7 @@ import { startWith, filter, take } from 'rxjs/operators';
 import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { _animationsDisabled } from './animation-C1RHfpRw.mjs';
+import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _StructuralStylesLoader } from './structural-styles-50gUfd5d.mjs';
 import '@angular/cdk/layout';

@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input } from '@angular/core';
-import { _animationsDisabled } from './animation-C1RHfpRw.mjs';
+import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
 
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -50,4 +50,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
             }] } });
 
 export { MatPseudoCheckbox };
-//# sourceMappingURL=pseudo-checkbox-By8sS3M2.mjs.map
+//# sourceMappingURL=pseudo-checkbox-DtNcPfQN.mjs.map

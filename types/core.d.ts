@@ -30,27 +30,6 @@ interface AnimationsConfig {
 /** Injection token used to configure the animations in Angular Material. */
 declare const MATERIAL_ANIMATIONS: InjectionToken<AnimationsConfig>;
 /**
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- * @docs-private
- */
-declare class AnimationCurves {
-    static STANDARD_CURVE: string;
-    static DECELERATION_CURVE: string;
-    static ACCELERATION_CURVE: string;
-    static SHARP_CURVE: string;
-}
-/**
- * @deprecated No longer used, will be removed.
- * @breaking-change 21.0.0
- * @docs-private
- */
-declare class AnimationDurations {
-    static COMPLEX: string;
-    static ENTERING: string;
-    static EXITING: string;
-}
-/**
  * Gets the the configured animations state.
  * @docs-private
  */
@@ -101,11 +80,6 @@ declare const MAT_DATE_FORMATS: InjectionToken<MatDateFormats>;
 
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 declare class NativeDateAdapter extends DateAdapter<Date> {
-    /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 14.0.0
-     */
-    useUtcForDisplay: boolean;
     /** The injected locale. */
     private readonly _matDateLocale;
     constructor(...args: unknown[]);
@@ -207,5 +181,5 @@ declare class _MatInternalFormField {
     static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
 }
 
-export { AnimationCurves, AnimationDurations, DateAdapter, ErrorStateMatcher$1 as ErrorStateMatcher, MATERIAL_ANIMATIONS, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, _getAnimationsState, provideNativeDateAdapter };
+export { DateAdapter, ErrorStateMatcher$1 as ErrorStateMatcher, MATERIAL_ANIMATIONS, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, _getAnimationsState, provideNativeDateAdapter };
 export type { AnimationsConfig, MatDateFormats };

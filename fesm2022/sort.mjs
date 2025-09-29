@@ -5,7 +5,7 @@ import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
 import { ReplaySubject, Subject, merge } from 'rxjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { _animationsDisabled } from './animation-C1RHfpRw.mjs';
+import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
 import { _StructuralStylesLoader } from './structural-styles-50gUfd5d.mjs';
 import '@angular/cdk/layout';
 

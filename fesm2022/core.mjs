@@ -1,19 +1,19 @@
 export { _MatInternalFormField } from './internal-form-field-VHxR4cx0.mjs';
 import * as i0 from '@angular/core';
 import { Version, inject, Injectable, NgModule } from '@angular/core';
-export { AnimationCurves, AnimationDurations, MATERIAL_ANIMATIONS, _animationsDisabled, _getAnimationsState } from './animation-C1RHfpRw.mjs';
+export { MATERIAL_ANIMATIONS, _animationsDisabled, _getAnimationsState } from './animation-Rv7qYCaa.mjs';
 export { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from './date-formats-CQYBuKS2.mjs';
 export { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from './error-options-BvBwJkSx.mjs';
 export { _StructuralStylesLoader } from './structural-styles-50gUfd5d.mjs';
 export { MatLine, MatLineModule, setLines } from './line-Du_ax01m.mjs';
-export { MatOptionModule } from './option-module--xFmbRdb.mjs';
-export { MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './option-Dlr72ivf.mjs';
-export { MatRippleLoader } from './ripple-loader-DEuFrUFD.mjs';
-export { MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleRef, RippleRenderer, RippleState, defaultRippleAnimationConfig } from './ripple-DjCEow_t.mjs';
-export { MatRippleModule } from './ripple-module-C79kN6V8.mjs';
-export { MatPseudoCheckbox } from './pseudo-checkbox-By8sS3M2.mjs';
-export { MatPseudoCheckboxModule } from './pseudo-checkbox-module-BP0OHQy7.mjs';
+export { MatOptionModule } from './option-module-DVVccM-p.mjs';
+export { MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './option-aUCHXR3U.mjs';
+export { MatRippleLoader } from './ripple-loader-CJKypGBF.mjs';
+export { MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleRef, RippleRenderer, RippleState, defaultRippleAnimationConfig } from './ripple-l8LsvuYU.mjs';
+export { MatRippleModule } from './ripple-module-CZVz9EgP.mjs';
+export { MatPseudoCheckbox } from './pseudo-checkbox-DtNcPfQN.mjs';
+export { MatPseudoCheckboxModule } from './pseudo-checkbox-module-HAKxL90d.mjs';
 import '@angular/cdk/layout';
 import 'rxjs';
 import '@angular/cdk/bidi';
@@ -55,11 +55,6 @@ function range(length, valueFunction) {
 }
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 class NativeDateAdapter extends DateAdapter {
-    /**
-     * @deprecated No longer being used. To be removed.
-     * @breaking-change 14.0.0
-     */
-    useUtcForDisplay = false;
     /** The injected locale. */
     _matDateLocale = inject(MAT_DATE_LOCALE, { optional: true });
     constructor() {

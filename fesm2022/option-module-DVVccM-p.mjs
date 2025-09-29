@@ -1,9 +1,9 @@
 import { BidiModule } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
 import { NgModule } from '@angular/core';
-import { MatRippleModule } from './ripple-module-C79kN6V8.mjs';
-import { MatPseudoCheckboxModule } from './pseudo-checkbox-module-BP0OHQy7.mjs';
-import { MatOption, MatOptgroup } from './option-Dlr72ivf.mjs';
+import { MatRippleModule } from './ripple-module-CZVz9EgP.mjs';
+import { MatPseudoCheckboxModule } from './pseudo-checkbox-module-HAKxL90d.mjs';
+import { MatOption, MatOptgroup } from './option-aUCHXR3U.mjs';
 
 class MatOptionModule {
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatOptionModule, deps: [], target: i0.ɵɵFactoryTarget.NgModule });
@@ -19,4 +19,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
         }] });
 
 export { MatOptionModule };
-//# sourceMappingURL=option-module--xFmbRdb.mjs.map
+//# sourceMappingURL=option-module-DVVccM-p.mjs.map

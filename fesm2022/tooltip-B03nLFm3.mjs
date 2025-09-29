@@ -10,7 +10,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { createRepositionScrollStrategy, ScrollDispatcher, createFlexibleConnectedPositionStrategy, createOverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
-import { _animationsDisabled } from './animation-C1RHfpRw.mjs';
+import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
 
 /** Time in ms to throttle repositioning after scroll events. */
 const SCROLL_THROTTLE_MS = 20;
@@ -924,4 +924,4 @@ i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", 
             }] } });
 
 export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_SCROLL_STRATEGY, MatTooltip, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, TooltipComponent, getMatTooltipInvalidPositionError };
-//# sourceMappingURL=tooltip-DVPBMzip.mjs.map
+//# sourceMappingURL=tooltip-B03nLFm3.mjs.map
