@@ -1,4 +1,4 @@
-export { MatInputHarness } from '../input-harness.mjs';
+export { MatInputHarness } from '../input-harness-dtPJJIcl.mjs';
 import { ComponentHarness, HarnessPredicate, parallel } from '@angular/cdk/testing';
 import { MatFormFieldControlHarnessBase } from '../form-field/testing/control.mjs';
 import '@angular/material/form-field/testing/control';

@@ -7,7 +7,7 @@ import { createBlockScrollStrategy, createGlobalPositionStrategy, OverlayModule 
 import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular/cdk/dialog';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
-import { _animationsDisabled } from './animation.mjs';
+import { _animationsDisabled } from './animation-C1RHfpRw.mjs';
 import { Subject, merge, defer } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';

@@ -20,7 +20,7 @@
   "exports": {
     ".": {
       "sass": "./_index.scss",
-      "types": "./index.d.ts",
+      "types": "./types/material.d.ts",
       "default": "./fesm2022/material.mjs"
     },
     "./theming": {
@@ -60,295 +60,295 @@
       "default": "./package.json"
     },
     "./autocomplete": {
-      "types": "./autocomplete/index.d.ts",
+      "types": "./types/autocomplete.d.ts",
       "default": "./fesm2022/autocomplete.mjs"
     },
     "./autocomplete/testing": {
-      "types": "./autocomplete/testing/index.d.ts",
+      "types": "./types/autocomplete/testing.d.ts",
       "default": "./fesm2022/autocomplete/testing.mjs"
     },
     "./badge": {
-      "types": "./badge/index.d.ts",
+      "types": "./types/badge.d.ts",
       "default": "./fesm2022/badge.mjs"
     },
     "./badge/testing": {
-      "types": "./badge/testing/index.d.ts",
+      "types": "./types/badge/testing.d.ts",
       "default": "./fesm2022/badge/testing.mjs"
     },
     "./bottom-sheet": {
-      "types": "./bottom-sheet/index.d.ts",
+      "types": "./types/bottom-sheet.d.ts",
       "default": "./fesm2022/bottom-sheet.mjs"
     },
     "./bottom-sheet/testing": {
-      "types": "./bottom-sheet/testing/index.d.ts",
+      "types": "./types/bottom-sheet/testing.d.ts",
       "default": "./fesm2022/bottom-sheet/testing.mjs"
     },
     "./button": {
-      "types": "./button/index.d.ts",
+      "types": "./types/button.d.ts",
       "default": "./fesm2022/button.mjs"
     },
     "./button-toggle": {
-      "types": "./button-toggle/index.d.ts",
+      "types": "./types/button-toggle.d.ts",
       "default": "./fesm2022/button-toggle.mjs"
     },
     "./button-toggle/testing": {
-      "types": "./button-toggle/testing/index.d.ts",
+      "types": "./types/button-toggle/testing.d.ts",
       "default": "./fesm2022/button-toggle/testing.mjs"
     },
     "./button/testing": {
-      "types": "./button/testing/index.d.ts",
+      "types": "./types/button/testing.d.ts",
       "default": "./fesm2022/button/testing.mjs"
     },
     "./card": {
-      "types": "./card/index.d.ts",
+      "types": "./types/card.d.ts",
       "default": "./fesm2022/card.mjs"
     },
     "./card/testing": {
-      "types": "./card/testing/index.d.ts",
+      "types": "./types/card/testing.d.ts",
       "default": "./fesm2022/card/testing.mjs"
     },
     "./checkbox": {
-      "types": "./checkbox/index.d.ts",
+      "types": "./types/checkbox.d.ts",
       "default": "./fesm2022/checkbox.mjs"
     },
     "./checkbox/testing": {
-      "types": "./checkbox/testing/index.d.ts",
+      "types": "./types/checkbox/testing.d.ts",
       "default": "./fesm2022/checkbox/testing.mjs"
     },
     "./chips": {
-      "types": "./chips/index.d.ts",
+      "types": "./types/chips.d.ts",
       "default": "./fesm2022/chips.mjs"
     },
     "./chips/testing": {
-      "types": "./chips/testing/index.d.ts",
+      "types": "./types/chips/testing.d.ts",
       "default": "./fesm2022/chips/testing.mjs"
     },
     "./core": {
-      "types": "./core/index.d.ts",
+      "types": "./types/core.d.ts",
       "default": "./fesm2022/core.mjs"
     },
     "./core/testing": {
-      "types": "./core/testing/index.d.ts",
+      "types": "./types/core/testing.d.ts",
       "default": "./fesm2022/core/testing.mjs"
     },
     "./datepicker": {
-      "types": "./datepicker/index.d.ts",
+      "types": "./types/datepicker.d.ts",
       "default": "./fesm2022/datepicker.mjs"
     },
     "./datepicker/testing": {
-      "types": "./datepicker/testing/index.d.ts",
+      "types": "./types/datepicker/testing.d.ts",
       "default": "./fesm2022/datepicker/testing.mjs"
     },
     "./dialog": {
-      "types": "./dialog/index.d.ts",
+      "types": "./types/dialog.d.ts",
       "default": "./fesm2022/dialog.mjs"
     },
     "./dialog/testing": {
-      "types": "./dialog/testing/index.d.ts",
+      "types": "./types/dialog/testing.d.ts",
       "default": "./fesm2022/dialog/testing.mjs"
     },
     "./divider": {
-      "types": "./divider/index.d.ts",
+      "types": "./types/divider.d.ts",
       "default": "./fesm2022/divider.mjs"
     },
     "./divider/testing": {
-      "types": "./divider/testing/index.d.ts",
+      "types": "./types/divider/testing.d.ts",
       "default": "./fesm2022/divider/testing.mjs"
     },
     "./expansion": {
-      "types": "./expansion/index.d.ts",
+      "types": "./types/expansion.d.ts",
       "default": "./fesm2022/expansion.mjs"
     },
     "./expansion/testing": {
-      "types": "./expansion/testing/index.d.ts",
+      "types": "./types/expansion/testing.d.ts",
       "default": "./fesm2022/expansion/testing.mjs"
     },
     "./form-field": {
-      "types": "./form-field/index.d.ts",
+      "types": "./types/form-field.d.ts",
       "default": "./fesm2022/form-field.mjs"
     },
     "./form-field/testing": {
-      "types": "./form-field/testing/index.d.ts",
+      "types": "./types/form-field/testing.d.ts",
       "default": "./fesm2022/form-field/testing.mjs"
     },
     "./form-field/testing/control": {
-      "types": "./form-field/testing/control/index.d.ts",
+      "types": "./types/form-field/testing/control.d.ts",
       "default": "./fesm2022/form-field/testing/control.mjs"
     },
     "./grid-list": {
-      "types": "./grid-list/index.d.ts",
+      "types": "./types/grid-list.d.ts",
       "default": "./fesm2022/grid-list.mjs"
     },
     "./grid-list/testing": {
-      "types": "./grid-list/testing/index.d.ts",
+      "types": "./types/grid-list/testing.d.ts",
       "default": "./fesm2022/grid-list/testing.mjs"
     },
     "./icon": {
-      "types": "./icon/index.d.ts",
+      "types": "./types/icon.d.ts",
       "default": "./fesm2022/icon.mjs"
     },
     "./icon/testing": {
-      "types": "./icon/testing/index.d.ts",
+      "types": "./types/icon/testing.d.ts",
       "default": "./fesm2022/icon/testing.mjs"
     },
     "./input": {
-      "types": "./input/index.d.ts",
+      "types": "./types/input.d.ts",
       "default": "./fesm2022/input.mjs"
     },
     "./input/testing": {
-      "types": "./input/testing/index.d.ts",
+      "types": "./types/input/testing.d.ts",
       "default": "./fesm2022/input/testing.mjs"
     },
     "./list": {
-      "types": "./list/index.d.ts",
+      "types": "./types/list.d.ts",
       "default": "./fesm2022/list.mjs"
     },
     "./list/testing": {
-      "types": "./list/testing/index.d.ts",
+      "types": "./types/list/testing.d.ts",
       "default": "./fesm2022/list/testing.mjs"
     },
     "./menu": {
-      "types": "./menu/index.d.ts",
+      "types": "./types/menu.d.ts",
       "default": "./fesm2022/menu.mjs"
     },
     "./menu/testing": {
-      "types": "./menu/testing/index.d.ts",
+      "types": "./types/menu/testing.d.ts",
       "default": "./fesm2022/menu/testing.mjs"
     },
     "./paginator": {
-      "types": "./paginator/index.d.ts",
+      "types": "./types/paginator.d.ts",
       "default": "./fesm2022/paginator.mjs"
     },
     "./paginator/testing": {
-      "types": "./paginator/testing/index.d.ts",
+      "types": "./types/paginator/testing.d.ts",
       "default": "./fesm2022/paginator/testing.mjs"
     },
     "./progress-bar": {
-      "types": "./progress-bar/index.d.ts",
+      "types": "./types/progress-bar.d.ts",
       "default": "./fesm2022/progress-bar.mjs"
     },
     "./progress-bar/testing": {
-      "types": "./progress-bar/testing/index.d.ts",
+      "types": "./types/progress-bar/testing.d.ts",
       "default": "./fesm2022/progress-bar/testing.mjs"
     },
     "./progress-spinner": {
-      "types": "./progress-spinner/index.d.ts",
+      "types": "./types/progress-spinner.d.ts",
       "default": "./fesm2022/progress-spinner.mjs"
     },
     "./progress-spinner/testing": {
-      "types": "./progress-spinner/testing/index.d.ts",
+      "types": "./types/progress-spinner/testing.d.ts",
       "default": "./fesm2022/progress-spinner/testing.mjs"
     },
     "./radio": {
-      "types": "./radio/index.d.ts",
+      "types": "./types/radio.d.ts",
       "default": "./fesm2022/radio.mjs"
     },
     "./radio/testing": {
-      "types": "./radio/testing/index.d.ts",
+      "types": "./types/radio/testing.d.ts",
       "default": "./fesm2022/radio/testing.mjs"
     },
     "./select": {
-      "types": "./select/index.d.ts",
+      "types": "./types/select.d.ts",
       "default": "./fesm2022/select.mjs"
     },
     "./select/testing": {
-      "types": "./select/testing/index.d.ts",
+      "types": "./types/select/testing.d.ts",
       "default": "./fesm2022/select/testing.mjs"
     },
     "./sidenav": {
-      "types": "./sidenav/index.d.ts",
+      "types": "./types/sidenav.d.ts",
       "default": "./fesm2022/sidenav.mjs"
     },
     "./sidenav/testing": {
-      "types": "./sidenav/testing/index.d.ts",
+      "types": "./types/sidenav/testing.d.ts",
       "default": "./fesm2022/sidenav/testing.mjs"
     },
     "./slide-toggle": {
-      "types": "./slide-toggle/index.d.ts",
+      "types": "./types/slide-toggle.d.ts",
       "default": "./fesm2022/slide-toggle.mjs"
     },
     "./slide-toggle/testing": {
-      "types": "./slide-toggle/testing/index.d.ts",
+      "types": "./types/slide-toggle/testing.d.ts",
       "default": "./fesm2022/slide-toggle/testing.mjs"
     },
     "./slider": {
-      "types": "./slider/index.d.ts",
+      "types": "./types/slider.d.ts",
       "default": "./fesm2022/slider.mjs"
     },
     "./slider/testing": {
-      "types": "./slider/testing/index.d.ts",
+      "types": "./types/slider/testing.d.ts",
       "default": "./fesm2022/slider/testing.mjs"
     },
     "./snack-bar": {
-      "types": "./snack-bar/index.d.ts",
+      "types": "./types/snack-bar.d.ts",
       "default": "./fesm2022/snack-bar.mjs"
     },
     "./snack-bar/testing": {
-      "types": "./snack-bar/testing/index.d.ts",
+      "types": "./types/snack-bar/testing.d.ts",
       "default": "./fesm2022/snack-bar/testing.mjs"
     },
     "./sort": {
-      "types": "./sort/index.d.ts",
+      "types": "./types/sort.d.ts",
       "default": "./fesm2022/sort.mjs"
     },
     "./sort/testing": {
-      "types": "./sort/testing/index.d.ts",
+      "types": "./types/sort/testing.d.ts",
       "default": "./fesm2022/sort/testing.mjs"
     },
     "./stepper": {
-      "types": "./stepper/index.d.ts",
+      "types": "./types/stepper.d.ts",
       "default": "./fesm2022/stepper.mjs"
     },
     "./stepper/testing": {
-      "types": "./stepper/testing/index.d.ts",
+      "types": "./types/stepper/testing.d.ts",
       "default": "./fesm2022/stepper/testing.mjs"
     },
     "./table": {
-      "types": "./table/index.d.ts",
+      "types": "./types/table.d.ts",
       "default": "./fesm2022/table.mjs"
     },
     "./table/testing": {
-      "types": "./table/testing/index.d.ts",
+      "types": "./types/table/testing.d.ts",
       "default": "./fesm2022/table/testing.mjs"
     },
     "./tabs": {
-      "types": "./tabs/index.d.ts",
+      "types": "./types/tabs.d.ts",
       "default": "./fesm2022/tabs.mjs"
     },
     "./tabs/testing": {
-      "types": "./tabs/testing/index.d.ts",
+      "types": "./types/tabs/testing.d.ts",
       "default": "./fesm2022/tabs/testing.mjs"
     },
     "./timepicker": {
-      "types": "./timepicker/index.d.ts",
+      "types": "./types/timepicker.d.ts",
       "default": "./fesm2022/timepicker.mjs"
     },
     "./timepicker/testing": {
-      "types": "./timepicker/testing/index.d.ts",
+      "types": "./types/timepicker/testing.d.ts",
       "default": "./fesm2022/timepicker/testing.mjs"
     },
     "./toolbar": {
-      "types": "./toolbar/index.d.ts",
+      "types": "./types/toolbar.d.ts",
       "default": "./fesm2022/toolbar.mjs"
     },
     "./toolbar/testing": {
-      "types": "./toolbar/testing/index.d.ts",
+      "types": "./types/toolbar/testing.d.ts",
       "default": "./fesm2022/toolbar/testing.mjs"
     },
     "./tooltip": {
-      "types": "./tooltip/index.d.ts",
+      "types": "./types/tooltip.d.ts",
       "default": "./fesm2022/tooltip.mjs"
     },
     "./tooltip/testing": {
-      "types": "./tooltip/testing/index.d.ts",
+      "types": "./types/tooltip/testing.d.ts",
       "default": "./fesm2022/tooltip/testing.mjs"
     },
     "./tree": {
-      "types": "./tree/index.d.ts",
+      "types": "./types/tree.d.ts",
       "default": "./fesm2022/tree.mjs"
     },
     "./tree/testing": {
-      "types": "./tree/testing/index.d.ts",
+      "types": "./types/tree/testing.d.ts",
       "default": "./fesm2022/tree/testing.mjs"
     }
   },
@@ -381,6 +381,6 @@
   },
   "sideEffects": false,
   "module": "./fesm2022/material.mjs",
-  "typings": "./index.d.ts",
+  "typings": "./types/material.d.ts",
   "type": "module"
 }

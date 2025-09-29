@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ViewChild, NgModule } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { _getAnimationsState } from './animation.mjs';
+import { _getAnimationsState } from './animation-C1RHfpRw.mjs';
 import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
 

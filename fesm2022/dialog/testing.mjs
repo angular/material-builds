@@ -9,7 +9,7 @@ import '@angular/cdk/overlay';
 import '@angular/cdk/dialog';
 import '@angular/cdk/coercion';
 import '@angular/cdk/portal';
-import '../animation.mjs';
+import '../animation-C1RHfpRw.mjs';
 import '@angular/cdk/layout';
 import 'rxjs';
 import 'rxjs/operators';

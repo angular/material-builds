@@ -1,5 +1,5 @@
 import { ComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
-import { MatOptionHarness } from '../option-harness.mjs';
+import { MatOptionHarness } from '../option-harness-D_dpAU04.mjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 class MatTimepickerHarness extends ComponentHarness {

@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatOptionHarness } from '../option-harness.mjs';
+import { MatOptionHarness } from '../option-harness-D_dpAU04.mjs';
 import { MatOptgroupHarness } from '../core/testing.mjs';
 
 class MatAutocompleteHarness extends ComponentHarness {

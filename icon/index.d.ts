@@ -1,8 +1,0 @@
-export { MAT_ICON_DEFAULT_OPTIONS, MAT_ICON_LOCATION, MatIcon, MatIconDefaultOptions, MatIconLocation, MatIconModule } from '../icon-module.d.js';
-export { IconOptions, IconResolver, MatIconRegistry, SafeResourceUrlWithIconOptions, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from '../icon-registry.d.js';
-import '@angular/core';
-import '../palette.d.js';
-import '@angular/cdk/bidi';
-import '@angular/common/http';
-import '@angular/platform-browser';
-import 'rxjs';

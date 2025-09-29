@@ -1,4 +1,4 @@
-import { MatOptionHarness } from '../option-harness.mjs';
+import { MatOptionHarness } from '../option-harness-D_dpAU04.mjs';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /** Harness for interacting with a `mat-optgroup` in tests. */
