@@ -1,4 +1,4 @@
-import { MatLine, MatLineModule } from './line.d-COLYrFjT.js';
+import { MatLine, MatLineModule } from './_line-chunk.js';
 import * as i0 from '@angular/core';
 import { AfterContentInit, QueryList, OnInit, AfterContentChecked } from '@angular/core';
 import { NumberInput } from '@angular/cdk/coercion';

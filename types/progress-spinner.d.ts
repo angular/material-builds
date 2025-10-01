@@ -1,8 +1,8 @@
-import { MatProgressSpinner } from './progress-spinner.d-4ZldFmE7.js';
-export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinnerDefaultOptions, MatSpinner, ProgressSpinnerMode } from './progress-spinner.d-4ZldFmE7.js';
+import { MatProgressSpinner } from './_progress-spinner-chunk.js';
+export { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinnerDefaultOptions, MatSpinner, ProgressSpinnerMode } from './_progress-spinner-chunk.js';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/cdk/bidi';
-import './palette.d-fF1us9u8.js';
+import './_palette-chunk.js';
 
 declare class MatProgressSpinnerModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatProgressSpinnerModule, never>;

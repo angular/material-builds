@@ -1,7 +1,7 @@
-import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP } from './option-aUCHXR3U.mjs';
-export { MatOptgroup } from './option-aUCHXR3U.mjs';
-import { MAT_FORM_FIELD, MatFormFieldControl } from './form-field-yCHsRZef.mjs';
-export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from './form-field-yCHsRZef.mjs';
+import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP } from './_option-chunk.mjs';
+export { MatOptgroup } from './_option-chunk.mjs';
+import { MAT_FORM_FIELD, MatFormFieldControl } from './_form-field-chunk.mjs';
+export { MatError, MatFormField, MatHint, MatLabel, MatPrefix, MatSuffix } from './_form-field-chunk.mjs';
 import { createRepositionScrollStrategy, CdkConnectedOverlay, CdkOverlayOrigin, OverlayModule } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, Injector, ChangeDetectorRef, ElementRef, Renderer2, signal, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, ContentChild, Input, ViewChild, Output, Directive, NgModule } from '@angular/core';
@@ -14,21 +14,21 @@ import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/form
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, filter, map, takeUntil, take } from 'rxjs/operators';
 import { NgClass } from '@angular/common';
-import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
-import { ErrorStateMatcher } from './error-options-BvBwJkSx.mjs';
-import { _ErrorStateTracker } from './error-state-DAicm3pw.mjs';
-import { MatOptionModule } from './option-module-DVVccM-p.mjs';
+import { _animationsDisabled } from './_animation-chunk.mjs';
+import { ErrorStateMatcher } from './_error-options-chunk.mjs';
+import { _ErrorStateTracker } from './_error-state-chunk.mjs';
+import { MatOptionModule } from './_option-module-chunk.mjs';
 import { MatFormFieldModule } from './form-field.mjs';
-import './ripple-l8LsvuYU.mjs';
+import './_ripple-chunk.mjs';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 import '@angular/cdk/private';
-import './pseudo-checkbox-DtNcPfQN.mjs';
-import './structural-styles-50gUfd5d.mjs';
+import './_pseudo-checkbox-chunk.mjs';
+import './_structural-styles-chunk.mjs';
 import '@angular/cdk/observers/private';
 import '@angular/cdk/layout';
-import './ripple-module-CZVz9EgP.mjs';
-import './pseudo-checkbox-module-HAKxL90d.mjs';
+import './_ripple-module-chunk.mjs';
+import './_pseudo-checkbox-module-chunk.mjs';
 import '@angular/cdk/observers';
 
 // Note that these have been copied over verbatim from

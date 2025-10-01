@@ -1,5 +1,5 @@
-import { MatFormField, MatLabel, MatError, MatHint, MatPrefix, MatSuffix } from './form-field-yCHsRZef.mjs';
-export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatFormFieldControl, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError } from './form-field-yCHsRZef.mjs';
+import { MatFormField, MatLabel, MatError, MatHint, MatPrefix, MatSuffix } from './_form-field-chunk.mjs';
+export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatFormFieldControl, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError } from './_form-field-chunk.mjs';
 import { BidiModule } from '@angular/cdk/bidi';
 import { ObserversModule } from '@angular/cdk/observers';
 import * as i0 from '@angular/core';
@@ -11,7 +11,7 @@ import '@angular/common';
 import 'rxjs';
 import 'rxjs/operators';
 import '@angular/cdk/observers/private';
-import './animation-Rv7qYCaa.mjs';
+import './_animation-chunk.mjs';
 import '@angular/cdk/layout';
 
 class MatFormFieldModule {

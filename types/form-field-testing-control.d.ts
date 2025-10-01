@@ -1,4 +1,4 @@
-export { MatFormFieldControlHarness, MatFormFieldControlHarnessBase } from './form-field-control-harness.d-Fqyz47Iy.js';
+export { MatFormFieldControlHarness, MatFormFieldControlHarnessBase } from './_form-field-control-harness-chunk.js';
 import { BaseHarnessFilters } from '@angular/cdk/testing';
 
 /**

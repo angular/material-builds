@@ -1,18 +1,18 @@
-import { MatButtonBase, MatIconButton } from './icon-button-CpkVrhrV.mjs';
-export { MAT_BUTTON_CONFIG, MatIconAnchor } from './icon-button-CpkVrhrV.mjs';
+import { MatButtonBase, MatIconButton } from './_icon-button-chunk.mjs';
+export { MAT_BUTTON_CONFIG, MatIconAnchor } from './_icon-button-chunk.mjs';
 import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input, InjectionToken, inject, booleanAttribute, NgModule } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
-import { MatRippleModule } from './ripple-module-CZVz9EgP.mjs';
+import { MatRippleModule } from './_ripple-module-chunk.mjs';
 import '@angular/cdk/a11y';
 import '@angular/cdk/private';
-import './ripple-loader-CJKypGBF.mjs';
+import './_ripple-loader-chunk.mjs';
 import '@angular/cdk/platform';
-import './animation-Rv7qYCaa.mjs';
+import './_animation-chunk.mjs';
 import '@angular/cdk/layout';
-import './ripple-l8LsvuYU.mjs';
+import './_ripple-chunk.mjs';
 import '@angular/cdk/coercion';
-import './structural-styles-50gUfd5d.mjs';
+import './_structural-styles-chunk.mjs';
 
 /**
  * Classes that need to be set for each appearance of the button.

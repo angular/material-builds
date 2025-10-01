@@ -4,7 +4,7 @@ import * as i0 from '@angular/core';
 import { EventEmitter, inject, Component, ChangeDetectionStrategy, ViewEncapsulation, InjectionToken, Injector, Injectable, NgModule } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
+import { _animationsDisabled } from './_animation-chunk.mjs';
 import { createBlockScrollStrategy, createGlobalPositionStrategy } from '@angular/cdk/overlay';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject, merge } from 'rxjs';

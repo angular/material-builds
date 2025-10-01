@@ -2,7 +2,7 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { AfterViewInit, OnChanges, ElementRef, EventEmitter, SimpleChanges, InjectionToken } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
-import { ThemePalette } from './palette.d-fF1us9u8.js';
+import { ThemePalette } from './_palette-chunk.js';
 import * as i2 from '@angular/cdk/bidi';
 
 /**

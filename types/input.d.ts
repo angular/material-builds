@@ -4,15 +4,15 @@ import * as i0 from '@angular/core';
 import { InjectionToken, OnChanges, OnDestroy, AfterViewInit, DoCheck, ElementRef, WritableSignal } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { ErrorStateMatcher } from './error-options.d-C1yXmo10.js';
-import { MatFormField } from './form-field.d-BfxFKmRq.js';
-export { MatError, MatHint, MatPrefix, MatSuffix } from './form-field.d-BfxFKmRq.js';
-import { MatFormFieldControl } from './form-field-control.d-39fAGkWp.js';
-import { MatFormFieldModule } from './form-field-module.d-ZwkN5IPi.js';
-export { MatLabel } from './form-field-module.d-ZwkN5IPi.js';
+import { ErrorStateMatcher } from './_error-options-chunk.js';
+import { MatFormField } from './_form-field-chunk.js';
+export { MatError, MatHint, MatPrefix, MatSuffix } from './_form-field-chunk.js';
+import { MatFormFieldControl } from './_form-field-control-chunk.js';
+import { MatFormFieldModule } from './_form-field-module-chunk.js';
+export { MatLabel } from './_form-field-module-chunk.js';
 import * as i3 from '@angular/cdk/text-field';
 import * as i2 from '@angular/cdk/bidi';
-import './palette.d-fF1us9u8.js';
+import './_palette-chunk.js';
 import '@angular/cdk/observers';
 
 /** Object that can be used to configure the default options for the input. */

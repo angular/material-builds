@@ -1,16 +1,16 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, ElementRef, AfterViewInit, OnDestroy, NgZone, QueryList, OnInit, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { RippleTarget, RippleConfig, RippleGlobalOptions } from './ripple.d-NaKxRecP.js';
-import { ListOption, MatListOptionTogglePosition } from './list-option-types.d-BcmY3SsC.js';
+import { RippleTarget, RippleConfig, RippleGlobalOptions } from './_ripple-chunk.js';
+import { ListOption, MatListOptionTogglePosition } from './_list-option-types-chunk.js';
 import { MatDividerModule } from './divider.js';
 export { MatDivider } from './divider.js';
 import * as i1 from '@angular/cdk/observers';
-import { MatRippleModule } from './ripple-module.d-HoNT7WFA.js';
-import { MatPseudoCheckboxModule } from './pseudo-checkbox-module.d-DlCP4X5_.js';
+import { MatRippleModule } from './_ripple-module-chunk.js';
+import { MatPseudoCheckboxModule } from './_pseudo-checkbox-module-chunk.js';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ControlValueAccessor } from '@angular/forms';
-import { ThemePalette } from './palette.d-fF1us9u8.js';
+import { ThemePalette } from './_palette-chunk.js';
 import * as i2 from '@angular/cdk/bidi';
 import '@angular/cdk/platform';
 

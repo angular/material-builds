@@ -8,12 +8,12 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, booleanAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChild, ViewChild, ElementRef, ChangeDetectorRef, NgZone, Injector, Renderer2, EventEmitter, afterNextRender, numberAttribute, Output, ContentChildren, QueryList, ViewChildren, signal, forwardRef, computed, HostAttributeToken, NgModule } from '@angular/core';
 import { Subject, of, merge, EMPTY, Observable, timer, Subscription, BehaviorSubject } from 'rxjs';
 import { debounceTime, takeUntil, startWith, switchMap, skip, filter } from 'rxjs/operators';
-import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
+import { _animationsDisabled } from './_animation-chunk.mjs';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
-import { _StructuralStylesLoader } from './structural-styles-50gUfd5d.mjs';
+import { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
 import { CdkObserveContent } from '@angular/cdk/observers';
-import { MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS } from './ripple-l8LsvuYU.mjs';
+import { MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS } from './_ripple-chunk.mjs';
 import '@angular/cdk/layout';
 import '@angular/cdk/coercion';
 

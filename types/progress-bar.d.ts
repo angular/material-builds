@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, EventEmitter } from '@angular/core';
-import { ThemePalette } from './palette.d-fF1us9u8.js';
+import { ThemePalette } from './_palette-chunk.js';
 import * as i2 from '@angular/cdk/bidi';
 
 /** Last animation end data. */

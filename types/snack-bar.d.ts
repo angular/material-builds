@@ -9,10 +9,10 @@ import { InjectionToken, ViewContainerRef, OnDestroy, ElementRef, ComponentRef, 
 import * as i2$2 from '@angular/cdk/bidi';
 import { Direction } from '@angular/cdk/bidi';
 import { MatButtonModule } from './button.js';
-import './palette.d-fF1us9u8.js';
-import './ripple-loader.d-DL-hT7NH.js';
-import './ripple-module.d-HoNT7WFA.js';
-import './ripple.d-NaKxRecP.js';
+import './_palette-chunk.js';
+import './_ripple-loader-chunk.js';
+import './_ripple-module-chunk.js';
+import './_ripple-chunk.js';
 import '@angular/cdk/platform';
 
 /** Injection token that can be used to access the data that was passed in to a snack bar. */

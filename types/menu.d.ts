@@ -7,9 +7,9 @@ import * as rxjs from 'rxjs';
 import { Subject, Observable } from 'rxjs';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy, OverlayRef, FlexibleConnectedPositionStrategyOrigin } from '@angular/cdk/overlay';
-import { MatRippleModule } from './ripple-module.d-HoNT7WFA.js';
+import { MatRippleModule } from './_ripple-module-chunk.js';
 import * as i1 from '@angular/cdk/scrolling';
-import './ripple.d-NaKxRecP.js';
+import './_ripple-chunk.js';
 import '@angular/cdk/platform';
 
 type MenuPositionX = 'before' | 'after';

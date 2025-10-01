@@ -1,4 +1,4 @@
-import { OptionHarnessFilters, MatOptionHarness } from './option-harness.d-BpYClwei.js';
+import { OptionHarnessFilters, MatOptionHarness } from './_option-harness-chunk.js';
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
 
 interface OptgroupHarnessFilters extends BaseHarnessFilters {

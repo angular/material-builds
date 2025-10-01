@@ -1,5 +1,5 @@
-import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './option-aUCHXR3U.mjs';
-export { MatOptgroup } from './option-aUCHXR3U.mjs';
+import { MAT_OPTION_PARENT_COMPONENT, MatOption, MAT_OPTGROUP, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './_option-chunk.mjs';
+export { MatOptgroup } from './_option-chunk.mjs';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, booleanAttribute, TemplateRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, ContentChildren, Input, Output, Directive, forwardRef, Injector, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
 import { Directionality, BidiModule } from '@angular/cdk/bidi';
@@ -8,23 +8,23 @@ import { createRepositionScrollStrategy, createOverlayRef, OverlayConfig, create
 import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
 import { Platform, _getFocusedElementPierceShadowDom, _getEventTarget } from '@angular/cdk/platform';
 import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
-import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
+import { _animationsDisabled } from './_animation-chunk.mjs';
 import { hasModifierKey, ESCAPE, ENTER, TAB, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { coerceArray } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filter, map, startWith, switchMap, tap, delay, take } from 'rxjs/operators';
-import { MAT_FORM_FIELD } from './form-field-yCHsRZef.mjs';
-import { MatOptionModule } from './option-module-DVVccM-p.mjs';
-import './ripple-l8LsvuYU.mjs';
+import { MAT_FORM_FIELD } from './_form-field-chunk.mjs';
+import { MatOptionModule } from './_option-module-chunk.mjs';
+import './_ripple-chunk.mjs';
 import '@angular/cdk/private';
-import './pseudo-checkbox-DtNcPfQN.mjs';
-import './structural-styles-50gUfd5d.mjs';
+import './_pseudo-checkbox-chunk.mjs';
+import './_structural-styles-chunk.mjs';
 import '@angular/common';
 import '@angular/cdk/observers/private';
-import './ripple-module-CZVz9EgP.mjs';
-import './pseudo-checkbox-module-HAKxL90d.mjs';
+import './_ripple-module-chunk.mjs';
+import './_pseudo-checkbox-module-chunk.mjs';
 
 /** Event object that is emitted when an autocomplete option is selected. */
 class MatAutocompleteSelectedEvent {

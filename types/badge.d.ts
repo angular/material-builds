@@ -1,9 +1,9 @@
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
-import { MatBadge, _MatBadgeStyleLoader } from './badge.d-BGuXBjYj.js';
-export { MatBadgePosition, MatBadgeSize } from './badge.d-BGuXBjYj.js';
+import { MatBadge, _MatBadgeStyleLoader } from './_badge-chunk.js';
+export { MatBadgePosition, MatBadgeSize } from './_badge-chunk.js';
 import * as i2 from '@angular/cdk/bidi';
-import './palette.d-fF1us9u8.js';
+import './_palette-chunk.js';
 
 declare class MatBadgeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBadgeModule, never>;

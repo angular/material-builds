@@ -1,8 +1,8 @@
 import * as i0 from '@angular/core';
 import { OnDestroy, OnInit, AfterViewInit } from '@angular/core';
-import { MatSortable, MatSort, SortHeaderArrowPosition } from './sort.d-Bl88YnOc.js';
-export { MAT_SORT_DEFAULT_OPTIONS, MatSortDefaultOptions, Sort } from './sort.d-Bl88YnOc.js';
-import { SortDirection } from './sort-direction.d-Dlz8961P.js';
+import { MatSortable, MatSort, SortHeaderArrowPosition } from './_sort-chunk.js';
+export { MAT_SORT_DEFAULT_OPTIONS, MatSortDefaultOptions, Sort } from './_sort-chunk.js';
+import { SortDirection } from './_sort-direction-chunk.js';
 import { Subject } from 'rxjs';
 import * as i2 from '@angular/cdk/bidi';
 

@@ -5,15 +5,15 @@ import * as i0 from '@angular/core';
 import { TemplateRef, AfterViewInit, OnDestroy, AfterContentInit, QueryList, ElementRef, EventEmitter } from '@angular/core';
 import * as i2 from '@angular/cdk/portal';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { MatIconModule } from './icon-module.d-CNCXt4KC.js';
-import { MatRippleModule } from './ripple-module.d-HoNT7WFA.js';
+import { MatIconModule } from './_icon-module-chunk.js';
+import { MatRippleModule } from './_ripple-module-chunk.js';
 import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
-import { ThemePalette } from './palette.d-fF1us9u8.js';
-import { ErrorStateMatcher } from './error-options.d-C1yXmo10.js';
+import { ThemePalette } from './_palette-chunk.js';
+import { ErrorStateMatcher } from './_error-options-chunk.js';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
 import * as i2$2 from '@angular/cdk/bidi';
-import './ripple.d-NaKxRecP.js';
+import './_ripple-chunk.js';
 import '@angular/cdk/platform';
 
 declare class MatStepLabel extends CdkStepLabel {

@@ -1,5 +1,5 @@
-import { DatepickerTriggerHarnessBase } from './date-range-input-harness-BY5NN3AX.mjs';
-export { CalendarView, MatCalendarCellHarness, MatCalendarHarness, MatDateRangeInputHarness, MatDatepickerInputHarness, MatEndDateHarness, MatStartDateHarness } from './date-range-input-harness-BY5NN3AX.mjs';
+import { DatepickerTriggerHarnessBase } from './_date-range-input-harness-chunk.mjs';
+export { CalendarView, MatCalendarCellHarness, MatCalendarHarness, MatDateRangeInputHarness, MatDatepickerInputHarness, MatEndDateHarness, MatStartDateHarness } from './_date-range-input-harness-chunk.mjs';
 import { HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import '@angular/material/form-field/testing/control';

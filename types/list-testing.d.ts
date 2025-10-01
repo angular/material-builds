@@ -1,6 +1,6 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate, ContentContainerComponentHarness, ComponentHarnessConstructor } from '@angular/cdk/testing';
 import { DividerHarnessFilters, MatDividerHarness } from './divider-testing.js';
-import { MatListOptionTogglePosition } from './list-option-types.d-BcmY3SsC.js';
+import { MatListOptionTogglePosition } from './_list-option-types-chunk.js';
 
 interface ListHarnessFilters extends BaseHarnessFilters {
 }

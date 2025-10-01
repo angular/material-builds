@@ -3,8 +3,8 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, DOCUMENT, ElementRef, ErrorHandler, HostAttributeToken, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, NgModule } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { MatIconRegistry } from './icon-registry-Cfru_Bc7.mjs';
-export { getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './icon-registry-Cfru_Bc7.mjs';
+import { MatIconRegistry } from './_icon-registry-chunk.mjs';
+export { getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './_icon-registry-chunk.mjs';
 import '@angular/common/http';
 import '@angular/platform-browser';
 

@@ -1,5 +1,5 @@
-import { MatTooltip, TooltipComponent } from './tooltip-B03nLFm3.mjs';
-export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_SCROLL_STRATEGY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError } from './tooltip-B03nLFm3.mjs';
+import { MatTooltip, TooltipComponent } from './_tooltip-chunk.mjs';
+export { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_SCROLL_STRATEGY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError } from './_tooltip-chunk.mjs';
 import * as i0 from '@angular/core';
 import { NgModule } from '@angular/core';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -13,7 +13,7 @@ import '@angular/common';
 import '@angular/cdk/platform';
 import '@angular/cdk/portal';
 import 'rxjs';
-import './animation-Rv7qYCaa.mjs';
+import './_animation-chunk.mjs';
 import '@angular/cdk/layout';
 
 class MatTooltipModule {

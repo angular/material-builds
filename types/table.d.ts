@@ -4,14 +4,14 @@ import * as i0 from '@angular/core';
 import * as i2 from '@angular/cdk/bidi';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator } from './paginator.d-DGs569q2.js';
-import { MatSort } from './sort.d-Bl88YnOc.js';
-import './palette.d-fF1us9u8.js';
-import './form-field.d-BfxFKmRq.js';
+import { MatPaginator } from './_paginator-chunk.js';
+import { MatSort } from './_sort-chunk.js';
+import './_palette-chunk.js';
+import './_form-field-chunk.js';
 import '@angular/cdk/coercion';
 import '@angular/forms';
-import './form-field-control.d-39fAGkWp.js';
-import './sort-direction.d-Dlz8961P.js';
+import './_form-field-control-chunk.js';
+import './_sort-direction-chunk.js';
 
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with

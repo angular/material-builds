@@ -5,18 +5,18 @@ import { MatButton, MatButtonModule } from './button.mjs';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
+import { _animationsDisabled } from './_animation-chunk.mjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { OverlayConfig, createGlobalPositionStrategy, createOverlayRef, OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators';
 import { BidiModule } from '@angular/cdk/bidi';
-import './icon-button-CpkVrhrV.mjs';
+import './_icon-button-chunk.mjs';
 import '@angular/cdk/private';
-import './ripple-loader-CJKypGBF.mjs';
-import './ripple-l8LsvuYU.mjs';
+import './_ripple-loader-chunk.mjs';
+import './_ripple-chunk.mjs';
 import '@angular/cdk/coercion';
-import './structural-styles-50gUfd5d.mjs';
-import './ripple-module-CZVz9EgP.mjs';
+import './_structural-styles-chunk.mjs';
+import './_ripple-module-chunk.mjs';
 
 /** Maximum amount of milliseconds that can be passed into setTimeout. */
 const MAX_TIMEOUT = Math.pow(2, 31) - 1;

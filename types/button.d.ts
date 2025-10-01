@@ -1,11 +1,11 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, NgZone } from '@angular/core';
-import { ThemePalette } from './palette.d-fF1us9u8.js';
-import { MatRippleLoader } from './ripple-loader.d-DL-hT7NH.js';
-import { MatRippleModule } from './ripple-module.d-HoNT7WFA.js';
+import { ThemePalette } from './_palette-chunk.js';
+import { MatRippleLoader } from './_ripple-loader-chunk.js';
+import { MatRippleModule } from './_ripple-module-chunk.js';
 import * as i2 from '@angular/cdk/bidi';
-import './ripple.d-NaKxRecP.js';
+import './_ripple-chunk.js';
 import '@angular/cdk/platform';
 
 /**

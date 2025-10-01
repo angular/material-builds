@@ -8,7 +8,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, DOCUMENT, signal, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
 import { Subject, fromEvent, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
-import { _animationsDisabled } from './animation-Rv7qYCaa.mjs';
+import { _animationsDisabled } from './_animation-chunk.mjs';
 import '@angular/cdk/layout';
 
 /**

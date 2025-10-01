@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, DOCUMENT, ElementRef, NgZone, ChangeDetectorRef, Renderer2, EventEmitter, numberAttribute, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Output, NgModule } from '@angular/core';
-import { _getAnimationsState } from './animation-Rv7qYCaa.mjs';
+import { _getAnimationsState } from './_animation-chunk.mjs';
 import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
 

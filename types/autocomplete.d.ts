@@ -2,18 +2,18 @@ import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnDestroy, TemplateRef, ElementRef, QueryList, EventEmitter, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
 import { ScrollStrategy } from '@angular/cdk/overlay';
-import { MatOptionModule } from './option-module.d-BJd50eIk.js';
-import { ThemePalette } from './palette.d-fF1us9u8.js';
-import { MatOption, MatOptgroup, MatOptionSelectionChange } from './option.d-DU5oF8oV.js';
+import { MatOptionModule } from './_option-module-chunk.js';
+import { ThemePalette } from './_palette-chunk.js';
+import { MatOption, MatOptgroup, MatOptionSelectionChange } from './_option-chunk.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs';
 import * as i1 from '@angular/cdk/scrolling';
 import * as i2$1 from '@angular/cdk/bidi';
-import './ripple-module.d-HoNT7WFA.js';
-import './ripple.d-NaKxRecP.js';
+import './_ripple-module-chunk.js';
+import './_ripple-chunk.js';
 import '@angular/cdk/platform';
-import './pseudo-checkbox-module.d-DlCP4X5_.js';
+import './_pseudo-checkbox-module-chunk.js';
 
 /** Event object that is emitted when an autocomplete option is selected. */
 declare class MatAutocompleteSelectedEvent {
