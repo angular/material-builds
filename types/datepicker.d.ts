@@ -406,33 +406,33 @@ declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy 
     /** The body of calendar table */
     _matCalendarBody: MatCalendarBody;
     /** The label for this month (e.g. "January 2017"). */
-    _monthLabel: string;
+    _monthLabel: i0.WritableSignal<string>;
     /** Grid of calendar cells representing the dates of the month. */
-    _weeks: MatCalendarCell[][];
+    _weeks: i0.WritableSignal<MatCalendarCell<any>[][]>;
     /** The number of blank cells in the first row before the 1st of the month. */
-    _firstWeekOffset: number;
+    _firstWeekOffset: i0.WritableSignal<number>;
     /** Start value of the currently-shown date range. */
-    _rangeStart: number | null;
+    _rangeStart: i0.WritableSignal<number | null>;
     /** End value of the currently-shown date range. */
-    _rangeEnd: number | null;
+    _rangeEnd: i0.WritableSignal<number | null>;
     /** Start value of the currently-shown comparison date range. */
-    _comparisonRangeStart: number | null;
+    _comparisonRangeStart: i0.WritableSignal<number | null>;
     /** End value of the currently-shown comparison date range. */
-    _comparisonRangeEnd: number | null;
+    _comparisonRangeEnd: i0.WritableSignal<number | null>;
     /** Start of the preview range. */
-    _previewStart: number | null;
+    _previewStart: i0.WritableSignal<number | null>;
     /** End of the preview range. */
-    _previewEnd: number | null;
+    _previewEnd: i0.WritableSignal<number | null>;
     /** Whether the user is currently selecting a range of dates. */
-    _isRange: boolean;
+    _isRange: i0.WritableSignal<boolean>;
     /** The date of the month that today falls on. Null if today is in another month. */
-    _todayDate: number | null;
+    _todayDate: i0.WritableSignal<number | null>;
     /** The names of the weekdays. */
-    _weekdays: {
+    _weekdays: i0.WritableSignal<{
         long: string;
         narrow: string;
         id: number;
-    }[];
+    }[]>;
     constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
@@ -541,11 +541,11 @@ declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
     /** The body of calendar table */
     _matCalendarBody: MatCalendarBody;
     /** Grid of calendar cells representing the currently displayed years. */
-    _years: MatCalendarCell[][];
+    _years: i0.WritableSignal<MatCalendarCell<any>[][]>;
     /** The year that today falls on. */
-    _todayYear: number;
+    _todayYear: i0.WritableSignal<number>;
     /** The year of the selected date. Null if the selected date is null. */
-    _selectedYear: number | null;
+    _selectedYear: i0.WritableSignal<number | null>;
     constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -631,16 +631,16 @@ declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     /** The body of calendar table */
     _matCalendarBody: MatCalendarBody;
     /** Grid of calendar cells representing the months of the year. */
-    _months: MatCalendarCell[][];
+    _months: i0.WritableSignal<MatCalendarCell<any>[][]>;
     /** The label for this year (e.g. "2017"). */
-    _yearLabel: string;
+    _yearLabel: i0.WritableSignal<string>;
     /** The month in this year that today falls on. Null if today is in a different year. */
-    _todayMonth: number | null;
+    _todayMonth: i0.WritableSignal<number | null>;
     /**
      * The month in this year that the selected Date falls on.
      * Null if the selected Date is in a different year.
      */
-    _selectedMonth: number | null;
+    _selectedMonth: i0.WritableSignal<number | null>;
     constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

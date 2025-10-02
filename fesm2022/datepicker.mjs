@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, InjectionToken, ChangeDetectorRef, ViewChild, ViewContainerRef, DOCUMENT, booleanAttribute, Directive, forwardRef, signal, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, InjectionToken, ChangeDetectorRef, signal, ViewChild, ViewContainerRef, DOCUMENT, booleanAttribute, Directive, forwardRef, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { DateAdapter, MAT_DATE_FORMATS } from './_date-formats-chunk.mjs';
 import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
@@ -546,7 +546,9 @@ class MatCalendarBody {
             const row = cell.getAttribute('data-mat-row');
             const col = cell.getAttribute('data-mat-col');
             if (row && col) {
-                return this.rows[parseInt(row)][parseInt(col)];
+                // We need the optional read here, because this can
+                // fire too late when the user is navigating quickly.
+                return this.rows[parseInt(row)]?.[parseInt(col)] || null;
             }
         }
         return null;
@@ -998,29 +1000,29 @@ class MatMonthView {
     /** The body of calendar table */
     _matCalendarBody;
     /** The label for this month (e.g. "January 2017"). */
-    _monthLabel;
+    _monthLabel = signal('', ...(ngDevMode ? [{ debugName: "_monthLabel" }] : []));
     /** Grid of calendar cells representing the dates of the month. */
-    _weeks;
+    _weeks = signal([], ...(ngDevMode ? [{ debugName: "_weeks" }] : []));
     /** The number of blank cells in the first row before the 1st of the month. */
-    _firstWeekOffset;
+    _firstWeekOffset = signal(0, ...(ngDevMode ? [{ debugName: "_firstWeekOffset" }] : []));
     /** Start value of the currently-shown date range. */
-    _rangeStart;
+    _rangeStart = signal(null, ...(ngDevMode ? [{ debugName: "_rangeStart" }] : []));
     /** End value of the currently-shown date range. */
-    _rangeEnd;
+    _rangeEnd = signal(null, ...(ngDevMode ? [{ debugName: "_rangeEnd" }] : []));
     /** Start value of the currently-shown comparison date range. */
-    _comparisonRangeStart;
+    _comparisonRangeStart = signal(null, ...(ngDevMode ? [{ debugName: "_comparisonRangeStart" }] : []));
     /** End value of the currently-shown comparison date range. */
-    _comparisonRangeEnd;
+    _comparisonRangeEnd = signal(null, ...(ngDevMode ? [{ debugName: "_comparisonRangeEnd" }] : []));
     /** Start of the preview range. */
-    _previewStart;
+    _previewStart = signal(null, ...(ngDevMode ? [{ debugName: "_previewStart" }] : []));
     /** End of the preview range. */
-    _previewEnd;
+    _previewEnd = signal(null, ...(ngDevMode ? [{ debugName: "_previewEnd" }] : []));
     /** Whether the user is currently selecting a range of dates. */
-    _isRange;
+    _isRange = signal(false, ...(ngDevMode ? [{ debugName: "_isRange" }] : []));
     /** The date of the month that today falls on. Null if today is in another month. */
-    _todayDate;
+    _todayDate = signal(null, ...(ngDevMode ? [{ debugName: "_todayDate" }] : []));
     /** The names of the weekdays. */
-    _weekdays;
+    _weekdays = signal([], ...(ngDevMode ? [{ debugName: "_weekdays" }] : []));
     constructor() {
         inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
@@ -1139,7 +1141,7 @@ class MatMonthView {
                 return;
             case ESCAPE:
                 // Abort the current range selection if the user presses escape mid-selection.
-                if (this._previewEnd != null && !hasModifierKey(event)) {
+                if (this._previewEnd() != null && !hasModifierKey(event)) {
                     this._clearPreview();
                     // If a drag is in progress, cancel the drag without changing the
                     // current selection.
@@ -1177,17 +1179,16 @@ class MatMonthView {
     /** Initializes this month view. */
     _init() {
         this._setRanges(this.selected);
-        this._todayDate = this._getCellCompareValue(this._dateAdapter.today());
-        this._monthLabel = this._dateFormats.display.monthLabel
+        this._todayDate.set(this._getCellCompareValue(this._dateAdapter.today()));
+        this._monthLabel.set(this._dateFormats.display.monthLabel
             ? this._dateAdapter.format(this.activeDate, this._dateFormats.display.monthLabel)
             : this._dateAdapter
-                .getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)].toLocaleUpperCase();
+                .getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)].toLocaleUpperCase());
         let firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
-        this._firstWeekOffset =
-            (DAYS_PER_WEEK +
-                this._dateAdapter.getDayOfWeek(firstOfMonth) -
-                this._dateAdapter.getFirstDayOfWeek()) %
-                DAYS_PER_WEEK;
+        this._firstWeekOffset.set((DAYS_PER_WEEK +
+            this._dateAdapter.getDayOfWeek(firstOfMonth) -
+            this._dateAdapter.getFirstDayOfWeek()) %
+            DAYS_PER_WEEK);
         this._initWeekdays();
         this._createWeekCells();
         this._changeDetectorRef.markForCheck();
@@ -1207,20 +1208,15 @@ class MatMonthView {
             // events aren't fired for single date selections.
             const value = cell ? cell.rawValue : null;
             const previewRange = this._rangeStrategy.createPreview(value, this.selected, event);
-            this._previewStart = this._getCellCompareValue(previewRange.start);
-            this._previewEnd = this._getCellCompareValue(previewRange.end);
+            this._previewStart.set(this._getCellCompareValue(previewRange.start));
+            this._previewEnd.set(this._getCellCompareValue(previewRange.end));
             if (this.activeDrag && value) {
                 const dragRange = this._rangeStrategy.createDrag?.(this.activeDrag.value, this.selected, value, event);
                 if (dragRange) {
-                    this._previewStart = this._getCellCompareValue(dragRange.start);
-                    this._previewEnd = this._getCellCompareValue(dragRange.end);
+                    this._previewStart.set(this._getCellCompareValue(dragRange.start));
+                    this._previewEnd.set(this._getCellCompareValue(dragRange.end));
                 }
             }
-            // Note that here we need to use `detectChanges`, rather than `markForCheck`, because
-            // the way `_focusActiveCell` is set up at the moment makes it fire at the wrong time
-            // when navigating one month back using the keyboard which will cause this handler
-            // to throw a "changed after checked" error when updating the preview state.
-            this._changeDetectorRef.detectChanges();
         }
     }
     /**
@@ -1252,27 +1248,28 @@ class MatMonthView {
         const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
         const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
         // Rotate the labels for days of the week based on the configured first day of the week.
-        let weekdays = longWeekdays.map((long, i) => {
+        const weekdays = longWeekdays.map((long, i) => {
             return { long, narrow: narrowWeekdays[i], id: uniqueIdCounter++ };
         });
-        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
+        this._weekdays.set(weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek)));
     }
     /** Creates MatCalendarCells for the dates in this month. */
     _createWeekCells() {
         const daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
         const dateNames = this._dateAdapter.getDateNames();
-        this._weeks = [[]];
-        for (let i = 0, cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
+        const weeks = [[]];
+        for (let i = 0, cell = this._firstWeekOffset(); i < daysInMonth; i++, cell++) {
             if (cell == DAYS_PER_WEEK) {
-                this._weeks.push([]);
+                weeks.push([]);
                 cell = 0;
             }
             const date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
             const enabled = this._shouldEnableDate(date);
             const ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
             const cellClasses = this.dateClass ? this.dateClass(date, 'month') : undefined;
-            this._weeks[this._weeks.length - 1].push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled, cellClasses, this._getCellCompareValue(date), date));
+            weeks[weeks.length - 1].push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled, cellClasses, this._getCellCompareValue(date), date));
         }
+        this._weeks.set(weeks);
     }
     /** Date filter for the month */
     _shouldEnableDate(date) {
@@ -1316,16 +1313,17 @@ class MatMonthView {
     /** Sets the current range based on a model value. */
     _setRanges(selectedValue) {
         if (selectedValue instanceof DateRange) {
-            this._rangeStart = this._getCellCompareValue(selectedValue.start);
-            this._rangeEnd = this._getCellCompareValue(selectedValue.end);
-            this._isRange = true;
+            this._rangeStart.set(this._getCellCompareValue(selectedValue.start));
+            this._rangeEnd.set(this._getCellCompareValue(selectedValue.end));
+            this._isRange.set(true);
         }
         else {
-            this._rangeStart = this._rangeEnd = this._getCellCompareValue(selectedValue);
-            this._isRange = false;
+            this._rangeStart.set(this._getCellCompareValue(selectedValue));
+            this._rangeEnd.set(this._rangeStart());
+            this._isRange.set(false);
         }
-        this._comparisonRangeStart = this._getCellCompareValue(this.comparisonStart);
-        this._comparisonRangeEnd = this._getCellCompareValue(this.comparisonEnd);
+        this._comparisonRangeStart.set(this._getCellCompareValue(this.comparisonStart));
+        this._comparisonRangeEnd.set(this._getCellCompareValue(this.comparisonEnd));
     }
     /** Gets whether a date can be selected in the month view. */
     _canSelect(date) {
@@ -1333,14 +1331,15 @@ class MatMonthView {
     }
     /** Clears out preview state. */
     _clearPreview() {
-        this._previewStart = this._previewEnd = null;
+        this._previewStart.set(null);
+        this._previewEnd.set(null);
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMonthView, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "20.2.0-next.2", type: MatMonthView, isStandalone: true, selector: "mat-month-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd", startDateAccessibleName: "startDateAccessibleName", endDateAccessibleName: "endDateAccessibleName", activeDrag: "activeDrag" }, outputs: { selectedChange: "selectedChange", _userSelection: "_userSelection", dragStarted: "dragStarted", dragEnded: "dragEnded", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matMonthView"], usesOnChanges: true, ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead class=\"mat-calendar-table-header\">\n    <tr>\n      @for (day of _weekdays; track day.id) {\n        <th scope=\"col\">\n          <span class=\"cdk-visually-hidden\">{{day.long}}</span>\n          <span aria-hidden=\"true\">{{day.narrow}}</span>\n        </th>\n      }\n    </tr>\n    <tr aria-hidden=\"true\"><th class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_monthLabel\"\n         [rows]=\"_weeks\"\n         [todayValue]=\"_todayDate!\"\n         [startValue]=\"_rangeStart!\"\n         [endValue]=\"_rangeEnd!\"\n         [comparisonStart]=\"_comparisonRangeStart\"\n         [comparisonEnd]=\"_comparisonRangeEnd\"\n         [previewStart]=\"_previewStart\"\n         [previewEnd]=\"_previewEnd\"\n         [isRange]=\"_isRange\"\n         [labelMinRequiredCells]=\"3\"\n         [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\"\n         [startDateAccessibleName]=\"startDateAccessibleName\"\n         [endDateAccessibleName]=\"endDateAccessibleName\"\n         (selectedValueChange)=\"_dateSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (previewChange)=\"_previewChanged($event)\"\n         (dragStarted)=\"dragStarted.emit($event)\"\n         (dragEnded)=\"_dragEnded($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "20.2.0-next.2", type: MatMonthView, isStandalone: true, selector: "mat-month-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass", comparisonStart: "comparisonStart", comparisonEnd: "comparisonEnd", startDateAccessibleName: "startDateAccessibleName", endDateAccessibleName: "endDateAccessibleName", activeDrag: "activeDrag" }, outputs: { selectedChange: "selectedChange", _userSelection: "_userSelection", dragStarted: "dragStarted", dragEnded: "dragEnded", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matMonthView"], usesOnChanges: true, ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead class=\"mat-calendar-table-header\">\n    <tr>\n      @for (day of _weekdays(); track day.id) {\n        <th scope=\"col\">\n          <span class=\"cdk-visually-hidden\">{{day.long}}</span>\n          <span aria-hidden=\"true\">{{day.narrow}}</span>\n        </th>\n      }\n    </tr>\n    <tr aria-hidden=\"true\"><th class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_monthLabel()\"\n         [rows]=\"_weeks()\"\n         [todayValue]=\"_todayDate()!\"\n         [startValue]=\"_rangeStart()!\"\n         [endValue]=\"_rangeEnd()!\"\n         [comparisonStart]=\"_comparisonRangeStart()\"\n         [comparisonEnd]=\"_comparisonRangeEnd()\"\n         [previewStart]=\"_previewStart()\"\n         [previewEnd]=\"_previewEnd()\"\n         [isRange]=\"_isRange()\"\n         [labelMinRequiredCells]=\"3\"\n         [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\"\n         [startDateAccessibleName]=\"startDateAccessibleName\"\n         [endDateAccessibleName]=\"endDateAccessibleName\"\n         (selectedValueChange)=\"_dateSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (previewChange)=\"_previewChanged($event)\"\n         (dragStarted)=\"dragStarted.emit($event)\"\n         (dragEnded)=\"_dragEnded($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMonthView, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-month-view', exportAs: 'matMonthView', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, imports: [MatCalendarBody], template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead class=\"mat-calendar-table-header\">\n    <tr>\n      @for (day of _weekdays; track day.id) {\n        <th scope=\"col\">\n          <span class=\"cdk-visually-hidden\">{{day.long}}</span>\n          <span aria-hidden=\"true\">{{day.narrow}}</span>\n        </th>\n      }\n    </tr>\n    <tr aria-hidden=\"true\"><th class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_monthLabel\"\n         [rows]=\"_weeks\"\n         [todayValue]=\"_todayDate!\"\n         [startValue]=\"_rangeStart!\"\n         [endValue]=\"_rangeEnd!\"\n         [comparisonStart]=\"_comparisonRangeStart\"\n         [comparisonEnd]=\"_comparisonRangeEnd\"\n         [previewStart]=\"_previewStart\"\n         [previewEnd]=\"_previewEnd\"\n         [isRange]=\"_isRange\"\n         [labelMinRequiredCells]=\"3\"\n         [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\"\n         [startDateAccessibleName]=\"startDateAccessibleName\"\n         [endDateAccessibleName]=\"endDateAccessibleName\"\n         (selectedValueChange)=\"_dateSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (previewChange)=\"_previewChanged($event)\"\n         (dragStarted)=\"dragStarted.emit($event)\"\n         (dragEnded)=\"_dragEnded($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n" }]
+            args: [{ selector: 'mat-month-view', exportAs: 'matMonthView', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, imports: [MatCalendarBody], template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead class=\"mat-calendar-table-header\">\n    <tr>\n      @for (day of _weekdays(); track day.id) {\n        <th scope=\"col\">\n          <span class=\"cdk-visually-hidden\">{{day.long}}</span>\n          <span aria-hidden=\"true\">{{day.narrow}}</span>\n        </th>\n      }\n    </tr>\n    <tr aria-hidden=\"true\"><th class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_monthLabel()\"\n         [rows]=\"_weeks()\"\n         [todayValue]=\"_todayDate()!\"\n         [startValue]=\"_rangeStart()!\"\n         [endValue]=\"_rangeEnd()!\"\n         [comparisonStart]=\"_comparisonRangeStart()\"\n         [comparisonEnd]=\"_comparisonRangeEnd()\"\n         [previewStart]=\"_previewStart()\"\n         [previewEnd]=\"_previewEnd()\"\n         [isRange]=\"_isRange()\"\n         [labelMinRequiredCells]=\"3\"\n         [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\"\n         [startDateAccessibleName]=\"startDateAccessibleName\"\n         [endDateAccessibleName]=\"endDateAccessibleName\"\n         (selectedValueChange)=\"_dateSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (previewChange)=\"_previewChanged($event)\"\n         (dragStarted)=\"dragStarted.emit($event)\"\n         (dragEnded)=\"_dragEnded($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n" }]
         }], ctorParameters: () => [], propDecorators: { activeDate: [{
                 type: Input
             }], selected: [{
@@ -1448,11 +1447,11 @@ class MatMultiYearView {
     /** The body of calendar table */
     _matCalendarBody;
     /** Grid of calendar cells representing the currently displayed years. */
-    _years;
+    _years = signal([], ...(ngDevMode ? [{ debugName: "_years" }] : []));
     /** The year that today falls on. */
-    _todayYear;
+    _todayYear = signal(0, ...(ngDevMode ? [{ debugName: "_todayYear" }] : []));
     /** The year of the selected date. Null if the selected date is null. */
-    _selectedYear;
+    _selectedYear = signal(null, ...(ngDevMode ? [{ debugName: "_selectedYear" }] : []));
     constructor() {
         if (!this._dateAdapter && (typeof ngDevMode === 'undefined' || ngDevMode)) {
             throw createMissingDateImplError('DateAdapter');
@@ -1469,7 +1468,7 @@ class MatMultiYearView {
     }
     /** Initializes this multi-year view. */
     _init() {
-        this._todayYear = this._dateAdapter.getYear(this._dateAdapter.today());
+        this._todayYear.set(this._dateAdapter.getYear(this._dateAdapter.today()));
         // We want a range years such that we maximize the number of
         // enabled dates visible at once. This prevents issues where the minimum year
         // is the last item of a page OR the maximum year is the first item of a page.
@@ -1477,14 +1476,15 @@ class MatMultiYearView {
         // *actual* first rendered year in the multi-year view.
         const activeYear = this._dateAdapter.getYear(this._activeDate);
         const minYearOfPage = activeYear - getActiveOffset(this._dateAdapter, this.activeDate, this.minDate, this.maxDate);
-        this._years = [];
+        const years = [];
         for (let i = 0, row = []; i < yearsPerPage; i++) {
             row.push(minYearOfPage + i);
             if (row.length == yearsPerRow) {
-                this._years.push(row.map(year => this._createCellForYear(year)));
+                years.push(row.map(year => this._createCellForYear(year)));
                 row = [];
             }
         }
+        this._years.set(years);
         this._changeDetectorRef.markForCheck();
     }
     /** Handles when a new year is selected. */
@@ -1628,23 +1628,23 @@ class MatMultiYearView {
     }
     /** Sets the currently-highlighted year based on a model value. */
     _setSelectedYear(value) {
-        this._selectedYear = null;
+        this._selectedYear.set(null);
         if (value instanceof DateRange) {
             const displayValue = value.start || value.end;
             if (displayValue) {
-                this._selectedYear = this._dateAdapter.getYear(displayValue);
+                this._selectedYear.set(this._dateAdapter.getYear(displayValue));
             }
         }
         else if (value) {
-            this._selectedYear = this._dateAdapter.getYear(value);
+            this._selectedYear.set(this._dateAdapter.getYear(value));
         }
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMultiYearView, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "20.2.0-next.2", type: MatMultiYearView, isStandalone: true, selector: "mat-multi-year-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass" }, outputs: { selectedChange: "selectedChange", yearSelected: "yearSelected", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matMultiYearView"], ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [rows]=\"_years\"\n         [todayValue]=\"_todayYear\"\n         [startValue]=\"_selectedYear!\"\n         [endValue]=\"_selectedYear!\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_getActiveCell()\"\n         (selectedValueChange)=\"_yearSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "20.2.0-next.2", type: MatMultiYearView, isStandalone: true, selector: "mat-multi-year-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass" }, outputs: { selectedChange: "selectedChange", yearSelected: "yearSelected", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matMultiYearView"], ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [rows]=\"_years()\"\n         [todayValue]=\"_todayYear()\"\n         [startValue]=\"_selectedYear()!\"\n         [endValue]=\"_selectedYear()!\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_getActiveCell()\"\n         (selectedValueChange)=\"_yearSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatMultiYearView, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-multi-year-view', exportAs: 'matMultiYearView', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, imports: [MatCalendarBody], template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [rows]=\"_years\"\n         [todayValue]=\"_todayYear\"\n         [startValue]=\"_selectedYear!\"\n         [endValue]=\"_selectedYear!\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_getActiveCell()\"\n         (selectedValueChange)=\"_yearSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n" }]
+            args: [{ selector: 'mat-multi-year-view', exportAs: 'matMultiYearView', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, imports: [MatCalendarBody], template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [rows]=\"_years()\"\n         [todayValue]=\"_todayYear()\"\n         [startValue]=\"_selectedYear()!\"\n         [endValue]=\"_selectedYear()!\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_getActiveCell()\"\n         (selectedValueChange)=\"_yearSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n" }]
         }], ctorParameters: () => [], propDecorators: { activeDate: [{
                 type: Input
             }], selected: [{
@@ -1772,16 +1772,16 @@ class MatYearView {
     /** The body of calendar table */
     _matCalendarBody;
     /** Grid of calendar cells representing the months of the year. */
-    _months;
+    _months = signal([], ...(ngDevMode ? [{ debugName: "_months" }] : []));
     /** The label for this year (e.g. "2017"). */
-    _yearLabel;
+    _yearLabel = signal('', ...(ngDevMode ? [{ debugName: "_yearLabel" }] : []));
     /** The month in this year that today falls on. Null if today is in a different year. */
-    _todayMonth;
+    _todayMonth = signal(null, ...(ngDevMode ? [{ debugName: "_todayMonth" }] : []));
     /**
      * The month in this year that the selected Date falls on.
      * Null if the selected Date is in a different year.
      */
-    _selectedMonth;
+    _selectedMonth = signal(null, ...(ngDevMode ? [{ debugName: "_selectedMonth" }] : []));
     constructor() {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             if (!this._dateAdapter) {
@@ -1890,15 +1890,15 @@ class MatYearView {
     /** Initializes this year view. */
     _init() {
         this._setSelectedMonth(this.selected);
-        this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
-        this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
+        this._todayMonth.set(this._getMonthInCurrentYear(this._dateAdapter.today()));
+        this._yearLabel.set(this._dateAdapter.getYearName(this.activeDate));
         let monthNames = this._dateAdapter.getMonthNames('short');
         // First row of months only contains 5 elements so we can fit the year label on the same row.
-        this._months = [
+        this._months.set([
             [0, 1, 2, 3],
             [4, 5, 6, 7],
             [8, 9, 10, 11],
-        ].map(row => row.map(month => this._createCellForMonth(month, monthNames[month])));
+        ].map(row => row.map(month => this._createCellForMonth(month, monthNames[month]))));
         this._changeDetectorRef.markForCheck();
     }
     /** Focuses the active cell after the microtask queue is empty. */
@@ -1986,19 +1986,18 @@ class MatYearView {
     /** Sets the currently-selected month based on a model value. */
     _setSelectedMonth(value) {
         if (value instanceof DateRange) {
-            this._selectedMonth =
-                this._getMonthInCurrentYear(value.start) || this._getMonthInCurrentYear(value.end);
+            this._selectedMonth.set(this._getMonthInCurrentYear(value.start) || this._getMonthInCurrentYear(value.end));
         }
         else {
-            this._selectedMonth = this._getMonthInCurrentYear(value);
+            this._selectedMonth.set(this._getMonthInCurrentYear(value));
         }
     }
     static ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatYearView, deps: [], target: i0.ɵɵFactoryTarget.Component });
-    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "20.2.0-next.2", type: MatYearView, isStandalone: true, selector: "mat-year-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass" }, outputs: { selectedChange: "selectedChange", monthSelected: "monthSelected", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matYearView"], ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_yearLabel\"\n         [rows]=\"_months\"\n         [todayValue]=\"_todayMonth!\"\n         [startValue]=\"_selectedMonth!\"\n         [endValue]=\"_selectedMonth!\"\n         [labelMinRequiredCells]=\"2\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_dateAdapter.getMonth(activeDate)\"\n         (selectedValueChange)=\"_monthSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
+    static ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "14.0.0", version: "20.2.0-next.2", type: MatYearView, isStandalone: true, selector: "mat-year-view", inputs: { activeDate: "activeDate", selected: "selected", minDate: "minDate", maxDate: "maxDate", dateFilter: "dateFilter", dateClass: "dateClass" }, outputs: { selectedChange: "selectedChange", monthSelected: "monthSelected", activeDateChange: "activeDateChange" }, viewQueries: [{ propertyName: "_matCalendarBody", first: true, predicate: MatCalendarBody, descendants: true }], exportAs: ["matYearView"], ngImport: i0, template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_yearLabel()\"\n         [rows]=\"_months()\"\n         [todayValue]=\"_todayMonth()!\"\n         [startValue]=\"_selectedMonth()!\"\n         [endValue]=\"_selectedMonth()!\"\n         [labelMinRequiredCells]=\"2\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_dateAdapter.getMonth(activeDate)\"\n         (selectedValueChange)=\"_monthSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n", dependencies: [{ kind: "component", type: MatCalendarBody, selector: "[mat-calendar-body]", inputs: ["label", "rows", "todayValue", "startValue", "endValue", "labelMinRequiredCells", "numCols", "activeCell", "isRange", "cellAspectRatio", "comparisonStart", "comparisonEnd", "previewStart", "previewEnd", "startDateAccessibleName", "endDateAccessibleName"], outputs: ["selectedValueChange", "previewChange", "activeDateChange", "dragStarted", "dragEnded"], exportAs: ["matCalendarBody"] }], changeDetection: i0.ChangeDetectionStrategy.OnPush, encapsulation: i0.ViewEncapsulation.None });
 }
 i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "20.2.0-next.2", ngImport: i0, type: MatYearView, decorators: [{
             type: Component,
-            args: [{ selector: 'mat-year-view', exportAs: 'matYearView', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, imports: [MatCalendarBody], template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_yearLabel\"\n         [rows]=\"_months\"\n         [todayValue]=\"_todayMonth!\"\n         [startValue]=\"_selectedMonth!\"\n         [endValue]=\"_selectedMonth!\"\n         [labelMinRequiredCells]=\"2\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_dateAdapter.getMonth(activeDate)\"\n         (selectedValueChange)=\"_monthSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n" }]
+            args: [{ selector: 'mat-year-view', exportAs: 'matYearView', encapsulation: ViewEncapsulation.None, changeDetection: ChangeDetectionStrategy.OnPush, imports: [MatCalendarBody], template: "<table class=\"mat-calendar-table\" role=\"grid\">\n  <thead aria-hidden=\"true\" class=\"mat-calendar-table-header\">\n    <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr>\n  </thead>\n  <tbody mat-calendar-body\n         [label]=\"_yearLabel()\"\n         [rows]=\"_months()\"\n         [todayValue]=\"_todayMonth()!\"\n         [startValue]=\"_selectedMonth()!\"\n         [endValue]=\"_selectedMonth()!\"\n         [labelMinRequiredCells]=\"2\"\n         [numCols]=\"4\"\n         [cellAspectRatio]=\"4 / 7\"\n         [activeCell]=\"_dateAdapter.getMonth(activeDate)\"\n         (selectedValueChange)=\"_monthSelected($event)\"\n         (activeDateChange)=\"_updateActiveDate($event)\"\n         (keyup)=\"_handleCalendarBodyKeyup($event)\"\n         (keydown)=\"_handleCalendarBodyKeydown($event)\">\n  </tbody>\n</table>\n" }]
         }], ctorParameters: () => [], propDecorators: { activeDate: [{
                 type: Input
             }], selected: [{
