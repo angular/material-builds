@@ -263,6 +263,8 @@ class MatTimepicker {
                 current.deselect(false);
             }
         });
+        // Notify the input first so it can sync up the form control before emitting to `selected`.
+        this._input()?._timepickerValueAssigned(option.value);
         this.selected.emit({ value: option.value, source: this });
         this._input()?.focus();
     }
@@ -657,6 +659,13 @@ class MatTimepickerInput {
             this.timepicker().open();
         }
     }
+    /** Called by the timepicker to sync up the user-selected value. */
+    _timepickerValueAssigned(value) {
+        if (!this._dateAdapter.sameTime(value, this.value())) {
+            this._assignUserSelection(value, true);
+            this._formatValue(value);
+        }
+    }
     /** Sets up the code that watches for changes in the value and adjusts the input. */
     _respondToValueChanges() {
         effect(() => {
@@ -682,12 +691,6 @@ class MatTimepickerInput {
             const timepicker = this.timepicker();
             timepicker.registerInput(this);
             timepicker.closed.subscribe(() => this._onTouched?.());
-            timepicker.selected.subscribe(({ value }) => {
-                if (!this._dateAdapter.sameTime(value, this.value())) {
-                    this._assignUserSelection(value, true);
-                    this._formatValue(value);
-                }
-            });
         });
     }
     /** Sets up the logic that adjusts the input if the min/max changes. */
@@ -705,8 +708,9 @@ class MatTimepickerInput {
      * @param propagateToAccessor Whether the value should be propagated to the ControlValueAccessor.
      */
     _assignUserSelection(selection, propagateToAccessor) {
+        let toAssign;
         if (selection == null || !this._isValid(selection)) {
-            this.value.set(selection);
+            toAssign = selection;
         }
         else {
             // If a datepicker and timepicker are writing to the same object and the user enters an
@@ -719,11 +723,13 @@ class MatTimepickerInput {
             const hours = adapter.getHours(selection);
             const minutes = adapter.getMinutes(selection);
             const seconds = adapter.getSeconds(selection);
-            this.value.set(target ? adapter.setTime(target, hours, minutes, seconds) : selection);
+            toAssign = target ? adapter.setTime(target, hours, minutes, seconds) : selection;
         }
+        // Propagate to the form control before emitting to `valueChange`.
         if (propagateToAccessor) {
-            this._onChange?.(this.value());
+            this._onChange?.(toAssign);
         }
+        this.value.set(toAssign);
     }
     /** Formats the current value and assigns it to the input. */
     _formatValue(value) {
