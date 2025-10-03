@@ -105,6 +105,8 @@ declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, 
     protected _handleBlur(): void;
     /** Handles the `keydown` event. */
     protected _handleKeydown(event: KeyboardEvent): void;
+    /** Called by the timepicker to sync up the user-selected value. */
+    _timepickerValueAssigned(value: D | null): void;
     /** Sets up the code that watches for changes in the value and adjusts the input. */
     private _respondToValueChanges;
     /** Sets up the logic that registers the input with the timepicker. */
