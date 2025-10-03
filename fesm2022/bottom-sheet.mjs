@@ -116,6 +116,11 @@ const MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
 class MatBottomSheetConfig {
     /** The view container to place the overlay for the bottom sheet into. */
     viewContainerRef;
+    /**
+     * Injector used for the instantiation of the component to be attached. If provided,
+     * takes precedence over the injector indirectly provided by `ViewContainerRef`.
+     */
+    injector;
     /** Extra CSS classes to be added to the bottom sheet container. */
     panelClass;
     /** Text layout direction for the bottom sheet. */

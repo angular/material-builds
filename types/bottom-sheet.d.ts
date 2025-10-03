@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { OnDestroy, EventEmitter, InjectionToken, ViewContainerRef, ComponentRef, TemplateRef } from '@angular/core';
+import { OnDestroy, EventEmitter, InjectionToken, ViewContainerRef, Injector, ComponentRef, TemplateRef } from '@angular/core';
 import * as i1 from '@angular/cdk/dialog';
 import { CdkDialogContainer, DialogRef } from '@angular/cdk/dialog';
 import * as i2 from '@angular/cdk/portal';
@@ -54,6 +54,11 @@ declare const MAT_BOTTOM_SHEET_DATA: InjectionToken<any>;
 declare class MatBottomSheetConfig<D = any> {
     /** The view container to place the overlay for the bottom sheet into. */
     viewContainerRef?: ViewContainerRef;
+    /**
+     * Injector used for the instantiation of the component to be attached. If provided,
+     * takes precedence over the injector indirectly provided by `ViewContainerRef`.
+     */
+    injector?: Injector;
     /** Extra CSS classes to be added to the bottom sheet container. */
     panelClass?: string | string[];
     /** Text layout direction for the bottom sheet. */
