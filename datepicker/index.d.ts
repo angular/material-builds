@@ -403,7 +403,7 @@ declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy 
     set maxDate(value: D | null);
     private _maxDate;
     /** Function used to filter which dates are selectable. */
-    dateFilter: (date: D) => boolean;
+    dateFilter: ((date: D) => boolean) | null | undefined;
     /** Function that can be used to add custom CSS classes to dates. */
     dateClass: MatCalendarCellClassFunction<D>;
     /** Start of the comparison range. */
@@ -555,7 +555,7 @@ declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
     set maxDate(value: D | null);
     private _maxDate;
     /** A function used to filter which dates are selectable. */
-    dateFilter: (date: D) => boolean;
+    dateFilter: ((date: D) => boolean) | null | undefined;
     /** Function that can be used to add custom CSS classes to date cells. */
     dateClass: MatCalendarCellClassFunction<D>;
     /** Emits when a new year is selected. */
@@ -645,7 +645,7 @@ declare class MatYearView<D> implements AfterContentInit, OnDestroy {
     set maxDate(value: D | null);
     private _maxDate;
     /** A function used to filter which dates are selectable. */
-    dateFilter: (date: D) => boolean;
+    dateFilter: ((date: D) => boolean) | null | undefined;
     /** Function that can be used to add custom CSS classes to date cells. */
     dateClass: MatCalendarCellClassFunction<D>;
     /** Emits when a new month is selected. */
@@ -812,7 +812,7 @@ declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDe
     set maxDate(value: D | null);
     private _maxDate;
     /** Function used to filter which dates are selectable. */
-    dateFilter: (date: D) => boolean;
+    dateFilter?: ((date: D) => boolean) | null;
     /** Function that can be used to add custom CSS classes to dates. */
     dateClass: MatCalendarCellClassFunction<D>;
     /** Start of the comparison range. */
@@ -967,7 +967,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     /** Gets the maximum date for the input. Used for validation. */
     abstract _getMaxDate(): D | null;
     /** Gets the date filter function. Used for validation. */
-    protected abstract _getDateFilter(): DateFilterFn<D> | undefined;
+    protected abstract _getDateFilter(): DateFilterFn<D> | null | undefined;
     /** Registers a date selection model with the input. */
     _registerModel(model: MatDateSelectionModel<S, D>): void;
     /** Opens the popup associated with the input. */
@@ -1122,7 +1122,7 @@ interface MatDatepickerControl<D> {
     min: D | null;
     max: D | null;
     disabled: boolean;
-    dateFilter: DateFilterFn<D>;
+    dateFilter: DateFilterFn<D> | null | undefined;
     getConnectedOverlayOrigin(): ElementRef;
     getOverlayLabelId(): string | null;
     stateChanges: Observable<void>;
@@ -1238,7 +1238,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     _getMinDate(): D | null;
     /** The maximum selectable date. */
     _getMaxDate(): D | null;
-    _getDateFilter(): DateFilterFn<D>;
+    _getDateFilter(): DateFilterFn<D> | null | undefined;
     /** A reference to the overlay into which we've rendered the calendar. */
     private _overlayRef;
     /** Reference to the component instance rendered in the overlay. */
@@ -1338,8 +1338,8 @@ declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> 
     set max(value: D | null);
     private _max;
     /** Function that can be used to filter out dates within the datepicker. */
-    get dateFilter(): DateFilterFn<D | null>;
-    set dateFilter(value: DateFilterFn<D | null>);
+    get dateFilter(): DateFilterFn<D | null> | null | undefined;
+    set dateFilter(value: DateFilterFn<D | null> | null | undefined);
     private _dateFilter;
     /** The combined form control validator for this input. */
     protected _validator: ValidatorFn | null;
@@ -1365,7 +1365,7 @@ declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> 
     /** Gets the input's maximum date. */
     _getMaxDate(): D | null;
     /** Gets the input's date filtering function. */
-    protected _getDateFilter(): DateFilterFn<D | null>;
+    protected _getDateFilter(): DateFilterFn<D | null> | null | undefined;
     protected _shouldHandleChangeEvent(event: DateSelectionModelChange<D>): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInput<any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerInput<any>, "input[matDatepicker]", ["matDatepickerInput"], { "matDatepicker": { "alias": "matDatepicker"; "required": false; }; "min": { "alias": "min"; "required": false; }; "max": { "alias": "max"; "required": false; }; "dateFilter": { "alias": "matDatepickerFilter"; "required": false; }; }, {}, never, never, true, never>;
@@ -1511,7 +1511,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     /** Gets the maximum date from the range input. */
     _getMaxDate(): D | null;
     /** Gets the date filter function from the range input. */
-    protected _getDateFilter(): DateFilterFn<D>;
+    protected _getDateFilter(): DateFilterFn<D> | null | undefined;
     protected _parentDisabled(): boolean;
     protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
     protected _assignValueProgrammatically(value: D | null): void;
@@ -1602,9 +1602,9 @@ declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>,
     set required(value: boolean);
     private _required;
     /** Function that can be used to filter out dates within the date range picker. */
-    get dateFilter(): DateFilterFn<D>;
-    set dateFilter(value: DateFilterFn<D>);
-    private _dateFilter;
+    get dateFilter(): DateFilterFn<D> | null | undefined;
+    set dateFilter(value: DateFilterFn<D> | null | undefined);
+    private _dateFilter?;
     /** The minimum valid date. */
     get min(): D | null;
     set min(value: D | null);
