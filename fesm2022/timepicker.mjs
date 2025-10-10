@@ -264,7 +264,7 @@ class MatTimepicker {
             }
         });
         // Notify the input first so it can sync up the form control before emitting to `selected`.
-        this._input()?._timepickerValueAssigned(option.value);
+        this._input()?.timepickerValueAssigned(option.value);
         this.selected.emit({ value: option.value, source: this });
         this._input()?.focus();
     }
@@ -273,7 +273,7 @@ class MatTimepicker {
         if (this.ariaLabel()) {
             return null;
         }
-        return this.ariaLabelledby() || this._input()?._getLabelId() || null;
+        return this.ariaLabelledby() || this._input()?.getLabelId() || null;
     }
     /** Handles animation events coming from the panel. */
     _handleAnimationEnd(event) {
@@ -607,7 +607,7 @@ class MatTimepickerInput {
         this._localeSubscription.unsubscribe();
     }
     /** Gets the ID of the input's label. */
-    _getLabelId() {
+    getLabelId() {
         return this._formField?.getLabelId() || null;
     }
     /** Handles clicks on the input or the containing form field. */
@@ -660,7 +660,7 @@ class MatTimepickerInput {
         }
     }
     /** Called by the timepicker to sync up the user-selected value. */
-    _timepickerValueAssigned(value) {
+    timepickerValueAssigned(value) {
         if (!this._dateAdapter.sameTime(value, this.value())) {
             this._assignUserSelection(value, true);
             this._formatValue(value);

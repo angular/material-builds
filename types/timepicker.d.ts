@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { OnDestroy, Signal, ModelSignal, InputSignal, InputSignalWithTransform, ElementRef, InjectionToken, TemplateRef, OutputEmitterRef } from '@angular/core';
+import { InjectionToken, Signal, ElementRef, OnDestroy, TemplateRef, InputSignalWithTransform, InputSignal, OutputEmitterRef, ModelSignal } from '@angular/core';
 import { MatOption } from './_option-chunk.js';
 import { MatOptionParentComponent } from './_option-parent-chunk.js';
 import { ScrollStrategy } from '@angular/cdk/overlay';
@@ -9,9 +9,151 @@ import '@angular/cdk/a11y';
 import 'rxjs';
 
 /**
+ * Object that can be used to configure the default options for the timepicker component.
+ */
+interface MatTimepickerConfig {
+    /** Default interval for all time pickers. */
+    interval?: string | number;
+    /** Whether ripples inside the timepicker should be disabled by default. */
+    disableRipple?: boolean;
+}
+/**
+ * Injection token that can be used to configure the default options for the timepicker component.
+ */
+declare const MAT_TIMEPICKER_CONFIG: InjectionToken<MatTimepickerConfig>;
+/**
+ * Time selection option that can be displayed within a `mat-timepicker`.
+ */
+interface MatTimepickerOption<D = unknown> {
+    /** Date value of the option. */
+    value: D;
+    /** Label to show to the user. */
+    label: string;
+}
+
+/** Event emitted when a value is selected in the timepicker. */
+interface MatTimepickerSelected<D> {
+    value: D;
+    source: MatTimepicker<D>;
+}
+/** Injection token used to configure the behavior of the timepicker dropdown while scrolling. */
+declare const MAT_TIMEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** Represents an input that is connected to a `mat-timepicker`. */
+interface MatTimepickerConnectedInput<D> {
+    /** Current value of the input. */
+    value: Signal<D | null>;
+    /** Minimum allowed time. */
+    min: Signal<D | null>;
+    /** Maximum allowed time. */
+    max: Signal<D | null>;
+    /** Whether the input is disabled. */
+    disabled: Signal<boolean>;
+    /** Focuses the input. */
+    focus(): void;
+    /** Gets the element to which to connect the timepicker overlay. */
+    getOverlayOrigin(): ElementRef<HTMLElement>;
+    /** Gets the ID of the input's label. */
+    getLabelId(): string | null;
+    /** Callback invoked when the timepicker assigns a value. */
+    timepickerValueAssigned(value: D | null): void;
+}
+/**
+ * Renders out a listbox that can be used to select a time of day.
+ * Intended to be used together with `MatTimepickerInput`.
+ */
+declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
+    private _dir;
+    private _viewContainerRef;
+    private _injector;
+    private _defaultConfig;
+    private _dateAdapter;
+    private _dateFormats;
+    private _scrollStrategyFactory;
+    protected _animationsDisabled: boolean;
+    private _isOpen;
+    private _activeDescendant;
+    private _input;
+    private _overlayRef;
+    private _portal;
+    private _optionsCacheKey;
+    private _localeChanges;
+    private _onOpenRender;
+    protected _panelTemplate: Signal<TemplateRef<unknown>>;
+    protected _timeOptions: readonly MatTimepickerOption<D>[];
+    protected _options: Signal<readonly MatOption<any>[]>;
+    private _keyManager;
+    /**
+     * Interval between each option in the timepicker. The value can either be an amount of
+     * seconds (e.g. 90) or a number with a unit (e.g. 45m). Supported units are `s` for seconds,
+     * `m` for minutes or `h` for hours.
+     */
+    readonly interval: InputSignalWithTransform<number | null, number | string | null>;
+    /**
+     * Array of pre-defined options that the user can select from, as an alternative to using the
+     * `interval` input. An error will be thrown if both `options` and `interval` are specified.
+     */
+    readonly options: InputSignal<readonly MatTimepickerOption<D>[] | null>;
+    /** Whether the timepicker is open. */
+    readonly isOpen: Signal<boolean>;
+    /** Emits when the user selects a time. */
+    readonly selected: OutputEmitterRef<MatTimepickerSelected<D>>;
+    /** Emits when the timepicker is opened. */
+    readonly opened: OutputEmitterRef<void>;
+    /** Emits when the timepicker is closed. */
+    readonly closed: OutputEmitterRef<void>;
+    /** ID of the active descendant option. */
+    readonly activeDescendant: Signal<string | null>;
+    /** Unique ID of the timepicker's panel */
+    readonly panelId: string;
+    /** Whether ripples within the timepicker should be disabled. */
+    readonly disableRipple: InputSignalWithTransform<boolean, unknown>;
+    /** ARIA label for the timepicker panel. */
+    readonly ariaLabel: InputSignal<string | null>;
+    /** ID of the label element for the timepicker panel. */
+    readonly ariaLabelledby: InputSignal<string | null>;
+    /** Whether the timepicker is currently disabled. */
+    readonly disabled: Signal<boolean>;
+    constructor();
+    /** Opens the timepicker. */
+    open(): void;
+    /** Closes the timepicker. */
+    close(): void;
+    /** Registers an input with the timepicker. */
+    registerInput(input: MatTimepickerConnectedInput<D>): void;
+    ngOnDestroy(): void;
+    /** Selects a specific time value. */
+    protected _selectValue(option: MatOption<D>): void;
+    /** Gets the value of the `aria-labelledby` attribute. */
+    protected _getAriaLabelledby(): string | null;
+    /** Handles animation events coming from the panel. */
+    protected _handleAnimationEnd(event: AnimationEvent): void;
+    /** Creates an overlay reference for the timepicker panel. */
+    private _getOverlayRef;
+    /** Generates the list of options from which the user can select.. */
+    private _generateOptions;
+    /**
+     * Synchronizes the internal state of the component based on a specific selected date.
+     * @param value Currently selected date.
+     * @param options Options rendered out in the timepicker.
+     * @param fallback Option to set as active if no option is selected.
+     */
+    private _syncSelectedState;
+    /** Handles keyboard events while the overlay is open. */
+    private _handleKeydown;
+    /** Sets up the logic that updates the timepicker when the locale changes. */
+    private _handleLocaleChanges;
+    /**
+     * Sets up the logic that updates the timepicker when the state of the connected input changes.
+     */
+    private _handleInputStateChanges;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepicker<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTimepicker<any>, "mat-timepicker", ["matTimepicker"], { "interval": { "alias": "interval"; "required": false; "isSignal": true; }; "options": { "alias": "options"; "required": false; "isSignal": true; }; "disableRipple": { "alias": "disableRipple"; "required": false; "isSignal": true; }; "ariaLabel": { "alias": "aria-label"; "required": false; "isSignal": true; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; "isSignal": true; }; }, { "selected": "selected"; "opened": "opened"; "closed": "closed"; }, never, never, true, never>;
+}
+
+/**
  * Input that can be used to enter time and connect to a `mat-timepicker`.
  */
-declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, OnDestroy {
+declare class MatTimepickerInput<D> implements MatTimepickerConnectedInput<D>, ControlValueAccessor, Validator, OnDestroy {
     private _elementRef;
     private _dateAdapter;
     private _dateFormats;
@@ -96,7 +238,7 @@ declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, 
     focus(): void;
     ngOnDestroy(): void;
     /** Gets the ID of the input's label. */
-    _getLabelId(): string | null;
+    getLabelId(): string | null;
     /** Handles clicks on the input or the containing form field. */
     private _handleClick;
     /** Handles the `input` event. */
@@ -106,7 +248,7 @@ declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, 
     /** Handles the `keydown` event. */
     protected _handleKeydown(event: KeyboardEvent): void;
     /** Called by the timepicker to sync up the user-selected value. */
-    _timepickerValueAssigned(value: D | null): void;
+    timepickerValueAssigned(value: D | null): void;
     /** Sets up the code that watches for changes in the value and adjusts the input. */
     private _respondToValueChanges;
     /** Sets up the logic that registers the input with the timepicker. */
@@ -131,129 +273,6 @@ declare class MatTimepickerInput<D> implements ControlValueAccessor, Validator, 
     private _getValidator;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepickerInput<any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTimepickerInput<any>, "input[matTimepicker]", ["matTimepickerInput"], { "value": { "alias": "value"; "required": false; "isSignal": true; }; "timepicker": { "alias": "matTimepicker"; "required": true; "isSignal": true; }; "min": { "alias": "matTimepickerMin"; "required": false; "isSignal": true; }; "max": { "alias": "matTimepickerMax"; "required": false; "isSignal": true; }; "openOnClick": { "alias": "matTimepickerOpenOnClick"; "required": false; "isSignal": true; }; "disabledInput": { "alias": "disabled"; "required": false; "isSignal": true; }; }, { "value": "valueChange"; }, never, never, true, never>;
-}
-
-/**
- * Object that can be used to configure the default options for the timepicker component.
- */
-interface MatTimepickerConfig {
-    /** Default interval for all time pickers. */
-    interval?: string | number;
-    /** Whether ripples inside the timepicker should be disabled by default. */
-    disableRipple?: boolean;
-}
-/**
- * Injection token that can be used to configure the default options for the timepicker component.
- */
-declare const MAT_TIMEPICKER_CONFIG: InjectionToken<MatTimepickerConfig>;
-/**
- * Time selection option that can be displayed within a `mat-timepicker`.
- */
-interface MatTimepickerOption<D = unknown> {
-    /** Date value of the option. */
-    value: D;
-    /** Label to show to the user. */
-    label: string;
-}
-
-/** Event emitted when a value is selected in the timepicker. */
-interface MatTimepickerSelected<D> {
-    value: D;
-    source: MatTimepicker<D>;
-}
-/** Injection token used to configure the behavior of the timepicker dropdown while scrolling. */
-declare const MAT_TIMEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/**
- * Renders out a listbox that can be used to select a time of day.
- * Intended to be used together with `MatTimepickerInput`.
- */
-declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
-    private _dir;
-    private _viewContainerRef;
-    private _injector;
-    private _defaultConfig;
-    private _dateAdapter;
-    private _dateFormats;
-    private _scrollStrategyFactory;
-    protected _animationsDisabled: boolean;
-    private _isOpen;
-    private _activeDescendant;
-    private _input;
-    private _overlayRef;
-    private _portal;
-    private _optionsCacheKey;
-    private _localeChanges;
-    private _onOpenRender;
-    protected _panelTemplate: Signal<TemplateRef<unknown>>;
-    protected _timeOptions: readonly MatTimepickerOption<D>[];
-    protected _options: Signal<readonly MatOption<any>[]>;
-    private _keyManager;
-    /**
-     * Interval between each option in the timepicker. The value can either be an amount of
-     * seconds (e.g. 90) or a number with a unit (e.g. 45m). Supported units are `s` for seconds,
-     * `m` for minutes or `h` for hours.
-     */
-    readonly interval: InputSignalWithTransform<number | null, number | string | null>;
-    /**
-     * Array of pre-defined options that the user can select from, as an alternative to using the
-     * `interval` input. An error will be thrown if both `options` and `interval` are specified.
-     */
-    readonly options: InputSignal<readonly MatTimepickerOption<D>[] | null>;
-    /** Whether the timepicker is open. */
-    readonly isOpen: Signal<boolean>;
-    /** Emits when the user selects a time. */
-    readonly selected: OutputEmitterRef<MatTimepickerSelected<D>>;
-    /** Emits when the timepicker is opened. */
-    readonly opened: OutputEmitterRef<void>;
-    /** Emits when the timepicker is closed. */
-    readonly closed: OutputEmitterRef<void>;
-    /** ID of the active descendant option. */
-    readonly activeDescendant: Signal<string | null>;
-    /** Unique ID of the timepicker's panel */
-    readonly panelId: string;
-    /** Whether ripples within the timepicker should be disabled. */
-    readonly disableRipple: InputSignalWithTransform<boolean, unknown>;
-    /** ARIA label for the timepicker panel. */
-    readonly ariaLabel: InputSignal<string | null>;
-    /** ID of the label element for the timepicker panel. */
-    readonly ariaLabelledby: InputSignal<string | null>;
-    /** Whether the timepicker is currently disabled. */
-    readonly disabled: Signal<boolean>;
-    constructor();
-    /** Opens the timepicker. */
-    open(): void;
-    /** Closes the timepicker. */
-    close(): void;
-    /** Registers an input with the timepicker. */
-    registerInput(input: MatTimepickerInput<D>): void;
-    ngOnDestroy(): void;
-    /** Selects a specific time value. */
-    protected _selectValue(option: MatOption<D>): void;
-    /** Gets the value of the `aria-labelledby` attribute. */
-    protected _getAriaLabelledby(): string | null;
-    /** Handles animation events coming from the panel. */
-    protected _handleAnimationEnd(event: AnimationEvent): void;
-    /** Creates an overlay reference for the timepicker panel. */
-    private _getOverlayRef;
-    /** Generates the list of options from which the user can select.. */
-    private _generateOptions;
-    /**
-     * Synchronizes the internal state of the component based on a specific selected date.
-     * @param value Currently selected date.
-     * @param options Options rendered out in the timepicker.
-     * @param fallback Option to set as active if no option is selected.
-     */
-    private _syncSelectedState;
-    /** Handles keyboard events while the overlay is open. */
-    private _handleKeydown;
-    /** Sets up the logic that updates the timepicker when the locale changes. */
-    private _handleLocaleChanges;
-    /**
-     * Sets up the logic that updates the timepicker when the state of the connected input changes.
-     */
-    private _handleInputStateChanges;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepicker<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTimepicker<any>, "mat-timepicker", ["matTimepicker"], { "interval": { "alias": "interval"; "required": false; "isSignal": true; }; "options": { "alias": "options"; "required": false; "isSignal": true; }; "disableRipple": { "alias": "disableRipple"; "required": false; "isSignal": true; }; "ariaLabel": { "alias": "aria-label"; "required": false; "isSignal": true; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; "isSignal": true; }; }, { "selected": "selected"; "opened": "opened"; "closed": "closed"; }, never, never, true, never>;
 }
 
 /** Button that can be used to open a `mat-timepicker`. */
@@ -293,4 +312,4 @@ declare class MatTimepickerModule {
 }
 
 export { MAT_TIMEPICKER_CONFIG, MAT_TIMEPICKER_SCROLL_STRATEGY, MatTimepicker, MatTimepickerInput, MatTimepickerModule, MatTimepickerToggle };
-export type { MatTimepickerConfig, MatTimepickerOption, MatTimepickerSelected };
+export type { MatTimepickerConfig, MatTimepickerConnectedInput, MatTimepickerOption, MatTimepickerSelected };
