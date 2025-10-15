@@ -56,6 +56,17 @@ declare class MatFooterCellHarness extends _MatCellHarnessBase {
      */
     static with(options?: CellHarnessFilters): HarnessPredicate<MatFooterCellHarness>;
 }
+/** Harness for interacting with an Angular Material table cell inside a "no data" row. */
+declare class MatNoDataCellHarness extends _MatCellHarnessBase {
+    /** The selector for the host element of a `MatNoDataCellHarness` instance. */
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table cell with specific attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options?: CellHarnessFilters): HarnessPredicate<MatNoDataCellHarness>;
+}
 
 /** Text extracted from a table row organized by columns. */
 interface MatRowHarnessColumnsText {
@@ -110,6 +121,19 @@ declare class MatFooterRowHarness extends _MatRowHarnessBase<typeof MatFooterCel
      */
     static with<T extends MatFooterRowHarness>(this: ComponentHarnessConstructor<T>, options?: RowHarnessFilters): HarnessPredicate<T>;
 }
+/** Harness for interacting with an Angular Material table "no data" row. */
+declare class MatNoDataRowHarness extends _MatRowHarnessBase<typeof MatHeaderCellHarness, MatHeaderCellHarness> {
+    /** The selector for the host element of a `MatNoDataRowHarness` instance. */
+    static hostSelector: string;
+    protected _cellHarness: typeof MatNoDataCellHarness;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table header row with specific
+     * attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatNoDataRowHarness>(this: ComponentHarnessConstructor<T>, options?: RowHarnessFilters): HarnessPredicate<T>;
+}
 
 /** Text extracted from a table organized by columns. */
 interface MatTableHarnessColumnsText {
@@ -138,11 +162,13 @@ declare class MatTableHarness extends ContentContainerComponentHarness<string> {
     getRows(filter?: RowHarnessFilters): Promise<MatRowHarness[]>;
     /** Gets all the footer rows in a table. */
     getFooterRows(filter?: RowHarnessFilters): Promise<MatFooterRowHarness[]>;
+    /** Gets the "no data" row in the table, if any. */
+    getNoDataRow(filter?: RowHarnessFilters): Promise<MatNoDataRowHarness | null>;
     /** Gets the text inside the entire table organized by rows. */
     getCellTextByIndex(): Promise<string[][]>;
     /** Gets the text inside the entire table organized by columns. */
     getCellTextByColumnName(): Promise<MatTableHarnessColumnsText>;
 }
 
-export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, MatTableHarness, _MatCellHarnessBase, _MatRowHarnessBase };
+export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatNoDataCellHarness, MatNoDataRowHarness, MatRowHarness, MatTableHarness, _MatCellHarnessBase, _MatRowHarnessBase };
 export type { CellHarnessFilters, MatRowHarnessColumnsText, MatTableHarnessColumnsText, RowHarnessFilters, TableHarnessFilters };

@@ -68,6 +68,19 @@ class MatFooterCellHarness extends _MatCellHarnessBase {
         return _MatCellHarnessBase._getCellPredicate(this, options);
     }
 }
+/** Harness for interacting with an Angular Material table cell inside a "no data" row. */
+class MatNoDataCellHarness extends _MatCellHarnessBase {
+    /** The selector for the host element of a `MatNoDataCellHarness` instance. */
+    static hostSelector = '.mat-no-data-cell';
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table cell with specific attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return _MatCellHarnessBase._getCellPredicate(this, options);
+    }
+}
 
 class _MatRowHarnessBase extends ComponentHarness {
     /** Gets a list of `MatCellHarness` for all cells in the row. */
@@ -134,6 +147,21 @@ class MatFooterRowHarness extends _MatRowHarnessBase {
         return new HarnessPredicate(this, options);
     }
 }
+/** Harness for interacting with an Angular Material table "no data" row. */
+class MatNoDataRowHarness extends _MatRowHarnessBase {
+    /** The selector for the host element of a `MatNoDataRowHarness` instance. */
+    static hostSelector = '.mat-mdc-no-data-row';
+    _cellHarness = MatNoDataCellHarness;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a table header row with specific
+     * attributes.
+     * @param options Options for narrowing the search
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with(options = {}) {
+        return new HarnessPredicate(this, options);
+    }
+}
 
 /** Harness for interacting with a mat-table in tests. */
 class MatTableHarness extends ContentContainerComponentHarness {
@@ -161,6 +189,10 @@ class MatTableHarness extends ContentContainerComponentHarness {
     /** Gets all the footer rows in a table. */
     async getFooterRows(filter = {}) {
         return this.locatorForAll(this._footerRowHarness.with(filter))();
+    }
+    /** Gets the "no data" row in the table, if any. */
+    async getNoDataRow(filter = {}) {
+        return this.locatorForOptional(MatNoDataRowHarness.with(filter))();
     }
     /** Gets the text inside the entire table organized by rows. */
     async getCellTextByIndex() {
@@ -209,5 +241,5 @@ function getCellTextsByColumn(rowsData, column) {
     return columnTexts;
 }
 
-export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatRowHarness, MatTableHarness, _MatCellHarnessBase, _MatRowHarnessBase };
+export { MatCellHarness, MatFooterCellHarness, MatFooterRowHarness, MatHeaderCellHarness, MatHeaderRowHarness, MatNoDataCellHarness, MatNoDataRowHarness, MatRowHarness, MatTableHarness, _MatCellHarnessBase, _MatRowHarnessBase };
 //# sourceMappingURL=table-testing.mjs.map
