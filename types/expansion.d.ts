@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, TemplateRef, AfterContentInit, OnChanges, OnDestroy, EventEmitter, SimpleChanges, ElementRef, AfterViewInit, QueryList } from '@angular/core';
+import { InjectionToken, TemplateRef, AfterContentInit, OnChanges, OnDestroy, EventEmitter, ElementRef, SimpleChanges, AfterViewInit, QueryList } from '@angular/core';
 import * as i1 from '@angular/cdk/accordion';
 import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
 import * as i2 from '@angular/cdk/portal';
@@ -104,7 +104,9 @@ declare class MatExpansionPanel extends CdkAccordionItem implements AfterContent
     /** An event emitted after the body's collapse animation happens. */
     readonly afterCollapse: EventEmitter<void>;
     /** Stream that emits for changes in `@Input` properties. */
-    readonly _inputChanges: Subject<SimpleChanges>;
+    readonly _inputChanges: Subject<{
+        [propName: string]: i0.SimpleChange<any>;
+    }>;
     /** Optionally defined accordion the expansion panel belongs to. */
     accordion: MatAccordionBase;
     /** Content that will be rendered lazily. */
