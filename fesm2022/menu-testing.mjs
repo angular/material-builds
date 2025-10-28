@@ -1,5 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { MatIconHarness } from '@angular/material/icon/testing';
 
 /** Harness for interacting with a mat-menu in tests. */
 class MatMenuHarness extends ContentContainerComponentHarness {
@@ -12,7 +13,12 @@ class MatMenuHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with(options = {}) {
-        return new HarnessPredicate(this, options).addOption('triggerText', options.triggerText, (harness, text) => HarnessPredicate.stringMatches(harness.getTriggerText(), text));
+        return new HarnessPredicate(this, options)
+            .addOption('triggerText', options.triggerText, (harness, text) => HarnessPredicate.stringMatches(harness.getTriggerText(), text))
+            .addOption('triggerIconName', options.triggerIconName, async (harness, triggerIconName) => {
+            const result = await harness.locatorForOptional(MatIconHarness.with({ name: triggerIconName }))();
+            return result !== null;
+        });
     }
     /** Whether the menu is disabled. */
     async isDisabled() {
