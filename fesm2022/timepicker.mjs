@@ -253,6 +253,9 @@ class MatTimepicker {
         this._onOpenRender?.destroy();
         this._overlayRef?.dispose();
     }
+    _getOverlayHost() {
+        return this._overlayRef?.hostElement;
+    }
     /** Selects a specific time value. */
     _selectValue(option) {
         this.close();
@@ -611,8 +614,13 @@ class MatTimepickerInput {
         return this._formField?.getLabelId() || null;
     }
     /** Handles clicks on the input or the containing form field. */
-    _handleClick = () => {
-        if (!this.disabled() && this.openOnClick()) {
+    _handleClick = (event) => {
+        if (this.disabled() || !this.openOnClick()) {
+            return;
+        }
+        const target = _getEventTarget(event);
+        const overlayHost = this.timepicker()._getOverlayHost();
+        if (!target || !overlayHost || !overlayHost.contains(target)) {
             this.timepicker().open();
         }
     };

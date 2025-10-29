@@ -121,6 +121,7 @@ declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
     /** Registers an input with the timepicker. */
     registerInput(input: MatTimepickerConnectedInput<D>): void;
     ngOnDestroy(): void;
+    _getOverlayHost(): HTMLElement | undefined;
     /** Selects a specific time value. */
     protected _selectValue(option: MatOption<D>): void;
     /** Gets the value of the `aria-labelledby` attribute. */
