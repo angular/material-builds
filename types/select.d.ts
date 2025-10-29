@@ -413,7 +413,7 @@ declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnIni
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    onContainerClick(): void;
+    onContainerClick(event: MouseEvent): void;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

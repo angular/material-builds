@@ -11,6 +11,7 @@ import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { hasModifierKey, ENTER, SPACE, A, ESCAPE, DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
+import { _getEventTarget } from '@angular/cdk/platform';
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, filter, map, takeUntil, take } from 'rxjs/operators';
 import { NgClass } from '@angular/common';
@@ -20,7 +21,6 @@ import { _ErrorStateTracker } from './_error-state-chunk.mjs';
 import { MatOptionModule } from './_option-module-chunk.mjs';
 import { MatFormFieldModule } from './form-field.mjs';
 import './_ripple-chunk.mjs';
-import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
 import '@angular/cdk/private';
 import './_pseudo-checkbox-chunk.mjs';
@@ -759,15 +759,20 @@ class MatSelect {
     return existingDescribedBy?.split(' ') || [];
   }
   setDescribedByIds(ids) {
+    const element = this._elementRef.nativeElement;
     if (ids.length) {
-      this._elementRef.nativeElement.setAttribute('aria-describedby', ids.join(' '));
+      element.setAttribute('aria-describedby', ids.join(' '));
     } else {
-      this._elementRef.nativeElement.removeAttribute('aria-describedby');
+      element.removeAttribute('aria-describedby');
     }
   }
-  onContainerClick() {
-    this.focus();
-    this.open();
+  onContainerClick(event) {
+    const target = _getEventTarget(event);
+    const overlayHost = this._overlayDir.overlayRef?.hostElement;
+    if (!target || !overlayHost || !overlayHost.contains(target)) {
+      this.focus();
+      this.open();
+    }
   }
   get shouldLabelFloat() {
     return this.panelOpen || !this.empty || this.focused && !!this.placeholder;
@@ -895,7 +900,7 @@ class MatSelect {
       kind: "directive",
       type: CdkConnectedOverlay,
       selector: "[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]",
-      inputs: ["cdkConnectedOverlayOrigin", "cdkConnectedOverlayPositions", "cdkConnectedOverlayPositionStrategy", "cdkConnectedOverlayOffsetX", "cdkConnectedOverlayOffsetY", "cdkConnectedOverlayWidth", "cdkConnectedOverlayHeight", "cdkConnectedOverlayMinWidth", "cdkConnectedOverlayMinHeight", "cdkConnectedOverlayBackdropClass", "cdkConnectedOverlayPanelClass", "cdkConnectedOverlayViewportMargin", "cdkConnectedOverlayScrollStrategy", "cdkConnectedOverlayOpen", "cdkConnectedOverlayDisableClose", "cdkConnectedOverlayTransformOriginOn", "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayLockPosition", "cdkConnectedOverlayFlexibleDimensions", "cdkConnectedOverlayGrowAfterOpen", "cdkConnectedOverlayPush", "cdkConnectedOverlayDisposeOnNavigation", "cdkConnectedOverlayAsPopover"],
+      inputs: ["cdkConnectedOverlayOrigin", "cdkConnectedOverlayPositions", "cdkConnectedOverlayPositionStrategy", "cdkConnectedOverlayOffsetX", "cdkConnectedOverlayOffsetY", "cdkConnectedOverlayWidth", "cdkConnectedOverlayHeight", "cdkConnectedOverlayMinWidth", "cdkConnectedOverlayMinHeight", "cdkConnectedOverlayBackdropClass", "cdkConnectedOverlayPanelClass", "cdkConnectedOverlayViewportMargin", "cdkConnectedOverlayScrollStrategy", "cdkConnectedOverlayOpen", "cdkConnectedOverlayDisableClose", "cdkConnectedOverlayTransformOriginOn", "cdkConnectedOverlayHasBackdrop", "cdkConnectedOverlayLockPosition", "cdkConnectedOverlayFlexibleDimensions", "cdkConnectedOverlayGrowAfterOpen", "cdkConnectedOverlayPush", "cdkConnectedOverlayDisposeOnNavigation", "cdkConnectedOverlayUsePopover"],
       outputs: ["backdropClick", "positionChange", "attach", "detach", "overlayKeydown", "overlayOutsideClick"],
       exportAs: ["cdkConnectedOverlay"]
     }, {
