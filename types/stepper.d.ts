@@ -183,6 +183,8 @@ declare class MatStepper extends CdkStepper implements AfterViewInit, AfterConte
      * Only applies in the `horizontal` orientation.
      */
     headerPosition: 'top' | 'bottom';
+    /** The content prefix to use in the stepper header. */
+    readonly headerPrefix: i0.InputSignal<TemplateRef<unknown> | null>;
     /** Consumer-specified template-refs to be used to override the header icons. */
     _iconOverrides: Record<string, TemplateRef<MatStepperIconContext>>;
     /** Duration for the animation. Will be normalized to milliseconds if no units are set. */
@@ -199,7 +201,7 @@ declare class MatStepper extends CdkStepper implements AfterViewInit, AfterConte
     private _handleTransitionend;
     private _onAnimationDone;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepper, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatStepper, "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]", ["matStepper", "matVerticalStepper", "matHorizontalStepper"], { "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "headerPrefix": { "alias": "headerPrefix"; "required": false; "isSignal": true; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; }, { "animationDone": "animationDone"; }, ["_steps", "_icons"], ["*"], true, never>;
 }
 
 /** Button that moves to the next step in a stepper workflow. */
