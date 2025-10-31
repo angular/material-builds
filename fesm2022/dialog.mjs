@@ -8,7 +8,7 @@ import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { _animationsDisabled } from './_animation-chunk.mjs';
-import { Subject, merge, defer } from 'rxjs';
+import { ReplaySubject, merge, Subject, defer } from 'rxjs';
 import { filter, take, startWith } from 'rxjs/operators';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -258,8 +258,8 @@ class MatDialogRef {
   componentRef;
   disableClose;
   id;
-  _afterOpened = new Subject();
-  _beforeClosed = new Subject();
+  _afterOpened = new ReplaySubject(1);
+  _beforeClosed = new ReplaySubject(1);
   _result;
   _closeFallbackTimeout;
   _state = MatDialogState.OPEN;
