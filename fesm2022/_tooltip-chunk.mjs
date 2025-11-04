@@ -246,7 +246,7 @@ class MatTooltip {
     }
     const scrollableAncestors = this._injector.get(ScrollDispatcher).getAncestorScrollContainers(this._elementRef);
     const panelClass = `${this._cssClassPrefix}-${PANEL_CLASS}`;
-    const strategy = createFlexibleConnectedPositionStrategy(this._injector, this.positionAtOrigin ? origin || this._elementRef : this._elementRef).withTransformOriginOn(`.${this._cssClassPrefix}-tooltip`).withFlexibleDimensions(false).withViewportMargin(this._viewportMargin).withScrollableContainers(scrollableAncestors);
+    const strategy = createFlexibleConnectedPositionStrategy(this._injector, this.positionAtOrigin ? origin || this._elementRef : this._elementRef).withTransformOriginOn(`.${this._cssClassPrefix}-tooltip`).withFlexibleDimensions(false).withViewportMargin(this._viewportMargin).withScrollableContainers(scrollableAncestors).withPopoverLocation('global');
     strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe(change => {
       this._updateCurrentPositionClass(change.connectionPair);
       if (this._tooltipInstance) {
@@ -260,7 +260,8 @@ class MatTooltip {
       positionStrategy: strategy,
       panelClass: this._overlayPanelClass ? [...this._overlayPanelClass, panelClass] : panelClass,
       scrollStrategy: this._injector.get(MAT_TOOLTIP_SCROLL_STRATEGY)(),
-      disableAnimations: this._animationsDisabled
+      disableAnimations: this._animationsDisabled,
+      usePopover: true
     });
     this._updatePosition(this._overlayRef);
     this._overlayRef.detachments().pipe(takeUntil(this._destroyed)).subscribe(() => this._detach());
