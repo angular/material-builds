@@ -264,7 +264,7 @@ class MatTimepicker {
     if (this._overlayRef) {
       return this._overlayRef;
     }
-    const positionStrategy = createFlexibleConnectedPositionStrategy(this._injector, this._input().getOverlayOrigin()).withFlexibleDimensions(false).withPush(false).withTransformOriginOn('.mat-timepicker-panel').withPositions([{
+    const positionStrategy = createFlexibleConnectedPositionStrategy(this._injector, this._input().getOverlayOrigin()).withFlexibleDimensions(false).withPush(false).withTransformOriginOn('.mat-timepicker-panel').withPopoverLocation('inline').withPositions([{
       originX: 'start',
       originY: 'bottom',
       overlayX: 'start',
