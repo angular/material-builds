@@ -812,7 +812,7 @@ class MatAutocompleteTrigger {
     });
   }
   _getOverlayPosition() {
-    const strategy = createFlexibleConnectedPositionStrategy(this._injector, this._getConnectedElement()).withFlexibleDimensions(false).withPush(false);
+    const strategy = createFlexibleConnectedPositionStrategy(this._injector, this._getConnectedElement()).withFlexibleDimensions(false).withPush(false).withPopoverLocation('inline');
     this._setStrategyPositions(strategy);
     this._positionStrategy = strategy;
     return strategy;
