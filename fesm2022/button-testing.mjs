@@ -9,10 +9,11 @@ class MatButtonHarness extends ContentContainerComponentHarness {
   static with(options = {}) {
     return new HarnessPredicate(this, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text)).addOption('variant', options.variant, (harness, variant) => HarnessPredicate.stringMatches(harness.getVariant(), variant)).addOption('appearance', options.appearance, (harness, appearance) => HarnessPredicate.stringMatches(harness.getAppearance(), appearance)).addOption('disabled', options.disabled, async (harness, disabled) => {
       return (await harness.isDisabled()) === disabled;
-    }).addOption('buttonType', options.buttonType, (harness, buttonType) => HarnessPredicate.stringMatches(harness.getType(), buttonType)).addOption('iconName', options.iconName, (harness, iconName) => {
-      return harness.hasHarness(MatIconHarness.with({
+    }).addOption('buttonType', options.buttonType, (harness, buttonType) => HarnessPredicate.stringMatches(harness.getType(), buttonType)).addOption('iconName', options.iconName, async (harness, iconName) => {
+      const result = await harness.locatorForOptional(MatIconHarness.with({
         name: iconName
-      }));
+      }))();
+      return result !== null;
     });
   }
   async click(...args) {
