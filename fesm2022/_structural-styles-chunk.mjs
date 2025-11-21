@@ -4,7 +4,7 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/
 class _StructuralStylesLoader {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: _StructuralStylesLoader,
     deps: [],
@@ -12,7 +12,7 @@ class _StructuralStylesLoader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: _StructuralStylesLoader,
     isStandalone: true,
     selector: "structural-styles",
@@ -26,7 +26,7 @@ class _StructuralStylesLoader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: _StructuralStylesLoader,
   decorators: [{

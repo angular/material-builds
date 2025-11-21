@@ -375,7 +375,7 @@ class MatTimepicker {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatTimepicker,
     deps: [],
@@ -383,7 +383,7 @@ class MatTimepicker {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatTimepicker,
     isStandalone: true,
     selector: "mat-timepicker",
@@ -463,7 +463,7 @@ class MatTimepicker {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatTimepicker,
   decorators: [{
@@ -482,7 +482,73 @@ i0.ɵɵngDeclareClassMetadata({
       styles: ["@keyframes _mat-timepicker-enter{from{opacity:0;transform:scaleY(0.8)}to{opacity:1;transform:none}}@keyframes _mat-timepicker-exit{from{opacity:1}to{opacity:0}}mat-timepicker{display:none}.mat-timepicker-panel{width:100%;max-height:256px;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;position:relative;border-bottom-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-bottom-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));box-shadow:var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));background-color:var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container))}@media(forced-colors: active){.mat-timepicker-panel{outline:solid 1px}}.mat-timepicker-above .mat-timepicker-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-top-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small))}.mat-timepicker-panel-animations-enabled{animation:_mat-timepicker-enter 120ms cubic-bezier(0, 0, 0.2, 1)}.mat-timepicker-panel-animations-enabled.mat-timepicker-panel-exit{animation:_mat-timepicker-exit 100ms linear}.mat-timepicker-input[readonly]{cursor:pointer}@media(forced-colors: active){.mat-timepicker-toggle-default-icon{color:CanvasText}}\n"]
     }]
   }],
-  ctorParameters: () => []
+  ctorParameters: () => [],
+  propDecorators: {
+    _panelTemplate: [{
+      type: i0.ViewChild,
+      args: ['panelTemplate', {
+        isSignal: true
+      }]
+    }],
+    _options: [{
+      type: i0.ViewChildren,
+      args: [i0.forwardRef(() => MatOption), {
+        isSignal: true
+      }]
+    }],
+    interval: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "interval",
+        required: false
+      }]
+    }],
+    options: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "options",
+        required: false
+      }]
+    }],
+    selected: [{
+      type: i0.Output,
+      args: ["selected"]
+    }],
+    opened: [{
+      type: i0.Output,
+      args: ["opened"]
+    }],
+    closed: [{
+      type: i0.Output,
+      args: ["closed"]
+    }],
+    disableRipple: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "disableRipple",
+        required: false
+      }]
+    }],
+    ariaLabel: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "aria-label",
+        required: false
+      }]
+    }],
+    ariaLabelledby: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "aria-labelledby",
+        required: false
+      }]
+    }]
+  }
 });
 function scrollOptionIntoView(option, position) {
   option._getHostElement().scrollIntoView({
@@ -761,7 +827,7 @@ class MatTimepickerInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatTimepickerInput,
     deps: [],
@@ -769,7 +835,7 @@ class MatTimepickerInput {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "17.1.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatTimepickerInput,
     isStandalone: true,
     selector: "input[matTimepicker]",
@@ -858,7 +924,7 @@ class MatTimepickerInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatTimepickerInput,
   decorators: [{
@@ -894,7 +960,60 @@ i0.ɵɵngDeclareClassMetadata({
       }]
     }]
   }],
-  ctorParameters: () => []
+  ctorParameters: () => [],
+  propDecorators: {
+    value: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "value",
+        required: false
+      }]
+    }, {
+      type: i0.Output,
+      args: ["valueChange"]
+    }],
+    timepicker: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "matTimepicker",
+        required: true
+      }]
+    }],
+    min: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "matTimepickerMin",
+        required: false
+      }]
+    }],
+    max: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "matTimepickerMax",
+        required: false
+      }]
+    }],
+    openOnClick: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "matTimepickerOpenOnClick",
+        required: false
+      }]
+    }],
+    disabledInput: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "disabled",
+        required: false
+      }]
+    }]
+  }
 });
 
 class MatTimepickerToggle {
@@ -961,7 +1080,7 @@ class MatTimepickerToggle {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatTimepickerToggle,
     deps: [],
@@ -969,7 +1088,7 @@ class MatTimepickerToggle {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.1.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatTimepickerToggle,
     isStandalone: true,
     selector: "mat-timepicker-toggle",
@@ -1041,7 +1160,7 @@ class MatTimepickerToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatTimepickerToggle,
   decorators: [{
@@ -1059,13 +1178,63 @@ i0.ɵɵngDeclareClassMetadata({
       imports: [MatIconButton],
       template: "<button\n  matIconButton\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"getAriaLabel()\"\n  [attr.aria-labelledby]=\"ariaLabelledby()\"\n  [attr.aria-expanded]=\"timepicker().isOpen()\"\n  [tabIndex]=\"_isDisabled() ? -1 : tabIndex()\"\n  [disabled]=\"_isDisabled()\"\n  [disableRipple]=\"disableRipple()\">\n\n  <ng-content select=\"[matTimepickerToggleIcon]\">\n    <svg\n      class=\"mat-timepicker-toggle-default-icon\"\n      height=\"24px\"\n      width=\"24px\"\n      viewBox=\"0 -960 960 960\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z\"/>\n    </svg>\n  </ng-content>\n</button>\n"
     }]
-  }]
+  }],
+  propDecorators: {
+    timepicker: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "for",
+        required: true
+      }]
+    }],
+    ariaLabel: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "aria-label",
+        required: false
+      }]
+    }],
+    ariaLabelledby: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "aria-labelledby",
+        required: false
+      }]
+    }],
+    disabled: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "disabled",
+        required: false
+      }]
+    }],
+    tabIndex: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "tabIndex",
+        required: false
+      }]
+    }],
+    disableRipple: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "disableRipple",
+        required: false
+      }]
+    }]
+  }
 });
 
 class MatTimepickerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatTimepickerModule,
     deps: [],
@@ -1073,7 +1242,7 @@ class MatTimepickerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatTimepickerModule,
     imports: [MatTimepicker, MatTimepickerInput, MatTimepickerToggle],
@@ -1081,7 +1250,7 @@ class MatTimepickerModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatTimepickerModule,
     imports: [MatTimepicker, MatTimepickerToggle, CdkScrollableModule]
@@ -1089,7 +1258,7 @@ class MatTimepickerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatTimepickerModule,
   decorators: [{

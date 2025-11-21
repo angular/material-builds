@@ -24,7 +24,7 @@ import '@angular/cdk/layout';
 class MatStepLabel extends CdkStepLabel {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepLabel,
     deps: null,
@@ -32,7 +32,7 @@ class MatStepLabel extends CdkStepLabel {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatStepLabel,
     isStandalone: true,
     selector: "[matStepLabel]",
@@ -42,7 +42,7 @@ class MatStepLabel extends CdkStepLabel {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepLabel,
   decorators: [{
@@ -60,7 +60,7 @@ class MatStepperIntl {
   editableLabel = 'Editable';
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepperIntl,
     deps: [],
@@ -68,7 +68,7 @@ class MatStepperIntl {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepperIntl,
     providedIn: 'root'
@@ -76,7 +76,7 @@ class MatStepperIntl {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepperIntl,
   decorators: [{
@@ -155,7 +155,7 @@ class MatStepHeader extends CdkStepHeader {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepHeader,
     deps: [],
@@ -163,7 +163,7 @@ class MatStepHeader extends CdkStepHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatStepHeader,
     isStandalone: true,
     selector: "mat-step-header",
@@ -217,7 +217,7 @@ class MatStepHeader extends CdkStepHeader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepHeader,
   decorators: [{
@@ -278,7 +278,7 @@ class MatStepperIcon {
   constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepperIcon,
     deps: [],
@@ -286,7 +286,7 @@ class MatStepperIcon {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatStepperIcon,
     isStandalone: true,
     selector: "ng-template[matStepperIcon]",
@@ -298,7 +298,7 @@ class MatStepperIcon {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepperIcon,
   decorators: [{
@@ -321,7 +321,7 @@ class MatStepContent {
   constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepContent,
     deps: [],
@@ -329,7 +329,7 @@ class MatStepContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatStepContent,
     isStandalone: true,
     selector: "ng-template[matStepContent]",
@@ -338,7 +338,7 @@ class MatStepContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepContent,
   decorators: [{
@@ -379,7 +379,7 @@ class MatStep extends CdkStep {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStep,
     deps: null,
@@ -387,7 +387,7 @@ class MatStep extends CdkStep {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatStep,
     isStandalone: true,
     selector: "mat-step",
@@ -435,7 +435,7 @@ class MatStep extends CdkStep {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStep,
   decorators: [{
@@ -579,7 +579,7 @@ class MatStepper extends CdkStepper {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepper,
     deps: [],
@@ -587,7 +587,7 @@ class MatStepper extends CdkStepper {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatStepper,
     isStandalone: true,
     selector: "mat-stepper, mat-vertical-stepper, mat-horizontal-stepper, [matStepper]",
@@ -693,7 +693,7 @@ class MatStepper extends CdkStepper {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepper,
   decorators: [{
@@ -758,6 +758,14 @@ i0.ɵɵngDeclareClassMetadata({
     headerPosition: [{
       type: Input
     }],
+    headerPrefix: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "headerPrefix",
+        required: false
+      }]
+    }],
     animationDuration: [{
       type: Input
     }]
@@ -767,7 +775,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatStepperNext extends CdkStepperNext {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepperNext,
     deps: null,
@@ -775,7 +783,7 @@ class MatStepperNext extends CdkStepperNext {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatStepperNext,
     isStandalone: true,
     selector: "button[matStepperNext]",
@@ -791,7 +799,7 @@ class MatStepperNext extends CdkStepperNext {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepperNext,
   decorators: [{
@@ -808,7 +816,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatStepperPrevious extends CdkStepperPrevious {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepperPrevious,
     deps: null,
@@ -816,7 +824,7 @@ class MatStepperPrevious extends CdkStepperPrevious {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatStepperPrevious,
     isStandalone: true,
     selector: "button[matStepperPrevious]",
@@ -832,7 +840,7 @@ class MatStepperPrevious extends CdkStepperPrevious {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepperPrevious,
   decorators: [{
@@ -850,7 +858,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatStepperModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepperModule,
     deps: [],
@@ -858,7 +866,7 @@ class MatStepperModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepperModule,
     imports: [PortalModule, CdkStepperModule, MatIconModule, MatRippleModule, MatStep, MatStepLabel, MatStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIcon, MatStepContent],
@@ -866,7 +874,7 @@ class MatStepperModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatStepperModule,
     providers: [ErrorStateMatcher],
@@ -875,7 +883,7 @@ class MatStepperModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatStepperModule,
   decorators: [{

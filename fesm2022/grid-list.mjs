@@ -34,7 +34,7 @@ class MatGridTile {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridTile,
     deps: [],
@@ -42,7 +42,7 @@ class MatGridTile {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatGridTile,
     isStandalone: true,
     selector: "mat-grid-tile",
@@ -67,7 +67,7 @@ class MatGridTile {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatGridTile,
   decorators: [{
@@ -105,7 +105,7 @@ class MatGridTileText {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridTileText,
     deps: [],
@@ -113,7 +113,7 @@ class MatGridTileText {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatGridTileText,
     isStandalone: true,
     selector: "mat-grid-tile-header, mat-grid-tile-footer",
@@ -130,7 +130,7 @@ class MatGridTileText {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatGridTileText,
   decorators: [{
@@ -155,7 +155,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridAvatarCssMatStyler {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridAvatarCssMatStyler,
     deps: [],
@@ -163,7 +163,7 @@ class MatGridAvatarCssMatStyler {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatGridAvatarCssMatStyler,
     isStandalone: true,
     selector: "[mat-grid-avatar], [matGridAvatar]",
@@ -175,7 +175,7 @@ class MatGridAvatarCssMatStyler {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatGridAvatarCssMatStyler,
   decorators: [{
@@ -191,7 +191,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridTileHeaderCssMatStyler {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridTileHeaderCssMatStyler,
     deps: [],
@@ -199,7 +199,7 @@ class MatGridTileHeaderCssMatStyler {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatGridTileHeaderCssMatStyler,
     isStandalone: true,
     selector: "mat-grid-tile-header",
@@ -211,7 +211,7 @@ class MatGridTileHeaderCssMatStyler {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatGridTileHeaderCssMatStyler,
   decorators: [{
@@ -227,7 +227,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridTileFooterCssMatStyler {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridTileFooterCssMatStyler,
     deps: [],
@@ -235,7 +235,7 @@ class MatGridTileFooterCssMatStyler {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatGridTileFooterCssMatStyler,
     isStandalone: true,
     selector: "mat-grid-tile-footer",
@@ -247,7 +247,7 @@ class MatGridTileFooterCssMatStyler {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatGridTileFooterCssMatStyler,
   decorators: [{
@@ -477,7 +477,7 @@ class MatGridList {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridList,
     deps: [],
@@ -485,7 +485,7 @@ class MatGridList {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatGridList,
     isStandalone: true,
     selector: "mat-grid-list",
@@ -519,7 +519,7 @@ class MatGridList {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatGridList,
   decorators: [{
@@ -564,7 +564,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridListModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridListModule,
     deps: [],
@@ -572,7 +572,7 @@ class MatGridListModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridListModule,
     imports: [MatLineModule, MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MatGridAvatarCssMatStyler],
@@ -580,7 +580,7 @@ class MatGridListModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatGridListModule,
     imports: [MatLineModule, BidiModule, MatLineModule]
@@ -588,7 +588,7 @@ class MatGridListModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatGridListModule,
   decorators: [{
