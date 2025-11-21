@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { MatIconRegistry } from './_icon-registry-chunk.mjs';
 export { getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError } from './_icon-registry-chunk.mjs';
+import '@angular/cdk/private';
 import '@angular/common/http';
 import '@angular/platform-browser';
 

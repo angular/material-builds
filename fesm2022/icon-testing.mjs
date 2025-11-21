@@ -3,6 +3,7 @@ import * as i0 from '@angular/core';
 import { Injectable, NgModule } from '@angular/core';
 import { of } from 'rxjs';
 import { MatIconRegistry } from './_icon-registry-chunk.mjs';
+import '@angular/cdk/private';
 import '@angular/common/http';
 import '@angular/platform-browser';
 import 'rxjs/operators';
