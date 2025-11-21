@@ -1,28 +1,10 @@
+import { trustedHTMLFromString } from '@angular/cdk/private';
 import * as i1 from '@angular/common/http';
 import * as i0 from '@angular/core';
 import { SecurityContext, DOCUMENT, Injectable, Optional, Inject } from '@angular/core';
 import * as i2 from '@angular/platform-browser';
 import { of, throwError, forkJoin } from 'rxjs';
 import { tap, map, catchError, finalize, share } from 'rxjs/operators';
-
-let policy;
-function getPolicy() {
-  if (policy === undefined) {
-    policy = null;
-    if (typeof window !== 'undefined') {
-      const ttWindow = window;
-      if (ttWindow.trustedTypes !== undefined) {
-        policy = ttWindow.trustedTypes.createPolicy('angular#components', {
-          createHTML: s => s
-        });
-      }
-    }
-  }
-  return policy;
-}
-function trustedHTMLFromString(html) {
-  return getPolicy()?.createHTML(html) || html;
-}
 
 function getMatIconNameNotFoundError(iconName) {
   return Error(`Unable to find icon with the name "${iconName}"`);
