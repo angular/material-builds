@@ -8,7 +8,7 @@ import { MatOption, MatOptgroup } from './_option-chunk.mjs';
 class MatOptionModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatOptionModule,
     deps: [],
@@ -16,7 +16,7 @@ class MatOptionModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatOptionModule,
     imports: [MatRippleModule, MatPseudoCheckboxModule, MatOption, MatOptgroup],
@@ -24,7 +24,7 @@ class MatOptionModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatOptionModule,
     imports: [MatRippleModule, MatPseudoCheckboxModule, MatOption, BidiModule]
@@ -32,7 +32,7 @@ class MatOptionModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatOptionModule,
   decorators: [{

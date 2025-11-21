@@ -54,7 +54,7 @@ class MatPaginatorIntl {
   };
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatPaginatorIntl,
     deps: [],
@@ -62,7 +62,7 @@ class MatPaginatorIntl {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatPaginatorIntl,
     providedIn: 'root'
@@ -70,7 +70,7 @@ class MatPaginatorIntl {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatPaginatorIntl,
   decorators: [{
@@ -256,7 +256,7 @@ class MatPaginator {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatPaginator,
     deps: [],
@@ -264,7 +264,7 @@ class MatPaginator {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatPaginator,
     isStandalone: true,
     selector: "mat-paginator",
@@ -330,7 +330,7 @@ class MatPaginator {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatPaginator,
   decorators: [{
@@ -405,7 +405,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatPaginatorModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatPaginatorModule,
     deps: [],
@@ -413,7 +413,7 @@ class MatPaginatorModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatPaginatorModule,
     imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator],
@@ -421,7 +421,7 @@ class MatPaginatorModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatPaginatorModule,
     imports: [MatButtonModule, MatSelectModule, MatTooltipModule, MatPaginator]
@@ -429,7 +429,7 @@ class MatPaginatorModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatPaginatorModule,
   decorators: [{

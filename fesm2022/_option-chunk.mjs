@@ -24,7 +24,7 @@ class MatOptgroup {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatOptgroup,
     deps: [],
@@ -32,7 +32,7 @@ class MatOptgroup {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatOptgroup,
     isStandalone: true,
     selector: "mat-optgroup",
@@ -62,7 +62,7 @@ class MatOptgroup {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatOptgroup,
   decorators: [{
@@ -236,7 +236,7 @@ class MatOption {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatOption,
     deps: [],
@@ -244,7 +244,7 @@ class MatOption {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatOption,
     isStandalone: true,
     selector: "mat-option",
@@ -304,7 +304,7 @@ class MatOption {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatOption,
   decorators: [{

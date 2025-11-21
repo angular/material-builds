@@ -100,7 +100,7 @@ class MatProgressBar {
   };
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatProgressBar,
     deps: [],
@@ -108,7 +108,7 @@ class MatProgressBar {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     type: MatProgressBar,
     isStandalone: true,
     selector: "mat-progress-bar",
@@ -148,7 +148,7 @@ class MatProgressBar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatProgressBar,
   decorators: [{
@@ -207,7 +207,7 @@ function clamp(v, min = 0, max = 100) {
 class MatProgressBarModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatProgressBarModule,
     deps: [],
@@ -215,7 +215,7 @@ class MatProgressBarModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatProgressBarModule,
     imports: [MatProgressBar],
@@ -223,7 +223,7 @@ class MatProgressBarModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "20.2.0-next.2",
+    version: "21.0.0",
     ngImport: i0,
     type: MatProgressBarModule,
     imports: [BidiModule]
@@ -231,7 +231,7 @@ class MatProgressBarModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "20.2.0-next.2",
+  version: "21.0.0",
   ngImport: i0,
   type: MatProgressBarModule,
   decorators: [{
