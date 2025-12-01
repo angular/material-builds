@@ -579,6 +579,8 @@ class MatTimepickerInput {
   _timepickerSubscription;
   _validator;
   _lastValueValid = true;
+  _minValid = true;
+  _maxValid = true;
   _lastValidDate = null;
   _ariaActiveDescendant = computed(() => {
     const timepicker = this.timepicker();
@@ -647,8 +649,7 @@ class MatTimepickerInput {
     }
     const renderer = inject(Renderer2);
     this._validator = this._getValidator();
-    this._respondToValueChanges();
-    this._respondToMinMaxChanges();
+    this._updateFormsState();
     this._registerTimepicker();
     this._localeSubscription = this._dateAdapter.localeChanges.subscribe(() => {
       if (!this._hasFocus()) {
@@ -739,18 +740,28 @@ class MatTimepickerInput {
       this._formatValue(value);
     }
   }
-  _respondToValueChanges() {
+  _updateFormsState() {
     effect(() => {
-      const value = this._dateAdapter.deserialize(this.value());
-      const wasValid = this._lastValueValid;
-      this._lastValueValid = this._isValid(value);
+      const {
+        _dateAdapter: adapter,
+        _lastValueValid: prevValueValid,
+        _minValid: prevMinValid,
+        _maxValid: prevMaxValid
+      } = this;
+      const value = adapter.deserialize(this.value());
+      const min = this.min();
+      const max = this.max();
+      const valueValid = this._lastValueValid = this._isValid(value);
+      this._minValid = !min || !value || !valueValid || adapter.compareTime(min, value) <= 0;
+      this._maxValid = !max || !value || !valueValid || adapter.compareTime(max, value) >= 0;
+      const stateChanged = prevValueValid !== valueValid || prevMinValid !== this._minValid || prevMaxValid !== this._maxValid;
       if (!this._hasFocus()) {
         this._formatValue(value);
       }
-      if (value && this._lastValueValid) {
+      if (value && valueValid) {
         this._lastValidDate = value;
       }
-      if (wasValid !== this._lastValueValid) {
+      if (stateChanged) {
         this._validatorOnChange?.();
       }
     });
@@ -760,13 +771,6 @@ class MatTimepickerInput {
       const timepicker = this.timepicker();
       timepicker.registerInput(this);
       timepicker.closed.subscribe(() => this._onTouched?.());
-    });
-  }
-  _respondToMinMaxChanges() {
-    effect(() => {
-      this.min();
-      this.max();
-      this._validatorOnChange?.();
     });
   }
   _assignUserSelection(selection, propagateToAccessor) {
@@ -805,24 +809,16 @@ class MatTimepickerInput {
       'matTimepickerParse': {
         'text': this._elementRef.nativeElement.value
       }
-    }, control => {
-      const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-      const min = this.min();
-      return !min || !controlValue || this._dateAdapter.compareTime(min, controlValue) <= 0 ? null : {
-        'matTimepickerMin': {
-          'min': min,
-          'actual': controlValue
-        }
-      };
-    }, control => {
-      const controlValue = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value));
-      const max = this.max();
-      return !max || !controlValue || this._dateAdapter.compareTime(max, controlValue) >= 0 ? null : {
-        'matTimepickerMax': {
-          'max': max,
-          'actual': controlValue
-        }
-      };
+    }, control => this._minValid ? null : {
+      'matTimepickerMin': {
+        'min': this.min(),
+        'actual': this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value))
+      }
+    }, control => this._maxValid ? null : {
+      'matTimepickerMax': {
+        'max': this.max(),
+        'actual': this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(control.value))
+      }
     }]);
   }
   static ɵfac = i0.ɵɵngDeclareFactory({

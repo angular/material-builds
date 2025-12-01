@@ -168,6 +168,8 @@ declare class MatTimepickerInput<D> implements MatTimepickerConnectedInput<D>, C
     private _timepickerSubscription;
     private _validator;
     private _lastValueValid;
+    private _minValid;
+    private _maxValid;
     private _lastValidDate;
     /** Value of the `aria-activedescendant` attribute. */
     protected readonly _ariaActiveDescendant: Signal<string | null>;
@@ -250,12 +252,10 @@ declare class MatTimepickerInput<D> implements MatTimepickerConnectedInput<D>, C
     protected _handleKeydown(event: KeyboardEvent): void;
     /** Called by the timepicker to sync up the user-selected value. */
     timepickerValueAssigned(value: D | null): void;
-    /** Sets up the code that watches for changes in the value and adjusts the input. */
-    private _respondToValueChanges;
+    /** Sets up the code that keeps the input state in sync with the forms module. */
+    private _updateFormsState;
     /** Sets up the logic that registers the input with the timepicker. */
     private _registerTimepicker;
-    /** Sets up the logic that adjusts the input if the min/max changes. */
-    private _respondToMinMaxChanges;
     /**
      * Assigns a value set by the user to the input's model.
      * @param selection Time selected by the user that should be assigned.
