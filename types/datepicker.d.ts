@@ -964,9 +964,13 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     registerOnValidatorChange(fn: () => void): void;
     /** @docs-private */
     validate(c: AbstractControl): ValidationErrors | null;
+    /** Implemented as part of ControlValueAccessor. */
     writeValue(value: D): void;
+    /** Implemented as part of ControlValueAccessor. */
     registerOnChange(fn: (value: any) => void): void;
+    /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: () => void): void;
+    /** Implemented as part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
     _onKeydown(event: KeyboardEvent): void;
     _onInput(event: Event): void;

@@ -3341,7 +3341,9 @@ class MatDatepickerInputBase {
     return this._validator ? this._validator(c) : null;
   }
   writeValue(value) {
-    this._assignValueProgrammatically(value);
+    if (!value || value !== this.value) {
+      this._assignValueProgrammatically(value);
+    }
   }
   registerOnChange(fn) {
     this._cvaOnChange = fn;

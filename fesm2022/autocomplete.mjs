@@ -724,8 +724,12 @@ class MatAutocompleteTrigger {
     }
   }
   _attachOverlay(valueOnAttach) {
-    if (!this.autocomplete && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-      throw getMatAutocompleteMissingPanelError();
+    if (!this.autocomplete) {
+      if (typeof ngDevMode === 'undefined' || ngDevMode) {
+        throw getMatAutocompleteMissingPanelError();
+      } else {
+        return;
+      }
     }
     let overlayRef = this._overlayRef;
     if (!overlayRef) {
