@@ -1,9 +1,9 @@
 import * as i0 from '@angular/core';
 import { Directive, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, booleanAttribute, NgModule } from '@angular/core';
 import { CdkTable, CDK_TABLE, STICKY_POSITIONING_LISTENER, HeaderRowOutlet, DataRowOutlet, NoDataRowOutlet, FooterRowOutlet, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkCellOutlet, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn, CdkTableModule } from '@angular/cdk/table';
-import { _VIEW_REPEATER_STRATEGY, _RecycleViewRepeaterStrategy, _DisposeViewRepeaterStrategy, DataSource } from '@angular/cdk/collections';
 import { BidiModule } from '@angular/cdk/bidi';
 import { BehaviorSubject, Subject, merge, of, combineLatest } from 'rxjs';
+import { DataSource } from '@angular/cdk/collections';
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { map } from 'rxjs/operators';
 
@@ -22,10 +22,6 @@ class MatRecycleRows {
     type: MatRecycleRows,
     isStandalone: true,
     selector: "mat-table[recycleRows], table[mat-table][recycleRows]",
-    providers: [{
-      provide: _VIEW_REPEATER_STRATEGY,
-      useClass: _RecycleViewRepeaterStrategy
-    }],
     ngImport: i0
   });
 }
@@ -37,11 +33,7 @@ i0.ɵɵngDeclareClassMetadata({
   decorators: [{
     type: Directive,
     args: [{
-      selector: 'mat-table[recycleRows], table[mat-table][recycleRows]',
-      providers: [{
-        provide: _VIEW_REPEATER_STRATEGY,
-        useClass: _RecycleViewRepeaterStrategy
-      }]
+      selector: 'mat-table[recycleRows], table[mat-table][recycleRows]'
     }]
   }]
 });
@@ -74,9 +66,6 @@ class MatTable extends CdkTable {
     }, {
       provide: CDK_TABLE,
       useExisting: MatTable
-    }, {
-      provide: _VIEW_REPEATER_STRATEGY,
-      useClass: _DisposeViewRepeaterStrategy
     }, {
       provide: STICKY_POSITIONING_LISTENER,
       useValue: null
@@ -187,9 +176,6 @@ i0.ɵɵngDeclareClassMetadata({
       }, {
         provide: CDK_TABLE,
         useExisting: MatTable
-      }, {
-        provide: _VIEW_REPEATER_STRATEGY,
-        useClass: _DisposeViewRepeaterStrategy
       }, {
         provide: STICKY_POSITIONING_LISTENER,
         useValue: null

@@ -16,6 +16,9 @@ import './_sort-direction-chunk.js';
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
  * tables that animate rows.
+ *
+ * @deprecated This directive is a no-op and will be removed.
+ * @breaking-change 23.0.0
  */
 declare class MatRecycleRows {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRecycleRows, never>;
