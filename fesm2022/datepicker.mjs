@@ -3226,7 +3226,7 @@ class MatDatepickerInputBase {
     return this._model ? this._getValueFromModel(this._model.selection) : this._pendingValue;
   }
   set value(value) {
-    this._assignValueProgrammatically(value);
+    this._assignValueProgrammatically(value, true);
   }
   _model;
   get disabled() {
@@ -3318,7 +3318,7 @@ class MatDatepickerInputBase {
       }
     }
     this._localeSubscription = this._dateAdapter.localeChanges.subscribe(() => {
-      this._assignValueProgrammatically(this.value);
+      this._assignValueProgrammatically(this.value, true);
     });
   }
   ngAfterViewInit() {
@@ -3341,9 +3341,7 @@ class MatDatepickerInputBase {
     return this._validator ? this._validator(c) : null;
   }
   writeValue(value) {
-    if (!value || value !== this.value) {
-      this._assignValueProgrammatically(value);
-    }
+    this._assignValueProgrammatically(value, value !== this.value);
   }
   registerOnChange(fn) {
     this._cvaOnChange = fn;
@@ -3410,12 +3408,14 @@ class MatDatepickerInputBase {
   _parentDisabled() {
     return false;
   }
-  _assignValueProgrammatically(value) {
+  _assignValueProgrammatically(value, reformat) {
     value = this._dateAdapter.deserialize(value);
     this._lastValueValid = this._isValidValue(value);
     value = this._dateAdapter.getValidDateOrNull(value);
     this._assignValue(value);
-    this._formatValue(value);
+    if (reformat) {
+      this._formatValue(value);
+    }
   }
   _matchesFilter(value) {
     const filter = this._getDateFilter();
@@ -4420,8 +4420,8 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
   }) {
     return source !== this._rangeInput._startInput && source !== this._rangeInput._endInput;
   }
-  _assignValueProgrammatically(value) {
-    super._assignValueProgrammatically(value);
+  _assignValueProgrammatically(value, reformat) {
+    super._assignValueProgrammatically(value, reformat);
     const opposite = this === this._rangeInput._startInput ? this._rangeInput._endInput : this._rangeInput._startInput;
     opposite?._validatorOnChange();
     this._rawValue.set(this._elementRef.nativeElement.value);

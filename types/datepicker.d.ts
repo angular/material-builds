@@ -989,7 +989,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
      */
     protected _parentDisabled(): boolean;
     /** Programmatically assigns a value to the input. */
-    protected _assignValueProgrammatically(value: D | null): void;
+    protected _assignValueProgrammatically(value: D | null, reformat: boolean): void;
     /** Gets whether a value matches the current date filter. */
     _matchesFilter(value: D | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerInputBase<any, any>, never>;
@@ -1476,7 +1476,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     protected _getDateFilter(): DateFilterFn<D> | null | undefined;
     protected _parentDisabled(): boolean;
     protected _shouldHandleChangeEvent({ source }: DateSelectionModelChange<DateRange<D>>): boolean;
-    protected _assignValueProgrammatically(value: D | null): void;
+    protected _assignValueProgrammatically(value: D | null, reformat: boolean): void;
     protected _formatValue(value: D | null): void;
     /** return the ARIA accessible name of the input element */
     _getAccessibleName(): string;
