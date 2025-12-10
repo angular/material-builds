@@ -14,11 +14,11 @@ const schematics_2 = require("@angular/cdk/schematics");
 const change_1 = require("@schematics/angular/utility/change");
 const utility_1 = require("@schematics/angular/utility");
 const path_1 = require("path");
-const create_custom_theme_1 = require("./create-custom-theme");
+const create_theme_1 = require("./create-theme");
 /** Path segment that can be found in paths that refer to a prebuilt theme. */
 const prebuiltThemePathSegment = '@angular/material/prebuilt-themes';
 /** Default file name of the custom theme that can be generated. */
-const defaultCustomThemeFilename = 'custom-theme.scss';
+const defaultThemeFilename = 'material-theme.scss';
 /** Add pre-built styles to the main project style file. */
 function addThemeToAppStyles(options) {
     return (host, context) => {
@@ -30,18 +30,18 @@ function addThemeToAppStyles(options) {
         if (palettes === 'custom') {
             palettes = 'azure-blue';
         }
-        return insertCustomTheme(palettes, options.project, host, context.logger);
+        return insertTheme(palettes, options.project, host, context.logger);
     };
 }
 /**
- * Insert an Angular Material theme to project style file. If no valid style file could be found, a new
- * Scss file for the custom theme will be created.
+ * Insert an Angular Material theme to project style file. If no valid style file could be found,
+ * a new Sass file for the theme will be created.
  */
-async function insertCustomTheme(palettes, projectName, host, logger) {
+async function insertTheme(palettes, projectName, host, logger) {
     const workspace = await (0, utility_1.readWorkspace)(host);
     const project = (0, schematics_2.getProjectFromWorkspace)(workspace, projectName);
     const stylesPath = (0, schematics_2.getProjectStyleFile)(project, 'scss');
-    const themeContent = (0, create_custom_theme_1.createCustomTheme)(palettes);
+    const themeContent = (0, create_theme_1.createTheme)(palettes);
     if (!stylesPath) {
         if (!project.sourceRoot) {
             throw new schematics_1.SchematicsException(`Could not find source root for project: "${projectName}". ` +
@@ -49,14 +49,14 @@ async function insertCustomTheme(palettes, projectName, host, logger) {
         }
         // Normalize the path through the devkit utilities because we want to avoid having
         // unnecessary path segments and windows backslash delimiters.
-        const customThemePath = (0, core_1.normalize)((0, path_1.join)(project.sourceRoot, defaultCustomThemeFilename));
-        if (host.exists(customThemePath)) {
-            logger.warn(`Cannot create a custom Angular Material theme because
-          ${customThemePath} already exists. Skipping theme generation.`);
+        const themePath = (0, core_1.normalize)((0, path_1.join)(project.sourceRoot, defaultThemeFilename));
+        if (host.exists(themePath)) {
+            logger.warn(`Cannot create an Angular Material theme because
+          ${themePath} already exists. Skipping theme generation.`);
             return (0, schematics_1.noop)();
         }
-        host.create(customThemePath, themeContent);
-        return addThemeStyleToTarget(projectName, 'build', customThemePath, logger);
+        host.create(themePath, themeContent);
+        return addThemeStyleToTarget(projectName, 'build', themePath, logger);
     }
     const insertion = new change_1.InsertChange(stylesPath, 0, themeContent);
     const recorder = host.beginUpdate(stylesPath);
@@ -88,9 +88,9 @@ function addThemeStyleToTarget(projectName, targetName, assetPath, logger) {
                 // theme file. If a custom theme is set up, we are not able to safely replace the custom
                 // theme because these files can contain custom styles, while prebuilt themes are
                 // always packaged and considered replaceable.
-                if (stylePath.includes(defaultCustomThemeFilename)) {
+                if (stylePath.includes(defaultThemeFilename)) {
                     logger.error(`Could not add the selected theme to the CLI project ` +
-                        `configuration because there is already a custom theme file referenced.`);
+                        `configuration because there is already a theme file referenced.`);
                     logger.info(`Please manually add the following style file to your configuration:`);
                     logger.info(`    ${assetPath}`);
                     return;

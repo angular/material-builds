@@ -24,51 +24,13 @@ function default_1(options) {
         const workspace = await (0, utility_1.readWorkspace)(host);
         const project = (0, schematics_2.getProjectFromWorkspace)(workspace, options.project);
         if (project.extensions['projectType'] === workspace_models_1.ProjectType.Application) {
-            return (0, schematics_1.chain)([
-                (0, theming_1.addThemeToAppStyles)(options),
-                (0, material_fonts_1.addFontsToIndex)(options),
-                addMaterialAppStyles(options),
-            ]);
+            return (0, schematics_1.chain)([(0, theming_1.addThemeToAppStyles)(options), (0, material_fonts_1.addFontsToIndex)(options)]);
         }
         context.logger.warn('Angular Material has been set up in your workspace. There is no additional setup ' +
             'required for consuming Angular Material in your library project.\n\n' +
             'If you intended to run the schematic on a different project, pass the `--project` ' +
             'option.');
         return;
-    };
-}
-/**
- * Adds custom Material styles to the project style file. The custom CSS sets up the Roboto font
- * and reset the default browser body margin.
- */
-function addMaterialAppStyles(options) {
-    return async (host, context) => {
-        const workspace = await (0, utility_1.readWorkspace)(host);
-        const project = (0, schematics_2.getProjectFromWorkspace)(workspace, options.project);
-        const styleFilePath = (0, schematics_2.getProjectStyleFile)(project);
-        const logger = context.logger;
-        if (!styleFilePath) {
-            logger.error(`Could not find the default style file for this project.`);
-            logger.info(`Consider manually adding the Roboto font to your CSS.`);
-            logger.info(`More information at https://fonts.google.com/specimen/Roboto`);
-            return;
-        }
-        const buffer = host.read(styleFilePath);
-        if (!buffer) {
-            logger.error(`Could not read the default style file within the project ` + `(${styleFilePath})`);
-            logger.info(`Please consider manually setting up the Roboto font.`);
-            return;
-        }
-        const htmlContent = buffer.toString();
-        const insertion = '\n' +
-            `html, body { height: 100%; }\n` +
-            `body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }\n`;
-        if (htmlContent.includes(insertion)) {
-            return;
-        }
-        const recorder = host.beginUpdate(styleFilePath);
-        recorder.insertLeft(htmlContent.length, insertion);
-        host.commitUpdate(recorder);
     };
 }
 //# sourceMappingURL=setup-project.js.map

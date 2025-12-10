@@ -7,9 +7,9 @@
  * found in the LICENSE file at https://angular.dev/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createCustomTheme = createCustomTheme;
-/** Create custom theme for the given application configuration. */
-function createCustomTheme(userPaletteChoice) {
+exports.createTheme = createTheme;
+/** Create theme for the given application configuration. */
+function createTheme(userPaletteChoice) {
     const colorPalettes = new Map([
         ['azure-blue', { primary: 'azure', tertiary: 'blue' }],
         ['rose-red', { primary: 'rose', tertiary: 'red' }],
@@ -25,6 +25,7 @@ function createCustomTheme(userPaletteChoice) {
 @use '@angular/material' as mat;
 
 html {
+  height: 100%;
   @include mat.theme((
     color: (
       primary: mat.$${colorPalettes.get(userPaletteChoice).primary}-palette,
@@ -50,7 +51,8 @@ body {
 
   // Reset the user agent margin.
   margin: 0;
+  height: 100%;
 }
 `;
 }
-//# sourceMappingURL=create-custom-theme.js.map
+//# sourceMappingURL=create-theme.js.map
