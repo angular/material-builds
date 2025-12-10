@@ -19,7 +19,7 @@ import '@angular/cdk/layout';
 class MatTooltipModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTooltipModule,
     deps: [],
@@ -27,7 +27,7 @@ class MatTooltipModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTooltipModule,
     imports: [A11yModule, OverlayModule, MatTooltip, TooltipComponent],
@@ -35,7 +35,7 @@ class MatTooltipModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTooltipModule,
     imports: [A11yModule, OverlayModule, BidiModule, CdkScrollableModule]
@@ -43,7 +43,7 @@ class MatTooltipModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatTooltipModule,
   decorators: [{

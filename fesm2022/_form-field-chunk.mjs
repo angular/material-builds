@@ -13,7 +13,7 @@ import { _animationsDisabled } from './_animation-chunk.mjs';
 class MatLabel {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatLabel,
     deps: [],
@@ -21,7 +21,7 @@ class MatLabel {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatLabel,
     isStandalone: true,
     selector: "mat-label",
@@ -30,7 +30,7 @@ class MatLabel {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatLabel,
   decorators: [{
@@ -47,7 +47,7 @@ class MatError {
   constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatError,
     deps: [],
@@ -55,7 +55,7 @@ class MatError {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatError,
     isStandalone: true,
     selector: "mat-error, [matError]",
@@ -77,7 +77,7 @@ class MatError {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatError,
   decorators: [{
@@ -107,7 +107,7 @@ class MatHint {
   id = inject(_IdGenerator).getId('mat-mdc-hint-');
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatHint,
     deps: [],
@@ -115,7 +115,7 @@ class MatHint {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatHint,
     isStandalone: true,
     selector: "mat-hint",
@@ -136,7 +136,7 @@ class MatHint {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatHint,
   decorators: [{
@@ -169,7 +169,7 @@ class MatPrefix {
   _isText = false;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatPrefix,
     deps: [],
@@ -177,7 +177,7 @@ class MatPrefix {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatPrefix,
     isStandalone: true,
     selector: "[matPrefix], [matIconPrefix], [matTextPrefix]",
@@ -193,7 +193,7 @@ class MatPrefix {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatPrefix,
   decorators: [{
@@ -222,7 +222,7 @@ class MatSuffix {
   _isText = false;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSuffix,
     deps: [],
@@ -230,7 +230,7 @@ class MatSuffix {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatSuffix,
     isStandalone: true,
     selector: "[matSuffix], [matIconSuffix], [matTextSuffix]",
@@ -246,7 +246,7 @@ class MatSuffix {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatSuffix,
   decorators: [{
@@ -319,7 +319,7 @@ class MatFormFieldFloatingLabel {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatFormFieldFloatingLabel,
     deps: [],
@@ -327,7 +327,7 @@ class MatFormFieldFloatingLabel {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatFormFieldFloatingLabel,
     isStandalone: true,
     selector: "label[matFormFieldFloatingLabel]",
@@ -346,7 +346,7 @@ class MatFormFieldFloatingLabel {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatFormFieldFloatingLabel,
   decorators: [{
@@ -415,7 +415,7 @@ class MatFormFieldLineRipple {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatFormFieldLineRipple,
     deps: [],
@@ -423,7 +423,7 @@ class MatFormFieldLineRipple {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatFormFieldLineRipple,
     isStandalone: true,
     selector: "div[matFormFieldLineRipple]",
@@ -435,7 +435,7 @@ class MatFormFieldLineRipple {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatFormFieldLineRipple,
   decorators: [{
@@ -485,7 +485,7 @@ class MatFormFieldNotchedOutline {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatFormFieldNotchedOutline,
     deps: [],
@@ -493,7 +493,7 @@ class MatFormFieldNotchedOutline {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatFormFieldNotchedOutline,
     isStandalone: true,
     selector: "div[matFormFieldNotchedOutline]",
@@ -520,7 +520,7 @@ class MatFormFieldNotchedOutline {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatFormFieldNotchedOutline,
   decorators: [{
@@ -567,7 +567,7 @@ class MatFormFieldControl {
   describedByIds;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatFormFieldControl,
     deps: [],
@@ -575,7 +575,7 @@ class MatFormFieldControl {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatFormFieldControl,
     isStandalone: true,
     ngImport: i0
@@ -583,7 +583,7 @@ class MatFormFieldControl {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatFormFieldControl,
   decorators: [{
@@ -1011,7 +1011,7 @@ class MatFormField {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatFormField,
     deps: [],
@@ -1019,7 +1019,7 @@ class MatFormField {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatFormField,
     isStandalone: true,
     selector: "mat-form-field",
@@ -1190,7 +1190,7 @@ class MatFormField {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatFormField,
   decorators: [{

@@ -5,7 +5,7 @@ class _MatInternalFormField {
   labelPosition;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: _MatInternalFormField,
     deps: [],
@@ -13,7 +13,7 @@ class _MatInternalFormField {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: _MatInternalFormField,
     isStandalone: true,
     selector: "div[mat-internal-form-field]",
@@ -36,7 +36,7 @@ class _MatInternalFormField {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: _MatInternalFormField,
   decorators: [{

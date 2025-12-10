@@ -76,7 +76,7 @@ class MatBottomSheetContainer extends CdkDialogContainer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatBottomSheetContainer,
     deps: [],
@@ -84,7 +84,7 @@ class MatBottomSheetContainer extends CdkDialogContainer {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatBottomSheetContainer,
     isStandalone: true,
     selector: "mat-bottom-sheet-container",
@@ -125,7 +125,7 @@ class MatBottomSheetContainer extends CdkDialogContainer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatBottomSheetContainer,
   decorators: [{
@@ -317,7 +317,7 @@ class MatBottomSheet {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatBottomSheet,
     deps: [],
@@ -325,7 +325,7 @@ class MatBottomSheet {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatBottomSheet,
     providedIn: 'root'
@@ -333,7 +333,7 @@ class MatBottomSheet {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatBottomSheet,
   decorators: [{
@@ -348,7 +348,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatBottomSheetModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatBottomSheetModule,
     deps: [],
@@ -356,7 +356,7 @@ class MatBottomSheetModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatBottomSheetModule,
     imports: [DialogModule, PortalModule, MatBottomSheetContainer],
@@ -364,7 +364,7 @@ class MatBottomSheetModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatBottomSheetModule,
     providers: [MatBottomSheet],
@@ -373,7 +373,7 @@ class MatBottomSheetModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatBottomSheetModule,
   decorators: [{

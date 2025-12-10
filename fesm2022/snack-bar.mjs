@@ -98,7 +98,7 @@ class MatSnackBarConfig {
 class MatSnackBarLabel {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBarLabel,
     deps: [],
@@ -106,7 +106,7 @@ class MatSnackBarLabel {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatSnackBarLabel,
     isStandalone: true,
     selector: "[matSnackBarLabel]",
@@ -118,7 +118,7 @@ class MatSnackBarLabel {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatSnackBarLabel,
   decorators: [{
@@ -134,7 +134,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSnackBarActions {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBarActions,
     deps: [],
@@ -142,7 +142,7 @@ class MatSnackBarActions {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatSnackBarActions,
     isStandalone: true,
     selector: "[matSnackBarActions]",
@@ -154,7 +154,7 @@ class MatSnackBarActions {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatSnackBarActions,
   decorators: [{
@@ -170,7 +170,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSnackBarAction {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBarAction,
     deps: [],
@@ -178,7 +178,7 @@ class MatSnackBarAction {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatSnackBarAction,
     isStandalone: true,
     selector: "[matSnackBarAction]",
@@ -190,7 +190,7 @@ class MatSnackBarAction {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatSnackBarAction,
   decorators: [{
@@ -216,7 +216,7 @@ class SimpleSnackBar {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: SimpleSnackBar,
     deps: [],
@@ -224,7 +224,7 @@ class SimpleSnackBar {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: SimpleSnackBar,
     isStandalone: true,
     selector: "simple-snack-bar",
@@ -260,7 +260,7 @@ class SimpleSnackBar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: SimpleSnackBar,
   decorators: [{
@@ -486,7 +486,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBarContainer,
     deps: [],
@@ -494,7 +494,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatSnackBarContainer,
     isStandalone: true,
     selector: "mat-snack-bar-container",
@@ -541,7 +541,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatSnackBarContainer,
   decorators: [{
@@ -746,7 +746,7 @@ class MatSnackBar {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBar,
     deps: [],
@@ -754,7 +754,7 @@ class MatSnackBar {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBar,
     providedIn: 'root'
@@ -762,7 +762,7 @@ class MatSnackBar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatSnackBar,
   decorators: [{
@@ -778,7 +778,7 @@ const DIRECTIVES = [MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, 
 class MatSnackBarModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBarModule,
     deps: [],
@@ -786,7 +786,7 @@ class MatSnackBarModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBarModule,
     imports: [OverlayModule, PortalModule, MatButtonModule, SimpleSnackBar, MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction],
@@ -794,7 +794,7 @@ class MatSnackBarModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatSnackBarModule,
     providers: [MatSnackBar],
@@ -803,7 +803,7 @@ class MatSnackBarModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatSnackBarModule,
   decorators: [{
