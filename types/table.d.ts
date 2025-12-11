@@ -4,11 +4,13 @@ import * as i0 from '@angular/core';
 import * as i2 from '@angular/cdk/bidi';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
+import './_tooltip-chunk.js';
 import { MatPaginator } from './_paginator-chunk.js';
 import { MatSort } from './_sort-chunk.js';
+import '@angular/cdk/coercion';
+import '@angular/cdk/overlay';
 import './_palette-chunk.js';
 import './_form-field-chunk.js';
-import '@angular/cdk/coercion';
 import '@angular/forms';
 import './_form-field-control-chunk.js';
 import './_sort-direction-chunk.js';
@@ -174,7 +176,7 @@ declare class MatTableModule {
  * interactions. If your app needs to support more advanced use cases, consider implementing your
  * own `DataSource`.
  */
-declare class MatTableDataSource<T, P extends MatPaginator = MatPaginator> extends DataSource<T> {
+declare class MatTableDataSource<T extends object | any, P extends MatPaginator = MatPaginator> extends DataSource<T> {
     /** Stream that emits when a new data array is set on the data source. */
     private readonly _data;
     /** Stream emitting render data to the table (depends on ordered data changes). */

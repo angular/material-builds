@@ -25,6 +25,7 @@ import '@angular/cdk/coercion';
 import './_form-field-control-chunk.js';
 import './_form-field-module-chunk.js';
 import '@angular/cdk/observers';
+import './_tooltip-chunk.js';
 
 declare class MatPaginatorModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorModule, never>;
