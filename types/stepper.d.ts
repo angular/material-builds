@@ -113,11 +113,11 @@ declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDe
 /**
  * Content for a `mat-step` that will be rendered lazily.
  */
-declare class MatStepContent {
-    _template: TemplateRef<any>;
+declare class MatStepContent<C = unknown> {
+    _template: TemplateRef<C>;
     constructor(...args: unknown[]);
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepContent, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent, "ng-template[matStepContent]", never, {}, {}, never, never, true, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatStepContent<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent<any>, "ng-template[matStepContent]", never, {}, {}, never, never, true, never>;
 }
 
 declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContentInit, OnDestroy {

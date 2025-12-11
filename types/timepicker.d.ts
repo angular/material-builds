@@ -209,12 +209,12 @@ declare class MatTimepickerInput<D> implements MatTimepickerConnectedInput<D>, C
      * Implemented as a part of `ControlValueAccessor`.
      * @docs-private
      */
-    writeValue(value: any): void;
+    writeValue(value: unknown): void;
     /**
      * Implemented as a part of `ControlValueAccessor`.
      * @docs-private
      */
-    registerOnChange(fn: (value: any) => void): void;
+    registerOnChange(fn: (value: unknown) => void): void;
     /**
      * Implemented as a part of `ControlValueAccessor`.
      * @docs-private
