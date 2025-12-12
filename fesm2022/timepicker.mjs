@@ -125,12 +125,12 @@ class MatTimepicker {
     debugName: "_options"
   }] : []));
   _keyManager = new ActiveDescendantKeyManager(this._options, this._injector).withHomeAndEnd(true).withPageUpDown(true).withVerticalOrientation(true);
-  interval = input(parseInterval(this._defaultConfig?.interval || null), ...(ngDevMode ? [{
-    debugName: "interval",
+  interval = input(parseInterval(this._defaultConfig?.interval || null), {
+    ...(ngDevMode ? {
+      debugName: "interval"
+    } : {}),
     transform: parseInterval
-  }] : [{
-    transform: parseInterval
-  }]));
+  });
   options = input(null, ...(ngDevMode ? [{
     debugName: "options"
   }] : []));
@@ -140,24 +140,24 @@ class MatTimepicker {
   closed = output();
   activeDescendant = this._activeDescendant.asReadonly();
   panelId = inject(_IdGenerator).getId('mat-timepicker-panel-');
-  disableRipple = input(this._defaultConfig?.disableRipple ?? false, ...(ngDevMode ? [{
-    debugName: "disableRipple",
+  disableRipple = input(this._defaultConfig?.disableRipple ?? false, {
+    ...(ngDevMode ? {
+      debugName: "disableRipple"
+    } : {}),
     transform: booleanAttribute
-  }] : [{
-    transform: booleanAttribute
-  }]));
-  ariaLabel = input(null, ...(ngDevMode ? [{
-    debugName: "ariaLabel",
+  });
+  ariaLabel = input(null, {
+    ...(ngDevMode ? {
+      debugName: "ariaLabel"
+    } : {}),
     alias: 'aria-label'
-  }] : [{
-    alias: 'aria-label'
-  }]));
-  ariaLabelledby = input(null, ...(ngDevMode ? [{
-    debugName: "ariaLabelledby",
+  });
+  ariaLabelledby = input(null, {
+    ...(ngDevMode ? {
+      debugName: "ariaLabelledby"
+    } : {}),
     alias: 'aria-labelledby'
-  }] : [{
-    alias: 'aria-labelledby'
-  }]));
+  });
   disabled = computed(() => !!this._input()?.disabled(), ...(ngDevMode ? [{
     debugName: "disabled"
   }] : []));
@@ -375,7 +375,7 @@ class MatTimepicker {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTimepicker,
     deps: [],
@@ -383,7 +383,7 @@ class MatTimepicker {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatTimepicker,
     isStandalone: true,
     selector: "mat-timepicker",
@@ -463,7 +463,7 @@ class MatTimepicker {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatTimepicker,
   decorators: [{
@@ -602,47 +602,43 @@ class MatTimepickerInput {
   value = model(null, ...(ngDevMode ? [{
     debugName: "value"
   }] : []));
-  timepicker = input.required(...(ngDevMode ? [{
-    debugName: "timepicker",
+  timepicker = input.required({
+    ...(ngDevMode ? {
+      debugName: "timepicker"
+    } : {}),
     alias: 'matTimepicker'
-  }] : [{
-    alias: 'matTimepicker'
-  }]));
-  min = input(null, ...(ngDevMode ? [{
-    debugName: "min",
+  });
+  min = input(null, {
+    ...(ngDevMode ? {
+      debugName: "min"
+    } : {}),
     alias: 'matTimepickerMin',
     transform: value => this._transformDateInput(value)
-  }] : [{
-    alias: 'matTimepickerMin',
-    transform: value => this._transformDateInput(value)
-  }]));
-  max = input(null, ...(ngDevMode ? [{
-    debugName: "max",
+  });
+  max = input(null, {
+    ...(ngDevMode ? {
+      debugName: "max"
+    } : {}),
     alias: 'matTimepickerMax',
     transform: value => this._transformDateInput(value)
-  }] : [{
-    alias: 'matTimepickerMax',
-    transform: value => this._transformDateInput(value)
-  }]));
-  openOnClick = input(true, ...(ngDevMode ? [{
-    debugName: "openOnClick",
+  });
+  openOnClick = input(true, {
+    ...(ngDevMode ? {
+      debugName: "openOnClick"
+    } : {}),
     alias: 'matTimepickerOpenOnClick',
     transform: booleanAttribute
-  }] : [{
-    alias: 'matTimepickerOpenOnClick',
-    transform: booleanAttribute
-  }]));
+  });
   disabled = computed(() => this.disabledInput() || this._accessorDisabled(), ...(ngDevMode ? [{
     debugName: "disabled"
   }] : []));
-  disabledInput = input(false, ...(ngDevMode ? [{
-    debugName: "disabledInput",
+  disabledInput = input(false, {
+    ...(ngDevMode ? {
+      debugName: "disabledInput"
+    } : {}),
     transform: booleanAttribute,
     alias: 'disabled'
-  }] : [{
-    transform: booleanAttribute,
-    alias: 'disabled'
-  }]));
+  });
   constructor() {
     if (typeof ngDevMode === 'undefined' || ngDevMode) {
       validateAdapter(this._dateAdapter, this._dateFormats);
@@ -823,7 +819,7 @@ class MatTimepickerInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTimepickerInput,
     deps: [],
@@ -831,7 +827,7 @@ class MatTimepickerInput {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "17.1.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatTimepickerInput,
     isStandalone: true,
     selector: "input[matTimepicker]",
@@ -920,7 +916,7 @@ class MatTimepickerInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatTimepickerInput,
   decorators: [{
@@ -1029,42 +1025,41 @@ class MatTimepickerToggle {
   }, ...(ngDevMode ? [{
     debugName: "_isDisabled"
   }] : []));
-  timepicker = input.required(...(ngDevMode ? [{
-    debugName: "timepicker",
+  timepicker = input.required({
+    ...(ngDevMode ? {
+      debugName: "timepicker"
+    } : {}),
     alias: 'for'
-  }] : [{
-    alias: 'for'
-  }]));
-  ariaLabel = input(undefined, ...(ngDevMode ? [{
-    debugName: "ariaLabel",
+  });
+  ariaLabel = input(undefined, {
+    ...(ngDevMode ? {
+      debugName: "ariaLabel"
+    } : {}),
     alias: 'aria-label'
-  }] : [{
-    alias: 'aria-label'
-  }]));
-  ariaLabelledby = input(undefined, ...(ngDevMode ? [{
-    debugName: "ariaLabelledby",
+  });
+  ariaLabelledby = input(undefined, {
+    ...(ngDevMode ? {
+      debugName: "ariaLabelledby"
+    } : {}),
     alias: 'aria-labelledby'
-  }] : [{
-    alias: 'aria-labelledby'
-  }]));
+  });
   _defaultAriaLabel = 'Open timepicker options';
-  disabled = input(false, ...(ngDevMode ? [{
-    debugName: "disabled",
+  disabled = input(false, {
+    ...(ngDevMode ? {
+      debugName: "disabled"
+    } : {}),
     transform: booleanAttribute,
     alias: 'disabled'
-  }] : [{
-    transform: booleanAttribute,
-    alias: 'disabled'
-  }]));
+  });
   tabIndex = input(this._defaultTabIndex, ...(ngDevMode ? [{
     debugName: "tabIndex"
   }] : []));
-  disableRipple = input(this._defaultConfig?.disableRipple ?? false, ...(ngDevMode ? [{
-    debugName: "disableRipple",
+  disableRipple = input(this._defaultConfig?.disableRipple ?? false, {
+    ...(ngDevMode ? {
+      debugName: "disableRipple"
+    } : {}),
     transform: booleanAttribute
-  }] : [{
-    transform: booleanAttribute
-  }]));
+  });
   _open(event) {
     if (this.timepicker() && !this._isDisabled()) {
       this.timepicker().open();
@@ -1076,7 +1071,7 @@ class MatTimepickerToggle {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTimepickerToggle,
     deps: [],
@@ -1084,7 +1079,7 @@ class MatTimepickerToggle {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.1.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatTimepickerToggle,
     isStandalone: true,
     selector: "mat-timepicker-toggle",
@@ -1156,7 +1151,7 @@ class MatTimepickerToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatTimepickerToggle,
   decorators: [{
@@ -1230,7 +1225,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatTimepickerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTimepickerModule,
     deps: [],
@@ -1238,7 +1233,7 @@ class MatTimepickerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTimepickerModule,
     imports: [MatTimepicker, MatTimepickerInput, MatTimepickerToggle],
@@ -1246,7 +1241,7 @@ class MatTimepickerModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatTimepickerModule,
     imports: [MatTimepicker, MatTimepickerToggle, CdkScrollableModule]
@@ -1254,7 +1249,7 @@ class MatTimepickerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatTimepickerModule,
   decorators: [{

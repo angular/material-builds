@@ -6,7 +6,7 @@ import { MatRipple } from './_ripple-chunk.mjs';
 class MatRippleModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatRippleModule,
     deps: [],
@@ -14,7 +14,7 @@ class MatRippleModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatRippleModule,
     imports: [MatRipple],
@@ -22,7 +22,7 @@ class MatRippleModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatRippleModule,
     imports: [BidiModule]
@@ -30,7 +30,7 @@ class MatRippleModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatRippleModule,
   decorators: [{

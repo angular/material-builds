@@ -300,7 +300,7 @@ class MatIconRegistry {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatIconRegistry,
     deps: [{
@@ -318,7 +318,7 @@ class MatIconRegistry {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatIconRegistry,
     providedIn: 'root'
@@ -326,7 +326,7 @@ class MatIconRegistry {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatIconRegistry,
   decorators: [{

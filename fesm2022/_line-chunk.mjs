@@ -6,7 +6,7 @@ import { startWith } from 'rxjs/operators';
 class MatLine {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatLine,
     deps: [],
@@ -14,7 +14,7 @@ class MatLine {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatLine,
     isStandalone: true,
     selector: "[mat-line], [matLine]",
@@ -26,7 +26,7 @@ class MatLine {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatLine,
   decorators: [{
@@ -59,7 +59,7 @@ function setClass(element, className, isAdd) {
 class MatLineModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatLineModule,
     deps: [],
@@ -67,7 +67,7 @@ class MatLineModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatLineModule,
     imports: [MatLine],
@@ -75,7 +75,7 @@ class MatLineModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatLineModule,
     imports: [BidiModule]
@@ -83,7 +83,7 @@ class MatLineModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatLineModule,
   decorators: [{

@@ -13,7 +13,7 @@ class MatCard {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCard,
     deps: [],
@@ -21,7 +21,7 @@ class MatCard {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCard,
     isStandalone: true,
     selector: "mat-card",
@@ -47,7 +47,7 @@ class MatCard {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCard,
   decorators: [{
@@ -78,7 +78,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardTitle {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardTitle,
     deps: [],
@@ -86,7 +86,7 @@ class MatCardTitle {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardTitle,
     isStandalone: true,
     selector: "mat-card-title, [mat-card-title], [matCardTitle]",
@@ -98,7 +98,7 @@ class MatCardTitle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardTitle,
   decorators: [{
@@ -114,7 +114,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardTitleGroup {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardTitleGroup,
     deps: [],
@@ -122,7 +122,7 @@ class MatCardTitleGroup {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardTitleGroup,
     isStandalone: true,
     selector: "mat-card-title-group",
@@ -137,7 +137,7 @@ class MatCardTitleGroup {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardTitleGroup,
   decorators: [{
@@ -156,7 +156,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardContent {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardContent,
     deps: [],
@@ -164,7 +164,7 @@ class MatCardContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardContent,
     isStandalone: true,
     selector: "mat-card-content",
@@ -176,7 +176,7 @@ class MatCardContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardContent,
   decorators: [{
@@ -192,7 +192,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardSubtitle {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardSubtitle,
     deps: [],
@@ -200,7 +200,7 @@ class MatCardSubtitle {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardSubtitle,
     isStandalone: true,
     selector: "mat-card-subtitle, [mat-card-subtitle], [matCardSubtitle]",
@@ -212,7 +212,7 @@ class MatCardSubtitle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardSubtitle,
   decorators: [{
@@ -229,7 +229,7 @@ class MatCardActions {
   align = 'start';
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardActions,
     deps: [],
@@ -237,7 +237,7 @@ class MatCardActions {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardActions,
     isStandalone: true,
     selector: "mat-card-actions",
@@ -256,7 +256,7 @@ class MatCardActions {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardActions,
   decorators: [{
@@ -279,7 +279,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardHeader {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardHeader,
     deps: [],
@@ -287,7 +287,7 @@ class MatCardHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardHeader,
     isStandalone: true,
     selector: "mat-card-header",
@@ -302,7 +302,7 @@ class MatCardHeader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardHeader,
   decorators: [{
@@ -321,7 +321,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardFooter {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardFooter,
     deps: [],
@@ -329,7 +329,7 @@ class MatCardFooter {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardFooter,
     isStandalone: true,
     selector: "mat-card-footer",
@@ -341,7 +341,7 @@ class MatCardFooter {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardFooter,
   decorators: [{
@@ -357,7 +357,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardImage,
     deps: [],
@@ -365,7 +365,7 @@ class MatCardImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardImage,
     isStandalone: true,
     selector: "[mat-card-image], [matCardImage]",
@@ -377,7 +377,7 @@ class MatCardImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardImage,
   decorators: [{
@@ -393,7 +393,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardSmImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardSmImage,
     deps: [],
@@ -401,7 +401,7 @@ class MatCardSmImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardSmImage,
     isStandalone: true,
     selector: "[mat-card-sm-image], [matCardImageSmall]",
@@ -413,7 +413,7 @@ class MatCardSmImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardSmImage,
   decorators: [{
@@ -429,7 +429,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardMdImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardMdImage,
     deps: [],
@@ -437,7 +437,7 @@ class MatCardMdImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardMdImage,
     isStandalone: true,
     selector: "[mat-card-md-image], [matCardImageMedium]",
@@ -449,7 +449,7 @@ class MatCardMdImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardMdImage,
   decorators: [{
@@ -465,7 +465,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardLgImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardLgImage,
     deps: [],
@@ -473,7 +473,7 @@ class MatCardLgImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardLgImage,
     isStandalone: true,
     selector: "[mat-card-lg-image], [matCardImageLarge]",
@@ -485,7 +485,7 @@ class MatCardLgImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardLgImage,
   decorators: [{
@@ -501,7 +501,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardXlImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardXlImage,
     deps: [],
@@ -509,7 +509,7 @@ class MatCardXlImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardXlImage,
     isStandalone: true,
     selector: "[mat-card-xl-image], [matCardImageXLarge]",
@@ -521,7 +521,7 @@ class MatCardXlImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardXlImage,
   decorators: [{
@@ -537,7 +537,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardAvatar {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardAvatar,
     deps: [],
@@ -545,7 +545,7 @@ class MatCardAvatar {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatCardAvatar,
     isStandalone: true,
     selector: "[mat-card-avatar], [matCardAvatar]",
@@ -557,7 +557,7 @@ class MatCardAvatar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardAvatar,
   decorators: [{
@@ -575,7 +575,7 @@ const CARD_DIRECTIVES = [MatCard, MatCardActions, MatCardAvatar, MatCardContent,
 class MatCardModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardModule,
     deps: [],
@@ -583,7 +583,7 @@ class MatCardModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardModule,
     imports: [MatCard, MatCardActions, MatCardAvatar, MatCardContent, MatCardFooter, MatCardHeader, MatCardImage, MatCardLgImage, MatCardMdImage, MatCardSmImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup, MatCardXlImage],
@@ -591,7 +591,7 @@ class MatCardModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatCardModule,
     imports: [BidiModule]
@@ -599,7 +599,7 @@ class MatCardModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatCardModule,
   decorators: [{

@@ -20,7 +20,7 @@ class MatDivider {
   _inset = false;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatDivider,
     deps: [],
@@ -28,7 +28,7 @@ class MatDivider {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     type: MatDivider,
     isStandalone: true,
     selector: "mat-divider",
@@ -58,7 +58,7 @@ class MatDivider {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatDivider,
   decorators: [{
@@ -92,7 +92,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDividerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatDividerModule,
     deps: [],
@@ -100,7 +100,7 @@ class MatDividerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatDividerModule,
     imports: [MatDivider],
@@ -108,7 +108,7 @@ class MatDividerModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.0",
+    version: "21.0.3",
     ngImport: i0,
     type: MatDividerModule,
     imports: [BidiModule]
@@ -116,7 +116,7 @@ class MatDividerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.0",
+  version: "21.0.3",
   ngImport: i0,
   type: MatDividerModule,
   decorators: [{
