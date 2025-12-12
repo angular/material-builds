@@ -260,8 +260,7 @@ class MatTooltip {
       positionStrategy: strategy,
       panelClass: this._overlayPanelClass ? [...this._overlayPanelClass, panelClass] : panelClass,
       scrollStrategy: this._injector.get(MAT_TOOLTIP_SCROLL_STRATEGY)(),
-      disableAnimations: this._animationsDisabled,
-      usePopover: true
+      disableAnimations: this._animationsDisabled
     });
     this._updatePosition(this._overlayRef);
     this._overlayRef.detachments().pipe(takeUntil(this._destroyed)).subscribe(() => this._detach());
