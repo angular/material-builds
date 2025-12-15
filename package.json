@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "21.1.0-next.2+sha-f95fb0e",
+  "version": "21.1.0-next.2+sha-749654e",
   "description": "Angular Material",
   "repository": {
     "type": "git",
@@ -353,7 +353,7 @@
     }
   },
   "peerDependencies": {
-    "@angular/cdk": "21.1.0-next.2+sha-f95fb0e",
+    "@angular/cdk": "21.1.0-next.2+sha-749654e",
     "@angular/core": "^21.0.0-0 || ^21.1.0-0 || ^21.2.0-0 || ^21.3.0-0 || ^22.0.0-0",
     "@angular/common": "^21.0.0-0 || ^21.1.0-0 || ^21.2.0-0 || ^21.3.0-0 || ^22.0.0-0",
     "@angular/forms": "^21.0.0-0 || ^21.1.0-0 || ^21.2.0-0 || ^21.3.0-0 || ^22.0.0-0",
