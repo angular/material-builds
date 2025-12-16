@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { Component, ViewEncapsulation, ChangeDetectionStrategy, Input } from '@angular/core';
 
 class _MatInternalFormField {
-  labelPosition;
+  labelPosition = 'after';
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "21.0.3",

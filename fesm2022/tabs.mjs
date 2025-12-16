@@ -317,8 +317,8 @@ class MatInkBar {
 }
 class InkBarItem {
   _elementRef = inject(ElementRef);
-  _inkBarElement;
-  _inkBarContentElement;
+  _inkBarElement = null;
+  _inkBarContentElement = null;
   _fitToContent = false;
   get fitInkBarToContent() {
     return this._fitToContent;
@@ -513,7 +513,7 @@ class MatPaginatedTabHeader {
   _disableScrollAfter = true;
   _disableScrollBefore = true;
   _tabLabelCount;
-  _scrollDistanceChanged;
+  _scrollDistanceChanged = false;
   _keyManager;
   _currentTextContent;
   _stopScrolling = new Subject();
@@ -1095,7 +1095,7 @@ class MatTabBody {
   _renderer = inject(Renderer2);
   _diAnimationsDisabled = _animationsDisabled();
   _eventCleanups;
-  _initialized;
+  _initialized = false;
   _fallbackTimer;
   _positionIndex;
   _dirChangeSubscription = Subscription.EMPTY;
@@ -1369,7 +1369,7 @@ class MatTabGroup {
   set contentTabIndex(value) {
     this._contentTabIndex = isNaN(value) ? null : value;
   }
-  _contentTabIndex;
+  _contentTabIndex = null;
   disablePagination = false;
   disableRipple = false;
   preserveContent = false;

@@ -55,8 +55,8 @@ class MatTooltip {
   _defaultOptions = inject(MAT_TOOLTIP_DEFAULT_OPTIONS, {
     optional: true
   });
-  _overlayRef;
-  _tooltipInstance;
+  _overlayRef = null;
+  _tooltipInstance = null;
   _overlayPanelClass;
   _portal;
   _position = 'below';
@@ -69,7 +69,7 @@ class MatTooltip {
   _viewportMargin = 8;
   _currentPosition;
   _cssClassPrefix = 'mat-mdc';
-  _ariaDescriptionPending;
+  _ariaDescriptionPending = false;
   _dirSubscribed = false;
   get position() {
     return this._position;

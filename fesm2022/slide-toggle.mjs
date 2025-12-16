@@ -51,14 +51,14 @@ class MatSlideToggle {
     this._switchElement.nativeElement.focus();
   }
   _noopAnimations = _animationsDisabled();
-  _focused;
+  _focused = false;
   name = null;
   id;
   labelPosition = 'after';
   ariaLabel = null;
   ariaLabelledby = null;
   ariaDescribedby;
-  required;
+  required = false;
   color;
   disabled = false;
   disableRipple = false;

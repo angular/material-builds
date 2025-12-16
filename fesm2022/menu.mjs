@@ -335,7 +335,7 @@ class MatMenu {
   templateRef;
   items;
   lazyContent;
-  overlapTrigger;
+  overlapTrigger = false;
   hasBackdrop;
   set panelClass(classes) {
     const previousPanelClass = this._previousPanelClass;
@@ -735,7 +735,7 @@ class MatMenuTriggerBase {
     }
     this._menuItemInstance?._setTriggersSubmenu(this._triggersSubmenu());
   }
-  _menuInternal;
+  _menuInternal = null;
   constructor(_canHaveBackdrop) {
     this._canHaveBackdrop = _canHaveBackdrop;
     const parentMenu = inject(MAT_MENU_PANEL, {

@@ -135,7 +135,7 @@ class MatFabButton extends MatButtonBase {
     optional: true
   });
   _isFab = true;
-  extended;
+  extended = false;
   constructor() {
     super();
     this._options = this._options || defaults;

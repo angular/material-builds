@@ -144,13 +144,13 @@ class RippleRenderer {
   _ngZone;
   _platform;
   _containerElement;
-  _triggerElement;
+  _triggerElement = null;
   _isPointerDown = false;
   _activeRipples = new Map();
-  _mostRecentTransientRipple;
+  _mostRecentTransientRipple = null;
   _lastTouchStartEvent;
   _pointerUpEventsRegistered = false;
-  _containerRect;
+  _containerRect = null;
   static _eventManager = new RippleEventManager();
   constructor(_target, _ngZone, elementOrElementRef, _platform, injector) {
     this._target = _target;
@@ -372,8 +372,8 @@ class MatRipple {
   _elementRef = inject(ElementRef);
   _animationsDisabled = _animationsDisabled();
   color;
-  unbounded;
-  centered;
+  unbounded = false;
+  centered = false;
   radius = 0;
   animation;
   get disabled() {

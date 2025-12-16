@@ -121,7 +121,7 @@ class MatCalendarBody {
   _platform = inject(Platform);
   _intl = inject(MatDatepickerIntl);
   _eventCleanups;
-  _skipNextFocus;
+  _skipNextFocus = false;
   _focusActiveCellAfterViewChecked = false;
   label;
   rows;
@@ -139,12 +139,12 @@ class MatCalendarBody {
   }
   isRange = false;
   cellAspectRatio = 1;
-  comparisonStart;
-  comparisonEnd;
+  comparisonStart = null;
+  comparisonEnd = null;
   previewStart = null;
   previewEnd = null;
-  startDateAccessibleName;
-  endDateAccessibleName;
+  startDateAccessibleName = null;
+  endDateAccessibleName = null;
   selectedValueChange = new EventEmitter();
   previewChange = new EventEmitter();
   activeDateChange = new EventEmitter();
@@ -901,7 +901,7 @@ class MatMonthView {
     optional: true
   });
   _rerenderSubscription = Subscription.EMPTY;
-  _selectionKeyPressed;
+  _selectionKeyPressed = false;
   get activeDate() {
     return this._activeDate;
   }
@@ -925,27 +925,27 @@ class MatMonthView {
     }
     this._setRanges(this._selected);
   }
-  _selected;
+  _selected = null;
   get minDate() {
     return this._minDate;
   }
   set minDate(value) {
     this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _minDate;
+  _minDate = null;
   get maxDate() {
     return this._maxDate;
   }
   set maxDate(value) {
     this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _maxDate;
+  _maxDate = null;
   dateFilter;
   dateClass;
-  comparisonStart;
-  comparisonEnd;
-  startDateAccessibleName;
-  endDateAccessibleName;
+  comparisonStart = null;
+  comparisonEnd = null;
+  startDateAccessibleName = null;
+  endDateAccessibleName = null;
   activeDrag = null;
   selectedChange = new EventEmitter();
   _userSelection = new EventEmitter();
@@ -1382,7 +1382,7 @@ class MatMultiYearView {
     optional: true
   });
   _rerenderSubscription = Subscription.EMPTY;
-  _selectionKeyPressed;
+  _selectionKeyPressed = false;
   get activeDate() {
     return this._activeDate;
   }
@@ -1406,21 +1406,21 @@ class MatMultiYearView {
     }
     this._setSelectedYear(value);
   }
-  _selected;
+  _selected = null;
   get minDate() {
     return this._minDate;
   }
   set minDate(value) {
     this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _minDate;
+  _minDate = null;
   get maxDate() {
     return this._maxDate;
   }
   set maxDate(value) {
     this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _maxDate;
+  _maxDate = null;
   dateFilter;
   dateClass;
   selectedChange = new EventEmitter();
@@ -1715,7 +1715,7 @@ class MatYearView {
     optional: true
   });
   _rerenderSubscription = Subscription.EMPTY;
-  _selectionKeyPressed;
+  _selectionKeyPressed = false;
   get activeDate() {
     return this._activeDate;
   }
@@ -1739,21 +1739,21 @@ class MatYearView {
     }
     this._setSelectedMonth(value);
   }
-  _selected;
+  _selected = null;
   get minDate() {
     return this._minDate;
   }
   set minDate(value) {
     this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _minDate;
+  _minDate = null;
   get maxDate() {
     return this._maxDate;
   }
   set maxDate(value) {
     this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _maxDate;
+  _maxDate = null;
   dateFilter;
   dateClass;
   selectedChange = new EventEmitter();
@@ -2204,7 +2204,7 @@ class MatCalendar {
   set startAt(value) {
     this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _startAt;
+  _startAt = null;
   startView = 'month';
   get selected() {
     return this._selected;
@@ -2216,27 +2216,27 @@ class MatCalendar {
       this._selected = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
   }
-  _selected;
+  _selected = null;
   get minDate() {
     return this._minDate;
   }
   set minDate(value) {
     this._minDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _minDate;
+  _minDate = null;
   get maxDate() {
     return this._maxDate;
   }
   set maxDate(value) {
     this._maxDate = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _maxDate;
+  _maxDate = null;
   dateFilter;
   dateClass;
-  comparisonStart;
-  comparisonEnd;
-  startDateAccessibleName;
-  endDateAccessibleName;
+  comparisonStart = null;
+  comparisonEnd = null;
+  startDateAccessibleName = null;
+  endDateAccessibleName = null;
   selectedChange = new EventEmitter();
   yearSelected = new EventEmitter();
   monthSelected = new EventEmitter();
@@ -2568,17 +2568,17 @@ class MatDatepickerContent {
   _calendar;
   color;
   datepicker;
-  comparisonStart;
-  comparisonEnd;
-  startDateAccessibleName;
-  endDateAccessibleName;
-  _isAbove;
+  comparisonStart = null;
+  comparisonEnd = null;
+  startDateAccessibleName = null;
+  endDateAccessibleName = null;
+  _isAbove = false;
   _animationDone = new Subject();
   _isAnimating = false;
   _closeButtonText;
-  _closeButtonFocused;
+  _closeButtonFocused = false;
   _actionsPortal = null;
-  _dialogLabelId;
+  _dialogLabelId = null;
   constructor() {
     inject(_CdkPrivateStyleLoader).load(_VisuallyHiddenLoader);
     this._closeButtonText = inject(MatDatepickerIntl).closeCalendarLabel;
@@ -2778,7 +2778,7 @@ class MatDatepickerBase {
   set startAt(value) {
     this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
-  _startAt;
+  _startAt = null;
   startView = 'month';
   get color() {
     return this._color || (this.datepickerInput ? this.datepickerInput.getThemePalette() : undefined);
@@ -2835,11 +2835,11 @@ class MatDatepickerBase {
   _getDateFilter() {
     return this.datepickerInput && this.datepickerInput.dateFilter;
   }
-  _overlayRef;
-  _componentRef;
+  _overlayRef = null;
+  _componentRef = null;
   _focusedElementBeforeOpen = null;
   _backdropHarnessClass = `${this.id}-backdrop`;
-  _actionsPortal;
+  _actionsPortal = null;
   datepickerInput;
   stateChanges = new Subject();
   _changeDetectorRef = inject(ChangeDetectorRef);
@@ -3206,7 +3206,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDatepickerInputEvent {
   target;
   targetElement;
-  value;
+  value = null;
   constructor(target, targetElement) {
     this.target = target;
     this.targetElement = targetElement;
@@ -3221,7 +3221,7 @@ class MatDatepickerInputBase {
   _dateFormats = inject(MAT_DATE_FORMATS, {
     optional: true
   });
-  _isInitialized;
+  _isInitialized = false;
   get value() {
     return this._model ? this._getValueFromModel(this._model.selection) : this._pendingValue;
   }
@@ -3252,7 +3252,7 @@ class MatDatepickerInputBase {
   _cvaOnChange = () => {};
   _valueChangesSubscription = Subscription.EMPTY;
   _localeSubscription = Subscription.EMPTY;
-  _pendingValue;
+  _pendingValue = null;
   _parseValidator = () => {
     return this._lastValueValid ? null : {
       'matDatepickerParse': {
@@ -3535,7 +3535,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
       this._validatorOnChange();
     }
   }
-  _min;
+  _min = null;
   get max() {
     return this._max;
   }
@@ -3546,7 +3546,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
       this._validatorOnChange();
     }
   }
-  _max;
+  _max = null;
   get dateFilter() {
     return this._dateFilter;
   }
@@ -3558,7 +3558,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
     }
   }
   _dateFilter;
-  _validator;
+  _validator = null;
   constructor() {
     super();
     this._validator = Validators.compose(super._getValidators());
@@ -3736,7 +3736,7 @@ class MatDatepickerToggle {
   _changeDetectorRef = inject(ChangeDetectorRef);
   _stateChanges = Subscription.EMPTY;
   datepicker;
-  tabIndex;
+  tabIndex = null;
   ariaLabel;
   get disabled() {
     if (this._disabled === undefined && this.datepicker) {
@@ -3748,7 +3748,7 @@ class MatDatepickerToggle {
     this._disabled = value;
   }
   _disabled;
-  disableRipple;
+  disableRipple = false;
   _customIcon;
   _button;
   constructor() {
@@ -3988,7 +3988,7 @@ class MatDateRangeInput {
       this._revalidate();
     }
   }
-  _min;
+  _min = null;
   get max() {
     return this._max;
   }
@@ -3999,7 +3999,7 @@ class MatDateRangeInput {
       this._revalidate();
     }
   }
-  _max;
+  _max = null;
   get disabled() {
     return this._startInput && this._endInput ? this._startInput.disabled && this._endInput.disabled : this._groupDisabled;
   }

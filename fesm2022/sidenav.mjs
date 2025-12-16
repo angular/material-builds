@@ -119,8 +119,8 @@ class MatDrawer {
   _focusTrap = null;
   _elementFocusedBeforeDrawerWasOpened = null;
   _eventCleanups;
-  _isAttached;
-  _anchor;
+  _isAttached = false;
+  _anchor = null;
   get position() {
     return this._position;
   }
@@ -178,7 +178,7 @@ class MatDrawer {
   _opened = signal(false, ...(ngDevMode ? [{
     debugName: "_opened"
   }] : []));
-  _openedVia;
+  _openedVia = null;
   _animationStarted = new Subject();
   _animationEnd = new Subject();
   openedChange = new EventEmitter(true);
@@ -546,12 +546,12 @@ class MatDrawerContainer {
   set hasBackdrop(value) {
     this._backdropOverride = value == null ? null : coerceBooleanProperty(value);
   }
-  _backdropOverride;
+  _backdropOverride = null;
   backdropClick = new EventEmitter();
-  _start;
-  _end;
-  _left;
-  _right;
+  _start = null;
+  _end = null;
+  _left = null;
+  _right = null;
   _destroyed = new Subject();
   _doCheckSubject = new Subject();
   _contentMargins = {

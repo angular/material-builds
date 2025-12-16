@@ -59,7 +59,7 @@ class MatButtonToggleGroup {
     this._markButtonsForCheck();
   }
   _name = inject(_IdGenerator).getId('mat-button-toggle-group-');
-  vertical;
+  vertical = false;
   get value() {
     const selected = this._selectionModel ? this._selectionModel.selected : [];
     if (this.multiple) {
@@ -122,8 +122,8 @@ class MatButtonToggleGroup {
       optional: true
     });
     this.appearance = defaultOptions && defaultOptions.appearance ? defaultOptions.appearance : 'standard';
-    this.hideSingleSelectionIndicator = defaultOptions?.hideSingleSelectionIndicator ?? false;
-    this.hideMultipleSelectionIndicator = defaultOptions?.hideMultipleSelectionIndicator ?? false;
+    this._hideSingleSelectionIndicator = defaultOptions?.hideSingleSelectionIndicator ?? false;
+    this._hideMultipleSelectionIndicator = defaultOptions?.hideMultipleSelectionIndicator ?? false;
   }
   ngOnInit() {
     this._selectionModel = new SelectionModel(this.multiple, undefined, false);
@@ -465,7 +465,7 @@ class MatButtonToggle {
     this._tabIndex.set(value);
   }
   _tabIndex;
-  disableRipple;
+  disableRipple = false;
   get appearance() {
     return this.buttonToggleGroup ? this.buttonToggleGroup.appearance : this._appearance;
   }
@@ -515,8 +515,8 @@ class MatButtonToggle {
       debugName: "_tabIndex"
     }] : []));
     this.buttonToggleGroup = toggleGroup;
-    this.appearance = defaultOptions && defaultOptions.appearance ? defaultOptions.appearance : 'standard';
-    this.disabledInteractive = defaultOptions?.disabledInteractive ?? false;
+    this._appearance = defaultOptions && defaultOptions.appearance ? defaultOptions.appearance : 'standard';
+    this._disabledInteractive = defaultOptions?.disabledInteractive ?? false;
   }
   ngOnInit() {
     const group = this.buttonToggleGroup;

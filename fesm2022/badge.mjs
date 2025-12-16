@@ -61,7 +61,7 @@ class MatBadge {
   }
   _color = 'primary';
   overlap = true;
-  disabled;
+  disabled = false;
   position = 'above after';
   get content() {
     return this._content;
@@ -78,7 +78,7 @@ class MatBadge {
   }
   _description;
   size = 'medium';
-  hidden;
+  hidden = false;
   _badgeElement;
   _inlineBadgeDescription;
   _isInitialized = false;

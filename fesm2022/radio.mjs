@@ -376,8 +376,8 @@ class MatRadioButton {
     return `${this.id || this._uniqueId}-input`;
   }
   _checked = false;
-  _disabled;
-  _required;
+  _disabled = false;
+  _required = false;
   _value = null;
   _removeUniqueSelectionListener = () => {};
   _previousTabIndex;

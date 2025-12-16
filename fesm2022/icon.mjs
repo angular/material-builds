@@ -75,8 +75,8 @@ class MatIcon {
   _fontIcon;
   _previousFontSetClass = [];
   _previousFontIconClass;
-  _svgName;
-  _svgNamespace;
+  _svgName = null;
+  _svgNamespace = null;
   _previousPath;
   _elementsWithExternalReferences;
   _currentIconFetch = Subscription.EMPTY;

@@ -440,10 +440,10 @@ class MatChip {
   _document = inject(DOCUMENT);
   _onFocus = new Subject();
   _onBlur = new Subject();
-  _isBasicChip;
+  _isBasicChip = false;
   role = null;
   _hasFocusInternal = false;
-  _pendingFocus;
+  _pendingFocus = false;
   _actionChanges;
   _animationsDisabled = _animationsDisabled();
   _allLeadingIcons;
@@ -2014,7 +2014,7 @@ class MatChipGrid extends MatChipSet {
     this._placeholder = value;
     this.stateChanges.next();
   }
-  _placeholder;
+  _placeholder = '';
   get focused() {
     return this._chipInput?.focused || this._hasFocusedChip();
   }

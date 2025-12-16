@@ -73,7 +73,7 @@ class MatAutocomplete {
   autoSelectActiveOption;
   requireSelection;
   panelWidth;
-  disableRipple;
+  disableRipple = false;
   optionSelected = new EventEmitter();
   opened = new EventEmitter();
   closed = new EventEmitter();
@@ -400,16 +400,16 @@ class MatAutocompleteTrigger {
   _defaults = inject(MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, {
     optional: true
   });
-  _overlayRef;
+  _overlayRef = null;
   _portal;
   _componentDestroyed = false;
   _initialized = new Subject();
   _keydownSubscription;
   _outsideClickSubscription;
   _cleanupWindowBlur;
-  _previousValue;
-  _valueOnAttach;
-  _valueOnLastKeydown;
+  _previousValue = null;
+  _valueOnAttach = null;
+  _valueOnLastKeydown = null;
   _positionStrategy;
   _manuallyFloatingLabel = false;
   _closingActionsSubscription;
@@ -418,7 +418,7 @@ class MatAutocompleteTrigger {
   _handsetLandscapeSubscription = Subscription.EMPTY;
   _canOpenOnNextFocus = true;
   _valueBeforeAutoSelection;
-  _pendingAutoselectedOption;
+  _pendingAutoselectedOption = null;
   _closeKeyEventStream = new Subject();
   _overlayPanelClass = coerceArray(this._defaults?.overlayPanelClass || []);
   _windowBlurHandler = () => {
@@ -430,7 +430,7 @@ class MatAutocompleteTrigger {
   position = 'auto';
   connectedTo;
   autocompleteAttribute = 'off';
-  autocompleteDisabled;
+  autocompleteDisabled = false;
   constructor() {}
   _aboveClass = 'mat-mdc-autocomplete-panel-above';
   ngAfterViewInit() {
@@ -800,7 +800,7 @@ class MatAutocompleteTrigger {
     } else {
       this._keydownSubscription?.unsubscribe();
       this._outsideClickSubscription?.unsubscribe();
-      this._keydownSubscription = this._outsideClickSubscription = null;
+      this._keydownSubscription = this._outsideClickSubscription = undefined;
     }
   }
   _getOverlayConfig() {

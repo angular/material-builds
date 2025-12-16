@@ -17,7 +17,7 @@ class MatBottomSheetContainer extends CdkDialogContainer {
   _animationsDisabled = _animationsDisabled();
   _animationState = 'void';
   _animationStateChanged = new EventEmitter();
-  _destroyed;
+  _destroyed = false;
   constructor() {
     super();
     const breakpointObserver = inject(BreakpointObserver);

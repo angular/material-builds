@@ -39,7 +39,7 @@ class MatSliderVisualThumb {
   _slider = inject(MAT_SLIDER);
   _renderer = inject(Renderer2);
   _listenerCleanups;
-  discrete;
+  discrete = false;
   thumbPosition;
   valueIndicatorText;
   _ripple;
@@ -516,7 +516,7 @@ class MatSlider {
   _tickMarks;
   _noopAnimations = _animationsDisabled();
   _dirChangeSubscription;
-  _resizeObserver;
+  _resizeObserver = null;
   _cachedWidth;
   _cachedLeft;
   _rippleRadius = 24;
@@ -583,7 +583,7 @@ class MatSlider {
     sInput._updateThumbUIByValue();
   }
   ngOnDestroy() {
-    this._dirChangeSubscription.unsubscribe();
+    this._dirChangeSubscription?.unsubscribe();
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
   }
@@ -1507,8 +1507,8 @@ class MatSliderRangeThumb extends MatSliderThumb {
   _setIsLeftThumb() {
     this._isLeftThumb = this._isEndThumb && this._slider._isRtl || !this._isEndThumb && !this._slider._isRtl;
   }
-  _isLeftThumb;
-  _isEndThumb;
+  _isLeftThumb = false;
+  _isEndThumb = false;
   constructor() {
     super();
     this._isEndThumb = this._hostElement.hasAttribute('matSliderEndThumb');

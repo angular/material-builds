@@ -43,17 +43,17 @@ class MatInput {
   _previousNativeValue;
   _inputValueAccessor;
   _signalBasedValueAccessor;
-  _previousPlaceholder;
+  _previousPlaceholder = null;
   _errorStateTracker;
   _config = inject(MAT_INPUT_CONFIG, {
     optional: true
   });
   _cleanupIosKeyup;
   _cleanupWebkitWheel;
-  _isServer;
-  _isNativeSelect;
-  _isTextarea;
-  _isInFormField;
+  _isServer = false;
+  _isNativeSelect = false;
+  _isTextarea = false;
+  _isInFormField = false;
   focused = false;
   stateChanges = new Subject();
   controlType = 'mat-input';

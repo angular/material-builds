@@ -549,17 +549,17 @@ i0.ɵɵngDeclareClassMetadata({
 });
 
 class MatFormFieldControl {
-  value;
+  value = null;
   stateChanges;
   id;
   placeholder;
-  ngControl;
-  focused;
-  empty;
-  shouldLabelFloat;
-  required;
-  disabled;
-  errorState;
+  ngControl = null;
+  focused = false;
+  empty = false;
+  shouldLabelFloat = false;
+  required = false;
+  disabled = false;
+  errorState = false;
   controlType;
   autofilled;
   userAriaDescribedBy;

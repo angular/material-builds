@@ -1230,7 +1230,7 @@ class MatSelectionList extends MatListBase {
   _keyManager;
   _listenerCleanups;
   _destroyed = new Subject();
-  _isDestroyed;
+  _isDestroyed = false;
   _onChange = _ => {};
   _items;
   selectionChange = new EventEmitter();
@@ -1258,7 +1258,7 @@ class MatSelectionList extends MatListBase {
   }
   _hideSingleSelectionIndicator = this._defaultOptions?.hideSingleSelectionIndicator ?? false;
   selectedOptions = new SelectionModel(this._multiple);
-  _value;
+  _value = null;
   _onTouched = () => {};
   _changeDetectorRef = inject(ChangeDetectorRef);
   constructor() {

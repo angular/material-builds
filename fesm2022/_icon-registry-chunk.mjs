@@ -22,7 +22,7 @@ class SvgIconConfig {
   url;
   svgText;
   options;
-  svgElement;
+  svgElement = null;
   constructor(url, svgText, options) {
     this.url = url;
     this.svgText = svgText;

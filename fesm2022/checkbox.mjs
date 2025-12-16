@@ -72,13 +72,13 @@ class MatCheckbox {
   get inputId() {
     return `${this.id || this._uniqueId}-input`;
   }
-  required;
+  required = false;
   labelPosition = 'after';
   name = null;
   change = new EventEmitter();
   indeterminateChange = new EventEmitter();
   value;
-  disableRipple;
+  disableRipple = false;
   _inputElement;
   _labelElement;
   tabIndex;

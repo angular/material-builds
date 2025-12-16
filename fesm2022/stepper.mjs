@@ -96,10 +96,10 @@ class MatStepHeader extends CdkStepHeader {
   errorMessage;
   iconOverrides;
   index;
-  selected;
-  active;
-  optional;
-  disableRipple;
+  selected = false;
+  active = false;
+  optional = false;
+  disableRipple = false;
   color;
   constructor() {
     super();
@@ -489,7 +489,7 @@ class MatStepper extends CdkStepper {
   steps = new QueryList();
   _icons;
   animationDone = new EventEmitter();
-  disableRipple;
+  disableRipple = false;
   color;
   labelPosition = 'end';
   headerPosition = 'top';

@@ -255,7 +255,7 @@ class MatDialogRef {
   _config;
   _containerInstance;
   componentInstance;
-  componentRef;
+  componentRef = null;
   disableClose;
   id;
   _afterOpened = new ReplaySubject(1);
