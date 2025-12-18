@@ -227,7 +227,7 @@ class MatTimepicker {
   }
   ngOnDestroy() {
     this._keyManager.destroy();
-    this._localeChanges.unsubscribe();
+    this._localeChanges?.unsubscribe();
     this._onOpenRender?.destroy();
     this._overlayRef?.dispose();
   }
