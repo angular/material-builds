@@ -59,6 +59,13 @@ interface MatTooltipDefaultOptions {
      * `tooltipClass` is defined directly on the tooltip element, as it will override the default.
      */
     tooltipClass?: string | string[];
+    /**
+     * Whether the tooltip should use a media query to detect if the device is able to hover.
+     * Note that this may affect tests that run in a headless browser which reports that it's
+     * unable to hover. In such cases you may need to include an additional timeout, because
+     * the tooltip will fall back to treating the device as a touch screen.
+     */
+    detectHoverCapability?: boolean;
 }
 /**
  * CSS class that will be attached to the overlay panel.
@@ -81,6 +88,7 @@ declare class MatTooltip implements OnDestroy, AfterViewInit {
     protected _dir: Directionality;
     private _injector;
     private _viewContainerRef;
+    private _mediaMatcher;
     private _animationsDisabled;
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
@@ -206,7 +214,7 @@ declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _setupPointerEnterEventsIfNeeded;
     private _setupPointerExitEventsIfNeeded;
     private _addListeners;
-    private _platformSupportsMouseEvents;
+    private _isTouchPlatform;
     /** Listener for the `wheel` event on the element. */
     private _wheelListener;
     /** Disables the native browser gestures, based on how the tooltip has been configured. */

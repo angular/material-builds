@@ -9,6 +9,7 @@ import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { createRepositionScrollStrategy, ScrollDispatcher, createFlexibleConnectedPositionStrategy, createOverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { MediaMatcher } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 
@@ -51,6 +52,7 @@ class MatTooltip {
   _dir = inject(Directionality);
   _injector = inject(Injector);
   _viewContainerRef = inject(ViewContainerRef);
+  _mediaMatcher = inject(MediaMatcher);
   _animationsDisabled = _animationsDisabled();
   _defaultOptions = inject(MAT_TOOLTIP_DEFAULT_OPTIONS, {
     optional: true
@@ -458,7 +460,7 @@ class MatTooltip {
     if (this._disabled || !this.message || !this._viewInitialized || this._passiveListeners.length) {
       return;
     }
-    if (this._platformSupportsMouseEvents()) {
+    if (!this._isTouchPlatform()) {
       this._passiveListeners.push(['mouseenter', event => {
         this._setupPointerExitEventsIfNeeded();
         let point = undefined;
@@ -494,7 +496,7 @@ class MatTooltip {
     }
     this._pointerExitEventsInitialized = true;
     const exitListeners = [];
-    if (this._platformSupportsMouseEvents()) {
+    if (!this._isTouchPlatform()) {
       exitListeners.push(['mouseleave', event => {
         const newTarget = event.relatedTarget;
         if (!newTarget || !this._overlayRef?.overlayElement.contains(newTarget)) {
@@ -519,8 +521,13 @@ class MatTooltip {
       this._elementRef.nativeElement.addEventListener(event, listener, passiveListenerOptions);
     });
   }
-  _platformSupportsMouseEvents() {
-    return !this._platform.IOS && !this._platform.ANDROID;
+  _isTouchPlatform() {
+    if (this._platform.IOS || this._platform.ANDROID) {
+      return true;
+    } else if (!this._platform.isBrowser) {
+      return false;
+    }
+    return !!this._defaultOptions?.detectHoverCapability && this._mediaMatcher.matchMedia('(any-hover: none)').matches;
   }
   _wheelListener(event) {
     if (this._isTooltipVisible()) {
