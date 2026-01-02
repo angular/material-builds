@@ -12,9 +12,9 @@ import '@angular/cdk/keycodes';
 import '@angular/common';
 import '@angular/cdk/platform';
 import '@angular/cdk/portal';
+import '@angular/cdk/layout';
 import 'rxjs';
 import './_animation-chunk.mjs';
-import '@angular/cdk/layout';
 
 class MatTooltipModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
