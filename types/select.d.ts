@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ChangeDetectorRef, ElementRef, QueryList, EventEmitter, SimpleChanges } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
-import { ScrollStrategy, ConnectedPosition, CdkOverlayOrigin, CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { ScrollStrategy, FlexibleOverlayPopoverLocation, ConnectedPosition, CdkOverlayOrigin, CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { MatOptionModule } from './_option-module-chunk.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -80,6 +80,7 @@ declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnIni
     private _liveAnnouncer;
     protected _defaultOptions: MatSelectConfig | null;
     protected _animationsDisabled: boolean;
+    protected _popoverLocation: FlexibleOverlayPopoverLocation | null;
     private _initialized;
     private _cleanupDetach;
     /** All of the defined select options. */
