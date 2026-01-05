@@ -181,11 +181,11 @@ declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, OnDestro
     /** Analog to HTML 'name' attribute used to group radios for unique selection. */
     name: string;
     /** Used to set the 'aria-label' attribute on the underlying input element. */
-    ariaLabel: string;
+    ariaLabel: string | null;
     /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
-    ariaLabelledby: string;
+    ariaLabelledby: string | null;
     /** The 'aria-describedby' attribute is read after the element's label and field type. */
-    ariaDescribedby: string;
+    ariaDescribedby: string | null;
     /** Whether ripples are disabled inside the radio button */
     disableRipple: boolean;
     /** Tabindex of the radio button. */
