@@ -407,6 +407,11 @@ declare abstract class MatMenuTriggerBase implements OnDestroy {
      * and multiple are open at a time.
      */
     private _ownsMenu;
+    /**
+     * Detect if the trigger element is aria-disabled, indicating it should behave as
+     * disabled and not open the menu.
+     */
+    private _triggerIsAriaDisabled;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuTriggerBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatMenuTriggerBase, never, never, {}, {}, never, never, true, never>;
 }

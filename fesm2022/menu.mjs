@@ -768,6 +768,9 @@ class MatMenuTriggerBase {
     this._menu?.close.emit();
   }
   _openMenu(autoFocus) {
+    if (this._triggerIsAriaDisabled()) {
+      return;
+    }
     const menu = this._menu;
     if (this._menuOpen || !menu) {
       return;
@@ -947,6 +950,9 @@ class MatMenuTriggerBase {
   }
   _ownsMenu(menu) {
     return PANELS_TO_TRIGGERS.get(menu) === this;
+  }
+  _triggerIsAriaDisabled() {
+    return booleanAttribute(this._element.nativeElement.getAttribute('aria-disabled'));
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
