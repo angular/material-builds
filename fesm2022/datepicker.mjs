@@ -2317,10 +2317,10 @@ class MatCalendar {
     this.stateChanges.next();
   }
   focusActiveCell() {
-    this._getCurrentViewComponent()._focusActiveCell(false);
+    this._getCurrentViewComponent()?._focusActiveCell(false);
   }
   updateTodaysDate() {
-    this._getCurrentViewComponent()._init();
+    this._getCurrentViewComponent()?._init();
   }
   _dateSelected(event) {
     const date = event.value;
