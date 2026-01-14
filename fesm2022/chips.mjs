@@ -2,7 +2,7 @@ import { FocusMonitor, _IdGenerator, FocusKeyManager } from '@angular/cdk/a11y';
 import { ENTER, SPACE, BACKSPACE, DELETE, TAB, hasModifierKey, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, HOST_TAG_NAME, NgZone, DOCUMENT, EventEmitter, Injector, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, booleanAttribute, numberAttribute, Directive, Input, ChangeDetectorRef, HOST_TAG_NAME, NgZone, DOCUMENT, EventEmitter, Injector, Component, ViewEncapsulation, ChangeDetectionStrategy, ContentChildren, Output, ContentChild, ViewChild, Renderer2, afterNextRender, QueryList, forwardRef, NgModule } from '@angular/core';
 import { Subject, merge } from 'rxjs';
 import { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from './_ripple-chunk.mjs';
@@ -1137,6 +1137,8 @@ i0.ɵɵngDeclareClassMetadata({
 
 class MatChipRow extends MatChip {
   basicChipAttrName = 'mat-basic-chip-row';
+  _renderer = inject(Renderer2);
+  _cleanupMousedown;
   _editStartPending = false;
   editable = false;
   edited = new EventEmitter();
@@ -1156,9 +1158,13 @@ class MatChipRow extends MatChip {
   }
   ngAfterViewInit() {
     super.ngAfterViewInit();
-    this._ngZone.runOutsideAngular(() => {
-      this._elementRef.nativeElement.addEventListener('mousedown', () => this._alreadyFocused = this._hasFocus());
-    });
+    this._cleanupMousedown = this._ngZone.runOutsideAngular(() => this._renderer.listen(this._elementRef.nativeElement, 'mousedown', () => {
+      this._alreadyFocused = this._hasFocus();
+    }));
+  }
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this._cleanupMousedown?.();
   }
   _hasLeadingActionIcon() {
     return !this._isEditing && !!this.editIcon;

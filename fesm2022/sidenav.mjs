@@ -6,7 +6,7 @@ import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, NgZone, Component, ChangeDetectionStrategy, ViewEncapsulation, Renderer2, DOCUMENT, signal, EventEmitter, Injector, afterNextRender, Input, Output, ViewChild, QueryList, ContentChildren, ContentChild, NgModule } from '@angular/core';
-import { Subject, fromEvent, merge } from 'rxjs';
+import { Subject, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import '@angular/cdk/layout';
@@ -201,16 +201,18 @@ class MatDrawer {
         this._restoreFocus(this._openedVia || 'program');
       }
     });
-    this._ngZone.runOutsideAngular(() => {
+    this._eventCleanups = this._ngZone.runOutsideAngular(() => {
+      const renderer = this._renderer;
       const element = this._elementRef.nativeElement;
-      fromEvent(element, 'keydown').pipe(filter(event => {
-        return event.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event);
-      }), takeUntil(this._destroyed)).subscribe(event => this._ngZone.run(() => {
-        this.close();
-        event.stopPropagation();
-        event.preventDefault();
-      }));
-      this._eventCleanups = [this._renderer.listen(element, 'transitionrun', this._handleTransitionEvent), this._renderer.listen(element, 'transitionend', this._handleTransitionEvent), this._renderer.listen(element, 'transitioncancel', this._handleTransitionEvent)];
+      return [renderer.listen(element, 'keydown', event => {
+        if (event.keyCode === ESCAPE && !this.disableClose && !hasModifierKey(event)) {
+          this._ngZone.run(() => {
+            this.close();
+            event.stopPropagation();
+            event.preventDefault();
+          });
+        }
+      }), renderer.listen(element, 'transitionrun', this._handleTransitionEvent), renderer.listen(element, 'transitionend', this._handleTransitionEvent), renderer.listen(element, 'transitioncancel', this._handleTransitionEvent)];
     });
     this._animationEnd.subscribe(() => {
       this.openedChange.emit(this.opened);

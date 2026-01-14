@@ -375,8 +375,10 @@ interface MatChipEditedEvent extends MatChipEvent {
  * An extension of the MatChip component used with MatChipGrid and
  * the matChipInputFor directive.
  */
-declare class MatChipRow extends MatChip implements AfterViewInit {
+declare class MatChipRow extends MatChip implements AfterViewInit, OnDestroy {
     protected basicChipAttrName: string;
+    private _renderer;
+    private _cleanupMousedown;
     /**
      * The editing action has to be triggered in a timeout. While we're waiting on it, a blur
      * event might occur which will interrupt the editing. This flag is used to avoid interruptions
@@ -401,6 +403,7 @@ declare class MatChipRow extends MatChip implements AfterViewInit {
     _isEditing: boolean;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
+    ngOnDestroy(): void;
     protected _hasLeadingActionIcon(): boolean;
     _hasTrailingIcon(): boolean;
     /** Sends focus to the first gridcell when the user clicks anywhere inside the chip. */

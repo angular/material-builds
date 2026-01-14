@@ -89,6 +89,8 @@ declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _injector;
     private _viewContainerRef;
     private _mediaMatcher;
+    private _document;
+    private _renderer;
     private _animationsDisabled;
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
@@ -154,7 +156,7 @@ declare class MatTooltip implements OnDestroy, AfterViewInit {
         [key: string]: unknown;
     });
     /** Manually-bound passive event listeners. */
-    private readonly _passiveListeners;
+    private readonly _eventCleanups;
     /** Timer started at the last `touchstart` event. */
     private _touchstartTimeout;
     /** Emits when the component is destroyed. */
@@ -213,10 +215,8 @@ declare class MatTooltip implements OnDestroy, AfterViewInit {
     /** Binds the pointer events to the tooltip trigger. */
     private _setupPointerEnterEventsIfNeeded;
     private _setupPointerExitEventsIfNeeded;
-    private _addListeners;
+    private _addListener;
     private _isTouchPlatform;
-    /** Listener for the `wheel` event on the element. */
-    private _wheelListener;
     /** Disables the native browser gestures, based on how the tooltip has been configured. */
     private _disableNativeGesturesIfNecessary;
     /** Updates the tooltip's ARIA description based on it current state. */

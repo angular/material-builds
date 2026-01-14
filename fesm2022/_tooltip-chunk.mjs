@@ -2,9 +2,9 @@ import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Injector, ElementRef, NgZone, ViewContainerRef, afterNextRender, DOCUMENT, Directive, Input, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { InjectionToken, inject, Injector, ElementRef, NgZone, ViewContainerRef, DOCUMENT, Renderer2, afterNextRender, Directive, Input, ChangeDetectorRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
+import { Platform } from '@angular/cdk/platform';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { createRepositionScrollStrategy, ScrollDispatcher, createFlexibleConnectedPositionStrategy, createOverlayRef } from '@angular/cdk/overlay';
@@ -36,9 +36,9 @@ const MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-opti
 });
 const TOOLTIP_PANEL_CLASS = 'mat-mdc-tooltip-panel';
 const PANEL_CLASS = 'tooltip-panel';
-const passiveListenerOptions = normalizePassiveListenerOptions({
+const passiveListenerOptions = {
   passive: true
-});
+};
 const MIN_VIEWPORT_TOOLTIP_THRESHOLD = 8;
 const UNBOUNDED_ANCHOR_GAP = 8;
 const MIN_HEIGHT = 24;
@@ -53,6 +53,8 @@ class MatTooltip {
   _injector = inject(Injector);
   _viewContainerRef = inject(ViewContainerRef);
   _mediaMatcher = inject(MediaMatcher);
+  _document = inject(DOCUMENT);
+  _renderer = inject(Renderer2);
   _animationsDisabled = _animationsDisabled();
   _defaultOptions = inject(MAT_TOOLTIP_DEFAULT_OPTIONS, {
     optional: true
@@ -151,7 +153,7 @@ class MatTooltip {
       this._setTooltipClass(this._tooltipClass);
     }
   }
-  _passiveListeners = [];
+  _eventCleanups = [];
   _touchstartTimeout = null;
   _destroyed = new Subject();
   _isDestroyed = false;
@@ -195,10 +197,8 @@ class MatTooltip {
       this._overlayRef.dispose();
       this._tooltipInstance = null;
     }
-    this._passiveListeners.forEach(([event, listener]) => {
-      nativeElement.removeEventListener(event, listener, passiveListenerOptions);
-    });
-    this._passiveListeners.length = 0;
+    this._eventCleanups.forEach(cleanup => cleanup());
+    this._eventCleanups.length = 0;
     this._destroyed.next();
     this._destroyed.complete();
     this._isDestroyed = true;
@@ -457,21 +457,21 @@ class MatTooltip {
     }
   }
   _setupPointerEnterEventsIfNeeded() {
-    if (this._disabled || !this.message || !this._viewInitialized || this._passiveListeners.length) {
+    if (this._disabled || !this.message || !this._viewInitialized || this._eventCleanups.length) {
       return;
     }
     if (!this._isTouchPlatform()) {
-      this._passiveListeners.push(['mouseenter', event => {
+      this._addListener('mouseenter', event => {
         this._setupPointerExitEventsIfNeeded();
         let point = undefined;
         if (event.x !== undefined && event.y !== undefined) {
           point = event;
         }
         this.show(undefined, point);
-      }]);
+      });
     } else if (this.touchGestures !== 'off') {
       this._disableNativeGesturesIfNecessary();
-      this._passiveListeners.push(['touchstart', event => {
+      this._addListener('touchstart', event => {
         const touch = event.targetTouches?.[0];
         const origin = touch ? {
           x: touch.clientX,
@@ -486,23 +486,30 @@ class MatTooltip {
           this._touchstartTimeout = null;
           this.show(undefined, origin);
         }, this._defaultOptions?.touchLongPressShowDelay ?? DEFAULT_LONGPRESS_DELAY);
-      }]);
+      });
     }
-    this._addListeners(this._passiveListeners);
   }
   _setupPointerExitEventsIfNeeded() {
     if (this._pointerExitEventsInitialized) {
       return;
     }
     this._pointerExitEventsInitialized = true;
-    const exitListeners = [];
     if (!this._isTouchPlatform()) {
-      exitListeners.push(['mouseleave', event => {
+      this._addListener('mouseleave', event => {
         const newTarget = event.relatedTarget;
         if (!newTarget || !this._overlayRef?.overlayElement.contains(newTarget)) {
           this.hide();
         }
-      }], ['wheel', event => this._wheelListener(event)]);
+      });
+      this._addListener('wheel', event => {
+        if (this._isTooltipVisible()) {
+          const elementUnderPointer = this._document.elementFromPoint(event.clientX, event.clientY);
+          const element = this._elementRef.nativeElement;
+          if (elementUnderPointer !== element && !element.contains(elementUnderPointer)) {
+            this.hide();
+          }
+        }
+      });
     } else if (this.touchGestures !== 'off') {
       this._disableNativeGesturesIfNecessary();
       const touchendListener = () => {
@@ -511,15 +518,12 @@ class MatTooltip {
         }
         this.hide(this._defaultOptions?.touchendHideDelay);
       };
-      exitListeners.push(['touchend', touchendListener], ['touchcancel', touchendListener]);
+      this._addListener('touchend', touchendListener);
+      this._addListener('touchcancel', touchendListener);
     }
-    this._addListeners(exitListeners);
-    this._passiveListeners.push(...exitListeners);
   }
-  _addListeners(listeners) {
-    listeners.forEach(([event, listener]) => {
-      this._elementRef.nativeElement.addEventListener(event, listener, passiveListenerOptions);
-    });
+  _addListener(name, listener) {
+    this._eventCleanups.push(this._renderer.listen(this._elementRef.nativeElement, name, listener, passiveListenerOptions));
   }
   _isTouchPlatform() {
     if (this._platform.IOS || this._platform.ANDROID) {
@@ -528,15 +532,6 @@ class MatTooltip {
       return false;
     }
     return !!this._defaultOptions?.detectHoverCapability && this._mediaMatcher.matchMedia('(any-hover: none)').matches;
-  }
-  _wheelListener(event) {
-    if (this._isTooltipVisible()) {
-      const elementUnderPointer = this._injector.get(DOCUMENT).elementFromPoint(event.clientX, event.clientY);
-      const element = this._elementRef.nativeElement;
-      if (elementUnderPointer !== element && !element.contains(elementUnderPointer)) {
-        this.hide();
-      }
-    }
   }
   _disableNativeGesturesIfNecessary() {
     const gestures = this.touchGestures;
