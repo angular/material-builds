@@ -9,7 +9,6 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import 'rxjs/operators';
 import '@angular/cdk/coercion';
 import '@angular/cdk/keycodes';
-import '@angular/common';
 import '@angular/cdk/platform';
 import '@angular/cdk/portal';
 import '@angular/cdk/layout';

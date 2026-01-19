@@ -234,8 +234,8 @@ declare class TooltipComponent implements OnDestroy {
     _isMultiline: boolean;
     /** Message to display in the tooltip */
     message: string;
-    /** Classes to be added to the tooltip. Supports the same syntax as `ngClass`. */
-    tooltipClass: string | string[] | Set<string> | {
+    /** Classes to be added to the tooltip. */
+    tooltipClass: string | string[] | {
         [key: string]: unknown;
     };
     /** The timeout ID of any current timer set to show the tooltip */
