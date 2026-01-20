@@ -1083,6 +1083,9 @@ class MatTableDataSource extends DataSource {
     });
   };
   filterPredicate = (data, filter) => {
+    if ((typeof ngDevMode === 'undefined' || ngDevMode) && (typeof data !== 'object' || data === null)) {
+      console.warn('Default implementation of filterPredicate requires data to be a non-null object.');
+    }
     const transformedFilter = filter.trim().toLowerCase();
     return Object.values(data).some(value => `${value}`.toLowerCase().includes(transformedFilter));
   };
