@@ -3,22 +3,8 @@ import { OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { MatSortable, MatSort, SortHeaderArrowPosition } from './_sort-chunk.js';
 export { MAT_SORT_DEFAULT_OPTIONS, MatSortDefaultOptions, Sort } from './_sort-chunk.js';
 import { SortDirection } from './_sort-direction-chunk.js';
-import { Subject } from 'rxjs';
 import * as i2 from '@angular/cdk/bidi';
-
-/**
- * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
- * include it in a custom provider.
- */
-declare class MatSortHeaderIntl {
-    /**
-     * Stream that emits whenever the labels here are changed. Use this to notify
-     * components if the labels have changed after initialization.
-     */
-    readonly changes: Subject<void>;
-    static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeaderIntl, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatSortHeaderIntl>;
-}
+import { Subject } from 'rxjs';
 
 /**
  * Valid positions for the arrow to be in for its opacity and translation. If the state is a
@@ -42,10 +28,6 @@ interface ArrowViewStateTransition {
     fromState?: ArrowViewState;
     toState?: ArrowViewState;
 }
-/** Column definition associated with a `MatSortHeader`. */
-interface MatSortHeaderColumnDef {
-    name: string;
-}
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -56,9 +38,8 @@ interface MatSortHeaderColumnDef {
  * column definition.
  */
 declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, AfterViewInit {
-    _intl: MatSortHeaderIntl;
-    _sort: MatSort;
-    _columnDef: MatSortHeaderColumnDef | null;
+    protected _sort: MatSort;
+    private _columnDef;
     private _changeDetectorRef;
     private _focusMonitor;
     private _elementRef;
@@ -125,6 +106,20 @@ declare class MatSortModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortModule, never>;
     static ɵmod: i0.ɵɵNgModuleDeclaration<MatSortModule, never, [typeof MatSort, typeof MatSortHeader], [typeof MatSort, typeof MatSortHeader, typeof i2.BidiModule]>;
     static ɵinj: i0.ɵɵInjectorDeclaration<MatSortModule>;
+}
+
+/**
+ * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
+ * include it in a custom provider.
+ */
+declare class MatSortHeaderIntl {
+    /**
+     * Stream that emits whenever the labels here are changed. Use this to notify
+     * components if the labels have changed after initialization.
+     */
+    readonly changes: Subject<void>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeaderIntl, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<MatSortHeaderIntl>;
 }
 
 export { MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, MatSortable, SortDirection, SortHeaderArrowPosition };

@@ -1,10 +1,11 @@
 import { BidiModule } from '@angular/cdk/bidi';
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, booleanAttribute, Directive, Optional, Inject, Input, Output, Injectable, inject, ChangeDetectorRef, ElementRef, signal, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { InjectionToken, EventEmitter, booleanAttribute, Directive, Optional, Inject, Input, Output, inject, ChangeDetectorRef, ElementRef, signal, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule, Injectable } from '@angular/core';
 import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
-import { ReplaySubject, Subject, merge } from 'rxjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { CdkColumnDef } from '@angular/cdk/table';
+import { ReplaySubject, Subject, merge } from 'rxjs';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
 import '@angular/cdk/layout';
@@ -198,43 +199,11 @@ function getSortDirectionCycle(start, disableClear) {
   return sortOrder;
 }
 
-class MatSortHeaderIntl {
-  changes = new Subject();
-  static ɵfac = i0.ɵɵngDeclareFactory({
-    minVersion: "12.0.0",
-    version: "21.0.3",
-    ngImport: i0,
-    type: MatSortHeaderIntl,
-    deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
-  });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
-    version: "21.0.3",
-    ngImport: i0,
-    type: MatSortHeaderIntl,
-    providedIn: 'root'
-  });
-}
-i0.ɵɵngDeclareClassMetadata({
-  minVersion: "12.0.0",
-  version: "21.0.3",
-  ngImport: i0,
-  type: MatSortHeaderIntl,
-  decorators: [{
-    type: Injectable,
-    args: [{
-      providedIn: 'root'
-    }]
-  }]
-});
-
 class MatSortHeader {
-  _intl = inject(MatSortHeaderIntl);
   _sort = inject(MatSort, {
     optional: true
   });
-  _columnDef = inject('MAT_SORT_HEADER_COLUMN_DEF', {
+  _columnDef = inject(CdkColumnDef, {
     optional: true
   });
   _changeDetectorRef = inject(ChangeDetectorRef);
@@ -462,6 +431,37 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       imports: [MatSort, MatSortHeader],
       exports: [MatSort, MatSortHeader, BidiModule]
+    }]
+  }]
+});
+
+class MatSortHeaderIntl {
+  changes = new Subject();
+  static ɵfac = i0.ɵɵngDeclareFactory({
+    minVersion: "12.0.0",
+    version: "21.0.3",
+    ngImport: i0,
+    type: MatSortHeaderIntl,
+    deps: [],
+    target: i0.ɵɵFactoryTarget.Injectable
+  });
+  static ɵprov = i0.ɵɵngDeclareInjectable({
+    minVersion: "12.0.0",
+    version: "21.0.3",
+    ngImport: i0,
+    type: MatSortHeaderIntl,
+    providedIn: 'root'
+  });
+}
+i0.ɵɵngDeclareClassMetadata({
+  minVersion: "12.0.0",
+  version: "21.0.3",
+  ngImport: i0,
+  type: MatSortHeaderIntl,
+  decorators: [{
+    type: Injectable,
+    args: [{
+      providedIn: 'root'
     }]
   }]
 });

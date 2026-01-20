@@ -336,9 +336,6 @@ class MatColumnDef extends CdkColumnDef {
     providers: [{
       provide: CdkColumnDef,
       useExisting: MatColumnDef
-    }, {
-      provide: 'MAT_SORT_HEADER_COLUMN_DEF',
-      useExisting: MatColumnDef
     }],
     usesInheritance: true,
     ngImport: i0
@@ -355,9 +352,6 @@ i0.ɵɵngDeclareClassMetadata({
       selector: '[matColumnDef]',
       providers: [{
         provide: CdkColumnDef,
-        useExisting: MatColumnDef
-      }, {
-        provide: 'MAT_SORT_HEADER_COLUMN_DEF',
         useExisting: MatColumnDef
       }]
     }]
