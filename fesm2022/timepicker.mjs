@@ -161,6 +161,9 @@ class MatTimepicker {
   disabled = computed(() => !!this._input()?.disabled(), ...(ngDevMode ? [{
     debugName: "disabled"
   }] : []));
+  panelClass = input(...(ngDevMode ? [undefined, {
+    debugName: "panelClass"
+  }] : []));
   constructor() {
     if (typeof ngDevMode === 'undefined' || ngDevMode) {
       validateAdapter(this._dateAdapter, this._dateFormats);
@@ -281,7 +284,8 @@ class MatTimepicker {
       scrollStrategy: this._scrollStrategyFactory(),
       direction: this._dir || 'ltr',
       hasBackdrop: false,
-      disableAnimations: this._animationsDisabled
+      disableAnimations: this._animationsDisabled,
+      panelClass: this.panelClass()
     });
     this._overlayRef.detachments().subscribe(() => this.close());
     this._overlayRef.keydownEvents().subscribe(event => this._handleKeydown(event));
@@ -422,6 +426,13 @@ class MatTimepicker {
         isSignal: true,
         isRequired: false,
         transformFunction: null
+      },
+      panelClass: {
+        classPropertyName: "panelClass",
+        publicName: "panelClass",
+        isSignal: true,
+        isRequired: false,
+        transformFunction: null
       }
     },
     outputs: {
@@ -545,6 +556,14 @@ i0.ɵɵngDeclareClassMetadata({
       args: [{
         isSignal: true,
         alias: "aria-labelledby",
+        required: false
+      }]
+    }],
+    panelClass: [{
+      type: i0.Input,
+      args: [{
+        isSignal: true,
+        alias: "panelClass",
         required: false
       }]
     }]

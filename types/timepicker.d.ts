@@ -113,6 +113,8 @@ declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
     readonly ariaLabelledby: InputSignal<string | null>;
     /** Whether the timepicker is currently disabled. */
     readonly disabled: Signal<boolean>;
+    /** Classes to be passed to the timepicker panel. */
+    readonly panelClass: InputSignal<string | string[] | undefined>;
     constructor();
     /** Opens the timepicker. */
     open(): void;
@@ -148,7 +150,7 @@ declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
      */
     private _handleInputStateChanges;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTimepicker<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatTimepicker<any>, "mat-timepicker", ["matTimepicker"], { "interval": { "alias": "interval"; "required": false; "isSignal": true; }; "options": { "alias": "options"; "required": false; "isSignal": true; }; "disableRipple": { "alias": "disableRipple"; "required": false; "isSignal": true; }; "ariaLabel": { "alias": "aria-label"; "required": false; "isSignal": true; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; "isSignal": true; }; }, { "selected": "selected"; "opened": "opened"; "closed": "closed"; }, never, never, true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatTimepicker<any>, "mat-timepicker", ["matTimepicker"], { "interval": { "alias": "interval"; "required": false; "isSignal": true; }; "options": { "alias": "options"; "required": false; "isSignal": true; }; "disableRipple": { "alias": "disableRipple"; "required": false; "isSignal": true; }; "ariaLabel": { "alias": "aria-label"; "required": false; "isSignal": true; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; "isSignal": true; }; "panelClass": { "alias": "panelClass"; "required": false; "isSignal": true; }; }, { "selected": "selected"; "opened": "opened"; "closed": "closed"; }, never, never, true, never>;
 }
 
 /**
