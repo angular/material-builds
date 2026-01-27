@@ -353,7 +353,7 @@ class MatDrawer {
   }
   _updateFocusTrapState() {
     if (this._focusTrap) {
-      this._focusTrap.enabled = !!this._container?.hasBackdrop && this.opened;
+      this._focusTrap.enabled = this.opened && !!this._container?._isShowingBackdrop();
     }
   }
   _updatePositionInParent(newPosition) {
