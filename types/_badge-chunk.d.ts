@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { OnInit, OnDestroy } from '@angular/core';
+import { OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ThemePalette } from './_palette-chunk.js';
 
 /** Allowed position options for matBadgePosition */
@@ -15,7 +15,7 @@ declare class _MatBadgeStyleLoader {
     static ɵcmp: i0.ɵɵComponentDeclaration<_MatBadgeStyleLoader, "ng-component", never, {}, {}, never, never, true, never>;
 }
 /** Directive to display a text badge. */
-declare class MatBadge implements OnInit, OnDestroy {
+declare class MatBadge implements OnInit, AfterViewInit, OnDestroy {
     private _ngZone;
     private _elementRef;
     private _ariaDescriber;
@@ -73,6 +73,7 @@ declare class MatBadge implements OnInit, OnDestroy {
      */
     getBadgeElement(): HTMLElement | undefined;
     ngOnInit(): void;
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Gets whether the badge's host element is interactive. */
     private _isHostInteractive;

@@ -1,6 +1,6 @@
 import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, DOCUMENT, HOST_TAG_NAME, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, DOCUMENT, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -93,10 +93,6 @@ class MatBadge {
       if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
         throw Error('matBadge must be attached to an element node.');
       }
-      const tagName = inject(HOST_TAG_NAME);
-      if (tagName.toLowerCase() === 'mat-icon' && nativeElement.getAttribute('aria-hidden') === 'true') {
-        console.warn(`Detected a matBadge on an "aria-hidden" "<mat-icon>". ` + `Consider setting aria-hidden="false" in order to surface the information assistive technology.` + `\n${nativeElement.outerHTML}`);
-      }
     }
   }
   isAbove() {
@@ -115,6 +111,14 @@ class MatBadge {
       this._updateRenderedContent(this.content);
     }
     this._isInitialized = true;
+  }
+  ngAfterViewInit() {
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+      const nativeElement = this._elementRef.nativeElement;
+      if (nativeElement.tagName.toLowerCase() === 'mat-icon' && nativeElement.getAttribute('aria-hidden') === 'true') {
+        console.warn(`Detected a matBadge on an "aria-hidden" "<mat-icon>". ` + `Consider setting aria-hidden="false" in order to surface the information assistive technology.` + `\n${nativeElement.outerHTML}`);
+      }
+    }
   }
   ngOnDestroy() {
     if (this._renderer.destroyNode) {
