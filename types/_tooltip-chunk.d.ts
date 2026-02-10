@@ -221,6 +221,8 @@ declare class MatTooltip implements OnDestroy, AfterViewInit {
     private _disableNativeGesturesIfNecessary;
     /** Updates the tooltip's ARIA description based on it current state. */
     private _syncAriaDescription;
+    /** Determines which events should be routed to the tooltip overlay. */
+    private _overlayEventPredicate;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTooltip, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTooltip, "[matTooltip]", ["matTooltip"], { "position": { "alias": "matTooltipPosition"; "required": false; }; "positionAtOrigin": { "alias": "matTooltipPositionAtOrigin"; "required": false; }; "disabled": { "alias": "matTooltipDisabled"; "required": false; }; "showDelay": { "alias": "matTooltipShowDelay"; "required": false; }; "hideDelay": { "alias": "matTooltipHideDelay"; "required": false; }; "touchGestures": { "alias": "matTooltipTouchGestures"; "required": false; }; "message": { "alias": "matTooltip"; "required": false; }; "tooltipClass": { "alias": "matTooltipClass"; "required": false; }; }, {}, never, never, true, never>;
 }
