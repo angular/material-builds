@@ -261,17 +261,16 @@ class MatTooltip {
       positionStrategy: strategy,
       panelClass: this._overlayPanelClass ? [...this._overlayPanelClass, panelClass] : panelClass,
       scrollStrategy: this._injector.get(MAT_TOOLTIP_SCROLL_STRATEGY)(),
-      disableAnimations: this._animationsDisabled
+      disableAnimations: this._animationsDisabled,
+      eventPredicate: this._overlayEventPredicate
     });
     this._updatePosition(this._overlayRef);
     this._overlayRef.detachments().pipe(takeUntil(this._destroyed)).subscribe(() => this._detach());
     this._overlayRef.outsidePointerEvents().pipe(takeUntil(this._destroyed)).subscribe(() => this._tooltipInstance?._handleBodyInteraction());
     this._overlayRef.keydownEvents().pipe(takeUntil(this._destroyed)).subscribe(event => {
-      if (this._isTooltipVisible() && event.keyCode === ESCAPE && !hasModifierKey(event)) {
-        event.preventDefault();
-        event.stopPropagation();
-        this._ngZone.run(() => this.hide(0));
-      }
+      event.preventDefault();
+      event.stopPropagation();
+      this._ngZone.run(() => this.hide(0));
     });
     if (this._defaultOptions?.disableTooltipInteractivity) {
       this._overlayRef.addPanelClass(`${this._cssClassPrefix}-tooltip-panel-non-interactive`);
@@ -566,6 +565,12 @@ class MatTooltip {
       });
     }
   }
+  _overlayEventPredicate = event => {
+    if (event.type === 'keydown') {
+      return this._isTooltipVisible() && event.keyCode === ESCAPE && !hasModifierKey(event);
+    }
+    return true;
+  };
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "21.0.3",
