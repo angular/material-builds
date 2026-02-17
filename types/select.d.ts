@@ -353,8 +353,6 @@ declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnIni
      * "blur" to the panel when it opens, causing a false positive.
      */
     _onBlur(): void;
-    /** Returns the theme to be used on the panel. */
-    _getPanelTheme(): string;
     /** Whether the select has a value. */
     get empty(): boolean;
     private _initializeSelection;
