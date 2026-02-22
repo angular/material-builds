@@ -63,7 +63,7 @@ __export(theme_color_exports, {
 });
 module.exports = __toCommonJS(theme_color_exports);
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/utils/math_utils.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/utils/math_utils.js
 function signum(num) {
   if (num < 0) {
     return -1;
@@ -116,7 +116,7 @@ function matrixMultiply(row, matrix) {
   return [a, b, c];
 }
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/utils/color_utils.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/utils/color_utils.js
 var SRGB_TO_XYZ = [
   [0.41233895, 0.35762064, 0.18051042],
   [0.2126, 0.7152, 0.0722],
@@ -250,7 +250,7 @@ function labInvf(ft) {
   }
 }
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/hct/viewing_conditions.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/hct/viewing_conditions.js
 var ViewingConditions = class _ViewingConditions {
   /**
    * Create ViewingConditions from a simple, physically relevant, set of
@@ -332,7 +332,7 @@ var ViewingConditions = class _ViewingConditions {
 };
 ViewingConditions.DEFAULT = ViewingConditions.make();
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/hct/cam16.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/hct/cam16.js
 var Cam16 = class _Cam16 {
   /**
    * All of the CAM16 dimensions can be calculated from 3 of the dimensions, in
@@ -420,7 +420,7 @@ var Cam16 = class _Cam16 {
     const p2 = (40 * rA + 20 * gA + bA) / 20;
     const atan2 = Math.atan2(b, a);
     const atanDegrees = atan2 * 180 / Math.PI;
-    const hue = atanDegrees < 0 ? atanDegrees + 360 : atanDegrees >= 360 ? atanDegrees - 360 : atanDegrees;
+    const hue = sanitizeDegreesDouble(atanDegrees);
     const hueRadians = hue * Math.PI / 180;
     const ac = p2 * viewingConditions.nbb;
     const j = 100 * Math.pow(ac / viewingConditions.aw, viewingConditions.c * viewingConditions.z);
@@ -615,7 +615,7 @@ var Cam16 = class _Cam16 {
   }
 };
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/hct/hct_solver.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/hct/hct_solver.js
 var HctSolver = class _HctSolver {
   /**
    * Sanitizes a small enough angle in radians.
@@ -1246,7 +1246,7 @@ HctSolver.CRITICAL_PLANES = [
   99.55452497210776
 ];
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/hct/hct.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/hct/hct.js
 var Hct = class _Hct {
   static from(hue, chroma, tone) {
     return new _Hct(HctSolver.solveToInt(hue, chroma, tone));
@@ -1299,6 +1299,22 @@ var Hct = class _Hct {
   set tone(newTone) {
     this.setInternalState(HctSolver.solveToInt(this.internalHue, this.internalChroma, newTone));
   }
+  /** Sets a property of the Hct object. */
+  setValue(propertyName, value) {
+    this[propertyName] = value;
+  }
+  toString() {
+    return `HCT(${this.hue.toFixed(0)}, ${this.chroma.toFixed(0)}, ${this.tone.toFixed(0)})`;
+  }
+  static isBlue(hue) {
+    return hue >= 250 && hue < 270;
+  }
+  static isYellow(hue) {
+    return hue >= 105 && hue < 125;
+  }
+  static isCyan(hue) {
+    return hue >= 170 && hue < 207;
+  }
   constructor(argb) {
     this.argb = argb;
     const cam = Cam16.fromInt(argb);
@@ -1337,7 +1353,7 @@ var Hct = class _Hct {
   }
 };
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/contrast/contrast.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/contrast/contrast.js
 var Contrast = class _Contrast {
   /**
    * Returns a contrast ratio, which ranges from 1 to 21.
@@ -1447,7 +1463,7 @@ var Contrast = class _Contrast {
   }
 };
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dislike/dislike_analyzer.js
 var DislikeAnalyzer = class _DislikeAnalyzer {
   /**
    * Returns true if a color is disliked.
@@ -1478,17 +1494,60 @@ var DislikeAnalyzer = class _DislikeAnalyzer {
   }
 };
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_color.js
+function validateExtendedColor(originalColor, specVersion, extendedColor) {
+  if (originalColor.name !== extendedColor.name) {
+    throw new Error(`Attempting to extend color ${originalColor.name} with color ${extendedColor.name} of different name for spec version ${specVersion}.`);
+  }
+  if (originalColor.isBackground !== extendedColor.isBackground) {
+    throw new Error(`Attempting to extend color ${originalColor.name} as a ${originalColor.isBackground ? "background" : "foreground"} with color ${extendedColor.name} as a ${extendedColor.isBackground ? "background" : "foreground"} for spec version ${specVersion}.`);
+  }
+}
+function extendSpecVersion(originlColor, specVersion, extendedColor) {
+  validateExtendedColor(originlColor, specVersion, extendedColor);
+  return DynamicColor.fromPalette({
+    name: originlColor.name,
+    palette: (s) => s.specVersion === specVersion ? extendedColor.palette(s) : originlColor.palette(s),
+    tone: (s) => s.specVersion === specVersion ? extendedColor.tone(s) : originlColor.tone(s),
+    isBackground: originlColor.isBackground,
+    chromaMultiplier: (s) => {
+      const chromaMultiplier = s.specVersion === specVersion ? extendedColor.chromaMultiplier : originlColor.chromaMultiplier;
+      return chromaMultiplier !== void 0 ? chromaMultiplier(s) : 1;
+    },
+    background: (s) => {
+      const background = s.specVersion === specVersion ? extendedColor.background : originlColor.background;
+      return background !== void 0 ? background(s) : void 0;
+    },
+    secondBackground: (s) => {
+      const secondBackground = s.specVersion === specVersion ? extendedColor.secondBackground : originlColor.secondBackground;
+      return secondBackground !== void 0 ? secondBackground(s) : void 0;
+    },
+    contrastCurve: (s) => {
+      const contrastCurve = s.specVersion === specVersion ? extendedColor.contrastCurve : originlColor.contrastCurve;
+      return contrastCurve !== void 0 ? contrastCurve(s) : void 0;
+    },
+    toneDeltaPair: (s) => {
+      const toneDeltaPair = s.specVersion === specVersion ? extendedColor.toneDeltaPair : originlColor.toneDeltaPair;
+      return toneDeltaPair !== void 0 ? toneDeltaPair(s) : void 0;
+    }
+  });
+}
 var DynamicColor = class _DynamicColor {
   /**
    * Create a DynamicColor defined by a TonalPalette and HCT tone.
    *
    * @param args Functions with DynamicScheme as input. Must provide a palette
-   * and tone. May provide a background DynamicColor and ToneDeltaConstraint.
+   *     and tone. May provide a background DynamicColor and ToneDeltaPair.
    */
   static fromPalette(args) {
-    var _a, _b;
-    return new _DynamicColor((_a = args.name) != null ? _a : "", args.palette, args.tone, (_b = args.isBackground) != null ? _b : false, args.background, args.secondBackground, args.contrastCurve, args.toneDeltaPair);
+    var _a, _b, _c;
+    return new _DynamicColor((_a = args.name) != null ? _a : "", args.palette, (_b = args.tone) != null ? _b : _DynamicColor.getInitialToneFromBackground(args.background), (_c = args.isBackground) != null ? _c : false, args.chromaMultiplier, args.background, args.secondBackground, args.contrastCurve, args.toneDeltaPair);
+  }
+  static getInitialToneFromBackground(background) {
+    if (background === void 0) {
+      return (s) => 50;
+    }
+    return (s) => background(s) ? background(s).getTone(s) : 50;
   }
   /**
    * The base constructor for DynamicColor.
@@ -1504,29 +1563,31 @@ var DynamicColor = class _DynamicColor {
    * always, in every case.
    *
    * @param name The name of the dynamic color. Defaults to empty.
-   * @param palette Function that provides a TonalPalette given
-   * DynamicScheme. A TonalPalette is defined by a hue and chroma, so this
-   * replaces the need to specify hue/chroma. By providing a tonal palette, when
-   * contrast adjustments are made, intended chroma can be preserved.
+   * @param palette Function that provides a TonalPalette given DynamicScheme. A
+   *     TonalPalette is defined by a hue and chroma, so this replaces the need
+   *     to specify hue/chroma. By providing a tonal palette, when contrast
+   *     adjustments are made, intended chroma can be preserved.
    * @param tone Function that provides a tone, given a DynamicScheme.
-   * @param isBackground Whether this dynamic color is a background, with
-   * some other color as the foreground. Defaults to false.
+   * @param isBackground Whether this dynamic color is a background, with some
+   *     other color as the foreground. Defaults to false.
+   * @param chromaMultiplier A factor that multiplies the chroma for this color.
    * @param background The background of the dynamic color (as a function of a
    *     `DynamicScheme`), if it exists.
    * @param secondBackground A second background of the dynamic color (as a
-   *     function of a `DynamicScheme`), if it
-   * exists.
+   *     function of a `DynamicScheme`), if it exists.
    * @param contrastCurve A `ContrastCurve` object specifying how its contrast
-   * against its background should behave in various contrast levels options.
+   *     against its background should behave in various contrast levels
+   *     options.
    * @param toneDeltaPair A `ToneDeltaPair` object specifying a tone delta
-   * constraint between two colors. One of them must be the color being
-   * constructed.
+   *     constraint between two colors. One of them must be the color being
+   *     constructed.
    */
-  constructor(name, palette, tone, isBackground, background, secondBackground, contrastCurve, toneDeltaPair) {
+  constructor(name, palette, tone, isBackground, chromaMultiplier, background, secondBackground, contrastCurve, toneDeltaPair) {
     this.name = name;
     this.palette = palette;
     this.tone = tone;
     this.isBackground = isBackground;
+    this.chromaMultiplier = chromaMultiplier;
     this.background = background;
     this.secondBackground = secondBackground;
     this.contrastCurve = contrastCurve;
@@ -1543,30 +1604,52 @@ var DynamicColor = class _DynamicColor {
     }
   }
   /**
-   * Return a ARGB integer (i.e. a hex code).
+   * Returns a deep copy of this DynamicColor.
+   */
+  clone() {
+    return _DynamicColor.fromPalette({
+      name: this.name,
+      palette: this.palette,
+      tone: this.tone,
+      isBackground: this.isBackground,
+      chromaMultiplier: this.chromaMultiplier,
+      background: this.background,
+      secondBackground: this.secondBackground,
+      contrastCurve: this.contrastCurve,
+      toneDeltaPair: this.toneDeltaPair
+    });
+  }
+  /**
+   * Clears the cache of HCT values for this color. For testing or debugging
+   * purposes.
+   */
+  clearCache() {
+    this.hctCache.clear();
+  }
+  /**
+   * Returns a ARGB integer (i.e. a hex code).
    *
    * @param scheme Defines the conditions of the user interface, for example,
-   * whether or not it is dark mode or light mode, and what the desired
-   * contrast level is.
+   *     whether or not it is dark mode or light mode, and what the desired
+   *     contrast level is.
    */
   getArgb(scheme) {
     return this.getHct(scheme).toInt();
   }
   /**
-   * Return a color, expressed in the HCT color space, that this
+   * Returns a color, expressed in the HCT color space, that this
    * DynamicColor is under the conditions in scheme.
    *
    * @param scheme Defines the conditions of the user interface, for example,
-   * whether or not it is dark mode or light mode, and what the desired
-   * contrast level is.
+   *     whether or not it is dark mode or light mode, and what the desired
+   *     contrast level is.
    */
   getHct(scheme) {
     const cachedAnswer = this.hctCache.get(scheme);
     if (cachedAnswer != null) {
       return cachedAnswer;
     }
-    const tone = this.getTone(scheme);
-    const answer = this.palette(scheme).getHct(tone);
+    const answer = getSpec(scheme.specVersion).getHct(scheme, this);
     if (this.hctCache.size > 4) {
       this.hctCache.clear();
     }
@@ -1574,122 +1657,18 @@ var DynamicColor = class _DynamicColor {
     return answer;
   }
   /**
-   * Return a tone, T in the HCT color space, that this DynamicColor is under
+   * Returns a tone, T in the HCT color space, that this DynamicColor is under
    * the conditions in scheme.
    *
    * @param scheme Defines the conditions of the user interface, for example,
-   * whether or not it is dark mode or light mode, and what the desired
-   * contrast level is.
+   *     whether or not it is dark mode or light mode, and what the desired
+   *     contrast level is.
    */
   getTone(scheme) {
-    const decreasingContrast = scheme.contrastLevel < 0;
-    if (this.toneDeltaPair) {
-      const toneDeltaPair = this.toneDeltaPair(scheme);
-      const roleA = toneDeltaPair.roleA;
-      const roleB = toneDeltaPair.roleB;
-      const delta = toneDeltaPair.delta;
-      const polarity = toneDeltaPair.polarity;
-      const stayTogether = toneDeltaPair.stayTogether;
-      const bg = this.background(scheme);
-      const bgTone = bg.getTone(scheme);
-      const aIsNearer = polarity === "nearer" || polarity === "lighter" && !scheme.isDark || polarity === "darker" && scheme.isDark;
-      const nearer = aIsNearer ? roleA : roleB;
-      const farther = aIsNearer ? roleB : roleA;
-      const amNearer = this.name === nearer.name;
-      const expansionDir = scheme.isDark ? 1 : -1;
-      const nContrast = nearer.contrastCurve.get(scheme.contrastLevel);
-      const fContrast = farther.contrastCurve.get(scheme.contrastLevel);
-      const nInitialTone = nearer.tone(scheme);
-      let nTone = Contrast.ratioOfTones(bgTone, nInitialTone) >= nContrast ? nInitialTone : _DynamicColor.foregroundTone(bgTone, nContrast);
-      const fInitialTone = farther.tone(scheme);
-      let fTone = Contrast.ratioOfTones(bgTone, fInitialTone) >= fContrast ? fInitialTone : _DynamicColor.foregroundTone(bgTone, fContrast);
-      if (decreasingContrast) {
-        nTone = _DynamicColor.foregroundTone(bgTone, nContrast);
-        fTone = _DynamicColor.foregroundTone(bgTone, fContrast);
-      }
-      if ((fTone - nTone) * expansionDir >= delta) {
-      } else {
-        fTone = clampDouble(0, 100, nTone + delta * expansionDir);
-        if ((fTone - nTone) * expansionDir >= delta) {
-        } else {
-          nTone = clampDouble(0, 100, fTone - delta * expansionDir);
-        }
-      }
-      if (50 <= nTone && nTone < 60) {
-        if (expansionDir > 0) {
-          nTone = 60;
-          fTone = Math.max(fTone, nTone + delta * expansionDir);
-        } else {
-          nTone = 49;
-          fTone = Math.min(fTone, nTone + delta * expansionDir);
-        }
-      } else if (50 <= fTone && fTone < 60) {
-        if (stayTogether) {
-          if (expansionDir > 0) {
-            nTone = 60;
-            fTone = Math.max(fTone, nTone + delta * expansionDir);
-          } else {
-            nTone = 49;
-            fTone = Math.min(fTone, nTone + delta * expansionDir);
-          }
-        } else {
-          if (expansionDir > 0) {
-            fTone = 60;
-          } else {
-            fTone = 49;
-          }
-        }
-      }
-      return amNearer ? nTone : fTone;
-    } else {
-      let answer = this.tone(scheme);
-      if (this.background == null) {
-        return answer;
-      }
-      const bgTone = this.background(scheme).getTone(scheme);
-      const desiredRatio = this.contrastCurve.get(scheme.contrastLevel);
-      if (Contrast.ratioOfTones(bgTone, answer) >= desiredRatio) {
-      } else {
-        answer = _DynamicColor.foregroundTone(bgTone, desiredRatio);
-      }
-      if (decreasingContrast) {
-        answer = _DynamicColor.foregroundTone(bgTone, desiredRatio);
-      }
-      if (this.isBackground && 50 <= answer && answer < 60) {
-        if (Contrast.ratioOfTones(49, bgTone) >= desiredRatio) {
-          answer = 49;
-        } else {
-          answer = 60;
-        }
-      }
-      if (this.secondBackground) {
-        const [bg1, bg2] = [this.background, this.secondBackground];
-        const [bgTone1, bgTone2] = [bg1(scheme).getTone(scheme), bg2(scheme).getTone(scheme)];
-        const [upper, lower] = [Math.max(bgTone1, bgTone2), Math.min(bgTone1, bgTone2)];
-        if (Contrast.ratioOfTones(upper, answer) >= desiredRatio && Contrast.ratioOfTones(lower, answer) >= desiredRatio) {
-          return answer;
-        }
-        const lightOption = Contrast.lighter(upper, desiredRatio);
-        const darkOption = Contrast.darker(lower, desiredRatio);
-        const availables = [];
-        if (lightOption !== -1)
-          availables.push(lightOption);
-        if (darkOption !== -1)
-          availables.push(darkOption);
-        const prefersLight = _DynamicColor.tonePrefersLightForeground(bgTone1) || _DynamicColor.tonePrefersLightForeground(bgTone2);
-        if (prefersLight) {
-          return lightOption < 0 ? 100 : lightOption;
-        }
-        if (availables.length === 1) {
-          return availables[0];
-        }
-        return darkOption < 0 ? 0 : darkOption;
-      }
-      return answer;
-    }
+    return getSpec(scheme.specVersion).getTone(scheme, this);
   }
   /**
-   * Given a background tone, find a foreground tone, while ensuring they reach
+   * Given a background tone, finds a foreground tone, while ensuring they reach
    * a contrast ratio that is as close to [ratio] as possible.
    *
    * @param bgTone Tone in HCT. Range is 0 to 100, undefined behavior when it
@@ -1732,7 +1711,7 @@ var DynamicColor = class _DynamicColor {
     return Math.round(tone) <= 49;
   }
   /**
-   * Adjust a tone such that white has 4.5 contrast, if the tone is
+   * Adjusts a tone such that white has 4.5 contrast, if the tone is
    * reasonably close to supporting it.
    */
   static enableLightForeground(tone) {
@@ -1742,8 +1721,232 @@ var DynamicColor = class _DynamicColor {
     return tone;
   }
 };
+var ColorCalculationDelegateImpl2021 = class {
+  getHct(scheme, color) {
+    const tone = color.getTone(scheme);
+    const palette = color.palette(scheme);
+    return palette.getHct(tone);
+  }
+  getTone(scheme, color) {
+    const decreasingContrast = scheme.contrastLevel < 0;
+    const toneDeltaPair = color.toneDeltaPair ? color.toneDeltaPair(scheme) : void 0;
+    if (toneDeltaPair) {
+      const roleA = toneDeltaPair.roleA;
+      const roleB = toneDeltaPair.roleB;
+      const delta = toneDeltaPair.delta;
+      const polarity = toneDeltaPair.polarity;
+      const stayTogether = toneDeltaPair.stayTogether;
+      const aIsNearer = polarity === "nearer" || polarity === "lighter" && !scheme.isDark || polarity === "darker" && scheme.isDark;
+      const nearer = aIsNearer ? roleA : roleB;
+      const farther = aIsNearer ? roleB : roleA;
+      const amNearer = color.name === nearer.name;
+      const expansionDir = scheme.isDark ? 1 : -1;
+      let nTone = nearer.tone(scheme);
+      let fTone = farther.tone(scheme);
+      if (color.background && nearer.contrastCurve && farther.contrastCurve) {
+        const bg = color.background(scheme);
+        const nContrastCurve = nearer.contrastCurve(scheme);
+        const fContrastCurve = farther.contrastCurve(scheme);
+        if (bg && nContrastCurve && fContrastCurve) {
+          const bgTone = bg.getTone(scheme);
+          const nContrast = nContrastCurve.get(scheme.contrastLevel);
+          const fContrast = fContrastCurve.get(scheme.contrastLevel);
+          if (Contrast.ratioOfTones(bgTone, nTone) < nContrast) {
+            nTone = DynamicColor.foregroundTone(bgTone, nContrast);
+          }
+          if (Contrast.ratioOfTones(bgTone, fTone) < fContrast) {
+            fTone = DynamicColor.foregroundTone(bgTone, fContrast);
+          }
+          if (decreasingContrast) {
+            nTone = DynamicColor.foregroundTone(bgTone, nContrast);
+            fTone = DynamicColor.foregroundTone(bgTone, fContrast);
+          }
+        }
+      }
+      if ((fTone - nTone) * expansionDir < delta) {
+        fTone = clampDouble(0, 100, nTone + delta * expansionDir);
+        if ((fTone - nTone) * expansionDir >= delta) {
+        } else {
+          nTone = clampDouble(0, 100, fTone - delta * expansionDir);
+        }
+      }
+      if (50 <= nTone && nTone < 60) {
+        if (expansionDir > 0) {
+          nTone = 60;
+          fTone = Math.max(fTone, nTone + delta * expansionDir);
+        } else {
+          nTone = 49;
+          fTone = Math.min(fTone, nTone + delta * expansionDir);
+        }
+      } else if (50 <= fTone && fTone < 60) {
+        if (stayTogether) {
+          if (expansionDir > 0) {
+            nTone = 60;
+            fTone = Math.max(fTone, nTone + delta * expansionDir);
+          } else {
+            nTone = 49;
+            fTone = Math.min(fTone, nTone + delta * expansionDir);
+          }
+        } else {
+          if (expansionDir > 0) {
+            fTone = 60;
+          } else {
+            fTone = 49;
+          }
+        }
+      }
+      return amNearer ? nTone : fTone;
+    } else {
+      let answer = color.tone(scheme);
+      if (color.background == void 0 || color.background(scheme) === void 0 || color.contrastCurve == void 0 || color.contrastCurve(scheme) === void 0) {
+        return answer;
+      }
+      const bgTone = color.background(scheme).getTone(scheme);
+      const desiredRatio = color.contrastCurve(scheme).get(scheme.contrastLevel);
+      if (Contrast.ratioOfTones(bgTone, answer) >= desiredRatio) {
+      } else {
+        answer = DynamicColor.foregroundTone(bgTone, desiredRatio);
+      }
+      if (decreasingContrast) {
+        answer = DynamicColor.foregroundTone(bgTone, desiredRatio);
+      }
+      if (color.isBackground && 50 <= answer && answer < 60) {
+        if (Contrast.ratioOfTones(49, bgTone) >= desiredRatio) {
+          answer = 49;
+        } else {
+          answer = 60;
+        }
+      }
+      if (color.secondBackground == void 0 || color.secondBackground(scheme) === void 0) {
+        return answer;
+      }
+      const [bg1, bg2] = [color.background, color.secondBackground];
+      const [bgTone1, bgTone2] = [bg1(scheme).getTone(scheme), bg2(scheme).getTone(scheme)];
+      const [upper, lower] = [Math.max(bgTone1, bgTone2), Math.min(bgTone1, bgTone2)];
+      if (Contrast.ratioOfTones(upper, answer) >= desiredRatio && Contrast.ratioOfTones(lower, answer) >= desiredRatio) {
+        return answer;
+      }
+      const lightOption = Contrast.lighter(upper, desiredRatio);
+      const darkOption = Contrast.darker(lower, desiredRatio);
+      const availables = [];
+      if (lightOption !== -1)
+        availables.push(lightOption);
+      if (darkOption !== -1)
+        availables.push(darkOption);
+      const prefersLight = DynamicColor.tonePrefersLightForeground(bgTone1) || DynamicColor.tonePrefersLightForeground(bgTone2);
+      if (prefersLight) {
+        return lightOption < 0 ? 100 : lightOption;
+      }
+      if (availables.length === 1) {
+        return availables[0];
+      }
+      return darkOption < 0 ? 0 : darkOption;
+    }
+  }
+};
+var ColorCalculationDelegateImpl2025 = class {
+  getHct(scheme, color) {
+    const palette = color.palette(scheme);
+    const tone = color.getTone(scheme);
+    const hue = palette.hue;
+    const chroma = palette.chroma * (color.chromaMultiplier ? color.chromaMultiplier(scheme) : 1);
+    return Hct.from(hue, chroma, tone);
+  }
+  getTone(scheme, color) {
+    const toneDeltaPair = color.toneDeltaPair ? color.toneDeltaPair(scheme) : void 0;
+    if (toneDeltaPair) {
+      const roleA = toneDeltaPair.roleA;
+      const roleB = toneDeltaPair.roleB;
+      const polarity = toneDeltaPair.polarity;
+      const constraint = toneDeltaPair.constraint;
+      const absoluteDelta = polarity === "darker" || polarity === "relative_lighter" && scheme.isDark || polarity === "relative_darker" && !scheme.isDark ? -toneDeltaPair.delta : toneDeltaPair.delta;
+      const amRoleA = color.name === roleA.name;
+      const selfRole = amRoleA ? roleA : roleB;
+      const refRole = amRoleA ? roleB : roleA;
+      let selfTone = selfRole.tone(scheme);
+      let refTone = refRole.getTone(scheme);
+      const relativeDelta = absoluteDelta * (amRoleA ? 1 : -1);
+      if (constraint === "exact") {
+        selfTone = clampDouble(0, 100, refTone + relativeDelta);
+      } else if (constraint === "nearer") {
+        if (relativeDelta > 0) {
+          selfTone = clampDouble(0, 100, clampDouble(refTone, refTone + relativeDelta, selfTone));
+        } else {
+          selfTone = clampDouble(0, 100, clampDouble(refTone + relativeDelta, refTone, selfTone));
+        }
+      } else if (constraint === "farther") {
+        if (relativeDelta > 0) {
+          selfTone = clampDouble(refTone + relativeDelta, 100, selfTone);
+        } else {
+          selfTone = clampDouble(0, refTone + relativeDelta, selfTone);
+        }
+      }
+      if (color.background && color.contrastCurve) {
+        const background = color.background(scheme);
+        const contrastCurve = color.contrastCurve(scheme);
+        if (background && contrastCurve) {
+          const bgTone = background.getTone(scheme);
+          const selfContrast = contrastCurve.get(scheme.contrastLevel);
+          selfTone = Contrast.ratioOfTones(bgTone, selfTone) >= selfContrast && scheme.contrastLevel >= 0 ? selfTone : DynamicColor.foregroundTone(bgTone, selfContrast);
+        }
+      }
+      if (color.isBackground && !color.name.endsWith("_fixed_dim")) {
+        if (selfTone >= 57) {
+          selfTone = clampDouble(65, 100, selfTone);
+        } else {
+          selfTone = clampDouble(0, 49, selfTone);
+        }
+      }
+      return selfTone;
+    } else {
+      let answer = color.tone(scheme);
+      if (color.background == void 0 || color.background(scheme) === void 0 || color.contrastCurve == void 0 || color.contrastCurve(scheme) === void 0) {
+        return answer;
+      }
+      const bgTone = color.background(scheme).getTone(scheme);
+      const desiredRatio = color.contrastCurve(scheme).get(scheme.contrastLevel);
+      answer = Contrast.ratioOfTones(bgTone, answer) >= desiredRatio && scheme.contrastLevel >= 0 ? answer : DynamicColor.foregroundTone(bgTone, desiredRatio);
+      if (color.isBackground && !color.name.endsWith("_fixed_dim")) {
+        if (answer >= 57) {
+          answer = clampDouble(65, 100, answer);
+        } else {
+          answer = clampDouble(0, 49, answer);
+        }
+      }
+      if (color.secondBackground == void 0 || color.secondBackground(scheme) === void 0) {
+        return answer;
+      }
+      const [bg1, bg2] = [color.background, color.secondBackground];
+      const [bgTone1, bgTone2] = [bg1(scheme).getTone(scheme), bg2(scheme).getTone(scheme)];
+      const [upper, lower] = [Math.max(bgTone1, bgTone2), Math.min(bgTone1, bgTone2)];
+      if (Contrast.ratioOfTones(upper, answer) >= desiredRatio && Contrast.ratioOfTones(lower, answer) >= desiredRatio) {
+        return answer;
+      }
+      const lightOption = Contrast.lighter(upper, desiredRatio);
+      const darkOption = Contrast.darker(lower, desiredRatio);
+      const availables = [];
+      if (lightOption !== -1)
+        availables.push(lightOption);
+      if (darkOption !== -1)
+        availables.push(darkOption);
+      const prefersLight = DynamicColor.tonePrefersLightForeground(bgTone1) || DynamicColor.tonePrefersLightForeground(bgTone2);
+      if (prefersLight) {
+        return lightOption < 0 ? 100 : lightOption;
+      }
+      if (availables.length === 1) {
+        return availables[0];
+      }
+      return darkOption < 0 ? 0 : darkOption;
+    }
+  }
+};
+var spec2021 = new ColorCalculationDelegateImpl2021();
+var spec2025 = new ColorCalculationDelegateImpl2025();
+function getSpec(specVersion) {
+  return specVersion === "2025" ? spec2025 : spec2021;
+}
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/palettes/tonal_palette.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/palettes/tonal_palette.js
 var TonalPalette = class _TonalPalette {
   /**
    * @param argb ARGB representation of a color
@@ -1782,7 +1985,11 @@ var TonalPalette = class _TonalPalette {
   tone(tone) {
     let argb = this.cache.get(tone);
     if (argb === void 0) {
-      argb = Hct.from(this.hue, this.chroma, tone).toInt();
+      if (tone == 99 && Hct.isYellow(this.hue)) {
+        argb = this.averageArgb(this.tone(98), this.tone(100));
+      } else {
+        argb = Hct.from(this.hue, this.chroma, tone).toInt();
+      }
       this.cache.set(tone, argb);
     }
     return argb;
@@ -1793,6 +2000,18 @@ var TonalPalette = class _TonalPalette {
    */
   getHct(tone) {
     return Hct.fromInt(this.tone(tone));
+  }
+  averageArgb(argb1, argb2) {
+    const red1 = argb1 >>> 16 & 255;
+    const green1 = argb1 >>> 8 & 255;
+    const blue1 = argb1 & 255;
+    const red2 = argb2 >>> 16 & 255;
+    const green2 = argb2 >>> 8 & 255;
+    const blue2 = argb2 & 255;
+    const red = Math.round((red1 + red2) / 2);
+    const green = Math.round((green1 + green2) / 2);
+    const blue = Math.round((blue1 + blue2) / 2);
+    return (255 << 24 | (red & 255) << 16 | (green & 255) << 8 | blue & 255) >>> 0;
   }
 };
 var KeyColor = class {
@@ -1849,810 +2068,7 @@ var KeyColor = class {
   }
 };
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js
-var ContrastCurve = class {
-  /**
-   * Creates a `ContrastCurve` object.
-   *
-   * @param low Value for contrast level -1.0
-   * @param normal Value for contrast level 0.0
-   * @param medium Value for contrast level 0.5
-   * @param high Value for contrast level 1.0
-   */
-  constructor(low, normal, medium, high) {
-    this.low = low;
-    this.normal = normal;
-    this.medium = medium;
-    this.high = high;
-  }
-  /**
-   * Returns the value at a given contrast level.
-   *
-   * @param contrastLevel The contrast level. 0.0 is the default (normal); -1.0
-   *     is the lowest; 1.0 is the highest.
-   * @return The value. For contrast ratios, a number between 1.0 and 21.0.
-   */
-  get(contrastLevel) {
-    if (contrastLevel <= -1) {
-      return this.low;
-    } else if (contrastLevel < 0) {
-      return lerp(this.low, this.normal, (contrastLevel - -1) / 1);
-    } else if (contrastLevel < 0.5) {
-      return lerp(this.normal, this.medium, (contrastLevel - 0) / 0.5);
-    } else if (contrastLevel < 1) {
-      return lerp(this.medium, this.high, (contrastLevel - 0.5) / 0.5);
-    } else {
-      return this.high;
-    }
-  }
-};
-
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js
-var ToneDeltaPair = class {
-  /**
-   * Documents a constraint in tone distance between two DynamicColors.
-   *
-   * The polarity is an adjective that describes "A", compared to "B".
-   *
-   * For instance, ToneDeltaPair(A, B, 15, 'darker', stayTogether) states that
-   * A's tone should be at least 15 darker than B's.
-   *
-   * 'nearer' and 'farther' describes closeness to the surface roles. For
-   * instance, ToneDeltaPair(A, B, 10, 'nearer', stayTogether) states that A
-   * should be 10 lighter than B in light mode, and 10 darker than B in dark
-   * mode.
-   *
-   * @param roleA The first role in a pair.
-   * @param roleB The second role in a pair.
-   * @param delta Required difference between tones. Absolute value, negative
-   * values have undefined behavior.
-   * @param polarity The relative relation between tones of roleA and roleB,
-   * as described above.
-   * @param stayTogether Whether these two roles should stay on the same side of
-   * the "awkward zone" (T50-59). This is necessary for certain cases where
-   * one role has two backgrounds.
-   */
-  constructor(roleA, roleB, delta, polarity, stayTogether) {
-    this.roleA = roleA;
-    this.roleB = roleB;
-    this.delta = delta;
-    this.polarity = polarity;
-    this.stayTogether = stayTogether;
-  }
-};
-
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/variant.js
-var Variant;
-(function(Variant2) {
-  Variant2[Variant2["MONOCHROME"] = 0] = "MONOCHROME";
-  Variant2[Variant2["NEUTRAL"] = 1] = "NEUTRAL";
-  Variant2[Variant2["TONAL_SPOT"] = 2] = "TONAL_SPOT";
-  Variant2[Variant2["VIBRANT"] = 3] = "VIBRANT";
-  Variant2[Variant2["EXPRESSIVE"] = 4] = "EXPRESSIVE";
-  Variant2[Variant2["FIDELITY"] = 5] = "FIDELITY";
-  Variant2[Variant2["CONTENT"] = 6] = "CONTENT";
-  Variant2[Variant2["RAINBOW"] = 7] = "RAINBOW";
-  Variant2[Variant2["FRUIT_SALAD"] = 8] = "FRUIT_SALAD";
-})(Variant || (Variant = {}));
-
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js
-function isFidelity(scheme) {
-  return scheme.variant === Variant.FIDELITY || scheme.variant === Variant.CONTENT;
-}
-function isMonochrome(scheme) {
-  return scheme.variant === Variant.MONOCHROME;
-}
-function findDesiredChromaByTone(hue, chroma, tone, byDecreasingTone) {
-  let answer = tone;
-  let closestToChroma = Hct.from(hue, chroma, tone);
-  if (closestToChroma.chroma < chroma) {
-    let chromaPeak = closestToChroma.chroma;
-    while (closestToChroma.chroma < chroma) {
-      answer += byDecreasingTone ? -1 : 1;
-      const potentialSolution = Hct.from(hue, chroma, answer);
-      if (chromaPeak > potentialSolution.chroma) {
-        break;
-      }
-      if (Math.abs(potentialSolution.chroma - chroma) < 0.4) {
-        break;
-      }
-      const potentialDelta = Math.abs(potentialSolution.chroma - chroma);
-      const currentDelta = Math.abs(closestToChroma.chroma - chroma);
-      if (potentialDelta < currentDelta) {
-        closestToChroma = potentialSolution;
-      }
-      chromaPeak = Math.max(chromaPeak, potentialSolution.chroma);
-    }
-  }
-  return answer;
-}
-var MaterialDynamicColors = class _MaterialDynamicColors {
-  static highestSurface(s) {
-    return s.isDark ? _MaterialDynamicColors.surfaceBright : _MaterialDynamicColors.surfaceDim;
-  }
-};
-MaterialDynamicColors.contentAccentToneDelta = 15;
-MaterialDynamicColors.primaryPaletteKeyColor = DynamicColor.fromPalette({
-  name: "primary_palette_key_color",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => s.primaryPalette.keyColor.tone
-});
-MaterialDynamicColors.secondaryPaletteKeyColor = DynamicColor.fromPalette({
-  name: "secondary_palette_key_color",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => s.secondaryPalette.keyColor.tone
-});
-MaterialDynamicColors.tertiaryPaletteKeyColor = DynamicColor.fromPalette({
-  name: "tertiary_palette_key_color",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => s.tertiaryPalette.keyColor.tone
-});
-MaterialDynamicColors.neutralPaletteKeyColor = DynamicColor.fromPalette({
-  name: "neutral_palette_key_color",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.neutralPalette.keyColor.tone
-});
-MaterialDynamicColors.neutralVariantPaletteKeyColor = DynamicColor.fromPalette({
-  name: "neutral_variant_palette_key_color",
-  palette: (s) => s.neutralVariantPalette,
-  tone: (s) => s.neutralVariantPalette.keyColor.tone
-});
-MaterialDynamicColors.background = DynamicColor.fromPalette({
-  name: "background",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? 6 : 98,
-  isBackground: true
-});
-MaterialDynamicColors.onBackground = DynamicColor.fromPalette({
-  name: "on_background",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? 90 : 10,
-  background: (s) => MaterialDynamicColors.background,
-  contrastCurve: new ContrastCurve(3, 3, 4.5, 7)
-});
-MaterialDynamicColors.surface = DynamicColor.fromPalette({
-  name: "surface",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? 6 : 98,
-  isBackground: true
-});
-MaterialDynamicColors.surfaceDim = DynamicColor.fromPalette({
-  name: "surface_dim",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? 6 : new ContrastCurve(87, 87, 80, 75).get(s.contrastLevel),
-  isBackground: true
-});
-MaterialDynamicColors.surfaceBright = DynamicColor.fromPalette({
-  name: "surface_bright",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? new ContrastCurve(24, 24, 29, 34).get(s.contrastLevel) : 98,
-  isBackground: true
-});
-MaterialDynamicColors.surfaceContainerLowest = DynamicColor.fromPalette({
-  name: "surface_container_lowest",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? new ContrastCurve(4, 4, 2, 0).get(s.contrastLevel) : 100,
-  isBackground: true
-});
-MaterialDynamicColors.surfaceContainerLow = DynamicColor.fromPalette({
-  name: "surface_container_low",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? new ContrastCurve(10, 10, 11, 12).get(s.contrastLevel) : new ContrastCurve(96, 96, 96, 95).get(s.contrastLevel),
-  isBackground: true
-});
-MaterialDynamicColors.surfaceContainer = DynamicColor.fromPalette({
-  name: "surface_container",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? new ContrastCurve(12, 12, 16, 20).get(s.contrastLevel) : new ContrastCurve(94, 94, 92, 90).get(s.contrastLevel),
-  isBackground: true
-});
-MaterialDynamicColors.surfaceContainerHigh = DynamicColor.fromPalette({
-  name: "surface_container_high",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? new ContrastCurve(17, 17, 21, 25).get(s.contrastLevel) : new ContrastCurve(92, 92, 88, 85).get(s.contrastLevel),
-  isBackground: true
-});
-MaterialDynamicColors.surfaceContainerHighest = DynamicColor.fromPalette({
-  name: "surface_container_highest",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? new ContrastCurve(22, 22, 26, 30).get(s.contrastLevel) : new ContrastCurve(90, 90, 84, 80).get(s.contrastLevel),
-  isBackground: true
-});
-MaterialDynamicColors.onSurface = DynamicColor.fromPalette({
-  name: "on_surface",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? 90 : 10,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.surfaceVariant = DynamicColor.fromPalette({
-  name: "surface_variant",
-  palette: (s) => s.neutralVariantPalette,
-  tone: (s) => s.isDark ? 30 : 90,
-  isBackground: true
-});
-MaterialDynamicColors.onSurfaceVariant = DynamicColor.fromPalette({
-  name: "on_surface_variant",
-  palette: (s) => s.neutralVariantPalette,
-  tone: (s) => s.isDark ? 80 : 30,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
-});
-MaterialDynamicColors.inverseSurface = DynamicColor.fromPalette({
-  name: "inverse_surface",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? 90 : 20
-});
-MaterialDynamicColors.inverseOnSurface = DynamicColor.fromPalette({
-  name: "inverse_on_surface",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => s.isDark ? 20 : 95,
-  background: (s) => MaterialDynamicColors.inverseSurface,
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.outline = DynamicColor.fromPalette({
-  name: "outline",
-  palette: (s) => s.neutralVariantPalette,
-  tone: (s) => s.isDark ? 60 : 50,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1.5, 3, 4.5, 7)
-});
-MaterialDynamicColors.outlineVariant = DynamicColor.fromPalette({
-  name: "outline_variant",
-  palette: (s) => s.neutralVariantPalette,
-  tone: (s) => s.isDark ? 30 : 80,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5)
-});
-MaterialDynamicColors.shadow = DynamicColor.fromPalette({
-  name: "shadow",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => 0
-});
-MaterialDynamicColors.scrim = DynamicColor.fromPalette({
-  name: "scrim",
-  palette: (s) => s.neutralPalette,
-  tone: (s) => 0
-});
-MaterialDynamicColors.surfaceTint = DynamicColor.fromPalette({
-  name: "surface_tint",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => s.isDark ? 80 : 40,
-  isBackground: true
-});
-MaterialDynamicColors.primary = DynamicColor.fromPalette({
-  name: "primary",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 100 : 0;
-    }
-    return s.isDark ? 80 : 40;
-  },
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 7),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.primaryContainer, MaterialDynamicColors.primary, 10, "nearer", false)
-});
-MaterialDynamicColors.onPrimary = DynamicColor.fromPalette({
-  name: "on_primary",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 10 : 90;
-    }
-    return s.isDark ? 20 : 100;
-  },
-  background: (s) => MaterialDynamicColors.primary,
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.primaryContainer = DynamicColor.fromPalette({
-  name: "primary_container",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => {
-    if (isFidelity(s)) {
-      return s.sourceColorHct.tone;
-    }
-    if (isMonochrome(s)) {
-      return s.isDark ? 85 : 25;
-    }
-    return s.isDark ? 30 : 90;
-  },
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.primaryContainer, MaterialDynamicColors.primary, 10, "nearer", false)
-});
-MaterialDynamicColors.onPrimaryContainer = DynamicColor.fromPalette({
-  name: "on_primary_container",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => {
-    if (isFidelity(s)) {
-      return DynamicColor.foregroundTone(MaterialDynamicColors.primaryContainer.tone(s), 4.5);
-    }
-    if (isMonochrome(s)) {
-      return s.isDark ? 0 : 100;
-    }
-    return s.isDark ? 90 : 30;
-  },
-  background: (s) => MaterialDynamicColors.primaryContainer,
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
-});
-MaterialDynamicColors.inversePrimary = DynamicColor.fromPalette({
-  name: "inverse_primary",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => s.isDark ? 40 : 80,
-  background: (s) => MaterialDynamicColors.inverseSurface,
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 7)
-});
-MaterialDynamicColors.secondary = DynamicColor.fromPalette({
-  name: "secondary",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => s.isDark ? 80 : 40,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 7),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.secondaryContainer, MaterialDynamicColors.secondary, 10, "nearer", false)
-});
-MaterialDynamicColors.onSecondary = DynamicColor.fromPalette({
-  name: "on_secondary",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 10 : 100;
-    } else {
-      return s.isDark ? 20 : 100;
-    }
-  },
-  background: (s) => MaterialDynamicColors.secondary,
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.secondaryContainer = DynamicColor.fromPalette({
-  name: "secondary_container",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => {
-    const initialTone = s.isDark ? 30 : 90;
-    if (isMonochrome(s)) {
-      return s.isDark ? 30 : 85;
-    }
-    if (!isFidelity(s)) {
-      return initialTone;
-    }
-    return findDesiredChromaByTone(s.secondaryPalette.hue, s.secondaryPalette.chroma, initialTone, s.isDark ? false : true);
-  },
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.secondaryContainer, MaterialDynamicColors.secondary, 10, "nearer", false)
-});
-MaterialDynamicColors.onSecondaryContainer = DynamicColor.fromPalette({
-  name: "on_secondary_container",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 90 : 10;
-    }
-    if (!isFidelity(s)) {
-      return s.isDark ? 90 : 30;
-    }
-    return DynamicColor.foregroundTone(MaterialDynamicColors.secondaryContainer.tone(s), 4.5);
-  },
-  background: (s) => MaterialDynamicColors.secondaryContainer,
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
-});
-MaterialDynamicColors.tertiary = DynamicColor.fromPalette({
-  name: "tertiary",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 90 : 25;
-    }
-    return s.isDark ? 80 : 40;
-  },
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 7),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.tertiaryContainer, MaterialDynamicColors.tertiary, 10, "nearer", false)
-});
-MaterialDynamicColors.onTertiary = DynamicColor.fromPalette({
-  name: "on_tertiary",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 10 : 90;
-    }
-    return s.isDark ? 20 : 100;
-  },
-  background: (s) => MaterialDynamicColors.tertiary,
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.tertiaryContainer = DynamicColor.fromPalette({
-  name: "tertiary_container",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 60 : 49;
-    }
-    if (!isFidelity(s)) {
-      return s.isDark ? 30 : 90;
-    }
-    const proposedHct = s.tertiaryPalette.getHct(s.sourceColorHct.tone);
-    return DislikeAnalyzer.fixIfDisliked(proposedHct).tone;
-  },
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.tertiaryContainer, MaterialDynamicColors.tertiary, 10, "nearer", false)
-});
-MaterialDynamicColors.onTertiaryContainer = DynamicColor.fromPalette({
-  name: "on_tertiary_container",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 0 : 100;
-    }
-    if (!isFidelity(s)) {
-      return s.isDark ? 90 : 30;
-    }
-    return DynamicColor.foregroundTone(MaterialDynamicColors.tertiaryContainer.tone(s), 4.5);
-  },
-  background: (s) => MaterialDynamicColors.tertiaryContainer,
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
-});
-MaterialDynamicColors.error = DynamicColor.fromPalette({
-  name: "error",
-  palette: (s) => s.errorPalette,
-  tone: (s) => s.isDark ? 80 : 40,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 7),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.errorContainer, MaterialDynamicColors.error, 10, "nearer", false)
-});
-MaterialDynamicColors.onError = DynamicColor.fromPalette({
-  name: "on_error",
-  palette: (s) => s.errorPalette,
-  tone: (s) => s.isDark ? 20 : 100,
-  background: (s) => MaterialDynamicColors.error,
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.errorContainer = DynamicColor.fromPalette({
-  name: "error_container",
-  palette: (s) => s.errorPalette,
-  tone: (s) => s.isDark ? 30 : 90,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.errorContainer, MaterialDynamicColors.error, 10, "nearer", false)
-});
-MaterialDynamicColors.onErrorContainer = DynamicColor.fromPalette({
-  name: "on_error_container",
-  palette: (s) => s.errorPalette,
-  tone: (s) => {
-    if (isMonochrome(s)) {
-      return s.isDark ? 90 : 10;
-    }
-    return s.isDark ? 90 : 30;
-  },
-  background: (s) => MaterialDynamicColors.errorContainer,
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
-});
-MaterialDynamicColors.primaryFixed = DynamicColor.fromPalette({
-  name: "primary_fixed",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => isMonochrome(s) ? 40 : 90,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.primaryFixed, MaterialDynamicColors.primaryFixedDim, 10, "lighter", true)
-});
-MaterialDynamicColors.primaryFixedDim = DynamicColor.fromPalette({
-  name: "primary_fixed_dim",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => isMonochrome(s) ? 30 : 80,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.primaryFixed, MaterialDynamicColors.primaryFixedDim, 10, "lighter", true)
-});
-MaterialDynamicColors.onPrimaryFixed = DynamicColor.fromPalette({
-  name: "on_primary_fixed",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => isMonochrome(s) ? 100 : 10,
-  background: (s) => MaterialDynamicColors.primaryFixedDim,
-  secondBackground: (s) => MaterialDynamicColors.primaryFixed,
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.onPrimaryFixedVariant = DynamicColor.fromPalette({
-  name: "on_primary_fixed_variant",
-  palette: (s) => s.primaryPalette,
-  tone: (s) => isMonochrome(s) ? 90 : 30,
-  background: (s) => MaterialDynamicColors.primaryFixedDim,
-  secondBackground: (s) => MaterialDynamicColors.primaryFixed,
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
-});
-MaterialDynamicColors.secondaryFixed = DynamicColor.fromPalette({
-  name: "secondary_fixed",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => isMonochrome(s) ? 80 : 90,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.secondaryFixed, MaterialDynamicColors.secondaryFixedDim, 10, "lighter", true)
-});
-MaterialDynamicColors.secondaryFixedDim = DynamicColor.fromPalette({
-  name: "secondary_fixed_dim",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => isMonochrome(s) ? 70 : 80,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.secondaryFixed, MaterialDynamicColors.secondaryFixedDim, 10, "lighter", true)
-});
-MaterialDynamicColors.onSecondaryFixed = DynamicColor.fromPalette({
-  name: "on_secondary_fixed",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => 10,
-  background: (s) => MaterialDynamicColors.secondaryFixedDim,
-  secondBackground: (s) => MaterialDynamicColors.secondaryFixed,
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.onSecondaryFixedVariant = DynamicColor.fromPalette({
-  name: "on_secondary_fixed_variant",
-  palette: (s) => s.secondaryPalette,
-  tone: (s) => isMonochrome(s) ? 25 : 30,
-  background: (s) => MaterialDynamicColors.secondaryFixedDim,
-  secondBackground: (s) => MaterialDynamicColors.secondaryFixed,
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
-});
-MaterialDynamicColors.tertiaryFixed = DynamicColor.fromPalette({
-  name: "tertiary_fixed",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => isMonochrome(s) ? 40 : 90,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.tertiaryFixed, MaterialDynamicColors.tertiaryFixedDim, 10, "lighter", true)
-});
-MaterialDynamicColors.tertiaryFixedDim = DynamicColor.fromPalette({
-  name: "tertiary_fixed_dim",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => isMonochrome(s) ? 30 : 80,
-  isBackground: true,
-  background: (s) => MaterialDynamicColors.highestSurface(s),
-  contrastCurve: new ContrastCurve(1, 1, 3, 4.5),
-  toneDeltaPair: (s) => new ToneDeltaPair(MaterialDynamicColors.tertiaryFixed, MaterialDynamicColors.tertiaryFixedDim, 10, "lighter", true)
-});
-MaterialDynamicColors.onTertiaryFixed = DynamicColor.fromPalette({
-  name: "on_tertiary_fixed",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => isMonochrome(s) ? 100 : 10,
-  background: (s) => MaterialDynamicColors.tertiaryFixedDim,
-  secondBackground: (s) => MaterialDynamicColors.tertiaryFixed,
-  contrastCurve: new ContrastCurve(4.5, 7, 11, 21)
-});
-MaterialDynamicColors.onTertiaryFixedVariant = DynamicColor.fromPalette({
-  name: "on_tertiary_fixed_variant",
-  palette: (s) => s.tertiaryPalette,
-  tone: (s) => isMonochrome(s) ? 90 : 30,
-  background: (s) => MaterialDynamicColors.tertiaryFixedDim,
-  secondBackground: (s) => MaterialDynamicColors.tertiaryFixed,
-  contrastCurve: new ContrastCurve(3, 4.5, 7, 11)
-});
-
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js
-var DynamicScheme = class {
-  constructor(args) {
-    this.sourceColorArgb = args.sourceColorArgb;
-    this.variant = args.variant;
-    this.contrastLevel = args.contrastLevel;
-    this.isDark = args.isDark;
-    this.sourceColorHct = Hct.fromInt(args.sourceColorArgb);
-    this.primaryPalette = args.primaryPalette;
-    this.secondaryPalette = args.secondaryPalette;
-    this.tertiaryPalette = args.tertiaryPalette;
-    this.neutralPalette = args.neutralPalette;
-    this.neutralVariantPalette = args.neutralVariantPalette;
-    this.errorPalette = TonalPalette.fromHueAndChroma(25, 84);
-  }
-  /**
-   * Support design spec'ing Dynamic Color by schemes that specify hue
-   * rotations that should be applied at certain breakpoints.
-   * @param sourceColor the source color of the theme, in HCT.
-   * @param hues The "breakpoints", i.e. the hues at which a rotation should
-   * be apply.
-   * @param rotations The rotation that should be applied when source color's
-   * hue is >= the same index in hues array, and <= the hue at the next index
-   * in hues array.
-   */
-  static getRotatedHue(sourceColor, hues, rotations) {
-    const sourceHue = sourceColor.hue;
-    if (hues.length !== rotations.length) {
-      throw new Error(`mismatch between hue length ${hues.length} & rotations ${rotations.length}`);
-    }
-    if (rotations.length === 1) {
-      return sanitizeDegreesDouble(sourceColor.hue + rotations[0]);
-    }
-    const size = hues.length;
-    for (let i = 0; i <= size - 2; i++) {
-      const thisHue = hues[i];
-      const nextHue = hues[i + 1];
-      if (thisHue < sourceHue && sourceHue < nextHue) {
-        return sanitizeDegreesDouble(sourceHue + rotations[i]);
-      }
-    }
-    return sourceHue;
-  }
-  getArgb(dynamicColor) {
-    return dynamicColor.getArgb(this);
-  }
-  getHct(dynamicColor) {
-    return dynamicColor.getHct(this);
-  }
-  get primaryPaletteKeyColor() {
-    return this.getArgb(MaterialDynamicColors.primaryPaletteKeyColor);
-  }
-  get secondaryPaletteKeyColor() {
-    return this.getArgb(MaterialDynamicColors.secondaryPaletteKeyColor);
-  }
-  get tertiaryPaletteKeyColor() {
-    return this.getArgb(MaterialDynamicColors.tertiaryPaletteKeyColor);
-  }
-  get neutralPaletteKeyColor() {
-    return this.getArgb(MaterialDynamicColors.neutralPaletteKeyColor);
-  }
-  get neutralVariantPaletteKeyColor() {
-    return this.getArgb(MaterialDynamicColors.neutralVariantPaletteKeyColor);
-  }
-  get background() {
-    return this.getArgb(MaterialDynamicColors.background);
-  }
-  get onBackground() {
-    return this.getArgb(MaterialDynamicColors.onBackground);
-  }
-  get surface() {
-    return this.getArgb(MaterialDynamicColors.surface);
-  }
-  get surfaceDim() {
-    return this.getArgb(MaterialDynamicColors.surfaceDim);
-  }
-  get surfaceBright() {
-    return this.getArgb(MaterialDynamicColors.surfaceBright);
-  }
-  get surfaceContainerLowest() {
-    return this.getArgb(MaterialDynamicColors.surfaceContainerLowest);
-  }
-  get surfaceContainerLow() {
-    return this.getArgb(MaterialDynamicColors.surfaceContainerLow);
-  }
-  get surfaceContainer() {
-    return this.getArgb(MaterialDynamicColors.surfaceContainer);
-  }
-  get surfaceContainerHigh() {
-    return this.getArgb(MaterialDynamicColors.surfaceContainerHigh);
-  }
-  get surfaceContainerHighest() {
-    return this.getArgb(MaterialDynamicColors.surfaceContainerHighest);
-  }
-  get onSurface() {
-    return this.getArgb(MaterialDynamicColors.onSurface);
-  }
-  get surfaceVariant() {
-    return this.getArgb(MaterialDynamicColors.surfaceVariant);
-  }
-  get onSurfaceVariant() {
-    return this.getArgb(MaterialDynamicColors.onSurfaceVariant);
-  }
-  get inverseSurface() {
-    return this.getArgb(MaterialDynamicColors.inverseSurface);
-  }
-  get inverseOnSurface() {
-    return this.getArgb(MaterialDynamicColors.inverseOnSurface);
-  }
-  get outline() {
-    return this.getArgb(MaterialDynamicColors.outline);
-  }
-  get outlineVariant() {
-    return this.getArgb(MaterialDynamicColors.outlineVariant);
-  }
-  get shadow() {
-    return this.getArgb(MaterialDynamicColors.shadow);
-  }
-  get scrim() {
-    return this.getArgb(MaterialDynamicColors.scrim);
-  }
-  get surfaceTint() {
-    return this.getArgb(MaterialDynamicColors.surfaceTint);
-  }
-  get primary() {
-    return this.getArgb(MaterialDynamicColors.primary);
-  }
-  get onPrimary() {
-    return this.getArgb(MaterialDynamicColors.onPrimary);
-  }
-  get primaryContainer() {
-    return this.getArgb(MaterialDynamicColors.primaryContainer);
-  }
-  get onPrimaryContainer() {
-    return this.getArgb(MaterialDynamicColors.onPrimaryContainer);
-  }
-  get inversePrimary() {
-    return this.getArgb(MaterialDynamicColors.inversePrimary);
-  }
-  get secondary() {
-    return this.getArgb(MaterialDynamicColors.secondary);
-  }
-  get onSecondary() {
-    return this.getArgb(MaterialDynamicColors.onSecondary);
-  }
-  get secondaryContainer() {
-    return this.getArgb(MaterialDynamicColors.secondaryContainer);
-  }
-  get onSecondaryContainer() {
-    return this.getArgb(MaterialDynamicColors.onSecondaryContainer);
-  }
-  get tertiary() {
-    return this.getArgb(MaterialDynamicColors.tertiary);
-  }
-  get onTertiary() {
-    return this.getArgb(MaterialDynamicColors.onTertiary);
-  }
-  get tertiaryContainer() {
-    return this.getArgb(MaterialDynamicColors.tertiaryContainer);
-  }
-  get onTertiaryContainer() {
-    return this.getArgb(MaterialDynamicColors.onTertiaryContainer);
-  }
-  get error() {
-    return this.getArgb(MaterialDynamicColors.error);
-  }
-  get onError() {
-    return this.getArgb(MaterialDynamicColors.onError);
-  }
-  get errorContainer() {
-    return this.getArgb(MaterialDynamicColors.errorContainer);
-  }
-  get onErrorContainer() {
-    return this.getArgb(MaterialDynamicColors.onErrorContainer);
-  }
-  get primaryFixed() {
-    return this.getArgb(MaterialDynamicColors.primaryFixed);
-  }
-  get primaryFixedDim() {
-    return this.getArgb(MaterialDynamicColors.primaryFixedDim);
-  }
-  get onPrimaryFixed() {
-    return this.getArgb(MaterialDynamicColors.onPrimaryFixed);
-  }
-  get onPrimaryFixedVariant() {
-    return this.getArgb(MaterialDynamicColors.onPrimaryFixedVariant);
-  }
-  get secondaryFixed() {
-    return this.getArgb(MaterialDynamicColors.secondaryFixed);
-  }
-  get secondaryFixedDim() {
-    return this.getArgb(MaterialDynamicColors.secondaryFixedDim);
-  }
-  get onSecondaryFixed() {
-    return this.getArgb(MaterialDynamicColors.onSecondaryFixed);
-  }
-  get onSecondaryFixedVariant() {
-    return this.getArgb(MaterialDynamicColors.onSecondaryFixedVariant);
-  }
-  get tertiaryFixed() {
-    return this.getArgb(MaterialDynamicColors.tertiaryFixed);
-  }
-  get tertiaryFixedDim() {
-    return this.getArgb(MaterialDynamicColors.tertiaryFixedDim);
-  }
-  get onTertiaryFixed() {
-    return this.getArgb(MaterialDynamicColors.onTertiaryFixed);
-  }
-  get onTertiaryFixedVariant() {
-    return this.getArgb(MaterialDynamicColors.onTertiaryFixedVariant);
-  }
-};
-
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/temperature/temperature_cache.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/temperature/temperature_cache.js
 var TemperatureCache = class _TemperatureCache {
   constructor(input) {
     this.input = input;
@@ -2881,107 +2297,2545 @@ var TemperatureCache = class _TemperatureCache {
   }
 };
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/scheme/scheme_expressive.js
-var SchemeExpressive = class _SchemeExpressive extends DynamicScheme {
-  constructor(sourceColorHct, isDark, contrastLevel) {
-    super({
-      sourceColorArgb: sourceColorHct.toInt(),
-      variant: Variant.EXPRESSIVE,
-      contrastLevel,
-      isDark,
-      primaryPalette: TonalPalette.fromHueAndChroma(sanitizeDegreesDouble(sourceColorHct.hue + 240), 40),
-      secondaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, _SchemeExpressive.hues, _SchemeExpressive.secondaryRotations), 24),
-      tertiaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, _SchemeExpressive.hues, _SchemeExpressive.tertiaryRotations), 32),
-      neutralPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue + 15, 8),
-      neutralVariantPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue + 15, 12)
-    });
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dynamiccolor/contrast_curve.js
+var ContrastCurve = class {
+  /**
+   * Creates a `ContrastCurve` object.
+   *
+   * @param low Value for contrast level -1.0
+   * @param normal Value for contrast level 0.0
+   * @param medium Value for contrast level 0.5
+   * @param high Value for contrast level 1.0
+   */
+  constructor(low, normal, medium, high) {
+    this.low = low;
+    this.normal = normal;
+    this.medium = medium;
+    this.high = high;
+  }
+  /**
+   * Returns the value at a given contrast level.
+   *
+   * @param contrastLevel The contrast level. 0.0 is the default (normal); -1.0
+   *     is the lowest; 1.0 is the highest.
+   * @return The value. For contrast ratios, a number between 1.0 and 21.0.
+   */
+  get(contrastLevel) {
+    if (contrastLevel <= -1) {
+      return this.low;
+    } else if (contrastLevel < 0) {
+      return lerp(this.low, this.normal, (contrastLevel - -1) / 1);
+    } else if (contrastLevel < 0.5) {
+      return lerp(this.normal, this.medium, (contrastLevel - 0) / 0.5);
+    } else if (contrastLevel < 1) {
+      return lerp(this.medium, this.high, (contrastLevel - 0.5) / 0.5);
+    } else {
+      return this.high;
+    }
   }
 };
-SchemeExpressive.hues = [
-  0,
-  21,
-  51,
-  121,
-  151,
-  191,
-  271,
-  321,
-  360
-];
-SchemeExpressive.secondaryRotations = [
-  45,
-  95,
-  45,
-  20,
-  45,
-  90,
-  45,
-  45,
-  45
-];
-SchemeExpressive.tertiaryRotations = [
-  120,
-  120,
-  20,
-  45,
-  20,
-  15,
-  20,
-  120,
-  120
-];
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/scheme/scheme_vibrant.js
-var SchemeVibrant = class _SchemeVibrant extends DynamicScheme {
-  constructor(sourceColorHct, isDark, contrastLevel) {
-    super({
-      sourceColorArgb: sourceColorHct.toInt(),
-      variant: Variant.VIBRANT,
-      contrastLevel,
-      isDark,
-      primaryPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, 200),
-      secondaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, _SchemeVibrant.hues, _SchemeVibrant.secondaryRotations), 24),
-      tertiaryPalette: TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, _SchemeVibrant.hues, _SchemeVibrant.tertiaryRotations), 32),
-      neutralPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, 10),
-      neutralVariantPalette: TonalPalette.fromHueAndChroma(sourceColorHct.hue, 12)
-    });
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dynamiccolor/tone_delta_pair.js
+var ToneDeltaPair = class {
+  /**
+   * Documents a constraint in tone distance between two DynamicColors.
+   *
+   * The polarity is an adjective that describes "A", compared to "B".
+   *
+   * For instance, ToneDeltaPair(A, B, 15, 'darker', 'exact') states that
+   * A's tone should be exactly 15 darker than B's.
+   *
+   * 'relative_darker' and 'relative_lighter' describes the tone adjustment
+   * relative to the surface color trend (white in light mode; black in dark
+   * mode). For instance, ToneDeltaPair(A, B, 10, 'relative_lighter',
+   * 'farther') states that A should be at least 10 lighter than B in light
+   * mode, and at least 10 darker than B in dark mode.
+   *
+   * @param roleA The first role in a pair.
+   * @param roleB The second role in a pair.
+   * @param delta Required difference between tones. Absolute value, negative
+   * values have undefined behavior.
+   * @param polarity The relative relation between tones of roleA and roleB,
+   * as described above.
+   * @param constraint How to fulfill the tone delta pair constraint.
+   * @param stayTogether Whether these two roles should stay on the same side
+   * of the "awkward zone" (T50-59). This is necessary for certain cases where
+   * one role has two backgrounds.
+   */
+  constructor(roleA, roleB, delta, polarity, stayTogether, constraint) {
+    this.roleA = roleA;
+    this.roleB = roleB;
+    this.delta = delta;
+    this.polarity = polarity;
+    this.stayTogether = stayTogether;
+    this.constraint = constraint;
+    this.constraint = constraint != null ? constraint : "exact";
   }
 };
-SchemeVibrant.hues = [
-  0,
-  41,
-  61,
-  101,
-  131,
-  181,
-  251,
-  301,
-  360
-];
-SchemeVibrant.secondaryRotations = [
-  18,
-  15,
-  10,
-  12,
-  15,
-  18,
-  15,
-  12,
-  12
-];
-SchemeVibrant.tertiaryRotations = [
-  35,
-  30,
-  20,
-  25,
-  30,
-  35,
-  30,
-  25,
-  25
-];
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/score/score.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dynamiccolor/variant.js
+var Variant;
+(function(Variant2) {
+  Variant2[Variant2["MONOCHROME"] = 0] = "MONOCHROME";
+  Variant2[Variant2["NEUTRAL"] = 1] = "NEUTRAL";
+  Variant2[Variant2["TONAL_SPOT"] = 2] = "TONAL_SPOT";
+  Variant2[Variant2["VIBRANT"] = 3] = "VIBRANT";
+  Variant2[Variant2["EXPRESSIVE"] = 4] = "EXPRESSIVE";
+  Variant2[Variant2["FIDELITY"] = 5] = "FIDELITY";
+  Variant2[Variant2["CONTENT"] = 6] = "CONTENT";
+  Variant2[Variant2["RAINBOW"] = 7] = "RAINBOW";
+  Variant2[Variant2["FRUIT_SALAD"] = 8] = "FRUIT_SALAD";
+})(Variant || (Variant = {}));
+
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dynamiccolor/color_spec_2021.js
+function isFidelity(scheme) {
+  return scheme.variant === Variant.FIDELITY || scheme.variant === Variant.CONTENT;
+}
+function isMonochrome(scheme) {
+  return scheme.variant === Variant.MONOCHROME;
+}
+function findDesiredChromaByTone(hue, chroma, tone, byDecreasingTone) {
+  let answer = tone;
+  let closestToChroma = Hct.from(hue, chroma, tone);
+  if (closestToChroma.chroma < chroma) {
+    let chromaPeak = closestToChroma.chroma;
+    while (closestToChroma.chroma < chroma) {
+      answer += byDecreasingTone ? -1 : 1;
+      const potentialSolution = Hct.from(hue, chroma, answer);
+      if (chromaPeak > potentialSolution.chroma) {
+        break;
+      }
+      if (Math.abs(potentialSolution.chroma - chroma) < 0.4) {
+        break;
+      }
+      const potentialDelta = Math.abs(potentialSolution.chroma - chroma);
+      const currentDelta = Math.abs(closestToChroma.chroma - chroma);
+      if (potentialDelta < currentDelta) {
+        closestToChroma = potentialSolution;
+      }
+      chromaPeak = Math.max(chromaPeak, potentialSolution.chroma);
+    }
+  }
+  return answer;
+}
+var ColorSpecDelegateImpl2021 = class {
+  ////////////////////////////////////////////////////////////////
+  // Main Palettes                                              //
+  ////////////////////////////////////////////////////////////////
+  primaryPaletteKeyColor() {
+    return DynamicColor.fromPalette({
+      name: "primary_palette_key_color",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => s.primaryPalette.keyColor.tone
+    });
+  }
+  secondaryPaletteKeyColor() {
+    return DynamicColor.fromPalette({
+      name: "secondary_palette_key_color",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => s.secondaryPalette.keyColor.tone
+    });
+  }
+  tertiaryPaletteKeyColor() {
+    return DynamicColor.fromPalette({
+      name: "tertiary_palette_key_color",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => s.tertiaryPalette.keyColor.tone
+    });
+  }
+  neutralPaletteKeyColor() {
+    return DynamicColor.fromPalette({
+      name: "neutral_palette_key_color",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.neutralPalette.keyColor.tone
+    });
+  }
+  neutralVariantPaletteKeyColor() {
+    return DynamicColor.fromPalette({
+      name: "neutral_variant_palette_key_color",
+      palette: (s) => s.neutralVariantPalette,
+      tone: (s) => s.neutralVariantPalette.keyColor.tone
+    });
+  }
+  errorPaletteKeyColor() {
+    return DynamicColor.fromPalette({
+      name: "error_palette_key_color",
+      palette: (s) => s.errorPalette,
+      tone: (s) => s.errorPalette.keyColor.tone
+    });
+  }
+  ////////////////////////////////////////////////////////////////
+  // Surfaces [S]                                               //
+  ////////////////////////////////////////////////////////////////
+  background() {
+    return DynamicColor.fromPalette({
+      name: "background",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 6 : 98,
+      isBackground: true
+    });
+  }
+  onBackground() {
+    return DynamicColor.fromPalette({
+      name: "on_background",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 90 : 10,
+      background: (s) => this.background(),
+      contrastCurve: (s) => new ContrastCurve(3, 3, 4.5, 7)
+    });
+  }
+  surface() {
+    return DynamicColor.fromPalette({
+      name: "surface",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 6 : 98,
+      isBackground: true
+    });
+  }
+  surfaceDim() {
+    return DynamicColor.fromPalette({
+      name: "surface_dim",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 6 : new ContrastCurve(87, 87, 80, 75).get(s.contrastLevel),
+      isBackground: true
+    });
+  }
+  surfaceBright() {
+    return DynamicColor.fromPalette({
+      name: "surface_bright",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? new ContrastCurve(24, 24, 29, 34).get(s.contrastLevel) : 98,
+      isBackground: true
+    });
+  }
+  surfaceContainerLowest() {
+    return DynamicColor.fromPalette({
+      name: "surface_container_lowest",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? new ContrastCurve(4, 4, 2, 0).get(s.contrastLevel) : 100,
+      isBackground: true
+    });
+  }
+  surfaceContainerLow() {
+    return DynamicColor.fromPalette({
+      name: "surface_container_low",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? new ContrastCurve(10, 10, 11, 12).get(s.contrastLevel) : new ContrastCurve(96, 96, 96, 95).get(s.contrastLevel),
+      isBackground: true
+    });
+  }
+  surfaceContainer() {
+    return DynamicColor.fromPalette({
+      name: "surface_container",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? new ContrastCurve(12, 12, 16, 20).get(s.contrastLevel) : new ContrastCurve(94, 94, 92, 90).get(s.contrastLevel),
+      isBackground: true
+    });
+  }
+  surfaceContainerHigh() {
+    return DynamicColor.fromPalette({
+      name: "surface_container_high",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? new ContrastCurve(17, 17, 21, 25).get(s.contrastLevel) : new ContrastCurve(92, 92, 88, 85).get(s.contrastLevel),
+      isBackground: true
+    });
+  }
+  surfaceContainerHighest() {
+    return DynamicColor.fromPalette({
+      name: "surface_container_highest",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? new ContrastCurve(22, 22, 26, 30).get(s.contrastLevel) : new ContrastCurve(90, 90, 84, 80).get(s.contrastLevel),
+      isBackground: true
+    });
+  }
+  onSurface() {
+    return DynamicColor.fromPalette({
+      name: "on_surface",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 90 : 10,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  surfaceVariant() {
+    return DynamicColor.fromPalette({
+      name: "surface_variant",
+      palette: (s) => s.neutralVariantPalette,
+      tone: (s) => s.isDark ? 30 : 90,
+      isBackground: true
+    });
+  }
+  onSurfaceVariant() {
+    return DynamicColor.fromPalette({
+      name: "on_surface_variant",
+      palette: (s) => s.neutralVariantPalette,
+      tone: (s) => s.isDark ? 80 : 30,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 11)
+    });
+  }
+  inverseSurface() {
+    return DynamicColor.fromPalette({
+      name: "inverse_surface",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 90 : 20,
+      isBackground: true
+    });
+  }
+  inverseOnSurface() {
+    return DynamicColor.fromPalette({
+      name: "inverse_on_surface",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 20 : 95,
+      background: (s) => this.inverseSurface(),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  outline() {
+    return DynamicColor.fromPalette({
+      name: "outline",
+      palette: (s) => s.neutralVariantPalette,
+      tone: (s) => s.isDark ? 60 : 50,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1.5, 3, 4.5, 7)
+    });
+  }
+  outlineVariant() {
+    return DynamicColor.fromPalette({
+      name: "outline_variant",
+      palette: (s) => s.neutralVariantPalette,
+      tone: (s) => s.isDark ? 30 : 80,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5)
+    });
+  }
+  shadow() {
+    return DynamicColor.fromPalette({
+      name: "shadow",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => 0
+    });
+  }
+  scrim() {
+    return DynamicColor.fromPalette({
+      name: "scrim",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => 0
+    });
+  }
+  surfaceTint() {
+    return DynamicColor.fromPalette({
+      name: "surface_tint",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => s.isDark ? 80 : 40,
+      isBackground: true
+    });
+  }
+  ////////////////////////////////////////////////////////////////
+  // Primary [P].                                               //
+  ////////////////////////////////////////////////////////////////
+  primary() {
+    return DynamicColor.fromPalette({
+      name: "primary",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 100 : 0;
+        }
+        return s.isDark ? 80 : 40;
+      },
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 7),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.primaryContainer(), this.primary(), 10, "nearer", false)
+    });
+  }
+  primaryDim() {
+    return void 0;
+  }
+  onPrimary() {
+    return DynamicColor.fromPalette({
+      name: "on_primary",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 10 : 90;
+        }
+        return s.isDark ? 20 : 100;
+      },
+      background: (s) => this.primary(),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  primaryContainer() {
+    return DynamicColor.fromPalette({
+      name: "primary_container",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => {
+        if (isFidelity(s)) {
+          return s.sourceColorHct.tone;
+        }
+        if (isMonochrome(s)) {
+          return s.isDark ? 85 : 25;
+        }
+        return s.isDark ? 30 : 90;
+      },
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.primaryContainer(), this.primary(), 10, "nearer", false)
+    });
+  }
+  onPrimaryContainer() {
+    return DynamicColor.fromPalette({
+      name: "on_primary_container",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => {
+        if (isFidelity(s)) {
+          return DynamicColor.foregroundTone(this.primaryContainer().tone(s), 4.5);
+        }
+        if (isMonochrome(s)) {
+          return s.isDark ? 0 : 100;
+        }
+        return s.isDark ? 90 : 30;
+      },
+      background: (s) => this.primaryContainer(),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 11)
+    });
+  }
+  inversePrimary() {
+    return DynamicColor.fromPalette({
+      name: "inverse_primary",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => s.isDark ? 40 : 80,
+      background: (s) => this.inverseSurface(),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 7)
+    });
+  }
+  /////////////////////////////////////////////////////////////////
+  // Secondary [Q].                                              //
+  /////////////////////////////////////////////////////////////////
+  secondary() {
+    return DynamicColor.fromPalette({
+      name: "secondary",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => s.isDark ? 80 : 40,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 7),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.secondaryContainer(), this.secondary(), 10, "nearer", false)
+    });
+  }
+  secondaryDim() {
+    return void 0;
+  }
+  onSecondary() {
+    return DynamicColor.fromPalette({
+      name: "on_secondary",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 10 : 100;
+        } else {
+          return s.isDark ? 20 : 100;
+        }
+      },
+      background: (s) => this.secondary(),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  secondaryContainer() {
+    return DynamicColor.fromPalette({
+      name: "secondary_container",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => {
+        const initialTone = s.isDark ? 30 : 90;
+        if (isMonochrome(s)) {
+          return s.isDark ? 30 : 85;
+        }
+        if (!isFidelity(s)) {
+          return initialTone;
+        }
+        return findDesiredChromaByTone(s.secondaryPalette.hue, s.secondaryPalette.chroma, initialTone, s.isDark ? false : true);
+      },
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.secondaryContainer(), this.secondary(), 10, "nearer", false)
+    });
+  }
+  onSecondaryContainer() {
+    return DynamicColor.fromPalette({
+      name: "on_secondary_container",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 90 : 10;
+        }
+        if (!isFidelity(s)) {
+          return s.isDark ? 90 : 30;
+        }
+        return DynamicColor.foregroundTone(this.secondaryContainer().tone(s), 4.5);
+      },
+      background: (s) => this.secondaryContainer(),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 11)
+    });
+  }
+  /////////////////////////////////////////////////////////////////
+  // Tertiary [T].                                               //
+  /////////////////////////////////////////////////////////////////
+  tertiary() {
+    return DynamicColor.fromPalette({
+      name: "tertiary",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 90 : 25;
+        }
+        return s.isDark ? 80 : 40;
+      },
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 7),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.tertiaryContainer(), this.tertiary(), 10, "nearer", false)
+    });
+  }
+  tertiaryDim() {
+    return void 0;
+  }
+  onTertiary() {
+    return DynamicColor.fromPalette({
+      name: "on_tertiary",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 10 : 90;
+        }
+        return s.isDark ? 20 : 100;
+      },
+      background: (s) => this.tertiary(),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  tertiaryContainer() {
+    return DynamicColor.fromPalette({
+      name: "tertiary_container",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 60 : 49;
+        }
+        if (!isFidelity(s)) {
+          return s.isDark ? 30 : 90;
+        }
+        const proposedHct = s.tertiaryPalette.getHct(s.sourceColorHct.tone);
+        return DislikeAnalyzer.fixIfDisliked(proposedHct).tone;
+      },
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.tertiaryContainer(), this.tertiary(), 10, "nearer", false)
+    });
+  }
+  onTertiaryContainer() {
+    return DynamicColor.fromPalette({
+      name: "on_tertiary_container",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 0 : 100;
+        }
+        if (!isFidelity(s)) {
+          return s.isDark ? 90 : 30;
+        }
+        return DynamicColor.foregroundTone(this.tertiaryContainer().tone(s), 4.5);
+      },
+      background: (s) => this.tertiaryContainer(),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 11)
+    });
+  }
+  //////////////////////////////////////////////////////////////////
+  // Error [E].                                                   //
+  //////////////////////////////////////////////////////////////////
+  error() {
+    return DynamicColor.fromPalette({
+      name: "error",
+      palette: (s) => s.errorPalette,
+      tone: (s) => s.isDark ? 80 : 40,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 7),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.errorContainer(), this.error(), 10, "nearer", false)
+    });
+  }
+  errorDim() {
+    return void 0;
+  }
+  onError() {
+    return DynamicColor.fromPalette({
+      name: "on_error",
+      palette: (s) => s.errorPalette,
+      tone: (s) => s.isDark ? 20 : 100,
+      background: (s) => this.error(),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  errorContainer() {
+    return DynamicColor.fromPalette({
+      name: "error_container",
+      palette: (s) => s.errorPalette,
+      tone: (s) => s.isDark ? 30 : 90,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.errorContainer(), this.error(), 10, "nearer", false)
+    });
+  }
+  onErrorContainer() {
+    return DynamicColor.fromPalette({
+      name: "on_error_container",
+      palette: (s) => s.errorPalette,
+      tone: (s) => {
+        if (isMonochrome(s)) {
+          return s.isDark ? 90 : 10;
+        }
+        return s.isDark ? 90 : 30;
+      },
+      background: (s) => this.errorContainer(),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 11)
+    });
+  }
+  //////////////////////////////////////////////////////////////////
+  // Primary Fixed [PF]                                           //
+  //////////////////////////////////////////////////////////////////
+  primaryFixed() {
+    return DynamicColor.fromPalette({
+      name: "primary_fixed",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => isMonochrome(s) ? 40 : 90,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.primaryFixed(), this.primaryFixedDim(), 10, "lighter", true)
+    });
+  }
+  primaryFixedDim() {
+    return DynamicColor.fromPalette({
+      name: "primary_fixed_dim",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => isMonochrome(s) ? 30 : 80,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.primaryFixed(), this.primaryFixedDim(), 10, "lighter", true)
+    });
+  }
+  onPrimaryFixed() {
+    return DynamicColor.fromPalette({
+      name: "on_primary_fixed",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => isMonochrome(s) ? 100 : 10,
+      background: (s) => this.primaryFixedDim(),
+      secondBackground: (s) => this.primaryFixed(),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  onPrimaryFixedVariant() {
+    return DynamicColor.fromPalette({
+      name: "on_primary_fixed_variant",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => isMonochrome(s) ? 90 : 30,
+      background: (s) => this.primaryFixedDim(),
+      secondBackground: (s) => this.primaryFixed(),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 11)
+    });
+  }
+  ///////////////////////////////////////////////////////////////////
+  // Secondary Fixed [QF]                                          //
+  ///////////////////////////////////////////////////////////////////
+  secondaryFixed() {
+    return DynamicColor.fromPalette({
+      name: "secondary_fixed",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => isMonochrome(s) ? 80 : 90,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.secondaryFixed(), this.secondaryFixedDim(), 10, "lighter", true)
+    });
+  }
+  secondaryFixedDim() {
+    return DynamicColor.fromPalette({
+      name: "secondary_fixed_dim",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => isMonochrome(s) ? 70 : 80,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.secondaryFixed(), this.secondaryFixedDim(), 10, "lighter", true)
+    });
+  }
+  onSecondaryFixed() {
+    return DynamicColor.fromPalette({
+      name: "on_secondary_fixed",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => 10,
+      background: (s) => this.secondaryFixedDim(),
+      secondBackground: (s) => this.secondaryFixed(),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  onSecondaryFixedVariant() {
+    return DynamicColor.fromPalette({
+      name: "on_secondary_fixed_variant",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => isMonochrome(s) ? 25 : 30,
+      background: (s) => this.secondaryFixedDim(),
+      secondBackground: (s) => this.secondaryFixed(),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 11)
+    });
+  }
+  /////////////////////////////////////////////////////////////////
+  // Tertiary Fixed [TF]                                         //
+  /////////////////////////////////////////////////////////////////
+  tertiaryFixed() {
+    return DynamicColor.fromPalette({
+      name: "tertiary_fixed",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => isMonochrome(s) ? 40 : 90,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.tertiaryFixed(), this.tertiaryFixedDim(), 10, "lighter", true)
+    });
+  }
+  tertiaryFixedDim() {
+    return DynamicColor.fromPalette({
+      name: "tertiary_fixed_dim",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => isMonochrome(s) ? 30 : 80,
+      isBackground: true,
+      background: (s) => this.highestSurface(s),
+      contrastCurve: (s) => new ContrastCurve(1, 1, 3, 4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.tertiaryFixed(), this.tertiaryFixedDim(), 10, "lighter", true)
+    });
+  }
+  onTertiaryFixed() {
+    return DynamicColor.fromPalette({
+      name: "on_tertiary_fixed",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => isMonochrome(s) ? 100 : 10,
+      background: (s) => this.tertiaryFixedDim(),
+      secondBackground: (s) => this.tertiaryFixed(),
+      contrastCurve: (s) => new ContrastCurve(4.5, 7, 11, 21)
+    });
+  }
+  onTertiaryFixedVariant() {
+    return DynamicColor.fromPalette({
+      name: "on_tertiary_fixed_variant",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => isMonochrome(s) ? 90 : 30,
+      background: (s) => this.tertiaryFixedDim(),
+      secondBackground: (s) => this.tertiaryFixed(),
+      contrastCurve: (s) => new ContrastCurve(3, 4.5, 7, 11)
+    });
+  }
+  ////////////////////////////////////////////////////////////////
+  // Other                                                      //
+  ////////////////////////////////////////////////////////////////
+  highestSurface(s) {
+    return s.isDark ? this.surfaceBright() : this.surfaceDim();
+  }
+};
+
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dynamiccolor/color_spec_2025.js
+function tMaxC(palette, lowerBound = 0, upperBound = 100, chromaMultiplier = 1) {
+  let answer = findBestToneForChroma(palette.hue, palette.chroma * chromaMultiplier, 100, true);
+  return clampDouble(lowerBound, upperBound, answer);
+}
+function tMinC(palette, lowerBound = 0, upperBound = 100) {
+  let answer = findBestToneForChroma(palette.hue, palette.chroma, 0, false);
+  return clampDouble(lowerBound, upperBound, answer);
+}
+function findBestToneForChroma(hue, chroma, tone, byDecreasingTone) {
+  let answer = tone;
+  let bestCandidate = Hct.from(hue, chroma, answer);
+  while (bestCandidate.chroma < chroma) {
+    if (tone < 0 || tone > 100) {
+      break;
+    }
+    tone += byDecreasingTone ? -1 : 1;
+    const newCandidate = Hct.from(hue, chroma, tone);
+    if (bestCandidate.chroma < newCandidate.chroma) {
+      bestCandidate = newCandidate;
+      answer = tone;
+    }
+  }
+  return answer;
+}
+function getCurve(defaultContrast) {
+  if (defaultContrast === 1.5) {
+    return new ContrastCurve(1.5, 1.5, 3, 5.5);
+  } else if (defaultContrast === 3) {
+    return new ContrastCurve(3, 3, 4.5, 7);
+  } else if (defaultContrast === 4.5) {
+    return new ContrastCurve(4.5, 4.5, 7, 11);
+  } else if (defaultContrast === 6) {
+    return new ContrastCurve(6, 6, 7, 11);
+  } else if (defaultContrast === 7) {
+    return new ContrastCurve(7, 7, 11, 21);
+  } else if (defaultContrast === 9) {
+    return new ContrastCurve(9, 9, 11, 21);
+  } else if (defaultContrast === 11) {
+    return new ContrastCurve(11, 11, 21, 21);
+  } else if (defaultContrast === 21) {
+    return new ContrastCurve(21, 21, 21, 21);
+  } else {
+    return new ContrastCurve(defaultContrast, defaultContrast, 7, 21);
+  }
+}
+var ColorSpecDelegateImpl2025 = class extends ColorSpecDelegateImpl2021 {
+  ////////////////////////////////////////////////////////////////
+  // Surfaces [S]                                               //
+  ////////////////////////////////////////////////////////////////
+  surface() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "surface",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => {
+        super.surface().tone(s);
+        if (s.platform === "phone") {
+          if (s.isDark) {
+            return 4;
+          } else {
+            if (Hct.isYellow(s.neutralPalette.hue)) {
+              return 99;
+            } else if (s.variant === Variant.VIBRANT) {
+              return 97;
+            } else {
+              return 98;
+            }
+          }
+        } else {
+          return 0;
+        }
+      },
+      isBackground: true
+    });
+    return extendSpecVersion(super.surface(), "2025", color2025);
+  }
+  surfaceDim() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "surface_dim",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => {
+        if (s.isDark) {
+          return 4;
+        } else {
+          if (Hct.isYellow(s.neutralPalette.hue)) {
+            return 90;
+          } else if (s.variant === Variant.VIBRANT) {
+            return 85;
+          } else {
+            return 87;
+          }
+        }
+      },
+      isBackground: true,
+      chromaMultiplier: (s) => {
+        if (!s.isDark) {
+          if (s.variant === Variant.NEUTRAL) {
+            return 2.5;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.7;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? 2.7 : 1.75;
+          } else if (s.variant === Variant.VIBRANT) {
+            return 1.36;
+          }
+        }
+        return 1;
+      }
+    });
+    return extendSpecVersion(super.surfaceDim(), "2025", color2025);
+  }
+  surfaceBright() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "surface_bright",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => {
+        if (s.isDark) {
+          return 18;
+        } else {
+          if (Hct.isYellow(s.neutralPalette.hue)) {
+            return 99;
+          } else if (s.variant === Variant.VIBRANT) {
+            return 97;
+          } else {
+            return 98;
+          }
+        }
+      },
+      isBackground: true,
+      chromaMultiplier: (s) => {
+        if (s.isDark) {
+          if (s.variant === Variant.NEUTRAL) {
+            return 2.5;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.7;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? 2.7 : 1.75;
+          } else if (s.variant === Variant.VIBRANT) {
+            return 1.36;
+          }
+        }
+        return 1;
+      }
+    });
+    return extendSpecVersion(super.surfaceBright(), "2025", color2025);
+  }
+  surfaceContainerLowest() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "surface_container_lowest",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 0 : 100,
+      isBackground: true
+    });
+    return extendSpecVersion(super.surfaceContainerLowest(), "2025", color2025);
+  }
+  surfaceContainerLow() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "surface_container_low",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => {
+        if (s.platform === "phone") {
+          if (s.isDark) {
+            return 6;
+          } else {
+            if (Hct.isYellow(s.neutralPalette.hue)) {
+              return 98;
+            } else if (s.variant === Variant.VIBRANT) {
+              return 95;
+            } else {
+              return 96;
+            }
+          }
+        } else {
+          return 15;
+        }
+      },
+      isBackground: true,
+      chromaMultiplier: (s) => {
+        if (s.platform === "phone") {
+          if (s.variant === Variant.NEUTRAL) {
+            return 1.3;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.25;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? 1.3 : 1.15;
+          } else if (s.variant === Variant.VIBRANT) {
+            return 1.08;
+          }
+        }
+        return 1;
+      }
+    });
+    return extendSpecVersion(super.surfaceContainerLow(), "2025", color2025);
+  }
+  surfaceContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "surface_container",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => {
+        if (s.platform === "phone") {
+          if (s.isDark) {
+            return 9;
+          } else {
+            if (Hct.isYellow(s.neutralPalette.hue)) {
+              return 96;
+            } else if (s.variant === Variant.VIBRANT) {
+              return 92;
+            } else {
+              return 94;
+            }
+          }
+        } else {
+          return 20;
+        }
+      },
+      isBackground: true,
+      chromaMultiplier: (s) => {
+        if (s.platform === "phone") {
+          if (s.variant === Variant.NEUTRAL) {
+            return 1.6;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.4;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? 1.6 : 1.3;
+          } else if (s.variant === Variant.VIBRANT) {
+            return 1.15;
+          }
+        }
+        return 1;
+      }
+    });
+    return extendSpecVersion(super.surfaceContainer(), "2025", color2025);
+  }
+  surfaceContainerHigh() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "surface_container_high",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => {
+        if (s.platform === "phone") {
+          if (s.isDark) {
+            return 12;
+          } else {
+            if (Hct.isYellow(s.neutralPalette.hue)) {
+              return 94;
+            } else if (s.variant === Variant.VIBRANT) {
+              return 90;
+            } else {
+              return 92;
+            }
+          }
+        } else {
+          return 25;
+        }
+      },
+      isBackground: true,
+      chromaMultiplier: (s) => {
+        if (s.platform === "phone") {
+          if (s.variant === Variant.NEUTRAL) {
+            return 1.9;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.5;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? 1.95 : 1.45;
+          } else if (s.variant === Variant.VIBRANT) {
+            return 1.22;
+          }
+        }
+        return 1;
+      }
+    });
+    return extendSpecVersion(super.surfaceContainerHigh(), "2025", color2025);
+  }
+  surfaceContainerHighest() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "surface_container_highest",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => {
+        if (s.isDark) {
+          return 15;
+        } else {
+          if (Hct.isYellow(s.neutralPalette.hue)) {
+            return 92;
+          } else if (s.variant === Variant.VIBRANT) {
+            return 88;
+          } else {
+            return 90;
+          }
+        }
+      },
+      isBackground: true,
+      chromaMultiplier: (s) => {
+        if (s.variant === Variant.NEUTRAL) {
+          return 2.2;
+        } else if (s.variant === Variant.TONAL_SPOT) {
+          return 1.7;
+        } else if (s.variant === Variant.EXPRESSIVE) {
+          return Hct.isYellow(s.neutralPalette.hue) ? 2.3 : 1.6;
+        } else if (s.variant === Variant.VIBRANT) {
+          return 1.29;
+        } else {
+          return 1;
+        }
+      }
+    });
+    return extendSpecVersion(super.surfaceContainerHighest(), "2025", color2025);
+  }
+  onSurface() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_surface",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => {
+        if (s.variant === Variant.VIBRANT) {
+          return tMaxC(s.neutralPalette, 0, 100, 1.1);
+        } else {
+          return DynamicColor.getInitialToneFromBackground((s2) => s2.platform === "phone" ? this.highestSurface(s2) : this.surfaceContainerHigh())(s);
+        }
+      },
+      chromaMultiplier: (s) => {
+        if (s.platform === "phone") {
+          if (s.variant === Variant.NEUTRAL) {
+            return 2.2;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.7;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? s.isDark ? 3 : 2.3 : 1.6;
+          }
+        }
+        return 1;
+      },
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : this.surfaceContainerHigh(),
+      contrastCurve: (s) => s.isDark && s.platform === "phone" ? getCurve(11) : getCurve(9)
+    });
+    return extendSpecVersion(super.onSurface(), "2025", color2025);
+  }
+  onSurfaceVariant() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_surface_variant",
+      palette: (s) => s.neutralPalette,
+      chromaMultiplier: (s) => {
+        if (s.platform === "phone") {
+          if (s.variant === Variant.NEUTRAL) {
+            return 2.2;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.7;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? s.isDark ? 3 : 2.3 : 1.6;
+          }
+        }
+        return 1;
+      },
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : this.surfaceContainerHigh(),
+      contrastCurve: (s) => s.platform === "phone" ? s.isDark ? getCurve(6) : getCurve(4.5) : getCurve(7)
+    });
+    return extendSpecVersion(super.onSurfaceVariant(), "2025", color2025);
+  }
+  outline() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "outline",
+      palette: (s) => s.neutralPalette,
+      chromaMultiplier: (s) => {
+        if (s.platform === "phone") {
+          if (s.variant === Variant.NEUTRAL) {
+            return 2.2;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.7;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? s.isDark ? 3 : 2.3 : 1.6;
+          }
+        }
+        return 1;
+      },
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : this.surfaceContainerHigh(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(3) : getCurve(4.5)
+    });
+    return extendSpecVersion(super.outline(), "2025", color2025);
+  }
+  outlineVariant() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "outline_variant",
+      palette: (s) => s.neutralPalette,
+      chromaMultiplier: (s) => {
+        if (s.platform === "phone") {
+          if (s.variant === Variant.NEUTRAL) {
+            return 2.2;
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return 1.7;
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return Hct.isYellow(s.neutralPalette.hue) ? s.isDark ? 3 : 2.3 : 1.6;
+          }
+        }
+        return 1;
+      },
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : this.surfaceContainerHigh(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(1.5) : getCurve(3)
+    });
+    return extendSpecVersion(super.outlineVariant(), "2025", color2025);
+  }
+  inverseSurface() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "inverse_surface",
+      palette: (s) => s.neutralPalette,
+      tone: (s) => s.isDark ? 98 : 4,
+      isBackground: true
+    });
+    return extendSpecVersion(super.inverseSurface(), "2025", color2025);
+  }
+  inverseOnSurface() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "inverse_on_surface",
+      palette: (s) => s.neutralPalette,
+      background: (s) => this.inverseSurface(),
+      contrastCurve: (s) => getCurve(7)
+    });
+    return extendSpecVersion(super.inverseOnSurface(), "2025", color2025);
+  }
+  ////////////////////////////////////////////////////////////////
+  // Primaries [P]                                              //
+  ////////////////////////////////////////////////////////////////
+  primary() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "primary",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => {
+        if (s.variant === Variant.NEUTRAL) {
+          if (s.platform === "phone") {
+            return s.isDark ? 80 : 40;
+          } else {
+            return 90;
+          }
+        } else if (s.variant === Variant.TONAL_SPOT) {
+          if (s.platform === "phone") {
+            if (s.isDark) {
+              return 80;
+            } else {
+              return tMaxC(s.primaryPalette);
+            }
+          } else {
+            return tMaxC(s.primaryPalette, 0, 90);
+          }
+        } else if (s.variant === Variant.EXPRESSIVE) {
+          if (s.platform === "phone") {
+            return tMaxC(s.primaryPalette, 0, Hct.isYellow(s.primaryPalette.hue) ? 25 : Hct.isCyan(s.primaryPalette.hue) ? 88 : 98);
+          } else {
+            return tMaxC(s.primaryPalette);
+          }
+        } else {
+          if (s.platform === "phone") {
+            return tMaxC(s.primaryPalette, 0, Hct.isCyan(s.primaryPalette.hue) ? 88 : 98);
+          } else {
+            return tMaxC(s.primaryPalette);
+          }
+        }
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : this.surfaceContainerHigh(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(4.5) : getCurve(7),
+      toneDeltaPair: (s) => s.platform === "phone" ? new ToneDeltaPair(this.primaryContainer(), this.primary(), 5, "relative_lighter", true, "farther") : void 0
+    });
+    return extendSpecVersion(super.primary(), "2025", color2025);
+  }
+  primaryDim() {
+    return DynamicColor.fromPalette({
+      name: "primary_dim",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => {
+        if (s.variant === Variant.NEUTRAL) {
+          return 85;
+        } else if (s.variant === Variant.TONAL_SPOT) {
+          return tMaxC(s.primaryPalette, 0, 90);
+        } else {
+          return tMaxC(s.primaryPalette);
+        }
+      },
+      isBackground: true,
+      background: (s) => this.surfaceContainerHigh(),
+      contrastCurve: (s) => getCurve(4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.primaryDim(), this.primary(), 5, "darker", true, "farther")
+    });
+  }
+  onPrimary() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_primary",
+      palette: (s) => s.primaryPalette,
+      background: (s) => s.platform === "phone" ? this.primary() : this.primaryDim(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(6) : getCurve(7)
+    });
+    return extendSpecVersion(super.onPrimary(), "2025", color2025);
+  }
+  primaryContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "primary_container",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => {
+        if (s.platform === "watch") {
+          return 30;
+        } else if (s.variant === Variant.NEUTRAL) {
+          return s.isDark ? 30 : 90;
+        } else if (s.variant === Variant.TONAL_SPOT) {
+          return s.isDark ? tMinC(s.primaryPalette, 35, 93) : tMaxC(s.primaryPalette, 0, 90);
+        } else if (s.variant === Variant.EXPRESSIVE) {
+          return s.isDark ? tMaxC(s.primaryPalette, 30, 93) : tMaxC(s.primaryPalette, 78, Hct.isCyan(s.primaryPalette.hue) ? 88 : 90);
+        } else {
+          return s.isDark ? tMinC(s.primaryPalette, 66, 93) : tMaxC(s.primaryPalette, 66, Hct.isCyan(s.primaryPalette.hue) ? 88 : 93);
+        }
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : void 0,
+      toneDeltaPair: (s) => s.platform === "phone" ? void 0 : new ToneDeltaPair(this.primaryContainer(), this.primaryDim(), 10, "darker", true, "farther"),
+      contrastCurve: (s) => s.platform === "phone" && s.contrastLevel > 0 ? getCurve(1.5) : void 0
+    });
+    return extendSpecVersion(super.primaryContainer(), "2025", color2025);
+  }
+  onPrimaryContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_primary_container",
+      palette: (s) => s.primaryPalette,
+      background: (s) => this.primaryContainer(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(6) : getCurve(7)
+    });
+    return extendSpecVersion(super.onPrimaryContainer(), "2025", color2025);
+  }
+  primaryFixed() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "primary_fixed",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => {
+        let tempS = Object.assign({}, s, { isDark: false, contrastLevel: 0 });
+        return this.primaryContainer().getTone(tempS);
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : void 0,
+      contrastCurve: (s) => s.platform === "phone" && s.contrastLevel > 0 ? getCurve(1.5) : void 0
+    });
+    return extendSpecVersion(super.primaryFixed(), "2025", color2025);
+  }
+  primaryFixedDim() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "primary_fixed_dim",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => this.primaryFixed().getTone(s),
+      isBackground: true,
+      toneDeltaPair: (s) => new ToneDeltaPair(this.primaryFixedDim(), this.primaryFixed(), 5, "darker", true, "exact")
+    });
+    return extendSpecVersion(super.primaryFixedDim(), "2025", color2025);
+  }
+  onPrimaryFixed() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_primary_fixed",
+      palette: (s) => s.primaryPalette,
+      background: (s) => this.primaryFixedDim(),
+      contrastCurve: (s) => getCurve(7)
+    });
+    return extendSpecVersion(super.onPrimaryFixed(), "2025", color2025);
+  }
+  onPrimaryFixedVariant() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_primary_fixed_variant",
+      palette: (s) => s.primaryPalette,
+      background: (s) => this.primaryFixedDim(),
+      contrastCurve: (s) => getCurve(4.5)
+    });
+    return extendSpecVersion(super.onPrimaryFixedVariant(), "2025", color2025);
+  }
+  inversePrimary() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "inverse_primary",
+      palette: (s) => s.primaryPalette,
+      tone: (s) => tMaxC(s.primaryPalette),
+      background: (s) => this.inverseSurface(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(6) : getCurve(7)
+    });
+    return extendSpecVersion(super.inversePrimary(), "2025", color2025);
+  }
+  ////////////////////////////////////////////////////////////////
+  // Secondaries [Q]                                            //
+  ////////////////////////////////////////////////////////////////
+  secondary() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "secondary",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => {
+        if (s.platform === "watch") {
+          return s.variant === Variant.NEUTRAL ? 90 : tMaxC(s.secondaryPalette, 0, 90);
+        } else if (s.variant === Variant.NEUTRAL) {
+          return s.isDark ? tMinC(s.secondaryPalette, 0, 98) : tMaxC(s.secondaryPalette);
+        } else if (s.variant === Variant.VIBRANT) {
+          return tMaxC(s.secondaryPalette, 0, s.isDark ? 90 : 98);
+        } else {
+          return s.isDark ? 80 : tMaxC(s.secondaryPalette);
+        }
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : this.surfaceContainerHigh(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(4.5) : getCurve(7),
+      toneDeltaPair: (s) => s.platform === "phone" ? new ToneDeltaPair(this.secondaryContainer(), this.secondary(), 5, "relative_lighter", true, "farther") : void 0
+    });
+    return extendSpecVersion(super.secondary(), "2025", color2025);
+  }
+  secondaryDim() {
+    return DynamicColor.fromPalette({
+      name: "secondary_dim",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => {
+        if (s.variant === Variant.NEUTRAL) {
+          return 85;
+        } else {
+          return tMaxC(s.secondaryPalette, 0, 90);
+        }
+      },
+      isBackground: true,
+      background: (s) => this.surfaceContainerHigh(),
+      contrastCurve: (s) => getCurve(4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.secondaryDim(), this.secondary(), 5, "darker", true, "farther")
+    });
+  }
+  onSecondary() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_secondary",
+      palette: (s) => s.secondaryPalette,
+      background: (s) => s.platform === "phone" ? this.secondary() : this.secondaryDim(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(6) : getCurve(7)
+    });
+    return extendSpecVersion(super.onSecondary(), "2025", color2025);
+  }
+  secondaryContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "secondary_container",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => {
+        if (s.platform === "watch") {
+          return 30;
+        } else if (s.variant === Variant.VIBRANT) {
+          return s.isDark ? tMinC(s.secondaryPalette, 30, 40) : tMaxC(s.secondaryPalette, 84, 90);
+        } else if (s.variant === Variant.EXPRESSIVE) {
+          return s.isDark ? 15 : tMaxC(s.secondaryPalette, 90, 95);
+        } else {
+          return s.isDark ? 25 : 90;
+        }
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : void 0,
+      toneDeltaPair: (s) => s.platform === "watch" ? new ToneDeltaPair(this.secondaryContainer(), this.secondaryDim(), 10, "darker", true, "farther") : void 0,
+      contrastCurve: (s) => s.platform === "phone" && s.contrastLevel > 0 ? getCurve(1.5) : void 0
+    });
+    return extendSpecVersion(super.secondaryContainer(), "2025", color2025);
+  }
+  onSecondaryContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_secondary_container",
+      palette: (s) => s.secondaryPalette,
+      background: (s) => this.secondaryContainer(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(6) : getCurve(7)
+    });
+    return extendSpecVersion(super.onSecondaryContainer(), "2025", color2025);
+  }
+  secondaryFixed() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "secondary_fixed",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => {
+        let tempS = Object.assign({}, s, { isDark: false, contrastLevel: 0 });
+        return this.secondaryContainer().getTone(tempS);
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : void 0,
+      contrastCurve: (s) => s.platform === "phone" && s.contrastLevel > 0 ? getCurve(1.5) : void 0
+    });
+    return extendSpecVersion(super.secondaryFixed(), "2025", color2025);
+  }
+  secondaryFixedDim() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "secondary_fixed_dim",
+      palette: (s) => s.secondaryPalette,
+      tone: (s) => this.secondaryFixed().getTone(s),
+      isBackground: true,
+      toneDeltaPair: (s) => new ToneDeltaPair(this.secondaryFixedDim(), this.secondaryFixed(), 5, "darker", true, "exact")
+    });
+    return extendSpecVersion(super.secondaryFixedDim(), "2025", color2025);
+  }
+  onSecondaryFixed() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_secondary_fixed",
+      palette: (s) => s.secondaryPalette,
+      background: (s) => this.secondaryFixedDim(),
+      contrastCurve: (s) => getCurve(7)
+    });
+    return extendSpecVersion(super.onSecondaryFixed(), "2025", color2025);
+  }
+  onSecondaryFixedVariant() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_secondary_fixed_variant",
+      palette: (s) => s.secondaryPalette,
+      background: (s) => this.secondaryFixedDim(),
+      contrastCurve: (s) => getCurve(4.5)
+    });
+    return extendSpecVersion(super.onSecondaryFixedVariant(), "2025", color2025);
+  }
+  ////////////////////////////////////////////////////////////////
+  // Tertiaries [T]                                             //
+  ////////////////////////////////////////////////////////////////
+  tertiary() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "tertiary",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => {
+        if (s.platform === "watch") {
+          return s.variant === Variant.TONAL_SPOT ? tMaxC(s.tertiaryPalette, 0, 90) : tMaxC(s.tertiaryPalette);
+        } else if (s.variant === Variant.EXPRESSIVE || s.variant === Variant.VIBRANT) {
+          return tMaxC(s.tertiaryPalette, 0, Hct.isCyan(s.tertiaryPalette.hue) ? 88 : s.isDark ? 98 : 100);
+        } else {
+          return s.isDark ? tMaxC(s.tertiaryPalette, 0, 98) : tMaxC(s.tertiaryPalette);
+        }
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : this.surfaceContainerHigh(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(4.5) : getCurve(7),
+      toneDeltaPair: (s) => s.platform === "phone" ? new ToneDeltaPair(this.tertiaryContainer(), this.tertiary(), 5, "relative_lighter", true, "farther") : void 0
+    });
+    return extendSpecVersion(super.tertiary(), "2025", color2025);
+  }
+  tertiaryDim() {
+    return DynamicColor.fromPalette({
+      name: "tertiary_dim",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => {
+        if (s.variant === Variant.TONAL_SPOT) {
+          return tMaxC(s.tertiaryPalette, 0, 90);
+        } else {
+          return tMaxC(s.tertiaryPalette);
+        }
+      },
+      isBackground: true,
+      background: (s) => this.surfaceContainerHigh(),
+      contrastCurve: (s) => getCurve(4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.tertiaryDim(), this.tertiary(), 5, "darker", true, "farther")
+    });
+  }
+  onTertiary() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_tertiary",
+      palette: (s) => s.tertiaryPalette,
+      background: (s) => s.platform === "phone" ? this.tertiary() : this.tertiaryDim(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(6) : getCurve(7)
+    });
+    return extendSpecVersion(super.onTertiary(), "2025", color2025);
+  }
+  tertiaryContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "tertiary_container",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => {
+        if (s.platform === "watch") {
+          return s.variant === Variant.TONAL_SPOT ? tMaxC(s.tertiaryPalette, 0, 90) : tMaxC(s.tertiaryPalette);
+        } else {
+          if (s.variant === Variant.NEUTRAL) {
+            return s.isDark ? tMaxC(s.tertiaryPalette, 0, 93) : tMaxC(s.tertiaryPalette, 0, 96);
+          } else if (s.variant === Variant.TONAL_SPOT) {
+            return tMaxC(s.tertiaryPalette, 0, s.isDark ? 93 : 100);
+          } else if (s.variant === Variant.EXPRESSIVE) {
+            return tMaxC(s.tertiaryPalette, 75, Hct.isCyan(s.tertiaryPalette.hue) ? 88 : s.isDark ? 93 : 100);
+          } else {
+            return s.isDark ? tMaxC(s.tertiaryPalette, 0, 93) : tMaxC(s.tertiaryPalette, 72, 100);
+          }
+        }
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : void 0,
+      toneDeltaPair: (s) => s.platform === "watch" ? new ToneDeltaPair(this.tertiaryContainer(), this.tertiaryDim(), 10, "darker", true, "farther") : void 0,
+      contrastCurve: (s) => s.platform === "phone" && s.contrastLevel > 0 ? getCurve(1.5) : void 0
+    });
+    return extendSpecVersion(super.tertiaryContainer(), "2025", color2025);
+  }
+  onTertiaryContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_tertiary_container",
+      palette: (s) => s.tertiaryPalette,
+      background: (s) => this.tertiaryContainer(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(6) : getCurve(7)
+    });
+    return extendSpecVersion(super.onTertiaryContainer(), "2025", color2025);
+  }
+  tertiaryFixed() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "tertiary_fixed",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => {
+        let tempS = Object.assign({}, s, { isDark: false, contrastLevel: 0 });
+        return this.tertiaryContainer().getTone(tempS);
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : void 0,
+      contrastCurve: (s) => s.platform === "phone" && s.contrastLevel > 0 ? getCurve(1.5) : void 0
+    });
+    return extendSpecVersion(super.tertiaryFixed(), "2025", color2025);
+  }
+  tertiaryFixedDim() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "tertiary_fixed_dim",
+      palette: (s) => s.tertiaryPalette,
+      tone: (s) => this.tertiaryFixed().getTone(s),
+      isBackground: true,
+      toneDeltaPair: (s) => new ToneDeltaPair(this.tertiaryFixedDim(), this.tertiaryFixed(), 5, "darker", true, "exact")
+    });
+    return extendSpecVersion(super.tertiaryFixedDim(), "2025", color2025);
+  }
+  onTertiaryFixed() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_tertiary_fixed",
+      palette: (s) => s.tertiaryPalette,
+      background: (s) => this.tertiaryFixedDim(),
+      contrastCurve: (s) => getCurve(7)
+    });
+    return extendSpecVersion(super.onTertiaryFixed(), "2025", color2025);
+  }
+  onTertiaryFixedVariant() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_tertiary_fixed_variant",
+      palette: (s) => s.tertiaryPalette,
+      background: (s) => this.tertiaryFixedDim(),
+      contrastCurve: (s) => getCurve(4.5)
+    });
+    return extendSpecVersion(super.onTertiaryFixedVariant(), "2025", color2025);
+  }
+  ////////////////////////////////////////////////////////////////
+  // Errors [E]                                                 //
+  ////////////////////////////////////////////////////////////////
+  error() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "error",
+      palette: (s) => s.errorPalette,
+      tone: (s) => {
+        if (s.platform === "phone") {
+          return s.isDark ? tMinC(s.errorPalette, 0, 98) : tMaxC(s.errorPalette);
+        } else {
+          return tMinC(s.errorPalette);
+        }
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : this.surfaceContainerHigh(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(4.5) : getCurve(7),
+      toneDeltaPair: (s) => s.platform === "phone" ? new ToneDeltaPair(this.errorContainer(), this.error(), 5, "relative_lighter", true, "farther") : void 0
+    });
+    return extendSpecVersion(super.error(), "2025", color2025);
+  }
+  errorDim() {
+    return DynamicColor.fromPalette({
+      name: "error_dim",
+      palette: (s) => s.errorPalette,
+      tone: (s) => tMinC(s.errorPalette),
+      isBackground: true,
+      background: (s) => this.surfaceContainerHigh(),
+      contrastCurve: (s) => getCurve(4.5),
+      toneDeltaPair: (s) => new ToneDeltaPair(this.errorDim(), this.error(), 5, "darker", true, "farther")
+    });
+  }
+  onError() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_error",
+      palette: (s) => s.errorPalette,
+      background: (s) => s.platform === "phone" ? this.error() : this.errorDim(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(6) : getCurve(7)
+    });
+    return extendSpecVersion(super.onError(), "2025", color2025);
+  }
+  errorContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "error_container",
+      palette: (s) => s.errorPalette,
+      tone: (s) => {
+        if (s.platform === "watch") {
+          return 30;
+        } else {
+          return s.isDark ? tMinC(s.errorPalette, 30, 93) : tMaxC(s.errorPalette, 0, 90);
+        }
+      },
+      isBackground: true,
+      background: (s) => s.platform === "phone" ? this.highestSurface(s) : void 0,
+      toneDeltaPair: (s) => s.platform === "watch" ? new ToneDeltaPair(this.errorContainer(), this.errorDim(), 10, "darker", true, "farther") : void 0,
+      contrastCurve: (s) => s.platform === "phone" && s.contrastLevel > 0 ? getCurve(1.5) : void 0
+    });
+    return extendSpecVersion(super.errorContainer(), "2025", color2025);
+  }
+  onErrorContainer() {
+    const color2025 = DynamicColor.fromPalette({
+      name: "on_error_container",
+      palette: (s) => s.errorPalette,
+      background: (s) => this.errorContainer(),
+      contrastCurve: (s) => s.platform === "phone" ? getCurve(4.5) : getCurve(7)
+    });
+    return extendSpecVersion(super.onErrorContainer(), "2025", color2025);
+  }
+  /////////////////////////////////////////////////////////////////
+  // Remapped Colors                                             //
+  /////////////////////////////////////////////////////////////////
+  surfaceVariant() {
+    const color2025 = Object.assign(this.surfaceContainerHighest().clone(), { name: "surface_variant" });
+    return extendSpecVersion(super.surfaceVariant(), "2025", color2025);
+  }
+  surfaceTint() {
+    const color2025 = Object.assign(this.primary().clone(), { name: "surface_tint" });
+    return extendSpecVersion(super.surfaceTint(), "2025", color2025);
+  }
+  background() {
+    const color2025 = Object.assign(this.surface().clone(), { name: "background" });
+    return extendSpecVersion(super.background(), "2025", color2025);
+  }
+  onBackground() {
+    const color2025 = Object.assign(this.onSurface().clone(), {
+      name: "on_background",
+      tone: (s) => {
+        return s.platform === "watch" ? 100 : this.onSurface().getTone(s);
+      }
+    });
+    return extendSpecVersion(super.onBackground(), "2025", color2025);
+  }
+};
+
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dynamiccolor/material_dynamic_colors.js
+var MaterialDynamicColors = class _MaterialDynamicColors {
+  constructor() {
+    this.allColors = [
+      this.background(),
+      this.onBackground(),
+      this.surface(),
+      this.surfaceDim(),
+      this.surfaceBright(),
+      this.surfaceContainerLowest(),
+      this.surfaceContainerLow(),
+      this.surfaceContainer(),
+      this.surfaceContainerHigh(),
+      this.surfaceContainerHighest(),
+      this.onSurface(),
+      this.onSurfaceVariant(),
+      this.outline(),
+      this.outlineVariant(),
+      this.inverseSurface(),
+      this.inverseOnSurface(),
+      this.primary(),
+      this.primaryDim(),
+      this.onPrimary(),
+      this.primaryContainer(),
+      this.onPrimaryContainer(),
+      this.primaryFixed(),
+      this.primaryFixedDim(),
+      this.onPrimaryFixed(),
+      this.onPrimaryFixedVariant(),
+      this.inversePrimary(),
+      this.secondary(),
+      this.secondaryDim(),
+      this.onSecondary(),
+      this.secondaryContainer(),
+      this.onSecondaryContainer(),
+      this.secondaryFixed(),
+      this.secondaryFixedDim(),
+      this.onSecondaryFixed(),
+      this.onSecondaryFixedVariant(),
+      this.tertiary(),
+      this.tertiaryDim(),
+      this.onTertiary(),
+      this.tertiaryContainer(),
+      this.onTertiaryContainer(),
+      this.tertiaryFixed(),
+      this.tertiaryFixedDim(),
+      this.onTertiaryFixed(),
+      this.onTertiaryFixedVariant(),
+      this.error(),
+      this.errorDim(),
+      this.onError(),
+      this.errorContainer(),
+      this.onErrorContainer()
+    ].filter((c) => c !== void 0);
+  }
+  highestSurface(s) {
+    return _MaterialDynamicColors.colorSpec.highestSurface(s);
+  }
+  ////////////////////////////////////////////////////////////////
+  // Main Palettes                                              //
+  ////////////////////////////////////////////////////////////////
+  primaryPaletteKeyColor() {
+    return _MaterialDynamicColors.colorSpec.primaryPaletteKeyColor();
+  }
+  secondaryPaletteKeyColor() {
+    return _MaterialDynamicColors.colorSpec.secondaryPaletteKeyColor();
+  }
+  tertiaryPaletteKeyColor() {
+    return _MaterialDynamicColors.colorSpec.tertiaryPaletteKeyColor();
+  }
+  neutralPaletteKeyColor() {
+    return _MaterialDynamicColors.colorSpec.neutralPaletteKeyColor();
+  }
+  neutralVariantPaletteKeyColor() {
+    return _MaterialDynamicColors.colorSpec.neutralVariantPaletteKeyColor();
+  }
+  errorPaletteKeyColor() {
+    return _MaterialDynamicColors.colorSpec.errorPaletteKeyColor();
+  }
+  ////////////////////////////////////////////////////////////////
+  // Surfaces [S]                                               //
+  ////////////////////////////////////////////////////////////////
+  background() {
+    return _MaterialDynamicColors.colorSpec.background();
+  }
+  onBackground() {
+    return _MaterialDynamicColors.colorSpec.onBackground();
+  }
+  surface() {
+    return _MaterialDynamicColors.colorSpec.surface();
+  }
+  surfaceDim() {
+    return _MaterialDynamicColors.colorSpec.surfaceDim();
+  }
+  surfaceBright() {
+    return _MaterialDynamicColors.colorSpec.surfaceBright();
+  }
+  surfaceContainerLowest() {
+    return _MaterialDynamicColors.colorSpec.surfaceContainerLowest();
+  }
+  surfaceContainerLow() {
+    return _MaterialDynamicColors.colorSpec.surfaceContainerLow();
+  }
+  surfaceContainer() {
+    return _MaterialDynamicColors.colorSpec.surfaceContainer();
+  }
+  surfaceContainerHigh() {
+    return _MaterialDynamicColors.colorSpec.surfaceContainerHigh();
+  }
+  surfaceContainerHighest() {
+    return _MaterialDynamicColors.colorSpec.surfaceContainerHighest();
+  }
+  onSurface() {
+    return _MaterialDynamicColors.colorSpec.onSurface();
+  }
+  surfaceVariant() {
+    return _MaterialDynamicColors.colorSpec.surfaceVariant();
+  }
+  onSurfaceVariant() {
+    return _MaterialDynamicColors.colorSpec.onSurfaceVariant();
+  }
+  outline() {
+    return _MaterialDynamicColors.colorSpec.outline();
+  }
+  outlineVariant() {
+    return _MaterialDynamicColors.colorSpec.outlineVariant();
+  }
+  inverseSurface() {
+    return _MaterialDynamicColors.colorSpec.inverseSurface();
+  }
+  inverseOnSurface() {
+    return _MaterialDynamicColors.colorSpec.inverseOnSurface();
+  }
+  shadow() {
+    return _MaterialDynamicColors.colorSpec.shadow();
+  }
+  scrim() {
+    return _MaterialDynamicColors.colorSpec.scrim();
+  }
+  surfaceTint() {
+    return _MaterialDynamicColors.colorSpec.surfaceTint();
+  }
+  ////////////////////////////////////////////////////////////////
+  // Primaries [P]                                              //
+  ////////////////////////////////////////////////////////////////
+  primary() {
+    return _MaterialDynamicColors.colorSpec.primary();
+  }
+  primaryDim() {
+    return _MaterialDynamicColors.colorSpec.primaryDim();
+  }
+  onPrimary() {
+    return _MaterialDynamicColors.colorSpec.onPrimary();
+  }
+  primaryContainer() {
+    return _MaterialDynamicColors.colorSpec.primaryContainer();
+  }
+  onPrimaryContainer() {
+    return _MaterialDynamicColors.colorSpec.onPrimaryContainer();
+  }
+  inversePrimary() {
+    return _MaterialDynamicColors.colorSpec.inversePrimary();
+  }
+  /////////////////////////////////////////////////////////////////
+  // Primary Fixed [PF]                                          //
+  /////////////////////////////////////////////////////////////////
+  primaryFixed() {
+    return _MaterialDynamicColors.colorSpec.primaryFixed();
+  }
+  primaryFixedDim() {
+    return _MaterialDynamicColors.colorSpec.primaryFixedDim();
+  }
+  onPrimaryFixed() {
+    return _MaterialDynamicColors.colorSpec.onPrimaryFixed();
+  }
+  onPrimaryFixedVariant() {
+    return _MaterialDynamicColors.colorSpec.onPrimaryFixedVariant();
+  }
+  ////////////////////////////////////////////////////////////////
+  // Secondaries [Q]                                            //
+  ////////////////////////////////////////////////////////////////
+  secondary() {
+    return _MaterialDynamicColors.colorSpec.secondary();
+  }
+  secondaryDim() {
+    return _MaterialDynamicColors.colorSpec.secondaryDim();
+  }
+  onSecondary() {
+    return _MaterialDynamicColors.colorSpec.onSecondary();
+  }
+  secondaryContainer() {
+    return _MaterialDynamicColors.colorSpec.secondaryContainer();
+  }
+  onSecondaryContainer() {
+    return _MaterialDynamicColors.colorSpec.onSecondaryContainer();
+  }
+  /////////////////////////////////////////////////////////////////
+  // Secondary Fixed [QF]                                        //
+  /////////////////////////////////////////////////////////////////
+  secondaryFixed() {
+    return _MaterialDynamicColors.colorSpec.secondaryFixed();
+  }
+  secondaryFixedDim() {
+    return _MaterialDynamicColors.colorSpec.secondaryFixedDim();
+  }
+  onSecondaryFixed() {
+    return _MaterialDynamicColors.colorSpec.onSecondaryFixed();
+  }
+  onSecondaryFixedVariant() {
+    return _MaterialDynamicColors.colorSpec.onSecondaryFixedVariant();
+  }
+  ////////////////////////////////////////////////////////////////
+  // Tertiaries [T]                                             //
+  ////////////////////////////////////////////////////////////////
+  tertiary() {
+    return _MaterialDynamicColors.colorSpec.tertiary();
+  }
+  tertiaryDim() {
+    return _MaterialDynamicColors.colorSpec.tertiaryDim();
+  }
+  onTertiary() {
+    return _MaterialDynamicColors.colorSpec.onTertiary();
+  }
+  tertiaryContainer() {
+    return _MaterialDynamicColors.colorSpec.tertiaryContainer();
+  }
+  onTertiaryContainer() {
+    return _MaterialDynamicColors.colorSpec.onTertiaryContainer();
+  }
+  /////////////////////////////////////////////////////////////////
+  // Tertiary Fixed [TF]                                         //
+  /////////////////////////////////////////////////////////////////
+  tertiaryFixed() {
+    return _MaterialDynamicColors.colorSpec.tertiaryFixed();
+  }
+  tertiaryFixedDim() {
+    return _MaterialDynamicColors.colorSpec.tertiaryFixedDim();
+  }
+  onTertiaryFixed() {
+    return _MaterialDynamicColors.colorSpec.onTertiaryFixed();
+  }
+  onTertiaryFixedVariant() {
+    return _MaterialDynamicColors.colorSpec.onTertiaryFixedVariant();
+  }
+  ////////////////////////////////////////////////////////////////
+  // Errors [E]                                                 //
+  ////////////////////////////////////////////////////////////////
+  error() {
+    return _MaterialDynamicColors.colorSpec.error();
+  }
+  errorDim() {
+    return _MaterialDynamicColors.colorSpec.errorDim();
+  }
+  onError() {
+    return _MaterialDynamicColors.colorSpec.onError();
+  }
+  errorContainer() {
+    return _MaterialDynamicColors.colorSpec.errorContainer();
+  }
+  onErrorContainer() {
+    return _MaterialDynamicColors.colorSpec.onErrorContainer();
+  }
+  // Static variables are deprecated. Use the instance methods to get correct
+  // specs based on request.
+  /** @deprecated Use highestSurface() instead. */
+  static highestSurface(s) {
+    return _MaterialDynamicColors.colorSpec.highestSurface(s);
+  }
+};
+MaterialDynamicColors.contentAccentToneDelta = 15;
+MaterialDynamicColors.colorSpec = new ColorSpecDelegateImpl2025();
+MaterialDynamicColors.primaryPaletteKeyColor = MaterialDynamicColors.colorSpec.primaryPaletteKeyColor();
+MaterialDynamicColors.secondaryPaletteKeyColor = MaterialDynamicColors.colorSpec.secondaryPaletteKeyColor();
+MaterialDynamicColors.tertiaryPaletteKeyColor = MaterialDynamicColors.colorSpec.tertiaryPaletteKeyColor();
+MaterialDynamicColors.neutralPaletteKeyColor = MaterialDynamicColors.colorSpec.neutralPaletteKeyColor();
+MaterialDynamicColors.neutralVariantPaletteKeyColor = MaterialDynamicColors.colorSpec.neutralVariantPaletteKeyColor();
+MaterialDynamicColors.background = MaterialDynamicColors.colorSpec.background();
+MaterialDynamicColors.onBackground = MaterialDynamicColors.colorSpec.onBackground();
+MaterialDynamicColors.surface = MaterialDynamicColors.colorSpec.surface();
+MaterialDynamicColors.surfaceDim = MaterialDynamicColors.colorSpec.surfaceDim();
+MaterialDynamicColors.surfaceBright = MaterialDynamicColors.colorSpec.surfaceBright();
+MaterialDynamicColors.surfaceContainerLowest = MaterialDynamicColors.colorSpec.surfaceContainerLowest();
+MaterialDynamicColors.surfaceContainerLow = MaterialDynamicColors.colorSpec.surfaceContainerLow();
+MaterialDynamicColors.surfaceContainer = MaterialDynamicColors.colorSpec.surfaceContainer();
+MaterialDynamicColors.surfaceContainerHigh = MaterialDynamicColors.colorSpec.surfaceContainerHigh();
+MaterialDynamicColors.surfaceContainerHighest = MaterialDynamicColors.colorSpec.surfaceContainerHighest();
+MaterialDynamicColors.onSurface = MaterialDynamicColors.colorSpec.onSurface();
+MaterialDynamicColors.surfaceVariant = MaterialDynamicColors.colorSpec.surfaceVariant();
+MaterialDynamicColors.onSurfaceVariant = MaterialDynamicColors.colorSpec.onSurfaceVariant();
+MaterialDynamicColors.inverseSurface = MaterialDynamicColors.colorSpec.inverseSurface();
+MaterialDynamicColors.inverseOnSurface = MaterialDynamicColors.colorSpec.inverseOnSurface();
+MaterialDynamicColors.outline = MaterialDynamicColors.colorSpec.outline();
+MaterialDynamicColors.outlineVariant = MaterialDynamicColors.colorSpec.outlineVariant();
+MaterialDynamicColors.shadow = MaterialDynamicColors.colorSpec.shadow();
+MaterialDynamicColors.scrim = MaterialDynamicColors.colorSpec.scrim();
+MaterialDynamicColors.surfaceTint = MaterialDynamicColors.colorSpec.surfaceTint();
+MaterialDynamicColors.primary = MaterialDynamicColors.colorSpec.primary();
+MaterialDynamicColors.onPrimary = MaterialDynamicColors.colorSpec.onPrimary();
+MaterialDynamicColors.primaryContainer = MaterialDynamicColors.colorSpec.primaryContainer();
+MaterialDynamicColors.onPrimaryContainer = MaterialDynamicColors.colorSpec.onPrimaryContainer();
+MaterialDynamicColors.inversePrimary = MaterialDynamicColors.colorSpec.inversePrimary();
+MaterialDynamicColors.secondary = MaterialDynamicColors.colorSpec.secondary();
+MaterialDynamicColors.onSecondary = MaterialDynamicColors.colorSpec.onSecondary();
+MaterialDynamicColors.secondaryContainer = MaterialDynamicColors.colorSpec.secondaryContainer();
+MaterialDynamicColors.onSecondaryContainer = MaterialDynamicColors.colorSpec.onSecondaryContainer();
+MaterialDynamicColors.tertiary = MaterialDynamicColors.colorSpec.tertiary();
+MaterialDynamicColors.onTertiary = MaterialDynamicColors.colorSpec.onTertiary();
+MaterialDynamicColors.tertiaryContainer = MaterialDynamicColors.colorSpec.tertiaryContainer();
+MaterialDynamicColors.onTertiaryContainer = MaterialDynamicColors.colorSpec.onTertiaryContainer();
+MaterialDynamicColors.error = MaterialDynamicColors.colorSpec.error();
+MaterialDynamicColors.onError = MaterialDynamicColors.colorSpec.onError();
+MaterialDynamicColors.errorContainer = MaterialDynamicColors.colorSpec.errorContainer();
+MaterialDynamicColors.onErrorContainer = MaterialDynamicColors.colorSpec.onErrorContainer();
+MaterialDynamicColors.primaryFixed = MaterialDynamicColors.colorSpec.primaryFixed();
+MaterialDynamicColors.primaryFixedDim = MaterialDynamicColors.colorSpec.primaryFixedDim();
+MaterialDynamicColors.onPrimaryFixed = MaterialDynamicColors.colorSpec.onPrimaryFixed();
+MaterialDynamicColors.onPrimaryFixedVariant = MaterialDynamicColors.colorSpec.onPrimaryFixedVariant();
+MaterialDynamicColors.secondaryFixed = MaterialDynamicColors.colorSpec.secondaryFixed();
+MaterialDynamicColors.secondaryFixedDim = MaterialDynamicColors.colorSpec.secondaryFixedDim();
+MaterialDynamicColors.onSecondaryFixed = MaterialDynamicColors.colorSpec.onSecondaryFixed();
+MaterialDynamicColors.onSecondaryFixedVariant = MaterialDynamicColors.colorSpec.onSecondaryFixedVariant();
+MaterialDynamicColors.tertiaryFixed = MaterialDynamicColors.colorSpec.tertiaryFixed();
+MaterialDynamicColors.tertiaryFixedDim = MaterialDynamicColors.colorSpec.tertiaryFixedDim();
+MaterialDynamicColors.onTertiaryFixed = MaterialDynamicColors.colorSpec.onTertiaryFixed();
+MaterialDynamicColors.onTertiaryFixedVariant = MaterialDynamicColors.colorSpec.onTertiaryFixedVariant();
+
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/dynamiccolor/dynamic_scheme.js
+var DynamicScheme = class _DynamicScheme {
+  static maybeFallbackSpecVersion(specVersion, variant) {
+    switch (variant) {
+      case Variant.EXPRESSIVE:
+      case Variant.VIBRANT:
+      case Variant.TONAL_SPOT:
+      case Variant.NEUTRAL:
+        return specVersion;
+      default:
+        return "2021";
+    }
+  }
+  constructor(args) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i;
+    this.sourceColorArgb = args.sourceColorHct.toInt();
+    this.variant = args.variant;
+    this.contrastLevel = args.contrastLevel;
+    this.isDark = args.isDark;
+    this.platform = (_a = args.platform) != null ? _a : "phone";
+    this.specVersion = _DynamicScheme.maybeFallbackSpecVersion((_b = args.specVersion) != null ? _b : "2021", this.variant);
+    this.sourceColorHct = args.sourceColorHct;
+    this.primaryPalette = (_c = args.primaryPalette) != null ? _c : getSpec2(this.specVersion).getPrimaryPalette(this.variant, args.sourceColorHct, this.isDark, this.platform, this.contrastLevel);
+    this.secondaryPalette = (_d = args.secondaryPalette) != null ? _d : getSpec2(this.specVersion).getSecondaryPalette(this.variant, args.sourceColorHct, this.isDark, this.platform, this.contrastLevel);
+    this.tertiaryPalette = (_e = args.tertiaryPalette) != null ? _e : getSpec2(this.specVersion).getTertiaryPalette(this.variant, args.sourceColorHct, this.isDark, this.platform, this.contrastLevel);
+    this.neutralPalette = (_f = args.neutralPalette) != null ? _f : getSpec2(this.specVersion).getNeutralPalette(this.variant, args.sourceColorHct, this.isDark, this.platform, this.contrastLevel);
+    this.neutralVariantPalette = (_g = args.neutralVariantPalette) != null ? _g : getSpec2(this.specVersion).getNeutralVariantPalette(this.variant, args.sourceColorHct, this.isDark, this.platform, this.contrastLevel);
+    this.errorPalette = (_i = (_h = args.errorPalette) != null ? _h : getSpec2(this.specVersion).getErrorPalette(this.variant, args.sourceColorHct, this.isDark, this.platform, this.contrastLevel)) != null ? _i : TonalPalette.fromHueAndChroma(25, 84);
+    this.colors = new MaterialDynamicColors();
+  }
+  toString() {
+    return `Scheme: variant=${Variant[this.variant]}, mode=${this.isDark ? "dark" : "light"}, platform=${this.platform}, contrastLevel=${this.contrastLevel.toFixed(1)}, seed=${this.sourceColorHct.toString()}, specVersion=${this.specVersion}`;
+  }
+  /**
+   * Returns a new hue based on a piecewise function and input color hue.
+   *
+   * For example, for the following function:
+   * result = 26 if 0 <= hue < 101
+   * result = 39 if 101 <= hue < 210
+   * result = 28 if 210 <= hue < 360
+   *
+   * call the function as:
+   *
+   * const hueBreakpoints = [0, 101, 210, 360];
+   * const hues = [26, 39, 28];
+   * const result = scheme.piecewise(hue, hueBreakpoints, hues);
+   *
+   * @param sourceColorHct The input value.
+   * @param hueBreakpoints The breakpoints, in sorted order. No default lower or
+   *     upper bounds are assumed.
+   * @param hues The hues that should be applied when source color's hue is >=
+   *     the same index in hueBrakpoints array, and < the hue at the next index
+   *     in hueBrakpoints array. Otherwise, the source color's hue is returned.
+   */
+  static getPiecewiseHue(sourceColorHct, hueBreakpoints, hues) {
+    const size = Math.min(hueBreakpoints.length - 1, hues.length);
+    const sourceHue = sourceColorHct.hue;
+    for (let i = 0; i < size; i++) {
+      if (sourceHue >= hueBreakpoints[i] && sourceHue < hueBreakpoints[i + 1]) {
+        return sanitizeDegreesDouble(hues[i]);
+      }
+    }
+    return sourceHue;
+  }
+  /**
+   * Returns a shifted hue based on a piecewise function and input color hue.
+   *
+   * For example, for the following function:
+   * result = hue + 26 if 0 <= hue < 101
+   * result = hue - 39 if 101 <= hue < 210
+   * result = hue + 28 if 210 <= hue < 360
+   *
+   * call the function as:
+   *
+   * const hueBreakpoints = [0, 101, 210, 360];
+   * const hues = [26, -39, 28];
+   * const result = scheme.getRotatedHue(hue, hueBreakpoints, hues);
+   *
+   * @param sourceColorHct the source color of the theme, in HCT.
+   * @param hueBreakpoints The "breakpoints", i.e. the hues at which a rotation
+   *     should be apply. No default lower or upper bounds are assumed.
+   * @param rotations The rotation that should be applied when source color's
+   *     hue is >= the same index in hues array, and < the hue at the next
+   *     index in hues array. Otherwise, the source color's hue is returned.
+   */
+  static getRotatedHue(sourceColorHct, hueBreakpoints, rotations) {
+    let rotation = _DynamicScheme.getPiecewiseHue(sourceColorHct, hueBreakpoints, rotations);
+    if (Math.min(hueBreakpoints.length - 1, rotations.length) <= 0) {
+      rotation = 0;
+    }
+    return sanitizeDegreesDouble(sourceColorHct.hue + rotation);
+  }
+  getArgb(dynamicColor) {
+    return dynamicColor.getArgb(this);
+  }
+  getHct(dynamicColor) {
+    return dynamicColor.getHct(this);
+  }
+  // Palette key colors
+  get primaryPaletteKeyColor() {
+    return this.getArgb(this.colors.primaryPaletteKeyColor());
+  }
+  get secondaryPaletteKeyColor() {
+    return this.getArgb(this.colors.secondaryPaletteKeyColor());
+  }
+  get tertiaryPaletteKeyColor() {
+    return this.getArgb(this.colors.tertiaryPaletteKeyColor());
+  }
+  get neutralPaletteKeyColor() {
+    return this.getArgb(this.colors.neutralPaletteKeyColor());
+  }
+  get neutralVariantPaletteKeyColor() {
+    return this.getArgb(this.colors.neutralVariantPaletteKeyColor());
+  }
+  get errorPaletteKeyColor() {
+    return this.getArgb(this.colors.errorPaletteKeyColor());
+  }
+  // Surface colors
+  get background() {
+    return this.getArgb(this.colors.background());
+  }
+  get onBackground() {
+    return this.getArgb(this.colors.onBackground());
+  }
+  get surface() {
+    return this.getArgb(this.colors.surface());
+  }
+  get surfaceDim() {
+    return this.getArgb(this.colors.surfaceDim());
+  }
+  get surfaceBright() {
+    return this.getArgb(this.colors.surfaceBright());
+  }
+  get surfaceContainerLowest() {
+    return this.getArgb(this.colors.surfaceContainerLowest());
+  }
+  get surfaceContainerLow() {
+    return this.getArgb(this.colors.surfaceContainerLow());
+  }
+  get surfaceContainer() {
+    return this.getArgb(this.colors.surfaceContainer());
+  }
+  get surfaceContainerHigh() {
+    return this.getArgb(this.colors.surfaceContainerHigh());
+  }
+  get surfaceContainerHighest() {
+    return this.getArgb(this.colors.surfaceContainerHighest());
+  }
+  get onSurface() {
+    return this.getArgb(this.colors.onSurface());
+  }
+  get surfaceVariant() {
+    return this.getArgb(this.colors.surfaceVariant());
+  }
+  get onSurfaceVariant() {
+    return this.getArgb(this.colors.onSurfaceVariant());
+  }
+  get inverseSurface() {
+    return this.getArgb(this.colors.inverseSurface());
+  }
+  get inverseOnSurface() {
+    return this.getArgb(this.colors.inverseOnSurface());
+  }
+  get outline() {
+    return this.getArgb(this.colors.outline());
+  }
+  get outlineVariant() {
+    return this.getArgb(this.colors.outlineVariant());
+  }
+  get shadow() {
+    return this.getArgb(this.colors.shadow());
+  }
+  get scrim() {
+    return this.getArgb(this.colors.scrim());
+  }
+  get surfaceTint() {
+    return this.getArgb(this.colors.surfaceTint());
+  }
+  // Primary colors
+  get primary() {
+    return this.getArgb(this.colors.primary());
+  }
+  get primaryDim() {
+    const primaryDim = this.colors.primaryDim();
+    if (primaryDim === void 0) {
+      throw new Error("`primaryDim` color is undefined prior to 2025 spec.");
+    }
+    return this.getArgb(primaryDim);
+  }
+  get onPrimary() {
+    return this.getArgb(this.colors.onPrimary());
+  }
+  get primaryContainer() {
+    return this.getArgb(this.colors.primaryContainer());
+  }
+  get onPrimaryContainer() {
+    return this.getArgb(this.colors.onPrimaryContainer());
+  }
+  get primaryFixed() {
+    return this.getArgb(this.colors.primaryFixed());
+  }
+  get primaryFixedDim() {
+    return this.getArgb(this.colors.primaryFixedDim());
+  }
+  get onPrimaryFixed() {
+    return this.getArgb(this.colors.onPrimaryFixed());
+  }
+  get onPrimaryFixedVariant() {
+    return this.getArgb(this.colors.onPrimaryFixedVariant());
+  }
+  get inversePrimary() {
+    return this.getArgb(this.colors.inversePrimary());
+  }
+  // Secondary colors
+  get secondary() {
+    return this.getArgb(this.colors.secondary());
+  }
+  get secondaryDim() {
+    const secondaryDim = this.colors.secondaryDim();
+    if (secondaryDim === void 0) {
+      throw new Error("`secondaryDim` color is undefined prior to 2025 spec.");
+    }
+    return this.getArgb(secondaryDim);
+  }
+  get onSecondary() {
+    return this.getArgb(this.colors.onSecondary());
+  }
+  get secondaryContainer() {
+    return this.getArgb(this.colors.secondaryContainer());
+  }
+  get onSecondaryContainer() {
+    return this.getArgb(this.colors.onSecondaryContainer());
+  }
+  get secondaryFixed() {
+    return this.getArgb(this.colors.secondaryFixed());
+  }
+  get secondaryFixedDim() {
+    return this.getArgb(this.colors.secondaryFixedDim());
+  }
+  get onSecondaryFixed() {
+    return this.getArgb(this.colors.onSecondaryFixed());
+  }
+  get onSecondaryFixedVariant() {
+    return this.getArgb(this.colors.onSecondaryFixedVariant());
+  }
+  // Tertiary colors
+  get tertiary() {
+    return this.getArgb(this.colors.tertiary());
+  }
+  get tertiaryDim() {
+    const tertiaryDim = this.colors.tertiaryDim();
+    if (tertiaryDim === void 0) {
+      throw new Error("`tertiaryDim` color is undefined prior to 2025 spec.");
+    }
+    return this.getArgb(tertiaryDim);
+  }
+  get onTertiary() {
+    return this.getArgb(this.colors.onTertiary());
+  }
+  get tertiaryContainer() {
+    return this.getArgb(this.colors.tertiaryContainer());
+  }
+  get onTertiaryContainer() {
+    return this.getArgb(this.colors.onTertiaryContainer());
+  }
+  get tertiaryFixed() {
+    return this.getArgb(this.colors.tertiaryFixed());
+  }
+  get tertiaryFixedDim() {
+    return this.getArgb(this.colors.tertiaryFixedDim());
+  }
+  get onTertiaryFixed() {
+    return this.getArgb(this.colors.onTertiaryFixed());
+  }
+  get onTertiaryFixedVariant() {
+    return this.getArgb(this.colors.onTertiaryFixedVariant());
+  }
+  // Error colors
+  get error() {
+    return this.getArgb(this.colors.error());
+  }
+  get errorDim() {
+    const errorDim = this.colors.errorDim();
+    if (errorDim === void 0) {
+      throw new Error("`errorDim` color is undefined prior to 2025 spec.");
+    }
+    return this.getArgb(errorDim);
+  }
+  get onError() {
+    return this.getArgb(this.colors.onError());
+  }
+  get errorContainer() {
+    return this.getArgb(this.colors.errorContainer());
+  }
+  get onErrorContainer() {
+    return this.getArgb(this.colors.onErrorContainer());
+  }
+};
+DynamicScheme.DEFAULT_SPEC_VERSION = "2021";
+DynamicScheme.DEFAULT_PLATFORM = "phone";
+var DynamicSchemePalettesDelegateImpl2021 = class {
+  //////////////////////////////////////////////////////////////////
+  // Scheme Palettes                                              //
+  //////////////////////////////////////////////////////////////////
+  getPrimaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.CONTENT:
+      case Variant.FIDELITY:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma);
+      case Variant.FRUIT_SALAD:
+        return TonalPalette.fromHueAndChroma(sanitizeDegreesDouble(sourceColorHct.hue - 50), 48);
+      case Variant.MONOCHROME:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0);
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 12);
+      case Variant.RAINBOW:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 48);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 36);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(sanitizeDegreesDouble(sourceColorHct.hue + 240), 40);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 200);
+      default:
+        throw new Error(`Unsupported variant: ${variant}`);
+    }
+  }
+  getSecondaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.CONTENT:
+      case Variant.FIDELITY:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, Math.max(sourceColorHct.chroma - 32, sourceColorHct.chroma * 0.5));
+      case Variant.FRUIT_SALAD:
+        return TonalPalette.fromHueAndChroma(sanitizeDegreesDouble(sourceColorHct.hue - 50), 36);
+      case Variant.MONOCHROME:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0);
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 8);
+      case Variant.RAINBOW:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 21, 51, 121, 151, 191, 271, 321, 360], [45, 95, 45, 20, 45, 90, 45, 45, 45]), 24);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 41, 61, 101, 131, 181, 251, 301, 360], [18, 15, 10, 12, 15, 18, 15, 12, 12]), 24);
+      default:
+        throw new Error(`Unsupported variant: ${variant}`);
+    }
+  }
+  getTertiaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.CONTENT:
+        return TonalPalette.fromHct(DislikeAnalyzer.fixIfDisliked(new TemperatureCache(sourceColorHct).analogous(
+          /* count= */
+          3,
+          /* divisions= */
+          6
+        )[2]));
+      case Variant.FIDELITY:
+        return TonalPalette.fromHct(DislikeAnalyzer.fixIfDisliked(new TemperatureCache(sourceColorHct).complement));
+      case Variant.FRUIT_SALAD:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 36);
+      case Variant.MONOCHROME:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0);
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16);
+      case Variant.RAINBOW:
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sanitizeDegreesDouble(sourceColorHct.hue + 60), 24);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 21, 51, 121, 151, 191, 271, 321, 360], [120, 120, 20, 45, 20, 15, 20, 120, 120]), 32);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 41, 61, 101, 131, 181, 251, 301, 360], [35, 30, 20, 25, 30, 35, 30, 25, 25]), 32);
+      default:
+        throw new Error(`Unsupported variant: ${variant}`);
+    }
+  }
+  getNeutralPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.CONTENT:
+      case Variant.FIDELITY:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma / 8);
+      case Variant.FRUIT_SALAD:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 10);
+      case Variant.MONOCHROME:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0);
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 2);
+      case Variant.RAINBOW:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 6);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(sanitizeDegreesDouble(sourceColorHct.hue + 15), 8);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 10);
+      default:
+        throw new Error(`Unsupported variant: ${variant}`);
+    }
+  }
+  getNeutralVariantPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.CONTENT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma / 8 + 4);
+      case Variant.FIDELITY:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma / 8 + 4);
+      case Variant.FRUIT_SALAD:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16);
+      case Variant.MONOCHROME:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0);
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 2);
+      case Variant.RAINBOW:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 8);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(sanitizeDegreesDouble(sourceColorHct.hue + 15), 12);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 12);
+      default:
+        throw new Error(`Unsupported variant: ${variant}`);
+    }
+  }
+  getErrorPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    return void 0;
+  }
+};
+var DynamicSchemePalettesDelegateImpl2025 = class _DynamicSchemePalettesDelegateImpl2025 extends DynamicSchemePalettesDelegateImpl2021 {
+  //////////////////////////////////////////////////////////////////
+  // Scheme Palettes                                              //
+  //////////////////////////////////////////////////////////////////
+  getPrimaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, platform === "phone" ? Hct.isBlue(sourceColorHct.hue) ? 12 : 8 : Hct.isBlue(sourceColorHct.hue) ? 16 : 12);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, platform === "phone" && isDark ? 26 : 32);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, platform === "phone" ? isDark ? 36 : 48 : 40);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, platform === "phone" ? 74 : 56);
+      default:
+        return super.getPrimaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel);
+    }
+  }
+  getSecondaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, platform === "phone" ? Hct.isBlue(sourceColorHct.hue) ? 6 : 4 : Hct.isBlue(sourceColorHct.hue) ? 10 : 6);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 105, 140, 204, 253, 278, 300, 333, 360], [-160, 155, -100, 96, -96, -156, -165, -160]), platform === "phone" ? isDark ? 16 : 24 : 24);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 38, 105, 140, 333, 360], [-14, 10, -14, 10, -14]), platform === "phone" ? 56 : 36);
+      default:
+        return super.getSecondaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel);
+    }
+  }
+  getTertiaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 38, 105, 161, 204, 278, 333, 360], [-32, 26, 10, -39, 24, -15, -32]), platform === "phone" ? 20 : 36);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 20, 71, 161, 333, 360], [-40, 48, -32, 40, -32]), platform === "phone" ? 28 : 32);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 105, 140, 204, 253, 278, 300, 333, 360], [-165, 160, -105, 101, -101, -160, -170, -165]), 48);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(DynamicScheme.getRotatedHue(sourceColorHct, [0, 38, 71, 105, 140, 161, 253, 333, 360], [-72, 35, 24, -24, 62, 50, 62, -72]), 56);
+      default:
+        return super.getTertiaryPalette(variant, sourceColorHct, isDark, platform, contrastLevel);
+    }
+  }
+  static getExpressiveNeutralHue(sourceColorHct) {
+    const hue = DynamicScheme.getRotatedHue(sourceColorHct, [0, 71, 124, 253, 278, 300, 360], [10, 0, 10, 0, 10, 0]);
+    return hue;
+  }
+  static getExpressiveNeutralChroma(sourceColorHct, isDark, platform) {
+    const neutralHue = _DynamicSchemePalettesDelegateImpl2025.getExpressiveNeutralHue(sourceColorHct);
+    return platform === "phone" ? isDark ? Hct.isYellow(neutralHue) ? 6 : 14 : 18 : 12;
+  }
+  static getVibrantNeutralHue(sourceColorHct) {
+    return DynamicScheme.getRotatedHue(sourceColorHct, [0, 38, 105, 140, 333, 360], [-14, 10, -14, 10, -14]);
+  }
+  static getVibrantNeutralChroma(sourceColorHct, platform) {
+    const neutralHue = _DynamicSchemePalettesDelegateImpl2025.getVibrantNeutralHue(sourceColorHct);
+    return platform === "phone" ? 28 : Hct.isBlue(neutralHue) ? 28 : 20;
+  }
+  getNeutralPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, platform === "phone" ? 1.4 : 6);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, platform === "phone" ? 5 : 10);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(_DynamicSchemePalettesDelegateImpl2025.getExpressiveNeutralHue(sourceColorHct), _DynamicSchemePalettesDelegateImpl2025.getExpressiveNeutralChroma(sourceColorHct, isDark, platform));
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(_DynamicSchemePalettesDelegateImpl2025.getVibrantNeutralHue(sourceColorHct), _DynamicSchemePalettesDelegateImpl2025.getVibrantNeutralChroma(sourceColorHct, platform));
+      default:
+        return super.getNeutralPalette(variant, sourceColorHct, isDark, platform, contrastLevel);
+    }
+  }
+  getNeutralVariantPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    switch (variant) {
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, (platform === "phone" ? 1.4 : 6) * 2.2);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(sourceColorHct.hue, (platform === "phone" ? 5 : 10) * 1.7);
+      case Variant.EXPRESSIVE:
+        const expressiveNeutralHue = _DynamicSchemePalettesDelegateImpl2025.getExpressiveNeutralHue(sourceColorHct);
+        const expressiveNeutralChroma = _DynamicSchemePalettesDelegateImpl2025.getExpressiveNeutralChroma(sourceColorHct, isDark, platform);
+        return TonalPalette.fromHueAndChroma(expressiveNeutralHue, expressiveNeutralChroma * (expressiveNeutralHue >= 105 && expressiveNeutralHue < 125 ? 1.6 : 2.3));
+      case Variant.VIBRANT:
+        const vibrantNeutralHue = _DynamicSchemePalettesDelegateImpl2025.getVibrantNeutralHue(sourceColorHct);
+        const vibrantNeutralChroma = _DynamicSchemePalettesDelegateImpl2025.getVibrantNeutralChroma(sourceColorHct, platform);
+        return TonalPalette.fromHueAndChroma(vibrantNeutralHue, vibrantNeutralChroma * 1.29);
+      default:
+        return super.getNeutralVariantPalette(variant, sourceColorHct, isDark, platform, contrastLevel);
+    }
+  }
+  getErrorPalette(variant, sourceColorHct, isDark, platform, contrastLevel) {
+    const errorHue = DynamicScheme.getPiecewiseHue(sourceColorHct, [0, 3, 13, 23, 33, 43, 153, 273, 360], [12, 22, 32, 12, 22, 32, 22, 12]);
+    switch (variant) {
+      case Variant.NEUTRAL:
+        return TonalPalette.fromHueAndChroma(errorHue, platform === "phone" ? 50 : 40);
+      case Variant.TONAL_SPOT:
+        return TonalPalette.fromHueAndChroma(errorHue, platform === "phone" ? 60 : 48);
+      case Variant.EXPRESSIVE:
+        return TonalPalette.fromHueAndChroma(errorHue, platform === "phone" ? 64 : 48);
+      case Variant.VIBRANT:
+        return TonalPalette.fromHueAndChroma(errorHue, platform === "phone" ? 80 : 60);
+      default:
+        return super.getErrorPalette(variant, sourceColorHct, isDark, platform, contrastLevel);
+    }
+  }
+};
+var spec20212 = new DynamicSchemePalettesDelegateImpl2021();
+var spec20252 = new DynamicSchemePalettesDelegateImpl2025();
+function getSpec2(specVersion) {
+  return specVersion === "2025" ? spec20252 : spec20212;
+}
+
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/score/score.js
 var SCORE_OPTION_DEFAULTS = {
   desired: 4,
   fallbackColorARGB: 4282549748,
@@ -3079,7 +4933,7 @@ Score.WEIGHT_CHROMA_BELOW = 0.1;
 Score.CUTOFF_CHROMA = 5;
 Score.CUTOFF_EXCITED_PROPORTION = 0.01;
 
-// node_modules/.aspect_rules_js/@material+material-color-utilities@0.3.0/node_modules/@material/material-color-utilities/utils/string_utils.js
+// node_modules/.aspect_rules_js/@material+material-color-utilities@0.4.0/node_modules/@material/material-color-utilities/utils/string_utils.js
 function hexFromArgb(argb) {
   const r = redFromArgb(argb);
   const g = greenFromArgb(argb);
@@ -3148,9 +5002,8 @@ function getHctFromHex(color) {
 }
 function getMaterialDynamicScheme(primaryPalette, secondaryPalette, tertiaryPalette, neutralPalette, neutralVariantPalette, isDark, contrastLevel) {
   return new DynamicScheme({
-    sourceColorArgb: primaryPalette.keyColor.toInt(),
-    variant: 6,
-    // Variant.FIDELITY, used number representation since enum is not accessible outside of @material/material-color-utilities
+    sourceColorHct: primaryPalette.keyColor,
+    variant: Variant.FIDELITY,
     contrastLevel,
     isDark,
     primaryPalette,
@@ -4165,6 +6018,24 @@ function theme_color_default(options) {
    * limitations under the License.
    *)
 
+@material/material-color-utilities/temperature/temperature_cache.js:
+  (**
+   * @license
+   * Copyright 2023 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
 @material/material-color-utilities/dynamiccolor/contrast_curve.js:
   (**
    * @license
@@ -4205,6 +6076,42 @@ function theme_color_default(options) {
   (**
    * @license
    * Copyright 2022 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dynamiccolor/color_spec_2021.js:
+  (**
+   * @license
+   * Copyright 2025 Google LLC
+   *
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *      http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   *)
+
+@material/material-color-utilities/dynamiccolor/color_spec_2025.js:
+  (**
+   * @license
+   * Copyright 2025 Google LLC
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
    * you may not use this file except in compliance with the License.
@@ -4385,24 +6292,6 @@ function theme_color_default(options) {
   (**
    * @license
    * Copyright 2021 Google LLC
-   *
-   * Licensed under the Apache License, Version 2.0 (the "License");
-   * you may not use this file except in compliance with the License.
-   * You may obtain a copy of the License at
-   *
-   *      http://www.apache.org/licenses/LICENSE-2.0
-   *
-   * Unless required by applicable law or agreed to in writing, software
-   * distributed under the License is distributed on an "AS IS" BASIS,
-   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   * See the License for the specific language governing permissions and
-   * limitations under the License.
-   *)
-
-@material/material-color-utilities/temperature/temperature_cache.js:
-  (**
-   * @license
-   * Copyright 2023 Google LLC
    *
    * Licensed under the Apache License, Version 2.0 (the "License");
    * you may not use this file except in compliance with the License.
