@@ -22,9 +22,7 @@ import './_ripple-chunk.js';
 import '@angular/cdk/platform';
 
 /** Extra CSS classes that can be associated with a calendar cell. */
-type MatCalendarCellCssClasses = string | string[] | Set<string> | {
-    [key: string]: any;
-};
+type MatCalendarCellCssClasses = string | string[] | Set<string> | Record<string, any>;
 /** Function that can generate the extra classes that should be added to a calendar cell. */
 type MatCalendarCellClassFunction<D> = (date: D, view: 'month' | 'year' | 'multi-year') => MatCalendarCellCssClasses;
 /**
@@ -36,10 +34,10 @@ declare class MatCalendarCell<D = any> {
     displayValue: string;
     ariaLabel: string;
     enabled: boolean;
-    cssClasses: MatCalendarCellCssClasses;
     compareValue: number;
     rawValue?: D | undefined;
     readonly id: number;
+    readonly cssClasses: string | string[] | Record<string, any> | undefined;
     constructor(value: number, displayValue: string, ariaLabel: string, enabled: boolean, cssClasses?: MatCalendarCellCssClasses, compareValue?: number, rawValue?: D | undefined);
 }
 /** Event emitted when a date inside the calendar is triggered as a result of a user action. */
