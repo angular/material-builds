@@ -788,7 +788,7 @@ class MatMenuTriggerBase {
     if (this._canHaveBackdrop) {
       overlayConfig.hasBackdrop = menu.hasBackdrop == null ? !this._triggersSubmenu() : menu.hasBackdrop;
     } else {
-      overlayConfig.hasBackdrop = false;
+      overlayConfig.hasBackdrop = menu.hasBackdrop ?? false;
     }
     if (!overlayRef.hasAttached()) {
       overlayRef.attach(this._getPortal(menu));
