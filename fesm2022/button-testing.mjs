@@ -16,6 +16,7 @@ class MatButtonHarness extends ContentContainerComponentHarness {
       return result !== null;
     });
   }
+  _progressIndicator = this.locatorForOptional('[progressIndicator]');
   async click(...args) {
     return (await this.host()).click(...args);
   }
@@ -34,6 +35,9 @@ class MatButtonHarness extends ContentContainerComponentHarness {
   }
   async isFocused() {
     return (await this.host()).isFocused();
+  }
+  async isShowingProgress() {
+    return (await this._progressIndicator()) !== null;
   }
   async getVariant() {
     const host = await this.host();

@@ -1,6 +1,6 @@
-import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, NgZone } from '@angular/core';
+import { FocusOrigin } from '@angular/cdk/a11y';
 import { ThemePalette } from './_palette-chunk.js';
 import { MatRippleLoader } from './_ripple-loader-chunk.js';
 import { MatRippleModule } from './_ripple-module-chunk.js';
@@ -81,6 +81,8 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
      * @docs-private
      */
     set _tabindex(value: number);
+    /** Whether the button is showing a progress indicator. */
+    readonly showProgress: i0.InputSignalWithTransform<boolean, unknown>;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -92,7 +94,7 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
     protected _getTabIndex(): number;
     private _setupAsAnchor;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButtonBase, never>;
-    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "ariaDisabled": { "alias": "aria-disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "_tabindex": { "alias": "tabindex"; "required": false; }; }, {}, never, never, true, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<MatButtonBase, never, never, { "color": { "alias": "color"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "ariaDisabled": { "alias": "aria-disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "_tabindex": { "alias": "tabindex"; "required": false; }; "showProgress": { "alias": "showProgress"; "required": false; "isSignal": true; }; }, {}, never, never, true, never>;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_disabled: unknown;
     static ngAcceptInputType_ariaDisabled: unknown;
@@ -114,7 +116,7 @@ declare class MatButton extends MatButtonBase {
     /** Programmatically sets the appearance of the button. */
     setAppearance(appearance: MatButtonAppearance): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[matButton], a[matButton], button[mat-button], button[mat-raised-button],    button[mat-flat-button], button[mat-stroked-button], a[mat-button], a[mat-raised-button],    a[mat-flat-button], a[mat-stroked-button]  ", ["matButton", "matAnchor"], { "appearance": { "alias": "matButton"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[matButton], a[matButton], button[mat-button], button[mat-raised-button],    button[mat-flat-button], button[mat-stroked-button], a[mat-button], a[mat-raised-button],    a[mat-flat-button], a[mat-stroked-button]  ", ["matButton", "matAnchor"], { "appearance": { "alias": "matButton"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]", "[progressIndicator]"], true, never>;
 }
 /**
  * Material Design button component for anchor elements. Anchor elements are used to provide
@@ -150,7 +152,7 @@ declare class MatFabButton extends MatButtonBase {
     extended: boolean;
     constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFabButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab], a[mat-fab], button[matFab], a[matFab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab], a[mat-fab], button[matFab], a[matFab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]", "[progressIndicator]"], true, never>;
     static ngAcceptInputType_extended: unknown;
 }
 /**
@@ -163,7 +165,7 @@ declare class MatMiniFabButton extends MatButtonBase {
     _isFab: boolean;
     constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab], a[mat-mini-fab], button[matMiniFab], a[matMiniFab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab], a[mat-mini-fab], button[matMiniFab], a[matMiniFab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]", "[progressIndicator]"], true, never>;
 }
 /**
  * Material Design floating action button (FAB) component for anchor elements. Anchor elements
@@ -190,7 +192,7 @@ type MatMiniFabAnchor = MatMiniFabButton;
 declare class MatIconButton extends MatButtonBase {
     constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button], a[mat-icon-button], button[matIconButton], a[matIconButton]", ["matButton", "matAnchor"], {}, {}, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button], a[mat-icon-button], button[matIconButton], a[matIconButton]", ["matButton", "matAnchor"], {}, {}, never, ["*", "[progressIndicator]"], true, never>;
 }
 /**
  * Material Design icon button component for anchor elements. This button displays a single

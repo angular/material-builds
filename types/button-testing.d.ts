@@ -36,6 +36,7 @@ declare class MatButtonHarness extends ContentContainerComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatButtonHarness>(this: ComponentHarnessConstructor<T>, options?: ButtonHarnessFilters): HarnessPredicate<T>;
+    private readonly _progressIndicator;
     /**
      * Clicks the button at the given position relative to its top-left.
      * @param relativeX The relative x position of the click.
@@ -56,6 +57,8 @@ declare class MatButtonHarness extends ContentContainerComponentHarness {
     blur(): Promise<void>;
     /** Whether the button is focused. */
     isFocused(): Promise<boolean>;
+    /** Whether the button is showing a progress indicator. */
+    isShowingProgress(): Promise<boolean>;
     /** Gets the variant of the button. */
     getVariant(): Promise<ButtonVariant>;
     /** Gets the appearance of the button. */
