@@ -205,7 +205,7 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       selector: 'mat-dialog-container',
       encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.Default,
+      changeDetection: ChangeDetectionStrategy.Eager,
       imports: [CdkPortalOutlet],
       host: {
         'class': 'mat-mdc-dialog-container mdc-dialog',

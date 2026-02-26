@@ -548,7 +548,7 @@ i0.ɵɵngDeclareClassMetadata({
     type: Component,
     args: [{
       selector: 'mat-snack-bar-container',
-      changeDetection: ChangeDetectionStrategy.Default,
+      changeDetection: ChangeDetectionStrategy.Eager,
       encapsulation: ViewEncapsulation.None,
       imports: [CdkPortalOutlet],
       host: {

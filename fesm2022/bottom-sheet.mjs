@@ -132,7 +132,7 @@ i0.ɵɵngDeclareClassMetadata({
     type: Component,
     args: [{
       selector: 'mat-bottom-sheet-container',
-      changeDetection: ChangeDetectionStrategy.Default,
+      changeDetection: ChangeDetectionStrategy.Eager,
       encapsulation: ViewEncapsulation.None,
       host: {
         'class': 'mat-bottom-sheet-container',

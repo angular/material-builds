@@ -467,7 +467,7 @@ i0.ɵɵngDeclareClassMetadata({
         'class': 'mat-tree'
       },
       encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.Default,
+      changeDetection: ChangeDetectionStrategy.Eager,
       providers: [{
         provide: CdkTree,
         useExisting: MatTree
