@@ -530,6 +530,11 @@ interface MatTabGroupBaseHeader {
 }
 /** Possible positions for the tab header. */
 type MatTabHeaderPosition = 'above' | 'below';
+/** Possible values for the animation duration of a tab group. */
+type MatTabGroupAnimationDuration = string | number | {
+    body: string | number;
+    header: string | number;
+};
 /**
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -543,6 +548,8 @@ declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterConte
     private _tabLabelSubscription;
     private _tabBodySubscription;
     private _diAnimationsDisabled;
+    protected _bodyAnimationDuration: string;
+    protected _headerAnimationDuration: string;
     /**
      * All tabs inside the tab group. This includes tabs that belong to groups that are nested
      * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
@@ -584,8 +591,8 @@ declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterConte
     /** Position of the tab header. */
     headerPosition: MatTabHeaderPosition;
     /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
-    get animationDuration(): string;
-    set animationDuration(value: string | number);
+    get animationDuration(): MatTabGroupAnimationDuration;
+    set animationDuration(value: MatTabGroupAnimationDuration);
     private _animationDuration;
     /**
      * `tabindex` to be set on the inner element that wraps the tab content. Can be used for improved
@@ -698,7 +705,7 @@ declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterConte
      * @param isCenter Whether the tab will be in the center.
      */
     protected _bodyCentered(isCenter: boolean): void;
-    protected _animationsDisabled(): boolean;
+    protected _bodyAnimationsDisabled(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabGroup, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTabGroup, "mat-tab-group", ["matTabGroup"], { "color": { "alias": "color"; "required": false; }; "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; "stretchTabs": { "alias": "mat-stretch-tabs"; "required": false; }; "alignTabs": { "alias": "mat-align-tabs"; "required": false; }; "dynamicHeight": { "alias": "dynamicHeight"; "required": false; }; "selectedIndex": { "alias": "selectedIndex"; "required": false; }; "headerPosition": { "alias": "headerPosition"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; "contentTabIndex": { "alias": "contentTabIndex"; "required": false; }; "disablePagination": { "alias": "disablePagination"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "preserveContent": { "alias": "preserveContent"; "required": false; }; "backgroundColor": { "alias": "backgroundColor"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; }, { "selectedIndexChange": "selectedIndexChange"; "focusChange": "focusChange"; "animationDone": "animationDone"; "selectedTabChange": "selectedTabChange"; }, ["_allTabs"], ["*"], true, never>;
     static ngAcceptInputType_fitInkBarToContent: unknown;
