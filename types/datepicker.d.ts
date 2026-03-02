@@ -138,7 +138,7 @@ declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, AfterVie
     _emitActiveDateChange(cell: MatCalendarCell, event: FocusEvent): void;
     /** Returns whether a cell should be marked as selected. */
     _isSelected(value: number): boolean;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Returns whether a cell is active. */
     _isActiveCell(rowIndex: number, colIndex: number): boolean;
@@ -433,7 +433,7 @@ declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy 
     }[]>;
     constructor(...args: unknown[]);
     ngAfterContentInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Handles when a new date is selected. */
     _dateSelected(event: MatCalendarUserEvent<number>): void;
@@ -842,7 +842,7 @@ declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDe
     ngAfterContentInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     /** Focuses the active date. */
     focusActiveCell(): void;
     /** Updates today's date after an update of the active date */
@@ -956,7 +956,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     protected _lastValueValid: boolean;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** @docs-private */
     registerOnValidatorChange(fn: () => void): void;
@@ -1215,7 +1215,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     readonly stateChanges: Subject<void>;
     private readonly _changeDetectorRef;
     constructor(...args: unknown[]);
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Selects the given date */
     select(date: D): void;
@@ -1410,7 +1410,7 @@ declare class MatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnD
     /** Underlying button element. */
     _button: MatButton;
     constructor(...args: unknown[]);
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     ngAfterContentInit(): void;
     _open(event: Event): void;
@@ -1621,7 +1621,7 @@ declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>,
      */
     onContainerClick(): void;
     ngAfterContentInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Gets the date at which the calendar should start. */
     getStartValue(): D | null;

@@ -107,7 +107,7 @@ declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, 
     get inputId(): string;
     constructor(...args: unknown[]);
     ngAfterContentInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;

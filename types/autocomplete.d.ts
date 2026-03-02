@@ -281,7 +281,7 @@ declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewI
     /** Class to apply to the panel when it's above the input. */
     private _aboveClass;
     ngAfterViewInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
     get panelOpen(): boolean;

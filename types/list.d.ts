@@ -419,7 +419,7 @@ declare class MatSelectionList extends MatListBase implements SelectionList, Con
     private readonly _changeDetectorRef;
     constructor(...args: unknown[]);
     ngAfterViewInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Focuses the selection list. */
     focus(options?: FocusOptions): void;

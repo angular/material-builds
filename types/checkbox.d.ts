@@ -113,7 +113,7 @@ declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAcces
     private _controlValueAccessorChangeFn;
     private _validatorChangeFn;
     constructor(...args: unknown[]);
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngAfterViewInit(): void;
     /** Whether the checkbox is checked. */
     get checked(): boolean;

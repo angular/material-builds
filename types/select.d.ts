@@ -259,7 +259,7 @@ declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnIni
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Toggles the overlay panel open or closed. */
     toggle(): void;

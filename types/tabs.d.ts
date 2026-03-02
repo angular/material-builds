@@ -100,7 +100,7 @@ declare class MatTab implements OnInit, OnChanges, OnDestroy {
      */
     isActive: boolean;
     constructor(...args: unknown[]);
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     ngOnInit(): void;
     /**

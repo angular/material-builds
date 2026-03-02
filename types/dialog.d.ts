@@ -26,7 +26,7 @@ declare class MatDialogClose implements OnInit, OnChanges {
     _matDialogClose: any;
     constructor(...args: unknown[]);
     ngOnInit(): void;
-    ngOnChanges(changes: SimpleChanges): void;
+    ngOnChanges(changes: SimpleChanges<this>): void;
     _onButtonClick(event: MouseEvent): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialogClose, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDialogClose, "[mat-dialog-close], [matDialogClose]", ["matDialogClose"], { "ariaLabel": { "alias": "aria-label"; "required": false; }; "type": { "alias": "type"; "required": false; }; "dialogResult": { "alias": "mat-dialog-close"; "required": false; }; "_matDialogClose": { "alias": "matDialogClose"; "required": false; }; }, {}, never, never, true, never>;
