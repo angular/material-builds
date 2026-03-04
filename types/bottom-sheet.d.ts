@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import { OnDestroy, EventEmitter, InjectionToken, ViewContainerRef, Injector, ComponentRef, TemplateRef } from '@angular/core';
 import * as i1 from '@angular/cdk/dialog';
-import { CdkDialogContainer, DialogRef } from '@angular/cdk/dialog';
+import { CdkDialogContainer, RestoreFocusValue, DialogRef } from '@angular/cdk/dialog';
 import * as i2 from '@angular/cdk/portal';
 import { ComponentType } from '@angular/cdk/portal';
 import * as i2$1 from '@angular/cdk/bidi';
@@ -91,11 +91,8 @@ declare class MatBottomSheetConfig<D = any> {
      * AutoFocusTarget instead.
      */
     autoFocus?: AutoFocusTarget | string | boolean;
-    /**
-     * Whether the bottom sheet should restore focus to the
-     * previously-focused element, after it's closed.
-     */
-    restoreFocus?: boolean;
+    /** Configures the focus restoration behavior. See `RestoreFocusValue` for more information. */
+    restoreFocus?: RestoreFocusValue;
     /** Scroll strategy to be used for the bottom sheet. */
     scrollStrategy?: ScrollStrategy;
     /** Height for the bottom sheet. */

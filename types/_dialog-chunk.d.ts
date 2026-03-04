@@ -2,7 +2,7 @@ import { ScrollStrategy, ComponentType } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
 import { ViewContainerRef, Injector, OnDestroy, EventEmitter, ComponentRef, InjectionToken, TemplateRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
-import { DialogConfig, CdkDialogContainer, DialogRef, Dialog } from '@angular/cdk/dialog';
+import { DialogConfig, RestoreFocusValue, CdkDialogContainer, DialogRef, Dialog } from '@angular/cdk/dialog';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Observable, Subject } from 'rxjs';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -88,11 +88,8 @@ declare class MatDialogConfig<D = any> {
      * AutoFocusTarget instead.
      */
     autoFocus?: AutoFocusTarget | string | boolean;
-    /**
-     * Whether the dialog should restore focus to the
-     * previously-focused element, after it's closed.
-     */
-    restoreFocus?: boolean;
+    /** Configures the focus restoration behavior. See `RestoreFocusValue` for more information. */
+    restoreFocus?: RestoreFocusValue;
     /** Whether to wait for the opening animation to finish before trapping focus. */
     delayFocusTrap?: boolean;
     /** Scroll strategy to be used for the dialog. */
