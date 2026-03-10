@@ -98,7 +98,7 @@ class MatSort {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatSort,
     deps: [{
@@ -109,7 +109,7 @@ class MatSort {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatSort,
     isStandalone: true,
     selector: "[matSort]",
@@ -133,7 +133,7 @@ class MatSort {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatSort,
   decorators: [{
@@ -302,7 +302,7 @@ class MatSortHeader {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatSortHeader,
     deps: [],
@@ -310,7 +310,7 @@ class MatSortHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatSortHeader,
     isStandalone: true,
     selector: "[mat-sort-header]",
@@ -344,7 +344,7 @@ class MatSortHeader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatSortHeader,
   decorators: [{
@@ -399,7 +399,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSortModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatSortModule,
     deps: [],
@@ -407,7 +407,7 @@ class MatSortModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatSortModule,
     imports: [MatSort, MatSortHeader],
@@ -415,7 +415,7 @@ class MatSortModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatSortModule,
     imports: [BidiModule]
@@ -423,7 +423,7 @@ class MatSortModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatSortModule,
   decorators: [{
@@ -439,7 +439,7 @@ class MatSortHeaderIntl {
   changes = new Subject();
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatSortHeaderIntl,
     deps: [],
@@ -447,7 +447,7 @@ class MatSortHeaderIntl {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatSortHeaderIntl,
     providedIn: 'root'
@@ -455,7 +455,7 @@ class MatSortHeaderIntl {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatSortHeaderIntl,
   decorators: [{

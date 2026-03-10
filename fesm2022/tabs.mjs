@@ -23,7 +23,7 @@ class MatTabContent {
   constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabContent,
     deps: [],
@@ -31,7 +31,7 @@ class MatTabContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabContent,
     isStandalone: true,
     selector: "[matTabContent]",
@@ -44,7 +44,7 @@ class MatTabContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabContent,
   decorators: [{
@@ -68,7 +68,7 @@ class MatTabLabel extends CdkPortal {
   });
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabLabel,
     deps: null,
@@ -76,7 +76,7 @@ class MatTabLabel extends CdkPortal {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabLabel,
     isStandalone: true,
     selector: "[mat-tab-label], [matTabLabel]",
@@ -90,7 +90,7 @@ class MatTabLabel extends CdkPortal {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabLabel,
   decorators: [{
@@ -156,7 +156,7 @@ class MatTab {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTab,
     deps: [],
@@ -164,7 +164,7 @@ class MatTab {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTab,
     isStandalone: true,
     selector: "mat-tab",
@@ -213,13 +213,13 @@ class MatTab {
     usesOnChanges: true,
     ngImport: i0,
     template: "<!-- Create a template for the content of the <mat-tab> so that we can grab a reference to this\n    TemplateRef and use it in a Portal to render the tab content in the appropriate place in the\n    tab-group. -->\n<ng-template><ng-content></ng-content></ng-template>\n",
-    changeDetection: i0.ChangeDetectionStrategy.Default,
+    changeDetection: i0.ChangeDetectionStrategy.Eager,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTab,
   decorators: [{
@@ -378,7 +378,7 @@ class InkBarItem {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: InkBarItem,
     deps: [],
@@ -386,7 +386,7 @@ class InkBarItem {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: InkBarItem,
     isStandalone: true,
     inputs: {
@@ -397,7 +397,7 @@ class InkBarItem {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: InkBarItem,
   decorators: [{
@@ -437,7 +437,7 @@ class MatTabLabelWrapper extends InkBarItem {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabLabelWrapper,
     deps: null,
@@ -445,7 +445,7 @@ class MatTabLabelWrapper extends InkBarItem {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabLabelWrapper,
     isStandalone: true,
     selector: "[matTabLabelWrapper]",
@@ -464,7 +464,7 @@ class MatTabLabelWrapper extends InkBarItem {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabLabelWrapper,
   decorators: [{
@@ -800,7 +800,7 @@ class MatPaginatedTabHeader {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatPaginatedTabHeader,
     deps: [],
@@ -808,7 +808,7 @@ class MatPaginatedTabHeader {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatPaginatedTabHeader,
     isStandalone: true,
     inputs: {
@@ -824,7 +824,7 @@ class MatPaginatedTabHeader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatPaginatedTabHeader,
   decorators: [{
@@ -873,7 +873,7 @@ class MatTabHeader extends MatPaginatedTabHeader {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabHeader,
     deps: null,
@@ -881,7 +881,7 @@ class MatTabHeader extends MatPaginatedTabHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabHeader,
     isStandalone: true,
     selector: "mat-tab-header",
@@ -948,13 +948,13 @@ class MatTabHeader extends MatPaginatedTabHeader {
       outputs: ["cdkObserveContent"],
       exportAs: ["cdkObserveContent"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.Default,
+    changeDetection: i0.ChangeDetectionStrategy.Eager,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabHeader,
   decorators: [{
@@ -1056,7 +1056,7 @@ class MatTabBodyPortal extends CdkPortalOutlet {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabBodyPortal,
     deps: [],
@@ -1064,7 +1064,7 @@ class MatTabBodyPortal extends CdkPortalOutlet {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabBodyPortal,
     isStandalone: true,
     selector: "[matTabBodyHost]",
@@ -1074,7 +1074,7 @@ class MatTabBodyPortal extends CdkPortalOutlet {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabBodyPortal,
   decorators: [{
@@ -1208,7 +1208,7 @@ class MatTabBody {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabBody,
     deps: [],
@@ -1216,7 +1216,7 @@ class MatTabBody {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabBody,
     isStandalone: true,
     selector: "mat-tab-body",
@@ -1260,13 +1260,13 @@ class MatTabBody {
       type: CdkScrollable,
       selector: "[cdk-scrollable], [cdkScrollable]"
     }],
-    changeDetection: i0.ChangeDetectionStrategy.Default,
+    changeDetection: i0.ChangeDetectionStrategy.Eager,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabBody,
   decorators: [{
@@ -1573,7 +1573,7 @@ class MatTabGroup {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabGroup,
     deps: [],
@@ -1581,7 +1581,7 @@ class MatTabGroup {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabGroup,
     isStandalone: true,
     selector: "mat-tab-group",
@@ -1684,13 +1684,13 @@ class MatTabGroup {
       inputs: ["content", "animationDuration", "preserveContent", "position"],
       outputs: ["_onCentering", "_beforeCentering", "_onCentered"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.Default,
+    changeDetection: i0.ChangeDetectionStrategy.Eager,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabGroup,
   decorators: [{
@@ -1936,7 +1936,7 @@ class MatTabNav extends MatPaginatedTabHeader {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabNav,
     deps: [],
@@ -1944,7 +1944,7 @@ class MatTabNav extends MatPaginatedTabHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabNav,
     isStandalone: true,
     selector: "[mat-tab-nav-bar]",
@@ -2024,13 +2024,13 @@ class MatTabNav extends MatPaginatedTabHeader {
       outputs: ["cdkObserveContent"],
       exportAs: ["cdkObserveContent"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.Default,
+    changeDetection: i0.ChangeDetectionStrategy.Eager,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabNav,
   decorators: [{
@@ -2224,7 +2224,7 @@ class MatTabLink extends InkBarItem {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabLink,
     deps: [],
@@ -2232,7 +2232,7 @@ class MatTabLink extends InkBarItem {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabLink,
     isStandalone: true,
     selector: "[mat-tab-link], [matTabLink]",
@@ -2279,7 +2279,7 @@ class MatTabLink extends InkBarItem {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabLink,
   decorators: [{
@@ -2344,7 +2344,7 @@ class MatTabNavPanel {
   _activeTabId;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabNavPanel,
     deps: [],
@@ -2352,7 +2352,7 @@ class MatTabNavPanel {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     type: MatTabNavPanel,
     isStandalone: true,
     selector: "mat-tab-nav-panel",
@@ -2379,7 +2379,7 @@ class MatTabNavPanel {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabNavPanel,
   decorators: [{
@@ -2408,7 +2408,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatTabsModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabsModule,
     deps: [],
@@ -2416,7 +2416,7 @@ class MatTabsModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabsModule,
     imports: [MatTabContent, MatTabLabel, MatTab, MatTabGroup, MatTabNav, MatTabNavPanel, MatTabLink],
@@ -2424,7 +2424,7 @@ class MatTabsModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "21.0.3",
+    version: "22.0.0-next.1",
     ngImport: i0,
     type: MatTabsModule,
     imports: [BidiModule]
@@ -2432,7 +2432,7 @@ class MatTabsModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "21.0.3",
+  version: "22.0.0-next.1",
   ngImport: i0,
   type: MatTabsModule,
   decorators: [{
