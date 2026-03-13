@@ -38,6 +38,9 @@ interface DateRangeInputHarnessFilters extends MatFormFieldControlHarnessFilters
     /** Filters based on the value of the input. */
     value?: string | RegExp;
 }
+/** A set of criteria that can be used to filter a list of datepicker actions instances. */
+interface DatepickerActionsHarnessFilters extends BaseHarnessFilters {
+}
 
 /** Base class for datepicker input harnesses. */
 declare abstract class MatDatepickerInputHarnessBase extends MatFormFieldControlHarnessBase {
@@ -281,4 +284,4 @@ declare class MatDateRangeInputHarness extends DatepickerTriggerHarnessBase {
 }
 
 export { CalendarView, DatepickerTriggerHarnessBase, MatCalendarCellHarness, MatCalendarHarness, MatDateRangeInputHarness, MatDatepickerInputHarness, MatEndDateHarness, MatStartDateHarness };
-export type { CalendarCellHarnessFilters, CalendarHarnessFilters, DateRangeInputHarnessFilters, DatepickerInputHarnessFilters, DatepickerToggleHarnessFilters };
+export type { CalendarCellHarnessFilters, CalendarHarnessFilters, DateRangeInputHarnessFilters, DatepickerActionsHarnessFilters, DatepickerInputHarnessFilters, DatepickerToggleHarnessFilters };
