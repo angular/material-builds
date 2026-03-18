@@ -178,17 +178,11 @@ var require_upgrade_data = __commonJS({
 
 // src/material/schematics/ng-update/index.js
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateToV21 = updateToV21;
 exports.updateToV22 = updateToV22;
 var schematics_1 = require("@angular-devkit/schematics");
 var schematics_2 = require("@angular/cdk/schematics");
 var upgrade_data_1 = require_upgrade_data();
 var materialMigrations = [];
-function updateToV21() {
-  return (0, schematics_1.chain)([
-    (0, schematics_2.createMigrationSchematicRule)(schematics_2.TargetVersion.V21, materialMigrations, upgrade_data_1.materialUpgradeData)
-  ]);
-}
 function updateToV22() {
   return (0, schematics_1.chain)([
     (0, schematics_2.createMigrationSchematicRule)(schematics_2.TargetVersion.V22, materialMigrations, upgrade_data_1.materialUpgradeData)
