@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, Directive, NgModule } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
 
 const MAT_CARD_CONFIG = new InjectionToken('MAT_CARD_CONFIG');
@@ -13,7 +13,7 @@ class MatCard {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCard,
     deps: [],
@@ -21,7 +21,7 @@ class MatCard {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCard,
     isStandalone: true,
     selector: "mat-card",
@@ -40,14 +40,14 @@ class MatCard {
     exportAs: ["matCard"],
     ngImport: i0,
     template: "<ng-content></ng-content>\n",
-    styles: [".mat-mdc-card{display:flex;flex-direction:column;box-sizing:border-box;position:relative;border-style:solid;border-width:0;background-color:var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));border-color:var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));border-radius:var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium));box-shadow:var(--mat-card-elevated-container-elevation, var(--mat-sys-level1))}.mat-mdc-card::after{position:absolute;top:0;left:0;width:100%;height:100%;border:solid 1px rgba(0,0,0,0);content:\"\";display:block;pointer-events:none;box-sizing:border-box;border-radius:var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium))}.mat-mdc-card-outlined{background-color:var(--mat-card-outlined-container-color, var(--mat-sys-surface));border-radius:var(--mat-card-outlined-container-shape, var(--mat-sys-corner-medium));border-width:var(--mat-card-outlined-outline-width, 1px);border-color:var(--mat-card-outlined-outline-color, var(--mat-sys-outline-variant));box-shadow:var(--mat-card-outlined-container-elevation, var(--mat-sys-level0))}.mat-mdc-card-outlined::after{border:none}.mat-mdc-card-filled{background-color:var(--mat-card-filled-container-color, var(--mat-sys-surface-container-highest));border-radius:var(--mat-card-filled-container-shape, var(--mat-sys-corner-medium));box-shadow:var(--mat-card-filled-container-elevation, var(--mat-sys-level0))}.mdc-card__media{position:relative;box-sizing:border-box;background-repeat:no-repeat;background-position:center;background-size:cover}.mdc-card__media::before{display:block;content:\"\"}.mdc-card__media:first-child{border-top-left-radius:inherit;border-top-right-radius:inherit}.mdc-card__media:last-child{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}.mat-mdc-card-actions{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;min-height:52px;padding:8px}.mat-mdc-card-title{font-family:var(--mat-card-title-text-font, var(--mat-sys-title-large-font));line-height:var(--mat-card-title-text-line-height, var(--mat-sys-title-large-line-height));font-size:var(--mat-card-title-text-size, var(--mat-sys-title-large-size));letter-spacing:var(--mat-card-title-text-tracking, var(--mat-sys-title-large-tracking));font-weight:var(--mat-card-title-text-weight, var(--mat-sys-title-large-weight))}.mat-mdc-card-subtitle{color:var(--mat-card-subtitle-text-color, var(--mat-sys-on-surface));font-family:var(--mat-card-subtitle-text-font, var(--mat-sys-title-medium-font));line-height:var(--mat-card-subtitle-text-line-height, var(--mat-sys-title-medium-line-height));font-size:var(--mat-card-subtitle-text-size, var(--mat-sys-title-medium-size));letter-spacing:var(--mat-card-subtitle-text-tracking, var(--mat-sys-title-medium-tracking));font-weight:var(--mat-card-subtitle-text-weight, var(--mat-sys-title-medium-weight))}.mat-mdc-card-title,.mat-mdc-card-subtitle{display:block;margin:0}.mat-mdc-card-avatar~.mat-mdc-card-header-text .mat-mdc-card-title,.mat-mdc-card-avatar~.mat-mdc-card-header-text .mat-mdc-card-subtitle{padding:16px 16px 0}.mat-mdc-card-header{display:flex;padding:16px 16px 0}.mat-mdc-card-content{display:block;padding:0 16px}.mat-mdc-card-content:first-child{padding-top:16px}.mat-mdc-card-content:last-child{padding-bottom:16px}.mat-mdc-card-title-group{display:flex;justify-content:space-between;width:100%}.mat-mdc-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0;margin-bottom:16px;object-fit:cover}.mat-mdc-card-avatar~.mat-mdc-card-header-text .mat-mdc-card-subtitle,.mat-mdc-card-avatar~.mat-mdc-card-header-text .mat-mdc-card-title{line-height:normal}.mat-mdc-card-sm-image{width:80px;height:80px}.mat-mdc-card-md-image{width:112px;height:112px}.mat-mdc-card-lg-image{width:152px;height:152px}.mat-mdc-card-xl-image{width:240px;height:240px}.mat-mdc-card-subtitle~.mat-mdc-card-title,.mat-mdc-card-title~.mat-mdc-card-subtitle,.mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-title,.mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-subtitle,.mat-mdc-card-title-group .mat-mdc-card-title,.mat-mdc-card-title-group .mat-mdc-card-subtitle{padding-top:0}.mat-mdc-card-content>:last-child:not(.mat-mdc-card-footer){margin-bottom:0}.mat-mdc-card-actions-align-end{justify-content:flex-end}\n"],
+    styles: [".mat-mdc-card {\n  display: flex;\n  flex-direction: column;\n  box-sizing: border-box;\n  position: relative;\n  border-style: solid;\n  border-width: 0;\n  background-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));\n  border-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));\n  border-radius: var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium));\n  box-shadow: var(--mat-card-elevated-container-elevation, var(--mat-sys-level1));\n}\n.mat-mdc-card::after {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  border: solid 1px transparent;\n  content: \"\";\n  display: block;\n  pointer-events: none;\n  box-sizing: border-box;\n  border-radius: var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium));\n}\n\n.mat-mdc-card-outlined {\n  background-color: var(--mat-card-outlined-container-color, var(--mat-sys-surface));\n  border-radius: var(--mat-card-outlined-container-shape, var(--mat-sys-corner-medium));\n  border-width: var(--mat-card-outlined-outline-width, 1px);\n  border-color: var(--mat-card-outlined-outline-color, var(--mat-sys-outline-variant));\n  box-shadow: var(--mat-card-outlined-container-elevation, var(--mat-sys-level0));\n}\n.mat-mdc-card-outlined::after {\n  border: none;\n}\n\n.mat-mdc-card-filled {\n  background-color: var(--mat-card-filled-container-color, var(--mat-sys-surface-container-highest));\n  border-radius: var(--mat-card-filled-container-shape, var(--mat-sys-corner-medium));\n  box-shadow: var(--mat-card-filled-container-elevation, var(--mat-sys-level0));\n}\n\n.mdc-card__media {\n  position: relative;\n  box-sizing: border-box;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.mdc-card__media::before {\n  display: block;\n  content: \"\";\n}\n.mdc-card__media:first-child {\n  border-top-left-radius: inherit;\n  border-top-right-radius: inherit;\n}\n.mdc-card__media:last-child {\n  border-bottom-left-radius: inherit;\n  border-bottom-right-radius: inherit;\n}\n\n.mat-mdc-card-actions {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  box-sizing: border-box;\n  min-height: 52px;\n  padding: 8px;\n}\n\n.mat-mdc-card-title {\n  font-family: var(--mat-card-title-text-font, var(--mat-sys-title-large-font));\n  line-height: var(--mat-card-title-text-line-height, var(--mat-sys-title-large-line-height));\n  font-size: var(--mat-card-title-text-size, var(--mat-sys-title-large-size));\n  letter-spacing: var(--mat-card-title-text-tracking, var(--mat-sys-title-large-tracking));\n  font-weight: var(--mat-card-title-text-weight, var(--mat-sys-title-large-weight));\n}\n\n.mat-mdc-card-subtitle {\n  color: var(--mat-card-subtitle-text-color, var(--mat-sys-on-surface));\n  font-family: var(--mat-card-subtitle-text-font, var(--mat-sys-title-medium-font));\n  line-height: var(--mat-card-subtitle-text-line-height, var(--mat-sys-title-medium-line-height));\n  font-size: var(--mat-card-subtitle-text-size, var(--mat-sys-title-medium-size));\n  letter-spacing: var(--mat-card-subtitle-text-tracking, var(--mat-sys-title-medium-tracking));\n  font-weight: var(--mat-card-subtitle-text-weight, var(--mat-sys-title-medium-weight));\n}\n\n.mat-mdc-card-title,\n.mat-mdc-card-subtitle {\n  display: block;\n  margin: 0;\n}\n.mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-title,\n.mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-subtitle {\n  padding: 16px 16px 0;\n}\n\n.mat-mdc-card-header {\n  display: flex;\n  padding: 16px 16px 0;\n}\n\n.mat-mdc-card-content {\n  display: block;\n  padding: 0 16px;\n}\n.mat-mdc-card-content:first-child {\n  padding-top: 16px;\n}\n.mat-mdc-card-content:last-child {\n  padding-bottom: 16px;\n}\n\n.mat-mdc-card-title-group {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n\n.mat-mdc-card-avatar {\n  height: 40px;\n  width: 40px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  margin-bottom: 16px;\n  object-fit: cover;\n}\n.mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-subtitle,\n.mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-title {\n  line-height: normal;\n}\n\n.mat-mdc-card-sm-image {\n  width: 80px;\n  height: 80px;\n}\n\n.mat-mdc-card-md-image {\n  width: 112px;\n  height: 112px;\n}\n\n.mat-mdc-card-lg-image {\n  width: 152px;\n  height: 152px;\n}\n\n.mat-mdc-card-xl-image {\n  width: 240px;\n  height: 240px;\n}\n\n.mat-mdc-card-subtitle ~ .mat-mdc-card-title,\n.mat-mdc-card-title ~ .mat-mdc-card-subtitle,\n.mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-title,\n.mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-subtitle,\n.mat-mdc-card-title-group .mat-mdc-card-title,\n.mat-mdc-card-title-group .mat-mdc-card-subtitle {\n  padding-top: 0;\n}\n\n.mat-mdc-card-content > :last-child:not(.mat-mdc-card-footer) {\n  margin-bottom: 0;\n}\n\n.mat-mdc-card-actions-align-end {\n  justify-content: flex-end;\n}\n"],
     changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCard,
   decorators: [{
@@ -65,7 +65,7 @@ i0.ɵɵngDeclareClassMetadata({
       encapsulation: ViewEncapsulation.None,
       changeDetection: ChangeDetectionStrategy.OnPush,
       template: "<ng-content></ng-content>\n",
-      styles: [".mat-mdc-card{display:flex;flex-direction:column;box-sizing:border-box;position:relative;border-style:solid;border-width:0;background-color:var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));border-color:var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));border-radius:var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium));box-shadow:var(--mat-card-elevated-container-elevation, var(--mat-sys-level1))}.mat-mdc-card::after{position:absolute;top:0;left:0;width:100%;height:100%;border:solid 1px rgba(0,0,0,0);content:\"\";display:block;pointer-events:none;box-sizing:border-box;border-radius:var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium))}.mat-mdc-card-outlined{background-color:var(--mat-card-outlined-container-color, var(--mat-sys-surface));border-radius:var(--mat-card-outlined-container-shape, var(--mat-sys-corner-medium));border-width:var(--mat-card-outlined-outline-width, 1px);border-color:var(--mat-card-outlined-outline-color, var(--mat-sys-outline-variant));box-shadow:var(--mat-card-outlined-container-elevation, var(--mat-sys-level0))}.mat-mdc-card-outlined::after{border:none}.mat-mdc-card-filled{background-color:var(--mat-card-filled-container-color, var(--mat-sys-surface-container-highest));border-radius:var(--mat-card-filled-container-shape, var(--mat-sys-corner-medium));box-shadow:var(--mat-card-filled-container-elevation, var(--mat-sys-level0))}.mdc-card__media{position:relative;box-sizing:border-box;background-repeat:no-repeat;background-position:center;background-size:cover}.mdc-card__media::before{display:block;content:\"\"}.mdc-card__media:first-child{border-top-left-radius:inherit;border-top-right-radius:inherit}.mdc-card__media:last-child{border-bottom-left-radius:inherit;border-bottom-right-radius:inherit}.mat-mdc-card-actions{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;min-height:52px;padding:8px}.mat-mdc-card-title{font-family:var(--mat-card-title-text-font, var(--mat-sys-title-large-font));line-height:var(--mat-card-title-text-line-height, var(--mat-sys-title-large-line-height));font-size:var(--mat-card-title-text-size, var(--mat-sys-title-large-size));letter-spacing:var(--mat-card-title-text-tracking, var(--mat-sys-title-large-tracking));font-weight:var(--mat-card-title-text-weight, var(--mat-sys-title-large-weight))}.mat-mdc-card-subtitle{color:var(--mat-card-subtitle-text-color, var(--mat-sys-on-surface));font-family:var(--mat-card-subtitle-text-font, var(--mat-sys-title-medium-font));line-height:var(--mat-card-subtitle-text-line-height, var(--mat-sys-title-medium-line-height));font-size:var(--mat-card-subtitle-text-size, var(--mat-sys-title-medium-size));letter-spacing:var(--mat-card-subtitle-text-tracking, var(--mat-sys-title-medium-tracking));font-weight:var(--mat-card-subtitle-text-weight, var(--mat-sys-title-medium-weight))}.mat-mdc-card-title,.mat-mdc-card-subtitle{display:block;margin:0}.mat-mdc-card-avatar~.mat-mdc-card-header-text .mat-mdc-card-title,.mat-mdc-card-avatar~.mat-mdc-card-header-text .mat-mdc-card-subtitle{padding:16px 16px 0}.mat-mdc-card-header{display:flex;padding:16px 16px 0}.mat-mdc-card-content{display:block;padding:0 16px}.mat-mdc-card-content:first-child{padding-top:16px}.mat-mdc-card-content:last-child{padding-bottom:16px}.mat-mdc-card-title-group{display:flex;justify-content:space-between;width:100%}.mat-mdc-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0;margin-bottom:16px;object-fit:cover}.mat-mdc-card-avatar~.mat-mdc-card-header-text .mat-mdc-card-subtitle,.mat-mdc-card-avatar~.mat-mdc-card-header-text .mat-mdc-card-title{line-height:normal}.mat-mdc-card-sm-image{width:80px;height:80px}.mat-mdc-card-md-image{width:112px;height:112px}.mat-mdc-card-lg-image{width:152px;height:152px}.mat-mdc-card-xl-image{width:240px;height:240px}.mat-mdc-card-subtitle~.mat-mdc-card-title,.mat-mdc-card-title~.mat-mdc-card-subtitle,.mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-title,.mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-subtitle,.mat-mdc-card-title-group .mat-mdc-card-title,.mat-mdc-card-title-group .mat-mdc-card-subtitle{padding-top:0}.mat-mdc-card-content>:last-child:not(.mat-mdc-card-footer){margin-bottom:0}.mat-mdc-card-actions-align-end{justify-content:flex-end}\n"]
+      styles: [".mat-mdc-card {\n  display: flex;\n  flex-direction: column;\n  box-sizing: border-box;\n  position: relative;\n  border-style: solid;\n  border-width: 0;\n  background-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));\n  border-color: var(--mat-card-elevated-container-color, var(--mat-sys-surface-container-low));\n  border-radius: var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium));\n  box-shadow: var(--mat-card-elevated-container-elevation, var(--mat-sys-level1));\n}\n.mat-mdc-card::after {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  border: solid 1px transparent;\n  content: \"\";\n  display: block;\n  pointer-events: none;\n  box-sizing: border-box;\n  border-radius: var(--mat-card-elevated-container-shape, var(--mat-sys-corner-medium));\n}\n\n.mat-mdc-card-outlined {\n  background-color: var(--mat-card-outlined-container-color, var(--mat-sys-surface));\n  border-radius: var(--mat-card-outlined-container-shape, var(--mat-sys-corner-medium));\n  border-width: var(--mat-card-outlined-outline-width, 1px);\n  border-color: var(--mat-card-outlined-outline-color, var(--mat-sys-outline-variant));\n  box-shadow: var(--mat-card-outlined-container-elevation, var(--mat-sys-level0));\n}\n.mat-mdc-card-outlined::after {\n  border: none;\n}\n\n.mat-mdc-card-filled {\n  background-color: var(--mat-card-filled-container-color, var(--mat-sys-surface-container-highest));\n  border-radius: var(--mat-card-filled-container-shape, var(--mat-sys-corner-medium));\n  box-shadow: var(--mat-card-filled-container-elevation, var(--mat-sys-level0));\n}\n\n.mdc-card__media {\n  position: relative;\n  box-sizing: border-box;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n.mdc-card__media::before {\n  display: block;\n  content: \"\";\n}\n.mdc-card__media:first-child {\n  border-top-left-radius: inherit;\n  border-top-right-radius: inherit;\n}\n.mdc-card__media:last-child {\n  border-bottom-left-radius: inherit;\n  border-bottom-right-radius: inherit;\n}\n\n.mat-mdc-card-actions {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  box-sizing: border-box;\n  min-height: 52px;\n  padding: 8px;\n}\n\n.mat-mdc-card-title {\n  font-family: var(--mat-card-title-text-font, var(--mat-sys-title-large-font));\n  line-height: var(--mat-card-title-text-line-height, var(--mat-sys-title-large-line-height));\n  font-size: var(--mat-card-title-text-size, var(--mat-sys-title-large-size));\n  letter-spacing: var(--mat-card-title-text-tracking, var(--mat-sys-title-large-tracking));\n  font-weight: var(--mat-card-title-text-weight, var(--mat-sys-title-large-weight));\n}\n\n.mat-mdc-card-subtitle {\n  color: var(--mat-card-subtitle-text-color, var(--mat-sys-on-surface));\n  font-family: var(--mat-card-subtitle-text-font, var(--mat-sys-title-medium-font));\n  line-height: var(--mat-card-subtitle-text-line-height, var(--mat-sys-title-medium-line-height));\n  font-size: var(--mat-card-subtitle-text-size, var(--mat-sys-title-medium-size));\n  letter-spacing: var(--mat-card-subtitle-text-tracking, var(--mat-sys-title-medium-tracking));\n  font-weight: var(--mat-card-subtitle-text-weight, var(--mat-sys-title-medium-weight));\n}\n\n.mat-mdc-card-title,\n.mat-mdc-card-subtitle {\n  display: block;\n  margin: 0;\n}\n.mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-title,\n.mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-subtitle {\n  padding: 16px 16px 0;\n}\n\n.mat-mdc-card-header {\n  display: flex;\n  padding: 16px 16px 0;\n}\n\n.mat-mdc-card-content {\n  display: block;\n  padding: 0 16px;\n}\n.mat-mdc-card-content:first-child {\n  padding-top: 16px;\n}\n.mat-mdc-card-content:last-child {\n  padding-bottom: 16px;\n}\n\n.mat-mdc-card-title-group {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n\n.mat-mdc-card-avatar {\n  height: 40px;\n  width: 40px;\n  border-radius: 50%;\n  flex-shrink: 0;\n  margin-bottom: 16px;\n  object-fit: cover;\n}\n.mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-subtitle,\n.mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-title {\n  line-height: normal;\n}\n\n.mat-mdc-card-sm-image {\n  width: 80px;\n  height: 80px;\n}\n\n.mat-mdc-card-md-image {\n  width: 112px;\n  height: 112px;\n}\n\n.mat-mdc-card-lg-image {\n  width: 152px;\n  height: 152px;\n}\n\n.mat-mdc-card-xl-image {\n  width: 240px;\n  height: 240px;\n}\n\n.mat-mdc-card-subtitle ~ .mat-mdc-card-title,\n.mat-mdc-card-title ~ .mat-mdc-card-subtitle,\n.mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-title,\n.mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-subtitle,\n.mat-mdc-card-title-group .mat-mdc-card-title,\n.mat-mdc-card-title-group .mat-mdc-card-subtitle {\n  padding-top: 0;\n}\n\n.mat-mdc-card-content > :last-child:not(.mat-mdc-card-footer) {\n  margin-bottom: 0;\n}\n\n.mat-mdc-card-actions-align-end {\n  justify-content: flex-end;\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -78,7 +78,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardTitle {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardTitle,
     deps: [],
@@ -86,7 +86,7 @@ class MatCardTitle {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardTitle,
     isStandalone: true,
     selector: "mat-card-title, [mat-card-title], [matCardTitle]",
@@ -98,7 +98,7 @@ class MatCardTitle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardTitle,
   decorators: [{
@@ -114,7 +114,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardTitleGroup {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardTitleGroup,
     deps: [],
@@ -122,7 +122,7 @@ class MatCardTitleGroup {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardTitleGroup,
     isStandalone: true,
     selector: "mat-card-title-group",
@@ -137,7 +137,7 @@ class MatCardTitleGroup {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardTitleGroup,
   decorators: [{
@@ -156,7 +156,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardContent {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardContent,
     deps: [],
@@ -164,7 +164,7 @@ class MatCardContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardContent,
     isStandalone: true,
     selector: "mat-card-content",
@@ -176,7 +176,7 @@ class MatCardContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardContent,
   decorators: [{
@@ -192,7 +192,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardSubtitle {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardSubtitle,
     deps: [],
@@ -200,7 +200,7 @@ class MatCardSubtitle {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardSubtitle,
     isStandalone: true,
     selector: "mat-card-subtitle, [mat-card-subtitle], [matCardSubtitle]",
@@ -212,7 +212,7 @@ class MatCardSubtitle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardSubtitle,
   decorators: [{
@@ -229,7 +229,7 @@ class MatCardActions {
   align = 'start';
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardActions,
     deps: [],
@@ -237,7 +237,7 @@ class MatCardActions {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardActions,
     isStandalone: true,
     selector: "mat-card-actions",
@@ -256,7 +256,7 @@ class MatCardActions {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardActions,
   decorators: [{
@@ -279,7 +279,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardHeader {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardHeader,
     deps: [],
@@ -287,7 +287,7 @@ class MatCardHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardHeader,
     isStandalone: true,
     selector: "mat-card-header",
@@ -302,7 +302,7 @@ class MatCardHeader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardHeader,
   decorators: [{
@@ -321,7 +321,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardFooter {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardFooter,
     deps: [],
@@ -329,7 +329,7 @@ class MatCardFooter {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardFooter,
     isStandalone: true,
     selector: "mat-card-footer",
@@ -341,7 +341,7 @@ class MatCardFooter {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardFooter,
   decorators: [{
@@ -357,7 +357,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardImage,
     deps: [],
@@ -365,7 +365,7 @@ class MatCardImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardImage,
     isStandalone: true,
     selector: "[mat-card-image], [matCardImage]",
@@ -377,7 +377,7 @@ class MatCardImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardImage,
   decorators: [{
@@ -393,7 +393,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardSmImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardSmImage,
     deps: [],
@@ -401,7 +401,7 @@ class MatCardSmImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardSmImage,
     isStandalone: true,
     selector: "[mat-card-sm-image], [matCardImageSmall]",
@@ -413,7 +413,7 @@ class MatCardSmImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardSmImage,
   decorators: [{
@@ -429,7 +429,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardMdImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardMdImage,
     deps: [],
@@ -437,7 +437,7 @@ class MatCardMdImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardMdImage,
     isStandalone: true,
     selector: "[mat-card-md-image], [matCardImageMedium]",
@@ -449,7 +449,7 @@ class MatCardMdImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardMdImage,
   decorators: [{
@@ -465,7 +465,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardLgImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardLgImage,
     deps: [],
@@ -473,7 +473,7 @@ class MatCardLgImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardLgImage,
     isStandalone: true,
     selector: "[mat-card-lg-image], [matCardImageLarge]",
@@ -485,7 +485,7 @@ class MatCardLgImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardLgImage,
   decorators: [{
@@ -501,7 +501,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardXlImage {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardXlImage,
     deps: [],
@@ -509,7 +509,7 @@ class MatCardXlImage {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardXlImage,
     isStandalone: true,
     selector: "[mat-card-xl-image], [matCardImageXLarge]",
@@ -521,7 +521,7 @@ class MatCardXlImage {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardXlImage,
   decorators: [{
@@ -537,7 +537,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCardAvatar {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardAvatar,
     deps: [],
@@ -545,7 +545,7 @@ class MatCardAvatar {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCardAvatar,
     isStandalone: true,
     selector: "[mat-card-avatar], [matCardAvatar]",
@@ -557,7 +557,7 @@ class MatCardAvatar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardAvatar,
   decorators: [{
@@ -575,7 +575,7 @@ const CARD_DIRECTIVES = [MatCard, MatCardActions, MatCardAvatar, MatCardContent,
 class MatCardModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardModule,
     deps: [],
@@ -583,7 +583,7 @@ class MatCardModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardModule,
     imports: [MatCard, MatCardActions, MatCardAvatar, MatCardContent, MatCardFooter, MatCardHeader, MatCardImage, MatCardLgImage, MatCardMdImage, MatCardSmImage, MatCardSubtitle, MatCardTitle, MatCardTitleGroup, MatCardXlImage],
@@ -591,7 +591,7 @@ class MatCardModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCardModule,
     imports: [BidiModule]
@@ -599,7 +599,7 @@ class MatCardModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCardModule,
   decorators: [{

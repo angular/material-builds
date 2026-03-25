@@ -1,6 +1,6 @@
 import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import { Component, ViewEncapsulation, ChangeDetectionStrategy, inject, NgZone, ElementRef, Renderer2, DOCUMENT, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { inject, NgZone, ElementRef, Renderer2, DOCUMENT, booleanAttribute, ChangeDetectionStrategy, ViewEncapsulation, Component, Input, Directive, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import { BidiModule } from '@angular/cdk/bidi';
@@ -10,7 +10,7 @@ const BADGE_CONTENT_CLASS = 'mat-badge-content';
 class _MatBadgeStyleLoader {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: _MatBadgeStyleLoader,
     deps: [],
@@ -18,21 +18,21 @@ class _MatBadgeStyleLoader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: _MatBadgeStyleLoader,
     isStandalone: true,
     selector: "ng-component",
     ngImport: i0,
     template: '',
     isInline: true,
-    styles: [".mat-badge{position:relative}.mat-badge.mat-badge{overflow:visible}.mat-badge-content{position:absolute;text-align:center;display:inline-block;transition:transform 200ms ease-in-out;transform:scale(0.6);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;box-sizing:border-box;pointer-events:none;background-color:var(--mat-badge-background-color, var(--mat-sys-error));color:var(--mat-badge-text-color, var(--mat-sys-on-error));font-family:var(--mat-badge-text-font, var(--mat-sys-label-small-font));font-weight:var(--mat-badge-text-weight, var(--mat-sys-label-small-weight));border-radius:var(--mat-badge-container-shape, var(--mat-sys-corner-full))}.mat-badge-above .mat-badge-content{bottom:100%}.mat-badge-below .mat-badge-content{top:100%}.mat-badge-before .mat-badge-content{right:100%}[dir=rtl] .mat-badge-before .mat-badge-content{right:auto;left:100%}.mat-badge-after .mat-badge-content{left:100%}[dir=rtl] .mat-badge-after .mat-badge-content{left:auto;right:100%}@media(forced-colors: active){.mat-badge-content{outline:solid 1px;border-radius:0}}.mat-badge-disabled .mat-badge-content{background-color:var(--mat-badge-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-error) 38%, transparent));color:var(--mat-badge-disabled-state-text-color, var(--mat-sys-on-error))}.mat-badge-hidden .mat-badge-content{display:none}.ng-animate-disabled .mat-badge-content,.mat-badge-content._mat-animation-noopable{transition:none}.mat-badge-content.mat-badge-active{transform:none}.mat-badge-small .mat-badge-content{width:var(--mat-badge-legacy-small-size-container-size, unset);height:var(--mat-badge-legacy-small-size-container-size, unset);min-width:var(--mat-badge-small-size-container-size, 6px);min-height:var(--mat-badge-small-size-container-size, 6px);line-height:var(--mat-badge-small-size-line-height, 6px);padding:var(--mat-badge-small-size-container-padding, 0);font-size:var(--mat-badge-small-size-text-size, 0);margin:var(--mat-badge-small-size-container-offset, -6px 0)}.mat-badge-small.mat-badge-overlap .mat-badge-content{margin:var(--mat-badge-small-size-container-overlap-offset, -6px)}.mat-badge-medium .mat-badge-content{width:var(--mat-badge-legacy-container-size, unset);height:var(--mat-badge-legacy-container-size, unset);min-width:var(--mat-badge-container-size, 16px);min-height:var(--mat-badge-container-size, 16px);line-height:var(--mat-badge-line-height, 16px);padding:var(--mat-badge-container-padding, 0 4px);font-size:var(--mat-badge-text-size, var(--mat-sys-label-small-size));margin:var(--mat-badge-container-offset, -12px 0)}.mat-badge-medium.mat-badge-overlap .mat-badge-content{margin:var(--mat-badge-container-overlap-offset, -12px)}.mat-badge-large .mat-badge-content{width:var(--mat-badge-legacy-large-size-container-size, unset);height:var(--mat-badge-legacy-large-size-container-size, unset);min-width:var(--mat-badge-large-size-container-size, 16px);min-height:var(--mat-badge-large-size-container-size, 16px);line-height:var(--mat-badge-large-size-line-height, 16px);padding:var(--mat-badge-large-size-container-padding, 0 4px);font-size:var(--mat-badge-large-size-text-size, var(--mat-sys-label-small-size));margin:var(--mat-badge-large-size-container-offset, -12px 0)}.mat-badge-large.mat-badge-overlap .mat-badge-content{margin:var(--mat-badge-large-size-container-overlap-offset, -12px)}\n"],
+    styles: [".mat-badge {\n  position: relative;\n}\n.mat-badge.mat-badge {\n  overflow: visible;\n}\n\n.mat-badge-content {\n  position: absolute;\n  text-align: center;\n  display: inline-block;\n  transition: transform 200ms ease-in-out;\n  transform: scale(0.6);\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  box-sizing: border-box;\n  pointer-events: none;\n  background-color: var(--mat-badge-background-color, var(--mat-sys-error));\n  color: var(--mat-badge-text-color, var(--mat-sys-on-error));\n  font-family: var(--mat-badge-text-font, var(--mat-sys-label-small-font));\n  font-weight: var(--mat-badge-text-weight, var(--mat-sys-label-small-weight));\n  border-radius: var(--mat-badge-container-shape, var(--mat-sys-corner-full));\n}\n.mat-badge-above .mat-badge-content {\n  bottom: 100%;\n}\n.mat-badge-below .mat-badge-content {\n  top: 100%;\n}\n.mat-badge-before .mat-badge-content {\n  right: 100%;\n}\n[dir=rtl] .mat-badge-before .mat-badge-content {\n  right: auto;\n  left: 100%;\n}\n.mat-badge-after .mat-badge-content {\n  left: 100%;\n}\n[dir=rtl] .mat-badge-after .mat-badge-content {\n  left: auto;\n  right: 100%;\n}\n@media (forced-colors: active) {\n  .mat-badge-content {\n    outline: solid 1px;\n    border-radius: 0;\n  }\n}\n\n.mat-badge-disabled .mat-badge-content {\n  background-color: var(--mat-badge-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-error) 38%, transparent));\n  color: var(--mat-badge-disabled-state-text-color, var(--mat-sys-on-error));\n}\n\n.mat-badge-hidden .mat-badge-content {\n  display: none;\n}\n\n.ng-animate-disabled .mat-badge-content,\n.mat-badge-content._mat-animation-noopable {\n  transition: none;\n}\n\n.mat-badge-content.mat-badge-active {\n  transform: none;\n}\n\n.mat-badge-small .mat-badge-content {\n  width: var(--mat-badge-legacy-small-size-container-size, unset);\n  height: var(--mat-badge-legacy-small-size-container-size, unset);\n  min-width: var(--mat-badge-small-size-container-size, 6px);\n  min-height: var(--mat-badge-small-size-container-size, 6px);\n  line-height: var(--mat-badge-small-size-line-height, 6px);\n  padding: var(--mat-badge-small-size-container-padding, 0);\n  font-size: var(--mat-badge-small-size-text-size, 0);\n  margin: var(--mat-badge-small-size-container-offset, -6px 0);\n}\n.mat-badge-small.mat-badge-overlap .mat-badge-content {\n  margin: var(--mat-badge-small-size-container-overlap-offset, -6px);\n}\n\n.mat-badge-medium .mat-badge-content {\n  width: var(--mat-badge-legacy-container-size, unset);\n  height: var(--mat-badge-legacy-container-size, unset);\n  min-width: var(--mat-badge-container-size, 16px);\n  min-height: var(--mat-badge-container-size, 16px);\n  line-height: var(--mat-badge-line-height, 16px);\n  padding: var(--mat-badge-container-padding, 0 4px);\n  font-size: var(--mat-badge-text-size, var(--mat-sys-label-small-size));\n  margin: var(--mat-badge-container-offset, -12px 0);\n}\n.mat-badge-medium.mat-badge-overlap .mat-badge-content {\n  margin: var(--mat-badge-container-overlap-offset, -12px);\n}\n\n.mat-badge-large .mat-badge-content {\n  width: var(--mat-badge-legacy-large-size-container-size, unset);\n  height: var(--mat-badge-legacy-large-size-container-size, unset);\n  min-width: var(--mat-badge-large-size-container-size, 16px);\n  min-height: var(--mat-badge-large-size-container-size, 16px);\n  line-height: var(--mat-badge-large-size-line-height, 16px);\n  padding: var(--mat-badge-large-size-container-padding, 0 4px);\n  font-size: var(--mat-badge-large-size-text-size, var(--mat-sys-label-small-size));\n  margin: var(--mat-badge-large-size-container-offset, -12px 0);\n}\n.mat-badge-large.mat-badge-overlap .mat-badge-content {\n  margin: var(--mat-badge-large-size-container-overlap-offset, -12px);\n}\n"],
     changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: _MatBadgeStyleLoader,
   decorators: [{
@@ -41,7 +41,7 @@ i0.ɵɵngDeclareClassMetadata({
       encapsulation: ViewEncapsulation.None,
       template: '',
       changeDetection: ChangeDetectionStrategy.OnPush,
-      styles: [".mat-badge{position:relative}.mat-badge.mat-badge{overflow:visible}.mat-badge-content{position:absolute;text-align:center;display:inline-block;transition:transform 200ms ease-in-out;transform:scale(0.6);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;box-sizing:border-box;pointer-events:none;background-color:var(--mat-badge-background-color, var(--mat-sys-error));color:var(--mat-badge-text-color, var(--mat-sys-on-error));font-family:var(--mat-badge-text-font, var(--mat-sys-label-small-font));font-weight:var(--mat-badge-text-weight, var(--mat-sys-label-small-weight));border-radius:var(--mat-badge-container-shape, var(--mat-sys-corner-full))}.mat-badge-above .mat-badge-content{bottom:100%}.mat-badge-below .mat-badge-content{top:100%}.mat-badge-before .mat-badge-content{right:100%}[dir=rtl] .mat-badge-before .mat-badge-content{right:auto;left:100%}.mat-badge-after .mat-badge-content{left:100%}[dir=rtl] .mat-badge-after .mat-badge-content{left:auto;right:100%}@media(forced-colors: active){.mat-badge-content{outline:solid 1px;border-radius:0}}.mat-badge-disabled .mat-badge-content{background-color:var(--mat-badge-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-error) 38%, transparent));color:var(--mat-badge-disabled-state-text-color, var(--mat-sys-on-error))}.mat-badge-hidden .mat-badge-content{display:none}.ng-animate-disabled .mat-badge-content,.mat-badge-content._mat-animation-noopable{transition:none}.mat-badge-content.mat-badge-active{transform:none}.mat-badge-small .mat-badge-content{width:var(--mat-badge-legacy-small-size-container-size, unset);height:var(--mat-badge-legacy-small-size-container-size, unset);min-width:var(--mat-badge-small-size-container-size, 6px);min-height:var(--mat-badge-small-size-container-size, 6px);line-height:var(--mat-badge-small-size-line-height, 6px);padding:var(--mat-badge-small-size-container-padding, 0);font-size:var(--mat-badge-small-size-text-size, 0);margin:var(--mat-badge-small-size-container-offset, -6px 0)}.mat-badge-small.mat-badge-overlap .mat-badge-content{margin:var(--mat-badge-small-size-container-overlap-offset, -6px)}.mat-badge-medium .mat-badge-content{width:var(--mat-badge-legacy-container-size, unset);height:var(--mat-badge-legacy-container-size, unset);min-width:var(--mat-badge-container-size, 16px);min-height:var(--mat-badge-container-size, 16px);line-height:var(--mat-badge-line-height, 16px);padding:var(--mat-badge-container-padding, 0 4px);font-size:var(--mat-badge-text-size, var(--mat-sys-label-small-size));margin:var(--mat-badge-container-offset, -12px 0)}.mat-badge-medium.mat-badge-overlap .mat-badge-content{margin:var(--mat-badge-container-overlap-offset, -12px)}.mat-badge-large .mat-badge-content{width:var(--mat-badge-legacy-large-size-container-size, unset);height:var(--mat-badge-legacy-large-size-container-size, unset);min-width:var(--mat-badge-large-size-container-size, 16px);min-height:var(--mat-badge-large-size-container-size, 16px);line-height:var(--mat-badge-large-size-line-height, 16px);padding:var(--mat-badge-large-size-container-padding, 0 4px);font-size:var(--mat-badge-large-size-text-size, var(--mat-sys-label-small-size));margin:var(--mat-badge-large-size-container-offset, -12px 0)}.mat-badge-large.mat-badge-overlap .mat-badge-content{margin:var(--mat-badge-large-size-container-overlap-offset, -12px)}\n"]
+      styles: [".mat-badge {\n  position: relative;\n}\n.mat-badge.mat-badge {\n  overflow: visible;\n}\n\n.mat-badge-content {\n  position: absolute;\n  text-align: center;\n  display: inline-block;\n  transition: transform 200ms ease-in-out;\n  transform: scale(0.6);\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  box-sizing: border-box;\n  pointer-events: none;\n  background-color: var(--mat-badge-background-color, var(--mat-sys-error));\n  color: var(--mat-badge-text-color, var(--mat-sys-on-error));\n  font-family: var(--mat-badge-text-font, var(--mat-sys-label-small-font));\n  font-weight: var(--mat-badge-text-weight, var(--mat-sys-label-small-weight));\n  border-radius: var(--mat-badge-container-shape, var(--mat-sys-corner-full));\n}\n.mat-badge-above .mat-badge-content {\n  bottom: 100%;\n}\n.mat-badge-below .mat-badge-content {\n  top: 100%;\n}\n.mat-badge-before .mat-badge-content {\n  right: 100%;\n}\n[dir=rtl] .mat-badge-before .mat-badge-content {\n  right: auto;\n  left: 100%;\n}\n.mat-badge-after .mat-badge-content {\n  left: 100%;\n}\n[dir=rtl] .mat-badge-after .mat-badge-content {\n  left: auto;\n  right: 100%;\n}\n@media (forced-colors: active) {\n  .mat-badge-content {\n    outline: solid 1px;\n    border-radius: 0;\n  }\n}\n\n.mat-badge-disabled .mat-badge-content {\n  background-color: var(--mat-badge-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-error) 38%, transparent));\n  color: var(--mat-badge-disabled-state-text-color, var(--mat-sys-on-error));\n}\n\n.mat-badge-hidden .mat-badge-content {\n  display: none;\n}\n\n.ng-animate-disabled .mat-badge-content,\n.mat-badge-content._mat-animation-noopable {\n  transition: none;\n}\n\n.mat-badge-content.mat-badge-active {\n  transform: none;\n}\n\n.mat-badge-small .mat-badge-content {\n  width: var(--mat-badge-legacy-small-size-container-size, unset);\n  height: var(--mat-badge-legacy-small-size-container-size, unset);\n  min-width: var(--mat-badge-small-size-container-size, 6px);\n  min-height: var(--mat-badge-small-size-container-size, 6px);\n  line-height: var(--mat-badge-small-size-line-height, 6px);\n  padding: var(--mat-badge-small-size-container-padding, 0);\n  font-size: var(--mat-badge-small-size-text-size, 0);\n  margin: var(--mat-badge-small-size-container-offset, -6px 0);\n}\n.mat-badge-small.mat-badge-overlap .mat-badge-content {\n  margin: var(--mat-badge-small-size-container-overlap-offset, -6px);\n}\n\n.mat-badge-medium .mat-badge-content {\n  width: var(--mat-badge-legacy-container-size, unset);\n  height: var(--mat-badge-legacy-container-size, unset);\n  min-width: var(--mat-badge-container-size, 16px);\n  min-height: var(--mat-badge-container-size, 16px);\n  line-height: var(--mat-badge-line-height, 16px);\n  padding: var(--mat-badge-container-padding, 0 4px);\n  font-size: var(--mat-badge-text-size, var(--mat-sys-label-small-size));\n  margin: var(--mat-badge-container-offset, -12px 0);\n}\n.mat-badge-medium.mat-badge-overlap .mat-badge-content {\n  margin: var(--mat-badge-container-overlap-offset, -12px);\n}\n\n.mat-badge-large .mat-badge-content {\n  width: var(--mat-badge-legacy-large-size-container-size, unset);\n  height: var(--mat-badge-legacy-large-size-container-size, unset);\n  min-width: var(--mat-badge-large-size-container-size, 16px);\n  min-height: var(--mat-badge-large-size-container-size, 16px);\n  line-height: var(--mat-badge-large-size-line-height, 16px);\n  padding: var(--mat-badge-large-size-container-padding, 0 4px);\n  font-size: var(--mat-badge-large-size-text-size, var(--mat-sys-label-small-size));\n  margin: var(--mat-badge-large-size-container-offset, -12px 0);\n}\n.mat-badge-large.mat-badge-overlap .mat-badge-content {\n  margin: var(--mat-badge-large-size-container-overlap-offset, -12px);\n}\n"]
     }]
   }]
 });
@@ -204,7 +204,7 @@ class MatBadge {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatBadge,
     deps: [],
@@ -212,7 +212,7 @@ class MatBadge {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatBadge,
     isStandalone: true,
     selector: "[matBadge]",
@@ -246,7 +246,7 @@ class MatBadge {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatBadge,
   decorators: [{
@@ -317,7 +317,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatBadgeModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatBadgeModule,
     deps: [],
@@ -325,7 +325,7 @@ class MatBadgeModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatBadgeModule,
     imports: [A11yModule, MatBadge, _MatBadgeStyleLoader],
@@ -333,7 +333,7 @@ class MatBadgeModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatBadgeModule,
     imports: [A11yModule, BidiModule]
@@ -341,7 +341,7 @@ class MatBadgeModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatBadgeModule,
   decorators: [{

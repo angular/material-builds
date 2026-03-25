@@ -1,5 +1,5 @@
-import { MatOptionHarness } from './_option-harness-chunk.mjs';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
+import { MatOptionHarness } from './_option-harness-chunk.mjs';
 
 class MatOptgroupHarness extends ComponentHarness {
   static hostSelector = '.mat-mdc-optgroup';

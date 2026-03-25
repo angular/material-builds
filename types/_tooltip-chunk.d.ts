@@ -1,8 +1,8 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
-import { InjectionToken, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
+import { OnDestroy, AfterViewInit, ElementRef, InjectionToken } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { ScrollStrategy, OverlayRef, ConnectedPosition, OriginConnectionPosition, OverlayConnectionPosition } from '@angular/cdk/overlay';
+import { OverlayRef, ConnectedPosition, OriginConnectionPosition, OverlayConnectionPosition, ScrollStrategy } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 
 declare global {

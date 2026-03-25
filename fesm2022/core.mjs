@@ -1,30 +1,30 @@
-export { _MatInternalFormField } from './_internal-form-field-chunk.mjs';
-import * as i0 from '@angular/core';
-import { Version, inject, Injectable, NgModule } from '@angular/core';
-export { MATERIAL_ANIMATIONS, _animationsDisabled, _getAnimationsState } from './_animation-chunk.mjs';
-export { _ErrorStateTracker } from './_error-state-chunk.mjs';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from './_date-formats-chunk.mjs';
 export { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from './_error-options-chunk.mjs';
-export { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
-export { MatLine, MatLineModule, setLines } from './_line-chunk.mjs';
-export { MatOptionModule } from './_option-module-chunk.mjs';
+export { MATERIAL_ANIMATIONS, _animationsDisabled, _getAnimationsState } from './_animation-chunk.mjs';
 export { MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './_option-chunk.mjs';
-export { MatRippleLoader } from './_ripple-loader-chunk.mjs';
 export { MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleRef, RippleRenderer, RippleState, defaultRippleAnimationConfig } from './_ripple-chunk.mjs';
-export { MatRippleModule } from './_ripple-module-chunk.mjs';
+export { MatLine, MatLineModule, setLines } from './_line-chunk.mjs';
+import * as i0 from '@angular/core';
+import { Version, inject, Injectable, NgModule } from '@angular/core';
+export { MatOptionModule } from './_option-module-chunk.mjs';
 export { MatPseudoCheckbox } from './_pseudo-checkbox-chunk.mjs';
 export { MatPseudoCheckboxModule } from './_pseudo-checkbox-module-chunk.mjs';
-import '@angular/cdk/layout';
+export { MatRippleLoader } from './_ripple-loader-chunk.mjs';
+export { MatRippleModule } from './_ripple-module-chunk.mjs';
+export { _ErrorStateTracker } from './_error-state-chunk.mjs';
+export { _MatInternalFormField } from './_internal-form-field-chunk.mjs';
+export { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
 import 'rxjs';
-import '@angular/cdk/bidi';
-import 'rxjs/operators';
+import '@angular/cdk/layout';
 import '@angular/cdk/a11y';
 import '@angular/cdk/keycodes';
 import '@angular/cdk/private';
 import '@angular/cdk/platform';
 import '@angular/cdk/coercion';
+import '@angular/cdk/bidi';
+import 'rxjs/operators';
 
-const VERSION = new Version('22.0.0-next.2+sha-28edde4');
+const VERSION = new Version('22.0.0-next.2+sha-9d5a162');
 
 const ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 const TIME_REGEX = /^(\d?\d)[:.](\d?\d)(?:[:.](\d?\d))?\s*(AM|PM)?$/i;
@@ -256,7 +256,7 @@ class NativeDateAdapter extends DateAdapter {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: NativeDateAdapter,
     deps: [],
@@ -264,14 +264,14 @@ class NativeDateAdapter extends DateAdapter {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: NativeDateAdapter
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: NativeDateAdapter,
   decorators: [{
@@ -321,7 +321,7 @@ const MAT_NATIVE_DATE_FORMATS = {
 class NativeDateModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: NativeDateModule,
     deps: [],
@@ -329,13 +329,13 @@ class NativeDateModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: NativeDateModule
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: NativeDateModule,
     providers: [{
@@ -346,7 +346,7 @@ class NativeDateModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: NativeDateModule,
   decorators: [{
@@ -362,7 +362,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatNativeDateModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatNativeDateModule,
     deps: [],
@@ -370,13 +370,13 @@ class MatNativeDateModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatNativeDateModule
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatNativeDateModule,
     providers: [provideNativeDateAdapter()]
@@ -384,7 +384,7 @@ class MatNativeDateModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatNativeDateModule,
   decorators: [{

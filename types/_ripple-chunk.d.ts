@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { NgZone, ElementRef, Injector, InjectionToken, OnInit, OnDestroy } from '@angular/core';
+import { NgZone, ElementRef, Injector, OnInit, OnDestroy, InjectionToken } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 
 /** Possible states for a ripple element. */

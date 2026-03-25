@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Injector, ViewContainerRef, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, Component, ChangeDetectionStrategy, ViewEncapsulation, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
+import { InjectionToken, inject, Injector, ViewContainerRef, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, ViewEncapsulation, ChangeDetectionStrategy, Component, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { createRepositionScrollStrategy, createFlexibleConnectedPositionStrategy, createOverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -12,8 +12,8 @@ import { MatOption, MAT_OPTION_PARENT_COMPONENT } from './_option-chunk.mjs';
 import { Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { MAT_FORM_FIELD } from './_form-field-chunk.mjs';
 import { MAT_INPUT_VALUE_ACCESSOR } from './_input-value-accessor-chunk.mjs';
-import { MatIconButton } from './_icon-button-chunk.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
+import { MatIconButton } from './_icon-button-chunk.mjs';
 import 'rxjs';
 import '@angular/cdk/layout';
 import './_ripple-chunk.mjs';
@@ -379,7 +379,7 @@ class MatTimepicker {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatTimepicker,
     deps: [],
@@ -387,7 +387,7 @@ class MatTimepicker {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatTimepicker,
     isStandalone: true,
     selector: "mat-timepicker",
@@ -459,7 +459,7 @@ class MatTimepicker {
     exportAs: ["matTimepicker"],
     ngImport: i0,
     template: "<ng-template #panelTemplate>\n  <div\n    role=\"listbox\"\n    class=\"mat-timepicker-panel\"\n    [class.mat-timepicker-panel-animations-enabled]=\"!_animationsDisabled\"\n    [class.mat-timepicker-panel-exit]=\"!isOpen()\"\n    [attr.aria-label]=\"ariaLabel() || null\"\n    [attr.aria-labelledby]=\"_getAriaLabelledby()\"\n    [id]=\"panelId\"\n    (animationend)=\"_handleAnimationEnd($event)\">\n    @for (option of _timeOptions; track option.value) {\n      <mat-option\n        [value]=\"option.value\"\n        (onSelectionChange)=\"_selectValue($event.source)\">{{option.label}}</mat-option>\n    }\n  </div>\n</ng-template>\n",
-    styles: ["@keyframes _mat-timepicker-enter{from{opacity:0;transform:scaleY(0.8)}to{opacity:1;transform:none}}@keyframes _mat-timepicker-exit{from{opacity:1}to{opacity:0}}mat-timepicker{display:none}.mat-timepicker-panel{width:100%;max-height:256px;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;position:relative;border-bottom-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-bottom-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));box-shadow:var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));background-color:var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container))}@media(forced-colors: active){.mat-timepicker-panel{outline:solid 1px}}.mat-timepicker-above .mat-timepicker-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-top-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small))}.mat-timepicker-panel-animations-enabled{animation:_mat-timepicker-enter 120ms cubic-bezier(0, 0, 0.2, 1)}.mat-timepicker-panel-animations-enabled.mat-timepicker-panel-exit{animation:_mat-timepicker-exit 100ms linear}.mat-timepicker-input[readonly]{cursor:pointer}@media(forced-colors: active){.mat-timepicker-toggle-default-icon{color:CanvasText}}\n"],
+    styles: ["@keyframes _mat-timepicker-enter {\n  from {\n    opacity: 0;\n    transform: scaleY(0.8);\n  }\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes _mat-timepicker-exit {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\nmat-timepicker {\n  display: none;\n}\n\n.mat-timepicker-panel {\n  width: 100%;\n  max-height: 256px;\n  transform-origin: center top;\n  overflow: auto;\n  padding: 8px 0;\n  box-sizing: border-box;\n  position: relative;\n  border-bottom-left-radius: var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));\n  border-bottom-right-radius: var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));\n  box-shadow: var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));\n  background-color: var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container));\n}\n@media (forced-colors: active) {\n  .mat-timepicker-panel {\n    outline: solid 1px;\n  }\n}\n.mat-timepicker-above .mat-timepicker-panel {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-top-left-radius: var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));\n  border-top-right-radius: var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));\n}\n\n.mat-timepicker-panel-animations-enabled {\n  animation: _mat-timepicker-enter 120ms cubic-bezier(0, 0, 0.2, 1);\n}\n.mat-timepicker-panel-animations-enabled.mat-timepicker-panel-exit {\n  animation: _mat-timepicker-exit 100ms linear;\n}\n\n.mat-timepicker-input[readonly] {\n  cursor: pointer;\n}\n\n@media (forced-colors: active) {\n  .mat-timepicker-toggle-default-icon {\n    color: CanvasText;\n  }\n}\n"],
     dependencies: [{
       kind: "component",
       type: MatOption,
@@ -474,7 +474,7 @@ class MatTimepicker {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatTimepicker,
   decorators: [{
@@ -490,7 +490,7 @@ i0.ɵɵngDeclareClassMetadata({
         useExisting: MatTimepicker
       }],
       template: "<ng-template #panelTemplate>\n  <div\n    role=\"listbox\"\n    class=\"mat-timepicker-panel\"\n    [class.mat-timepicker-panel-animations-enabled]=\"!_animationsDisabled\"\n    [class.mat-timepicker-panel-exit]=\"!isOpen()\"\n    [attr.aria-label]=\"ariaLabel() || null\"\n    [attr.aria-labelledby]=\"_getAriaLabelledby()\"\n    [id]=\"panelId\"\n    (animationend)=\"_handleAnimationEnd($event)\">\n    @for (option of _timeOptions; track option.value) {\n      <mat-option\n        [value]=\"option.value\"\n        (onSelectionChange)=\"_selectValue($event.source)\">{{option.label}}</mat-option>\n    }\n  </div>\n</ng-template>\n",
-      styles: ["@keyframes _mat-timepicker-enter{from{opacity:0;transform:scaleY(0.8)}to{opacity:1;transform:none}}@keyframes _mat-timepicker-exit{from{opacity:1}to{opacity:0}}mat-timepicker{display:none}.mat-timepicker-panel{width:100%;max-height:256px;transform-origin:center top;overflow:auto;padding:8px 0;box-sizing:border-box;position:relative;border-bottom-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-bottom-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));box-shadow:var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));background-color:var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container))}@media(forced-colors: active){.mat-timepicker-panel{outline:solid 1px}}.mat-timepicker-above .mat-timepicker-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));border-top-right-radius:var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small))}.mat-timepicker-panel-animations-enabled{animation:_mat-timepicker-enter 120ms cubic-bezier(0, 0, 0.2, 1)}.mat-timepicker-panel-animations-enabled.mat-timepicker-panel-exit{animation:_mat-timepicker-exit 100ms linear}.mat-timepicker-input[readonly]{cursor:pointer}@media(forced-colors: active){.mat-timepicker-toggle-default-icon{color:CanvasText}}\n"]
+      styles: ["@keyframes _mat-timepicker-enter {\n  from {\n    opacity: 0;\n    transform: scaleY(0.8);\n  }\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes _mat-timepicker-exit {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\nmat-timepicker {\n  display: none;\n}\n\n.mat-timepicker-panel {\n  width: 100%;\n  max-height: 256px;\n  transform-origin: center top;\n  overflow: auto;\n  padding: 8px 0;\n  box-sizing: border-box;\n  position: relative;\n  border-bottom-left-radius: var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));\n  border-bottom-right-radius: var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));\n  box-shadow: var(--mat-timepicker-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));\n  background-color: var(--mat-timepicker-container-background-color, var(--mat-sys-surface-container));\n}\n@media (forced-colors: active) {\n  .mat-timepicker-panel {\n    outline: solid 1px;\n  }\n}\n.mat-timepicker-above .mat-timepicker-panel {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n  border-top-left-radius: var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));\n  border-top-right-radius: var(--mat-timepicker-container-shape, var(--mat-sys-corner-extra-small));\n}\n\n.mat-timepicker-panel-animations-enabled {\n  animation: _mat-timepicker-enter 120ms cubic-bezier(0, 0, 0.2, 1);\n}\n.mat-timepicker-panel-animations-enabled.mat-timepicker-panel-exit {\n  animation: _mat-timepicker-exit 100ms linear;\n}\n\n.mat-timepicker-input[readonly] {\n  cursor: pointer;\n}\n\n@media (forced-colors: active) {\n  .mat-timepicker-toggle-default-icon {\n    color: CanvasText;\n  }\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -838,7 +838,7 @@ class MatTimepickerInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatTimepickerInput,
     deps: [],
@@ -846,7 +846,7 @@ class MatTimepickerInput {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "17.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatTimepickerInput,
     isStandalone: true,
     selector: "input[matTimepicker]",
@@ -935,7 +935,7 @@ class MatTimepickerInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatTimepickerInput,
   decorators: [{
@@ -1090,7 +1090,7 @@ class MatTimepickerToggle {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatTimepickerToggle,
     deps: [],
@@ -1098,7 +1098,7 @@ class MatTimepickerToggle {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatTimepickerToggle,
     isStandalone: true,
     selector: "mat-timepicker-toggle",
@@ -1170,7 +1170,7 @@ class MatTimepickerToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatTimepickerToggle,
   decorators: [{
@@ -1244,7 +1244,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatTimepickerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatTimepickerModule,
     deps: [],
@@ -1252,7 +1252,7 @@ class MatTimepickerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatTimepickerModule,
     imports: [MatTimepicker, MatTimepickerInput, MatTimepickerToggle],
@@ -1260,7 +1260,7 @@ class MatTimepickerModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatTimepickerModule,
     imports: [MatTimepicker, MatTimepickerToggle, CdkScrollableModule]
@@ -1268,7 +1268,7 @@ class MatTimepickerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatTimepickerModule,
   decorators: [{

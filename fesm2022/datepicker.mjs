@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, InjectionToken, ChangeDetectorRef, signal, ViewChild, ViewContainerRef, DOCUMENT, booleanAttribute, Directive, forwardRef, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
+import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, InjectionToken, ChangeDetectorRef, signal, ViewChild, ViewContainerRef, DOCUMENT, booleanAttribute, Directive, forwardRef, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { DateAdapter, MAT_DATE_FORMATS } from './_date-formats-chunk.mjs';
 import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
@@ -16,12 +16,12 @@ import { MatButton, MatButtonModule } from './button.mjs';
 import { MatIconButton } from './_icon-button-chunk.mjs';
 import { MatTooltip } from './_tooltip-chunk.mjs';
 import { _animationsDisabled } from './_animation-chunk.mjs';
-import { NG_VALUE_ACCESSOR, NG_VALIDATORS, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators, ControlContainer, NgForm, FormGroupDirective, NgControl } from '@angular/forms';
 import { MAT_INPUT_VALUE_ACCESSOR } from './_input-value-accessor-chunk.mjs';
 import { MAT_FORM_FIELD, MatFormFieldControl } from './_form-field-chunk.mjs';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { ErrorStateMatcher } from './_error-options-chunk.mjs';
 import { _ErrorStateTracker } from './_error-state-chunk.mjs';
-import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import './_ripple-module-chunk.mjs';
 import './_ripple-chunk.mjs';
 import './_ripple-loader-chunk.mjs';
@@ -57,7 +57,7 @@ class MatDatepickerIntl {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerIntl,
     deps: [],
@@ -65,7 +65,7 @@ class MatDatepickerIntl {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerIntl,
     providedIn: 'root'
@@ -73,7 +73,7 @@ class MatDatepickerIntl {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerIntl,
   decorators: [{
@@ -419,7 +419,7 @@ class MatCalendarBody {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCalendarBody,
     deps: [],
@@ -427,7 +427,7 @@ class MatCalendarBody {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCalendarBody,
     isStandalone: true,
     selector: "[mat-calendar-body]",
@@ -463,14 +463,14 @@ class MatCalendarBody {
     usesOnChanges: true,
     ngImport: i0,
     template: "<!--\n  If there's not enough space in the first row, create a separate label row. We mark this row as\n  aria-hidden because we don't want it to be read out as one of the weeks in the month.\n-->\n@if (_firstRowOffset < labelMinRequiredCells) {\n  <tr aria-hidden=\"true\">\n    <td class=\"mat-calendar-body-label\"\n        [attr.colspan]=\"numCols\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\">\n      {{label}}\n    </td>\n  </tr>\n}\n\n<!-- Create the first row separately so we can include a special spacer cell. -->\n@for (row of rows; track _trackRow(row); let rowIndex = $index) {\n  <tr role=\"row\">\n    <!--\n      This cell is purely decorative, but we can't put `aria-hidden` or `role=\"presentation\"` on it,\n      because it throws off the week days for the rest of the row on NVDA. The aspect ratio of the\n      table cells is maintained by setting the top and bottom padding as a percentage of the width\n      (a variant of the trick described here: https://www.w3schools.com/howto/howto_css_aspect_ratio.asp).\n    -->\n    @if (rowIndex === 0 && _firstRowOffset) {\n      <td\n        class=\"mat-calendar-body-label\"\n        [attr.colspan]=\"_firstRowOffset\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\">\n        {{_firstRowOffset >= labelMinRequiredCells ? label : ''}}\n      </td>\n    }\n    <!--\n      Each gridcell in the calendar contains a button, which signals to assistive technology that the\n      cell is interactable, as well as the selection state via `aria-pressed`. See #23476 for\n      background.\n    -->\n    @for (item of row; track item.id; let colIndex = $index) {\n      <td\n        role=\"gridcell\"\n        class=\"mat-calendar-body-cell-container\"\n        [style.width]=\"_cellWidth\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\"\n        [attr.data-mat-row]=\"rowIndex\"\n        [attr.data-mat-col]=\"colIndex\"\n      >\n        <button\n            type=\"button\"\n            class=\"mat-calendar-body-cell\"\n            [class]=\"item.cssClasses\"\n            [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\"\n            [class.mat-calendar-body-disabled]=\"!item.enabled\"\n            [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\"\n            [class.mat-calendar-body-range-start]=\"_isRangeStart(item.compareValue)\"\n            [class.mat-calendar-body-range-end]=\"_isRangeEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-range]=\"_isInRange(item.compareValue)\"\n            [class.mat-calendar-body-comparison-bridge-start]=\"_isComparisonBridgeStart(item.compareValue, rowIndex, colIndex)\"\n            [class.mat-calendar-body-comparison-bridge-end]=\"_isComparisonBridgeEnd(item.compareValue, rowIndex, colIndex)\"\n            [class.mat-calendar-body-comparison-start]=\"_isComparisonStart(item.compareValue)\"\n            [class.mat-calendar-body-comparison-end]=\"_isComparisonEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-comparison-range]=\"_isInComparisonRange(item.compareValue)\"\n            [class.mat-calendar-body-preview-start]=\"_isPreviewStart(item.compareValue)\"\n            [class.mat-calendar-body-preview-end]=\"_isPreviewEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-preview]=\"_isInPreview(item.compareValue)\"\n            [attr.aria-label]=\"item.ariaLabel\"\n            [attr.aria-disabled]=\"!item.enabled || null\"\n            [attr.aria-pressed]=\"_isSelected(item.compareValue)\"\n            [attr.aria-current]=\"todayValue === item.compareValue ? 'date' : null\"\n            [attr.aria-describedby]=\"_getDescribedby(item.compareValue)\"\n            (click)=\"_cellClicked(item, $event)\"\n            (focus)=\"_emitActiveDateChange(item, $event)\">\n            <span class=\"mat-calendar-body-cell-content mat-focus-indicator\"\n              [class.mat-calendar-body-selected]=\"_isSelected(item.compareValue)\"\n              [class.mat-calendar-body-comparison-identical]=\"_isComparisonIdentical(item.compareValue)\"\n              [class.mat-calendar-body-today]=\"todayValue === item.compareValue\">\n              {{item.displayValue}}\n            </span>\n            <span class=\"mat-calendar-body-cell-preview\" aria-hidden=\"true\"></span>\n        </button>\n      </td>\n    }\n  </tr>\n}\n\n<span [id]=\"_startDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{startDateAccessibleName}}\n</span>\n<span [id]=\"_endDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{endDateAccessibleName}}\n</span>\n<span [id]=\"_comparisonStartDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{comparisonDateAccessibleName}} {{startDateAccessibleName}}\n</span>\n<span [id]=\"_comparisonEndDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{comparisonDateAccessibleName}} {{endDateAccessibleName}}\n</span>\n",
-    styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){border-color:var(--mat-datepicker-calendar-date-today-outline-color, var(--mat-sys-primary))}.mat-calendar-body-label{height:0;line-height:0;text-align:start;padding-left:4.7142857143%;padding-right:4.7142857143%;font-size:var(--mat-datepicker-calendar-body-label-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-body-label-text-weight, var(--mat-sys-title-small-weight));color:var(--mat-datepicker-calendar-body-label-text-color, var(--mat-sys-on-surface))}.mat-calendar-body-hidden-label{display:none}.mat-calendar-body-cell-container{position:relative;height:0;line-height:0}.mat-calendar-body-cell{position:absolute;top:0;left:0;width:100%;height:100%;background:none;text-align:center;outline:none;margin:0;font-family:var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));font-size:var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));-webkit-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-calendar-body-cell::-moz-focus-inner{border:0}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-cell-preview{content:\"\";position:absolute;top:5%;left:0;z-index:0;box-sizing:border-box;display:block;height:90%;width:100%}.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-start::after,.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,.mat-calendar-body-comparison-start::after,.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:5%;width:95%;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,[dir=rtl] .mat-calendar-body-comparison-start::after,[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:0;border-radius:0;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,.mat-calendar-body-comparison-end::after,.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,[dir=rtl] .mat-calendar-body-comparison-end::after,[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{left:5%;border-radius:0;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after{width:90%}.mat-calendar-body-in-preview{color:var(--mat-datepicker-calendar-date-preview-state-outline-color, var(--mat-sys-primary))}.mat-calendar-body-in-preview .mat-calendar-body-cell-preview{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:0;border-right:dashed 1px}.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:0;border-left:dashed 1px}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){color:var(--mat-datepicker-calendar-date-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-calendar-body-disabled>.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){border-color:var(--mat-datepicker-calendar-date-today-disabled-state-outline-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}@media(forced-colors: active){.mat-calendar-body-disabled{opacity:.5}}.mat-calendar-body-cell-content{top:5%;left:5%;z-index:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px;color:var(--mat-datepicker-calendar-date-text-color, var(--mat-sys-on-surface));border-color:var(--mat-datepicker-calendar-date-outline-color, transparent)}.mat-calendar-body-cell-content.mat-focus-indicator{position:absolute}@media(forced-colors: active){.mat-calendar-body-cell-content{border:none}}.cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical),.cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color:var(--mat-datepicker-calendar-date-focus-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}@media(hover: hover){.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color:var(--mat-datepicker-calendar-date-hover-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}}.mat-calendar-body-selected{background-color:var(--mat-datepicker-calendar-date-selected-state-background-color, var(--mat-sys-primary));color:var(--mat-datepicker-calendar-date-selected-state-text-color, var(--mat-sys-on-primary))}.mat-calendar-body-disabled>.mat-calendar-body-selected{background-color:var(--mat-datepicker-calendar-date-selected-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-calendar-body-selected.mat-calendar-body-today{box-shadow:inset 0 0 0 1px var(--mat-datepicker-calendar-date-today-selected-state-outline-color, var(--mat-sys-primary))}.mat-calendar-body-in-range::before{background:var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container))}.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range::before{background:var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container))}.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range::before{background:var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container))}.mat-calendar-body-comparison-bridge-start::before,[dir=rtl] .mat-calendar-body-comparison-bridge-end::before{background:linear-gradient(to right, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%)}.mat-calendar-body-comparison-bridge-end::before,[dir=rtl] .mat-calendar-body-comparison-bridge-start::before{background:linear-gradient(to left, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%)}.mat-calendar-body-in-range>.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range.mat-calendar-body-in-range::after{background:var(--mat-datepicker-calendar-date-in-overlap-range-state-background-color, var(--mat-sys-secondary-container))}.mat-calendar-body-comparison-identical.mat-calendar-body-selected,.mat-calendar-body-in-comparison-range>.mat-calendar-body-selected{background:var(--mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color, var(--mat-sys-secondary))}@media(forced-colors: active){.mat-datepicker-popup:not(:empty),.mat-calendar-body-cell:not(.mat-calendar-body-in-range) .mat-calendar-body-selected{outline:solid 1px}.mat-calendar-body-today{outline:dotted 1px}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-selected{background:none}.mat-calendar-body-in-range::before,.mat-calendar-body-comparison-bridge-start::before,.mat-calendar-body-comparison-bridge-end::before{border-top:solid 1px;border-bottom:solid 1px}.mat-calendar-body-range-start::before{border-left:solid 1px}[dir=rtl] .mat-calendar-body-range-start::before{border-left:0;border-right:solid 1px}.mat-calendar-body-range-end::before{border-right:solid 1px}[dir=rtl] .mat-calendar-body-range-end::before{border-right:0;border-left:solid 1px}.mat-calendar-body-in-comparison-range::before{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-comparison-start::before{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-comparison-start::before{border-left:0;border-right:dashed 1px}.mat-calendar-body-comparison-end::before{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-comparison-end::before{border-right:0;border-left:dashed 1px}}\n"],
+    styles: [".mat-calendar-body {\n  min-width: 224px;\n}\n\n.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n  border-color: var(--mat-datepicker-calendar-date-today-outline-color, var(--mat-sys-primary));\n}\n\n.mat-calendar-body-label {\n  height: 0;\n  line-height: 0;\n  text-align: start;\n  padding-left: 4.7142857143%;\n  padding-right: 4.7142857143%;\n  font-size: var(--mat-datepicker-calendar-body-label-text-size, var(--mat-sys-title-small-size));\n  font-weight: var(--mat-datepicker-calendar-body-label-text-weight, var(--mat-sys-title-small-weight));\n  color: var(--mat-datepicker-calendar-body-label-text-color, var(--mat-sys-on-surface));\n}\n\n.mat-calendar-body-hidden-label {\n  display: none;\n}\n\n.mat-calendar-body-cell-container {\n  position: relative;\n  height: 0;\n  line-height: 0;\n}\n\n.mat-calendar-body-cell {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: none;\n  text-align: center;\n  outline: none;\n  margin: 0;\n  font-family: var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));\n  font-size: var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));\n  -webkit-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  outline: none;\n  border: none;\n  -webkit-tap-highlight-color: transparent;\n}\n.mat-calendar-body-cell::-moz-focus-inner {\n  border: 0;\n}\n\n.mat-calendar-body-cell::before,\n.mat-calendar-body-cell::after,\n.mat-calendar-body-cell-preview {\n  content: \"\";\n  position: absolute;\n  top: 5%;\n  left: 0;\n  z-index: 0;\n  box-sizing: border-box;\n  display: block;\n  height: 90%;\n  width: 100%;\n}\n\n.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,\n.mat-calendar-body-range-start::after,\n.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,\n.mat-calendar-body-comparison-start::after,\n.mat-calendar-body-preview-start .mat-calendar-body-cell-preview {\n  left: 5%;\n  width: 95%;\n  border-top-left-radius: 999px;\n  border-bottom-left-radius: 999px;\n}\n[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,\n[dir=rtl] .mat-calendar-body-range-start::after,\n[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,\n[dir=rtl] .mat-calendar-body-comparison-start::after,\n[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview {\n  left: 0;\n  border-radius: 0;\n  border-top-right-radius: 999px;\n  border-bottom-right-radius: 999px;\n}\n\n.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,\n.mat-calendar-body-range-end::after,\n.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,\n.mat-calendar-body-comparison-end::after,\n.mat-calendar-body-preview-end .mat-calendar-body-cell-preview {\n  width: 95%;\n  border-top-right-radius: 999px;\n  border-bottom-right-radius: 999px;\n}\n[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,\n[dir=rtl] .mat-calendar-body-range-end::after,\n[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,\n[dir=rtl] .mat-calendar-body-comparison-end::after,\n[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview {\n  left: 5%;\n  border-radius: 0;\n  border-top-left-radius: 999px;\n  border-bottom-left-radius: 999px;\n}\n\n[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,\n[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after {\n  width: 95%;\n  border-top-right-radius: 999px;\n  border-bottom-right-radius: 999px;\n}\n\n.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after, [dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,\n.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,\n[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after {\n  width: 90%;\n}\n\n.mat-calendar-body-in-preview {\n  color: var(--mat-datepicker-calendar-date-preview-state-outline-color, var(--mat-sys-primary));\n}\n.mat-calendar-body-in-preview .mat-calendar-body-cell-preview {\n  border-top: dashed 1px;\n  border-bottom: dashed 1px;\n}\n\n.mat-calendar-body-preview-start .mat-calendar-body-cell-preview {\n  border-left: dashed 1px;\n}\n[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview {\n  border-left: 0;\n  border-right: dashed 1px;\n}\n\n.mat-calendar-body-preview-end .mat-calendar-body-cell-preview {\n  border-right: dashed 1px;\n}\n[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview {\n  border-right: 0;\n  border-left: dashed 1px;\n}\n\n.mat-calendar-body-disabled {\n  cursor: default;\n}\n.mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n  color: var(--mat-datepicker-calendar-date-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n.mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n  border-color: var(--mat-datepicker-calendar-date-today-disabled-state-outline-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n@media (forced-colors: active) {\n  .mat-calendar-body-disabled {\n    opacity: 0.5;\n  }\n}\n\n.mat-calendar-body-cell-content {\n  top: 5%;\n  left: 5%;\n  z-index: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: 90%;\n  height: 90%;\n  line-height: 1;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 999px;\n  color: var(--mat-datepicker-calendar-date-text-color, var(--mat-sys-on-surface));\n  border-color: var(--mat-datepicker-calendar-date-outline-color, transparent);\n}\n.mat-calendar-body-cell-content.mat-focus-indicator {\n  position: absolute;\n}\n@media (forced-colors: active) {\n  .mat-calendar-body-cell-content {\n    border: none;\n  }\n}\n\n.cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical), .cdk-program-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n  background-color: var(--mat-datepicker-calendar-date-focus-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent));\n}\n\n@media (hover: hover) {\n  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n    background-color: var(--mat-datepicker-calendar-date-hover-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));\n  }\n}\n.mat-calendar-body-selected {\n  background-color: var(--mat-datepicker-calendar-date-selected-state-background-color, var(--mat-sys-primary));\n  color: var(--mat-datepicker-calendar-date-selected-state-text-color, var(--mat-sys-on-primary));\n}\n.mat-calendar-body-disabled > .mat-calendar-body-selected {\n  background-color: var(--mat-datepicker-calendar-date-selected-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n.mat-calendar-body-selected.mat-calendar-body-today {\n  box-shadow: inset 0 0 0 1px var(--mat-datepicker-calendar-date-today-selected-state-outline-color, var(--mat-sys-primary));\n}\n\n.mat-calendar-body-in-range::before {\n  background: var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container));\n}\n\n.mat-calendar-body-comparison-identical,\n.mat-calendar-body-in-comparison-range::before {\n  background: var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container));\n}\n\n.mat-calendar-body-comparison-identical,\n.mat-calendar-body-in-comparison-range::before {\n  background: var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container));\n}\n\n.mat-calendar-body-comparison-bridge-start::before,\n[dir=rtl] .mat-calendar-body-comparison-bridge-end::before {\n  background: linear-gradient(to right, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%);\n}\n\n.mat-calendar-body-comparison-bridge-end::before,\n[dir=rtl] .mat-calendar-body-comparison-bridge-start::before {\n  background: linear-gradient(to left, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%);\n}\n\n.mat-calendar-body-in-range > .mat-calendar-body-comparison-identical,\n.mat-calendar-body-in-comparison-range.mat-calendar-body-in-range::after {\n  background: var(--mat-datepicker-calendar-date-in-overlap-range-state-background-color, var(--mat-sys-secondary-container));\n}\n\n.mat-calendar-body-comparison-identical.mat-calendar-body-selected,\n.mat-calendar-body-in-comparison-range > .mat-calendar-body-selected {\n  background: var(--mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color, var(--mat-sys-secondary));\n}\n\n@media (forced-colors: active) {\n  .mat-datepicker-popup:not(:empty),\n  .mat-calendar-body-cell:not(.mat-calendar-body-in-range) .mat-calendar-body-selected {\n    outline: solid 1px;\n  }\n  .mat-calendar-body-today {\n    outline: dotted 1px;\n  }\n  .mat-calendar-body-cell::before,\n  .mat-calendar-body-cell::after,\n  .mat-calendar-body-selected {\n    background: none;\n  }\n  .mat-calendar-body-in-range::before,\n  .mat-calendar-body-comparison-bridge-start::before,\n  .mat-calendar-body-comparison-bridge-end::before {\n    border-top: solid 1px;\n    border-bottom: solid 1px;\n  }\n  .mat-calendar-body-range-start::before {\n    border-left: solid 1px;\n  }\n  [dir=rtl] .mat-calendar-body-range-start::before {\n    border-left: 0;\n    border-right: solid 1px;\n  }\n  .mat-calendar-body-range-end::before {\n    border-right: solid 1px;\n  }\n  [dir=rtl] .mat-calendar-body-range-end::before {\n    border-right: 0;\n    border-left: solid 1px;\n  }\n  .mat-calendar-body-in-comparison-range::before {\n    border-top: dashed 1px;\n    border-bottom: dashed 1px;\n  }\n  .mat-calendar-body-comparison-start::before {\n    border-left: dashed 1px;\n  }\n  [dir=rtl] .mat-calendar-body-comparison-start::before {\n    border-left: 0;\n    border-right: dashed 1px;\n  }\n  .mat-calendar-body-comparison-end::before {\n    border-right: dashed 1px;\n  }\n  [dir=rtl] .mat-calendar-body-comparison-end::before {\n    border-right: 0;\n    border-left: dashed 1px;\n  }\n}\n"],
     changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCalendarBody,
   decorators: [{
@@ -484,7 +484,7 @@ i0.ɵɵngDeclareClassMetadata({
       encapsulation: ViewEncapsulation.None,
       changeDetection: ChangeDetectionStrategy.OnPush,
       template: "<!--\n  If there's not enough space in the first row, create a separate label row. We mark this row as\n  aria-hidden because we don't want it to be read out as one of the weeks in the month.\n-->\n@if (_firstRowOffset < labelMinRequiredCells) {\n  <tr aria-hidden=\"true\">\n    <td class=\"mat-calendar-body-label\"\n        [attr.colspan]=\"numCols\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\">\n      {{label}}\n    </td>\n  </tr>\n}\n\n<!-- Create the first row separately so we can include a special spacer cell. -->\n@for (row of rows; track _trackRow(row); let rowIndex = $index) {\n  <tr role=\"row\">\n    <!--\n      This cell is purely decorative, but we can't put `aria-hidden` or `role=\"presentation\"` on it,\n      because it throws off the week days for the rest of the row on NVDA. The aspect ratio of the\n      table cells is maintained by setting the top and bottom padding as a percentage of the width\n      (a variant of the trick described here: https://www.w3schools.com/howto/howto_css_aspect_ratio.asp).\n    -->\n    @if (rowIndex === 0 && _firstRowOffset) {\n      <td\n        class=\"mat-calendar-body-label\"\n        [attr.colspan]=\"_firstRowOffset\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\">\n        {{_firstRowOffset >= labelMinRequiredCells ? label : ''}}\n      </td>\n    }\n    <!--\n      Each gridcell in the calendar contains a button, which signals to assistive technology that the\n      cell is interactable, as well as the selection state via `aria-pressed`. See #23476 for\n      background.\n    -->\n    @for (item of row; track item.id; let colIndex = $index) {\n      <td\n        role=\"gridcell\"\n        class=\"mat-calendar-body-cell-container\"\n        [style.width]=\"_cellWidth\"\n        [style.paddingTop]=\"_cellPadding\"\n        [style.paddingBottom]=\"_cellPadding\"\n        [attr.data-mat-row]=\"rowIndex\"\n        [attr.data-mat-col]=\"colIndex\"\n      >\n        <button\n            type=\"button\"\n            class=\"mat-calendar-body-cell\"\n            [class]=\"item.cssClasses\"\n            [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\"\n            [class.mat-calendar-body-disabled]=\"!item.enabled\"\n            [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\"\n            [class.mat-calendar-body-range-start]=\"_isRangeStart(item.compareValue)\"\n            [class.mat-calendar-body-range-end]=\"_isRangeEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-range]=\"_isInRange(item.compareValue)\"\n            [class.mat-calendar-body-comparison-bridge-start]=\"_isComparisonBridgeStart(item.compareValue, rowIndex, colIndex)\"\n            [class.mat-calendar-body-comparison-bridge-end]=\"_isComparisonBridgeEnd(item.compareValue, rowIndex, colIndex)\"\n            [class.mat-calendar-body-comparison-start]=\"_isComparisonStart(item.compareValue)\"\n            [class.mat-calendar-body-comparison-end]=\"_isComparisonEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-comparison-range]=\"_isInComparisonRange(item.compareValue)\"\n            [class.mat-calendar-body-preview-start]=\"_isPreviewStart(item.compareValue)\"\n            [class.mat-calendar-body-preview-end]=\"_isPreviewEnd(item.compareValue)\"\n            [class.mat-calendar-body-in-preview]=\"_isInPreview(item.compareValue)\"\n            [attr.aria-label]=\"item.ariaLabel\"\n            [attr.aria-disabled]=\"!item.enabled || null\"\n            [attr.aria-pressed]=\"_isSelected(item.compareValue)\"\n            [attr.aria-current]=\"todayValue === item.compareValue ? 'date' : null\"\n            [attr.aria-describedby]=\"_getDescribedby(item.compareValue)\"\n            (click)=\"_cellClicked(item, $event)\"\n            (focus)=\"_emitActiveDateChange(item, $event)\">\n            <span class=\"mat-calendar-body-cell-content mat-focus-indicator\"\n              [class.mat-calendar-body-selected]=\"_isSelected(item.compareValue)\"\n              [class.mat-calendar-body-comparison-identical]=\"_isComparisonIdentical(item.compareValue)\"\n              [class.mat-calendar-body-today]=\"todayValue === item.compareValue\">\n              {{item.displayValue}}\n            </span>\n            <span class=\"mat-calendar-body-cell-preview\" aria-hidden=\"true\"></span>\n        </button>\n      </td>\n    }\n  </tr>\n}\n\n<span [id]=\"_startDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{startDateAccessibleName}}\n</span>\n<span [id]=\"_endDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{endDateAccessibleName}}\n</span>\n<span [id]=\"_comparisonStartDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{comparisonDateAccessibleName}} {{startDateAccessibleName}}\n</span>\n<span [id]=\"_comparisonEndDateLabelId\" class=\"mat-calendar-body-hidden-label\">\n  {{comparisonDateAccessibleName}} {{endDateAccessibleName}}\n</span>\n",
-      styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){border-color:var(--mat-datepicker-calendar-date-today-outline-color, var(--mat-sys-primary))}.mat-calendar-body-label{height:0;line-height:0;text-align:start;padding-left:4.7142857143%;padding-right:4.7142857143%;font-size:var(--mat-datepicker-calendar-body-label-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-body-label-text-weight, var(--mat-sys-title-small-weight));color:var(--mat-datepicker-calendar-body-label-text-color, var(--mat-sys-on-surface))}.mat-calendar-body-hidden-label{display:none}.mat-calendar-body-cell-container{position:relative;height:0;line-height:0}.mat-calendar-body-cell{position:absolute;top:0;left:0;width:100%;height:100%;background:none;text-align:center;outline:none;margin:0;font-family:var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));font-size:var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));-webkit-user-select:none;user-select:none;cursor:pointer;outline:none;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}.mat-calendar-body-cell::-moz-focus-inner{border:0}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-cell-preview{content:\"\";position:absolute;top:5%;left:0;z-index:0;box-sizing:border-box;display:block;height:90%;width:100%}.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-start::after,.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,.mat-calendar-body-comparison-start::after,.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:5%;width:95%;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,[dir=rtl] .mat-calendar-body-comparison-start::after,[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{left:0;border-radius:0;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,.mat-calendar-body-comparison-end::after,.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,[dir=rtl] .mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,[dir=rtl] .mat-calendar-body-comparison-end::after,[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{left:5%;border-radius:0;border-top-left-radius:999px;border-bottom-left-radius:999px}[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after{width:95%;border-top-right-radius:999px;border-bottom-right-radius:999px}.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,[dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after{width:90%}.mat-calendar-body-in-preview{color:var(--mat-datepicker-calendar-date-preview-state-outline-color, var(--mat-sys-primary))}.mat-calendar-body-in-preview .mat-calendar-body-cell-preview{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview{border-left:0;border-right:dashed 1px}.mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview{border-right:0;border-left:dashed 1px}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){color:var(--mat-datepicker-calendar-date-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-calendar-body-disabled>.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){border-color:var(--mat-datepicker-calendar-date-today-disabled-state-outline-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}@media(forced-colors: active){.mat-calendar-body-disabled{opacity:.5}}.mat-calendar-body-cell-content{top:5%;left:5%;z-index:1;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px;color:var(--mat-datepicker-calendar-date-text-color, var(--mat-sys-on-surface));border-color:var(--mat-datepicker-calendar-date-outline-color, transparent)}.mat-calendar-body-cell-content.mat-focus-indicator{position:absolute}@media(forced-colors: active){.mat-calendar-body-cell-content{border:none}}.cdk-keyboard-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical),.cdk-program-focused .mat-calendar-body-active>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color:var(--mat-datepicker-calendar-date-focus-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}@media(hover: hover){.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical){background-color:var(--mat-datepicker-calendar-date-hover-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}}.mat-calendar-body-selected{background-color:var(--mat-datepicker-calendar-date-selected-state-background-color, var(--mat-sys-primary));color:var(--mat-datepicker-calendar-date-selected-state-text-color, var(--mat-sys-on-primary))}.mat-calendar-body-disabled>.mat-calendar-body-selected{background-color:var(--mat-datepicker-calendar-date-selected-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-calendar-body-selected.mat-calendar-body-today{box-shadow:inset 0 0 0 1px var(--mat-datepicker-calendar-date-today-selected-state-outline-color, var(--mat-sys-primary))}.mat-calendar-body-in-range::before{background:var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container))}.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range::before{background:var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container))}.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range::before{background:var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container))}.mat-calendar-body-comparison-bridge-start::before,[dir=rtl] .mat-calendar-body-comparison-bridge-end::before{background:linear-gradient(to right, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%)}.mat-calendar-body-comparison-bridge-end::before,[dir=rtl] .mat-calendar-body-comparison-bridge-start::before{background:linear-gradient(to left, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%)}.mat-calendar-body-in-range>.mat-calendar-body-comparison-identical,.mat-calendar-body-in-comparison-range.mat-calendar-body-in-range::after{background:var(--mat-datepicker-calendar-date-in-overlap-range-state-background-color, var(--mat-sys-secondary-container))}.mat-calendar-body-comparison-identical.mat-calendar-body-selected,.mat-calendar-body-in-comparison-range>.mat-calendar-body-selected{background:var(--mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color, var(--mat-sys-secondary))}@media(forced-colors: active){.mat-datepicker-popup:not(:empty),.mat-calendar-body-cell:not(.mat-calendar-body-in-range) .mat-calendar-body-selected{outline:solid 1px}.mat-calendar-body-today{outline:dotted 1px}.mat-calendar-body-cell::before,.mat-calendar-body-cell::after,.mat-calendar-body-selected{background:none}.mat-calendar-body-in-range::before,.mat-calendar-body-comparison-bridge-start::before,.mat-calendar-body-comparison-bridge-end::before{border-top:solid 1px;border-bottom:solid 1px}.mat-calendar-body-range-start::before{border-left:solid 1px}[dir=rtl] .mat-calendar-body-range-start::before{border-left:0;border-right:solid 1px}.mat-calendar-body-range-end::before{border-right:solid 1px}[dir=rtl] .mat-calendar-body-range-end::before{border-right:0;border-left:solid 1px}.mat-calendar-body-in-comparison-range::before{border-top:dashed 1px;border-bottom:dashed 1px}.mat-calendar-body-comparison-start::before{border-left:dashed 1px}[dir=rtl] .mat-calendar-body-comparison-start::before{border-left:0;border-right:dashed 1px}.mat-calendar-body-comparison-end::before{border-right:dashed 1px}[dir=rtl] .mat-calendar-body-comparison-end::before{border-right:0;border-left:dashed 1px}}\n"]
+      styles: [".mat-calendar-body {\n  min-width: 224px;\n}\n\n.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n  border-color: var(--mat-datepicker-calendar-date-today-outline-color, var(--mat-sys-primary));\n}\n\n.mat-calendar-body-label {\n  height: 0;\n  line-height: 0;\n  text-align: start;\n  padding-left: 4.7142857143%;\n  padding-right: 4.7142857143%;\n  font-size: var(--mat-datepicker-calendar-body-label-text-size, var(--mat-sys-title-small-size));\n  font-weight: var(--mat-datepicker-calendar-body-label-text-weight, var(--mat-sys-title-small-weight));\n  color: var(--mat-datepicker-calendar-body-label-text-color, var(--mat-sys-on-surface));\n}\n\n.mat-calendar-body-hidden-label {\n  display: none;\n}\n\n.mat-calendar-body-cell-container {\n  position: relative;\n  height: 0;\n  line-height: 0;\n}\n\n.mat-calendar-body-cell {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: none;\n  text-align: center;\n  outline: none;\n  margin: 0;\n  font-family: var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));\n  font-size: var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));\n  -webkit-user-select: none;\n  user-select: none;\n  cursor: pointer;\n  outline: none;\n  border: none;\n  -webkit-tap-highlight-color: transparent;\n}\n.mat-calendar-body-cell::-moz-focus-inner {\n  border: 0;\n}\n\n.mat-calendar-body-cell::before,\n.mat-calendar-body-cell::after,\n.mat-calendar-body-cell-preview {\n  content: \"\";\n  position: absolute;\n  top: 5%;\n  left: 0;\n  z-index: 0;\n  box-sizing: border-box;\n  display: block;\n  height: 90%;\n  width: 100%;\n}\n\n.mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,\n.mat-calendar-body-range-start::after,\n.mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,\n.mat-calendar-body-comparison-start::after,\n.mat-calendar-body-preview-start .mat-calendar-body-cell-preview {\n  left: 5%;\n  width: 95%;\n  border-top-left-radius: 999px;\n  border-bottom-left-radius: 999px;\n}\n[dir=rtl] .mat-calendar-body-range-start:not(.mat-calendar-body-in-comparison-range)::before,\n[dir=rtl] .mat-calendar-body-range-start::after,\n[dir=rtl] .mat-calendar-body-comparison-start:not(.mat-calendar-body-comparison-bridge-start)::before,\n[dir=rtl] .mat-calendar-body-comparison-start::after,\n[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview {\n  left: 0;\n  border-radius: 0;\n  border-top-right-radius: 999px;\n  border-bottom-right-radius: 999px;\n}\n\n.mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,\n.mat-calendar-body-range-end::after,\n.mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,\n.mat-calendar-body-comparison-end::after,\n.mat-calendar-body-preview-end .mat-calendar-body-cell-preview {\n  width: 95%;\n  border-top-right-radius: 999px;\n  border-bottom-right-radius: 999px;\n}\n[dir=rtl] .mat-calendar-body-range-end:not(.mat-calendar-body-in-comparison-range)::before,\n[dir=rtl] .mat-calendar-body-range-end::after,\n[dir=rtl] .mat-calendar-body-comparison-end:not(.mat-calendar-body-comparison-bridge-end)::before,\n[dir=rtl] .mat-calendar-body-comparison-end::after,\n[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview {\n  left: 5%;\n  border-radius: 0;\n  border-top-left-radius: 999px;\n  border-bottom-left-radius: 999px;\n}\n\n[dir=rtl] .mat-calendar-body-comparison-bridge-start.mat-calendar-body-range-end::after,\n[dir=rtl] .mat-calendar-body-comparison-bridge-end.mat-calendar-body-range-start::after {\n  width: 95%;\n  border-top-right-radius: 999px;\n  border-bottom-right-radius: 999px;\n}\n\n.mat-calendar-body-comparison-start.mat-calendar-body-range-end::after, [dir=rtl] .mat-calendar-body-comparison-start.mat-calendar-body-range-end::after,\n.mat-calendar-body-comparison-end.mat-calendar-body-range-start::after,\n[dir=rtl] .mat-calendar-body-comparison-end.mat-calendar-body-range-start::after {\n  width: 90%;\n}\n\n.mat-calendar-body-in-preview {\n  color: var(--mat-datepicker-calendar-date-preview-state-outline-color, var(--mat-sys-primary));\n}\n.mat-calendar-body-in-preview .mat-calendar-body-cell-preview {\n  border-top: dashed 1px;\n  border-bottom: dashed 1px;\n}\n\n.mat-calendar-body-preview-start .mat-calendar-body-cell-preview {\n  border-left: dashed 1px;\n}\n[dir=rtl] .mat-calendar-body-preview-start .mat-calendar-body-cell-preview {\n  border-left: 0;\n  border-right: dashed 1px;\n}\n\n.mat-calendar-body-preview-end .mat-calendar-body-cell-preview {\n  border-right: dashed 1px;\n}\n[dir=rtl] .mat-calendar-body-preview-end .mat-calendar-body-cell-preview {\n  border-right: 0;\n  border-left: dashed 1px;\n}\n\n.mat-calendar-body-disabled {\n  cursor: default;\n}\n.mat-calendar-body-disabled > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n  color: var(--mat-datepicker-calendar-date-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n.mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n  border-color: var(--mat-datepicker-calendar-date-today-disabled-state-outline-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n@media (forced-colors: active) {\n  .mat-calendar-body-disabled {\n    opacity: 0.5;\n  }\n}\n\n.mat-calendar-body-cell-content {\n  top: 5%;\n  left: 5%;\n  z-index: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-sizing: border-box;\n  width: 90%;\n  height: 90%;\n  line-height: 1;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 999px;\n  color: var(--mat-datepicker-calendar-date-text-color, var(--mat-sys-on-surface));\n  border-color: var(--mat-datepicker-calendar-date-outline-color, transparent);\n}\n.mat-calendar-body-cell-content.mat-focus-indicator {\n  position: absolute;\n}\n@media (forced-colors: active) {\n  .mat-calendar-body-cell-content {\n    border: none;\n  }\n}\n\n.cdk-keyboard-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical), .cdk-program-focused .mat-calendar-body-active > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n  background-color: var(--mat-datepicker-calendar-date-focus-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent));\n}\n\n@media (hover: hover) {\n  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {\n    background-color: var(--mat-datepicker-calendar-date-hover-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));\n  }\n}\n.mat-calendar-body-selected {\n  background-color: var(--mat-datepicker-calendar-date-selected-state-background-color, var(--mat-sys-primary));\n  color: var(--mat-datepicker-calendar-date-selected-state-text-color, var(--mat-sys-on-primary));\n}\n.mat-calendar-body-disabled > .mat-calendar-body-selected {\n  background-color: var(--mat-datepicker-calendar-date-selected-disabled-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n.mat-calendar-body-selected.mat-calendar-body-today {\n  box-shadow: inset 0 0 0 1px var(--mat-datepicker-calendar-date-today-selected-state-outline-color, var(--mat-sys-primary));\n}\n\n.mat-calendar-body-in-range::before {\n  background: var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container));\n}\n\n.mat-calendar-body-comparison-identical,\n.mat-calendar-body-in-comparison-range::before {\n  background: var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container));\n}\n\n.mat-calendar-body-comparison-identical,\n.mat-calendar-body-in-comparison-range::before {\n  background: var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container));\n}\n\n.mat-calendar-body-comparison-bridge-start::before,\n[dir=rtl] .mat-calendar-body-comparison-bridge-end::before {\n  background: linear-gradient(to right, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%);\n}\n\n.mat-calendar-body-comparison-bridge-end::before,\n[dir=rtl] .mat-calendar-body-comparison-bridge-start::before {\n  background: linear-gradient(to left, var(--mat-datepicker-calendar-date-in-range-state-background-color, var(--mat-sys-primary-container)) 50%, var(--mat-datepicker-calendar-date-in-comparison-range-state-background-color, var(--mat-sys-tertiary-container)) 50%);\n}\n\n.mat-calendar-body-in-range > .mat-calendar-body-comparison-identical,\n.mat-calendar-body-in-comparison-range.mat-calendar-body-in-range::after {\n  background: var(--mat-datepicker-calendar-date-in-overlap-range-state-background-color, var(--mat-sys-secondary-container));\n}\n\n.mat-calendar-body-comparison-identical.mat-calendar-body-selected,\n.mat-calendar-body-in-comparison-range > .mat-calendar-body-selected {\n  background: var(--mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color, var(--mat-sys-secondary));\n}\n\n@media (forced-colors: active) {\n  .mat-datepicker-popup:not(:empty),\n  .mat-calendar-body-cell:not(.mat-calendar-body-in-range) .mat-calendar-body-selected {\n    outline: solid 1px;\n  }\n  .mat-calendar-body-today {\n    outline: dotted 1px;\n  }\n  .mat-calendar-body-cell::before,\n  .mat-calendar-body-cell::after,\n  .mat-calendar-body-selected {\n    background: none;\n  }\n  .mat-calendar-body-in-range::before,\n  .mat-calendar-body-comparison-bridge-start::before,\n  .mat-calendar-body-comparison-bridge-end::before {\n    border-top: solid 1px;\n    border-bottom: solid 1px;\n  }\n  .mat-calendar-body-range-start::before {\n    border-left: solid 1px;\n  }\n  [dir=rtl] .mat-calendar-body-range-start::before {\n    border-left: 0;\n    border-right: solid 1px;\n  }\n  .mat-calendar-body-range-end::before {\n    border-right: solid 1px;\n  }\n  [dir=rtl] .mat-calendar-body-range-end::before {\n    border-right: 0;\n    border-left: solid 1px;\n  }\n  .mat-calendar-body-in-comparison-range::before {\n    border-top: dashed 1px;\n    border-bottom: dashed 1px;\n  }\n  .mat-calendar-body-comparison-start::before {\n    border-left: dashed 1px;\n  }\n  [dir=rtl] .mat-calendar-body-comparison-start::before {\n    border-left: 0;\n    border-right: dashed 1px;\n  }\n  .mat-calendar-body-comparison-end::before {\n    border-right: dashed 1px;\n  }\n  [dir=rtl] .mat-calendar-body-comparison-end::before {\n    border-right: 0;\n    border-left: dashed 1px;\n  }\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -618,7 +618,7 @@ class MatDateSelectionModel {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDateSelectionModel,
     deps: "invalid",
@@ -626,14 +626,14 @@ class MatDateSelectionModel {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDateSelectionModel
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDateSelectionModel,
   decorators: [{
@@ -665,7 +665,7 @@ class MatSingleDateSelectionModel extends MatDateSelectionModel {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatSingleDateSelectionModel,
     deps: [{
@@ -675,14 +675,14 @@ class MatSingleDateSelectionModel extends MatDateSelectionModel {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatSingleDateSelectionModel
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatSingleDateSelectionModel,
   decorators: [{
@@ -734,7 +734,7 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatRangeDateSelectionModel,
     deps: [{
@@ -744,14 +744,14 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatRangeDateSelectionModel
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatRangeDateSelectionModel,
   decorators: [{
@@ -849,7 +849,7 @@ class DefaultMatCalendarRangeStrategy {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: DefaultMatCalendarRangeStrategy,
     deps: [{
@@ -859,14 +859,14 @@ class DefaultMatCalendarRangeStrategy {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: DefaultMatCalendarRangeStrategy
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: DefaultMatCalendarRangeStrategy,
   decorators: [{
@@ -1237,7 +1237,7 @@ class MatMonthView {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatMonthView,
     deps: [],
@@ -1245,7 +1245,7 @@ class MatMonthView {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatMonthView,
     isStandalone: true,
     selector: "mat-month-view",
@@ -1293,7 +1293,7 @@ class MatMonthView {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatMonthView,
   decorators: [{
@@ -1575,7 +1575,7 @@ class MatMultiYearView {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatMultiYearView,
     deps: [],
@@ -1583,7 +1583,7 @@ class MatMultiYearView {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatMultiYearView,
     isStandalone: true,
     selector: "mat-multi-year-view",
@@ -1623,7 +1623,7 @@ class MatMultiYearView {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatMultiYearView,
   decorators: [{
@@ -1921,7 +1921,7 @@ class MatYearView {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatYearView,
     deps: [],
@@ -1929,7 +1929,7 @@ class MatYearView {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatYearView,
     isStandalone: true,
     selector: "mat-year-view",
@@ -1969,7 +1969,7 @@ class MatYearView {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatYearView,
   decorators: [{
@@ -2123,7 +2123,7 @@ class MatCalendarHeader {
   _periodButtonLabelId = inject(_IdGenerator).getId('mat-calendar-period-label-');
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCalendarHeader,
     deps: [],
@@ -2131,7 +2131,7 @@ class MatCalendarHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCalendarHeader,
     isStandalone: true,
     selector: "mat-calendar-header",
@@ -2162,7 +2162,7 @@ class MatCalendarHeader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCalendarHeader,
   decorators: [{
@@ -2347,7 +2347,7 @@ class MatCalendar {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatCalendar,
     deps: [],
@@ -2355,7 +2355,7 @@ class MatCalendar {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatCalendar,
     isStandalone: true,
     selector: "mat-calendar",
@@ -2405,7 +2405,7 @@ class MatCalendar {
     usesOnChanges: true,
     ngImport: i0,
     template: "<ng-template [cdkPortalOutlet]=\"_calendarHeaderPortal\"></ng-template>\n\n<div class=\"mat-calendar-content\" cdkMonitorSubtreeFocus tabindex=\"-1\">\n  @switch (currentView) {\n    @case ('month') {\n        <mat-month-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            [comparisonStart]=\"comparisonStart\"\n            [comparisonEnd]=\"comparisonEnd\"\n            [startDateAccessibleName]=\"startDateAccessibleName\"\n            [endDateAccessibleName]=\"endDateAccessibleName\"\n            (_userSelection)=\"_dateSelected($event)\"\n            (dragStarted)=\"_dragStarted($event)\"\n            (dragEnded)=\"_dragEnded($event)\"\n            [activeDrag]=\"_activeDrag\"></mat-month-view>\n    }\n\n    @case ('year') {\n        <mat-year-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            (monthSelected)=\"_monthSelectedInYearView($event)\"\n            (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view>\n    }\n\n    @case ('multi-year') {\n        <mat-multi-year-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            (yearSelected)=\"_yearSelectedInMultiYearView($event)\"\n            (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view>\n    }\n  }\n</div>\n",
-    styles: [".mat-calendar{display:block;line-height:normal;font-family:var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));font-size:var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size))}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:none}.mat-calendar-controls{display:flex;align-items:center;margin:5% calc(4.7142857143% - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0;margin:0 8px;font-size:var(--mat-datepicker-calendar-period-button-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-period-button-text-weight, var(--mat-sys-title-small-weight));--mat-button-text-label-text-color: var(--mat-datepicker-calendar-period-button-text-color, var(--mat-sys-on-surface-variant))}.mat-calendar-arrow{display:inline-block;width:10px;height:5px;margin:0 0 0 5px;vertical-align:middle;fill:var(--mat-datepicker-calendar-period-button-icon-color, var(--mat-sys-on-surface-variant))}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}@media(forced-colors: active){.mat-calendar-arrow{fill:CanvasText}}.mat-datepicker-content .mat-calendar-previous-button:not(.mat-mdc-button-disabled),.mat-datepicker-content .mat-calendar-next-button:not(.mat-mdc-button-disabled){color:var(--mat-datepicker-calendar-navigation-button-icon-color, var(--mat-sys-on-surface-variant))}[dir=rtl] .mat-calendar-previous-button,[dir=rtl] .mat-calendar-next-button{transform:rotate(180deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0;color:var(--mat-datepicker-calendar-header-text-color, var(--mat-sys-on-surface-variant));font-size:var(--mat-datepicker-calendar-header-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-header-text-weight, var(--mat-sys-title-small-weight))}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:\"\";position:absolute;top:0;left:-8px;right:-8px;height:1px;background:var(--mat-datepicker-calendar-header-divider-color, transparent)}.mat-calendar-body-cell-content::before{margin:calc(calc(var(--mat-focus-indicator-border-width, 3px) + 3px)*-1)}.mat-calendar-body-cell:focus-visible .mat-focus-indicator::before{content:\"\"}\n"],
+    styles: [".mat-calendar {\n  display: block;\n  line-height: normal;\n  font-family: var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));\n  font-size: var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));\n}\n\n.mat-calendar-header {\n  padding: 8px 8px 0 8px;\n}\n\n.mat-calendar-content {\n  padding: 0 8px 8px 8px;\n  outline: none;\n}\n\n.mat-calendar-controls {\n  display: flex;\n  align-items: center;\n  margin: 5% calc(4.7142857143% - 16px);\n}\n\n.mat-calendar-spacer {\n  flex: 1 1 auto;\n}\n\n.mat-calendar-period-button {\n  min-width: 0;\n  margin: 0 8px;\n  font-size: var(--mat-datepicker-calendar-period-button-text-size, var(--mat-sys-title-small-size));\n  font-weight: var(--mat-datepicker-calendar-period-button-text-weight, var(--mat-sys-title-small-weight));\n  --mat-button-text-label-text-color: var(--mat-datepicker-calendar-period-button-text-color, var(--mat-sys-on-surface-variant));\n}\n\n.mat-calendar-arrow {\n  display: inline-block;\n  width: 10px;\n  height: 5px;\n  margin: 0 0 0 5px;\n  vertical-align: middle;\n  fill: var(--mat-datepicker-calendar-period-button-icon-color, var(--mat-sys-on-surface-variant));\n}\n.mat-calendar-arrow.mat-calendar-invert {\n  transform: rotate(180deg);\n}\n[dir=rtl] .mat-calendar-arrow {\n  margin: 0 5px 0 0;\n}\n@media (forced-colors: active) {\n  .mat-calendar-arrow {\n    fill: CanvasText;\n  }\n}\n\n.mat-datepicker-content .mat-calendar-previous-button:not(.mat-mdc-button-disabled),\n.mat-datepicker-content .mat-calendar-next-button:not(.mat-mdc-button-disabled) {\n  color: var(--mat-datepicker-calendar-navigation-button-icon-color, var(--mat-sys-on-surface-variant));\n}\n[dir=rtl] .mat-calendar-previous-button,\n[dir=rtl] .mat-calendar-next-button {\n  transform: rotate(180deg);\n}\n\n.mat-calendar-table {\n  border-spacing: 0;\n  border-collapse: collapse;\n  width: 100%;\n}\n\n.mat-calendar-table-header th {\n  text-align: center;\n  padding: 0 0 8px 0;\n  color: var(--mat-datepicker-calendar-header-text-color, var(--mat-sys-on-surface-variant));\n  font-size: var(--mat-datepicker-calendar-header-text-size, var(--mat-sys-title-small-size));\n  font-weight: var(--mat-datepicker-calendar-header-text-weight, var(--mat-sys-title-small-weight));\n}\n\n.mat-calendar-table-header-divider {\n  position: relative;\n  height: 1px;\n}\n.mat-calendar-table-header-divider::after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: -8px;\n  right: -8px;\n  height: 1px;\n  background: var(--mat-datepicker-calendar-header-divider-color, transparent);\n}\n\n.mat-calendar-body-cell-content::before {\n  margin: calc(calc(var(--mat-focus-indicator-border-width, 3px) + 3px) * -1);\n}\n\n.mat-calendar-body-cell:focus-visible .mat-focus-indicator::before {\n  content: \"\";\n}\n"],
     dependencies: [{
       kind: "directive",
       type: CdkPortalOutlet,
@@ -2447,7 +2447,7 @@ class MatCalendar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatCalendar,
   decorators: [{
@@ -2463,7 +2463,7 @@ i0.ɵɵngDeclareClassMetadata({
       providers: [MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER],
       imports: [CdkPortalOutlet, CdkMonitorFocus, MatMonthView, MatYearView, MatMultiYearView],
       template: "<ng-template [cdkPortalOutlet]=\"_calendarHeaderPortal\"></ng-template>\n\n<div class=\"mat-calendar-content\" cdkMonitorSubtreeFocus tabindex=\"-1\">\n  @switch (currentView) {\n    @case ('month') {\n        <mat-month-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            [comparisonStart]=\"comparisonStart\"\n            [comparisonEnd]=\"comparisonEnd\"\n            [startDateAccessibleName]=\"startDateAccessibleName\"\n            [endDateAccessibleName]=\"endDateAccessibleName\"\n            (_userSelection)=\"_dateSelected($event)\"\n            (dragStarted)=\"_dragStarted($event)\"\n            (dragEnded)=\"_dragEnded($event)\"\n            [activeDrag]=\"_activeDrag\"></mat-month-view>\n    }\n\n    @case ('year') {\n        <mat-year-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            (monthSelected)=\"_monthSelectedInYearView($event)\"\n            (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view>\n    }\n\n    @case ('multi-year') {\n        <mat-multi-year-view\n            [(activeDate)]=\"activeDate\"\n            [selected]=\"selected\"\n            [dateFilter]=\"dateFilter\"\n            [maxDate]=\"maxDate\"\n            [minDate]=\"minDate\"\n            [dateClass]=\"dateClass\"\n            (yearSelected)=\"_yearSelectedInMultiYearView($event)\"\n            (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view>\n    }\n  }\n</div>\n",
-      styles: [".mat-calendar{display:block;line-height:normal;font-family:var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));font-size:var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size))}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:none}.mat-calendar-controls{display:flex;align-items:center;margin:5% calc(4.7142857143% - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0;margin:0 8px;font-size:var(--mat-datepicker-calendar-period-button-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-period-button-text-weight, var(--mat-sys-title-small-weight));--mat-button-text-label-text-color: var(--mat-datepicker-calendar-period-button-text-color, var(--mat-sys-on-surface-variant))}.mat-calendar-arrow{display:inline-block;width:10px;height:5px;margin:0 0 0 5px;vertical-align:middle;fill:var(--mat-datepicker-calendar-period-button-icon-color, var(--mat-sys-on-surface-variant))}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}@media(forced-colors: active){.mat-calendar-arrow{fill:CanvasText}}.mat-datepicker-content .mat-calendar-previous-button:not(.mat-mdc-button-disabled),.mat-datepicker-content .mat-calendar-next-button:not(.mat-mdc-button-disabled){color:var(--mat-datepicker-calendar-navigation-button-icon-color, var(--mat-sys-on-surface-variant))}[dir=rtl] .mat-calendar-previous-button,[dir=rtl] .mat-calendar-next-button{transform:rotate(180deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0;color:var(--mat-datepicker-calendar-header-text-color, var(--mat-sys-on-surface-variant));font-size:var(--mat-datepicker-calendar-header-text-size, var(--mat-sys-title-small-size));font-weight:var(--mat-datepicker-calendar-header-text-weight, var(--mat-sys-title-small-weight))}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:\"\";position:absolute;top:0;left:-8px;right:-8px;height:1px;background:var(--mat-datepicker-calendar-header-divider-color, transparent)}.mat-calendar-body-cell-content::before{margin:calc(calc(var(--mat-focus-indicator-border-width, 3px) + 3px)*-1)}.mat-calendar-body-cell:focus-visible .mat-focus-indicator::before{content:\"\"}\n"]
+      styles: [".mat-calendar {\n  display: block;\n  line-height: normal;\n  font-family: var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));\n  font-size: var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));\n}\n\n.mat-calendar-header {\n  padding: 8px 8px 0 8px;\n}\n\n.mat-calendar-content {\n  padding: 0 8px 8px 8px;\n  outline: none;\n}\n\n.mat-calendar-controls {\n  display: flex;\n  align-items: center;\n  margin: 5% calc(4.7142857143% - 16px);\n}\n\n.mat-calendar-spacer {\n  flex: 1 1 auto;\n}\n\n.mat-calendar-period-button {\n  min-width: 0;\n  margin: 0 8px;\n  font-size: var(--mat-datepicker-calendar-period-button-text-size, var(--mat-sys-title-small-size));\n  font-weight: var(--mat-datepicker-calendar-period-button-text-weight, var(--mat-sys-title-small-weight));\n  --mat-button-text-label-text-color: var(--mat-datepicker-calendar-period-button-text-color, var(--mat-sys-on-surface-variant));\n}\n\n.mat-calendar-arrow {\n  display: inline-block;\n  width: 10px;\n  height: 5px;\n  margin: 0 0 0 5px;\n  vertical-align: middle;\n  fill: var(--mat-datepicker-calendar-period-button-icon-color, var(--mat-sys-on-surface-variant));\n}\n.mat-calendar-arrow.mat-calendar-invert {\n  transform: rotate(180deg);\n}\n[dir=rtl] .mat-calendar-arrow {\n  margin: 0 5px 0 0;\n}\n@media (forced-colors: active) {\n  .mat-calendar-arrow {\n    fill: CanvasText;\n  }\n}\n\n.mat-datepicker-content .mat-calendar-previous-button:not(.mat-mdc-button-disabled),\n.mat-datepicker-content .mat-calendar-next-button:not(.mat-mdc-button-disabled) {\n  color: var(--mat-datepicker-calendar-navigation-button-icon-color, var(--mat-sys-on-surface-variant));\n}\n[dir=rtl] .mat-calendar-previous-button,\n[dir=rtl] .mat-calendar-next-button {\n  transform: rotate(180deg);\n}\n\n.mat-calendar-table {\n  border-spacing: 0;\n  border-collapse: collapse;\n  width: 100%;\n}\n\n.mat-calendar-table-header th {\n  text-align: center;\n  padding: 0 0 8px 0;\n  color: var(--mat-datepicker-calendar-header-text-color, var(--mat-sys-on-surface-variant));\n  font-size: var(--mat-datepicker-calendar-header-text-size, var(--mat-sys-title-small-size));\n  font-weight: var(--mat-datepicker-calendar-header-text-weight, var(--mat-sys-title-small-weight));\n}\n\n.mat-calendar-table-header-divider {\n  position: relative;\n  height: 1px;\n}\n.mat-calendar-table-header-divider::after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: -8px;\n  right: -8px;\n  height: 1px;\n  background: var(--mat-datepicker-calendar-header-divider-color, transparent);\n}\n\n.mat-calendar-body-cell-content::before {\n  margin: calc(calc(var(--mat-focus-indicator-border-width, 3px) + 3px) * -1);\n}\n\n.mat-calendar-body-cell:focus-visible .mat-focus-indicator::before {\n  content: \"\";\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -2652,7 +2652,7 @@ class MatDatepickerContent {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerContent,
     deps: [],
@@ -2660,7 +2660,7 @@ class MatDatepickerContent {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerContent,
     isStandalone: true,
     selector: "mat-datepicker-content",
@@ -2684,7 +2684,7 @@ class MatDatepickerContent {
     exportAs: ["matDatepickerContent"],
     ngImport: i0,
     template: "<div\n  cdkTrapFocus\n  role=\"dialog\"\n  [attr.aria-modal]=\"true\"\n  [attr.aria-labelledby]=\"_dialogLabelId ?? undefined\"\n  class=\"mat-datepicker-content-container\"\n  [class.mat-datepicker-content-container-with-custom-header]=\"datepicker.calendarHeaderComponent\"\n  [class.mat-datepicker-content-container-with-actions]=\"_actionsPortal\">\n  <mat-calendar\n    [id]=\"datepicker.id\"\n    [class]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [startDateAccessibleName]=\"startDateAccessibleName\"\n    [endDateAccessibleName]=\"endDateAccessibleName\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\"\n    (_userDragDrop)=\"_handleUserDragDrop($event)\"></mat-calendar>\n\n  <ng-template [cdkPortalOutlet]=\"_actionsPortal\"></ng-template>\n\n  <!-- Invisible close button for screen reader users. -->\n  <button\n    type=\"button\"\n    matButton=\"elevated\"\n    [color]=\"color || 'primary'\"\n    class=\"mat-datepicker-close-button\"\n    [class.cdk-visually-hidden]=\"!_closeButtonFocused\"\n    (focus)=\"_closeButtonFocused = true\"\n    (blur)=\"_closeButtonFocused = false\"\n    (click)=\"datepicker.close()\">{{ _closeButtonText }}</button>\n</div>\n",
-    styles: ["@keyframes _mat-datepicker-content-dropdown-enter{from{opacity:0;transform:scaleY(0.8)}to{opacity:1;transform:none}}@keyframes _mat-datepicker-content-dialog-enter{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:none}}@keyframes _mat-datepicker-content-exit{from{opacity:1}to{opacity:0}}.mat-datepicker-content{display:block;background-color:var(--mat-datepicker-calendar-container-background-color, var(--mat-sys-surface-container-high));color:var(--mat-datepicker-calendar-container-text-color, var(--mat-sys-on-surface));box-shadow:var(--mat-datepicker-calendar-container-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));border-radius:var(--mat-datepicker-calendar-container-shape, var(--mat-sys-corner-large))}.mat-datepicker-content.mat-datepicker-content-animations-enabled{animation:_mat-datepicker-content-dropdown-enter 120ms cubic-bezier(0, 0, 0.2, 1)}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content .mat-datepicker-content-container-with-custom-header .mat-calendar{height:auto}.mat-datepicker-content .mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}.mat-datepicker-content-animating .mat-datepicker-content .mat-datepicker-close-button{display:none}.mat-datepicker-content-container{display:flex;flex-direction:column;justify-content:space-between}.mat-datepicker-content-touch{display:block;max-height:80vh;box-shadow:var(--mat-datepicker-calendar-container-touch-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));border-radius:var(--mat-datepicker-calendar-container-touch-shape, var(--mat-sys-corner-extra-large));position:relative;overflow:visible}.mat-datepicker-content-touch.mat-datepicker-content-animations-enabled{animation:_mat-datepicker-content-dialog-enter 150ms cubic-bezier(0, 0, 0.2, 1)}.mat-datepicker-content-touch .mat-datepicker-content-container{min-height:312px;max-height:788px;min-width:250px;max-width:750px}.mat-datepicker-content-touch .mat-calendar{width:100%;height:auto}.mat-datepicker-content-exit.mat-datepicker-content-animations-enabled{animation:_mat-datepicker-content-exit 100ms linear}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-datepicker-content-container{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-datepicker-content-container{width:80vw;height:100vw}.mat-datepicker-content-touch .mat-datepicker-content-container-with-actions{height:115vw}}\n"],
+    styles: ["@keyframes _mat-datepicker-content-dropdown-enter {\n  from {\n    opacity: 0;\n    transform: scaleY(0.8);\n  }\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes _mat-datepicker-content-dialog-enter {\n  from {\n    opacity: 0;\n    transform: scale(0.8);\n  }\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes _mat-datepicker-content-exit {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n.mat-datepicker-content {\n  display: block;\n  background-color: var(--mat-datepicker-calendar-container-background-color, var(--mat-sys-surface-container-high));\n  color: var(--mat-datepicker-calendar-container-text-color, var(--mat-sys-on-surface));\n  box-shadow: var(--mat-datepicker-calendar-container-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));\n  border-radius: var(--mat-datepicker-calendar-container-shape, var(--mat-sys-corner-large));\n}\n.mat-datepicker-content.mat-datepicker-content-animations-enabled {\n  animation: _mat-datepicker-content-dropdown-enter 120ms cubic-bezier(0, 0, 0.2, 1);\n}\n.mat-datepicker-content .mat-calendar {\n  width: 296px;\n  height: 354px;\n}\n.mat-datepicker-content .mat-datepicker-content-container-with-custom-header .mat-calendar {\n  height: auto;\n}\n.mat-datepicker-content .mat-datepicker-close-button {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  margin-top: 8px;\n}\n.mat-datepicker-content-animating .mat-datepicker-content .mat-datepicker-close-button {\n  display: none;\n}\n\n.mat-datepicker-content-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.mat-datepicker-content-touch {\n  display: block;\n  max-height: 80vh;\n  box-shadow: var(--mat-datepicker-calendar-container-touch-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));\n  border-radius: var(--mat-datepicker-calendar-container-touch-shape, var(--mat-sys-corner-extra-large));\n  position: relative;\n  overflow: visible;\n}\n.mat-datepicker-content-touch.mat-datepicker-content-animations-enabled {\n  animation: _mat-datepicker-content-dialog-enter 150ms cubic-bezier(0, 0, 0.2, 1);\n}\n.mat-datepicker-content-touch .mat-datepicker-content-container {\n  min-height: 312px;\n  max-height: 788px;\n  min-width: 250px;\n  max-width: 750px;\n}\n.mat-datepicker-content-touch .mat-calendar {\n  width: 100%;\n  height: auto;\n}\n\n.mat-datepicker-content-exit.mat-datepicker-content-animations-enabled {\n  animation: _mat-datepicker-content-exit 100ms linear;\n}\n\n@media all and (orientation: landscape) {\n  .mat-datepicker-content-touch .mat-datepicker-content-container {\n    width: 64vh;\n    height: 80vh;\n  }\n}\n@media all and (orientation: portrait) {\n  .mat-datepicker-content-touch .mat-datepicker-content-container {\n    width: 80vw;\n    height: 100vw;\n  }\n  .mat-datepicker-content-touch .mat-datepicker-content-container-with-actions {\n    height: 115vw;\n  }\n}\n"],
     dependencies: [{
       kind: "directive",
       type: CdkTrapFocus,
@@ -2718,7 +2718,7 @@ class MatDatepickerContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerContent,
   decorators: [{
@@ -2736,7 +2736,7 @@ i0.ɵɵngDeclareClassMetadata({
       changeDetection: ChangeDetectionStrategy.OnPush,
       imports: [CdkTrapFocus, MatCalendar, CdkPortalOutlet, MatButton],
       template: "<div\n  cdkTrapFocus\n  role=\"dialog\"\n  [attr.aria-modal]=\"true\"\n  [attr.aria-labelledby]=\"_dialogLabelId ?? undefined\"\n  class=\"mat-datepicker-content-container\"\n  [class.mat-datepicker-content-container-with-custom-header]=\"datepicker.calendarHeaderComponent\"\n  [class.mat-datepicker-content-container-with-actions]=\"_actionsPortal\">\n  <mat-calendar\n    [id]=\"datepicker.id\"\n    [class]=\"datepicker.panelClass\"\n    [startAt]=\"datepicker.startAt\"\n    [startView]=\"datepicker.startView\"\n    [minDate]=\"datepicker._getMinDate()\"\n    [maxDate]=\"datepicker._getMaxDate()\"\n    [dateFilter]=\"datepicker._getDateFilter()\"\n    [headerComponent]=\"datepicker.calendarHeaderComponent\"\n    [selected]=\"_getSelected()\"\n    [dateClass]=\"datepicker.dateClass\"\n    [comparisonStart]=\"comparisonStart\"\n    [comparisonEnd]=\"comparisonEnd\"\n    [startDateAccessibleName]=\"startDateAccessibleName\"\n    [endDateAccessibleName]=\"endDateAccessibleName\"\n    (yearSelected)=\"datepicker._selectYear($event)\"\n    (monthSelected)=\"datepicker._selectMonth($event)\"\n    (viewChanged)=\"datepicker._viewChanged($event)\"\n    (_userSelection)=\"_handleUserSelection($event)\"\n    (_userDragDrop)=\"_handleUserDragDrop($event)\"></mat-calendar>\n\n  <ng-template [cdkPortalOutlet]=\"_actionsPortal\"></ng-template>\n\n  <!-- Invisible close button for screen reader users. -->\n  <button\n    type=\"button\"\n    matButton=\"elevated\"\n    [color]=\"color || 'primary'\"\n    class=\"mat-datepicker-close-button\"\n    [class.cdk-visually-hidden]=\"!_closeButtonFocused\"\n    (focus)=\"_closeButtonFocused = true\"\n    (blur)=\"_closeButtonFocused = false\"\n    (click)=\"datepicker.close()\">{{ _closeButtonText }}</button>\n</div>\n",
-      styles: ["@keyframes _mat-datepicker-content-dropdown-enter{from{opacity:0;transform:scaleY(0.8)}to{opacity:1;transform:none}}@keyframes _mat-datepicker-content-dialog-enter{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:none}}@keyframes _mat-datepicker-content-exit{from{opacity:1}to{opacity:0}}.mat-datepicker-content{display:block;background-color:var(--mat-datepicker-calendar-container-background-color, var(--mat-sys-surface-container-high));color:var(--mat-datepicker-calendar-container-text-color, var(--mat-sys-on-surface));box-shadow:var(--mat-datepicker-calendar-container-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));border-radius:var(--mat-datepicker-calendar-container-shape, var(--mat-sys-corner-large))}.mat-datepicker-content.mat-datepicker-content-animations-enabled{animation:_mat-datepicker-content-dropdown-enter 120ms cubic-bezier(0, 0, 0.2, 1)}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content .mat-datepicker-content-container-with-custom-header .mat-calendar{height:auto}.mat-datepicker-content .mat-datepicker-close-button{position:absolute;top:100%;left:0;margin-top:8px}.mat-datepicker-content-animating .mat-datepicker-content .mat-datepicker-close-button{display:none}.mat-datepicker-content-container{display:flex;flex-direction:column;justify-content:space-between}.mat-datepicker-content-touch{display:block;max-height:80vh;box-shadow:var(--mat-datepicker-calendar-container-touch-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));border-radius:var(--mat-datepicker-calendar-container-touch-shape, var(--mat-sys-corner-extra-large));position:relative;overflow:visible}.mat-datepicker-content-touch.mat-datepicker-content-animations-enabled{animation:_mat-datepicker-content-dialog-enter 150ms cubic-bezier(0, 0, 0.2, 1)}.mat-datepicker-content-touch .mat-datepicker-content-container{min-height:312px;max-height:788px;min-width:250px;max-width:750px}.mat-datepicker-content-touch .mat-calendar{width:100%;height:auto}.mat-datepicker-content-exit.mat-datepicker-content-animations-enabled{animation:_mat-datepicker-content-exit 100ms linear}@media all and (orientation: landscape){.mat-datepicker-content-touch .mat-datepicker-content-container{width:64vh;height:80vh}}@media all and (orientation: portrait){.mat-datepicker-content-touch .mat-datepicker-content-container{width:80vw;height:100vw}.mat-datepicker-content-touch .mat-datepicker-content-container-with-actions{height:115vw}}\n"]
+      styles: ["@keyframes _mat-datepicker-content-dropdown-enter {\n  from {\n    opacity: 0;\n    transform: scaleY(0.8);\n  }\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes _mat-datepicker-content-dialog-enter {\n  from {\n    opacity: 0;\n    transform: scale(0.8);\n  }\n  to {\n    opacity: 1;\n    transform: none;\n  }\n}\n@keyframes _mat-datepicker-content-exit {\n  from {\n    opacity: 1;\n  }\n  to {\n    opacity: 0;\n  }\n}\n.mat-datepicker-content {\n  display: block;\n  background-color: var(--mat-datepicker-calendar-container-background-color, var(--mat-sys-surface-container-high));\n  color: var(--mat-datepicker-calendar-container-text-color, var(--mat-sys-on-surface));\n  box-shadow: var(--mat-datepicker-calendar-container-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));\n  border-radius: var(--mat-datepicker-calendar-container-shape, var(--mat-sys-corner-large));\n}\n.mat-datepicker-content.mat-datepicker-content-animations-enabled {\n  animation: _mat-datepicker-content-dropdown-enter 120ms cubic-bezier(0, 0, 0.2, 1);\n}\n.mat-datepicker-content .mat-calendar {\n  width: 296px;\n  height: 354px;\n}\n.mat-datepicker-content .mat-datepicker-content-container-with-custom-header .mat-calendar {\n  height: auto;\n}\n.mat-datepicker-content .mat-datepicker-close-button {\n  position: absolute;\n  top: 100%;\n  left: 0;\n  margin-top: 8px;\n}\n.mat-datepicker-content-animating .mat-datepicker-content .mat-datepicker-close-button {\n  display: none;\n}\n\n.mat-datepicker-content-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.mat-datepicker-content-touch {\n  display: block;\n  max-height: 80vh;\n  box-shadow: var(--mat-datepicker-calendar-container-touch-elevation-shadow, 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));\n  border-radius: var(--mat-datepicker-calendar-container-touch-shape, var(--mat-sys-corner-extra-large));\n  position: relative;\n  overflow: visible;\n}\n.mat-datepicker-content-touch.mat-datepicker-content-animations-enabled {\n  animation: _mat-datepicker-content-dialog-enter 150ms cubic-bezier(0, 0, 0.2, 1);\n}\n.mat-datepicker-content-touch .mat-datepicker-content-container {\n  min-height: 312px;\n  max-height: 788px;\n  min-width: 250px;\n  max-width: 750px;\n}\n.mat-datepicker-content-touch .mat-calendar {\n  width: 100%;\n  height: auto;\n}\n\n.mat-datepicker-content-exit.mat-datepicker-content-animations-enabled {\n  animation: _mat-datepicker-content-exit 100ms linear;\n}\n\n@media all and (orientation: landscape) {\n  .mat-datepicker-content-touch .mat-datepicker-content-container {\n    width: 64vh;\n    height: 80vh;\n  }\n}\n@media all and (orientation: portrait) {\n  .mat-datepicker-content-touch .mat-datepicker-content-container {\n    width: 80vw;\n    height: 100vw;\n  }\n  .mat-datepicker-content-touch .mat-datepicker-content-container-with-actions {\n    height: 115vw;\n  }\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -3033,7 +3033,7 @@ class MatDatepickerBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerBase,
     deps: [],
@@ -3041,7 +3041,7 @@ class MatDatepickerBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerBase,
     isStandalone: true,
     inputs: {
@@ -3071,7 +3071,7 @@ class MatDatepickerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerBase,
   decorators: [{
@@ -3150,7 +3150,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDatepicker extends MatDatepickerBase {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepicker,
     deps: null,
@@ -3158,7 +3158,7 @@ class MatDatepicker extends MatDatepickerBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepicker,
     isStandalone: true,
     selector: "mat-datepicker",
@@ -3177,7 +3177,7 @@ class MatDatepicker extends MatDatepickerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepicker,
   decorators: [{
@@ -3416,7 +3416,7 @@ class MatDatepickerInputBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerInputBase,
     deps: [],
@@ -3424,7 +3424,7 @@ class MatDatepickerInputBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerInputBase,
     isStandalone: true,
     inputs: {
@@ -3441,7 +3441,7 @@ class MatDatepickerInputBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerInputBase,
   decorators: [{
@@ -3603,7 +3603,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerInput,
     deps: [],
@@ -3611,7 +3611,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerInput,
     isStandalone: true,
     selector: "input[matDatepicker]",
@@ -3649,7 +3649,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerInput,
   decorators: [{
@@ -3697,7 +3697,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDatepickerToggleIcon {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerToggleIcon,
     deps: [],
@@ -3705,7 +3705,7 @@ class MatDatepickerToggleIcon {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerToggleIcon,
     isStandalone: true,
     selector: "[matDatepickerToggleIcon]",
@@ -3714,7 +3714,7 @@ class MatDatepickerToggleIcon {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerToggleIcon,
   decorators: [{
@@ -3777,7 +3777,7 @@ class MatDatepickerToggle {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerToggle,
     deps: [],
@@ -3785,7 +3785,7 @@ class MatDatepickerToggle {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerToggle,
     isStandalone: true,
     selector: "mat-datepicker-toggle",
@@ -3825,7 +3825,7 @@ class MatDatepickerToggle {
     usesOnChanges: true,
     ngImport: i0,
     template: "<button\n  #button\n  matIconButton\n  type=\"button\"\n  [attr.aria-haspopup]=\"datepicker ? 'dialog' : null\"\n  [attr.aria-label]=\"ariaLabel || _intl.openCalendarLabel\"\n  [tabIndex]=\"disabled ? -1 : tabIndex\"\n  [attr.aria-expanded]=\"datepicker ? datepicker.opened : null\"\n  [disabled]=\"disabled\"\n  [disableRipple]=\"disableRipple\">\n\n  @if (!_customIcon) {\n    <svg\n      class=\"mat-datepicker-toggle-default-icon\"\n      viewBox=\"0 0 24 24\"\n      width=\"24px\"\n      height=\"24px\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/>\n    </svg>\n  }\n\n  <ng-content select=\"[matDatepickerToggleIcon]\"></ng-content>\n</button>\n",
-    styles: [".mat-datepicker-toggle{pointer-events:auto;color:var(--mat-datepicker-toggle-icon-color, var(--mat-sys-on-surface-variant))}.mat-datepicker-toggle button{color:inherit}.mat-datepicker-toggle-active{color:var(--mat-datepicker-toggle-active-state-icon-color, var(--mat-sys-primary))}@media(forced-colors: active){.mat-datepicker-toggle-default-icon{color:CanvasText}}\n"],
+    styles: [".mat-datepicker-toggle {\n  pointer-events: auto;\n  color: var(--mat-datepicker-toggle-icon-color, var(--mat-sys-on-surface-variant));\n}\n.mat-datepicker-toggle button {\n  color: inherit;\n}\n\n.mat-datepicker-toggle-active {\n  color: var(--mat-datepicker-toggle-active-state-icon-color, var(--mat-sys-primary));\n}\n\n@media (forced-colors: active) {\n  .mat-datepicker-toggle-default-icon {\n    color: CanvasText;\n  }\n}\n"],
     dependencies: [{
       kind: "component",
       type: MatIconButton,
@@ -3838,7 +3838,7 @@ class MatDatepickerToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerToggle,
   decorators: [{
@@ -3859,7 +3859,7 @@ i0.ɵɵngDeclareClassMetadata({
       changeDetection: ChangeDetectionStrategy.OnPush,
       imports: [MatIconButton],
       template: "<button\n  #button\n  matIconButton\n  type=\"button\"\n  [attr.aria-haspopup]=\"datepicker ? 'dialog' : null\"\n  [attr.aria-label]=\"ariaLabel || _intl.openCalendarLabel\"\n  [tabIndex]=\"disabled ? -1 : tabIndex\"\n  [attr.aria-expanded]=\"datepicker ? datepicker.opened : null\"\n  [disabled]=\"disabled\"\n  [disableRipple]=\"disableRipple\">\n\n  @if (!_customIcon) {\n    <svg\n      class=\"mat-datepicker-toggle-default-icon\"\n      viewBox=\"0 0 24 24\"\n      width=\"24px\"\n      height=\"24px\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/>\n    </svg>\n  }\n\n  <ng-content select=\"[matDatepickerToggleIcon]\"></ng-content>\n</button>\n",
-      styles: [".mat-datepicker-toggle{pointer-events:auto;color:var(--mat-datepicker-toggle-icon-color, var(--mat-sys-on-surface-variant))}.mat-datepicker-toggle button{color:inherit}.mat-datepicker-toggle-active{color:var(--mat-datepicker-toggle-active-state-icon-color, var(--mat-sys-primary))}@media(forced-colors: active){.mat-datepicker-toggle-default-icon{color:CanvasText}}\n"]
+      styles: [".mat-datepicker-toggle {\n  pointer-events: auto;\n  color: var(--mat-datepicker-toggle-icon-color, var(--mat-sys-on-surface-variant));\n}\n.mat-datepicker-toggle button {\n  color: inherit;\n}\n\n.mat-datepicker-toggle-active {\n  color: var(--mat-datepicker-toggle-active-state-icon-color, var(--mat-sys-primary));\n}\n\n@media (forced-colors: active) {\n  .mat-datepicker-toggle-default-icon {\n    color: CanvasText;\n  }\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -4143,7 +4143,7 @@ class MatDateRangeInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDateRangeInput,
     deps: [],
@@ -4151,7 +4151,7 @@ class MatDateRangeInput {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDateRangeInput,
     isStandalone: true,
     selector: "mat-date-range-input",
@@ -4188,7 +4188,7 @@ class MatDateRangeInput {
     usesOnChanges: true,
     ngImport: i0,
     template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('start')}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-wrapper mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('end')}}</span>\n  </div>\n</div>\n\n",
-    styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{transition:opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);margin:0 4px;color:var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface))}.mat-form-field-disabled .mat-date-range-input-separator{color:var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}._mat-animation-noopable .mat-date-range-input-separator{transition:none}.mat-date-range-input-separator-hidden{-webkit-user-select:none;user-select:none;opacity:0;transition:none}.mat-date-range-input-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-end-wrapper{flex-grow:1}.mat-date-range-input-inner{position:absolute;top:0;left:0;font:inherit;background:rgba(0,0,0,0);color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%;height:100%}.mat-date-range-input-inner:-moz-ui-invalid{box-shadow:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner[disabled]{color:var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{opacity:0}}._mat-animation-noopable .mat-date-range-input-inner::placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder{transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix{width:200px}\n"],
+    styles: [".mat-date-range-input {\n  display: block;\n  width: 100%;\n}\n\n.mat-date-range-input-container {\n  display: flex;\n  align-items: center;\n}\n\n.mat-date-range-input-separator {\n  transition: opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n  margin: 0 4px;\n  color: var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface));\n}\n.mat-form-field-disabled .mat-date-range-input-separator {\n  color: var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n._mat-animation-noopable .mat-date-range-input-separator {\n  transition: none;\n}\n\n.mat-date-range-input-separator-hidden {\n  -webkit-user-select: none;\n  user-select: none;\n  opacity: 0;\n  transition: none;\n}\n\n.mat-date-range-input-wrapper {\n  position: relative;\n  overflow: hidden;\n  max-width: calc(50% - 4px);\n}\n\n.mat-date-range-input-end-wrapper {\n  flex-grow: 1;\n}\n\n.mat-date-range-input-inner {\n  position: absolute;\n  top: 0;\n  left: 0;\n  font: inherit;\n  background: transparent;\n  color: currentColor;\n  border: none;\n  outline: none;\n  padding: 0;\n  margin: 0;\n  vertical-align: bottom;\n  text-align: inherit;\n  -webkit-appearance: none;\n  width: 100%;\n  height: 100%;\n}\n.mat-date-range-input-inner:-moz-ui-invalid {\n  box-shadow: none;\n}\n.mat-date-range-input-inner::placeholder {\n  transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n}\n.mat-date-range-input-inner::-moz-placeholder {\n  transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n}\n.mat-date-range-input-inner::-webkit-input-placeholder {\n  transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n}\n.mat-date-range-input-inner:-ms-input-placeholder {\n  transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n}\n.mat-date-range-input-inner[disabled] {\n  color: var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder {\n  -webkit-user-select: none;\n  user-select: none;\n  color: transparent !important;\n  -webkit-text-fill-color: transparent;\n  transition: none;\n}\n@media (forced-colors: active) {\n  .mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder {\n    opacity: 0;\n  }\n}\n.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder {\n  -webkit-user-select: none;\n  user-select: none;\n  color: transparent !important;\n  -webkit-text-fill-color: transparent;\n  transition: none;\n}\n@media (forced-colors: active) {\n  .mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder {\n    opacity: 0;\n  }\n}\n.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder {\n  -webkit-user-select: none;\n  user-select: none;\n  color: transparent !important;\n  -webkit-text-fill-color: transparent;\n  transition: none;\n}\n@media (forced-colors: active) {\n  .mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder {\n    opacity: 0;\n  }\n}\n.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder {\n  -webkit-user-select: none;\n  user-select: none;\n  color: transparent !important;\n  -webkit-text-fill-color: transparent;\n  transition: none;\n}\n@media (forced-colors: active) {\n  .mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder {\n    opacity: 0;\n  }\n}\n._mat-animation-noopable .mat-date-range-input-inner::placeholder {\n  transition: none;\n}\n._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder {\n  transition: none;\n}\n._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder {\n  transition: none;\n}\n._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder {\n  transition: none;\n}\n\n.mat-date-range-input-mirror {\n  -webkit-user-select: none;\n  user-select: none;\n  visibility: hidden;\n  white-space: nowrap;\n  display: inline-block;\n  min-width: 2px;\n}\n\n.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix {\n  width: 200px;\n}\n"],
     dependencies: [{
       kind: "directive",
       type: CdkMonitorFocus,
@@ -4202,7 +4202,7 @@ class MatDateRangeInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDateRangeInput,
   decorators: [{
@@ -4228,7 +4228,7 @@ i0.ɵɵngDeclareClassMetadata({
       }],
       imports: [CdkMonitorFocus],
       template: "<div\n  class=\"mat-date-range-input-container\"\n  cdkMonitorSubtreeFocus\n  (cdkFocusChange)=\"_updateFocus($event)\">\n  <div class=\"mat-date-range-input-wrapper\">\n    <ng-content select=\"input[matStartDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('start')}}</span>\n  </div>\n\n  <span\n    class=\"mat-date-range-input-separator\"\n    [class.mat-date-range-input-separator-hidden]=\"_shouldHideSeparator()\">{{separator}}</span>\n\n  <div class=\"mat-date-range-input-wrapper mat-date-range-input-end-wrapper\">\n    <ng-content select=\"input[matEndDate]\"></ng-content>\n    <span\n      class=\"mat-date-range-input-mirror\"\n      aria-hidden=\"true\">{{_getInputMirrorValue('end')}}</span>\n  </div>\n</div>\n\n",
-      styles: [".mat-date-range-input{display:block;width:100%}.mat-date-range-input-container{display:flex;align-items:center}.mat-date-range-input-separator{transition:opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);margin:0 4px;color:var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface))}.mat-form-field-disabled .mat-date-range-input-separator{color:var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}._mat-animation-noopable .mat-date-range-input-separator{transition:none}.mat-date-range-input-separator-hidden{-webkit-user-select:none;user-select:none;opacity:0;transition:none}.mat-date-range-input-wrapper{position:relative;overflow:hidden;max-width:calc(50% - 4px)}.mat-date-range-input-end-wrapper{flex-grow:1}.mat-date-range-input-inner{position:absolute;top:0;left:0;font:inherit;background:rgba(0,0,0,0);color:currentColor;border:none;outline:none;padding:0;margin:0;vertical-align:bottom;text-align:inherit;-webkit-appearance:none;width:100%;height:100%}.mat-date-range-input-inner:-moz-ui-invalid{box-shadow:none}.mat-date-range-input-inner::placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-moz-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner::-webkit-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner:-ms-input-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1)}.mat-date-range-input-inner[disabled]{color:var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder{opacity:0}}.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{-webkit-user-select:none;user-select:none;color:rgba(0,0,0,0) !important;-webkit-text-fill-color:rgba(0,0,0,0);transition:none}@media(forced-colors: active){.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder,.mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder{opacity:0}}._mat-animation-noopable .mat-date-range-input-inner::placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder{transition:none}._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder{transition:none}.mat-date-range-input-mirror{-webkit-user-select:none;user-select:none;visibility:hidden;white-space:nowrap;display:inline-block;min-width:2px}.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix{width:200px}\n"]
+      styles: [".mat-date-range-input {\n  display: block;\n  width: 100%;\n}\n\n.mat-date-range-input-container {\n  display: flex;\n  align-items: center;\n}\n\n.mat-date-range-input-separator {\n  transition: opacity 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n  margin: 0 4px;\n  color: var(--mat-datepicker-range-input-separator-color, var(--mat-sys-on-surface));\n}\n.mat-form-field-disabled .mat-date-range-input-separator {\n  color: var(--mat-datepicker-range-input-disabled-state-separator-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n._mat-animation-noopable .mat-date-range-input-separator {\n  transition: none;\n}\n\n.mat-date-range-input-separator-hidden {\n  -webkit-user-select: none;\n  user-select: none;\n  opacity: 0;\n  transition: none;\n}\n\n.mat-date-range-input-wrapper {\n  position: relative;\n  overflow: hidden;\n  max-width: calc(50% - 4px);\n}\n\n.mat-date-range-input-end-wrapper {\n  flex-grow: 1;\n}\n\n.mat-date-range-input-inner {\n  position: absolute;\n  top: 0;\n  left: 0;\n  font: inherit;\n  background: transparent;\n  color: currentColor;\n  border: none;\n  outline: none;\n  padding: 0;\n  margin: 0;\n  vertical-align: bottom;\n  text-align: inherit;\n  -webkit-appearance: none;\n  width: 100%;\n  height: 100%;\n}\n.mat-date-range-input-inner:-moz-ui-invalid {\n  box-shadow: none;\n}\n.mat-date-range-input-inner::placeholder {\n  transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n}\n.mat-date-range-input-inner::-moz-placeholder {\n  transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n}\n.mat-date-range-input-inner::-webkit-input-placeholder {\n  transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n}\n.mat-date-range-input-inner:-ms-input-placeholder {\n  transition: color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);\n}\n.mat-date-range-input-inner[disabled] {\n  color: var(--mat-datepicker-range-input-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n.mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder {\n  -webkit-user-select: none;\n  user-select: none;\n  color: transparent !important;\n  -webkit-text-fill-color: transparent;\n  transition: none;\n}\n@media (forced-colors: active) {\n  .mat-form-field-hide-placeholder .mat-date-range-input-inner::placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::placeholder {\n    opacity: 0;\n  }\n}\n.mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder {\n  -webkit-user-select: none;\n  user-select: none;\n  color: transparent !important;\n  -webkit-text-fill-color: transparent;\n  transition: none;\n}\n@media (forced-colors: active) {\n  .mat-form-field-hide-placeholder .mat-date-range-input-inner::-moz-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-moz-placeholder {\n    opacity: 0;\n  }\n}\n.mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder {\n  -webkit-user-select: none;\n  user-select: none;\n  color: transparent !important;\n  -webkit-text-fill-color: transparent;\n  transition: none;\n}\n@media (forced-colors: active) {\n  .mat-form-field-hide-placeholder .mat-date-range-input-inner::-webkit-input-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner::-webkit-input-placeholder {\n    opacity: 0;\n  }\n}\n.mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder {\n  -webkit-user-select: none;\n  user-select: none;\n  color: transparent !important;\n  -webkit-text-fill-color: transparent;\n  transition: none;\n}\n@media (forced-colors: active) {\n  .mat-form-field-hide-placeholder .mat-date-range-input-inner:-ms-input-placeholder, .mat-date-range-input-hide-placeholders .mat-date-range-input-inner:-ms-input-placeholder {\n    opacity: 0;\n  }\n}\n._mat-animation-noopable .mat-date-range-input-inner::placeholder {\n  transition: none;\n}\n._mat-animation-noopable .mat-date-range-input-inner::-moz-placeholder {\n  transition: none;\n}\n._mat-animation-noopable .mat-date-range-input-inner::-webkit-input-placeholder {\n  transition: none;\n}\n._mat-animation-noopable .mat-date-range-input-inner:-ms-input-placeholder {\n  transition: none;\n}\n\n.mat-date-range-input-mirror {\n  -webkit-user-select: none;\n  user-select: none;\n  visibility: hidden;\n  white-space: nowrap;\n  display: inline-block;\n  min-width: 2px;\n}\n\n.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix {\n  width: 200px;\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -4428,7 +4428,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDateRangeInputPartBase,
     deps: [],
@@ -4436,7 +4436,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDateRangeInputPartBase,
     isStandalone: true,
     inputs: {
@@ -4448,7 +4448,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDateRangeInputPartBase,
   decorators: [{
@@ -4507,7 +4507,7 @@ class MatStartDate extends MatDateRangeInputPartBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatStartDate,
     deps: null,
@@ -4515,7 +4515,7 @@ class MatStartDate extends MatDateRangeInputPartBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatStartDate,
     isStandalone: true,
     selector: "input[matStartDate]",
@@ -4557,7 +4557,7 @@ class MatStartDate extends MatDateRangeInputPartBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatStartDate,
   decorators: [{
@@ -4643,7 +4643,7 @@ class MatEndDate extends MatDateRangeInputPartBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatEndDate,
     deps: null,
@@ -4651,7 +4651,7 @@ class MatEndDate extends MatDateRangeInputPartBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatEndDate,
     isStandalone: true,
     selector: "input[matEndDate]",
@@ -4693,7 +4693,7 @@ class MatEndDate extends MatDateRangeInputPartBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatEndDate,
   decorators: [{
@@ -4740,7 +4740,7 @@ class MatDateRangePicker extends MatDatepickerBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDateRangePicker,
     deps: null,
@@ -4748,7 +4748,7 @@ class MatDateRangePicker extends MatDatepickerBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDateRangePicker,
     isStandalone: true,
     selector: "mat-date-range-picker",
@@ -4776,7 +4776,7 @@ class MatDateRangePicker extends MatDatepickerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDateRangePicker,
   decorators: [{
@@ -4813,7 +4813,7 @@ class MatDatepickerApply {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerApply,
     deps: [],
@@ -4821,7 +4821,7 @@ class MatDatepickerApply {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerApply,
     isStandalone: true,
     selector: "[matDatepickerApply], [matDateRangePickerApply]",
@@ -4835,7 +4835,7 @@ class MatDatepickerApply {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerApply,
   decorators: [{
@@ -4854,7 +4854,7 @@ class MatDatepickerCancel {
   constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerCancel,
     deps: [],
@@ -4862,7 +4862,7 @@ class MatDatepickerCancel {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerCancel,
     isStandalone: true,
     selector: "[matDatepickerCancel], [matDateRangePickerCancel]",
@@ -4876,7 +4876,7 @@ class MatDatepickerCancel {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerCancel,
   decorators: [{
@@ -4908,7 +4908,7 @@ class MatDatepickerActions {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerActions,
     deps: [],
@@ -4916,7 +4916,7 @@ class MatDatepickerActions {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     type: MatDatepickerActions,
     isStandalone: true,
     selector: "mat-datepicker-actions, mat-date-range-picker-actions",
@@ -4935,14 +4935,14 @@ class MatDatepickerActions {
     </ng-template>
   `,
     isInline: true,
-    styles: [".mat-datepicker-actions{display:flex;justify-content:flex-end;align-items:center;padding:0 8px 8px 8px}.mat-datepicker-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-datepicker-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"],
+    styles: [".mat-datepicker-actions {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n  padding: 0 8px 8px 8px;\n}\n.mat-datepicker-actions .mat-mdc-button-base + .mat-mdc-button-base {\n  margin-left: 8px;\n}\n[dir=rtl] .mat-datepicker-actions .mat-mdc-button-base + .mat-mdc-button-base {\n  margin-left: 0;\n  margin-right: 8px;\n}\n"],
     changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerActions,
   decorators: [{
@@ -4958,7 +4958,7 @@ i0.ɵɵngDeclareClassMetadata({
   `,
       changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
-      styles: [".mat-datepicker-actions{display:flex;justify-content:flex-end;align-items:center;padding:0 8px 8px 8px}.mat-datepicker-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-datepicker-actions .mat-mdc-button-base+.mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
+      styles: [".mat-datepicker-actions {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n  padding: 0 8px 8px 8px;\n}\n.mat-datepicker-actions .mat-mdc-button-base + .mat-mdc-button-base {\n  margin-left: 8px;\n}\n[dir=rtl] .mat-datepicker-actions .mat-mdc-button-base + .mat-mdc-button-base {\n  margin-left: 0;\n  margin-right: 8px;\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -4973,7 +4973,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDatepickerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerModule,
     deps: [],
@@ -4981,7 +4981,7 @@ class MatDatepickerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerModule,
     imports: [MatButtonModule, OverlayModule, A11yModule, PortalModule, MatCalendar, MatCalendarBody, MatDatepicker, MatDatepickerContent, MatDatepickerInput, MatDatepickerToggle, MatDatepickerToggleIcon, MatMonthView, MatYearView, MatMultiYearView, MatCalendarHeader, MatDateRangeInput, MatStartDate, MatEndDate, MatDateRangePicker, MatDatepickerActions, MatDatepickerCancel, MatDatepickerApply],
@@ -4989,7 +4989,7 @@ class MatDatepickerModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.4",
     ngImport: i0,
     type: MatDatepickerModule,
     providers: [MatDatepickerIntl],
@@ -4998,7 +4998,7 @@ class MatDatepickerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.4",
   ngImport: i0,
   type: MatDatepickerModule,
   decorators: [{

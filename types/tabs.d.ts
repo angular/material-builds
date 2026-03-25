@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, TemplateRef, OnInit, OnChanges, OnDestroy, SimpleChanges, QueryList, ElementRef, AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { FocusKeyManager, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusableOption, FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import * as i2 from '@angular/cdk/bidi';
 import { Direction } from '@angular/cdk/bidi';
 import { ThemePalette } from './_palette-chunk.js';

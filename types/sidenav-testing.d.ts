@@ -1,4 +1,4 @@
-import { BaseHarnessFilters, HarnessPredicate, ContentContainerComponentHarness } from '@angular/cdk/testing';
+import { BaseHarnessFilters, ContentContainerComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
 
 /** A set of criteria that can be used to filter a list of `MatDrawerHarness` instances. */
 interface DrawerHarnessFilters extends BaseHarnessFilters {
