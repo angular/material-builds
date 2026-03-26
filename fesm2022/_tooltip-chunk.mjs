@@ -537,13 +537,13 @@ class MatTooltip {
       const element = this._elementRef.nativeElement;
       const style = element.style;
       if (gestures === 'on' || element.nodeName !== 'INPUT' && element.nodeName !== 'TEXTAREA') {
-        style.userSelect = style.msUserSelect = style.webkitUserSelect = style.MozUserSelect = 'none';
+        style['userSelect'] = style['msUserSelect'] = style['webkitUserSelect'] = style['MozUserSelect'] = 'none';
       }
       if (gestures === 'on' || !element.draggable) {
-        style.webkitUserDrag = 'none';
+        style['webkitUserDrag'] = 'none';
       }
-      style.touchAction = 'none';
-      style.webkitTapHighlightColor = 'transparent';
+      style['touchAction'] = 'none';
+      style['webkitTapHighlightColor'] = 'transparent';
     }
   }
   _syncAriaDescription(oldMessage) {
