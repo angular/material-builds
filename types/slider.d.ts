@@ -1,7 +1,7 @@
+import * as i0 from '@angular/core';
+import { WritableSignal, Signal, ChangeDetectorRef, AfterViewInit, OnDestroy, NgZone, ElementRef, QueryList, EventEmitter } from '@angular/core';
 import * as i2 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
-import * as i0 from '@angular/core';
-import { WritableSignal, ChangeDetectorRef, AfterViewInit, OnDestroy, NgZone, ElementRef, QueryList, EventEmitter } from '@angular/core';
 import { ThemePalette } from './_palette-chunk.js';
 import { MatRipple, RippleGlobalOptions } from './_ripple-chunk.js';
 import { ControlValueAccessor } from '@angular/forms';
@@ -62,7 +62,7 @@ interface _MatSlider {
     /** Whether the slider is a range slider. */
     _isRange: boolean;
     /** Whether the slider is rtl. */
-    _isRtl: boolean;
+    _isRtl: Signal<boolean>;
     /** The stored width of the host element's bounding client rect. */
     _cachedWidth: number;
     /** The stored width of the host element's bounding client rect. */
@@ -242,8 +242,6 @@ declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     _tickMarks: _MatTickMark[];
     /** Whether animations have been disabled. */
     _noopAnimations: boolean;
-    /** Subscription to changes to the directionality (LTR / RTL) context for the application. */
-    private _dirChangeSubscription;
     /** Observer used to monitor size changes in the slider. */
     private _resizeObserver;
     _cachedWidth: number;
@@ -257,7 +255,7 @@ declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     _startThumbTransform: string;
     _isRange: boolean;
     /** Whether the slider is rtl. */
-    _isRtl: boolean;
+    _isRtl: i0.Signal<boolean>;
     private _hasViewInitialized;
     /**
      * The width of the tick mark track.
@@ -275,8 +273,6 @@ declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     private _initUINonRange;
     private _initUIRange;
     ngOnDestroy(): void;
-    /** Handles updating the slider ui after a dir change. */
-    private _onDirChange;
     private _onDirChangeRange;
     private _onDirChangeNonRange;
     /** Starts observing and updating the slider if the host changes its size. */
