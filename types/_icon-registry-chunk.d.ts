@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import * as i0 from '@angular/core';
 import { OnDestroy, ErrorHandler } from '@angular/core';
-import { SafeResourceUrl, SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { SafeResourceUrl, DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 
 /**

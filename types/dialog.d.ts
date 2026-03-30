@@ -1,7 +1,7 @@
 import { MatDialogRef, MatDialogContainer } from './_dialog-chunk.js';
 export { AutoFocusTarget, DialogPosition, DialogRole, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MatDialog, MatDialogConfig, MatDialogState, _closeDialogVia } from './_dialog-chunk.js';
 import * as i0 from '@angular/core';
-import { OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import * as i1 from '@angular/cdk/scrolling';
 import * as i1$1 from '@angular/cdk/dialog';
 import * as i2 from '@angular/cdk/overlay';

@@ -1,10 +1,10 @@
 import { BooleanInput, NumberInput } from '@angular/cdk/coercion';
 import * as i0 from '@angular/core';
-import { InjectionToken, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
+import { OnDestroy, AfterViewInit, ElementRef, InjectionToken } from '@angular/core';
 import * as i2$1 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
 import * as i2 from '@angular/cdk/overlay';
-import { ScrollStrategy, OverlayRef, ConnectedPosition, OriginConnectionPosition, OverlayConnectionPosition } from '@angular/cdk/overlay';
+import { OverlayRef, ConnectedPosition, OriginConnectionPosition, OverlayConnectionPosition, ScrollStrategy } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 import * as i1 from '@angular/cdk/a11y';
 import * as i1$1 from '@angular/cdk/scrolling';

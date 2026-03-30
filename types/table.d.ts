@@ -1,5 +1,5 @@
 import * as i1 from '@angular/cdk/table';
-import { CdkTable, CdkCellDef, CdkHeaderCellDef, CdkFooterCellDef, CdkColumnDef, CdkHeaderCell, CdkFooterCell, CdkCell, CdkHeaderRowDef, CdkFooterRowDef, CdkRowDef, CdkHeaderRow, CdkFooterRow, CdkRow, CdkNoDataRow, CdkTextColumn } from '@angular/cdk/table';
+import { CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkNoDataRow, CdkRow, CdkRowDef, CdkTextColumn } from '@angular/cdk/table';
 import * as i0 from '@angular/core';
 import * as i2 from '@angular/cdk/bidi';
 import { Subscription, BehaviorSubject } from 'rxjs';

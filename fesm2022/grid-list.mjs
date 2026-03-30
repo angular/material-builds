@@ -1,10 +1,10 @@
 import { TileCoordinator } from './_public-api-chunk.mjs';
 export { ɵTileCoordinator } from './_public-api-chunk.mjs';
+import * as i0 from '@angular/core';
+import { InjectionToken, inject, ElementRef, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, ContentChildren, Directive, NgModule } from '@angular/core';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { setLines, MatLine, MatLineModule } from './_line-chunk.mjs';
 import { Directionality, BidiModule } from '@angular/cdk/bidi';
-import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, ContentChildren, Directive, NgModule } from '@angular/core';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
 import 'rxjs/operators';
 
 const MAT_GRID_LIST = new InjectionToken('MAT_GRID_LIST');
@@ -34,7 +34,7 @@ class MatGridTile {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridTile,
     deps: [],
@@ -42,7 +42,7 @@ class MatGridTile {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatGridTile,
     isStandalone: true,
     selector: "mat-grid-tile",
@@ -60,14 +60,14 @@ class MatGridTile {
     exportAs: ["matGridTile"],
     ngImport: i0,
     template: "<div class=\"mat-grid-tile-content\">\n  <ng-content></ng-content>\n</div>\n",
-    styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-grid-tile-header,.mat-grid-tile .mat-grid-tile-footer{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-header>*,.mat-grid-tile .mat-grid-tile-footer>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-grid-tile .mat-grid-tile-header.mat-2-line,.mat-grid-tile .mat-grid-tile-footer.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}.mat-grid-tile-header{font-size:var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large))}.mat-grid-tile-header .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile-header .mat-line:nth-child(n+2){font-size:var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium))}.mat-grid-tile-footer{font-size:var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large))}.mat-grid-tile-footer .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile-footer .mat-line:nth-child(n+2){font-size:var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium))}.mat-grid-tile-content{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}\n"],
+    styles: [".mat-grid-list {\n  display: block;\n  position: relative;\n}\n\n.mat-grid-tile {\n  display: block;\n  position: absolute;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-tile-header,\n.mat-grid-tile .mat-grid-tile-footer {\n  display: flex;\n  align-items: center;\n  height: 48px;\n  color: #fff;\n  background: rgba(0, 0, 0, 0.38);\n  overflow: hidden;\n  padding: 0 16px;\n  position: absolute;\n  left: 0;\n  right: 0;\n}\n.mat-grid-tile .mat-grid-tile-header > *,\n.mat-grid-tile .mat-grid-tile-footer > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-tile-header.mat-2-line,\n.mat-grid-tile .mat-grid-tile-footer.mat-2-line {\n  height: 68px;\n}\n.mat-grid-tile .mat-grid-list-text {\n  display: flex;\n  flex-direction: column;\n  flex: auto;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-list-text > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-list-text:empty {\n  display: none;\n}\n.mat-grid-tile .mat-grid-tile-header {\n  top: 0;\n}\n.mat-grid-tile .mat-grid-tile-footer {\n  bottom: 0;\n}\n.mat-grid-tile .mat-grid-avatar {\n  padding-right: 16px;\n}\n[dir=rtl] .mat-grid-tile .mat-grid-avatar {\n  padding-right: 0;\n  padding-left: 16px;\n}\n.mat-grid-tile .mat-grid-avatar:empty {\n  display: none;\n}\n\n.mat-grid-tile-header {\n  font-size: var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-header .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-header .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-footer {\n  font-size: var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-footer .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-footer .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-content {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n"],
     changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatGridTile,
   decorators: [{
@@ -83,7 +83,7 @@ i0.ɵɵngDeclareClassMetadata({
       encapsulation: ViewEncapsulation.None,
       changeDetection: ChangeDetectionStrategy.OnPush,
       template: "<div class=\"mat-grid-tile-content\">\n  <ng-content></ng-content>\n</div>\n",
-      styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-grid-tile-header,.mat-grid-tile .mat-grid-tile-footer{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-header>*,.mat-grid-tile .mat-grid-tile-footer>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-grid-tile .mat-grid-tile-header.mat-2-line,.mat-grid-tile .mat-grid-tile-footer.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}.mat-grid-tile-header{font-size:var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large))}.mat-grid-tile-header .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile-header .mat-line:nth-child(n+2){font-size:var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium))}.mat-grid-tile-footer{font-size:var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large))}.mat-grid-tile-footer .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile-footer .mat-line:nth-child(n+2){font-size:var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium))}.mat-grid-tile-content{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}\n"]
+      styles: [".mat-grid-list {\n  display: block;\n  position: relative;\n}\n\n.mat-grid-tile {\n  display: block;\n  position: absolute;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-tile-header,\n.mat-grid-tile .mat-grid-tile-footer {\n  display: flex;\n  align-items: center;\n  height: 48px;\n  color: #fff;\n  background: rgba(0, 0, 0, 0.38);\n  overflow: hidden;\n  padding: 0 16px;\n  position: absolute;\n  left: 0;\n  right: 0;\n}\n.mat-grid-tile .mat-grid-tile-header > *,\n.mat-grid-tile .mat-grid-tile-footer > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-tile-header.mat-2-line,\n.mat-grid-tile .mat-grid-tile-footer.mat-2-line {\n  height: 68px;\n}\n.mat-grid-tile .mat-grid-list-text {\n  display: flex;\n  flex-direction: column;\n  flex: auto;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-list-text > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-list-text:empty {\n  display: none;\n}\n.mat-grid-tile .mat-grid-tile-header {\n  top: 0;\n}\n.mat-grid-tile .mat-grid-tile-footer {\n  bottom: 0;\n}\n.mat-grid-tile .mat-grid-avatar {\n  padding-right: 16px;\n}\n[dir=rtl] .mat-grid-tile .mat-grid-avatar {\n  padding-right: 0;\n  padding-left: 16px;\n}\n.mat-grid-tile .mat-grid-avatar:empty {\n  display: none;\n}\n\n.mat-grid-tile-header {\n  font-size: var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-header .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-header .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-footer {\n  font-size: var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-footer .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-footer .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-content {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -105,7 +105,7 @@ class MatGridTileText {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridTileText,
     deps: [],
@@ -113,7 +113,7 @@ class MatGridTileText {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatGridTileText,
     isStandalone: true,
     selector: "mat-grid-tile-header, mat-grid-tile-footer",
@@ -130,7 +130,7 @@ class MatGridTileText {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatGridTileText,
   decorators: [{
@@ -155,7 +155,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridAvatarCssMatStyler {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridAvatarCssMatStyler,
     deps: [],
@@ -163,7 +163,7 @@ class MatGridAvatarCssMatStyler {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatGridAvatarCssMatStyler,
     isStandalone: true,
     selector: "[mat-grid-avatar], [matGridAvatar]",
@@ -175,7 +175,7 @@ class MatGridAvatarCssMatStyler {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatGridAvatarCssMatStyler,
   decorators: [{
@@ -191,7 +191,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridTileHeaderCssMatStyler {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridTileHeaderCssMatStyler,
     deps: [],
@@ -199,7 +199,7 @@ class MatGridTileHeaderCssMatStyler {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatGridTileHeaderCssMatStyler,
     isStandalone: true,
     selector: "mat-grid-tile-header",
@@ -211,7 +211,7 @@ class MatGridTileHeaderCssMatStyler {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatGridTileHeaderCssMatStyler,
   decorators: [{
@@ -227,7 +227,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridTileFooterCssMatStyler {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridTileFooterCssMatStyler,
     deps: [],
@@ -235,7 +235,7 @@ class MatGridTileFooterCssMatStyler {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatGridTileFooterCssMatStyler,
     isStandalone: true,
     selector: "mat-grid-tile-footer",
@@ -247,7 +247,7 @@ class MatGridTileFooterCssMatStyler {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatGridTileFooterCssMatStyler,
   decorators: [{
@@ -477,7 +477,7 @@ class MatGridList {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridList,
     deps: [],
@@ -485,7 +485,7 @@ class MatGridList {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatGridList,
     isStandalone: true,
     selector: "mat-grid-list",
@@ -512,14 +512,14 @@ class MatGridList {
     exportAs: ["matGridList"],
     ngImport: i0,
     template: "<div>\n  <ng-content></ng-content>\n</div>",
-    styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-grid-tile-header,.mat-grid-tile .mat-grid-tile-footer{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-header>*,.mat-grid-tile .mat-grid-tile-footer>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-grid-tile .mat-grid-tile-header.mat-2-line,.mat-grid-tile .mat-grid-tile-footer.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}.mat-grid-tile-header{font-size:var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large))}.mat-grid-tile-header .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile-header .mat-line:nth-child(n+2){font-size:var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium))}.mat-grid-tile-footer{font-size:var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large))}.mat-grid-tile-footer .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile-footer .mat-line:nth-child(n+2){font-size:var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium))}.mat-grid-tile-content{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}\n"],
+    styles: [".mat-grid-list {\n  display: block;\n  position: relative;\n}\n\n.mat-grid-tile {\n  display: block;\n  position: absolute;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-tile-header,\n.mat-grid-tile .mat-grid-tile-footer {\n  display: flex;\n  align-items: center;\n  height: 48px;\n  color: #fff;\n  background: rgba(0, 0, 0, 0.38);\n  overflow: hidden;\n  padding: 0 16px;\n  position: absolute;\n  left: 0;\n  right: 0;\n}\n.mat-grid-tile .mat-grid-tile-header > *,\n.mat-grid-tile .mat-grid-tile-footer > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-tile-header.mat-2-line,\n.mat-grid-tile .mat-grid-tile-footer.mat-2-line {\n  height: 68px;\n}\n.mat-grid-tile .mat-grid-list-text {\n  display: flex;\n  flex-direction: column;\n  flex: auto;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-list-text > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-list-text:empty {\n  display: none;\n}\n.mat-grid-tile .mat-grid-tile-header {\n  top: 0;\n}\n.mat-grid-tile .mat-grid-tile-footer {\n  bottom: 0;\n}\n.mat-grid-tile .mat-grid-avatar {\n  padding-right: 16px;\n}\n[dir=rtl] .mat-grid-tile .mat-grid-avatar {\n  padding-right: 0;\n  padding-left: 16px;\n}\n.mat-grid-tile .mat-grid-avatar:empty {\n  display: none;\n}\n\n.mat-grid-tile-header {\n  font-size: var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-header .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-header .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-footer {\n  font-size: var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-footer .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-footer .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-content {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n"],
     changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatGridList,
   decorators: [{
@@ -538,7 +538,7 @@ i0.ɵɵngDeclareClassMetadata({
       changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       template: "<div>\n  <ng-content></ng-content>\n</div>",
-      styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-grid-tile-header,.mat-grid-tile .mat-grid-tile-footer{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-header>*,.mat-grid-tile .mat-grid-tile-footer>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-grid-tile .mat-grid-tile-header.mat-2-line,.mat-grid-tile .mat-grid-tile-footer.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}.mat-grid-tile-header{font-size:var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large))}.mat-grid-tile-header .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile-header .mat-line:nth-child(n+2){font-size:var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium))}.mat-grid-tile-footer{font-size:var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large))}.mat-grid-tile-footer .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile-footer .mat-line:nth-child(n+2){font-size:var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium))}.mat-grid-tile-content{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}\n"]
+      styles: [".mat-grid-list {\n  display: block;\n  position: relative;\n}\n\n.mat-grid-tile {\n  display: block;\n  position: absolute;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-tile-header,\n.mat-grid-tile .mat-grid-tile-footer {\n  display: flex;\n  align-items: center;\n  height: 48px;\n  color: #fff;\n  background: rgba(0, 0, 0, 0.38);\n  overflow: hidden;\n  padding: 0 16px;\n  position: absolute;\n  left: 0;\n  right: 0;\n}\n.mat-grid-tile .mat-grid-tile-header > *,\n.mat-grid-tile .mat-grid-tile-footer > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-tile-header.mat-2-line,\n.mat-grid-tile .mat-grid-tile-footer.mat-2-line {\n  height: 68px;\n}\n.mat-grid-tile .mat-grid-list-text {\n  display: flex;\n  flex-direction: column;\n  flex: auto;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-list-text > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-list-text:empty {\n  display: none;\n}\n.mat-grid-tile .mat-grid-tile-header {\n  top: 0;\n}\n.mat-grid-tile .mat-grid-tile-footer {\n  bottom: 0;\n}\n.mat-grid-tile .mat-grid-avatar {\n  padding-right: 16px;\n}\n[dir=rtl] .mat-grid-tile .mat-grid-avatar {\n  padding-right: 0;\n  padding-left: 16px;\n}\n.mat-grid-tile .mat-grid-avatar:empty {\n  display: none;\n}\n\n.mat-grid-tile-header {\n  font-size: var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-header .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-header .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-footer {\n  font-size: var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-footer .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-footer .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-content {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -564,7 +564,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridListModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridListModule,
     deps: [],
@@ -572,7 +572,7 @@ class MatGridListModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridListModule,
     imports: [MatLineModule, MatGridList, MatGridTile, MatGridTileText, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler, MatGridAvatarCssMatStyler],
@@ -580,7 +580,7 @@ class MatGridListModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatGridListModule,
     imports: [MatLineModule, BidiModule, MatLineModule]
@@ -588,7 +588,7 @@ class MatGridListModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatGridListModule,
   decorators: [{

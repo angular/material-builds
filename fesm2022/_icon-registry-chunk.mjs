@@ -1,7 +1,7 @@
 import { trustedHTMLFromString } from '@angular/cdk/private';
 import * as i1 from '@angular/common/http';
 import * as i0 from '@angular/core';
-import { SecurityContext, DOCUMENT, Injectable, Optional, Inject } from '@angular/core';
+import { SecurityContext, DOCUMENT, Optional, Inject, Injectable } from '@angular/core';
 import * as i2 from '@angular/platform-browser';
 import { of, throwError, forkJoin } from 'rxjs';
 import { tap, map, catchError, finalize, share } from 'rxjs/operators';
@@ -300,7 +300,7 @@ class MatIconRegistry {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatIconRegistry,
     deps: [{
@@ -318,7 +318,7 @@ class MatIconRegistry {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatIconRegistry,
     providedIn: 'root'
@@ -326,7 +326,7 @@ class MatIconRegistry {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatIconRegistry,
   decorators: [{

@@ -1,4 +1,4 @@
-import { Signal, InjectionToken } from '@angular/core';
+import { InjectionToken, Signal } from '@angular/core';
 
 /**
  * Describes a parent component that manages a list of options.

@@ -1,6 +1,6 @@
 import { FocusOrigin } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import { InjectionToken, AfterContentInit, OnDestroy, EventEmitter, QueryList, OnInit, AfterViewInit, DoCheck, ElementRef } from '@angular/core';
+import { InjectionToken, AfterContentInit, OnDestroy, EventEmitter, OnInit, AfterViewInit, DoCheck, ElementRef, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { ThemePalette } from './_palette-chunk.js';
 import { MatRippleModule } from './_ripple-module-chunk.js';

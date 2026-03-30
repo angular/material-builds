@@ -1,10 +1,10 @@
-import { CdkTreeNode, CdkTreeNodeDef, CdkNestedTreeNode, CDK_TREE_NODE_OUTLET_NODE, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTree, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
+import { CdkNestedTreeNode, CdkTreeNode, CDK_TREE_NODE_OUTLET_NODE, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeOutlet, CdkTree, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
 import * as i0 from '@angular/core';
-import { inject, HostAttributeToken, numberAttribute, booleanAttribute, Directive, Input, ViewContainerRef, Component, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, NgModule } from '@angular/core';
-import { BidiModule } from '@angular/cdk/bidi';
+import { booleanAttribute, numberAttribute, inject, HostAttributeToken, Input, Directive, ViewContainerRef, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
+import { BidiModule } from '@angular/cdk/bidi';
 
 function isNoopTreeKeyManager(keyManager) {
   return !!keyManager._isNoopTreeKeyManager;
@@ -45,7 +45,7 @@ class MatTreeNode extends CdkTreeNode {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTreeNode,
     deps: [],
@@ -53,7 +53,7 @@ class MatTreeNode extends CdkTreeNode {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatTreeNode,
     isStandalone: true,
     selector: "mat-tree-node",
@@ -89,7 +89,7 @@ class MatTreeNode extends CdkTreeNode {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTreeNode,
   decorators: [{
@@ -134,7 +134,7 @@ class MatTreeNodeDef extends CdkTreeNodeDef {
   data;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTreeNodeDef,
     deps: null,
@@ -142,7 +142,7 @@ class MatTreeNodeDef extends CdkTreeNodeDef {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatTreeNodeDef,
     isStandalone: true,
     selector: "[matTreeNodeDef]",
@@ -160,7 +160,7 @@ class MatTreeNodeDef extends CdkTreeNodeDef {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTreeNodeDef,
   decorators: [{
@@ -210,7 +210,7 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatNestedTreeNode,
     deps: null,
@@ -218,7 +218,7 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatNestedTreeNode,
     isStandalone: true,
     selector: "mat-nested-tree-node",
@@ -251,7 +251,7 @@ class MatNestedTreeNode extends CdkNestedTreeNode {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatNestedTreeNode,
   decorators: [{
@@ -310,7 +310,7 @@ class MatTreeNodePadding extends CdkTreeNodePadding {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTreeNodePadding,
     deps: null,
@@ -318,7 +318,7 @@ class MatTreeNodePadding extends CdkTreeNodePadding {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatTreeNodePadding,
     isStandalone: true,
     selector: "[matTreeNodePadding]",
@@ -336,7 +336,7 @@ class MatTreeNodePadding extends CdkTreeNodePadding {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTreeNodePadding,
   decorators: [{
@@ -371,7 +371,7 @@ class MatTreeNodeOutlet {
   });
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTreeNodeOutlet,
     deps: [],
@@ -379,7 +379,7 @@ class MatTreeNodeOutlet {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatTreeNodeOutlet,
     isStandalone: true,
     selector: "[matTreeNodeOutlet]",
@@ -392,7 +392,7 @@ class MatTreeNodeOutlet {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTreeNodeOutlet,
   decorators: [{
@@ -411,7 +411,7 @@ class MatTree extends CdkTree {
   _nodeOutlet = undefined;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTree,
     deps: null,
@@ -419,7 +419,7 @@ class MatTree extends CdkTree {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatTree,
     isStandalone: true,
     selector: "mat-tree",
@@ -442,7 +442,7 @@ class MatTree extends CdkTree {
     ngImport: i0,
     template: `<ng-container matTreeNodeOutlet></ng-container>`,
     isInline: true,
-    styles: [".mat-tree{display:block;background-color:var(--mat-tree-container-background-color, var(--mat-sys-surface))}.mat-tree-node,.mat-nested-tree-node{color:var(--mat-tree-node-text-color, var(--mat-sys-on-surface));font-family:var(--mat-tree-node-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-tree-node-text-size, var(--mat-sys-body-large-size));font-weight:var(--mat-tree-node-text-weight, var(--mat-sys-body-large-weight))}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word;min-height:var(--mat-tree-node-min-height, 48px)}.mat-nested-tree-node{border-bottom-width:0}\n"],
+    styles: [".mat-tree {\n  display: block;\n  background-color: var(--mat-tree-container-background-color, var(--mat-sys-surface));\n}\n\n.mat-tree-node,\n.mat-nested-tree-node {\n  color: var(--mat-tree-node-text-color, var(--mat-sys-on-surface));\n  font-family: var(--mat-tree-node-text-font, var(--mat-sys-body-large-font));\n  font-size: var(--mat-tree-node-text-size, var(--mat-sys-body-large-size));\n  font-weight: var(--mat-tree-node-text-weight, var(--mat-sys-body-large-weight));\n}\n\n.mat-tree-node {\n  display: flex;\n  align-items: center;\n  flex: 1;\n  word-wrap: break-word;\n  min-height: var(--mat-tree-node-min-height, 48px);\n}\n\n.mat-nested-tree-node {\n  border-bottom-width: 0;\n}\n"],
     dependencies: [{
       kind: "directive",
       type: MatTreeNodeOutlet,
@@ -454,7 +454,7 @@ class MatTree extends CdkTree {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTree,
   decorators: [{
@@ -473,7 +473,7 @@ i0.ɵɵngDeclareClassMetadata({
         useExisting: MatTree
       }],
       imports: [MatTreeNodeOutlet],
-      styles: [".mat-tree{display:block;background-color:var(--mat-tree-container-background-color, var(--mat-sys-surface))}.mat-tree-node,.mat-nested-tree-node{color:var(--mat-tree-node-text-color, var(--mat-sys-on-surface));font-family:var(--mat-tree-node-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-tree-node-text-size, var(--mat-sys-body-large-size));font-weight:var(--mat-tree-node-text-weight, var(--mat-sys-body-large-weight))}.mat-tree-node{display:flex;align-items:center;flex:1;word-wrap:break-word;min-height:var(--mat-tree-node-min-height, 48px)}.mat-nested-tree-node{border-bottom-width:0}\n"]
+      styles: [".mat-tree {\n  display: block;\n  background-color: var(--mat-tree-container-background-color, var(--mat-sys-surface));\n}\n\n.mat-tree-node,\n.mat-nested-tree-node {\n  color: var(--mat-tree-node-text-color, var(--mat-sys-on-surface));\n  font-family: var(--mat-tree-node-text-font, var(--mat-sys-body-large-font));\n  font-size: var(--mat-tree-node-text-size, var(--mat-sys-body-large-size));\n  font-weight: var(--mat-tree-node-text-weight, var(--mat-sys-body-large-weight));\n}\n\n.mat-tree-node {\n  display: flex;\n  align-items: center;\n  flex: 1;\n  word-wrap: break-word;\n  min-height: var(--mat-tree-node-min-height, 48px);\n}\n\n.mat-nested-tree-node {\n  border-bottom-width: 0;\n}\n"]
     }]
   }],
   propDecorators: {
@@ -489,7 +489,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatTreeNodeToggle extends CdkTreeNodeToggle {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTreeNodeToggle,
     deps: null,
@@ -497,7 +497,7 @@ class MatTreeNodeToggle extends CdkTreeNodeToggle {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatTreeNodeToggle,
     isStandalone: true,
     selector: "[matTreeNodeToggle]",
@@ -514,7 +514,7 @@ class MatTreeNodeToggle extends CdkTreeNodeToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTreeNodeToggle,
   decorators: [{
@@ -537,7 +537,7 @@ const MAT_TREE_DIRECTIVES = [MatNestedTreeNode, MatTreeNodeDef, MatTreeNodePaddi
 class MatTreeModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTreeModule,
     deps: [],
@@ -545,7 +545,7 @@ class MatTreeModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTreeModule,
     imports: [CdkTreeModule, MatNestedTreeNode, MatTreeNodeDef, MatTreeNodePadding, MatTreeNodeToggle, MatTree, MatTreeNode, MatTreeNodeOutlet],
@@ -553,7 +553,7 @@ class MatTreeModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTreeModule,
     imports: [CdkTreeModule, BidiModule]
@@ -561,7 +561,7 @@ class MatTreeModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTreeModule,
   decorators: [{

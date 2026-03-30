@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Signal, ElementRef, OnDestroy, TemplateRef, InputSignalWithTransform, InputSignal, OutputEmitterRef, ModelSignal } from '@angular/core';
+import { InjectionToken, OnDestroy, Signal, TemplateRef, InputSignalWithTransform, InputSignal, OutputEmitterRef, ElementRef, ModelSignal } from '@angular/core';
 import { MatOption } from './_option-chunk.js';
 import { MatOptionParentComponent } from './_option-parent-chunk.js';
 import { ScrollStrategy } from '@angular/cdk/overlay';

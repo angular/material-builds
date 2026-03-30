@@ -1,4 +1,4 @@
-import { MatFormField, MatLabel, MatError, MatHint, MatPrefix, MatSuffix } from './_form-field-chunk.mjs';
+import { MatFormField, MatLabel, MatHint, MatError, MatPrefix, MatSuffix } from './_form-field-chunk.mjs';
 export { MAT_ERROR, MAT_FORM_FIELD, MAT_FORM_FIELD_DEFAULT_OPTIONS, MAT_PREFIX, MAT_SUFFIX, MatFormFieldControl, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, getMatFormFieldPlaceholderConflictError } from './_form-field-chunk.mjs';
 import { BidiModule } from '@angular/cdk/bidi';
 import { ObserversModule } from '@angular/cdk/observers';
@@ -17,7 +17,7 @@ import '@angular/cdk/layout';
 class MatFormFieldModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatFormFieldModule,
     deps: [],
@@ -25,7 +25,7 @@ class MatFormFieldModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatFormFieldModule,
     imports: [ObserversModule, MatFormField, MatLabel, MatError, MatHint, MatPrefix, MatSuffix],
@@ -33,7 +33,7 @@ class MatFormFieldModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatFormFieldModule,
     imports: [ObserversModule, MatFormField, BidiModule]
@@ -41,7 +41,7 @@ class MatFormFieldModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatFormFieldModule,
   decorators: [{

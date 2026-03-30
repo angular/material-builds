@@ -1,16 +1,16 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, DOCUMENT, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, Component, ViewEncapsulation, ChangeDetectionStrategy, Input, Output, ContentChild, ViewChild, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
-import { BidiModule } from '@angular/cdk/bidi';
+import { InjectionToken, inject, TemplateRef, Directive, ViewContainerRef, DOCUMENT, NgZone, ElementRef, Renderer2, EventEmitter, booleanAttribute, ViewChild, ContentChild, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, ChangeDetectorRef, HostAttributeToken, numberAttribute, QueryList, ContentChildren, NgModule } from '@angular/core';
 import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal, CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { _IdGenerator, FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
-import { startWith, filter, take } from 'rxjs/operators';
-import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
 import { Subject, Subscription, EMPTY, merge } from 'rxjs';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { startWith, filter, take } from 'rxjs/operators';
 import { _animationsDisabled } from './_animation-chunk.mjs';
+import { ENTER, hasModifierKey, SPACE } from '@angular/cdk/keycodes';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
+import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
 
 const MAT_ACCORDION = new InjectionToken('MAT_ACCORDION');
@@ -25,7 +25,7 @@ class MatExpansionPanelContent {
   constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionPanelContent,
     deps: [],
@@ -33,7 +33,7 @@ class MatExpansionPanelContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatExpansionPanelContent,
     isStandalone: true,
     selector: "ng-template[matExpansionPanelContent]",
@@ -42,7 +42,7 @@ class MatExpansionPanelContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatExpansionPanelContent,
   decorators: [{
@@ -171,7 +171,7 @@ class MatExpansionPanel extends CdkAccordionItem {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionPanel,
     deps: [],
@@ -179,7 +179,7 @@ class MatExpansionPanel extends CdkAccordionItem {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatExpansionPanel,
     isStandalone: true,
     selector: "mat-expansion-panel",
@@ -227,7 +227,7 @@ class MatExpansionPanel extends CdkAccordionItem {
     usesOnChanges: true,
     ngImport: i0,
     template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content>\n<div class=\"mat-expansion-panel-content-wrapper\" [attr.inert]=\"expanded ? null : ''\" #bodyWrapper>\n  <div class=\"mat-expansion-panel-content\"\n       role=\"region\"\n       [attr.aria-labelledby]=\"_headerId\"\n       [id]=\"id\"\n       #body>\n    <div class=\"mat-expansion-panel-body\">\n      <ng-content></ng-content>\n      <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n    </div>\n    <ng-content select=\"mat-action-row\"></ng-content>\n  </div>\n</div>\n",
-    styles: [".mat-expansion-panel{box-sizing:content-box;display:block;margin:0;overflow:hidden}.mat-expansion-panel.mat-expansion-panel-animations-enabled{transition:margin 225ms cubic-bezier(0.4, 0, 0.2, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel{position:relative;background:var(--mat-expansion-container-background-color, var(--mat-sys-surface));color:var(--mat-expansion-container-text-color, var(--mat-sys-on-surface));border-radius:var(--mat-expansion-container-shape, 12px)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:var(--mat-expansion-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12))}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:var(--mat-expansion-container-shape, 12px);border-top-left-radius:var(--mat-expansion-container-shape, 12px)}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:var(--mat-expansion-container-shape, 12px);border-bottom-left-radius:var(--mat-expansion-container-shape, 12px)}@media(forced-colors: active){.mat-expansion-panel{outline:solid 1px}}.mat-expansion-panel-content-wrapper{display:grid;grid-template-rows:0fr;grid-template-columns:100%}.mat-expansion-panel-animations-enabled .mat-expansion-panel-content-wrapper{transition:grid-template-rows 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel.mat-expanded>.mat-expansion-panel-content-wrapper{grid-template-rows:1fr}@supports not (grid-template-rows: 0fr){.mat-expansion-panel-content-wrapper{height:0}.mat-expansion-panel.mat-expanded>.mat-expansion-panel-content-wrapper{height:auto}}@media print{.mat-expansion-panel-content-wrapper{height:0}.mat-expansion-panel.mat-expanded>.mat-expansion-panel-content-wrapper{height:auto}}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible;min-height:0;visibility:hidden}.mat-expansion-panel-animations-enabled .mat-expansion-panel-content{transition:visibility 190ms linear}.mat-expansion-panel.mat-expanded>.mat-expansion-panel-content-wrapper>.mat-expansion-panel-content{visibility:visible}.mat-expansion-panel-content{font-family:var(--mat-expansion-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-expansion-container-text-size, var(--mat-sys-body-large-size));font-weight:var(--mat-expansion-container-text-weight, var(--mat-sys-body-large-weight));line-height:var(--mat-expansion-container-text-line-height, var(--mat-sys-body-large-line-height));letter-spacing:var(--mat-expansion-container-text-tracking, var(--mat-sys-body-large-tracking))}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>*:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px;border-top-color:var(--mat-expansion-actions-divider-color, var(--mat-sys-outline))}.mat-action-row .mat-button-base,.mat-action-row .mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-action-row .mat-button-base,[dir=rtl] .mat-action-row .mat-mdc-button-base{margin-left:0;margin-right:8px}\n"],
+    styles: [".mat-expansion-panel {\n  box-sizing: content-box;\n  display: block;\n  margin: 0;\n  overflow: hidden;\n}\n.mat-expansion-panel.mat-expansion-panel-animations-enabled {\n  transition: margin 225ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);\n}\n.mat-expansion-panel {\n  position: relative;\n  background: var(--mat-expansion-container-background-color, var(--mat-sys-surface));\n  color: var(--mat-expansion-container-text-color, var(--mat-sys-on-surface));\n  border-radius: var(--mat-expansion-container-shape, 12px);\n}\n.mat-expansion-panel:not([class*=mat-elevation-z]) {\n  box-shadow: var(--mat-expansion-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));\n}\n.mat-accordion .mat-expansion-panel:not(.mat-expanded), .mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing) {\n  border-radius: 0;\n}\n.mat-accordion .mat-expansion-panel:first-of-type {\n  border-top-right-radius: var(--mat-expansion-container-shape, 12px);\n  border-top-left-radius: var(--mat-expansion-container-shape, 12px);\n}\n.mat-accordion .mat-expansion-panel:last-of-type {\n  border-bottom-right-radius: var(--mat-expansion-container-shape, 12px);\n  border-bottom-left-radius: var(--mat-expansion-container-shape, 12px);\n}\n@media (forced-colors: active) {\n  .mat-expansion-panel {\n    outline: solid 1px;\n  }\n}\n\n.mat-expansion-panel-content-wrapper {\n  display: grid;\n  grid-template-rows: 0fr;\n  grid-template-columns: 100%;\n}\n.mat-expansion-panel-animations-enabled .mat-expansion-panel-content-wrapper {\n  transition: grid-template-rows 225ms cubic-bezier(0.4, 0, 0.2, 1);\n}\n.mat-expansion-panel.mat-expanded > .mat-expansion-panel-content-wrapper {\n  grid-template-rows: 1fr;\n}\n@supports not (grid-template-rows: 0fr) {\n  .mat-expansion-panel-content-wrapper {\n    height: 0;\n  }\n  .mat-expansion-panel.mat-expanded > .mat-expansion-panel-content-wrapper {\n    height: auto;\n  }\n}\n@media print {\n  .mat-expansion-panel-content-wrapper {\n    height: 0;\n  }\n  .mat-expansion-panel.mat-expanded > .mat-expansion-panel-content-wrapper {\n    height: auto;\n  }\n}\n\n.mat-expansion-panel-content {\n  display: flex;\n  flex-direction: column;\n  overflow: visible;\n  min-height: 0;\n  visibility: hidden;\n}\n.mat-expansion-panel-animations-enabled .mat-expansion-panel-content {\n  transition: visibility 190ms linear;\n}\n.mat-expansion-panel.mat-expanded > .mat-expansion-panel-content-wrapper > .mat-expansion-panel-content {\n  visibility: visible;\n}\n.mat-expansion-panel-content {\n  font-family: var(--mat-expansion-container-text-font, var(--mat-sys-body-large-font));\n  font-size: var(--mat-expansion-container-text-size, var(--mat-sys-body-large-size));\n  font-weight: var(--mat-expansion-container-text-weight, var(--mat-sys-body-large-weight));\n  line-height: var(--mat-expansion-container-text-line-height, var(--mat-sys-body-large-line-height));\n  letter-spacing: var(--mat-expansion-container-text-tracking, var(--mat-sys-body-large-tracking));\n}\n\n.mat-expansion-panel-body {\n  padding: 0 24px 16px;\n}\n\n.mat-expansion-panel-spacing {\n  margin: 16px 0;\n}\n.mat-accordion > .mat-expansion-panel-spacing:first-child, .mat-accordion > *:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {\n  margin-top: 0;\n}\n.mat-accordion > .mat-expansion-panel-spacing:last-child, .mat-accordion > *:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {\n  margin-bottom: 0;\n}\n\n.mat-action-row {\n  border-top-style: solid;\n  border-top-width: 1px;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  padding: 16px 8px 16px 24px;\n  border-top-color: var(--mat-expansion-actions-divider-color, var(--mat-sys-outline));\n}\n.mat-action-row .mat-button-base,\n.mat-action-row .mat-mdc-button-base {\n  margin-left: 8px;\n}\n[dir=rtl] .mat-action-row .mat-button-base,\n[dir=rtl] .mat-action-row .mat-mdc-button-base {\n  margin-left: 0;\n  margin-right: 8px;\n}\n"],
     dependencies: [{
       kind: "directive",
       type: CdkPortalOutlet,
@@ -242,7 +242,7 @@ class MatExpansionPanel extends CdkAccordionItem {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatExpansionPanel,
   decorators: [{
@@ -266,7 +266,7 @@ i0.ɵɵngDeclareClassMetadata({
       },
       imports: [CdkPortalOutlet],
       template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content>\n<div class=\"mat-expansion-panel-content-wrapper\" [attr.inert]=\"expanded ? null : ''\" #bodyWrapper>\n  <div class=\"mat-expansion-panel-content\"\n       role=\"region\"\n       [attr.aria-labelledby]=\"_headerId\"\n       [id]=\"id\"\n       #body>\n    <div class=\"mat-expansion-panel-body\">\n      <ng-content></ng-content>\n      <ng-template [cdkPortalOutlet]=\"_portal\"></ng-template>\n    </div>\n    <ng-content select=\"mat-action-row\"></ng-content>\n  </div>\n</div>\n",
-      styles: [".mat-expansion-panel{box-sizing:content-box;display:block;margin:0;overflow:hidden}.mat-expansion-panel.mat-expansion-panel-animations-enabled{transition:margin 225ms cubic-bezier(0.4, 0, 0.2, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel{position:relative;background:var(--mat-expansion-container-background-color, var(--mat-sys-surface));color:var(--mat-expansion-container-text-color, var(--mat-sys-on-surface));border-radius:var(--mat-expansion-container-shape, 12px)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:var(--mat-expansion-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12))}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:var(--mat-expansion-container-shape, 12px);border-top-left-radius:var(--mat-expansion-container-shape, 12px)}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:var(--mat-expansion-container-shape, 12px);border-bottom-left-radius:var(--mat-expansion-container-shape, 12px)}@media(forced-colors: active){.mat-expansion-panel{outline:solid 1px}}.mat-expansion-panel-content-wrapper{display:grid;grid-template-rows:0fr;grid-template-columns:100%}.mat-expansion-panel-animations-enabled .mat-expansion-panel-content-wrapper{transition:grid-template-rows 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel.mat-expanded>.mat-expansion-panel-content-wrapper{grid-template-rows:1fr}@supports not (grid-template-rows: 0fr){.mat-expansion-panel-content-wrapper{height:0}.mat-expansion-panel.mat-expanded>.mat-expansion-panel-content-wrapper{height:auto}}@media print{.mat-expansion-panel-content-wrapper{height:0}.mat-expansion-panel.mat-expanded>.mat-expansion-panel-content-wrapper{height:auto}}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible;min-height:0;visibility:hidden}.mat-expansion-panel-animations-enabled .mat-expansion-panel-content{transition:visibility 190ms linear}.mat-expansion-panel.mat-expanded>.mat-expansion-panel-content-wrapper>.mat-expansion-panel-content{visibility:visible}.mat-expansion-panel-content{font-family:var(--mat-expansion-container-text-font, var(--mat-sys-body-large-font));font-size:var(--mat-expansion-container-text-size, var(--mat-sys-body-large-size));font-weight:var(--mat-expansion-container-text-weight, var(--mat-sys-body-large-weight));line-height:var(--mat-expansion-container-text-line-height, var(--mat-sys-body-large-line-height));letter-spacing:var(--mat-expansion-container-text-tracking, var(--mat-sys-body-large-tracking))}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>*:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px;border-top-color:var(--mat-expansion-actions-divider-color, var(--mat-sys-outline))}.mat-action-row .mat-button-base,.mat-action-row .mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-action-row .mat-button-base,[dir=rtl] .mat-action-row .mat-mdc-button-base{margin-left:0;margin-right:8px}\n"]
+      styles: [".mat-expansion-panel {\n  box-sizing: content-box;\n  display: block;\n  margin: 0;\n  overflow: hidden;\n}\n.mat-expansion-panel.mat-expansion-panel-animations-enabled {\n  transition: margin 225ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);\n}\n.mat-expansion-panel {\n  position: relative;\n  background: var(--mat-expansion-container-background-color, var(--mat-sys-surface));\n  color: var(--mat-expansion-container-text-color, var(--mat-sys-on-surface));\n  border-radius: var(--mat-expansion-container-shape, 12px);\n}\n.mat-expansion-panel:not([class*=mat-elevation-z]) {\n  box-shadow: var(--mat-expansion-container-elevation-shadow, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));\n}\n.mat-accordion .mat-expansion-panel:not(.mat-expanded), .mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing) {\n  border-radius: 0;\n}\n.mat-accordion .mat-expansion-panel:first-of-type {\n  border-top-right-radius: var(--mat-expansion-container-shape, 12px);\n  border-top-left-radius: var(--mat-expansion-container-shape, 12px);\n}\n.mat-accordion .mat-expansion-panel:last-of-type {\n  border-bottom-right-radius: var(--mat-expansion-container-shape, 12px);\n  border-bottom-left-radius: var(--mat-expansion-container-shape, 12px);\n}\n@media (forced-colors: active) {\n  .mat-expansion-panel {\n    outline: solid 1px;\n  }\n}\n\n.mat-expansion-panel-content-wrapper {\n  display: grid;\n  grid-template-rows: 0fr;\n  grid-template-columns: 100%;\n}\n.mat-expansion-panel-animations-enabled .mat-expansion-panel-content-wrapper {\n  transition: grid-template-rows 225ms cubic-bezier(0.4, 0, 0.2, 1);\n}\n.mat-expansion-panel.mat-expanded > .mat-expansion-panel-content-wrapper {\n  grid-template-rows: 1fr;\n}\n@supports not (grid-template-rows: 0fr) {\n  .mat-expansion-panel-content-wrapper {\n    height: 0;\n  }\n  .mat-expansion-panel.mat-expanded > .mat-expansion-panel-content-wrapper {\n    height: auto;\n  }\n}\n@media print {\n  .mat-expansion-panel-content-wrapper {\n    height: 0;\n  }\n  .mat-expansion-panel.mat-expanded > .mat-expansion-panel-content-wrapper {\n    height: auto;\n  }\n}\n\n.mat-expansion-panel-content {\n  display: flex;\n  flex-direction: column;\n  overflow: visible;\n  min-height: 0;\n  visibility: hidden;\n}\n.mat-expansion-panel-animations-enabled .mat-expansion-panel-content {\n  transition: visibility 190ms linear;\n}\n.mat-expansion-panel.mat-expanded > .mat-expansion-panel-content-wrapper > .mat-expansion-panel-content {\n  visibility: visible;\n}\n.mat-expansion-panel-content {\n  font-family: var(--mat-expansion-container-text-font, var(--mat-sys-body-large-font));\n  font-size: var(--mat-expansion-container-text-size, var(--mat-sys-body-large-size));\n  font-weight: var(--mat-expansion-container-text-weight, var(--mat-sys-body-large-weight));\n  line-height: var(--mat-expansion-container-text-line-height, var(--mat-sys-body-large-line-height));\n  letter-spacing: var(--mat-expansion-container-text-tracking, var(--mat-sys-body-large-tracking));\n}\n\n.mat-expansion-panel-body {\n  padding: 0 24px 16px;\n}\n\n.mat-expansion-panel-spacing {\n  margin: 16px 0;\n}\n.mat-accordion > .mat-expansion-panel-spacing:first-child, .mat-accordion > *:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {\n  margin-top: 0;\n}\n.mat-accordion > .mat-expansion-panel-spacing:last-child, .mat-accordion > *:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {\n  margin-bottom: 0;\n}\n\n.mat-action-row {\n  border-top-style: solid;\n  border-top-width: 1px;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  padding: 16px 8px 16px 24px;\n  border-top-color: var(--mat-expansion-actions-divider-color, var(--mat-sys-outline));\n}\n.mat-action-row .mat-button-base,\n.mat-action-row .mat-mdc-button-base {\n  margin-left: 8px;\n}\n[dir=rtl] .mat-action-row .mat-button-base,\n[dir=rtl] .mat-action-row .mat-mdc-button-base {\n  margin-left: 0;\n  margin-right: 8px;\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -303,7 +303,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatExpansionPanelActionRow {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionPanelActionRow,
     deps: [],
@@ -311,7 +311,7 @@ class MatExpansionPanelActionRow {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatExpansionPanelActionRow,
     isStandalone: true,
     selector: "mat-action-row",
@@ -323,7 +323,7 @@ class MatExpansionPanelActionRow {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatExpansionPanelActionRow,
   decorators: [{
@@ -436,7 +436,7 @@ class MatExpansionPanelHeader {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionPanelHeader,
     deps: [],
@@ -444,7 +444,7 @@ class MatExpansionPanelHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatExpansionPanelHeader,
     isStandalone: true,
     selector: "mat-expansion-panel-header",
@@ -476,14 +476,14 @@ class MatExpansionPanelHeader {
     },
     ngImport: i0,
     template: "<span class=\"mat-content\" [class.mat-content-hide-toggle]=\"!_showToggle()\">\n  <ng-content select=\"mat-panel-title\"></ng-content>\n  <ng-content select=\"mat-panel-description\"></ng-content>\n  <ng-content></ng-content>\n</span>\n\n@if (_showToggle()) {\n  <span class=\"mat-expansion-indicator\">\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      viewBox=\"0 -960 960 960\"\n      aria-hidden=\"true\"\n      focusable=\"false\">\n      <path d=\"M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z\"/>\n    </svg>\n  </span>\n}\n",
-    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit}.mat-expansion-panel-animations-enabled .mat-expansion-panel-header{transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header::before{border-radius:inherit}.mat-expansion-panel-header{height:var(--mat-expansion-header-collapsed-state-height, 48px);font-family:var(--mat-expansion-header-text-font, var(--mat-sys-title-medium-font));font-size:var(--mat-expansion-header-text-size, var(--mat-sys-title-medium-size));font-weight:var(--mat-expansion-header-text-weight, var(--mat-sys-title-medium-weight));line-height:var(--mat-expansion-header-text-line-height, var(--mat-sys-title-medium-line-height));letter-spacing:var(--mat-expansion-header-text-tracking, var(--mat-sys-title-medium-tracking))}.mat-expansion-panel-header.mat-expanded{height:var(--mat-expansion-header-expanded-state-height, 64px)}.mat-expansion-panel-header[aria-disabled=true]{color:var(--mat-expansion-header-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover{background:var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}@media(hover: none){.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover{background:var(--mat-expansion-container-background-color, var(--mat-sys-surface))}}.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-keyboard-focused,.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-program-focused{background:var(--mat-expansion-header-focus-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-content.mat-content-hide-toggle{margin-right:8px}[dir=rtl] .mat-content.mat-content-hide-toggle{margin-right:0;margin-left:8px}.mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle{margin-left:24px;margin-right:0}[dir=rtl] .mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle{margin-right:24px;margin-left:0}.mat-expansion-panel-header-title{color:var(--mat-expansion-header-text-color, var(--mat-sys-on-surface))}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;flex-basis:0;margin-right:16px;align-items:center}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description{color:inherit}.mat-expansion-panel-header-description{flex-grow:2;color:var(--mat-expansion-header-description-color, var(--mat-sys-on-surface-variant))}.mat-expansion-panel-animations-enabled .mat-expansion-indicator{transition:transform 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header.mat-expanded .mat-expansion-indicator{transform:rotate(180deg)}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";padding:3px;transform:rotate(45deg);vertical-align:middle;color:var(--mat-expansion-header-indicator-color, var(--mat-sys-on-surface-variant));display:var(--mat-expansion-legacy-header-indicator-display, none)}.mat-expansion-indicator svg{width:24px;height:24px;margin:0 -8px;vertical-align:middle;fill:var(--mat-expansion-header-indicator-color, var(--mat-sys-on-surface-variant));display:var(--mat-expansion-header-indicator-display, inline-block)}@media(forced-colors: active){.mat-expansion-panel-content{border-top:1px solid;border-top-left-radius:0;border-top-right-radius:0}}\n"],
+    styles: [".mat-expansion-panel-header {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  padding: 0 24px;\n  border-radius: inherit;\n}\n.mat-expansion-panel-animations-enabled .mat-expansion-panel-header {\n  transition: height 225ms cubic-bezier(0.4, 0, 0.2, 1);\n}\n.mat-expansion-panel-header::before {\n  border-radius: inherit;\n}\n.mat-expansion-panel-header {\n  height: var(--mat-expansion-header-collapsed-state-height, 48px);\n  font-family: var(--mat-expansion-header-text-font, var(--mat-sys-title-medium-font));\n  font-size: var(--mat-expansion-header-text-size, var(--mat-sys-title-medium-size));\n  font-weight: var(--mat-expansion-header-text-weight, var(--mat-sys-title-medium-weight));\n  line-height: var(--mat-expansion-header-text-line-height, var(--mat-sys-title-medium-line-height));\n  letter-spacing: var(--mat-expansion-header-text-tracking, var(--mat-sys-title-medium-tracking));\n}\n.mat-expansion-panel-header.mat-expanded {\n  height: var(--mat-expansion-header-expanded-state-height, 64px);\n}\n.mat-expansion-panel-header[aria-disabled=true] {\n  color: var(--mat-expansion-header-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n.mat-expansion-panel-header:not([aria-disabled=true]) {\n  cursor: pointer;\n}\n.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover {\n  background: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));\n}\n@media (hover: none) {\n  .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover {\n    background: var(--mat-expansion-container-background-color, var(--mat-sys-surface));\n  }\n}\n.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-keyboard-focused, .mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-program-focused {\n  background: var(--mat-expansion-header-focus-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent));\n}\n.mat-expansion-panel-header._mat-animation-noopable {\n  transition: none;\n}\n.mat-expansion-panel-header:focus, .mat-expansion-panel-header:hover {\n  outline: none;\n}\n.mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {\n  background: inherit;\n}\n.mat-expansion-panel-header.mat-expansion-toggle-indicator-before {\n  flex-direction: row-reverse;\n}\n.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator {\n  margin: 0 16px 0 0;\n}\n[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator {\n  margin: 0 0 0 16px;\n}\n\n.mat-content {\n  display: flex;\n  flex: 1;\n  flex-direction: row;\n  overflow: hidden;\n}\n.mat-content.mat-content-hide-toggle {\n  margin-right: 8px;\n}\n[dir=rtl] .mat-content.mat-content-hide-toggle {\n  margin-right: 0;\n  margin-left: 8px;\n}\n.mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle {\n  margin-left: 24px;\n  margin-right: 0;\n}\n[dir=rtl] .mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle {\n  margin-right: 24px;\n  margin-left: 0;\n}\n\n.mat-expansion-panel-header-title {\n  color: var(--mat-expansion-header-text-color, var(--mat-sys-on-surface));\n}\n\n.mat-expansion-panel-header-title,\n.mat-expansion-panel-header-description {\n  display: flex;\n  flex-grow: 1;\n  flex-basis: 0;\n  margin-right: 16px;\n  align-items: center;\n}\n[dir=rtl] .mat-expansion-panel-header-title,\n[dir=rtl] .mat-expansion-panel-header-description {\n  margin-right: 0;\n  margin-left: 16px;\n}\n.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,\n.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description {\n  color: inherit;\n}\n\n.mat-expansion-panel-header-description {\n  flex-grow: 2;\n  color: var(--mat-expansion-header-description-color, var(--mat-sys-on-surface-variant));\n}\n\n.mat-expansion-panel-animations-enabled .mat-expansion-indicator {\n  transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);\n}\n.mat-expansion-panel-header.mat-expanded .mat-expansion-indicator {\n  transform: rotate(180deg);\n}\n.mat-expansion-indicator::after {\n  border-style: solid;\n  border-width: 0 2px 2px 0;\n  content: \"\";\n  padding: 3px;\n  transform: rotate(45deg);\n  vertical-align: middle;\n  color: var(--mat-expansion-header-indicator-color, var(--mat-sys-on-surface-variant));\n  display: var(--mat-expansion-legacy-header-indicator-display, none);\n}\n.mat-expansion-indicator svg {\n  width: 24px;\n  height: 24px;\n  margin: 0 -8px;\n  vertical-align: middle;\n  fill: var(--mat-expansion-header-indicator-color, var(--mat-sys-on-surface-variant));\n  display: var(--mat-expansion-header-indicator-display, inline-block);\n}\n\n@media (forced-colors: active) {\n  .mat-expansion-panel-content {\n    border-top: 1px solid;\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n}\n"],
     changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatExpansionPanelHeader,
   decorators: [{
@@ -508,7 +508,7 @@ i0.ɵɵngDeclareClassMetadata({
         '(keydown)': '_keydown($event)'
       },
       template: "<span class=\"mat-content\" [class.mat-content-hide-toggle]=\"!_showToggle()\">\n  <ng-content select=\"mat-panel-title\"></ng-content>\n  <ng-content select=\"mat-panel-description\"></ng-content>\n  <ng-content></ng-content>\n</span>\n\n@if (_showToggle()) {\n  <span class=\"mat-expansion-indicator\">\n    <svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      viewBox=\"0 -960 960 960\"\n      aria-hidden=\"true\"\n      focusable=\"false\">\n      <path d=\"M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z\"/>\n    </svg>\n  </span>\n}\n",
-      styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit}.mat-expansion-panel-animations-enabled .mat-expansion-panel-header{transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header::before{border-radius:inherit}.mat-expansion-panel-header{height:var(--mat-expansion-header-collapsed-state-height, 48px);font-family:var(--mat-expansion-header-text-font, var(--mat-sys-title-medium-font));font-size:var(--mat-expansion-header-text-size, var(--mat-sys-title-medium-size));font-weight:var(--mat-expansion-header-text-weight, var(--mat-sys-title-medium-weight));line-height:var(--mat-expansion-header-text-line-height, var(--mat-sys-title-medium-line-height));letter-spacing:var(--mat-expansion-header-text-tracking, var(--mat-sys-title-medium-tracking))}.mat-expansion-panel-header.mat-expanded{height:var(--mat-expansion-header-expanded-state-height, 64px)}.mat-expansion-panel-header[aria-disabled=true]{color:var(--mat-expansion-header-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover{background:var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent))}@media(hover: none){.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover{background:var(--mat-expansion-container-background-color, var(--mat-sys-surface))}}.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-keyboard-focused,.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-program-focused{background:var(--mat-expansion-header-focus-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent))}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-content.mat-content-hide-toggle{margin-right:8px}[dir=rtl] .mat-content.mat-content-hide-toggle{margin-right:0;margin-left:8px}.mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle{margin-left:24px;margin-right:0}[dir=rtl] .mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle{margin-right:24px;margin-left:0}.mat-expansion-panel-header-title{color:var(--mat-expansion-header-text-color, var(--mat-sys-on-surface))}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;flex-basis:0;margin-right:16px;align-items:center}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description{color:inherit}.mat-expansion-panel-header-description{flex-grow:2;color:var(--mat-expansion-header-description-color, var(--mat-sys-on-surface-variant))}.mat-expansion-panel-animations-enabled .mat-expansion-indicator{transition:transform 225ms cubic-bezier(0.4, 0, 0.2, 1)}.mat-expansion-panel-header.mat-expanded .mat-expansion-indicator{transform:rotate(180deg)}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:\"\";padding:3px;transform:rotate(45deg);vertical-align:middle;color:var(--mat-expansion-header-indicator-color, var(--mat-sys-on-surface-variant));display:var(--mat-expansion-legacy-header-indicator-display, none)}.mat-expansion-indicator svg{width:24px;height:24px;margin:0 -8px;vertical-align:middle;fill:var(--mat-expansion-header-indicator-color, var(--mat-sys-on-surface-variant));display:var(--mat-expansion-header-indicator-display, inline-block)}@media(forced-colors: active){.mat-expansion-panel-content{border-top:1px solid;border-top-left-radius:0;border-top-right-radius:0}}\n"]
+      styles: [".mat-expansion-panel-header {\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  padding: 0 24px;\n  border-radius: inherit;\n}\n.mat-expansion-panel-animations-enabled .mat-expansion-panel-header {\n  transition: height 225ms cubic-bezier(0.4, 0, 0.2, 1);\n}\n.mat-expansion-panel-header::before {\n  border-radius: inherit;\n}\n.mat-expansion-panel-header {\n  height: var(--mat-expansion-header-collapsed-state-height, 48px);\n  font-family: var(--mat-expansion-header-text-font, var(--mat-sys-title-medium-font));\n  font-size: var(--mat-expansion-header-text-size, var(--mat-sys-title-medium-size));\n  font-weight: var(--mat-expansion-header-text-weight, var(--mat-sys-title-medium-weight));\n  line-height: var(--mat-expansion-header-text-line-height, var(--mat-sys-title-medium-line-height));\n  letter-spacing: var(--mat-expansion-header-text-tracking, var(--mat-sys-title-medium-tracking));\n}\n.mat-expansion-panel-header.mat-expanded {\n  height: var(--mat-expansion-header-expanded-state-height, 64px);\n}\n.mat-expansion-panel-header[aria-disabled=true] {\n  color: var(--mat-expansion-header-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent));\n}\n.mat-expansion-panel-header:not([aria-disabled=true]) {\n  cursor: pointer;\n}\n.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover {\n  background: var(--mat-expansion-header-hover-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));\n}\n@media (hover: none) {\n  .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover {\n    background: var(--mat-expansion-container-background-color, var(--mat-sys-surface));\n  }\n}\n.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-keyboard-focused, .mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-program-focused {\n  background: var(--mat-expansion-header-focus-state-layer-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-focus-state-layer-opacity) * 100%), transparent));\n}\n.mat-expansion-panel-header._mat-animation-noopable {\n  transition: none;\n}\n.mat-expansion-panel-header:focus, .mat-expansion-panel-header:hover {\n  outline: none;\n}\n.mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {\n  background: inherit;\n}\n.mat-expansion-panel-header.mat-expansion-toggle-indicator-before {\n  flex-direction: row-reverse;\n}\n.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator {\n  margin: 0 16px 0 0;\n}\n[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator {\n  margin: 0 0 0 16px;\n}\n\n.mat-content {\n  display: flex;\n  flex: 1;\n  flex-direction: row;\n  overflow: hidden;\n}\n.mat-content.mat-content-hide-toggle {\n  margin-right: 8px;\n}\n[dir=rtl] .mat-content.mat-content-hide-toggle {\n  margin-right: 0;\n  margin-left: 8px;\n}\n.mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle {\n  margin-left: 24px;\n  margin-right: 0;\n}\n[dir=rtl] .mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle {\n  margin-right: 24px;\n  margin-left: 0;\n}\n\n.mat-expansion-panel-header-title {\n  color: var(--mat-expansion-header-text-color, var(--mat-sys-on-surface));\n}\n\n.mat-expansion-panel-header-title,\n.mat-expansion-panel-header-description {\n  display: flex;\n  flex-grow: 1;\n  flex-basis: 0;\n  margin-right: 16px;\n  align-items: center;\n}\n[dir=rtl] .mat-expansion-panel-header-title,\n[dir=rtl] .mat-expansion-panel-header-description {\n  margin-right: 0;\n  margin-left: 16px;\n}\n.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,\n.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description {\n  color: inherit;\n}\n\n.mat-expansion-panel-header-description {\n  flex-grow: 2;\n  color: var(--mat-expansion-header-description-color, var(--mat-sys-on-surface-variant));\n}\n\n.mat-expansion-panel-animations-enabled .mat-expansion-indicator {\n  transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);\n}\n.mat-expansion-panel-header.mat-expanded .mat-expansion-indicator {\n  transform: rotate(180deg);\n}\n.mat-expansion-indicator::after {\n  border-style: solid;\n  border-width: 0 2px 2px 0;\n  content: \"\";\n  padding: 3px;\n  transform: rotate(45deg);\n  vertical-align: middle;\n  color: var(--mat-expansion-header-indicator-color, var(--mat-sys-on-surface-variant));\n  display: var(--mat-expansion-legacy-header-indicator-display, none);\n}\n.mat-expansion-indicator svg {\n  width: 24px;\n  height: 24px;\n  margin: 0 -8px;\n  vertical-align: middle;\n  fill: var(--mat-expansion-header-indicator-color, var(--mat-sys-on-surface-variant));\n  display: var(--mat-expansion-header-indicator-display, inline-block);\n}\n\n@media (forced-colors: active) {\n  .mat-expansion-panel-content {\n    border-top: 1px solid;\n    border-top-left-radius: 0;\n    border-top-right-radius: 0;\n  }\n}\n"]
     }]
   }],
   ctorParameters: () => [],
@@ -530,7 +530,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatExpansionPanelDescription {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionPanelDescription,
     deps: [],
@@ -538,7 +538,7 @@ class MatExpansionPanelDescription {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatExpansionPanelDescription,
     isStandalone: true,
     selector: "mat-panel-description",
@@ -550,7 +550,7 @@ class MatExpansionPanelDescription {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatExpansionPanelDescription,
   decorators: [{
@@ -566,7 +566,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatExpansionPanelTitle {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionPanelTitle,
     deps: [],
@@ -574,7 +574,7 @@ class MatExpansionPanelTitle {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatExpansionPanelTitle,
     isStandalone: true,
     selector: "mat-panel-title",
@@ -586,7 +586,7 @@ class MatExpansionPanelTitle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatExpansionPanelTitle,
   decorators: [{
@@ -627,7 +627,7 @@ class MatAccordion extends CdkAccordion {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatAccordion,
     deps: null,
@@ -635,7 +635,7 @@ class MatAccordion extends CdkAccordion {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatAccordion,
     isStandalone: true,
     selector: "mat-accordion",
@@ -666,7 +666,7 @@ class MatAccordion extends CdkAccordion {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatAccordion,
   decorators: [{
@@ -709,7 +709,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatExpansionModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionModule,
     deps: [],
@@ -717,7 +717,7 @@ class MatExpansionModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionModule,
     imports: [CdkAccordionModule, PortalModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatExpansionPanelContent],
@@ -725,7 +725,7 @@ class MatExpansionModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatExpansionModule,
     imports: [CdkAccordionModule, PortalModule, BidiModule]
@@ -733,7 +733,7 @@ class MatExpansionModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatExpansionModule,
   decorators: [{

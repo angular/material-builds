@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ChangeDetectorRef, ElementRef, QueryList, EventEmitter, SimpleChanges } from '@angular/core';
+import { AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ChangeDetectorRef, ElementRef, QueryList, EventEmitter, SimpleChanges, InjectionToken } from '@angular/core';
 import * as i2 from '@angular/cdk/overlay';
-import { ScrollStrategy, FlexibleOverlayPopoverLocation, ConnectedPosition, CdkOverlayOrigin, CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { FlexibleOverlayPopoverLocation, ConnectedPosition, CdkOverlayOrigin, ScrollStrategy, CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { MatOptionModule } from './_option-module-chunk.js';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';

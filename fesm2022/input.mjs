@@ -2,7 +2,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
 import { AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, Renderer2, isSignal, effect, booleanAttribute, Directive, Input, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, Renderer2, isSignal, effect, booleanAttribute, Input, Directive, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -313,7 +313,7 @@ class MatInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatInput,
     deps: [],
@@ -321,7 +321,7 @@ class MatInput {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     type: MatInput,
     isStandalone: true,
     selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]",
@@ -374,7 +374,7 @@ class MatInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatInput,
   decorators: [{
@@ -455,7 +455,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatInputModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatInputModule,
     deps: [],
@@ -463,7 +463,7 @@ class MatInputModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatInputModule,
     imports: [MatFormFieldModule, MatInput],
@@ -471,7 +471,7 @@ class MatInputModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.1",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatInputModule,
     imports: [MatFormFieldModule, MatFormFieldModule, TextFieldModule, BidiModule]
@@ -479,7 +479,7 @@ class MatInputModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.1",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatInputModule,
   decorators: [{
