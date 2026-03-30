@@ -212,7 +212,7 @@ class MatDrawer {
             event.preventDefault();
           });
         }
-      }), renderer.listen(element, 'transitionrun', this._handleTransitionEvent), renderer.listen(element, 'transitionend', this._handleTransitionEvent), renderer.listen(element, 'transitioncancel', this._handleTransitionEvent)];
+      }), renderer.listen(element, 'transitionend', this._handleTransitionEvent), renderer.listen(element, 'transitioncancel', this._handleTransitionEvent)];
     });
     this._animationEnd.subscribe(() => {
       this.openedChange.emit(this.opened);
@@ -329,6 +329,7 @@ class MatDrawer {
     this._opened.set(isOpen);
     if (this._container?._transitionsEnabled) {
       this._setIsAnimating(true);
+      setTimeout(() => this._animationStarted.next());
     } else {
       setTimeout(() => {
         this._animationStarted.next();
@@ -376,14 +377,10 @@ class MatDrawer {
     const element = this._elementRef.nativeElement;
     if (event.target === element) {
       this._ngZone.run(() => {
-        if (event.type === 'transitionrun') {
-          this._animationStarted.next(event);
-        } else {
-          if (event.type === 'transitionend') {
-            this._setIsAnimating(false);
-          }
-          this._animationEnd.next(event);
+        if (event.type === 'transitionend') {
+          this._setIsAnimating(false);
         }
+        this._animationEnd.next(event);
       });
     }
   };

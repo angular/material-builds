@@ -1,7 +1,7 @@
 import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, ViewChild, Input, ViewEncapsulation, ChangeDetectionStrategy, Component, numberAttribute, booleanAttribute, ContentChildren, ContentChild, ViewChildren, EventEmitter, signal, forwardRef, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, ViewChild, Input, ViewEncapsulation, ChangeDetectionStrategy, Component, computed, afterRenderEffect, numberAttribute, booleanAttribute, ContentChildren, ContentChild, ViewChildren, EventEmitter, signal, forwardRef, Output, Directive, NgModule } from '@angular/core';
 import { RippleState, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS } from './_ripple-chunk.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _animationsDisabled } from './_animation-chunk.mjs';
@@ -515,7 +515,6 @@ class MatSlider {
   displayWith = value => `${value}`;
   _tickMarks;
   _noopAnimations = _animationsDisabled();
-  _dirChangeSubscription;
   _resizeObserver = null;
   _cachedWidth;
   _cachedLeft;
@@ -525,7 +524,9 @@ class MatSlider {
   _endThumbTransform;
   _startThumbTransform;
   _isRange = false;
-  _isRtl = false;
+  _isRtl = computed(() => this._dir?.valueSignal() === 'rtl', ...(ngDevMode ? [{
+    debugName: "_isRtl"
+  }] : []));
   _hasViewInitialized = false;
   _tickMarkTrackWidth = 0;
   _hasAnimation = false;
@@ -533,10 +534,15 @@ class MatSlider {
   _platform = inject(Platform);
   constructor() {
     inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
-    if (this._dir) {
-      this._dirChangeSubscription = this._dir.change.subscribe(() => this._onDirChange());
-      this._isRtl = this._dir.value === 'rtl';
-    }
+    let prevIsRtl = this._isRtl();
+    afterRenderEffect(() => {
+      const isRtl = this._isRtl();
+      if (isRtl !== prevIsRtl) {
+        prevIsRtl = isRtl;
+        this._isRange ? this._onDirChangeRange() : this._onDirChangeNonRange();
+        this._updateTickMarkUI();
+      }
+    });
   }
   _knobRadius = 8;
   _inputPadding;
@@ -583,14 +589,8 @@ class MatSlider {
     sInput._updateThumbUIByValue();
   }
   ngOnDestroy() {
-    this._dirChangeSubscription?.unsubscribe();
     this._resizeObserver?.disconnect();
     this._resizeObserver = null;
-  }
-  _onDirChange() {
-    this._isRtl = this._dir?.value === 'rtl';
-    this._isRange ? this._onDirChangeRange() : this._onDirChangeNonRange();
-    this._updateTickMarkUI();
   }
   _onDirChangeRange() {
     const endInput = this._getInput(_MatThumb.END);
@@ -653,7 +653,7 @@ class MatSlider {
   }
   _calcTickMarkTransform(index) {
     const offset = index * (this._tickMarkTrackWidth / (this._tickMarks.length - 1));
-    const translateX = this._isRtl ? this._cachedWidth - 6 - offset : offset;
+    const translateX = this._isRtl() ? this._cachedWidth - 6 - offset : offset;
     return `translateX(${translateX}px)`;
   }
   _onTranslateXChange(source) {
@@ -805,7 +805,7 @@ class MatSlider {
     }
   }
   _updateTrackUINonRange(source) {
-    this._isRtl ? this._setTrackActiveStyles({
+    this._isRtl() ? this._setTrackActiveStyles({
       left: 'auto',
       right: '0px',
       transformOrigin: 'right',
@@ -828,7 +828,7 @@ class MatSlider {
     const value = this._getValue();
     let numActive = Math.max(Math.round((value - this.min) / step), 0) + 1;
     let numInactive = Math.max(Math.round((this.max - value) / step), 0) - 1;
-    this._isRtl ? numActive++ : numInactive++;
+    this._isRtl() ? numActive++ : numInactive++;
     this._tickMarks = Array(numActive).fill(_MatTickMark.ACTIVE).concat(Array(numInactive).fill(_MatTickMark.INACTIVE));
   }
   _updateTickMarkUIRange(step) {
@@ -1154,13 +1154,13 @@ class MatSliderThumb {
   }
   get percentage() {
     if (this._slider.min >= this._slider.max) {
-      return this._slider._isRtl ? 1 : 0;
+      return this._slider._isRtl() ? 1 : 0;
     }
     return (this.value - this._slider.min) / (this._slider.max - this._slider.min);
   }
   get fillPercentage() {
     if (!this._slider._cachedWidth) {
-      return this._slider._isRtl ? 1 : 0;
+      return this._slider._isRtl() ? 1 : 0;
     }
     if (this._translateX === 0) {
       return 0;
@@ -1300,7 +1300,7 @@ class MatSliderThumb {
     const width = this._slider._cachedWidth;
     const step = this._slider.step === 0 ? 1 : this._slider.step;
     const numSteps = Math.floor((this._slider.max - this._slider.min) / step);
-    const percentage = this._slider._isRtl ? 1 - xPos / width : xPos / width;
+    const percentage = this._slider._isRtl() ? 1 - xPos / width : xPos / width;
     const fixedPercentage = Math.round(percentage * numSteps) / numSteps;
     const impreciseValue = fixedPercentage * (this._slider.max - this._slider.min) + this._slider.min;
     const value = Math.round(impreciseValue / step) * step;
@@ -1345,7 +1345,7 @@ class MatSliderThumb {
     return Math.max(Math.min(v, max), min);
   }
   _calcTranslateXByValue() {
-    if (this._slider._isRtl) {
+    if (this._slider._isRtl()) {
       return (1 - this.percentage) * (this._slider._cachedWidth - this._tickMarkOffset * 2) + this._tickMarkOffset;
     }
     return this.percentage * (this._slider._cachedWidth - this._tickMarkOffset * 2) + this._tickMarkOffset;
@@ -1505,7 +1505,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
     return this._slider._cachedWidth - this._tickMarkOffset;
   }
   _setIsLeftThumb() {
-    this._isLeftThumb = this._isEndThumb && this._slider._isRtl || !this._isEndThumb && !this._slider._isRtl;
+    this._isLeftThumb = this._isEndThumb && this._slider._isRtl() || !this._isEndThumb && !this._slider._isRtl();
   }
   _isLeftThumb = false;
   _isEndThumb = false;
