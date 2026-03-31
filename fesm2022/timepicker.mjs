@@ -379,7 +379,7 @@ class MatTimepicker {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTimepicker,
     deps: [],
@@ -387,7 +387,7 @@ class MatTimepicker {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatTimepicker,
     isStandalone: true,
     selector: "mat-timepicker",
@@ -474,7 +474,7 @@ class MatTimepicker {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTimepicker,
   decorators: [{
@@ -838,7 +838,7 @@ class MatTimepickerInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTimepickerInput,
     deps: [],
@@ -846,7 +846,7 @@ class MatTimepickerInput {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "17.1.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatTimepickerInput,
     isStandalone: true,
     selector: "input[matTimepicker]",
@@ -935,7 +935,7 @@ class MatTimepickerInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTimepickerInput,
   decorators: [{
@@ -1090,7 +1090,7 @@ class MatTimepickerToggle {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTimepickerToggle,
     deps: [],
@@ -1098,7 +1098,7 @@ class MatTimepickerToggle {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.1.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatTimepickerToggle,
     isStandalone: true,
     selector: "mat-timepicker-toggle",
@@ -1170,7 +1170,7 @@ class MatTimepickerToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTimepickerToggle,
   decorators: [{
@@ -1244,7 +1244,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatTimepickerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTimepickerModule,
     deps: [],
@@ -1252,7 +1252,7 @@ class MatTimepickerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTimepickerModule,
     imports: [MatTimepicker, MatTimepickerInput, MatTimepickerToggle],
@@ -1260,7 +1260,7 @@ class MatTimepickerModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTimepickerModule,
     imports: [MatTimepicker, MatTimepickerToggle, CdkScrollableModule]
@@ -1268,7 +1268,7 @@ class MatTimepickerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTimepickerModule,
   decorators: [{

@@ -10,7 +10,7 @@ const BADGE_CONTENT_CLASS = 'mat-badge-content';
 class _MatBadgeStyleLoader {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: _MatBadgeStyleLoader,
     deps: [],
@@ -18,7 +18,7 @@ class _MatBadgeStyleLoader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: _MatBadgeStyleLoader,
     isStandalone: true,
     selector: "ng-component",
@@ -32,7 +32,7 @@ class _MatBadgeStyleLoader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: _MatBadgeStyleLoader,
   decorators: [{
@@ -204,7 +204,7 @@ class MatBadge {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatBadge,
     deps: [],
@@ -212,7 +212,7 @@ class MatBadge {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatBadge,
     isStandalone: true,
     selector: "[matBadge]",
@@ -246,7 +246,7 @@ class MatBadge {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatBadge,
   decorators: [{
@@ -317,7 +317,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatBadgeModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatBadgeModule,
     deps: [],
@@ -325,7 +325,7 @@ class MatBadgeModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatBadgeModule,
     imports: [A11yModule, MatBadge, _MatBadgeStyleLoader],
@@ -333,7 +333,7 @@ class MatBadgeModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatBadgeModule,
     imports: [A11yModule, BidiModule]
@@ -341,7 +341,7 @@ class MatBadgeModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatBadgeModule,
   decorators: [{

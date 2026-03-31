@@ -10,7 +10,7 @@ import { BidiModule } from '@angular/cdk/bidi';
 class MatRecycleRows {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatRecycleRows,
     deps: [],
@@ -18,7 +18,7 @@ class MatRecycleRows {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatRecycleRows,
     isStandalone: true,
     selector: "mat-table[recycleRows], table[mat-table][recycleRows]",
@@ -27,7 +27,7 @@ class MatRecycleRows {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatRecycleRows,
   decorators: [{
@@ -42,7 +42,7 @@ class MatTable extends CdkTable {
   needsPositionStickyOnElement = false;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTable,
     deps: null,
@@ -50,7 +50,7 @@ class MatTable extends CdkTable {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatTable,
     isStandalone: true,
     selector: "mat-table, table[mat-table]",
@@ -128,7 +128,7 @@ class MatTable extends CdkTable {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTable,
   decorators: [{
@@ -191,7 +191,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCellDef extends CdkCellDef {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatCellDef,
     deps: null,
@@ -199,7 +199,7 @@ class MatCellDef extends CdkCellDef {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatCellDef,
     isStandalone: true,
     selector: "[matCellDef]",
@@ -213,7 +213,7 @@ class MatCellDef extends CdkCellDef {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatCellDef,
   decorators: [{
@@ -230,7 +230,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatHeaderCellDef extends CdkHeaderCellDef {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatHeaderCellDef,
     deps: null,
@@ -238,7 +238,7 @@ class MatHeaderCellDef extends CdkHeaderCellDef {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatHeaderCellDef,
     isStandalone: true,
     selector: "[matHeaderCellDef]",
@@ -252,7 +252,7 @@ class MatHeaderCellDef extends CdkHeaderCellDef {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatHeaderCellDef,
   decorators: [{
@@ -269,7 +269,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatFooterCellDef extends CdkFooterCellDef {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatFooterCellDef,
     deps: null,
@@ -277,7 +277,7 @@ class MatFooterCellDef extends CdkFooterCellDef {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatFooterCellDef,
     isStandalone: true,
     selector: "[matFooterCellDef]",
@@ -291,7 +291,7 @@ class MatFooterCellDef extends CdkFooterCellDef {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatFooterCellDef,
   decorators: [{
@@ -318,7 +318,7 @@ class MatColumnDef extends CdkColumnDef {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatColumnDef,
     deps: null,
@@ -326,7 +326,7 @@ class MatColumnDef extends CdkColumnDef {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatColumnDef,
     isStandalone: true,
     selector: "[matColumnDef]",
@@ -343,7 +343,7 @@ class MatColumnDef extends CdkColumnDef {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatColumnDef,
   decorators: [{
@@ -366,7 +366,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatHeaderCell extends CdkHeaderCell {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatHeaderCell,
     deps: null,
@@ -374,7 +374,7 @@ class MatHeaderCell extends CdkHeaderCell {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatHeaderCell,
     isStandalone: true,
     selector: "mat-header-cell, th[mat-header-cell]",
@@ -390,7 +390,7 @@ class MatHeaderCell extends CdkHeaderCell {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatHeaderCell,
   decorators: [{
@@ -407,7 +407,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatFooterCell extends CdkFooterCell {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatFooterCell,
     deps: null,
@@ -415,7 +415,7 @@ class MatFooterCell extends CdkFooterCell {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatFooterCell,
     isStandalone: true,
     selector: "mat-footer-cell, td[mat-footer-cell]",
@@ -428,7 +428,7 @@ class MatFooterCell extends CdkFooterCell {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatFooterCell,
   decorators: [{
@@ -444,7 +444,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCell extends CdkCell {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatCell,
     deps: null,
@@ -452,7 +452,7 @@ class MatCell extends CdkCell {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatCell,
     isStandalone: true,
     selector: "mat-cell, td[mat-cell]",
@@ -465,7 +465,7 @@ class MatCell extends CdkCell {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatCell,
   decorators: [{
@@ -483,7 +483,7 @@ const ROW_TEMPLATE = `<ng-container cdkCellOutlet></ng-container>`;
 class MatHeaderRowDef extends CdkHeaderRowDef {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatHeaderRowDef,
     deps: null,
@@ -491,7 +491,7 @@ class MatHeaderRowDef extends CdkHeaderRowDef {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatHeaderRowDef,
     isStandalone: true,
     selector: "[matHeaderRowDef]",
@@ -509,7 +509,7 @@ class MatHeaderRowDef extends CdkHeaderRowDef {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatHeaderRowDef,
   decorators: [{
@@ -534,7 +534,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatFooterRowDef extends CdkFooterRowDef {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatFooterRowDef,
     deps: null,
@@ -542,7 +542,7 @@ class MatFooterRowDef extends CdkFooterRowDef {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatFooterRowDef,
     isStandalone: true,
     selector: "[matFooterRowDef]",
@@ -560,7 +560,7 @@ class MatFooterRowDef extends CdkFooterRowDef {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatFooterRowDef,
   decorators: [{
@@ -585,7 +585,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatRowDef extends CdkRowDef {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatRowDef,
     deps: null,
@@ -593,7 +593,7 @@ class MatRowDef extends CdkRowDef {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatRowDef,
     isStandalone: true,
     selector: "[matRowDef]",
@@ -611,7 +611,7 @@ class MatRowDef extends CdkRowDef {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatRowDef,
   decorators: [{
@@ -635,7 +635,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatHeaderRow extends CdkHeaderRow {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatHeaderRow,
     deps: null,
@@ -643,7 +643,7 @@ class MatHeaderRow extends CdkHeaderRow {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatHeaderRow,
     isStandalone: true,
     selector: "mat-header-row, tr[mat-header-row]",
@@ -673,7 +673,7 @@ class MatHeaderRow extends CdkHeaderRow {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatHeaderRow,
   decorators: [{
@@ -699,7 +699,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatFooterRow extends CdkFooterRow {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatFooterRow,
     deps: null,
@@ -707,7 +707,7 @@ class MatFooterRow extends CdkFooterRow {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatFooterRow,
     isStandalone: true,
     selector: "mat-footer-row, tr[mat-footer-row]",
@@ -737,7 +737,7 @@ class MatFooterRow extends CdkFooterRow {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatFooterRow,
   decorators: [{
@@ -763,7 +763,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatRow extends CdkRow {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatRow,
     deps: null,
@@ -771,7 +771,7 @@ class MatRow extends CdkRow {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatRow,
     isStandalone: true,
     selector: "mat-row, tr[mat-row]",
@@ -801,7 +801,7 @@ class MatRow extends CdkRow {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatRow,
   decorators: [{
@@ -833,7 +833,7 @@ class MatNoDataRow extends CdkNoDataRow {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatNoDataRow,
     deps: [],
@@ -841,7 +841,7 @@ class MatNoDataRow extends CdkNoDataRow {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatNoDataRow,
     isStandalone: true,
     selector: "ng-template[matNoDataRow]",
@@ -855,7 +855,7 @@ class MatNoDataRow extends CdkNoDataRow {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatNoDataRow,
   decorators: [{
@@ -874,7 +874,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatTextColumn extends CdkTextColumn {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTextColumn,
     deps: null,
@@ -882,7 +882,7 @@ class MatTextColumn extends CdkTextColumn {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     type: MatTextColumn,
     isStandalone: true,
     selector: "mat-text-column",
@@ -927,7 +927,7 @@ class MatTextColumn extends CdkTextColumn {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTextColumn,
   decorators: [{
@@ -955,7 +955,7 @@ const EXPORTED_DECLARATIONS = [MatTable, MatRecycleRows, MatHeaderCellDef, MatHe
 class MatTableModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTableModule,
     deps: [],
@@ -963,7 +963,7 @@ class MatTableModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTableModule,
     imports: [CdkTableModule, MatTable, MatRecycleRows, MatHeaderCellDef, MatHeaderRowDef, MatColumnDef, MatCellDef, MatRowDef, MatFooterCellDef, MatFooterRowDef, MatHeaderCell, MatCell, MatFooterCell, MatHeaderRow, MatRow, MatFooterRow, MatNoDataRow, MatTextColumn],
@@ -971,7 +971,7 @@ class MatTableModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.4",
+    version: "22.0.0-next.5",
     ngImport: i0,
     type: MatTableModule,
     imports: [CdkTableModule, BidiModule]
@@ -979,7 +979,7 @@ class MatTableModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.4",
+  version: "22.0.0-next.5",
   ngImport: i0,
   type: MatTableModule,
   decorators: [{
