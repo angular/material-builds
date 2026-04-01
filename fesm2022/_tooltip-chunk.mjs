@@ -524,12 +524,16 @@ class MatTooltip {
     this._eventCleanups.push(this._renderer.listen(this._elementRef.nativeElement, name, listener, passiveListenerOptions));
   }
   _isTouchPlatform() {
+    const detectHoverCapability = this._defaultOptions?.detectHoverCapability;
+    if (typeof detectHoverCapability === 'function') {
+      return !detectHoverCapability();
+    }
     if (this._platform.IOS || this._platform.ANDROID) {
       return true;
     } else if (!this._platform.isBrowser) {
       return false;
     }
-    return !!this._defaultOptions?.detectHoverCapability && this._mediaMatcher.matchMedia('(any-hover: none)').matches;
+    return !!detectHoverCapability && this._mediaMatcher.matchMedia('(any-hover: none)').matches;
   }
   _disableNativeGesturesIfNecessary() {
     const gestures = this.touchGestures;
