@@ -56,12 +56,23 @@ interface MatTooltipDefaultOptions {
      */
     tooltipClass?: string | string[];
     /**
-     * Whether the tooltip should use a media query to detect if the device is able to hover.
-     * Note that this may affect tests that run in a headless browser which reports that it's
-     * unable to hover. In such cases you may need to include an additional timeout, because
-     * the tooltip will fall back to treating the device as a touch screen.
+     * By default the tooltip attempts to detect whether the user's device is able to hover by
+     * consulting the `Platform` provider that was created a long time ago and is based on
+     * some data points that may not be entirely accurate anymore (e.g. user agent string and
+     * Android/iOS-specific APIs), however changing them will break existing users. You can use this
+     * config property to opt into a more modern detection mechanism.
+     *
+     * The supported values include:
+     *
+     * - `false` - Default value. Detection is based on the `Platform` provider.
+     * - `true` - The tooltip will use the `any-hover` media query for more accurate detection.
+     * Note that this may break existing unit tests running in a headless browser.
+     * - `() => boolean` - If the automatic detection doesn't work properly in your case (e.g. the
+     * `any-hover` media query isn't supported) and you're able to detect more accurately, you can
+     * pass in a function that will be used for detection instead. It should return `true` if the
+     * device **has the ability to hover**, or `false` if it cannot.
      */
-    detectHoverCapability?: boolean;
+    detectHoverCapability?: boolean | (() => boolean);
 }
 /**
  * CSS class that will be attached to the overlay panel.
