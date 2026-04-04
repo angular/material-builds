@@ -111,7 +111,7 @@ class MatButtonBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatButtonBase,
     deps: [],
@@ -119,7 +119,7 @@ class MatButtonBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "17.1.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatButtonBase,
     isStandalone: true,
     inputs: {
@@ -199,7 +199,7 @@ class MatButtonBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatButtonBase,
   decorators: [{
@@ -282,7 +282,7 @@ class MatIconButton extends MatButtonBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatIconButton,
     deps: [],
@@ -290,7 +290,7 @@ class MatIconButton extends MatButtonBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatIconButton,
     isStandalone: true,
     selector: "button[mat-icon-button], a[mat-icon-button], button[matIconButton], a[matIconButton]",
@@ -308,7 +308,7 @@ class MatIconButton extends MatButtonBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatIconButton,
   decorators: [{

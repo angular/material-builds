@@ -577,7 +577,7 @@ class MatTooltip {
   };
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatTooltip,
     deps: [],
@@ -585,7 +585,7 @@ class MatTooltip {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatTooltip,
     isStandalone: true,
     selector: "[matTooltip]",
@@ -611,7 +611,7 @@ class MatTooltip {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatTooltip,
   decorators: [{
@@ -784,7 +784,7 @@ class TooltipComponent {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: TooltipComponent,
     deps: [],
@@ -792,7 +792,7 @@ class TooltipComponent {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: TooltipComponent,
     isStandalone: true,
     selector: "mat-tooltip-component",
@@ -820,7 +820,7 @@ class TooltipComponent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: TooltipComponent,
   decorators: [{
