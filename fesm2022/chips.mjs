@@ -61,7 +61,7 @@ class MatChipContent {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipContent,
     deps: [],
@@ -69,7 +69,7 @@ class MatChipContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipContent,
     isStandalone: true,
     selector: "[matChipContent]",
@@ -93,7 +93,7 @@ class MatChipContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipContent,
   decorators: [{
@@ -147,7 +147,7 @@ class MatChipAction extends MatChipContent {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipAction,
     deps: null,
@@ -155,7 +155,7 @@ class MatChipAction extends MatChipContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipAction,
     isStandalone: true,
     selector: "[matChipAction]",
@@ -175,7 +175,7 @@ class MatChipAction extends MatChipContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipAction,
   decorators: [{
@@ -195,7 +195,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatChipAvatar {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipAvatar,
     deps: [],
@@ -203,7 +203,7 @@ class MatChipAvatar {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipAvatar,
     isStandalone: true,
     selector: "mat-chip-avatar, [matChipAvatar]",
@@ -222,7 +222,7 @@ class MatChipAvatar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipAvatar,
   decorators: [{
@@ -244,7 +244,7 @@ class MatChipTrailingIcon extends MatChipContent {
   _isPrimary = false;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipTrailingIcon,
     deps: null,
@@ -252,7 +252,7 @@ class MatChipTrailingIcon extends MatChipContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipTrailingIcon,
     isStandalone: true,
     selector: "mat-chip-trailing-icon, [matChipTrailingIcon]",
@@ -272,7 +272,7 @@ class MatChipTrailingIcon extends MatChipContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipTrailingIcon,
   decorators: [{
@@ -309,7 +309,7 @@ class MatChipEdit extends MatChipAction {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipEdit,
     deps: null,
@@ -317,7 +317,7 @@ class MatChipEdit extends MatChipAction {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipEdit,
     isStandalone: true,
     selector: "[matChipEdit]",
@@ -340,7 +340,7 @@ class MatChipEdit extends MatChipAction {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipEdit,
   decorators: [{
@@ -377,7 +377,7 @@ class MatChipRemove extends MatChipAction {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipRemove,
     deps: null,
@@ -385,7 +385,7 @@ class MatChipRemove extends MatChipAction {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipRemove,
     isStandalone: true,
     selector: "[matChipRemove]",
@@ -408,7 +408,7 @@ class MatChipRemove extends MatChipAction {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipRemove,
   decorators: [{
@@ -595,7 +595,7 @@ class MatChip {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChip,
     deps: [],
@@ -603,7 +603,7 @@ class MatChip {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChip,
     isStandalone: true,
     selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
@@ -711,7 +711,7 @@ class MatChip {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChip,
   decorators: [{
@@ -933,7 +933,7 @@ class MatChipOption extends MatChip {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipOption,
     deps: null,
@@ -941,7 +941,7 @@ class MatChipOption extends MatChip {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipOption,
     isStandalone: true,
     selector: "mat-basic-chip-option, [mat-basic-chip-option], mat-chip-option, [mat-chip-option]",
@@ -1000,7 +1000,7 @@ class MatChipOption extends MatChip {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipOption,
   decorators: [{
@@ -1092,7 +1092,7 @@ class MatChipEditInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipEditInput,
     deps: [],
@@ -1100,7 +1100,7 @@ class MatChipEditInput {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipEditInput,
     isStandalone: true,
     selector: "span[matChipEditInput]",
@@ -1117,7 +1117,7 @@ class MatChipEditInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipEditInput,
   decorators: [{
@@ -1238,7 +1238,7 @@ class MatChipRow extends MatChip {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipRow,
     deps: [],
@@ -1246,7 +1246,7 @@ class MatChipRow extends MatChip {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipRow,
     isStandalone: true,
     selector: "mat-chip-row, [mat-chip-row], mat-basic-chip-row, [mat-basic-chip-row]",
@@ -1321,7 +1321,7 @@ class MatChipRow extends MatChip {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipRow,
   decorators: [{
@@ -1544,7 +1544,7 @@ class MatChipSet {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipSet,
     deps: [],
@@ -1552,7 +1552,7 @@ class MatChipSet {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipSet,
     isStandalone: true,
     selector: "mat-chip-set",
@@ -1589,7 +1589,7 @@ class MatChipSet {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipSet,
   decorators: [{
@@ -1836,7 +1836,7 @@ class MatChipListbox extends MatChipSet {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipListbox,
     deps: null,
@@ -1844,7 +1844,7 @@ class MatChipListbox extends MatChipSet {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipListbox,
     isStandalone: true,
     selector: "mat-chip-listbox",
@@ -1899,7 +1899,7 @@ class MatChipListbox extends MatChipSet {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipListbox,
   decorators: [{
@@ -2217,7 +2217,7 @@ class MatChipGrid extends MatChipSet {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipGrid,
     deps: [],
@@ -2225,7 +2225,7 @@ class MatChipGrid extends MatChipSet {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipGrid,
     isStandalone: true,
     selector: "mat-chip-grid",
@@ -2280,7 +2280,7 @@ class MatChipGrid extends MatChipSet {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipGrid,
   decorators: [{
@@ -2482,7 +2482,7 @@ class MatChipInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipInput,
     deps: [],
@@ -2490,7 +2490,7 @@ class MatChipInput {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     type: MatChipInput,
     isStandalone: true,
     selector: "input[matChipInputFor]",
@@ -2533,7 +2533,7 @@ class MatChipInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipInput,
   decorators: [{
@@ -2611,7 +2611,7 @@ const CHIP_DECLARATIONS = [MatChip, MatChipAvatar, MatChipEdit, MatChipEditInput
 class MatChipsModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipsModule,
     deps: [],
@@ -2619,7 +2619,7 @@ class MatChipsModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipsModule,
     imports: [MatRippleModule, MatChipAction, MatChip, MatChipAvatar, MatChipEdit, MatChipEditInput, MatChipGrid, MatChipInput, MatChipListbox, MatChipOption, MatChipRemove, MatChipRow, MatChipSet, MatChipTrailingIcon],
@@ -2627,7 +2627,7 @@ class MatChipsModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.5",
+    version: "22.0.0-next.6",
     ngImport: i0,
     type: MatChipsModule,
     providers: [ErrorStateMatcher, {
@@ -2641,7 +2641,7 @@ class MatChipsModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.5",
+  version: "22.0.0-next.6",
   ngImport: i0,
   type: MatChipsModule,
   decorators: [{
