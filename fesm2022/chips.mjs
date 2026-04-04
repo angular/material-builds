@@ -297,14 +297,14 @@ class MatChipEdit extends MatChipAction {
     if (!this.disabled) {
       event.stopPropagation();
       event.preventDefault();
-      this._parentChip._edit();
+      this._parentChip._edit(event);
     }
   }
   _handleKeydown(event) {
     if ((event.keyCode === ENTER || event.keyCode === SPACE) && !this.disabled) {
       event.stopPropagation();
       event.preventDefault();
-      this._parentChip._edit();
+      this._parentChip._edit(event);
     }
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
