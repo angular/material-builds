@@ -21,7 +21,7 @@ declare class MatChipContent {
         _handlePrimaryActionInteraction(): void;
         remove(): void;
         disabled: boolean;
-        _edit(): void;
+        _edit(event: Event): void;
         _isEditing?: boolean;
     };
     /** Whether this is the primary action in the chip. */
@@ -895,7 +895,7 @@ declare const MAT_CHIP_REMOVE: InjectionToken<unknown>;
 /**
  * Injection token used to avoid a circular dependency between the `MatChip` and `MatChipAction`.
  */
-declare const MAT_CHIP: InjectionToken<unknown>;
+declare const MAT_CHIP: InjectionToken<MatChip>;
 
 /** Represents an input event on a `matChipInput`. */
 interface MatChipInputEvent {
