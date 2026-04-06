@@ -24,7 +24,7 @@ import '@angular/cdk/coercion';
 import '@angular/cdk/bidi';
 import 'rxjs/operators';
 
-const VERSION = new Version('21.2.5+sha-2c877d2-with-local-changes');
+const VERSION = new Version('21.2.5+sha-5b4bbe9-with-local-changes');
 
 const ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 const TIME_REGEX = /^(\d?\d)[:.](\d?\d)(?:[:.](\d?\d))?\s*(AM|PM)?$/i;
